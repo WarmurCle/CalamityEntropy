@@ -1,4 +1,4 @@
-﻿using CalamityMod;
+using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 10;
+            Item.damage = 13;
             Item.shootSpeed = 24;
             Item.ArmorPenetration = 10;
         }
@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.localNPCHitCooldown = 5;
+            Projectile.localNPCHitCooldown = 10;
             Projectile.light = 0;
             Projectile.tileCollide = true;
             Projectile.width = Projectile.height = 8;

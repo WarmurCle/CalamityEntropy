@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.UI.EntropyBookUI;
@@ -18,9 +18,8 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 37;
-            Item.useAnimation = Item.useTime = 18;
-            Item.crit = 16;
+            Item.damage = 40;
+            Item.useAnimation = Item.useTime = 24;
             Item.mana = 7;
             Item.rare = ItemRarityID.Red;
         }
