@@ -312,11 +312,14 @@ namespace CalamityEntropy
         private void pickammoHook(On_Player.orig_PickAmmo_Item_refInt32_refSingle_refBoolean_refInt32_refSingle_refInt32_bool orig, Player player, Item item, ref int projToShoot, ref float speed, ref bool canShoot, ref int totalDamage, ref float KnockBack, out int usedAmmoItemId, bool dontConsume)
         {
             orig(player, item, ref projToShoot, ref speed, ref canShoot, ref totalDamage, ref KnockBack, out usedAmmoItemId, dontConsume);
-            if (item.useAmmo != AmmoID.None && player.Entropy().fruitCake)
+            if (projToShoot >= 0 && projToShoot != ProjectileID.None)
             {
-                if (Fruitcake.ammoList.ContainsKey(item.useAmmo))
+                if (item.useAmmo != AmmoID.None && player.Entropy().fruitCake)
                 {
-                    projToShoot = ContentSamples.ItemsByType[Fruitcake.ammoList[item.useAmmo].random<int>()].shoot;
+                    if (Fruitcake.ammoList.ContainsKey(item.useAmmo))
+                    {
+                        projToShoot = ContentSamples.ItemsByType[Fruitcake.ammoList[item.useAmmo].random<int>()].shoot;
+                    }
                 }
             }
         }

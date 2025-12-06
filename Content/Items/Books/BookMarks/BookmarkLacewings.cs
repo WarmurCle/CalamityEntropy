@@ -168,11 +168,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             Texture2D tex = CEUtils.RequestTex("CalamityEntropy/Content/Items/Books/BookMarks/Fairy/Lacewing");
             Rectangle frame = new Rectangle(0, 24 * (((int)Main.GameUpdateCount / 4) % 3), tex.Width, 24);
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, frame, Color.Lerp(colorDraw, Color.White, 0.7f) * Projectile.Opacity, 0, new Vector2(12, 11), Projectile.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, frame, Color.Lerp(colorDraw, Color.White, 0.8f) * Projectile.Opacity, 0, new Vector2(12, 11), Projectile.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             for(float i = 0; i < 360; i += 60)
             {
-                Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + (MathHelper.ToRadians(i) + Main.GlobalTimeWrappedHourly * 6).ToRotationVector2() * 4, frame, Color.Lerp(colorDraw, Color.White, 0.2f) * Projectile.Opacity * 0.8f, 0, new Vector2(12, 11), Projectile.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
+                Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + (MathHelper.ToRadians(i) + Main.GlobalTimeWrappedHourly * 4).ToRotationVector2() * 4, frame, Color.Lerp(colorDraw, Color.White, 0.16f) * Projectile.Opacity * 1f, 0, new Vector2(12, 11), Projectile.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
             }
             Main.spriteBatch.ExitShaderRegion();
             return false;
