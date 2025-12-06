@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         public bool Shoot = true;
         public override bool? CanHitNPC(NPC target)
         {
-            return !NoSawOnHoldout;
+            return (!NoSawOnHoldout) ? null : false;
         }
         public override void AI()
         {
