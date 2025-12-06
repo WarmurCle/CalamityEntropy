@@ -201,10 +201,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
         {
             Texture2D trail = CEUtils.getExtraTex("PatchyTallNoise");
             List<ColoredVertex> ve = new List<ColoredVertex>();
-
+            Color b = new Color(200, 200, 255);
+            odp.Add(Projectile.Center);
+            odr.Add(Projectile.rotation);
             for (int i = 0; i < odr.Count; i++)
             {
-                Color b = new Color(200, 200, 255);
                 ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (new Vector2(74 * Projectile.scale, 0).RotatedBy(odr[i])),
                       new Vector3((i) / ((float)odr.Count - 1), 1, 1),
                       b));
@@ -212,6 +213,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
                       new Vector3((i) / ((float)odr.Count - 1), 0, 1),
                       b));
             }
+            odp.RemoveAt(odp.Count - 1);
+            odr.RemoveAt(odr.Count - 1);
             if (ve.Count >= 3)
             {
                 var gd = Main.graphics.GraphicsDevice;

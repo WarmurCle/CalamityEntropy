@@ -5,9 +5,14 @@ namespace CalamityEntropy.Content.Particles
 {
     public class APRCAlarm : EParticle
     {
+        public NPC stick = null;
         public override Texture2D Texture => CEUtils.getExtraTex("APRCAlarm");
         public override void Draw()
         {
+            if (stick != null && !stick.active)
+                stick = null;
+            if (stick != null)
+                Position = stick.Center;
             float alpha = (this.TimeLeftMax - this.Lifetime) / (this.TimeLeftMax * 0.6f);
             if (alpha > 1)
                 alpha = 1;

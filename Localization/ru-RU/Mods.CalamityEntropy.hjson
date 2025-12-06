@@ -3319,6 +3319,11 @@ Items: {
 		// DisplayName: Bookmark Cosmic
 		// Tooltip: Spawn a God Slayer fight for you
 	}
+
+	AzafurePeaceKey: {
+		// DisplayName: Azafure Peace Key
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3872,6 +3877,8 @@ Projectiles: {
 	// LacewingBMMinion.DisplayName: Lacewing
 	// WulfrumBMDrone.DisplayName: Wulfrum Drone
 	// WulfrumScrapProj.DisplayName: Wulfrum Scrap Proj
+	// NucLauncher.DisplayName: Nuc Launcher
+	// PeaceJR.DisplayName: Peace J R
 }
 
 LegendTooltip: - Легенда -

@@ -3567,6 +3567,15 @@ Items: {
 		DisplayName: 寰宇书签
 		Tooltip: 召唤弑神之蟒为你而战
 	}
+
+	AzafurePeaceKey: {
+		DisplayName: 阿萨福勒和平密钥
+		Tooltip: 
+		'''
+		召唤一台核弹发射井，它会向附近目标发送“和平使者”
+		你最多只能部署一台发射井
+		'''
+	}
 }
 
 LOCKED: ：[已锁定]
@@ -4129,6 +4138,8 @@ Projectiles: {
 	LacewingBMMinion.DisplayName: 七彩草蛉
 	WulfrumBMDrone.DisplayName: 钨钢无人机
 	WulfrumScrapProj.DisplayName: 钨钢废料
+	NucLauncher.DisplayName: 核弹发射井
+	PeaceJR.DisplayName: 和平使者
 }
 
 LegendTooltip: - 传奇物品 -

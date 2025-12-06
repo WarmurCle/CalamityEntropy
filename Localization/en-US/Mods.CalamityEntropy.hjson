@@ -3303,6 +3303,15 @@ Items: {
 		DisplayName: Bookmark Cosmic
 		Tooltip: Spawn a God Slayer fight for you
 	}
+
+	AzafurePeaceKey: {
+		DisplayName: Azafure Peace Key
+		Tooltip: 
+		'''
+		Summon a launcher that lauching n-bomb to enemies
+		You can only summon one launcher at a time
+		'''
+	}
 }
 
 LOCKED: ": [LOCKED]"
@@ -3870,6 +3879,8 @@ Projectiles: {
 	LacewingBMMinion.DisplayName: Lacewing
 	WulfrumBMDrone.DisplayName: Wulfrum Drone
 	WulfrumScrapProj.DisplayName: Wulfrum Scrap Proj
+	NucLauncher.DisplayName: Nuc Launcher
+	PeaceJR.DisplayName: Peace JR
 }
 
 LegendTooltip: - Legend -
