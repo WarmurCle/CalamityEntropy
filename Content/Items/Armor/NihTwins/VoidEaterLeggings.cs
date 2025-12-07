@@ -27,12 +27,6 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
         }
         public override void AddRecipes()
         {
-            CreateRecipe()
-                .AddIngredient<OmegaBlueTentacles>()
-                .AddIngredient<WyrmTooth>(5)
-                .AddIngredient<FadingRunestone>()
-                .AddTile<AbyssalAltarTile>()
-                .Register();
         }
     }
 
