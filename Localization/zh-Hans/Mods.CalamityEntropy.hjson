@@ -3611,6 +3611,7 @@ VoidEaterBonus:
 	按下[KEY]([KN])以消耗生命值加速护盾恢复
 	+3 召唤栏
 	+80 魔力上限
+	+120 潜行值
 	'''
 LOCKED: ：[已锁定]
 BCU1: 需击败史莱姆王
@@ -4783,8 +4784,8 @@ Configs: {
 		}
 
 		MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
-			Tooltip: ""
-			Label: 渊洋神迹套装只在手持盗贼武器时提供潜行条
+			Tooltip: "如果你游玩非盗贼职业觉得潜行条烦人可以打开此选项"
+			Label: 灾熵全职业套装奖励只在手持盗贼武器时提供潜行条
 		}
 
 		EntropyMeleeWeaponSoundVolume: {

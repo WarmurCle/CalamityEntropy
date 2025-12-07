@@ -3349,6 +3349,7 @@ VoidEaterBonus:
 	+1/s life regen when the shield is broken
 	+3 Max Minion
 	+80 Max Mana
+	+120% Rogue stealth
 	'''
 LOCKED: ": [LOCKED]"
 BCU1: Requires defeating King Slime
@@ -4530,7 +4531,7 @@ Configs: {
 
 		MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons: {
 			Tooltip: ""
-			Label: Marivium Armor Set Only Provide Stealth Bar When Holding Rogue Weapons
+			Label: CalEntropy's Armor Set Only Provide Stealth Bar When Holding Rogue Weapons
 		}
 
 		EntropyMeleeWeaponSoundVolume: {

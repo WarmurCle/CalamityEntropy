@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
@@ -37,7 +38,11 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             player.setBonus = player.setBonus.Replace("[KEY]", CalamityKeybinds.ArmorSetBonusHotKey.TooltipHotkeyString());
             player.setBonus = player.setBonus.Replace("[KN]", CalamityKeybinds.ArmorSetBonusHotKey.DisplayName.Value);
             player.setBonus = player.setBonus.Replace("[SHIELD]", MaxShield.ToString());
-
+            if (!ModContent.GetInstance<Config>().MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons || player.HeldItem.DamageType.CountsAsClass(CEUtils.RogueDC))
+            {
+                player.Calamity().wearingRogueArmor = true;
+                player.Calamity().rogueStealthMax += 1.2f;
+            }
             player.Entropy().NihilitySet = true;
             player.GetDamage(DamageClass.Generic) += 0.24f;
             player.maxMinions += 3;
