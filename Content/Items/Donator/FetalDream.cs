@@ -102,7 +102,7 @@ namespace CalamityEntropy.Content.Items.Donator
                         for (float i = 0; i <= 1; i += 0.1f)
                         {
                             Vector2 pos = CEUtils.Bezier(new List<Vector2>() { player.position, centerPoint, targetPos }, i);
-                            EParticle.NewParticle(new PlayerShadowBlack() { alpha = 0.6f, plr = player }, pos, Vector2.Zero, Color.Black, 1, 0.5f, true, BlendState.AlphaBlend, 0, 50);
+                            EParticle.NewParticle(new PlayerShadowBlack() { alpha = 0.6f, plr = player }, pos, Vector2.Zero, Color.Black, 1, 0.5f, true, BlendState.AlphaBlend, 0, 120);
                         }
                     }
 
@@ -146,22 +146,25 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 6));
             EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White }, target.Center - Projectile.velocity.ToRotation().ToRotationVector2() * 290, Vector2.Zero, new Color(255, 5, 5), 260, 1f, true, BlendState.Additive, Projectile.velocity.ToRotation(), 20);
-            EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White }, target.Center - (Projectile.velocity.ToRotation() + MathHelper.PiOver4 * (Projectile.velocity.X > 0 ? 1 : -1)).ToRotationVector2() * 290, Vector2.Zero, new Color(255, 5, 5), 260, 1f, true, BlendState.Additive, Projectile.velocity.ToRotation() + MathHelper.PiOver4 * (Projectile.velocity.X > 0 ? 1 : -1), 20);
-
+            EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White, widthMult = 0.6f }, target.Center - (Projectile.velocity.ToRotation() + MathHelper.PiOver4 * (Projectile.velocity.X > 0 ? 1 : -1)).ToRotationVector2() * 290, Vector2.Zero, new Color(255, 5, 5), 360, 1f, true, BlendState.Additive, Projectile.velocity.ToRotation() + MathHelper.PiOver4 * (Projectile.velocity.X > 0 ? 1 : -1), 20);
 
             CEUtils.PlaySound("ystn_hit", 2.7f, target.Center);
             var player = Projectile.GetOwner();
             target.AddBuff<MarkedforDeath>(12 * 60);
             if (!player.HasCooldown(FetalDreamCooldown.ID))
             {
-                CalamityEntropy.FlashEffectStrength = 0.8f;
-                player.Entropy().immune = 80;
-                target.AddBuff<Koishi>(16 * 60);
+                CalamityEntropy.FlashEffectStrength = 0.6f;
                 player.AddCooldown(FetalDreamCooldown.ID, 4320);
                 CEUtils.PlaySound("ThunderStrike", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 6, 0.6f);
-                target.StrikeNPC(target.CalculateHitInfo((int)(target.lifeMax * 0.0514), Projectile.velocity.X > 0 ? 1 : -1, false, 6, DamageClass.Default));
-                player.AddBuff(ModContent.BuffType<Koishi>(), 600);
+                int dmg = (int)(target.lifeMax * 0.0514);
+                var info = target.CalculateHitInfo(dmg, Projectile.velocity.X > 0 ? 1 : -1, false, 6, DamageClass.Default);
+                info.Damage = dmg;
+                target.StrikeNPC(info);
             }
+            CalamityEntropy.FlashEffectStrength = 0.2f;
+            player.Entropy().immune = 80;
+            target.AddBuff<Koishi>(16 * 60);
+            player.AddBuff(ModContent.BuffType<Koishi>(), 600);
 
         }
         public override bool PreDraw(ref Color lightColor)
@@ -216,7 +219,7 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetDamage(DamageClass.Generic) *= 1.2f;
+            player.GetDamage(DamageClass.Generic) *= 1.05f;
         }
     }
 }

@@ -512,7 +512,6 @@ namespace CalamityEntropy.Common
         public int ShootLaserTime = 0;
         public void UpdateNihShield()
         {
-
             bool Equiped = NihilityShieldEnabled;
 
             NihShieldScale = float.Lerp(NihShieldScale, Equiped ? (NihilityShield > 0 ? (0.6f + 0.4f * ((float)NihilityShield / VoidEaterHelmet.MaxShield)) : 0.5f) : 0, 0.05f);
@@ -540,8 +539,8 @@ namespace CalamityEntropy.Common
                     {
                         if (NihilityShield < VoidEaterHelmet.MaxShield)
                         {
-                            if (NihilityRegenDelay < 12)
-                                NihilityRegenDelay = 12;
+                            if (NihilityRegenDelay < 4)
+                                NihilityRegenDelay = 4;
                             NihilityShield += 1;
                         }
                     }
@@ -640,6 +639,7 @@ namespace CalamityEntropy.Common
                 {
                     GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center + new Vector2(Main.rand.NextFloat(-28, 28), Main.rand.NextFloat(-28, 28)), CEUtils.randomPointInCircle(12), Main.rand.NextFloat(1.6f, 2f), Color.OrangeRed * 0.6f, Main.rand.Next(6, 12)));
                 }
+                ShieldAlphaAdd = 1;
                 CombatText.NewText(Player.getRect(), Color.OrangeRed, "-" + reduceDmg);
             }
         }
@@ -669,6 +669,7 @@ namespace CalamityEntropy.Common
                 {
                     GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center + CEUtils.randomPointInCircle(64 * NihShieldScale), CEUtils.randomPointInCircle(16), Main.rand.NextFloat(1.6f, 2f), new Color(100, 100, 255) * 0.9f, Main.rand.Next(12, 16)));
                 }
+                ShieldAlphaAdd = 1;
                 CombatText.NewText(Player.getRect(), Color.SkyBlue, "-" + reduceDmg);
             }
         }
@@ -1509,6 +1510,7 @@ namespace CalamityEntropy.Common
 
         public int manaNorm = 0;
         public int deusCoreAdd = 0;
+        public float ShieldAlphaAdd = 0;
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
             deusCoreAdd = 0;
@@ -1875,6 +1877,7 @@ namespace CalamityEntropy.Common
         public bool RstStealth = false;
         public override void PostUpdate()
         {
+            ShieldAlphaAdd *= 0.95f;
             if (NihilitySet)
                 NihilityShieldEnabled = true;
             if (ShootLaserTime > 0 && ShootLaserTime % 3 == 0)

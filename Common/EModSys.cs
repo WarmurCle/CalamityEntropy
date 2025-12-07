@@ -130,6 +130,11 @@ namespace CalamityEntropy.Common
                 Main.spriteBatch.Draw(noise, center - so - Main.screenPosition, new Rectangle(offset / 2, offset / 2, tex.Width * 4, tex.Height * 4), Color.OrangeRed * alpha, 0, tex.Size() / 2f, scale / 4, SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(tex, center - Main.screenPosition, null, clr * alpha, 0, tex.Size() / 2f, scale, SpriteEffects.None, 0);
 
+                alpha *= player.Entropy().ShieldAlphaAdd;
+                Main.spriteBatch.Draw(noise, center - so - Main.screenPosition, new Rectangle(offset, offset, tex.Width * 4, tex.Height * 4), Color.OrangeRed * alpha, 0, tex.Size() / 2f, scale / 4, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(noise, center - so - Main.screenPosition, new Rectangle(offset / 2, offset / 2, tex.Width * 4, tex.Height * 4), Color.OrangeRed * alpha, 0, tex.Size() / 2f, scale / 4, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(tex, center - Main.screenPosition, null, clr * alpha, 0, tex.Size() / 2f, scale, SpriteEffects.None, 0);
+
                 Main.spriteBatch.End();
             }
             else
@@ -160,6 +165,9 @@ namespace CalamityEntropy.Common
             gd.Textures[1] = CEUtils.getExtraTex("Noise_10");
             Texture2D tex = CEUtils.getExtraTex("Hexagon");
             Main.spriteBatch.Draw(tex, center - Main.screenPosition, null, new Color(200, 200, 255) * alpha, 0, tex.Size() / 2f, scale, SpriteEffects.None, 0);
+            shader.Parameters["OutlineColor"].SetValue((Color.Lerp(new Color(140, 140, 255), Color.White, 0.16f + 0.16f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * 6)))).ToVector4() * alpha * player.Entropy().ShieldAlphaAdd);
+            Main.spriteBatch.Draw(tex, center - Main.screenPosition, null, new Color(200, 200, 255) * alpha * player.Entropy().ShieldAlphaAdd, 0, tex.Size() / 2f, scale, SpriteEffects.None, 0);
+
             Main.spriteBatch.End();
         }
         public override void PostDrawTiles()
