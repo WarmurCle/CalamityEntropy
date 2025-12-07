@@ -165,7 +165,7 @@ namespace CalamityEntropy.Content.Items.Donator
             player.Entropy().immune = 80;
             target.AddBuff<Koishi>(16 * 60);
             player.AddBuff(ModContent.BuffType<Koishi>(), 600);
-
+            player.Entropy().DmgAdd20 = 300;
         }
         public override bool PreDraw(ref Color lightColor)
         {

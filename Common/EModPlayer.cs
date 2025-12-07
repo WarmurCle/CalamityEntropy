@@ -1875,8 +1875,10 @@ namespace CalamityEntropy.Common
         public int SDeckTime = 0;
         public float StealthMaxLast = -1;
         public bool RstStealth = false;
+        public int DmgAdd20 = 0;
         public override void PostUpdate()
         {
+            DmgAdd20--;
             ShieldAlphaAdd *= 0.95f;
             if (NihilitySet)
                 NihilityShieldEnabled = true;
@@ -3097,6 +3099,8 @@ namespace CalamityEntropy.Common
         public int WindPressureTime = 0;
         public override void PostUpdateEquips()
         {
+            if (DmgAdd20 > 0)
+                Player.GetDamage(DamageClass.Generic) += 0.25f;
             foreach (Projectile p in Main.ActiveProjectiles)
             {
                 if (p.owner == Player.whoAmI && p.ModProjectile != null && p.ModProjectile is StarlightMothMinion smm)
