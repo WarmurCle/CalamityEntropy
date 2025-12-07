@@ -1,14 +1,7 @@
-﻿
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Content.Tiles;
 using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
-using CalamityMod.Items.Armor.OmegaBlue;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -67,7 +60,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
         public override string Texture => CEUtils.WhiteTexPath;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<VoidTouch>(), 5 * 60);
+            target.AddBuff(ModContent.BuffType<VoidVirus>(), 6 * 60);
         }
         public override void SetStaticDefaults()
         {
@@ -94,7 +87,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             Projectile.timeLeft = 12;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
-
+            Projectile.DamageType = ModContent.GetInstance<AverageDamageClass>();
         }
         public bool st = true;
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
@@ -106,8 +99,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             Projectile.rotation = Projectile.velocity.ToRotation();
             
             if (st)
-            {
-                
+            {               
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(100, 100, 255), 0.6f, 1, true, BlendState.Additive, 0, 14);
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.32f, 1, true, BlendState.Additive, 0, 14);
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.32f, 1, true, BlendState.Additive, 0, 14);

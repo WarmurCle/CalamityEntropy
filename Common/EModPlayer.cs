@@ -671,9 +671,9 @@ namespace CalamityEntropy.Common
                     CEUtils.PlaySound("shielddown", 1.4f, Player.Center);
                 }
                 NihilityRegenDelay = (int)(1.5f * 60);
-                for (int i = 0; i < 16; i++)
+                for (int i = 0; i < int.Min(20, reduceDmg / 5 + 1); i++)
                 {
-                    GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center + new Vector2(Main.rand.NextFloat(-16, 16), Main.rand.NextFloat(-16, 16)), CEUtils.randomPointInCircle(12), Main.rand.NextFloat(1.6f, 2f), new Color(100, 100, 255) * 0.9f, Main.rand.Next(12, 16)));
+                    GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center + CEUtils.randomPointInCircle(64 * NihShieldScale), CEUtils.randomPointInCircle(16), Main.rand.NextFloat(1.6f, 2f), new Color(100, 100, 255) * 0.9f, Main.rand.Next(12, 16)));
                 }
                 CombatText.NewText(Player.getRect(), Color.SkyBlue, "-" + reduceDmg);
             }
