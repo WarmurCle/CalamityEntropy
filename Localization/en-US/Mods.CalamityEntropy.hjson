@@ -3324,31 +3324,32 @@ Items: {
 
 	VoidEaterBodyArmor: {
 		DisplayName: Void Eater Body Armor
-		Tooltip: "+40%Damage"
+		Tooltip: +40%Damage
 	}
 
 	VoidEaterHelmet: {
 		DisplayName: Void Eater Helmet
-		Tooltip: "+22% Crit Chance"
+		Tooltip: +22% Crit Chance
 	}
 
 	VoidEaterLeggings: {
 		DisplayName: Void Eater Leggings
-		Tooltip: "+18% Movement Speed"
+		Tooltip: +18% Movement Speed
 	}
 }
-VoidEaterBonus:
-'''
-Shoot nihility lasers to target after target on hit
-This effect has 3 sec cooldown
-+24% Damage
-Project a shield that can withstand 100 points of damage
-Shield need 10 sec to recover
-+1/s life regen when the shield is broken
-+3 Max Minion
-+80 Max Mana
-'''
 
+VoidEaterBonus:
+	'''
+	Shoot nihility lasers to target after target on hit
+	This effect has 3 sec cooldown
+	+24% Damage
+	Project a shield that can withstand [SHIELD] damage
+	Shield need 10 sec to recover
+	Press [KEY]([KN]) to consume health and accelerate shield recovery
+	+1/s life regen when the shield is broken
+	+3 Max Minion
+	+80 Max Mana
+	'''
 LOCKED: ": [LOCKED]"
 BCU1: Requires defeating King Slime
 BCU2: Requires defeating Perforator or Hive Mind

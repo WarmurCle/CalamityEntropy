@@ -553,7 +553,7 @@ namespace CalamityEntropy.Common
                     }
                     if(Main.myPlayer == Player.whoAmI)
                     {
-                        int lifeToShield = 30;
+                        int lifeToShield = 80;
                         if(CalamityKeybinds.ArmorSetBonusHotKey.JustPressed && NihilityShield < VoidEaterHelmet.MaxShield && Player.statLife > lifeToShield)
                         {
                             if(CECooldowns.CheckCD("NihilitySet", 60))
@@ -580,7 +580,7 @@ namespace CalamityEntropy.Common
                     NihilityRecharge += 1;
                     if (Main.myPlayer == Player.whoAmI)
                     {
-                        int lifeToShield = 30;
+                        int lifeToShield = 80;
                         if (CalamityKeybinds.ArmorSetBonusHotKey.JustPressed && Player.statLife > lifeToShield)
                         {
                             if (CECooldowns.CheckCD("NihilitySet", 60))

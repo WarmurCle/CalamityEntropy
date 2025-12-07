@@ -11,6 +11,7 @@ using CalamityMod.Items;
 using CalamityMod.Items.Armor.OmegaBlue;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -41,6 +42,10 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = Mod.GetLocalization("VoidEaterBonus").Value;
+            player.setBonus = player.setBonus.Replace("[KEY]", CalamityKeybinds.ArmorSetBonusHotKey.TooltipHotkeyString());
+            player.setBonus = player.setBonus.Replace("[KN]", CalamityKeybinds.ArmorSetBonusHotKey.DisplayName.Value);
+            player.setBonus = player.setBonus.Replace("[SHIELD]", MaxShield.ToString());
+            
             player.Entropy().NihilitySet = true;
             player.GetDamage(DamageClass.Generic) += 0.24f;
             player.maxMinions += 3;

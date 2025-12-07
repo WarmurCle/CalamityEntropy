@@ -3588,28 +3588,30 @@ Items: {
 
 	VoidEaterBodyArmor: {
 		DisplayName: 噬虚者护甲
-		Tooltip: "+40% 伤害"
+		Tooltip: +40% 伤害
 	}
 
 	VoidEaterHelmet: {
 		DisplayName: 噬虚者头盔
-		Tooltip: "+22% 暴击率"
+		Tooltip: +22% 暴击率
 	}
 
 	VoidEaterLeggings: {
 		DisplayName: 噬虚者腿甲
-		Tooltip: "增加18%移动速度"
+		Tooltip: 增加18%移动速度
 	}
 }
+
 VoidEaterBonus:
-'''
-命中时向目标发射几道激光，有3秒冷却
-增加24%伤害
-投射出一片具有100点耐久的护盾
-护盾破碎后需要10秒恢复，在此期间增加1/s生命再生
-+3 召唤栏
-+80 魔力上限
-'''
+	'''
+	命中时向目标发射几道激光，有3秒冷却
+	增加24%伤害
+	投射出一片具有[SHIELD]点耐久的护盾
+	护盾破碎后需要10秒恢复，在此期间增加1/s生命再生
+	按下[KEY]([KN])以消耗生命值加速护盾恢复
+	+3 召唤栏
+	+80 魔力上限
+	'''
 LOCKED: ：[已锁定]
 BCU1: 需击败史莱姆王
 BCU2: 需击败血肉宿主或腐巢意志
