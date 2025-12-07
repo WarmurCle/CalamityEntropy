@@ -3103,6 +3103,11 @@ namespace CalamityEntropy.Common
         public int WindPressureTime = 0;
         public override void PostUpdateEquips()
         {
+            if(Player.Calamity().chaliceOfTheBloodGod && holyMoonlight)
+            {
+                holyMoonlight = false;
+                visualMagiShield = false;
+            }
             if (DmgAdd20 > 0)
                 Player.GetDamage(DamageClass.Generic) += 0.25f;
             foreach (Projectile p in Main.ActiveProjectiles)

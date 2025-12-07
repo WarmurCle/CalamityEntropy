@@ -3336,6 +3336,11 @@ Items: {
 		DisplayName: Void Eater Leggings
 		Tooltip: +18% Movement Speed
 	}
+
+	RedDragonHorn: {
+		DisplayName: Red Dragon Horn
+		Tooltip: ""
+	}
 }
 
 VoidEaterBonus:

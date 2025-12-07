@@ -3352,6 +3352,11 @@ Items: {
 		// DisplayName: Void Eater Leggings
 		// Tooltip: +18% Movement Speed
 	}
+
+	RedDragonHorn: {
+		// DisplayName: Red Dragon Horn
+		// Tooltip: ""
+	}
 }
 
 /* VoidEaterBonus:
@@ -3365,6 +3370,7 @@ Items: {
 	+1/s life regen when the shield is broken
 	+3 Max Minion
 	+80 Max Mana
+	+120% Rogue stealth
 	''' */
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
 BCU1: Требуется победить Короля Слизней
