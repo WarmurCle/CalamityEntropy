@@ -1389,7 +1389,7 @@ namespace CalamityEntropy
                     StartBagGItem.items.Add(i);
                 }
             }
-            if (ModLoader.TryGetMod("InfernumMode", out var _))
+            if (ModLoader.TryGetMod("InfernumMode", out var _) && !Main.dedServ)
             {
                 InfFont.InfernumFont.SetFont();
                 initializeIntro(ModContent.NPCType<CruiserHead>(), Color.Purple, Color.LightBlue, "Cruiser");
