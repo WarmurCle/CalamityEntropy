@@ -7,6 +7,7 @@ using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Armor.Marivinium;
+using CalamityEntropy.Content.Items.Armor.NihTwins;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
@@ -449,6 +450,12 @@ namespace CalamityEntropy.Common
         public int DriverShield = 0;
         public int DriverRecharge = 0;
         public int DriverRegenDelay = 0;
+        public int NihilityShield = 0;
+        public int NihilityRecharge = 0;
+        public int NihilityRegenDelay = 0;
+        public bool NihilityShieldEnabled = false;
+        public bool NihilitySet = false;
+        public float NihShieldScale = 0;
         public void UpdateDriverShield()
         {
             bool Equiped = AzafureDriverShieldItem != null;
@@ -478,8 +485,8 @@ namespace CalamityEntropy.Common
                         if (DriverShield < AzafureDriverCore.MaxShield)
                         {
                             int dl = Player.AzafureEnhance() ? 4 : 5;
-                            if (DriverRegenDelay < 3)
-                                DriverRegenDelay = 3;
+                            if (DriverRegenDelay < dl)
+                                DriverRegenDelay = dl;
                             DriverShield += 1;
                             if(DriverShield > AzafureDriverCore.MaxShield)
                             {
@@ -505,6 +512,103 @@ namespace CalamityEntropy.Common
                 DriverShield = 0;
                 DriverRegenDelay = 5 * 60;
                 RemoveCooldown(DriverCoreCooldown.ID);
+            }
+        }
+        public NPC lastHitTarget = null;
+        public int ShootLaserTime = 0;
+        public void UpdateNihShield()
+        {
+            
+            bool Equiped = NihilityShieldEnabled;
+
+            NihShieldScale = float.Lerp(NihShieldScale, Equiped ? (NihilityShield > 0 ? (0.6f + 0.4f * ((float)NihilityShield / VoidEaterHelmet.MaxShield)) : 0.5f) : 0, 0.05f);
+            if (Equiped)
+            {
+                if (Player.Calamity().cooldowns.TryGetValue(NihilityShieldCD.ID, out var value4))
+                {
+                    value4.timeLeft = NihilityShield > 0 ? (VoidEaterHelmet.MaxShield - NihilityShield) : VoidEaterHelmet.ShieldRecharge - NihilityRecharge;
+                    if (NihilityShield > 0)
+                    {
+                        value4.duration = VoidEaterHelmet.MaxShield;
+                    }
+                    else
+                    {
+                        value4.duration = VoidEaterHelmet.ShieldRecharge;
+                    }
+                }
+                else
+                {
+                    Player.AddCooldown(NihilityShieldCD.ID, VoidEaterHelmet.ShieldRecharge);
+                }
+                if (NihilityShield > 0)
+                {
+                    if (NihilityRegenDelay-- < 0)
+                    {
+                        if (NihilityShield < VoidEaterHelmet.MaxShield)
+                        {
+                            if (NihilityRegenDelay < 12)
+                                NihilityRegenDelay = 12;
+                            NihilityShield += 1;
+                        }
+                    }
+                    if(Main.myPlayer == Player.whoAmI)
+                    {
+                        int lifeToShield = 30;
+                        if(CalamityKeybinds.ArmorSetBonusHotKey.JustPressed && NihilityShield < VoidEaterHelmet.MaxShield && Player.statLife > lifeToShield)
+                        {
+                            if(CECooldowns.CheckCD("NihilitySet", 60))
+                            {
+                                Player.statLife -= lifeToShield;
+                                NihilityShield += lifeToShield;
+                                CEUtils.PlaySound("ARCD", 1.6f, Player.Center, 6, 0.8f);
+                                for (int i = 0; i < 16; i++)
+                                {
+                                    Vector2 pos = CEUtils.randomPointInCircle(160) + Player.velocity * 12;
+                                    GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center + pos, pos * -0.15f, Main.rand.NextFloat(4f, 5f), new Color(120, 120, 255), 7));
+                                }
+                            }
+                        }
+                    }
+                    if (NihilityShield > VoidEaterHelmet.MaxShield)
+                    {
+                        NihilityShield = VoidEaterHelmet.MaxShield;
+                    }
+                    NihilityRecharge = 0;
+                }
+                else
+                {
+                    NihilityRecharge += 1;
+                    if (Main.myPlayer == Player.whoAmI)
+                    {
+                        int lifeToShield = 30;
+                        if (CalamityKeybinds.ArmorSetBonusHotKey.JustPressed && Player.statLife > lifeToShield)
+                        {
+                            if (CECooldowns.CheckCD("NihilitySet", 60))
+                            {
+                                Player.statLife -= lifeToShield;
+                                NihilityRecharge += 300;
+                                CEUtils.PlaySound("ARCD", 1.6f, Player.Center, 6, 0.8f);
+                                for (int i = 0; i < 16; i++)
+                                {
+                                    Vector2 pos = CEUtils.randomPointInCircle(160) + Player.velocity * 12;
+                                    GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center + pos, pos * -0.15f, Main.rand.NextFloat(4f, 5f), new Color(120, 120, 255), 7));
+                                }
+                            }
+                        }
+                    }
+                    if (NihilityRecharge > VoidEaterHelmet.ShieldRecharge)
+                    {
+                        CEUtils.PlaySound("vp_use", 0.85f, Player.Center, 6, 0.8f);
+                        NihilityShield = VoidEaterHelmet.MaxShield / 10;
+                    }
+                }
+            }
+            else
+            {
+                NihilityRecharge = 0;
+                NihilityShield = 0;
+                NihilityRegenDelay = 5 * 60;
+                RemoveCooldown(NihilityShieldCD.ID);
             }
         }
         public void RemoveCooldown(string id)
@@ -545,8 +649,39 @@ namespace CalamityEntropy.Common
                 CombatText.NewText(Player.getRect(), Color.OrangeRed, "-" + reduceDmg);
             }
         }
+        public void NihShieldHit(ref Player.HurtInfo info)
+        {
+            if (NihilityShield > 0)
+            {
+                int reduceDmg = 0;
+                int DamageToShield = (int)(info.Damage * 1);
+                if (NihilityShield >= DamageToShield)
+                {
+                    NihilityShield -= DamageToShield;
+                    info.Cancelled = true;
+                    immune = 40;
+                    reduceDmg = DamageToShield;
+                    CEUtils.PlaySound("shockBlast", 1.4f, Player.Center);
+                }
+                else
+                {
+                    reduceDmg = NihilityShield;
+                    info.Damage = info.Damage - NihilityShield;
+                    NihilityShield = 0;
+                    CEUtils.PlaySound("shielddown", 1.4f, Player.Center);
+                }
+                NihilityRegenDelay = (int)(1.5f * 60);
+                for (int i = 0; i < 16; i++)
+                {
+                    GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center + new Vector2(Main.rand.NextFloat(-16, 16), Main.rand.NextFloat(-16, 16)), CEUtils.randomPointInCircle(12), Main.rand.NextFloat(1.6f, 2f), new Color(100, 100, 255) * 0.9f, Main.rand.Next(12, 16)));
+                }
+                CombatText.NewText(Player.getRect(), Color.SkyBlue, "-" + reduceDmg);
+            }
+        }
         public override void ResetEffects()
         {
+            NihilitySet = false;
+            NihilityShieldEnabled = false;
             BookmarkHolderSpecialTextures.Clear();
             AdditionalBookmarkSlot = 0;
             AzureRapierBlock--;
@@ -1570,6 +1705,12 @@ namespace CalamityEntropy.Common
                 if (info.Cancelled)
                     return;
             }
+            if (NihilityShieldEnabled)
+            {
+                NihShieldHit(ref info);
+                if (info.Cancelled)
+                    return;
+            }
             noCsDodge = false;
             if (SCrown)
             {
@@ -1740,7 +1881,22 @@ namespace CalamityEntropy.Common
         public bool RstStealth = false;
         public override void PostUpdate()
         {
+            if (NihilitySet)
+                NihilityShieldEnabled = true;
+            if (ShootLaserTime > 0 && ShootLaserTime % 3 == 0)
+            {
+                if (lastHitTarget != null && lastHitTarget.active)
+                {
+                    Vector2 tpos = lastHitTarget.Center + lastHitTarget.velocity * 4;
+                    Vector2 spos = Player.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(70, 120);
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), spos, (tpos - spos).normalize() * 16, ModContent.ProjectileType<VENihilityLaser>(), (int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(600), 8, Player.whoAmI);
+                    if(CECooldowns.CheckCD("NihLaserSound", 1))
+                        CEUtils.PlaySound("void_laser", 2.4f, spos, 6, 0.2f);
+                }
+            }
+            ShootLaserTime--;
             UpdateDriverShield();
+            UpdateNihShield();
             if (StealthMaxLast == -1)
                 StealthMaxLast = Player.Calamity().rogueStealthMax;
             if(ModContent.GetInstance<ServerConfig>().ClearStealthWhenChangeEquipSet)

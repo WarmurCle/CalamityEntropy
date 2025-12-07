@@ -1279,6 +1279,14 @@ namespace CalamityEntropy.Common
             HitCounter = 0;
             if (player != null)
             {
+                if(player.Entropy().NihilitySet)
+                {
+                    if(CECooldowns.CheckCD("NihilityLasers", 3 * 60))
+                    {
+                        player.Entropy().lastHitTarget = npc;
+                        player.Entropy().ShootLaserTime = 20;
+                    }
+                }
                 if (player.Entropy().LifeStealP > 0 && player.statLife < player.statLifeMax2)
                 {
                     player.Entropy().TryHealMeWithCd((int)(player.statLifeMax2 * player.Entropy().LifeStealP), 15);

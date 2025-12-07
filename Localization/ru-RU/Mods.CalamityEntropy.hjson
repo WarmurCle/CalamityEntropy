@@ -3337,6 +3337,21 @@ Items: {
 			Cost energy to dash through enemies
 			''' */
 	}
+
+	VoidEaterBodyArmor: {
+		// DisplayName: Void Eater Body Armor
+		// Tooltip: ""
+	}
+
+	VoidEaterHelmet: {
+		// DisplayName: Void Eater Helmet
+		// Tooltip: ""
+	}
+
+	VoidEaterLeggings: {
+		// DisplayName: Void Eater Leggings
+		// Tooltip: ""
+	}
 }
 
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
@@ -3892,6 +3907,7 @@ Projectiles: {
 	// WulfrumScrapProj.DisplayName: Wulfrum Scrap Proj
 	// NucLauncher.DisplayName: Nuc Launcher
 	// PeaceJR.DisplayName: Peace JR
+	// VENihilityLaser.DisplayName: V E Nihility Laser
 }
 
 LegendTooltip: - Легенда -

@@ -3585,8 +3585,31 @@ Items: {
 			消耗充能进行冲刺，充能会缓慢恢复
 			'''
 	}
-}
 
+	VoidEaterBodyArmor: {
+		DisplayName: 噬虚者护甲
+		Tooltip: "+40% 伤害"
+	}
+
+	VoidEaterHelmet: {
+		DisplayName: 噬虚者头盔
+		Tooltip: "+22% 暴击率"
+	}
+
+	VoidEaterLeggings: {
+		DisplayName: 噬虚者腿甲
+		Tooltip: "增加18%移动速度"
+	}
+}
+VoidEaterBonus:
+'''
+命中时向目标发射几道激光，有3秒冷却
+增加24%伤害
+投射出一片具有100点耐久的护盾
+护盾破碎后需要10秒恢复，在此期间增加1/s生命再生
++3 召唤栏
++80 魔力上限
+'''
 LOCKED: ：[已锁定]
 BCU1: 需击败史莱姆王
 BCU2: 需击败血肉宿主或腐巢意志
@@ -4149,6 +4172,7 @@ Projectiles: {
 	WulfrumScrapProj.DisplayName: 钨钢废料
 	NucLauncher.DisplayName: 核弹发射井
 	PeaceJR.DisplayName: 和平使者
+	// VENihilityLaser.DisplayName: V E Nihility Laser
 }
 
 LegendTooltip: - 传奇物品 -

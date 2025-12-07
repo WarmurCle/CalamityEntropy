@@ -2,31 +2,28 @@
 using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items;
 using CalamityMod.Items.Armor.OmegaBlue;
+using CalamityMod.Rarities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items.Armor.Marivinium
+namespace CalamityEntropy.Content.Items.Armor.NihTwins
 {
     [AutoloadEquip(EquipType.Legs)]
-    public class MariviniumLeggings : ModItem
+    public class VoidEaterLeggings : ModItem
     {
         public override void SetDefaults()
         {
-            Item.width = 34;
-            Item.height = 18;
-            Item.value = CalamityGlobalItem.RarityHotPinkBuyPrice;
-            Item.defense = 56;
-            Item.rare = ModContent.RarityType<AbyssalBlue>();
+            Item.width = 30;
+            Item.height = 30;
+            Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
+            Item.defense = 20;
+            Item.rare = ModContent.RarityType<Violet>();
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.Entropy().moveSpeed += 0.36f;
-            player.Entropy().ManaCost -= 0.2f;
-            player.GetDamage(DamageClass.Generic) += 0.2f;
-            player.GetCritChance(DamageClass.Generic) += 5;
-
+            player.Entropy().moveSpeed += 0.18f;
         }
         public override void AddRecipes()
         {

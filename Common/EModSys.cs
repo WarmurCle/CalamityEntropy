@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Items.Armor.NihTwins;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Vanity;
@@ -136,7 +137,7 @@ namespace CalamityEntropy.Common
             }
             else
             {
-                float alpha = 0.6f * progress;
+                float alpha = 0.72f * progress;
                 Main.spriteBatch.Begin(0, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
                 Color clr = Color.Lerp(new Color(255, 100, 100), Color.White, 0.5f + 0.5f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * 36)));
                 int offset = (int)Main.GameUpdateCount;
@@ -147,6 +148,22 @@ namespace CalamityEntropy.Common
 
                 Main.spriteBatch.End();
             }
+        }
+        public static void DrawNihShield(Player player, Vector2 pos, float alpha, float scale)
+        {
+            scale *= 0.5f;
+            Vector2 center = pos + Vector2.UnitY * player.gfxOffY;
+            Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/NihShield", AssetRequestMode.ImmediateLoad).Value;
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.ZoomMatrix);
+            shader.Parameters["offset"].SetValue(Main.GlobalTimeWrappedHourly);
+            shader.Parameters["num"].SetValue(0.98f);
+            shader.Parameters["OutlineColor"].SetValue((Color.Lerp(new Color(140, 140, 255), Color.White, 0.16f + 0.16f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * 6)))).ToVector4() * alpha);
+            shader.CurrentTechnique.Passes[0].Apply();
+            var gd = Main.graphics.GraphicsDevice;
+            gd.Textures[1] = CEUtils.getExtraTex("Noise_10");
+            Texture2D tex = CEUtils.getExtraTex("Hexagon");
+            Main.spriteBatch.Draw(tex, center - Main.screenPosition, null, new Color(200, 200, 255) * alpha, 0, tex.Size() / 2f, scale, SpriteEffects.None, 0);
+            Main.spriteBatch.End();
         }
         public override void PostDrawTiles()
         {
@@ -162,7 +179,14 @@ namespace CalamityEntropy.Common
                     }
                     DrawDriverShield(player, p, mp.DriverShield > 0, player.Center);
                 }
+                if (mp.NihilityShieldEnabled)
+                {
+                    float p = mp.NihilityShield / (float)VoidEaterHelmet.MaxShield;
+                    float c = mp.NihilityShield > 0 ? 1 : ((float)mp.NihilityRecharge / VoidEaterHelmet.ShieldRecharge) * 0.6f;
+                    DrawNihShield(player, player.Center, c * (0.5f + p * 0.5f), mp.NihShieldScale * (0.7f + 0.3f * p));
+                }
             }
+
             if (CalamityEntropy.SetupBossbarClrAuto)
             {
                 CalamityEntropy.SetupBossbarClrAuto = false;
