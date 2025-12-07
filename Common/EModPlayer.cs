@@ -626,6 +626,7 @@ namespace CalamityEntropy.Common
                     immune = 40;
                     reduceDmg = DamageToShield;
                     CEUtils.PlaySound("RoverDriveHit", 1.4f, Player.Center);
+                    ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 3));
                 }
                 else
                 {
@@ -633,6 +634,7 @@ namespace CalamityEntropy.Common
                     info.Damage = info.Damage - DriverShield;
                     DriverShield = 0;
                     CEUtils.PlaySound("RoverDriveBreak", 1.4f, Player.Center);
+                    ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 8));
                 }
                 DriverRegenDelay = 5 * 60;
                 for (int i = 0; i < 16; i++)
@@ -656,6 +658,7 @@ namespace CalamityEntropy.Common
                     immune = 40;
                     reduceDmg = DamageToShield;
                     CEUtils.PlaySound("shockBlast", 1.4f, Player.Center);
+                    ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 2));
                 }
                 else
                 {
@@ -663,6 +666,7 @@ namespace CalamityEntropy.Common
                     info.Damage = info.Damage - NihilityShield;
                     NihilityShield = 0;
                     CEUtils.PlaySound("shielddown", 1.4f, Player.Center);
+                    ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 6));
                 }
                 NihilityRegenDelay = (int)(1.5f * 60);
                 for (int i = 0; i < int.Min(20, reduceDmg / 5 + 1); i++)
