@@ -98,7 +98,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void AI()
         {
             var player = Projectile.GetOwner();
-            //Projectile.damage = ((EntropyBookHeldProjectile)ShooterModProjectile).CauculateProjectileDamage(2);
+            Projectile.damage = ((EntropyBookHeldProjectile)ShooterModProjectile).CauculateProjectileDamage(0.8f);
             float tofs = target == null ? 120 : (target.width + target.height) / 2f + 120;
             if (Main.myPlayer != Projectile.owner || BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkSwordBMEffect>(player))
                 Projectile.timeLeft = 3;
@@ -243,7 +243,6 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             base.ModifyHitNPC(target, ref modifiers);
             modifiers.SourceDamage *= aiStyle == AIStyle.Strike ? 0.7f : 1;
-
         }
         public override bool? CanHitNPC(NPC target)
         {

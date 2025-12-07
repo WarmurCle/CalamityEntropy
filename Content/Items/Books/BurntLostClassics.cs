@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 50;
+            Item.damage = 56;
             Item.useAnimation = Item.useTime = 20;
             Item.crit = 5;
             Item.mana = 6;
@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override string PageAnimationPath => "CalamityEntropy/Content/Items/Books/Textures/BurntLostClassics/BurntLostClassicsPage";
         public override string UIOpenAnimationPath => "CalamityEntropy/Content/Items/Books/Textures/BurntLostClassics/BurntLostClassicsUI";
 
-        public override float randomShootRotMax => 0.4f;
+        public override float randomShootRotMax => 0.16f;
         public override int baseProjectileType => ModContent.ProjectileType<BurntBrimShot>();
         public override bool Shoot()
         {
@@ -110,11 +110,11 @@ namespace CalamityEntropy.Content.Items.Books
 
             for (int i = 0; i < 4; i++)
             {
-                EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
+                EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center + Projectile.velocity * 0.25f * i, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
             }
             Lighting.AddLight(Projectile.Center, 0.25f, 0f, 0f);
             Projectile.rotation += 0.5f * (float)Projectile.direction;
-            Projectile.velocity.Y += float.Min(0.6f, Time * 0.005f);
+            Projectile.velocity.Y += float.Min(0.6f, Time * 0.004f);
         }
         public override bool PreDraw(ref Color lightColor)
         {

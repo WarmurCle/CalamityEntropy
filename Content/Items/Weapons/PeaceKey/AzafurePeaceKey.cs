@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
         {
             Item.width = 56;
             Item.height = 20;
-            Item.damage = 360;
+            Item.damage = 2000;
             Item.mana = 0;
             Item.useTime = Item.useAnimation = 24;
             Item.useStyle = ItemUseStyleID.HoldUp;
@@ -86,7 +86,7 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
             Projectile.penetrate = -1;
             Projectile.DamageType = DamageClass.Summon;
         }
-        public int ShootDelay = 60;
+        public int ShootDelay = 300;
         public int ShootCount = 0;
         public int ShootCooldown = 0;
         public override void AI()
@@ -117,6 +117,10 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
                 if (ShootCount <= 0)
                 {
                     ShootDelay--;
+                    if(ShootDelay == 40)
+                    {
+                        CEUtils.PlaySound("Alarm", 1, Projectile.Center);
+                    }
                 }
                 else
                 {
@@ -135,7 +139,7 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
                 targetPos = target.Center;
                 if (ShootDelay <= 0)
                 {
-                    ShootDelay = 60;
+                    ShootDelay = 300;
                     ShootCount = player.AzafureEnhance() ? 2 : 1;
                 }
             }
