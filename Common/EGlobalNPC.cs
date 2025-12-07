@@ -1309,7 +1309,7 @@ namespace CalamityEntropy.Common
                         }
                         if (player.Entropy().hasAcc(MineBox.ID) && pr.Calamity().stealthStrike && CECooldowns.CheckCD(ref CECooldowns.MineBoxCd, 60))
                         {
-                            Projectile.NewProjectile(pr.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<BoobyMine>(), (int)player.GetTotalDamage(pr.DamageType).ApplyTo(MineBox.BaseDamage), 0, player.whoAmI);
+                            Projectile.NewProjectile(pr.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<BoobyMine>(), ((int)player.GetTotalDamage(pr.DamageType).ApplyTo(MineBox.BaseDamage)).ApplyOldFashionedDmg(), 0, player.whoAmI);
                         }
                     }
                 }
@@ -1342,7 +1342,7 @@ namespace CalamityEntropy.Common
                             if (target != null)
                             {
                                 noelctime = 4;
-                                Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center, Vector2.Zero, lasertype, damage / 10, 0, player.whoAmI, target.Center.X, target.Center.Y, (source is Projectile p && p.type == lasertype) ? p.ai[2] + 1 : 0);
+                                Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center, Vector2.Zero, lasertype, damage.ApplyOldFashionedDmg() / 10, 0, player.whoAmI, target.Center.X, target.Center.Y, (source is Projectile p && p.type == lasertype) ? p.ai[2] + 1 : 0);
                             }
                         }
                     }

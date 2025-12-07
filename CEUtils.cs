@@ -7,6 +7,8 @@ using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
+using CalamityMod.Buffs.Alcohol;
+using CalamityMod.Items.Potions.Alcohol;
 using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -28,6 +30,10 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static int ApplyOldFashionedDmg(this int origDmg)
+        {
+            return (int)(origDmg * (Main.LocalPlayer.HasBuff<OldFashionedBuff>() ? OldFashioned.AccessoryAndSetBonusDamageMultiplier : 1));
+        }
         public static int GetPriceFromRecipe(this ModItem item, Recipe recipe)
         {
             int total = 0;
