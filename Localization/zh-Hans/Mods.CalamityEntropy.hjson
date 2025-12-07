@@ -4174,7 +4174,7 @@ Projectiles: {
 	WulfrumScrapProj.DisplayName: 钨钢废料
 	NucLauncher.DisplayName: 核弹发射井
 	PeaceJR.DisplayName: 和平使者
-	// VENihilityLaser.DisplayName: V E Nihility Laser
+	VENihilityLaser.DisplayName: 虚无激光
 }
 
 LegendTooltip: - 传奇物品 -
