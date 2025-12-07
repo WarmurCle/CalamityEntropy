@@ -294,6 +294,7 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
         }
         public override bool PreDraw(ref Color lightColor)
         {
+            Projectile.rotation = Projectile.velocity.ToRotation();
             Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
             return false;
         }
