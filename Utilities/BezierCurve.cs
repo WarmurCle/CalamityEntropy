@@ -113,7 +113,7 @@ namespace CalamityEntropy.Utilities
                 bool hasPrevPrev = index - 1 >= 0;
 
                 //中间点的控制点：使用前后点的切线方向
-                Vector2 prev = hasPrevPrev? points[index - 1] : points[index];
+                Vector2 prev = hasPrevPrev ? points[index - 1] : points[index];
                 Vector2 next = hasNextNext ? points[index + 2] : points[index + 1];
                 return (points[index] + points[index + 1]) / 2f + (next - prev) * 0.1f;
             }

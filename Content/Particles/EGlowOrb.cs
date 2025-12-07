@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
-using Terraria.ID;
 
 namespace CalamityEntropy.Content.Particles
 {
@@ -19,8 +17,8 @@ namespace CalamityEntropy.Content.Particles
         public override void Draw()
         {
             float scale = Lifetime / (float)TimeLeftMax;
-            
-            for(int i = 0; i < 5; i++)
+
+            for (int i = 0; i < 5; i++)
             {
                 Main.spriteBatch.Draw(this.Texture, this.Position - Main.screenPosition, null, Color * scale, Rotation, getOrigin(), Scale, SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(this.Texture, this.Position - Main.screenPosition, null, CenterColor * scale, Rotation, getOrigin(), Scale * CenterScale, SpriteEffects.None, 0);

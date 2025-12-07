@@ -164,7 +164,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         public float Counter = 0;
         public override void ApplyHoming()
         {
-            
+
         }
         public override bool ShouldUpdatePosition()
         {
@@ -185,7 +185,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 Scale = 0;
                 Projectile.Kill();
             }
-            if (Projectile.localAI[2] ++ == 0)
+            if (Projectile.localAI[2]++ == 0)
             {
                 CEUtils.PlaySound("energyImpact", Main.rand.NextFloat(0.9f, 1.2f), Projectile.Center, 8, 0.6f);
 
@@ -193,7 +193,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                     GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Lerp(Color.Red, Color.Orange, i) * i, 0.02f, i + 1.2f, 16));
             }
         }
-        
+
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.End();

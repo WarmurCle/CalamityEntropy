@@ -184,7 +184,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
             }
             if (deathAnm && deathSoundPlay && !Main.dedServ)
             {
-                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/awdead") { Volume = 0.5f});
+                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/awdead") { Volume = 0.5f });
                 deathSoundPlay = false;
             }
             wingRotLeft *= 0.86f;

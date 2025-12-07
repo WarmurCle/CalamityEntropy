@@ -1,6 +1,4 @@
 ﻿using CalamityEntropy.Content.Buffs.Pets;
-using CalamityEntropy.Content.Particles;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;

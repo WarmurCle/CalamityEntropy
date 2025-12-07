@@ -16,7 +16,7 @@ namespace CalamityEntropy.Common
         {
             if (brbType == -1)
                 brbType = ModContent.ItemType<Bramblecleave>();
-            if(item.type == brbType)
+            if (item.type == brbType)
             {
                 return Main.LocalPlayer.Entropy().BrambleBarCharge >= 0.2f;
             }

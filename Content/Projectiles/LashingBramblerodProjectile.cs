@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             var points = new List<Vector2>();
             Projectile.FillWhipControlPoints(Projectile, points);
-            if(FlyProgress > 0.44f && FlyProgress < 0.88f)
+            if (FlyProgress > 0.44f && FlyProgress < 0.88f)
                 EParticle.NewParticle(new LifeLeaf(), points[points.Count - 1], CEUtils.randomPointInCircle(4), Color.White, Main.rand.NextFloat(0.8f, 1.2f), 1, false, BlendState.AlphaBlend, CEUtils.randomRot());
 
             return base.PreAI();

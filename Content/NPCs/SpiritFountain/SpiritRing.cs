@@ -137,7 +137,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 TrailLength = float.Lerp(TrailLength, 68, 0.05f);
             }
             Player target = owner.HasValidTarget ? owner.target.ToPlayer() : Main.player[0];
-            
+
             if (fountain.ai == SpiritFountain.AIStyle.Boomerang)
             {
                 if (fountain.aiTimer == 10)
@@ -362,7 +362,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 TrailLength = float.Lerp(TrailLength, 100, 0.05f);
                 int counter = fountain.aiTimer;
                 int t = 90;
-                if( counter % (t + 42) < t)
+                if (counter % (t + 42) < t)
                     NPC.damage = 0;
                 if (counter % (t + 42) == 1)
                 {

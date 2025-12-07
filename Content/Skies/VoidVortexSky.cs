@@ -1,8 +1,6 @@
 ﻿using CalamityEntropy.Content.Menu;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
@@ -50,7 +48,7 @@ namespace CalamityEntropy.Content.Skies
             Texture2D l1 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/menu/VoidVortex").Value;
             Texture2D pixel = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value;
             var drawColor = Color.White;
-            
+
             spriteBatch.Draw(pixel, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Color(1, 2, 32) * opacity);
 
             spriteBatch.End();
@@ -74,8 +72,8 @@ namespace CalamityEntropy.Content.Skies
             {
                 p.draw(opacity);
             }
-            
-            spriteBatch.End();spriteBatch.begin_();
+
+            spriteBatch.End(); spriteBatch.begin_();
         }
         public override void Update(GameTime gameTime)
         {

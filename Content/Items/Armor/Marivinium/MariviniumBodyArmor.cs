@@ -2,7 +2,6 @@
 using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items;
 using CalamityMod.Items.Armor.OmegaBlue;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 

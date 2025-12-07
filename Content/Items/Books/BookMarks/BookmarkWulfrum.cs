@@ -1,9 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -102,7 +100,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void OnKill(int timeLeft)
         {
             ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 12), Projectile.Distance(Main.LocalPlayer.Center));
-            if(Main.zenithWorld)
+            if (Main.zenithWorld)
             {
                 CEUtils.ExplotionParticleLOL(Projectile.Center);
             }

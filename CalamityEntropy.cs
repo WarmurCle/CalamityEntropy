@@ -84,9 +84,7 @@ using ReLogic.Content;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
-using System.Linq;
 using Terraria;
 using Terraria.Graphics;
 using Terraria.Graphics.Renderers;
@@ -154,7 +152,7 @@ namespace CalamityEntropy
             efont1 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/EFont", AssetRequestMode.ImmediateLoad).Value;
             efont2 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/VCRFont", AssetRequestMode.ImmediateLoad).Value;
             efont3 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/MaruMonica", AssetRequestMode.ImmediateLoad).Value;
-            
+
             armorForgingStationUI = new ArmorForgingStationUI();
             armorForgingStationUI.Activate();
             userInterface = new UserInterface();
@@ -261,13 +259,13 @@ namespace CalamityEntropy
             }
             if (!hide)
             {
-                if(cbptype == -1)
+                if (cbptype == -1)
                     cbptype = ModContent.ProjectileType<CBPSmash>();
                 if (drawPlayer.ownedProjectileCounts[cbptype] > 0)
                 {
-                    foreach(var pj in Main.ActiveProjectiles)
+                    foreach (var pj in Main.ActiveProjectiles)
                     {
-                        if(pj.owner == drawPlayer.whoAmI && pj.type == cbptype)
+                        if (pj.owner == drawPlayer.whoAmI && pj.type == cbptype)
                         {
                             position = pj.Center;
                             break;
@@ -545,7 +543,7 @@ namespace CalamityEntropy
             {
                 float charge = 0;
                 float maxCharge = 0;
-                if(Main.LocalPlayer.Entropy().AzafureChargeShieldItem != null)
+                if (Main.LocalPlayer.Entropy().AzafureChargeShieldItem != null)
                 {
                     var mi = Main.LocalPlayer.Entropy().AzafureChargeShieldItem.ModItem as AzafureChargeShield;
                     charge = mi.charge;
@@ -764,11 +762,11 @@ namespace CalamityEntropy
                         orig(self, i);
                         self.Center -= self.velocity * 0.5f;
                     }
-                    if(self.type == NPCID.CultistBoss)
+                    if (self.type == NPCID.CultistBoss)
                     {
                         orig(self, i);
                     }
-                    if(new List<int> { NPCID.SkeletronPrime, 128, 129, 130, 131, NPCID.TheDestroyer, NPCID.TheDestroyerBody, NPCID.TheDestroyerTail, 139, 125, 126 }.Contains(self.type))
+                    if (new List<int> { NPCID.SkeletronPrime, 128, 129, 130, 131, NPCID.TheDestroyer, NPCID.TheDestroyerBody, NPCID.TheDestroyerTail, 139, 125, 126 }.Contains(self.type))
                     {
                         orig(self, i);
                         self.position -= self.velocity;
@@ -1383,7 +1381,7 @@ namespace CalamityEntropy
             Typer.activeTypers = new();
             StartBagGItem.items = new List<int>();
             VanityDisplaySys.SetupVanities();
-            for(int i = 0; i < ItemLoader.ItemCount; i++)
+            for (int i = 0; i < ItemLoader.ItemCount; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
                 if (item.ModItem != null && item.ModItem is IGetFromStarterBag)
@@ -1462,7 +1460,7 @@ namespace CalamityEntropy
                 isaac.Call("HeldProj", ModContent.ProjectileType<GhostdomWhisperHoldout>());
                 isaac.Call("HeldProj", ModContent.ProjectileType<SamsaraCasketProj>());
             }
-            
+
             string MyGameFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "My Games");
             string Isaac1 = Path.Combine(MyGameFolder, "Binding of Isaac Repentance").Replace("/", "\\");
             string Isaac2 = Path.Combine(MyGameFolder, "Binding of Isaac Repentance+").Replace("/", "\\");

@@ -190,7 +190,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public bool SetBoss = true;
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
-            target.AddBuff(ModContent.BuffType<MechanicalTrauma> (), 180);
+            target.AddBuff(ModContent.BuffType<MechanicalTrauma>(), 180);
         }
         public override void SetDefaults()
         {

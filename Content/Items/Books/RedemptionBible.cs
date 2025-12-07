@@ -198,8 +198,8 @@ namespace CalamityEntropy.Content.Items.Books
                             if (Main.myPlayer == Projectile.owner)
                             {
                                 Delay = 8;
-                                CEUtils.PlaySound("portal_emerge", Main.rand.NextFloat(2.6f, 3), Projectile.Center, volume:0.5f);
-                                eb.ShootSingleProjectile(ModContent.ProjectileType<RedemptionArrow>(), Projectile.Center, Projectile.rotation.ToRotationVector2(), 0.24f, 1, 1.6f, MainProjectile:true);
+                                CEUtils.PlaySound("portal_emerge", Main.rand.NextFloat(2.6f, 3), Projectile.Center, volume: 0.5f);
+                                eb.ShootSingleProjectile(ModContent.ProjectileType<RedemptionArrow>(), Projectile.Center, Projectile.rotation.ToRotationVector2(), 0.24f, 1, 1.6f, MainProjectile: true);
                             }
                         }
                     }

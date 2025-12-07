@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -142,7 +141,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = CEUtils.RequestTex("CalamityEntropy/Content/Items/Books/BookMarks/Fairy/F" + (1+(int)Projectile.ai[2]));
+            Texture2D tex = CEUtils.RequestTex("CalamityEntropy/Content/Items/Books/BookMarks/Fairy/F" + (1 + (int)Projectile.ai[2]));
             Rectangle frame = new Rectangle(0, 24 * (((int)Main.GameUpdateCount / 4) % 4), tex.Width, 22);
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, frame, Color.White, 0, new Vector2(12, 11), Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
             return false;

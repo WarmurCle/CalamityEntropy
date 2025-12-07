@@ -1,13 +1,9 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
 using CalamityMod;
-using CalamityMod.Items;
-using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -102,7 +98,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 {
                     CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), target.Center + target.velocity, (int)(Projectile.damage / 2.4f), 6, Projectile.DamageType).CritChance = Projectile.CritChance;
                     ;
-                    for (float i = 0.04f; i <= 1; i+=0.02f)
+                    for (float i = 0.04f; i <= 1; i += 0.02f)
                     {
                         Color rgbColor = Main.hslToRgb(i, 0.5f, 0.6f) * 0.25f;
                         GeneralParticleHandler.SpawnParticle(new LineParticle(Vector2.Lerp(Projectile.Center, target.Center, i), (target.Center - Projectile.Center).normalize() * 0.01f, false, 18, (1f - i) * 0.8f + 0.8f, rgbColor));
@@ -170,7 +166,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Rectangle frame = new Rectangle(0, 24 * (((int)Main.GameUpdateCount / 4) % 3), tex.Width, 24);
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, frame, Color.Lerp(colorDraw, Color.White, 0.8f) * Projectile.Opacity, 0, new Vector2(12, 11), Projectile.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            for(float i = 0; i < 360; i += 60)
+            for (float i = 0; i < 360; i += 60)
             {
                 Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + (MathHelper.ToRadians(i) + Main.GlobalTimeWrappedHourly * 4).ToRotationVector2() * 4, frame, Color.Lerp(colorDraw, Color.White, 0.16f) * Projectile.Opacity * 1f, 0, new Vector2(12, 11), Projectile.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
             }

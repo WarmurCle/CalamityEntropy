@@ -1,21 +1,13 @@
 ﻿
 using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Content.Tiles;
-using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
-using CalamityMod.Items.Armor.OmegaBlue;
 using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.Map;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Armor.Azafure
@@ -86,7 +78,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
         {
             if (ExplosionFlag && DeathExplosion > 0)
                 return false;
-            if(ArmorSetBonus && !ExplosionFlag && DeathExplosionCD <= 0)
+            if (ArmorSetBonus && !ExplosionFlag && DeathExplosionCD <= 0)
             {
                 damageSource = PlayerDeathReason.ByCustomReason("");
             }
@@ -94,7 +86,8 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
-            if (ArmorSetBonus) {
+            if (ArmorSetBonus)
+            {
                 if (DeathExplosionCD <= 0 && !ExplosionFlag)
                 {
                     ExplosionFlag = true;
@@ -110,7 +103,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                 }
                 else
                     ExplosionFlag = false;
-            } 
+            }
         }
         public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
         {
@@ -123,29 +116,29 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
         public override void ResetEffects()
         {
             ArmorSetBonus = false;
-            if(DeathExplosion > 0 && ExplosionFlag)
+            if (DeathExplosion > 0 && ExplosionFlag)
             {
                 DeathExplosion--;
                 Player.velocity *= 0;
                 Player.Entropy().noItemTime = 5;
-                if(DeathExplosion < 70 && DeathExplosion % 8 == 0)
+                if (DeathExplosion < 70 && DeathExplosion % 8 == 0)
                 {
                     ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, Utils.Remap(Main.LocalPlayer.Center.Distance(Player.Center), 4000, 1000, 0, 12)));
 
                     EParticle.NewParticle(new ShockParticle(), Player.Center, Vector2.Zero, Color.White, 0.1f, 1, true, BlendState.NonPremultiplied, CEUtils.randomRot());
                 }
-                if(DeathExplosion == 0 || DeathExplosion == 6 || DeathExplosion == 12)
+                if (DeathExplosion == 0 || DeathExplosion == 6 || DeathExplosion == 12)
                 {
                     CEUtils.PlaySound("pulseBlast", 0.6f, Player.Center, 6, 1f);
                     CEUtils.PlaySound("blackholeEnd", 0.6f, Player.Center, 6, 1f);
-                    
+
                     GeneralParticleHandler.SpawnParticle(new PulseRing(Player.Center, Vector2.Zero, Color.Firebrick, 0.1f, 9f, 8));
                     EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.Firebrick, 16f, 1, true, BlendState.Additive, 0, 16);
                     EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.White, 14f, 1, true, BlendState.Additive, 0, 16);
                     ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 100), 1200);
                     CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, 450, 800, DamageClass.Generic);
                 }
-                if(DeathExplosion == 0)
+                if (DeathExplosion == 0)
                 {
                     DeathExplosion = -1;
                     ExplosionFlag = false;

@@ -1,4 +1,3 @@
-using CalamityMod.Tiles.FurnitureMonolith;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria.ModLoader;
@@ -12,7 +11,7 @@ namespace CalamityEntropy.Assets.Register
         public static Asset<Texture2D> FireTornado;
         public override void Load()
         {
-            FireTornado = ModContent.Request<Texture2D>($"{ExtraPath}Tornade_Fire"); 
+            FireTornado = ModContent.Request<Texture2D>($"{ExtraPath}Tornade_Fire");
         }
         public override void Unload()
         {

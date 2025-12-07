@@ -1,5 +1,4 @@
-﻿using CalamityMod;
-using CalamityMod.Particles;
+﻿using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
@@ -40,7 +39,7 @@ namespace CalamityEntropy.Content.Projectiles
                 c = false;
                 Projectile.ai[1] = -1;
             }
-            
+
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (homingTarget != null && homingTarget.active)
             {
@@ -62,7 +61,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.velocity = new Vector2(Projectile.velocity.Length() * 3, 0).RotatedBy((homingTarget.Center - Projectile.Center).ToRotation());
                 }
                 NPC target = homingTarget;
-                if(homingStrength < 1)
+                if (homingStrength < 1)
                 { homingStrength += 0.01f; }
                 Projectile.velocity += (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 2f * homingStrength;
                 Projectile.velocity *= 1 - homingStrength * 0.1f;
@@ -85,7 +84,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Texture2D t = TextureAssets.Projectile[Projectile.type].Value;
             Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, t.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
-            if(homingTarget != null && homingTarget.active)
+            if (homingTarget != null && homingTarget.active)
             {
                 t = this.getTextureAlt("Outline");
                 Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.AliceBlue, Projectile.rotation, t.Size() / 2, Projectile.scale, SpriteEffects.None, 0);

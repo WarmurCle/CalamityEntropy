@@ -61,7 +61,7 @@ namespace CalamityEntropy.Content.Particles
             }
             else
             {
-                Scale = InitialScale * (1-LifetimeCompletion);
+                Scale = InitialScale * (1 - LifetimeCompletion);
                 Color = Color.Lerp(InitialColor, Color.Transparent, (float)Math.Pow(LifetimeCompletion, 3D));
             }
             Velocity *= 0.92f;

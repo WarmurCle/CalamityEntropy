@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -17,11 +16,11 @@ namespace CalamityEntropy.Content.Particles
         public override void AI()
         {
             base.AI();
-            if(Lifetime == 1)
+            if (Lifetime == 1)
             {
-                for(int i = 0; i < 4; i++)
+                for (int i = 0; i < 4; i++)
                 {
-                    EParticle.spawnNew(new PrismShardSmall() { PixelShader = this.PixelShader}, Position, CEUtils.randomPointInCircle(12), Color.White, 1, 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
+                    EParticle.spawnNew(new PrismShardSmall() { PixelShader = this.PixelShader }, Position, CEUtils.randomPointInCircle(12), Color.White, 1, 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
                 }
                 for (int i = 0; i < 20; i++)
                 {

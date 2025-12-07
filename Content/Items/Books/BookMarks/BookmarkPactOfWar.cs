@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 book.ShootSingleProjectile(projtype1, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.5f, 1);
 
             int projtype2 = ModContent.ProjectileType<WarPactArtemis>();
-            if (player.ownedProjectileCounts[projtype2] < 1) 
+            if (player.ownedProjectileCounts[projtype2] < 1)
                 book.ShootSingleProjectile(projtype2, book.Projectile.Center, (Main.MouseWorld - book.Projectile.Center), 0.5f, 1);
 
         }

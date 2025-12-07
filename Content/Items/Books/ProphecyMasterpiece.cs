@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Items.Books
 
         public override void OnActive(EntropyBookHeldProjectile book)
         {
-            book.ShootSingleProjectile(book.baseProjectileType, book.Projectile.Center, book.Projectile.rotation.ToRotationVector2(), MainProjectile:true);
+            book.ShootSingleProjectile(book.baseProjectileType, book.Projectile.Center, book.Projectile.rotation.ToRotationVector2(), MainProjectile: true);
         }
     }
 

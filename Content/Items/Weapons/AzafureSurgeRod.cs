@@ -166,7 +166,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         Particle sparkle = new CritSpark(stick != null ? stick.Center : Projectile.Center, velocity, (Projectile.Calamity().stealthStrike ? Color.DarkRed : Color.White), (Projectile.Calamity().stealthStrike ? Color.DarkRed : Color.White), 0.8f, 30, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
                         GeneralParticleHandler.SpawnParticle(sparkle);
                     }
-                    if(Projectile.GetOwner().AzafureEnhance())
+                    if (Projectile.GetOwner().AzafureEnhance())
                     {
                         Func<int, bool> filter2 = (i) => (!StickOnNPC || i != stick.whoAmI) && (npc == null || i != npc.whoAmI);
                         NPC npc2 = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 400, filter2);

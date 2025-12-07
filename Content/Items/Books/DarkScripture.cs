@@ -1,12 +1,7 @@
-using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -51,7 +46,7 @@ namespace CalamityEntropy.Content.Items.Books
             m.Homing = 1f;
             m.HomingRange = 1.25f;
             m.armorPenetration += 16;
-            return m; 
+            return m;
         }
         public override float randomShootRotMax => 0.16f;
         public override int baseProjectileType => ModContent.ProjectileType<DarkBullet>();
@@ -91,7 +86,7 @@ namespace CalamityEntropy.Content.Items.Books
             base.AI();
             if (t1 == null || t2 == null)
             {
-                t1 = new TrailParticle() { maxLength = 16,TimeLeftMax = 10};
+                t1 = new TrailParticle() { maxLength = 16, TimeLeftMax = 10 };
                 t2 = new TrailParticle() { maxLength = 16, TimeLeftMax = 10 };
                 EParticle.spawnNew(t1, Projectile.Center, Vector2.Zero, new Color(255, 60, 60), 0.8f, 1, true, BlendState.Additive);
                 EParticle.spawnNew(t2, Projectile.Center, Vector2.Zero, new Color(255, 60, 60), 0.8f, 1, true, BlendState.Additive);
@@ -120,9 +115,9 @@ namespace CalamityEntropy.Content.Items.Books
 
             float scale = 2 * Projectile.scale;
             List<Vector2> points = new();
-            for(int i = 1; i < oldPos.Count; i++)
+            for (int i = 1; i < oldPos.Count; i++)
             {
-                for(float j = 0.1f; j <= 1f; j+= 0.1f )
+                for (float j = 0.1f; j <= 1f; j += 0.1f)
                 {
                     points.Add(Vector2.Lerp(oldPos[i - 1], oldPos[i], j));
                 }
@@ -137,7 +132,7 @@ namespace CalamityEntropy.Content.Items.Books
                 float c = (i + 1f) / points.Count;
                 DrawEnergyBall(points[i], scale * c, Projectile.Opacity * c);
             }
-            
+
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             return false;

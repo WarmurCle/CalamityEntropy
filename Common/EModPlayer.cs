@@ -25,25 +25,19 @@ using CalamityEntropy.Content.Projectiles.VoidEchoProj;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
-using CalamityEntropy.Core.Construction;
 using CalamityMod;
-using CalamityMod.Balancing;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.CalPlayer;
-using CalamityMod.Cooldowns;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Placeables;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Typeless;
-using CalamityMod.Tiles.FurnitureMonolith;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -285,7 +279,7 @@ namespace CalamityEntropy.Common
                 }
             }
             voidcharge = 0; VoidInspire = 0; lastStandCd = 0; mantleCd = 0; magiShieldCd = 0; sJudgeCd = 2;
-            
+
         }
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
@@ -488,7 +482,7 @@ namespace CalamityEntropy.Common
                             if (DriverRegenDelay < dl)
                                 DriverRegenDelay = dl;
                             DriverShield += 1;
-                            if(DriverShield > AzafureDriverCore.MaxShield)
+                            if (DriverShield > AzafureDriverCore.MaxShield)
                             {
                                 DriverShield = AzafureDriverCore.MaxShield;
                             }
@@ -499,7 +493,7 @@ namespace CalamityEntropy.Common
                 else
                 {
                     DriverRecharge += Player.AzafureEnhance() ? Main.rand.Next(1, 3) : 1;
-                    if(DriverRecharge > AzafureDriverCore.RechargeTime)
+                    if (DriverRecharge > AzafureDriverCore.RechargeTime)
                     {
                         CEUtils.PlaySound("RoverDriveActivate", 1.4f, Player.Center);
                         DriverShield = AzafureDriverCore.MaxShield;
@@ -518,7 +512,7 @@ namespace CalamityEntropy.Common
         public int ShootLaserTime = 0;
         public void UpdateNihShield()
         {
-            
+
             bool Equiped = NihilityShieldEnabled;
 
             NihShieldScale = float.Lerp(NihShieldScale, Equiped ? (NihilityShield > 0 ? (0.6f + 0.4f * ((float)NihilityShield / VoidEaterHelmet.MaxShield)) : 0.5f) : 0, 0.05f);
@@ -551,12 +545,12 @@ namespace CalamityEntropy.Common
                             NihilityShield += 1;
                         }
                     }
-                    if(Main.myPlayer == Player.whoAmI)
+                    if (Main.myPlayer == Player.whoAmI)
                     {
                         int lifeToShield = 80;
-                        if(CalamityKeybinds.ArmorSetBonusHotKey.JustPressed && NihilityShield < VoidEaterHelmet.MaxShield && Player.statLife > lifeToShield)
+                        if (CalamityKeybinds.ArmorSetBonusHotKey.JustPressed && NihilityShield < VoidEaterHelmet.MaxShield && Player.statLife > lifeToShield)
                         {
-                            if(CECooldowns.CheckCD("NihilitySet", 60))
+                            if (CECooldowns.CheckCD("NihilitySet", 60))
                             {
                                 Player.statLife -= lifeToShield;
                                 NihilityShield += lifeToShield;
@@ -614,7 +608,7 @@ namespace CalamityEntropy.Common
         public void RemoveCooldown(string id)
         {
             Player p = Player;
-            if(p.HasCooldown(id))
+            if (p.HasCooldown(id))
             {
                 p.Calamity().cooldowns.Remove(id);
             }
@@ -642,7 +636,7 @@ namespace CalamityEntropy.Common
                     CEUtils.PlaySound("RoverDriveBreak", 1.4f, Player.Center);
                 }
                 DriverRegenDelay = 5 * 60;
-                for(int i = 0; i < 16; i++)
+                for (int i = 0; i < 16; i++)
                 {
                     GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center + new Vector2(Main.rand.NextFloat(-28, 28), Main.rand.NextFloat(-28, 28)), CEUtils.randomPointInCircle(12), Main.rand.NextFloat(1.6f, 2f), Color.OrangeRed * 0.6f, Main.rand.Next(6, 12)));
                 }
@@ -810,7 +804,7 @@ namespace CalamityEntropy.Common
             CanSlainTownNPC = false;
         }
 
-        
+
         public int crSky = 0;
         public int NihSky = 0;
         public int VortexSky = 0;
@@ -851,7 +845,7 @@ namespace CalamityEntropy.Common
         {
             wingData = null;
         }
-        
+
         public override void PreUpdate()
         {
 
@@ -1536,10 +1530,10 @@ namespace CalamityEntropy.Common
         public float HitCooldown = 0;
         public float DebuffTime = 1;
 
-        
+
         public override void OnHurt(Player.HurtInfo info)
         {
-            if(DriverShield <= 0)
+            if (DriverShield <= 0)
                 DriverRecharge = 0;
             if (Player.statLife - info.Damage > 0)
             {
@@ -1890,7 +1884,7 @@ namespace CalamityEntropy.Common
                     Vector2 tpos = lastHitTarget.Center + lastHitTarget.velocity * 4;
                     Vector2 spos = Player.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(70, 120);
                     Projectile.NewProjectile(Player.GetSource_FromThis(), spos, (tpos - spos).normalize() * 16, ModContent.ProjectileType<VENihilityLaser>(), (int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(600), 8, Player.whoAmI);
-                    if(CECooldowns.CheckCD("NihLaserSound", 1))
+                    if (CECooldowns.CheckCD("NihLaserSound", 1))
                         CEUtils.PlaySound("void_laser", 2.4f, spos, 6, 0.2f);
                 }
             }
@@ -1899,7 +1893,7 @@ namespace CalamityEntropy.Common
             UpdateNihShield();
             if (StealthMaxLast == -1)
                 StealthMaxLast = Player.Calamity().rogueStealthMax;
-            if(ModContent.GetInstance<ServerConfig>().ClearStealthWhenChangeEquipSet)
+            if (ModContent.GetInstance<ServerConfig>().ClearStealthWhenChangeEquipSet)
             {
                 if (StealthMaxLast != Player.Calamity().rogueStealthMax)
                 {
@@ -1922,7 +1916,7 @@ namespace CalamityEntropy.Common
                 }
                 if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkFairyEffect>(Player) && Player.ownedProjectileCounts[BookmarkFairy.ProjType] < 1)
                 {
-                    eb.ShootSingleProjectile(BookmarkFairy.ProjType, Player.Center, Vector2.UnitY * -0.01f, 1, 1, 1, (proj)=>{ proj.ai[2] = 0; });
+                    eb.ShootSingleProjectile(BookmarkFairy.ProjType, Player.Center, Vector2.UnitY * -0.01f, 1, 1, 1, (proj) => { proj.ai[2] = 0; });
                     eb.ShootSingleProjectile(BookmarkFairy.ProjType, Player.Center, Vector2.UnitY * -0.01f, 1, 1, 1, (proj) => { proj.ai[2] = 1; });
                     eb.ShootSingleProjectile(BookmarkFairy.ProjType, Player.Center, Vector2.UnitY * -0.01f, 1, 1, 1, (proj) => { proj.ai[2] = 2; });
                 }
@@ -1942,11 +1936,11 @@ namespace CalamityEntropy.Common
                 TDeckTime = 5;
             SDeckTime--;
             TDeckTime--;
-            foreach(var plr in Main.ActivePlayers)
+            foreach (var plr in Main.ActivePlayers)
             {
                 if (plr.Distance(Player.Center) > 6000)
                     continue;
-                if(plr.Entropy().SDeckTime > 0)
+                if (plr.Entropy().SDeckTime > 0)
                 {
                     HitCooldown += WisperCard.ImmuneAdd;
                 }
@@ -2021,7 +2015,7 @@ namespace CalamityEntropy.Common
                     }
                     ResetRot = true;
                     Player.fullRotation = (new Vector2(Math.Abs(Player.velocity.X), Player.velocity.Y).ToRotation()) * Player.direction;
-                    
+
                     if (Player.GetModPlayer<SCDashMP>().flag)
                     {
                         Player.GetModPlayer<SCDashMP>().Cooldown = 158.ApplyCdDec(Player);
@@ -3109,7 +3103,7 @@ namespace CalamityEntropy.Common
                         Player.lifeRegen += 8;
                     }
                 }
-                if(p.owner == Player.whoAmI && p.ModProjectile != null && p.ModProjectile is CarverSpirit cs && cs.mode == CarverSpirit.Mode.Defending)
+                if (p.owner == Player.whoAmI && p.ModProjectile != null && p.ModProjectile is CarverSpirit cs && cs.mode == CarverSpirit.Mode.Defending)
                 {
                     Player.statDefense += 6;
                     Player.endurance += 0.05f;
@@ -3350,9 +3344,9 @@ namespace CalamityEntropy.Common
 
                 }
             }
-            if(Player.Calamity().ZoneAbyssLayer4)
+            if (Player.Calamity().ZoneAbyssLayer4)
             {
-                if(attempt.rare && Main.rand.NextBool(8))
+                if (attempt.rare && Main.rand.NextBool(8))
                 {
                     itemDrop = ModContent.ItemType<FetalDream>();
                 }
@@ -3390,7 +3384,7 @@ namespace CalamityEntropy.Common
             }
         }
 
-        
+
 
         public List<Item> EBookStackItems = null;
         public bool soulDisorder = false;

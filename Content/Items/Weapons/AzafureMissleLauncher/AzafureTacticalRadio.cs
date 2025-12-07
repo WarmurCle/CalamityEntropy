@@ -6,7 +6,6 @@ using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -84,7 +83,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
             Player player = Main.player[Projectile.owner];
 
             var target_ = Projectile.FindMinionTarget(10000);
-            if(target_ != null && target != target_)
+            if (target_ != null && target != target_)
             {
                 Num = 0;
             }
@@ -125,7 +124,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
                 if (ShootDelay > 0)
                     ShootDelay--;
             }
-            
+
 
         }
         public float Num = 0;
@@ -145,7 +144,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, 0, tex.Size() / 2f, Projectile.scale, SpriteEffects.None);
             Texture2D t1 = this.getTextureAlt("Target");
             Texture2D t2 = this.getTextureAlt("Target2");
-            if(Num > 0)
+            if (Num > 0)
             {
                 Main.spriteBatch.Draw(t1, targetPos - Main.screenPosition, null, Color.White * Num, 0, t1.Size() / 2f, 1, SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(t2, targetPos - Main.screenPosition, null, Color.White * Num, CEUtils.Parabola(Num * 0.5f, 3.141592f), t2.Size() / 2f, 1, SpriteEffects.None, 0);
@@ -157,7 +156,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
             overPlayers.Add(index);
         }
     }
-    public class AzafureRadioMissile: ModProjectile
+    public class AzafureRadioMissile : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -177,9 +176,10 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
             if (Projectile.ai[2] == 0)
             {
                 target = CEUtils.FindTarget_HomingProj(Projectile, targetPos, 10000);
-                if (Projectile.GetOwner().MinionAttackTargetNPC >= 0) {
+                if (Projectile.GetOwner().MinionAttackTargetNPC >= 0)
+                {
                     var npc = Projectile.GetOwner().MinionAttackTargetNPC.ToNPC();
-                    if(npc.active)
+                    if (npc.active)
                     {
                         target = npc;
                     }
@@ -199,7 +199,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
             }
             else
             {
-                for (float i = 0; i < 1; i+=0.025f)
+                for (float i = 0; i < 1; i += 0.025f)
                 {
                     EParticle.NewParticle(new Smoke() { timeleftmax = 18, Lifetime = 18 }, Projectile.Center - Projectile.velocity * (1 - i), CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.05f, 0.07f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
                 }
@@ -224,7 +224,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
             int lifetime = 20;
             Vector2 center = Projectile.Center;
             EParticle.spawnNew(new ERing() { LineWidth = 120 }, center, Vector2.Zero, new Color(255, 140, 140), 300, 1, true, BlendState.Additive, 0, 16);
-            for(int i = 0; i < 2; i++)
+            for (int i = 0; i < 2; i++)
             {
                 EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(1, 0) }, center, Vector2.Zero, Color.Firebrick, 0.6f, 1f, true, BlendState.Additive, 0, lifetime);
                 EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(1, 0) }, center, Vector2.Zero, Color.White, 0.3f, 1f, true, BlendState.Additive, 0, lifetime);

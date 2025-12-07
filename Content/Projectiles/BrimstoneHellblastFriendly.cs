@@ -1,10 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Books;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Events;
-using CalamityMod.NPCs;
-using CalamityMod.NPCs.CalClone;
-using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;

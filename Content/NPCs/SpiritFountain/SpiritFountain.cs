@@ -42,8 +42,8 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
     [StaticImmunity(staticImmunityCooldown: 6)]
     public class SpiritFountain : ModNPC
     {
-        public FountainColumn column1 = new FountainColumn(0) { id = 0};
-        public FountainColumn column2 = new FountainColumn(0) { id = 1};
+        public FountainColumn column1 = new FountainColumn(0) { id = 0 };
+        public FountainColumn column2 = new FountainColumn(0) { id = 1 };
         public int CenterRing = 0;
         public int GatheringAnimation = 300;
         public override void SetStaticDefaults()
@@ -537,7 +537,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 NPC.dontTakeDamage = false;
                 EyeAlphaT = 1;
                 int t = 90 + 42;
-                if(aiTimer == 1)
+                if (aiTimer == 1)
                 {
                     column1.rotation = -MathHelper.PiOver2;
                     column2.rotation = 0;

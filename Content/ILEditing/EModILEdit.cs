@@ -1,16 +1,11 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Items.Donator;
 using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
-using CalamityMod.Events;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.NPCs;
-using CalamityMod.NPCs.Providence;
-using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.NPCs.VanillaNPCAIOverrides.Bosses;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Melee;
@@ -178,10 +173,10 @@ namespace CalamityEntropy.Content.ILEditing
         public static string On_NPC_Get_Hook(On_GetNPCName_get_Delegate orig, NPC npc)
         {
             string n = orig(npc);
-            if(CalamityEntropy.EntropyMode)
+            if (CalamityEntropy.EntropyMode)
             {
-                if(npc.type == NPCID.CultistBoss || npc.type == NPCID.Golem || npc.type == NPCID.GolemFistLeft || npc.type == NPCID.GolemFistRight || npc.type == NPCID.GolemHead || npc.type == NPCID.GolemHeadFree || LostNPCsEntropy.Contains(npc.type))
-                n = (Language.ActiveCulture == GameCulture.FromCultureName(GameCulture.CultureName.Chinese) ? "失心" : "Lost") + " " + n;
+                if (npc.type == NPCID.CultistBoss || npc.type == NPCID.Golem || npc.type == NPCID.GolemFistLeft || npc.type == NPCID.GolemFistRight || npc.type == NPCID.GolemHead || npc.type == NPCID.GolemHeadFree || LostNPCsEntropy.Contains(npc.type))
+                    n = (Language.ActiveCulture == GameCulture.FromCultureName(GameCulture.CultureName.Chinese) ? "失心" : "Lost") + " " + n;
 
             }
             return n;

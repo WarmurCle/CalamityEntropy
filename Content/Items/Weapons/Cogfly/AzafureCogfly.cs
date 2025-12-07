@@ -1,9 +1,5 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles.LuminarisShoots;
-using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
@@ -11,7 +7,6 @@ using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -137,7 +132,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
             Attacking = false;
             Projectile.velocity *= -0.5f;
             DCounter = 25;
-            
+
         }
         public NPC target;
         public override void AI()
@@ -146,20 +141,20 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
             if (OldPos.Count > 6)
                 OldPos.RemoveAt(0);
             Counter++;
-            if(Counter == 1)
+            if (Counter == 1)
             {
                 Projectile.velocity = new Vector2(0, -16);
             }
-            if(Counter < 25)
+            if (Counter < 25)
             {
                 Projectile.velocity += new Vector2(0, 0.8f);
                 Projectile.rotation += 0.6f;
             }
-            if(Counter == 25)
+            if (Counter == 25)
             {
                 Projectile.rotation = 0;
                 CEUtils.PlaySound("CogflyActive", 1, Projectile.Center);
-                if(!Main.dedServ)
+                if (!Main.dedServ)
                 {
                     Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, CEUtils.randomPointInCircle(12), Mod.Find<ModGore>("CogflyRing").Type);
                 }
@@ -191,9 +186,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
                         }
                     }
                     DashToPlayer--;
-                    if(!Attacking)
+                    if (!Attacking)
                     {
-                        if(DashToPlayer < -40 && CEUtils.getDistance(Projectile.Center, player.Center) > 800)
+                        if (DashToPlayer < -40 && CEUtils.getDistance(Projectile.Center, player.Center) > 800)
                         {
                             DashToPlayer = 50;
                         }
@@ -213,7 +208,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
                         Projectile.velocity += (target.Center - Projectile.Center).normalize() * 1.6f;
                         Projectile.velocity *= 0.97f;
                         Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center + target.velocity * CEUtils.getDistance(Projectile.Center, target.Center) / 30f - Projectile.Center).ToRotation(), 0.034f));
-                    } 
+                    }
                 }
             }
             if (!Attacking)
@@ -233,7 +228,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
                 frame = null;
             Projectile.spriteDirection = -1 * (target != null ? Math.Sign(target.Center.X - Projectile.Center.X) : Math.Sign(Projectile.GetOwner().Center.X - Projectile.Center.X));
             Rectangle frameWing = CEUtils.GetCutTexRect(tex, 4, ((int)Main.GameUpdateCount / 4) % 2, false);
-            if(Counter > 25 && !Attacking)
+            if (Counter > 25 && !Attacking)
                 Main.EntitySpriteDraw(wingTex, Projectile.Center - Main.screenPosition, frameWing, Color.White, Projectile.rotation, new Vector2(wingTex.Width / 2f, wingTex.Height / 8f), Projectile.scale, (Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
 
             if (Attacking)

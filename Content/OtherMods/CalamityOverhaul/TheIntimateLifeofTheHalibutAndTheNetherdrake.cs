@@ -1,8 +1,4 @@
-﻿using CalamityOverhaul.Content.ADV;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.ModLoader;
-
-namespace CalamityEntropy.Content.OtherMods.CalamityOverhaul
+﻿namespace CalamityEntropy.Content.OtherMods.CalamityOverhaul
 {
     /*[ExtendsFromMod("CalamityOverhaul")]
     [JITWhenModsEnabled("CalamityOverhaul")]

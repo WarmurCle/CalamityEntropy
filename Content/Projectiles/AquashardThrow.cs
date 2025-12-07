@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             odp.Add(Projectile.Center);
             odr.Add(Projectile.rotation);
-            if(Projectile.ai[0] > 12 && Projectile.Calamity().stealthStrike && Main.myPlayer == Projectile.owner && ++Projectile.localAI[1] % 3 == 0)
+            if (Projectile.ai[0] > 12 && Projectile.Calamity().stealthStrike && Main.myPlayer == Projectile.owner && ++Projectile.localAI[1] % 3 == 0)
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center - Projectile.velocity * 3, Projectile.velocity * 0.1f, ModContent.ProjectileType<AquashardSplit>(), (int)(Projectile.damage * 0.25), 0f, Projectile.owner).ToProj().DamageType = CEUtils.RogueDC;
 
             if (odp.Count > 16)
@@ -175,11 +175,11 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
-            for(int i = 0; i < 32; i++)
+            for (int i = 0; i < 32; i++)
             {
                 EParticle.spawnNew(new EGlowOrb(), CEUtils.randomPoint(target.Hitbox), CEUtils.randomPointInCircle(4) + Projectile.velocity * 0.4f * Main.rand.NextFloat(0.2f, 1), Color.SkyBlue, 0.2f, 1, true, BlendState.Additive, 0, 18);
             }
-            if(Projectile.Calamity().stealthStrike)
+            if (Projectile.Calamity().stealthStrike)
             {
                 for (int i = 0; i < 32; i++)
                 {

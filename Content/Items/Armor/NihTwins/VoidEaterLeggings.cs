@@ -1,9 +1,5 @@
-﻿using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Content.Tiles;
-using CalamityMod.Items;
-using CalamityMod.Items.Armor.OmegaBlue;
+﻿using CalamityMod.Items;
 using CalamityMod.Rarities;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.Audio;
-using Terraria.ModLoader;
+﻿using Terraria.Audio;
 
 namespace CalamityEntropy.Assets.Register
 {

@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -99,7 +98,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     }
                 }
             }
-            if(Projectile.timeLeft == 16)
+            if (Projectile.timeLeft == 16)
             {
                 Projectile.velocity = Projectile.velocity.normalize() * 22;
                 EParticle.spawnNew(new PortalParticle(), Projectile.Center + Projectile.velocity * 7, Vector2.Zero, new Color(120, 120, 255), 1.6f, 1, true, BlendState.Additive);
@@ -132,7 +131,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 }
                 else
                 {
-                    if(Projectile.Entropy().counter % 16 == 0)
+                    if (Projectile.Entropy().counter % 16 == 0)
                     {
                         if (Projectile.owner == Main.myPlayer)
                         {
@@ -141,7 +140,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                             p.ToProj().localNPCHitCooldown = 16;
                         }
 
-                        SoundEngine.PlaySound(SoundID.Item12 with { Pitch = 0.6f, Volume = 0.6f}, Projectile.Center);
+                        SoundEngine.PlaySound(SoundID.Item12 with { Pitch = 0.6f, Volume = 0.6f }, Projectile.Center);
                     }
                     AttackTarget(target);
                 }

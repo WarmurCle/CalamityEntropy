@@ -106,7 +106,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                             {
                                 p.ToProj().penetrate = 1;
                             }
-                            if(BookMarkTaurus.DontSetHitcd(eb))
+                            if (BookMarkTaurus.DontSetHitcd(eb))
                             {
                                 p.ToProj().ResetLocalNPCHitImmunity();
                             }
@@ -114,7 +114,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                             m.homing = esb.homing;
                             p.ToProj().scale = projectile.scale * 0.4f;
                         }
-                        if(!BookMarkTaurus.DontDestroy(eb))
+                        if (!BookMarkTaurus.DontDestroy(eb))
                             projectile.Kill();
                     }
                 }

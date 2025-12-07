@@ -1,19 +1,12 @@
 ﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Items.Armor.Azafure;
-using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
-using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -84,7 +77,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Projectile.rotation = Projectile.velocity.ToRotation();
             if (Projectile.ai[1] == 0)
             {
-                
+
                 if (Projectile.frameCounter == 0 || Projectile.frameCounter == 3 || Projectile.frameCounter == 6)
                 {
                     Projectile.velocity = (player.Calamity().mouseWorld - Projectile.Center).normalize() * 8;
@@ -94,12 +87,12 @@ namespace CalamityEntropy.Content.Items.Weapons
                     CEUtils.PlaySound("vbuse", Projectile.frameCounter / 6f + 2, Projectile.Center, 6, 0.35f);
                 }
             }
-            
+
             if (++Projectile.ai[1] == 4)
             {
-                
+
                 Projectile.ai[1] = 0;
-                
+
                 Projectile.frameCounter++;
                 if (Projectile.frameCounter >= 9)
                 {
@@ -124,7 +117,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             SpriteEffects effect = Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             Vector2 origin = new Vector2(Projectile.velocity.X > 0 ? 84 : tex.Width - 84, 254 / 2);
             float rot = Projectile.rotation + (Projectile.velocity.X > 0 ? 0 : MathHelper.Pi);
-            for(int i = 0; i < OldFrames.Count; i++)
+            for (int i = 0; i < OldFrames.Count; i++)
             {
                 frame = new Rectangle(0, OldFrames[i] * 256, tex.Width, 254);
                 Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, frame, lightColor * 0.16f * ((i + 1) / (float)OldFrames.Count), rot, origin, Scale, effect);
@@ -151,7 +144,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             for (int i = 0; i < 52; i++)
             {
                 float p = Main.rand.NextFloat();
-                EParticle.spawnNew(new EGlowOrb() { CenterScale = 0.55f}, CEUtils.randomPoint(target.Hitbox), CEUtils.randomPointInCircle(4) + Projectile.velocity.RotatedBy(0.5f * p * (Main.rand.NextBool() ? 1 : -1)) * 4f * Main.rand.NextFloat(0.2f, 1) * (1.2f - p), Color.Lerp(Color.DarkRed, Color.Firebrick, Main.rand.NextFloat()), 0.12f, 1, true, BlendState.Additive, 0, 18);
+                EParticle.spawnNew(new EGlowOrb() { CenterScale = 0.55f }, CEUtils.randomPoint(target.Hitbox), CEUtils.randomPointInCircle(4) + Projectile.velocity.RotatedBy(0.5f * p * (Main.rand.NextBool() ? 1 : -1)) * 4f * Main.rand.NextFloat(0.2f, 1) * (1.2f - p), Color.Lerp(Color.DarkRed, Color.Firebrick, Main.rand.NextFloat()), 0.12f, 1, true, BlendState.Additive, 0, 18);
             }
             EParticle.NewParticle(new ShineParticle(), target.Center, Vector2.Zero, Color.Red, 0.7f, 1, true, BlendState.Additive, 0, 8);
             EParticle.NewParticle(new ShineParticle(), target.Center, Vector2.Zero, Color.White, 0.56f, 1, true, BlendState.Additive, 0, 8);
@@ -163,12 +156,12 @@ namespace CalamityEntropy.Content.Items.Weapons
                 dust2.scale = Main.rand.NextFloat(0.9f, 2.4f);
                 dust2.noGravity = true;
             }
-            EParticle.spawnNew(new ElecParticle() { PixelShader = true}, target.Center, Vector2.Zero, new Color(255, 160, 160), 1.4f, 1, true, BlendState.Additive, 0, 26);
-            EParticle.spawnNew(new ElecParticle() { PixelShader = true }, target.Center, Vector2.Zero, Color.White , 1.2f, 1, true, BlendState.Additive, 0, 26);
+            EParticle.spawnNew(new ElecParticle() { PixelShader = true }, target.Center, Vector2.Zero, new Color(255, 160, 160), 1.4f, 1, true, BlendState.Additive, 0, 26);
+            EParticle.spawnNew(new ElecParticle() { PixelShader = true }, target.Center, Vector2.Zero, Color.White, 1.2f, 1, true, BlendState.Additive, 0, 26);
             target.AddBuff<GalvanicCorrosion>(8 * 60);
             target.AddBuff<Crumbling>(8 * 60);
             target.AddBuff(BuffID.Electrified, 8 * 60);
-            if(shake)
+            if (shake)
                 ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Projectile.velocity.normalize() * -2, 4f));
             shake = false;
         }

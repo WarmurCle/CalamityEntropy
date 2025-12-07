@@ -112,10 +112,10 @@ public class EPlayerDash : ModPlayer
         if (DashDelay > 0)
         {
             DashDelay--;
-            if(DashDelay <= 0)
+            if (DashDelay <= 0)
             {
                 Player.dashDelay = 20;
-                if(DashDir == DashUp)
+                if (DashDir == DashUp)
                     Player.Entropy().gravAddTime = 30;
             }
         }

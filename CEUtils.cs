@@ -7,8 +7,6 @@ using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
-using CalamityMod.Graphics.Primitives;
-using Microsoft.Build.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -25,7 +23,6 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using System.Reflection;
 
 namespace CalamityEntropy
 {
@@ -34,7 +31,7 @@ namespace CalamityEntropy
         public static int GetPriceFromRecipe(this ModItem item, Recipe recipe)
         {
             int total = 0;
-            foreach(var i in recipe.requiredItem)
+            foreach (var i in recipe.requiredItem)
             {
                 total += i.value * i.stack;
             }
@@ -42,7 +39,7 @@ namespace CalamityEntropy
         }
         public static Recipe FindRecipe(int type)
         {
-            foreach(Recipe r in Main.recipe)
+            foreach (Recipe r in Main.recipe)
             {
                 if (r.createItem.type == type)
                     return r;
@@ -64,7 +61,7 @@ namespace CalamityEntropy
             get
             {
                 var fInfo = typeof(Main).GetField("_mouseTextCache", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Instance);
-                if(fInfo != null)
+                if (fInfo != null)
                 {
                     object obj = fInfo.GetValue(Main.instance);
                     var strInfo = obj.GetType().GetField("cursorText");
@@ -469,7 +466,7 @@ namespace CalamityEntropy
             float s = Utils.Remap(Main.LocalPlayer.Distance(center), MaxDist, 800, 0f, strength * 1);
             ScreenShaker.AddShake((Main.LocalPlayer.Center - center).normalize(), s);
             //if (Main.LocalPlayer.Calamity().GeneralScreenShakePower < s)
-                //Main.LocalPlayer.Calamity().GeneralScreenShakePower = s;
+            //Main.LocalPlayer.Calamity().GeneralScreenShakePower = s;
         }
         public static List<Vector2> WrapPoints(List<Vector2> points, int d)
         {
@@ -1784,7 +1781,7 @@ namespace CalamityEntropy
 
             if (!target.chaseable || curDist > distRequired && !ignoreDist)
                 canHome = false;
-            else 
+            else
                 canHome = true;
             if (canHome)
             {
@@ -1990,8 +1987,8 @@ namespace CalamityEntropy
                     proj.velocity.Y -= acceleration;
             }
         }
-                public static void BeginDefault(this SpriteBatch SB) =>
-            SB.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        public static void BeginDefault(this SpriteBatch SB) =>
+    SB.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         #region ShaderSB
         public static void BeginShader(this SpriteBatch SB) =>
             SB.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);

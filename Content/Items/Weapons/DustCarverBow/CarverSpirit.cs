@@ -3,12 +3,8 @@ using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -44,11 +40,11 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             modifiers.ArmorPenetration += 64;
-            
+
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(HealingCooldown <= 0)
+            if (HealingCooldown <= 0)
             {
                 HealingCooldown = 30.ApplyCdDec(Projectile.GetOwner());
                 Projectile.GetOwner().Heal(1);
@@ -61,18 +57,18 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
 
             white--;
             Player player = Projectile.GetOwner();
-            if(player.heldProj < 0)
+            if (player.heldProj < 0)
             {
-                foreach(var pr in Main.ActiveProjectiles)
+                foreach (var pr in Main.ActiveProjectiles)
                 {
-                    if(pr.owner == Projectile.owner && pr.ModProjectile is DustCarverHeld)
+                    if (pr.owner == Projectile.owner && pr.ModProjectile is DustCarverHeld)
                     {
                         player.heldProj = pr.whoAmI;
                         break;
                     }
                 }
             }
-            if(player.HeldItem.ModItem is DustCarver && !player.dead && player.heldProj >= 0)
+            if (player.HeldItem.ModItem is DustCarver && !player.dead && player.heldProj >= 0)
             {
                 Projectile.timeLeft = 4;
             }
@@ -98,9 +94,9 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             }
             int count = 0;
             int id = 0;
-            foreach(Projectile proj in Main.ActiveProjectiles)
+            foreach (Projectile proj in Main.ActiveProjectiles)
             {
-                if(proj.type == Projectile.type && proj.owner == Projectile.owner && proj.ModProjectile is CarverSpirit cs && cs.mode == mode)
+                if (proj.type == Projectile.type && proj.owner == Projectile.owner && proj.ModProjectile is CarverSpirit cs && cs.mode == mode)
                 {
                     if (proj.whoAmI == Projectile.whoAmI)
                     {
@@ -111,7 +107,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             }
             Delay--;
             NPC target = CEUtils.FindTarget_HomingProj(Projectile, Vector2.Lerp(player.Center, Projectile.Center, 0.32f), 3400);
-            switch(mode)
+            switch (mode)
             {
                 case Mode.Penetrate:
                     {
@@ -215,7 +211,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                             Vector2 targetPosp;
                             int index = id;
                             int maxFlies = count;
-                            
+
                             targetPosp = player.Center + MathHelper.ToRadians(((float)(index) / (float)(maxFlies)) * 360).ToRotationVector2().RotatedBy(player.Entropy().CasketSwordRot * 0.4f) * 140;
                             Projectile.velocity += (targetPosp - Projectile.Center).SafeNormalize(Vector2.Zero) * 3f;
                             Projectile.velocity *= 0.9f;
@@ -234,10 +230,10 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                 OldPos.RemoveAt(0);
         }
         public int white = 0;
-        
+
         public override bool PreDraw(ref Color lightColor)
         {
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
                 if (white > 0)
                 {

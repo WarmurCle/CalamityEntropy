@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
 
 namespace CalamityEntropy.Content.Particles
 {

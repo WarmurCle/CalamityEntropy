@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 6;
             Item.rare = ModContent.RarityType<AbyssalBlue>();
-	        Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
+            Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
             Item.UseSound = null;
             Item.noMelee = true;
             Item.noUseGraphic = true;

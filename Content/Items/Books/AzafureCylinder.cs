@@ -2,7 +2,6 @@ using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityMod;
-using CalamityMod.Items.LoreItems;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -32,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Books
                 .AddIngredient(ItemID.Obsidian, 6)
                 .AddTile(TileID.Hellforge)
                 .Register();
-                
+
         }
     }
 
@@ -51,7 +50,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override Texture2D[] UIOpenAnimations()
         {
-            return new Texture2D[] {CEUtils.RequestTex("CalamityEntropy/Content/Items/Books/Textures/AzafureCylinder/AzafureCylinderUI") };
+            return new Texture2D[] { CEUtils.RequestTex("CalamityEntropy/Content/Items/Books/Textures/AzafureCylinder/AzafureCylinderUI") };
         }
         public override int baseProjectileType => ModContent.ProjectileType<MetalBall>();
         public int frC = 0;
@@ -63,11 +62,11 @@ namespace CalamityEntropy.Content.Items.Books
             if (active)
             {
                 frC++;
-                if(frC > frameChange)
+                if (frC > frameChange)
                 {
                     frC = 0;
                     Projectile.frame++;
-                    if(Projectile.frame > 8)
+                    if (Projectile.frame > 8)
                     {
                         Projectile.frame = 0;
                     }
@@ -122,7 +121,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            
+
             if (oldVelocity.X != 0 && Projectile.velocity.X == 0)
             {
                 Projectile.velocity.X = oldVelocity.X * -0.5f;
@@ -130,27 +129,28 @@ namespace CalamityEntropy.Content.Items.Books
             if (oldVelocity.Y != 0 && Projectile.velocity.Y == 0)
             {
                 Projectile.velocity.Y = oldVelocity.Y * -0.5f;
-                Projectile.velocity.X *= 0.85f;           }
-            if(oldVelocity.Length() > 4)
-                SoundEngine.PlaySound(SoundID.Dig with { Volume = 0.6f}, Projectile.Center);
+                Projectile.velocity.X *= 0.85f;
+            }
+            if (oldVelocity.Length() > 4)
+                SoundEngine.PlaySound(SoundID.Dig with { Volume = 0.6f }, Projectile.Center);
             return false;
         }
         public TrailParticle trail = null;
         public override void AI()
         {
-            if (Projectile.localAI[2] ++ == 0)
+            if (Projectile.localAI[2]++ == 0)
             {
                 if (Projectile.GetOwner().AzafureEnhance())
                     Projectile.timeLeft *= 2;
                 CEUtils.PlaySound("aprclaunch", Main.rand.NextFloat(2, 2.4f), Projectile.Center);
             }
-            if(trail == null)
+            if (trail == null)
             {
                 trail = new TrailParticle() { maxLength = 9, ShouldDraw = false };
                 EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.4f, 1, true, BlendState.Additive);
             }
             base.AI();
-            foreach(NPC n in Main.ActiveNPCs)
+            foreach (NPC n in Main.ActiveNPCs)
             {
                 if (!n.friendly && !n.dontTakeDamage && n.Hitbox.Intersects(Projectile.Center.getRectCentered(140, 140)))
                 {
@@ -165,7 +165,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             CEUtils.PlaySound("explosionbig", 1.6f, Projectile.Center, 8, 0.26f);
             CEUtils.PlaySound("pulseBlast", 0.8f, Projectile.Center, 8, 0.46f);
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
                 ((EntropyBookHeldProjectile)ShooterModProjectile).ShootSingleProjectile(ModContent.ProjectileType<AzafureMagicBlast>(), Projectile.Center, Vector2.Zero, 1, 1, 0);
         }
         public override bool? CanHitNPC(NPC target)

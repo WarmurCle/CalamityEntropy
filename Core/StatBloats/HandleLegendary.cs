@@ -1,15 +1,10 @@
 ﻿using CalamityMod;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Core.StatBloats
 {
-    internal partial class StatBloatToWeapons :GlobalItem
+    internal partial class StatBloatToWeapons : GlobalItem
     {
         #region 传奇武器使用
         private const float PostMLWeaponsBoost = 1.3f; // 月后
@@ -49,14 +44,14 @@ namespace CalamityEntropy.Core.StatBloats
             if (DownedBossSystem.downedExoMechs && DownedBossSystem.downedCalamitas)
                 boost += PostShadowspecWeaponsBoost - PostExoAndScalWeaponsBoost;
             //clamp一下避免因为过度计算出事
-            boost = MathHelper.Clamp(boost, 1f,PostShadowspecWeaponsBoost);
-            return boost;        
+            boost = MathHelper.Clamp(boost, 1f, PostShadowspecWeaponsBoost);
+            return boost;
         }
 
         internal void HandleTlipocaz()
         {
 
         }
-        
+
     }
 }

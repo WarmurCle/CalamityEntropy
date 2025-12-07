@@ -7,7 +7,6 @@ using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
-using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -52,7 +51,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                 modPlayer.DashID = AzafureDriverDash.ID;
                 player.dashType = 0;
             }
-            
+
             player.Entropy().AzafureDriverShieldItem = Item;
         }
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)

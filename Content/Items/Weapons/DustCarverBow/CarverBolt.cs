@@ -1,13 +1,8 @@
-﻿using CalamityEntropy.Content.Items.Weapons.GrassSword;
-using CalamityMod;
+﻿using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
@@ -52,7 +47,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             }
             drawcount++;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if(Projectile.timeLeft < 30)
+            if (Projectile.timeLeft < 30)
             {
                 Projectile.Opacity -= 1 / 30f;
             }

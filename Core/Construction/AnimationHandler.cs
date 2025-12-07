@@ -1,6 +1,3 @@
-using CalamityEntropy.Content.Items.Accessories;
-using System;
-
 namespace CalamityEntropy.Core.Construction
 {
     public struct AnimationHandler(int slots)

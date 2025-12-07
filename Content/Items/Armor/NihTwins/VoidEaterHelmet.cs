@@ -4,7 +4,6 @@ using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -38,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             player.setBonus = player.setBonus.Replace("[KEY]", CalamityKeybinds.ArmorSetBonusHotKey.TooltipHotkeyString());
             player.setBonus = player.setBonus.Replace("[KN]", CalamityKeybinds.ArmorSetBonusHotKey.DisplayName.Value);
             player.setBonus = player.setBonus.Replace("[SHIELD]", MaxShield.ToString());
-            
+
             player.Entropy().NihilitySet = true;
             player.GetDamage(DamageClass.Generic) += 0.24f;
             player.maxMinions += 3;
@@ -97,9 +96,9 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
-            
+
             if (st)
-            {               
+            {
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(100, 100, 255), 0.6f, 1, true, BlendState.Additive, 0, 14);
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.32f, 1, true, BlendState.Additive, 0, 14);
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.32f, 1, true, BlendState.Additive, 0, 14);
@@ -146,7 +145,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
                 }
             }
             Main.LocalPlayer.Calamity().GeneralScreenShakePower += Utils.Remap(Main.LocalPlayer.Distance(Projectile.Center), 1600f, 100f, 0f, 0.08f);
-            
+
             if (Projectile.timeLeft < 6)
             {
                 width -= 1f / 20f;

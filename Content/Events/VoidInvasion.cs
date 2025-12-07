@@ -10,7 +10,7 @@ namespace CalamityEntropy.Content.Events
         public static float Progress = 0;
         public override void PostUpdateEverything()
         {
-            if(Active)
+            if (Active)
             {
                 Main.LocalPlayer.Entropy().VortexSky = 5;
             }

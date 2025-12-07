@@ -4,7 +4,6 @@ using CalamityMod;
 using CalamityMod.NPCs.ExoMechs.Ares;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;

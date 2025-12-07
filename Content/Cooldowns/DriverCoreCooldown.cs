@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Common;
-using CalamityMod.Cooldowns;
+﻿using CalamityMod.Cooldowns;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;

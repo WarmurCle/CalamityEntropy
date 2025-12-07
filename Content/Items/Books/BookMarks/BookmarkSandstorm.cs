@@ -1,6 +1,5 @@
 ﻿using CalamityMod;
 using CalamityMod.Dusts;
-using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Terraria;

@@ -232,7 +232,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
                 trail = new TrailParticle() { maxLength = 12, SameAlpha = true };
                 EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, new Color(255, 100, 255), 1.2f, 1, true, BlendState.Additive);
             }
-            
+
             trail.AddPoint(Projectile.Center + Projectile.velocity);
             trail.TimeLeftMax = trail.Lifetime = 13;
             Projectile.rotation = Projectile.velocity.ToRotation();

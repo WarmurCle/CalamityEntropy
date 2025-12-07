@@ -248,7 +248,7 @@ namespace CalamityEntropy.Content.Projectiles
                                 GeneralParticleHandler.SpawnParticle(spark);
                                 AltSparkParticle spark2 = new AltSparkParticle(target.Center + new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-6, 6)), new Vector2(Main.rand.NextFloat(0, 16)).RotatedBy(MathHelper.ToRadians(i * 90)), false, 60, Main.rand.NextFloat(1, 1.4f), Color.OrangeRed);
                                 GeneralParticleHandler.SpawnParticle(spark2);
-                                
+
                             }
                         }
                         for (int j = 0; j < 46; j++)

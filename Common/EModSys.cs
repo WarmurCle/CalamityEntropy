@@ -17,16 +17,13 @@ using CalamityMod;
 using CalamityMod.Items.Ammo;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.NPCs.SlimeGod;
-using CalamityMod.Systems;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
 using ReLogic.Graphics;
-using Steamworks;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.ResourceSets;
@@ -122,7 +119,7 @@ namespace CalamityEntropy.Common
             float scale = player.Entropy().DriverScale;
             Texture2D noise = CEUtils.getExtraTex("Noise_14");
             Texture2D tex = CEUtils.getExtraTex("RectShield");
-            if(active)
+            if (active)
             {
                 float alpha = 0.5f + 0.5f * progress;
                 Main.spriteBatch.Begin(0, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
@@ -167,13 +164,13 @@ namespace CalamityEntropy.Common
         }
         public override void PostDrawTiles()
         {
-            foreach(Player player in Main.ActivePlayers)
+            foreach (Player player in Main.ActivePlayers)
             {
                 EModPlayer mp = player.Entropy();
-                if(mp.AzafureDriverShieldItem != null)
+                if (mp.AzafureDriverShieldItem != null)
                 {
                     float p = (float)mp.DriverShield / AzafureDriverCore.MaxShield;
-                    if(mp.DriverShield <= 0)
+                    if (mp.DriverShield <= 0)
                     {
                         p = (float)mp.DriverRecharge / AzafureDriverCore.RechargeTime;
                     }
@@ -660,7 +657,7 @@ namespace CalamityEntropy.Common
                     return true;
                 },
                 InterfaceScaleType.UI));
-                
+
             }
         }
 

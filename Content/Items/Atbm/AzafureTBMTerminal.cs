@@ -217,7 +217,7 @@ namespace CalamityEntropy.Content.Items.Atbm
                 Projectile.Kill();
             else
             {
-                if(Main.myPlayer == Projectile.owner)
+                if (Main.myPlayer == Projectile.owner)
                     Projectile.timeLeft = 16 * 60;
             }
             InGround = false;

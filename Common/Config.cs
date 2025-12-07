@@ -49,7 +49,7 @@ namespace CalamityEntropy.Common
         public bool EnablePixelEffect { get; set; }
 
         [DefaultValue(true)]
-        public bool EnableLoopingSound {  get; set; }
+        public bool EnableLoopingSound { get; set; }
 
         [DefaultValue(false)]
         public bool EnableRetroLighting { get; set; }

@@ -1,9 +1,4 @@
 ﻿using InnoVault;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,7 +13,7 @@ namespace CalamityEntropy
     {
         public override void SetDefaults(Item entity)
         {
-            if(PriceSetSys.Inited && entity.ModItem != null && entity.ModItem is IPriceFromRecipe pfr)
+            if (PriceSetSys.Inited && entity.ModItem != null && entity.ModItem is IPriceFromRecipe pfr)
             {
                 entity.value = entity.ModItem.GetPriceFromRecipe(CEUtils.FindRecipe(entity.type)) + pfr.AdditionalPrice;
             }

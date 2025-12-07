@@ -7,7 +7,6 @@ using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -105,7 +104,7 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
                 }
             }
             var target_ = Projectile.FindMinionTarget(10000);
-            if(target_ != null && target != target_)
+            if (target_ != null && target != target_)
             {
                 Num = 0;
             }
@@ -117,7 +116,7 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
                 if (ShootCount <= 0)
                 {
                     ShootDelay--;
-                    if(ShootDelay == 40)
+                    if (ShootDelay == 40)
                     {
                         CEUtils.PlaySound("Alarm", 1, Projectile.Center);
                     }
@@ -127,7 +126,7 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
                     ShootCooldown--;
                     if (ShootCooldown <= 0)
                     {
-                        Projectile.frame=1;
+                        Projectile.frame = 1;
                         ShootCooldown = 12;
                         ShootCount--;
                         if (Main.myPlayer == Projectile.owner)
@@ -151,7 +150,7 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
                 if (ShootDelay > 0)
                     ShootDelay--;
             }
-            
+
 
         }
         public float Num = 0;
@@ -256,7 +255,7 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
         }
         public override void OnKill(int timeLeft)
         {
-            if(particle != null)
+            if (particle != null)
             {
                 particle.Lifetime = 0;
             }

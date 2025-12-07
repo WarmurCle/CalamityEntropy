@@ -265,7 +265,7 @@ namespace CalamityEntropy.Content.Items.Books
                     }
                 }
             }
-            ShootSingleProjectile(type, Projectile.Center, Projectile.velocity, MainProjectile:true);
+            ShootSingleProjectile(type, Projectile.Center, Projectile.velocity, MainProjectile: true);
 
             return true;
         }
@@ -306,7 +306,7 @@ namespace CalamityEntropy.Content.Items.Books
             if (ItemLoader.Shoot(bookItem, Projectile.GetOwner(), new Terraria.DataStructures.EntitySource_ItemUse_WithAmmo(Projectile.GetOwner(), bookItem, 0), pos, velocity * ContentSamples.ProjectilesByType[type].MaxUpdates, type, dmg, kb))
             {
                 Projectile proj = Projectile.NewProjectile(Projectile.GetOwner().GetSource_ItemUse(bookItem), pos, shootVel, type, dmg, kb, Projectile.owner).ToProj();
-                if(proj.penetrate >= 0)
+                if (proj.penetrate >= 0)
                     proj.penetrate += modifer.PenetrateAddition;
                 proj.CritChance = bookItem.crit + (int)modifer.Crit;
                 proj.scale *= modifer.Size * scaleMul;

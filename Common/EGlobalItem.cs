@@ -457,9 +457,9 @@ namespace CalamityEntropy.Common
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if(item.ModItem != null && item.ModItem is IAzafureEnhancable && Main.LocalPlayer.AzafureEnhance())
+            if (item.ModItem != null && item.ModItem is IAzafureEnhancable && Main.LocalPlayer.AzafureEnhance())
             {
-                tooltips.Add(new TooltipLine(Mod, "Azafure Enhance", $"{Mod.GetLocalization("AzafureEnhance").Value}: " + item.ModItem.Mod.GetLocalization($"AzafureEnhances.{item.ModItem.Name}").Value) { OverrideColor = Color.Yellow});
+                tooltips.Add(new TooltipLine(Mod, "Azafure Enhance", $"{Mod.GetLocalization("AzafureEnhance").Value}: " + item.ModItem.Mod.GetLocalization($"AzafureEnhances.{item.ModItem.Name}").Value) { OverrideColor = Color.Yellow });
             }
             if (ModContent.GetInstance<Config>().ItemAdditionalInfo)
             {
@@ -1628,7 +1628,7 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<PlagueInternalCombustionEngine>(), 4);
             }
-	        if (item.Is<CalamitasCloneBag>())
+            if (item.Is<CalamitasCloneBag>())
             {
                 itemLoot.Add(ModContent.ItemType<FriendBox>(), 5);
             }

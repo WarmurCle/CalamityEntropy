@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Common;
 using CalamityMod.Items;
-using CalamityMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
@@ -12,20 +11,22 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
     public class BookmarkStarwreckage : BookMark
     {
-        public static int MetallicChunk { get
+        public static int MetallicChunk
+        {
+            get
             {
                 if (ModLoader.TryGetMod("NoxusBoss", out Mod nb) && nb.TryFind<ModItem>("MetallicChunk", out var item))
                     return item.Type;
                 return -1;
-            } 
+            }
         }
         public override void SetDefaults()
         {
             base.SetDefaults();
             Item.rare = ItemRarityID.Red;
-            if(ModLoader.TryGetMod("NoxusBoss", out Mod nb))
+            if (ModLoader.TryGetMod("NoxusBoss", out Mod nb))
             {
-                if(nb.TryFind<ModRarity>("AvatarRarity", out var rare))
+                if (nb.TryFind<ModRarity>("AvatarRarity", out var rare))
                 {
                     Item.rare = rare.Type;
                 }
@@ -40,7 +41,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void AddRecipes()
         {
             int type = MetallicChunk;
-            if(type > 0)
+            if (type > 0)
             {
                 CreateRecipe().AddIngredient(type)
                     .AddTile(TileID.WorkBenches).Register();
@@ -75,9 +76,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public override void ApplyHoming()
         {
-            
+
         }
-        
+
         public override void AI()
         {
             base.AI();
@@ -115,7 +116,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 Main.EntitySpriteDraw(Projectile.getDrawData(lightColor, tex));
             }
             {
-                
+
             }
             return false;
         }

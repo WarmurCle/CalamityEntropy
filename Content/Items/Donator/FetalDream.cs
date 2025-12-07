@@ -1,20 +1,14 @@
 using CalamityEntropy.Content.Cooldowns;
-using CalamityEntropy.Content.Items.Weapons.Fractal;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Projectiles.Rogue;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -57,9 +51,9 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            foreach(var tl in tooltips)
+            foreach (var tl in tooltips)
             {
-                if(tl.Mod == "Terraria" && tl.Name == "Damage")
+                if (tl.Mod == "Terraria" && tl.Name == "Damage")
                 {
                     tl.Text = $"{Main.LocalPlayer.GetWeaponDamage(Item, true).ToString()} {Mod.GetLocalization("FetalDreamDamage").Value}";
                 }
@@ -122,7 +116,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 }
                 CEUtils.PlaySound("ExobladeBeamSlash", Main.rand.NextFloat(1.6f, 2f), Projectile.GetOwner().Center);
             }
-            
+
             player.Entropy().CruiserAntiGravTime = 5;
             Projectile.ai[1]++;
             Projectile.Center = player.GetDrawCenter();
@@ -158,7 +152,7 @@ namespace CalamityEntropy.Content.Items.Donator
             CEUtils.PlaySound("ystn_hit", 2.7f, target.Center);
             var player = Projectile.GetOwner();
             target.AddBuff<MarkedforDeath>(12 * 60);
-            if(!player.HasCooldown(FetalDreamCooldown.ID))
+            if (!player.HasCooldown(FetalDreamCooldown.ID))
             {
                 CalamityEntropy.FlashEffectStrength = 0.8f;
                 player.Entropy().immune = 80;
@@ -168,7 +162,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 target.StrikeNPC(target.CalculateHitInfo((int)(target.lifeMax * 0.0514), Projectile.velocity.X > 0 ? 1 : -1, false, 6, DamageClass.Default));
                 player.AddBuff(ModContent.BuffType<Koishi>(), 600);
             }
-            
+
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -211,7 +205,7 @@ namespace CalamityEntropy.Content.Items.Donator
         }
 
     }
-    public class Koishi: ModBuff
+    public class Koishi : ModBuff
     {
         public override void Update(NPC npc, ref int buffIndex)
         {

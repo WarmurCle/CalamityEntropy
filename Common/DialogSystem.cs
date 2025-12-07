@@ -1,5 +1,3 @@
-using Terraria.Utilities;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using System;
@@ -7,7 +5,6 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
-using Terraria.GameContent;
 
 namespace CalamityEntropy.Common
 {
@@ -137,7 +134,7 @@ namespace CalamityEntropy.Common
         }
         public void draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            if(drawRect)
+            if (drawRect)
             {
                 heightMult = float.Lerp(heightMult, 1, 0.16f);
                 int addw = 18;
@@ -167,7 +164,7 @@ namespace CalamityEntropy.Common
                         }
                     }
                     Color colordraw = this.colorList[i];
-                    
+
                     Texture2D light = CEUtils.getExtraTex("light");
                     Vector2 dsize = new Vector2(this.font.MeasureString(this.text[i].ToString()).X, this.font.MeasureString(this.text[i].ToString()).X);
                     if (this.lightSizeList[i] != Vector2.Zero)
@@ -196,10 +193,10 @@ namespace CalamityEntropy.Common
                     posp.Y += 36 * this.scale;
                 }
             }
-            if(drawRect && Finish())
+            if (drawRect && Finish())
             {
                 Vector2 rb = position + new Vector2(width - 6, height * heightMult - 10);
-                spriteBatch.DrawString(this.font, ">", rb, Color.LightSkyBlue, 0, new Vector2(0, 0), new Vector2(this.scale, this.scale)    , SpriteEffects.None, 0);
+                spriteBatch.DrawString(this.font, ">", rb, Color.LightSkyBlue, 0, new Vector2(0, 0), new Vector2(this.scale, this.scale), SpriteEffects.None, 0);
             }
         }
     }

@@ -1,9 +1,6 @@
 ﻿using CalamityMod;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -26,7 +23,7 @@ namespace CalamityEntropy
             {
                 amplitude -= 0.01f;
                 amplitude *= 0.96f;
-                if(amplitude < 0)
+                if (amplitude < 0)
                     amplitude = 0;
                 Counter += Direction.Length() == 0 ? 1 : amplitude;
             }
@@ -46,11 +43,11 @@ namespace CalamityEntropy
         }
         public static void Update()
         {
-            foreach(var ss in shakes)
+            foreach (var ss in shakes)
             {
                 ss.Update();
             }
-            for(int i = shakes.Count - 1; i >= 0; i--)
+            for (int i = shakes.Count - 1; i >= 0; i--)
             {
                 if (shakes[i].amplitude < 0.01f)
                 {
@@ -87,10 +84,10 @@ namespace CalamityEntropy
         public static Vector2 GetShiftVec()
         {
             Vector2 vec = Vector2.Zero;
-            foreach(var ss in shakes)
+            foreach (var ss in shakes)
             {
                 vec += ss.GetShiftVec();
-            }    
+            }
             return vec * ModContent.GetInstance<CalamityClientConfig>().ScreenshakePower;
         }
     }

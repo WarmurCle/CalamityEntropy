@@ -1,11 +1,6 @@
-﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Content.Tiles;
-using CalamityMod;
+﻿using CalamityMod;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

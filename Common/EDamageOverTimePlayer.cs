@@ -1,9 +1,4 @@
 ﻿using CalamityEntropy.Content.Buffs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -14,7 +9,7 @@ namespace CalamityEntropy.Common
         public override void UpdateBadLifeRegen()
         {
             int damageApply = 0;
-            if(Player.HasBuff<LifeOppress>())
+            if (Player.HasBuff<LifeOppress>())
             {
                 damageApply += 60;
             }
@@ -22,8 +17,9 @@ namespace CalamityEntropy.Common
             {
                 damageApply += 8;
             }
-            if (damageApply > 0) {
-                if(Player.lifeRegen > 0)
+            if (damageApply > 0)
+            {
+                if (Player.lifeRegen > 0)
                     Player.lifeRegen = 0;
                 Player.lifeRegen -= damageApply;
             }

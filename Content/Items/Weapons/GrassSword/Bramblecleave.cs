@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -99,7 +98,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         {
             get
             {
-                return ((float)(MathF.Sin(Main.GlobalTimeWrappedHourly * 1f) * 1.2f + 1.4f)).ToClamp(1.0f,2.4f);
+                return ((float)(MathF.Sin(Main.GlobalTimeWrappedHourly * 1f) * 1.2f + 1.4f)).ToClamp(1.0f, 2.4f);
             }
         }
 

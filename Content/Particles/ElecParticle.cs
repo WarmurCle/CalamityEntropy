@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using Terraria;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles

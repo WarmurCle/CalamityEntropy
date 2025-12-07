@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items
         public override void RightClick(Player player)
         {
             CooldownReduce -= 0.25f;
-            if(CooldownReduce < 0)
+            if (CooldownReduce < 0)
             {
                 CooldownReduce = 1;
             }

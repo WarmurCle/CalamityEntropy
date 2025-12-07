@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets
             counter++;
             Player player = Main.player[Projectile.owner];
             MoveToTarget(player.Center + new Vector2(0, -80) + new Vector2(-100 * player.direction, 0));
-            
+
             if (!player.dead && player.HasBuff(ModContent.BuffType<ConsecratedRefuge>()))
             {
                 Projectile.timeLeft = 2;

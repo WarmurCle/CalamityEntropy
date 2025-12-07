@@ -1,5 +1,4 @@
 ﻿using CalamityOverhaul.Content;
-using InnoVault;
 using Terraria;
 using Terraria.ModLoader;
 

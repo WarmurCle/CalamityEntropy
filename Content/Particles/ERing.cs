@@ -1,14 +1,6 @@
-﻿
-using CalamityEntropy.Content.Items.Vanity;
-using CalamityMod;
-using CalamityMod.Graphics.Primitives;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Runtime.Intrinsics.Arm;
 using Terraria;
-using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
-using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles
 {
@@ -23,7 +15,7 @@ namespace CalamityEntropy.Content.Particles
         public override void AI()
         {
             base.AI();
-            distance = Scale * (1-(((float)Lifetime) / TimeLeftMax));
+            distance = Scale * (1 - (((float)Lifetime) / TimeLeftMax));
         }
         public (List<Vector2>, List<Vector2>) calPoints()
         {
@@ -51,7 +43,7 @@ namespace CalamityEntropy.Content.Particles
             var pOut = points.Item2;
             float Alpha = (((float)Lifetime) / TimeLeftMax);
             List<ColoredVertex> vertices = new List<ColoredVertex>();
-            for(int i = 0; i < pIn.Count; i++)
+            for (int i = 0; i < pIn.Count; i++)
             {
                 Color c = Color * Alpha * Opacity;
                 vertices.Add(new ColoredVertex(Position + pIn[i] - Main.screenPosition, new Vector3((float)i / (pIn.Count - 1), 1, 1), c));

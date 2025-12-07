@@ -4,10 +4,8 @@ using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using Humanizer;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Diagnostics.Metrics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -90,7 +88,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Player player = Projectile.GetOwner();
             int counter = (int)Projectile.ai[1]++;
             int MaxTime = 102;
-            if(target == null || !target.active)
+            if (target == null || !target.active)
             {
                 if (counter < MaxTime - 1)
                     Projectile.ai[1] = MaxTime - 1;
@@ -133,11 +131,11 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if (counter > 6 && counter < MaxTime - 24 && counter % 3 == 0)
                 {
                     if (counter % 9 == 0)
-                        EParticle.NewParticle(new PrismShard() { PixelShader = true}, target.Center + CEUtils.randomPointInCircle(128), Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
+                        EParticle.NewParticle(new PrismShard() { PixelShader = true }, target.Center + CEUtils.randomPointInCircle(128), Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
                     CEUtils.SetShake(Projectile.Center, 4);
                     CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, Projectile.Center, Projectile.damage / 4, 280, Projectile.DamageType).ArmorPenetration = 200;
                     float rot = CEUtils.randomRot();
-                    for(int i = 0; i < 24; i++)
+                    for (int i = 0; i < 24; i++)
                     {
                         Particle p = new Particle();
                         p.position = Projectile.Center + -rot.ToRotationVector2() * 180;
@@ -154,7 +152,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (counter == MaxTime - 18)
             {
-                for(int i = 0; i < 32; i++)
+                for (int i = 0; i < 32; i++)
                 {
                     var ps = target.Center + new Vector2(Main.rand.NextFloat(-120, 120), Main.rand.NextFloat(-80, 80));
                     EParticle.NewParticle(new ShineParticle(), ps, (target.Center + new Vector2(0, -1000) - ps) / 12f, new Color(140, 140, 255), 0.5f, 1, true, BlendState.Additive, 0, 12);
@@ -201,10 +199,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 int adjustDrawingYPos = -20 - target.height / 2;
                 Vector2 drawPos = Projectile.Center + new Vector2(0, adjustDrawingYPos);
-                 float alpha = float.Min(counter / 12, 1);
+                float alpha = float.Min(counter / 12, 1);
                 DrawChain(target.Center, alpha + 0.3f + (counter > 46 ? ((counter - 46) / 8f) : 0));
                 Main.EntitySpriteDraw(circle, target.Center - Main.screenPosition, null, Color.White * (0.6f + 0.2f * (float)(Math.Cos(Main.GameUpdateCount * 0.15f))) * float.Min(1, counter / 12f), Main.GlobalTimeWrappedHourly * 1.2f, circle.Size() / 2f, Projectile.scale * 1.5f, SpriteEffects.None);
-                
+
             }
             return false;
         }

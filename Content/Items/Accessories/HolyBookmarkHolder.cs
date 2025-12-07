@@ -25,8 +25,8 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.Entropy().AdditionalBookmarkSlot += 2;
             player.GetAttackSpeed(DamageClass.Magic) += MAGESPEED;
             player.GetDamage(DamageClass.Magic) += MAGEDAMAGE;
-            if (!Main.dedServ) 
-                for(int i = 0; i < 2; i++)
+            if (!Main.dedServ)
+                for (int i = 0; i < 2; i++)
                     player.Entropy().BookmarkHolderSpecialTextures.Add(CEUtils.RequestTex("CalamityEntropy/Content/UI/EntropyBookUI/Extra3"));
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)

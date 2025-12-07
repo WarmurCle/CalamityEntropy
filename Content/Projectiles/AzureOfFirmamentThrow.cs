@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.ai[0] > 10)
             {
-                for(float i = 0; i <= 1; i +=0.1f)
+                for (float i = 0; i <= 1; i += 0.1f)
                 {
                     Vector2 velocity1 = CEUtils.randomPointInCircle(4);
                     Particle sparkle1 = new CritSpark(Projectile.Center - Projectile.velocity * i + Projectile.velocity * 1.4f, velocity1, Color.White * 0.6f, Color.SkyBlue, 0.5f, 8, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));

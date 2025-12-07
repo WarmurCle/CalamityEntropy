@@ -92,7 +92,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
         }
         public override void CutTiles()
         {
-            if(Projectile.GetOwner().channel)
+            if (Projectile.GetOwner().channel)
                 Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 480 * Projectile.scale, 128, DelegateMethods.CutTiles);
         }
         public Rope rope = null;
@@ -121,15 +121,15 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
             player.itemRotation = (Projectile.velocity * player.direction).ToRotation();
             if (BaseScale == 0)
                 BaseScale = Projectile.scale;
-            
-            if(Main.myPlayer == Projectile.owner)
+
+            if (Main.myPlayer == Projectile.owner)
             {
-                if(Main.mouseLeft && !Main.LocalPlayer.mouseInterface)
+                if (Main.mouseLeft && !Main.LocalPlayer.mouseInterface)
                 {
                     player.channel = true;
                 }
             }
-            if(!player.dead && player.HeldItem.ModItem is StarBreaker)
+            if (!player.dead && player.HeldItem.ModItem is StarBreaker)
             {
                 Projectile.timeLeft = 2;
             }
@@ -145,14 +145,14 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
             {
                 player.itemTime = player.itemAnimation = 3;
                 AttackDelay--;
-                if(AttackDelay < 0 || AttackTime > 0)
+                if (AttackDelay < 0 || AttackTime > 0)
                 {
                     int ItemTime = player.HeldItem.useTime;
                     float add = player.GetTotalAttackSpeed(Projectile.DamageType) * (1f / ItemTime) * (AttackCount % 4 == 3 ? 2 : 3f);
                     if (AttackTime == 0)
                     {
                         for (int i = 0; i < 4; i++)
-                            SoundEngine.PlaySound(SoundID.Item1 with { MaxInstances = 10}, Projectile.Center);
+                            SoundEngine.PlaySound(SoundID.Item1 with { MaxInstances = 10 }, Projectile.Center);
                         if (!(AttackCount % 4 == 3))
                             RotP = Main.rand.NextFloat(-0.3f, 0.3f);
                         num = (RotP * -2f) / (1 / add);
@@ -162,11 +162,11 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
                     }
                     RotP += num;
                     AttackTime += add;
-                    
+
                     if (AttackTime > 1)
-                        AttackTime = 1; 
+                        AttackTime = 1;
                     Projectile.Center += Projectile.rotation.ToRotationVector2() * 150 * Projectile.scale * CEUtils.Parabola(AttackTime, 1);//(AttackTime > 0.5f ? (1 - (AttackTime - 0.5f) * 2) : AttackTime * 2);
-                    
+
                     if (AttackTime >= 1)
                     {
                         AttackTime = 0;
@@ -232,7 +232,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
                 PlaySound = true;
                 CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(0.8f, 1.4f), target.Center);
             }
-            for(int i = 0; i < 32; i++)
+            for (int i = 0; i < 32; i++)
             {
                 float sparkScale2 = Main.rand.NextFloat(1.4f, 2.4f);
                 Vector2 sparkVelocity2 = Projectile.rotation.ToRotationVector2().RotatedByRandom(0.2f) * 64 * Main.rand.NextFloat(0.2f, 1);
@@ -250,7 +250,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            if(odp != null)
+            if (odp != null)
             {
                 float w = 7 * Projectile.scale;
                 int xp = 0;
@@ -293,7 +293,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
             {
                 return new Color(bc.R, bc.G, bc.B, (int)(255 * arrowAlpha));
             }
-            for(int i = 0; i < 2; i++)
+            for (int i = 0; i < 2; i++)
             {
                 Main.spriteBatch.Draw(arrow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 330 + CEUtils.randomPointInCircle(24), null, applyAlpha(Color.Red), Projectile.rotation + Main.rand.NextFloat(-0.22f, 0.22f), arrow.Size() / 2f, new Vector2(2f, 1) * Projectile.scale * 0.4f, SpriteEffects.None, 0);
             }
@@ -316,7 +316,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
 
             Main.spriteBatch.ExitShaderRegion();
             List<Vector2> points = new();
-            for(int i = AttackCount % 4 == 3 ? 100 : 250; i <= 450; i += AttackCount % 4 == 3 ? 50 : 25)
+            for (int i = AttackCount % 4 == 3 ? 100 : 250; i <= 450; i += AttackCount % 4 == 3 ? 50 : 25)
             {
                 points.Add(Projectile.Center + Projectile.rotation.ToRotationVector2() * i * Projectile.scale + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * Main.rand.Next(-60, 61) * ((450 - i) / (AttackCount % 4 != 3 ? 200f : 350f)));
             }

@@ -1,18 +1,8 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables;
-using CalamityMod.Particles;
+﻿using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
-using static CalamityEntropy.ScreenShaker;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
@@ -31,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
         public override Color tooltipColor => Color.Blue;
         private static int projType = -1;
-        public static int ProjType { get { if (projType == -1) { projType = ModContent.ProjectileType<ExplosiveSpore>(); }return projType; } }
+        public static int ProjType { get { if (projType == -1) { projType = ModContent.ProjectileType<ExplosiveSpore>(); } return projType; } }
     }
 
     public class BookmarkSporeEffect : EBookProjectileEffect
@@ -120,7 +110,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            if(active)
+            if (active)
             {
                 CEUtils.PlaySound("SporeGas", 1, Projectile.Center);
                 ((EntropyBookHeldProjectile)ShooterModProjectile).ShootSingleProjectile(ModContent.ProjectileType<SporeGas>(), Projectile.Center, Vector2.Zero, 0.15f);

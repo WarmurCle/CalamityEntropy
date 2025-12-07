@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.velocity.Y += 0.02f;
             }
-            
+
             Projectile.GetOwner().Entropy().screenPos = Projectile.Center;
             Projectile.GetOwner().Entropy().screenShift = float.Lerp(Projectile.GetOwner().Entropy().screenShift, 0.4f, 0.1f);
         }

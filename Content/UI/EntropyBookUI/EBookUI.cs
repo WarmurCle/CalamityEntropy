@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
 
@@ -117,7 +116,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                     if (bookItem.ModItem is EntropyBook eb)
                     {
                         Texture2D holderTexture = eb.BookMarkTexture;
-                        if(i >= c - texSpecial.Count)
+                        if (i >= c - texSpecial.Count)
                         {
                             holderTexture = texSpecial[i - (c - texSpecial.Count)];
                         }

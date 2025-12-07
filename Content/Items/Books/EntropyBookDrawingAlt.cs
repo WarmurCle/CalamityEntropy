@@ -1,16 +1,5 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using CalamityEntropy.Content.UI.EntropyBookUI;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using static CalamityEntropy.Common.BookMarkLoader;
 
 namespace CalamityEntropy.Content.Items.Books
 {
@@ -18,7 +7,7 @@ namespace CalamityEntropy.Content.Items.Books
     {
         public sealed override Texture2D[] OpenAnimations()
         {
-            return new Texture2D[]{CEUtils.RequestTex(OpenAnimationPath)};
+            return new Texture2D[] { CEUtils.RequestTex(OpenAnimationPath) };
         }
         public sealed override Texture2D[] PageAnimations()
         {
@@ -65,10 +54,10 @@ namespace CalamityEntropy.Content.Items.Books
                 return new Rectangle(0, h * frame, tex.Width, h - 2);
             }
             Texture2D tex = null;
-            switch(Style)
+            switch (Style)
             {
-                case 0: tex = OpenAnimations()[0];break;
-                case 1: tex = PageAnimations()[0];break;
+                case 0: tex = OpenAnimations()[0]; break;
+                case 1: tex = PageAnimations()[0]; break;
                 case 2: tex = UIOpenAnimations()[0]; break;
                 default: break;
             }
@@ -87,7 +76,7 @@ namespace CalamityEntropy.Content.Items.Books
             return new Vector2(f.Width, f.Height) / 2f;
         }
         public int Style => UIOpen ? 2 : ((openAnim < OpenAnmCount - 1) ? 0 : 1); // 2 - UIOpen;  1 - Opened;  0 - Opening
-        
+
         public override bool Opened => openAnim >= OpenAnmCount - 1;
         public override void UpdateAnimations()
         {

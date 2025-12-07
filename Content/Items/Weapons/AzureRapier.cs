@@ -2,7 +2,6 @@
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
@@ -10,10 +9,8 @@ using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables;
-using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using Mono.Cecil;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -21,7 +18,6 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
@@ -91,7 +87,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             return StartBagGItem.NameContains(player, "polaris") || StartBagGItem.NameContains(player, "cle");
         }
     }
-    public class AzureRapierHeld: ModProjectile
+    public class AzureRapierHeld : ModProjectile
     {
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/AzureRapier";
         public override void SetDefaults()
@@ -105,7 +101,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(1.2f, 1.6f), target.Center);
-            if(Main.rand.NextBool(6))
+            if (Main.rand.NextBool(6))
                 target.AddBuff<Eutrophication>(12 * 60);
 
             if (Main.rand.NextBool(6))
@@ -142,7 +138,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             player.SetHandRot(Projectile.rotation, (Player.CompositeArmStretchAmount)(Main.rand.Next(0, 3)));
             Projectile.Center = player.GetFrontHandPositionImproved(player.compositeFrontArm);
             Projectile.Center += Projectile.rotation.ToRotationVector2() * (CEUtils.Parabola((float)counter / MaxTime, 22 * player.HeldItem.scale) - 16);
-            if(counter >= MaxTime)
+            if (counter >= MaxTime)
             {
                 Projectile.timeLeft = 0;
                 Projectile.Kill();
@@ -198,7 +194,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(target.type != NPCID.WallofFlesh)
+            if (target.type != NPCID.WallofFlesh)
                 target.velocity *= 0.24f;
         }
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/AzureRapier";
@@ -224,24 +220,24 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (player.dead)
                 Projectile.Kill();
             counter++;
-            if(counter == 2)
+            if (counter == 2)
             {
                 player.Entropy().immune = 100;
             }
             if (counter == 16)
                 plrPos = player.position;
-            if(counter >= 16)
+            if (counter >= 16)
             {
                 player.Entropy().DontDrawTime = 2;
-                if(counter % 3 == 0)
+                if (counter % 3 == 0)
                 {
                     Vector2 spawnPos = Projectile.Center + new Vector2(Main.rand.Next(160, 240) * (Main.rand.NextBool() ? 1 : -1), Main.rand.Next(-140, 140));
-                    EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White, widthMult = 0.8f}, spawnPos, Vector2.Zero, Color.Aqua, 300, 1, true, BlendState.Additive, (Projectile.Center + new Vector2(0, spawnPos.Y - Projectile.Center.Y + Main.rand.NextFloat(-60, 60)) - spawnPos).ToRotation(), 16);
+                    EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White, widthMult = 0.8f }, spawnPos, Vector2.Zero, Color.Aqua, 300, 1, true, BlendState.Additive, (Projectile.Center + new Vector2(0, spawnPos.Y - Projectile.Center.Y + Main.rand.NextFloat(-60, 60)) - spawnPos).ToRotation(), 16);
                     CEUtils.PlaySound("SwiftSlice", Main.rand.NextFloat(1.4f, 2f), Projectile.Center);
                 }
                 player.Entropy().noItemTime = 4;
                 player.velocity *= 0;
-                if(plrPos != Vector2.Zero)
+                if (plrPos != Vector2.Zero)
                     player.position = plrPos;
             }
 
@@ -267,7 +263,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             var player = Projectile.GetOwner();
             if (Projectile.localAI[0]++ == 0)
             {
-                
+
                 CEUtils.PlaySound("metalhit", 2.4f, Projectile.Center);
                 SoundEngine.PlaySound(SoundID.Item27 with { Pitch = 1 }, Projectile.Center);
             }
@@ -278,7 +274,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             TScale += TSpeed;
             TAlpha *= 0.9f;
             TSpeed *= 0.9f;
-            if (Projectile.localAI[0]==1)
+            if (Projectile.localAI[0] == 1)
             {
                 for (int i = 0; i < 6; i++)
                 {

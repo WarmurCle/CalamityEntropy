@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
@@ -70,7 +69,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override bool Shoot()
         {
             int type = ModContent.ProjectileType<ExoWhirl>();
-            ShootSingleProjectile(type, Projectile.Center, Projectile.velocity, MainProjectile:true);
+            ShootSingleProjectile(type, Projectile.Center, Projectile.velocity, MainProjectile: true);
             return true;
         }
         public override bool canApplyShootCDModifer => false;
@@ -106,7 +105,7 @@ namespace CalamityEntropy.Content.Items.Books
                     }
                 }
             }
-            ShootSingleProjectile(type, pos, vel, shotSpeedMul: 0.6f, MainProjectile:true);
+            ShootSingleProjectile(type, pos, vel, shotSpeedMul: 0.6f, MainProjectile: true);
         }
     }
     public class ControlTerminalBookBaseEffect : EBookProjectileEffect

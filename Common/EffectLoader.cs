@@ -872,7 +872,7 @@ namespace CalamityEntropy.Common
                     Color color = Color.White;
                     p.ModProjectile.PreDraw(ref color);
                 }
-                if(p.ModProjectile is CrossBorderPursuitProj cbp)
+                if (p.ModProjectile is CrossBorderPursuitProj cbp)
                 {
                     cbp.DrawEye();
                 }

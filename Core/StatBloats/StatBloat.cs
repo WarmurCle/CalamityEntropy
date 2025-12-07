@@ -5,7 +5,6 @@ using CalamityEntropy.Content.Items.Weapons.GrassSword;
 using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.NPCs.NihilityTwin;
 using CalamityMod.Items.Materials;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -317,7 +316,7 @@ namespace CalamityEntropy.Core.StatBloats
         private const float RuinousSoulWeaponsBoost = 2.4f;
         private const float CosmicBarWeaponsBoost = 3f;
         #endregion
-               //直接修改SD属性
+        //直接修改SD属性
         public override void SetDefaults(Item entity)
         {
             if (!CrossModStatBloats.ActiveStatBloats)

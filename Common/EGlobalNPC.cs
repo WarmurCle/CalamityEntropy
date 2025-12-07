@@ -43,7 +43,6 @@ using CalamityMod.UI;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ReLogic.Graphics;
-using ReLogic.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -212,7 +211,7 @@ namespace CalamityEntropy.Common
             if (LastLife < 0)
                 LastLife = npc.life;
 
-            if(npc.HasBuff<LifeOppress>())
+            if (npc.HasBuff<LifeOppress>())
             {
                 if (npc.life > LastLife && !npc.dontTakeDamage)
                 {
@@ -220,7 +219,7 @@ namespace CalamityEntropy.Common
                 }
             }
 
-            if(npc.life >= 0)
+            if (npc.life >= 0)
             {
                 LastLife = npc.life;
             }
@@ -1003,7 +1002,7 @@ namespace CalamityEntropy.Common
 
                 needExitShader = true;
             }
-            if(CalamityEntropy.EntropyMode)
+            if (CalamityEntropy.EntropyMode)
             {
                 if (npc.type == NPCID.AncientLight || npc.type == NPCID.AncientDoom || EModILEdit.LostNPCsEntropy.Contains(npc.type))
                 {
@@ -1279,9 +1278,9 @@ namespace CalamityEntropy.Common
             HitCounter = 0;
             if (player != null)
             {
-                if(player.Entropy().NihilitySet)
+                if (player.Entropy().NihilitySet)
                 {
-                    if(CECooldowns.CheckCD("NihilityLasers", 3 * 60))
+                    if (CECooldowns.CheckCD("NihilityLasers", 3 * 60))
                     {
                         player.Entropy().lastHitTarget = npc;
                         player.Entropy().ShootLaserTime = 20;

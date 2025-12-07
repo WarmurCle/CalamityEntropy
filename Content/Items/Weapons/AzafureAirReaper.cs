@@ -126,7 +126,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     GeneralParticleHandler.SpawnParticle(spark);
                 }
             }
-            
+
             EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, new Color(255, 120, 120), 1, 1, true, BlendState.Additive, 0, 6);
 
         }
@@ -142,9 +142,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void AI()
         {
-            if(counter == 0)
+            if (counter == 0)
             {
-                CEUtils.PlaySound("scytheswing", Main.rand.NextFloat(1.3f, 1.5f) + (Projectile.Calamity().stealthStrike ? 0.2f: 0), Projectile.Center, 4, CEUtils.WeapSound);
+                CEUtils.PlaySound("scytheswing", Main.rand.NextFloat(1.3f, 1.5f) + (Projectile.Calamity().stealthStrike ? 0.2f : 0), Projectile.Center, 4, CEUtils.WeapSound);
             }
             Player player = Projectile.GetOwner();
             counter++;
@@ -174,7 +174,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         }
                         else
                         {
-                            if(Projectile.velocity.Length() < 60)
+                            if (Projectile.velocity.Length() < 60)
                                 Projectile.velocity *= 1.1f;
                         }
 
@@ -212,14 +212,15 @@ namespace CalamityEntropy.Content.Items.Weapons
                 oldPos.RemoveAt(0);
             }
         }
-        
+
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
             List<Vector2> list = new();
             List<float> list2 = new();
 
-            if (oldPos.Count > 1) {
+            if (oldPos.Count > 1)
+            {
                 for (int i = 1; i < oldPos.Count; i++)
                 {
                     for (float j = 0; j < 1; j += 0.1f)
@@ -227,9 +228,9 @@ namespace CalamityEntropy.Content.Items.Weapons
                         list.Add(Vector2.Lerp(oldPos[i - 1], oldPos[i], j));
                         list2.Add(CEUtils.RotateTowardsAngle(oldRots[i - 1], oldRots[i], j, false));
                     }
-                } 
+                }
             }
-            for(int i = 0; i < list.Count; i++)
+            for (int i = 0; i < list.Count; i++)
             {
                 float alpha = (i + 1f) / list.Count;
                 alpha *= 0.06f;

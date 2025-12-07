@@ -1,9 +1,4 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Projectiles;
-using CalamityMod.Items;
-using CalamityMod.NPCs.TownNPCs;
-using CalamityMod.Rarities;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -42,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public static int type = -1;
         public override void BookUpdate(Projectile projectile, bool ownerClient)
         {
-            if(ownerClient)
+            if (ownerClient)
             {
                 if (type == -1)
                     type = ModContent.ProjectileType<Stinger>();
@@ -54,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                         NPC target = CEUtils.FindTarget_HomingProj(projectile, projectile.Center, 2000);
                         if (target != null)
                         {
-                            eb.ShootSingleProjectile(type, projectile.Center, (target.Center + target.velocity * 4 - projectile.Center).normalize() * 22, 0.1f, randomRotMult:0);
+                            eb.ShootSingleProjectile(type, projectile.Center, (target.Center + target.velocity * 4 - projectile.Center).normalize() * 22, 0.1f, randomRotMult: 0);
                         }
                     }
                 }
@@ -74,7 +69,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             base.OnKill(timeLeft);
             SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
-            for(int i = 0; i < 16; i++)
+            for (int i = 0; i < 16; i++)
             {
                 int num98 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.CorruptGibs, 0f, 0f, 0, default(Color), 0.9f);
                 Main.dust[num98].noGravity = true;

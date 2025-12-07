@@ -300,14 +300,14 @@ namespace CalamityEntropy.Common
                 }
                 if (s.Entity is NPC npc)
                 {
-                    if(!npc.friendly)
+                    if (!npc.friendly)
                     {
                         Shooter = npc.whoAmI;
                         projectile.netSpam = 0;
                         projectile.netUpdate = true;
                     }
                     ToFriendly = npc.Entropy().ToFriendly;
-                    if(CalamityEntropy.EntropyMode)
+                    if (CalamityEntropy.EntropyMode)
                     {
                         if (npc.type == NPCID.Golem || npc.type == NPCID.GolemFistLeft || npc.type == NPCID.GolemFistRight || npc.type == NPCID.GolemHead || npc.type == NPCID.GolemHeadFree)
                         {
@@ -316,7 +316,7 @@ namespace CalamityEntropy.Common
                             projectile.netUpdate = true;
                         }
                         if (npc.type == NPCID.CultistBoss || npc.type == NPCID.AncientLight || npc.type == NPCID.AncientDoom || EModILEdit.LostNPCsEntropy.Contains(npc.type))
-                        { 
+                        {
                             Losted = true;
                             projectile.netSpam = 0;
                             projectile.netUpdate = true;
@@ -327,13 +327,13 @@ namespace CalamityEntropy.Common
                 if (s.Entity is Projectile pj)
                 {
                     Shooter = pj.Entropy().Shooter;
-                    if(Shooter >= 0)
+                    if (Shooter >= 0)
                     {
                         projectile.netSpam = 0;
                         projectile.netUpdate = true;
                     }
                     ToFriendly = pj.Entropy().ToFriendly;
-                    if(pj.Entropy().Losted)
+                    if (pj.Entropy().Losted)
                     {
                         Losted = true;
                         projectile.netSpam = 0;
@@ -1249,7 +1249,7 @@ namespace CalamityEntropy.Common
         public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(zypArrow)
+            if (zypArrow)
             {
                 target.AddBuff<LifeOppress>(600);
             }

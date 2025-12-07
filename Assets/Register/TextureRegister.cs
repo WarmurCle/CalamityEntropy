@@ -1,7 +1,5 @@
-﻿using CalamityMod.Tiles.FurnitureMonolith;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using System.CodeDom;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Assets.Register
@@ -18,12 +16,12 @@ namespace CalamityEntropy.Assets.Register
         public static Asset<Texture2D> Trail_MotionTrail4 { get; private set; }
         public static Asset<Texture2D> Trail_Streak1w { get; private set; }
         public static Asset<Texture2D> Trail_RvSlash { get; private set; }
-        public static Asset<Texture2D> Noise_Misc1 {  get; private set; }
-        public static Asset<Texture2D> Noise_Misc2 {  get; private set; }
-        public static Asset<Texture2D> General_Shockwave {  get; private set; }
-        public static Asset<Texture2D> General_WhiteOrb {  get; private set; }
-        public static Asset<Texture2D> General_WhiteCube {  get; private set; }
-        public static Asset<Texture2D> General_WhiteCircle {  get; private set; }
+        public static Asset<Texture2D> Noise_Misc1 { get; private set; }
+        public static Asset<Texture2D> Noise_Misc2 { get; private set; }
+        public static Asset<Texture2D> General_Shockwave { get; private set; }
+        public static Asset<Texture2D> General_WhiteOrb { get; private set; }
+        public static Asset<Texture2D> General_WhiteCube { get; private set; }
+        public static Asset<Texture2D> General_WhiteCircle { get; private set; }
         public override void Load()
         {
             //轨迹
@@ -58,7 +56,7 @@ namespace CalamityEntropy.Assets.Register
             Noise_Misc1 = null;
             Noise_Misc2 = null;
             General_Shockwave = null;
-            General_WhiteCube= null;
+            General_WhiteCube = null;
             General_WhiteOrb = null;
             General_WhiteCircle = null;
         }

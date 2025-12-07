@@ -1,15 +1,11 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables.Ores;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -74,14 +70,14 @@ namespace CalamityEntropy.Content.Items.Books
             Player player = Projectile.GetOwner();
             for (int i = 0; i < Main.rand.Next(6, 10); i++)
             {
-                ShootSingleProjectile(type, Projectile.Center, Projectile.velocity, 1, 1, Main.rand.NextFloat(0.2f, 1), MainProjectile:true);
-                
+                ShootSingleProjectile(type, Projectile.Center, Projectile.velocity, 1, 1, Main.rand.NextFloat(0.2f, 1), MainProjectile: true);
+
                 EParticle.NewParticle(new GlowLightParticle() { lightColor = Color.YellowGreen * 0.25f }, player.MountedCenter, Projectile.rotation.ToRotationVector2().RotatedByRandom(randomShootRotMax) * Main.rand.NextFloat(4, 20) * 2.5f, Color.YellowGreen, Main.rand.NextFloat(0.4f, 0.8f), 1, true, BlendState.Additive, 0, 30);
                 EParticle.NewParticle(new Smoke() { timeleftmax = 30, Lifetime = 30, scaleStart = 0.05f, scaleEnd = Main.rand.NextFloat(0.36f, 0.8f) * 0.6f }, player.MountedCenter, Projectile.rotation.ToRotationVector2().RotatedByRandom(randomShootRotMax) * Main.rand.NextFloat(4, 20) * 1f, Color.YellowGreen, 0.5f, 1, true, BlendState.Additive, 0);
                 EParticle.NewParticle(new Smoke() { timeleftmax = 30, Lifetime = 30, scaleStart = 0.05f, scaleEnd = Main.rand.NextFloat(0.36f, 0.8f) * 0.6f }, player.MountedCenter, Projectile.rotation.ToRotationVector2().RotatedByRandom(randomShootRotMax) * Main.rand.NextFloat(4, 20) * 1f, Color.YellowGreen, 0.5f, 1, true, BlendState.Additive, 0);
                 EParticle.NewParticle(new Smoke() { timeleftmax = 30, Lifetime = 30, scaleStart = 0.05f, scaleEnd = Main.rand.NextFloat(0.36f, 0.8f) * 0.6f }, player.MountedCenter, Projectile.rotation.ToRotationVector2().RotatedByRandom(randomShootRotMax) * Main.rand.NextFloat(4, 20) * 1f, Color.YellowGreen, 0.5f, 1, true, BlendState.Additive, 0);
             }
-            CEUtils.PlaySound("SporeGas", Main.rand.NextFloat(2.2f, 2.6f), Projectile.Center, volume:0.6f);
+            CEUtils.PlaySound("SporeGas", Main.rand.NextFloat(2.2f, 2.6f), Projectile.Center, volume: 0.6f);
             return true;
         }
         public override float randomShootRotMax => 0.46f;
@@ -118,7 +114,7 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile.Opacity -= 1 / 25f;
             else
                 if (Projectile.Opacity < 1)
-                    Projectile.Opacity += 1 / 24f;
+                Projectile.Opacity += 1 / 24f;
             Projectile.velocity *= 0.97f;
         }
         public override Color baseColor => Color.YellowGreen;

@@ -1,11 +1,8 @@
 ﻿using CalamityMod;
-using CalamityMod.Items.Dyes;
 using CalamityMod.Items.TreasureBags.MiscGrabBags;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -26,7 +23,7 @@ namespace CalamityEntropy.Content.Items
         {
             if (item.ModItem != null && item.ModItem is StarterBag)
             {
-                foreach(int id in items)
+                foreach (int id in items)
                 {
                     Item loot = ContentSamples.ItemsByType[id];
                     if (loot.ModItem is IGetFromStarterBag gfsb)
