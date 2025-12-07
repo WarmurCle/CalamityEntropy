@@ -3359,8 +3359,9 @@ Items: {
 	Shoot nihility lasers to target after target on hit
 	This effect has 3 sec cooldown
 	+24% Damage
-	Project a shield that can withstand 100 points of damage
+	Project a shield that can withstand [SHIELD] damage
 	Shield need 10 sec to recover
+	Press [KEY]([KN]) to consume health and accelerate shield recovery
 	+1/s life regen when the shield is broken
 	+3 Max Minion
 	+80 Max Mana

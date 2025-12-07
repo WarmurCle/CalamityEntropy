@@ -108,8 +108,10 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             if (st)
             {
                 
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Blue, 0.64f, 1, true, BlendState.Additive, 0, 12);
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.54f, 1, true, BlendState.Additive, 0, 12);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(100, 100, 255), 0.6f, 1, true, BlendState.Additive, 0, 14);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.32f, 1, true, BlendState.Additive, 0, 14);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.32f, 1, true, BlendState.Additive, 0, 14);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.32f, 1, true, BlendState.Additive, 0, 14);
 
                 st = false;
                 for (int ii = 0; ii < 100; ii++)
