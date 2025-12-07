@@ -146,7 +146,7 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 6));
             EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White }, target.Center - Projectile.velocity.ToRotation().ToRotationVector2() * 290, Vector2.Zero, new Color(255, 5, 5), 260, 1f, true, BlendState.Additive, Projectile.velocity.ToRotation(), 20);
-            EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White, widthMult = 0.6f }, target.Center - (Projectile.velocity.ToRotation() + MathHelper.PiOver4 * (Projectile.velocity.X > 0 ? 1 : -1)).ToRotationVector2() * 290, Vector2.Zero, new Color(255, 5, 5), 360, 1f, true, BlendState.Additive, Projectile.velocity.ToRotation() + MathHelper.PiOver4 * (Projectile.velocity.X > 0 ? 1 : -1), 20);
+            EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White, widthMult = 0.4f }, target.Center - (Projectile.velocity.ToRotation() + MathHelper.PiOver4 * (Projectile.velocity.X > 0 ? 1 : -1)).ToRotationVector2() * 340, Vector2.Zero, new Color(255, 5, 5), 360, 1f, true, BlendState.Additive, Projectile.velocity.ToRotation() + MathHelper.PiOver4 * (Projectile.velocity.X > 0 ? 1 : -1), 20);
 
             CEUtils.PlaySound("ystn_hit", 2.7f, target.Center);
             var player = Projectile.GetOwner();
