@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                         if (player.Entropy().nihShellCount < MaxCount)
                         {
                             player.Entropy().nihShellCount++;
-                            player.Entropy().nihShellCd = (16 * 60).ApplyCdDec(player);
+                            player.Entropy().nihShellCd = (5 * 60).ApplyCdDec(player);
                         }
                     }
                 }
