@@ -925,8 +925,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<HellIndustrialComponents>(), 1, 12, 14));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DubiousPlating>(), 1, 14, 22));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<HellIndustrialComponents>(), 1, 24, 30));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DubiousPlating>(), 1, 18, 36));
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<AcropolisRelic>());
             npcLoot.Add(ModContent.ItemType<AcropolisTrophy>(), 10);
         }

@@ -374,6 +374,7 @@ namespace CalamityEntropy.Content.NPCs
                 g2.Add(new RewardPoolItem(ModContent.ItemType<GravityNormalizerPotion>(), 1));
                 g2.Add(new RewardPoolItem(ModContent.ItemType<Abaddon>(), 1));
                 g2.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2));
+                g2.Add(new RewardPoolItem(ModContent.ItemType<YharimsStimulants>(), 6));
 
                 p2 = new RewardPool();
                 p2.Add(new RewardPoolItem(3456, 10));
@@ -386,7 +387,6 @@ namespace CalamityEntropy.Content.NPCs
                 p2.Add(new RewardPoolItem(ModContent.ItemType<Baroclaw>(), 1));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<InfectedJewel>(), 1));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<CryonicBar>(), 3));
-                p2.Add(new RewardPoolItem(ModContent.ItemType<YharimsStimulants>(), 16));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<TheCamper>(), 1));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<SHPC>(), 1));
                 p2.Add(new RewardPoolItem(ModContent.ItemType<TheDarkMaster>(), 1));

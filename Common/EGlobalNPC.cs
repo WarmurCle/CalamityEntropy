@@ -744,7 +744,7 @@ namespace CalamityEntropy.Common
             }
             if (npc.type == NPCID.DungeonSpirit)
             {
-                npcLoot.Add(ModContent.ItemType<RequiemCard>(), new Fraction(1, 12));
+                npcLoot.Add(ModContent.ItemType<RequiemCard>(), new Fraction(1, 16));
             }
             if (npc.type == NPCID.BigMimicHallow)
             {
@@ -1078,7 +1078,7 @@ namespace CalamityEntropy.Common
             {
                 if (Main.bloodMoon)
                 {
-                    if (Main.rand.NextBool(500))
+                    if (Main.rand.NextBool(800))
                     {
                         Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<CrimsonNight>()));
                     }

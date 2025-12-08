@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Items
             itemLoot.Add(ModContent.ItemType<WingsOfHush>(), new Fraction(2, 5));
             itemLoot.Add(ModContent.ItemType<VoidAnnihilate>(), new Fraction(2, 5));
             itemLoot.Add(ModContent.ItemType<VoidCandle>(), new Fraction(2, 5));
-            itemLoot.Add(ModContent.ItemType<WindOfUndertaker>(), new Fraction(1, 5));
+            itemLoot.Add(ModContent.ItemType<WindOfUndertaker>(), new Fraction(2, 5));
             itemLoot.Add(ModContent.ItemType<VoidToy>(), new Fraction(1, 5));
             itemLoot.Add(ModContent.ItemType<CruiserPlush>(), new Fraction(1, 6));
             itemLoot.Add(ModContent.ItemType<VoidScales>(), new Fraction(1, 1), 90, 128);
