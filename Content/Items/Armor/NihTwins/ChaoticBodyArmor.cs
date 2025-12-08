@@ -33,7 +33,9 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             CreateRecipe()
                 .AddIngredient<ChaoticPiece>(8)
                 .AddIngredient<SmoothVoidstone>(12)
-                .AddIngredient(ItemID.LunarBar, 12);
+                .AddIngredient(ItemID.LunarBar, 12)
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
         }
     }
 }

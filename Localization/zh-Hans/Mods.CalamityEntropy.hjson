@@ -3638,6 +3638,16 @@ Items: {
 			+6% 暴击率
 			'''
 	}
+
+	ChaoticPiece: {
+		DisplayName: 混沌裂片
+		Tooltip: ""
+	}
+
+	NihilityFragments: {
+		DisplayName: 虚无残片
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:
@@ -4233,7 +4243,7 @@ Projectiles: {
 	NucLauncher.DisplayName: 核弹发射井
 	PeaceJR.DisplayName: 和平使者
 	VENihilityLaser.DisplayName: 虚无激光
-	// ChaoticCellMinion.DisplayName: Chaotic Cell Minion
+	ChaoticCellMinion.DisplayName: 混沌仆从
 }
 
 LegendTooltip: - 传奇物品 -

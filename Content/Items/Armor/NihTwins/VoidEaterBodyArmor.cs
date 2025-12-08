@@ -30,7 +30,9 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             CreateRecipe()
                 .AddIngredient<NihilityFragments>(8)
                 .AddIngredient(ItemID.Ectoplasm, 6)
-                .AddIngredient(ItemID.LunarBar, 12);
+                .AddIngredient(ItemID.LunarBar, 12)
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
         }
     }
 }

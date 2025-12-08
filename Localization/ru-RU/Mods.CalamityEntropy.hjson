@@ -3386,6 +3386,16 @@ Items: {
 			+6% Crit chance
 			''' */
 	}
+
+	ChaoticPiece: {
+		// DisplayName: Chaotic Piece
+		// Tooltip: ""
+	}
+
+	NihilityFragments: {
+		// DisplayName: Nihility Fragments
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:
