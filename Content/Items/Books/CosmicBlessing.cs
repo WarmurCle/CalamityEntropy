@@ -231,7 +231,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.rotation = Projectile.velocity.ToRotation();
             OldPos.Add(Projectile.Center);
             OldRot.Add(Projectile.rotation);
-            if (OldPos.Count > 64)
+            if (OldPos.Count > 32)
             {
                 OldRot.RemoveAt(0);
                 OldPos.RemoveAt(0);
