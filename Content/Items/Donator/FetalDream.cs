@@ -4,6 +4,7 @@ using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -37,7 +38,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.damage = 514;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.useAnimation = Item.useTime = 80;
+            Item.useAnimation = Item.useTime = 40;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 4f;
             Item.UseSound = SoundID.Item1;
@@ -48,6 +49,11 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.shoot = ModContent.ProjectileType<FetalDreamSlash>();
             Item.shootSpeed = 16;
             Item.DamageType = DamageClass.Default;
+            Item.rare = ModContent.RarityType<PureGreen>();
+            Item.Entropy().stroke = true;
+            Item.Entropy().NameColor = Color.LightGreen;
+            Item.Entropy().strokeColor = Color.DarkGreen;
+            Item.Entropy().tooltipStyle = 4;
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
@@ -125,7 +131,7 @@ namespace CalamityEntropy.Content.Items.Donator
             player.Entropy().CruiserAntiGravTime = 5;
             Projectile.ai[1]++;
             Projectile.Center = player.GetDrawCenter();
-            float MaxUpdateTimes = 22 * Projectile.MaxUpdates;
+            float MaxUpdateTimes = 26 * Projectile.MaxUpdates;
             float progress = (Projectile.ai[1] / MaxUpdateTimes);
             float RotF = 4.5f;
 
