@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 Projectile.rotation = Projectile.velocity.ToRotation();
                 Projectile.ai[2]++;
             }
-            Projectile.rotation += (Projectile.whoAmI % 2 == 0 ? 1 : -1) * Projectile.velocity.Length() * 0.01f;
+            Projectile.rotation += (Projectile.whoAmI % 2 == 0 ? 1 : -1) * Projectile.velocity.Length() * 0.007f;
             counter++;
             Projectile.velocity *= 0.97f;
             if (Main.dedServ)
@@ -88,7 +88,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             Texture2D t = CEUtils.getExtraTex("a_circle");
-            Main.EntitySpriteDraw(t, Projectile.Center - Main.screenPosition, null, new Color(180, 180, 255) * ((float)counter / 120f) * 0.66f, Projectile.rotation, t.Size() / 2f, new Vector2(12, 0.16f), SpriteEffects.None);
+            Main.EntitySpriteDraw(t, Projectile.Center - Main.screenPosition, null, new Color(180, 180, 255) * ((float)counter / 120f) * 0.66f * (1 - ((float)Projectile.timeLeft / 120f)), Projectile.rotation, t.Size() / 2f, new Vector2(32, 0.1f), SpriteEffects.None);
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
