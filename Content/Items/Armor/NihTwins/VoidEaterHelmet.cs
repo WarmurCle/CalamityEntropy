@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             Item.width = 40;
             Item.height = 40;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.defense = 20;
+            Item.defense = 24;
             Item.rare = ModContent.RarityType<Violet>();
         }
 
@@ -43,22 +43,23 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             cnctStr = cnctStr.Replace("[ANOTHERSET]", Mod.GetLocalization("ChaoticSet").Value);
             cnctStr = cnctStr.Replace("[CONNECT]", CEKeybinds.NihilityAndChaoticArmorConnectKey.TooltipHotkeyString());
             player.setBonus += "\n" + cnctStr;
-            player.Entropy().voidResistance += 0.3f;
             if (!ModContent.GetInstance<Config>().MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons || player.HeldItem.DamageType.CountsAsClass(CEUtils.RogueDC))
             {
                 player.Calamity().wearingRogueArmor = true;
                 player.Calamity().rogueStealthMax += 1.2f;
             }
             player.Entropy().NihilitySet = true;
-            player.GetDamage(DamageClass.Generic) += 0.24f;
-            player.maxMinions += 3;
-            player.statManaMax2 += 80;
+            player.GetDamage(DamageClass.Generic) += 0.14f;
+	        player.GetCritChance(DamageClass.Generic) += 14;
+            player.maxMinions += 2;
+            player.statManaMax2 += 100;
             if (player.Entropy().NihilityShield <= 0)
                 player.lifeRegen += 2;
         }
         public override void UpdateEquip(Player player)
         {
-            player.GetCritChance(DamageClass.Generic) += 22;
+            player.GetCritChance(DamageClass.Generic) += 12;
+	        player.GetDamage(DamageClass.Generic) += 0.12f;
         }
 
         public override void AddRecipes()

@@ -1,4 +1,4 @@
-﻿using CalamityMod.Items;
+using CalamityMod.Items;
 using CalamityMod.Items.Placeables.FurnitureVoid;
 using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Rarities;
@@ -17,16 +17,15 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             Item.width = 48;
             Item.height = 42;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.defense = 50;
+            Item.defense = 44;
             Item.rare = ModContent.RarityType<Violet>();
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.maxMinions += 2;
+            player.maxMinions += 1;
             player.lifeRegen += 8;
             player.endurance += 0.1f;
-            player.statManaMax2 += 120;
         }
 
         public override void AddRecipes()

@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
         {
             Item.width = 56;
             Item.height = 20;
-            Item.damage = 2000;
+            Item.damage = 1500;
             Item.mana = 0;
             Item.useTime = Item.useAnimation = 24;
             Item.useStyle = ItemUseStyleID.HoldUp;
