@@ -364,6 +364,7 @@ namespace CalamityEntropy.Content.Items.Books
             return (int)((float)_shotCooldown / m.attackSpeed);
         }
         public virtual int frameChange => 4;
+        public virtual Vector2 UIHeldOffset => Vector2.UnitY * -52;
         public override void AI()
         {
             var player = Projectile.GetOwner();
@@ -429,7 +430,7 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile.rotation = 0;
             }
             shotCooldown--;
-            Projectile.Center = Projectile.GetOwner().GetDrawCenter() + (UIOpen ? Vector2.UnitY * -52 : new Vector2(heldOffset.X, heldOffset.Y * (Projectile.velocity.X > 0 ? 1 : -1))).RotatedBy(Projectile.rotation);
+            SetPosision();
             if (Main.myPlayer == Projectile.owner)
             {
                 bool flag = Main.mouseLeft && !Main.LocalPlayer.mouseInterface && !UIOpen && Projectile.GetOwner().CheckMana(bookItem.mana, false);
@@ -541,6 +542,12 @@ namespace CalamityEntropy.Content.Items.Books
             UpdateAnimations();
             Projectile.GetOwner().heldProj = Projectile.whoAmI;
         }
+
+        public virtual void SetPosision()
+        {
+            Projectile.Center = Projectile.GetOwner().GetDrawCenter() + (UIOpen ? UIHeldOffset : new Vector2(heldOffset.X, heldOffset.Y * (Projectile.velocity.X > 0 ? 1 : -1))).RotatedBy(Projectile.rotation);
+        }
+
         public virtual bool Opened => openAnim >= 2;
         public virtual void UpdateAnimations()
         {

@@ -3648,6 +3648,11 @@ Items: {
 		DisplayName: 虚无残片
 		Tooltip: ""
 	}
+
+	CosmicBlessing: {
+		DisplayName: 星宙神赋
+		Tooltip: 从背后快速射出死亡激光
+	}
 }
 
 ChaoticSetBonus:
@@ -4245,6 +4250,8 @@ Projectiles: {
 	PeaceJR.DisplayName: 和平使者
 	VENihilityLaser.DisplayName: 虚无激光
 	ChaoticCellMinion.DisplayName: 混沌仆从
+	// CosmicBlessingHeld.DisplayName: Cosmic Blessing Held
+	// CosmicDeathRay.DisplayName: Cosmic Death Ray
 }
 
 LegendTooltip: - 传奇物品 -

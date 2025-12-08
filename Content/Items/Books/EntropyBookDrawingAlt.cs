@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Items.Books
                 }
             }
         }
-        public Rectangle GetFrame()
+        public virtual Rectangle GetFrame()
         {
             Rectangle frame = new Rectangle();
             Rectangle GetRect(Texture2D tex, int frame, int totalFrame)

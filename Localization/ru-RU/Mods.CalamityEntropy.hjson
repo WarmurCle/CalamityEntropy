@@ -3396,6 +3396,11 @@ Items: {
 		// DisplayName: Nihility Fragments
 		// Tooltip: ""
 	}
+
+	CosmicBlessing: {
+		// DisplayName: Cosmic Blessing
+		// Tooltip: Shoot lasers from behind
+	}
 }
 
 /* ChaoticSetBonus:
@@ -3988,6 +3993,8 @@ Projectiles: {
 	// PeaceJR.DisplayName: Peace JR
 	// VENihilityLaser.DisplayName: Nihility Laser
 	// ChaoticCellMinion.DisplayName: Chaotic Cell Minion
+	// CosmicBlessingHeld.DisplayName: Cosmic Blessing Held
+	// CosmicDeathRay.DisplayName: Cosmic Death Ray
 }
 
 LegendTooltip: - Легенда -
