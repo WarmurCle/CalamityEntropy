@@ -25,6 +25,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
+            Item.shootSpeed = 18;
             Item.width = 28;
             Item.height = 40;
             Item.damage = 295;
@@ -114,7 +115,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.rotation = (Main.MouseWorld - Projectile.Center).ToRotation();
             Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Projectile.rotation);
 
-            SoundEngine.PlaySound(SoundID.Item12 with { Pitch = 0.6f, Volume = 0.5f }, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item12 with { Pitch = 0.6f, Volume = 0.3f }, Projectile.Center);
 
             base.Shoot();
             ProduceWarpCrossDust(Projectile.Center, (int)CalamityDusts.BlueCosmilite);
@@ -201,6 +202,11 @@ namespace CalamityEntropy.Content.Items.Books
     }
     public class CosmicDeathRay : EBookBaseProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 6000;
+        }
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -208,7 +214,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.height = 32;
             Projectile.tileCollide = false;
             Projectile.MaxUpdates = 6;
-            Projectile.timeLeft = 120 * 8;
+            Projectile.timeLeft = 120 * 6;
             Projectile.penetrate = -1;
         }
         public override void OnKill(int timeLeft)
@@ -225,11 +231,12 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.rotation = Projectile.velocity.ToRotation();
             OldPos.Add(Projectile.Center);
             OldRot.Add(Projectile.rotation);
-            if (OldPos.Count > 128)
+            if (OldPos.Count > 64)
             {
                 OldRot.RemoveAt(0);
                 OldPos.RemoveAt(0);
             }
+            CEUtils.AddLight(Projectile.Center, new Color(160, 160, 255));
         }
         public override Color baseColor => new Color(255, 255, 255);
         public override bool PreDraw(ref Color lightColor)
@@ -243,12 +250,17 @@ namespace CalamityEntropy.Content.Items.Books
                 {
                     for (float j = 0; j < 1; j += 0.5f)
                     {
-                        Main.EntitySpriteDraw(tex, Vector2.Lerp(OldPos[i - 1], OldPos[i], j) - Main.screenPosition, null, color * 0.16f * ((float)i / OldPos.Count), Projectile.rotation, tex.Size() / 2f, Projectile.scale, SpriteEffects.None);
+                        Main.EntitySpriteDraw(tex, Vector2.Lerp(OldPos[i - 1], OldPos[i], j) - Main.screenPosition, null, color * 0.16f * ((float)i / OldPos.Count), OldRot[i], tex.Size() / 2f, Projectile.scale, SpriteEffects.None);
                     }
                 }
             }
 
             return false;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            base.OnHitNPC(target, hit, damageDone);
+            CEUtils.PlaySound("GrassSwordHit1", Main.rand.NextFloat(2f, 2.4f), target.Center, 60, 0.36f);
         }
     }
 }
