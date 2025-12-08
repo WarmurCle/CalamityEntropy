@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Items
             itemLoot.Add(ModContent.ItemType<PhantomLightWing>(), new Fraction(5, 5));
             itemLoot.Add(ModContent.ItemType<LunarPlank>(), new Fraction(3, 5));
             itemLoot.Add(ModContent.ItemType<BottledStarlightCocoon>(), new Fraction(3, 5));
-            itemLoot.Add(ModContent.ItemType<ShadeCloak>(), new Fraction(1, 2));
+            itemLoot.Add(ModContent.ItemType<ShadeCloak>(), new Fraction(4, 5));
             itemLoot.Add(ModContent.ItemType<StarblightSoot>(), 1, 52, 74);
             var normalOnly = itemLoot.DefineConditionalDropSet(() => Main.rand.NextBool(4));
             {
