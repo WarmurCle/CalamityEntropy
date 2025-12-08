@@ -138,6 +138,15 @@ namespace CalamityEntropy.Common
             }
             return points;
         }
+        public override bool? CanBeCaughtBy(NPC npc, Item item, Player player)
+        {
+            if(npc.type == NPCID.FairyCritterBlue || npc.type == NPCID.FairyCritterGreen || npc.type == NPCID.FairyCritterPink)
+            {
+                return true;
+            }
+            
+            return base.CanBeCaughtBy(npc, item, player);
+        }
         public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             if (needExitShader)
