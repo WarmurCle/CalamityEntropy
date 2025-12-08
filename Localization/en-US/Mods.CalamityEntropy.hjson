@@ -3399,14 +3399,14 @@ VoidEaterBonus:
 VoidEaterSet: Void Eater Set
 ChaoticSet: Chaotic Set
 NihArmorConnet:
-'''
-Aim at another player wearing [ANOTHERSET] and press the [[CONNECT]] button to connect
-During connection, an additional 2/s of health regeneration is added, 
-and the health of the player with lower health is extracted to provide healing for another player
-When receiving fatal damage, if the other party can withstand the damage, 
-it will be borne by the other party, and this effect has a cooldown time of 12 seconds
-When connected, both parties will acquire the ability of nihility laser and chaotic cells
-'''
+	'''
+	Aim at another player wearing [ANOTHERSET] and press the [[CONNECT]] button to connect
+	During connection, an additional 2/s of health regeneration is added, 
+	and the health of the player with lower health is extracted to provide healing for another player
+	When receiving fatal damage, if the other party can withstand the damage, 
+	it will be borne by the other party, and this effect has a cooldown time of 12 seconds
+	When connected, both parties will acquire the ability of nihility laser and chaotic cells
+	'''
 LOCKED: ": [LOCKED]"
 BCU1: Requires defeating King Slime
 BCU2: Requires defeating Perforator or Hive Mind

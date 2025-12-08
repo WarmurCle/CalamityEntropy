@@ -1990,7 +1990,7 @@ namespace CalamityEntropy.Common
                             SyncLife(Player);
                         if (Main.GameUpdateCount % 40 == 0)
                         {
-                            if (Math.Abs(Player.statLife - NihTwinArmorConnetPlayer.ToPlayer().statLife) > 60 && Player.statLife > NihTwinArmorConnetPlayer.ToPlayer().statLife)
+                            if (NihTwinArmorConnetPlayer.ToPlayer().statLife < NihTwinArmorConnetPlayer.ToPlayer().statLifeMax2 - 20 && Math.Abs(Player.statLife - NihTwinArmorConnetPlayer.ToPlayer().statLife) > 60 && Player.statLife > NihTwinArmorConnetPlayer.ToPlayer().statLife)
                             {
                                 int LifeTrans = int.Min(16, (Player.statLife - NihTwinArmorConnetPlayer.ToPlayer().statLife));
                                 if (Player.statLife > LifeTrans)
