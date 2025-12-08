@@ -237,8 +237,12 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
             {
                 target.AddBuff<MechanicalTrauma>(300);
             }
-            ((CommonExplotionFriendly)CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 260, Projectile.DamageType).ModProjectile).onHitAction = onhit;
-            ;
+            if (Main.myPlayer == Projectile.owner)
+            {
+                var mp = CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 360, Projectile.DamageType).ModProjectile;
+                if (mp is CommonExplotionFriendly cef)
+                    cef.onHitAction = onhit;
+            }
         }
         public override bool PreDraw(ref Color lightColor)
         {

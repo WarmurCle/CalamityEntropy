@@ -108,7 +108,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 5.4f, 1, true, BlendState.Additive, 0, 24);
             if (Projectile.owner == Main.myPlayer)
             {
-                CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage, 278, Projectile.DamageType);
+                CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage, 280, Projectile.DamageType);
             }
             for (int i = 0; i < 64; i++)
             {
