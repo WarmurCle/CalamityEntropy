@@ -144,6 +144,7 @@ namespace CalamityEntropy.Common
             {
                 return true;
             }
+            
             return base.CanBeCaughtBy(npc, item, player);
         }
         public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
