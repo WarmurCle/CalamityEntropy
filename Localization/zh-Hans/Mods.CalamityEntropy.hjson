@@ -3623,24 +3623,19 @@ Items: {
 
 	ChaoticHelmet: {
 		DisplayName: 混沌头盔
-		Tooltip:
-			'''
-			增加13%伤害和1最大仆从栏位
-			'''
+		Tooltip: 增加13%伤害和1最大仆从栏位
 	}
 
 	ChaoticLeggings: {
 		DisplayName: 混沌腿甲
-		Tooltip:
-			'''
-			增加8%移动速度和13%暴击率
-			'''
+		Tooltip: 增加8%移动速度和13%暴击率
 	}
 
 	ChaoticPiece: {
 		DisplayName: 混沌裂片
 		Tooltip: ""
 	}
+
 	NihilityFragments: {
 		DisplayName: 虚无残片
 		Tooltip: ""
@@ -3723,7 +3718,6 @@ MariviniumSet:
 	护盾破损会让玩家回复140点生命值，同时获得5秒“深渊狂怒”增益，使玩家伤害翻倍
 	护盾不会抵御造成伤害低于5%最大生命值的攻击
 	'''
-
 DeathMode: 死亡模式
 CdMantle: 神圣屏障冷却
 
