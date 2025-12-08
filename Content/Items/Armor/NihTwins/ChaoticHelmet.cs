@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
@@ -42,7 +42,6 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             player.setBonus = player.setBonus.Replace("[KN]", CalamityKeybinds.ArmorSetBonusHotKey.DisplayName.Value);
             player.setBonus = player.setBonus.Replace("[LIMIT]", MaxCells.ToString());
             string cnctStr = Mod.GetLocalization("NihArmorConnet").Value;
-            player.Entropy().voidResistance += 0.3f;
             cnctStr = cnctStr.Replace("[ANOTHERSET]", Mod.GetLocalization("VoidEaterSet").Value);
             cnctStr = cnctStr.Replace("[CONNECT]", CEKeybinds.NihilityAndChaoticArmorConnectKey.TooltipHotkeyString());
             player.setBonus += "\n" + cnctStr;
@@ -52,13 +51,15 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
                 player.Calamity().rogueStealthMax += 1.2f;
             }
             player.endurance += 0.12f;
+	    player.statLifeMax2 += 40;
             player.GetDamage(DamageClass.Generic) += 0.12f;
-            player.maxMinions += 2;
+            player.maxMinions += 3;
+	    player.statManaMax2 += 120;
             player.Entropy().ChaoticSet = true;
         }
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.12f;
+            player.GetDamage(DamageClass.Generic) += 0.13f;
             player.maxMinions += 1;
         }
 
@@ -74,7 +75,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
     }
     public class ChaoticCellMinion : ModProjectile
     {
-        public static int BaseDamage = 640;
+        public static int BaseDamage = 400;
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(ModContent.GetInstance<AverageDamageClass>(), false, -1);
