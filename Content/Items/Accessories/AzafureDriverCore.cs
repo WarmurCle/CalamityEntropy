@@ -207,7 +207,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             CEUtils.PlaySound("ExoHit" + Main.rand.Next(1, 5), Main.rand.NextFloat(0.8f, 1.2f), target.Center);
             hitContext.HitDirection = hitDirection;
             hitContext.PlayerImmunityFrames = 12;
-            int num = AzafureChargeShield.ShieldSlamDamage;
+            int num = AzafureDriverCore.ShieldSlamDamage;
             hitContext.damageClass = DamageClass.Melee;
             hitContext.BaseDamage = player.ApplyArmorAccDamageBonusesTo(num);
             hitContext.BaseKnockback = 6f;
