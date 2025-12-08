@@ -57,6 +57,8 @@ namespace CalamityEntropy.Content.Items
             itemLoot.Add(ModContent.ItemType<NihilityBacteriophageWand>(), new Fraction(2, 5));
             itemLoot.Add(ModContent.ItemType<StarlessNight>(), new Fraction(2, 5));
             itemLoot.Add(ModContent.ItemType<VoidPathology>(), new Fraction(2, 5));
+            itemLoot.Add(ModContent.ItemType<NihilityFragments>(), 1, 26, 32);
+            itemLoot.Add(ModContent.ItemType<ChaoticPiece>(), 1, 26, 32);
         }
     }
 }

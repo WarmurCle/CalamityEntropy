@@ -61,6 +61,10 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
 
         public override void AddRecipes()
         {
+            CreateRecipe()
+                .AddIngredient<NihilityFragments>(5)
+                .AddIngredient(ItemID.Ectoplasm, 6)
+                .AddIngredient(ItemID.LunarBar, 8);
         }
     }
     public class VENihilityLaser : ModProjectile

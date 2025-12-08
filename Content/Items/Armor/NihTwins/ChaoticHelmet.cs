@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Items.Placeables.FurnitureVoid;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -61,6 +62,10 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
 
         public override void AddRecipes()
         {
+            CreateRecipe()
+                .AddIngredient<ChaoticPiece>(5)
+                .AddIngredient<SmoothVoidstone>(6)
+                .AddIngredient(ItemID.LunarBar, 8);
         }
     }
     public class ChaoticCellMinion : ModProjectile

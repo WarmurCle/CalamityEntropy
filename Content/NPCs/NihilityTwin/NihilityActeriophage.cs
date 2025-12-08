@@ -115,6 +115,8 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                 normalOnly.Add(ModContent.ItemType<StarlessNight>(), new Fraction(4, 5));
                 normalOnly.Add(ModContent.ItemType<NihilityBacteriophageWand>(), new Fraction(4, 5));
                 normalOnly.Add(ModContent.ItemType<VoidPathology>(), new Fraction(4, 5));
+                normalOnly.Add(ModContent.ItemType<NihilityFragments>(), 1, 18, 24);
+                normalOnly.Add(ModContent.ItemType<ChaoticPiece>(), 1, 18, 24);
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<NihilityTwinRelic>());
             npcLoot.Add(ModContent.ItemType<NihilityTwinTrophy>(), 10);

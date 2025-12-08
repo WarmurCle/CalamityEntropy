@@ -1,6 +1,8 @@
 ﻿using CalamityMod.Items;
+using CalamityMod.Items.Placeables.FurnitureVoid;
 using CalamityMod.Rarities;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Armor.NihTwins
@@ -25,6 +27,10 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
 
         public override void AddRecipes()
         {
+            CreateRecipe()
+                .AddIngredient<NihilityFragments>(8)
+                .AddIngredient(ItemID.Ectoplasm, 6)
+                .AddIngredient(ItemID.LunarBar, 12);
         }
     }
 }
