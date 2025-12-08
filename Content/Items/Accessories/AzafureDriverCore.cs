@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public float charge = 0;
         public float maxCharge = 5f;
         public static int RechargeTime = 18 * 60;
-        public static int MaxShield = 120;
+        public static int MaxShield = 140;
         public override void SetDefaults()
         {
             Item.width = 60;
@@ -94,7 +94,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override float CalculateDashSpeed(Player player)
         {
-            return 26f;
+            return 32f;
         }
 
         public override void OnDashEffects(Player player)
@@ -120,8 +120,8 @@ namespace CalamityEntropy.Content.Items.Accessories
 
                 Color sparkColor = Color.Lerp(Color.OrangeRed, Color.Firebrick, Main.rand.NextFloat(0, 1));
                 {
-                    LineParticle spark = new LineParticle(player.Center + new Vector2(0, 24), -player.velocity.RotatedBy(-0.12f * player.direction) * 0.4f, false, (int)(sparkLifetime), sparkScale, sparkColor);
-                    LineParticle spark2 = new LineParticle(player.Center + new Vector2(0, -24), -player.velocity.RotatedBy(0.12f * player.direction) * 0.4f, false, (int)(sparkLifetime), sparkScale, sparkColor);
+                    LineParticle spark = new LineParticle(player.Center + new Vector2(0, -8 * Math.Sign(player.velocity.X)), -player.velocity.RotatedBy(-0.12f) * 0.4f, false, (int)(sparkLifetime), sparkScale, sparkColor);
+                    LineParticle spark2 = new LineParticle(player.Center + new Vector2(0, 8 * Math.Sign(player.velocity.X)), -player.velocity.RotatedBy(0.12f) * 0.4f, false, (int)(sparkLifetime), sparkScale, sparkColor);
 
                     GeneralParticleHandler.SpawnParticle(spark);
                     GeneralParticleHandler.SpawnParticle(spark2);
@@ -129,8 +129,8 @@ namespace CalamityEntropy.Content.Items.Accessories
                 {
                     sparkLifetime = 12;
                     sparkColor = Color.LightGoldenrodYellow;
-                    LineParticle spark = new LineParticle(player.Center + new Vector2(0, 16), -player.velocity.RotatedBy(0.06f * player.direction) * 0.6f, false, (int)(sparkLifetime), sparkScale, sparkColor);
-                    LineParticle spark2 = new LineParticle(player.Center + new Vector2(0, -16), -player.velocity.RotatedBy(-0.06f * player.direction) * 0.6f, false, (int)(sparkLifetime), sparkScale, sparkColor);
+                    LineParticle spark = new LineParticle(player.Center + new Vector2(0, -16 * Math.Sign(player.velocity.X)), -player.velocity.RotatedBy(0.06f) * 0.6f, false, (int)(sparkLifetime), sparkScale, sparkColor);
+                    LineParticle spark2 = new LineParticle(player.Center + new Vector2(0, 16 * Math.Sign(player.velocity.X)), -player.velocity.RotatedBy(-0.06f) * 0.6f, false, (int)(sparkLifetime), sparkScale, sparkColor);
 
                     GeneralParticleHandler.SpawnParticle(spark);
                     GeneralParticleHandler.SpawnParticle(spark2);
@@ -138,8 +138,8 @@ namespace CalamityEntropy.Content.Items.Accessories
                 {
                     sparkLifetime = 12;
                     sparkColor = Color.LightGoldenrodYellow;
-                    LineParticle spark = new LineParticle(player.Center + new Vector2(0, 16), -player.velocity.RotatedBy(0.4f * player.direction) * 0.4f, false, (int)(sparkLifetime), sparkScale, sparkColor);
-                    LineParticle spark2 = new LineParticle(player.Center + new Vector2(0, -16), -player.velocity.RotatedBy(-0.4f * player.direction) * 0.4f, false, (int)(sparkLifetime), sparkScale, sparkColor);
+                    LineParticle spark = new LineParticle(player.Center + new Vector2(0, -16 * Math.Sign(player.velocity.X)), -player.velocity.RotatedBy(0.4f) * 0.4f, false, (int)(sparkLifetime), sparkScale, sparkColor);
+                    LineParticle spark2 = new LineParticle(player.Center + new Vector2(0, 16 * Math.Sign(player.velocity.X)), -player.velocity.RotatedBy(-0.4f) * 0.4f, false, (int)(sparkLifetime), sparkScale, sparkColor);
 
                     GeneralParticleHandler.SpawnParticle(spark);
                     GeneralParticleHandler.SpawnParticle(spark2);
