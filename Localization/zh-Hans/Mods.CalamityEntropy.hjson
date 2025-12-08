@@ -3651,7 +3651,7 @@ Items: {
 
 	CosmicBlessing: {
 		DisplayName: 星宙神赋
-		Tooltip: 从背后快速射出死亡激光
+		Tooltip: 从背后快速射出死亡激光，造成弑神怒焰和死亡标记减益
 	}
 }
 
@@ -4250,8 +4250,8 @@ Projectiles: {
 	PeaceJR.DisplayName: 和平使者
 	VENihilityLaser.DisplayName: 虚无激光
 	ChaoticCellMinion.DisplayName: 混沌仆从
-	// CosmicBlessingHeld.DisplayName: Cosmic Blessing Held
-	// CosmicDeathRay.DisplayName: Cosmic Death Ray
+	CosmicBlessingHeld.DisplayName: 星宙神赋
+	CosmicDeathRay.DisplayName: 寰宇死光
 }
 
 LegendTooltip: - 传奇物品 -

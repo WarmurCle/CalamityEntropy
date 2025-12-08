@@ -311,10 +311,9 @@ namespace CalamityEntropy.Content.Items.Books
                 proj.CritChance = bookItem.crit + (int)modifer.Crit;
                 proj.scale *= modifer.Size * scaleMul;
                 proj.ArmorPenetration += (int)(Projectile.GetOwner().GetTotalArmorPenetration(Projectile.DamageType) + modifer.armorPenetration + bookItem.ArmorPenetration);
-                
+
                 if (proj.ModProjectile is EBookBaseProjectile bp)
                 {
-                    bp.color = bp.color.MultiplyRGBA(colorMult);
                     bp.mainProj = MainProjectile;
                     bp.ShooterModProjectile = this;
                     bp.homing += modifer.Homing;
@@ -335,6 +334,11 @@ namespace CalamityEntropy.Content.Items.Books
                     if (this.getEffect() != null)
                     {
                         bp.ProjectileEffects.Add(this.getEffect());
+                    }
+                    if (colorMult != default)
+                    {
+                        bp.color = bp.baseColor.MultiplyRGBA(colorMult);
+                        bp.initColor = false;
                     }
                 }
                 initAction?.Invoke(proj);

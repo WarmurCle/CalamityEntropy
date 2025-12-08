@@ -108,7 +108,7 @@ namespace CalamityEntropy.Content.Items.Books
         public bool purple = false;
         public override void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1, float scaleMul = 1, float shotSpeedMul = 1, Action<Projectile> initAction = null, float randomRotMult = 1, bool MainProjectile = false, Color colorMult = default)
         {
-            base.ShootSingleProjectile(type, pos, velocity, damageMul, scaleMul, shotSpeedMul, initAction, randomRotMult, MainProjectile, new Color(255, 0, 255));
+            base.ShootSingleProjectile(type, pos, velocity, damageMul, scaleMul, shotSpeedMul, initAction, randomRotMult, MainProjectile, purple ? new Color(255, 160, 255) : Color.White);
         }
         public override bool Shoot()
         {
