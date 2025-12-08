@@ -72,6 +72,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
     }
     public class ChaoticCellMinion : ModProjectile
     {
+        public static int BaseDamage = 640;
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(ModContent.GetInstance<AverageDamageClass>(), false, -1);
