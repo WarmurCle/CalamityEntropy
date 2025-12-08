@@ -3609,7 +3609,47 @@ Items: {
 		DisplayName: 红龙角
 		Tooltip: ""
 	}
+
+	ChaoticBodyArmor: {
+		DisplayName: 混沌护甲
+		Tooltip:
+			'''
+			+4/s 生命恢复
+			+10% 伤害减免
+			+2 召唤栏
+			+120 魔力上限
+			'''
+	}
+
+	ChaoticHelmet: {
+		DisplayName: 混沌头盔
+		Tooltip:
+			'''
+			+12% 伤害
+			+1 召唤栏
+			'''
+	}
+
+	ChaoticLeggings: {
+		DisplayName: 混沌腿甲
+		Tooltip:
+			'''
+			+5% 移动速度
+			+6% 暴击率
+			'''
+	}
 }
+
+ChaoticSetBonus:
+	'''
+	+12% 伤害减免
+	+12% 伤害
+	+2 召唤栏
+	受伤时释放小型混沌细胞
+	细胞会追逐并攻击敌人，并在一段时间后返回并被转化为生命值
+	按[[KEY]]([KN])手动消耗生命值召唤3只细胞
+	最多同时存在[LIMIT]个细胞
+	'''
 
 VoidEaterBonus:
 	'''
@@ -3617,11 +3657,20 @@ VoidEaterBonus:
 	增加24%伤害
 	投射出一片具有[SHIELD]点耐久的护盾
 	护盾破碎后需要10秒恢复，在此期间增加1/s生命再生
-	按下[KEY]([KN])以消耗生命值加速护盾恢复
+	按下[[KEY]]([KN])以消耗生命值加速护盾恢复
 	+3 召唤栏
 	+80 魔力上限
 	+120 潜行值
 	'''
+VoidEaterSet: 噬虚者套装
+ChaoticSet: 混沌套装
+NihArmorConnet:
+'''
+对准另一名穿着[ANOTHERSET]的玩家按下[[CONNECT]]键以进行连接
+连接时额外增加2/s生命再生，并将生命值较低的一方的生命值抽取为另一名玩家提供治疗
+受到致命伤害时，如果对方可承受此伤害，将由对方承担，这个效果有12秒冷却时间
+连接时，双方都会获得虚无激光和混沌细胞的能力
+'''
 LOCKED: ：[已锁定]
 BCU1: 需击败史莱姆王
 BCU2: 需击败血肉宿主或腐巢意志
@@ -4185,6 +4234,7 @@ Projectiles: {
 	NucLauncher.DisplayName: 核弹发射井
 	PeaceJR.DisplayName: 和平使者
 	VENihilityLaser.DisplayName: 虚无激光
+	// ChaoticCellMinion.DisplayName: Chaotic Cell Minion
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4710,6 +4760,7 @@ Keybinds: {
 	VetrasylsEyeBlock.DisplayName: 维塔希尔之瞳格挡
 	RuneDash.DisplayName: 符文之翼冲刺
 	CommandMinions.DisplayName: 命令仆从
+	// NihilityAndChaoticArmorConnectKey.DisplayName: Nihility And Chaotic Armor Connect Key
 }
 
 ProphetLoreEffect:

@@ -190,6 +190,12 @@ namespace CalamityEntropy.Common
                     float c = mp.NihilityShield > 0 ? 1 : ((float)mp.NihilityRecharge / VoidEaterHelmet.ShieldRecharge) * 0.6f;
                     DrawNihShield(player, player.Center, c * (0.5f + p * 0.5f), mp.NihShieldScale * (0.7f + 0.3f * p));
                 }
+                if(player.whoAmI == Main.myPlayer && mp.NihArmorRope != null)
+                {
+                    Main.spriteBatch.begin_();
+                    mp.DrawNihRope();
+                    Main.spriteBatch.End();
+                }
             }
 
             if (CalamityEntropy.SetupBossbarClrAuto)

@@ -3341,8 +3341,48 @@ Items: {
 		DisplayName: Red Dragon Horn
 		Tooltip: ""
 	}
+
+	ChaoticBodyArmor: {
+		DisplayName: Chaotic Body Armor
+		Tooltip:
+			'''
+			+4/s life regen
+			+10% Damage reduce
+			+2 Max minion
+			+120 Max mana
+			'''
+	}
+
+	ChaoticHelmet: {
+		DisplayName: Chaotic Helmet
+		Tooltip:
+			'''
+			+12% Damage
+			+1 Max minion
+			'''
+	}
+
+	ChaoticLeggings: {
+		DisplayName: Chaotic Leggings
+		Tooltip:
+			'''
+			+5% Movement speed
+			+6% Crit chance
+			'''
+	}
 }
 
+ChaoticSetBonus:
+	'''
+	+12% Damage reduce
+	+12% Damage
+	+2 Max minion
+	Releases small chaos cells upon injury
+	Cells will chase and attack enemies, 
+	then return after a period of time and be converted into your life
+	Press [[KEY]]([KN]) to cost life and spawn 3 cells
+	You can have a maximum of [LIMIT] cells
+	'''
 VoidEaterBonus:
 	'''
 	Shoot nihility lasers to target after target on hit
@@ -3350,12 +3390,23 @@ VoidEaterBonus:
 	+24% Damage
 	Project a shield that can withstand [SHIELD] damage
 	Shield need 10 sec to recover
-	Press [KEY]([KN]) to consume health and accelerate shield recovery
+	Press [[KEY]]([KN]) to consume health and accelerate shield recovery
 	+1/s life regen when the shield is broken
 	+3 Max Minion
 	+80 Max Mana
 	+120% Rogue stealth
 	'''
+VoidEaterSet: Void Eater Set
+ChaoticSet: Chaotic Set
+NihArmorConnet:
+'''
+Aim at another player wearing [ANOTHERSET] and press the [[CONNECT]] button to connect
+During connection, an additional 2/s of health regeneration is added, 
+and the health of the player with lower health is extracted to provide healing for another player
+When receiving fatal damage, if the other party can withstand the damage, 
+it will be borne by the other party, and this effect has a cooldown time of 12 seconds
+When connected, both parties will acquire the ability of nihility laser and chaotic cells
+'''
 LOCKED: ": [LOCKED]"
 BCU1: Requires defeating King Slime
 BCU2: Requires defeating Perforator or Hive Mind
@@ -3924,6 +3975,7 @@ Projectiles: {
 	NucLauncher.DisplayName: Nuc Launcher
 	PeaceJR.DisplayName: Peace JR
 	VENihilityLaser.DisplayName: Nihility Laser
+	ChaoticCellMinion.DisplayName: Chaotic Cell Minion
 }
 
 LegendTooltip: - Legend -
@@ -4452,6 +4504,7 @@ Keybinds: {
 	VetrasylsEyeBlock.DisplayName: Vetrasyls Eye Block
 	RuneDash.DisplayName: Rune Wings Dash
 	CommandMinions.DisplayName: Command Minions
+	NihilityAndChaoticArmorConnectKey.DisplayName: Nihility And Chaotic Armor Connect Key
 }
 
 ProphetLoreEffect:

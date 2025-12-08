@@ -3357,8 +3357,48 @@ Items: {
 		// DisplayName: Red Dragon Horn
 		// Tooltip: ""
 	}
+
+	ChaoticBodyArmor: {
+		// DisplayName: Chaotic Body Armor
+		/* Tooltip:
+			'''
+			+4/s life regen
+			+10% Damage reduce
+			+2 Max minion
+			+120 Max mana
+			''' */
+	}
+
+	ChaoticHelmet: {
+		// DisplayName: Chaotic Helmet
+		/* Tooltip:
+			'''
+			+12% Damage
+			+1 Max minion
+			''' */
+	}
+
+	ChaoticLeggings: {
+		// DisplayName: Chaotic Leggings
+		/* Tooltip:
+			'''
+			+5% Movement speed
+			+6% Crit chance
+			''' */
+	}
 }
 
+/* ChaoticSetBonus:
+	'''
+	+12% Damage reduce
+	+12% Damage
+	+2 Max minion
+	Releases small chaos cells upon injury
+	Cells will chase and attack enemies, 
+	then return after a period of time and be converted into your life
+	Press [[KEY]]([KN]) to cost life and spawn 3 cells
+	You can have a maximum of [LIMIT] cells
+	''' */
 /* VoidEaterBonus:
 	'''
 	Shoot nihility lasers to target after target on hit
@@ -3366,7 +3406,7 @@ Items: {
 	+24% Damage
 	Project a shield that can withstand [SHIELD] damage
 	Shield need 10 sec to recover
-	Press [KEY]([KN]) to consume health and accelerate shield recovery
+	Press [[KEY]]([KN]) to consume health and accelerate shield recovery
 	+1/s life regen when the shield is broken
 	+3 Max Minion
 	+80 Max Mana
@@ -3926,6 +3966,7 @@ Projectiles: {
 	// NucLauncher.DisplayName: Nuc Launcher
 	// PeaceJR.DisplayName: Peace JR
 	// VENihilityLaser.DisplayName: Nihility Laser
+	// ChaoticCellMinion.DisplayName: Chaotic Cell Minion
 }
 
 LegendTooltip: - Легенда -
@@ -4454,6 +4495,7 @@ Keybinds: {
 	VetrasylsEyeBlock.DisplayName: Щит Ока Ветрасиля
 	RuneDash.DisplayName: Рывок крыльями руны
 	// CommandMinions.DisplayName: Command Minions
+	// NihilityAndChaoticArmorConnectKey.DisplayName: Nihility And Chaotic Armor Connect Key
 }
 
 ProphetLoreEffect:

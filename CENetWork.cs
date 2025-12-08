@@ -29,6 +29,8 @@ namespace CalamityEntropy
         RuneDashSync,
         SendDashNPCDoUpdate,
         DestroyChest,
+        SyncPlayerLife,
+        NihilityConnet,
         SyncPlayer = 255
     }
 
@@ -263,6 +265,50 @@ namespace CalamityEntropy
                     int x = reader.ReadInt32();
                     int y = reader.ReadInt32();
                     CEUtils.CheckChestDestroy(player, x, y);
+                }
+            }
+            else if (messageType == CEMessageType.SyncPlayerLife)
+            {
+                int plr = reader.ReadInt32();
+                int lifeTo = reader.ReadInt32();
+                plr.ToPlayer().statLife = lifeTo;
+                if(Main.dedServ)
+                {
+                    ModPacket packet = CalamityEntropy.Instance.GetPacket();
+                    packet.Write((byte)CEMessageType.SyncPlayerLife);
+                    packet.Write(plr);
+                    packet.Write(lifeTo);
+                    packet.Send(-1, whoAmI);
+                }
+            }
+            else if (messageType == CEMessageType.NihilityConnet)
+            {
+                bool reset = reader.ReadBoolean();
+                int plr1 = reader.ReadInt32();
+                int plr2 = reader.ReadInt32();
+                if (reset)
+                {
+                    plr1.ToPlayer().Entropy().NihTwinArmorConnetPlayer = -1;
+                    plr2.ToPlayer().Entropy().NihTwinArmorConnetPlayer = -1;
+                }
+                else
+                {
+                    plr1.ToPlayer().Entropy().NihTwinArmorConnetPlayer = plr2;
+                    plr2.ToPlayer().Entropy().NihTwinArmorConnetPlayer = plr1;
+                    if (!Main.dedServ) 
+                    {
+                        CEUtils.PlaySound("ksLand", 1, plr1.ToPlayer().Center);
+                        CEUtils.PlaySound("ksLand", 1, plr2.ToPlayer().Center);
+                    } 
+                }
+                if (Main.dedServ)
+                {
+                    ModPacket packet = CalamityEntropy.Instance.GetPacket();
+                    packet.Write((byte)CEMessageType.NihilityConnet);
+                    packet.Write(reset);
+                    packet.Write(plr1);
+                    packet.Write(plr2);
+                    packet.Send(-1);
                 }
             }
             else if (messageType == CEMessageType.SyncPlayer)

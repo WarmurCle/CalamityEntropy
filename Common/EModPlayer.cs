@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common.LoreReworks;
+using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.ILEditing;
@@ -25,6 +26,7 @@ using CalamityEntropy.Content.Projectiles.VoidEchoProj;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.Poops;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
@@ -259,6 +261,7 @@ namespace CalamityEntropy.Common
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
+            NihTwinArmorConnetPlayer = -1;
             if (Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
             {
                 var st = SoundID.PlayerKilled;
@@ -450,6 +453,8 @@ namespace CalamityEntropy.Common
         public bool NihilityShieldEnabled = false;
         public bool NihilitySet = false;
         public float NihShieldScale = 0;
+        public bool ChaoticSet = false;
+        public bool SpawnChaoticCellOnHurt = false;
         public void UpdateDriverShield()
         {
             bool Equiped = AzafureDriverShieldItem != null;
@@ -552,6 +557,7 @@ namespace CalamityEntropy.Common
                             if (CECooldowns.CheckCD("NihilitySet", 60))
                             {
                                 Player.statLife -= lifeToShield;
+                                SyncLife();
                                 NihilityShield += lifeToShield;
                                 CEUtils.PlaySound("ARCD", 1.6f, Player.Center, 6, 0.8f);
                                 for (int i = 0; i < 16; i++)
@@ -579,6 +585,7 @@ namespace CalamityEntropy.Common
                             if (CECooldowns.CheckCD("NihilitySet", 60))
                             {
                                 Player.statLife -= lifeToShield;
+                                SyncLife();
                                 NihilityRecharge += 300;
                                 CEUtils.PlaySound("ARCD", 1.6f, Player.Center, 6, 0.8f);
                                 for (int i = 0; i < 16; i++)
@@ -681,6 +688,8 @@ namespace CalamityEntropy.Common
         {
             NihilitySet = false;
             NihilityShieldEnabled = false;
+            ChaoticSet = false;
+            SpawnChaoticCellOnHurt = false;
             BookmarkHolderSpecialTextures.Clear();
             AdditionalBookmarkSlot = 0;
             AzureRapierBlock--;
@@ -1539,6 +1548,24 @@ namespace CalamityEntropy.Common
 
         public override void OnHurt(Player.HurtInfo info)
         {
+            if(SpawnChaoticCellOnHurt)
+            {
+                if(info.Damage > 12)
+                {
+                    if(CECooldowns.CheckCD("ChaoticSetCellSpawnCD", 160))
+                    {
+                        CEUtils.PlaySound("ksLand", 1, Player.Center);
+                        int type = ModContent.ProjectileType<ChaoticCellMinion>();
+                        for(int i = 0; i < 3; i++)
+                        {
+                            if (Player.ownedProjectileCounts[type] < ChaoticHelmet.MaxCells)
+                            {
+                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 8, type, (int)Player.GetDamage<AverageDamageClass>().ApplyTo(800.ApplyOldFashionedDmg()), 2, Player.whoAmI);
+                            }
+                        }
+                    }
+                }
+            }
             if (DriverShield <= 0)
                 DriverRecharge = 0;
             if (Player.statLife - info.Damage > 0)
@@ -1880,12 +1907,132 @@ namespace CalamityEntropy.Common
         public float StealthMaxLast = -1;
         public bool RstStealth = false;
         public int DmgAdd20 = 0;
+        public int NihTwinArmorConnetPlayer = -1;
+        public void SyncLife(Player plr = null)
+        {
+            if (plr == null)
+                plr = Player;
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+                return;
+            ModPacket p = Mod.GetPacket();
+            p.Write((byte)CEMessageType.SyncPlayerLife);
+            p.Write(plr.whoAmI);
+            p.Write(plr.statLife);
+            p.Send();
+        }
+        public Rope NihArmorRope = null;
+        public void DrawNihRope()
+        {
+            var rope = NihArmorRope;
+            if (rope == null)
+            {
+                return;
+            }
+            List<ColoredVertex> ve = new List<ColoredVertex>();
+            List<Vector2> points = new List<Vector2>();
+            points = rope.GetPoints();
+
+            points.Insert(0, Player.Center);
+            points.Add(rope.End);
+            float lc = 1;
+            float jn = 0;
+
+            for (int i = 1; i < points.Count - 1; i++)
+            {
+                jn += CEUtils.getDistance(points[i - 1], points[i]) / (float)28 * lc;
+
+                ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 7 * lc,
+                      new Vector3(jn, 1, 1),
+                      Color.White));
+                ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 7 * lc,
+                      new Vector3(jn, 0, 1),
+                      Color.White));
+
+            }
+
+            SpriteBatch sb = Main.spriteBatch;
+            GraphicsDevice gd = Main.graphics.GraphicsDevice;
+            if (ve.Count >= 3)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+                gd.Textures[0] = ModContent.Request<Texture2D>("CalamityEntropy/Content/NPCs/NihilityTwin/NihRope").Value;
+                gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+            }
+        }
         public override void PostUpdate()
         {
             DmgAdd20--;
             ShieldAlphaAdd *= 0.95f;
             if (NihilitySet)
                 NihilityShieldEnabled = true;
+            if (ChaoticSet)
+                SpawnChaoticCellOnHurt = true;
+            
+            if(NihTwinArmorConnetPlayer != -1)
+            {
+                var mp = NihTwinArmorConnetPlayer.ToPlayer().Entropy();
+                if (Main.player[NihTwinArmorConnetPlayer].active && !Main.player[NihTwinArmorConnetPlayer].dead && (NihilitySet || ChaoticSet) && (mp.NihilitySet || mp.ChaoticSet))
+                {
+                    if (NihArmorRope == null)
+                        NihArmorRope = new Rope(Player.Center, NihTwinArmorConnetPlayer.ToPlayer().Center, 30, 0, new Vector2(0, 0f), 0.006f, 15, false);
+
+                    NihilityShieldEnabled = true;
+                    SpawnChaoticCellOnHurt = true;
+                    Player.lifeRegen += 4;
+                    if (Player.whoAmI == Main.myPlayer)
+                    {
+                        if(Main.GameUpdateCount % 8 == 0 || Main.GameUpdateCount % 40 == 32)
+                            SyncLife(Player);
+                        if (Main.GameUpdateCount % 40 == 0)
+                        {
+                            if (Math.Abs(Player.statLife - NihTwinArmorConnetPlayer.ToPlayer().statLife) > 60 && Player.statLife > NihTwinArmorConnetPlayer.ToPlayer().statLife)
+                            {
+                                int LifeTrans = int.Min(16, (Player.statLife - NihTwinArmorConnetPlayer.ToPlayer().statLife));
+                                if (Player.statLife > LifeTrans)
+                                {
+                                    Player.statLife -= LifeTrans;
+                                    NihTwinArmorConnetPlayer.ToPlayer().statLife += LifeTrans;
+
+                                    SyncLife();
+                                    SyncLife(NihTwinArmorConnetPlayer.ToPlayer());
+                                    CEUtils.PlaySound("ksLand", 0.5f, Player.Center, 6, 0.6f);
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    NihArmorRope = null;
+                    NihTwinArmorConnetPlayer.ToPlayer().Entropy().NihTwinArmorConnetPlayer = -1;
+                    NihTwinArmorConnetPlayer = -1;
+                }
+            }
+            else
+            {
+                NihArmorRope = null;
+            }
+            if (NihArmorRope != null && NihTwinArmorConnetPlayer >= 0)
+            {
+                var vec1 = Player.Center;
+                var vec2 = NihTwinArmorConnetPlayer.ToPlayer().Center;
+                if (CEUtils.getDistance(vec1, vec2) < 10000)
+                {
+                    NihArmorRope.segmentLength = CEUtils.getDistance(vec1, vec2) / 35f;
+                    NihArmorRope.Start = vec1;
+                    NihArmorRope.End = vec2;
+                    NihArmorRope.Update();
+                }
+                else
+                {
+                    NihArmorRope = null;
+                }
+            }
             if (ShootLaserTime > 0 && ShootLaserTime % 3 == 0)
             {
                 if (lastHitTarget != null && lastHitTarget.active)
@@ -1895,6 +2042,62 @@ namespace CalamityEntropy.Common
                     Projectile.NewProjectile(Player.GetSource_FromThis(), spos, (tpos - spos).normalize() * 16, ModContent.ProjectileType<VENihilityLaser>(), ((int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(1500)).ApplyOldFashionedDmg(), 8, Player.whoAmI);
                     if (CECooldowns.CheckCD("NihLaserSound", 1))
                         CEUtils.PlaySound("void_laser", 2.4f, spos, 6, 0.2f);
+                }
+            }
+            if (NihilitySet || ChaoticSet)
+            {
+                if (!Main.dedServ && CEKeybinds.NihilityAndChaoticArmorConnectKey.JustPressed)
+                {
+                    foreach (var player in Main.ActivePlayers)
+                    {
+                        if (player.whoAmI != Player.whoAmI)
+                        {
+                            if (player.Distance(Main.MouseWorld) < 300)
+                            {
+                                if (player.Entropy().NihilitySet != NihilitySet && player.Entropy().ChaoticSet != ChaoticSet)
+                                {
+                                    if(NihTwinArmorConnetPlayer != -1 || player.Entropy().NihTwinArmorConnetPlayer != -1)
+                                    {
+                                        ModPacket pack = Mod.GetPacket();
+                                        pack.Write((byte)CEMessageType.NihilityConnet);
+                                        pack.Write(true);
+                                        pack.Write(player.whoAmI);
+                                        pack.Write(NihTwinArmorConnetPlayer);
+                                        pack.Send();
+                                    }
+                                    else
+                                    {
+                                        ModPacket pack = Mod.GetPacket();
+                                        pack.Write((byte)CEMessageType.NihilityConnet);
+                                        pack.Write(false);
+                                        pack.Write(Player.whoAmI);
+                                        pack.Write(player.whoAmI);
+                                        pack.Send();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if(SpawnChaoticCellOnHurt && Main.myPlayer == Player.whoAmI)
+            {
+                if(CalamityKeybinds.ArmorSetBonusHotKey.JustPressed && Player.statLife > 90)
+                {
+                    if(CECooldowns.CheckCD("SummonCells", 120))
+                    {
+                        Player.statLife -= 90;
+                        SyncLife();
+                        CEUtils.PlaySound("ksLand", 1, Player.Center);
+                        int type = ModContent.ProjectileType<ChaoticCellMinion>();
+                        for (int i = 0; i < 3; i++)
+                        {
+                            if (Player.ownedProjectileCounts[type] < ChaoticHelmet.MaxCells)
+                            {
+                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 8, type, (int)Player.GetDamage<AverageDamageClass>().ApplyTo(800.ApplyOldFashionedDmg()), 2, Player.whoAmI);
+                            }
+                        }
+                    }
                 }
             }
             ShootLaserTime--;
@@ -3110,6 +3313,8 @@ namespace CalamityEntropy.Common
             }
             if (DmgAdd20 > 0)
                 Player.GetDamage(DamageClass.Generic) += 0.25f;
+
+
             foreach (Projectile p in Main.ActiveProjectiles)
             {
                 if (p.owner == Player.whoAmI && p.ModProjectile != null && p.ModProjectile is StarlightMothMinion smm)

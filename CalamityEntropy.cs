@@ -244,6 +244,22 @@ namespace CalamityEntropy
                 self.Entropy().deusCoreBloodOut += info.Damage - 2;
                 info.Damage = 2;
             }
+            if(self.Entropy().NihTwinArmorConnetPlayer != -1)
+            {
+                if(self.statLife - info.Damage <= 0 && self.Entropy().NihTwinArmorConnetPlayer.ToPlayer().statLife > info.Damage)
+                {
+                    if (CECooldowns.CheckCD("NihDamageDeathTrans", 12 * 60))
+                    {
+                        CombatText.NewText(self.getRect(), Color.LightBlue, $"{info.Damage}->");
+                        info.Cancelled = true;
+                        info.Damage = 1;
+                        self.Entropy().immune = 120;
+                        self.Entropy().NihTwinArmorConnetPlayer.ToPlayer().statLife -= info.Damage;
+                        self.Entropy().SyncLife(self.Entropy().NihTwinArmorConnetPlayer.ToPlayer());
+                        CEUtils.PlaySound("charm");
+                    }
+                }
+            }
             orig(self, info, quiet);
         }
         public static int cbptype = -1;
