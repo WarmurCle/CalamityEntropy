@@ -185,6 +185,8 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                     case 16: dmg = 1200; break;
                 }
                 Item.damage = dmg;
+                Item.crit = lv * 3;
+                Item.knockBack = lv / 2;
                 Item.Prefix(Item.prefix);
             }
 
