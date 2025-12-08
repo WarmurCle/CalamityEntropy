@@ -294,7 +294,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             return modifer;
         }
-        public virtual void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1, float scaleMul = 1, float shotSpeedMul = 1, Action<Projectile> initAction = null, float randomRotMult = 1, bool MainProjectile = false)
+        public virtual void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1, float scaleMul = 1, float shotSpeedMul = 1, Action<Projectile> initAction = null, float randomRotMult = 1, bool MainProjectile = false, Color colorMult = default)
         {
             if (!Projectile.active)
                 return;
@@ -311,8 +311,10 @@ namespace CalamityEntropy.Content.Items.Books
                 proj.CritChance = bookItem.crit + (int)modifer.Crit;
                 proj.scale *= modifer.Size * scaleMul;
                 proj.ArmorPenetration += (int)(Projectile.GetOwner().GetTotalArmorPenetration(Projectile.DamageType) + modifer.armorPenetration + bookItem.ArmorPenetration);
+                
                 if (proj.ModProjectile is EBookBaseProjectile bp)
                 {
+                    bp.color = bp.color.MultiplyRGBA(colorMult);
                     bp.mainProj = MainProjectile;
                     bp.ShooterModProjectile = this;
                     bp.homing += modifer.Homing;

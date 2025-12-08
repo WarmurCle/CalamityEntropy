@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
+using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Dusts;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
@@ -32,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.useAnimation = Item.useTime = 8;
             Item.crit = 8;
             Item.mana = 5;
-            Item.ArmorPenetration = 24;
+            Item.ArmorPenetration = 32;
             Item.rare = ModContent.RarityType<DarkBlue>();
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
         }
@@ -104,6 +105,11 @@ namespace CalamityEntropy.Content.Items.Books
             }
             return frame;
         }
+        public bool purple = false;
+        public override void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1, float scaleMul = 1, float shotSpeedMul = 1, Action<Projectile> initAction = null, float randomRotMult = 1, bool MainProjectile = false, Color colorMult = default)
+        {
+            base.ShootSingleProjectile(type, pos, velocity, damageMul, scaleMul, shotSpeedMul, initAction, randomRotMult, MainProjectile, new Color(255, 0, 255));
+        }
         public override bool Shoot()
         {
             Vector2 oPos = Projectile.Center;
@@ -114,7 +120,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.Center -= Projectile.rotation.ToRotationVector2() * 100;
             Projectile.rotation = (Main.MouseWorld - Projectile.Center).ToRotation();
             Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Projectile.rotation);
-
+            purple = false;
             SoundEngine.PlaySound(SoundID.Item12 with { Pitch = 0.6f, Volume = 0.3f }, Projectile.Center);
             base.Shoot();
             ProduceWarpCrossDust(Projectile.Center, (int)CalamityDusts.BlueCosmilite);
@@ -127,11 +133,11 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.Center -= Projectile.rotation.ToRotationVector2() * 100;
             Projectile.rotation = (Main.MouseWorld - Projectile.Center).ToRotation();
             Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Projectile.rotation);
-
+            purple = true;
             SoundEngine.PlaySound(SoundID.Item12 with { Pitch = 0.6f, Volume = 0.3f }, Projectile.Center);
             base.Shoot();
             ProduceWarpCrossDust(Projectile.Center, (int)CalamityDusts.BlueCosmilite);
-
+            purple = false;
             Projectile.velocity = odv;
             Projectile.Center = oPos;
             Projectile.rotation = oRot;
@@ -210,6 +216,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             target.AddBuff<GodSlayerInferno>(300);
+            target.AddBuff<MarkedforDeath>(300);
         }
     }
     public class CosmicDeathRay : EBookBaseProjectile
@@ -226,7 +233,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.height = 32;
             Projectile.tileCollide = false;
             Projectile.MaxUpdates = 6;
-            Projectile.timeLeft = 120 * 6;
+            Projectile.timeLeft = 160 * 6;
             Projectile.penetrate = -1;
         }
         public override void OnKill(int timeLeft)
