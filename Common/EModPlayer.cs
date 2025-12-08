@@ -1560,7 +1560,7 @@ namespace CalamityEntropy.Common
                         {
                             if (Player.ownedProjectileCounts[type] < ChaoticHelmet.MaxCells)
                             {
-                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 8, type, (int)Player.GetDamage<AverageDamageClass>().ApplyTo(800.ApplyOldFashionedDmg()), 2, Player.whoAmI);
+                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 8, type, (int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(800.ApplyOldFashionedDmg()), 2, Player.whoAmI);
                             }
                         }
                     }
@@ -2094,7 +2094,7 @@ namespace CalamityEntropy.Common
                         {
                             if (Player.ownedProjectileCounts[type] < ChaoticHelmet.MaxCells)
                             {
-                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 8, type, (int)Player.GetDamage<AverageDamageClass>().ApplyTo(800.ApplyOldFashionedDmg()), 2, Player.whoAmI);
+                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 8, type, ((int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(800)).ApplyOldFashionedDmg(), 2, Player.whoAmI);
                             }
                         }
                     }
