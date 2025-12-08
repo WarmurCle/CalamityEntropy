@@ -2041,7 +2041,7 @@ namespace CalamityEntropy.Common
                 {
                     Vector2 tpos = lastHitTarget.Center + lastHitTarget.velocity * 4;
                     Vector2 spos = Player.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(70, 120);
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), spos, (tpos - spos).normalize() * 16, ModContent.ProjectileType<VENihilityLaser>(), ((int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(1500)).ApplyOldFashionedDmg(), 8, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), spos, (tpos - spos).normalize() * 16, ModContent.ProjectileType<VENihilityLaser>(), ((int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(225)).ApplyOldFashionedDmg(), 8, Player.whoAmI);
                     if (CECooldowns.CheckCD("NihLaserSound", 1))
                         CEUtils.PlaySound("void_laser", 2.4f, spos, 6, 0.2f);
                 }
@@ -2088,7 +2088,7 @@ namespace CalamityEntropy.Common
                 {
                     if(CECooldowns.CheckCD("SummonCells", 120))
                     {
-                        Player.statLife -= 90;
+                        Player.statLife -= 80;
                         SyncLife();
                         CEUtils.PlaySound("ksLand", 1, Player.Center);
                         int type = ModContent.ProjectileType<ChaoticCellMinion>();

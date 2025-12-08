@@ -1,4 +1,4 @@
-﻿using CalamityMod.Items;
+using CalamityMod.Items;
 using CalamityMod.Items.Placeables.FurnitureVoid;
 using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Rarities;
@@ -22,8 +22,8 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
 
         public override void UpdateEquip(Player player)
         {
-            player.Entropy().moveSpeed += 0.05f;
-            player.GetCritChance(DamageClass.Generic) += 6;
+            player.Entropy().moveSpeed += 0.08f;
+            player.GetCritChance(DamageClass.Generic) += 13;
         }
         public override void AddRecipes()
         {

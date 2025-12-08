@@ -3324,12 +3324,12 @@ Items: {
 
 	VoidEaterBodyArmor: {
 		DisplayName: Void Eater Body Armor
-		Tooltip: +40%Damage
+		Tooltip: +12% Damage
 	}
 
 	VoidEaterHelmet: {
 		DisplayName: Void Eater Helmet
-		Tooltip: +22% Crit Chance
+		Tooltip: +12% Crit Chance and +12% Damage
 	}
 
 	VoidEaterLeggings: {
@@ -3348,8 +3348,7 @@ Items: {
 			'''
 			+4/s life regen
 			+10% Damage reduce
-			+2 Max minion
-			+120 Max mana
+			+1 Max minion
 			'''
 	}
 
@@ -3357,7 +3356,7 @@ Items: {
 		DisplayName: Chaotic Helmet
 		Tooltip:
 			'''
-			+12% Damage
+			+13% Damage
 			+1 Max minion
 			'''
 	}
@@ -3366,8 +3365,8 @@ Items: {
 		DisplayName: Chaotic Leggings
 		Tooltip:
 			'''
-			+5% Movement speed
-			+6% Crit chance
+			+8% Movement speed
+			+13% Crit chance
 			'''
 	}
 
@@ -3391,7 +3390,8 @@ ChaoticSetBonus:
 	'''
 	+12% Damage reduce
 	+12% Damage
-	+2 Max minion
+	+40 Maximum Health
+	+3 Max minion
 	Releases small chaos cells upon injury
 	Cells will chase and attack enemies, 
 	then return after a period of time and be converted into your life
@@ -3402,13 +3402,14 @@ VoidEaterBonus:
 	'''
 	Shoot nihility lasers to target after target on hit
 	This effect has 3 sec cooldown
-	+24% Damage
 	Project a shield that can withstand [SHIELD] damage
 	Shield need 10 sec to recover
 	Press [[KEY]]([KN]) to consume health and accelerate shield recovery
 	+1/s life regen when the shield is broken
-	+3 Max Minion
-	+80 Max Mana
+	+2 Max Minion
+	+100 Max Mana
+	+14% Damage
+	+14% Crit
 	+120% Rogue stealth
 	'''
 VoidEaterSet: Void Eater Set

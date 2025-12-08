@@ -75,7 +75,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                 .AddIngredient<AzafureChargeShield>()
                 .AddIngredient<RoverDrive>()
                 .AddIngredient<AshesofCalamity>(6)
-                .AddTile(TileID.Anvils)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
     }
