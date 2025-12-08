@@ -28,8 +28,8 @@ namespace CalamityEntropy.Content.Items.Books
             Item.shootSpeed = 18;
             Item.width = 28;
             Item.height = 40;
-            Item.damage = 295;
-            Item.useAnimation = Item.useTime = 4;
+            Item.damage = 300;
+            Item.useAnimation = Item.useTime = 8;
             Item.crit = 8;
             Item.mana = 5;
             Item.ArmorPenetration = 24;
@@ -110,13 +110,25 @@ namespace CalamityEntropy.Content.Items.Books
             float oRot = Projectile.rotation;
             Vector2 odv = Projectile.velocity;
 
-            Projectile.rotation = Projectile.rotation + Main.rand.NextFloat(-0.64f, 0.64f);
-            Projectile.Center -= Projectile.rotation.ToRotationVector2() * 90;
+            Projectile.rotation = Projectile.rotation + (float)(Math.Sin(Main.GameUpdateCount * 0.08f)) * 1.2f;// + Main.rand.NextFloat(-1.2f, 1.2f);
+            Projectile.Center -= Projectile.rotation.ToRotationVector2() * 100;
             Projectile.rotation = (Main.MouseWorld - Projectile.Center).ToRotation();
             Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Projectile.rotation);
 
             SoundEngine.PlaySound(SoundID.Item12 with { Pitch = 0.6f, Volume = 0.3f }, Projectile.Center);
+            base.Shoot();
+            ProduceWarpCrossDust(Projectile.Center, (int)CalamityDusts.BlueCosmilite);
 
+            Projectile.velocity = odv;
+            Projectile.Center = oPos;
+            Projectile.rotation = oRot;
+
+            Projectile.rotation = Projectile.rotation + (float)(Math.Sin(Main.GameUpdateCount * 0.08f)) * -1.2f;// + Main.rand.NextFloat(-1.2f, 1.2f);
+            Projectile.Center -= Projectile.rotation.ToRotationVector2() * 100;
+            Projectile.rotation = (Main.MouseWorld - Projectile.Center).ToRotation();
+            Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Projectile.rotation);
+
+            SoundEngine.PlaySound(SoundID.Item12 with { Pitch = 0.6f, Volume = 0.3f }, Projectile.Center);
             base.Shoot();
             ProduceWarpCrossDust(Projectile.Center, (int)CalamityDusts.BlueCosmilite);
 
@@ -205,7 +217,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 6000;
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 2400;
         }
         public override void SetDefaults()
         {
