@@ -183,12 +183,16 @@ namespace CalamityEntropy.Common
             foreach (Player player in Main.ActivePlayers)
             {
                 EModPlayer mp = player.Entropy();
-                if (mp.AzafureDriverShieldItem != null)
                 {
-                    float p = (float)mp.DriverShield / AzafureDriverCore.MaxShield;
-                    if (mp.DriverShield <= 0)
+
+                    float p = 1;
+                    if (mp.AzafureDriverShieldItem != null)
                     {
-                        p = (float)mp.DriverRecharge / AzafureDriverCore.RechargeTime;
+                        p = (float)mp.DriverShield / AzafureDriverCore.MaxShield;
+                        if (mp.DriverShield <= 0)
+                        {
+                            p = (float)mp.DriverRecharge / AzafureDriverCore.RechargeTime;
+                        }
                     }
                     DrawDriverShield(player, p, mp.DriverShield > 0, player.Center);
                 }
