@@ -1,5 +1,6 @@
 ﻿using CalamityMod.Items;
 using CalamityMod.Items.Placeables.FurnitureVoid;
+using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Rarities;
 using Terraria;
 using Terraria.ID;
@@ -32,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
         {
             CreateRecipe()
                 .AddIngredient<ChaoticPiece>(8)
-                .AddIngredient<SmoothVoidstone>(12)
+                .AddIngredient<ExodiumCluster>(12)
                 .AddIngredient(ItemID.LunarBar, 12)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();

@@ -1,4 +1,5 @@
 ﻿using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables.FurnitureVoid;
 using CalamityMod.Rarities;
 using Terraria;
@@ -29,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
         {
             CreateRecipe()
                 .AddIngredient<NihilityFragments>(8)
-                .AddIngredient(ItemID.Ectoplasm, 6)
+                .AddIngredient(ModContent.ItemType<Necroplasm>(), 6)
                 .AddIngredient(ItemID.LunarBar, 12)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();

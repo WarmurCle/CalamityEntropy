@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -64,7 +65,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
         {
             CreateRecipe()
                 .AddIngredient<NihilityFragments>(5)
-                .AddIngredient(ItemID.Ectoplasm, 6)
+                .AddIngredient(ModContent.ItemType<Necroplasm>(), 6)
                 .AddIngredient(ItemID.LunarBar, 8)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
