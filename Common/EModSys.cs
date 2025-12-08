@@ -115,10 +115,18 @@ namespace CalamityEntropy.Common
 
         public static void DrawDriverShield(Player player, float progress, bool active, Vector2 center)
         {
+            if (!player.Entropy().DriverShieldVisual)
+                return;
+
             center += player.gfxOffY * Vector2.UnitY;
             float scale = player.Entropy().DriverScale;
             Texture2D noise = CEUtils.getExtraTex("Noise_14");
             Texture2D tex = CEUtils.getExtraTex("RectShield");
+            if (player.Entropy().AzafureDriverShieldItem == null && player.Entropy().DriverShieldVisual)
+            {
+                active = true;
+                scale = 2.5f;
+            }
             if (active)
             {
                 float alpha = 0.5f + 0.5f * progress;

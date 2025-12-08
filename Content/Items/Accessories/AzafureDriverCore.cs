@@ -51,8 +51,12 @@ namespace CalamityEntropy.Content.Items.Accessories
                 modPlayer.DashID = AzafureDriverDash.ID;
                 player.dashType = 0;
             }
-
+            player.Entropy().DriverShieldVisual = !hideVisual;
             player.Entropy().AzafureDriverShieldItem = Item;
+        }
+        public override void UpdateVanity(Player player)
+        {
+            player.Entropy().DriverShieldVisual = true;
         }
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {

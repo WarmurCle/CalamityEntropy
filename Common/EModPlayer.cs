@@ -684,8 +684,10 @@ namespace CalamityEntropy.Common
                 CombatText.NewText(Player.getRect(), Color.SkyBlue, "-" + reduceDmg);
             }
         }
+        public bool DriverShieldVisual = false;
         public override void ResetEffects()
         {
+            DriverShieldVisual = false;
             NihilitySet = false;
             NihilityShieldEnabled = false;
             ChaoticSet = false;
