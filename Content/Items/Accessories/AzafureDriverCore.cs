@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class AzafureDriverCore : ModItem, IAzafureEnhancable
     {
-        public const int ShieldSlamDamage = 140;
+        public const int ShieldSlamDamage = 240;
         public const float ShieldSlamKnockback = 8f;
         public const int ShieldSlamIFrames = 16;
         public static int DashDelay = 20;
