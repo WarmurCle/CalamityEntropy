@@ -14,7 +14,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator
 {
-    public class FetalDream : ModItem, IDevItem
+    public class FetalDream : ModItem, IDevItem, IGetFromStarterBag
     {
         public string DevName => "银九";
 
@@ -58,6 +58,11 @@ namespace CalamityEntropy.Content.Items.Donator
                     tl.Text = $"{Main.LocalPlayer.GetWeaponDamage(Item, true).ToString()} {Mod.GetLocalization("FetalDreamDamage").Value}";
                 }
             }
+        }
+
+        public bool OwnAble(Player player, ref int count)
+        {
+            return StartBagGItem.NameContains(player, DevName) || StartBagGItem.NameContains(player, "阿九");
         }
     }
     public class FetalDreamSlash : ModProjectile
