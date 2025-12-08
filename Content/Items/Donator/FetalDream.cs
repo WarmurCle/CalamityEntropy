@@ -70,6 +70,11 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             return StartBagGItem.NameContains(player, DevName) || StartBagGItem.NameContains(player, "阿九");
         }
+        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
+        {
+            if (player.HasCooldown(FetalDreamCooldown.ID))
+                damage *= 0.0097276;
+        }
     }
     public class FetalDreamSlash : ModProjectile
     {
