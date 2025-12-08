@@ -164,6 +164,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             NPC.localAI[1]++;
         }
         public float rl = 0;
+        public int NoEnrange = 300;
         public override void AI()
         {
             rl = CEUtils.RotateTowardsAngle(rl, NPC.rotation, 0.1f, false);
@@ -291,7 +292,12 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         public int AIC = -1;
         public void AttackPlayer(Player target)
         {
-            if (!target.ZoneDungeon && !BossRushEvent.BossRushActive)
+            if (target.ZoneDungeon || BossRushEvent.BossRushActive)
+            {
+                NoEnrange = 500;
+            }
+            NoEnrange--;
+            if(NoEnrange < 0)
             {
                 NPC.Calamity().CurrentlyEnraged = true;
             }
