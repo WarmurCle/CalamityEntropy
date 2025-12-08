@@ -108,7 +108,7 @@ namespace CalamityEntropy.Content.Items.Books
         public bool purple = false;
         public override void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1, float scaleMul = 1, float shotSpeedMul = 1, Action<Projectile> initAction = null, float randomRotMult = 1, bool MainProjectile = false, Color colorMult = default)
         {
-            base.ShootSingleProjectile(type, pos, velocity, damageMul, scaleMul, shotSpeedMul, initAction, randomRotMult, MainProjectile, purple ? new Color(255, 160, 255) : Color.White);
+            base.ShootSingleProjectile(type, pos, velocity, damageMul, scaleMul, shotSpeedMul, initAction, randomRotMult, MainProjectile, purple ? new Color(255, 200, 255) : Color.White);
         }
         public override bool Shoot()
         {
@@ -121,7 +121,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.rotation = (Main.MouseWorld - Projectile.Center).ToRotation();
             Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Projectile.rotation);
             purple = false;
-            SoundEngine.PlaySound(SoundID.Item12 with { Pitch = 0.6f, Volume = 0.3f }, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item12 with { Pitch = 0.4f, Volume = 0.45f }, Projectile.Center);
             base.Shoot();
             ProduceWarpCrossDust(Projectile.Center, (int)CalamityDusts.BlueCosmilite);
 
@@ -134,7 +134,6 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.rotation = (Main.MouseWorld - Projectile.Center).ToRotation();
             Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Projectile.rotation);
             purple = true;
-            SoundEngine.PlaySound(SoundID.Item12 with { Pitch = 0.6f, Volume = 0.3f }, Projectile.Center);
             base.Shoot();
             ProduceWarpCrossDust(Projectile.Center, (int)CalamityDusts.BlueCosmilite);
             purple = false;

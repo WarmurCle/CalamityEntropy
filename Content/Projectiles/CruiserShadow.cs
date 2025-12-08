@@ -122,7 +122,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             Vector2 c = Projectile.Center;
             Projectile.Center = player.Center;
-            NPC n = Projectile.FindTargetWithinRange(2400);
+            NPC n = Projectile.FindMinionTarget();
             Projectile.Center = c;
             noChase--;
 
