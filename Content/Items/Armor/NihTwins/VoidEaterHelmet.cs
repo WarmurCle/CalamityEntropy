@@ -42,6 +42,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             cnctStr = cnctStr.Replace("[ANOTHERSET]", Mod.GetLocalization("ChaoticSet").Value);
             cnctStr = cnctStr.Replace("[CONNECT]", CEKeybinds.NihilityAndChaoticArmorConnectKey.TooltipHotkeyString());
             player.setBonus += "\n" + cnctStr;
+            player.Entropy().voidResistance += 0.3f;
             if (!ModContent.GetInstance<Config>().MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons || player.HeldItem.DamageType.CountsAsClass(CEUtils.RogueDC))
             {
                 player.Calamity().wearingRogueArmor = true;

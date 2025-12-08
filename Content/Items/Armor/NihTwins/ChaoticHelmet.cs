@@ -41,6 +41,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             player.setBonus = player.setBonus.Replace("[KN]", CalamityKeybinds.ArmorSetBonusHotKey.DisplayName.Value);
             player.setBonus = player.setBonus.Replace("[LIMIT]", MaxCells.ToString());
             string cnctStr = Mod.GetLocalization("NihArmorConnet").Value;
+            player.Entropy().voidResistance += 0.3f;
             cnctStr = cnctStr.Replace("[ANOTHERSET]", Mod.GetLocalization("VoidEaterSet").Value);
             cnctStr = cnctStr.Replace("[CONNECT]", CEKeybinds.NihilityAndChaoticArmorConnectKey.TooltipHotkeyString());
             player.setBonus += "\n" + cnctStr;
