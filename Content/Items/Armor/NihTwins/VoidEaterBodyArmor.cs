@@ -1,4 +1,4 @@
-﻿using CalamityMod.Items;
+using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables.FurnitureVoid;
 using CalamityMod.Rarities;
@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
 
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.4f;
+            player.GetDamage(DamageClass.Generic) += 0.12f;
         }
 
         public override void AddRecipes()
