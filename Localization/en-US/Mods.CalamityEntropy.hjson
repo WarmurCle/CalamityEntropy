@@ -4941,6 +4941,25 @@ LoreWallofFleshDesc: Reduces incoming damage by {1}%, cooldown {2} seconds
 LoreBloodMoonDesc: Enhance night vision capability
 LoreQueenSlimeDesc: +{1}% Falling Speed
 LoreArchmageDesc: Increase the speed of Cold debuff decay
+LoreMechsDesc: +{1} Defense
+LoreTwinsDesc: +{1} Defense
+LoreDestroyerDesc: +{1} Defense
+LoreSkeletronPrimeDesc: +{1}% Damage reduce
+LoreSulphurSeaDesc: Immune to acid venom
+LoreAzafureDesc: +{1}% Crit chance
+LoreCalamitasCloneDesc: +{1}% Melee speed
+LorePlanteraDesc +0.5/s Life regen
+LoreAbyssDesc: Increase breath holding time
+LoreLeviathanAnahitaDesc: Increase 1/s life regen in water
+LoreAstrumAureusDesc: Increase the speed of astral infection debuff decay
+LoreGolemDesc: +{1}% Damage reduce
+LorePlaguebringerGoliathDesc: Increase the speed of plague debuff decay
+LoreEmpressofLightDesc: +{1} Defense in day time
+LoreDukeFishronDesc : Ingnore to water
+LoreRavagerDesc: Increase movement speed by 2%
+LorePreludeDesc: +5% Light
+LoreAstralInfectionDesc: +{1}% Wing time
+LoreAstrumDeusDesc: +{1}% Wing speed
 
 DraedonDialogs: {
 	Void: {

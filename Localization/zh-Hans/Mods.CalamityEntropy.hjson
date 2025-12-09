@@ -5202,6 +5202,25 @@ LoreWallofFleshDesc: 将受到的伤害减伤{1}%，冷却时间{2}秒
 LoreBloodMoonDesc: 提升夜视能力
 LoreQueenSlimeDesc: +{1}%下落速度
 LoreArchmageDesc: 增加冷系减益流逝速度
+LoreMechsDesc: +{1}防御
+LoreTwinsDesc: +{1}防御
+LoreDestroyerDesc: +{1}防御
+LoreSkeletronPrimeDesc: +{1}% 伤害减免
+LoreSulphurSeaDesc: 对酸性毒液免疫
+LoreAzafureDesc: +{1}% 暴击率
+LoreCalamitasCloneDesc: +{1}% 近战攻速
+LorePlanteraDesc +0.5/s 生命再生
+LoreAbyssDesc: 增加憋气时间
+LoreLeviathanAnahitaDesc: 在水中增加1/s生命再生
+LoreAstrumAureusDesc: 增加幻星感染减益的流逝速度
+LoreGolemDesc: +{1}% 伤害减免
+LorePlaguebringerGoliathDesc: 增加瘟疫减益的流逝速度
+LoreEmpressofLightDesc: 在白天增加{1}点防御
+LoreDukeFishronDesc: 移动无视水阻力
+LoreRavagerDesc: 增加2%移动速度
+LorePreludeDesc: +5%光照
+LoreAstralInfectionDesc: +{1}% 飞行时间
+LoreAstrumDeusDesc: +{1}% 飞行速度
 
 DraedonDialogs: {
 	Void: {

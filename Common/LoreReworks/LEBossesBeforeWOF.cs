@@ -19,7 +19,7 @@ namespace CalamityEntropy.Common.LoreReworks
         public override int ItemType => ModContent.ItemType<LoreDesertScourge>();
         public override void UpdateEffects(Player player)
         {
-            player.breathMax += 20;
+            player.breathMax += 40;
         }
     }
     public class LEEOC : LoreEffect
