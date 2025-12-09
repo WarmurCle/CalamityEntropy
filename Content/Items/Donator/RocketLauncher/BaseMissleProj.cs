@@ -52,16 +52,17 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
                 if(expl.ModProjectile is CommonExplotionFriendly cef)
                 {
                     cef.onHitAction = OnExplodeHitNPC;
+                    expl.Entropy().applyBuffs = Projectile.Entropy().applyBuffs;
                 }
             }
         }
         public virtual void ExplodeVisual()
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
-            float scale = ExplodeRadius / 48f;
-            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, scale * 0.5f, 8));
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, scale, 1, true, BlendState.Additive, 0, 16);
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, scale * 0.7f, 1, true, BlendState.Additive, 0, 16);
+            float scale = ExplodeRadius / 40f;
+            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.1f, scale * 0.46f, 14));
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.OrangeRed, scale * 0.8f, 1, true, BlendState.Additive, 0, 10);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, scale * 0.5f, 1, true, BlendState.Additive, 0, 10);
 
         }
         public virtual void SetupStats() { }
@@ -83,27 +84,39 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             if (StickOnNPC != null)
                 modifiers.SourceDamage /= 9;
         }
+        public bool tileCollide = false;
         public override void AI()
         {
             if (Lifetime == 0)
             {
+                tileCollide = Projectile.tileCollide;
                 Projectile.ai[2] = -1;
                 SetupStats();
             }
             Lifetime++;
             if (StickOnNPC != null)
             {
-                Projectile.Center = StickOnNPC.Center + StickOffset;
-                if (Main.myPlayer == Projectile.owner)
+                Projectile.tileCollide = false;
+                if (!StickOnNPC.active)
                 {
-                    StickUpdate(StickOnNPC);
+                    Projectile.tileCollide = this.tileCollide;
+                    Projectile.ai[2] = -1;
+                    Projectile.velocity *= 0;
                 }
-                StickOnNPC.Entropy().StickByMissle = 10;
-                CheckExplode();
+                else
+                {
+                    Projectile.Center = StickOnNPC.Center + StickOffset;
+                    if (Main.myPlayer == Projectile.owner)
+                    {
+                        StickUpdate(StickOnNPC);
+                    }
+                    StickOnNPC.Entropy().StickByMissle = 10;
+                    CheckExplode();
+                }
             }
             else
             {
-                if(Lifetime > FallingTime)
+                if (Lifetime > FallingTime)
                 {
                     Projectile.velocity += new Vector2(0, Gravity);
                 }

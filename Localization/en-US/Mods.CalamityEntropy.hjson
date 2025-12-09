@@ -3397,11 +3397,9 @@ Items: {
 
 	FrailMissle: {
 		DisplayName: Frail
-		Tooltip: 
-		'''
-		[c/960e05:Oh, I can do many things for you, my murderer]
-		'''
+		Tooltip: "[c/960e05:Oh, I can do many things for you, my murderer]"
 	}
+
 	Hope: {
 		DisplayName: Hope
 		Tooltip: "[c/87CEEB:We can be everything you hope for, my savior full of virtues]"

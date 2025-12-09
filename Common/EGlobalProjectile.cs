@@ -115,7 +115,7 @@ namespace CalamityEntropy.Common
         [VaultLoaden("CalamityEntropy/Assets/Extra/Voidsama")]
         public static Asset<Texture2D> voidSamaSlash;
         public static Asset<Texture2D> muraTex = null;
-
+        public float MissleHoming = 0;
         public int OnProj { get { return IndexOfTwistedTwinShootedThisProj; } set { IndexOfTwistedTwinShootedThisProj = value; } }
         public int flagTT = 0;
         public Vector2 playerPosL;

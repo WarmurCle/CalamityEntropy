@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             Item.value = Item.sellPrice(silver: 1);
             Item.rare = ItemRarityID.Orange;
             Item.ammo = BaseMissleProj.AmmoType;
-            Item.damage = 20;
+            Item.damage = 8;
             Item.shoot = ModContent.ProjectileType<CharredMissleProj>();
         }
 
