@@ -73,6 +73,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
                 .Register();
         }
     }
+
     public class ChaoticCellMinion : ModProjectile
     {
         public static int BaseDamage = 400;
@@ -82,7 +83,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             Projectile.width = Projectile.height = 40;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 8;
-            Projectile.timeLeft = 25 * 60;
+            Projectile.timeLeft = 26 * 60;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         { 
@@ -103,37 +104,46 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
         public float ChasePlayer = 1;
         public override void AI()
         {
-            if(Projectile.numHits < 6 && Projectile.timeLeft > 10 * 60)
+            if (Projectile.localAI[1] == 0)
+                Projectile.velocity *= Main.rand.NextFloat(0.4f, 1);
+            if (Projectile.localAI[1]++ < 30)
             {
-                NPC target = Projectile.FindMinionTarget(6000);
-                if (target != null)
-                {
-                    Projectile.velocity *= 0.97f;
-                    Projectile.velocity += (target.Center - Projectile.Center).normalize() * 1;
-                }
-                else
-                {
-                    if(Projectile.Distance(Projectile.GetOwner().Center) > 120)
-                    {
-                        Projectile.velocity *= 0.96f;
-                        Projectile.velocity += (Projectile.GetOwner().Center - Projectile.Center).normalize() * 1.2f;
-                    }
-                }
+                Projectile.velocity *= 0.96f;
             }
             else
             {
-                if(ChasePlayer < 15)
-                    ChasePlayer += 0.025f;
-                Projectile.velocity *= 1 - ChasePlayer * 0.02f;
-                Projectile.velocity += (Projectile.GetOwner().Center - Projectile.Center).normalize() * ChasePlayer;
-                if(Projectile.Distance(Projectile.GetOwner().Center) < Projectile.velocity.Length() + 32)
+                if (Projectile.numHits < 6 && Projectile.timeLeft > 10 * 60)
                 {
-                    Projectile.Kill();
-                    int heal = (int)(1 + Projectile.GetOwner().statLifeMax2 * 0.015f);
-                    Projectile.GetOwner().Heal(heal);
+                    NPC target = Projectile.FindMinionTarget(6000);
+                    if (target != null)
+                    {
+                        Projectile.velocity *= 0.97f;
+                        Projectile.velocity += (target.Center - Projectile.Center).normalize() * 1;
+                    }
+                    else
+                    {
+                        if (Projectile.Distance(Projectile.GetOwner().Center) > 120)
+                        {
+                            Projectile.velocity *= 0.96f;
+                            Projectile.velocity += (Projectile.GetOwner().Center - Projectile.Center).normalize() * 1.2f;
+                        }
+                    }
+                }
+                else
+                {
+                    if (ChasePlayer < 25)
+                        ChasePlayer += 0.025f;
+                    Projectile.velocity *= 1 - ChasePlayer * 0.02f;
+                    Projectile.velocity += (Projectile.GetOwner().Center - Projectile.Center).normalize() * ChasePlayer;
+                    if (Projectile.Distance(Projectile.GetOwner().Center) < Projectile.velocity.Length() + 32)
+                    {
+                        Projectile.Kill();
+                        int heal = (int)(1 + Projectile.GetOwner().statLifeMax2 * 0.015f);
+                        Projectile.GetOwner().Heal(heal);
 
-                    CEUtils.PlaySound("cellheal", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, 8, 0.9f);
-                    Projectile.Kill();
+                        CEUtils.PlaySound("cellheal", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, 8, 0.9f);
+                        Projectile.Kill();
+                    }
                 }
             }
             Projectile.rotation += Projectile.velocity.X * 0.01f;

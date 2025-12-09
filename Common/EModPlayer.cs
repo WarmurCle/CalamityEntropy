@@ -1556,13 +1556,13 @@ namespace CalamityEntropy.Common
                 {
                     if(CECooldowns.CheckCD("ChaoticSetCellSpawnCD", 160))
                     {
-                        CEUtils.PlaySound("ksLand", 1, Player.Center);
+                        CEUtils.PlaySound("ksLand", 0.7f, Player.Center);
                         int type = ModContent.ProjectileType<ChaoticCellMinion>();
                         for(int i = 0; i < 3; i++)
                         {
                             if (Player.ownedProjectileCounts[type] < ChaoticHelmet.MaxCells)
                             {
-                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 8, type, ((int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(ChaoticCellMinion.BaseDamage)).ApplyOldFashionedDmg(), 2, Player.whoAmI);
+                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 15, type, ((int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(ChaoticCellMinion.BaseDamage)).ApplyOldFashionedDmg(), 2, Player.whoAmI);
                             }
                         }
                     }
@@ -2090,13 +2090,13 @@ namespace CalamityEntropy.Common
                     {
                         Player.statLife -= 80;
                         SyncLife();
-                        CEUtils.PlaySound("ksLand", 1, Player.Center);
+                        CEUtils.PlaySound("ksLand", 0.7f, Player.Center);
                         int type = ModContent.ProjectileType<ChaoticCellMinion>();
                         for (int i = 0; i < 3; i++)
                         {
                             if (Player.ownedProjectileCounts[type] < ChaoticHelmet.MaxCells)
                             {
-                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 8, type, ((int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(ChaoticCellMinion.BaseDamage)).ApplyOldFashionedDmg(), 2, Player.whoAmI);
+                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 15, type, ((int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(ChaoticCellMinion.BaseDamage)).ApplyOldFashionedDmg(), 2, Player.whoAmI);
                             }
                         }
                     }
