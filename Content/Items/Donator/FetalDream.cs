@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Items.Donator
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
             if (player.HasCooldown(FetalDreamCooldown.ID))
-                damage *= 0.0097276f;
+                damage *= 0.0098f;
         }
     }
     public class FetalDreamSlash : ModProjectile
