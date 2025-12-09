@@ -28,6 +28,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 .AddIngredient<BloodstoneCore>(6)
                 .AddCondition(Condition.BloodMoon)
                 .AddCondition(Condition.NearWater)
+                .DisableDecraft()
                 .Register();
         }
 
