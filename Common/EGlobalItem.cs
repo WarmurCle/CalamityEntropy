@@ -4,6 +4,7 @@ using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
+using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Items.Armor.VoidFaquir;
@@ -492,7 +493,38 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-
+            int index = 0;
+            int tIndex = 0;
+            foreach (var tooltip in tooltips)
+            {
+                if (tooltip.Mod == "Terraria")
+                {
+                    if(tooltip.Name.Contains("Tooltip"))
+                    {
+                        tIndex = index;
+                    }
+                }
+                index++;
+            }
+            if(item.ModItem != null)
+            {
+                if (item.ModItem is ThreadOfFate || item.ModItem is ThreadOfAbyss || item.ModItem is CursedThread || item.ModItem is OracleDeck || item.ModItem is TaintedDeck || item.ModItem is SoulDeck)
+                    goto DeckEnd;
+                string ns = (item.ModItem.GetType()).Namespace;
+                if (ns.Contains("CalamityEntropy.Content.Items.Accessories.Cards"))
+                {
+                    tooltips.Insert(tIndex + 1, new TooltipLine(Mod, $"Tooltip{tIndex + 1}", Mod.GetLocalization("CardsDesc").Value) { OverrideColor = Color.SkyBlue });
+                }
+                if (ns.Contains("CalamityEntropy.Content.Items.Accessories.EvilCards"))
+                {
+                    tooltips.Insert(tIndex + 1, new TooltipLine(Mod, $"Tooltip{tIndex + 1}", Mod.GetLocalization("CardsDesc").Value) { OverrideColor = Color.Red });
+                }
+                if (ns.Contains("CalamityEntropy.Content.Items.Accessories.SoulCards"))
+                {
+                    tooltips.Insert(tIndex + 1, new TooltipLine(Mod, $"Tooltip{tIndex + 1}", Mod.GetLocalization("CardsDesc").Value) { OverrideColor = Color.Yellow });
+                }
+            }
+        DeckEnd:
             if (item.Entropy().armorPrefix != null)
             {
                 foreach (var tooltip in tooltips)
@@ -507,7 +539,6 @@ namespace CalamityEntropy.Common
                         {
                             tooltip.Text += (armorPrefix.AddDefense() > 0 ? "(+" : "(") + ((int)Math.Round(armorPrefix.AddDefense() * item.defense)).ToString() + ")";
                         }
-                        Main.NewText(tooltip.Name);
                     }
                 }
             }

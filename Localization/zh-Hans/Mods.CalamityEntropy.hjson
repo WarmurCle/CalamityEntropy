@@ -5209,7 +5209,7 @@ LoreSkeletronPrimeDesc: +{1}% 伤害减免
 LoreSulphurSeaDesc: 对酸性毒液免疫
 LoreAzafureDesc: +{1}% 暴击率
 LoreCalamitasCloneDesc: +{1}% 近战攻速
-LorePlanteraDesc +0.5/s 生命再生
+LorePlanteraDesc: +0.5/s 生命再生
 LoreAbyssDesc: 增加憋气时间
 LoreLeviathanAnahitaDesc: 在水中增加1/s生命再生
 LoreAstrumAureusDesc: 增加幻星感染减益的流逝速度
