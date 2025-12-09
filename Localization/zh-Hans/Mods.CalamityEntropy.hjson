@@ -3648,17 +3648,30 @@ Items: {
 
 	CharredMissle: {
 		DisplayName: 焦黑导弹
-		Tooltip: 
-		'''
-		每个黏附的射弹增加10%目标受到伤害
-		'''
+		Tooltip: 每个黏附的射弹增加5%目标受到伤害
 	}
 
 	OsseousRemains: {
 		DisplayName: 遗骨
+		Tooltip: “有烧焦的味道”
+	}
+
+	FrailMissle: {
+		DisplayName: 孱弱
 		Tooltip: 
 		'''
-		“有烧焦的味道”
+		发射可黏附在敌人身上并持续造成伤害的导弹
+		最多黏附3发
+		[c/960e05:哦，我可以为你做许多事，我的谋害者]
+		'''
+	}
+	Hope: {
+		DisplayName: 希望
+		Tooltip: 
+		'''
+		发射可黏附在敌人身上并持续造成伤害的导弹
+		最多黏附2发
+		[c/87CEEB:我们可以成为你希望的一切，我充满美德的救世主]
 		'''
 	}
 }
@@ -4258,6 +4271,7 @@ Projectiles: {
 	ChaoticCellMinion.DisplayName: 混沌仆从
 	CosmicBlessingHeld.DisplayName: 星宙神赋
 	CosmicDeathRay.DisplayName: 寰宇死光
+	// CharredMissleProj.DisplayName: Charred Missle Proj
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4783,7 +4797,7 @@ Keybinds: {
 	VetrasylsEyeBlock.DisplayName: 维塔希尔之瞳格挡
 	RuneDash.DisplayName: 符文之翼冲刺
 	CommandMinions.DisplayName: 命令仆从
-	NihilityAndChaoticArmorConnectKey.DisplayName: "噬虚者&混沌套装连接"
+	NihilityAndChaoticArmorConnectKey.DisplayName: 噬虚者&混沌套装连接
 }
 
 ProphetLoreEffect:

@@ -33,6 +33,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
     }
     public class CharredMissleProj : BaseMissleProj
     {
+        public override float StickDamageAddition => 0.05f;
         public override string Texture => "CalamityEntropy/Content/Items/Donator/RocketLauncher/CharredMissle";
     }
 }

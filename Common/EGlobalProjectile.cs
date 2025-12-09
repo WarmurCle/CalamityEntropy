@@ -99,6 +99,7 @@ namespace CalamityEntropy.Common
     }
     public class EGlobalProjectile : GlobalProjectile
     {
+        public List<int> applyBuffs = new();
         public bool Lightning = false;
         public List<Vector2> odp = new List<Vector2>();
         public List<Vector2> odp2 = new List<Vector2>();
@@ -1249,6 +1250,10 @@ namespace CalamityEntropy.Common
         public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            foreach(int id in applyBuffs)
+            {
+                target.AddBuff(id, 5 * 60);
+            }
             if (zypArrow)
             {
                 target.AddBuff<LifeOppress>(600);

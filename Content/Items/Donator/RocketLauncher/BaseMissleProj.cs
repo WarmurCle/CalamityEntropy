@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
 {
     public abstract class BaseMissleProj : ModProjectile
     {
-        public const int AmmoType = 9917;
+        public const int AmmoType = 2035;
         public int MaxStick => (int)Projectile.ai[0];
         public float ExplodeRadius => Projectile.ai[1];
         public NPC StickOnNPC => (Projectile.ai[2] < 0 ? null : Main.npc[((int)Projectile.ai[2])]);
@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public virtual int MaxStickTime => 8 * 60;
         public virtual float Gravity => 0.4f;
         public virtual int FallingTime => 16;
-        public virtual float StickDamageAddition => 0.1f;
+        public virtual float StickDamageAddition => 0.05f;
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.WriteVector2(StickOffset);
@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = -1;
+            Projectile.localNPCHitCooldown = 10;
             Projectile.timeLeft = 1200;
         }
         public virtual void OnExplodeHitNPC(NPC npc, NPC.HitInfo info, int damage) { }
@@ -80,17 +80,8 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            float additionPerProj = StickDamageAddition;
-            int type = Projectile.type;
-            int count = 0;
-            foreach (Projectile proj in Main.ActiveProjectiles)
-            {
-                if (proj.type == type && proj.ai[2] == Projectile.ai[2])
-                {
-                    count++;
-                }
-            }
-            modifiers.SourceDamage += additionPerProj * count;
+            if (StickOnNPC != null)
+                modifiers.SourceDamage /= 9;
         }
         public override void AI()
         {
@@ -116,8 +107,16 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
                 {
                     Projectile.velocity += new Vector2(0, Gravity);
                 }
+                SpawnParticle();
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + adjustRotation;
+        }
+        public virtual void SpawnParticle()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center + Projectile.velocity * 0.25f * i, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
+            }
         }
         public override bool ShouldUpdatePosition()
         {

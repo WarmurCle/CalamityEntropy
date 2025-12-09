@@ -3387,7 +3387,7 @@ Items: {
 
 	CharredMissle: {
 		DisplayName: Charred Missle
-		Tooltip: +10% Damage each attached projectile
+		Tooltip: +5% Damage each attached projectile
 	}
 
 	OsseousRemains: {
@@ -3396,8 +3396,15 @@ Items: {
 	}
 
 	FrailMissle: {
-		DisplayName: Frail Missle
-		Tooltip: ""
+		DisplayName: Frail
+		Tooltip: 
+		'''
+		[c/960e05:Oh, I can do many things for you, my murderer]
+		'''
+	}
+	Hope: {
+		DisplayName: Hope
+		Tooltip: "[c/87CEEB:We can be everything you hope for, my savior full of virtues]"
 	}
 }
 
