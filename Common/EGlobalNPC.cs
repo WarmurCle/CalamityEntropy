@@ -8,6 +8,7 @@ using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Items.Donator.RocketLauncher;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
@@ -215,8 +216,20 @@ namespace CalamityEntropy.Common
             }
         }
         public int LastLife = -1;
+        public int StickByMissle = 0;
+        public float MissleDamageAddition = 0;
         public override void PostAI(NPC npc)
         {
+            if(StickByMissle > 0)
+            {
+                foreach (Projectile proj in Main.ActiveProjectiles)
+                {
+                    if (proj.ModProjectile != null && proj.ModProjectile is BaseMissleProj bmp)
+                    {
+                        MissleDamageAddition += bmp.StickDamageAddition;
+                    }
+                }
+            }
             if (LastLife < 0)
                 LastLife = npc.life;
 
@@ -400,6 +413,8 @@ namespace CalamityEntropy.Common
         public int counter = 0;
         public override bool PreAI(NPC npc)
         {
+            StickByMissle--;
+            MissleDamageAddition = 0;
             if (npc.ModNPC is FriendFindNPC && npc.localAI[3] > 0)
             {
                 friendFinderOwner = (int)npc.localAI[3] - 1;
@@ -556,6 +571,7 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
+            modifiers.SourceDamage += MissleDamageAddition;
             if (npc.active)
             {
                 if (npc.HasBuff<HeatDeath>())
@@ -704,6 +720,11 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
+            List<int> osseousRemainsDropEnemies = new List<int>() { 174, 101, 94, 173, -22, -23, 181, 6, -11, -12 };
+            if(osseousRemainsDropEnemies.Contains(npc.type))
+            {
+                npcLoot.AddNormalOnly(ModContent.ItemType<OsseousRemains>(), 10, 6, 10);
+            }
             if (npc.type == NPCID.Deerclops)
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<BookmarkSnowgrave>(), 5, 1, 1);

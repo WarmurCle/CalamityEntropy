@@ -3384,6 +3384,21 @@ Items: {
 		DisplayName: Cosmic Blessing
 		Tooltip: Shoot lasers from behind
 	}
+
+	CharredMissle: {
+		DisplayName: Charred Missle
+		Tooltip: +10% Damage each attached projectile
+	}
+
+	OsseousRemains: {
+		DisplayName: Osseous Remains
+		Tooltip: “It has a burnt smell”
+	}
+
+	FrailMissle: {
+		DisplayName: Frail Missle
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:
@@ -3994,6 +4009,7 @@ Projectiles: {
 	ChaoticCellMinion.DisplayName: Chaotic Cell Minion
 	CosmicBlessingHeld.DisplayName: Cosmic Blessing Held
 	CosmicDeathRay.DisplayName: Cosmic Death Ray
+	CharredMissleProj.DisplayName: Charred Missle Proj
 }
 
 LegendTooltip: - Legend -
@@ -4908,6 +4924,7 @@ AmmoAle: Ale
 AmmoBloodrune: Blood Rune
 AmmoStarblightSoot: Starblight Soot
 AmmoType: Ammo type
+AmmoMissle: Missle
 UseAmmo: Use Ammo
 OrbPunishDeath0: shattered into pieces
 OrbPunishDeath1: try to remove the shattered foresee orb

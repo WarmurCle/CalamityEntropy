@@ -1,0 +1,157 @@
+﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles;
+using CalamityMod.Particles;
+using Microsoft.Xna.Framework.Graphics;
+using System.IO;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
+{
+    public abstract class BaseMissleProj : ModProjectile
+    {
+        public const int AmmoType = 9917;
+        public int MaxStick => (int)Projectile.ai[0];
+        public float ExplodeRadius => Projectile.ai[1];
+        public NPC StickOnNPC => (Projectile.ai[2] < 0 ? null : Main.npc[((int)Projectile.ai[2])]);
+        public virtual float adjustRotation => MathHelper.PiOver2;
+        public int Lifetime { get { return (int)Projectile.localAI[0]; } set { Projectile.localAI[0] = value; } }
+        public Vector2 StickOffset = Vector2.Zero;
+        public virtual int MaxStickTime => 8 * 60;
+        public virtual float Gravity => 0.4f;
+        public virtual int FallingTime => 16;
+        public virtual float StickDamageAddition => 0.1f;
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.WriteVector2(StickOffset);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            StickOffset = reader.ReadVector2();
+        }
+        public override void SetDefaults()
+        {
+            Projectile.width = 12;
+            Projectile.height = 12;
+            Projectile.penetrate = -1;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.friendly = true;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
+            Projectile.timeLeft = 1200;
+        }
+        public virtual void OnExplodeHitNPC(NPC npc, NPC.HitInfo info, int damage) { }
+        public override void OnKill(int timeLeft)
+        {
+            ExplodeVisual();
+            if (Projectile.owner == Main.myPlayer)
+            {
+                Projectile expl = CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromThis(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, ExplodeRadius, Projectile.DamageType);
+                if(expl.ModProjectile is CommonExplotionFriendly cef)
+                {
+                    cef.onHitAction = OnExplodeHitNPC;
+                }
+            }
+        }
+        public virtual void ExplodeVisual()
+        {
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            float scale = ExplodeRadius / 48f;
+            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, scale * 0.5f, 8));
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, scale, 1, true, BlendState.Additive, 0, 16);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, scale * 0.7f, 1, true, BlendState.Additive, 0, 16);
+
+        }
+        public virtual void SetupStats() { }
+        public virtual void StickUpdate(NPC target)
+        {
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if(StickOnNPC == null)
+            {
+                Projectile.timeLeft = MaxStickTime;
+                Projectile.ai[2] = target.whoAmI;
+                StickOffset = Projectile.Center - target.Center;
+                CEUtils.SyncProj(Projectile.whoAmI);
+            }
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            float additionPerProj = StickDamageAddition;
+            int type = Projectile.type;
+            int count = 0;
+            foreach (Projectile proj in Main.ActiveProjectiles)
+            {
+                if (proj.type == type && proj.ai[2] == Projectile.ai[2])
+                {
+                    count++;
+                }
+            }
+            modifiers.SourceDamage += additionPerProj * count;
+        }
+        public override void AI()
+        {
+            if (Lifetime == 0)
+            {
+                Projectile.ai[2] = -1;
+                SetupStats();
+            }
+            Lifetime++;
+            if (StickOnNPC != null)
+            {
+                Projectile.Center = StickOnNPC.Center + StickOffset;
+                if (Main.myPlayer == Projectile.owner)
+                {
+                    StickUpdate(StickOnNPC);
+                }
+                StickOnNPC.Entropy().StickByMissle = 10;
+                CheckExplode();
+            }
+            else
+            {
+                if(Lifetime > FallingTime)
+                {
+                    Projectile.velocity += new Vector2(0, Gravity);
+                }
+            }
+            Projectile.rotation = Projectile.velocity.ToRotation() + adjustRotation;
+        }
+        public override bool ShouldUpdatePosition()
+        {
+            return StickOnNPC == null;
+        }
+        public void CheckExplode()
+        {
+            NPC target = StickOnNPC;
+            int type = Projectile.type;
+            int count = 0;
+            Projectile oldest = null;
+            int lifetime = 0;
+            foreach(Projectile proj in Main.ActiveProjectiles)
+            {
+                if (proj.type == type && proj.ai[2] == Projectile.ai[2])
+                {
+                    count++;
+                    if (proj.localAI[0] > lifetime)
+                    {
+                        oldest = proj;
+                        lifetime = (int)proj.localAI[0];
+                    }
+                }
+            }
+            if (count > MaxStick)
+            {
+                oldest.Kill();
+            }
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D tex = Projectile.GetTexture();
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2f, Projectile.scale, SpriteEffects.None);
+            return false;
+        }
+    }
+}

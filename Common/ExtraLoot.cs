@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
+using CalamityEntropy.Content.Items.Donator.RocketLauncher;
 using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Tiles;
@@ -94,6 +95,21 @@ namespace CalamityEntropy.Common
                 }
                 if (chestTile.TileType == TileID.Containers2)
                 {
+                    if (chestTile.TileFrameX == 2 * 36 || chestTile.TileFrameX == 3 * 36)
+                    {
+                        for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
+                        {
+
+                            if (chest.item[inventoryIndex].type == ItemID.None)
+                            {
+
+                                chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<OsseousRemains>());
+                                chest.item[inventoryIndex].stack = WorldGen.genRand.Next(46, 64);
+                                itemsPlaced++;
+                                break;
+                            }
+                        }
+                    }
                     if (chestTile.TileFrameX == 10 * 36)
                     {
                         if (WorldGen.genRand.NextBool(3))
@@ -138,8 +154,6 @@ namespace CalamityEntropy.Common
                             }
                         }
                     }
-
-
                 }
             }
         }

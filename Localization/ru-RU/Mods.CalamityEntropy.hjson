@@ -3400,6 +3400,21 @@ Items: {
 		// DisplayName: Cosmic Blessing
 		// Tooltip: Shoot lasers from behind
 	}
+
+	CharredMissle: {
+		// DisplayName: Charred Missle
+		// Tooltip: +10% Damage each attached projectile
+	}
+
+	OsseousRemains: {
+		// DisplayName: Osseous Remains
+		// Tooltip: “It has a burnt smell”
+	}
+
+	FrailMissle: {
+		// DisplayName: Frail Missle
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:
@@ -3996,6 +4011,7 @@ Projectiles: {
 	// ChaoticCellMinion.DisplayName: Chaotic Cell Minion
 	// CosmicBlessingHeld.DisplayName: Cosmic Blessing Held
 	// CosmicDeathRay.DisplayName: Cosmic Death Ray
+	// CharredMissleProj.DisplayName: Charred Missle Proj
 }
 
 LegendTooltip: - Легенда -
@@ -4911,6 +4927,7 @@ AmmoBoulders: Валун
 // AmmoBloodrune: Blood Rune
 AmmoStarblightSoot: Звёздная сажа
 AmmoType: Тип боеприпасов
+// AmmoMissle: Missle
 UseAmmo: Использует боеприпасы
 OrbPunishDeath0: Разлетелся на куски
 OrbPunishDeath1: Попробуйте удалить расколотую сферу предвидения

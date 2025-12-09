@@ -3645,6 +3645,22 @@ Items: {
 		DisplayName: 星宙神赋
 		Tooltip: 从背后快速射出死亡激光，造成弑神怒焰和死亡标记减益
 	}
+
+	CharredMissle: {
+		DisplayName: 焦黑导弹
+		Tooltip: 
+		'''
+		每个黏附的射弹增加10%目标受到伤害
+		'''
+	}
+
+	OsseousRemains: {
+		DisplayName: 遗骨
+		Tooltip: 
+		'''
+		“有烧焦的味道”
+		'''
+	}
 }
 
 ChaoticSetBonus:
@@ -4767,7 +4783,7 @@ Keybinds: {
 	VetrasylsEyeBlock.DisplayName: 维塔希尔之瞳格挡
 	RuneDash.DisplayName: 符文之翼冲刺
 	CommandMinions.DisplayName: 命令仆从
-	// NihilityAndChaoticArmorConnectKey.DisplayName: Nihility And Chaotic Armor Connect Key
+	NihilityAndChaoticArmorConnectKey.DisplayName: "噬虚者&混沌套装连接"
 }
 
 ProphetLoreEffect:
@@ -5169,6 +5185,7 @@ AmmoAle: 麦芽酒
 AmmoBloodrune: 血之符文
 AmmoStarblightSoot: 凋星微尘
 AmmoType: 弹药类型
+AmmoMissle: 导弹
 UseAmmo: 使用弹药
 OrbPunishDeath0: 的灵魂破碎了
 OrbPunishDeath1: 试图取下裂开的预知宝珠
