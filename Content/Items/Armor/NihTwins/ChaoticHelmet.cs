@@ -51,10 +51,10 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
                 player.Calamity().rogueStealthMax += 1.2f;
             }
             player.endurance += 0.12f;
-	    player.statLifeMax2 += 40;
+	        player.statLifeMax2 += 40;
             player.GetDamage(DamageClass.Generic) += 0.12f;
             player.maxMinions += 3;
-	    player.statManaMax2 += 120;
+	        player.statManaMax2 += 120;
             player.Entropy().ChaoticSet = true;
         }
         public override void UpdateEquip(Player player)
@@ -81,12 +81,15 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             Projectile.FriendlySetDefaults(ModContent.GetInstance<AverageDamageClass>(), false, -1);
             Projectile.width = Projectile.height = 40;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 16;
+            Projectile.localNPCHitCooldown = 8;
             Projectile.timeLeft = 25 * 60;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            Projectile.velocity *= -1f;
+        { 
+            if (Projectile.numHits < 6)
+            {
+                Projectile.velocity *= -1f;
+            }
             Projectile.netUpdate = true;
         }
         public override void SendExtraAI(BinaryWriter writer)
@@ -97,9 +100,10 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
         {
             Projectile.numHits = reader.ReadInt32();
         }
+        public float ChasePlayer = 1;
         public override void AI()
         {
-            if(Projectile.numHits < 6 && Projectile.timeLeft > 6 * 60)
+            if(Projectile.numHits < 6 && Projectile.timeLeft > 10 * 60)
             {
                 NPC target = Projectile.FindMinionTarget(6000);
                 if (target != null)
@@ -118,12 +122,14 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             }
             else
             {
-                Projectile.velocity *= 0.96f;
-                Projectile.velocity += (Projectile.GetOwner().Center - Projectile.Center).normalize() * 1.2f;
+                if(ChasePlayer < 15)
+                    ChasePlayer += 0.025f;
+                Projectile.velocity *= 1 - ChasePlayer * 0.02f;
+                Projectile.velocity += (Projectile.GetOwner().Center - Projectile.Center).normalize() * ChasePlayer;
                 if(Projectile.Distance(Projectile.GetOwner().Center) < Projectile.velocity.Length() + 32)
                 {
                     Projectile.Kill();
-                    int heal = (int)(1 + Projectile.GetOwner().statLifeMax2 * 0.022f);
+                    int heal = (int)(1 + Projectile.GetOwner().statLifeMax2 * 0.015f);
                     Projectile.GetOwner().Heal(heal);
 
                     CEUtils.PlaySound("cellheal", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, 8, 0.9f);
@@ -134,6 +140,12 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
         }
         public override bool PreDraw(ref Color lightColor)
         {
+            Main.spriteBatch.UseBlendState(BlendState.Additive);
+            for(float i = 0; i < 360; i += 60)
+            {
+                Main.EntitySpriteDraw(Projectile.getDrawData(Color.White, null, Projectile.Center + i.ToRadians().ToRotationVector2() * 2));
+            }
+            Main.spriteBatch.ExitShaderRegion();
             Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
             return false;
         }
