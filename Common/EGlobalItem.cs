@@ -507,6 +507,7 @@ namespace CalamityEntropy.Common
                         {
                             tooltip.Text += (armorPrefix.AddDefense() > 0 ? "(+" : "(") + ((int)Math.Round(armorPrefix.AddDefense() * item.defense)).ToString() + ")";
                         }
+                        Main.NewText(tooltip.Name);
                     }
                 }
             }
