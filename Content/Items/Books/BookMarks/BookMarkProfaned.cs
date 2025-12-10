@@ -28,9 +28,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void UpdateProjectile(Projectile projectile, bool ownerClient)
         {
-            if (projectile.Entropy().counter % 12 == 0 && ownerClient  && CECooldowns.CheckCD("ProfanedBookmark", 3))
+            if (projectile.Entropy().counter % 15 == 0 && ownerClient)
             {
-                NPC target = projectile.FindTargetWithinRange(800);
+                NPC target = projectile.FindTargetWithinRange(700);
                 if (target != null)
                 {
                     Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, (target.Center - projectile.Center).normalize() * 9, ModContent.ProjectileType<HolyColliderHolyFire>(), (int)(projectile.damage * 1.25f), projectile.knockBack, projectile.owner).ToProj().DamageType = projectile.DamageType;
