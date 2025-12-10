@@ -32,13 +32,13 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 if (projectile.HasEBookEffect<APlusBMEffect>() ? true : Main.rand.NextBool(2))
                 {
-                    Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, CEUtils.randomRot().ToRotationVector2() * 22, ModContent.ProjectileType<DragonGoldenFire>(), projectile.damage / 1, projectile.knockBack, projectile.owner).ToProj().DamageType = projectile.DamageType;
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, CEUtils.randomRot().ToRotationVector2() * 22, ModContent.ProjectileType<DragonGoldenFire>(), projectile.damage / 4, projectile.knockBack, projectile.owner).ToProj().DamageType = projectile.DamageType;
                 }
                 for (int i = 0; i < (projectile.HasEBookEffect<APlusBMEffect>() ? 3 : 5); i++)
                 {
                     if (Main.rand.NextBool(2))
                     {
-                        Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, CEUtils.randomRot().ToRotationVector2() * 16, ModContent.ProjectileType<ZeratosBullet0>(), projectile.damage / 1, projectile.knockBack, projectile.owner).ToProj().DamageType = projectile.DamageType;
+                        Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, CEUtils.randomRot().ToRotationVector2() * 16, ModContent.ProjectileType<ZeratosBullet0>(), projectile.damage / 4, projectile.knockBack, projectile.owner).ToProj().DamageType = projectile.DamageType;
                     }
                 }
             }

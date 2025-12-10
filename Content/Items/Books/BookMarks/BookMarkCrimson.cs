@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 for (int i = 0; i < 16; i++)
                 {
-                    Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center + new Vector2(Main.rand.NextFloat(-80, 80), 400), new Vector2(0, -18), ModContent.ProjectileType<BloodBlast>(), (damageDone / 14).Softlimitation(75), projectile.knockBack / 3, projectile.owner, 0, Main.rand.NextFloat(-0.1f, 0.1f)).ToProj().DamageType = projectile.DamageType;
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center + new Vector2(Main.rand.NextFloat(-80, 80), 400), new Vector2(0, -18), ModContent.ProjectileType<BloodBlast>(), (damageDone / 36).Softlimitation(75), projectile.knockBack / 3, projectile.owner, 0, Main.rand.NextFloat(-0.1f, 0.1f)).ToProj().DamageType = projectile.DamageType;
                 }
             }
 

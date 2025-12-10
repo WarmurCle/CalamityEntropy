@@ -613,14 +613,15 @@ Items: {
 		DisplayName: Holy Moonlight
 		Tooltip:
 			'''
+			+10% Magic Damage
 			Get a magic shield every thirty seconds, which is equivalent to 50% of the magic limit,
 			During the existence of the Magic Shield, increase movement speed by 10% and reduce magic consumption by 10%,
 			The shield will deal damage to the enemies it touches,
 			When the magic shield is broken, it eliminates its own magic sickness and benefits, and returns to its full magic value,
-			When there is no shield, magic barrage can suck blood,
-			The shield can not be affected by your defence and dr
+			When there is no shield, magic barrage can suck blood
 			The higher your current magic value, the higher your blood sucking ability
-			+10% Magic Damage
+			The shield can not be affected by your defence and dr
+			You can not get magic shield when equip the Chalice of the Blood God
 			'''
 	}
 

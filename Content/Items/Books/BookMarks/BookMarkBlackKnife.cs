@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Common;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -30,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 5 : 7))
+            if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 5 : 7) && CECooldowns.CheckCD("ProfanedBookmark", 12))
             {
                 Projectile.NewProjectile(projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<BlackKnife>(), damageDone * 2, projectile.knockBack, projectile.owner, target.whoAmI, CEUtils.randomRot());
             }

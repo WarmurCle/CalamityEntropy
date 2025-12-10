@@ -29,9 +29,9 @@ namespace CalamityEntropy.Content.Items.Books
             Item.shootSpeed = 18;
             Item.width = 28;
             Item.height = 40;
-            Item.damage = 300;
+            Item.damage = 160;
             Item.useAnimation = Item.useTime = 8;
-            Item.crit = 8;
+            Item.crit = 10;
             Item.mana = 5;
             Item.ArmorPenetration = 32;
             Item.rare = ModContent.RarityType<DarkBlue>();
@@ -215,7 +215,6 @@ namespace CalamityEntropy.Content.Items.Books
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             target.AddBuff<GodSlayerInferno>(300);
-            target.AddBuff<MarkedforDeath>(300);
         }
     }
     public class CosmicDeathRay : EBookBaseProjectile
@@ -233,7 +232,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.tileCollide = false;
             Projectile.MaxUpdates = 6;
             Projectile.timeLeft = 160 * 6;
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 2;
         }
         public override void OnKill(int timeLeft)
         {

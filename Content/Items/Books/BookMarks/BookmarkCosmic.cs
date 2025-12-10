@@ -1,8 +1,9 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
+using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -179,7 +180,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             modifiers.ArmorPenetration += 64;
             if (DashTime > 0)
             {
-                modifiers.SourceDamage *= 4;
+                modifiers.SourceDamage *= 5;
                 modifiers.SetCrit();
             }
         }
@@ -234,6 +235,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<GodSlayerInferno>(), 320);
+	        target.AddBuff<MarkedforDeath>(90);
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
