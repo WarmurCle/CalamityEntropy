@@ -685,8 +685,33 @@ namespace CalamityEntropy.Common
             }
         }
         public bool DriverShieldVisual = false;
+        public float Scale = 1;
+        public int oWidth = 20;
+        public int oHeight = 42;
+        public float ScaleTarget = 1;
+        public void ApplyScale()
+        {
+            oWidth = Player.width;
+            oHeight = Player.height;
+            if (Scale != 1)
+            {
+                Vector2 c = new Vector2(Player.Center.X, Player.position.Y + Player.height);
+                Player.width = (int)(Player.defaultWidth * Scale);
+                Player.height = (int)(Player.defaultHeight * Scale);
+                Player.position = c - new Vector2(Player.width / 2, Player.height);
+            }
+        }
+        public void ResetScale()
+        {
+            Vector2 c = new Vector2(Player.Center.X, Player.position.Y + Player.height);
+            Player.width = oWidth;
+            Player.height = oHeight;
+            Player.position = c - new Vector2(Player.width / 2, Player.height);
+        }
         public override void ResetEffects()
         {
+            ScaleTarget = 1;
+            Scale = float.Lerp(Scale, ScaleTarget, 0.1f);
             DriverShieldVisual = false;
             NihilitySet = false;
             NihilityShieldEnabled = false;
@@ -864,7 +889,6 @@ namespace CalamityEntropy.Common
 
         public override void PreUpdate()
         {
-
             if (hasAccVisual("PLWing") && (vanityWing == null || vanityWing.ModItem is PhantomLightWing))
             {
                 if (plWingTrail == null || plWingTrail.Lifetime <= 1)
@@ -1246,12 +1270,14 @@ namespace CalamityEntropy.Common
             {
                 Player.maxRunSpeed *= MaliciousCode.CALAMITY__OVERHAUL ? 0.8f : 0.85f;
             }
+
+
             Player.runAcceleration *= 1f + 0.02f * VoidCharge;
             Player.maxRunSpeed *= 1f + 0.15f * VoidCharge;
-            Player.accRunSpeed *= 1f + 0.04f * VoidCharge;
             Player.runAcceleration *= 1f + moveSpeed;
             Player.maxRunSpeed *= 1f + moveSpeed;
-            Player.accRunSpeed *= 1f + moveSpeed;
+            Player.maxRunSpeed *= Scale;
+            Player.runAcceleration *= Scale;
 
             if (CalamityEntropy.EntropyMode)
             {
@@ -1520,6 +1546,10 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
+            //基于尺寸更改机动性
+            Player.jumpSpeed *= float.Lerp(Scale, 1, 0.55f);
+            Player.extraFall += (int)((Scale - 1f) * 22);
+            Player.maxFallSpeed *= float.Lerp(Scale, 1, 0.4f);
         }
 
 
@@ -3455,6 +3485,7 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyScreenPosition()
         {
+            Main.screenPosition.Y -= Player.height * Scale * 0.5f;
             Main.screenPosition = Vector2.Lerp(Main.screenPosition, screenPos - Main.ScreenSize.ToVector2() / 2, screenShift <= 1 ? screenShift : 1);
 
             var shaker = Main.rand;

@@ -220,7 +220,7 @@ namespace CalamityEntropy.Common
         public float MissleDamageAddition = 0;
         public override void PostAI(NPC npc)
         {
-            if(StickByMissle > 0)
+            if (StickByMissle > 0)
             {
                 foreach (Projectile proj in Main.ActiveProjectiles)
                 {

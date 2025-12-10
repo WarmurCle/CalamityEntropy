@@ -203,6 +203,7 @@ namespace CalamityEntropy
             On_Main.DrawThickCursor += draw_thick_cursor_hook;
             On_Player.UpdateItemDye += update_item_dye;
             On_Player.Hurt_HurtInfo_bool += on_player_hurt;
+            On_Player.Update_NPCCollision += update_npc_collision;
 
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>() }));
@@ -224,6 +225,13 @@ namespace CalamityEntropy
                 PlayerDashManager.TryAddDash(dashEffect);
             }
 
+        }
+
+        private void update_npc_collision(On_Player.orig_Update_NPCCollision orig, Player self)
+        {
+            self.Entropy().ApplyScale();
+            orig(self);
+            self.Entropy().ResetScale();
         }
 
         private void on_player_hurt(On_Player.orig_Hurt_HurtInfo_bool orig, Player self, Player.HurtInfo info, bool quiet)
@@ -272,6 +280,7 @@ namespace CalamityEntropy
                     hide = true;
                 if (drawPlayer.Entropy().DontDrawTime > 0)
                     hide = true;
+                scale *= drawPlayer.Entropy().Scale;
             }
             if (!hide)
             {
@@ -461,6 +470,7 @@ namespace CalamityEntropy
             On_Player.UpdateItemDye -= update_item_dye;
             On_LegacyPlayerRenderer.DrawPlayer -= render_player;
             On_Player.Hurt_HurtInfo_bool -= on_player_hurt;
+            On_Player.Update_NPCCollision -= update_npc_collision;
         }
 
         private Vector2 draw_thick_cursor_hook(On_Main.orig_DrawThickCursor orig, bool smart)
@@ -798,8 +808,10 @@ namespace CalamityEntropy
             {
                 return self.GetModPlayer<AtbmPlayer>().opos.getRectCentered(self.width, self.height);
             }
-
-            return orig(self);
+            Rectangle rect = orig(self);
+            if(self.Entropy().Scale != 1)
+                rect = rect.Center.ToVector2().getRectCentered(self.Entropy().Scale * rect.Width, self.Entropy().Scale * rect.Height);
+            return rect;
         }
 
         private int StrikeNpc(On_NPC.orig_StrikeNPC_HitInfo_bool_bool orig, NPC self, NPC.HitInfo hit, bool fromNet, bool noPlayerInteraction)
