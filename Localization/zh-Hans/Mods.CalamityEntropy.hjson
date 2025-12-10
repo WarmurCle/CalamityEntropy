@@ -3667,7 +3667,7 @@ Items: {
 	}
 
 	Hope: {
-		DisplayName: 希望
+		DisplayName: 霞光
 		Tooltip:
 			'''
 			发射可黏附在敌人身上并持续造成伤害的导弹
@@ -3675,6 +3675,11 @@ Items: {
 			造成狱炎减益
 			[c/87CEEB:我们可以成为你希望的一切，我充满美德的救世主]
 			'''
+	}
+
+	Struggle: {
+		DisplayName: 挣脱
+		Tooltip: ""
 	}
 }
 
@@ -4274,6 +4279,7 @@ Projectiles: {
 	CosmicBlessingHeld.DisplayName: 星宙神赋
 	CosmicDeathRay.DisplayName: 寰宇死光
 	// CharredMissleProj.DisplayName: Charred Missle Proj
+	// BrimHomingBullet.DisplayName: Brim Homing Bullet
 }
 
 LegendTooltip: - 传奇物品 -

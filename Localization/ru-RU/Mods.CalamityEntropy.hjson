@@ -3420,6 +3420,11 @@ Items: {
 		// DisplayName: Hope
 		// Tooltip: "[c/87CEEB:We can be everything you hope for, my savior full of virtues]"
 	}
+
+	Struggle: {
+		// DisplayName: Struggle
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:
@@ -4017,6 +4022,7 @@ Projectiles: {
 	// CosmicBlessingHeld.DisplayName: Cosmic Blessing Held
 	// CosmicDeathRay.DisplayName: Cosmic Death Ray
 	// CharredMissleProj.DisplayName: Charred Missle Proj
+	// BrimHomingBullet.DisplayName: Brim Homing Bullet
 }
 
 LegendTooltip: - Легенда -

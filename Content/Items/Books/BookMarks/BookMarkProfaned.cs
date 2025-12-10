@@ -28,12 +28,14 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void UpdateProjectile(Projectile projectile, bool ownerClient)
         {
-            if (projectile.Entropy().counter % 15 == 0 && ownerClient)
+            projectile.Entropy().ShootCount += 0.025f;
+            if (projectile.Entropy().ShootCount > 0 && projectile.Entropy().counter % 15 == 0 && ownerClient)
             {
+                projectile.Entropy().ShootCount--;
                 NPC target = projectile.FindTargetWithinRange(700);
                 if (target != null)
                 {
-                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, (target.Center - projectile.Center).normalize() * 9, ModContent.ProjectileType<HolyColliderHolyFire>(), (int)(projectile.damage * 0.12f), projectile.knockBack, projectile.owner).ToProj().DamageType = projectile.DamageType;
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, (target.Center - projectile.Center).normalize() * 9, ModContent.ProjectileType<HolyColliderHolyFire>(), (int)(projectile.damage * 0.18f), projectile.knockBack, projectile.owner).ToProj().DamageType = projectile.DamageType;
                 }
             }
         }

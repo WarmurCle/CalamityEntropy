@@ -100,6 +100,7 @@ namespace CalamityEntropy.Common
     public class EGlobalProjectile : GlobalProjectile
     {
         public List<int> applyBuffs = new();
+        public event Action<Projectile> OnKillActions;
         public bool Lightning = false;
         public List<Vector2> odp = new List<Vector2>();
         public List<Vector2> odp2 = new List<Vector2>();
@@ -116,6 +117,7 @@ namespace CalamityEntropy.Common
         public static Asset<Texture2D> voidSamaSlash;
         public static Asset<Texture2D> muraTex = null;
         public float MissleHoming = 0;
+        public float ShootCount = 3;
         public int OnProj { get { return IndexOfTwistedTwinShootedThisProj; } set { IndexOfTwistedTwinShootedThisProj = value; } }
         public int flagTT = 0;
         public Vector2 playerPosL;
@@ -1228,6 +1230,7 @@ namespace CalamityEntropy.Common
 
         public override void OnKill(Projectile projectile, int timeLeft)
         {
+            OnKillActions?.Invoke(projectile);
             if (projectile.friendly)
             {
                 if (vdtype == 4)
