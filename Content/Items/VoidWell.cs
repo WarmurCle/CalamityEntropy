@@ -30,6 +30,7 @@ namespace CalamityEntropy.Content.Items
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<VoidCondenser>())
                 .AddIngredient(ModContent.ItemType<VoidScales>(), 10)
+                .AddIngredient<GalacticaSingularity>(10)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
