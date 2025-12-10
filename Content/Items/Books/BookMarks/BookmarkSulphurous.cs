@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (projectile.GetOwner().Entropy().SulphurousBubbleRecharge < 3600)
             {
-                target.AddBuff<SulphuricPoisoning>(5 * 60);
+                target.AddBuff<SulphuricPoisoning>(1 * 60);
             }
         }
     }
