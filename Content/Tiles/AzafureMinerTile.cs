@@ -157,7 +157,9 @@ namespace CalamityEntropy.Content.Tiles
         private Vector2 targetOffset = Vector2.Zero;
         private Vector2 targetOffset2 = Vector2.Zero;
         public static readonly Dictionary<int, bool> ItemIsOre = [];
-        public override void SetStaticDefaults()
+        public static bool init = true;
+        
+        public static void SetUpList()
         {
             try
             {
@@ -271,6 +273,11 @@ namespace CalamityEntropy.Content.Tiles
 
         public override void Update()
         {
+            if(init)
+            {
+                init = false;
+                SetUpList();
+            }
             if (IsWork)
             {
                 //随机目标抖动点，范围 ±1.5

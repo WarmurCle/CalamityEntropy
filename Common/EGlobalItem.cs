@@ -21,6 +21,7 @@ using CalamityEntropy.Content.Items.Weapons.DustCarverBow;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod;
 using CalamityMod.Items.Fishing.SulphurCatches;
@@ -102,6 +103,10 @@ namespace CalamityEntropy.Common
             {ItemID.Emerald, TileID.Emerald },
             {ItemID.Topaz, TileID.Topaz },
             {ItemID.Amethyst, TileID.Topaz },
+        }; public readonly static Dictionary<int, int> AzafureMinerExtra = new() {
+            {ItemID.LifeCrystal, TileID.Heart },
+            {ItemID.LifeFruit, TileID.LifeFruit },
+            {3380, 407 }
         };
         public readonly static Dictionary<int, int> GemTileIDToItemIDMap = new() {
             {TileID.Ruby, ItemID.Ruby },
