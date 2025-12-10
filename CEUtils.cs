@@ -30,6 +30,7 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static int SecondToFrames(this float second) => (int)(second * 60);
         public static bool HomingToNPCNearby(this Projectile projectile, float vel = 2f, float velMult = 0.97f, float maxRadius = 600, Func<int, bool> filter = null)
         {
             NPC target = FindTarget_HomingProj(projectile, projectile.Center, maxRadius, filter);

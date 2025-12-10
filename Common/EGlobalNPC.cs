@@ -96,13 +96,25 @@ namespace CalamityEntropy.Common
 
             if (npc.HasBuff<Koishi>())
                 mult -= 0.2f;
-            if (npc.HasBuff<LifeOppress>())
-                mult -= 0.65f;
             if (npc.HasBuff<SoulDisorder>())
-                mult -= 0.2f;
+                mult -= 0.12f;
+            if (npc.HasBuff<VoidVirus>())
+                mult -= 0.12f;
 
             if (mult < 0)
                 mult = 0;
+
+            if (mult < 1)
+            {
+                float dr = npc.Calamity().DR;
+                mult = mult + (1 - mult) * dr * dr * dr;
+            }
+            if (mult < 0)
+                mult = 0;
+
+            if (npc.HasBuff<LifeOppress>())
+                mult -= 0.65f;
+
             return mult;
         }
         public override void SetupTravelShop(int[] shop, ref int nextSlot)

@@ -18,6 +18,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
     {
         public static int ShieldRecharge = 10 * 60;
         public static int MaxShield = 150;
+        public static int LaserDamage = 300;
         public override void SetDefaults()
         {
             Item.width = 40;
@@ -77,7 +78,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
         public override string Texture => CEUtils.WhiteTexPath;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<VoidVirus>(), 6 * 60);
+            target.AddBuff(ModContent.BuffType<VoidVirus>(), 4 * 60);
         }
         public override void SetStaticDefaults()
         {
@@ -110,6 +111,10 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
             behindNPCs.Add(index);
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.ArmorPenetration += 80;
         }
         public override void AI()
         {

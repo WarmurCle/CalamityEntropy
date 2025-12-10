@@ -32,13 +32,13 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
     }
 
-    public class BookmarkSulphurousBMEffect : EBookProjectileEffect
+    public partial class BookmarkSulphurousBMEffect : EBookProjectileEffect
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             if (projectile.GetOwner().Entropy().SulphurousBubbleRecharge < 3600)
             {
-                target.AddBuff<SulphuricPoisoning>(1 * 60);
+                target.AddBuff<SulphuricPoisoning>(Time);
             }
         }
     }
