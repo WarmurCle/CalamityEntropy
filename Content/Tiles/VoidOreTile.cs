@@ -22,8 +22,7 @@ namespace CalamityEntropy.Content.Tiles
             Main.tileShine[base.Type] = 3500;
             Main.tileShine2[base.Type] = false;
             CalamityUtils.MergeWithGeneral(base.Type);
-            TileID.Sets.Ore[base.Type] = true;
-            TileID.Sets.OreMergesWithMud[base.Type] = true;
+            TileID.Sets.Ore[Type] = true;
             base.DustType = 173;
             AddMapEntry(Color.DarkBlue, CreateMapEntryName());
             base.MineResist = 5f;

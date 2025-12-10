@@ -5296,7 +5296,7 @@ DraedonDialogs: {
 	}
 }
 
-SlotInfo2: 存放物品
+SlotInfo2: 存放原矿
 LightModeTip: 警告：颜色以外的照明模式会导致灾熵的部分射弹和敌怪不显示，最好使用颜色照明
 KilledByBloodBoiling: 的血液沸腾了
 BloodBoiling: 血沸

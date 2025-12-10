@@ -161,7 +161,7 @@ namespace CalamityEntropy.Content.Tiles
         {
             try
             {
-                HashSet<int> oreTileIDs = [];
+                List<int> oreTileIDs = [];
                 for (int i = 0; i < TileLoader.TileCount; i++)
                 {
                     if (!TileID.Sets.Ore[i])
