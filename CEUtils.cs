@@ -35,7 +35,7 @@ namespace CalamityEntropy
             NPC target = FindTarget_HomingProj(projectile, projectile.Center, maxRadius, filter);
             if (target == null) return false;
             projectile.velocity *= velMult;
-            projectile.velocity += (target.Center - projectile.Center).normalize() * velMult;
+            projectile.velocity += (target.Center - projectile.Center).normalize() * vel;
             return true;
         }
         public static int ApplyOldFashionedDmg(this int origDmg)

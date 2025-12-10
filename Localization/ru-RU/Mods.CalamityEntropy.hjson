@@ -3413,17 +3413,34 @@ Items: {
 
 	FrailMissle: {
 		// DisplayName: Frail
-		// Tooltip: "[c/960e05:Oh, I can do many things for you, my murderer]"
+		/* Tooltip:
+			'''
+			Launch missiles that can adhere to the enemy and cause sustained damage
+			Up to 3 adhesive threads
+			[c/960e05:Oh, I can do many things for you, my murderer]
+			''' */
 	}
 
 	Hope: {
 		// DisplayName: Hope
-		// Tooltip: "[c/87CEEB:We can be everything you hope for, my savior full of virtues]"
+		/* Tooltip:
+			'''
+			Launch missiles that can adhere to the enemy and cause sustained damage
+			Up to 2 adhesive threads
+			[c/87CEEB:We can be everything you hope for, my savior full of virtues]
+			''' */
 	}
 
 	Struggle: {
 		// DisplayName: Struggle
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Launch missiles that can adhere to the enemy and cause sustained damage
+			Up to 3 adhesive threads
+			Causing sulfur fire to reduce benefits
+			Generate brimstone bullet during explosion
+			[c/304fff: Let us become entities, and in return, we will realize your ideas and dreams.]
+			''' */
 	}
 }
 

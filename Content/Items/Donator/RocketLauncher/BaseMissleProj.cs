@@ -73,6 +73,11 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         {
             if(StickOnNPC == null)
             {
+                while(Projectile.Colliding(Projectile.Hitbox, target.Hitbox))
+                {
+                    Projectile.position += Projectile.velocity.normalize() * -2;
+                }
+                Projectile.position += Projectile.velocity.normalize() * 5;
                 Projectile.timeLeft = MaxStickTime;
                 Projectile.ai[2] = target.whoAmI;
                 StickOffset = Projectile.Center - target.Center;

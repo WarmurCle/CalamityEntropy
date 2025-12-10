@@ -1,8 +1,10 @@
 ﻿using CalamityEntropy.Content.Items.Donator.RocketLauncher;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items.Materials;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -17,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public static int ExplodeRadius => 120;
         public override void SetDefaults()
         {
-            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissleProj>(), BaseMissleProj.AmmoType, singleShotTime: 40, shotVelocity: 20f, hasAutoReuse: true);
+            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissleProj>(), BaseMissleProj.AmmoType, singleShotTime: 40, shotVelocity: 30f, hasAutoReuse: true);
             Item.width = 90;
             Item.height = 42;
             Item.DamageType = DamageClass.Ranged;
@@ -80,11 +82,16 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
 
         public static void struggleProjKilled(Projectile proj)
         {
-            int type = ModContent.ProjectileType<BrimHomingBullet>();
-            for(float i = 0; i < 360; i += 60)
+            if (Main.myPlayer == proj.owner)
             {
-                Projectile.NewProjectile(proj.GetSource_FromAI(), proj.Center, i.ToRadians().ToRotationVector2() * 16, type, proj.damage / 6, 4, proj.owner);
+                int type = ModContent.ProjectileType<BrimHomingBullet>();
+                for (float i = 0; i < 360; i += 60)
+                {
+                    Projectile.NewProjectile(proj.GetSource_FromAI(), proj.Center, i.ToRadians().ToRotationVector2() * 16, type, proj.damage / 6, 4, proj.owner);
+                }
             }
+            EParticle.spawnNew(new ShineParticle(), proj.Center, Vector2.Zero, Color.Red, proj.scale * 0.8f, 1, true, BlendState.Additive, 0, 16);
+            EParticle.spawnNew(new ShineParticle(), proj.Center, Vector2.Zero, Color.White, proj.scale * 0.6f, 1, true, BlendState.Additive, 0, 16);
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -104,14 +111,16 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(DamageClass.Ranged, false, 1);
-            Projectile.width = Projectile.height = 12;
+            Projectile.width = Projectile.height = 36;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 16;
             Main.projFrames[Type] = 4;
         }
         public override void AI()
         {
             if (Projectile.localAI[0]++ > 16)
             {
-                Projectile.HomingToNPCNearby();
+                Projectile.HomingToNPCNearby(4, 0.93f);
             }
             else
             {
@@ -124,6 +133,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
                 Projectile.frame++;
                 if (Projectile.frame > 3)
                     Projectile.frame = 0;
+            }
+            for (int i = 0; i < 6; i++)
+            {
+                EParticle.NewParticle(new Smoke() { timeleftmax = 24, Lifetime = 24 }, Projectile.Center + Projectile.velocity * 0.25f * i, CEUtils.randomPointInCircle(0.5f), Color.Red, Main.rand.NextFloat(0.02f, 0.03f), 0.7f, true, BlendState.Additive, CEUtils.randomRot());
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
