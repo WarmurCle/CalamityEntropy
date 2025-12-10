@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items;
+using CalamityEntropy.Common;
+using CalamityMod.Items;
 using CalamityMod.Projectiles.Melee;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void UpdateProjectile(Projectile projectile, bool ownerClient)
         {
-            if (projectile.Entropy().counter % 12 == 0 && ownerClient)
+            if (projectile.Entropy().counter % 12 == 0 && ownerClient  && CECooldowns.CheckCD("ProfanedBookmark", 3))
             {
                 NPC target = projectile.FindTargetWithinRange(800);
                 if (target != null)
