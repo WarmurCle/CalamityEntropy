@@ -125,7 +125,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             }
             if (target != null && Projectile.ai[0]++ % 40 <= 20 && Projectile.ai[0] % 4 == 0)
             {
-                (this.ShooterModProjectile as EntropyBookHeldProjectile).ShootSingleProjectile(ModContent.ProjectileType<ExoShot1>(), Projectile.Center, (target.Center + target.velocity * 4 - Projectile.Center), 0.9f, 1, 2f);
+                (this.ShooterModProjectile as EntropyBookHeldProjectile).ShootSingleProjectile(ModContent.ProjectileType<ExoShot1>(), Projectile.Center, (target.Center + target.velocity * 4 - Projectile.Center), 0.2f, 1, 2f);
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
