@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
 {
     public class Struggle : ModItem
     {
-        public static int MaxStick => 3;
+        public static int MaxStick => 4;
         public static int ExplodeRadius => 120;
         public override void SetDefaults()
         {
@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             Item.width = 90;
             Item.height = 42;
             Item.DamageType = DamageClass.Ranged;
-            Item.damage = 106;
+            Item.damage = 306;
             Item.knockBack = 4f;
             Item.UseSound = CEUtils.GetSound("cannon", 1.3f);
             Item.value = Item.buyPrice(gold: 3); 
@@ -104,6 +104,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
     }
     public class BrimHomingBullet : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Main.projFrames[Type] = 4;
+        }
         public override bool? CanHitNPC(NPC target)
         {
             return Projectile.localAI[0] > 15 ? null : false;
@@ -114,7 +118,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             Projectile.width = Projectile.height = 36;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 16;
-            Main.projFrames[Type] = 4;
+            Projectile.timeLeft = 5 * 60;
         }
         public override void AI()
         {
@@ -134,9 +138,12 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
                 if (Projectile.frame > 3)
                     Projectile.frame = 0;
             }
-            for (int i = 0; i < 6; i++)
+            if (Projectile.Distance(Main.LocalPlayer.Center) < 3200)
             {
-                EParticle.NewParticle(new Smoke() { timeleftmax = 24, Lifetime = 24 }, Projectile.Center + Projectile.velocity * 0.25f * i, CEUtils.randomPointInCircle(0.5f), Color.Red, Main.rand.NextFloat(0.02f, 0.03f), 0.7f, true, BlendState.Additive, CEUtils.randomRot());
+                for (int i = 0; i < 18; i++)
+                {
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 9, Lifetime = 9 }, Projectile.Center + Projectile.velocity * i / 18f, CEUtils.randomPointInCircle(0.5f), Color.Red, Main.rand.NextFloat(0.008f, 0.01f), 0.7f, true, BlendState.Additive, CEUtils.randomRot());
+                }
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }

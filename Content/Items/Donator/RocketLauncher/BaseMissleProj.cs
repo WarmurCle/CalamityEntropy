@@ -56,6 +56,12 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
                 }
             }
         }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            if (CEUtils.LineThroughRect(Projectile.Center - Projectile.velocity, Projectile.Center, targetHitbox, Projectile.height))
+                return true;
+            return base.Colliding(projHitbox, targetHitbox);
+        }
         public virtual void ExplodeVisual()
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
