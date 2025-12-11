@@ -73,10 +73,9 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.Bone, 20)
-                .AddIngredient(ItemID.SoulofFright, 10)
-                .AddIngredient<BloodOrb>(10)
-                .AddIngredient<AshesofCalamity>(15)
+                .AddIngredient<InfectedArmorPlating>(10)
+                .AddIngredient<ScoriaBar>(15)
+                .AddIngredient<AshesofCalamity>(5)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
