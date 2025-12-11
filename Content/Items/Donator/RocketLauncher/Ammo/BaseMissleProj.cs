@@ -2,34 +2,48 @@
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
+namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
 {
     public abstract class BaseMissleProj : ModProjectile
     {
         public const int AmmoType = 2035;
         public int MaxStick => (int)Projectile.ai[0];
         public float ExplodeRadius => Projectile.ai[1];
-        public NPC StickOnNPC => (Projectile.ai[2] < 0 ? null : Main.npc[((int)Projectile.ai[2])]);
+        public NPC StickOnNPC => Projectile.ai[2] < 0 ? null : Main.npc[(int)Projectile.ai[2]];
         public virtual float adjustRotation => MathHelper.PiOver2;
         public int Lifetime { get { return (int)Projectile.localAI[0]; } set { Projectile.localAI[0] = value; } }
         public Vector2 StickOffset = Vector2.Zero;
         public virtual int MaxStickTime => 8 * 60;
         public virtual float Gravity => 0.4f;
         public virtual int FallingTime => 16;
+        public bool NoGrav = false;
+        public float winding = 0;
+        public float Homing = 0;
+        public float HomingRange = 500;
+        public float MinVel = 0;
         public virtual float StickDamageAddition => 0.05f;
         public override void SendExtraAI(BinaryWriter writer)
         {
+            writer.Write(MinVel);
             writer.WriteVector2(StickOffset);
+            writer.Write(NoGrav);
+            writer.Write(Homing);
+            writer.Write(HomingRange);
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            MinVel = reader.ReadSingle();
             StickOffset = reader.ReadVector2();
+            NoGrav = reader.ReadBoolean();
+            Homing = reader.ReadSingle();
+            HomingRange = reader.ReadSingle();
         }
         public override void SetDefaults()
         {
@@ -103,6 +117,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
                 tileCollide = Projectile.tileCollide;
                 Projectile.ai[2] = -1;
                 SetupStats();
+                Projectile.localAI[1] = Main.rand.NextFloat(MathHelper.TwoPi);
             }
             Lifetime++;
             if (StickOnNPC != null)
@@ -110,7 +125,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
                 Projectile.tileCollide = false;
                 if (!StickOnNPC.active)
                 {
-                    Projectile.tileCollide = this.tileCollide;
+                    Projectile.tileCollide = tileCollide;
                     Projectile.ai[2] = -1;
                     Projectile.velocity *= 0;
                 }
@@ -127,24 +142,40 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             }
             else
             {
-                if (Lifetime > FallingTime)
+                if (!NoGrav && Lifetime > FallingTime)
                 {
                     Projectile.velocity += new Vector2(0, Gravity);
                 }
-                SpawnParticle();
             }
-            Projectile.rotation = Projectile.velocity.ToRotation() + adjustRotation;
+;
+            
+            if(Lifetime <= FallingTime || !Projectile.HomingToNPCNearby(Homing, 1 - Homing * 0.015f, HomingRange))
+            {
+                if (Projectile.velocity.Length() < MinVel)
+                {
+                    Projectile.velocity *= 1.06f;
+                }
+            }
+            Projectile.localAI[1] += 0.32f;
+            if (StickOnNPC == null)
+            {
+                Vector2 adv = Projectile.velocity.RotatedBy(Math.Sin(Projectile.localAI[1]) * winding * 0.42f);
+                Projectile.rotation = adv.ToRotation() + adjustRotation;
+                SpawnParticle(adv);
+                Projectile.Center += adv;
+            }
+
         }
-        public virtual void SpawnParticle()
+        public virtual void SpawnParticle(Vector2 vel)
         {
             for (int i = 0; i < 4; i++)
             {
-                EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center + Projectile.velocity * 0.25f * i, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
+                EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center + vel * 0.25f * i, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
             }
         }
         public override bool ShouldUpdatePosition()
         {
-            return StickOnNPC == null;
+            return false;
         }
         public void CheckExplode()
         {

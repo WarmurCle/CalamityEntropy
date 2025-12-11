@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
+namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
 {
     public class CharredMissle : ModItem, IDonatorItem
     {
@@ -34,6 +34,6 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
     public class CharredMissleProj : BaseMissleProj
     {
         public override float StickDamageAddition => 0.05f;
-        public override string Texture => "CalamityEntropy/Content/Items/Donator/RocketLauncher/CharredMissle";
+        public override string Texture => "CalamityEntropy/Content/Items/Donator/RocketLauncher/Ammo/CharredMissle";
     }
 }

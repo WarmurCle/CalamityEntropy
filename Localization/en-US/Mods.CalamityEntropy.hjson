@@ -3437,6 +3437,21 @@ Items: {
 			[c/304fff: Let us become entities, and in return, we will realize your ideas and dreams.]
 			'''
 	}
+
+	Pardon: {
+		DisplayName: Pardon
+		Tooltip:
+			'''
+			Launch missiles that can adhere to the enemy and cause sustained damage
+			Up to 5 adhesive threads
+			Generate plague missle during explosion
+			'''
+	}
+
+	PaleSpear: {
+		DisplayName: Pale Spear
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:
@@ -4049,6 +4064,7 @@ Projectiles: {
 	CosmicDeathRay.DisplayName: Cosmic Death Ray
 	CharredMissleProj.DisplayName: Charred Missle Proj
 	BrimHomingBullet.DisplayName: Brim Homing Bullet
+	PlagueMissle.DisplayName: Plague Missle
 }
 
 LegendTooltip: - Legend -

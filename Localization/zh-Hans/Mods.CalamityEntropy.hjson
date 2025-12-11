@@ -3698,6 +3698,16 @@ Items: {
 			[c/304fff:让我们化作实体，作为回报，我们会实现你的思想，你的梦想。]
 			'''
 	}
+
+	Pardon: {
+		DisplayName: 赦免
+		Tooltip: ""
+	}
+
+	PaleSpear: {
+		DisplayName: 苍白长枪
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:
@@ -4297,6 +4307,7 @@ Projectiles: {
 	CosmicDeathRay.DisplayName: 寰宇死光
 	// CharredMissleProj.DisplayName: Charred Missle Proj
 	// BrimHomingBullet.DisplayName: Brim Homing Bullet
+	// PlagueMissle.DisplayName: Plague Missle
 }
 
 LegendTooltip: - 传奇物品 -
