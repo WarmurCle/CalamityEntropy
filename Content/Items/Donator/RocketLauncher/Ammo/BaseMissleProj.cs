@@ -14,14 +14,14 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
     public abstract class BaseMissleProj : ModProjectile
     {
         public const int AmmoType = 2035;
-        public int MaxStick => (int)Projectile.ai[0];
-        public float ExplodeRadius => Projectile.ai[1];
-        public NPC StickOnNPC => Projectile.ai[2] < 0 ? null : Main.npc[(int)Projectile.ai[2]];
+        public virtual int MaxStick => (int)Projectile.ai[0];
+        public virtual float ExplodeRadius => Projectile.ai[1];
+        public virtual NPC StickOnNPC => Projectile.ai[2] < 0 ? null : Main.npc[(int)Projectile.ai[2]];
         public virtual float adjustRotation => MathHelper.PiOver2;
-        public int Lifetime { get { return (int)Projectile.localAI[0]; } set { Projectile.localAI[0] = value; } }
+        public virtual int Lifetime { get { return (int)Projectile.localAI[0]; } set { Projectile.localAI[0] = value; } }
         public Vector2 StickOffset = Vector2.Zero;
         public virtual int MaxStickTime => 8 * 60;
-        public virtual float Gravity => 0.4f;
+        public virtual float Gravity => 0;
         public virtual int FallingTime => 16;
         public bool NoGrav = false;
         public float winding = 0;
