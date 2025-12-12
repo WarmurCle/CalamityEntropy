@@ -152,7 +152,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             }
 ;
             
-            if(Lifetime <= FallingTime || !Projectile.HomingToNPCNearby(Homing, 1 - Homing * 0.015f, HomingRange))
+            if(Lifetime <= 12 || !Projectile.HomingToNPCNearby(Homing, 1 - Homing * 0.015f, HomingRange))
             {
                 if (Projectile.velocity.Length() < MinVel)
                 {
