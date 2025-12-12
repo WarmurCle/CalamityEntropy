@@ -52,7 +52,7 @@ Badbf-海啸: 音乐（虚无双子）
 
 感谢各位捐赠者提供的支持
 
-感谢hocha113、绯色书架提供的部分代码援助
+感谢hocha113提供的部分代码援助
 
 [h1] 问题反馈与讨论 [/h1]
 
@@ -80,4 +80,5 @@ Badbf-海啸: 音乐（虚无双子）
 
 wiki仍在更新优化中，如有提供文本/维护/排版优化想法欢迎！
 
-关注我的推特：https://x.com/CLE581014192051
+关注我的推特：https://x.com/CLE581014192051[quote=tModLoader CalamityEntropy]
+Developed By Polaris[/quote]
