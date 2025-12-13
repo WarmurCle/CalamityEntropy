@@ -137,7 +137,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                     EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.Firebrick, 20f, 1, true, BlendState.Additive, 0, 16);
                     EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.White, 16f, 1, true, BlendState.Additive, 0, 16);
                     ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 100), 1200);
-                    CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ((int)(Player.GetBestClassDamage().ApplyTo(1200))).ApplyOldFashionedDmg(), 1200, DamageClass.Generic);
+                    CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ((int)(Player.GetBestClassDamage().ApplyTo(1500))).ApplyOldFashionedDmg(), 1200, DamageClass.Generic).ArmorPenetration = 60;
                 }
                 if (DeathExplosion == 0)
                 {
