@@ -736,7 +736,7 @@ namespace CalamityEntropy.Common
             List<int> osseousRemainsDropEnemies = new List<int>() { 174, 101, 94, 173, -22, -23, 181, 6, -11, -12 };
             if(osseousRemainsDropEnemies.Contains(npc.type))
             {
-                npcLoot.AddNormalOnly(ModContent.ItemType<OsseousRemains>(), 3, 6, 8);
+                npcLoot.Add(ModContent.ItemType<OsseousRemains>(), 3, 6, 8);
             }
             if (npc.type == NPCID.Deerclops)
             {
