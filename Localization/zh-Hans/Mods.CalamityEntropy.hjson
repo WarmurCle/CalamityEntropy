@@ -1883,6 +1883,16 @@ Items: {
 		DisplayName: 救赎圣经
 	}
 
+	Redemption: {
+		DisplayName: 救赎
+		Tooltip: 
+		'''
+		蓄力发射一些追踪的导弹
+		导弹可黏附在敌怪身上并造成一些减益
+		最多黏附8发
+		'''
+	}
+
 	NightEpic: {
 		DisplayName: 夜空史诗
 		Tooltip: 发射出两颗追踪陨星
@@ -3701,7 +3711,12 @@ Items: {
 
 	Pardon: {
 		DisplayName: 赦免
-		Tooltip: ""
+		Tooltip:
+			'''
+			一次发射两发可黏附在敌人身上并持续造成伤害的追踪导弹
+			最多黏附5发
+			爆炸时生成瘟疫导弹
+			'''
 	}
 
 	PaleSpear: {

@@ -1749,6 +1749,11 @@ Items: {
 		DisplayName: Библия искупления
 	}
 
+	Redemption: {
+		// DisplayName: Redemption
+		// Tooltip: ""
+	}
+
 	NightEpic: {
 		DisplayName: Ночной героизм
 		Tooltip: ""
