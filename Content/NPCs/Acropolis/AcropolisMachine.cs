@@ -365,7 +365,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 
                 if (DeathCounter < 0)
                 {
-                    if(!Main.dedServ)
+                    if(chargeSnd != null)
                         chargeSnd.timeleft = 0;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -918,7 +918,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         {
             if (DeathCounter <= 0)
             {
-                chargeSnd.timeleft = 0;
+                if(chargeSnd != null)
+                    chargeSnd.timeleft = 0;
                 if (NPC.life <= 0 && !Main.dedServ)
                 {
 
@@ -1033,8 +1034,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             if (Main.masterMode || CalamityWorld.death)
                 dmg *= 2;
             dmg = (int)(dmg * NPC.scale);
-            if(Main.netMode != NetmodeID.MultiplayerClient)
-                CEUtils.SpawnExplotionHostile(NPC.GetSource_Death(), NPC.Center, dmg, 500 * NPC.scale, true);
+            CEUtils.SpawnExplotionHostile(NPC.GetSource_FromAI(), NPC.Center, dmg, 500 * NPC.scale, true);
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {

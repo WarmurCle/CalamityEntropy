@@ -28,6 +28,9 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? CanHitNPC(NPC target)
         {
+            if (Projectile.ai[1] > 0)
+                return true;
+
             return null;
         }
     }
