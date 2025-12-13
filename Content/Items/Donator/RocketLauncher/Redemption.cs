@@ -5,6 +5,7 @@ using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items.Materials;
+using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -136,10 +137,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<InfectedArmorPlating>(10)
-                .AddIngredient<ScoriaBar>(15)
-                .AddIngredient<AshesofCalamity>(5)
-                .AddTile(TileID.Anvils)
+                .AddIngredient<AuricBar>(5)
+                .AddIngredient<CosmiliteBar>(10)
+                .AddIngredient<AscendantSpiritEssence>(15)
+                .AddTile<CosmicAnvil>()
                 .Register();
         }
         public static void OnKillAction(Projectile Projectile)
