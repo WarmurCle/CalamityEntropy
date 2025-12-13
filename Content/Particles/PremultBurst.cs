@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Particles
         {
             base.AI();
             this.Lifetime = 2;
-            this.Scale += 0.4f;
+            this.Scale += 0.6f;
             this.Opacity -= 0.1f;
             if (this.Opacity < 0)
             {

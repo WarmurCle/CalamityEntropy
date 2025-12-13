@@ -121,11 +121,12 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                 DeathExplosion--;
                 Player.velocity *= 0;
                 Player.Entropy().noItemTime = 5;
-                if (DeathExplosion < 70 && DeathExplosion % 8 == 0)
+                if (DeathExplosion < 70 && DeathExplosion % 2 == 0)
                 {
-                    ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, Utils.Remap(Main.LocalPlayer.Center.Distance(Player.Center), 4000, 1000, 0, 12)));
+                    if(DeathExplosion % 6 == 0)
+                        ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, Utils.Remap(Main.LocalPlayer.Center.Distance(Player.Center), 4000, 1000, 0, 12)));
 
-                    EParticle.NewParticle(new ShockParticle2(), Player.Center, Vector2.Zero, Color.White, 0.1f, 1, true, BlendState.NonPremultiplied, CEUtils.randomRot());
+                    EParticle.NewParticle(new ShockParticle2(), Player.Center, Vector2.Zero, Color.White, 0.1f, 1, true, BlendState.Additive, CEUtils.randomRot());
                 }
                 if (DeathExplosion == 0 || DeathExplosion == 4 || DeathExplosion == 8 || DeathExplosion == 12 || DeathExplosion == 16)
                 {
