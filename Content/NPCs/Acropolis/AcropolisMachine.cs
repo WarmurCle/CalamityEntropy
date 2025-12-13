@@ -7,6 +7,7 @@ using CalamityMod;
 using CalamityMod.BiomeManagers;
 using CalamityMod.Items.Materials;
 using CalamityMod.World;
+using InfernumMode.Content.BehaviorOverrides.BossAIs.Cultist;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -187,6 +188,25 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 new FlavorTextBestiaryInfoElement("Mods.CalamityEntropy.Acropolis")
             });
         }
+        public int DeathCounter = 240;
+        public bool Defeated = false;
+        
+        public override bool CheckDead()
+        {
+            NPC.netUpdate = true;
+            NPC.netSpam = 0;
+            Defeated = true;
+            NPC.life = 0;
+            return DeathCounter <= 0;
+        }
+        public override bool? CanBeHitByProjectile(Projectile projectile)
+        {
+            return Defeated ? false : null;
+        }
+        public override bool? CanBeHitByItem(Player player, Item item)
+        {
+            return Defeated ? false : null;
+        }
         public bool SetBoss = true;
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
@@ -215,7 +235,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             }
             if (Main.zenithWorld)
             {
-                NPC.scale += 1.8f;
+                NPC.scale += 0.8f;
             }
             NPC.boss = false;
             NPC.Calamity().VulnerableToHeat = false;
@@ -263,6 +283,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         {
             return NPC.boss;
         }
+        public LoopSound chargeSnd = null;
         public int dcounter = 0;
         public override void AI()
         {
@@ -293,6 +314,45 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                         }
                     }
                 }
+            }
+            if(Defeated)
+            {
+                DeathCounter--;
+                NPC.velocity *= 0;
+                Jumping = false;
+                CannonUpAtk = -1;
+                JumpAndShoot = -1;
+                if (!Main.dedServ)
+                {
+                    if(chargeSnd == null)
+                    {
+                        chargeSnd = new LoopSound(CalamityEntropy.ofCharge);
+                        chargeSnd.instance.Pitch = 0;
+                        chargeSnd.instance.Volume = 0;
+                        chargeSnd.play();
+                        chargeSnd.timeleft = 240;
+                    }
+                    if (chargeSnd != null)
+                    {
+                        chargeSnd.setVolume_Dist(NPC.Center, 400, 1800, 1);
+                        chargeSnd.instance.Pitch = (1 - (DeathCounter / 240f)) * 3f;
+                    }
+                    if (DeathCounter % 4 == 0)
+                    {
+                        ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, Utils.Remap(Main.LocalPlayer.Center.Distance(NPC.Center), 4000, 1000, 0, 5)));
+                        EParticle.NewParticle(new ShockParticle(), NPC.Center, Vector2.Zero, Color.White, 0.1f * NPC.scale, 1, true, BlendState.NonPremultiplied, CEUtils.randomRot());
+                    }
+                }
+                if (DeathCounter < 0)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        NPC.StrikeInstantKill();
+                        NPC.netUpdate = true;
+                        NPC.netSpam = 0;
+                    }
+                }
+                return;
             }
 
             if (!NPC.HasValidTarget)
@@ -922,6 +982,13 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public override void OnKill()
         {
             NPC.SetEventFlagCleared(ref EDownedBosses.downedAcropolis, -1);
+            int dmg = NPC.damage * 4;
+            if (Main.expertMode)
+                dmg *= 2;
+            if (Main.masterMode || CalamityWorld.death)
+                dmg *= 2;
+            dmg = (int)(dmg * NPC.scale);
+            CEUtils.SpawnExplotionHostile(NPC.GetSource_Death(), NPC.Center, dmg, 600 * NPC.scale);
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {

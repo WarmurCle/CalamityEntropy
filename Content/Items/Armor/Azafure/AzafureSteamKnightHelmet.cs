@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
             if (chargeSnd != null)
             {
                 chargeSnd.setVolume_Dist(Player.Center, 100, 1600, 1);
-                chargeSnd.instance.Pitch = (1 - (DeathExplosion / 80f)) * 1.8f;
+                chargeSnd.instance.Pitch = (1 - (DeathExplosion / 80f)) * 2f + 1.9f;
             }
         }
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
@@ -128,7 +128,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
 
                     EParticle.NewParticle(new ShockParticle2(), Player.Center, Vector2.Zero, Color.White, 0.1f, 1, true, BlendState.Additive, CEUtils.randomRot());
                 }
-                if (DeathExplosion == 0 || DeathExplosion == 4 || DeathExplosion == 8 || DeathExplosion == 12 || DeathExplosion == 16)
+                if (DeathExplosion == 0 || DeathExplosion == 3 || DeathExplosion == 6 || DeathExplosion == 9 || DeathExplosion == 12 || DeathExplosion == 15 || DeathExplosion == 18 || DeathExplosion == 21)
                 {
                     CEUtils.PlaySound("pulseBlast", 0.6f, Player.Center, 6, 1f);
                     CEUtils.PlaySound("blackholeEnd", 0.6f, Player.Center, 6, 1f);
@@ -137,7 +137,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                     EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.Firebrick, 20f, 1, true, BlendState.Additive, 0, 16);
                     EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.White, 16f, 1, true, BlendState.Additive, 0, 16);
                     ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 100), 1200);
-                    CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ((int)(Player.GetBestClassDamage().ApplyTo(1500))).ApplyOldFashionedDmg(), 1200, DamageClass.Generic).ArmorPenetration = 60;
+                    CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ((int)(Player.GetBestClassDamage().ApplyTo(1800))).ApplyOldFashionedDmg(), 1200, DamageClass.Generic).ArmorPenetration = 60;
                 }
                 if (DeathExplosion == 0)
                 {
