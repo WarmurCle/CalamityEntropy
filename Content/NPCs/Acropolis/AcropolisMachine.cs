@@ -6,6 +6,7 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.BiomeManagers;
 using CalamityMod.Items.Materials;
+using CalamityMod.Particles;
 using CalamityMod.World;
 using InfernumMode.Content.BehaviorOverrides.BossAIs.Cultist;
 using Microsoft.Xna.Framework.Graphics;
@@ -193,10 +194,15 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         
         public override bool CheckDead()
         {
+            for(int i = 0; i < NPC.buffTime.Length; i++)
+            {
+                NPC.buffTime[i] = 0;
+                NPC.buffTime[i] = -1;
+            }
             NPC.netUpdate = true;
             NPC.netSpam = 0;
             Defeated = true;
-            NPC.life = 0;
+            NPC.life = 1;
             return DeathCounter <= 0;
         }
         public override bool? CanBeHitByProjectile(Projectile projectile)
@@ -317,40 +323,43 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             }
             if(Defeated)
             {
-                DeathCounter--;
+                int d = CalamityWorld.death ? 2 : 1;
+                DeathCounter -= d;
                 NPC.velocity *= 0;
                 Jumping = false;
                 CannonUpAtk = -1;
                 JumpAndShoot = -1;
                 if (!Main.dedServ)
                 {
-                    if(chargeSnd == null)
+                    if (chargeSnd == null)
                     {
                         chargeSnd = new LoopSound(CalamityEntropy.ofCharge);
                         chargeSnd.instance.Pitch = 0;
                         chargeSnd.instance.Volume = 0;
                         chargeSnd.play();
-                        chargeSnd.timeleft = 240;
+                        chargeSnd.timeleft = 240 / d;
                     }
                     if (chargeSnd != null)
                     {
                         chargeSnd.setVolume_Dist(NPC.Center, 400, 1800, 1);
                         chargeSnd.instance.Pitch = (1 - (DeathCounter / 240f)) * 3f;
                     }
-                    if (DeathCounter % 4 == 0)
+                    if (Main.GameUpdateCount % 2 == 0)
                     {
                         ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, Utils.Remap(Main.LocalPlayer.Center.Distance(NPC.Center), 4000, 1000, 0, 5)));
                         EParticle.NewParticle(new ShockParticle(), NPC.Center, Vector2.Zero, Color.White, 0.1f * NPC.scale, 1, true, BlendState.NonPremultiplied, CEUtils.randomRot());
                     }
                 }
-                if (DeathCounter < 0)
+                if (DeathCounter <= 0)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
+                        chargeSnd.timeleft = 0;
                         NPC.StrikeInstantKill();
                         NPC.netUpdate = true;
                         NPC.netSpam = 0;
                     }
+                    return;
                 }
                 return;
             }
@@ -384,10 +393,14 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 else
                 {
                     dcounter++;
-                    NPC.velocity.X += 0.2f;
+                    NPC.velocity.X += 0.25f;
                     if (CEUtils.CheckSolidTile(NPC.getRect()))
                     {
                         NPC.velocity.Y -= 0.4f;
+                    }
+                    else
+                    {
+                        NPC.velocity.Y += 0.7f;
                     }
                     if (dcounter > 290)
                     {
@@ -881,38 +894,46 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public override void HitEffect(NPC.HitInfo hit)
         {
-            if (NPC.life <= 0 && !Main.dedServ)
+            if (DeathCounter <= 0)
             {
-                if (Main.zenithWorld)
+                if (NPC.life <= 0 && !Main.dedServ)
                 {
-                    EParticle.spawnNew(new RealisticExplosion(), NPC.Center, Vector2.Zero, Color.White, 5 * NPC.scale, 1, true, BlendState.AlphaBlend);
-                }
-                else
-                {
-                    for (int i = 0; i < 40; i++)
+                    GeneralParticleHandler.SpawnParticle(new PulseRing(NPC.Center, Vector2.Zero, Color.Firebrick, 0.1f, 9f, 8));
+                    EParticle.spawnNew(new ShineParticle(), NPC.Center, Vector2.Zero, Color.Firebrick, 16f, 1, true, BlendState.Additive, 0, 16);
+                    EParticle.spawnNew(new ShineParticle(), NPC.Center, Vector2.Zero, Color.White, 14f, 1, true, BlendState.Additive, 0, 16);
+                    ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 100), 1200);
+
+                    if (Main.zenithWorld)
                     {
-                        EParticle.NewParticle(new EMediumSmoke(), NPC.Center + CEUtils.randomPointInCircle(60 * NPC.scale), CEUtils.randomPointInCircle(32 * NPC.scale), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(1f, 4f) * NPC.scale, 1, true, BlendState.AlphaBlend, CEUtils.randomRot(), 120);
+                        EParticle.spawnNew(new RealisticExplosion(), NPC.Center, Vector2.Zero, Color.White, 5 * NPC.scale, 1, true, BlendState.AlphaBlend);
                     }
+                    else
+                    {
+                        for (int i = 0; i < 40; i++)
+                        {
+                            EParticle.NewParticle(new EMediumSmoke(), NPC.Center + CEUtils.randomPointInCircle(60 * NPC.scale), CEUtils.randomPointInCircle(32 * NPC.scale), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(1f, 4f) * NPC.scale, 1, true, BlendState.AlphaBlend, CEUtils.randomRot(), 120);
+                        }
+                    }
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore0").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore1").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore2").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore3").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore4").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore4").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore4").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore4").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore5").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore5").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore5").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore5").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore6").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore8").Type, NPC.scale);
+                    Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore9").Type, NPC.scale);
                 }
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore0").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore1").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore2").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore3").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore4").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore4").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore4").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore4").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore5").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore5").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore5").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore5").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore6").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore7").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore8").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore9").Type, NPC.scale);
             }
         }
         public Vector2 CalculateLegJoints(Vector2 Center, Vector2 legStandPoint, float l1, float l2, float l3, out Vector2 P1, out Vector2 P2)
@@ -978,7 +999,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
             return target;
         }
-
+        
         public override void OnKill()
         {
             NPC.SetEventFlagCleared(ref EDownedBosses.downedAcropolis, -1);
@@ -988,7 +1009,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             if (Main.masterMode || CalamityWorld.death)
                 dmg *= 2;
             dmg = (int)(dmg * NPC.scale);
-            CEUtils.SpawnExplotionHostile(NPC.GetSource_Death(), NPC.Center, dmg, 600 * NPC.scale);
+            CEUtils.SpawnExplotionHostile(NPC.GetSource_Death(), NPC.Center, dmg, 500 * NPC.scale, true);
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {

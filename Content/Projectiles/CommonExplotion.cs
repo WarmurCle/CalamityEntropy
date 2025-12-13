@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? CanHitNPC(NPC target)
         {
-            return false;
+            return null;
         }
     }
 

@@ -110,7 +110,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             NPC.noTileCollide = true;
             NPC.noGravity = true;
             NPC.dontCountMe = true;
-            NPC.timeLeft *= 5;
+            NPC.timeLeft *= 4;
             if (!Main.dedServ)
             {
                 Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/LuminarisBoss");
@@ -123,6 +123,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         public AIStyle ai = AIStyle.RoundShooting;
         public int AfterImageTime = 0;
         public int SD = 4;
+        public int deactiveCount = 120;
         public override void AI()
         {
             if (SD-- > 0)
@@ -156,12 +157,16 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             if (NPC.HasValidTarget)
             {
                 AttackPlayer(Main.player[NPC.target]);
+                deactiveCount = 150;
             }
             else
             {
                 NPC.velocity *= 0.998f;
                 NPC.velocity.Y -= 0.3f;
                 NPC.rotation = 0;
+                deactiveCount--;
+                if (deactiveCount <= 0)
+                    NPC.active = false;
             }
             for (float i = 0; i <= 1; i += 0.25f)
             {
