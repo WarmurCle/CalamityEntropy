@@ -637,9 +637,16 @@ namespace CalamityEntropy.Common
                 }, InterfaceScaleType.UI));
                 layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("CalamityEntropy: Durability Bar", () =>
                 {
-                    if (Main.LocalPlayer.GetModPlayer<AzafureHeavyArmorPlayer>().ArmorSetBonus)
+                    if (!Main.LocalPlayer.dead)
                     {
-                        AzafureHeavyArmorPlayer.DrawDuraBar(Main.LocalPlayer.GetModPlayer<AzafureHeavyArmorPlayer>().durability);
+                        if (Main.LocalPlayer.GetModPlayer<AzafureHeavyArmorPlayer>().ArmorSetBonus)
+                        {
+                            AzafureHeavyArmorPlayer.DrawDuraBar(Main.LocalPlayer.GetModPlayer<AzafureHeavyArmorPlayer>().durability);
+                        }
+                        if (Main.LocalPlayer.GetModPlayer<AzafureSteamKnightArmorPlayer>().ArmorSetBonus)
+                        {
+                            AzafureSteamKnightArmorPlayer.DrawDuraBar(Main.LocalPlayer.GetModPlayer<AzafureSteamKnightArmorPlayer>().durability);
+                        }
                     }
                     return true;
                 }, InterfaceScaleType.UI));

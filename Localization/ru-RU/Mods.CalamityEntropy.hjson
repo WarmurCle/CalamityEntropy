@@ -3467,6 +3467,21 @@ Items: {
 		// DisplayName: Pale Spear
 		// Tooltip: ""
 	}
+
+	AzafureSteamKnightArmor: {
+		// DisplayName: Azafure Steam Knight Armor
+		// Tooltip: ""
+	}
+
+	AzafureSteamKnightHelmet: {
+		// DisplayName: Azafure Steam Knight Helmet
+		// Tooltip: ""
+	}
+
+	AzafureSteamKnightLeggings: {
+		// DisplayName: Azafure Steam Knight Leggings
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:
@@ -5295,6 +5310,16 @@ Biomes: {
 	Gains a Durability bar
 	The Durability bar provides up to 18 defense and 50% damage reduction, 
 	while slowing your movement speed
+	Durability is consumed based on damage taken when hit
+	Durability slowly regenerates 5 seconds after taking damage
+	When the Durability bar is depleted, it becomes inactive and requires time to restore functionality
+	''' */
+/* AzafureSet2:
+	'''
+	When this armor is equipped, 
+	all Azafure equipment receives partial enhancements
+	Gains a Durability bar
+	The Durability bar provides up to 36 defense and 50% damage reduction
 	Durability is consumed based on damage taken when hit
 	Durability slowly regenerates 5 seconds after taking damage
 	When the Durability bar is depleted, it becomes inactive and requires time to restore functionality

@@ -63,12 +63,14 @@ namespace CalamityEntropy
         }
         public static bool AzafureEnhance(this Player player)
         {
-            return player.GetModPlayer<AzafureHeavyArmorPlayer>().ArmorSetBonus;
+            return player.GetModPlayer<AzafureHeavyArmorPlayer>().ArmorSetBonus || player.GetModPlayer<AzafureSteamKnightArmorPlayer>().ArmorSetBonus;
         }
         public static float AzafureDurability(this Player player)
         {
             if (!player.AzafureEnhance())
                 return 0;
+            if (player.GetModPlayer<AzafureSteamKnightArmorPlayer>().ArmorSetBonus)
+                return player.GetModPlayer<AzafureSteamKnightArmorPlayer>().durability;
             return player.GetModPlayer<AzafureHeavyArmorPlayer>().durability;
         }
         public static string MouseText

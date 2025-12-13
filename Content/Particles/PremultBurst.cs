@@ -42,4 +42,24 @@ namespace CalamityEntropy.Content.Particles
             }
         }
     }
+    public class ShockParticle2 : EParticle
+    {
+        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/wave1").Value;
+        public override void OnSpawn()
+        {
+            this.Lifetime = 2;
+        }
+        public override void AI()
+        {
+            base.AI();
+            this.Lifetime = 2;
+            this.Scale += 0.4f;
+            this.Opacity -= 0.1f;
+            if (this.Opacity < 0)
+            {
+                this.Lifetime = 0;
+                this.Scale = 0;
+            }
+        }
+    }
 }

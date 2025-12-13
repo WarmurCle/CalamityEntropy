@@ -3452,6 +3452,21 @@ Items: {
 		DisplayName: Pale Spear
 		Tooltip: ""
 	}
+
+	AzafureSteamKnightArmor: {
+		DisplayName: Azafure Steam Knight Armor
+		Tooltip: ""
+	}
+
+	AzafureSteamKnightHelmet: {
+		DisplayName: Azafure Steam Knight Helmet
+		Tooltip: ""
+	}
+
+	AzafureSteamKnightLeggings: {
+		DisplayName: Azafure Steam Knight Leggings
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:
@@ -5296,6 +5311,18 @@ AzafureSet:
 	Durability is consumed based on damage taken when hit
 	Durability slowly regenerates 5 seconds after taking damage
 	When the Durability bar is depleted, it becomes inactive and requires time to restore functionality
+	'''
+AzafureSet2:
+	'''
+	When this armor is equipped, 
+	all Azafure equipment receives partial enhancements
+	Gains a Durability bar
+	The Durability bar provides up to 36 defense and 50% damage reduction
+	Durability is consumed based on damage taken when hit
+	Durability slowly regenerates 5 seconds after taking damage
+	When the Durability bar is depleted, it becomes inactive and requires time to restore functionality
+	Provide 80 rogue stealth
+	+20% Movement speed
 	'''
 AzafureEnhance: Enhance
 
