@@ -191,19 +191,23 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public int DeathCounter = 240;
         public bool Defeated = false;
-        
+
         public override bool CheckDead()
         {
-            for(int i = 0; i < NPC.buffTime.Length; i++)
-            {
-                NPC.buffTime[i] = 0;
-                NPC.buffTime[i] = -1;
-            }
-            NPC.netUpdate = true;
-            NPC.netSpam = 0;
+            if (DeathCounter <= 0)
+                return true;
+
             Defeated = true;
+            NPC.dontTakeDamage = true;
+            NPC.active = true;
+            NPC.netUpdate = true;
+            NPC.dontTakeDamage = true;
+            NPC.damage = 0;
+            NPC.boss = true;
             NPC.life = 1;
-            return DeathCounter <= 0;
+            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI);
+
+            return false;
         }
         public override bool? CanBeHitByProjectile(Projectile projectile)
         {
@@ -321,8 +325,13 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     }
                 }
             }
-            if(Defeated)
+            if (NPC.life < 2)
+                Defeated = true;
+            if (Defeated)
             {
+                NPC.netUpdate = true;
+                if (NPC.netSpam >= 10)
+                    NPC.netSpam = 9;
                 int d = CalamityWorld.death ? 2 : 1;
                 if (Main.zenithWorld)
                     d = 1;
@@ -339,12 +348,13 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                         chargeSnd.instance.Pitch = 0;
                         chargeSnd.instance.Volume = 0;
                         chargeSnd.play();
-                        chargeSnd.timeleft = 240 / d;
+                        chargeSnd.timeleft = 2;
                     }
                     if (chargeSnd != null)
                     {
                         chargeSnd.setVolume_Dist(NPC.Center, 400, 1800, 1);
                         chargeSnd.instance.Pitch = (1 - (DeathCounter / 240f)) * 3f;
+                        chargeSnd.timeleft = 2;
                     }
                     if (Main.GameUpdateCount % 2 == 0)
                     {
@@ -352,16 +362,21 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                         EParticle.NewParticle(new ShockParticle(), NPC.Center, Vector2.Zero, Color.White, 0.1f * NPC.scale, 1, true, BlendState.NonPremultiplied, CEUtils.randomRot());
                     }
                 }
-                if (DeathCounter <= 0)
+                
+                if (DeathCounter < 0)
                 {
+                    if(!Main.dedServ)
+                        chargeSnd.timeleft = 0;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        chargeSnd.timeleft = 0;
+                        NPC.dontTakeDamage = false;
                         NPC.StrikeInstantKill();
                         NPC.netUpdate = true;
-                        NPC.netSpam = 0;
                     }
-                    return;
+                }
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI);
                 }
                 return;
             }
@@ -387,7 +402,6 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     AttackPlayer(Main.player[NPC.target]);
                     if (Main.netMode == NetmodeID.Server)
                     {
-                        NPC.netSpam = 0;
                         NPC.netUpdate = true;
                     }
                     dcounter = 0;
@@ -506,6 +520,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             writer.Write(HarpoonCD);
             writer.Write(JumpAndShoot);
             writer.Write(CannonUpAtk);
+            writer.Write(Defeated);
+            writer.Write(DeathCounter);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -525,11 +541,11 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                         le.NetReceive(reader);
                     }
                 }
-                else
-                {
-                    for (int a = 0; a < 4; a++)
-                        new AcropolisLeg(NPC, Vector2.Zero).NetReceive(reader);
-                }
+            }
+            else
+            {
+                for (int a = 0; a < 4; a++)
+                    new AcropolisLeg(NPC, Vector2.Zero).NetReceive(reader);
             }
             JumpCD = reader.ReadInt32();
             Jumping = reader.ReadBoolean();
@@ -537,6 +553,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             HarpoonCD = reader.ReadSingle();
             JumpAndShoot = reader.ReadInt32();
             CannonUpAtk = reader.ReadInt32();
+            Defeated = reader.ReadBoolean();
+            DeathCounter = reader.ReadInt32();
         }
         public int _harpoon = -1;
         public void AttackPlayer(Player player)
@@ -900,6 +918,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         {
             if (DeathCounter <= 0)
             {
+                chargeSnd.timeleft = 0;
                 if (NPC.life <= 0 && !Main.dedServ)
                 {
 
@@ -1014,7 +1033,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             if (Main.masterMode || CalamityWorld.death)
                 dmg *= 2;
             dmg = (int)(dmg * NPC.scale);
-            CEUtils.SpawnExplotionHostile(NPC.GetSource_Death(), NPC.Center, dmg, 500 * NPC.scale, true);
+            if(Main.netMode != NetmodeID.MultiplayerClient)
+                CEUtils.SpawnExplotionHostile(NPC.GetSource_Death(), NPC.Center, dmg, 500 * NPC.scale, true);
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {

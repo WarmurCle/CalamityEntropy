@@ -1890,6 +1890,7 @@ Items: {
 			蓄力发射一些追踪的导弹
 			导弹可黏附在敌怪身上并造成一些减益
 			最多黏附8发
+			右键点击发射一发威力巨大的火箭
 			'''
 	}
 
@@ -4337,6 +4338,7 @@ Projectiles: {
 	// CharredMissleProj.DisplayName: Charred Missle Proj
 	// BrimHomingBullet.DisplayName: Brim Homing Bullet
 	// PlagueMissle.DisplayName: Plague Missle
+	// RedemptionShootAlt.DisplayName: Redemption Shoot Alt
 }
 
 LegendTooltip: - 传奇物品 -

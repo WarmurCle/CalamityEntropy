@@ -1756,6 +1756,7 @@ Items: {
 			Launch missiles that can adhere to the enemy and cause sustained damage
 			Up to 8 adhesive threads
 			Missile will cause random debuffs
+			Right click to launch single powerful missle
 			''' */
 	}
 
@@ -3529,7 +3530,7 @@ Items: {
 	and the health of the player with lower health is extracted to provide healing for another player
 	When receiving fatal damage, if the other party can withstand the damage, 
 	it will be borne by the other party, and this effect has a cooldown time of 12 seconds
-	When connected, both parties will acquire the ability of nihility laser and chaotic cells
+	When connected, both parties will acquire the ability of nihility shield and chaotic cells
 	''' */
 LOCKED: ": [ЗАБЛОКИРОВАНО]"
 BCU1: Требуется победить Короля Слизней
@@ -4091,6 +4092,7 @@ Projectiles: {
 	// CharredMissleProj.DisplayName: Charred Missle Proj
 	// BrimHomingBullet.DisplayName: Brim Homing Bullet
 	// PlagueMissle.DisplayName: Plague Missle
+	// RedemptionShootAlt.DisplayName: Redemption Shoot Alt
 }
 
 LegendTooltip: - Легенда -

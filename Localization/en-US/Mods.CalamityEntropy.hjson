@@ -1723,6 +1723,7 @@ Items: {
 			Launch missiles that can adhere to the enemy and cause sustained damage
 			Up to 8 adhesive threads
 			Missile will cause random debuffs
+			Right click to launch single powerful missle
 			'''
 	}
 
@@ -4090,6 +4091,7 @@ Projectiles: {
 	CharredMissleProj.DisplayName: Charred Missle Proj
 	BrimHomingBullet.DisplayName: Brim Homing Bullet
 	PlagueMissle.DisplayName: Plague Missle
+	RedemptionShootAlt.DisplayName: Redemption Shoot Alt
 }
 
 LegendTooltip: - Legend -

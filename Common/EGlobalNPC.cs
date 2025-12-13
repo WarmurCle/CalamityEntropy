@@ -352,8 +352,6 @@ namespace CalamityEntropy.Common
         public static int TamedDmgMul = 16;
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
-            binaryWriter.Write(ToFriendly);
-            binaryWriter.Write(f_owner);
             /*binaryWriter.Write(StareOfAbyssLevel);
             binaryWriter.Write(StareOfAbyssTime);
             binaryWriter.Write(EclipsedImprintLevel);
@@ -395,8 +393,6 @@ namespace CalamityEntropy.Common
         }
         public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
         {
-            ToFriendly = binaryReader.ReadBoolean();
-            f_owner = binaryReader.ReadInt32();
             /*StareOfAbyssLevel = binaryReader.ReadInt32();
             StareOfAbyssTime = binaryReader.ReadInt32();
             EclipsedImprintLevel = binaryReader.ReadInt32();

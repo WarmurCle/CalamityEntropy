@@ -1110,7 +1110,7 @@ namespace CalamityEntropy
         }
         public static Player ToPlayer(this int ins)
         {
-            if (ins < 0 || !Main.player[ins].active)
+            if (ins < 0 || ins >= Main.player.Length || !Main.player[ins].active)
             {
                 return Main.LocalPlayer;
             }
