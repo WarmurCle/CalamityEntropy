@@ -1718,12 +1718,12 @@ Items: {
 
 	Redemption: {
 		DisplayName: Redemption
-		Tooltip: 
-		'''
-		Launch missiles that can adhere to the enemy and cause sustained damage
-		Up to 8 adhesive threads
-		Missile will cause random debuffs
-		'''
+		Tooltip:
+			'''
+			Launch missiles that can adhere to the enemy and cause sustained damage
+			Up to 8 adhesive threads
+			Missile will cause random debuffs
+			'''
 	}
 
 	NightEpic: {
