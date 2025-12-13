@@ -432,6 +432,8 @@ namespace CalamityEntropy
         }
         public static bool CheckSolidTile(Rectangle rect)
         {
+            if (rect.Y + rect.Height > Main.maxTilesY * 16)
+                return true;
             return Collision.SolidCollision(rect.TopLeft(), rect.Width, rect.Height);
         }
         public static void FriendlySetDefaults(this Projectile Projectile, DamageClass dmgClass, bool tileCollide = false, int penetrate = 1)
@@ -999,36 +1001,34 @@ namespace CalamityEntropy
         }
         public static bool isAir(Vector2 dp, bool plat = false)
         {
-            try
+            if (dp.X < 0 || dp.Y < 0)
             {
-                if (dp.X < 0 || dp.Y < 0 || (int)(dp.X / 16) > Main.tile.Width || (int)(dp.Y / 16) > Main.tile.Height)
-                {
-                    return true;
-                }
-                Tile tile = Main.tile[(int)(dp.X / 16), (int)(dp.Y / 16)];
-                if (plat)
-                {
-                    if (tile != null && tile.HasTile)
-                    {
-                        if (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType])
-                        {
-                            return false;
-                        }
-                    }
-                }
-                else
-                {
-                    if (tile != null && tile.HasTile)
-                    {
-                        if (Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType])
-                        {
-                            return false;
-                        }
-                    }
-                }
                 return true;
             }
-            catch { return false; }
+            if ((int)(dp.X / 16) >= Main.tile.Width || (int)(dp.Y / 16) >= Main.tile.Height)
+                return false;
+            Tile tile = Main.tile[(int)(dp.X / 16), (int)(dp.Y / 16)];
+            if (plat)
+            {
+                if (tile != null && tile.HasTile)
+                {
+                    if (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType])
+                    {
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                if (tile != null && tile.HasTile)
+                {
+                    if (Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         public static NPC findTarget(Player player, Projectile proj, int maxDistance, bool check = false)

@@ -324,6 +324,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             if(Defeated)
             {
                 int d = CalamityWorld.death ? 2 : 1;
+                if (Main.zenithWorld)
+                    d = 1;
                 DeathCounter -= d;
                 NPC.velocity *= 0;
                 Jumping = false;
@@ -413,6 +415,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 NPC.boss = false;
                 NPC.noTileCollide = false;
                 NPC.velocity.Y += 0.4f;
+                if (CEUtils.CheckSolidTile(NPC.getRect()))
+                    NPC.velocity.Y = 0;
             }
             if (Jumping)
             {
@@ -556,15 +560,15 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             }
             if (CalamityEntropy.EntropyMode)
             {
-                enrange *= 1.4f;
+                enrange *= 1.2f;
             }
             if (Main.getGoodWorld)
             {
-                enrange *= 1.2f;
+                enrange *= 1.1f;
             }
             if (Main.zenithWorld)
             {
-                enrange *= 1.4f;
+                enrange *= 1.15f;
             }
             float d = CEUtils.getDistance(player.Center, NPC.Center);
             if (CannonUpAtk-- > 0)
@@ -889,8 +893,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public Vector2 HarpoonPos => harpoon.seg1end + harpoon.Seg2Rot.ToRotationVector2() * 150 * NPC.scale + new Vector2(0, 10 * dir).RotatedBy(harpoon.Seg2Rot) * NPC.scale;
         public override bool ModifyCollisionData(Rectangle victimHitbox, ref int immunityCooldownSlot, ref MultipliableFloat damageMultiplier, ref Rectangle npcHitbox)
         {
-            npcHitbox = npcHitbox.Center.ToVector2().getRectCentered((npcHitbox.Width * NPC.scale), (npcHitbox.Height * NPC.scale));
-            return true;
+            //npcHitbox = npcHitbox.Center.ToVector2().getRectCentered((npcHitbox.Width * NPC.scale), (npcHitbox.Height * NPC.scale));
+            return false;
         }
         public override void HitEffect(NPC.HitInfo hit)
         {
@@ -898,17 +902,18 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             {
                 if (NPC.life <= 0 && !Main.dedServ)
                 {
-                    GeneralParticleHandler.SpawnParticle(new PulseRing(NPC.Center, Vector2.Zero, Color.Firebrick, 0.1f, 9f, 8));
-                    EParticle.spawnNew(new ShineParticle(), NPC.Center, Vector2.Zero, Color.Firebrick, 16f, 1, true, BlendState.Additive, 0, 16);
-                    EParticle.spawnNew(new ShineParticle(), NPC.Center, Vector2.Zero, Color.White, 14f, 1, true, BlendState.Additive, 0, 16);
-                    ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 100), 1200);
 
                     if (Main.zenithWorld)
                     {
-                        EParticle.spawnNew(new RealisticExplosion(), NPC.Center, Vector2.Zero, Color.White, 5 * NPC.scale, 1, true, BlendState.AlphaBlend);
+                        EParticle.spawnNew(new RealisticExplosion(), NPC.Center, Vector2.Zero, Color.White, 18f * NPC.scale, 1, true, BlendState.AlphaBlend);
                     }
                     else
                     {
+                        GeneralParticleHandler.SpawnParticle(new PulseRing(NPC.Center, Vector2.Zero, Color.Firebrick, 0.1f, 7f, 8));
+                        EParticle.spawnNew(new ShineParticle(), NPC.Center, Vector2.Zero, Color.Firebrick, 14f, 1, true, BlendState.Additive, 0, 16);
+                        EParticle.spawnNew(new ShineParticle(), NPC.Center, Vector2.Zero, Color.White, 10f, 1, true, BlendState.Additive, 0, 16);
+                        ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 100), 1200);
+
                         for (int i = 0; i < 40; i++)
                         {
                             EParticle.NewParticle(new EMediumSmoke(), NPC.Center + CEUtils.randomPointInCircle(60 * NPC.scale), CEUtils.randomPointInCircle(32 * NPC.scale), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(1f, 4f) * NPC.scale, 1, true, BlendState.AlphaBlend, CEUtils.randomRot(), 120);
