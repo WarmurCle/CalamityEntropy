@@ -3659,29 +3659,33 @@ namespace CalamityEntropy.Common
             if (EBookStackItems == null)
                 EBookStackItems = new();
             var mp = Mod.GetPacket();
-            mp.Write((byte)255);
+            mp.Write((byte)CEMessageType.SyncPlayer);
             mp.Write(enabledLoreItems.Count);
             foreach (var item in enabledLoreItems)
             {
                 mp.Write(item);
             }
-
-            if (Player.whoAmI == Main.myPlayer)
-            {
-                mp.Write(this.EBookStackItems.Count);
-                foreach (var item in this.EBookStackItems)
-                {
-                    mp.Write(item.type);
-                    ItemIO.Send(item, mp);
-                }
-            }
-            else
-            {
-                mp.Write(0);
-            }
             mp.Send();
         }
-
+        public void SyncBookmarks()
+        {
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                if (Main.myPlayer == Player.whoAmI)
+                {
+                    ModPacket packet = Mod.GetPacket();
+                    packet.Write((byte)CEMessageType.SyncBookmarks);
+                    packet.Write(Main.myPlayer);
+                    packet.Write(EBookStackItems.Count);
+                    foreach (var item in EBookStackItems)
+                    {
+                        packet.Write(item.type);
+                        ItemIO.Send(item, packet);
+                    }
+                    packet.Send();
+                }
+            }
+        }
         public override void LoadData(TagCompound tag)
         {
             var boost = tag.GetList<string>("EntropyBoosts");

@@ -199,7 +199,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                 lastMouseRight = Main.mouseRight;
                 if (sync && Main.netMode != NetmodeID.SinglePlayer)
                 {
-                    Main.LocalPlayer.Entropy().SyncPlayer(-1, Main.myPlayer, false);
+                    Main.LocalPlayer.Entropy().SyncBookmarks();
                 }
             }
         }

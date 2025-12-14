@@ -31,6 +31,7 @@ namespace CalamityEntropy
         DestroyChest,
         SyncPlayerLife,
         NihilityConnet,
+        SyncBookmarks,
         SyncPlayer = 255
     }
 
@@ -311,6 +312,32 @@ namespace CalamityEntropy
                     packet.Send(-1);
                 }
             }
+            else if (messageType == CEMessageType.SyncBookmarks)
+            {
+                int wai = reader.ReadInt32();
+                var plr = wai.ToPlayer();
+                int bookmarkCount = reader.ReadInt32();
+                plr.Entropy().EBookStackItems = new();
+                for (int i = 0; i < bookmarkCount; i++)
+                {
+                    Item itm = new Item(reader.ReadInt32());
+                    ItemIO.Receive(itm, reader);
+                    plr.Entropy().EBookStackItems.Add(itm);
+                }
+                if (Main.dedServ)
+                {
+                    ModPacket packet = Instance.GetPacket();
+                    packet.Write((byte)CEMessageType.SyncBookmarks);
+                    packet.Write(wai);
+                    packet.Write(bookmarkCount);
+                    foreach (var item in plr.Entropy().EBookStackItems)
+                    {
+                        packet.Write(item.type);
+                        ItemIO.Send(item, packet);
+                    }
+                    packet.Send(-1, whoAmI);
+                }
+            }
             else if (messageType == CEMessageType.SyncPlayer)
             {
                 int loreCount = reader.ReadInt32();
@@ -320,17 +347,7 @@ namespace CalamityEntropy
                 {
                     plr.Entropy().enabledLoreItems.Add(reader.ReadInt32());
                 }
-                int bookmarkCount = reader.ReadInt32();
-                bool sncBM = whoAmI != Main.myPlayer;
-                if(sncBM)
-                    plr.Entropy().EBookStackItems = new();
-                for (int i = 0; i < bookmarkCount; i++)
-                {
-                    Item itm = new Item(reader.ReadInt32());
-                    ItemIO.Receive(itm, reader);
-                    if(sncBM)
-                        plr.Entropy().EBookStackItems.Add(itm);
-                }
+                
                 if (Main.dedServ)
                 {
                     ModPacket packet = Instance.GetPacket();
@@ -339,11 +356,6 @@ namespace CalamityEntropy
                     foreach (var i in plr.Entropy().enabledLoreItems)
                     {
                         packet.Write(i);
-                    }
-                    foreach (var item in plr.Entropy().EBookStackItems)
-                    {
-                        packet.Write(item.type);
-                        ItemIO.Send(item, packet);
                     }
                     packet.Send(-1, whoAmI);
                 }

@@ -94,6 +94,8 @@ namespace CalamityEntropy.Common
             if (Main.myPlayer == player.whoAmI)
             {
                 LoreReworkSystem.ToggleLore(item);
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                    Main.LocalPlayer.Entropy().SyncPlayer(-1, Main.myPlayer, false);
             }
             if (LoreReworkSystem.loreEffects[item.type].useSound.HasValue)
             {
