@@ -3665,11 +3665,19 @@ namespace CalamityEntropy.Common
             {
                 mp.Write(item);
             }
-            mp.Write(this.EBookStackItems.Count);
-            foreach (var item in this.EBookStackItems)
+
+            if (Player.whoAmI == Main.myPlayer)
             {
-                mp.Write(item.type);
-                ItemIO.Send(item, mp);
+                mp.Write(this.EBookStackItems.Count);
+                foreach (var item in this.EBookStackItems)
+                {
+                    mp.Write(item.type);
+                    ItemIO.Send(item, mp);
+                }
+            }
+            else
+            {
+                mp.Write(0);
             }
             mp.Send();
         }

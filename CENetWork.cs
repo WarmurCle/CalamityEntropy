@@ -321,12 +321,15 @@ namespace CalamityEntropy
                     plr.Entropy().enabledLoreItems.Add(reader.ReadInt32());
                 }
                 int bookmarkCount = reader.ReadInt32();
-                plr.Entropy().EBookStackItems = new();
+                bool sncBM = whoAmI != Main.myPlayer;
+                if(sncBM)
+                    plr.Entropy().EBookStackItems = new();
                 for (int i = 0; i < bookmarkCount; i++)
                 {
                     Item itm = new Item(reader.ReadInt32());
                     ItemIO.Receive(itm, reader);
-                    plr.Entropy().EBookStackItems.Add(itm);
+                    if(sncBM)
+                        plr.Entropy().EBookStackItems.Add(itm);
                 }
                 if (Main.dedServ)
                 {
