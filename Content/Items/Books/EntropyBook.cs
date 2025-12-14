@@ -314,6 +314,7 @@ namespace CalamityEntropy.Content.Items.Books
 
                 if (proj.ModProjectile is EBookBaseProjectile bp)
                 {
+                    bp.shooter = Projectile.identity;
                     bp.mainProj = MainProjectile;
                     bp.ShooterModProjectile = this;
                     bp.homing += modifer.Homing;
@@ -631,6 +632,17 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override bool PreAI()
         {
+            if(ShooterModProjectile == null)
+            {
+                Projectile p = shooter.ToProj_Identity();
+                if(p != null && p != default)
+                {
+                    if (p.ModProjectile != null)
+                    {
+                        ShooterModProjectile = p.ModProjectile;
+                    }
+                }
+            }
             if (initColor)
             {
                 Projectile.rotation = Projectile.velocity.ToRotation();
@@ -652,6 +664,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override void SendExtraAI(BinaryWriter writer)
         {
+            writer.Write(shooter);
             writer.Write(homing);
             writer.Write(homingRange);
             writer.Write(Projectile.penetrate);
@@ -670,6 +683,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            shooter = reader.ReadInt32();
             homing = reader.ReadSingle();
             homingRange = reader.ReadSingle();
             Projectile.penetrate = reader.ReadInt32();
@@ -696,6 +710,7 @@ namespace CalamityEntropy.Content.Items.Books
         public List<EBookProjectileEffect> ProjectileEffects = new List<EBookProjectileEffect>();
         public float attackSpeed = 1;
         public ModProjectile ShooterModProjectile = null;
+        public int shooter = -1;
 
         public virtual void ApplyHoming()
         {

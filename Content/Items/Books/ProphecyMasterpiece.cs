@@ -138,23 +138,34 @@ namespace CalamityEntropy.Content.Items.Books
                     }
                     Projectile.rotation = ShooterModProjectile.Projectile.rotation;
                     Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Projectile.rotation);
-                    if ((eb.active && eb.Projectile.active) || Projectile.owner != Main.myPlayer)
+                    if (Projectile.owner == Main.myPlayer)
                     {
-                        if (width2 < 1)
+                        if ((eb.active && eb.Projectile.active))
                         {
-                            width2 += 0.01f;
+                            if (width2 < 1)
+                            {
+                                width2 += 0.01f;
+                            }
+                            Projectile.timeLeft = 5;
                         }
-                        Projectile.timeLeft = 3;
-                    }
-                    else
-                    {
-                        eb = null;
-                        Projectile.Kill();
+                        else
+                        {
+                            eb = null;
+                            Projectile.Kill();
+                        }
                     }
                 }
                 Projectile.GetOwner().Calamity().mouseWorldListener = true;
                 Projectile.Center = Projectile.GetOwner().MountedCenter + Projectile.GetOwner().gfxOffY * Vector2.UnitY + (Projectile.GetOwner().Calamity().mouseWorld - Projectile.GetOwner().Center).normalize() * 80;
 
+            }
+            if(Projectile.owner != Main.myPlayer)
+            {
+                if (width2 < 1)
+                {
+                    width2 += 0.01f;
+                }
+                Projectile.timeLeft = 5;
             }
 
         }
