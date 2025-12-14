@@ -3675,7 +3675,7 @@ namespace CalamityEntropy.Common
                 {
                     ModPacket packet = Mod.GetPacket();
                     packet.Write((byte)CEMessageType.SyncBookmarks);
-                    packet.Write(Main.myPlayer);
+                    packet.Write(Player.whoAmI);
                     packet.Write(EBookStackItems.Count);
                     foreach (var item in EBookStackItems)
                     {
