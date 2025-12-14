@@ -1965,7 +1965,11 @@ namespace CalamityEntropy.Common
             points = rope.GetPoints();
 
             points.Insert(0, Player.Center);
-            points.Add(rope.End);
+            if (NihTwinArmorConnetPlayer >= 0)
+            {
+                points.Add(NihTwinArmorConnetPlayer.ToPlayer().Center);
+                points.Add(NihTwinArmorConnetPlayer.ToPlayer().Center);
+            }
             float lc = 1;
             float jn = 0;
 
