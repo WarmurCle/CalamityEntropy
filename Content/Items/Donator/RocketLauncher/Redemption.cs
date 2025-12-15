@@ -261,6 +261,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         {
             Projectile.GetOwner().Heal(16);
             GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Yellow, 0.1f, 3f, 26));
+            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Yellow * 0.6f, 0.1f, 2.6f, 26));
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Yellow, 4f, 1, true, BlendState.Additive, 0, 24);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 3f, 1, true, BlendState.Additive, 0, 24);
             CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage * 5, 250, Projectile.DamageType);

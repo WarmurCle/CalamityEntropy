@@ -130,10 +130,11 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
                 {
                     Projectile.tileCollide = tileCollide;
                     Projectile.ai[2] = -1;
-                    Projectile.velocity *= 0;
                 }
                 else
                 {
+                    if (Projectile.velocity.Length() > 16)
+                        Projectile.velocity = Projectile.velocity.normalize() * 16;
                     Projectile.Center = StickOnNPC.Center + StickOffset;
                     if (Main.myPlayer == Projectile.owner)
                     {
