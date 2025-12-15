@@ -245,15 +245,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         {
             base.Projectile.ai[1] += 1f;
 
-            if (base.Projectile.soundDelay == 0)
-            {
-                base.Projectile.soundDelay = 20 + Main.rand.Next(40);
-                if (Main.rand.NextBool(5))
-                {
-                    SoundEngine.PlaySound(in SoundID.Item9, base.Projectile.Center);
-                }
-            }
-
             base.Projectile.rotation += (Math.Abs(base.Projectile.velocity.X) + Math.Abs(base.Projectile.velocity.Y)) * 0.01f * (float)base.Projectile.direction;
             if (Main.rand.NextBool(8))
             {

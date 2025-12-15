@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1.4f, target.Center, 16, 1);
+            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1.4f, target.Center, 16, CEUtils.WeapSound * 0.7f);
 
             float sparkCount = 20;
             for (int i = 0; i < sparkCount; i++)

@@ -290,18 +290,23 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         public bool RightHold = true;
         public bool LeftClicked = false;
         public bool Spin = false;
+        public bool snd = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.GetOwner().Entropy().BrambleBarAdd = 20;
-            CEUtils.PlaySound("GrassSwordHitMetal", Main.rand.NextFloat(0.7f, 1.3f) / Projectile.ai[1], target.Center, volume: 1f);
-            if (target.Organic())
+            if (snd)
             {
+                CEUtils.PlaySound("GrassSwordHitMetal", Main.rand.NextFloat(0.7f, 1.3f) / Projectile.ai[1], target.Center, volume: 1f, CEUtils.WeapSound * 0.7f);
+                if (target.Organic())
+                {
+                }
+                else
+                {
+                    CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.8f, 1.2f) / Projectile.ai[1], target.Center, 6, CEUtils.WeapSound * 0.7f);
+                }
+                CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1 / Projectile.ai[1], target.Center, 16, CEUtils.WeapSound * 0.7f);
+                snd = false;
             }
-            else
-            {
-                CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.8f, 1.2f) / Projectile.ai[1], target.Center, 6);
-            }
-            CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1 / Projectile.ai[1], target.Center, 16);
             Color impactColor = Color.LightGreen;
             float impactParticleScale = Main.rand.NextFloat(1.4f, 1.6f);
 
