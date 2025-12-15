@@ -62,22 +62,29 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void AI()
         {
             Projectile.penetrate = -1;
-            if (ShooterModProjectile is EntropyBookHeldProjectile eb)
+            if (Main.myPlayer == Projectile.owner)
             {
-                if (!eb.active || !ShooterModProjectile.Projectile.active)
+                if (ShooterModProjectile is EntropyBookHeldProjectile eb)
+                {
+                    if (!eb.active || !ShooterModProjectile.Projectile.active)
+                    {
+                        Projectile.Kill();
+                        return;
+                    }
+                    else
+                    {
+                        Projectile.timeLeft = 4;
+                    }
+                }
+                else
                 {
                     Projectile.Kill();
                     return;
                 }
-                else
-                {
-                    Projectile.timeLeft = 4;
-                }
             }
             else
             {
-                Projectile.Kill();
-                return;
+                Projectile.timeLeft = 5;
             }
             if (target == null || !target.active || target.dontTakeDamage || !target.chaseable)
             {
