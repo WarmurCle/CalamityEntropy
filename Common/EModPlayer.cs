@@ -626,6 +626,8 @@ namespace CalamityEntropy.Common
             {
                 int reduceDmg = 0;
                 int DamageToShield = (int)(info.Damage * (Player.AzafureEnhance() ? 0.6f : 1));
+                if (Player.Calamity().chaliceOfTheBloodGod)
+                    DamageToShield = DriverShield + 1;
                 if (DriverShield >= DamageToShield)
                 {
                     DriverShield -= DamageToShield;
@@ -658,6 +660,8 @@ namespace CalamityEntropy.Common
             {
                 int reduceDmg = 0;
                 int DamageToShield = (int)(info.Damage * 1);
+                if (Player.Calamity().chaliceOfTheBloodGod)
+                    DamageToShield = NihilityShield + 1;
                 if (NihilityShield >= DamageToShield)
                 {
                     NihilityShield -= DamageToShield;
@@ -708,6 +712,7 @@ namespace CalamityEntropy.Common
             Player.height = oHeight;
             Player.position = c - new Vector2(Player.width / 2, Player.height);
         }
+        public float snowgrave = 0;
         public override void ResetEffects()
         {
             ScaleTarget = 1;
@@ -1215,6 +1220,10 @@ namespace CalamityEntropy.Common
             if (NihSky > 0)
             {
                 NihSky--;
+            }
+            if(snowgrave > 0)
+            {
+                snowgrave--;
             }
             if (VortexSky > 0)
             { VortexSky--; }

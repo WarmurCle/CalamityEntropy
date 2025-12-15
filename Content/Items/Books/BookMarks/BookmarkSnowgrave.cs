@@ -1,11 +1,14 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
+using CalamityMod.Items.Potions.Alcohol;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Graphics;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static CalamityEntropy.Content.NPCs.Acropolis.AcropolisMachine;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
@@ -55,8 +58,65 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.ArmorPenetration = 6400;
         }
 
+        public void SpawnSnow()
+        {
+            Vector2 scaledSize = Main.Camera.ScaledSize;
+            Vector2 scaledPosition = Main.Camera.ScaledPosition;
+            for (int i = 0; (float)i < 128; i++)
+            {
+                try
+                {
+
+                    int num5 = Main.rand.Next((int)scaledSize.X + 1500) - 750;
+                    int num6 = (int)scaledPosition.Y - Main.rand.Next(50);
+                    if (Main.player[Main.myPlayer].velocity.Y > 0f)
+                        num6 -= (int)Main.player[Main.myPlayer].velocity.Y;
+
+                    if (Main.rand.Next(5) == 0)
+                        num5 = Main.rand.Next(500) - 500;
+                    else if (Main.rand.Next(5) == 0)
+                        num5 = Main.rand.Next(500) + (int)scaledSize.X;
+
+                    if (num5 < 0 || (float)num5 > scaledSize.X)
+                        num6 += Main.rand.Next((int)((double)scaledSize.Y * 0.8)) + (int)((double)scaledSize.Y * 0.1);
+                    float cloudAlpha = 1.2f;
+                    num5 += (int)scaledPosition.X;
+                    int num7 = num5 / 16;
+                    int num8 = num6 / 16;
+                    int num9 = Dust.NewDust(new Vector2(num5, num6), 10, 10, DustID.Snow);
+                    Main.dust[num9].scale += cloudAlpha * 0.2f;
+                    Main.dust[num9].velocity.Y = 3f + (float)Main.rand.Next(30) * 0.1f;
+                    Main.dust[num9].velocity.Y *= Main.dust[num9].scale;
+                    float windSpeedCurrent = 1.6f;
+                    if (!Main.raining)
+                    {
+                        Main.dust[num9].velocity.X = windSpeedCurrent + (float)Main.rand.Next(-10, 10) * 0.1f;
+                        Main.dust[num9].velocity.X += windSpeedCurrent * 15f;
+                    }
+                    else
+                    {
+                        Main.dust[num9].velocity.X = (float)Math.Sqrt(Math.Abs(windSpeedCurrent)) * (float)Math.Sign(windSpeedCurrent) * (cloudAlpha + 0.5f) * 10f + Main.rand.NextFloat() * 0.2f - 0.1f;
+                        Main.dust[num9].velocity.Y *= 0.5f;
+                    }
+
+                    Main.dust[num9].velocity.Y *= 1f + 0.3f * cloudAlpha;
+                    Main.dust[num9].scale += cloudAlpha * 0.2f;
+
+                    Main.dust[num9].velocity *= 1f + cloudAlpha * 0.5f;
+
+
+                    continue;
+                }
+                catch
+                {
+                }
+            }
+        }
         public override void AI()
         {
+            Main.LocalPlayer.Entropy().snowgrave = 16;
+            if(!Main.dedServ)
+                SpawnSnow();
             if (Projectile.localAI[0]++ == 0)
                 CEUtils.PlaySound("Snowgrave", 1, Projectile.Center, 2, 4);
 

@@ -296,7 +296,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             Projectile.GetOwner().Entropy().BrambleBarAdd = 20;
             if (snd)
             {
-                CEUtils.PlaySound("GrassSwordHitMetal", Main.rand.NextFloat(0.7f, 1.3f) / Projectile.ai[1], target.Center, volume: 1f, CEUtils.WeapSound * 0.7f);
+                CEUtils.PlaySound("GrassSwordHitMetal", Main.rand.NextFloat(0.7f, 1.3f) / Projectile.ai[1], target.Center, 10, CEUtils.WeapSound * 0.7f);
                 if (target.Organic())
                 {
                 }
