@@ -3489,7 +3489,7 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyScreenPosition()
         {
-            Main.screenPosition.Y -= Player.height * Scale * 0.5f;
+            Main.screenPosition.Y -= Player.height * (Scale * 0.5f - 0.5f);
             Main.screenPosition = Vector2.Lerp(Main.screenPosition, screenPos - Main.ScreenSize.ToVector2() / 2, screenShift <= 1 ? screenShift : 1);
 
             var shaker = Main.rand;
