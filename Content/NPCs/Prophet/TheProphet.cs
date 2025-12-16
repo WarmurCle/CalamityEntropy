@@ -739,18 +739,45 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     NPC.rotation = (target.Center - NPC.Center).ToRotation();
                     if (AIChangeDelay == 556)
                     {
-                        TeleportTo(target.Center - target.velocity.SafeNormalize(-Vector2.UnitY) * 300);
+                        NPC.velocity *= 0;
+                        TeleportTo(EDownedBosses.GetDungeonArchiveCenterPos() + new Vector2(0, 80));
+                        if(CEUtils.getDistance(NPC.Center, NPC.target.ToPlayer().Center) > 1600)
+                            TeleportTo(target.Center - target.velocity.SafeNormalize(-Vector2.UnitY) * 300);
                     }
                     if (AIChangeDelay > 480)
                     {
-                        NPC.velocity += (target.Center - NPC.Center).normalize();
                         NPC.velocity *= 0.96f;
+                        foreach(var plr in Main.ActivePlayers)
+                        {
+                            if (plr.Distance(NPC.Center) < 2400)
+                            {
+                                if (plr.Distance(NPC.Center + new Vector2(0, -80)) > 560)
+                                {
+                                    plr.wingTime = plr.wingTimeMax;
+                                    plr.velocity = (NPC.Center + new Vector2(0, -80) - plr.Center).normalize() * 10;
+                                    plr.Center += (NPC.Center + new Vector2(0, -80) - plr.Center).normalize() * 36;
+                                    for (int i = 0; i < 8; i++)
+                                        EParticle.spawnNew(new RuneParticle(), CEUtils.randomPoint(plr.getRect()), Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, 0, 40);
+                                }
+                            }
+                        }
+                    }
+                    if(AIChangeDelay > 60 && AIChangeDelay < 480)
+                    {
+                        foreach (var plr in Main.ActivePlayers)
+                        {
+                            if (plr.Distance(NPC.Center) < 2400)
+                            {
+                                plr.wingTime = plr.wingTimeMax;
+                                plr.Calamity().infiniteFlight = true;
+                            }
+                        }
                     }
                     if (AIChangeDelay == 480)
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(0, -80), (target.Center - NPC.Center).normalize() * 0.7f, ModContent.ProjectileType<FableEye>(), NPC.damage / 5, 4);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(0, -80), (target.Center - (NPC.Center + new Vector2(0, -80))).normalize() * 0.7f, ModContent.ProjectileType<FableEye>(), NPC.damage / 5, 4);
                         }
                     }
                 }

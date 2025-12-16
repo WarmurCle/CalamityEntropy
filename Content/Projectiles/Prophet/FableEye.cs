@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityMod;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -33,14 +34,20 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
         public bool playsound = true;
         public static SoundEffect sound = null;
         public LoopSound sd;
+        public float RotateSpeed = 0;
+        public float rspd = 0;
         public override void AI()
         {
-            if (playsound && !Main.dedServ)
+            if (playsound)
             {
                 playsound = false;
-                sd = new LoopSound(sound);
-                sd.play();
-                sd.instance.Volume = 0;
+                if (!Main.dedServ)
+                {
+                    sd = new LoopSound(sound);
+                    sd.play();
+                    sd.instance.Volume = 0;
+                }
+                Projectile.rotation = Projectile.velocity.ToRotation();
             }
             if (sd != null)
             {
@@ -64,30 +71,46 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                     Projectile.Kill();
                 }
             }
-            if (Projectile.ai[0] > 150)
+            if (Projectile.ai[0] > 80)
             {
-                int plr = Player.FindClosest(Projectile.Center, 3600, 3600);
-                if (plr >= 0)
-                {
-                    Player player = plr.ToPlayer();
-                    Projectile.velocity = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (player.Center - Projectile.Center).ToRotation(), rotspeed.ToRadians()).ToRotationVector2() * Projectile.velocity.Length();
-                }
+                
                 if (Projectile.ai[0] > 440)
                 {
-                    rotspeed *= 0.97f;
+                    RotateSpeed *= 0.98f;
                 }
                 else
                 {
-                    rotspeed += (2f - rotspeed) * 0.016f;
+                    int plr = Player.FindClosest(Projectile.Center, 3600, 3600);
+                    if (plr >= 0)
+                    {
+                        Player player = plr.ToPlayer();
+                        RotateSpeed += rspd * CEUtils.getRotateAngle(Projectile.velocity.ToRotation(), (player.Center - Projectile.Center).ToRotation(), 0.042f);
+                    }
+                    if (Projectile.timeLeft % 10 == 0)
+                        GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.SkyBlue * 0.32f, 0.2f, 4f, 64));
+                    RotateSpeed *= 0.977f;
+                    foreach(var player in Main.ActivePlayers)
+                    {
+                        float d = Utils.Remap(player.Distance(Projectile.Center), 0, 600, 6, 0);
+                        Vector2 vel = (player.Center - Projectile.Center).normalize() * d;
+                        player.position += vel;
+                        if(CEUtils.CheckSolidTile(player.getRect()))
+                        {
+                            player.position -= vel;
+                        }
+                    }
                 }
             }
+            if (rspd < 1)
+                rspd += 0.01f;
+            Projectile.rotation += RotateSpeed;
+            Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Projectile.rotation);
             if (Projectile.ai[0] > 40 && CEUtils.getDistance(Main.LocalPlayer.Center, Projectile.Center) < 4000)
             {
                 Main.LocalPlayer.Calamity().GeneralScreenShakePower = 7;
             }
             Projectile.ai[0]++;
         }
-        public float rotspeed = 0;
         public override bool CanHitPlayer(Player target)
         {
             return Projectile.ai[0] > 100;
