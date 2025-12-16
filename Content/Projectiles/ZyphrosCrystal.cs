@@ -11,7 +11,6 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-
     public class ZyphrosCrystal : ModProjectile
     {
         public override string Texture => "CalamityEntropy/Assets/Extra/white";
