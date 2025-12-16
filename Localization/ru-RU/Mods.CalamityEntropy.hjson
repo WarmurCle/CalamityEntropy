@@ -3383,7 +3383,7 @@ Items: {
 		// DisplayName: Chaotic Helmet
 		/* Tooltip:
 			'''
-			+13% Damage
+			+8% Damage
 			+1 Max minion
 			''' */
 	}
@@ -5320,7 +5320,7 @@ Biomes: {
 	When this armor is equipped, 
 	all Azafure equipment receives partial enhancements
 	Gains a Durability bar
-	The Durability bar provides up to 18 defense and 50% damage reduction, 
+	The Durability bar provides up to 18 defense and 25% damage reduction, 
 	while slowing your movement speed
 	Durability is consumed based on damage taken when hit
 	Durability slowly regenerates 5 seconds after taking damage
@@ -5331,12 +5331,12 @@ Biomes: {
 	When this armor is equipped, 
 	all Azafure equipment receives partial enhancements
 	Gains a Durability bar
-	The Durability bar provides up to 36 defense and 50% damage reduction
+	The Durability bar provides up to 36 defense and 30% damage reduction
 	Durability is consumed based on damage taken when hit
 	Durability slowly regenerates 5 seconds after taking damage
 	When the Durability bar is depleted, it becomes inactive and requires time to restore functionality
 	Provide 80 rogue stealth
-	+20% Movement speed
+	+20% Movement speed and +1 Max minion
 	''' */
 // AzafureEnhance: Enhance
 

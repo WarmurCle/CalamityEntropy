@@ -337,7 +337,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             }
         }
         public float rScale = 1;
-        public float slashP = 0.6f;
+        public float slashP = Main.rand.NextFloat(0.5f, 0.7f);
         public override void AI()
         {
             CEUtils.AddLight(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Color.LightGreen, Projectile.scale);
@@ -516,7 +516,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                     SpawnParticle();
                     odr.Add(Projectile.rotation);
                     ods.Add(rScale);
-                    if (odr.Count > 80)
+                    if (odr.Count > 120)
                     {
                         odr.RemoveAt(0);
                         ods.RemoveAt(0);
@@ -538,11 +538,18 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             return false;
         }
         public bool NoDraw = false;
+        public Vector2 lPos = Vector2.Zero;
         public void SpawnParticle()
         {
-            Vector2 sparkVelocity2 = Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * Projectile.ai[0]) * 4;
-            sparkVelocity2 = sparkVelocity2.RotatedBy(Projectile.ai[0] * 0.3f * Projectile.ai[1]) * Projectile.ai[1];
-            int sparkLifetime2 = (int)(Main.rand.NextFloat() * 14);
+            Vector2 vpos = Projectile.rotation.ToRotationVector2() * rScale * scale * Projectile.scale * 116;
+            if (lPos == Vector2.Zero)
+            {
+                lPos = vpos;
+                return;
+            }
+                
+            Vector2 sparkVelocity2 = (vpos - lPos).normalize() * 4 * Projectile.ai[1];
+            int sparkLifetime2 = (int)(Main.rand.NextFloat() * 16);
             float sparkScale2 = 0.6f * Main.rand.NextFloat();
             sparkScale2 *= (1 + Bramblecleave.GetLevel() * 0.06f);
             Color sparkColor2 = Color.Lerp(Color.Green, Color.LightGreen, Main.rand.NextFloat());
@@ -558,6 +565,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 GeneralParticleHandler.SpawnParticle(spark);
             }
             EParticle.spawnNew(new GlowLightParticle() { lightColor = Color.LightGreen * 0.5f, HideTime = 16 }, Projectile.Center + Projectile.rotation.ToRotationVector2() * 100 * scale * Projectile.scale * rScale * Main.rand.NextFloat(0.25f, 1), sparkVelocity2 * 0.2f, Color.LawnGreen, Main.rand.NextFloat(0.1f, 0.2f) * scale * Projectile.scale, 1, true, BlendState.Additive, 0, 20);
+            lPos = vpos;
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -577,7 +585,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(116 * Projectile.scale * scale * ods[i], 0).RotatedBy(odr[i])),
                       new Vector3((i) / ((float)odr.Count - 1), 1, 1),
                       b));
-                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition,
+                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(32 * Projectile.scale * scale * ods[i], 0).RotatedBy(odr[i])),
                       new Vector3((i) / ((float)odr.Count - 1), 0, 1),
                       b));
             }
