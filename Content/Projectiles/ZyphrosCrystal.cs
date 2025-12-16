@@ -121,7 +121,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.ai[0] == 5)
             {
-                target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 300);
+                target.AddBuff(ModContent.BuffType<GodSlayerInferno>(), 300);
                 target.AddBuff(ModContent.BuffType<Plague>(), 300);
             }
             if (Projectile.ai[0] == 1)
