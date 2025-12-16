@@ -1,3 +1,4 @@
+using CalamityEntropy.Content.Buffs;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
@@ -108,6 +109,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff(ModContent.BuffType<LifeOppress>(), 300);
             if (Projectile.ai[0] == 2)
             {
                 Projectile.GetOwner().Heal(5);
@@ -122,7 +124,6 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] == 5)
             {
                 target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 300);
-                target.AddBuff(ModContent.BuffType<Plague>(), 300);
             }
             if (Projectile.ai[0] == 1)
             {
