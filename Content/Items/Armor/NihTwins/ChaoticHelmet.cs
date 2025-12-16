@@ -59,7 +59,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
         }
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.13f;
+            player.GetDamage(DamageClass.Generic) += 0.08f;
             player.maxMinions += 1;
         }
 
