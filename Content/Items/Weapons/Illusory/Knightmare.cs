@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
@@ -16,8 +17,10 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons.Illusory
 {
-    public class IllusoryGodfang : ModItem
+    public class Knightmare : ModItem, IDonatorItem
     {
+        public string DonatorName => "鹰吹雪";
+
         public override void SetStaticDefaults()
         {
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true;

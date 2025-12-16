@@ -3550,11 +3550,11 @@ Items: {
 			'''
 	}
 
-	IllusoryGodfang: {
-		DisplayName: 虚神之利
+	Knightmare: {
+		DisplayName: 梦幻崩影
 		Tooltip:
 			'''
-			召唤一把能够干净利落的切碎任何敌人的虚幻神锋
+			召唤一把能够干净利落的切碎任何敌人的梦魇神锋
 			消耗2召唤栏
 			'''
 	}
@@ -4324,7 +4324,7 @@ Projectiles: {
 	DarkBullet.DisplayName: 黑暗弹
 	SelenbiteStar.DisplayName: 月蚀星
 	SelenbiteVolumeHeld.DisplayName: 月蚀卷册
-	IllusoryBladeMinion.DisplayName: 虚神之利
+	IllusoryBladeMinion.DisplayName: 梦魇神锋
 	MetallicChunkProj.DisplayName: 金属块
 	LacewingBMMinion.DisplayName: 七彩草蛉
 	WulfrumBMDrone.DisplayName: 钨钢无人机
@@ -4335,10 +4335,10 @@ Projectiles: {
 	ChaoticCellMinion.DisplayName: 混沌仆从
 	CosmicBlessingHeld.DisplayName: 星宙神赋
 	CosmicDeathRay.DisplayName: 寰宇死光
-	// CharredMissleProj.DisplayName: Charred Missle Proj
-	// BrimHomingBullet.DisplayName: Brim Homing Bullet
-	// PlagueMissle.DisplayName: Plague Missle
-	// RedemptionShootAlt.DisplayName: Redemption Shoot Alt
+	CharredMissleProj.DisplayName: 焦黑导弹
+	BrimHomingBullet.DisplayName: 硫火飞弹
+	PlagueMissle.DisplayName: 瘟疫导弹
+	RedemptionShootAlt.DisplayName: 救赎导弹
 }
 
 LegendTooltip: - 传奇物品 -
