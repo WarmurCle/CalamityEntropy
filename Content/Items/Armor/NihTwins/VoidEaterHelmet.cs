@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
     {
         public static int ShieldRecharge = 10 * 60;
         public static int MaxShield = 150;
-        public static int LaserDamage = 300;
+        public static int LaserDamage = 250;
         public override void SetDefaults()
         {
             Item.width = 40;
