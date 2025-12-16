@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
         }
         public override void SetDefaults()
         {
-            Item.damage = 220;
+            Item.damage = 200;
             Item.DamageType = DamageClass.Summon;
             Item.width = 36;
             Item.height = 50;
