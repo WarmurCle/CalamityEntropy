@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
             Item.width = 48;
             Item.height = 48;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
-            Item.defense = 19;
+            Item.defense = 14;
             Item.rare = ItemRarityID.Pink;
         }
 
@@ -27,7 +27,6 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
         {
             return head.type == Type && body.type == ModContent.ItemType<AzafureSteamKnightArmor>() && legs.type == ModContent.ItemType<AzafureSteamKnightLeggings>();
         }
-
 
         public override void UpdateArmorSet(Player player)
         {
@@ -37,6 +36,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
             {
                 player.Calamity().wearingRogueArmor = true;
                 player.Calamity().rogueStealthMax += 0.8f;
+		        player.maxMinions += 1;
             }
         }
         public override void UpdateEquip(Player player)
@@ -137,7 +137,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                     EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.Firebrick, 20f, 1, true, BlendState.Additive, 0, 16);
                     EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.White, 16f, 1, true, BlendState.Additive, 0, 16);
                     ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 100), 1200);
-                    CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ((int)(Player.GetBestClassDamage().ApplyTo(1800))).ApplyOldFashionedDmg(), 1200, DamageClass.Generic).ArmorPenetration = 60;
+                    CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ((int)(Player.GetBestClassDamage().ApplyTo(1000))).ApplyOldFashionedDmg(), 700, DamageClass.Generic).ArmorPenetration = 60;
                 }
                 if (DeathExplosion == 0)
                 {
@@ -158,7 +158,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                 DurabilityRegenDelay--;
                 if (DurabilityActive)
                 {
-                    Player.endurance += durability * 0.3f + 0.2f;
+                    Player.endurance += durability * 0.3f ;
                     Player.statDefense += (int)(durability * 36);
                     Player.noKnockback = true;
                 }
