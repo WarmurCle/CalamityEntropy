@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 110;
+            Item.damage = 100;
             Item.crit = 7;
             Item.DamageType = DamageClass.Melee;
             Item.width = 48;
@@ -170,7 +170,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             for (int i = 0; i < 2; i++)
             {
                 Vector2 pos = target.Center + new Vector2(0, -900) + CEUtils.randomPointInCircle(400);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (target.Center - pos).normalize() * 42, ModContent.ProjectileType<AstralStarMelee>(), Projectile.damage / 4, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (target.Center - pos).normalize() * 42, ModContent.ProjectileType<AstralStarMelee>(), Projectile.damage / 2, Projectile.owner);
             }
             if (playHitSound)
             {
