@@ -41,8 +41,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (effectLevel > 0)
             {
-                effectLevel -= 0.0025f;
-                effectLevel *= 0.996f;
+                effectLevel -= 0.002f;
+                effectLevel *= 0.997f;
             }
             if (effectLevel < 0)
             {
