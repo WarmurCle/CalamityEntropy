@@ -1,5 +1,6 @@
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Particles;
@@ -137,7 +138,12 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                     EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.Firebrick, 20f, 1, true, BlendState.Additive, 0, 16);
                     EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.White, 16f, 1, true, BlendState.Additive, 0, 16);
                     ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 100), 1200);
-                    CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ((int)(Player.GetBestClassDamage().ApplyTo(1900))).ApplyOldFashionedDmg(), 1200, DamageClass.Generic).ArmorPenetration = 60;
+                    var proj = CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ((int)(Player.GetBestClassDamage().ApplyTo(1900))).ApplyOldFashionedDmg(), 1200, DamageClass.Generic);
+                    proj.ArmorPenetration = 60;
+                    if(proj.ModProjectile is CommonExplotionFriendly cef)
+                    {
+                        cef.DamageMulToWormSegs = 0.16f;
+                    }
                 }
                 if (DeathExplosion == 0)
                 {
