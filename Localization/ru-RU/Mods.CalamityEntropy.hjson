@@ -3298,11 +3298,11 @@ Items: {
 			''' */
 	}
 
-	IllusoryGodfang: {
-		// DisplayName: Illusory Godfang
+	Knightmare: {
+		// DisplayName: Knightmare
 		/* Tooltip:
 			'''
-			Summon an Illusory blade fight for you.
+			Summon an knightmare blade fight for you.
 			Need 2 minion slots.
 			''' */
 	}

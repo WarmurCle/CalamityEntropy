@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
             Item.width = 48;
             Item.height = 48;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
-            Item.defense = 14;
+            Item.defense = 18;
             Item.rare = ItemRarityID.Pink;
         }
 
@@ -137,7 +137,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                     EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.Firebrick, 20f, 1, true, BlendState.Additive, 0, 16);
                     EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.White, 16f, 1, true, BlendState.Additive, 0, 16);
                     ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 100), 1200);
-                    CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ((int)(Player.GetBestClassDamage().ApplyTo(1000))).ApplyOldFashionedDmg(), 700, DamageClass.Generic).ArmorPenetration = 60;
+                    CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ((int)(Player.GetBestClassDamage().ApplyTo(1500))).ApplyOldFashionedDmg(), 1200, DamageClass.Generic).ArmorPenetration = 60;
                 }
                 if (DeathExplosion == 0)
                 {
