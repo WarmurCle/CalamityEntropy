@@ -40,6 +40,8 @@ namespace CalamityEntropy.Content.Menu
             spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White * 0.96f, MathHelper.ToRadians(counter * 0.14f), l1.Size() / 2, 0.4f, SpriteEffects.None, 0);
             spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White * 0.98f, MathHelper.ToRadians(counter * 0.22f), l1.Size() / 2, 0.2f, SpriteEffects.None, 0);
             spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White * 1f, MathHelper.ToRadians(counter * 0.34f), l1.Size() / 2, 0.1f, SpriteEffects.None, 0);
+            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White * 1f, MathHelper.ToRadians(counter * 0.42f), l1.Size() / 2, 0.045f, SpriteEffects.None, 0);
+            spriteBatch.Draw(l1, new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), null, Color.White * 1f, MathHelper.ToRadians(counter * 0.46f), l1.Size() / 2, 0.02f, SpriteEffects.None, 0);
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
 
