@@ -625,7 +625,7 @@ namespace CalamityEntropy.Common
             if (DriverShield > 0)
             {
                 int reduceDmg = 0;
-                int DamageToShield = (int)(info.Damage * (Player.AzafureEnhance() ? 0.6f : 1));
+                int DamageToShield = int.Max(1, (int)(info.Damage * (Player.AzafureEnhance() ? 0.6f : 1)));
                 if (Player.Calamity().chaliceOfTheBloodGod)
                     DamageToShield = DriverShield + 1;
                 if (DriverShield >= DamageToShield)
@@ -659,7 +659,7 @@ namespace CalamityEntropy.Common
             if (NihilityShield > 0)
             {
                 int reduceDmg = 0;
-                int DamageToShield = (int)(info.Damage * 1);
+                int DamageToShield = int.Max(1, (int)(info.Damage * 1));
                 if (Player.Calamity().chaliceOfTheBloodGod)
                     DamageToShield = NihilityShield + 1;
                 if (NihilityShield >= DamageToShield)
@@ -1187,7 +1187,13 @@ namespace CalamityEntropy.Common
             if (immune > 0)
             {
                 Player.immune = true;
-                Player.immuneTime = immune;
+                if(Player.immuneTime < immune)
+                    Player.immuneTime = immune;
+                for (int i = 0; i < Player.hurtCooldowns.Length; i++)
+                {
+                    if (Player.hurtCooldowns[i] < immune)
+                        Player.hurtCooldowns[i] = immune;
+                }
                 _immune--;
             }
             if (SacredJudgeShields < 2)
