@@ -93,7 +93,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void AI()
         {
             var player = Projectile.GetOwner();
-            Projectile.damage = ((EntropyBookHeldProjectile)ShooterModProjectile).CauculateProjectileDamage(0.8f);
+            if (ShooterModProjectile is EntropyBookHeldProjectile eb)
+                Projectile.damage = eb.CauculateProjectileDamage(0.8f);
             float tofs = target == null ? 120 : (target.width + target.height) / 2f + 120;
             if (Main.myPlayer != Projectile.owner || BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkSwordBMEffect>(player))
                 Projectile.timeLeft = 3;
