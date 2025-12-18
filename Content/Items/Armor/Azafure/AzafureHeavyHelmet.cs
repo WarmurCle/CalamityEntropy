@@ -64,12 +64,15 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
         public LoopSound chargeSnd = null;
         public override void PostUpdate()
         {
-            if (chargeSnd != null && chargeSnd.timeleft <= 0)
-                chargeSnd = null;
-            if (chargeSnd != null)
+            if (!Main.dedServ)
             {
-                chargeSnd.setVolume_Dist(Player.Center, 100, 1600, 1);
-                chargeSnd.instance.Pitch = (1 - (DeathExplosion / 80f)) * 1.8f;
+                if (chargeSnd != null && chargeSnd.timeleft <= 0)
+                    chargeSnd = null;
+                if (chargeSnd != null)
+                {
+                    chargeSnd.setVolume_Dist(Player.Center, 100, 1600, 1);
+                    chargeSnd.instance.Pitch = (1 - (DeathExplosion / 80f)) * 1.8f;
+                }
             }
         }
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
@@ -93,11 +96,14 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                     DeathExplosion = 80;
                     dmgSource = damageSource;
                     Player.dead = false;
-                    chargeSnd = new LoopSound(CalamityEntropy.ofCharge);
-                    chargeSnd.instance.Pitch = 0;
-                    chargeSnd.instance.Volume = 0;
-                    chargeSnd.play();
-                    chargeSnd.timeleft = 80;
+                    if (!Main.dedServ)
+                    {
+                        chargeSnd = new LoopSound(CalamityEntropy.ofCharge);
+                        chargeSnd.instance.Pitch = 0;
+                        chargeSnd.instance.Volume = 0;
+                        chargeSnd.play();
+                        chargeSnd.timeleft = 80;
+                    }
                 }
                 else
                     ExplosionFlag = false;

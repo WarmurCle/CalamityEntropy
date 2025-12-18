@@ -607,11 +607,14 @@ namespace CalamityEntropy.Common
                 {
                     modifiers.DisableCrit();
                 }
-                foreach (var v in projectile.GetOwner().Entropy().CritDamage)
+                if (projectile.GetOwner().Entropy().CritDamage != null)
                 {
-                    if (projectile.DamageType.CountsAsClass(v.Key))
+                    foreach (var v in projectile.GetOwner().Entropy().CritDamage)
                     {
-                        modifiers.CritDamage += v.Value.Value - 1;
+                        if (projectile.DamageType.CountsAsClass(v.Key))
+                        {
+                            modifiers.CritDamage += v.Value.Value - 1;
+                        }
                     }
                 }
                 if (projectile.GetOwner().Entropy().hasAcc("HEATDEATH"))
@@ -669,6 +672,16 @@ namespace CalamityEntropy.Common
             if (player.Entropy().nihShell)
             {
                 modifiers.CritDamage += NihilityShell.CirtDamageAddition;
+            }
+            if (player.Entropy().CritDamage != null)
+            {
+                foreach (var v in player.Entropy().CritDamage)
+                {
+                    if (item.DamageType.CountsAsClass(v.Key))
+                    {
+                        modifiers.CritDamage += v.Value.Value - 1;
+                    }
+                }
             }
             modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.05f * (1 - npc.Entropy().VoidTouchDR);
             if (player.Entropy().VFSet)
