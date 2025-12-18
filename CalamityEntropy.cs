@@ -1434,10 +1434,11 @@ namespace CalamityEntropy
             }
             BookMarkLoader.RegisterBookmarkEffect("StoneEffect", bookUpdate: bookUpdateStone);
             BookMarkLoader.RegisterBookmark(ItemID.StoneBlock, null, effectName: "StoneEffect");
-
-            Main.instance.LoadItem(ItemID.StoneBlock);
-            Main.instance.LoadItem(ItemID.DirtBlock);
-
+            if (!Main.dedServ)
+            {
+                Main.instance.LoadItem(ItemID.StoneBlock);
+                Main.instance.LoadItem(ItemID.DirtBlock);
+            }
             for (int i = 0; i < ItemLoader.ItemCount; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
