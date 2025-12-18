@@ -27,19 +27,26 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (Projectile.ai[1] > 0)
             {
-                float cw = Math.Abs(Projectile.Center.X - target.Center.X);
-                float ch = Math.Abs(Projectile.Center.Y - target.Center.Y);
-                if (cw < ch)
+                NPC targeth = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 600);
+                if (targeth != null)
                 {
-                    Projectile.velocity.Y *= -1;
-                    Projectile.Center += Projectile.velocity;
+                    Projectile.localAI[2] = 3;
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((target.Center - Projectile.Center).ToRotation());
                 }
                 else
                 {
-                    Projectile.velocity.X *= -1;
-                    Projectile.Center += Projectile.velocity;
+                    float cw = Math.Abs(Projectile.Center.X - target.Center.X);
+                    float ch = Math.Abs(Projectile.Center.Y - target.Center.Y);
+                    if (cw < ch)
+                    {
+                        Projectile.velocity.Y *= -1;
+                    }
+                    else
+                    {
+                        Projectile.velocity.X *= -1;
+                    }
                 }
-                SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
             }
             if (Projectile.ai[1] == -1)
             {
