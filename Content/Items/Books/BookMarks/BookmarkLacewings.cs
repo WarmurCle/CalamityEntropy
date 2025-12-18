@@ -66,7 +66,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 return;
             }
 
-            float DelayMult = player.GetWeaponAttackSpeed(player.HeldItem);
+            float DelayMult = 1;
+            if (ShooterModProjectile is EntropyBookHeldProjectile eb_)
+            {
+                DelayMult = eb_.CauculateAttackSpeed();
+            }
             Projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
             Projectile.damage = (int)(player.GetWeaponDamage(player.HeldItem) * 1.2f);
             Projectile.MaxUpdates = 1;

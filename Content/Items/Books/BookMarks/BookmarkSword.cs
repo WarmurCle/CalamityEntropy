@@ -115,6 +115,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 target = CEUtils.FindMinionTarget(Projectile, 3200);
             }
+            float DelayMult = 1;
+            if (ShooterModProjectile is EntropyBookHeldProjectile eb_)
+            {
+                DelayMult = eb_.CauculateAttackSpeed();
+            }
             AttackTimer--;
             if (target == null && AttackTimer <= 2)
             {
@@ -142,7 +147,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     {
                         Projectile.ResetLocalNPCHitImmunity();
                         num2 = Main.rand.NextBool() ? 1 : -1;
-                        AttackDelay = 12;
+                        AttackDelay = (int)(12 / DelayMult);
                         if (Main.rand.NextBool())
                         {
                             aiStyle = AIStyle.Strike;
@@ -190,7 +195,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 if (AttackTimer <= 0)
                 {
                     aiStyle = AIStyle.Stop;
-                    AttackTimer = 8;
+                    AttackTimer = (int)(8 / DelayMult);
                     num = 0;
                 }
             }
@@ -210,7 +215,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 if (AttackTimer <= 0)
                 {
                     aiStyle = AIStyle.Stop;
-                    AttackTimer = 10;
+                    AttackTimer = (int)(10 / DelayMult);
                     num = 0;
                 }
             }

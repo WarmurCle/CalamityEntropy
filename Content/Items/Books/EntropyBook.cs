@@ -281,6 +281,11 @@ namespace CalamityEntropy.Content.Items.Books
             var modifer = GetProjectileModifer();
             return (int)(Projectile.GetOwner().GetTotalDamage(Projectile.DamageType).ApplyTo(bookItem.damage * modifer.Damage * mult * (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj < 0 ? 1 : TwistedTwinMinion.damageMul)));
         }
+        public float CauculateAttackSpeed()
+        {
+            var modifer = GetProjectileModifer();
+            return Projectile.GetOwner().GetTotalAttackSpeed(Projectile.DamageType) * modifer.attackSpeed;
+        }
         public EBookStatModifer GetProjectileModifer()
         {
             EBookStatModifer modifer = getBaseModifer();

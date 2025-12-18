@@ -125,6 +125,15 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 GeneralParticleHandler.SpawnParticle(orb2);
             }
         }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            float DelayMult = 1;
+            if (ShooterModProjectile is EntropyBookHeldProjectile eb_)
+            {
+                DelayMult = eb_.CauculateAttackSpeed();
+            }
+            modifiers.FinalDamage *= DelayMult;
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             CEUtils.DrawGlow(Projectile.Center, Color.Black * Projectile.Opacity, Projectile.scale * 10 * Projectile.Opacity, false);

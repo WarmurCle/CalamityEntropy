@@ -123,6 +123,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 if (aiStyle == AIStyle.Idle)
                     aiStyle = AIStyle.Chase;
             }
+            float DelayMult = 1;
+            if (ShooterModProjectile is EntropyBookHeldProjectile eb_)
+            {
+                DelayMult = eb_.CauculateAttackSpeed();
+            }
             Projectile.pushByOther(0.1f);
             if (target != null)
             {
@@ -139,7 +144,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     {
                         Projectile.ResetLocalNPCHitImmunity();
                         num2 = Main.rand.NextBool() ? 1 : -1;
-                        AttackDelay = 90;
+                        AttackDelay = (int)(90 / DelayMult);
                         if (Main.rand.NextBool())
                         {
                             aiStyle = AIStyle.Strike;
@@ -187,7 +192,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 if (AttackTimer <= 0)
                 {
                     aiStyle = AIStyle.Stop;
-                    AttackTimer = 40;
+                    AttackTimer = (int)(40 / DelayMult);
                     num = 0;
                 }
             }
@@ -207,7 +212,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 if (AttackTimer <= 0)
                 {
                     aiStyle = AIStyle.Stop;
-                    AttackTimer = 70;
+                    AttackTimer = (int)(70 / DelayMult);
                     num = 0;
                 }
             }

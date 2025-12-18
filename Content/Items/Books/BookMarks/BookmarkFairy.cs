@@ -64,9 +64,13 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 return;
             }
 
-            float DelayMult = player.GetWeaponAttackSpeed(player.HeldItem);
-            if(ShooterModProjectile is EntropyBookHeldProjectile eb)
+            float DelayMult = 1;
+            if (ShooterModProjectile is EntropyBookHeldProjectile eb)
+            {
                 Projectile.damage = eb.CauculateProjectileDamage(0.6f);
+                DelayMult = eb.CauculateAttackSpeed();
+            }
+            
             Projectile.MaxUpdates = 1;
 
             if (CEUtils.getDistance(Projectile.Center, player.Center) > 3000)
