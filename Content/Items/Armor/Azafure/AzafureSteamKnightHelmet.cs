@@ -221,7 +221,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
             var mplayer = Main.LocalPlayer.GetModPlayer<AzafureHeavyArmorPlayer>();
             Color color = mplayer.DurabilityActive ? Color.White : new Color(255, 80, 80) * 0.5f;
             Color color2 = mplayer.DurabilityActive ? Color.White : new Color(255, 142, 142) * 0.7f;
-            Vector2 Center = Main.ScreenSize.ToVector2() * 0.5f + new Vector2(0, -48);
+            Vector2 Center = Main.ScreenSize.ToVector2() * 0.5f + new Vector2(0, -60);
             if (dura < 0.32f && mplayer.DurabilityActive)
             {
                 Center += new Vector2(Main.rand.NextFloat() * ((0.32f - dura) * 20), Main.rand.NextFloat() * ((0.32f - dura) * 20));
