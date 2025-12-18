@@ -86,6 +86,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.Graphics;
 using Terraria.Graphics.Renderers;
 using Terraria.ID;
@@ -1409,6 +1410,9 @@ namespace CalamityEntropy
             Typer.activeTypers = new();
             StartBagGItem.items = new List<int>();
             VanityDisplaySys.SetupVanities();
+
+            //BookMarkLoader.RegisterBookmark(ItemID.DirtBlock, TextureAssets.Item[ItemID.DirtBlock], modifyStat_AttackSpeed: (org) => org + 5f);
+
             for (int i = 0; i < ItemLoader.ItemCount; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
@@ -1479,7 +1483,7 @@ namespace CalamityEntropy
             for (int i = 0; i < NPCLoader.NPCCount; i++)
             {
                 NPCID.Sets.SpecificDebuffImmunity[i][ModContent.BuffType<Content.Buffs.HeatDeath>()] = false;
-                NPCID.Sets.SpecificDebuffImmunity[i][ModContent.BuffType<Content.Buffs.LifeOppress>()] = false;
+                NPCID.Sets.SpecificDebuffImmunity[i][ModContent.BuffType<LifeOppress>()] = false;
                 NPCID.Sets.SpecificDebuffImmunity[i][ModContent.BuffType<Koishi>()] = false;
             }
             List<int> specBuffs = new() { ModContent.BuffType<VoidVirus>(), ModContent.BuffType<SoulDisorder>(), ModContent.BuffType<Deceive>() };
