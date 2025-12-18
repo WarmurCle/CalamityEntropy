@@ -377,6 +377,12 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public virtual int frameChange => 4;
         public virtual Vector2 UIHeldOffset => Vector2.UnitY * -52;
+        public override bool PreAI()
+        {
+            if (bookItem == null)
+                bookItem = Projectile.GetOwner().HeldItem;
+            return true;
+        }
         public override void AI()
         {
             var player = Projectile.GetOwner();
@@ -648,6 +654,7 @@ namespace CalamityEntropy.Content.Items.Books
                     }
                 }
             }
+            
             if (initColor)
             {
                 Projectile.rotation = Projectile.velocity.ToRotation();
