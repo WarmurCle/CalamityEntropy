@@ -155,7 +155,7 @@ namespace CalamityEntropy.Common
                 Main.spriteBatch.Draw(noise, center - so - Main.screenPosition, new Rectangle(offset, offset, tex.Width * 4, tex.Height * 4), Color.OrangeRed * alpha * alpha, 0, tex.Size() / 2f, scale / 4, SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(noise, center - so - Main.screenPosition, new Rectangle(offset / 2, offset / 2, tex.Width * 4, tex.Height * 4), Color.OrangeRed * alpha * alpha, 0, tex.Size() / 2f, scale / 4, SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(tex, center - Main.screenPosition, null, clr * alpha, 0, tex.Size() / 2f, scale, SpriteEffects.None, 0);
-
+                
                 Main.spriteBatch.End();
             }
         }
