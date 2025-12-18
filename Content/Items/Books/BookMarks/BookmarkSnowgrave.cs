@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 {
                     projectile.GetOwner().Entropy().SnowgraveCharge = 0;
                     projectile.GetOwner().Entropy().SnowgraveChargeTime = 0;
-                    Projectile.NewProjectile(projectile.GetSource_FromAI(), target.Center, Vector2.Zero, sgtype, eb.CauculateProjectileDamage(0.32f), 0.4f, projectile.owner);
+                    Projectile.NewProjectile(projectile.GetSource_FromAI(), target.Center, Vector2.Zero, sgtype, eb.CauculateProjectileDamage(0.42f), 0.4f, projectile.owner);
                 }
             }
         }
@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             Vector2 scaledSize = Main.Camera.ScaledSize;
             Vector2 scaledPosition = Main.Camera.ScaledPosition;
-            for (int i = 0; (float)i < 128; i++)
+            for (int i = 0; (float)i < 42; i++)
             {
                 try
                 {
