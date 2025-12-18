@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                         spos = target.Center + CEUtils.randomRot().ToRotationVector2() * 460;
                         rot = (target.Center - spos).ToRotation();
                     }
-                    eb.ShootSingleProjectile(BookmarkCosmic.ProjType, spos, rot.ToRotationVector2(), 0.16f, 1, 1f);
+                    eb.ShootSingleProjectile(BookmarkCosmic.ProjType, spos, rot.ToRotationVector2(), 0.3f, 1, 1f);
                 }
             }
         }
