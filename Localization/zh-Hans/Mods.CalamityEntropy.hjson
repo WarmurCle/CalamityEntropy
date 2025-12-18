@@ -4339,6 +4339,7 @@ Projectiles: {
 	BrimHomingBullet.DisplayName: 硫火飞弹
 	PlagueMissle.DisplayName: 瘟疫导弹
 	RedemptionShootAlt.DisplayName: 救赎导弹
+	// BMDirtProj.DisplayName: B M Dirt Proj
 }
 
 LegendTooltip: - 传奇物品 -

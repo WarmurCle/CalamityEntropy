@@ -8,6 +8,7 @@ using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Atbm;
+using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.MusicBoxes;
@@ -1411,7 +1412,31 @@ namespace CalamityEntropy
             StartBagGItem.items = new List<int>();
             VanityDisplaySys.SetupVanities();
 
-            //BookMarkLoader.RegisterBookmark(ItemID.DirtBlock, TextureAssets.Item[ItemID.DirtBlock], modifyStat_AttackSpeed: (org) => org + 5f);
+
+            void bookUpdateDirt(Projectile projectile, bool ownerClient)
+            {
+                if (ownerClient && CECooldowns.CheckCD("Dirt", 60))
+                {
+                    if (projectile.ModProjectile is EntropyBookHeldProjectile eb)
+                        eb.ShootSingleProjectile(ModContent.ProjectileType<BMDirtProj>(), projectile.Center, projectile.rotation.ToRotationVector2(), 0.25f, 1, 0.8f, (proj) => { proj.ai[1] = -1; proj.ai[0] = ItemID.DirtBlock; });
+                }
+            }
+            BookMarkLoader.RegisterBookmarkEffect("DirtEffect", bookUpdate:bookUpdateDirt);
+            BookMarkLoader.RegisterBookmark(ItemID.DirtBlock, null, effectName:"DirtEffect");
+            
+            void bookUpdateStone(Projectile projectile, bool ownerClient)
+            {
+                if (ownerClient && CECooldowns.CheckCD("Dirt", 60))
+                {
+                    if (projectile.ModProjectile is EntropyBookHeldProjectile eb)
+                        eb.ShootSingleProjectile(ModContent.ProjectileType<BMDirtProj>(), projectile.Center, projectile.rotation.ToRotationVector2(), 0.25f, 1, 0.8f, (proj) => { proj.ai[1] = 1; proj.ai[0] = ItemID.StoneBlock; });
+                }
+            }
+            BookMarkLoader.RegisterBookmarkEffect("StoneEffect", bookUpdate: bookUpdateStone);
+            BookMarkLoader.RegisterBookmark(ItemID.StoneBlock, null, effectName: "StoneEffect");
+
+            Main.instance.LoadItem(ItemID.StoneBlock);
+            Main.instance.LoadItem(ItemID.DirtBlock);
 
             for (int i = 0; i < ItemLoader.ItemCount; i++)
             {
