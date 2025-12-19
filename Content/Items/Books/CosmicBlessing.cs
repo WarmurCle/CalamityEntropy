@@ -232,7 +232,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.tileCollide = false;
             Projectile.MaxUpdates = 6;
             Projectile.timeLeft = 160 * 6;
-            Projectile.penetrate = 2;
+            Projectile.penetrate = -1;
         }
         public override void OnKill(int timeLeft)
         {
