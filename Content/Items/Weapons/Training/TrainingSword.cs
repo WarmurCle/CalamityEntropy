@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
             Item.useTime = 12;
             Item.useAnimation = 12;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 5;
+            Item.knockBack = 6;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.UseSound = null;
@@ -118,6 +119,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
         public MultiRectHitbox hitbox;
         public float HandRot = 0;
         public float rotV = 0;
+        public float rotC = 0.8f;
         public void HandleHandRotation()
         {
             if (Projectile.localAI[2] == 0)
@@ -130,7 +132,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
                 if (atkType == 1)
                 {
                     HandRot = 2;
-                    rotV = -1.64f;
+                    rotV = -1.1f;
+                    rotC = 0.86f;
                 }
                 if (atkType == 3)
                 {
@@ -139,18 +142,20 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
                 }
                 if (atkType == 4)
                 {
-                    HandRot = 2;
-                    rotV = -1f;
+                    HandRot = 3.5f;
+                    rotV = -0.9f;
+                    rotC = 0.84f;
                 }
                 if (atkType == 5)
                 {
-                    HandRot = -2;
+                    HandRot = -2.2f;
                     rotV = 1.2f;
                 }
                 if (atkType == 6)
                 {
-                    HandRot = -2.1f;
-                    rotV = 0.8f;
+                    HandRot = -2.8f;
+                    rotV = 1f;
+                    rotC = 0.74f;
                 }
             }
 
@@ -170,8 +175,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
                 }
             }
             float p = counter / (TotalFrame() * FrameTime);
-            HandRot += rotV * Projectile.GetOwner().GetTotalAttackSpeed(Projectile.DamageType);
-            rotV *= 0.8f;
+            float ats = Projectile.GetOwner().GetTotalAttackSpeed(Projectile.DamageType);
+            HandRot += rotV * ats;
+            rotV *= (float)Math.Pow(rotC, ats);
             float rot = HandRot;
             if (Projectile.GetOwner().direction < 0)
                 rot = (rot.ToRotationVector2() * new Vector2(-1, 1)).ToRotation();
@@ -264,6 +270,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
 
         public override bool PreDraw(ref Color lightColor)
         {
+            if (true)
+            {
+                Texture2D tex = TextureAssets.Item[ModContent.ItemType<TrainingSword>()].Value;
+                int dir = rotV > 0 ? 1 : -1 * Projectile.velocity.X > 0 ? 1 : -1;
+                float rot = (dir > 0 ? MathHelper.ToRadians(70) : MathHelper.ToRadians(-70)) + (HandRot.ToRotationVector2() * new Vector2(Projectile.velocity.X > 0 ? 1 : -1, 1)).ToRotation();
+                SpriteEffects effect = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+                Vector2 origin = dir > 0 ? new Vector2(0, tex.Height) : new Vector2(0, 0);
+                Main.EntitySpriteDraw(tex, Projectile.GetOwner().GetFrontHandPositionImproved(Projectile.GetOwner().compositeFrontArm) - Main.screenPosition, null, lightColor, rot, origin, Projectile.scale * 0.76f, effect);
+            }
+
             Texture2D slash = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/Training/Slash/Slash" + atkType.ToString());
             int num1 = slash.Height / TotalFrame();
             Rectangle sourceRect = new Rectangle(0, num1 * frame, slash.Width, num1 - 2);
