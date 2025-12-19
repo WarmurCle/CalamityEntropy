@@ -231,9 +231,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
         public bool playHitSound = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            ScreenShaker.AddShake(new ScreenShaker.ScreenShake((target.Center - Projectile.Center).normalize() * 10, 0.7f));
             if (playHitSound)
             {
+                ScreenShaker.AddShake(new ScreenShaker.ScreenShake((target.Center - Projectile.Center).normalize() * 10, 0.7f));
+
                 playHitSound = false;
                 CEUtils.PlaySound("GrassSwordHit1", Main.rand.NextFloat(1.2f, 1.4f), Projectile.Center, volume: CEUtils.WeapSound * 0.3f * DamageMult());
             }
