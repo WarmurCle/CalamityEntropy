@@ -340,24 +340,30 @@ namespace CalamityEntropy
             }
             else if (messageType == CEMessageType.SyncPlayer)
             {
+                int wai = reader.ReadInt32();
                 int loreCount = reader.ReadInt32();
-                Player plr = whoAmI.ToPlayer();
-                plr.Entropy().enabledLoreItems.Clear();
+                Player plr = wai.ToPlayer();
+                bool local = wai == Main.myPlayer;
+                if(!local)
+                    plr.Entropy().enabledLoreItems.Clear();
                 for (int i = 0; i < loreCount; i++)
                 {
-                    plr.Entropy().enabledLoreItems.Add(reader.ReadInt32());
+                    int t = reader.ReadInt32();
+                    if(!local)
+                        plr.Entropy().enabledLoreItems.Add(t);
                 }
                 
                 if (Main.dedServ)
                 {
                     ModPacket packet = Instance.GetPacket();
                     packet.Write((byte)CEMessageType.SyncPlayer);
+                    packet.Write(wai);
                     packet.Write(loreCount);
                     foreach (var i in plr.Entropy().enabledLoreItems)
                     {
                         packet.Write(i);
                     }
-                    packet.Send(-1, whoAmI);
+                    packet.Send(-1, wai);
                 }
             }
         }

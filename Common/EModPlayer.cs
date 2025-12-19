@@ -3675,6 +3675,7 @@ namespace CalamityEntropy.Common
                 EBookStackItems = new();
             var mp = Mod.GetPacket();
             mp.Write((byte)CEMessageType.SyncPlayer);
+            mp.Write(Player.whoAmI);
             mp.Write(enabledLoreItems.Count);
             foreach (var item in enabledLoreItems)
             {
