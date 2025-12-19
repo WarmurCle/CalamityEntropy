@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
     {
         public override void SetDefaults()
         {
-            Item.damage = 20;
+            Item.damage = 16;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 28;
             Item.height = 68;
@@ -56,9 +56,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.BambooBlock, 10)
-                .AddIngredient(ItemID.Sapphire, 4)
-                .AddIngredient(ItemID.FallenStar, 2)
+                .AddIngredient(ItemID.Wood, 12)
+                .AddIngredient(ItemID.BambooBlock, 4)
                 .AddTile(TileID.WorkBenches)
                 .Register();
         }
