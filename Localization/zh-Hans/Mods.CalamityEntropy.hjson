@@ -3738,6 +3738,11 @@ Items: {
 		DisplayName: 阿萨福勒蒸汽骑士护腿
 		Tooltip: ""
 	}
+
+	TrainingSword: {
+		DisplayName: 训练竹刀
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:
@@ -4340,6 +4345,8 @@ Projectiles: {
 	PlagueMissle.DisplayName: 瘟疫导弹
 	RedemptionShootAlt.DisplayName: 救赎导弹
 	// BMDirtProj.DisplayName: B M Dirt Proj
+	// TrainingSwordProj.DisplayName: Training Sword Proj
+	// WaterBolt.DisplayName: Water Bolt
 }
 
 LegendTooltip: - 传奇物品 -

@@ -360,14 +360,27 @@ namespace CalamityEntropy
         }
         public static void SetHandRotWithDir(this Player owner, float r, int dir)
         {
+            int stretch = 0;
             owner.direction = dir;
             if (r.ToRotationVector2().X > 0)
             {
-                owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, r - (float)(Math.PI * 0.5f));
+                owner.SetCompositeArmFront(true, (Player.CompositeArmStretchAmount)stretch, r - (float)(Math.PI * 0.5f));
             }
             else
             {
-                owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, r - (float)(Math.PI * 0.5f));
+                owner.SetCompositeArmFront(true, (Player.CompositeArmStretchAmount)stretch, r - (float)(Math.PI * 0.5f));
+            }
+        }
+        public static void SetHandRotWithDir(this Player owner, float r, int dir, int stretch = 0)
+        {
+            owner.direction = dir;
+            if (r.ToRotationVector2().X > 0)
+            {
+                owner.SetCompositeArmFront(true, (Player.CompositeArmStretchAmount)stretch, r - (float)(Math.PI * 0.5f));
+            }
+            else
+            {
+                owner.SetCompositeArmFront(true, (Player.CompositeArmStretchAmount)stretch, r - (float)(Math.PI * 0.5f));
             }
         }
         public static Vector2 GetDrawCenter(this Player player)
@@ -435,6 +448,41 @@ namespace CalamityEntropy
             if (rect.Y + rect.Height > Main.maxTilesY * 16)
                 return true;
             return Collision.SolidCollision(rect.TopLeft(), rect.Width, rect.Height);
+        }
+        public static bool CheckSolidTileOrPlatform(Rectangle rect)
+        {
+            if (rect.Y + rect.Height > Main.maxTilesY * 16)
+                return true;
+            return SolidOrPlatCollision(rect.TopLeft(), rect.Width, rect.Height);
+        }
+        public static bool SolidOrPlatCollision(Vector2 Position, int Width, int Height)
+        {
+            int value = (int)(Position.X / 16f) - 1;
+            int value2 = (int)((Position.X + (float)Width) / 16f) + 2;
+            int value3 = (int)(Position.Y / 16f) - 1;
+            int value4 = (int)((Position.Y + (float)Height) / 16f) + 2;
+            int num = Utils.Clamp(value, 0, Main.maxTilesX - 1);
+            value2 = Utils.Clamp(value2, 0, Main.maxTilesX - 1);
+            value3 = Utils.Clamp(value3, 0, Main.maxTilesY - 1);
+            value4 = Utils.Clamp(value4, 0, Main.maxTilesY - 1);
+            Vector2 vector = default(Vector2);
+            for (int i = num; i < value2; i++)
+            {
+                for (int j = value3; j < value4; j++)
+                {
+                    if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && (Main.tileSolid[Main.tile[i, j].TileType] || Main.tileSolidTop[Main.tile[i, j].TileType]))
+                    {
+                        vector.X = i * 16;
+                        vector.Y = j * 16;
+                        int num2 = 16;
+
+                        if (Position.X + (float)Width > vector.X && Position.X < vector.X + 16f && Position.Y + (float)Height > vector.Y && Position.Y < vector.Y + (float)num2)
+                            return true;
+                    }
+                }
+            }
+
+            return false;
         }
         public static void FriendlySetDefaults(this Projectile Projectile, DamageClass dmgClass, bool tileCollide = false, int penetrate = 1)
         {
@@ -963,15 +1011,16 @@ namespace CalamityEntropy
         }
         public static void DrawRectAlt(Rectangle rect, Color color, float width, int num = 16)
         {
-            drawLine(new Vector2(rect.X + num, rect.Y), new Vector2(rect.X + rect.Width - num, rect.Y), color, width, 2);
-            drawLine(new Vector2(rect.X + rect.Width - num, rect.Y), new Vector2(rect.X + rect.Width, rect.Y + num), color, width, 2);
-            drawLine(new Vector2(rect.X + rect.Width, rect.Y + num), new Vector2(rect.X + rect.Width, rect.Y + rect.Height - num), color, width, 2);
-            drawLine(new Vector2(rect.X + rect.Width, rect.Y + rect.Height - num), new Vector2(rect.X + rect.Width - num, rect.Y + rect.Height), color, width, 2);
-            drawLine(new Vector2(rect.X + num, rect.Y + rect.Height), new Vector2(rect.X + rect.Width - num, rect.Y + rect.Height), color, width, 2);
-            drawLine(new Vector2(rect.X + num, rect.Y + rect.Height), new Vector2(rect.X, rect.Y + rect.Height - num), color, width, 2);
-            drawLine(new Vector2(rect.X, rect.Y + num), new Vector2(rect.X, rect.Y + rect.Height - num), color, width, 2);
-            drawLine(new Vector2(rect.X, rect.Y + num), new Vector2(rect.X + num, rect.Y), color, width, 2);
+            int wa = num > 2 ? 2 : 0;
 
+            drawLine(new Vector2(rect.X + num, rect.Y), new Vector2(rect.X + rect.Width - num, rect.Y), color, width, wa);
+            drawLine(new Vector2(rect.X + rect.Width - num, rect.Y), new Vector2(rect.X + rect.Width, rect.Y + num), color, width, wa);
+            drawLine(new Vector2(rect.X + rect.Width, rect.Y + num), new Vector2(rect.X + rect.Width, rect.Y + rect.Height - num), color, width, wa);
+            drawLine(new Vector2(rect.X + rect.Width, rect.Y + rect.Height - num), new Vector2(rect.X + rect.Width - num, rect.Y + rect.Height), color, width, wa);
+            drawLine(new Vector2(rect.X + num, rect.Y + rect.Height), new Vector2(rect.X + rect.Width - num, rect.Y + rect.Height), color, width, wa);
+            drawLine(new Vector2(rect.X + num, rect.Y + rect.Height), new Vector2(rect.X, rect.Y + rect.Height - num), color, width, wa);
+            drawLine(new Vector2(rect.X, rect.Y + num), new Vector2(rect.X, rect.Y + rect.Height - num), color, width, wa);
+            drawLine(new Vector2(rect.X, rect.Y + num), new Vector2(rect.X + num, rect.Y), color, width, wa);
         }
         public static void recordOldPosAndRots(Projectile p, ref List<Vector2> odp, ref List<float> odr, int maxLength = 12)
         {

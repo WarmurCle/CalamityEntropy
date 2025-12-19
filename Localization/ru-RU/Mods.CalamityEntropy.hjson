@@ -3493,6 +3493,11 @@ Items: {
 		// DisplayName: Azafure Steam Knight Leggings
 		// Tooltip: ""
 	}
+
+	TrainingSword: {
+		// DisplayName: Training Sword
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:
@@ -4094,6 +4099,8 @@ Projectiles: {
 	// PlagueMissle.DisplayName: Plague Missle
 	// RedemptionShootAlt.DisplayName: Redemption Shoot Alt
 	// BMDirtProj.DisplayName: B M Dirt Proj
+	// TrainingSwordProj.DisplayName: Training Sword Proj
+	// WaterBolt.DisplayName: Water Bolt
 }
 
 LegendTooltip: - Легенда -
