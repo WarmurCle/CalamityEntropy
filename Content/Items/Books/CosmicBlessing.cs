@@ -230,8 +230,8 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.width = 32;
             Projectile.height = 32;
             Projectile.tileCollide = false;
-            Projectile.MaxUpdates = 6;
-            Projectile.timeLeft = 160 * 6;
+            Projectile.MaxUpdates = 5;
+            Projectile.timeLeft = 100 * 5;
             Projectile.penetrate = -1;
         }
         public override void OnKill(int timeLeft)
@@ -277,7 +277,8 @@ namespace CalamityEntropy.Content.Items.Books
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            CEUtils.PlaySound("GrassSwordHit1", Main.rand.NextFloat(2f, 2.4f), target.Center, 60, 0.36f);
+            if(Projectile.numHits < 2)
+                CEUtils.PlaySound("GrassSwordHit1", Main.rand.NextFloat(2f, 2.4f), target.Center, 60, 0.32f);
         }
     }
 }
