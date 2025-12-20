@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 236;
+            Item.damage = 242;
             Item.useAnimation = Item.useTime = 7;
             Item.crit = 10;
             Item.mana = 6;
@@ -78,7 +78,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            EGlobalNPC.AddVoidTouch(target, 120, 2, 600, 14);
+            EGlobalNPC.AddVoidTouch(target, 120, 2, 600, 20);
         }
     }
 }

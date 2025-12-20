@@ -236,7 +236,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override void OnKill(int timeLeft)
         {
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, color, 0.5f, 1, true, BlendState.Additive, 0, 12);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, color, 0.4f, 1, true, BlendState.Additive, 0, 12);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.3f, 1, true, BlendState.Additive, 0, 12);
 
         }
