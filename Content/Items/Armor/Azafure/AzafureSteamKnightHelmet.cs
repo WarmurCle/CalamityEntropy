@@ -37,8 +37,8 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
             {
                 player.Calamity().wearingRogueArmor = true;
                 player.Calamity().rogueStealthMax += 0.8f;
-		        player.maxMinions += 1;
             }
+            player.maxMinions += 1;
         }
         public override void UpdateEquip(Player player)
         {
