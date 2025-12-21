@@ -164,6 +164,11 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override void AI()
         {
+            if (Projectile.ai[0] == 0)
+            {
+                Projectile.scale *= 2.0f;
+                Projectile.damage = (int)(Projectile.damage * 2.0f);
+            }
             base.AI();
             PortalAlpha = float.Lerp(PortalAlpha, UIOpen ? 1 : 0, 0.1f);
         }
@@ -215,8 +220,9 @@ namespace CalamityEntropy.Content.Items.Books
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             target.AddBuff<GodSlayerInferno>(300);
-        }
+	}
     }
+
     public class CosmicDeathRay : EBookBaseProjectile
     {
         public override void SetStaticDefaults()
@@ -279,6 +285,7 @@ namespace CalamityEntropy.Content.Items.Books
             base.OnHitNPC(target, hit, damageDone);
             if(Projectile.numHits < 2)
                 CEUtils.PlaySound("GrassSwordHit1", Main.rand.NextFloat(2f, 2.4f), target.Center, 60, 0.32f);
-        }
+    	    Projectile.damage = (int)(Projectile.damage * 0.5f);  
+  	}
     }
 }
