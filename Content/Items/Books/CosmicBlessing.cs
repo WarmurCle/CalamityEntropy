@@ -164,11 +164,6 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override void AI()
         {
-            if (Projectile.ai[0] == 0)
-            {
-                Projectile.scale *= 2.0f;
-                Projectile.damage = (int)(Projectile.damage * 2.0f);
-            }
             base.AI();
             PortalAlpha = float.Lerp(PortalAlpha, UIOpen ? 1 : 0, 0.1f);
         }
@@ -280,12 +275,19 @@ namespace CalamityEntropy.Content.Items.Books
 
             return false;
         }
+        public float DamageMul = 1;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            if(Projectile.numHits < 2)
+            if (Projectile.numHits < 2)
                 CEUtils.PlaySound("GrassSwordHit1", Main.rand.NextFloat(2f, 2.4f), target.Center, 60, 0.32f);
-    	    Projectile.damage = (int)(Projectile.damage * 0.5f);  
-  	}
+            DamageMul = float.Max(0.5f, DamageMul * 0.7f);
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            base.ModifyHitNPC(target, ref modifiers);
+            modifiers.SourceDamage *= DamageMul;
+        }
+
     }
 }
