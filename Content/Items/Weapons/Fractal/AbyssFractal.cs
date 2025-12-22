@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             CreateRecipe().AddIngredient<BrilliantFractal>()
                 .AddIngredient<AbyssBlade>()
                 .AddIngredient<Floodtide>()
-                .AddIngredient<PerennialBar>(6)
+                .AddIngredient<DepthCells>(6)
                 .AddTile(TileID.MythrilAnvil).Register();
         }
     }
