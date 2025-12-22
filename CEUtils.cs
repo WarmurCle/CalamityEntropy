@@ -30,6 +30,15 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static bool AnyActiveProj<T>() where T: ModProjectile
+        {
+            foreach(Projectile p in Main.ActiveProjectiles)
+            {
+                if (p.ModProjectile != null && p.ModProjectile is T)
+                    return true;
+            }
+            return false;
+        }
         public static int SecondToFrames(this float second) => (int)(second * 60);
         public static bool HomingToNPCNearby(this Projectile projectile, float vel = 2f, float velMult = 0.97f, float maxRadius = 600, Func<int, bool> filter = null)
         {

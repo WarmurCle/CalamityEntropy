@@ -4101,6 +4101,7 @@ Projectiles: {
 	// BMDirtProj.DisplayName: B M Dirt Proj
 	// TrainingSwordProj.DisplayName: Training Sword Proj
 	// WaterBolt.DisplayName: Water Bolt
+	// WOHHeld.DisplayName: W O H Held
 }
 
 LegendTooltip: - Легенда -
