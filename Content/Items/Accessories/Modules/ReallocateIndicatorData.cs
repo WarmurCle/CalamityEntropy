@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
             float sum = new UnifiedRandom(seed).NextFloat(MaxDeviation / -4f, MaxDeviation / 2f);
             if (player.AzafureEnhance())
             {
-                sum += 0.2f;
+                sum += 0.3f;
             }
             List<float> ModifyMap = FloatListGenerator.GenerateFloatList(seed, 9, sum, -0.26f, 0.26f);
             float Dmg = ModifyMap[0];
