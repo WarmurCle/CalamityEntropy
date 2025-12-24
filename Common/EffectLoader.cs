@@ -28,7 +28,7 @@ namespace CalamityEntropy.Common
     {
         [VaultLoaden("CalamityEntropy/Assets/Extra/cvmask")]
         private static Asset<Texture2D> cvmask;
-        [VaultLoaden("CalamityEntropy/Assets/Extra/planetarium_blue_base")]
+        [VaultLoaden("CalamityEntropy/Assets/Extra/StarrySky")]
         private static Asset<Texture2D> planetarium_blue_base;
         [VaultLoaden("CalamityEntropy/Content/Projectiles/CruiserSlash")]
         private static Asset<Texture2D> cruiserSlash;
