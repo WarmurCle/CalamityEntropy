@@ -128,7 +128,7 @@ namespace CalamityEntropy.Common.LoreReworks
         public static float Ats = 0.02f;
         public override void UpdateEffects(Player player)
         {
-            player.GetAttackSpeed(DamageClass.Generic) += Ats;
+            player.GetAttackSpeed(DamageClass.Melee) += Ats;
         }
         public override void ModifyTooltip(TooltipLine tooltip)
         {
