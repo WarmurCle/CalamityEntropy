@@ -1,4 +1,4 @@
-﻿using CalamityMod;
+using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -23,12 +23,13 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.height = 42;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
-            Projectile.timeLeft = 240;
+            Projectile.timeLeft = 90;
             Projectile.extraUpdates = 1;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
+	        Projectile.ArmorPenetration = 10;
         }
         public bool setv = true;
         public List<Vector2> odp = new List<Vector2>();
@@ -118,6 +119,4 @@ namespace CalamityEntropy.Content.Projectiles
 
         }
     }
-
-
 }
