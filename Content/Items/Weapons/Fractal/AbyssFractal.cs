@@ -56,7 +56,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 .AddIngredient<Floodtide>()
                 .AddIngredient<Lumenyl>(6)
                 .AddTile(TileID.MythrilAnvil)
-		.Register();
+		        .Register();
         }
     }
     public class AbyssFractalHeld : ModProjectile
