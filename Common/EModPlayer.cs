@@ -713,8 +713,10 @@ namespace CalamityEntropy.Common
             Player.position = c - new Vector2(Player.width / 2, Player.height);
         }
         public float snowgrave = 0;
+        public bool NoAdrenaline = false;
         public override void ResetEffects()
         {
+            NoAdrenaline = false;
             ScaleTarget = 1;
             Scale = float.Lerp(Scale, ScaleTarget, 0.1f);
             DriverShieldVisual = false;

@@ -134,6 +134,13 @@ namespace CalamityEntropy.Content.ILEditing
             {
                 EModHooks.Add(NPC_Get_Name, On_NPC_Get_Hook);
             }
+
+            var AdrenalineEnabled_Get = typeof(CalamityPlayer).GetProperty("AdrenalineEnabled", BindingFlags.Instance | BindingFlags.Public).GetGetMethod();
+            if(AdrenalineEnabled_Get != null)
+            {
+                EModHooks.Add(AdrenalineEnabled_Get, On_AdrenalineEnabled_Get_Hook);
+            }
+
             var ApplyDRMethod = typeof(CalamityGlobalNPC).GetMethod("ApplyDR", BindingFlags.Instance | BindingFlags.NonPublic, new Type[] { typeof(NPC), typeof(NPC.HitModifiers).MakeByRefType() });
             if (ApplyDRMethod != null)
             {
@@ -169,6 +176,7 @@ namespace CalamityEntropy.Content.ILEditing
             return EGlobalNPC.DamageReduceMult(npc);
         }
         public delegate string On_GetNPCName_get_Delegate(NPC npc);
+        public delegate bool AdrEnabled_get_Delegate(CalamityPlayer calPlayer);
         public static List<int> LostNPCsEntropy = new() { 454, 455, 456, 457, 458, 459, 521 };
         public static string On_NPC_Get_Hook(On_GetNPCName_get_Delegate orig, NPC npc)
         {
@@ -180,6 +188,12 @@ namespace CalamityEntropy.Content.ILEditing
 
             }
             return n;
+        }
+        public static bool On_AdrenalineEnabled_Get_Hook(AdrEnabled_get_Delegate orig, CalamityPlayer calPlayer)
+        {
+            if (calPlayer.Player.Entropy().NoAdrenaline)
+                return false;
+            return orig(calPlayer);
         }
         private static void UpdateRogueStealthHook(CalamityPlayer self)
         {

@@ -39,6 +39,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                 player.Calamity().rogueStealthMax += 0.8f;
             }
             player.maxMinions += 1;
+            player.Entropy().NoAdrenaline = true;
         }
         public override void UpdateEquip(Player player)
         {
@@ -218,10 +219,12 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
         }
         public static void DrawDuraBar(float dura)
         {
+            Vector2 pos = new Vector2(ModContent.GetInstance<CalamityClientConfig>().AdrenalineMeterPosX, ModContent.GetInstance<CalamityClientConfig>().AdrenalineMeterPosY);
+
             var mplayer = Main.LocalPlayer.GetModPlayer<AzafureHeavyArmorPlayer>();
             Color color = mplayer.DurabilityActive ? Color.White : new Color(255, 80, 80) * 0.5f;
             Color color2 = mplayer.DurabilityActive ? Color.White : new Color(255, 142, 142) * 0.7f;
-            Vector2 Center = Main.ScreenSize.ToVector2() * 0.5f + new Vector2(0, -60);
+            Vector2 Center = pos;// Main.ScreenSize.ToVector2() * 0.5f + new Vector2(0, -60);
             if (dura < 0.32f && mplayer.DurabilityActive)
             {
                 Center += new Vector2(Main.rand.NextFloat() * ((0.32f - dura) * 20), Main.rand.NextFloat() * ((0.32f - dura) * 20));
