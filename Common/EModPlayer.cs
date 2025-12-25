@@ -714,9 +714,9 @@ namespace CalamityEntropy.Common
         }
         public float snowgrave = 0;
         public bool NoAdrenaline = false;
+        public int NoAdrenalineTime = 0;
         public override void ResetEffects()
         {
-            NoAdrenaline = false;
             ScaleTarget = 1;
             Scale = float.Lerp(Scale, ScaleTarget, 0.1f);
             DriverShieldVisual = false;
@@ -896,6 +896,10 @@ namespace CalamityEntropy.Common
 
         public override void PreUpdate()
         {
+            NoAdrenaline = false;
+            if (NoAdrenalineTime > 0)
+                NoAdrenaline = true;
+            NoAdrenalineTime--;
             if (hasAccVisual("PLWing") && (vanityWing == null || vanityWing.ModItem is PhantomLightWing))
             {
                 if (plWingTrail == null || plWingTrail.Lifetime <= 1)
@@ -2019,6 +2023,10 @@ namespace CalamityEntropy.Common
         }
         public override void PostUpdate()
         {
+            if(NoAdrenaline)
+            {
+                Player.Calamity().adrenaline = 0;
+            }
             DmgAdd20--;
             ShieldAlphaAdd *= 0.95f;
             if (NihilitySet)

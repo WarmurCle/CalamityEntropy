@@ -4,6 +4,7 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Particles;
+using CalamityMod.UI.Rippers;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
@@ -39,7 +40,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                 player.Calamity().rogueStealthMax += 0.8f;
             }
             player.maxMinions += 1;
-            player.Entropy().NoAdrenaline = true;
+            player.Entropy().NoAdrenalineTime = 3;
         }
         public override void UpdateEquip(Player player)
         {
@@ -219,9 +220,16 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
         }
         public static void DrawDuraBar(float dura)
         {
-            Vector2 pos = new Vector2(ModContent.GetInstance<CalamityClientConfig>().AdrenalineMeterPosX, ModContent.GetInstance<CalamityClientConfig>().AdrenalineMeterPosY);
+            Main.spriteBatch.UseSampleState_UI(SamplerState.PointClamp);
+            Vector2 pos = new Vector2(CalamityClientConfig.Instance.AdrenalineMeterPosX, CalamityClientConfig.Instance.AdrenalineMeterPosY);
+            if (pos.X < 0f || pos.X > 100f)
+                pos.X = RipperUI.DefaultAdrenPosX;
+            if (pos.Y < 0f || pos.Y > 100f)
+                pos.Y = RipperUI.DefaultAdrenPosY;
+            pos.X = (int)(pos.X * 0.01f * Main.screenWidth);
+            pos.Y = (int)(pos.Y * 0.01f * Main.screenHeight);
 
-            var mplayer = Main.LocalPlayer.GetModPlayer<AzafureHeavyArmorPlayer>();
+            var mplayer = Main.LocalPlayer.GetModPlayer<AzafureSteamKnightArmorPlayer>();
             Color color = mplayer.DurabilityActive ? Color.White : new Color(255, 80, 80) * 0.5f;
             Color color2 = mplayer.DurabilityActive ? Color.White : new Color(255, 142, 142) * 0.7f;
             Vector2 Center = pos;// Main.ScreenSize.ToVector2() * 0.5f + new Vector2(0, -60);
@@ -231,8 +239,11 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
             }
             Texture2D tex1 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Armor/Azafure/DurabilityBarA").Value;
             Texture2D tex2 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Armor/Azafure/SteamKnightBar").Value;
-            Main.spriteBatch.Draw(tex2, Center, null, color, 0, tex2.Size() / 2f, 1, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(tex1, Center, new Rectangle(0, 0, (int)(tex1.Width * dura), tex1.Height), color2, 0, tex1.Size() / 2f, 1, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex2, Center, null, color, 0, tex2.Size() / 2f, 1.6f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex1, Center, new Rectangle(0, 0, (int)(tex1.Width * dura), tex1.Height), color2, 0, tex1.Size() / 2f, 1.6f, SpriteEffects.None, 0);
+            bool hover = Center.getRectCentered(100, 40).Intersects(Main.MouseScreen.getRectCentered(2, 2));
+            if (hover)
+                Main.instance.MouseText(CalamityEntropy.Instance.GetLocalization("DuraBar").Value + $": {dura.ToPercent()}%");
         }
     }
 }

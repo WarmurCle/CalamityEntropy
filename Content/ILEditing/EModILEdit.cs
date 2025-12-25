@@ -12,6 +12,7 @@ using CalamityMod.Projectiles.Melee;
 using CalamityMod.Projectiles.Summon;
 using CalamityMod.Schematics;
 using CalamityMod.UI;
+using CalamityMod.UI.Rippers;
 using CalamityMod.World;
 using InnoVault;
 using Microsoft.Xna.Framework.Graphics;
@@ -135,10 +136,16 @@ namespace CalamityEntropy.Content.ILEditing
                 EModHooks.Add(NPC_Get_Name, On_NPC_Get_Hook);
             }
 
-            var AdrenalineEnabled_Get = typeof(CalamityPlayer).GetProperty("AdrenalineEnabled", BindingFlags.Instance | BindingFlags.Public).GetGetMethod();
-            if(AdrenalineEnabled_Get != null)
+            /*var drawAdrBar = typeof(RipperUI).GetMethod("DrawAdrenalineBar", BindingFlags.NonPublic | BindingFlags.Static);
+            if (drawAdrBar != null)
             {
-                EModHooks.Add(AdrenalineEnabled_Get, On_AdrenalineEnabled_Get_Hook);
+                EModHooks.Add(drawAdrBar, drawAdrBar_hook);
+            }*/
+
+            var RipperUIDrawMethod = typeof(RipperUI).GetMethod("Draw", BindingFlags.Static | BindingFlags.Public);
+            if (RipperUIDrawMethod != null)
+            {
+                EModHooks.Add(RipperUIDrawMethod, RipperUIDraw);
             }
 
             var ApplyDRMethod = typeof(CalamityGlobalNPC).GetMethod("ApplyDR", BindingFlags.Instance | BindingFlags.NonPublic, new Type[] { typeof(NPC), typeof(NPC.HitModifiers).MakeByRefType() });
@@ -154,6 +161,14 @@ namespace CalamityEntropy.Content.ILEditing
             CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");
         }
         public delegate void ApplyDRDelegate(CalamityGlobalNPC self, NPC npc, ref NPC.HitModifiers modifer);
+        public delegate void DrawAdrenalineBarDelegate(SpriteBatch spriteBatch, CalamityPlayer modPlayer, Vector2 screenPos);
+        public static void drawAdrBar_hook(DrawAdrenalineBarDelegate orig, SpriteBatch spriteBatch, CalamityPlayer modPlayer, Vector2 screenPos)
+        {
+            if(!modPlayer.Player.Entropy().NoAdrenaline)
+            {
+                orig(spriteBatch, modPlayer, screenPos);
+            }
+        }
         public static void apply_dr_hook(ApplyDRDelegate orig, CalamityGlobalNPC self, NPC npc, ref NPC.HitModifiers modifer)
         {
             orig(self, npc, ref modifer);
@@ -194,6 +209,24 @@ namespace CalamityEntropy.Content.ILEditing
             if (calPlayer.Player.Entropy().NoAdrenaline)
                 return false;
             return orig(calPlayer);
+        }
+        public static void RipperUIDraw(Action<SpriteBatch, Player> orig, SpriteBatch batch, Player player)
+        {
+            bool dHeart = player.Calamity().draedonsHeart;
+            bool revenge = CalamityWorld.revenge;
+            bool shatteredCommunity = player.Calamity().shatteredCommunity;
+            if (player.Entropy().NoAdrenaline)
+            {
+                if (CalamityWorld.revenge)
+                    player.Calamity().shatteredCommunity = true;
+                player.Calamity().draedonsHeart = false;
+                CalamityWorld.revenge = false;
+            }
+
+            orig(batch, player);
+            player.Calamity().shatteredCommunity = shatteredCommunity;
+            player.Calamity().draedonsHeart = dHeart;
+            CalamityWorld.revenge = revenge;
         }
         private static void UpdateRogueStealthHook(CalamityPlayer self)
         {
