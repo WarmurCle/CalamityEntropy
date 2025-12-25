@@ -200,7 +200,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                     CEUtils.PlaySound($"ExoHit{Main.rand.Next(1, 5)}", Main.rand.NextFloat(0.6f, 0.8f), Player.Center, 6, 0.6f);
                     if (DurabilityRegenDelay < 5 * 60)
                         DurabilityRegenDelay = 5 * 60;
-                    durability -= float.Min(0.52f, info.Damage / 900f);
+                    durability -= float.Min(0.52f, info.SourceDamage / 700f);
 
                     //耐久没了暂时失效
                     if (durability <= 0)
