@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.velocity = Projectile.rotation.ToRotationVector2() * 10;
                 if (Main.myPlayer == Projectile.owner)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * Projectile.MaxUpdates, ModContent.ProjectileType<AbyssalCrack>(), Projectile.damage / 12, 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * Projectile.MaxUpdates, ModContent.ProjectileType<AbyssalCrack>(), Projectile.damage / 6, 0, Projectile.owner);
                 }
             }
             counter++;
