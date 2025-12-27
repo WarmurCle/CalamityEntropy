@@ -3483,6 +3483,16 @@ Items: {
 		DisplayName: Training Sword
 		Tooltip: ""
 	}
+
+	ExquisiteHairband: {
+		DisplayName: Exquisite Hairband
+		Tooltip: ""
+	}
+
+	LingsHairAccessory: {
+		DisplayName: Ling's Hair Accessory
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:

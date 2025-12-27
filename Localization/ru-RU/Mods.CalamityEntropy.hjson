@@ -3498,6 +3498,16 @@ Items: {
 		// DisplayName: Training Sword
 		// Tooltip: ""
 	}
+
+	ExquisiteHairband: {
+		// DisplayName: Exquisite Hairband
+		// Tooltip: ""
+	}
+
+	LingsHairAccessory: {
+		// DisplayName: Lings Hair Accessory
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:
@@ -5328,7 +5338,7 @@ Biomes: {
 	'''
 	When this armor is equipped, 
 	all Azafure equipment receives partial enhancements
-	Gains a Durability bar
+	Remove adrenaline and gains a Durability bar
 	The Durability bar provides up to 18 defense and 25% damage reduction, 
 	while slowing your movement speed
 	Durability is consumed based on damage taken when hit
@@ -5339,7 +5349,7 @@ Biomes: {
 	'''
 	When this armor is equipped, 
 	all Azafure equipment receives partial enhancements
-	Gains a Durability bar
+	Remove adrenaline and gains a Durability bar
 	The Durability bar provides up to 36 defense and 30% damage reduction
 	Durability is consumed based on damage taken when hit
 	Durability slowly regenerates 5 seconds after taking damage
@@ -5347,6 +5357,7 @@ Biomes: {
 	Provide 80 rogue stealth
 	+20% Movement speed and +1 Max minion
 	''' */
+// DuraBar: Durability bar
 // AzafureEnhance: Enhance
 
 AzafureEnhances: {

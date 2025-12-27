@@ -3741,6 +3741,16 @@ Items: {
 		DisplayName: 训练竹刀
 		Tooltip: ""
 	}
+
+	ExquisiteHairband: {
+		DisplayName: 精致发箍
+		Tooltip: ""
+	}
+
+	LingsHairAccessory: {
+		DisplayName: 零的发饰
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:
