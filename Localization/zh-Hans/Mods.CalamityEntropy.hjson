@@ -4357,6 +4357,7 @@ Projectiles: {
 	// TrainingSwordProj.DisplayName: Training Sword Proj
 	// WaterBolt.DisplayName: Water Bolt
 	// WOHHeld.DisplayName: W O H Held
+	// FractalAbyssalBlade.DisplayName: Fractal Abyssal Blade
 }
 
 LegendTooltip: - 传奇物品 -

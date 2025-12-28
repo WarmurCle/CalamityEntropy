@@ -3047,6 +3047,7 @@ Items: {
 			Acceleration multiplier: [B]
 			Disappointing vertical speed
 			Flight time: [C]
+			-90% flight time if there're any boss
 			"Now's your chance to be a..."
 			''' */
 	}
@@ -4112,6 +4113,7 @@ Projectiles: {
 	// TrainingSwordProj.DisplayName: Training Sword Proj
 	// WaterBolt.DisplayName: Water Bolt
 	// WOHHeld.DisplayName: W O H Held
+	// FractalAbyssalBlade.DisplayName: Fractal Abyssal Blade
 }
 
 LegendTooltip: - Легенда -
