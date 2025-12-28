@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using CalamityMod;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 using Terraria;
@@ -131,6 +132,10 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.timeLeft = 1000;
             }
+            lw *= 0.9f;
+            lw -= 0.05f;
+            if (lw < 0)
+                lw = 0;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
@@ -139,6 +144,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int ct = 0;
         public float cl = 0;
         public float LX = -1;
+        public float lw = 1;
         public override bool PreDraw(ref Color lightColor)
         {
             if (LX == -1)
@@ -151,9 +157,24 @@ namespace CalamityEntropy.Content.Projectiles
             SpriteEffects ef = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
             Color clr = Color.Lerp(Color.White, new Color(0, 0, 255, 0), cl);
             Main.EntitySpriteDraw(t2, Projectile.Center - Main.screenPosition, null, clr, Projectile.rotation, t1.Size() / 2f, Projectile.scale, ef);
-            Main.EntitySpriteDraw(t1, Projectile.Center - Main.screenPosition, null, clr, Projectile.rotation + dir * (-Rot * ((Rot > 1.2f ? 1 : 0) * 0.12f * ((float)(Math.Sin((float)Main.GameUpdateCount * 0.4f))) + 1f)), t1.Size() / 2f, Projectile.scale, ef);
+            Main.EntitySpriteDraw(t1, Projectile.Center - Main.screenPosition, null, clr, Projectile.rotation + dir * (-Rot * ((Rot > 1.2f ? 1 : 0) * 0.02f * ((float)(Math.Sin((float)Main.GameUpdateCount * 0.4f))) + 1f)), t1.Size() / 2f, Projectile.scale, ef);
             Main.EntitySpriteDraw(t3, Projectile.Center - Main.screenPosition, null, clr, new Vector2(LX - Projectile.Center.X, 12).ToRotation() - MathHelper.PiOver2, new Vector2(t3.Width / 2f, 0), Projectile.scale * 2, SpriteEffects.None);
 
+            Main.spriteBatch.UseBlendState(new BlendState()
+            {
+                ColorSourceBlend = Blend.InverseDestinationColor,
+                ColorDestinationBlend = Blend.Zero,
+                ColorBlendFunction = BlendFunction.Add,
+
+                AlphaSourceBlend = Blend.One,
+                AlphaDestinationBlend = Blend.One,
+                AlphaBlendFunction = BlendFunction.Add,
+            });
+            if(lw > 0.001f)
+            {
+                CEUtils.drawLine(Projectile.Center + new Vector2(0, -2000), Projectile.Center + new Vector2(0, 2000), Color.White, lw * 110);
+            }
+            Main.spriteBatch.ExitShaderRegion();
             /*
             if (frame >= 12)
             {
