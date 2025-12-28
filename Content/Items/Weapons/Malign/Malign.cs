@@ -57,6 +57,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
                 .AddIngredient(ItemID.CrystalSerpent)
                 .AddIngredient(ItemID.Ectoplasm, 6)
                 .AddIngredient<AshesofCalamity>(4)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
     }

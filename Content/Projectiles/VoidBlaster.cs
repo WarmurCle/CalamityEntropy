@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
@@ -9,7 +10,7 @@ namespace CalamityEntropy.Content.Projectiles
     public class VoidBlaster : ModProjectile
     {
         int frame = 0;
-
+        public float Rot = 0;
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
@@ -55,6 +56,9 @@ namespace CalamityEntropy.Content.Projectiles
                 if (Projectile.ai[0] > 200)
                 {
                     frame++;
+                    if (frame > 9)
+                        if (cl < 1)
+                            cl += 0.2f;
                     if (frame > 11)
                     {
                         Projectile.Kill();
@@ -89,6 +93,14 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] != 13 || !Projectile.owner.ToPlayer().channel)
             {
                 Projectile.ai[0]++;
+            }
+            if (Projectile.ai[0] >= 14 && Projectile.ai[0] < 180)
+            {
+                Rot = float.Lerp(Rot, 1.4f, 0.2f);
+            }
+            else
+            {
+                Rot *= 0.92f;
             }
             Vector2 c = Projectile.owner.ToPlayer().Center;
             if (Projectile.Entropy().OnProj != -1)
@@ -125,9 +137,24 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
         public int ct = 0;
+        public float cl = 0;
+        public float LX = -1;
         public override bool PreDraw(ref Color lightColor)
         {
+            if (LX == -1)
+                LX = Projectile.Center.X;
+            LX = float.Lerp(LX, Projectile.Center.X, 0.4f);
+            Texture2D t1 = CEUtils.RequestTex("CalamityEntropy/Content/Projectiles/VB/VEHA");
+            Texture2D t2 = CEUtils.RequestTex("CalamityEntropy/Content/Projectiles/VB/VEHB");
+            Texture2D t3 = CEUtils.RequestTex("CalamityEntropy/Content/Projectiles/VB/VES");
+            int dir = Projectile.rotation.ToRotationVector2().X > 0 ? 1 : -1;
+            SpriteEffects ef = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+            Color clr = Color.Lerp(Color.White, new Color(0, 0, 255, 0), cl);
+            Main.EntitySpriteDraw(t2, Projectile.Center - Main.screenPosition, null, clr, Projectile.rotation, t1.Size() / 2f, Projectile.scale, ef);
+            Main.EntitySpriteDraw(t1, Projectile.Center - Main.screenPosition, null, clr, Projectile.rotation + dir * (-Rot * ((Rot > 1.2f ? 1 : 0) * 0.12f * ((float)(Math.Sin((float)Main.GameUpdateCount * 0.4f))) + 1f)), t1.Size() / 2f, Projectile.scale, ef);
+            Main.EntitySpriteDraw(t3, Projectile.Center - Main.screenPosition, null, clr, new Vector2(LX - Projectile.Center.X, 12).ToRotation() - MathHelper.PiOver2, new Vector2(t3.Width / 2f, 0), Projectile.scale * 2, SpriteEffects.None);
 
+            /*
             if (frame >= 12)
             {
                 return false;
@@ -143,6 +170,7 @@ namespace CalamityEntropy.Content.Projectiles
                 tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/VB/VoidBlaster" + ((ct / 3) % 3 + 6).ToString()).Value;
             }
             Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * back + new Vector2(0, up), null, Color.White, Projectile.rotation, new Vector2(165, 144) / 2, Projectile.scale, ef, 0);
+            */
             return false;
         }
     }
