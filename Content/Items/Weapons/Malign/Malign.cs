@@ -150,12 +150,20 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
             Texture2D tex = Projectile.GetTexture();
 
             Vector2 top = Projectile.Center + Projectile.rotation.ToRotationVector2() * (56 + 10 * ActiveProgress) * Projectile.scale;
+            
             Main.EntitySpriteDraw(tPart1, top - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver4) * (ActiveProgress * 18 - 12), null, Color.White * 0.5f * ActiveProgress, Projectile.rotation + MathHelper.PiOver4 + 0.3f * ActiveProgress, new Vector2(0, tPart1.Height / 2), Projectile.scale, SpriteEffects.None);
             Main.EntitySpriteDraw(tPart2, top - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(-MathHelper.PiOver4) * (ActiveProgress * 18 - 12), null, Color.White * 0.5f * ActiveProgress, Projectile.rotation + MathHelper.PiOver4 + -0.3f * ActiveProgress, new Vector2(tPart2.Width / 2, tPart2.Height), Projectile.scale, SpriteEffects.None);
+            
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation + MathHelper.PiOver4, new Vector2(6, tex.Height - 6), Projectile.scale, SpriteEffects.None);
             Main.EntitySpriteDraw(tCircle1, Projectile.Center + Projectile.rotation.ToRotationVector2() * 94 * Projectile.scale - Main.screenPosition, null, Color.White * (ActiveProgress * ActiveProgress * ActiveProgress * 0.8f), Main.GlobalTimeWrappedHourly * 16, tCircle1.Size() / 2f, Projectile.scale, SpriteEffects.None);
             Main.EntitySpriteDraw(tCircle2, Projectile.Center + Projectile.rotation.ToRotationVector2() * 94 * Projectile.scale - Main.screenPosition, null, Color.White * (ActiveProgress * ActiveProgress * ActiveProgress * 0.8f), Main.GlobalTimeWrappedHourly * -16, tCircle2.Size() / 2f, Projectile.scale, SpriteEffects.None);
             CEUtils.DrawGlow(Projectile.Center + Projectile.rotation.ToRotationVector2() * 94 * Projectile.scale, new Color(255, 200, 255) * 0.66f * (ActiveProgress * ActiveProgress * ActiveProgress), 1.2f);
+
+            /*Main.spriteBatch.UseBlendState(BlendState.Additive);
+            Texture2D jaw = ModContent.Request<Texture2D>("CalamityMod/Particles/Jaws").Value;
+            Main.spriteBatch.Draw(jaw, top - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 12, null, Color.MediumPurple * ActiveProgress, Projectile.rotation + MathHelper.PiOver2, jaw.Size() / 2f, 0.42f, SpriteEffects.None, 0);
+            Main.spriteBatch.ExitShaderRegion();*/
+
             return false;
         }
     }
