@@ -58,11 +58,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-		        .AddIngredient(ModContent.ItemType<CorrodedFossil>(), 6)
-		        .AddIngredient(ModContent.ItemType<DepthCells>(), 2)
-		        .DisableDecraft()
-		        .AddTile(TileID.Anvils)
-		        .Register();
+                .AddIngredient(ModContent.ItemType<CorrodedFossil>(), 6)
+                .AddIngredient(ModContent.ItemType<DepthCells>(), 2)
+                .DisableDecraft()
+                .AddTile(TileID.Anvils)
+                .Register();
         }
     }
 }

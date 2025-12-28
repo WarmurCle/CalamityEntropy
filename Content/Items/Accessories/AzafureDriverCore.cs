@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.width = 60;
             Item.height = 54;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
-            Item.defense = 15;
+            Item.defense = 10;
             Item.accessory = true;
             Item.rare = ItemRarityID.Pink;
         }
@@ -94,7 +94,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override float CalculateDashSpeed(Player player)
         {
-            return 32f;
+            return 24f;
         }
 
         public override void OnDashEffects(Player player)

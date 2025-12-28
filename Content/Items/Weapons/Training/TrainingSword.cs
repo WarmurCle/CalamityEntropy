@@ -1,7 +1,5 @@
-﻿using CalamityEntropy.Content.Projectiles;
-using CalamityMod;
+﻿using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -10,7 +8,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
-using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -92,7 +89,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
             5 => 4,
             6 => 4,
             _ => 4
-        }; 
+        };
         public float DamageMult() => atkType switch
         {
             0 => 0.8f,
@@ -109,7 +106,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
             0 => new MultiRectHitbox(new List<Rectf>() { new Rectf(Vector2.Zero, new Vector2(128, 12)) }),
             1 => new MultiRectHitbox(new List<Rectf>() { new Rectf(Vector2.Zero, new Vector2(132, 128)) }),
             2 => new MultiRectHitbox(new List<Rectf>() { new Rectf(new Vector2(58, 0), new Vector2(42, 126)), new Rectf(new Vector2(76, 0), new Vector2(136, 32)) { ActiveFrame = 1 } }),
-            3 => new MultiRectHitbox(new List<Rectf>() { new Rectf(new Vector2(0, 30), new Vector2(258, 90)) {ActiveFrame = 1, DeactiveFrame = 1 }, new Rectf(new Vector2(66, 0), new Vector2(132, 142)) { ActiveFrame = 2 } }),
+            3 => new MultiRectHitbox(new List<Rectf>() { new Rectf(new Vector2(0, 30), new Vector2(258, 90)) { ActiveFrame = 1, DeactiveFrame = 1 }, new Rectf(new Vector2(66, 0), new Vector2(132, 142)) { ActiveFrame = 2 } }),
             4 => new MultiRectHitbox(new List<Rectf>() { new Rectf(Vector2.Zero, new Vector2(152, 118)) }),
             5 => new MultiRectHitbox(new List<Rectf>() { new Rectf(new Vector2(-6, 0), new Vector2(152, 116)) }),
             6 => new MultiRectHitbox(new List<Rectf>() { new Rectf(new Vector2(24, -20), new Vector2(86, 156)) }),
@@ -159,12 +156,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
             }
 
             int strc = 0;
-            if(atkType == 2)
+            if (atkType == 2)
             {
                 strc = counter / 2;
                 if (strc > 3)
                     strc = 3;
-                if(strc == 3)
+                if (strc == 3)
                 {
                     strc = 0;
                 }
@@ -187,7 +184,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
             HandleHandRotation();
             if (Projectile.localAI[2]++ == 0)
             {
-                SoundEngine.PlaySound(SoundID.Item1 with { Pitch = 1f / DamageMult() / DamageMult() - 1}, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item1 with { Pitch = 1f / DamageMult() / DamageMult() - 1 }, Projectile.Center);
             }
             if (hitbox == null)
                 hitbox = GetInitHitboxs();
@@ -197,24 +194,24 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
             player.itemTime = player.itemAnimation = 2;
             Projectile.velocity = new Vector2(Math.Sign(Projectile.velocity.X) * Projectile.velocity.Length(), 0);
             Projectile.rotation = Projectile.velocity.ToRotation();
-            frameCounter ++;
+            frameCounter++;
             counter++;
-            if(frame == 0)
+            if (frame == 0)
                 CEUtils.AddLight(Projectile.Center, new Color(124, 124, 255));
             if (frameCounter > FrameTime)
             {
                 frameCounter -= FrameTime;
                 frame++;
-                if(atkType == 6 && frame == 3)
+                if (atkType == 6 && frame == 3)
                 {
-                    if(Main.myPlayer == Projectile.owner)
+                    if (Main.myPlayer == Projectile.owner)
                     {
                         int type = ModContent.ProjectileType<WaterBolt>();
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + new Vector2(64, 4), Vector2.Zero, type, Projectile.damage, 0, Projectile.owner, 7, 1);
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + new Vector2(-64, 4), Vector2.Zero, type, Projectile.damage, 0, Projectile.owner, 7, -1);
                     }
                 }
-                if(frame >= TotalFrame())
+                if (frame >= TotalFrame())
                 {
                     frame--;
                     Projectile.Kill();
@@ -290,7 +287,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            if(hitbox != null)
+            if (hitbox != null)
                 return hitbox.CheckCollidingBetter(Projectile.Center, targetHitbox, 0, frame, Projectile.velocity.X < 0);
             return false;
         }

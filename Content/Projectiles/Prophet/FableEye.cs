@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             }
             if (Projectile.ai[0] > 80)
             {
-                
+
                 if (Projectile.ai[0] > 440)
                 {
                     RotateSpeed *= 0.98f;
@@ -89,12 +89,12 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                     if (Projectile.timeLeft % 10 == 0)
                         GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.SkyBlue * 0.32f, 0.2f, 4f, 64));
                     RotateSpeed *= 0.977f;
-                    foreach(var player in Main.ActivePlayers)
+                    foreach (var player in Main.ActivePlayers)
                     {
                         float d = Utils.Remap(player.Distance(Projectile.Center), 0, 600, 6, 0);
                         Vector2 vel = (player.Center - Projectile.Center).normalize() * d;
                         player.position += vel;
-                        if(CEUtils.CheckSolidTile(player.getRect()))
+                        if (CEUtils.CheckSolidTile(player.getRect()))
                         {
                             player.position -= vel;
                         }

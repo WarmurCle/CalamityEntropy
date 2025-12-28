@@ -94,7 +94,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             var player = Projectile.GetOwner();
             if (ShooterModProjectile is EntropyBookHeldProjectile eb)
                 Projectile.damage = eb.CauculateProjectileDamage(1.8f);
-            
+
             float tofs = target == null ? 180 : (target.width + target.height) / 2f + 180;
             if (Main.myPlayer != Projectile.owner || BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkHammerBMEffect>(player))
                 Projectile.timeLeft = 3;

@@ -1,13 +1,8 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.UI.EntropyBookUI;
-using CalamityMod;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Dusts;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework.Graphics;
@@ -168,7 +163,7 @@ namespace CalamityEntropy.Content.Items.Books
             PortalAlpha = float.Lerp(PortalAlpha, UIOpen ? 1 : 0, 0.1f);
         }
         public float PortalAlpha;
-        
+
         public void DrawPortal()
         {
             float alpha = PortalAlpha;
@@ -215,7 +210,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             target.AddBuff<GodSlayerInferno>(300);
-	}
+        }
     }
 
     public class CosmicDeathRay : EBookBaseProjectile

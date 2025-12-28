@@ -154,11 +154,11 @@ namespace CalamityEntropy.Common
         }
         public override bool? CanBeCaughtBy(NPC npc, Item item, Player player)
         {
-            if(npc.type == NPCID.FairyCritterBlue || npc.type == NPCID.FairyCritterGreen || npc.type == NPCID.FairyCritterPink)
+            if (npc.type == NPCID.FairyCritterBlue || npc.type == NPCID.FairyCritterGreen || npc.type == NPCID.FairyCritterPink)
             {
                 return true;
             }
-            
+
             return base.CanBeCaughtBy(npc, item, player);
         }
         public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -743,7 +743,7 @@ namespace CalamityEntropy.Common
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             List<int> osseousRemainsDropEnemies = new List<int>() { 174, 101, 94, 173, -22, -23, 181, 6, -11, -12 };
-            if(osseousRemainsDropEnemies.Contains(npc.type))
+            if (osseousRemainsDropEnemies.Contains(npc.type))
             {
                 npcLoot.Add(ModContent.ItemType<OsseousRemains>(), 3, 6, 8);
             }

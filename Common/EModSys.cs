@@ -155,7 +155,7 @@ namespace CalamityEntropy.Common
                 Main.spriteBatch.Draw(noise, center - so - Main.screenPosition, new Rectangle(offset, offset, tex.Width * 4, tex.Height * 4), Color.OrangeRed * alpha * alpha, 0, tex.Size() / 2f, scale / 4, SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(noise, center - so - Main.screenPosition, new Rectangle(offset / 2, offset / 2, tex.Width * 4, tex.Height * 4), Color.OrangeRed * alpha * alpha, 0, tex.Size() / 2f, scale / 4, SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(tex, center - Main.screenPosition, null, clr * alpha, 0, tex.Size() / 2f, scale, SpriteEffects.None, 0);
-                
+
                 Main.spriteBatch.End();
             }
         }
@@ -202,7 +202,7 @@ namespace CalamityEntropy.Common
                     float c = mp.NihilityShield > 0 ? 1 : ((float)mp.NihilityRecharge / VoidEaterHelmet.ShieldRecharge) * 0.6f;
                     DrawNihShield(player, player.Center, c * (0.5f + p * 0.5f), mp.NihShieldScale * (0.7f + 0.3f * p));
                 }
-                if(mp.NihArmorRope != null && player.whoAmI < mp.NihTwinArmorConnetPlayer)
+                if (mp.NihArmorRope != null && player.whoAmI < mp.NihTwinArmorConnetPlayer)
                 {
                     Main.spriteBatch.begin_();
                     mp.DrawNihRope();

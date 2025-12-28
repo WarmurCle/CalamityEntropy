@@ -87,7 +87,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.Graphics;
 using Terraria.Graphics.Renderers;
 using Terraria.ID;
@@ -254,9 +253,9 @@ namespace CalamityEntropy
                 self.Entropy().deusCoreBloodOut += info.Damage - 2;
                 info.Damage = 2;
             }
-            if(self.Entropy().NihTwinArmorConnetPlayer != -1)
+            if (self.Entropy().NihTwinArmorConnetPlayer != -1)
             {
-                if(self.statLife - info.Damage <= 0 && self.Entropy().NihTwinArmorConnetPlayer.ToPlayer().statLife > info.Damage)
+                if (self.statLife - info.Damage <= 0 && self.Entropy().NihTwinArmorConnetPlayer.ToPlayer().statLife > info.Damage)
                 {
                     if (CECooldowns.CheckCD("NihDamageDeathTrans", 12 * 60))
                     {
@@ -811,7 +810,7 @@ namespace CalamityEntropy
                 return self.GetModPlayer<AtbmPlayer>().opos.getRectCentered(self.width, self.height);
             }
             Rectangle rect = orig(self);
-            if(self.Entropy().Scale != 1)
+            if (self.Entropy().Scale != 1)
                 rect = rect.Center.ToVector2().getRectCentered(self.Entropy().Scale * rect.Width, self.Entropy().Scale * rect.Height);
             return rect;
         }
@@ -1421,9 +1420,9 @@ namespace CalamityEntropy
                         eb.ShootSingleProjectile(ModContent.ProjectileType<BMDirtProj>(), projectile.Center, projectile.rotation.ToRotationVector2(), 0.25f, 1, 0.8f, (proj) => { proj.ai[1] = -1; proj.ai[0] = ItemID.DirtBlock; });
                 }
             }
-            BookMarkLoader.RegisterBookmarkEffect("DirtEffect", bookUpdate:bookUpdateDirt);
-            BookMarkLoader.RegisterBookmark(ItemID.DirtBlock, null, effectName:"DirtEffect");
-            
+            BookMarkLoader.RegisterBookmarkEffect("DirtEffect", bookUpdate: bookUpdateDirt);
+            BookMarkLoader.RegisterBookmark(ItemID.DirtBlock, null, effectName: "DirtEffect");
+
             void bookUpdateStone(Projectile projectile, bool ownerClient)
             {
                 if (ownerClient && CECooldowns.CheckCD("Dirt", 60))
@@ -1514,9 +1513,9 @@ namespace CalamityEntropy
             }
             List<int> specBuffs = new() { ModContent.BuffType<VoidVirus>(), ModContent.BuffType<SoulDisorder>(), ModContent.BuffType<Deceive>() };
             List<int> specNpcs = new() { ModContent.NPCType<DesertScourgeHead>(), ModContent.NPCType<DevourerofGodsHead>(), ModContent.NPCType<AstrumDeusHead>(), ModContent.NPCType<AquaticScourgeHead>(), ModContent.NPCType<AstrumAureus>(), ModContent.NPCType<BrimstoneElemental>(), ModContent.NPCType<Bumblefuck>(), ModContent.NPCType<CalamitasClone>(), ModContent.NPCType<CeaselessVoid>(), ModContent.NPCType<Crabulon>(), ModContent.NPCType<Cryogen>(), ModContent.NPCType<CryogenShield>(), ModContent.NPCType<AresBody>(), ModContent.NPCType<Artemis>(), ModContent.NPCType<Apollo>(), ModContent.NPCType<ThanatosHead>(), ModContent.NPCType<GreatSandShark>(), ModContent.NPCType<HiveMind>(), ModContent.NPCType<PerforatorHive>(), ModContent.NPCType<Leviathan>(), ModContent.NPCType<Anahita>(), ModContent.NPCType<PlaguebringerGoliath>(), ModContent.NPCType<Polterghast>(), ModContent.NPCType<PrimordialWyrmHead>(), ModContent.NPCType<Providence>(), ModContent.NPCType<RavagerBody>(), ModContent.NPCType<Signus>(), ModContent.NPCType<StormWeaverHead>(), ModContent.NPCType<Yharon>(), ModContent.NPCType<SupremeCalamitas>() };
-            foreach(int i in specBuffs)
+            foreach (int i in specBuffs)
             {
-                foreach(int j in specNpcs)
+                foreach (int j in specNpcs)
                 {
                     NPCID.Sets.SpecificDebuffImmunity[j][i] = false;
                 }

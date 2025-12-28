@@ -164,7 +164,7 @@ namespace CalamityEntropy.Content.ILEditing
         public delegate void DrawAdrenalineBarDelegate(SpriteBatch spriteBatch, CalamityPlayer modPlayer, Vector2 screenPos);
         public static void drawAdrBar_hook(DrawAdrenalineBarDelegate orig, SpriteBatch spriteBatch, CalamityPlayer modPlayer, Vector2 screenPos)
         {
-            if(!modPlayer.Player.Entropy().NoAdrenaline)
+            if (!modPlayer.Player.Entropy().NoAdrenaline)
             {
                 orig(spriteBatch, modPlayer, screenPos);
             }

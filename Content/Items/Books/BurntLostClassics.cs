@@ -109,7 +109,7 @@ namespace CalamityEntropy.Content.Items.Books
             Player player = Main.player[base.Projectile.owner];
 
             EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center + Projectile.velocity * 0.5f, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
-            
+
             Lighting.AddLight(Projectile.Center, 0.25f, 0f, 0f);
             Projectile.rotation += 0.5f * (float)Projectile.direction;
             Projectile.velocity.Y += float.Min(0.6f, Time * 0.004f);

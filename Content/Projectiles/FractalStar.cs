@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     float rot = ((float)i).ToRadians() + Projectile.rotation;
                     GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, rot.ToRotationVector2() * 12, false, 22, Projectile.scale * 0.04f, Color.DeepSkyBlue, Vector2.One, false, true));
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, rot.ToRotationVector2() * 9, type, Projectile.damage / 4, Projectile.knockBack / 4, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, rot.ToRotationVector2() * 9, type, Projectile.damage / 3, Projectile.knockBack / 4, Projectile.owner);
                 }
             }
         }

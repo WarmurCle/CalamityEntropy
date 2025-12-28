@@ -132,7 +132,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                 Player.Entropy().noItemTime = 5;
                 if (DeathExplosion < 70 && DeathExplosion % 2 == 0)
                 {
-                    if(DeathExplosion % 6 == 0)
+                    if (DeathExplosion % 6 == 0)
                         ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, Utils.Remap(Main.LocalPlayer.Center.Distance(Player.Center), 4000, 1000, 0, 12)));
 
                     EParticle.NewParticle(new ShockParticle2(), Player.Center, Vector2.Zero, Color.White, 0.1f, 1, true, BlendState.Additive, CEUtils.randomRot());
@@ -148,7 +148,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                     ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 100), 1200);
                     var proj = CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ((int)(Player.GetBestClassDamage().ApplyTo(1900))).ApplyOldFashionedDmg(), 1200, DamageClass.Generic);
                     proj.ArmorPenetration = 60;
-                    if(proj.ModProjectile is CommonExplotionFriendly cef)
+                    if (proj.ModProjectile is CommonExplotionFriendly cef)
                     {
                         cef.DamageMulToWormSegs = 0.16f;
                     }
@@ -172,7 +172,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                 DurabilityRegenDelay--;
                 if (DurabilityActive)
                 {
-                    Player.endurance += durability * 0.3f ;
+                    Player.endurance += durability * 0.3f;
                     Player.statDefense += (int)(durability * 36);
                     Player.noKnockback = true;
                 }

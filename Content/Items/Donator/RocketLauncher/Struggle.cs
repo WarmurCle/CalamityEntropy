@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items.Materials;
@@ -26,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             Item.damage = 306;
             Item.knockBack = 4f;
             Item.UseSound = CEUtils.GetSound("cannon", 1.3f);
-            Item.value = Item.buyPrice(gold: 3); 
+            Item.value = Item.buyPrice(gold: 3);
             Item.rare = ItemRarityID.Pink;
             Item.Entropy().tooltipStyle = 8;
             Item.Entropy().strokeColor = new Color(180, 20, 180);
@@ -72,7 +71,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.SoulofNight ,15)
+                .AddIngredient(ItemID.SoulofNight, 15)
                 .AddIngredient<UnholyCore>(10)
                 .AddIngredient<CoreofHavoc>(5)
                 .AddIngredient(ItemID.HallowedBar, 10)

@@ -1,14 +1,6 @@
-﻿using CalamityEntropy.Content.Projectiles;
-using CalamityMod;
-using CalamityMod.Items;
-using CalamityMod.Items.Weapons.Melee;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -52,20 +44,20 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
             {
                 if (Projectile.ai[0] > 0 && Main.myPlayer == Projectile.owner)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + new Vector2(64 * Projectile.ai[1], 0), Vector2.Zero, Projectile.type, Projectile.damage, 0, Projectile.owner, Projectile.ai[0]-1, Projectile.ai[1]);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + new Vector2(64 * Projectile.ai[1], 0), Vector2.Zero, Projectile.type, Projectile.damage, 0, Projectile.owner, Projectile.ai[0] - 1, Projectile.ai[1]);
                 }
-                for(int i = 0; i < 32; i++)
+                for (int i = 0; i < 32; i++)
                 {
                     Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Water, 0, -16 * Main.rand.NextFloat());
                 }
             }
             Player player = Projectile.GetOwner();
-            frameCounter ++;
-            if(frameCounter > FrameTime)
+            frameCounter++;
+            if (frameCounter > FrameTime)
             {
                 frameCounter -= FrameTime;
                 frame++;
-                if(frame >= TotalFrame())
+                if (frame >= TotalFrame())
                 {
                     frame--;
                     Projectile.Kill();
@@ -86,7 +78,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
 
         public override bool PreDraw(ref Color lightColor)
         {
-            if(!active)
+            if (!active)
                 return false;
             Texture2D tex = Projectile.GetTexture();
             int num1 = tex.Height / TotalFrame();

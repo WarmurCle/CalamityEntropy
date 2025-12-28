@@ -643,10 +643,10 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override bool PreAI()
         {
-            if(ShooterModProjectile == null)
+            if (ShooterModProjectile == null)
             {
                 Projectile p = shooter.ToProj_Identity();
-                if(p != null && p != default)
+                if (p != null && p != default)
                 {
                     if (p.ModProjectile != null)
                     {
@@ -654,7 +654,7 @@ namespace CalamityEntropy.Content.Items.Books
                     }
                 }
             }
-            
+
             if (initColor)
             {
                 Projectile.rotation = Projectile.velocity.ToRotation();

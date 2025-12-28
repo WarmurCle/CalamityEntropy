@@ -1,14 +1,6 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.NPCs.AbyssalWraith;
-using CalamityMod;
-using CalamityMod.Graphics.Primitives;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.Graphics.Effects;
-using Terraria.Graphics.Shaders;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Skies
@@ -64,7 +56,7 @@ namespace CalamityEntropy.Content.Skies
             spriteBatch.Draw(tex, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), null, c2, 0, Vector2.Zero, SpriteEffects.FlipVertically, 0);
 
             spriteBatch.Draw(tex, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), c1);
-            
+
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null);
 

@@ -30,9 +30,9 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
-        public static bool AnyActiveProj<T>() where T: ModProjectile
+        public static bool AnyActiveProj<T>() where T : ModProjectile
         {
-            foreach(Projectile p in Main.ActiveProjectiles)
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
                 if (p.ModProjectile != null && p.ModProjectile is T)
                     return true;

@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             }
             player.Entropy().NihilitySet = true;
             player.GetDamage(DamageClass.Generic) += 0.14f;
-	        player.GetCritChance(DamageClass.Generic) += 14;
+            player.GetCritChance(DamageClass.Generic) += 14;
             player.maxMinions += 2;
             player.statManaMax2 += 100;
             if (player.Entropy().NihilityShield <= 0)
@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
         public override void UpdateEquip(Player player)
         {
             player.GetCritChance(DamageClass.Generic) += 12;
-	        player.GetDamage(DamageClass.Generic) += 0.12f;
+            player.GetDamage(DamageClass.Generic) += 0.12f;
         }
 
         public override void AddRecipes()

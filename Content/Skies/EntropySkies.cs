@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Books.BookMarks;
-using Terraria.Graphics.Effects;
+﻿using Terraria.Graphics.Effects;
 
 namespace CalamityEntropy.Content.Skies
 {

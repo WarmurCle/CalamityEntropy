@@ -547,7 +547,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 lPos = vpos;
                 return;
             }
-                
+
             Vector2 sparkVelocity2 = (vpos - lPos).normalize() * 4 * Projectile.ai[1];
             int sparkLifetime2 = (int)(Main.rand.NextFloat() * 16);
             float sparkScale2 = 0.6f * Main.rand.NextFloat();

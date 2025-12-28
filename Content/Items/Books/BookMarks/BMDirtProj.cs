@@ -1,12 +1,9 @@
-﻿using CalamityEntropy.Common;
-using CalamityMod.Items;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
@@ -46,7 +43,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                         Projectile.velocity.X *= -1;
                     }
                 }
-                    SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
             }
             if (Projectile.ai[1] == -1)
             {

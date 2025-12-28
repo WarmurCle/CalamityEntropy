@@ -1253,7 +1253,7 @@ namespace CalamityEntropy.Common
         public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            foreach(int id in applyBuffs)
+            foreach (int id in applyBuffs)
             {
                 target.AddBuff(id, 5 * 60);
             }

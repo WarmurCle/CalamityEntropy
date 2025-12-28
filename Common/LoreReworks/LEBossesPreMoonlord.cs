@@ -158,7 +158,7 @@ namespace CalamityEntropy.Common.LoreReworks
         public static int Regen = 2;
         public override void UpdateEffects(Player player)
         {
-            if(player.wet)
+            if (player.wet)
                 player.lifeRegen += Regen;
         }
     }
@@ -215,7 +215,7 @@ namespace CalamityEntropy.Common.LoreReworks
         public static int DEF = 2;
         public override void UpdateEffects(Player player)
         {
-            if(Main.dayTime)
+            if (Main.dayTime)
                 player.statDefense += DEF;
         }
         public override void ModifyTooltip(TooltipLine tooltip)

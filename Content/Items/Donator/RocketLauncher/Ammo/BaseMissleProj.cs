@@ -63,7 +63,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             if (Projectile.owner == Main.myPlayer)
             {
                 Projectile expl = CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromThis(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, ExplodeRadius, Projectile.DamageType);
-                if(expl.ModProjectile is CommonExplotionFriendly cef)
+                if (expl.ModProjectile is CommonExplotionFriendly cef)
                 {
                     cef.onHitAction = OnExplodeHitNPC;
                     expl.Entropy().applyBuffs = Projectile.Entropy().applyBuffs;
@@ -91,10 +91,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(StickOnNPC == null)
+            if (StickOnNPC == null)
             {
                 int count = 0;
-                while(Projectile.Colliding(Projectile.Hitbox, target.Hitbox))
+                while (Projectile.Colliding(Projectile.Hitbox, target.Hitbox))
                 {
                     if (count++ > 256)
                         break;
@@ -152,8 +152,8 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
                 }
             }
 ;
-            
-            if(Lifetime <= 12 || !Projectile.HomingToNPCNearby(Homing, 1 - Homing * 0.015f, HomingRange))
+
+            if (Lifetime <= 12 || !Projectile.HomingToNPCNearby(Homing, 1 - Homing * 0.015f, HomingRange))
             {
                 if (Projectile.velocity.Length() < MinVel)
                 {
@@ -188,7 +188,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             int count = 0;
             Projectile oldest = null;
             int lifetime = 0;
-            foreach(Projectile proj in Main.ActiveProjectiles)
+            foreach (Projectile proj in Main.ActiveProjectiles)
             {
                 if (proj.type == type && proj.ai[2] == Projectile.ai[2])
                 {

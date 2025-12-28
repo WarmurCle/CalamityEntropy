@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Common.LoreReworks;
-using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.ILEditing;
@@ -1193,7 +1192,7 @@ namespace CalamityEntropy.Common
             if (immune > 0)
             {
                 Player.immune = true;
-                if(Player.immuneTime < immune)
+                if (Player.immuneTime < immune)
                     Player.immuneTime = immune;
                 for (int i = 0; i < Player.hurtCooldowns.Length; i++)
                 {
@@ -1233,7 +1232,7 @@ namespace CalamityEntropy.Common
             {
                 NihSky--;
             }
-            if(snowgrave > 0)
+            if (snowgrave > 0)
             {
                 snowgrave--;
             }
@@ -1601,15 +1600,15 @@ namespace CalamityEntropy.Common
 
         public override void OnHurt(Player.HurtInfo info)
         {
-            if(SpawnChaoticCellOnHurt)
+            if (SpawnChaoticCellOnHurt)
             {
-                if(info.Damage > 12)
+                if (info.Damage > 12)
                 {
-                    if(CECooldowns.CheckCD("ChaoticSetCellSpawnCD", 160))
+                    if (CECooldowns.CheckCD("ChaoticSetCellSpawnCD", 160))
                     {
                         CEUtils.PlaySound("ksLand", 0.7f, Player.Center);
                         int type = ModContent.ProjectileType<ChaoticCellMinion>();
-                        for(int i = 0; i < 3; i++)
+                        for (int i = 0; i < 3; i++)
                         {
                             if (Player.ownedProjectileCounts[type] < ChaoticHelmet.MaxCells)
                             {
@@ -2023,7 +2022,7 @@ namespace CalamityEntropy.Common
         }
         public override void PostUpdate()
         {
-            if(NoAdrenaline)
+            if (NoAdrenaline)
             {
                 Player.Calamity().adrenaline = 0;
             }
@@ -2033,8 +2032,8 @@ namespace CalamityEntropy.Common
                 NihilityShieldEnabled = true;
             if (ChaoticSet)
                 SpawnChaoticCellOnHurt = true;
-            
-            if(NihTwinArmorConnetPlayer != -1)
+
+            if (NihTwinArmorConnetPlayer != -1)
             {
                 var mp = NihTwinArmorConnetPlayer.ToPlayer().Entropy();
                 if (Main.player[NihTwinArmorConnetPlayer].active && !Main.player[NihTwinArmorConnetPlayer].dead && (NihilitySet || ChaoticSet) && (mp.NihilitySet || mp.ChaoticSet))
@@ -2047,7 +2046,7 @@ namespace CalamityEntropy.Common
                     Player.lifeRegen += 4;
                     if (Player.whoAmI == Main.myPlayer)
                     {
-                        if(Main.GameUpdateCount % 8 == 0 || Main.GameUpdateCount % 40 == 32)
+                        if (Main.GameUpdateCount % 8 == 0 || Main.GameUpdateCount % 40 == 32)
                             SyncLife(Player);
                         if (Main.GameUpdateCount % 40 == 0)
                         {
@@ -2117,7 +2116,7 @@ namespace CalamityEntropy.Common
                             {
                                 if (player.Entropy().NihilitySet != NihilitySet && player.Entropy().ChaoticSet != ChaoticSet)
                                 {
-                                    if(NihTwinArmorConnetPlayer != -1 || player.Entropy().NihTwinArmorConnetPlayer != -1)
+                                    if (NihTwinArmorConnetPlayer != -1 || player.Entropy().NihTwinArmorConnetPlayer != -1)
                                     {
                                         ModPacket pack = Mod.GetPacket();
                                         pack.Write((byte)CEMessageType.NihilityConnet);
@@ -2141,11 +2140,11 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            if(SpawnChaoticCellOnHurt && Main.myPlayer == Player.whoAmI)
+            if (SpawnChaoticCellOnHurt && Main.myPlayer == Player.whoAmI)
             {
-                if(CalamityKeybinds.ArmorSetBonusHotKey.JustPressed && Player.statLife > 90)
+                if (CalamityKeybinds.ArmorSetBonusHotKey.JustPressed && Player.statLife > 90)
                 {
-                    if(CECooldowns.CheckCD("SummonCells", 120))
+                    if (CECooldowns.CheckCD("SummonCells", 120))
                     {
                         Player.statLife -= 80;
                         SyncLife();
@@ -3367,7 +3366,7 @@ namespace CalamityEntropy.Common
         public int WindPressureTime = 0;
         public override void PostUpdateEquips()
         {
-            if(Player.Calamity().chaliceOfTheBloodGod && holyMoonlight)
+            if (Player.Calamity().chaliceOfTheBloodGod && holyMoonlight)
             {
                 holyMoonlight = false;
                 visualMagiShield = false;

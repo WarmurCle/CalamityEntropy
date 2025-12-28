@@ -84,9 +84,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AI()
         {
             Player player = Projectile.GetOwner();
-            if(player.HeldItem.ModItem != null && player.HeldItem.ModItem is WingsOfHush wh)
+            if (player.HeldItem.ModItem != null && player.HeldItem.ModItem is WingsOfHush wh)
             {
-                if(wh.flag)
+                if (wh.flag)
                 {
                     wh.flag = false;
                     ofs = -8;

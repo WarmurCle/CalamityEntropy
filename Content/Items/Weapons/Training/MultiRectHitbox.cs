@@ -1,15 +1,5 @@
-﻿using CalamityEntropy.Content.Projectiles;
-using CalamityMod;
-using CalamityMod.Items;
-using CalamityMod.Items.Weapons.Melee;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent.Drawing;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons.Training
 {
@@ -42,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
                 var rectf = new Rectf(rect_.Center, rect_.Size);
                 if (nowFrame != -1 && (nowFrame < rectf.ActiveFrame || (rectf.DeactiveFrame >= 0 && nowFrame > rectf.DeactiveFrame)))
                     continue;
-                if(flip)
+                if (flip)
                 {
                     rectf.Center = rectf.Center * new Vector2(-1, 1);
                 }
@@ -120,7 +110,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
         {
             return new Rectf(value1.X - value2.X, value1.Y - value2.Y, value1.Width, value1.Height);
         }
-        
+
 
         public float X { get { return Position.X; } set { Position.X = value; } }
         public float Y { get { return Position.Y; } set { Position.Y = value; } }

@@ -235,7 +235,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<GodSlayerInferno>(), 320);
-	        target.AddBuff<MarkedforDeath>(90);
+            target.AddBuff<MarkedforDeath>(90);
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {

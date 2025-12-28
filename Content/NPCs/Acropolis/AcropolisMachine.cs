@@ -8,7 +8,6 @@ using CalamityMod.BiomeManagers;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using CalamityMod.World;
-using InfernumMode.Content.BehaviorOverrides.BossAIs.Cultist;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -362,10 +361,10 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                         EParticle.NewParticle(new ShockParticle(), NPC.Center, Vector2.Zero, Color.White, 0.1f * NPC.scale, 1, true, BlendState.NonPremultiplied, CEUtils.randomRot());
                     }
                 }
-                
+
                 if (DeathCounter < 0)
                 {
-                    if(chargeSnd != null)
+                    if (chargeSnd != null)
                         chargeSnd.timeleft = 0;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -918,7 +917,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         {
             if (DeathCounter <= 0)
             {
-                if(chargeSnd != null)
+                if (chargeSnd != null)
                     chargeSnd.timeleft = 0;
                 if (NPC.life <= 0 && !Main.dedServ)
                 {
@@ -1024,7 +1023,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
             return target;
         }
-        
+
         public override void OnKill()
         {
             NPC.SetEventFlagCleared(ref EDownedBosses.downedAcropolis, -1);

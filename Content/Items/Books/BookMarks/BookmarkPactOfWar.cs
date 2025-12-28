@@ -290,7 +290,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             }
             if (target != null && Projectile.ai[0]++ % 60 <= 30 && Projectile.ai[0] % 9 == 0)
             {
-                if(Projectile.owner == Main.myPlayer)
+                if (Projectile.owner == Main.myPlayer)
                     (this.ShooterModProjectile as EntropyBookHeldProjectile).ShootSingleProjectile(ModContent.ProjectileType<ArMinionLaser>(), Projectile.Center, (target.Center + target.velocity * 2 - Projectile.Center), 1.5f, 1, 1);
             }
         }

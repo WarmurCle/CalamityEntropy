@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             var snd = CEUtils.GetSound("cannon");
             snd.PitchRange = (0.6f, 0.8f);
             Item.UseSound = snd;
-            Item.value = Item.buyPrice(gold: 3); 
+            Item.value = Item.buyPrice(gold: 3);
             Item.rare = ItemRarityID.Pink;
             Item.Entropy().tooltipStyle = 8;
             Item.Entropy().strokeColor = Color.DarkGreen;
@@ -92,7 +92,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             for (int i = 0; i < 128; i++)
             {
                 int d = Dust.NewDust(Projectile.Center, 0, 0, DustID.GreenBlood);
-                if(d < 6000)
+                if (d < 6000)
                 {
                     Main.dust[d].velocity = CEUtils.randomPointInCircle(15);
                     Main.dust[d].noGravity = true;
@@ -147,7 +147,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             Projectile.localNPCHitCooldown = 16;
             Projectile.timeLeft = 5 * 60;
         }
-        
+
         public override void AI()
         {
             if (Projectile.localAI[0]++ > 19)

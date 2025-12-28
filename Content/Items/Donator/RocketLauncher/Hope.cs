@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
-using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items.Materials;
 using System;
@@ -23,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             Item.damage = 16;
             Item.knockBack = 4f;
             Item.UseSound = SoundID.Item61;
-            Item.value = Item.buyPrice(silver: 30); 
+            Item.value = Item.buyPrice(silver: 30);
             Item.rare = ItemRarityID.Orange;
             Item.Entropy().tooltipStyle = 8;
             Item.Entropy().strokeColor = Color.DarkBlue;

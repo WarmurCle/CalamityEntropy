@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 Projectile.damage = eb.CauculateProjectileDamage(0.6f);
                 DelayMult = eb.CauculateAttackSpeed();
             }
-            
+
             Projectile.MaxUpdates = 1;
 
             if (CEUtils.getDistance(Projectile.Center, player.Center) > 3000)

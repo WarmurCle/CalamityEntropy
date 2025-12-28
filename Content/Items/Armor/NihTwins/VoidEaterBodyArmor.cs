@@ -1,6 +1,5 @@
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables.FurnitureVoid;
 using CalamityMod.Rarities;
 using Terraria;
 using Terraria.ID;

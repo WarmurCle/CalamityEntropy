@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             CreateRecipe().AddIngredient<BrilliantFractal>()
                 .AddIngredient<AbyssBlade>()
                 .AddIngredient<Floodtide>()
-                .AddIngredient<DepthCells>(6)
+                .AddIngredient<Lumenyl>(8)
                 .AddTile(TileID.MythrilAnvil).Register();
         }
     }
@@ -101,7 +101,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     spawnProj = false;
                     for (int i = 0; i < 3; i++)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 80, (Vector2)(CEUtils.normalize(Projectile.velocity.RotatedBy(dir * MathHelper.PiOver2 * 0.7f)) * 12 + CEUtils.randomPointInCircle(5)), ModContent.ProjectileType<AbyssalBullet>(), Projectile.damage / 3, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 80, (Vector2)(CEUtils.normalize(Projectile.velocity.RotatedBy(dir * MathHelper.PiOver2 * 0.7f)) * 12 + CEUtils.randomPointInCircle(5)), ModContent.ProjectileType<AbyssalBullet>(), Projectile.damage / 6, Projectile.knockBack, Projectile.owner);
                     }
                 }
             }
@@ -123,7 +123,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 if (shoot)
                 {
                     shoot = false;
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 0.16f, ModContent.ProjectileType<AbyssalBlade>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 0.16f, ModContent.ProjectileType<FractalAbyssalBlade>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
             }
             odr.Add(Projectile.rotation);

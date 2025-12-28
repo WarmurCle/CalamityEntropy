@@ -23,8 +23,8 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.statManaMax2 += 100;
-            player.GetDamage(DamageClass.Magic) += 0.1f;
+            player.statManaMax2 += 50;
+            player.GetDamage(DamageClass.Magic) += 0.15f;
             player.Entropy().holyMoonlight = true;
             player.Entropy().visualMagiShield = !hideVisual;
         }

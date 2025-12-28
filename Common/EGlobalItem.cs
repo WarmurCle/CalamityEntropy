@@ -21,7 +21,6 @@ using CalamityEntropy.Content.Items.Weapons.DustCarverBow;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod;
 using CalamityMod.Items.Fishing.SulphurCatches;
@@ -460,7 +459,7 @@ namespace CalamityEntropy.Common
             {
                 return CalamityUtils.GetItemName<WulfrumMetalScrap>().Value;
             }
-            if(type == BaseMissleProj.AmmoType)
+            if (type == BaseMissleProj.AmmoType)
             {
                 return Mod.GetLocalization("AmmoMissle").Value;
             }
@@ -510,14 +509,14 @@ namespace CalamityEntropy.Common
             {
                 if (tooltip.Mod == "Terraria")
                 {
-                    if(tooltip.Name.Contains("Tooltip"))
+                    if (tooltip.Name.Contains("Tooltip"))
                     {
                         tIndex = index;
                     }
                 }
                 index++;
             }
-            if(item.ModItem != null)
+            if (item.ModItem != null)
             {
                 if (item.ModItem is ThreadOfFate || item.ModItem is ThreadOfAbyss || item.ModItem is CursedThread || item.ModItem is OracleDeck || item.ModItem is TaintedDeck || item.ModItem is SoulDeck)
                     goto DeckEnd;

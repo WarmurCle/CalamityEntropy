@@ -818,7 +818,7 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.End();
 
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
-            
+
             cvoid3.CurrentTechnique.Passes[0].Apply();
             cvoid3.Parameters["tex1"].SetValue(planetarium_blue_base.Value);
             cvoid3.Parameters["time"].SetValue(Instance.cvcount / 50f);

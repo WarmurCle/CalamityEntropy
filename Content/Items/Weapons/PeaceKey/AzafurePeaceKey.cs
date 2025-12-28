@@ -131,7 +131,7 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
                         ShootCount--;
                         if (Main.myPlayer == Projectile.owner)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + new Vector2(0, -46), Vector2.UnitY * -78, ModContent.ProjectileType<PeaceJR>(),Projectile.damage = (int)(Projectile.damage * 12.0f) , 2, Projectile.owner, target.Center.X, target.Center.Y);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + new Vector2(0, -46), Vector2.UnitY * -78, ModContent.ProjectileType<PeaceJR>(), Projectile.damage = (int)(Projectile.damage * 12.0f), 2, Projectile.owner, target.Center.X, target.Center.Y);
                         }
                     }
                 }
@@ -292,9 +292,9 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
             if (Main.myPlayer == Projectile.owner)
             {
                 var mp = CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 360, Projectile.DamageType).ModProjectile;
-                if(mp is CommonExplotionFriendly cef)
+                if (mp is CommonExplotionFriendly cef)
                     cef.onHitAction = onhit;
-            } 
+            }
         }
         public override bool PreDraw(ref Color lightColor)
         {

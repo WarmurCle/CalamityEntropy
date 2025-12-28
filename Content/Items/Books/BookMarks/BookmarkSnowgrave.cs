@@ -1,14 +1,11 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
-using CalamityMod.Items.Potions.Alcohol;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.Graphics;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static CalamityEntropy.Content.NPCs.Acropolis.AcropolisMachine;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
@@ -115,7 +112,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void AI()
         {
             Main.LocalPlayer.Entropy().snowgrave = 16;
-            if(!Main.dedServ)
+            if (!Main.dedServ)
                 SpawnSnow();
             if (Projectile.localAI[0]++ == 0)
                 CEUtils.PlaySound("Snowgrave", 1, Projectile.Center, 2, 4);
