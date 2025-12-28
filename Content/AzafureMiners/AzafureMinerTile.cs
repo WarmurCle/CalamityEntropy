@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.AzafureMiners
             AzMinerUI.Filters = new List<AzMinerUISlot>();
             for (int i = 0; i < AzMinerTP.FiltersCount; i++)
             {
-                AzMinerUI.Filters.Add(new AzMinerUISlot() { OffsetPos = new Vector2(-168, -115 + 240f / AzMinerTP.FiltersCount * i), itemIndex = i });
+                AzMinerUI.Filters.Add(new AzMinerUISlot() { OffsetPos = new Vector2(-168, -100 + 240f / AzMinerTP.FiltersCount * i), itemIndex = i });
             }
             int z = 0;
             Vector2 pos = new Vector2(-110, -100);

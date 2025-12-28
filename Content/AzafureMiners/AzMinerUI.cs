@@ -83,9 +83,16 @@ namespace CalamityEntropy.Content.AzafureMiners
                 return;
             }
 
-            //计算面板区域
+            //先处理拖拽，这样位置更新后所有元素都使用新位置
+            HandleDragging();
+
+            //限制面板位置在屏幕内
+            DrawPosition.X = MathHelper.Clamp(DrawPosition.X, PanelWidth / 2 + 10, Main.screenWidth - PanelWidth / 2 - 10);
+            DrawPosition.Y = MathHelper.Clamp(DrawPosition.Y, PanelHeight / 2 + 10, Main.screenHeight - PanelHeight / 2 - 10);
+
+            //计算面板区域，在位置更新后计算
             Vector2 topLeft = DrawPosition - new Vector2(PanelWidth / 2, PanelHeight / 2);
-            panelRect = new Rectangle((int)topLeft.X, (int)topLeft.Y, (int)PanelWidth, (int)PanelHeight);
+            panelRect = new Rectangle((int)topLeft.X, (int)topLeft.Y, (int)PanelWidth + 20, (int)PanelHeight);
             titleBarRect = new Rectangle(panelRect.X, panelRect.Y, panelRect.Width, (int)TitleBarHeight);
 
             UIHitBox = panelRect;
@@ -105,14 +112,7 @@ namespace CalamityEntropy.Content.AzafureMiners
                 return;
             }
 
-            //处理拖拽
-            HandleDragging();
-
-            //限制面板位置在屏幕内
-            DrawPosition.X = MathHelper.Clamp(DrawPosition.X, PanelWidth / 2 + 10, Main.screenWidth - PanelWidth / 2 - 10);
-            DrawPosition.Y = MathHelper.Clamp(DrawPosition.Y, PanelHeight / 2 + 10, Main.screenHeight - PanelHeight / 2 - 10);
-
-            //更新槽位
+            //更新槽位，位置已经是最新的
             if (Filters != null) {
                 foreach (AzMinerUISlot s in Filters) {
                     s.Update();
@@ -180,9 +180,38 @@ namespace CalamityEntropy.Content.AzafureMiners
         }
 
         private void HandleDragging() {
-            bool hoveringTitleBar = titleBarRect.Contains(MouseHitBox);
+            //检查鼠标是否在任何槽位上
+            bool hoveringAnySlot = false;
+            if (Filters != null) {
+                foreach (var slot in Filters) {
+                    Rectangle slotRect = new Rectangle(
+                        (int)(DrawPosition.X + slot.OffsetPos.X - 22),
+                        (int)(DrawPosition.Y + slot.OffsetPos.Y - 22),
+                        44, 44);
+                    if (slotRect.Contains(MouseHitBox)) {
+                        hoveringAnySlot = true;
+                        break;
+                    }
+                }
+            }
+            if (!hoveringAnySlot && Items != null) {
+                foreach (var slot in Items) {
+                    Rectangle slotRect = new Rectangle(
+                        (int)(DrawPosition.X + slot.OffsetPos.X - 22),
+                        (int)(DrawPosition.Y + slot.OffsetPos.Y - 22),
+                        44, 44);
+                    if (slotRect.Contains(MouseHitBox)) {
+                        hoveringAnySlot = true;
+                        break;
+                    }
+                }
+            }
 
-            if (hoveringTitleBar && keyLeftPressState == KeyPressState.Pressed && dontDragTime <= 0) {
+            //整个面板都可以拖拽，但排除槽位区域
+            bool hoveringPanel = panelRect.Contains(MouseHitBox);
+            bool canStartDrag = hoveringPanel && !hoveringAnySlot && dontDragTime <= 0;
+
+            if (canStartDrag && keyLeftPressState == KeyPressState.Pressed) {
                 isDragging = true;
                 dragOffset = DrawPosition - MousePosition;
             }
@@ -230,7 +259,7 @@ namespace CalamityEntropy.Content.AzafureMiners
         }
 
         private void DrawMainPanel(SpriteBatch sb) {
-            Texture2D pixel = TextureAssets.MagicPixel.Value;
+            Texture2D pixel = VaultAsset.placeholder2.Value;
             float alpha = uiAlpha;
 
             //深度阴影
@@ -275,7 +304,7 @@ namespace CalamityEntropy.Content.AzafureMiners
         }
 
         private void DrawCornerDecoration(SpriteBatch sb, Vector2 pos, float alpha, int corner) {
-            Texture2D pixel = TextureAssets.MagicPixel.Value;
+            Texture2D pixel = VaultAsset.placeholder2.Value;
             Color decorColor = new Color(200, 100, 70) * (alpha * 0.6f);
             int size = 12;
             int thickness = 2;
@@ -301,7 +330,7 @@ namespace CalamityEntropy.Content.AzafureMiners
         }
 
         private void DrawTitleBar(SpriteBatch sb) {
-            Texture2D pixel = TextureAssets.MagicPixel.Value;
+            Texture2D pixel = VaultAsset.placeholder2.Value;
             float alpha = uiAlpha;
 
             //标题栏背景
@@ -330,7 +359,7 @@ namespace CalamityEntropy.Content.AzafureMiners
         }
 
         private void DrawStatusIndicator(SpriteBatch sb) {
-            Texture2D pixel = TextureAssets.MagicPixel.Value;
+            Texture2D pixel = VaultAsset.placeholder2.Value;
             float alpha = uiAlpha;
 
             //状态指示灯位置
@@ -359,7 +388,7 @@ namespace CalamityEntropy.Content.AzafureMiners
         }
 
         private void DrawScanLines(SpriteBatch sb) {
-            Texture2D pixel = TextureAssets.MagicPixel.Value;
+            Texture2D pixel = VaultAsset.placeholder2.Value;
             float alpha = uiAlpha * 0.08f;
 
             //扫描线效果
@@ -418,7 +447,7 @@ namespace CalamityEntropy.Content.AzafureMiners
                 float t = Life / MaxLife;
                 float fade = (float)Math.Sin(t * MathHelper.Pi) * alpha;
 
-                Texture2D pixel = TextureAssets.MagicPixel.Value;
+                Texture2D pixel = VaultAsset.placeholder2.Value;
                 Color color = new Color(255, 140, 100) * (0.5f * fade);
 
                 sb.Draw(pixel, Position, new Rectangle(0, 0, 1, 1), color, Rotation, new Vector2(0.5f), new Vector2(Size * 2f, Size * 0.4f), SpriteEffects.None, 0f);
@@ -453,7 +482,7 @@ namespace CalamityEntropy.Content.AzafureMiners
                 float t = Life / MaxLife;
                 float fade = (float)Math.Sin(t * MathHelper.Pi) * alpha;
 
-                Texture2D pixel = TextureAssets.MagicPixel.Value;
+                Texture2D pixel = VaultAsset.placeholder2.Value;
                 Color color = Color.Lerp(new Color(255, 200, 100), new Color(255, 80, 40), t) * fade;
 
                 sb.Draw(pixel, Position, new Rectangle(0, 0, 1, 1), color, 0f, new Vector2(0.5f), Size * (1f - t * 0.5f), SpriteEffects.None, 0f);
@@ -687,7 +716,7 @@ namespace CalamityEntropy.Content.AzafureMiners
             float alpha = AzMinerUI.uiAlpha;
             if (alpha < 0.01f) return;
 
-            Texture2D pixel = TextureAssets.MagicPixel.Value;
+            Texture2D pixel = VaultAsset.placeholder2.Value;
             Vector2 center = DrawPosition;
 
             //槽位背景
@@ -726,7 +755,7 @@ namespace CalamityEntropy.Content.AzafureMiners
                 if (Item.stack > 1) {
                     DynamicSpriteFont font = FontAssets.ItemStack.Value;
                     string stackText = Item.stack.ToString();
-                    Vector2 stackPos = center + new Vector2(SlotSize / 2 - 8, SlotSize / 2 - 4) * scale;
+                    Vector2 stackPos = center + new Vector2(SlotSize / 2 - 18, SlotSize / 2 - 16) * scale;
 
                     //数量阴影
                     spriteBatch.DrawString(font, stackText, stackPos + new Vector2(1, 1), Color.Black * alpha * 0.8f, 0, Vector2.Zero, 0.75f * scale, SpriteEffects.None, 0);
