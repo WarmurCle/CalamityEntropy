@@ -22,7 +22,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
         {
             Item.width = 62;
             Item.height = 62;
-            Item.damage = 28;
+            Item.damage = 34;
+            Item.crit = 6;
             Item.noMelee = true;
             Item.useAnimation = Item.useTime = 5;
             Item.useStyle = ItemUseStyleID.Shoot;
@@ -159,6 +160,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
     }
     public class MalignLaser : ModProjectile
     {
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.ArmorPenetration += 8;
+        }
         public override string Texture => CEUtils.WhiteTexPath;
         public override void SetDefaults()
         {
@@ -218,7 +223,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
             if (Projectile.localAI[2]++ == 0)
             {
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.velocity, Vector2.Zero, new Color(255, 190, 255), 0.4f, 1, true, BlendState.Additive, 0, 5);
-                CEUtils.PlaySound("malignShoot", Main.rand.NextFloat(0.9f, 1.4f), Projectile.Center, volume: 0.84f);
+                CEUtils.PlaySound("malignShoot", Main.rand.NextFloat(0.8f, 1.4f), Projectile.Center, volume: 0.68f);
             }
             if (Main.myPlayer == Projectile.owner)
             {
@@ -244,7 +249,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
                     Projectile.velocity = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.12f, true).ToRotationVector2() * Projectile.velocity.Length();
                 }
             }
-            EParticle.spawnNew(new Content.Particles.ELineParticle(3.4f, 0.8f, 0.84f), Projectile.Center + CEUtils.randomPointInCircle(4), Projectile.velocity.RotatedByRandom(0.12f), new Color(255, 190, 255) * 0.8f, 2, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 6);
+            EParticle.spawnNew(new Content.Particles.ELineParticle(3.4f, 0.86f, 0.86f), Projectile.Center + CEUtils.randomPointInCircle(2), Projectile.velocity.RotatedByRandom(0.04f), new Color(255, 190, 255) * 0.8f, 2, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 6);
 
         }
         public override bool PreDraw(ref Color lightColor)
@@ -256,6 +261,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, new Color(255, 95, 255), Projectile.velocity.ToRotation(), tex.Size() / 2f, Projectile.scale * 0.1f, SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
             return false;
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.ArmorPenetration += 8;
         }
         public override void OnKill(int timeLeft)
         {
