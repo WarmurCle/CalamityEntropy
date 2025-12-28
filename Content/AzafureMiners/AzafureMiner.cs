@@ -1,11 +1,11 @@
-﻿using CalamityEntropy.Content.Tiles;
+﻿using CalamityEntropy.Content.Items;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items
+namespace CalamityEntropy.Content.AzafureMiners
 {
     public class AzafureMiner : ModItem
     {
