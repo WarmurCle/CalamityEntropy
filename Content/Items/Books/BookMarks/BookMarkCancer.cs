@@ -37,11 +37,14 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 if (p.hostile && projectile.Colliding(projectile.getRect(), p.getRect()))
                 {
+                    float mul = 0.976f;
+                    if (projectile.ModProjectile is EBookBaseLaser)
+                        mul = 0.99f;
                     if (p.velocity.Length() * p.MaxUpdates > 4)
                     {
-                        p.velocity *= 0.96f;
+                        p.velocity *= mul;
                     }
-                    p.damage = (int)(p.damage * 0.96f);
+                    p.damage = (int)(p.damage * mul);
                 }
             }
         }

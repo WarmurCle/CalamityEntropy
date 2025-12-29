@@ -293,18 +293,25 @@ namespace CalamityEntropy
         {
             return list[Main.rand.Next(list.Count)];
         }
-        public static AddableFloat GetCritDamage(this Player player, DamageClass dmgClass)
+        public static float GetCritDamage(this Player player, DamageClass dmgClass)
         {
             if (!player.Entropy().CritDamage.ContainsKey(dmgClass))
             {
-                var v = AddableFloat.Zero;
-                v += 1;
-                player.Entropy().CritDamage.Add(dmgClass, v);
+                player.Entropy().CritDamage.Add(dmgClass, 1);
 
             }
+
             return player.Entropy().CritDamage[dmgClass];
         }
+        public static void AddCritDamage(this Player player, DamageClass dmgClass, float value)
+        {
+            if (!player.Entropy().CritDamage.ContainsKey(dmgClass))
+            {
+                player.Entropy().CritDamage.Add(dmgClass, 1);
 
+            }
+            player.Entropy().CritDamage[dmgClass] += value;
+        }
         public static void HealMana(this Player player, int amount)
         {
             player.statMana += amount;

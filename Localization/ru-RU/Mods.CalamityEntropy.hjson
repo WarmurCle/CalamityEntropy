@@ -3509,6 +3509,16 @@ Items: {
 		// DisplayName: Ling's Hair Accessory
 		// Tooltip: ""
 	}
+
+	VoidCore: {
+		// DisplayName: Void Core
+		/* Tooltip:
+			'''
+			Provide [S] shield
+			Allows you to dash through enemies and deal damage
+			+[C]% Crit damage
+			''' */
+	}
 }
 
 /* ChaoticSetBonus:
@@ -4109,10 +4119,10 @@ Projectiles: {
 	// BrimHomingBullet.DisplayName: Brim Homing Bullet
 	// PlagueMissle.DisplayName: Plague Missle
 	// RedemptionShootAlt.DisplayName: Redemption Shoot Alt
-	// BMDirtProj.DisplayName: B M Dirt Proj
+	// BMDirtProj.DisplayName: Tile
 	// TrainingSwordProj.DisplayName: Training Sword Proj
 	// WaterBolt.DisplayName: Water Bolt
-	// WOHHeld.DisplayName: W O H Held
+	// WOHHeld.DisplayName: WoH Held
 	// FractalAbyssalBlade.DisplayName: Fractal Abyssal Blade
 }
 
@@ -5403,3 +5413,4 @@ AzafureEnhances: {
 // FetalDreamDamage: Koishi Damage
 // NihilityShield: Nihility Shield
 // CardsDesc: There should be a complete set of cards similar to it
+// VoidCoreShield: Void Shield

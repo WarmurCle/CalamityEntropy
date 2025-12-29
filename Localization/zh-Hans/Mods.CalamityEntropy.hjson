@@ -3752,6 +3752,16 @@ Items: {
 		DisplayName: 零的发饰
 		Tooltip: ""
 	}
+
+	VoidCore: {
+		DisplayName: 虚空驱动核心
+		Tooltip:
+			'''
+			提供[S]点护盾，护盾会缓慢恢复
+			允许你冲刺穿过敌怪并对其施加虚空斩
+			增加[C]%暴击伤害
+			'''
+	}
 }
 
 ChaoticSetBonus:
@@ -4353,11 +4363,11 @@ Projectiles: {
 	BrimHomingBullet.DisplayName: 硫火飞弹
 	PlagueMissle.DisplayName: 瘟疫导弹
 	RedemptionShootAlt.DisplayName: 救赎导弹
-	// BMDirtProj.DisplayName: B M Dirt Proj
-	// TrainingSwordProj.DisplayName: Training Sword Proj
-	// WaterBolt.DisplayName: Water Bolt
-	// WOHHeld.DisplayName: W O H Held
-	// FractalAbyssalBlade.DisplayName: Fractal Abyssal Blade
+	BMDirtProj.DisplayName: 物块
+	TrainingSwordProj.DisplayName: 训练竹刀
+	WaterBolt.DisplayName: 水流
+	WOHHeld.DisplayName: 虚寂之翼
+	FractalAbyssalBlade.DisplayName: 分形深渊刃
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5621,3 +5631,4 @@ DriverCoreCooldown: 驱动核心护盾
 FetalDreamDamage: 无意识伤害
 NihilityShield: 噬菌体护盾
 CardsDesc: 与它相似的卡片应该还有一整套
+VoidCoreShield: 虚空核心护盾

@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public const int ShieldSlamDamage = 240;
         public const float ShieldSlamKnockback = 8f;
         public const int ShieldSlamIFrames = 16;
-        public static int DashDelay = 20;
+        public static int DashDelay = 18;
         public float charge = 0;
         public float maxCharge = 5f;
         public static int RechargeTime = 18 * 60;

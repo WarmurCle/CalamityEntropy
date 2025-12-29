@@ -611,9 +611,10 @@ namespace CalamityEntropy.Common
                 {
                     foreach (var v in projectile.GetOwner().Entropy().CritDamage)
                     {
-                        if (projectile.DamageType.CountsAsClass(v.Key))
+                        if (projectile.DamageType.CountsAsClass(v.Key) || v.Key.CountsAsClass(DamageClass.Generic))
                         {
-                            modifiers.CritDamage += v.Value.Value - 1;
+                            Main.NewText(v.Value);
+                            modifiers.CritDamage += v.Value - 1;
                         }
                     }
                 }
@@ -677,9 +678,9 @@ namespace CalamityEntropy.Common
             {
                 foreach (var v in player.Entropy().CritDamage)
                 {
-                    if (item.DamageType.CountsAsClass(v.Key))
+                    if (item.DamageType.CountsAsClass(v.Key) || v.Key.CountsAsClass(DamageClass.Generic))
                     {
-                        modifiers.CritDamage += v.Value.Value - 1;
+                        modifiers.CritDamage += v.Value - 1;
                     }
                 }
             }
