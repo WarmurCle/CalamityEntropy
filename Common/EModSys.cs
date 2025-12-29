@@ -180,7 +180,7 @@ namespace CalamityEntropy.Common
         }
         public static void DrawVoidShield(Player player, Vector2 pos, float alpha, float scale)
         {
-            if(player.Entropy().VoidShieldVisual)
+            if(player.Entropy().VoidShieldVisual && player.Entropy().VoidCoreItem == null)
             {
                 alpha = 1;
                 scale = 0.6f;
