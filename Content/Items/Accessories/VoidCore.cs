@@ -64,7 +64,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             CreateRecipe()
                 .AddIngredient<NihilityShell>()
                 .AddIngredient<AzafureDriverCore>()
-                .AddIngredient<NihilityFragments>(6)
+                .AddIngredient<RuinousSoul>(6)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
