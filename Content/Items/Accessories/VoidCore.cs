@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class VoidCore : ModItem
     {
-        public const int ShieldSlamDamage = 800;
+        public const int ShieldSlamDamage = 1800;
         public const float ShieldSlamKnockback = 8f;
         public const int ShieldSlamIFrames = 18;
         public static int DashDelay = 18;

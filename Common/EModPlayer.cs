@@ -816,6 +816,7 @@ namespace CalamityEntropy.Common
         public int NoAdrenalineTime = 0;
         public override void ResetEffects()
         {
+            VoidShieldVisual = false;
             ScaleTarget = 1;
             Scale = float.Lerp(Scale, ScaleTarget, 0.1f);
             DriverShieldVisual = false;
