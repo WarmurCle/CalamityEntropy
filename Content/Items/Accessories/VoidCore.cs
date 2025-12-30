@@ -84,7 +84,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override float CalculateDashSpeed(Player player)
         {
-            return 40f;
+            return 38f;
         }
 
         public override void OnDashEffects(Player player)
@@ -104,7 +104,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             {
 
             }
-            if (Time < 36)
+            if (Time < 60)
             {
                 float num = MathHelper.Lerp(0f, 1f, Utils.GetLerpValue(2f, 2.5f, Time, clamped: true));
                 for (float i = 0; i < 1; i += 0.1f)
@@ -132,7 +132,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                     GeneralParticleHandler.SpawnParticle(new LineParticle(CEUtils.randomPointInCircle(18) + player.Center - player.velocity * Main.rand.NextFloat(), -player.velocity * Main.rand.NextFloat(0.4f, 0.6f), false, 8, Main.rand.NextFloat(0.6f, 1), Color.LightBlue));
                 }
                 EParticle.spawnNew(new AbyssalLine() { xadd = 0.84f, lx = 0.84f }, player.Center - player.velocity, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, player.velocity.ToRotation(), 26);
-                dashSpeed = 24f;
+                dashSpeed = 30f;
             }
         }
 
@@ -145,18 +145,18 @@ namespace CalamityEntropy.Content.Items.Accessories
             }
             NPC target = npc;
 
-            EParticle.NewParticle(new ShineParticle(), npc.Center, Vector2.Zero, Color.Blue, 1.4f, 1, true, BlendState.Additive, 0, 12);
-            EParticle.NewParticle(new ShineParticle(), npc.Center, Vector2.Zero, Color.White, 0.8f, 1, true, BlendState.Additive, 0, 12);
+            EParticle.NewParticle(new ShineParticle(), player.Center, Vector2.Zero, Color.Blue, 1.4f, 1, true, BlendState.Additive, 0, 12);
+            EParticle.NewParticle(new ShineParticle(), player.Center, Vector2.Zero, Color.White, 0.8f, 1, true, BlendState.Additive, 0, 12);
             float r2 = player.velocity.ToRotation();
             float r = player.velocity.ToRotation();
-            EParticle.spawnNew(new AbyssalLine() { xadd = 1.4f, lx = 3.2f }, npc.Center, Vector2.Zero, new Color(30, 10, 50), 1, 1, true, BlendState.NonPremultiplied, r, 30);
-            EParticle.spawnNew(new AbyssalLine() { xadd = 1.4f, lx = 3.2f }, npc.Center, Vector2.Zero, new Color(30, 10, 50), 1, 1, true, BlendState.NonPremultiplied, r2, 30);
+            EParticle.spawnNew(new AbyssalLine() { xadd = 1.4f, lx = 3.2f }, player.Center, Vector2.Zero, new Color(30, 10, 50), 1, 1, true, BlendState.NonPremultiplied, r, 30);
+            EParticle.spawnNew(new AbyssalLine() { xadd = 1.4f, lx = 3.2f }, player.Center, Vector2.Zero, new Color(30, 10, 50), 1, 1, true, BlendState.NonPremultiplied, r2, 30);
 
-            EParticle.spawnNew(new AbyssalLine() { xadd = 1.36f, lx = 3.2f }, npc.Center, Vector2.Zero, new Color(80, 40, 120), 1, 1, true, BlendState.NonPremultiplied, r, 30);
-            EParticle.spawnNew(new AbyssalLine() { xadd = 1.36f, lx = 3.2f }, npc.Center, Vector2.Zero, new Color(80, 40, 120), 1, 1, true, BlendState.NonPremultiplied, r2, 30);
+            EParticle.spawnNew(new AbyssalLine() { xadd = 1.36f, lx = 3.2f }, player.Center, Vector2.Zero, new Color(80, 40, 120), 1, 1, true, BlendState.NonPremultiplied, r, 30);
+            EParticle.spawnNew(new AbyssalLine() { xadd = 1.36f, lx = 3.2f }, player.Center, Vector2.Zero, new Color(80, 40, 120), 1, 1, true, BlendState.NonPremultiplied, r2, 30);
 
-            EParticle.spawnNew(new AbyssalLine() { xadd = 1.34f, lx = 3f }, npc.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, r, 36);
-            EParticle.spawnNew(new AbyssalLine() { xadd = 1.34f, lx = 3f }, npc.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, r2, 36);
+            EParticle.spawnNew(new AbyssalLine() { xadd = 1.34f, lx = 3f }, player.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, r, 36);
+            EParticle.spawnNew(new AbyssalLine() { xadd = 1.34f, lx = 3f }, player.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, r2, 36);
 
             CEUtils.PlaySound("amethyst_break", 1, npc.Center, 6, 0.6f);
             CEUtils.PlaySound("AntivoidDash", 1, npc.Center, 6, 0.6f);
