@@ -613,7 +613,6 @@ namespace CalamityEntropy.Common
                     {
                         if (projectile.DamageType.CountsAsClass(v.Key) || v.Key.CountsAsClass(DamageClass.Generic))
                         {
-                            Main.NewText(v.Value);
                             modifiers.CritDamage += v.Value - 1;
                         }
                     }
