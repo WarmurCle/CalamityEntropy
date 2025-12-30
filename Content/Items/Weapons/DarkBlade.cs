@@ -22,12 +22,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = Main.zenithWorld ? 999 : 68;
+            Item.damage = Main.zenithWorld ? 999 : 74;
             Item.DamageType = DamageClass.Melee;
             Item.width = 108;
             Item.height = 108;
-            Item.useTime = 40;
-            Item.useAnimation = 40;
+            Item.useTime = 36;
+            Item.useAnimation = 36;
             Item.crit = 10;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 5;
