@@ -84,7 +84,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override float CalculateDashSpeed(Player player)
         {
-            return 36f;
+            return 40f;
         }
 
         public override void OnDashEffects(Player player)
@@ -132,7 +132,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                     GeneralParticleHandler.SpawnParticle(new LineParticle(CEUtils.randomPointInCircle(18) + player.Center - player.velocity * Main.rand.NextFloat(), -player.velocity * Main.rand.NextFloat(0.4f, 0.6f), false, 8, Main.rand.NextFloat(0.6f, 1), Color.LightBlue));
                 }
                 EParticle.spawnNew(new AbyssalLine() { xadd = 0.84f, lx = 0.84f }, player.Center - player.velocity, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, player.velocity.ToRotation(), 26);
-                dashSpeed = 32f;
+                dashSpeed = 24f;
             }
         }
 
