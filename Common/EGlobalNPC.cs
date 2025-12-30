@@ -101,6 +101,8 @@ namespace CalamityEntropy.Common
                 mult -= 0.12f;
             if (npc.HasBuff<VoidVirus>())
                 mult -= 0.12f;
+            if (npc.Entropy().Decrease20DR > 0)
+                mult -= 0.2f;
 
             if (mult < 0)
                 mult = 0;
@@ -420,8 +422,11 @@ namespace CalamityEntropy.Common
         }
         public bool friendlyDecLife = true;
         public int counter = 0;
+        public int Decrease20DR = 0;
         public override bool PreAI(NPC npc)
         {
+            if (Decrease20DR > 0)
+                Decrease20DR--;
             StickByMissle--;
             MissleDamageAddition = 0;
             if (npc.ModNPC is FriendFindNPC && npc.localAI[3] > 0)
