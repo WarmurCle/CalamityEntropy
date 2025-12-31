@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
         {
             Item.width = 56;
             Item.height = 20;
-            Item.damage = 125;
+            Item.damage = 2000;
             Item.mana = 0;
             Item.useTime = Item.useAnimation = 24;
             Item.useStyle = ItemUseStyleID.HoldUp;
@@ -131,7 +131,7 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
                         ShootCount--;
                         if (Main.myPlayer == Projectile.owner)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + new Vector2(0, -46), Vector2.UnitY * -78, ModContent.ProjectileType<PeaceJR>(), Projectile.damage = (int)(Projectile.damage * 12.0f), 2, Projectile.owner, target.Center.X, target.Center.Y);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + new Vector2(0, -46), Vector2.UnitY * -78, ModContent.ProjectileType<PeaceJR>(), Projectile.damage, 2, Projectile.owner, target.Center.X, target.Center.Y);
                         }
                     }
                 }
