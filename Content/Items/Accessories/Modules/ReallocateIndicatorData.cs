@@ -100,6 +100,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
+            CalculateStatsForPlayer(Main.LocalPlayer);
             string tt = Mod.GetLocalization("RIDModifies").Value;
             if (Main.LocalPlayer.HeldItem.type > ItemID.None && Main.LocalPlayer.HeldItem.type != Item.type)
             {
