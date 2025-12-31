@@ -8,6 +8,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class SilvasCrown : ModItem
     {
+        public static float DDR = 0.25f;
 
         public override void SetDefaults()
         {
@@ -23,8 +24,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Calamity().defenseDamageRatio = 0.01f;
-            player.Calamity().nextHitDealsDefenseDamage = false;
+            player.Calamity().defenseDamageRatio = DDR;
 
             player.Entropy().SCrown = true;
         }

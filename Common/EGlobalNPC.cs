@@ -662,10 +662,6 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
-            if (player.Entropy().SCrown)
-            {
-                modifiers.DisableCrit();
-            }
             if (player.Entropy().devouringCard)
             {
                 modifiers.ArmorPenetration += npc.defense * DevouringCard.ArmorPene;

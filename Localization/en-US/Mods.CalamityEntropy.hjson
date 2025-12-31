@@ -764,7 +764,7 @@ Items: {
 		Tooltip:
 			'''
 			+ 2 Life Regen/s
-			Remove 99% defense damage.
+			-50% defense damage.
 			-Death Mode-
 			'''
 	}

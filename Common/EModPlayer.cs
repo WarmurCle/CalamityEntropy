@@ -287,7 +287,7 @@ namespace CalamityEntropy.Common
         {
             if (SCrown)
             {
-                Player.Calamity().nextHitDealsDefenseDamage = false;
+                Player.Calamity().defenseDamageRatio = SilvasCrown.DDR;
             }
             if (Thorn > 0)
             {
@@ -298,7 +298,7 @@ namespace CalamityEntropy.Common
         {
             if (SCrown)
             {
-                Player.Calamity().nextHitDealsDefenseDamage = false;
+                Player.Calamity().defenseDamageRatio = SilvasCrown.DDR;
             }
         }
         public bool SCrown;
@@ -1901,7 +1901,7 @@ namespace CalamityEntropy.Common
             noCsDodge = false;
             if (SCrown)
             {
-                Player.Calamity().defenseDamageRatio = 0f;
+                Player.Calamity().defenseDamageRatio = SilvasCrown.DDR;
             }
             if (HolyShield && info.Damage > 120)
             {
@@ -3588,7 +3588,7 @@ namespace CalamityEntropy.Common
             Player.manaCost *= ManaCost;
             if (Player.Entropy().SCrown)
             {
-                Player.Calamity().defenseDamageRatio = 0;
+                Player.Calamity().defenseDamageRatio = SilvasCrown.DDR;
             }
             if (Player.Entropy().wisdomCard)
             {
