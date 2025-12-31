@@ -152,6 +152,8 @@ namespace CalamityEntropy
             AprilFool = today.Month == 4 && today.Day == 1;
             CEUtils.SoundStyles = new Dictionary<string, Terraria.Audio.SoundStyle>();
 
+            ShadowCrystalDeltarune.Load();
+
             ILoaders = VaultUtils.GetSubInterface<ICELoader>();
             foreach (ICELoader setup in ILoaders)
             {
@@ -427,6 +429,7 @@ namespace CalamityEntropy
             theVoid_SCBIE = null;
             StartBagGItem.items = null;
             EModILEdit.edgeTex = null;
+            ShadowCrystalDeltarune.Reset();
             if (ILoaders != null)
             {
                 foreach (ICELoader setup in ILoaders)

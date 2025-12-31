@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
-    public class BookMarkBlackKnife : BookMark
+    public class BookMarkBlackKnife : BookMark, IGetFromStarterBag
     {
         public override void SetDefaults()
         {
@@ -25,6 +25,10 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override EBookProjectileEffect getEffect()
         {
             return new BlackKnifeBMEffect();
+        }
+        public bool OwnAble(Player player, ref int count)
+        {
+            return ShadowCrystalDeltarune.Ch3Crystal;
         }
     }
     public class BlackKnifeBMEffect : EBookProjectileEffect
