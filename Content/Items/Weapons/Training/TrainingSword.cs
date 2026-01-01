@@ -1,4 +1,5 @@
-﻿using CalamityMod;
+﻿
+using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
@@ -184,6 +185,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
             HandleHandRotation();
             if (Projectile.localAI[2]++ == 0)
             {
+                Projectile.scale *= Projectile.GetOwner().HeldItem.scale;
                 SoundEngine.PlaySound(SoundID.Item1 with { Pitch = 1f / DamageMult() / DamageMult() - 1 }, Projectile.Center);
             }
             if (hitbox == null)
@@ -280,15 +282,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
             Texture2D slash = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/Training/Slash/Slash" + atkType.ToString());
             int num1 = slash.Height / TotalFrame();
             Rectangle sourceRect = new Rectangle(0, num1 * frame, slash.Width, num1 - 2);
-            Main.EntitySpriteDraw(slash, Projectile.Center + new Vector2(16 * Projectile.GetOwner().direction, -16) - Main.screenPosition, sourceRect, Color.White, 0, new Vector2(slash.Width / 2f, (num1 - 2) / 2), Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
-            /*if (hitbox != null)
-                hitbox.Testing_DrawBox(Color.Yellow, 2, Projectile.Center, 0, Projectile.velocity.X < 0);*/
+            Main.EntitySpriteDraw(slash, Projectile.Center + new Vector2(16 * Projectile.GetOwner().direction, -16) * Projectile.scale - Main.screenPosition, sourceRect, Color.White, 0, new Vector2(slash.Width / 2f, (num1 - 2) / 2), Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
+            //if (hitbox != null)
+                //hitbox.Testing_DrawBox(Color.Yellow, 2, Projectile.Center, 0, Projectile.velocity.X < 0, Projectile.scale);
             return false;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             if (hitbox != null)
-                return hitbox.CheckCollidingBetter(Projectile.Center, targetHitbox, 0, frame, Projectile.velocity.X < 0);
+                return hitbox.CheckCollidingBetter(Projectile.Center, targetHitbox, 0, frame, Projectile.velocity.X < 0, Projectile.scale);
             return false;
         }
         public override void CutTiles()

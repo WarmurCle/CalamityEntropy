@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
                     return true;
             return false;
         }
-        public bool CheckCollidingBetter(Vector2 position, Rectangle rect, float rotation = 0, float nowFrame = -1, bool flip = false)
+        public bool CheckCollidingBetter(Vector2 position, Rectangle rect, float rotation = 0, float nowFrame = -1, bool flip = false, float scale = 1)
         {
             foreach (Rectf rect_ in hitboxs)
             {
@@ -36,6 +36,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
                 {
                     rectf.Center = rectf.Center * new Vector2(-1, 1);
                 }
+                Vector2 ctr = rectf.Center * scale;
+                rectf.Size *= scale;
+                rectf.Center = ctr;
+
                 var r = rectf.GetAdjustedRectf(position, rotation);
                 Vector2 center = r.Center;
                 Vector2 leftCenter = center - new Vector2(r.Width / 2f, 0).RotatedBy(rotation);
@@ -45,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
             }
             return false;
         }
-        public void Testing_DrawBox(Color color, float lineWidth, Vector2 position, float rotation = 0, bool flip = false)
+        public void Testing_DrawBox(Color color, float lineWidth, Vector2 position, float rotation = 0, bool flip = false, float scale = 1)
         {
             foreach (Rectf rect_ in hitboxs)
             {
@@ -54,6 +58,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
                 {
                     rectf.Center = rectf.Center * new Vector2(-1, 1);
                 }
+                Vector2 ctr = rectf.Center * scale;
+                rectf.Size *= scale;
+                rectf.Center = ctr;
+
                 CEUtils.DrawRectAlt((rectf.GetAdjustedRectf(position, rotation)).ToRectangle(), color, lineWidth, 0);
             }
         }
