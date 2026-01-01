@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
         {
             player.setBonus = Mod.GetLocalization("AzafureSet").Value;
             player.GetModPlayer<AzafureHeavyArmorPlayer>().ArmorSetBonus = true;
-            player.Entropy().NoAdrenalineTime = 3;
+            player.Entropy().NoAdrenalineTime = 1;
         }
         public override void UpdateEquip(Player player)
         {

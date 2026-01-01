@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                 player.Calamity().rogueStealthMax += 0.8f;
             }
             player.maxMinions += 1;
-            player.Entropy().NoAdrenalineTime = 3;
+            player.Entropy().NoAdrenalineTime = 1;
         }
         public override void UpdateEquip(Player player)
         {
