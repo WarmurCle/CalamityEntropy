@@ -1900,7 +1900,7 @@ namespace CalamityEntropy.Common
                 if (info.Cancelled)
                     return;
             }
-            info.Damage = (int)(info.Damage * EDamageReduce);
+            info.Damage = (int)(info.Damage * (1 - EDamageReduce));
             noCsDodge = false;
             if (SCrown)
             {
