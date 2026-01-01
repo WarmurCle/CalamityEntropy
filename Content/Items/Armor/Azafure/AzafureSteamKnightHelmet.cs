@@ -238,9 +238,9 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                 Center += new Vector2(Main.rand.NextFloat() * ((0.32f - dura) * 20), Main.rand.NextFloat() * ((0.32f - dura) * 20));
             }
             Texture2D tex1 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Armor/Azafure/DurabilityBarA").Value;
-            Texture2D tex2 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Armor/Azafure/SteamKnightBar").Value;
-            Main.spriteBatch.Draw(tex2, Center, null, color, 0, tex2.Size() / 2f, 1.6f, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(tex1, Center, new Rectangle(0, 0, (int)(tex1.Width * dura), tex1.Height), color2, 0, tex1.Size() / 2f, 1.6f, SpriteEffects.None, 0);
+            Texture2D tex2 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Armor/Azafure/DurabilityBarB").Value;
+            Main.spriteBatch.Draw(tex2, Center, null, color, 0, tex2.Size() / 2f, 1, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex1, Center, new Rectangle(0, 0, (int)(tex1.Width * dura), tex1.Height), color2, 0, tex1.Size() / 2f, 1, SpriteEffects.None, 0);
             bool hover = Center.getRectCentered(100, 40).Intersects(Main.MouseScreen.getRectCentered(2, 2));
             if (hover)
                 Main.instance.MouseText(CalamityEntropy.Instance.GetLocalization("DuraBar").Value + $": {dura.ToPercent()}%");
