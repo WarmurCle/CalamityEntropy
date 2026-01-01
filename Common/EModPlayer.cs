@@ -814,8 +814,10 @@ namespace CalamityEntropy.Common
         public float snowgrave = 0;
         public bool NoAdrenaline = false;
         public int NoAdrenalineTime = 0;
+        public float EDamageReduce = 0;
         public override void ResetEffects()
         {
+            EDamageReduce = 0;
             VoidShieldVisual = false;
             ScaleTarget = 1;
             Scale = float.Lerp(Scale, ScaleTarget, 0.1f);
@@ -1898,6 +1900,7 @@ namespace CalamityEntropy.Common
                 if (info.Cancelled)
                     return;
             }
+            info.Damage = (int)(info.Damage * EDamageReduce);
             noCsDodge = false;
             if (SCrown)
             {

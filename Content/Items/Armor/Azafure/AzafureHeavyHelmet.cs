@@ -164,7 +164,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                 if (DurabilityActive)
                 {
                     Player.Entropy().moveSpeed -= durability * 0.05f;
-                    Player.endurance += durability * 0.25f;
+                    Player.Entropy().EDamageReduce += durability * 0.25f;
                     Player.statDefense += (int)(durability * 18);
                     Player.noKnockback = true;
                 }
