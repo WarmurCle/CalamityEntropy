@@ -960,11 +960,11 @@ namespace CalamityEntropy
         {
             return new Rectangle((int)(center.X - w / 2), (int)(center.Y - h / 2), (int)w, (int)h);
         }
-        public static void DrawLines(List<Vector2> points, Color color, float width)
+        public static void DrawLines(List<Vector2> points, Color color, float width, int wa = 2)
         {
             for (int i = 1; i < points.Count; i++)
             {
-                drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, points[i - 1], points[i], color, width, 2, true);
+                drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, points[i - 1], points[i], color, width, wa, true);
             }
         }
         public static SoundStyle GetSound(string name, float pitch = 1, int maxIns = 4, float volume = 1)

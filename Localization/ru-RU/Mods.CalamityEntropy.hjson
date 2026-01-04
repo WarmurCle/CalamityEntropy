@@ -3519,6 +3519,11 @@ Items: {
 			+[C]% Crit damage
 			''' */
 	}
+
+	Depletion: {
+		// DisplayName: Depletion
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:
@@ -4124,6 +4129,9 @@ Projectiles: {
 	// WaterBolt.DisplayName: Water Bolt
 	// WOHHeld.DisplayName: WoH Held
 	// FractalAbyssalBlade.DisplayName: Fractal Abyssal Blade
+	// DepletionBullet.DisplayName: Depletion Bullet
+	// DepletionHeld.DisplayName: Depletion Held
+	// DepletionLaser.DisplayName: Depletion Laser
 }
 
 LegendTooltip: - Легенда -

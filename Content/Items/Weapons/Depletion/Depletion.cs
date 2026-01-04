@@ -1,0 +1,369 @@
+﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles;
+using CalamityMod;
+using CalamityMod.Items;
+using CalamityMod.Items.Materials;
+using CalamityMod.Items.Weapons.Magic;
+using CalamityMod.Items.Weapons.Melee;
+using CalamityMod.Rarities;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using System.IO;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace CalamityEntropy.Content.Items.Weapons.Depletion
+{
+    public class Depletion : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            Item.staff[Item.type] = true;
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 62;
+            Item.height = 62;
+            Item.damage = 37;
+            Item.crit = 6;
+            Item.noMelee = true;
+            Item.useAnimation = Item.useTime = 4;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.knockBack = 0;
+            Item.maxStack = 1;
+            Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
+            Item.rare = ModContent.RarityType<Violet>();
+            Item.shoot = ModContent.ProjectileType<DepletionHeld>();
+            Item.shootSpeed = 16f;
+            Item.mana = 5;
+            Item.DamageType = DamageClass.Magic;
+            Item.channel = true;
+            Item.useTurn = true;
+            Item.noUseGraphic = true;
+        }
+        public override bool MagicPrefix()
+        {
+            return true;
+        }
+        public override void HoldItem(Player player)
+        {
+            player.CheckAndSpawnHeldProj(Item.shoot);
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            return false;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<Malign.Malign>()
+                .AddIngredient<ElementalRay>()
+                .AddIngredient<UnholyEssence>(8)
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
+        }
+    }
+    public class DepletionHeld : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            Projectile.FriendlySetDefaults(DamageClass.Magic, false, -1);
+        }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return false;
+        }
+        public override bool? CanHitNPC(NPC target)
+        {
+            return false;
+        }
+        public override string Texture => "CalamityEntropy/Content/Items/Weapons/Depletion/Depletion";
+        public Texture2D tPart1 => this.getTextureAlt("P1");
+        public Texture2D tPart2 => this.getTextureAlt("P2");
+        public float ActiveProgress = 0;
+        public bool MousePressed = false;
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(MousePressed);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            MousePressed = reader.ReadBoolean();
+        }
+        public override void AI()
+        {
+            Player player = Projectile.GetOwner();
+            Projectile.ai[1]--;
+            if (player.HeldItem.ModItem is Depletion)
+            {
+                Projectile.timeLeft = 2;
+                Projectile.StickToPlayer();
+                player.SetHandRot(Projectile.rotation);
+                if (Main.myPlayer == Projectile.owner)
+                {
+                    if ((!player.mouseInterface && Main.mouseLeft) != MousePressed)
+                    {
+                        CEUtils.SyncProj(Projectile.whoAmI);
+                    }
+                    MousePressed = !player.mouseInterface && Main.mouseLeft;
+                    if (MousePressed && ActiveProgress > 0.8f)
+                    {
+                        player.channel = true;
+                        if (player.manaRegenDelay < 16 && player.CheckMana(player.HeldItem.mana, false))
+                            player.manaRegenDelay = 16;
+                        if (Projectile.ai[1] <= 0)
+                        {
+                            Projectile.ai[1] = player.HeldItem.useTime;
+                            if (player.CheckMana(player.HeldItem.mana, true))
+                            { 
+                                Vector2 vel = Projectile.velocity.RotatedByRandom(0.4f) * 2;
+                                Vector2 pos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 130;
+                                for(int i = 0; i < 16; i++)
+                                {
+                                    var d = Dust.NewDustDirect(pos, 0, 0, DustID.YellowTorch);
+                                    d.position += CEUtils.randomPointInCircle(10);
+                                    d.velocity = vel.normalize() * 10 * Main.rand.NextFloat() + Projectile.GetOwner().velocity;
+                                    d.scale = 2;
+                                    d.noGravity = true;
+                                }
+                                Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), pos, vel, ModContent.ProjectileType<DepletionBullet>(), player.GetWeaponDamage(player.HeldItem), player.GetWeaponKnockback(player.HeldItem), player.whoAmI);
+                            }
+                        }
+                    }
+                }
+                if (MousePressed)
+                {
+                    if (ActiveProgress < 1)
+                    {
+                        ActiveProgress = float.Lerp(ActiveProgress, 1, 0.1f);
+                        if (ActiveProgress > 0.98f)
+                            ActiveProgress = 1;
+                    }
+
+                }
+                else
+                {
+                    if (ActiveProgress > 0)
+                    {
+                        ActiveProgress = float.Lerp(ActiveProgress, 0, 0.1f);
+                        if (ActiveProgress < 0.02f)
+                            ActiveProgress = 0;
+                    }
+                }
+                if (MousePressed || ActiveProgress > 0.3)
+                {
+                    player.itemTime = player.itemAnimation = 3;
+                }
+            }
+            else
+            {
+                Projectile.Kill();
+            }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            lightColor = Color.Lerp(lightColor, Color.White, ActiveProgress);
+            Texture2D tex = Projectile.GetTexture();
+
+            Vector2 top = Projectile.Center + Projectile.rotation.ToRotationVector2() * (48 + 12 * ActiveProgress) * Projectile.scale;
+            
+            Main.EntitySpriteDraw(tPart1, top - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver4) * (ActiveProgress * 16 - 4), null, lightColor * ActiveProgress, Projectile.rotation + MathHelper.PiOver4 + -0.8f + 0.2f * ActiveProgress, new Vector2(0, tPart1.Height / 2), Projectile.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(tPart2, top - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(-MathHelper.PiOver4) * (ActiveProgress * 16 - 4), null, lightColor * ActiveProgress, Projectile.rotation + MathHelper.PiOver4 + 0.8f + -0.2f * ActiveProgress, new Vector2(tPart2.Width / 2, tPart2.Height), Projectile.scale, SpriteEffects.None);
+            
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation + MathHelper.PiOver4, new Vector2(6, tex.Height - 6), Projectile.scale, SpriteEffects.None);
+
+            DrawCircle(Projectile.Center + Projectile.rotation.ToRotationVector2() * 118, ActiveProgress, Projectile.rotation);
+            
+            CEUtils.DrawGlow(Projectile.Center + Projectile.rotation.ToRotationVector2() * 118 * Projectile.scale, Color.Yellow * 0.5f * (ActiveProgress * ActiveProgress * ActiveProgress), 1.2f);
+
+            return false;
+        }
+        public static void DrawCircle(Vector2 center, float active, float rotation, float scale = 1)
+        {
+            Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied);
+            List<Vector2> points = new();
+            void SetPoint(float r, int step, float rot = 0, Vector2 c = default)
+            {
+                points.Clear();
+                for(int i = 0; i <= step; i++)
+                {
+                    points.Add(center + c + Vector2.UnitX.RotatedBy((MathHelper.TwoPi / step) * i + rot) * r * scale);
+                }
+            }
+            if (center == default)
+                center = Vector2.Zero;
+            SetPoint(18, 32);
+            CEUtils.DrawLines(points, new Color(255, 255, 160), 2f * active, 0);
+
+            SetPoint(16, 3, Main.GlobalTimeWrappedHourly * 8);
+            CEUtils.DrawLines(points, new Color(255, 255, 160), 2f * active, 0);
+            SetPoint(5, 4, Main.GlobalTimeWrappedHourly * 8);
+            CEUtils.DrawLines(points, new Color(255, 255, 160), 2f * active, 0);
+            for (int i = 0; i < 3; i++)
+            {
+                float rot = (MathHelper.TwoPi / 3f) * i;
+                rot += Main.GlobalTimeWrappedHourly * -8;
+                SetPoint(6, 3, rot, rot.ToRotationVector2() * -15 * scale);
+                CEUtils.DrawLines(points, new Color(255, 255, 160), 2f * active, 0);
+            }
+
+            Texture2D t = CEUtils.getExtraTex("Triangle");
+            for (int i = 0; i < 3; i++)
+            {
+                float rot = (MathHelper.TwoPi / 3f) * i;
+                rot += Main.GlobalTimeWrappedHourly * 6;
+                Main.spriteBatch.Draw(t, center + rot.ToRotationVector2() * 40 - Main.screenPosition, null, new Color(255, 255, 160), rot, new Vector2(48, t.Height / 2), new Vector2(0.05f * active, 0.03f), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(t, center + rot.ToRotationVector2() * 40 - Main.screenPosition, null, new Color(255, 255, 160), rot + MathHelper.Pi, new Vector2(48, t.Height / 2), new Vector2(0.08f * active, 0.03f), SpriteEffects.None, 0);
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                float rot = (MathHelper.TwoPi / 3f) * i + rotation;
+                Main.spriteBatch.Draw(t, center + rot.ToRotationVector2() * 22 - Main.screenPosition, null, new Color(255, 255, 160), rot + MathHelper.Pi, new Vector2(48, t.Height / 2), new Vector2(0.05f * active, 0.03f), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(t, center + rot.ToRotationVector2() * 22 - Main.screenPosition, null, new Color(255, 255, 160), rot, new Vector2(48, t.Height / 2), new Vector2(0.08f * active, 0.03f), SpriteEffects.None, 0);
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                float rot = (MathHelper.TwoPi / 3f) * i;
+                rot += Main.GlobalTimeWrappedHourly * -6;
+                Main.spriteBatch.Draw(t, center + rot.ToRotationVector2() * 18 - Main.screenPosition, null, new Color(255, 255, 160), rot, new Vector2(48, t.Height / 2), new Vector2(0.04f * active, 0.03f), SpriteEffects.None, 0);
+            }
+            Main.spriteBatch.ExitShaderRegion();
+        }
+
+    }
+    public class DepletionLaser : ModProjectile
+    {
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.ArmorPenetration += 8;
+        }
+        public override string Texture => CEUtils.WhiteTexPath;
+        public override void SetDefaults()
+        {
+            Projectile.FriendlySetDefaults(DamageClass.Magic, false, -1);
+            Projectile.width = Projectile.height = 16;
+            Projectile.timeLeft = 46;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
+            Projectile.light = 2;
+        }
+        public override bool ShouldUpdatePosition()
+        {
+            return false;
+        }
+        public float num = 1;
+        public override bool? CanHitNPC(NPC target)
+        {
+            return Projectile.timeLeft > 40;
+        }
+        public override void AI()
+        {
+            num *= 0.94f;
+            num -= 0.01f;
+            if (num < 0)
+                Projectile.Kill();
+            Projectile.light = 2 * num;
+        }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity * num, targetHitbox, (int)(20 * Projectile.scale));
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D tex = CEUtils.getExtraTex("Triangle");
+            Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied);
+            Color clr = Color.Lerp(Color.Yellow, Color.White, num*num*num);
+            clr.A = (byte)(255 * num);
+            if (Projectile.ai[0] == 0)
+                Projectile.ai[0]++;
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, clr, Projectile.velocity.ToRotation(), new Vector2(48, tex.Height / 2), new Vector2(Projectile.velocity.Length() * num / tex.Width, 0.08f * Projectile.scale * Projectile.ai[0]), SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, new Color(1f, 1f, 1f, num), Projectile.velocity.ToRotation(), new Vector2(48, tex.Height / 2), new Vector2(Projectile.velocity.Length() * num / tex.Width * 2, 0.08f * Projectile.scale * Projectile.ai[0]) * 0.8f, SpriteEffects.None);
+
+            Main.spriteBatch.ExitShaderRegion();
+            return false;
+        }
+        public override void OnKill(int timeLeft)
+        {
+        }
+    }
+    public class DepletionBullet : ModProjectile
+    {
+        public override string Texture => CEUtils.WhiteTexPath;
+        public override void SetDefaults()
+        {
+            Projectile.FriendlySetDefaults(DamageClass.Magic, true, 1);
+            Projectile.width = Projectile.height = 16;
+            Projectile.timeLeft = 24;
+            Projectile.light = 1;
+        }
+        public float f = 0;
+        public TrailParticle trail;
+        public override void AI()
+        {
+            if (Projectile.localAI[2]++ == 0)
+            {
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.velocity, Vector2.Zero, Color.Yellow, 0.4f, 1, true, BlendState.Additive, 0, 5);
+                CEUtils.PlaySound("malignShoot", Main.rand.NextFloat(0.6f, 0.8f), Projectile.Center, volume: 0.6f);
+            }
+            if (Main.myPlayer == Projectile.owner)
+            {
+                if (Projectile.timeLeft == 13)
+                {
+                    for(int i = 0; i < 4; i++)
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.PiOver2 * i).normalize() * Main.rand.NextFloat(100, 140), ModContent.ProjectileType<DepletionLaser>(), Projectile.damage / 2, Projectile.knockBack / 4, Projectile.owner, 0.4f);
+                }
+            }
+            if (trail == null)
+            {
+                trail = new TrailParticle() { maxLength = 10, SameAlpha = true };
+                EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, new Color(255, 255, 255), 0f, 1, true, BlendState.Additive);
+            }
+
+            trail.AddPoint(Projectile.Center + Projectile.velocity);
+            trail.TimeLeftMax = trail.Lifetime = 13;
+            Projectile.rotation = Projectile.velocity.ToRotation();
+            if (Projectile.timeLeft < 20)
+            {
+                NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 600);
+                if (target != null)
+                {
+                    Projectile.velocity = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.12f, true).ToRotationVector2() * Projectile.velocity.Length();
+                }
+            }
+            
+            for(float i = 0; i < 1; i+=0.05f)
+            {
+                if (f < 1)
+                    f += 0.01f;
+                EParticle.spawnNew(new Smoke() { endColor = Color.Yellow, colorTrans = true, Lifetime = 18, timeleftmax = 18, scaleStart = 0.03f * f, scaleEnd = 0.01f * f }, Projectile.Center + Projectile.velocity * i, Vector2.Zero, Color.White, 0.02f, 1, true, BlendState.Additive, CEUtils.randomRot(), 18);
+            }
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            CEUtils.DrawGlow(Projectile.Center, Color.Yellow, 0.7f * Projectile.scale);
+            CEUtils.DrawGlow(Projectile.Center, Color.White, 0.6f * Projectile.scale);
+            return false;
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.ArmorPenetration += 8;
+        }
+        public override void OnKill(int timeLeft)
+        {
+            for (int i = 0; i < 2; i++)
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.Pi * i - MathHelper.PiOver2).normalize() * Main.rand.NextFloat(100, 140), ModContent.ProjectileType<DepletionLaser>(), Projectile.damage / 2, Projectile.knockBack / 4, Projectile.owner);
+
+            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.normalize() * 600, ModContent.ProjectileType<DepletionLaser>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            for (int i = 0; i < 2; i++)
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.normalize().RotatedByRandom(0.6f) * Main.rand.NextFloat(100, 360), ModContent.ProjectileType<DepletionLaser>(), Projectile.damage / 4, Projectile.knockBack, Projectile.owner);
+
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Yellow, 0.8f, 1, true, BlendState.Additive, 0, 12);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.6f, 1, true, BlendState.Additive, 0, 12);
+
+        }
+    }
+
+}

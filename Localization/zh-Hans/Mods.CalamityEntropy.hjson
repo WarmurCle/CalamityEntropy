@@ -3762,6 +3762,11 @@ Items: {
 			增加[C]%暴击伤害
 			'''
 	}
+
+	Depletion: {
+		DisplayName: 灾灵
+		Tooltip: "快速发射会迸发出多束激光的子弹"
+	}
 }
 
 ChaoticSetBonus:
@@ -4368,6 +4373,9 @@ Projectiles: {
 	WaterBolt.DisplayName: 水流
 	WOHHeld.DisplayName: 虚寂之翼
 	FractalAbyssalBlade.DisplayName: 分形深渊刃
+	// DepletionBullet.DisplayName: Depletion Bullet
+	// DepletionHeld.DisplayName: Depletion Held
+	// DepletionLaser.DisplayName: Depletion Laser
 }
 
 LegendTooltip: - 传奇物品 -
