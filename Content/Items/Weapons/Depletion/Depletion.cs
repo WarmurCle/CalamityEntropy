@@ -26,8 +26,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         {
             Item.width = 62;
             Item.height = 62;
-            Item.damage = 37;
-            Item.crit = 6;
+            Item.damage = 48;
+            Item.crit = 2;
             Item.noMelee = true;
             Item.useAnimation = Item.useTime = 4;
             Item.useStyle = ItemUseStyleID.Shoot;
@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
             Item.rare = ModContent.RarityType<Violet>();
             Item.shoot = ModContent.ProjectileType<DepletionHeld>();
             Item.shootSpeed = 16f;
-            Item.mana = 5;
+            Item.mana = 7;
             Item.DamageType = DamageClass.Magic;
             Item.channel = true;
             Item.useTurn = true;
@@ -61,6 +61,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
                 .AddIngredient<Malign.Malign>()
                 .AddIngredient<ElementalRay>()
                 .AddIngredient<UnholyEssence>(8)
+                .AddIngredient<EffulgentFeather>(8)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
@@ -118,7 +119,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
                             Projectile.ai[1] = player.HeldItem.useTime;
                             if (player.CheckMana(player.HeldItem.mana, true))
                             { 
-                                Vector2 vel = Projectile.velocity.RotatedByRandom(0.4f) * 2;
+                                Vector2 vel = Projectile.velocity.RotatedByRandom(0.6f) * 2;
                                 Vector2 pos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 130;
                                 for(int i = 0; i < 16; i++)
                                 {
@@ -294,7 +295,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         public override string Texture => CEUtils.WhiteTexPath;
         public override void SetDefaults()
         {
-            Projectile.FriendlySetDefaults(DamageClass.Magic, true, 1);
+            Projectile.FriendlySetDefaults(DamageClass.Magic, false, 1);
             Projectile.width = Projectile.height = 16;
             Projectile.timeLeft = 30;
             Projectile.light = 1;
@@ -303,6 +304,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         public TrailParticle trail;
         public override void AI()
         {
+            if (Projectile.timeLeft < 10)
+                Projectile.tileCollide = true;
             if (Projectile.localAI[2]++ == 0)
             {
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.velocity, Vector2.Zero, Color.Yellow, 0.4f, 1, true, BlendState.Additive, 0, 5);
@@ -310,10 +313,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
             }
             if (Main.myPlayer == Projectile.owner)
             {
-                if (Projectile.timeLeft == 16)
+                if (Projectile.timeLeft % 6 == 0)
                 {
-                    for(int i = 0; i < 4; i++)
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.PiOver2 * i).normalize() * Main.rand.NextFloat(100, 140), ModContent.ProjectileType<DepletionLaser>(), Projectile.damage / 2, Projectile.knockBack / 4, Projectile.owner, 0.4f);
+                    for(int i = 0; i < 2; i++)
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy((i == 0 ? -1 : 1) * 2.6f).normalize() * Main.rand.NextFloat(100, 140), ModContent.ProjectileType<DepletionLaser>(), Projectile.damage / 2, Projectile.knockBack / 4, Projectile.owner, 0.4f);
                 }
             }
             if (trail == null)
@@ -325,7 +328,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
             trail.AddPoint(Projectile.Center + Projectile.velocity);
             trail.TimeLeftMax = trail.Lifetime = 13;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if (Projectile.timeLeft < 26)
+            if (Projectile.timeLeft < 24)
             {
                 NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 600);
                 if (target != null)
@@ -355,13 +358,20 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         {
             for (int i = 0; i < 2; i++)
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.Pi * i - MathHelper.PiOver2).normalize() * Main.rand.NextFloat(100, 140), ModContent.ProjectileType<DepletionLaser>(), Projectile.damage / 2, Projectile.knockBack / 4, Projectile.owner);
-
-            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.normalize() * 600, ModContent.ProjectileType<DepletionLaser>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 700, (i) => i.ToNPC().Distance(Projectile.Center) > 80);
+            Vector2 v = Projectile.velocity;
+            if (target != null)
+            {
+                v = (target.Center - Projectile.Center);
+            }
+            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, v.normalize() * 600, ModContent.ProjectileType<DepletionLaser>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             for (int i = 0; i < 2; i++)
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.normalize().RotatedByRandom(0.6f) * Main.rand.NextFloat(100, 360), ModContent.ProjectileType<DepletionLaser>(), Projectile.damage / 4, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, v.normalize().RotatedByRandom(0.6f) * Main.rand.NextFloat(240, 450), ModContent.ProjectileType<DepletionLaser>(), Projectile.damage / 4, Projectile.knockBack, Projectile.owner);
 
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Yellow, 0.8f, 1, true, BlendState.Additive, 0, 12);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.6f, 1, true, BlendState.Additive, 0, 12);
+            for (int i = 0; i < 2; i++)
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy((i == 0 ? -1 : 1) * 2.6f).normalize() * Main.rand.NextFloat(100, 140), ModContent.ProjectileType<DepletionLaser>(), Projectile.damage / 2, Projectile.knockBack / 4, Projectile.owner, 0.4f);
 
         }
     }
