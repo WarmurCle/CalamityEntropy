@@ -257,7 +257,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         public float num = 1;
         public override bool? CanHitNPC(NPC target)
         {
-            return Projectile.timeLeft > 40;
+            return Projectile.timeLeft > 40 ? null : false;
         }
         public override void AI()
         {
@@ -296,7 +296,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         {
             Projectile.FriendlySetDefaults(DamageClass.Magic, true, 1);
             Projectile.width = Projectile.height = 16;
-            Projectile.timeLeft = 24;
+            Projectile.timeLeft = 30;
             Projectile.light = 1;
         }
         public float f = 0;
@@ -310,7 +310,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
             }
             if (Main.myPlayer == Projectile.owner)
             {
-                if (Projectile.timeLeft == 13)
+                if (Projectile.timeLeft == 16)
                 {
                     for(int i = 0; i < 4; i++)
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.PiOver2 * i).normalize() * Main.rand.NextFloat(100, 140), ModContent.ProjectileType<DepletionLaser>(), Projectile.damage / 2, Projectile.knockBack / 4, Projectile.owner, 0.4f);
@@ -325,7 +325,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
             trail.AddPoint(Projectile.Center + Projectile.velocity);
             trail.TimeLeftMax = trail.Lifetime = 13;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if (Projectile.timeLeft < 20)
+            if (Projectile.timeLeft < 26)
             {
                 NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 600);
                 if (target != null)

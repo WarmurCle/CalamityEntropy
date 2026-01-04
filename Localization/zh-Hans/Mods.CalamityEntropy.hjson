@@ -3765,7 +3765,7 @@ Items: {
 
 	Depletion: {
 		DisplayName: 灾灵
-		Tooltip: "快速发射会迸发出多束激光的子弹"
+		Tooltip: 快速发射会迸发出多束激光的子弹
 	}
 }
 
