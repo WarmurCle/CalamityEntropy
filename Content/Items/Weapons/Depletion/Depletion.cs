@@ -276,12 +276,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         {
             Texture2D tex = CEUtils.getExtraTex("Triangle");
             Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied);
-            Color clr = Color.Lerp(Color.Yellow, Color.White, num*num*num);
+            Color clr = Color.Lerp(Color.Yellow, Color.White, num*num*num*num);
             clr.A = (byte)(255 * num);
             if (Projectile.ai[0] == 0)
                 Projectile.ai[0]++;
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, clr, Projectile.velocity.ToRotation(), new Vector2(48, tex.Height / 2), new Vector2(Projectile.velocity.Length() * num / tex.Width, 0.08f * Projectile.scale * Projectile.ai[0]), SpriteEffects.None);
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, new Color(1f, 1f, 1f, num), Projectile.velocity.ToRotation(), new Vector2(48, tex.Height / 2), new Vector2(Projectile.velocity.Length() * num / tex.Width * 2, 0.08f * Projectile.scale * Projectile.ai[0]) * 0.8f, SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, clr, Projectile.velocity.ToRotation(), new Vector2(48, tex.Height / 2), new Vector2(Projectile.velocity.Length() * num / tex.Width * 2, 0.08f * Projectile.scale * Projectile.ai[0]), SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, new Color(1f, 1f, 1f, num), Projectile.velocity.ToRotation(), new Vector2(48, tex.Height / 2), new Vector2(Projectile.velocity.Length() * num / tex.Width * 2, 0.08f * Projectile.scale * Projectile.ai[0]) * 0.7f, SpriteEffects.None);
 
             Main.spriteBatch.ExitShaderRegion();
             return false;
