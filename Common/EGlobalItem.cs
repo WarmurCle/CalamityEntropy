@@ -162,7 +162,6 @@ namespace CalamityEntropy.Common
                     if (BookMarkLoader.IsABookMark(Main.LocalPlayer.Entropy().EBookStackItems[h]))
                     {
                         var bm = Main.LocalPlayer.Entropy().EBookStackItems[h];
-                        var mi = (BookMark)bm.ModItem;
                         if (!BookMarkLoader.CanBeEquipWith(item, bm))
                         {
                             flag = false;

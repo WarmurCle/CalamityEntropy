@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
 using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
@@ -158,8 +159,14 @@ namespace CalamityEntropy.Content.ILEditing
 
             StoreForbiddenArchivePositionHook.LoadHook();
 
+            if(MaliciousCode.CALAMITY__OVERHAUL)
+            {
+                CWRWeakRef.CWRRef.HookFSActive();
+            }
+
             CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");
         }
+        
         public delegate void ApplyDRDelegate(CalamityGlobalNPC self, NPC npc, ref NPC.HitModifiers modifer);
         public delegate void DrawAdrenalineBarDelegate(SpriteBatch spriteBatch, CalamityPlayer modPlayer, Vector2 screenPos);
         public static void drawAdrBar_hook(DrawAdrenalineBarDelegate orig, SpriteBatch spriteBatch, CalamityPlayer modPlayer, Vector2 screenPos)

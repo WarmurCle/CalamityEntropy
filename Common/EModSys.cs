@@ -471,6 +471,7 @@ namespace CalamityEntropy.Common
                 CalamityEntropy.cutScreen = 0;
                 CalamityEntropy.cutScreenVel = 0;
             }
+            
         }
 
         public override void PostUpdatePlayers()

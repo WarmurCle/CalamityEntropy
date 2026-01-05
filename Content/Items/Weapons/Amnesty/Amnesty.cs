@@ -101,7 +101,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
         {
             Player player = Projectile.GetOwner();
             Projectile.ai[1]--;
-            if (player.HeldItem.ModItem is Amnesty)
+            if (player.HeldItem.ModItem is Amnesty && !player.dead)
             {
                 Projectile.timeLeft = 2;
                 Projectile.StickToPlayer();
@@ -291,8 +291,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            CEUtils.DrawLines(points, new Color(180, 180, 255), 10 * num);
-            CEUtils.DrawLines(points, new Color(220, 220, 255), 4 * num);
+            CEUtils.DrawLines(points, Color.Lerp(new Color(180, 180, 255), Color.White, num * num * num), 10 * num);
+            CEUtils.DrawLines(points, Color.Lerp(new Color(222, 222, 255), Color.White, num * num * num), 4 * num);
             return false;
         }
         public override void OnKill(int timeLeft)

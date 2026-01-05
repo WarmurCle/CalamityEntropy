@@ -96,7 +96,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         {
             Player player = Projectile.GetOwner();
             Projectile.ai[1]--;
-            if (player.HeldItem.ModItem is Depletion)
+            if (player.HeldItem.ModItem is Depletion && !player.dead)
             {
                 Projectile.timeLeft = 2;
                 Projectile.StickToPlayer();

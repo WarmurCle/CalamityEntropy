@@ -94,7 +94,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
         {
             Player player = Projectile.GetOwner();
             Projectile.ai[1]--;
-            if (player.HeldItem.ModItem is Malign)
+            if (player.HeldItem.ModItem is Malign && !player.dead)
             {
                 Projectile.timeLeft = 2;
                 Projectile.StickToPlayer();
