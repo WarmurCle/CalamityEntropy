@@ -302,7 +302,7 @@ namespace CalamityEntropy.Content.ILEditing
             if (Main.gameMenu)
                 return orig(item);
             string orgName = orig.Invoke(item);
-            if (item.Entropy().GetOverrideName(item, orgName, out string NameNew))
+            if (item.TryGetGlobalItem<EGlobalItem>(out var ei) && ei.GetOverrideName(item, orgName, out string NameNew))
             {
                 return NameNew;
             }
