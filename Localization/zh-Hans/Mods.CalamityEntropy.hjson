@@ -3772,6 +3772,18 @@ Items: {
 		DisplayName: 神灵
 		Tooltip: 快速发射会迸发出多束电弧和追踪射弹的子弹
 	}
+
+	SusiesBracelet: {
+		DisplayName: 苏西的手环
+		Tooltip:
+			'''
+			随着游戏进度提供越来越多的属性加成
+			+[DEF] 防御
+			+[DMG]% 伤害
+			+[LIFE] 最大生命值
+			+[MANA] 最大魔力值
+			'''
+	}
 }
 
 ChaoticSetBonus:

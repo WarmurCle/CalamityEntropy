@@ -3529,6 +3529,18 @@ Items: {
 		// DisplayName: Amnesty
 		// Tooltip: ""
 	}
+
+	SusiesBracelet: {
+		// DisplayName: Susie's Bracelet
+		/* Tooltip:
+			'''
+			Provide more and more attribute bonuses as the game progresses
+			+[DEF] Defense
+			+[DMG]% Damage
+			+[LIFE] Max Life
+			+[MANA] Max Mana
+			''' */
+	}
 }
 
 /* ChaoticSetBonus:

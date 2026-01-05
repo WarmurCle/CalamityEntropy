@@ -209,3 +209,95 @@ General: {
 	// Locked: LOCKED
 	// PagesTips: Hold Left Alt to directly read the ability, press LMB to switch
 }
+
+SusiesBracelet: {
+	Lores: {
+		/* l0:
+			'''
+			Chapter 1 - The March of the Dark King
+			The heroes defeat the king and stop the dragon.
+			''' */
+		/* l1:
+			'''
+			Chapter 2 - The City of the Shining
+			The heroes do battle in chariots to save the Queen
+			''' */
+		/* l2:
+			'''
+			Chapter 3 - The Isles of Northernlight
+			The heroes travel among the islands
+			and catch a glimpse of a lost land
+			''' */
+		/* l3:
+			'''
+			Chapter 4 - The Trials of the Holy Hammer
+			A great smith gives the heroes a terrible weapon.
+			''' */
+		/* l4:
+			'''
+			Chapter 5 - The Field of Pink and Gold
+			The vast garden is charred in an inferno of jealousy.
+			''' */
+		/* l5:
+			'''
+			There was only one more chapter...
+			After that, It all stopped.
+			''' */
+		/* l6:
+			'''
+			That next book, it never did get written.
+			The story, it became so grand, so overwhelming,
+			Some say it swallowed up the author himself.
+			''' */
+		/* l7:
+			'''
+			The ones who could write the next, the youth,
+			the pen was lying there for them to pick up.
+			To make the next page.
+			...they never did.
+			''' */
+		/* l8:
+			'''
+			But you, my dear?
+			I see a story lit up in your eyes.
+			Burnin' bright...
+			Burnin' black.
+			Burnin' up everything.
+			''' */
+		/* l9:
+			'''
+			The bell's ringin' now.
+			Seems we've reached the final rounds.
+			So... how do you think it all ends?
+			No, how do you want it to end?
+			''' */
+		/* l10:
+			'''
+			At this late hour,
+			with the bells ringing out their justice.
+			You choose eternity.
+			''' */
+		/* l11:
+			'''
+			But... there is one thing that can overwrite the dark.
+			A white pen, known as hope.
+			I believe... this is what you hold.
+			''' */
+	}
+
+	Trials: {
+		// Trial: Trial
+		// t0: Slime King / Eye of Cthulhu
+		// t1: Any evil boss
+		// t2: Skeletron / Queen Bee
+		// t3: Wall of Flesh
+		// t4: All mech boss
+		// t5: Plantera / Calamitas Clone
+		// t6: Moonlord
+		// t7: Providence
+		// t8: Polterghast / Storm Weaver / Signus / Ceaseless Void
+		// t9: Devourer of Gods
+		// t10: Yharon
+		// t11: Trials - Done
+	}
+}
