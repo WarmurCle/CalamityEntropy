@@ -258,7 +258,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         public float num = 1;
         public override bool? CanHitNPC(NPC target)
         {
-            return Projectile.timeLeft > 40 ? null : false;
+            return Projectile.timeLeft > 43 ? null : false;
         }
         public override void AI()
         {
@@ -270,6 +270,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
+            if (Projectile.timeLeft > 43)
+                return false;
             return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity * num, targetHitbox, (int)(20 * Projectile.scale));
         }
         public override bool PreDraw(ref Color lightColor)
