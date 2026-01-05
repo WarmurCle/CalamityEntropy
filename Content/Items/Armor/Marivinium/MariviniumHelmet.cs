@@ -1,5 +1,4 @@
-﻿
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;

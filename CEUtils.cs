@@ -1131,8 +1131,12 @@ namespace CalamityEntropy
         }
         public static EGlobalItem Entropy(this Item item)
         {
-            if (item.TryGetGlobalItem<EGlobalItem>(out var rs))
-                return rs;
+            try
+            {
+                if (item.TryGetGlobalItem<EGlobalItem>(out var rs))
+                    return rs;
+            }
+            catch { }
             return new EGlobalItem();
         }
         public static bool IsArmor(Item item, bool vanity = false)
