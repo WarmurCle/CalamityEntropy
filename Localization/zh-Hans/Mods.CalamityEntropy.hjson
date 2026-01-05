@@ -3767,6 +3767,11 @@ Items: {
 		DisplayName: 灾灵
 		Tooltip: 快速发射会迸发出多束激光的子弹
 	}
+
+	Amnesty: {
+		DisplayName: 神灵
+		Tooltip: "快速发射会迸发出多束电弧和追踪射弹的子弹"
+	}
 }
 
 ChaoticSetBonus:
@@ -4376,6 +4381,9 @@ Projectiles: {
 	// DepletionBullet.DisplayName: Depletion Bullet
 	// DepletionHeld.DisplayName: Depletion Held
 	// DepletionLaser.DisplayName: Depletion Laser
+	// AmnestyBullet.DisplayName: Amnesty Bullet
+	// AmnestyHeld.DisplayName: Amnesty Held
+	// AmnestyLaser.DisplayName: Amnesty Laser
 }
 
 LegendTooltip: - 传奇物品 -

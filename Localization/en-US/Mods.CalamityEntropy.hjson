@@ -3509,6 +3509,11 @@ Items: {
 		DisplayName: Depletion
 		Tooltip: ""
 	}
+
+	Amnesty: {
+		DisplayName: Amnesty
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:
@@ -4131,6 +4136,10 @@ Projectiles: {
 	DepletionBullet.DisplayName: Depletion Bullet
 	DepletionHeld.DisplayName: Depletion Held
 	DepletionLaser.DisplayName: Depletion Laser
+	AmnestyBullet.DisplayName: Amnesty Bullet
+	AmnestyHeld.DisplayName: Amnesty Held
+	AmnestyLaser.DisplayName: Amnesty Laser
+	AmnestyMiniLaser.DisplayName: Amnesty Mini Laser
 }
 
 LegendTooltip: - Legend -

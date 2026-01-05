@@ -26,18 +26,17 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         {
             Item.width = 62;
             Item.height = 62;
-            Item.damage = 48;
-            Item.crit = 2;
+            Item.damage = 49;
             Item.noMelee = true;
             Item.useAnimation = Item.useTime = 4;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 0;
             Item.maxStack = 1;
-            Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
+            Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.rare = ModContent.RarityType<Violet>();
             Item.shoot = ModContent.ProjectileType<DepletionHeld>();
             Item.shootSpeed = 16f;
-            Item.mana = 7;
+            Item.mana = 5;
             Item.DamageType = DamageClass.Magic;
             Item.channel = true;
             Item.useTurn = true;
@@ -109,7 +108,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
                         CEUtils.SyncProj(Projectile.whoAmI);
                     }
                     MousePressed = !player.mouseInterface && Main.mouseLeft;
-                    if (MousePressed && ActiveProgress > 0.8f)
+                    if (MousePressed && ActiveProgress > 0.95f)
                     {
                         player.channel = true;
                         if (player.manaRegenDelay < 16 && player.CheckMana(player.HeldItem.mana, false))
@@ -239,7 +238,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
     {
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.ArmorPenetration += 8;
+            modifiers.ArmorPenetration += 40;
+            target.Entropy().Decrease20DR = 80;
         }
         public override string Texture => CEUtils.WhiteTexPath;
         public override void SetDefaults()
@@ -258,7 +258,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         public float num = 1;
         public override bool? CanHitNPC(NPC target)
         {
-            return Projectile.timeLeft > 43 ? null : false;
+            return Projectile.timeLeft > 42 ? null : false;
         }
         public override void AI()
         {
@@ -270,7 +270,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            if (Projectile.timeLeft > 43)
+            if (Projectile.timeLeft <= 42)
                 return false;
             return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity * num, targetHitbox, (int)(20 * Projectile.scale));
         }
@@ -310,8 +310,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
                 Projectile.tileCollide = true;
             if (Projectile.localAI[2]++ == 0)
             {
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.velocity, Vector2.Zero, Color.Yellow, 0.4f, 1, true, BlendState.Additive, 0, 5);
-                CEUtils.PlaySound("malignShoot", Main.rand.NextFloat(0.6f, 0.8f), Projectile.Center, volume: 0.6f);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Yellow, 0.4f, 1, true, BlendState.Additive, 0, 5);
+                CEUtils.PlaySound("malignShoot", Main.rand.NextFloat(0.6f, 0.8f), Projectile.Center, volume: 0.4f);
             }
             if (Main.myPlayer == Projectile.owner)
             {
@@ -354,27 +354,32 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.ArmorPenetration += 8;
+            modifiers.ArmorPenetration += 60;
+            target.Entropy().Decrease20DR = 80;
         }
         public override void OnKill(int timeLeft)
         {
-            for (int i = 0; i < 2; i++)
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.Pi * i - MathHelper.PiOver2).normalize() * Main.rand.NextFloat(100, 140), ModContent.ProjectileType<DepletionLaser>(), Projectile.damage / 2, Projectile.knockBack / 4, Projectile.owner);
-            NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 700, (i) => i.ToNPC().Distance(Projectile.Center) > 80);
-            Vector2 v = Projectile.velocity;
-            if (target != null)
-            {
-                v = (target.Center - Projectile.Center);
-            }
-            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, v.normalize() * 600, ModContent.ProjectileType<DepletionLaser>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-            for (int i = 0; i < 2; i++)
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, v.normalize().RotatedByRandom(0.6f) * Main.rand.NextFloat(240, 450), ModContent.ProjectileType<DepletionLaser>(), Projectile.damage / 4, Projectile.knockBack, Projectile.owner);
-
+            CEUtils.PlaySound("light_bolt", Main.rand.NextFloat(2.4f, 2.8f), Projectile.Center, 50, 0.4f);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Yellow, 0.8f, 1, true, BlendState.Additive, 0, 12);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.6f, 1, true, BlendState.Additive, 0, 12);
-            for (int i = 0; i < 2; i++)
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy((i == 0 ? -1 : 1) * 2.6f).normalize() * Main.rand.NextFloat(100, 140), ModContent.ProjectileType<DepletionLaser>(), Projectile.damage / 2, Projectile.knockBack / 4, Projectile.owner, 0.4f);
+            if(Main.myPlayer == Projectile.owner)
+            {
+                for (int i = 0; i < 2; i++)
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.Pi * i - MathHelper.PiOver2).normalize() * Main.rand.NextFloat(100, 140), ModContent.ProjectileType<DepletionLaser>(), Projectile.damage / 2, Projectile.knockBack / 4, Projectile.owner);
+                NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 700, (i) => i.ToNPC().Distance(Projectile.Center) > 80);
+                Vector2 v = Projectile.velocity;
+                if (target != null)
+                {
+                    v = (target.Center - Projectile.Center);
+                }
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, v.normalize() * 600, ModContent.ProjectileType<DepletionLaser>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                for (int i = 0; i < 2; i++)
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, v.normalize().RotatedByRandom(0.6f) * Main.rand.NextFloat(240, 450), ModContent.ProjectileType<DepletionLaser>(), Projectile.damage / 4, Projectile.knockBack, Projectile.owner);
 
+                for (int i = 0; i < 2; i++)
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy((i == 0 ? -1 : 1) * 2.6f).normalize() * Main.rand.NextFloat(100, 140), ModContent.ProjectileType<DepletionLaser>(), Projectile.damage / 2, Projectile.knockBack / 4, Projectile.owner, 0.4f);
+
+            }
         }
     }
 

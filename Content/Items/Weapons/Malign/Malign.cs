@@ -213,9 +213,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
         {
             return false;
         }
-        public override void OnKill(int timeLeft)
-        {
-        }
     }
     public class MalignBullet : ModProjectile
     {
@@ -277,7 +274,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
         }
         public override void OnKill(int timeLeft)
         {
-            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.normalize() * 500, ModContent.ProjectileType<MalignLaser>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            if(Main.myPlayer == Projectile.owner)
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.normalize() * 500, ModContent.ProjectileType<MalignLaser>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(255, 190, 255), 1, 1, true, BlendState.Additive, 0, 12);
         }
     }
