@@ -3770,7 +3770,7 @@ Items: {
 
 	Amnesty: {
 		DisplayName: 神灵
-		Tooltip: "快速发射会迸发出多束电弧和追踪射弹的子弹"
+		Tooltip: 快速发射会迸发出多束电弧和追踪射弹的子弹
 	}
 }
 
@@ -4378,12 +4378,13 @@ Projectiles: {
 	WaterBolt.DisplayName: 水流
 	WOHHeld.DisplayName: 虚寂之翼
 	FractalAbyssalBlade.DisplayName: 分形深渊刃
-	// DepletionBullet.DisplayName: Depletion Bullet
-	// DepletionHeld.DisplayName: Depletion Held
-	// DepletionLaser.DisplayName: Depletion Laser
-	// AmnestyBullet.DisplayName: Amnesty Bullet
-	// AmnestyHeld.DisplayName: Amnesty Held
-	// AmnestyLaser.DisplayName: Amnesty Laser
+	DepletionBullet.DisplayName: 灾灵弹
+	DepletionHeld.DisplayName: 灾灵
+	DepletionLaser.DisplayName: 灾灵激光
+	AmnestyBullet.DisplayName: 神灵弹
+	AmnestyHeld.DisplayName: 神灵
+	AmnestyLaser.DisplayName: 神灵电弧
+	AmnestyMiniLaser.DisplayName: 神灵追踪弹
 }
 
 LegendTooltip: - 传奇物品 -

@@ -4138,7 +4138,7 @@ Projectiles: {
 	DepletionLaser.DisplayName: Depletion Laser
 	AmnestyBullet.DisplayName: Amnesty Bullet
 	AmnestyHeld.DisplayName: Amnesty Held
-	AmnestyLaser.DisplayName: Amnesty Laser
+	AmnestyLaser.DisplayName: Amnesty Arc
 	AmnestyMiniLaser.DisplayName: Amnesty Mini Laser
 }
 
