@@ -374,7 +374,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
             if (Projectile.localAI[2]++ == 0)
             {
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(80, 80, 255), 0.4f, 1, true, BlendState.Additive, 0, 5);
-                CEUtils.PlaySound("malignShoot", Main.rand.NextFloat(0.6f, 0.8f), Projectile.Center, volume: 0.4f);
+                CEUtils.PlaySound("malignShoot", Main.rand.NextFloat(1.4f, 1.8f), Projectile.Center, volume: 0.4f);
             }
             if(Projectile.timeLeft == 27 && Main.myPlayer == Projectile.owner)
             {
