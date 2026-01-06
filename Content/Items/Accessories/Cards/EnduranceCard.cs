@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ModContent.ItemType<HydrothermalCrate>(), 5)
-                .AddTile(TileID.WorkBenches).Register();
+                .AddTile(TileID.WorkBenches).DisableDecraft().Register();
         }
     }
 }

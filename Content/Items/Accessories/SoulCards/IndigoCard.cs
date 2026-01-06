@@ -30,5 +30,10 @@ namespace CalamityEntropy.Content.Items.Accessories.SoulCards
             tooltips.Replace("[T]", WingSpeedAddition.ToPercent());
             tooltips.Replace("[T2]", WingTimeAddition.ToPercent());
         }
+        public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient(ItemID.FloatingIslandFishingCrate, 5).DisableDecraft().Register();
+            CreateRecipe().AddIngredient(ItemID.FloatingIslandFishingCrateHard, 5).DisableDecraft().Register();
+        }
     }
 }

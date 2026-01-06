@@ -29,9 +29,5 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
         {
             player.GetModPlayer<EModPlayer>().wisdomCard = true;
         }
-
-        public override void AddRecipes()
-        {
-        }
     }
 }
