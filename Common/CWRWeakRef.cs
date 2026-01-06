@@ -27,7 +27,7 @@ namespace CalamityEntropy.Common
             {
                 if(FishSkill.IDToInstance.TryGetValue(type, out var value) && proj.ModProjectile is EntropyBookHeldProjectile eb)
                 {
-                    if(style == 0)
+                    if(style == 0 && Main.myPlayer == proj.owner)
                     {
                         if (value.Cooldown <= 0)
                         {
