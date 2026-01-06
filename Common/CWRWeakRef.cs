@@ -67,7 +67,8 @@ namespace CalamityEntropy.Common
                 foreach (var kv in FishSkill.IDToInstance)
                 {
                     int type = kv.Value.UnlockFishID;
-                    Main.instance.LoadItem(type);
+                    if (!Main.dedServ)
+                        Main.instance.LoadItem(type);
                     void bu(Projectile p, bool o)
                     {
                         if (p.ModProjectile is EntropyBookHeldProjectile eb)
