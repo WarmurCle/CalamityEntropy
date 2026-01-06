@@ -40,16 +40,23 @@ namespace CalamityEntropy.Common
                                 org = hp.SeaDomainLayers;
                                 hp.SeaDomainLayers = player.GetMyMaxActiveBookMarks(item);
                             }
-                            int oafu = player.altFunctionUse;
-                            player.altFunctionUse = 2;
-                            value.AltFunctionUse(item, proj.GetOwner());
-                            value.ShootAlt(item, proj.GetOwner(), (EntitySource_ItemUse_WithAmmo)proj.GetOwner().GetSource_ItemUse_WithPotentialAmmo(item, AmmoID.None), proj.Center, proj.rotation.ToRotationVector2() * proj.GetOwner().HeldItem.shootSpeed, eb.getShootProjectileType(), eb.CauculateProjectileDamage(), item.knockBack);
-                            player.altFunctionUse = oafu;
-                            value.Use(item, proj.GetOwner());
-                            value.Shoot(item, proj.GetOwner(), (EntitySource_ItemUse_WithAmmo)proj.GetOwner().GetSource_ItemUse_WithPotentialAmmo(item, AmmoID.None), proj.Center, proj.rotation.ToRotationVector2() * proj.GetOwner().HeldItem.shootSpeed, eb.getShootProjectileType(), eb.CauculateProjectileDamage(), item.knockBack);
-                            if(set)
+
+                            bool f = true;
+                            if (f)
                             {
-                                hp.SeaDomainLayers = org;
+                                int oafu = player.altFunctionUse;
+                                player.altFunctionUse = 2;
+                                value.CanUseItem(item, player);
+                                value.AltFunctionUse(item, proj.GetOwner());
+                                value.ShootAlt(item, proj.GetOwner(), (EntitySource_ItemUse_WithAmmo)proj.GetOwner().GetSource_ItemUse_WithPotentialAmmo(item, AmmoID.None), proj.Center, proj.rotation.ToRotationVector2() * proj.GetOwner().HeldItem.shootSpeed, eb.getShootProjectileType(), eb.CauculateProjectileDamage(), item.knockBack);
+                                player.altFunctionUse = oafu;
+                                value.CanUseItem(item, player);
+                                value.Use(item, proj.GetOwner());
+                                value.Shoot(item, proj.GetOwner(), (EntitySource_ItemUse_WithAmmo)proj.GetOwner().GetSource_ItemUse_WithPotentialAmmo(item, AmmoID.None), proj.Center, proj.rotation.ToRotationVector2() * proj.GetOwner().HeldItem.shootSpeed, eb.getShootProjectileType(), eb.CauculateProjectileDamage(), item.knockBack);
+                                if (set)
+                                {
+                                    hp.SeaDomainLayers = org;
+                                }
                             }
                         }
                     }
