@@ -19,6 +19,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             Main.npcFrameCount[NPC.type] = 1;
             this.HideFromBestiary();
             NPCID.Sets.MPAllowedEnemies[Type] = true;
+            NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
         }
         public bool Phase2 => (Main.npc[(int)NPC.ai[3]].ModNPC is CruiserHead ch && ch.phaseTrans >= 120) ? true : false;
 
