@@ -129,13 +129,20 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 {
                     if ((Main.myPlayer != Projectile.owner || Main.mouseLeft) && Projectile.localAI[1]++ <= 60 * 16 && CEUtils.getDistance(HookNPC.ToNPC().Center, Projectile.Center) < (400 + (Bramblecleave.GetLevel() * 60) * 1f) * 1.4f)
                     {
-                        if (Projectile.localAI[1] % 10 == 0)
+                        if (Projectile.localAI[1] % 12 == 0)
                         {
                             player.Heal(Bramblecleave.GetLevel() / 2);
                         }
+                        if(player.wingTime < player.wingTimeMax)
+                        {
+                            player.wingTime += player.wingTimeMax / 80f;
+                            if(player.wingTime > player.wingTimeMax)
+                                player.wingTime = player.wingTimeMax;
+                        }
+                        player.Entropy().temporaryArmor = float.Max(player.Entropy().temporaryArmor, Bramblecleave.GetLevel() * 3);
                         float lg = CEUtils.getDistance(HookNPC.ToNPC().Center, player.Center);
                         Vector2 vj = (HookNPC.ToNPC().Center - player.Center).normalize() * lg * lg * 0.000003f * (1.1f - (400f + Bramblecleave.GetLevel() * 60) / (400 + 15f * 60));
-                        player.velocity += vj;
+                        player.velocity += vj * 0.6f;
                         if (HookNPC.ToNPC().velocity.Length() > 0.1)
                         {
                             HookNPC.ToNPC().velocity -= vj * 6000 * (0.5f + 0.5f * HookNPC.ToNPC().knockBackResist) / (HookNPC.ToNPC().width * HookNPC.ToNPC().height);
