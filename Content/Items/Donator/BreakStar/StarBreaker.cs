@@ -69,7 +69,9 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
         {
             if (player.ownedProjectileCounts[Item.shoot] < 1)
             {
-                Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, (Main.MouseWorld - player.Center).normalize() * Item.shootSpeed, Item.shoot, player.GetWeaponDamage(Item), player.GetWeaponKnockback(Item), player.whoAmI).ToProj().CritChance = player.GetWeaponCrit(Item);
+                var p = Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, (Main.MouseWorld - player.Center).normalize() * Item.shootSpeed, Item.shoot, player.GetWeaponDamage(Item), player.GetWeaponKnockback(Item), player.whoAmI).ToProj();
+                p.originalDamage = Item.damage;
+                
             }
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -81,7 +83,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
     {
         public override void SetDefaults()
         {
-            Projectile.FriendlySetDefaults(DamageClass.Melee, false, -1);
+            Projectile.FriendlySetDefaults(ModContent.GetInstance<TrueMeleeDamageClass>(), false, -1);
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
             Projectile.timeLeft = 60;
@@ -109,7 +111,11 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
         public override void AI()
         {
             Player player = Projectile.GetOwner();
-
+            if (player.HeldItem.ModItem is StarBreaker)
+            {
+                Projectile.damage = (int)player.GetTotalDamage(Projectile.DamageType).ApplyTo(Projectile.originalDamage);
+                Projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
+            }
             player.direction = Math.Sign(Projectile.velocity.X);
 
             Projectile.StickToPlayer(player.channel ? 1 : 0.25f);
