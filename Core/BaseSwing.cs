@@ -681,7 +681,7 @@ namespace CalamityEntropy.Core
             device.SamplerStates[0] = samplerState ?? originalSamplerState;
             device.RasterizerState = rasterizerState ?? originalState;
 
-            DrawTrail(bars);
+            DrawTrail(bars); DrawTrail(bars);
 
             device.RasterizerState = originalState;
             device.BlendState = originalBlendState;
@@ -746,7 +746,7 @@ namespace CalamityEntropy.Core
 
             if (bars.Count > 2)
             {
-                DrawTrailHander(bars, Main.graphics.GraphicsDevice, BlendState.NonPremultiplied, SamplerState.PointWrap, RasterizerState.CullNone);
+                DrawTrailHander(bars, Main.graphics.GraphicsDevice, BlendState.Additive, SamplerState.PointWrap, RasterizerState.CullNone);
 
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
