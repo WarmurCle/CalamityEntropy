@@ -11,7 +11,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public static bool DontDestroy(EBookBaseProjectile proj)
         {
-            if (proj is BMHammerProjectile || proj is BMSwordProjectile || proj is FairyBMMinion || proj is ExplosiveSpore)
+            if (proj is BaseBookMinion || proj is ExplosiveSpore)
                 return true;
             return false;
         }
@@ -109,6 +109,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                             if (BookMarkTaurus.DontSetHitcd(eb))
                             {
                                 p.ToProj().ResetLocalNPCHitImmunity();
+                                p.ToProj().localNPCImmunity[target.whoAmI] = 16;
                             }
                             m.ShooterModProjectile = esb.ShooterModProjectile;
                             m.homing = esb.homing;
