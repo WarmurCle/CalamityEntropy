@@ -238,7 +238,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
     {
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.ArmorPenetration += 40;
+            modifiers.ArmorPenetration += 50;
             target.Entropy().Decrease20DR = 80;
         }
         public override string Texture => CEUtils.WhiteTexPath;
