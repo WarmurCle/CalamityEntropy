@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         {
             Item.width = 62;
             Item.height = 62;
-            Item.damage = 49;
+            Item.damage = 45;
             Item.noMelee = true;
             Item.useAnimation = Item.useTime = 4;
             Item.useStyle = ItemUseStyleID.Shoot;
@@ -238,7 +238,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
     {
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.ArmorPenetration += 40;
+            modifiers.ArmorPenetration += 50;
             target.Entropy().Decrease20DR = 80;
         }
         public override string Texture => CEUtils.WhiteTexPath;

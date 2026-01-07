@@ -22,8 +22,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
         {
             Item.width = 62;
             Item.height = 62;
-            Item.damage = 34;
-            Item.crit = 6;
+            Item.damage = 30;
+            Item.crit = 5;
             Item.noMelee = true;
             Item.useAnimation = Item.useTime = 5;
             Item.useStyle = ItemUseStyleID.Shoot;
@@ -270,7 +270,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.ArmorPenetration += 8;
+            modifiers.ArmorPenetration += 15;
         }
         public override void OnKill(int timeLeft)
         {
