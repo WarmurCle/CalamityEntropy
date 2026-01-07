@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     public class BookmarkSwordBMEffect : EBookProjectileEffect
     {
     }
-    public class BMSwordProjectile : EBookBaseProjectile
+    public class BMSwordProjectile : BaseBookMinion
     {
         public override void SetDefaults()
         {
@@ -90,11 +90,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public float num = 0;
         public float num2 = 0;
         public TrailParticle trail = null;
+        public override float DamageMult => 0.8f;
         public override void AI()
         {
+            base.AI();
             var player = Projectile.GetOwner();
-            if (ShooterModProjectile is EntropyBookHeldProjectile eb)
-                Projectile.damage = eb.CauculateProjectileDamage(0.8f);
             float tofs = target == null ? 120 : (target.width + target.height) / 2f + 120;
             if (Main.myPlayer != Projectile.owner || BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkSwordBMEffect>(player))
                 Projectile.timeLeft = 3;

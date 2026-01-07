@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     public class BookmarkFairyEffect : EBookProjectileEffect
     {
     }
-    public class FairyBMMinion : EBookBaseProjectile
+    public class FairyBMMinion : BaseBookMinion
     {
         public int Delay = 0;
         public override void SetDefaults()
@@ -48,12 +48,12 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
             Projectile.timeLeft = 5;
-            Projectile.minion = true;
-            Projectile.minionSlots = 0;
         }
         public int num = -1;
+        public override float DamageMult => 0.6f;
         public override void AI()
         {
+            base.AI();
             Player player = Projectile.GetOwner();
             if (Main.myPlayer != Projectile.owner || BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkFairyEffect>(player))
             {
@@ -67,7 +67,6 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             float DelayMult = 1;
             if (ShooterModProjectile is EntropyBookHeldProjectile eb)
             {
-                Projectile.damage = eb.CauculateProjectileDamage(0.6f);
                 DelayMult = eb.CauculateAttackSpeed();
             }
 

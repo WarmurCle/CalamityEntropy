@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     public class BookmarkHammerBMEffect : EBookProjectileEffect
     {
     }
-    public class BMHammerProjectile : EBookBaseProjectile
+    public class BMHammerProjectile : BaseBookMinion
     {
         public override void SetDefaults()
         {
@@ -89,12 +89,13 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public float num = 0;
         public float num2 = 0;
         public TrailParticle trail = null;
+        public override float DamageMult => 1.8f;
+        
         public override void AI()
         {
+            base.AI();
             var player = Projectile.GetOwner();
-            if (ShooterModProjectile is EntropyBookHeldProjectile eb)
-                Projectile.damage = eb.CauculateProjectileDamage(1.8f);
-
+            
             float tofs = target == null ? 180 : (target.width + target.height) / 2f + 180;
             if (Main.myPlayer != Projectile.owner || BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkHammerBMEffect>(player))
                 Projectile.timeLeft = 3;
@@ -135,9 +136,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 {
                     float targetRot = (target.Center - Projectile.Center).ToRotation();
                     Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, targetRot, 0.03f, false);
-                    Vector2 tpos = target.Center + (Projectile.Center - target.Center).normalize() * tofs;
+                    Vector2 tpos = target.Center + (Projectile.Center - target.Center).SafeNormalize(Vector2.UnitX) * tofs;
                     if (CEUtils.getDistance(Projectile.Center, tpos) > 8)
+                    {
                         Projectile.velocity += (tpos - Projectile.Center).normalize() * 1f;
+                    }
                     Projectile.velocity *= 0.9f;
                     AttackDelay--;
                     if (AttackDelay <= 0)
@@ -170,6 +173,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 }
                 if (AttackTimer <= 0)
                 {
+                    AttackDelay = (int)(30 / DelayMult);
                     aiStyle = AIStyle.Chase;
                 }
             }
@@ -192,7 +196,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 if (AttackTimer <= 0)
                 {
                     aiStyle = AIStyle.Stop;
-                    AttackTimer = (int)(40 / DelayMult);
+                    AttackTimer = (int)(60 / DelayMult);
                     num = 0;
                 }
             }

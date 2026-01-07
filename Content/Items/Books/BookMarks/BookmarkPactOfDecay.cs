@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
     }
 
-    public class DecayPactMaelstrom : EBookBaseProjectile
+    public class DecayPactMaelstrom : BaseBookMinion
     {
         public override string Texture => "CalamityEntropy/Assets/Extra/white";
         public override void SetDefaults()
@@ -67,6 +67,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         NPC target = null;
         Vector2 targetPos = Vector2.Zero;
+        public override float DamageMult => 0.5f;
         public override void AI()
         {
             Projectile.penetrate = -1;
