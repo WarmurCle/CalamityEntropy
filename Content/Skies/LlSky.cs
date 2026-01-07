@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Skies
         const uint LWA_ALPHA = 0x2;
         public override Color OnTileColor(Color inColor)
         {
-            return inColor;
+            return Color.Lerp(inColor, Color.White, opacity);
         }
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {

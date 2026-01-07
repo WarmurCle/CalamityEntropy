@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.Graphics.Capture;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Skies
