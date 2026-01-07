@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             if (BookMarkLoader.GetPlayerHeldEntropyBook(Projectile.GetOwner(), out var eb))
             {
                 Projectile.damage = eb.CauculateProjectileDamage(DamageMult);
-                Projectile.CritChance = (int)(Projectile.GetOwner().GetTotalCritChance(Projectile.DamageType) + Projectile.GetOwner().HeldItem.crit) + (int)eb.GetProjectileModifer().Crit;
+                Projectile.CritChance = (int)eb.GetProjectileModifer().Crit;
             }
             if (Projectile.GetOwner().HeldItem.type != itemType)
                 Projectile.Kill();

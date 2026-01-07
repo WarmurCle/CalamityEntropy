@@ -136,7 +136,7 @@ namespace CalamityEntropy.Content.Items.Books
             EBookStatModifer modifer = new EBookStatModifer();
             modifer.Damage = 1;
             modifer.Knockback = Projectile.GetOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack);
-            modifer.Crit = Projectile.GetOwner().GetTotalCritChance(Projectile.DamageType) + Projectile.CritChance;
+            modifer.Crit = Projectile.GetOwner().GetTotalCritChance(Projectile.DamageType) + Projectile.GetOwner().HeldItem.crit;
             modifer.attackSpeed = Projectile.GetOwner().GetTotalAttackSpeed(Projectile.DamageType);
             modifer.armorPenetration = Projectile.ArmorPenetration;
             return modifer;
