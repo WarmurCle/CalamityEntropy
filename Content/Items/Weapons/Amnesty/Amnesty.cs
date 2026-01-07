@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
         {
             Item.width = 62;
             Item.height = 62;
-            Item.damage = 110;
+            Item.damage = 130;
             Item.noMelee = true;
             Item.useAnimation = Item.useTime = 4;
             Item.useStyle = ItemUseStyleID.Shoot;
