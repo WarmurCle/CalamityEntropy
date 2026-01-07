@@ -757,9 +757,9 @@ namespace CalamityEntropy
                 tooltips.FindAndReplace(targetStr, to.ToString());
             }
         }
-        public static int ToPercent(this float f)
+        public static float ToPercent(this float f)
         {
-            return (int)(Math.Round(f * 100, 3));
+            return (float)(Math.Round(f, 3) * 100f);
         }
         public static void FindAndReplace(this List<TooltipLine> tooltips, string replacedKey, string newKey)
         {

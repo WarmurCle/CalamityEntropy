@@ -2,6 +2,7 @@
 using CalamityMod.Buffs.Potions;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items.LoreItems;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
