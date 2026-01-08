@@ -370,7 +370,6 @@ namespace CalamityEntropy.Content.Items.Donator
                 Item.crit = lv;
                 Item.knockBack = lv / 2;
                 Item.scale = 1;
-                Item.useTime = Item.useAnimation = (40 - GetLevel()) / (SpeedUpTime > 0 ? 6 : 1);
                 Item.Prefix(Item.prefix);
             }
             else
@@ -388,6 +387,7 @@ namespace CalamityEntropy.Content.Items.Donator
                     throwType = ModContent.ProjectileType<TlipocasScytheThrow>();
                 FuncKilledTownNPC(player);
             }
+            Item.useTime = Item.useAnimation = (40 - GetLevel()) / (SpeedUpTime > 0 ? 6 : 1);
         }
         private void FuncKilledTownNPC(Player player)
         {
