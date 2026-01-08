@@ -752,6 +752,10 @@ namespace CalamityEntropy.Common
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<BookmarkSnowgrave>(), 5, 1, 1);
             }
+            if(npc.type == ModContent.NPCType<CeaselessVoid>())
+            {
+                npcLoot.AddNormalOnly(ModContent.ItemType<BottleDarkMatter>(), 4);
+            }
             if (npc.type == ModContent.NPCType<DevourerofGodsHead>())
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<BookmarkCosmic>(), 3, 1, 1);
@@ -1267,13 +1271,6 @@ namespace CalamityEntropy.Common
                 if (Main.rand.NextDouble() < 0.02f)
                 {
                     Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<LostSoul>(), 1));
-                }
-            }
-            if (npc.type == ModContent.NPCType<CeaselessVoid>())
-            {
-                if (Main.rand.NextDouble() < 0.3f)
-                {
-                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<BottleDarkMatter>(), 1));
                 }
             }
             if (npc.type == ModContent.NPCType<RavagerBody>())

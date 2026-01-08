@@ -1756,6 +1756,10 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<ObscureCard>(), 5);
             }
+            if(item.Is<CeaselessVoidBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BottleDarkMatter>(), 4);
+            }
             if (item.Is<DevourerofGodsBag>())
             {
                 itemLoot.Add(ModContent.ItemType<BookmarkCosmic>(), 2);
