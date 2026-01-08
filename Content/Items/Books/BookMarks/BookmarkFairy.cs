@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     }
     public class FairyBMMinion : BaseBookMinion
     {
-        public int Delay = 0;
+        public int Delay = 12;
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.timeLeft = 5;
         }
         public int num = -1;
-        public override float DamageMult => 0.6f;
+        public override float DamageMult => 0.4f;
         public override void AI()
         {
             base.AI();
@@ -63,7 +63,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 return;
             }
-
+            if(num < 0)
+            {
+                if (Projectile.velocity.Length() > 12)
+                    Projectile.velocity *= 0.9f;
+            }
             float DelayMult = 1;
             if (ShooterModProjectile is EntropyBookHeldProjectile eb)
             {

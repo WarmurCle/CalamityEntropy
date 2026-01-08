@@ -90,7 +90,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public float num = 0;
         public float num2 = 0;
         public TrailParticle trail = null;
-        public override float DamageMult => 0.8f;
+        public override float DamageMult => 0.45f;
         public override void AI()
         {
             base.AI();
@@ -244,6 +244,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             base.ModifyHitNPC(target, ref modifiers);
             modifiers.SourceDamage *= aiStyle == AIStyle.Strike ? 0.7f : 1;
+            modifiers.ArmorPenetration += 18;
         }
         public override bool? CanHitNPC(NPC target)
         {

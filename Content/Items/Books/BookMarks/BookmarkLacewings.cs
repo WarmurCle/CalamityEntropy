@@ -54,9 +54,10 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.minionSlots = 0;
         }
         public int num = -1;
-        public override float DamageMult => 1.2f;
+        public override float DamageMult => 0.75f;
         public override void AI()
         {
+            base.AI();
             Player player = Projectile.GetOwner();
             if (Main.myPlayer != Projectile.owner || BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkLacewingsEffect>(player))
             {
