@@ -373,18 +373,21 @@ namespace CalamityEntropy.Content.Items.Donator
                 Item.useTime = Item.useAnimation = (40 - GetLevel()) / (SpeedUpTime > 0 ? 6 : 1);
                 Item.Prefix(Item.prefix);
             }
-            Item.ClearNameOverride();
-            if (player.name.ToLower() is "tlipoca" or "Kino" || player.GetModPlayer<VanityModPlayer>().vanityEquippedLast == "BlackFlower")
+            else
             {
-                Item.SetNameOverride(Mod.GetLocalization("TScytheSpecialName").Value);
+                Item.ClearNameOverride();
+                if (player.name.ToLower() is "tlipoca" or "Kino" || (player.TryGetModPlayer<VanityModPlayer>(out var mp) && mp.vanityEquippedLast == "BlackFlower"))
+                {
+                    Item.SetNameOverride(Mod.GetLocalization("TScytheSpecialName").Value);
+                }
+                else if (Main.zenithWorld)
+                {
+                    Item.SetNameOverride(Mod.GetLocalization("TScytheZenithName").Value);
+                }
+                if (throwType == -1)
+                    throwType = ModContent.ProjectileType<TlipocasScytheThrow>();
+                FuncKilledTownNPC(player);
             }
-            else if (Main.zenithWorld)
-            {
-                Item.SetNameOverride(Mod.GetLocalization("TScytheZenithName").Value);
-            }
-            if (throwType == -1)
-                throwType = ModContent.ProjectileType<TlipocasScytheThrow>();
-            FuncKilledTownNPC(player);
         }
         private void FuncKilledTownNPC(Player player)
         {
