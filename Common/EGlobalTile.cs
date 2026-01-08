@@ -25,7 +25,7 @@ namespace CalamityEntropy.Common
             {
                 if(Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    if(Main.rand.NextBool(900))
+                    if(Main.rand.NextBool(2000))
                     {
                         Item.NewItem(Item.GetSource_NaturalSpawn(), new Rectangle(i * 16, j * 16, 16, 16), new Item(ModContent.ItemType<VenomPiece>()));
                     }
