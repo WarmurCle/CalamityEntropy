@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? CanHitNPC(NPC target)
         {
-            return Projectile.ai[0] > 12;
+            return Projectile.ai[0] > 12 ? null : false;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
