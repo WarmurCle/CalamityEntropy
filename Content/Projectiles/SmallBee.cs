@@ -56,7 +56,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.Poisoned, 6 * 60);
+            target.AddBuff(BuffID.Poisoned, 8 * 60);
         }
         public float homingSpeed = 0;
         public override bool PreDraw(ref Color lightColor)

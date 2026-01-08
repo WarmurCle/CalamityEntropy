@@ -594,6 +594,10 @@ namespace CalamityEntropy.Common
                 tl.OverrideColor = new Microsoft.Xna.Framework.Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
                 tooltips.Add(tl);
             }
+            if(MaliciousCode.CALAMITY__OVERHAUL)
+            {
+                CWRWeakRef.CWRRef.CheckTooltips(item, tooltips);
+            }
         }
 
         public override GlobalItem Clone(Item from, Item to)

@@ -4,11 +4,13 @@ using CalamityOverhaul.Content;
 using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
 using InnoVault;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Common
@@ -40,7 +42,7 @@ namespace CalamityEntropy.Common
                                 org = hp.SeaDomainLayers;
                                 hp.SeaDomainLayers = player.GetMyMaxActiveBookMarks(item);
                             }
-
+                            int AdjustedDamage = eb.CauculateProjectileDamage(0.5f);
                             bool f = true;
                             if (f)
                             {
@@ -48,11 +50,11 @@ namespace CalamityEntropy.Common
                                 player.altFunctionUse = 2;
                                 value.CanUseItem(item, player);
                                 value.AltFunctionUse(item, proj.GetOwner());
-                                value.ShootAlt(item, proj.GetOwner(), (EntitySource_ItemUse_WithAmmo)proj.GetOwner().GetSource_ItemUse_WithPotentialAmmo(item, AmmoID.None), proj.Center, proj.rotation.ToRotationVector2() * proj.GetOwner().HeldItem.shootSpeed, eb.getShootProjectileType(), eb.CauculateProjectileDamage(), item.knockBack);
+                                value.ShootAlt(item, proj.GetOwner(), (EntitySource_ItemUse_WithAmmo)proj.GetOwner().GetSource_ItemUse_WithPotentialAmmo(item, AmmoID.None), proj.Center, proj.rotation.ToRotationVector2() * proj.GetOwner().HeldItem.shootSpeed, eb.getShootProjectileType(), AdjustedDamage, item.knockBack);
                                 player.altFunctionUse = oafu;
                                 value.CanUseItem(item, player);
                                 value.Use(item, proj.GetOwner());
-                                value.Shoot(item, proj.GetOwner(), (EntitySource_ItemUse_WithAmmo)proj.GetOwner().GetSource_ItemUse_WithPotentialAmmo(item, AmmoID.None), proj.Center, proj.rotation.ToRotationVector2() * proj.GetOwner().HeldItem.shootSpeed, eb.getShootProjectileType(), eb.CauculateProjectileDamage(), item.knockBack);
+                                value.Shoot(item, proj.GetOwner(), (EntitySource_ItemUse_WithAmmo)proj.GetOwner().GetSource_ItemUse_WithPotentialAmmo(item, AmmoID.None), proj.Center, proj.rotation.ToRotationVector2() * proj.GetOwner().HeldItem.shootSpeed, eb.getShootProjectileType(), AdjustedDamage, item.knockBack);
                                 if (set)
                                 {
                                     hp.SeaDomainLayers = org;
@@ -97,6 +99,14 @@ namespace CalamityEntropy.Common
                     return orig(skill, plr);
                 }
                 EModHooks.Add(method, hook);
+            }
+
+            public static void CheckTooltips(Item item, List<TooltipLine> tooltips)
+            {
+                if(FishSkill.UnlockFishs.TryGetValue(item.type, out var _))
+                {
+                    tooltips.Add(new TooltipLine(CalamityEntropy.Instance, "CE Cross mod support - fish bookmark", Language.GetTextValue("Mods.CalamityEntropy.CrossModSupportFish")){ OverrideColor = Color.Yellow});
+                }
             }
         }
     }

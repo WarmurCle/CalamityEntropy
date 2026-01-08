@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 {
                     projectile.GetOwner().Entropy().SnowgraveCharge = 0;
                     projectile.GetOwner().Entropy().SnowgraveChargeTime = 0;
-                    Projectile.NewProjectile(projectile.GetSource_FromAI(), target.Center, Vector2.Zero, sgtype, eb.CauculateProjectileDamage(0.42f), 0.4f, projectile.owner);
+                    Projectile.NewProjectile(projectile.GetSource_FromAI(), target.Center, Vector2.Zero, sgtype, eb.CauculateProjectileDamage(0.5f), 0.4f, projectile.owner);
                 }
             }
         }

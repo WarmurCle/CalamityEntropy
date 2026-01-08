@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             Vector2 shotDir = CEUtils.randomRot().ToRotationVector2();
-            Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center + shotDir * 32, shotDir * 6, ModContent.ProjectileType<AquashardSplit>(), (damageDone / 6).Softlimitation(30), projectile.knockBack / 3, projectile.owner).ToProj().DamageType = projectile.DamageType;
+            Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center + shotDir * 32, shotDir * 6, ModContent.ProjectileType<AquashardSplit>(), (damageDone / 5).Softlimitation(120), projectile.knockBack / 3, projectile.owner).ToProj().DamageType = projectile.DamageType;
             SoundEngine.PlaySound(in SoundID.Item27, projectile.Center);
         }
     }
