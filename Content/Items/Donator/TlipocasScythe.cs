@@ -73,6 +73,8 @@ namespace CalamityEntropy.Content.Items.Donator
             Check(DownedBossSystem.downedPrimordialWyrm);
             return Level;
         }
+        public int NowLevel = 0;
+        public bool RecheckStats = true;
         private static float UpdatePos
         {
             get
@@ -338,29 +340,39 @@ namespace CalamityEntropy.Content.Items.Donator
         #endregion
         public override void UpdateInventory(Player player)
         {
-            int dmg = 20;
             int lv = GetLevel();
-            switch (lv)
+            if (NowLevel != lv || RecheckStats)
             {
-                case 0: dmg = 16; break;
-                case 1: dmg = 32; break;
-                case 2: dmg = 36; break;
-                case 3: dmg = 54; break;
-                case 4: dmg = 72; break;
-                case 5: dmg = 130; break;
-                case 6: dmg = 170; break;
-                case 7: dmg = 210; break;
-                case 8: dmg = 270; break;
-                case 9: dmg = 330; break;
-                case 10: dmg = 420; break;
-                case 11: dmg = 520; break;
-                case 12: dmg = 710; break;
-                case 13: dmg = 1040; break;
-                case 14: dmg = 1520; break;
-                case 15: dmg = 1900; break;
-                case 16: dmg = 3100; break;
+                RecheckStats = false;
+                NowLevel = lv;
+                int dmg = 20;
+                switch (lv)
+                {
+                    case 0: dmg = 16; break;
+                    case 1: dmg = 32; break;
+                    case 2: dmg = 36; break;
+                    case 3: dmg = 54; break;
+                    case 4: dmg = 72; break;
+                    case 5: dmg = 130; break;
+                    case 6: dmg = 170; break;
+                    case 7: dmg = 210; break;
+                    case 8: dmg = 270; break;
+                    case 9: dmg = 330; break;
+                    case 10: dmg = 420; break;
+                    case 11: dmg = 520; break;
+                    case 12: dmg = 710; break;
+                    case 13: dmg = 1040; break;
+                    case 14: dmg = 1520; break;
+                    case 15: dmg = 1900; break;
+                    case 16: dmg = 3100; break;
+                }
+                Item.damage = dmg;
+                Item.crit = lv;
+                Item.knockBack = lv / 2;
+                Item.scale = 1;
+                Item.useTime = Item.useAnimation = (40 - GetLevel()) / (SpeedUpTime > 0 ? 6 : 1);
+                Item.Prefix(Item.prefix);
             }
-            Item.damage = dmg;
             Item.ClearNameOverride();
             if (player.name.ToLower() is "tlipoca" or "Kino" || player.GetModPlayer<VanityModPlayer>().vanityEquippedLast == "BlackFlower")
             {
@@ -372,7 +384,6 @@ namespace CalamityEntropy.Content.Items.Donator
             }
             if (throwType == -1)
                 throwType = ModContent.ProjectileType<TlipocasScytheThrow>();
-            Item.useTime = Item.useAnimation = (40 - GetLevel()) / (SpeedUpTime > 0 ? 6 : 1);
             FuncKilledTownNPC(player);
         }
         private void FuncKilledTownNPC(Player player)
@@ -414,10 +425,12 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.Entropy().HasCustomStrokeColor = true;
             Item.Entropy().HasCustomNameColor = true;
             Item.Entropy().Legend = true;
+            RecheckStats = true;
+            UpdateInventory(Main.LocalPlayer);
         }
         public int swing = 0;
         public static int throwType = -1;
-        public override bool AllowPrefix(int pre) => false;
+        public override bool AllowPrefix(int pre) => true;
 
         public static bool AllowDash() => NPC.downedBoss1;
         public static bool DashImmune() => DownedBossSystem.downedSlimeGod;

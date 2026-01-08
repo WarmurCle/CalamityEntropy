@@ -42,6 +42,8 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             Item.shootSpeed = 12f;
             Item.Entropy().Legend = true;
             Item.Calamity().CannotBeEnchanted = true;
+            LastLevel = -1;
+            UpdateInventory(Main.LocalPlayer);
         }
         public int useCounter = 0;
         public int atkType = 1;
@@ -154,35 +156,40 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             return Level;
 
         }
-
+        public int LastLevel = -1;
         public override void UpdateInventory(Player player)
         {
-            Item.damage = GetLevel() * 10 + (int)float.Lerp(24, 900, 1 - CEUtils.Parabola((1 - CEUtils.Parabola((GetLevel() / 14f) * 0.5f + 0.5f, 1)) * 0.5f + 0.5f, 1));
             int level = GetLevel();
-            int dmg = Item.damage;
-            switch (level)
+            if (LastLevel != level)
             {
-                case 0: dmg = 24; break;
-                case 1: dmg = 32; break;
-                case 2: dmg = 44; break;
-                case 3: dmg = 48; break;
-                case 4: dmg = 65; break;
-                case 5: dmg = 100; break;
-                case 6: dmg = 130; break;
-                case 7: dmg = 150; break;
-                case 8: dmg = 190; break;
-                case 9: dmg = 250; break;
-                case 10: dmg = 620; break;
-                case 11: dmg = 840; break;
-                case 12: dmg = 1350; break;
-                case 13: dmg = 1900; break;
-                case 14: dmg = 2400; break;
-                case 15: dmg = 3200; break;
+                int dmg = Item.damage;
+                switch (level)
+                {
+                    case 0: dmg = 24; break;
+                    case 1: dmg = 32; break;
+                    case 2: dmg = 44; break;
+                    case 3: dmg = 48; break;
+                    case 4: dmg = 65; break;
+                    case 5: dmg = 100; break;
+                    case 6: dmg = 130; break;
+                    case 7: dmg = 150; break;
+                    case 8: dmg = 190; break;
+                    case 9: dmg = 250; break;
+                    case 10: dmg = 620; break;
+                    case 11: dmg = 840; break;
+                    case 12: dmg = 1350; break;
+                    case 13: dmg = 1900; break;
+                    case 14: dmg = 2400; break;
+                    case 15: dmg = 3200; break;
+                }
+                Item.damage = dmg;
+                Item.useTime = Item.useAnimation = int.Max(10, 16 - GetLevel() / 4);
+                LastLevel = level;
+                Item.crit = level * 3;
+                Item.knockBack = level / 2;
+                Item.scale = 1;
+                Item.Prefix(Item.prefix);
             }
-            Item.damage = dmg;
-
-
-            Item.useTime = Item.useAnimation = int.Max(10, 16 - GetLevel() / 4);
             if (player.HeldItem == Item)
             {
                 player.Entropy().BBarNoDecrease = 120;
@@ -191,7 +198,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         }
         public override bool AllowPrefix(int pre)
         {
-            return false;
+            return true;
         }
         public static bool AllowLunge()
         {
