@@ -38,7 +38,13 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
         public static void CalculateStatsForPlayer(Player player)
         {
             float MaxDeviation = 0.4f;
-            int seed = player.HeldItem.type + 14;
+            Item item = player.HeldItem;
+            string name = item.type.ToString();
+            if (item.ModItem != null)
+            {
+                name = item.ModItem.Name;
+            }
+            int seed = name.GetHashCode() + 14;
             if (Main.zenithWorld)
             {
                 seed += player.position.ToPoint().GetHashCode();
