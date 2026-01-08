@@ -166,6 +166,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             else
             {
+                Projectile.velocity *= 0.9f;
                 Vector2 tpos = Projectile.GetOwner().Center + new Vector2(-100 * Projectile.GetOwner().direction, -80);
                 Projectile.Center += (tpos - Projectile.Center) * 0.07f;
                 Projectile.rotation = (mouse - Projectile.Center).ToRotation();
