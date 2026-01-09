@@ -26,7 +26,6 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             player.GetDamage(DamageClass.Generic) += 0.15f;
             player.GetCritChance(DamageClass.Generic) += 15;
             player.statManaMax2 += 250;
-            player.breath = player.breathMax + 91;
         }
 
         public override void AddRecipes()

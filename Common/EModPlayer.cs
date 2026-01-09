@@ -1493,6 +1493,10 @@ namespace CalamityEntropy.Common
             {
                 voidslashType = ModContent.ProjectileType<VoidSlash>();
             }
+            if(mariviniumBody)
+            {
+                Player.breath = Player.breathMax + 91;
+            }
             if (Player.ownedProjectileCounts[voidslashType] > 0)
             {
                 foreach (Projectile p in Main.ActiveProjectiles)
