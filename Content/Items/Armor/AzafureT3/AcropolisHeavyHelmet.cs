@@ -1,0 +1,714 @@
+using CalamityEntropy.Common;
+using CalamityEntropy.Content.NPCs.Acropolis;
+using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles;
+using CalamityMod;
+using CalamityMod.Items;
+using CalamityMod.Particles;
+using CalamityMod.UI.Rippers;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace CalamityEntropy.Content.Items.Armor.AzafureT3
+{
+    [AutoloadEquip(EquipType.Head)]
+    public class AcropolisHeavyHelmet : ModItem
+    {
+        public override void SetDefaults()
+        {
+            Item.width = 28;
+            Item.height = 30;
+            Item.value = CalamityGlobalItem.RarityRedBuyPrice;
+            Item.defense = 36;
+            Item.rare = ItemRarityID.Red;
+        }
+
+        public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            return head.type == Type && body.type == ModContent.ItemType<AcropolisHeavyArmor>() && legs.type == ModContent.ItemType<AcropolisHeavyLegArmor>();
+        }
+
+        public override void UpdateArmorSet(Player player)
+        {
+            player.setBonus = Mod.GetLocalization("AzafureSet3").Value;
+            player.GetModPlayer<AcropolisArmorPlayer>().ArmorSetBonus = true;
+            if (!ModContent.GetInstance<Config>().MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons || player.HeldItem.DamageType.CountsAsClass(CEUtils.RogueDC))
+            {
+                player.Calamity().wearingRogueArmor = true;
+                player.Calamity().rogueStealthMax += 1.2f;
+            }
+            player.Entropy().NoAdrenalineTime = 1;
+
+            player.maxMinions += 1;
+            player.GetDamage(DamageClass.Generic) += 0.15f;
+            player.GetCritChance(DamageClass.Generic) += 5f;
+            player.noKnockback = true;
+        }
+        public override void UpdateEquip(Player player)
+        {
+            player.GetDamage(DamageClass.Generic) += 0.1f;
+            player.AddCritDamage(DamageClass.Generic, 0.1f);
+        }
+
+        public override void AddRecipes()
+        {
+        }
+    }
+
+    public class AcropolisArmorPlayer : ModPlayer
+    {
+        #region parts
+        public class AcropolisLeg
+        {
+            public Vector2 StandPoint = Vector2.Zero;
+            public float Scale = 1f;
+            public Player Player;
+            public Vector2 offset;
+            public int NoMoveTime = 0;
+            public Vector2 targetPos;
+            public AcropolisLeg(Player plr, Vector2 offset, float scale = 1)
+            {
+                Player = plr;
+                this.offset = offset;
+                this.Scale = scale;
+                StandPoint = plr.Center;
+            }
+            bool o = false;
+            public bool OnTile => !CEUtils.isAir(StandPoint, true) && o;
+            public bool Update()
+            {
+                if (CEUtils.getDistance(StandPoint, targetPos) < ms * (Player.velocity.Y > 1f ? 3 : 1))
+                {
+                    StandPoint = targetPos;
+                }
+                else
+                {
+                    StandPoint += (targetPos - StandPoint).normalize() * ms * (Player.velocity.Y > 0.5f ? 3 : 1);
+                }
+                NoMoveTime--;
+                float distToMove = 100;
+                if (Player.velocity.Y < -4)
+                {
+                    o = false;
+                    targetPos = Player.Center + new Vector2(offset.X * 0.4f, 140);
+                    ms = CEUtils.getDistance(targetPos, StandPoint) * 0.25f;
+                    return false;
+                }
+                if (!OnTile || (NoMoveTime <= 0 && CEUtils.getDistance(StandPoint, Player.Center + Player.velocity * 8 + (offset * 1).RotatedBy(Player.direction > 0 ? Player.fullRotation : (Player.fullRotation))) > distToMove) || CEUtils.getDistance(StandPoint, Player.Center + Player.velocity * 16 + (offset * 1).RotatedBy(Player.fullRotation)) > distToMove * 1.4f)
+                {
+                    targetPos = FindStandPoint(Player.Center + Player.velocity * 8 + (offset * 1).RotatedBy(Player.fullRotation) + new Vector2(Math.Sign(Player.velocity.X) == Math.Sign(offset.X) ? (Math.Sign(Player.velocity.X) * 12) : 0, 0), 80 * Scale * 1, 160);
+                    ms = CEUtils.getDistance(targetPos, StandPoint) * 0.25f;
+                    if (NoMoveTime < 4)
+                        NoMoveTime = 4;
+                    return true;
+                }
+
+                return false;
+            }
+            public float ms;
+            public static bool CanStandOn(Vector2 pos)
+            {
+                return !CEUtils.isAir(pos, true);
+            }
+            public Vector2 FindStandPoint(Vector2 center, float MaxOffset, float MaxTry = 64)
+            {
+                o = false;
+                for (int i = 0; i < MaxTry; i++)
+                {
+                    Vector2 pos = CEUtils.randomPointInCircle(MaxTry) * new Vector2(1f, 1f) + center;
+                    if (CEUtils.getDistance(pos, center) <= MaxOffset * 0.9f && CanStandOn(pos))
+                    {
+                        o = true;
+                        Vector2 orgPos = pos;
+                        int c = 128;
+                        while (CanStandOn(pos))
+                        {
+                            c--;
+                            pos.Y -= 2;
+                            if (c <= 0)
+                            {
+                                return orgPos;
+                            }
+                        }
+                        pos.Y += 2;
+                        return pos;
+                    }
+                }
+                return Player.Center + new Vector2(offset.X, 200).RotatedBy(Player.fullRotation);
+            }
+        }
+        public class Hand
+        {
+            public float Seg1RotV = 0;
+            public float Seg1Length = 0;
+            public float Seg1Rot = 0;
+            public float Seg2Rot = 0;
+            public float Seg1MaxRadians = MathHelper.ToRadians(50);
+            public Vector2 offset;
+            public Player Player;
+            public Hand(Player n, Vector2 offset, float seg1Length, float seg1Rot, float seg2Rot)
+            {
+                Player = n;
+                Seg1Length = seg1Length;
+                Seg1Rot = seg1Rot;
+                Seg2Rot = seg2Rot;
+                this.offset = offset;
+            }
+            public Vector2 TopPos => seg1end + Seg2Rot.ToRotationVector2() * 46;
+            public void PointAPos(Vector2 pos)
+            {
+                Seg1Rot = CEUtils.RotateTowardsAngle(Seg1Rot, (pos - (Player.Center + (offset * new Vector2(1, 1)).RotatedBy(Player.fullRotation))).ToRotation(), 0.06f, false);
+                if (CEUtils.GetAngleBetweenVectors(Seg1Rot.ToRotationVector2(), -Vector2.UnitY) > Seg1MaxRadians * 2)
+                {
+                    if (Seg1Rot > (MathHelper.PiOver2 + Seg1MaxRadians))
+                    {
+                        Seg1Rot = (MathHelper.PiOver2 + Seg1MaxRadians);
+                    }
+                    if (Seg1Rot < (MathHelper.PiOver2 - Seg1MaxRadians))
+                    {
+                        Seg1Rot = (MathHelper.PiOver2 - Seg1MaxRadians);
+                    }
+                }
+                Seg2Rot = CEUtils.RotateTowardsAngle(Seg2Rot, (pos - seg1end).ToRotation(), 0.06f, false);
+            }
+
+            public void Update()
+            {
+                Seg1Rot += Seg1RotV;
+                Seg1RotV *= 0.96f;
+            }
+            public Vector2 seg1end => Player.Center + (offset * new Vector2(1, 1)).RotatedBy(Player.fullRotation) + Seg1Rot.ToRotationVector2() * Seg1Length;
+        }
+        #endregion
+        public bool ArmorSetBonus = false;
+        public float durability = 1;
+        public int DurabilityRegenDelay = 0;
+        public bool DurabilityActive = true;
+        public int DeathExplosion = -1;
+        public int DeathExplosionCD = 0;
+        public bool ExplosionFlag = false;
+        public PlayerDeathReason dmgSource = null;
+        public LoopSound chargeSnd = null;
+        public bool MechTrans = false;
+        public void SmokeParticle()
+        {
+            CEUtils.PlaySound("chainsaw_break", 1.3f, Player.Center, 6, 0.6f);
+            for (int i = 0; i < 16; i++)
+            {
+                EParticle.NewParticle(new EMediumSmoke(), Player.Center + CEUtils.randomPointInCircle(12), CEUtils.randomPointInCircle(16), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(1f, 2f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot(), 120);
+            }
+        }
+        public void DeactiveMech()
+        {
+            if (MechTrans)
+            {
+                SmokeParticle();
+                DurabilityActive = false;
+                durability = 0;
+                MechTrans = false;
+                MechSync();
+            }
+        }
+        public int MechFrame = 0;
+        public int MechFrameCounter = 0;
+        public void MechSync()
+        {
+            if(Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                ModPacket packet = Mod.GetPacket();
+                packet.Write((byte)CEMessageType.AcropolisTrans);
+                packet.Write(Player.whoAmI);
+                packet.Write(MechTrans);
+                packet.Send();
+            }
+        }
+        public List<AcropolisLeg> legs = null;
+        public Hand cannon;
+        public Hand harpoon;
+        public void UpdateParts()
+        {
+            if (legs == null || (!Main.dedServ && CEKeybinds.AcropolisMechTransformation.JustPressed))
+            {
+                legs =
+                [
+                    new AcropolisLeg(Player, new Vector2(-44, 100), 0.8f),
+                    new AcropolisLeg(Player, new Vector2(44, 100), 0.8f),
+                    new AcropolisLeg(Player, new Vector2(-66, 100), 1),
+                    new AcropolisLeg(Player, new Vector2(66, 100), 1),
+                ];
+                cannon = new Hand(Player, new Vector2(-30, -2), 38, MathHelper.PiOver2, MathHelper.PiOver2);
+                harpoon = new Hand(Player, new Vector2(30, -2), 38, MathHelper.PiOver2, MathHelper.PiOver2);
+            }
+            cannon.Update();
+            harpoon.Update();
+            cannon.PointAPos(Player.Calamity().mouseWorld);
+            harpoon.PointAPos(Player.Calamity().mouseWorld);
+            foreach (var l in legs)
+            {
+                if (l.Update())
+                {
+                    foreach (var l2 in legs)
+                    {
+                        if (Math.Sign(l2.offset.X) == Math.Sign(l.offset.X))
+                        {
+                            if (l2.NoMoveTime < 8)
+                            {
+                                l2.NoMoveTime = 8;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        public bool PlayerVisual => MechFrame < 12;
+        public Vector2 CalculateLegJoints(Vector2 Center, Vector2 legStandPoint, float l1, float l2, float l3, out Vector2 P1, out Vector2 P2)
+        {
+            P1 = Vector2.Zero;
+            P2 = Vector2.Zero;
+
+            if (l1 <= 0 || l2 <= 0 || l3 <= 0)
+            {
+                return Center;
+            }
+
+            Vector2 D = legStandPoint - Center;
+            float dist = D.Length();
+
+            Vector2 target = legStandPoint;
+            if (dist > l1 + l2 + l3)
+            {
+                target = Center + Vector2.Normalize(D) * (l1 + l2 + l3);
+            }
+
+            Vector2 downDirection = new Vector2(0, 1);
+            Vector2 targetDirection = D.Length() > 0 ? Vector2.Normalize(D) : downDirection;
+
+            float maxDeflectionAngle = MathHelper.ToRadians(68);
+            float angleToTarget = (float)Math.Atan2(targetDirection.Y, targetDirection.X) - (float)Math.PI / 2; // 相对于Y轴正方向
+            float deflectionAngle = MathHelper.Clamp(angleToTarget, -maxDeflectionAngle, maxDeflectionAngle);
+
+            float cosAngle = (float)Math.Cos(deflectionAngle);
+            float sinAngle = (float)Math.Sin(deflectionAngle);
+            Vector2 firstSegmentDirection = new Vector2(
+                downDirection.X * cosAngle - downDirection.Y * sinAngle,
+                downDirection.X * sinAngle + downDirection.Y * cosAngle
+            );
+
+            P1 = Center + l1 * firstSegmentDirection;
+
+            float y2 = target.Y - l3;
+            float deltaY = y2 - P1.Y;
+            float deltaX;
+            try
+            {
+                deltaX = (float)Math.Sqrt(l2 * l2 - deltaY * deltaY);
+            }
+            catch
+            {
+                deltaX = 0;
+                y2 = P1.Y - l2;
+            }
+
+            float x2_positive = P1.X + deltaX;
+            float x2_negative = P1.X - deltaX;
+            float x2 = (Math.Abs(x2_positive - target.X) < Math.Abs(x2_negative - target.X)) ? x2_positive : x2_negative;
+
+            P2 = new Vector2(x2, y2);
+
+            float distP2ToTarget = Vector2.Distance(P2, target);
+            if (Math.Abs(distP2ToTarget - l3) > 0.001f)
+            {
+                P2 = new Vector2(P1.X, P1.Y - l2);
+                target = new Vector2(P2.X, P2.Y + l3);
+            }
+
+            return target;
+        }
+        public void DrawMech()
+        {
+            if (MechFrame < 1)
+                return;
+            string folder = "CalamityEntropy/Content/Items/Armor/AzafureT3/";
+            Texture2D body = CEUtils.RequestTex($"{folder}MechBody");
+            Texture2D trans = CEUtils.RequestTex($"{folder}MechTrans");
+            Texture2D arm = CEUtils.RequestTex($"{folder}Arm");
+            Texture2D cannonTex = CEUtils.RequestTex($"{folder}CannonHand");
+            Texture2D knife = CEUtils.RequestTex($"{folder}KnifeHand");
+            Texture2D chain = CEUtils.RequestTex($"{folder}Chain");
+            Texture2D gear = CEUtils.RequestTex($"{folder}Gear");
+            Texture2D harpoonTex = CEUtils.RequestTex($"{folder}Harpoon");
+            Texture2D harpoonCannon = CEUtils.RequestTex($"{folder}HarpoonCannon");
+            Texture2D leg1 = CEUtils.RequestTex($"{folder}Leg1");
+            Texture2D leg2 = CEUtils.RequestTex($"{folder}Leg2");
+            Texture2D leg3 = CEUtils.RequestTex($"{folder}Leg3");
+            Color drawColor = Lighting.GetColor((Player.Center / 16).ToPoint());
+
+            int drawDir = (Player.Calamity().mouseWorld.X - Player.Center.X) > 0 ? 1 : -1;
+
+            if (legs == null)
+                return;
+            if (MechFrame == 19)
+            {
+                foreach (var leg in legs)
+                {
+                    float l1 = 40 * leg.Scale;
+                    float l2 = 36 * leg.Scale;
+                    float l3 = 66 * leg.Scale;
+                    List<Vector2> points = new List<Vector2>();
+                    points.Add(Player.Center + (new Vector2(Math.Sign(leg.offset.X) * 10, 26)).RotatedBy(Player.fullRotation));
+                    Vector2 e = CalculateLegJoints(points[0], leg.StandPoint, l1, l2, l3, out var p1, out var p2);
+                    points.Add(p1);
+                    points.Add(CEUtils.GetCircleIntersection(p1, l2, leg.StandPoint, l3, leg.offset.X > 0, true));
+                    points.Add(points[points.Count - 1] + (leg.StandPoint - points[points.Count - 1]).normalize() * l3);
+                    
+                    Main.EntitySpriteDraw(leg1, points[0] - Main.screenPosition, null, drawColor, (points[1] - points[0]).ToRotation(), new Vector2(4, 13), 1 * leg.Scale, SpriteEffects.None);
+                    Main.EntitySpriteDraw(leg2, points[1] - Main.screenPosition, null, drawColor, (points[2] - points[1]).ToRotation(), new Vector2(6, 9), 1 * leg.Scale, SpriteEffects.None);
+                    Main.EntitySpriteDraw(leg3, points[2] - Main.screenPosition, null, drawColor, (points[3] - points[2]).ToRotation() + ((leg.offset.X > 0 ? 1 : -1) * MathHelper.ToRadians(34)), new Vector2(10, leg3.Height / 2f), 1 * leg.Scale, leg.offset.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+                    //CEUtils.DrawLines(points, Color.Blue, 4);
+                }
+                Main.EntitySpriteDraw(arm, (harpoon.offset * new Vector2(drawDir, 1)).RotatedBy(drawDir > 0 ? Player.fullRotation : (Player.fullRotation + MathHelper.Pi)) + Player.Center - Main.screenPosition, null, drawColor, harpoon.Seg1Rot, new Vector2(6, arm.Height / 2f), 1, SpriteEffects.None);
+                Main.EntitySpriteDraw(arm, (cannon.offset * new Vector2(drawDir, 1)).RotatedBy(drawDir > 0 ? Player.fullRotation : (Player.fullRotation + MathHelper.Pi)) + Player.Center - Main.screenPosition, null, drawColor, cannon.Seg1Rot, new Vector2(6, arm.Height / 2f), 1, SpriteEffects.None);
+
+                
+            }
+            if (MechFrame == 19)
+            {
+                Main.EntitySpriteDraw(body, Player.Center - Main.screenPosition, null, drawColor, Player.fullRotation, body.Size() / 2f, 1, drawDir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
+                if (true)
+                {
+                    Main.EntitySpriteDraw(harpoonTex, harpoon.seg1end + harpoon.Seg2Rot.ToRotationVector2() * 40 + new Vector2(0, 10 * drawDir).RotatedBy(harpoon.Seg2Rot) * 1 - Main.screenPosition, null, drawColor, harpoon.Seg2Rot, new Vector2(70, harpoonTex.Height / 2f), 1, drawDir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+                }
+                int CannonFrameTotal = 9;
+                int frame = CannonFrame;
+                if (drawDir < 0)
+                    frame = CannonFrameTotal - 1 - frame;
+                int of = cannonTex.Height / CannonFrameTotal;
+                Rectangle rect = new Rectangle(0, of * frame, cannonTex.Width, of - 2);
+                Main.EntitySpriteDraw(harpoonCannon, harpoon.seg1end - Main.screenPosition, null, drawColor, harpoon.Seg2Rot, new Vector2(6, harpoonCannon.Height / 2f), 1, drawDir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+
+                Main.EntitySpriteDraw(cannonTex, cannon.seg1end - Main.screenPosition, rect, drawColor, cannon.Seg2Rot, new Vector2(54, cannonTex.Height / CannonFrameTotal / 2 - 1), 1, drawDir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+
+            }
+            else
+            {
+                Main.EntitySpriteDraw(trans, Player.Center - Main.screenPosition, new Rectangle(0, (trans.Height / 19) * MechFrame, trans.Width, trans.Height / 19 - 2), drawColor, Player.fullRotation, new Vector2(trans.Width / 2f, (trans.Height / 19 - 2) / 2f), 1, drawDir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
+            }
+            
+        }
+        public int CannonFrame = 0;
+        public int LandTime = 0;
+        public bool ControlHook = false;
+        public override void SetControls()
+        {
+            ControlHook = Player.controlHook;
+            if(MechTrans)
+            {
+                Player.controlHook = false;
+                Player.controlMount = false;
+            }
+        }
+        public void MechUpdate()
+        {
+            if(Player.mount.Active)
+                Player.mount.Dismount(Player);
+            Player.noFallDmg = true;
+            
+            int MaxFrame = 19;
+            if(MechTrans)
+            {
+                Player.gfxOffY = 0;
+                if (!Main.dedServ)
+                {
+                    if (CEKeybinds.AcropolisMechTransformation.JustPressed)
+                    {
+                        MechTrans = false;
+                        DeactiveMech();
+                    }
+                }
+                if (MechFrame < MaxFrame)
+                {
+                    MechFrameCounter++;
+                    if (MechFrameCounter > 4)
+                    {
+                        MechFrameCounter = 0;
+                        MechFrame++;
+                    }
+                    Player.velocity *= 0;
+                    Player.velocity.Y = -0.05f;
+                    if(Player.Entropy().immune < 5)
+                        Player.Entropy().immune = 5;
+                }
+                UpdateParts();
+                Player.gravity = 0;
+                int s = 0;
+                float y = 0;
+                foreach(var leg in legs)
+                {
+                    y += leg.StandPoint.Y;
+                    if (leg.OnTile)
+                        s++;
+                }
+                y /= legs.Count;
+                if (s < 3)
+                {
+                    Player.velocity.Y += 0.35f;
+                    LandTime = 0;
+                }
+                else
+                {
+                    if (!Player.controlDown)
+                    {
+                        Player.position.Y += 4;
+                        if (CEUtils.CheckSolidTile(Player.getRect()))
+                        {
+                            Player.position.Y -= 15;
+                            if(CEUtils.CheckSolidTile(Player.getRect()))
+                                Player.position.Y += 15;
+                        }
+                        Player.position.Y -= 4;
+                        Player.Center = new Vector2(Player.Center.X, float.Lerp(Player.Center.Y, y - 100, 0.1f));
+                        
+                        Player.velocity.Y *= 0.9f;
+                    }
+                    else
+                    {
+                        Player.velocity.Y *= 0.96f;
+                    }
+                }
+                if(Player.controlDown)
+                {
+                    Player.velocity.Y += 0.2f;
+                }
+                if (s > 2)
+                {
+                    LandTime++;
+                    if (Player.controlUp)
+                    {
+                        Player.velocity.Y -= 0.25f;
+                    }
+
+                    if (Player.controlJump && LandTime > 8)
+                    {
+                        Player.velocity.Y = -18;
+                    }
+                }
+
+            }
+            else
+            {
+                if(!Main.dedServ)
+                {
+                    if(CEKeybinds.AcropolisMechTransformation.JustPressed)
+                    {
+                        if(true) //Check cooldown
+                        {
+                            MechTrans = true;
+                            DurabilityActive = true;
+                            durability = 1;
+                            MechSync();
+                        }
+                    }
+                }
+                MechFrame = MechFrameCounter = 0;
+            }
+        }
+        public override void PostUpdate()
+        {
+            if (!Main.dedServ)
+            {
+                if (chargeSnd != null && chargeSnd.timeleft <= 0)
+                    chargeSnd = null;
+                if (chargeSnd != null)
+                {
+                    chargeSnd.setVolume_Dist(Player.Center, 100, 1600, 1);
+                    chargeSnd.instance.Pitch = (1 - (DeathExplosion / 80f)) * 2f + 1.9f;
+                }
+            }
+        }
+        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
+        {
+            if (ExplosionFlag && DeathExplosion > 0)
+                return false;
+            if (ArmorSetBonus && !ExplosionFlag && DeathExplosionCD <= 0)
+            {
+                damageSource = PlayerDeathReason.ByCustomReason("");
+            }
+            return true;
+        }
+        public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
+        {
+            if (ArmorSetBonus)
+            {
+                if (DeathExplosionCD <= 0 && !ExplosionFlag)
+                {
+                    ExplosionFlag = true;
+                    DeathExplosionCD = 10 * 60;
+                    DeathExplosion = 80;
+                    dmgSource = damageSource;
+                    Player.dead = false;
+                    if (!Main.dedServ)
+                    {
+                        chargeSnd = new LoopSound(CalamityEntropy.ofCharge);
+                        chargeSnd.instance.Pitch = 0;
+                        chargeSnd.instance.Volume = 0;
+                        chargeSnd.play();
+                        chargeSnd.timeleft = 80;
+                    }
+                }
+                else
+                    ExplosionFlag = false;
+            }
+        }
+        public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
+        {
+            return DeathExplosion < 0;
+        }
+        public override bool CanBeHitByProjectile(Projectile proj)
+        {
+            return DeathExplosion < 0;
+        }
+        public override void ResetEffects()
+        {
+            ArmorSetBonus = false;
+            if (DeathExplosion > 0 && ExplosionFlag)
+            {
+                DeathExplosion--;
+                Player.velocity *= 0;
+                Player.Entropy().noItemTime = 5;
+                if (DeathExplosion < 70 && DeathExplosion % 2 == 0)
+                {
+                    if (DeathExplosion % 6 == 0)
+                        ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, Utils.Remap(Main.LocalPlayer.Center.Distance(Player.Center), 4000, 1000, 0, 12)));
+
+                    EParticle.NewParticle(new ShockParticle2(), Player.Center, Vector2.Zero, Color.White, 0.1f, 1, true, BlendState.Additive, CEUtils.randomRot());
+                }
+                if (DeathExplosion == 0 || DeathExplosion == 3 || DeathExplosion == 6 || DeathExplosion == 9 || DeathExplosion == 12 || DeathExplosion == 15 || DeathExplosion == 18 || DeathExplosion == 21)
+                {
+                    CEUtils.PlaySound("pulseBlast", 0.6f, Player.Center, 6, 1f);
+                    CEUtils.PlaySound("blackholeEnd", 0.6f, Player.Center, 6, 1f);
+
+                    GeneralParticleHandler.SpawnParticle(new PulseRing(Player.Center, Vector2.Zero, Color.Firebrick, 0.1f, 12f, 8));
+                    EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.Firebrick, 20f, 1, true, BlendState.Additive, 0, 16);
+                    EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.White, 16f, 1, true, BlendState.Additive, 0, 16);
+                    ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 100), 1200);
+                    var proj = CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ((int)(Player.GetBestClassDamage().ApplyTo(3500))).ApplyOldFashionedDmg(), 1200, DamageClass.Generic);
+                    proj.ArmorPenetration = 60;
+                    if (proj.ModProjectile is CommonExplotionFriendly cef)
+                    {
+                        cef.DamageMulToWormSegs = 0.16f;
+                    }
+                }
+                if (DeathExplosion == 0)
+                {
+                    DeathExplosion = -1;
+                    ExplosionFlag = false;
+                    Player.KillMe(PlayerDeathReason.ByCustomReason(Mod.GetLocalization("DeathExplode").Value.Replace("[PlayerName]", Player.name)), 10000, 0);
+                }
+            }
+        }
+        public override void PreUpdate()
+        {
+            MechUpdate();
+        }
+        public override void PostUpdateEquips()
+        {
+            if (!ExplosionFlag || DeathExplosion == 0)
+                DeathExplosion = -1;
+            DeathExplosionCD--;
+            if (ArmorSetBonus)
+            {
+                Player.Entropy().moveSpeed += 0.2f;
+                DurabilityRegenDelay--;
+                if (DurabilityActive)
+                {
+                    Player.Entropy().EDamageReduce += durability * 0.32f;
+                    Player.statDefense += (int)(durability * 40);
+                    Player.noKnockback = true;
+                }
+                else
+                {
+                    DurabilityRegenDelay = -1;
+                }
+                if (DurabilityRegenDelay <= 0)
+                {
+                    durability += 0.001f;
+                    if (durability >= 1)
+                    {
+                        durability = 1;
+                        if (!DurabilityActive)
+                            CEUtils.PlaySound("AuricQuantumCoolingCellInstallNew", 0.7f, Player.Center);
+                        DurabilityActive = true;
+                    }
+                }
+                if(MechTrans)
+                {
+                    Player.Entropy().EDamageReduce += 0.2f;
+                    Player.statDefense += 30;                }
+            }
+            else
+            {
+                DeactiveMech();
+            }
+        }
+        public override void OnHurt(Player.HurtInfo info)
+        {
+            if (ArmorSetBonus)
+            {
+                if (DurabilityActive)
+                {
+                    CEUtils.PlaySound($"ExoHit{Main.rand.Next(1, 5)}", Main.rand.NextFloat(0.6f, 0.8f), Player.Center, 6, 0.45f);
+                    if (DurabilityRegenDelay < 5 * 60)
+                        DurabilityRegenDelay = 5 * 60;
+                    durability -= float.Min(0.45f, info.SourceDamage / 1200f);
+
+                    //耐久没了暂时失效
+                    if (durability <= 0)
+                    {
+                        durability = 0;
+                        DurabilityActive = false;
+                        SmokeParticle();
+                        DeactiveMech();
+                    }
+                }
+            }
+        }
+        public static void DrawDuraBar(float dura)
+        {
+            Main.spriteBatch.UseSampleState_UI(SamplerState.PointClamp);
+            Vector2 pos = new Vector2(CalamityClientConfig.Instance.AdrenalineMeterPosX, CalamityClientConfig.Instance.AdrenalineMeterPosY);
+            if (pos.X < 0f || pos.X > 100f)
+                pos.X = RipperUI.DefaultAdrenPosX;
+            if (pos.Y < 0f || pos.Y > 100f)
+                pos.Y = RipperUI.DefaultAdrenPosY;
+            pos.X = (int)(pos.X * 0.01f * Main.screenWidth);
+            pos.Y = (int)(pos.Y * 0.01f * Main.screenHeight);
+
+            var mplayer = Main.LocalPlayer.GetModPlayer<AcropolisArmorPlayer>();
+            Color color = mplayer.DurabilityActive ? Color.White : new Color(255, 80, 80) * 0.5f;
+            Color color2 = mplayer.DurabilityActive ? Color.White : new Color(255, 142, 142) * 0.7f;
+            Vector2 Center = pos;// Main.ScreenSize.ToVector2() * 0.5f + new Vector2(0, -60);
+            if (dura < 0.32f && mplayer.DurabilityActive)
+            {
+                Center += new Vector2(Main.rand.NextFloat() * ((0.32f - dura) * 20), Main.rand.NextFloat() * ((0.32f - dura) * 20));
+            }
+            string folder = "CalamityEntropy/Content/Items/Armor/AzafureT3/";
+            Texture2D tex1 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Armor/Azafure/DurabilityBarA").Value;
+            if(Main.LocalPlayer.TryGetModPlayer<AcropolisArmorPlayer>(out var mp) && mp.MechTrans)
+            {
+                tex1 = CEUtils.RequestTex($"{folder}MechDura");
+            }
+            Texture2D tex2 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Armor/Azafure/DurabilityBarB").Value;
+            Main.spriteBatch.Draw(tex2, Center, null, color, 0, tex2.Size() / 2f, 1, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex1, Center, new Rectangle(0, 0, (int)(tex1.Width * dura), tex1.Height), color2, 0, tex1.Size() / 2f, 1, SpriteEffects.None, 0);
+            bool hover = Center.getRectCentered(100, 40).Intersects(Main.MouseScreen.getRectCentered(2, 2));
+            if (hover)
+                Main.instance.MouseText(CalamityEntropy.Instance.GetLocalization("DuraBar").Value + $": {dura.ToPercent()}%");
+        }
+    }
+}

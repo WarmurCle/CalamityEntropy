@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Items.Armor.AzafureT3;
 using CalamityEntropy.Content.Items.Armor.NihTwins;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
@@ -690,6 +691,10 @@ namespace CalamityEntropy.Common
                         if (Main.LocalPlayer.GetModPlayer<AzafureSteamKnightArmorPlayer>().ArmorSetBonus)
                         {
                             AzafureSteamKnightArmorPlayer.DrawDuraBar(Main.LocalPlayer.GetModPlayer<AzafureSteamKnightArmorPlayer>().durability);
+                        }
+                        if (Main.LocalPlayer.GetModPlayer<AcropolisArmorPlayer>().ArmorSetBonus)
+                        {
+                            AcropolisArmorPlayer.DrawDuraBar(Main.LocalPlayer.GetModPlayer<AcropolisArmorPlayer>().durability);
                         }
                     }
                     return true;

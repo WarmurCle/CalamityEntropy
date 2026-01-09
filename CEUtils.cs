@@ -403,7 +403,7 @@ namespace CalamityEntropy
         {
             return player.MountedCenter + player.gfxOffY * Vector2.UnitY;
         }
-        public static Vector2 GetCircleIntersection(Vector2 vec1, float a, Vector2 vec2, float b)
+        public static Vector2 GetCircleIntersection(Vector2 vec1, float a, Vector2 vec2, float b, bool flag = false, bool flag2 = false)
         {
             float distance = Vector2.Distance(vec1, vec2);
 
@@ -426,7 +426,10 @@ namespace CalamityEntropy
             Vector2 intersection2 = new Vector2(
                 p0.X - (h / d) * (vec2.Y - vec1.Y),
                 p0.Y + (h / d) * (vec2.X - vec1.X));
-
+            if (flag2)
+            {
+                return flag ? intersection1 : intersection2;
+            }    
             return (intersection1.Y < intersection2.Y) ? intersection1 : intersection2;
         }
         public static void AddLight(Vector2 position, Color lightColor, float mult = 1)

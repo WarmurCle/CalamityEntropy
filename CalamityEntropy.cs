@@ -7,6 +7,7 @@ using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
+using CalamityEntropy.Content.Items.Armor.AzafureT3;
 using CalamityEntropy.Content.Items.Atbm;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
@@ -296,8 +297,15 @@ namespace CalamityEntropy
                     hide = true;
                 if (drawPlayer.Entropy().DontDrawTime > 0)
                     hide = true;
+                if (drawPlayer.TryGetModPlayer<AcropolisArmorPlayer>(out var mp))
+                {
+                    if (!mp.PlayerVisual)
+                        hide = true;
+                }
                 scale *= drawPlayer.Entropy().Scale;
             }
+
+
             if (!hide)
             {
                 if (cbptype == -1)
@@ -687,7 +695,13 @@ namespace CalamityEntropy
 
 
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
-
+            foreach(Player player in Main.ActivePlayers)
+            {
+                if(player.TryGetModPlayer<AcropolisArmorPlayer>(out var mp))
+                {
+                    mp.DrawMech();
+                }
+            }
             EParticle.drawAll();
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform); orig(self);

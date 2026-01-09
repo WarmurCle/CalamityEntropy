@@ -3541,6 +3541,21 @@ Items: {
 			+[MANA] Max Mana
 			''' */
 	}
+
+	AcropolisHeavyArmor: {
+		// DisplayName: Acropolis Heavy Armor
+		// Tooltip: ""
+	}
+
+	AcropolisHeavyHelmet: {
+		// DisplayName: Acropolis Heavy Helmet
+		// Tooltip: ""
+	}
+
+	AcropolisHeavyLegArmor: {
+		// DisplayName: Acropolis Heavy Leg Armor
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:
@@ -4682,6 +4697,7 @@ Keybinds: {
 	RuneDash.DisplayName: Рывок крыльями руны
 	// CommandMinions.DisplayName: Command Minions
 	// NihilityAndChaoticArmorConnectKey.DisplayName: Nihility And Chaotic Armor Connect Key
+	// AcropolisMechTransformation.DisplayName: Mods.CalamityEntropy.Keybinds.AcropolisMechTransformation.DisplayName
 }
 
 ProphetLoreEffect:

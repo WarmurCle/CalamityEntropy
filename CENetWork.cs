@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Armor.AzafureT3;
 using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.UI.Poops;
 using CalamityMod.Events;
@@ -32,6 +33,7 @@ namespace CalamityEntropy
         SyncPlayerLife,
         NihilityConnet,
         SyncBookmarks,
+        AcropolisTrans,
         SyncPlayer = 255
     }
 
@@ -336,6 +338,24 @@ namespace CalamityEntropy
                         ItemIO.Send(item, packet);
                     }
                     packet.Send(-1, whoAmI);
+                }
+            }
+            else if (messageType == CEMessageType.AcropolisTrans)
+            {
+                int plr = reader.ReadInt32();
+                bool active = reader.ReadBoolean();
+                if (Main.myPlayer != plr)
+                {
+                    plr.ToPlayer().GetModPlayer<AcropolisArmorPlayer>().MechTrans = active;
+                }
+                if (Main.dedServ)
+                {
+                    ModPacket packet = Instance.GetPacket();
+                    packet.Write((byte)CEMessageType.AcropolisTrans);
+                    packet.Write(plr);
+                    packet.Write(active);
+
+                    packet.Send(-1, plr);
                 }
             }
             else if (messageType == CEMessageType.SyncPlayer)
