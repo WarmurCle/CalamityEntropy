@@ -1870,7 +1870,7 @@ namespace CalamityEntropy.Common
                         {
                             source = proj.Entropy().Shooter.ToNPC();
                         }
-                        if (!source.active)
+                        if (source != null && !source.active)
                             source = null;
                     }
                 }
