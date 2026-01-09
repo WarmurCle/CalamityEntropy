@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using CalamityMod;
+using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -26,6 +27,7 @@ namespace CalamityEntropy.Common
             downedLuminaris = false;
             downedAcropolis = false;
             ForbiddenArchiveCenter = new Point(-1, -1);
+            DownedBossSystem.downedPrimordialWyrm = false;
         }
 
         public override void SaveWorldData(TagCompound tag)
@@ -62,6 +64,10 @@ namespace CalamityEntropy.Common
             {
                 tag["downedAcropolis"] = true;
             }
+            if(DownedBossSystem.downedPrimordialWyrm)
+            {
+                tag["downedPrimordialWyrm"] = true;
+            }
             tag["DungeonArchiveCenterX"] = ForbiddenArchiveCenter.X;
             tag["DungeonArchiveCenterY"] = ForbiddenArchiveCenter.Y;
         }
@@ -79,6 +85,7 @@ namespace CalamityEntropy.Common
             downedProphet = tag.ContainsKey("downedProphet");
             downedLuminaris = tag.ContainsKey("downedLuminaris");
             downedAcropolis = tag.ContainsKey("downedAcropolis");
+            DownedBossSystem.downedPrimordialWyrm = tag.ContainsKey("downedPrimordialWyrm");
             TDR = tag.ContainsKey("TDR");
             if (tag.ContainsKey("DungeonArchiveCenterX") && tag.ContainsKey("DungeonArchiveCenterY"))
             {
@@ -100,6 +107,7 @@ namespace CalamityEntropy.Common
             flags[3] = downedProphet;
             flags[4] = downedLuminaris;
             flags[5] = downedAcropolis;
+            flags[6] = DownedBossSystem.downedPrimordialWyrm;
             flags2[0] = EntropyMode;
             flags2[1] = TDR;
 
@@ -120,6 +128,7 @@ namespace CalamityEntropy.Common
             downedProphet = flags[3];
             downedLuminaris = flags[4];
             downedAcropolis = flags[5];
+            DownedBossSystem.downedPrimordialWyrm = flags[6];
             EntropyMode = flags2[0];
             TDR = flags2[1];
             ForbiddenArchiveCenter = new Point(reader.ReadInt32(), reader.ReadInt32());
