@@ -199,7 +199,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
             {
                 if (DurabilityActive)
                 {
-                    CEUtils.PlaySound($"ExoHit{Main.rand.Next(1, 5)}", Main.rand.NextFloat(0.6f, 0.8f), Player.Center, 6, 0.6f);
+                    CEUtils.PlaySound($"ExoHit{Main.rand.Next(1, 5)}", Main.rand.NextFloat(0.6f, 0.8f), Player.Center, 6, 0.45f);
                     if (DurabilityRegenDelay < 5 * 60)
                         DurabilityRegenDelay = 5 * 60;
                     durability -= float.Min(0.52f, info.SourceDamage / 700f);
