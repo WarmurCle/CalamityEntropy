@@ -297,7 +297,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 NoEnrange = 500;
             }
             NoEnrange--;
-            if(NoEnrange < 0)
+            if (NoEnrange < 0)
             {
                 NPC.Calamity().CurrentlyEnraged = true;
             }
@@ -741,13 +741,13 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     {
                         NPC.velocity *= 0;
                         TeleportTo(EDownedBosses.GetDungeonArchiveCenterPos() + new Vector2(0, 80));
-                        if(CEUtils.getDistance(NPC.Center, NPC.target.ToPlayer().Center) > 1600)
+                        if (CEUtils.getDistance(NPC.Center, NPC.target.ToPlayer().Center) > 1600)
                             TeleportTo(target.Center - target.velocity.SafeNormalize(-Vector2.UnitY) * 300);
                     }
                     if (AIChangeDelay > 480)
                     {
                         NPC.velocity *= 0.96f;
-                        foreach(var plr in Main.ActivePlayers)
+                        foreach (var plr in Main.ActivePlayers)
                         {
                             if (plr.Distance(NPC.Center) < 2400)
                             {
@@ -762,7 +762,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                             }
                         }
                     }
-                    if(AIChangeDelay > 60 && AIChangeDelay < 480)
+                    if (AIChangeDelay > 60 && AIChangeDelay < 480)
                     {
                         foreach (var plr in Main.ActivePlayers)
                         {

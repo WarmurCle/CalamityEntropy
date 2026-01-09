@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
 using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
@@ -12,6 +13,7 @@ using CalamityMod.Projectiles.Melee;
 using CalamityMod.Projectiles.Summon;
 using CalamityMod.Schematics;
 using CalamityMod.UI;
+using CalamityMod.UI.Rippers;
 using CalamityMod.World;
 using InnoVault;
 using Microsoft.Xna.Framework.Graphics;
@@ -134,6 +136,19 @@ namespace CalamityEntropy.Content.ILEditing
             {
                 EModHooks.Add(NPC_Get_Name, On_NPC_Get_Hook);
             }
+
+            /*var drawAdrBar = typeof(RipperUI).GetMethod("DrawAdrenalineBar", BindingFlags.NonPublic | BindingFlags.Static);
+            if (drawAdrBar != null)
+            {
+                EModHooks.Add(drawAdrBar, drawAdrBar_hook);
+            }*/
+
+            var RipperUIDrawMethod = typeof(RipperUI).GetMethod("Draw", BindingFlags.Static | BindingFlags.Public);
+            if (RipperUIDrawMethod != null)
+            {
+                EModHooks.Add(RipperUIDrawMethod, RipperUIDraw);
+            }
+
             var ApplyDRMethod = typeof(CalamityGlobalNPC).GetMethod("ApplyDR", BindingFlags.Instance | BindingFlags.NonPublic, new Type[] { typeof(NPC), typeof(NPC.HitModifiers).MakeByRefType() });
             if (ApplyDRMethod != null)
             {
@@ -144,9 +159,23 @@ namespace CalamityEntropy.Content.ILEditing
 
             StoreForbiddenArchivePositionHook.LoadHook();
 
+            if(MaliciousCode.CALAMITY__OVERHAUL)
+            {
+                CWRWeakRef.CWRRef.HookFSActive();
+            }
+
             CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");
         }
+        
         public delegate void ApplyDRDelegate(CalamityGlobalNPC self, NPC npc, ref NPC.HitModifiers modifer);
+        public delegate void DrawAdrenalineBarDelegate(SpriteBatch spriteBatch, CalamityPlayer modPlayer, Vector2 screenPos);
+        public static void drawAdrBar_hook(DrawAdrenalineBarDelegate orig, SpriteBatch spriteBatch, CalamityPlayer modPlayer, Vector2 screenPos)
+        {
+            if (!modPlayer.Player.Entropy().NoAdrenaline)
+            {
+                orig(spriteBatch, modPlayer, screenPos);
+            }
+        }
         public static void apply_dr_hook(ApplyDRDelegate orig, CalamityGlobalNPC self, NPC npc, ref NPC.HitModifiers modifer)
         {
             orig(self, npc, ref modifer);
@@ -169,6 +198,7 @@ namespace CalamityEntropy.Content.ILEditing
             return EGlobalNPC.DamageReduceMult(npc);
         }
         public delegate string On_GetNPCName_get_Delegate(NPC npc);
+        public delegate bool AdrEnabled_get_Delegate(CalamityPlayer calPlayer);
         public static List<int> LostNPCsEntropy = new() { 454, 455, 456, 457, 458, 459, 521 };
         public static string On_NPC_Get_Hook(On_GetNPCName_get_Delegate orig, NPC npc)
         {
@@ -180,6 +210,30 @@ namespace CalamityEntropy.Content.ILEditing
 
             }
             return n;
+        }
+        public static bool On_AdrenalineEnabled_Get_Hook(AdrEnabled_get_Delegate orig, CalamityPlayer calPlayer)
+        {
+            if (calPlayer.Player.Entropy().NoAdrenaline)
+                return false;
+            return orig(calPlayer);
+        }
+        public static void RipperUIDraw(Action<SpriteBatch, Player> orig, SpriteBatch batch, Player player)
+        {
+            bool dHeart = player.Calamity().draedonsHeart;
+            bool revenge = CalamityWorld.revenge;
+            bool shatteredCommunity = player.Calamity().shatteredCommunity;
+            if (player.Entropy().NoAdrenaline)
+            {
+                if (CalamityWorld.revenge)
+                    player.Calamity().shatteredCommunity = true;
+                player.Calamity().draedonsHeart = false;
+                CalamityWorld.revenge = false;
+            }
+
+            orig(batch, player);
+            player.Calamity().shatteredCommunity = shatteredCommunity;
+            player.Calamity().draedonsHeart = dHeart;
+            CalamityWorld.revenge = revenge;
         }
         private static void UpdateRogueStealthHook(CalamityPlayer self)
         {
@@ -248,7 +302,7 @@ namespace CalamityEntropy.Content.ILEditing
             if (Main.gameMenu)
                 return orig(item);
             string orgName = orig.Invoke(item);
-            if (item.Entropy().GetOverrideName(item, orgName, out string NameNew))
+            if (item.TryGetGlobalItem<EGlobalItem>(out var ei) && ei.GetOverrideName(item, orgName, out string NameNew))
             {
                 return NameNew;
             }

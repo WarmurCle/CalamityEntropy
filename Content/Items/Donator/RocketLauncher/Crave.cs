@@ -1,10 +1,7 @@
 ﻿using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items.Materials;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -28,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             var snd = CEUtils.GetSound("break");
             snd.PitchRange = (-0.4f, 0.1f);
             Item.UseSound = snd;
-            Item.value = Item.buyPrice(gold: 3); 
+            Item.value = Item.buyPrice(gold: 3);
             Item.rare = ItemRarityID.Pink;
             Item.Entropy().tooltipStyle = 8;
             Item.Entropy().strokeColor = new Color(180, 20, 180);

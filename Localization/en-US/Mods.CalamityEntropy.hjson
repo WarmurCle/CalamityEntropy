@@ -764,7 +764,7 @@ Items: {
 		Tooltip:
 			'''
 			+ 2 Life Regen/s
-			Remove 99% defense damage.
+			-50% defense damage.
 			-Death Mode-
 			'''
 	}
@@ -1773,7 +1773,7 @@ Items: {
 			'''
 			Active/Deactive Entropy Mode
 			More challenging, Less Health, Less Damage
-			[c/ff0000: Note: This mode is not part of the official recommended process , and the balance adjustments Disaster Entropy do not take this mode into account]
+			[c/ff0000: Note: This mode is not part of the official recommended process , and the balance adjustments Entropy do not take this mode into account]
 			Right click use to only toggle TDR
 			'''
 		DisplayName: Entropy Mode Toggle
@@ -3032,6 +3032,7 @@ Items: {
 			Acceleration multiplier: [B]
 			Disappointing vertical speed
 			Flight time: [C]
+			-90% flight time if there're any boss
 			"Now's your chance to be a..."
 			'''
 	}
@@ -3283,11 +3284,11 @@ Items: {
 			'''
 	}
 
-	IllusoryGodfang: {
-		DisplayName: Illusory Godfang
+	Knightmare: {
+		DisplayName: Knightmare
 		Tooltip:
 			'''
-			Summon an Illusory blade fight for you.
+			Summon an knightmare blade fight for you.
 			Need 2 minion slots.
 			'''
 	}
@@ -3368,7 +3369,7 @@ Items: {
 		DisplayName: Chaotic Helmet
 		Tooltip:
 			'''
-			+13% Damage
+			+8% Damage
 			+1 Max minion
 			'''
 	}
@@ -3477,6 +3478,53 @@ Items: {
 	AzafureSteamKnightLeggings: {
 		DisplayName: Azafure Steam Knight Leggings
 		Tooltip: ""
+	}
+
+	TrainingSword: {
+		DisplayName: Training Sword
+		Tooltip: ""
+	}
+
+	ExquisiteHairband: {
+		DisplayName: Exquisite Hairband
+		Tooltip: ""
+	}
+
+	LingsHairAccessory: {
+		DisplayName: Ling's Hair Accessory
+		Tooltip: ""
+	}
+
+	VoidCore: {
+		DisplayName: Void Core
+		Tooltip:
+			'''
+			Provide [S] shield
+			Allows you to dash through enemies and deal damage
+			+[C]% Crit damage
+			'''
+	}
+
+	Depletion: {
+		DisplayName: Depletion
+		Tooltip: ""
+	}
+
+	Amnesty: {
+		DisplayName: Amnesty
+		Tooltip: ""
+	}
+
+	SusiesBracelet: {
+		DisplayName: Susie's Bracelet
+		Tooltip:
+			'''
+			Provide more and more attribute bonuses as the game progresses
+			+[DEF] Defense
+			+[DMG]% Damage
+			+[LIFE] Max Life
+			+[MANA] Max Mana
+			'''
 	}
 }
 
@@ -4092,6 +4140,18 @@ Projectiles: {
 	BrimHomingBullet.DisplayName: Brim Homing Bullet
 	PlagueMissle.DisplayName: Plague Missle
 	RedemptionShootAlt.DisplayName: Redemption Shoot Alt
+	BMDirtProj.DisplayName: Tile
+	TrainingSwordProj.DisplayName: Training Sword Proj
+	WaterBolt.DisplayName: Water Bolt
+	WOHHeld.DisplayName: WoH Held
+	FractalAbyssalBlade.DisplayName: Fractal Abyssal Blade
+	DepletionBullet.DisplayName: Depletion Bullet
+	DepletionHeld.DisplayName: Depletion Held
+	DepletionLaser.DisplayName: Depletion Laser
+	AmnestyBullet.DisplayName: Amnesty Bullet
+	AmnestyHeld.DisplayName: Amnesty Held
+	AmnestyLaser.DisplayName: Amnesty Arc
+	AmnestyMiniLaser.DisplayName: Amnesty Mini Laser
 }
 
 LegendTooltip: - Legend -
@@ -5317,8 +5377,8 @@ AzafureSet:
 	'''
 	When this armor is equipped, 
 	all Azafure equipment receives partial enhancements
-	Gains a Durability bar
-	The Durability bar provides up to 18 defense and 50% damage reduction, 
+	Remove adrenaline and gains a Durability bar
+	The Durability bar provides up to 18 defense and 25% damage reduction, 
 	while slowing your movement speed
 	Durability is consumed based on damage taken when hit
 	Durability slowly regenerates 5 seconds after taking damage
@@ -5328,14 +5388,15 @@ AzafureSet2:
 	'''
 	When this armor is equipped, 
 	all Azafure equipment receives partial enhancements
-	Gains a Durability bar
-	The Durability bar provides up to 36 defense and 50% damage reduction
+	Remove adrenaline and gains a Durability bar
+	The Durability bar provides up to 36 defense and 30% damage reduction
 	Durability is consumed based on damage taken when hit
 	Durability slowly regenerates 5 seconds after taking damage
 	When the Durability bar is depleted, it becomes inactive and requires time to restore functionality
 	Provide 80 rogue stealth
-	+20% Movement speed
+	+20% Movement speed and +1 Max minion
 	'''
+DuraBar: Durability bar
 AzafureEnhance: Enhance
 
 AzafureEnhances: {
@@ -5379,3 +5440,5 @@ DriverCoreCooldown: Driver Core Shield
 FetalDreamDamage: Koishi Damage
 NihilityShield: Nihility Shield
 CardsDesc: There should be a complete set of cards similar to it
+VoidCoreShield: Void Shield
+CrossModSupportFish: Cross mod support: You can also put it in Entropy books as a bookmark

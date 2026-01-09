@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
@@ -57,7 +57,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ModContent.ItemType<CorrodedFossil>(), 6).AddIngredient(ModContent.ItemType<DepthCells>(), 2).AddTile(TileID.Anvils).Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<CorrodedFossil>(), 6)
+                .AddIngredient(ModContent.ItemType<DepthCells>(), 2)
+                .DisableDecraft()
+                .AddTile(TileID.Anvils)
+                .Register();
         }
     }
 }

@@ -1,14 +1,11 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
-using CalamityMod.Items.Potions.Alcohol;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.Graphics;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static CalamityEntropy.Content.NPCs.Acropolis.AcropolisMachine;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
@@ -39,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 {
                     projectile.GetOwner().Entropy().SnowgraveCharge = 0;
                     projectile.GetOwner().Entropy().SnowgraveChargeTime = 0;
-                    Projectile.NewProjectile(projectile.GetSource_FromAI(), target.Center, Vector2.Zero, sgtype, eb.CauculateProjectileDamage(0.25f), 0.4f, projectile.owner);
+                    Projectile.NewProjectile(projectile.GetSource_FromAI(), target.Center, Vector2.Zero, sgtype, eb.CauculateProjectileDamage(0.5f), 0.4f, projectile.owner);
                 }
             }
         }
@@ -62,7 +59,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             Vector2 scaledSize = Main.Camera.ScaledSize;
             Vector2 scaledPosition = Main.Camera.ScaledPosition;
-            for (int i = 0; (float)i < 128; i++)
+            for (int i = 0; (float)i < 42; i++)
             {
                 try
                 {
@@ -115,7 +112,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void AI()
         {
             Main.LocalPlayer.Entropy().snowgrave = 16;
-            if(!Main.dedServ)
+            if (!Main.dedServ)
                 SpawnSnow();
             if (Projectile.localAI[0]++ == 0)
                 CEUtils.PlaySound("Snowgrave", 1, Projectile.Center, 2, 4);

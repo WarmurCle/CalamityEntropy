@@ -815,7 +815,7 @@ Items: {
 		Tooltip:
 			'''
 			+ 2/s 每秒生命再生
-			降低99%的防御损伤
+			-50%的防御损伤
 			-死亡模式专属-
 			'''
 	}
@@ -1947,10 +1947,8 @@ Items: {
 			部分boss获得AI改动
 			暂时没有其他额外内容
 			[c/ff0000:注：该模式不处于灾熵官方的推荐流程内，灾熵的流程和平衡性调整从来不考虑该模式]
-			[c/ff0000:不过，假如认为该模组破坏了灾厄本体无比娇贵的平衡或是执意要使用某些妙妙小物品的话(详见灾熵wiki)]
-			[c/ff0000:那么开启这个模式或许能带来你所认为的平衡]
-			"致力于为那些喜欢受虐传奇死亡钢铁之心恶意神殇一起开的玩家提供更棒的赤石体验"
-			右键使用只开启boss动态减伤功能
+			[c/ff0000:如果你认为本模组破坏了原版灾厄流程优秀的平衡，那么开启这个模式或许能带来你所认为的平衡]
+			右键使用以只启用boss动态减伤功能
 			'''
 		DisplayName: 熵变之核
 	}
@@ -3293,6 +3291,7 @@ Items: {
 			加速倍率： [B]
 			令人失望的垂直飞行速度
 			飞行时间：[C]
+			有Boss存在时-90%飞行时间
 			因为被提线操纵，飞行速度较慢
 			“是时候成为...”
 			'''
@@ -3550,11 +3549,11 @@ Items: {
 			'''
 	}
 
-	IllusoryGodfang: {
-		DisplayName: 虚神之利
+	Knightmare: {
+		DisplayName: 梦幻崩影
 		Tooltip:
 			'''
-			召唤一把能够干净利落的切碎任何敌人的虚幻神锋
+			召唤一把能够干净利落的切碎任何敌人的梦魇神锋
 			消耗2召唤栏
 			'''
 	}
@@ -3633,7 +3632,7 @@ Items: {
 
 	ChaoticHelmet: {
 		DisplayName: 混沌头盔
-		Tooltip: 增加13%伤害和1最大仆从栏位
+		Tooltip: 增加8%伤害和1最大仆从栏位
 	}
 
 	ChaoticLeggings: {
@@ -3738,6 +3737,53 @@ Items: {
 		DisplayName: 阿萨福勒蒸汽骑士护腿
 		Tooltip: ""
 	}
+
+	TrainingSword: {
+		DisplayName: 训练竹刀
+		Tooltip: ""
+	}
+
+	ExquisiteHairband: {
+		DisplayName: 精致发箍
+		Tooltip: ""
+	}
+
+	LingsHairAccessory: {
+		DisplayName: 零的发饰
+		Tooltip: ""
+	}
+
+	VoidCore: {
+		DisplayName: 虚空驱动核心
+		Tooltip:
+			'''
+			提供[S]点护盾，护盾会缓慢恢复
+			允许你冲刺穿过敌怪并对其施加虚空斩
+			增加[C]%暴击伤害
+			'''
+	}
+
+	Depletion: {
+		DisplayName: 灾灵
+		Tooltip: 快速发射会迸发出多束激光的子弹
+	}
+
+	Amnesty: {
+		DisplayName: 神灵
+		Tooltip: 快速发射会迸发出多束电弧和追踪射弹的子弹
+	}
+
+	SusiesBracelet: {
+		DisplayName: 苏西的手环
+		Tooltip:
+			'''
+			随着游戏进度提供越来越多的属性加成
+			+[DEF] 防御
+			+[DMG]% 伤害
+			+[LIFE] 最大生命值
+			+[MANA] 最大魔力值
+			'''
+	}
 }
 
 ChaoticSetBonus:
@@ -3783,7 +3829,7 @@ BCC2:
 BCC3:
 	'''
 	* 右键后快速按下左键将武器扔出，
-	  剑会附着在刺中的目标上，为你持续回血并缓慢回复充能条。
+	  剑会附着在刺中的目标上，为你持续回复血量，飞行时间，缓慢增加充能，并提供部分护甲
 	'''
 BCC4:
 	'''
@@ -4324,7 +4370,7 @@ Projectiles: {
 	DarkBullet.DisplayName: 黑暗弹
 	SelenbiteStar.DisplayName: 月蚀星
 	SelenbiteVolumeHeld.DisplayName: 月蚀卷册
-	IllusoryBladeMinion.DisplayName: 虚神之利
+	IllusoryBladeMinion.DisplayName: 梦魇神锋
 	MetallicChunkProj.DisplayName: 金属块
 	LacewingBMMinion.DisplayName: 七彩草蛉
 	WulfrumBMDrone.DisplayName: 钨钢无人机
@@ -4335,10 +4381,22 @@ Projectiles: {
 	ChaoticCellMinion.DisplayName: 混沌仆从
 	CosmicBlessingHeld.DisplayName: 星宙神赋
 	CosmicDeathRay.DisplayName: 寰宇死光
-	// CharredMissleProj.DisplayName: Charred Missle Proj
-	// BrimHomingBullet.DisplayName: Brim Homing Bullet
-	// PlagueMissle.DisplayName: Plague Missle
-	// RedemptionShootAlt.DisplayName: Redemption Shoot Alt
+	CharredMissleProj.DisplayName: 焦黑导弹
+	BrimHomingBullet.DisplayName: 硫火飞弹
+	PlagueMissle.DisplayName: 瘟疫导弹
+	RedemptionShootAlt.DisplayName: 救赎导弹
+	BMDirtProj.DisplayName: 物块
+	TrainingSwordProj.DisplayName: 训练竹刀
+	WaterBolt.DisplayName: 水流
+	WOHHeld.DisplayName: 虚寂之翼
+	FractalAbyssalBlade.DisplayName: 分形深渊刃
+	DepletionBullet.DisplayName: 灾灵弹
+	DepletionHeld.DisplayName: 灾灵
+	DepletionLaser.DisplayName: 灾灵激光
+	AmnestyBullet.DisplayName: 神灵弹
+	AmnestyHeld.DisplayName: 神灵
+	AmnestyLaser.DisplayName: 神灵电弧
+	AmnestyMiniLaser.DisplayName: 神灵追踪弹
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5539,8 +5597,8 @@ AstralFishing: 星辉地钓鱼获取
 AzafureSet:
 	'''
 	穿着此盔甲时所有阿萨福勒装备将获得部分强化
-	获得耐力条
-	耐力条会为你提供至多18点护甲与50%伤害减免，同时减慢你的移动速度
+	将肾上腺素替换为耐力条
+	耐力条会为你提供至多18点护甲与25%伤害减免，同时减慢你的移动速度
 	在受到伤害时会根据伤害值扣除耐力，耐力减少同时会使你的防御和减伤暂时降低
 	耐力会在受击5秒后缓慢回复
 	当耐力清空时会失效，并需要一段时间重新启用
@@ -5549,15 +5607,16 @@ AzafureSet:
 AzafureSet2:
 	'''
 	穿着此盔甲时所有阿萨福勒装备将获得部分强化
-	获得耐力条
-	耐力条会为你提供至多36点护甲与50%伤害减免
+	将肾上腺素替换为耐力条
+	耐力条会为你提供至多36点护甲与30%伤害减免
 	在受到伤害时会根据伤害值扣除耐力，耐力减少同时会使你的防御和减伤暂时降低
 	耐力会在受击5秒后缓慢回复
 	当耐力清空时会失效，并需要一段时间重新启用
 	死亡后产生威力巨大的爆炸
 	提供80点潜行值
-	+20%移动速度
+	增加20%移动速度和1最大仆从栏位
 	'''
+DuraBar: 耐力条
 AzafureEnhance: 能力强化
 
 AzafureEnhances: {
@@ -5601,3 +5660,5 @@ DriverCoreCooldown: 驱动核心护盾
 FetalDreamDamage: 无意识伤害
 NihilityShield: 噬菌体护盾
 CardsDesc: 与它相似的卡片应该还有一整套
+VoidCoreShield: 虚空核心护盾
+CrossModSupportFish: 联动内容:比目鱼炮技能鱼也能被放入任意熵语之书当作书签使用

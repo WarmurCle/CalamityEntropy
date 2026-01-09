@@ -681,7 +681,7 @@ namespace CalamityEntropy.Core
             device.SamplerStates[0] = samplerState ?? originalSamplerState;
             device.RasterizerState = rasterizerState ?? originalState;
 
-            DrawTrail(bars);
+            DrawTrail(bars); DrawTrail(bars);
 
             device.RasterizerState = originalState;
             device.BlendState = originalBlendState;
@@ -738,15 +738,15 @@ namespace CalamityEntropy.Core
                 Vector2 Top = Center + oldRotate[i].ToRotationVector2() * (oldLength[i] + drawTrailTopWidth * meleeSizeAsymptotic + oldDistanceToOwner[i]) * meleeSizeAsymptotic;
                 Vector2 Bottom = Center + oldRotate[i].ToRotationVector2() * (oldLength[i] - ControlTrailBottomWidth(factor) + oldDistanceToOwner[i]) * meleeSizeAsymptotic;
 
-                var topColor = Color.Lerp(new Color(238, 218, 130, 200), new Color(167, 127, 95, 0), 1 - factor);
-                var bottomColor = Color.Lerp(new Color(109, 73, 86, 200), new Color(83, 16, 85, 0), 1 - factor);
+                var topColor = Color.Lerp(new Color(255, 240, 180, 200), new Color(167, 127, 95, 0), 1 - factor);
+                var bottomColor = Color.Lerp(new Color(180, 100, 100, 200), new Color(83, 16, 85, 0), 1 - factor);
                 bars.Add(new VertexPositionColorTexture(Top.ToVector3(), topColor, new Vector2(factor, 0)));
                 bars.Add(new VertexPositionColorTexture(Bottom.ToVector3(), bottomColor, new Vector2(factor, 1)));
             }
 
             if (bars.Count > 2)
             {
-                DrawTrailHander(bars, Main.graphics.GraphicsDevice, BlendState.NonPremultiplied, SamplerState.PointWrap, RasterizerState.CullNone);
+                DrawTrailHander(bars, Main.graphics.GraphicsDevice, BlendState.Additive, SamplerState.PointWrap, RasterizerState.CullNone);
 
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);

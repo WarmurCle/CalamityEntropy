@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.light = 0.2f;
-            Projectile.timeLeft = 200;
+            Projectile.timeLeft = 120;
             Projectile.ArmorPenetration = 9;
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox)

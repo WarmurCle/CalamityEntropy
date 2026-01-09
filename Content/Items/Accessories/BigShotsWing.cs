@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using CalamityEntropy.Common;
+using CalamityMod;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -7,9 +9,9 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Accessories
 {
     [AutoloadEquip(EquipType.Wings)]
-    public class BigShotsWing : ModItem, ISpecialDrawingWing
+    public class BigShotsWing : ModItem, ISpecialDrawingWing, IGetFromStarterBag
     {
-        public static float HorSpeed = 4.8f;
+        public static float HorSpeed = 4f;
         public static float AccMul = 0.5f;
         public static int wTime = 1000;
         public int AnimationTick => 4;
@@ -43,6 +45,19 @@ namespace CalamityEntropy.Content.Items.Accessories
             {
                 player.Entropy().light += 0.5f;
             }
+            bool flag = false;
+            foreach (NPC n in Main.ActiveNPCs)
+            {
+                if (n.IsABoss())
+                {
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                player.Entropy().WingTimeMult *= 0.1f;
+            }
         }
         public override void UpdateVanity(Player player)
         {
@@ -57,5 +72,9 @@ namespace CalamityEntropy.Content.Items.Accessories
             constantAscend = 0.06f;
         }
 
+        public bool OwnAble(Player player, ref int count)
+        {
+            return ShadowCrystalDeltarune.Ch2Crystal;
+        }
     }
 }

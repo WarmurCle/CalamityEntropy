@@ -28,7 +28,7 @@ namespace CalamityEntropy.Common
     {
         [VaultLoaden("CalamityEntropy/Assets/Extra/cvmask")]
         private static Asset<Texture2D> cvmask;
-        [VaultLoaden("CalamityEntropy/Assets/Extra/planetarium_blue_base")]
+        [VaultLoaden("CalamityEntropy/Assets/Extra/StarrySky")]
         private static Asset<Texture2D> planetarium_blue_base;
         [VaultLoaden("CalamityEntropy/Content/Projectiles/CruiserSlash")]
         private static Asset<Texture2D> cruiserSlash;
@@ -55,6 +55,7 @@ namespace CalamityEntropy.Common
         public static Effect kscreen2;
         public static Effect cvoid;
         public static Effect cvoid2;
+        public static Effect cvoid3;
         public static Effect cabyss;
         public static Effect cblood;
         internal static float twistStrength = 0f;
@@ -97,6 +98,8 @@ namespace CalamityEntropy.Common
 
                 //应用背景着色器
                 ApplyBackgroundShader(graphicsDevice);
+
+                DrawNonPixVoidEffects(graphicsDevice);
 
                 //深渊类型Shader
                 DrawAbyssalEffect(graphicsDevice);
@@ -359,6 +362,8 @@ namespace CalamityEntropy.Common
 
         private static void DrawBloodEffect(GraphicsDevice graphicsDevice)
         {
+            if (!CEUtils.AnyActiveProj<BloodCrack>())
+                return;
             bool f = false;
             foreach (var p in Main.ActiveProjectiles)
             {
@@ -390,7 +395,6 @@ namespace CalamityEntropy.Common
                     ac.draw();
                 }
             }
-            DrawParticleEffectsAlt();
 
             Main.spriteBatch.End();
             graphicsDevice.SetRenderTarget(Main.screenTarget);
@@ -778,7 +782,51 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
         }
+        private static void DrawNonPixVoidEffects(GraphicsDevice graphicsDevice)
+        {
+            if (Screen0 == null || !CEUtils.AnyActiveProj<WOHHeld>())
+            {
+                return;
+            }
 
+            graphicsDevice.SetRenderTarget(Screen0);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+
+            graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null);
+
+
+            foreach (Projectile p in Main.ActiveProjectiles)
+            {
+                if (p.ModProjectile != null)
+                {
+                    if (p.ModProjectile is WOHHeld woh)
+                        woh.DrawVoid();
+                }
+            }
+
+            Main.spriteBatch.End();
+
+            graphicsDevice.SetRenderTarget(Main.screenTarget);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null);
+            Main.spriteBatch.Draw(Screen0, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+
+            cvoid3.CurrentTechnique.Passes[0].Apply();
+            cvoid3.Parameters["tex1"].SetValue(planetarium_blue_base.Value);
+            cvoid3.Parameters["time"].SetValue(Instance.cvcount / 50f);
+            cvoid3.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2());
+            cvoid3.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(-Instance.cvcount / 6f, Instance.cvcount / 6f)) / Main.ScreenSize.ToVector2());
+            Main.spriteBatch.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+        }
         private static void DrawParticleEffectsAlt()
         {
             foreach (Particle pt in AbyssalParticles.particles)

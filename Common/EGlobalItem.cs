@@ -21,7 +21,6 @@ using CalamityEntropy.Content.Items.Weapons.DustCarverBow;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Rarities;
-using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod;
 using CalamityMod.Items.Fishing.SulphurCatches;
@@ -163,7 +162,6 @@ namespace CalamityEntropy.Common
                     if (BookMarkLoader.IsABookMark(Main.LocalPlayer.Entropy().EBookStackItems[h]))
                     {
                         var bm = Main.LocalPlayer.Entropy().EBookStackItems[h];
-                        var mi = (BookMark)bm.ModItem;
                         if (!BookMarkLoader.CanBeEquipWith(item, bm))
                         {
                             flag = false;
@@ -460,7 +458,7 @@ namespace CalamityEntropy.Common
             {
                 return CalamityUtils.GetItemName<WulfrumMetalScrap>().Value;
             }
-            if(type == BaseMissleProj.AmmoType)
+            if (type == BaseMissleProj.AmmoType)
             {
                 return Mod.GetLocalization("AmmoMissle").Value;
             }
@@ -510,14 +508,14 @@ namespace CalamityEntropy.Common
             {
                 if (tooltip.Mod == "Terraria")
                 {
-                    if(tooltip.Name.Contains("Tooltip"))
+                    if (tooltip.Name.Contains("Tooltip"))
                     {
                         tIndex = index;
                     }
                 }
                 index++;
             }
-            if(item.ModItem != null)
+            if (item.ModItem != null)
             {
                 if (item.ModItem is ThreadOfFate || item.ModItem is ThreadOfAbyss || item.ModItem is CursedThread || item.ModItem is OracleDeck || item.ModItem is TaintedDeck || item.ModItem is SoulDeck)
                     goto DeckEnd;
@@ -595,6 +593,10 @@ namespace CalamityEntropy.Common
                 TooltipLine tl = new TooltipLine(CalamityEntropy.Instance, "LegendItem", Language.GetTextValue("Mods.CalamityEntropy.LegendTooltip"));
                 tl.OverrideColor = new Microsoft.Xna.Framework.Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
                 tooltips.Add(tl);
+            }
+            if(MaliciousCode.CALAMITY__OVERHAUL)
+            {
+                CWRWeakRef.CWRRef.CheckTooltips(item, tooltips);
             }
         }
 
@@ -1753,6 +1755,10 @@ namespace CalamityEntropy.Common
             if (item.type == 3203 || item.type == 3204 || item.type == 3983 || item.type == 3982)
             {
                 itemLoot.Add(ModContent.ItemType<ObscureCard>(), 5);
+            }
+            if(item.Is<CeaselessVoidBag>())
+            {
+                itemLoot.Add(ModContent.ItemType<BottleDarkMatter>(), 4);
             }
             if (item.Is<DevourerofGodsBag>())
             {

@@ -42,6 +42,8 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             Item.shootSpeed = 12f;
             Item.Entropy().Legend = true;
             Item.Calamity().CannotBeEnchanted = true;
+            LastLevel = -1;
+            UpdateInventory(Main.LocalPlayer);
         }
         public int useCounter = 0;
         public int atkType = 1;
@@ -154,35 +156,40 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             return Level;
 
         }
-
+        public int LastLevel = -1;
         public override void UpdateInventory(Player player)
         {
-            Item.damage = GetLevel() * 10 + (int)float.Lerp(24, 900, 1 - CEUtils.Parabola((1 - CEUtils.Parabola((GetLevel() / 14f) * 0.5f + 0.5f, 1)) * 0.5f + 0.5f, 1));
             int level = GetLevel();
-            int dmg = Item.damage;
-            switch (level)
+            if (LastLevel != level)
             {
-                case 0: dmg = 10; break;
-                case 1: dmg = 25; break;
-                case 2: dmg = 35; break;
-                case 3: dmg = 45; break;
-                case 4: dmg = 55; break;
-                case 5: dmg = 80; break;
-                case 6: dmg = 90; break;
-                case 7: dmg = 120; break;
-                case 8: dmg = 150; break;
-                case 9: dmg = 200; break;
-                case 10: dmg = 400; break;
-                case 11: dmg = 600; break;
-                case 12: dmg = 1000; break;
-                case 13: dmg = 1450; break;
-                case 14: dmg = 1600; break;
-                case 15: dmg = 2400; break;
+                int dmg = Item.damage;
+                switch (level)
+                {
+                    case 0: dmg = 24; break;
+                    case 1: dmg = 32; break;
+                    case 2: dmg = 44; break;
+                    case 3: dmg = 48; break;
+                    case 4: dmg = 65; break;
+                    case 5: dmg = 100; break;
+                    case 6: dmg = 130; break;
+                    case 7: dmg = 150; break;
+                    case 8: dmg = 190; break;
+                    case 9: dmg = 250; break;
+                    case 10: dmg = 620; break;
+                    case 11: dmg = 840; break;
+                    case 12: dmg = 1350; break;
+                    case 13: dmg = 1900; break;
+                    case 14: dmg = 2400; break;
+                    case 15: dmg = 3200; break;
+                }
+                Item.damage = dmg;
+                Item.useTime = Item.useAnimation = int.Max(10, 16 - GetLevel() / 4);
+                LastLevel = level;
+                Item.crit = level * 3;
+                Item.knockBack = level / 2;
+                Item.scale = 1;
+                Item.Prefix(Item.prefix);
             }
-            Item.damage = dmg;
-
-
-            Item.useTime = Item.useAnimation = int.Max(10, 16 - GetLevel() / 4);
             if (player.HeldItem == Item)
             {
                 player.Entropy().BBarNoDecrease = 120;
@@ -191,7 +198,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
         }
         public override bool AllowPrefix(int pre)
         {
-            return false;
+            return true;
         }
         public static bool AllowLunge()
         {
@@ -337,7 +344,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             }
         }
         public float rScale = 1;
-        public float slashP = 0.6f;
+        public float slashP = Main.rand.NextFloat(0.5f, 0.7f);
         public override void AI()
         {
             CEUtils.AddLight(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Color.LightGreen, Projectile.scale);
@@ -516,7 +523,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                     SpawnParticle();
                     odr.Add(Projectile.rotation);
                     ods.Add(rScale);
-                    if (odr.Count > 80)
+                    if (odr.Count > 120)
                     {
                         odr.RemoveAt(0);
                         ods.RemoveAt(0);
@@ -538,11 +545,18 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             return false;
         }
         public bool NoDraw = false;
+        public Vector2 lPos = Vector2.Zero;
         public void SpawnParticle()
         {
-            Vector2 sparkVelocity2 = Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * Projectile.ai[0]) * 4;
-            sparkVelocity2 = sparkVelocity2.RotatedBy(Projectile.ai[0] * 0.3f * Projectile.ai[1]) * Projectile.ai[1];
-            int sparkLifetime2 = (int)(Main.rand.NextFloat() * 14);
+            Vector2 vpos = Projectile.rotation.ToRotationVector2() * rScale * scale * Projectile.scale * 116;
+            if (lPos == Vector2.Zero)
+            {
+                lPos = vpos;
+                return;
+            }
+
+            Vector2 sparkVelocity2 = (vpos - lPos).normalize() * 4 * Projectile.ai[1];
+            int sparkLifetime2 = (int)(Main.rand.NextFloat() * 16);
             float sparkScale2 = 0.6f * Main.rand.NextFloat();
             sparkScale2 *= (1 + Bramblecleave.GetLevel() * 0.06f);
             Color sparkColor2 = Color.Lerp(Color.Green, Color.LightGreen, Main.rand.NextFloat());
@@ -558,6 +572,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 GeneralParticleHandler.SpawnParticle(spark);
             }
             EParticle.spawnNew(new GlowLightParticle() { lightColor = Color.LightGreen * 0.5f, HideTime = 16 }, Projectile.Center + Projectile.rotation.ToRotationVector2() * 100 * scale * Projectile.scale * rScale * Main.rand.NextFloat(0.25f, 1), sparkVelocity2 * 0.2f, Color.LawnGreen, Main.rand.NextFloat(0.1f, 0.2f) * scale * Projectile.scale, 1, true, BlendState.Additive, 0, 20);
+            lPos = vpos;
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -577,7 +592,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(116 * Projectile.scale * scale * ods[i], 0).RotatedBy(odr[i])),
                       new Vector3((i) / ((float)odr.Count - 1), 1, 1),
                       b));
-                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition,
+                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(32 * Projectile.scale * scale * ods[i], 0).RotatedBy(odr[i])),
                       new Vector3((i) / ((float)odr.Count - 1), 0, 1),
                       b));
             }

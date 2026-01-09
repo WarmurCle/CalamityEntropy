@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
         {
             Item.width = 56;
             Item.height = 20;
-            Item.damage = 1500;
+            Item.damage = 1700;
             Item.mana = 0;
             Item.useTime = Item.useAnimation = 24;
             Item.useStyle = ItemUseStyleID.HoldUp;
@@ -202,7 +202,7 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
                         target = npc;
                     }
                 }
-                CEUtils.PlaySound("aprclaunch", 1, Projectile.GetOwner().Center);
+                CEUtils.PlaySound("shootMissileLarge", 1, Projectile.GetOwner().Center);
                 particle = new APRCAlarm() { stick = target };
                 EParticle.spawnNew(particle, new Vector2(Projectile.ai[0], Projectile.ai[1]), Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, 0, Projectile.timeLeft / Projectile.MaxUpdates);
 
@@ -213,7 +213,6 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
                     EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(1f, 0) }, center, Vector2.Zero, Color.OrangeRed, 0.36f, 1, true, BlendState.Additive, 0, 18);
                     EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(1f, 0) }, center, Vector2.Zero, Color.White, 0.25f, 1, true, BlendState.Additive, 0, 18);
                 }
-                CEUtils.PlaySound("aprclaunch", Main.rand.NextFloat(1, 1.4f), Projectile.Center, 16);
                 for (float i = 0.5f; i < 1; i += 0.025f)
                 {
                     EParticle.NewParticle(new Smoke() { timeleftmax = 18, Lifetime = 18 }, Projectile.Center - Projectile.velocity * (1 - i), CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.05f, 0.07f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
@@ -292,9 +291,9 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
             if (Main.myPlayer == Projectile.owner)
             {
                 var mp = CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 360, Projectile.DamageType).ModProjectile;
-                if(mp is CommonExplotionFriendly cef)
+                if (mp is CommonExplotionFriendly cef)
                     cef.onHitAction = onhit;
-            } 
+            }
         }
         public override bool PreDraw(ref Color lightColor)
         {

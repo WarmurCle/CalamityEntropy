@@ -3,6 +3,8 @@ using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Dusts;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
+using CalamityMod.Items.Potions;
 using CalamityMod.Items.Weapons.Melee;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -60,10 +62,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 .AddIngredient<TitanArm>()
                 .AddIngredient<AegisBlade>()
                 .AddIngredient(ItemID.PiercingStarlight)
-                .AddIngredient(ItemID.FragmentSolar, 4)
-                .AddIngredient(ItemID.FragmentNebula, 4)
-                .AddIngredient(ItemID.FragmentStardust, 4)
-                .AddIngredient(ItemID.FragmentVortex, 4)
+                .AddIngredient<AureusCell>(4)
+                .AddIngredient<StarblightSoot>(16)
                 .AddTile(TileID.MythrilAnvil).Register();
         }
     }

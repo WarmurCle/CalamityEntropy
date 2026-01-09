@@ -10,9 +10,21 @@ namespace CalamityEntropy.Content.Particles
         public float scaleEnd = -1;
         public float scaleStart = -1;
         public float vc = 1;
-
+        public bool colorTrans = false;
+        private bool setColor = true;
+        public Color endColor = Color.White;
+        private Color startColor = Color.White;
         public override void AI()
         {
+            if(setColor)
+            {
+                setColor = false;
+                startColor = Color;
+            }
+            if(colorTrans)
+            {
+                Color = Color.Lerp(startColor, endColor, 1 - ((float)Lifetime / timeleftmax));
+            }
             if (scaleStart < 0)
             {
                 scaleStart = Scale;

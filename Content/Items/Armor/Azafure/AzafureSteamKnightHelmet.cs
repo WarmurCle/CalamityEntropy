@@ -1,8 +1,10 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Particles;
+using CalamityMod.UI.Rippers;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
@@ -19,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
             Item.width = 48;
             Item.height = 48;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
-            Item.defense = 19;
+            Item.defense = 18;
             Item.rare = ItemRarityID.Pink;
         }
 
@@ -27,7 +29,6 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
         {
             return head.type == Type && body.type == ModContent.ItemType<AzafureSteamKnightArmor>() && legs.type == ModContent.ItemType<AzafureSteamKnightLeggings>();
         }
-
 
         public override void UpdateArmorSet(Player player)
         {
@@ -38,6 +39,8 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                 player.Calamity().wearingRogueArmor = true;
                 player.Calamity().rogueStealthMax += 0.8f;
             }
+            player.maxMinions += 1;
+            player.Entropy().NoAdrenalineTime = 1;
         }
         public override void UpdateEquip(Player player)
         {
@@ -66,12 +69,15 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
         public LoopSound chargeSnd = null;
         public override void PostUpdate()
         {
-            if (chargeSnd != null && chargeSnd.timeleft <= 0)
-                chargeSnd = null;
-            if (chargeSnd != null)
+            if (!Main.dedServ)
             {
-                chargeSnd.setVolume_Dist(Player.Center, 100, 1600, 1);
-                chargeSnd.instance.Pitch = (1 - (DeathExplosion / 80f)) * 2f + 1.9f;
+                if (chargeSnd != null && chargeSnd.timeleft <= 0)
+                    chargeSnd = null;
+                if (chargeSnd != null)
+                {
+                    chargeSnd.setVolume_Dist(Player.Center, 100, 1600, 1);
+                    chargeSnd.instance.Pitch = (1 - (DeathExplosion / 80f)) * 2f + 1.9f;
+                }
             }
         }
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
@@ -95,11 +101,14 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                     DeathExplosion = 80;
                     dmgSource = damageSource;
                     Player.dead = false;
-                    chargeSnd = new LoopSound(CalamityEntropy.ofCharge);
-                    chargeSnd.instance.Pitch = 0;
-                    chargeSnd.instance.Volume = 0;
-                    chargeSnd.play();
-                    chargeSnd.timeleft = 80;
+                    if (!Main.dedServ)
+                    {
+                        chargeSnd = new LoopSound(CalamityEntropy.ofCharge);
+                        chargeSnd.instance.Pitch = 0;
+                        chargeSnd.instance.Volume = 0;
+                        chargeSnd.play();
+                        chargeSnd.timeleft = 80;
+                    }
                 }
                 else
                     ExplosionFlag = false;
@@ -123,7 +132,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                 Player.Entropy().noItemTime = 5;
                 if (DeathExplosion < 70 && DeathExplosion % 2 == 0)
                 {
-                    if(DeathExplosion % 6 == 0)
+                    if (DeathExplosion % 6 == 0)
                         ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, Utils.Remap(Main.LocalPlayer.Center.Distance(Player.Center), 4000, 1000, 0, 12)));
 
                     EParticle.NewParticle(new ShockParticle2(), Player.Center, Vector2.Zero, Color.White, 0.1f, 1, true, BlendState.Additive, CEUtils.randomRot());
@@ -137,7 +146,12 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                     EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.Firebrick, 20f, 1, true, BlendState.Additive, 0, 16);
                     EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.White, 16f, 1, true, BlendState.Additive, 0, 16);
                     ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 100), 1200);
-                    CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ((int)(Player.GetBestClassDamage().ApplyTo(1800))).ApplyOldFashionedDmg(), 1200, DamageClass.Generic).ArmorPenetration = 60;
+                    var proj = CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ((int)(Player.GetBestClassDamage().ApplyTo(1900))).ApplyOldFashionedDmg(), 1200, DamageClass.Generic);
+                    proj.ArmorPenetration = 60;
+                    if (proj.ModProjectile is CommonExplotionFriendly cef)
+                    {
+                        cef.DamageMulToWormSegs = 0.16f;
+                    }
                 }
                 if (DeathExplosion == 0)
                 {
@@ -158,7 +172,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                 DurabilityRegenDelay--;
                 if (DurabilityActive)
                 {
-                    Player.endurance += durability * 0.3f + 0.2f;
+                    Player.Entropy().EDamageReduce += durability * 0.3f;
                     Player.statDefense += (int)(durability * 36);
                     Player.noKnockback = true;
                 }
@@ -185,10 +199,10 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
             {
                 if (DurabilityActive)
                 {
-                    CEUtils.PlaySound($"ExoHit{Main.rand.Next(1, 5)}", Main.rand.NextFloat(0.6f, 0.8f), Player.Center, 6, 0.6f);
+                    CEUtils.PlaySound($"ExoHit{Main.rand.Next(1, 5)}", Main.rand.NextFloat(0.6f, 0.8f), Player.Center, 6, 0.45f);
                     if (DurabilityRegenDelay < 5 * 60)
                         DurabilityRegenDelay = 5 * 60;
-                    durability -= float.Min(0.52f, info.Damage / 900f);
+                    durability -= float.Min(0.52f, info.SourceDamage / 700f);
 
                     //耐久没了暂时失效
                     if (durability <= 0)
@@ -206,18 +220,30 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
         }
         public static void DrawDuraBar(float dura)
         {
-            var mplayer = Main.LocalPlayer.GetModPlayer<AzafureHeavyArmorPlayer>();
+            Main.spriteBatch.UseSampleState_UI(SamplerState.PointClamp);
+            Vector2 pos = new Vector2(CalamityClientConfig.Instance.AdrenalineMeterPosX, CalamityClientConfig.Instance.AdrenalineMeterPosY);
+            if (pos.X < 0f || pos.X > 100f)
+                pos.X = RipperUI.DefaultAdrenPosX;
+            if (pos.Y < 0f || pos.Y > 100f)
+                pos.Y = RipperUI.DefaultAdrenPosY;
+            pos.X = (int)(pos.X * 0.01f * Main.screenWidth);
+            pos.Y = (int)(pos.Y * 0.01f * Main.screenHeight);
+
+            var mplayer = Main.LocalPlayer.GetModPlayer<AzafureSteamKnightArmorPlayer>();
             Color color = mplayer.DurabilityActive ? Color.White : new Color(255, 80, 80) * 0.5f;
             Color color2 = mplayer.DurabilityActive ? Color.White : new Color(255, 142, 142) * 0.7f;
-            Vector2 Center = Main.ScreenSize.ToVector2() * 0.5f + new Vector2(0, -48);
+            Vector2 Center = pos;// Main.ScreenSize.ToVector2() * 0.5f + new Vector2(0, -60);
             if (dura < 0.32f && mplayer.DurabilityActive)
             {
                 Center += new Vector2(Main.rand.NextFloat() * ((0.32f - dura) * 20), Main.rand.NextFloat() * ((0.32f - dura) * 20));
             }
             Texture2D tex1 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Armor/Azafure/DurabilityBarA").Value;
-            Texture2D tex2 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Armor/Azafure/SteamKnightBar").Value;
+            Texture2D tex2 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Armor/Azafure/DurabilityBarB").Value;
             Main.spriteBatch.Draw(tex2, Center, null, color, 0, tex2.Size() / 2f, 1, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(tex1, Center, new Rectangle(0, 0, (int)(tex1.Width * dura), tex1.Height), color2, 0, tex1.Size() / 2f, 1, SpriteEffects.None, 0);
+            bool hover = Center.getRectCentered(100, 40).Intersects(Main.MouseScreen.getRectCentered(2, 2));
+            if (hover)
+                Main.instance.MouseText(CalamityEntropy.Instance.GetLocalization("DuraBar").Value + $": {dura.ToPercent()}%");
         }
     }
 }

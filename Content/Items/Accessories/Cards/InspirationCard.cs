@@ -27,9 +27,9 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ItemID.OasisCrate, 5)
-                .AddTile(TileID.WorkBenches).Register();
+                .AddTile(TileID.WorkBenches).DisableDecraft().Register();
             CreateRecipe().AddIngredient(ItemID.OasisCrateHard, 5)
-                .AddTile(TileID.WorkBenches).Register();
+                .AddTile(TileID.WorkBenches).DisableDecraft().Register();
         }
     }
 }

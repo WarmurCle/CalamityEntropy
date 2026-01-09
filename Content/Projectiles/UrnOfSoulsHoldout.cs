@@ -39,16 +39,19 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 CEUtils.PlaySound("flamethrower start", 1, Projectile.Center);
             }
-            if (Projectile.ai[0] == 70)
+            if (!Main.dedServ)
             {
-                snd = new LoopSound(loopSnd);
-                snd.play();
-                snd.setVolume(0);
-            }
-            if (Projectile.ai[0] >= 70)
-            {
-                snd.setVolume_Dist(Projectile.Center, 80, 800, 1);
-                snd.timeleft = 3;
+                if (Projectile.ai[0] == 70)
+                {
+                    snd = new LoopSound(loopSnd);
+                    snd.play();
+                    snd.setVolume(0);
+                }
+                if (Projectile.ai[0] >= 70)
+                {
+                    snd.setVolume_Dist(Projectile.Center, 80, 800, 1);
+                    snd.timeleft = 3;
+                }
             }
             if (Projectile.ai[0]++ > 27)
             {

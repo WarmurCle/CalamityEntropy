@@ -52,6 +52,12 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.ignoreWater = true;
         }
         public Action<NPC, NPC.HitInfo, int> onHitAction = null;
+        public float DamageMulToWormSegs = 1;
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (target.realLife >= 0)
+                modifiers.SourceDamage *= DamageMulToWormSegs;
+        }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             onHitAction?.Invoke(target, hit, damageDone);

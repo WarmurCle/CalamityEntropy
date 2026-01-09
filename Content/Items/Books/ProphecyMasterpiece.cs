@@ -159,7 +159,7 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile.Center = Projectile.GetOwner().MountedCenter + Projectile.GetOwner().gfxOffY * Vector2.UnitY + (Projectile.GetOwner().Calamity().mouseWorld - Projectile.GetOwner().Center).normalize() * 80;
 
             }
-            if(Projectile.owner != Main.myPlayer)
+            if (Projectile.owner != Main.myPlayer)
             {
                 if (width2 < 1)
                 {

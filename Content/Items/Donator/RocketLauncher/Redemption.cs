@@ -3,7 +3,6 @@ using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using CalamityMod.Tiles.Furniture.CraftingStations;
@@ -36,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             Item.damage = 460;
             Item.knockBack = 4f;
             Item.UseSound = null;
-            Item.value = Item.buyPrice(gold: 3); 
+            Item.value = Item.buyPrice(gold: 3);
             Item.rare = ItemRarityID.Pink;
             Item.Entropy().tooltipStyle = 8;
             Item.Entropy().strokeColor = Color.DarkGreen;
@@ -106,10 +105,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
                 if (Charge < 1)
                     itemPosition += CEUtils.randomPointInCircle(4);
             }
-            else if(!player.channel && player.itemTime > 0)
+            else if (!player.channel && player.itemTime > 0)
             {
                 float animProgress = 1 - player.itemTime / (float)player.itemTimeMax;
-                if(animProgress < 0.32f)
+                if (animProgress < 0.32f)
                     itemPosition += itemRotation.ToRotationVector2() * (float)Math.Pow((1 - animProgress / 0.32f), 2) * -32;
             }
             CalamityUtils.CleanHoldStyle(player, itemRotation, itemPosition, itemSize, itemOrigin);
@@ -157,7 +156,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             for (int i = 0; i < 128; i++)
             {
                 int d = Dust.NewDust(Projectile.Center, 0, 0, DustID.YellowTorch);
-                if(d < 6000)
+                if (d < 6000)
                 {
                     Main.dust[d].velocity = CEUtils.randomPointInCircle(15);
                     Main.dust[d].noGravity = true;
@@ -171,7 +170,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         }
         public override bool CanUseItem(Player player)
         {
-            if(player.altFunctionUse == 2)
+            if (player.altFunctionUse == 2)
             {
                 Item.channel = false;
                 Item.useTime = 80;

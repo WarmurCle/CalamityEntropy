@@ -215,7 +215,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
                     if (Projectile.ai[0] != 0)
                     {
                         VaultUtils.DrawRotatingMarginEffect(Main.spriteBatch, texture, Projectile.timeLeft, trueDrawPos
-                        , null, Color.Red, drawRoting, drawOrigin, Projectile.scale, effects);
+                        , null, new Color(255, 50, 50), drawRoting, drawOrigin, Projectile.scale, effects);
                     }
                 }
             }

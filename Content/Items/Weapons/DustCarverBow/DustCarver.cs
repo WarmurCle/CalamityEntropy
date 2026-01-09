@@ -1,4 +1,5 @@
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles.Pets.DoG;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
@@ -22,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
 {
     public class DustCarver : ModItem, IGetFromStarterBag
     {
-        public int LevelNow = 1;
+        public int LevelNow = 0;
         public static int GetLevel()
         {
             //return Main.LocalPlayer.inventory[9].stack;
@@ -125,7 +126,10 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             Item.useAmmo = AmmoID.Arrow;
             Item.channel = true;
             Item.noUseGraphic = true;
+            LevelNow = 0;
             Item.Entropy().Legend = true;
+            RecheckStats = true;
+            CheckLevel(GetLevel());
         }
         public override void HoldItem(Player player)
         {
@@ -160,8 +164,9 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
         }
         public void CheckLevel(int lv)
         {
-            if (LevelNow != lv)
+            if (LevelNow != lv || RecheckStats)
             {
+                RecheckStats = false;
                 LevelNow = lv;
                 int dmg = 30;
                 switch (lv)
@@ -184,13 +189,17 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                     case 15: dmg = 900; break;
                     case 16: dmg = 1200; break;
                 }
+
                 Item.damage = dmg;
                 Item.crit = lv * 3;
                 Item.knockBack = lv / 2;
+                Item.scale = 1;
+                Item.useTime = Item.useAnimation = 30;
                 Item.Prefix(Item.prefix);
             }
 
         }
+        public bool RecheckStats = true;
         public int GetUseTime()
         {
             int ret = 14;

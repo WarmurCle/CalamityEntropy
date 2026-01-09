@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Projectiles
                 float sengs = 3;
                 var color = Color.SkyBlue;
 
-                for (int j = 0; j < 120; j++)
+                for (int j = 0; j < 120; j += 2)
                 {
                     var spark = new HeavenfallStar();
                     EParticle.NewParticle(spark, Projectile.Center, norl * (0.1f + j * 0.34f) * sengs, color, Main.rand.NextFloat(0.6f, 1.3f), 1, true, BlendState.Additive, norl.ToRotation(), 24);

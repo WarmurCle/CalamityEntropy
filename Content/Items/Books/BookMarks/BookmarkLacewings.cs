@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     public class BookmarkLacewingsEffect : EBookProjectileEffect
     {
     }
-    public class LacewingBMMinion : EBookBaseProjectile
+    public class LacewingBMMinion : BaseBookMinion
     {
         public int Delay = 0;
         public override void SetDefaults()
@@ -54,8 +54,10 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.minionSlots = 0;
         }
         public int num = -1;
+        public override float DamageMult => 0.75f;
         public override void AI()
         {
+            base.AI();
             Player player = Projectile.GetOwner();
             if (Main.myPlayer != Projectile.owner || BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkLacewingsEffect>(player))
             {
@@ -66,9 +68,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 return;
             }
 
-            float DelayMult = player.GetWeaponAttackSpeed(player.HeldItem);
-            Projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
-            Projectile.damage = (int)(player.GetWeaponDamage(player.HeldItem) * 1.2f);
+            float DelayMult = 1;
+            if (ShooterModProjectile is EntropyBookHeldProjectile eb_)
+            {
+                DelayMult = eb_.CauculateAttackSpeed();
+            }
             Projectile.MaxUpdates = 1;
 
             if (CEUtils.getDistance(Projectile.Center, player.Center) > 3000)

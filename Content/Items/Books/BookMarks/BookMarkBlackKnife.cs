@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
-    public class BookMarkBlackKnife : BookMark
+    public class BookMarkBlackKnife : BookMark, IGetFromStarterBag
     {
         public override void SetDefaults()
         {
@@ -26,14 +26,18 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             return new BlackKnifeBMEffect();
         }
+        public bool OwnAble(Player player, ref int count)
+        {
+            return ShadowCrystalDeltarune.Ch3Crystal;
+        }
     }
     public class BlackKnifeBMEffect : EBookProjectileEffect
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 5 : 7) && CECooldowns.CheckCD("BlackKnifeBMProj", 2))
+            if (Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 5 : 7) && CECooldowns.CheckCD("BlackKnifeBMProj", 3))
             {
-                Projectile.NewProjectile(projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<BlackKnife>(), damageDone * 2, projectile.knockBack, projectile.owner, target.whoAmI, CEUtils.randomRot());
+                Projectile.NewProjectile(projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<BlackKnife>(), ((int)(damageDone * 1.16f)).Softlimitation(400), projectile.knockBack, projectile.owner, target.whoAmI, CEUtils.randomRot());
             }
         }
     }

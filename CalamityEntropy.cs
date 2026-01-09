@@ -8,6 +8,7 @@ using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Atbm;
+using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.MusicBoxes;
@@ -130,6 +131,16 @@ namespace CalamityEntropy
         public string EntropyWikiURL;
         public override void Load()
         {
+            CEUtils.BS_ColorInverse = new BlendState()
+            {
+                ColorSourceBlend = Blend.InverseDestinationColor,
+                ColorDestinationBlend = Blend.Zero,
+                ColorBlendFunction = BlendFunction.Add,
+
+                AlphaSourceBlend = Blend.One,
+                AlphaDestinationBlend = Blend.One,
+                AlphaBlendFunction = BlendFunction.Add,
+            };
             VanityDisplaySys.VanityItems = new();
             CEUtils.TexCache = new Dictionary<string, Texture2D>();
             theVoid_SCBIE = new CESpawnConditionBestiaryInfoElement(this.GetLocalizationKey("TheVoid"), 0, "CalamityEntropy/Assets/VoidBack");
@@ -140,6 +151,8 @@ namespace CalamityEntropy
             DateTime today = DateTime.Now;
             AprilFool = today.Month == 4 && today.Day == 1;
             CEUtils.SoundStyles = new Dictionary<string, Terraria.Audio.SoundStyle>();
+
+            ShadowCrystalDeltarune.Load();
 
             ILoaders = VaultUtils.GetSubInterface<ICELoader>();
             foreach (ICELoader setup in ILoaders)
@@ -236,7 +249,10 @@ namespace CalamityEntropy
 
         private void on_player_hurt(On_Player.orig_Hurt_HurtInfo_bool orig, Player self, Player.HurtInfo info, bool quiet)
         {
-            int leastDmg = (int)((ModContent.GetInstance<ServerConfig>().LeastDamageSufferedBasedOnMaxHealth * 0.01f) * self.statLifeMax2);
+            float num = ModContent.GetInstance<ServerConfig>().LeastDamageSufferedBasedOnMaxHealth;
+            if (EntropyMode && num < 16)
+                num = 16;
+            int leastDmg = (int)((num * 0.01f) * self.statLifeMax2);
             if (self.Entropy().oracleDeck)
             {
                 if (info.Damage > self.statLifeMax2 / 2)
@@ -252,9 +268,9 @@ namespace CalamityEntropy
                 self.Entropy().deusCoreBloodOut += info.Damage - 2;
                 info.Damage = 2;
             }
-            if(self.Entropy().NihTwinArmorConnetPlayer != -1)
+            if (self.Entropy().NihTwinArmorConnetPlayer != -1)
             {
-                if(self.statLife - info.Damage <= 0 && self.Entropy().NihTwinArmorConnetPlayer.ToPlayer().statLife > info.Damage)
+                if (self.statLife - info.Damage <= 0 && self.Entropy().NihTwinArmorConnetPlayer.ToPlayer().statLife > info.Damage)
                 {
                     if (CECooldowns.CheckCD("NihDamageDeathTrans", 12 * 60))
                     {
@@ -405,6 +421,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            CEUtils.BS_ColorInverse = null;
             Typer.activeTypers = null;
             ScreenShaker.Unload();
             VanityDisplaySys.VanityItems = null;
@@ -412,6 +429,7 @@ namespace CalamityEntropy
             theVoid_SCBIE = null;
             StartBagGItem.items = null;
             EModILEdit.edgeTex = null;
+            ShadowCrystalDeltarune.Reset();
             if (ILoaders != null)
             {
                 foreach (ICELoader setup in ILoaders)
@@ -809,7 +827,7 @@ namespace CalamityEntropy
                 return self.GetModPlayer<AtbmPlayer>().opos.getRectCentered(self.width, self.height);
             }
             Rectangle rect = orig(self);
-            if(self.Entropy().Scale != 1)
+            if (self.Entropy().Scale != 1)
                 rect = rect.Center.ToVector2().getRectCentered(self.Entropy().Scale * rect.Width, self.Entropy().Scale * rect.Height);
             return rect;
         }
@@ -1409,6 +1427,34 @@ namespace CalamityEntropy
             Typer.activeTypers = new();
             StartBagGItem.items = new List<int>();
             VanityDisplaySys.SetupVanities();
+
+
+            void bookUpdateDirt(Projectile projectile, bool ownerClient)
+            {
+                if (ownerClient && CECooldowns.CheckCD("Dirt", 60))
+                {
+                    if (projectile.ModProjectile is EntropyBookHeldProjectile eb)
+                        eb.ShootSingleProjectile(ModContent.ProjectileType<BMDirtProj>(), projectile.Center, projectile.rotation.ToRotationVector2(), 0.25f, 1, 0.8f, (proj) => { proj.ai[1] = -1; proj.ai[0] = ItemID.DirtBlock; });
+                }
+            }
+            BookMarkLoader.RegisterBookmarkEffect("DirtEffect", bookUpdate: bookUpdateDirt);
+            BookMarkLoader.RegisterBookmark(ItemID.DirtBlock, null, effectName: "DirtEffect");
+
+            void bookUpdateStone(Projectile projectile, bool ownerClient)
+            {
+                if (ownerClient && CECooldowns.CheckCD("Dirt", 60))
+                {
+                    if (projectile.ModProjectile is EntropyBookHeldProjectile eb)
+                        eb.ShootSingleProjectile(ModContent.ProjectileType<BMDirtProj>(), projectile.Center, projectile.rotation.ToRotationVector2(), 0.25f, 1, 0.8f, (proj) => { proj.ai[1] = 1; proj.ai[0] = ItemID.StoneBlock; });
+                }
+            }
+            BookMarkLoader.RegisterBookmarkEffect("StoneEffect", bookUpdate: bookUpdateStone);
+            BookMarkLoader.RegisterBookmark(ItemID.StoneBlock, null, effectName: "StoneEffect");
+            if (!Main.dedServ)
+            {
+                Main.instance.LoadItem(ItemID.StoneBlock);
+                Main.instance.LoadItem(ItemID.DirtBlock);
+            }
             for (int i = 0; i < ItemLoader.ItemCount; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
@@ -1479,14 +1525,13 @@ namespace CalamityEntropy
             for (int i = 0; i < NPCLoader.NPCCount; i++)
             {
                 NPCID.Sets.SpecificDebuffImmunity[i][ModContent.BuffType<Content.Buffs.HeatDeath>()] = false;
-                NPCID.Sets.SpecificDebuffImmunity[i][ModContent.BuffType<Content.Buffs.LifeOppress>()] = false;
-                NPCID.Sets.SpecificDebuffImmunity[i][ModContent.BuffType<Koishi>()] = false;
+                NPCID.Sets.SpecificDebuffImmunity[i][ModContent.BuffType<LifeOppress>()] = false;
             }
             List<int> specBuffs = new() { ModContent.BuffType<VoidVirus>(), ModContent.BuffType<SoulDisorder>(), ModContent.BuffType<Deceive>() };
             List<int> specNpcs = new() { ModContent.NPCType<DesertScourgeHead>(), ModContent.NPCType<DevourerofGodsHead>(), ModContent.NPCType<AstrumDeusHead>(), ModContent.NPCType<AquaticScourgeHead>(), ModContent.NPCType<AstrumAureus>(), ModContent.NPCType<BrimstoneElemental>(), ModContent.NPCType<Bumblefuck>(), ModContent.NPCType<CalamitasClone>(), ModContent.NPCType<CeaselessVoid>(), ModContent.NPCType<Crabulon>(), ModContent.NPCType<Cryogen>(), ModContent.NPCType<CryogenShield>(), ModContent.NPCType<AresBody>(), ModContent.NPCType<Artemis>(), ModContent.NPCType<Apollo>(), ModContent.NPCType<ThanatosHead>(), ModContent.NPCType<GreatSandShark>(), ModContent.NPCType<HiveMind>(), ModContent.NPCType<PerforatorHive>(), ModContent.NPCType<Leviathan>(), ModContent.NPCType<Anahita>(), ModContent.NPCType<PlaguebringerGoliath>(), ModContent.NPCType<Polterghast>(), ModContent.NPCType<PrimordialWyrmHead>(), ModContent.NPCType<Providence>(), ModContent.NPCType<RavagerBody>(), ModContent.NPCType<Signus>(), ModContent.NPCType<StormWeaverHead>(), ModContent.NPCType<Yharon>(), ModContent.NPCType<SupremeCalamitas>() };
-            foreach(int i in specBuffs)
+            foreach (int i in specBuffs)
             {
-                foreach(int j in specNpcs)
+                foreach (int j in specNpcs)
                 {
                     NPCID.Sets.SpecificDebuffImmunity[j][i] = false;
                 }

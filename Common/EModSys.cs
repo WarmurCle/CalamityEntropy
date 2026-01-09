@@ -178,6 +178,34 @@ namespace CalamityEntropy.Common
 
             Main.spriteBatch.End();
         }
+        public static void DrawVoidShield(Player player, Vector2 pos, float alpha, float scale)
+        {
+            if(player.Entropy().VoidShieldVisual && player.Entropy().VoidCoreItem == null)
+            {
+                alpha = 1;
+                scale = 0.6f;
+            }
+            scale *= 0.55f;
+            Vector2 center = pos + Vector2.UnitY * player.gfxOffY;
+            Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/NihShield", AssetRequestMode.ImmediateLoad).Value;
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.ZoomMatrix);
+            shader.Parameters["offset"].SetValue(Main.GlobalTimeWrappedHourly);
+            shader.Parameters["num"].SetValue(0.98f);
+            shader.CurrentTechnique.Passes[0].Apply();
+            var gd = Main.graphics.GraphicsDevice;
+            gd.Textures[1] = CEUtils.getExtraTex("Noise_10");
+            Texture2D tex = CEUtils.getExtraTex("Circle");
+            for(int i = 0; i < 1; i++)
+            {
+                float rot = 0.8f;
+                rot *= Main.GlobalTimeWrappedHourly * 2;
+                shader.Parameters["OutlineColor"].SetValue((Color.Lerp(new Color(140, 140, 255), Color.White, 0.16f + 0.16f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * 6)))).ToVector4() * alpha);
+                Main.spriteBatch.Draw(tex, center - Main.screenPosition, null, new Color(200, 200, 255) * alpha, 0 + rot, tex.Size() / 2f, scale, SpriteEffects.None, 0);
+                shader.Parameters["OutlineColor"].SetValue((Color.Lerp(new Color(140, 140, 255), Color.White, 0.16f + 0.16f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * 6)))).ToVector4() * alpha * player.Entropy().ShieldAlphaAdd);
+                Main.spriteBatch.Draw(tex, center - Main.screenPosition, null, new Color(200, 200, 255) * alpha * player.Entropy().ShieldAlphaAdd, 0 + rot, tex.Size() / 2f, scale, SpriteEffects.None, 0);
+            }
+            Main.spriteBatch.End();
+        }
         public override void PostDrawTiles()
         {
             foreach (Player player in Main.ActivePlayers)
@@ -202,11 +230,26 @@ namespace CalamityEntropy.Common
                     float c = mp.NihilityShield > 0 ? 1 : ((float)mp.NihilityRecharge / VoidEaterHelmet.ShieldRecharge) * 0.6f;
                     DrawNihShield(player, player.Center, c * (0.5f + p * 0.5f), mp.NihShieldScale * (0.7f + 0.3f * p));
                 }
-                if(mp.NihArmorRope != null && player.whoAmI < mp.NihTwinArmorConnetPlayer)
+                if (mp.NihArmorRope != null && player.whoAmI < mp.NihTwinArmorConnetPlayer)
                 {
                     Main.spriteBatch.begin_();
                     mp.DrawNihRope();
                     Main.spriteBatch.End();
+                }
+                if(mp.VoidShieldVisual)
+                {
+                    float p = 1;
+                    if (mp.VoidCoreItem != null)
+                    {
+                        p = (float)mp.VoidShield / VoidCore.MaxShield;
+                        if (mp.VoidShield <= 0)
+                        {
+                            p = (float)mp.VoidRecharge / VoidCore.ShieldRecharge;
+                        }
+                    }
+                    float c = mp.VoidShield > 0 ? 1 : ((float)mp.VoidRecharge / VoidCore.ShieldRecharge) * 0.4f;
+
+                    DrawVoidShield(player, player.Center, c * (0.5f + p * 0.5f), mp.VoidCoreShieldScale * (0.7f + 0.3f * p));
                 }
             }
 
@@ -428,6 +471,7 @@ namespace CalamityEntropy.Common
                 CalamityEntropy.cutScreen = 0;
                 CalamityEntropy.cutScreenVel = 0;
             }
+            
         }
 
         public override void PostUpdatePlayers()

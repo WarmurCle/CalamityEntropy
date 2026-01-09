@@ -1,4 +1,3 @@
-using CalamityEntropy.Common;
 using CalamityMod.Items;
 using CalamityMod.Projectiles.Melee;
 using CalamityMod.Rarities;

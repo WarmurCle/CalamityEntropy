@@ -38,15 +38,21 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
         public static void CalculateStatsForPlayer(Player player)
         {
             float MaxDeviation = 0.4f;
-            int seed = player.HeldItem.type * 2 + 7;
+            Item item = player.HeldItem;
+            string name = item.type.ToString();
+            if (item.ModItem != null)
+            {
+                name = item.ModItem.Name;
+            }
+            int seed = name.GetHashCode() + 14;
             if (Main.zenithWorld)
             {
                 seed += player.position.ToPoint().GetHashCode();
             }
-            float sum = new UnifiedRandom(seed).NextFloat(MaxDeviation / -4f, MaxDeviation / 2f);
+            float sum = new UnifiedRandom(seed).NextFloat(0, MaxDeviation / 2f);
             if (player.AzafureEnhance())
             {
-                sum += 0.2f;
+                sum += 0.38f;
             }
             List<float> ModifyMap = FloatListGenerator.GenerateFloatList(seed, 9, sum, -0.26f, 0.26f);
             float Dmg = ModifyMap[0];
@@ -100,6 +106,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
+            CalculateStatsForPlayer(Main.LocalPlayer);
             string tt = Mod.GetLocalization("RIDModifies").Value;
             if (Main.LocalPlayer.HeldItem.type > ItemID.None && Main.LocalPlayer.HeldItem.type != Item.type)
             {

@@ -136,7 +136,7 @@ namespace CalamityEntropy.Content.Items.Books
             EBookStatModifer modifer = new EBookStatModifer();
             modifer.Damage = 1;
             modifer.Knockback = Projectile.GetOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack);
-            modifer.Crit = Projectile.GetOwner().GetTotalCritChance(Projectile.DamageType) + Projectile.CritChance;
+            modifer.Crit = Projectile.GetOwner().GetTotalCritChance(Projectile.DamageType) + Projectile.GetOwner().HeldItem.crit;
             modifer.attackSpeed = Projectile.GetOwner().GetTotalAttackSpeed(Projectile.DamageType);
             modifer.armorPenetration = Projectile.ArmorPenetration;
             return modifer;
@@ -281,6 +281,11 @@ namespace CalamityEntropy.Content.Items.Books
             var modifer = GetProjectileModifer();
             return (int)(Projectile.GetOwner().GetTotalDamage(Projectile.DamageType).ApplyTo(bookItem.damage * modifer.Damage * mult * (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj < 0 ? 1 : TwistedTwinMinion.damageMul)));
         }
+        public float CauculateAttackSpeed()
+        {
+            var modifer = GetProjectileModifer();
+            return Projectile.GetOwner().GetTotalAttackSpeed(Projectile.DamageType) * modifer.attackSpeed;
+        }
         public EBookStatModifer GetProjectileModifer()
         {
             EBookStatModifer modifer = getBaseModifer();
@@ -372,6 +377,12 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public virtual int frameChange => 4;
         public virtual Vector2 UIHeldOffset => Vector2.UnitY * -52;
+        public override bool PreAI()
+        {
+            if (bookItem == null)
+                bookItem = Projectile.GetOwner().HeldItem;
+            return true;
+        }
         public override void AI()
         {
             var player = Projectile.GetOwner();
@@ -632,10 +643,10 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override bool PreAI()
         {
-            if(ShooterModProjectile == null)
+            if (ShooterModProjectile == null)
             {
                 Projectile p = shooter.ToProj_Identity();
-                if(p != null && p != default)
+                if (p != null && p != default)
                 {
                     if (p.ModProjectile != null)
                     {
@@ -643,6 +654,7 @@ namespace CalamityEntropy.Content.Items.Books
                     }
                 }
             }
+
             if (initColor)
             {
                 Projectile.rotation = Projectile.velocity.ToRotation();

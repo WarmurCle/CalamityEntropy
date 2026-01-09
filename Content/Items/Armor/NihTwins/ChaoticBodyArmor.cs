@@ -1,5 +1,4 @@
 using CalamityMod.Items;
-using CalamityMod.Items.Placeables.FurnitureVoid;
 using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Rarities;
 using Terraria;

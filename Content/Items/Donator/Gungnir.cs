@@ -35,10 +35,10 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             CreateRecipe()
                 .AddIngredient(ItemID.Gungnir)
+                .AddIngredient<CosmiliteBar>(12)
                 .AddIngredient<DivineGeode>(12)
                 .AddIngredient<GalacticaSingularity>(6)
                 .AddIngredient<AscendantSpiritEssence>(2)
-                .AddIngredient<CosmiliteBar>(12)
                 .AddTile<CosmicAnvil>()
                 .Register();
         }
@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.crit = 10;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.useAnimation = Item.useTime = 30;
+            Item.useAnimation = Item.useTime = 36;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 1f;
             Item.UseSound = SoundID.Item1;

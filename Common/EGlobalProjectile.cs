@@ -202,6 +202,7 @@ namespace CalamityEntropy.Common
         }
         public override void SendExtraAI(Projectile projectile, BitWriter _, BinaryWriter binaryWriter)
         {
+            binaryWriter.Write(Shooter);
             binaryWriter.Write(OnProj);
             binaryWriter.Write(IndexOfTwistedTwinShootedThisProj);
             binaryWriter.Write(GWBow);
@@ -225,6 +226,7 @@ namespace CalamityEntropy.Common
         }
         public override void ReceiveExtraAI(Projectile projectile, BitReader _, BinaryReader binaryReader)
         {
+            Shooter = binaryReader.ReadInt32();
             OnProj = binaryReader.ReadInt32();
             IndexOfTwistedTwinShootedThisProj = binaryReader.ReadInt32();
             GWBow = binaryReader.ReadBoolean();
@@ -1253,7 +1255,7 @@ namespace CalamityEntropy.Common
         public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            foreach(int id in applyBuffs)
+            foreach (int id in applyBuffs)
             {
                 target.AddBuff(id, 5 * 60);
             }

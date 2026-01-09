@@ -1,13 +1,8 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.UI.EntropyBookUI;
-using CalamityMod;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Dusts;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework.Graphics;
@@ -168,7 +163,7 @@ namespace CalamityEntropy.Content.Items.Books
             PortalAlpha = float.Lerp(PortalAlpha, UIOpen ? 1 : 0, 0.1f);
         }
         public float PortalAlpha;
-        
+
         public void DrawPortal()
         {
             float alpha = PortalAlpha;
@@ -217,6 +212,7 @@ namespace CalamityEntropy.Content.Items.Books
             target.AddBuff<GodSlayerInferno>(300);
         }
     }
+
     public class CosmicDeathRay : EBookBaseProjectile
     {
         public override void SetStaticDefaults()
@@ -230,13 +226,13 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.width = 32;
             Projectile.height = 32;
             Projectile.tileCollide = false;
-            Projectile.MaxUpdates = 6;
-            Projectile.timeLeft = 160 * 6;
-            Projectile.penetrate = 2;
+            Projectile.MaxUpdates = 5;
+            Projectile.timeLeft = 100 * 5;
+            Projectile.penetrate = -1;
         }
         public override void OnKill(int timeLeft)
         {
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, color, 0.5f, 1, true, BlendState.Additive, 0, 12);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, color, 0.4f, 1, true, BlendState.Additive, 0, 12);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.3f, 1, true, BlendState.Additive, 0, 12);
 
         }
@@ -274,10 +270,19 @@ namespace CalamityEntropy.Content.Items.Books
 
             return false;
         }
+        public float DamageMul = 1;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            CEUtils.PlaySound("GrassSwordHit1", Main.rand.NextFloat(2f, 2.4f), target.Center, 60, 0.36f);
+            if (Projectile.numHits < 2)
+                CEUtils.PlaySound("GrassSwordHit1", Main.rand.NextFloat(2f, 2.4f), target.Center, 60, 0.32f);
+            DamageMul = float.Max(0.5f, DamageMul * 0.7f);
         }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            base.ModifyHitNPC(target, ref modifiers);
+            modifiers.SourceDamage *= DamageMul;
+        }
+
     }
 }

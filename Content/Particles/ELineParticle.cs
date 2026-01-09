@@ -23,6 +23,7 @@ namespace CalamityEntropy.Content.Particles
             {
                 this.Lifetime = 2;
             }
+            w *= 0.97f;
         }
         public Vector2 b;
         public override void OnSpawn()
@@ -32,6 +33,7 @@ namespace CalamityEntropy.Content.Particles
         public float width = 2;
         public float c;
         public float r;
+        public float w = 1;
         public ELineParticle(float width, float c = 0.96f, float r = 0.96f)
         {
             this.width = width;
@@ -41,7 +43,7 @@ namespace CalamityEntropy.Content.Particles
         public int counter = 0;
         public override void Draw()
         {
-            CEUtils.drawLine(this.Position, b, this.Color, width);
+            CEUtils.drawLine(this.Position, b, this.Color, width * w);
         }
     }
 }

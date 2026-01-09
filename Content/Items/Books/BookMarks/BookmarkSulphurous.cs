@@ -1,4 +1,4 @@
-﻿using CalamityMod.Buffs.DamageOverTime;
+using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables;
@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (projectile.GetOwner().Entropy().SulphurousBubbleRecharge < 3600)
             {
-                target.AddBuff<SulphuricPoisoning>(Time);
+                target.AddBuff<Irradiated>(Time);
             }
         }
     }

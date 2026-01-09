@@ -1,14 +1,9 @@
 using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Placeables.FurnitureVoid;
 using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.ID;
@@ -51,15 +46,15 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
                 player.Calamity().rogueStealthMax += 1.2f;
             }
             player.endurance += 0.12f;
-	        player.statLifeMax2 += 40;
+            player.statLifeMax2 += 40;
             player.GetDamage(DamageClass.Generic) += 0.12f;
             player.maxMinions += 3;
-	        player.statManaMax2 += 120;
+            player.statManaMax2 += 120;
             player.Entropy().ChaoticSet = true;
         }
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.13f;
+            player.GetDamage(DamageClass.Generic) += 0.08f;
             player.maxMinions += 1;
         }
 
@@ -86,7 +81,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             Projectile.timeLeft = 26 * 60;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        { 
+        {
             if (Projectile.numHits < 6)
             {
                 Projectile.velocity *= -1f;
@@ -151,7 +146,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            for(float i = 0; i < 360; i += 60)
+            for (float i = 0; i < 360; i += 60)
             {
                 Main.EntitySpriteDraw(Projectile.getDrawData(Color.White, null, Projectile.Center + i.ToRadians().ToRotationVector2() * 2));
             }

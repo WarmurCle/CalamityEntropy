@@ -42,7 +42,7 @@ namespace CalamityEntropy.Common
        Func<int, int> modifyShootCooldown = null,
        Func<Item, Item, bool> canBeEq = null)
         {
-            CustomBMByID[ItemType] = new BookMarkTag(tex.Value, effectName, canBeEq == null ? default : canBeEq)
+            CustomBMByID[ItemType] = new BookMarkTag(tex == null ? null : tex.Value, effectName, canBeEq == null ? default : canBeEq)
             {
                 ModifyStat_Damage = modifyStat_Damage,
                 ModifyStat_Knockback = modifyStat_Knockback,
@@ -360,9 +360,9 @@ namespace CalamityEntropy.Common
             public string CustomBMEffectName;
             public Texture2D uiTex;
             public Func<Item, Item, bool> CanBeEquipWith = CanBeEquipWith_Base;
-            public BookMarkTag(Texture2D uITexture, string customBMEffectName = null, Func<Item, Item, bool> canBeEquipWith = default)
+            public BookMarkTag(Texture2D uiTexture, string customBMEffectName = null, Func<Item, Item, bool> canBeEquipWith = default)
             {
-                uiTex = uITexture;
+                uiTex = uiTexture;
                 this.CustomBMEffectName = customBMEffectName;
                 if (canBeEquipWith != default)
                 {

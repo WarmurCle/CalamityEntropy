@@ -35,14 +35,13 @@ namespace CalamityEntropy.Content.Items.Donator
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
         }
         public string DevName => "Kino";
-        public override float StealthDamageMultiplier => 1.6f;
+        public override float StealthDamageMultiplier => 1.4f;
         public override float StealthVelocityMultiplier => 1f;
         public override float StealthKnockbackMultiplier => 2f;
 
         public int SpeedUpTime = 0;
         public static int GetLevel()
         {
-            //return Main.LocalPlayer.inventory[9].stack;
             int Level = 0;
             bool flag = true;
             void Check(bool f)
@@ -56,7 +55,6 @@ namespace CalamityEntropy.Content.Items.Donator
                     flag = false;
                 }
             }
-            //16
             Check(NPC.downedBoss1);
             Check(NPC.downedBoss2 || DownedBossSystem.downedPerforator || DownedBossSystem.downedHiveMind);
             Check(DownedBossSystem.downedSlimeGod);
@@ -75,6 +73,8 @@ namespace CalamityEntropy.Content.Items.Donator
             Check(DownedBossSystem.downedPrimordialWyrm);
             return Level;
         }
+        public int NowLevel = 0;
+        public bool RecheckStats = true;
         private static float UpdatePos
         {
             get
@@ -102,17 +102,14 @@ namespace CalamityEntropy.Content.Items.Donator
             bool holdShift = Keyboard.GetState().IsKeyDown(Keys.LeftShift);
             if (holdShift && holdAlt)
                 holdAlt = false;
-            //这里的tooltip染色处理都是用[c/16进制颜色：]的
             #region 路径
             string pathPrefix = $"{CEUtils.LocalPrefix}.LegendaryAbility.";
             string lockedPath = pathPrefix + "General.Locked";
-            //武器路径
             string pathBase = pathPrefix + $"{GetType().Name}Legend.";
             string pathLore = pathBase + "Dialog.TScytheDia";
             string pathAbility = pathBase + "Ability.TScytheA";
             string pathCondition = pathBase + "Downed.TScytheU";
             #endregion
-            //从方法列表中获取被手动分类过的能力Tooltip
             string throwTooltip = AbilityThrowDesc(pathAbility, pathCondition, lockedPath);
             string teleportTooltip = AbilityTeleportDesc(pathAbility, pathCondition, lockedPath);
             string dashTooltip = AbilityDashDesc(pathAbility, pathCondition, lockedPath);
@@ -126,19 +123,14 @@ namespace CalamityEntropy.Content.Items.Donator
             bool shouldDrawHoldShiftTips = isNeither || shouldDrawPages;
             bool any = holdAlt || holdShift;
 
-            //显示按住左shift的能力文本
-            //我没有动原本的逻辑，只是为了处理翻页我才大幅度重写了这里的tooltip。如果有需求的话也可以直接把上方的能力列表全部组合起来变成按住左shift的文本
             if (shouldDrawHoldshift)
             {
                 HandleHoldShift(tooltips);
             }
-            //显示按住左alt的能力文本
             if (shouldDrawPages)
                 HandleSwapAbility(tooltips, throwTooltip, teleportTooltip, dashTooltip, statTooltip);
-            //显示按住左alt的提醒文本
             if (shouldDrawPagesTips && !any)
                 tooltips.QuickAddTooltip($"{pathPrefix}General.PagesTips", Color.Yellow, LineName: "PagesMoreInfo");
-            //显示按住左shift的提醒文本
             if (shouldDrawHoldShiftTips && !any)
                 tooltips.QuickAddTooltipDirect(Mod.GetLocalization("PressShiftForMoreInfo").Value, Color.Yellow, LineName: "ShiftMoreInfo");
             bool isKilledNPC = Main.LocalPlayer.GetModPlayer<TlipocasSingleHit>().isPressed;
@@ -213,7 +205,6 @@ namespace CalamityEntropy.Content.Items.Donator
             int LoreLevel = Math.Clamp(GetLevel() + 1, 1, 17);
             string curLore = pathLore + LoreLevel.ToString();
             tooltips.QuickAddTooltip(curLore, Color.HotPink);
-            //等级信息。
             string curLevel = Mod.GetLocalization("NowLV").Value + " - " + GetLevel() + "/16";
             TooltipLine levelTooltip = new(Mod, "CurLevel", curLevel) { OverrideColor = Color.Yellow };
             tooltips.Add(levelTooltip);
@@ -222,7 +213,6 @@ namespace CalamityEntropy.Content.Items.Donator
         #region 文本翻页
         private void HandleSwapAbility(List<TooltipLine> tooltips, string throwTooltip, string teleportTooltip, string dashTooltip, string statTooltip)
         {
-            //切换选择
             string selectedOne;
             selectedOne = SelectedDesc switch
             {
@@ -231,50 +221,35 @@ namespace CalamityEntropy.Content.Items.Donator
                 AbilityDescSelect.Teleport => teleportTooltip,
                 _ => statTooltip,
             };
-            //重写原版的“Tooltip”内容。
-            //其实也不用重写，草，加一行就行了
             tooltips.QuickAddTooltipDirect(selectedOne);
         }
 
-        //投掷能力
         private string AbilityThrowDesc(string pathAbility, string pathCondition, string lockedPath)
         {
-            //获取能力标题，并转化为文本值
             string titleText = $"{CEUtils.LocalPrefix}.LegendaryAbility.{GetType().Name}Legend.Conditions.ThrowTitle".ToLangValue();
             string lockedValue = lockedPath.ToLangValue();
-            //任意邪恶boss后 - 基本投掷
             string baseThrowText = $"{pathAbility}2".ToLangValue();
             string downedEvilText = $"{lockedValue} {$"{pathCondition}2".ToLangValue()}";
             bool downedAnyEvil = NPC.downedBoss2 || DownedBossSystem.downedPerforator || DownedBossSystem.downedHiveMind;
-            //先知后 - 投掷按左键
             string pressThrowText = $"{pathAbility}3".ToLangValue();
             string downedProphetText = $"{lockedValue} {$"{pathCondition}3".ToLangValue()}";
-            //进入判定区，全部组合完毕后，再使用标准符进行染色
-            //能力锁定时，组合(锁定文本 +  能力文本)后染色并返回，实际文本将会为：[c/16进制颜色：总文本内容]，即进行了格式化字符串而非常规的复写颜色，下同
             baseThrowText = downedAnyEvil ? DyeText(baseThrowText, Color.Yellow) : DyeText(downedEvilText + "\n" + baseThrowText, Color.Gray);
             pressThrowText = EDownedBosses.downedProphet ? DyeText(pressThrowText, Color.Yellow) : DyeText(downedProphetText + "\n" + pressThrowText, Color.Gray);
-            //处理封存 - 邪恶boss
-            //最后组合： 标题 + 上述已经组合起来的能力文本 + 多个换行符
             string combination = DyeText(titleText, Color.Crimson)
-                               + "\n" + baseThrowText
-                               + "\n" + pressThrowText;
+       + "\n" + baseThrowText
+       + "\n" + pressThrowText;
             return combination;
         }
 
-        //传送能力
         private string AbilityTeleportDesc(string pathAbility, string pathCondition, string lockedPath)
         {
-            //获取能力标题，并转化为文本值
             string titleText = $"{CEUtils.LocalPrefix}.LegendaryAbility.{GetType().Name}Legend.Conditions.TeleportTitle".ToLangValue();
             string lockedValue = lockedPath.ToLangValue();
-            //传送斩击启用
             int cd = EDownedBosses.downedCruiser ? 10 : 15;
             string allowTeleportSlice = $"{pathAbility}2B".ToLangValue();
-            //格式化
             allowTeleportSlice = allowTeleportSlice.ToFormatValue(cd);
             string downedBrimmyText = $"{lockedValue} {$"{pathCondition}2B".ToLangValue()})";
 
-            //传送斩击附魔
             int voidBuffTime = EDownedBosses.downedCruiser ? 30 : 15;
             string enchanted = $"{pathAbility}5".ToLangValue();
             enchanted = enchanted.ToFormatValue(voidBuffTime.ToString(), "25%");
@@ -282,82 +257,62 @@ namespace CalamityEntropy.Content.Items.Donator
 
             string dogText = DyeText(DownedBossSystem.downedDoG ? $"{pathAbility}6".ToLangValue() : $"{lockedValue} {$"{pathCondition}6".ToLangValue()})", DownedBossSystem.downedDoG ? Color.Yellow : Color.Gray);
 
-            //进入判定区，全部组合完毕后，再使用标准符进行染色
-            //能力锁定时，组合(锁定文本 +  能力文本)后染色并返回，实际文本将会为：[c/16进制颜色：总文本内容]，即进行了格式化字符串而非常规的复写颜色，下同
             allowTeleportSlice = NPC.downedBoss1 ? DyeText(allowTeleportSlice, Color.Yellow) : DyeText(downedBrimmyText + "\n" + allowTeleportSlice, Color.Gray);
             enchanted = DownedBossSystem.downedPolterghast ? DyeText(enchanted, Color.Yellow) : DyeText(downedPolterText + "\n" + enchanted, Color.Gray);
 
-            //最后组合： 标题 + 上述已经组合起来的能力文本 + 多个换行符
             string combination = DyeText(titleText, Color.Crimson)
-                               + "\n" + allowTeleportSlice
-                               + "\n" + enchanted
-                               + "\n" + dogText;
+                   + "\n" + allowTeleportSlice
+                   + "\n" + enchanted
+                   + "\n" + dogText;
             return combination;
         }
-        //突刺能力
         private string AbilityDashDesc(string pathAbility, string pathCondition, string lockedPath)
         {
-            //获取能力标题，并转化为文本值
             string titleText = $"{CEUtils.LocalPrefix}.LegendaryAbility.{GetType().Name}Legend.Conditions.DashTitle".ToLangValue();
             string lockedValue = lockedPath.ToLangValue();
             string allowDashText = $"{pathAbility}1".ToLangValue();
-            //启用冲刺
             string downedEoCText = $"{lockedValue} {$"{pathCondition}1".ToLangValue()})";
-            //冲刺滞留裂缝
             string tearDashText = $"{pathAbility}5".ToLangValue();
             string downedDoGText = $"{lockedValue} {$"{pathCondition}6".ToLangValue()})";
 
-            //进入判定区，全部组合完毕后，再使用标准符进行染色
-            //能力锁定时，组合(锁定文本 +  能力文本)后染色并返回，实际文本将会为：[c/16进制颜色：总文本内容]，即进行了格式化字符串而非常规的复写颜色，下同
             allowDashText = NPC.downedBoss1 ? DyeText(allowDashText, Color.Yellow) : DyeText(downedEoCText + "\n" + allowDashText, Color.Gray);
             tearDashText = DownedBossSystem.downedDoG ? DyeText(tearDashText, Color.Yellow) : DyeText(downedDoGText + "\n" + tearDashText, Color.Gray);
 
-            //最后组合： 标题 + 上述已经组合起来的能力文本 + 多个换行符
             string combination = DyeText(titleText, Color.Crimson)
-                               + "\n" + allowDashText
-                               + "\n" + tearDashText;
+                   + "\n" + allowDashText
+                   + "\n" + tearDashText;
             return combination;
         }
 
-        //数值能力
         private string AbilityStat(string pathAbility, string pathCondition, string lockedPath)
         {
-            //获取能力标题，并转化为文本值，染色。
             string titleText = $"{CEUtils.LocalPrefix}.LegendaryAbility.{GetType().Name}Legend.Conditions.StatTitle".ToLangValue();
             string lockedValue = lockedPath.ToLangValue();
 
-            //突刺时给予无敌，造成伤害 - 史莱姆神
             string invinciDashText = $"{pathAbility}1B".ToLangValue();
             string downedSGLocked = $"{lockedValue} {$"{pathCondition}1B".ToLangValue()}";
-            //自活 - 龙
             string selfReviveText = $"{pathAbility}7".ToLangValue();
             string dowendYharonLocked = $"{lockedValue} {$"{pathCondition}7".ToLangValue()}";
-            //虚空触 - 巡游
             string voidTouchText = $"{pathAbility}8".ToLangValue();
             string downedPurpleWormLocked = $"{lockedValue} {$"{pathCondition}8".ToLangValue()}";
-            //近程伤害 - 终灾
             string closeDamageText = $"{pathAbility}9".ToLangValue();
             string dowendScalLocked = $"{lockedValue} {$"{pathCondition}9".ToLangValue()}";
 
-            //进入判定区，全部组合完毕后，再使用标准符进行染色
-            //能力锁定时，组合(锁定文本 +  能力文本)后染色并返回，实际文本将会为：[c/16进制颜色：总文本内容]，即进行了格式化字符串而非常规的复写颜色，下同
             invinciDashText = DownedBossSystem.downedSlimeGod ? DyeText(invinciDashText, Color.Yellow) : DyeText(downedSGLocked + "\n" + invinciDashText, Color.Gray);
             selfReviveText = DownedBossSystem.downedYharon ? DyeText(selfReviveText, Color.Yellow) : DyeText(dowendYharonLocked + "\n" + selfReviveText, Color.Gray);
             voidTouchText = EDownedBosses.downedCruiser ? DyeText(voidTouchText, Color.Yellow) : DyeText(downedPurpleWormLocked + "\n" + voidTouchText, Color.Gray);
             closeDamageText = DownedBossSystem.downedCalamitas ? DyeText(closeDamageText, Color.Yellow) : DyeText(dowendScalLocked + "\n" + closeDamageText, Color.Gray);
 
-            //最后组合： 标题 + 上述已经组合起来的能力文本 + 多个换行符
             string combination = DyeText(titleText, Color.Crimson)
-                               + "\n" + invinciDashText
-                               + "\n" + selfReviveText
-                               + "\n" + voidTouchText
-                               + "\n" + closeDamageText;
+                   + "\n" + invinciDashText
+                   + "\n" + selfReviveText
+                   + "\n" + voidTouchText
+                   + "\n" + closeDamageText;
             return combination;
         }
         private static string DyeText(string textValue, Color color)
         {
             string colorValue = $"{color.R:X2}{color.G:X2}{color.B:X2}";
-            //处理染色换行
             string[] lines = textValue.Split(['\n'], StringSplitOptions.None);
             for (int i = 0; i < lines.Length; i++)
             {
@@ -366,7 +321,6 @@ namespace CalamityEntropy.Content.Items.Donator
             string realValue = string.Join("\n", lines);
             return realValue;
         }
-        //枚举
         private enum AbilityDescSelect
         {
             Stat,
@@ -375,7 +329,6 @@ namespace CalamityEntropy.Content.Items.Donator
             Teleport
         }
         private AbilityDescSelect SelectedDesc = AbilityDescSelect.Stat;
-        //右键切换物品描述需要的东西
         public override bool CanRightClick() => Keyboard.GetState().IsKeyDown(Keys.LeftAlt);
         public override bool ConsumeItem(Player player) => false;
         public override void RightClick(Player player)
@@ -387,42 +340,54 @@ namespace CalamityEntropy.Content.Items.Donator
         #endregion
         public override void UpdateInventory(Player player)
         {
-            int dmg = 20;
             int lv = GetLevel();
-            switch (lv)
+            if (NowLevel != lv || RecheckStats)
             {
-                case 0: dmg = 20; break;
-                case 1: dmg = 36; break;
-                case 2: dmg = 40; break;
-                case 3: dmg = 60; break;
-                case 4: dmg = 80; break;
-                case 5: dmg = 140; break;
-                case 6: dmg = 180; break;
-                case 7: dmg = 220; break;
-                case 8: dmg = 280; break;
-                case 9: dmg = 340; break;
-                case 10: dmg = 440; break;
-                case 11: dmg = 540; break;
-                case 12: dmg = 720; break;
-                case 13: dmg = 1100; break;
-                case 14: dmg = 1600; break;
-                case 15: dmg = 2000; break;
-                case 16: dmg = 3200; break;
+                RecheckStats = false;
+                NowLevel = lv;
+                int dmg = 20;
+                switch (lv)
+                {
+                    case 0: dmg = 16; break;
+                    case 1: dmg = 32; break;
+                    case 2: dmg = 36; break;
+                    case 3: dmg = 54; break;
+                    case 4: dmg = 72; break;
+                    case 5: dmg = 130; break;
+                    case 6: dmg = 170; break;
+                    case 7: dmg = 210; break;
+                    case 8: dmg = 270; break;
+                    case 9: dmg = 330; break;
+                    case 10: dmg = 420; break;
+                    case 11: dmg = 520; break;
+                    case 12: dmg = 710; break;
+                    case 13: dmg = 1040; break;
+                    case 14: dmg = 1520; break;
+                    case 15: dmg = 1900; break;
+                    case 16: dmg = 3100; break;
+                }
+                Item.damage = dmg;
+                Item.crit = lv;
+                Item.knockBack = lv / 2;
+                Item.scale = 1;
+                Item.Prefix(Item.prefix);
             }
-            Item.damage = dmg;
-            Item.ClearNameOverride();
-            if (player.name.ToLower() is "tlipoca" or "Kino" || player.GetModPlayer<VanityModPlayer>().vanityEquippedLast == "BlackFlower")
+            else
             {
-                Item.SetNameOverride(Mod.GetLocalization("TScytheSpecialName").Value);
+                Item.ClearNameOverride();
+                if (player.name.ToLower() is "tlipoca" or "Kino" || (player.TryGetModPlayer<VanityModPlayer>(out var mp) && mp.vanityEquippedLast == "BlackFlower"))
+                {
+                    Item.SetNameOverride(Mod.GetLocalization("TScytheSpecialName").Value);
+                }
+                else if (Main.zenithWorld)
+                {
+                    Item.SetNameOverride(Mod.GetLocalization("TScytheZenithName").Value);
+                }
+                if (throwType == -1)
+                    throwType = ModContent.ProjectileType<TlipocasScytheThrow>();
+                FuncKilledTownNPC(player);
             }
-            else if (Main.zenithWorld)
-            {
-                Item.SetNameOverride(Mod.GetLocalization("TScytheZenithName").Value);
-            }
-            if (throwType == -1)
-                throwType = ModContent.ProjectileType<TlipocasScytheThrow>();
             Item.useTime = Item.useAnimation = (40 - GetLevel()) / (SpeedUpTime > 0 ? 6 : 1);
-            FuncKilledTownNPC(player);
         }
         private void FuncKilledTownNPC(Player player)
         {
@@ -463,10 +428,12 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.Entropy().HasCustomStrokeColor = true;
             Item.Entropy().HasCustomNameColor = true;
             Item.Entropy().Legend = true;
+            RecheckStats = true;
+            UpdateInventory(Main.LocalPlayer);
         }
         public int swing = 0;
         public static int throwType = -1;
-        public override bool AllowPrefix(int pre) => false;
+        public override bool AllowPrefix(int pre) => true;
 
         public static bool AllowDash() => NPC.downedBoss1;
         public static bool DashImmune() => DownedBossSystem.downedSlimeGod;
@@ -527,7 +494,6 @@ namespace CalamityEntropy.Content.Items.Donator
             if (player.Calamity().StealthStrikeAvailable())
             {
                 float cost = 1;
-                //if (player.Calamity().stealthStrike90Cost)
                 cost = 0.9f;
                 if (player.Calamity().stealthStrike75Cost)
                     cost = 0.75f;
@@ -722,7 +688,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 flagS = false;
                 if (!target.Organic())
                 {
-                    CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.8f, 1.2f) / Projectile.ai[1], target.Center, 6);
+                    CEUtils.PlaySound("metalhit", Main.rand.NextFloat(1.4f, 1.6f) / Projectile.ai[1], target.Center, 6);
                 }
             }
             if (EDownedBosses.downedCruiser)
@@ -810,7 +776,6 @@ namespace CalamityEntropy.Content.Items.Donator
         public override bool? CanHitNPC(NPC target)
         {
             var togglePlayer = Projectile.GetOwner().GetModPlayer<TlipocasSingleHit>();
-            //你他妈真的假的啊让他能砍塔防水晶，哥们打塔防一刀把自己水晶劈死了啊
             bool canDealDamageToAll = (target.type != NPCID.DD2EterniaCrystal && !togglePlayer.isPressed);
             bool canDealDamageToNotFridly = !target.friendly && togglePlayer.isPressed;
             return canDealDamageToAll || canDealDamageToNotFridly;
@@ -1002,7 +967,6 @@ namespace CalamityEntropy.Content.Items.Donator
         public bool isPressed = false;
         public override void PostUpdate()
         {
-            //终极史山
             if (Main.mouseMiddle && Main.HoverItem.type == ModContent.ItemType<TlipocasScythe>() && Main.playerInventory)
             {
                 if (Main.mouseMiddleRelease)
@@ -1031,7 +995,6 @@ namespace CalamityEntropy.Content.Items.Donator
         public override string Texture => "CalamityEntropy/Content/Items/Donator/TlipocasScythe";
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            //跟随鼠标状态下造成更低的伤害
             if (StickOnMouse)
                 modifiers.SourceDamage /= 2.5f;
 

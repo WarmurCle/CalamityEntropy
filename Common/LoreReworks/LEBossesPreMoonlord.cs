@@ -2,6 +2,7 @@
 using CalamityMod.Buffs.Potions;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items.LoreItems;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -128,7 +129,7 @@ namespace CalamityEntropy.Common.LoreReworks
         public static float Ats = 0.02f;
         public override void UpdateEffects(Player player)
         {
-            player.GetAttackSpeed(DamageClass.Generic) += Ats;
+            player.GetAttackSpeed(DamageClass.Melee) += Ats;
         }
         public override void ModifyTooltip(TooltipLine tooltip)
         {
@@ -158,7 +159,7 @@ namespace CalamityEntropy.Common.LoreReworks
         public static int Regen = 2;
         public override void UpdateEffects(Player player)
         {
-            if(player.wet)
+            if (player.wet)
                 player.lifeRegen += Regen;
         }
     }
@@ -215,7 +216,7 @@ namespace CalamityEntropy.Common.LoreReworks
         public static int DEF = 2;
         public override void UpdateEffects(Player player)
         {
-            if(Main.dayTime)
+            if (Main.dayTime)
                 player.statDefense += DEF;
         }
         public override void ModifyTooltip(TooltipLine tooltip)

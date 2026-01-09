@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
     }
 
-    public class DecayPactMaelstrom : EBookBaseProjectile
+    public class DecayPactMaelstrom : BaseBookMinion
     {
         public override string Texture => "CalamityEntropy/Assets/Extra/white";
         public override void SetDefaults()
@@ -67,6 +67,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         NPC target = null;
         Vector2 targetPos = Vector2.Zero;
+        public override float DamageMult => 0.5f;
         public override void AI()
         {
             Projectile.penetrate = -1;
@@ -124,6 +125,15 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 GlowOrbParticle orb2 = new GlowOrbParticle(target.Center, new Vector2(6, 6).RotatedByRandom(100) * Main.rand.NextFloat(0.3f, 1.1f), false, 60, Main.rand.NextFloat(1.55f, 3.75f), Color.Black, false, true, false);
                 GeneralParticleHandler.SpawnParticle(orb2);
             }
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            float DelayMult = 1;
+            if (ShooterModProjectile is EntropyBookHeldProjectile eb_)
+            {
+                DelayMult = eb_.CauculateAttackSpeed();
+            }
+            modifiers.FinalDamage *= DelayMult;
         }
         public override bool PreDraw(ref Color lightColor)
         {

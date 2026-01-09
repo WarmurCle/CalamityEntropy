@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Common.LoreReworks;
-using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.ILEditing;
@@ -288,7 +287,7 @@ namespace CalamityEntropy.Common
         {
             if (SCrown)
             {
-                Player.Calamity().nextHitDealsDefenseDamage = false;
+                Player.Calamity().defenseDamageRatio = SilvasCrown.DDR;
             }
             if (Thorn > 0)
             {
@@ -299,7 +298,7 @@ namespace CalamityEntropy.Common
         {
             if (SCrown)
             {
-                Player.Calamity().nextHitDealsDefenseDamage = false;
+                Player.Calamity().defenseDamageRatio = SilvasCrown.DDR;
             }
         }
         public bool SCrown;
@@ -431,7 +430,7 @@ namespace CalamityEntropy.Common
         public float ManaExtraHeal = 0f;
         public int ManaRegenPer30Tick = 0;
         public int ManaRegenTime = 0;
-        public Dictionary<DamageClass, AddableFloat> CritDamage;
+        public Dictionary<DamageClass, float> CritDamage;
         public bool fruitCake;
         public bool roaringDye = false;
         public float LifeStealP = 0;
@@ -447,12 +446,19 @@ namespace CalamityEntropy.Common
         public int DriverShield = 0;
         public int DriverRecharge = 0;
         public int DriverRegenDelay = 0;
+
         public int NihilityShield = 0;
         public int NihilityRecharge = 0;
         public int NihilityRegenDelay = 0;
+
+        public int VoidShield = 0;
+        public int VoidRecharge = 0;
+        public int VoidRegenDelay = 0;
+
         public bool NihilityShieldEnabled = false;
         public bool NihilitySet = false;
         public float NihShieldScale = 0;
+        public float VoidCoreShieldScale = 0;
         public bool ChaoticSet = false;
         public bool SpawnChaoticCellOnHurt = false;
         public void UpdateDriverShield()
@@ -611,6 +617,64 @@ namespace CalamityEntropy.Common
                 RemoveCooldown(NihilityShieldCD.ID);
             }
         }
+        public void UpdateVoidShield(bool Equiped, string CooldownID, ref float Scale, ref int shieldCount, ref int regenDelay, ref int rechargeCounter, int MaxShield, int RechargeTime)
+        {
+            
+            Scale = float.Lerp(Scale, Equiped ? (shieldCount > 0 ? (0.6f + 0.4f * ((float)Scale / MaxShield)) : 0.5f) : 0, 0.05f);
+            if (Equiped)
+            {
+                if (Player.Calamity().cooldowns.TryGetValue(CooldownID, out var value4))
+                {
+                    value4.timeLeft = shieldCount > 0 ? (MaxShield - shieldCount) : RechargeTime - rechargeCounter;
+                    if (shieldCount > 0)
+                    {
+                        value4.duration = MaxShield;
+                    }
+                    else
+                    {
+                        value4.duration = RechargeTime;
+                    }
+                }
+                else
+                {
+                    Player.AddCooldown(CooldownID, RechargeTime);
+                }
+                if (shieldCount > 0)
+                {
+                    if (regenDelay-- < 0)
+                    {
+                        if (shieldCount < MaxShield)
+                        {
+                            if (regenDelay < 4)
+                                regenDelay = 4;
+                            shieldCount += 1;
+                        }
+                    }
+                    if (shieldCount > MaxShield)
+                    {
+                        shieldCount = MaxShield;
+                    }
+                    rechargeCounter = 0;
+                }
+                else
+                {
+                    rechargeCounter += 1;
+                    if (rechargeCounter > RechargeTime)
+                    {
+                        CEUtils.PlaySound("vp_use", 0.85f, Player.Center, 6, 0.8f);
+                        shieldCount = MaxShield / 2;
+                    }
+                }
+            }
+            else
+            {
+                rechargeCounter = 0;
+                shieldCount = 0;
+                if(regenDelay < 2 * 60)
+                    regenDelay = 2 * 60;
+                RemoveCooldown(CooldownID);
+            }
+        }
         public void RemoveCooldown(string id)
         {
             Player p = Player;
@@ -625,7 +689,7 @@ namespace CalamityEntropy.Common
             if (DriverShield > 0)
             {
                 int reduceDmg = 0;
-                int DamageToShield = (int)(info.Damage * (Player.AzafureEnhance() ? 0.6f : 1));
+                int DamageToShield = int.Max(1, (int)(info.Damage * (Player.AzafureEnhance() ? 0.6f : 1)));
                 if (Player.Calamity().chaliceOfTheBloodGod)
                     DamageToShield = DriverShield + 1;
                 if (DriverShield >= DamageToShield)
@@ -659,7 +723,7 @@ namespace CalamityEntropy.Common
             if (NihilityShield > 0)
             {
                 int reduceDmg = 0;
-                int DamageToShield = (int)(info.Damage * 1);
+                int DamageToShield = int.Max(1, (int)(info.Damage * 1));
                 if (Player.Calamity().chaliceOfTheBloodGod)
                     DamageToShield = NihilityShield + 1;
                 if (NihilityShield >= DamageToShield)
@@ -688,7 +752,42 @@ namespace CalamityEntropy.Common
                 CombatText.NewText(Player.getRect(), Color.SkyBlue, "-" + reduceDmg);
             }
         }
+        public void VoidShieldHit(ref Player.HurtInfo info, ref int shield, ref int regenDelay)
+        {
+            if (shield > 0)
+            {
+                int reduceDmg = 0;
+                int DamageToShield = int.Max(1, (int)(info.Damage * 1));
+                if (Player.Calamity().chaliceOfTheBloodGod)
+                    DamageToShield = shield + 1;
+                if (shield >= DamageToShield)
+                {
+                    shield -= DamageToShield;
+                    info.Cancelled = true;
+                    immune = 40;
+                    reduceDmg = DamageToShield;
+                    CEUtils.PlaySound("shockBlast", 1.5f, Player.Center);
+                    ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 2));
+                }
+                else
+                {
+                    reduceDmg = shield;
+                    info.Damage = info.Damage - shield;
+                    shield = 0;
+                    CEUtils.PlaySound("shielddown", 1.5f, Player.Center);
+                    ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 4));
+                }
+                regenDelay = (int)(5f * 60);
+                for (int i = 0; i < int.Min(20, reduceDmg / 5 + 1); i++)
+                {
+                    GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center + CEUtils.randomPointInCircle(64 * NihShieldScale), CEUtils.randomPointInCircle(16), Main.rand.NextFloat(1.2f, 1.4f), new Color(160, 160, 255) * 0.8f, Main.rand.Next(15, 18)));
+                }
+                ShieldAlphaAdd = 1;
+                CombatText.NewText(Player.getRect(), Color.LightSkyBlue, "-" + reduceDmg);
+            }
+        }
         public bool DriverShieldVisual = false;
+        public bool VoidShieldVisual = false;
         public float Scale = 1;
         public int oWidth = 20;
         public int oHeight = 42;
@@ -713,12 +812,18 @@ namespace CalamityEntropy.Common
             Player.position = c - new Vector2(Player.width / 2, Player.height);
         }
         public float snowgrave = 0;
+        public bool NoAdrenaline = false;
+        public int NoAdrenalineTime = 0;
+        public float EDamageReduce = 0;
         public override void ResetEffects()
         {
+            EDamageReduce = 0;
+            VoidShieldVisual = false;
             ScaleTarget = 1;
             Scale = float.Lerp(Scale, ScaleTarget, 0.1f);
             DriverShieldVisual = false;
             NihilitySet = false;
+            VoidCoreItem = null;
             NihilityShieldEnabled = false;
             ChaoticSet = false;
             SpawnChaoticCellOnHurt = false;
@@ -728,7 +833,7 @@ namespace CalamityEntropy.Common
             LifeStealP = 0;
             roaringDye = false;
             fruitCake = false;
-            CritDamage = new Dictionary<DamageClass, AddableFloat>();
+            CritDamage = new Dictionary<DamageClass, float>();
             ManaExtraHeal = 0;
             shadowRune = false;
             shadowPact = false;
@@ -894,6 +999,10 @@ namespace CalamityEntropy.Common
 
         public override void PreUpdate()
         {
+            NoAdrenaline = false;
+            if (NoAdrenalineTime > 0)
+                NoAdrenaline = true;
+            NoAdrenalineTime--;
             if (hasAccVisual("PLWing") && (vanityWing == null || vanityWing.ModItem is PhantomLightWing))
             {
                 if (plWingTrail == null || plWingTrail.Lifetime <= 1)
@@ -1187,7 +1296,13 @@ namespace CalamityEntropy.Common
             if (immune > 0)
             {
                 Player.immune = true;
-                Player.immuneTime = immune;
+                if (Player.immuneTime < immune)
+                    Player.immuneTime = immune;
+                for (int i = 0; i < Player.hurtCooldowns.Length; i++)
+                {
+                    if (Player.hurtCooldowns[i] < immune)
+                        Player.hurtCooldowns[i] = immune;
+                }
                 _immune--;
             }
             if (SacredJudgeShields < 2)
@@ -1221,7 +1336,7 @@ namespace CalamityEntropy.Common
             {
                 NihSky--;
             }
-            if(snowgrave > 0)
+            if (snowgrave > 0)
             {
                 snowgrave--;
             }
@@ -1377,6 +1492,10 @@ namespace CalamityEntropy.Common
             if (voidslashType == -1)
             {
                 voidslashType = ModContent.ProjectileType<VoidSlash>();
+            }
+            if(mariviniumBody)
+            {
+                Player.breath = Player.breathMax + 91;
             }
             if (Player.ownedProjectileCounts[voidslashType] > 0)
             {
@@ -1589,15 +1708,15 @@ namespace CalamityEntropy.Common
 
         public override void OnHurt(Player.HurtInfo info)
         {
-            if(SpawnChaoticCellOnHurt)
+            if (SpawnChaoticCellOnHurt)
             {
-                if(info.Damage > 12)
+                if (info.Damage > 12)
                 {
-                    if(CECooldowns.CheckCD("ChaoticSetCellSpawnCD", 160))
+                    if (CECooldowns.CheckCD("ChaoticSetCellSpawnCD", 160))
                     {
                         CEUtils.PlaySound("ksLand", 0.7f, Player.Center);
                         int type = ModContent.ProjectileType<ChaoticCellMinion>();
-                        for(int i = 0; i < 3; i++)
+                        for (int i = 0; i < 3; i++)
                         {
                             if (Player.ownedProjectileCounts[type] < ChaoticHelmet.MaxCells)
                             {
@@ -1751,7 +1870,7 @@ namespace CalamityEntropy.Common
                         {
                             source = proj.Entropy().Shooter.ToNPC();
                         }
-                        if (!source.active)
+                        if (source != null && !source.active)
                             source = null;
                     }
                 }
@@ -1779,10 +1898,17 @@ namespace CalamityEntropy.Common
                 if (info.Cancelled)
                     return;
             }
+            if (VoidCoreItem != null)
+            {
+                VoidShieldHit(ref info, ref VoidShield, ref VoidRegenDelay);
+                if (info.Cancelled)
+                    return;
+            }
+            info.Damage = (int)(info.Damage * (1 - EDamageReduce));
             noCsDodge = false;
             if (SCrown)
             {
-                Player.Calamity().defenseDamageRatio = 0f;
+                Player.Calamity().defenseDamageRatio = SilvasCrown.DDR;
             }
             if (HolyShield && info.Damage > 120)
             {
@@ -1922,6 +2048,7 @@ namespace CalamityEntropy.Common
 
         public Item AzafureChargeShieldItem = null;
         public Item AzafureDriverShieldItem = null;
+        public Item VoidCoreItem = null;
 
         public bool VSoundsPlayed = false;
         public bool DashFlag = false;
@@ -2011,14 +2138,18 @@ namespace CalamityEntropy.Common
         }
         public override void PostUpdate()
         {
+            if (NoAdrenaline)
+            {
+                Player.Calamity().adrenaline = 0;
+            }
             DmgAdd20--;
             ShieldAlphaAdd *= 0.95f;
             if (NihilitySet)
                 NihilityShieldEnabled = true;
             if (ChaoticSet)
                 SpawnChaoticCellOnHurt = true;
-            
-            if(NihTwinArmorConnetPlayer != -1)
+
+            if (NihTwinArmorConnetPlayer != -1)
             {
                 var mp = NihTwinArmorConnetPlayer.ToPlayer().Entropy();
                 if (Main.player[NihTwinArmorConnetPlayer].active && !Main.player[NihTwinArmorConnetPlayer].dead && (NihilitySet || ChaoticSet) && (mp.NihilitySet || mp.ChaoticSet))
@@ -2031,7 +2162,7 @@ namespace CalamityEntropy.Common
                     Player.lifeRegen += 4;
                     if (Player.whoAmI == Main.myPlayer)
                     {
-                        if(Main.GameUpdateCount % 8 == 0 || Main.GameUpdateCount % 40 == 32)
+                        if (Main.GameUpdateCount % 8 == 0 || Main.GameUpdateCount % 40 == 32)
                             SyncLife(Player);
                         if (Main.GameUpdateCount % 40 == 0)
                         {
@@ -2101,7 +2232,7 @@ namespace CalamityEntropy.Common
                             {
                                 if (player.Entropy().NihilitySet != NihilitySet && player.Entropy().ChaoticSet != ChaoticSet)
                                 {
-                                    if(NihTwinArmorConnetPlayer != -1 || player.Entropy().NihTwinArmorConnetPlayer != -1)
+                                    if (NihTwinArmorConnetPlayer != -1 || player.Entropy().NihTwinArmorConnetPlayer != -1)
                                     {
                                         ModPacket pack = Mod.GetPacket();
                                         pack.Write((byte)CEMessageType.NihilityConnet);
@@ -2125,11 +2256,11 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            if(SpawnChaoticCellOnHurt && Main.myPlayer == Player.whoAmI)
+            if (SpawnChaoticCellOnHurt && Main.myPlayer == Player.whoAmI)
             {
-                if(CalamityKeybinds.ArmorSetBonusHotKey.JustPressed && Player.statLife > 90)
+                if (CalamityKeybinds.ArmorSetBonusHotKey.JustPressed && Player.statLife > 90)
                 {
-                    if(CECooldowns.CheckCD("SummonCells", 120))
+                    if (CECooldowns.CheckCD("SummonCells", 120))
                     {
                         Player.statLife -= 80;
                         SyncLife();
@@ -2148,6 +2279,7 @@ namespace CalamityEntropy.Common
             ShootLaserTime--;
             UpdateDriverShield();
             UpdateNihShield();
+            UpdateVoidShield(VoidCoreItem != null, VoidCoreShield.ID, ref VoidCoreShieldScale, ref VoidShield, ref VoidRegenDelay, ref VoidRecharge, VoidCore.MaxShield, VoidCore.ShieldRecharge);
             if (StealthMaxLast == -1)
                 StealthMaxLast = Player.Calamity().rogueStealthMax;
             if (ModContent.GetInstance<ServerConfig>().ClearStealthWhenChangeEquipSet)
@@ -2289,7 +2421,7 @@ namespace CalamityEntropy.Common
                     {
                         if (hasAcc(ShadeCloak.ID))
                         {
-                            Player.velocity /= 1.6f;
+                            Player.velocity /= 1.25f;
                         }
                     }
                     if (Player.GetModPlayer<SCDashMP>().Cooldown > 160.ApplyCdDec(Player) - 24)
@@ -2322,7 +2454,7 @@ namespace CalamityEntropy.Common
                         }
                         if (Player.Entropy().immune < 6)
                             Player.Entropy().immune = 6;
-                        Player.velocity *= 1.6f;
+                        Player.velocity *= 1.25f;
 
                     }
                 }
@@ -2613,6 +2745,14 @@ namespace CalamityEntropy.Common
                 if (Main.LocalPlayer.Calamity().LastUsedDashID == AzafureShieldDash.ID)
                 {
                     Main.LocalPlayer.dashDelay = AzafureChargeShield.DashDelay;
+                }
+                if (Main.LocalPlayer.Calamity().LastUsedDashID == AzafureDriverDash.ID)
+                {
+                    Main.LocalPlayer.dashDelay = AzafureDriverCore.DashDelay;
+                }
+                if (Main.LocalPlayer.Calamity().LastUsedDashID == VoidCoreDash.ID)
+                {
+                    Main.LocalPlayer.dashDelay = VoidCore.DashDelay;
                 }
                 Main.LocalPlayer.dashDelay = (int)(Main.LocalPlayer.dashDelay * DashCD);
                 DashFlag = false;
@@ -3351,7 +3491,7 @@ namespace CalamityEntropy.Common
         public int WindPressureTime = 0;
         public override void PostUpdateEquips()
         {
-            if(Player.Calamity().chaliceOfTheBloodGod && holyMoonlight)
+            if (Player.Calamity().chaliceOfTheBloodGod && holyMoonlight)
             {
                 holyMoonlight = false;
                 visualMagiShield = false;
@@ -3455,7 +3595,7 @@ namespace CalamityEntropy.Common
             Player.manaCost *= ManaCost;
             if (Player.Entropy().SCrown)
             {
-                Player.Calamity().defenseDamageRatio = 0;
+                Player.Calamity().defenseDamageRatio = SilvasCrown.DDR;
             }
             if (Player.Entropy().wisdomCard)
             {
@@ -3669,6 +3809,7 @@ namespace CalamityEntropy.Common
                 EBookStackItems = new();
             var mp = Mod.GetPacket();
             mp.Write((byte)CEMessageType.SyncPlayer);
+            mp.Write(Player.whoAmI);
             mp.Write(enabledLoreItems.Count);
             foreach (var item in enabledLoreItems)
             {

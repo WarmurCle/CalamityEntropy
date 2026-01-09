@@ -733,7 +733,7 @@ namespace CalamityEntropy.Content.NPCs
 
                             rtype = ri.item;
                             stack = ri.stack;
-                            useCd = 160;
+                            useCd = 16;
                             CEUtils.PlaySound("coininsert", 1, NPC.Center);
                             if (Main.myPlayer == player.whoAmI)
                             {
@@ -775,7 +775,7 @@ namespace CalamityEntropy.Content.NPCs
 
                             rtype = ri.item;
                             stack = ri.stack;
-                            useCd = 160;
+                            useCd = 16;
                             CEUtils.PlaySound("coininsert", 1, NPC.Center);
                             if (Main.myPlayer == player.whoAmI)
                             {
@@ -834,7 +834,7 @@ namespace CalamityEntropy.Content.NPCs
 
                             rtype = ri.item;
                             stack = ri.stack;
-                            useCd = 160;
+                            useCd = 16;
                             CEUtils.PlaySound("coininsert", 1, NPC.Center);
                             if (Main.myPlayer == player.whoAmI)
                             {

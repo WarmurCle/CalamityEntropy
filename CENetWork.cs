@@ -273,7 +273,7 @@ namespace CalamityEntropy
                 int plr = reader.ReadInt32();
                 int lifeTo = reader.ReadInt32();
                 plr.ToPlayer().statLife = lifeTo;
-                if(Main.dedServ)
+                if (Main.dedServ)
                 {
                     ModPacket packet = CalamityEntropy.Instance.GetPacket();
                     packet.Write((byte)CEMessageType.SyncPlayerLife);
@@ -296,11 +296,11 @@ namespace CalamityEntropy
                 {
                     plr1.ToPlayer().Entropy().NihTwinArmorConnetPlayer = plr2;
                     plr2.ToPlayer().Entropy().NihTwinArmorConnetPlayer = plr1;
-                    if (!Main.dedServ) 
+                    if (!Main.dedServ)
                     {
                         CEUtils.PlaySound("ksLand", 1, plr1.ToPlayer().Center);
                         CEUtils.PlaySound("ksLand", 1, plr2.ToPlayer().Center);
-                    } 
+                    }
                 }
                 if (Main.dedServ)
                 {
@@ -340,24 +340,30 @@ namespace CalamityEntropy
             }
             else if (messageType == CEMessageType.SyncPlayer)
             {
+                int wai = reader.ReadInt32();
                 int loreCount = reader.ReadInt32();
-                Player plr = whoAmI.ToPlayer();
-                plr.Entropy().enabledLoreItems.Clear();
+                Player plr = wai.ToPlayer();
+                bool local = wai == Main.myPlayer;
+                if (!local)
+                    plr.Entropy().enabledLoreItems.Clear();
                 for (int i = 0; i < loreCount; i++)
                 {
-                    plr.Entropy().enabledLoreItems.Add(reader.ReadInt32());
+                    int t = reader.ReadInt32();
+                    if (!local)
+                        plr.Entropy().enabledLoreItems.Add(t);
                 }
-                
+
                 if (Main.dedServ)
                 {
                     ModPacket packet = Instance.GetPacket();
                     packet.Write((byte)CEMessageType.SyncPlayer);
+                    packet.Write(wai);
                     packet.Write(loreCount);
                     foreach (var i in plr.Entropy().enabledLoreItems)
                     {
                         packet.Write(i);
                     }
-                    packet.Send(-1, whoAmI);
+                    packet.Send(-1, wai);
                 }
             }
         }

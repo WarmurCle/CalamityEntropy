@@ -122,6 +122,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
             NPCID.Sets.MPAllowedEnemies[ModContent.NPCType<PrimordialWyrmHead>()] = true;
+            NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
         }
         int tdamage = 0;
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

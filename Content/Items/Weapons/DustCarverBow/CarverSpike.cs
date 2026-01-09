@@ -1,4 +1,6 @@
-﻿using CalamityMod.Particles;
+﻿using CalamityMod;
+using CalamityMod.Particles;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -18,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
 
         public override void AI()
         {
-            GeneralParticleHandler.SpawnParticle(new AltSparkParticle(Projectile.Center - Projectile.velocity * 4, Projectile.velocity * 4, false, 8, Main.rand.NextFloat(0.2f, 0.4f), new Color(200, 0, 0)));
+            //GeneralParticleHandler.SpawnParticle(new AltSparkParticle(Projectile.Center - Projectile.velocity * 4, Projectile.velocity * 4, false, 8, Main.rand.NextFloat(0.2f, 0.4f), new Color(200, 0, 0)));
             Projectile.rotation = Projectile.velocity.ToRotation();
         }
 
@@ -30,7 +32,12 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
+            Texture2D tex = CEUtils.getExtraTex("Glow2");
+            Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, new Color(180, 0, 0), Projectile.rotation, tex.Size() / 2f, Projectile.scale * new Vector2(1f, 0.08f), SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, new Color(255, 90, 90), Projectile.rotation, tex.Size() / 2f, Projectile.scale * new Vector2(0.8f, 0.025f), SpriteEffects.None, 0);
+            Main.spriteBatch.ExitShaderRegion();
+            //Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
             return false;
         }
     }

@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     public class BookmarkSwordBMEffect : EBookProjectileEffect
     {
     }
-    public class BMSwordProjectile : EBookBaseProjectile
+    public class BMSwordProjectile : BaseBookMinion
     {
         public override void SetDefaults()
         {
@@ -58,6 +58,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public List<Vector2> OldPos = new();
         public List<float> OldRot = new();
+        public bool Shake = true;
         public override bool PreDraw(ref Color lightColor)
         {
             trail?.Draw();
@@ -90,10 +91,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public float num = 0;
         public float num2 = 0;
         public TrailParticle trail = null;
+        public override float DamageMult => 0.45f;
         public override void AI()
         {
+            base.AI();
             var player = Projectile.GetOwner();
-            Projectile.damage = ((EntropyBookHeldProjectile)ShooterModProjectile).CauculateProjectileDamage(0.8f);
             float tofs = target == null ? 120 : (target.width + target.height) / 2f + 120;
             if (Main.myPlayer != Projectile.owner || BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkSwordBMEffect>(player))
                 Projectile.timeLeft = 3;
@@ -113,6 +115,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             if (target == null || !target.active || CEUtils.getDistance(target.Center, Projectile.Center) > 6000 || target.dontTakeDamage)
             {
                 target = CEUtils.FindMinionTarget(Projectile, 3200);
+            }
+            float DelayMult = 1;
+            if (ShooterModProjectile is EntropyBookHeldProjectile eb_)
+            {
+                DelayMult = eb_.CauculateAttackSpeed();
             }
             AttackTimer--;
             if (target == null && AttackTimer <= 2)
@@ -141,7 +148,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     {
                         Projectile.ResetLocalNPCHitImmunity();
                         num2 = Main.rand.NextBool() ? 1 : -1;
-                        AttackDelay = 12;
+                        AttackDelay = (int)(12 / DelayMult);
+                        Shake = true;
                         if (Main.rand.NextBool())
                         {
                             aiStyle = AIStyle.Strike;
@@ -189,7 +197,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 if (AttackTimer <= 0)
                 {
                     aiStyle = AIStyle.Stop;
-                    AttackTimer = 8;
+                    AttackTimer = (int)(8 / DelayMult);
                     num = 0;
                 }
             }
@@ -209,7 +217,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 if (AttackTimer <= 0)
                 {
                     aiStyle = AIStyle.Stop;
-                    AttackTimer = 10;
+                    AttackTimer = (int)(10 / DelayMult);
                     num = 0;
                 }
             }
@@ -238,6 +246,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             base.ModifyHitNPC(target, ref modifiers);
             modifiers.SourceDamage *= aiStyle == AIStyle.Strike ? 0.7f : 1;
+            modifiers.ArmorPenetration += 18;
         }
         public override bool? CanHitNPC(NPC target)
         {
@@ -268,16 +277,19 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 {
                     GeneralParticleHandler.SpawnParticle(new AltSparkParticle(target.Center, CEUtils.randomPointInCircle(16), false, 20, Main.rand.NextFloat(0.4f, 1.2f), Color.Lerp(new Color(236, 236, 236), Color.Blue, Main.rand.NextFloat())));
                 }
-                ScreenShaker.AddShake(new ScreenShake(Projectile.rotation.ToRotationVector2() * -1, Projectile.scale * 3 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
+                if(Shake)
+                    ScreenShaker.AddShake(new ScreenShake(Projectile.rotation.ToRotationVector2() * -1, Projectile.scale * 3 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
             }
             else
             {
-                ScreenShaker.AddShake(new ScreenShake(Vector2.Zero, Projectile.scale * 1 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
+                if (Shake)
+                    ScreenShaker.AddShake(new ScreenShake(Vector2.Zero, Projectile.scale * 1 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
                 for (int i = 0; i < 32; i++)
                 {
                     GeneralParticleHandler.SpawnParticle(new AltSparkParticle(target.Center, Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * num2).RotatedByRandom(0.32f) * Main.rand.NextFloat(4, 32), false, 20, Main.rand.NextFloat(0.4f, 1.2f), Color.Lerp(Color.Blue, Color.White, Main.rand.NextFloat())));
                 }
             }
+            Shake = false;
         }
     }
 }

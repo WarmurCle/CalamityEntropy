@@ -101,6 +101,8 @@ namespace CalamityEntropy.Common
                 mult -= 0.12f;
             if (npc.HasBuff<VoidVirus>())
                 mult -= 0.12f;
+            if (npc.Entropy().Decrease20DR > 0)
+                mult -= 0.2f;
 
             if (mult < 0)
                 mult = 0;
@@ -154,11 +156,11 @@ namespace CalamityEntropy.Common
         }
         public override bool? CanBeCaughtBy(NPC npc, Item item, Player player)
         {
-            if(npc.type == NPCID.FairyCritterBlue || npc.type == NPCID.FairyCritterGreen || npc.type == NPCID.FairyCritterPink)
+            if (npc.type == NPCID.FairyCritterBlue || npc.type == NPCID.FairyCritterGreen || npc.type == NPCID.FairyCritterPink)
             {
                 return true;
             }
-            
+
             return base.CanBeCaughtBy(npc, item, player);
         }
         public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -420,8 +422,11 @@ namespace CalamityEntropy.Common
         }
         public bool friendlyDecLife = true;
         public int counter = 0;
+        public int Decrease20DR = 0;
         public override bool PreAI(NPC npc)
         {
+            if (Decrease20DR > 0)
+                Decrease20DR--;
             StickByMissle--;
             MissleDamageAddition = 0;
             if (npc.ModNPC is FriendFindNPC && npc.localAI[3] > 0)
@@ -607,11 +612,14 @@ namespace CalamityEntropy.Common
                 {
                     modifiers.DisableCrit();
                 }
-                foreach (var v in projectile.GetOwner().Entropy().CritDamage)
+                if (projectile.GetOwner().Entropy().CritDamage != null)
                 {
-                    if (projectile.DamageType.CountsAsClass(v.Key))
+                    foreach (var v in projectile.GetOwner().Entropy().CritDamage)
                     {
-                        modifiers.CritDamage += v.Value.Value - 1;
+                        if (projectile.DamageType.CountsAsClass(v.Key) || v.Key.CountsAsClass(DamageClass.Generic))
+                        {
+                            modifiers.CritDamage += v.Value - 1;
+                        }
                     }
                 }
                 if (projectile.GetOwner().Entropy().hasAcc("HEATDEATH"))
@@ -654,10 +662,6 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
-            if (player.Entropy().SCrown)
-            {
-                modifiers.DisableCrit();
-            }
             if (player.Entropy().devouringCard)
             {
                 modifiers.ArmorPenetration += npc.defense * DevouringCard.ArmorPene;
@@ -669,6 +673,16 @@ namespace CalamityEntropy.Common
             if (player.Entropy().nihShell)
             {
                 modifiers.CritDamage += NihilityShell.CirtDamageAddition;
+            }
+            if (player.Entropy().CritDamage != null)
+            {
+                foreach (var v in player.Entropy().CritDamage)
+                {
+                    if (item.DamageType.CountsAsClass(v.Key) || v.Key.CountsAsClass(DamageClass.Generic))
+                    {
+                        modifiers.CritDamage += v.Value - 1;
+                    }
+                }
             }
             modifiers.FinalDamage += (npc.Entropy().VoidTouchLevel) * 0.05f * (1 - npc.Entropy().VoidTouchDR);
             if (player.Entropy().VFSet)
@@ -730,13 +744,17 @@ namespace CalamityEntropy.Common
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             List<int> osseousRemainsDropEnemies = new List<int>() { 174, 101, 94, 173, -22, -23, 181, 6, -11, -12 };
-            if(osseousRemainsDropEnemies.Contains(npc.type))
+            if (osseousRemainsDropEnemies.Contains(npc.type))
             {
                 npcLoot.Add(ModContent.ItemType<OsseousRemains>(), 3, 6, 8);
             }
             if (npc.type == NPCID.Deerclops)
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<BookmarkSnowgrave>(), 5, 1, 1);
+            }
+            if(npc.type == ModContent.NPCType<CeaselessVoid>())
+            {
+                npcLoot.AddNormalOnly(ModContent.ItemType<BottleDarkMatter>(), 4);
             }
             if (npc.type == ModContent.NPCType<DevourerofGodsHead>())
             {
@@ -1076,9 +1094,9 @@ namespace CalamityEntropy.Common
                     Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<BitternessCard>()));
                 }
             }
-            if (Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].ZoneDungeon)
+            if (NPC.downedMechBossAny && Main.player[Player.FindClosest(npc.Center, 1000000, 1000000)].ZoneDungeon)
             {
-                if (Main.rand.NextBool(80))
+                if (Main.rand.NextBool(160))
                 {
                     Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<BookMarkBlackKnife>()));
                 }
@@ -1253,13 +1271,6 @@ namespace CalamityEntropy.Common
                 if (Main.rand.NextDouble() < 0.02f)
                 {
                     Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<LostSoul>(), 1));
-                }
-            }
-            if (npc.type == ModContent.NPCType<CeaselessVoid>())
-            {
-                if (Main.rand.NextDouble() < 0.3f)
-                {
-                    Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<BottleDarkMatter>(), 1));
                 }
             }
             if (npc.type == ModContent.NPCType<RavagerBody>())

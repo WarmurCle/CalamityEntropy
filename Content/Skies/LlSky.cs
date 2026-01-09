@@ -3,7 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Runtime.InteropServices;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.Graphics.Effects;
+using Terraria.ID;
 
 namespace CalamityEntropy.Content.Skies
 {
@@ -46,12 +48,19 @@ namespace CalamityEntropy.Content.Skies
         const uint LWA_ALPHA = 0x2;
         public override Color OnTileColor(Color inColor)
         {
-            return inColor;
+            return Color.Lerp(inColor, Color.White, opacity);
         }
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
             Texture2D txd = WallpaperHelper.getWallpaper();
-            spriteBatch.Draw(txd, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White * opacity);
+            Vector2 scale = Vector2.One;
+            scale *= Main.screenWidth / ((float)txd.Width * scale.X);
+            
+            if (txd.Height * scale.Y < Main.screenHeight)
+            {
+                scale *= Main.screenHeight / ((float)txd.Height * scale.Y);
+            }
+            spriteBatch.Draw(txd, Main.ScreenSize.ToVector2() / 2f, null, Color.White * opacity, 0, txd.Size() / 2f, scale, SpriteEffects.None, 0);
 
         }
         public override void Update(GameTime gameTime)

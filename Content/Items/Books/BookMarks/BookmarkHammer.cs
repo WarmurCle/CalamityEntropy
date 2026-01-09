@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     public class BookmarkHammerBMEffect : EBookProjectileEffect
     {
     }
-    public class BMHammerProjectile : EBookBaseProjectile
+    public class BMHammerProjectile : BaseBookMinion
     {
         public override void SetDefaults()
         {
@@ -89,10 +89,13 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public float num = 0;
         public float num2 = 0;
         public TrailParticle trail = null;
+        public override float DamageMult => 0.6f;
+        
         public override void AI()
         {
+            base.AI();
             var player = Projectile.GetOwner();
-            //Projectile.damage = ((EntropyBookHeldProjectile)ShooterModProjectile).CauculateProjectileDamage(2);
+            
             float tofs = target == null ? 180 : (target.width + target.height) / 2f + 180;
             if (Main.myPlayer != Projectile.owner || BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkHammerBMEffect>(player))
                 Projectile.timeLeft = 3;
@@ -121,6 +124,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 if (aiStyle == AIStyle.Idle)
                     aiStyle = AIStyle.Chase;
             }
+            float DelayMult = 1;
+            if (ShooterModProjectile is EntropyBookHeldProjectile eb_)
+            {
+                DelayMult = eb_.CauculateAttackSpeed();
+            }
             Projectile.pushByOther(0.1f);
             if (target != null)
             {
@@ -128,16 +136,19 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 {
                     float targetRot = (target.Center - Projectile.Center).ToRotation();
                     Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, targetRot, 0.03f, false);
-                    Vector2 tpos = target.Center + (Projectile.Center - target.Center).normalize() * tofs;
+                    Vector2 tpos = target.Center + (Projectile.Center - target.Center).SafeNormalize(Vector2.UnitX) * tofs;
                     if (CEUtils.getDistance(Projectile.Center, tpos) > 8)
+                    {
                         Projectile.velocity += (tpos - Projectile.Center).normalize() * 1f;
+                    }
                     Projectile.velocity *= 0.9f;
                     AttackDelay--;
                     if (AttackDelay <= 0)
                     {
                         Projectile.ResetLocalNPCHitImmunity();
                         num2 = Main.rand.NextBool() ? 1 : -1;
-                        AttackDelay = 90;
+                        AttackDelay = (int)(90 / DelayMult);
+                        Shake = true;
                         if (Main.rand.NextBool())
                         {
                             aiStyle = AIStyle.Strike;
@@ -163,6 +174,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 }
                 if (AttackTimer <= 0)
                 {
+                    AttackDelay = (int)(30 / DelayMult);
                     aiStyle = AIStyle.Chase;
                 }
             }
@@ -185,7 +197,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 if (AttackTimer <= 0)
                 {
                     aiStyle = AIStyle.Stop;
-                    AttackTimer = 40;
+                    AttackTimer = (int)(60 / DelayMult);
                     num = 0;
                 }
             }
@@ -205,7 +217,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 if (AttackTimer <= 0)
                 {
                     aiStyle = AIStyle.Stop;
-                    AttackTimer = 70;
+                    AttackTimer = (int)(70 / DelayMult);
                     num = 0;
                 }
             }
@@ -247,6 +259,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 trail.ShouldDraw = true;
 
         }
+        public bool Shake = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
@@ -270,17 +283,21 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(target.Center, Projectile.velocity * 0.01f, Color.Gold * (1.2f - i), new Vector2(0.2f, 1), Projectile.rotation, 0.1f, (i * 5 + 0.2f) * Projectile.scale, 42));
                 }
                 Projectile.velocity *= -0.2f;
-                ScreenShaker.AddShake(new ScreenShake(Projectile.rotation.ToRotationVector2() * -5, Projectile.scale * 3 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
+                if(Shake)
+                    ScreenShaker.AddShake(new ScreenShake(Projectile.rotation.ToRotationVector2() * -5, Projectile.scale * 3 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
             }
             else
             {
-                ScreenShaker.AddShake(new ScreenShake(Vector2.Zero, Projectile.scale * 6 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
+                if(Shake)
+                    ScreenShaker.AddShake(new ScreenShake(Vector2.Zero, Projectile.scale * 6 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
                 GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(target.Center, Vector2.Zero, Color.Gold, new Vector2(0.2f, 1), Projectile.rotation + MathHelper.PiOver2 * num2, 0.1f, 1.4f * Projectile.scale, 42));
                 for (int i = 0; i < 32; i++)
                 {
                     GeneralParticleHandler.SpawnParticle(new AltSparkParticle(target.Center, Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * num2).RotatedByRandom(0.32f) * Main.rand.NextFloat(4, 32), false, 20, Main.rand.NextFloat(0.4f, 1.2f), Color.Lerp(Color.Gold, Color.White, Main.rand.NextFloat())));
                 }
             }
+
+            Shake = false;
         }
     }
 }

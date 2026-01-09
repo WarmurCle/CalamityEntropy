@@ -22,12 +22,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = Main.zenithWorld ? 999 : 68;
+            Item.damage = Main.zenithWorld ? 999 : 74;
             Item.DamageType = DamageClass.Melee;
             Item.width = 108;
             Item.height = 108;
-            Item.useTime = 40;
-            Item.useAnimation = 40;
+            Item.useTime = 36;
+            Item.useAnimation = 36;
             Item.crit = 10;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 5;
@@ -283,7 +283,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 AltSparkParticle spark = new AltSparkParticle(Projectile.Center, sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
                 GeneralParticleHandler.SpawnParticle(spark);
             }
-            Projectile.damage = (int)(Projectile.damage * 0.8f);
+            Projectile.damage = (int)(Projectile.damage * 0.9f);
         }
         public override void AI()
         {
@@ -374,6 +374,11 @@ namespace CalamityEntropy.Content.Items.Weapons
 
 
             return false;
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.ArmorPenetration += 256;
+            target.Entropy().Decrease20DR = 80;
         }
     }
 }
