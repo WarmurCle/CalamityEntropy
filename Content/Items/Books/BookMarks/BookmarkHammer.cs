@@ -148,6 +148,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                         Projectile.ResetLocalNPCHitImmunity();
                         num2 = Main.rand.NextBool() ? 1 : -1;
                         AttackDelay = (int)(90 / DelayMult);
+                        Shake = true;
                         if (Main.rand.NextBool())
                         {
                             aiStyle = AIStyle.Strike;
@@ -258,6 +259,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 trail.ShouldDraw = true;
 
         }
+        public bool Shake = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
@@ -281,17 +283,21 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(target.Center, Projectile.velocity * 0.01f, Color.Gold * (1.2f - i), new Vector2(0.2f, 1), Projectile.rotation, 0.1f, (i * 5 + 0.2f) * Projectile.scale, 42));
                 }
                 Projectile.velocity *= -0.2f;
-                ScreenShaker.AddShake(new ScreenShake(Projectile.rotation.ToRotationVector2() * -5, Projectile.scale * 3 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
+                if(Shake)
+                    ScreenShaker.AddShake(new ScreenShake(Projectile.rotation.ToRotationVector2() * -5, Projectile.scale * 3 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
             }
             else
             {
-                ScreenShaker.AddShake(new ScreenShake(Vector2.Zero, Projectile.scale * 6 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
+                if(Shake)
+                    ScreenShaker.AddShake(new ScreenShake(Vector2.Zero, Projectile.scale * 6 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
                 GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(target.Center, Vector2.Zero, Color.Gold, new Vector2(0.2f, 1), Projectile.rotation + MathHelper.PiOver2 * num2, 0.1f, 1.4f * Projectile.scale, 42));
                 for (int i = 0; i < 32; i++)
                 {
                     GeneralParticleHandler.SpawnParticle(new AltSparkParticle(target.Center, Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * num2).RotatedByRandom(0.32f) * Main.rand.NextFloat(4, 32), false, 20, Main.rand.NextFloat(0.4f, 1.2f), Color.Lerp(Color.Gold, Color.White, Main.rand.NextFloat())));
                 }
             }
+
+            Shake = false;
         }
     }
 }

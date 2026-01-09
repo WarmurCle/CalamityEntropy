@@ -58,6 +58,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public List<Vector2> OldPos = new();
         public List<float> OldRot = new();
+        public bool Shake = true;
         public override bool PreDraw(ref Color lightColor)
         {
             trail?.Draw();
@@ -148,6 +149,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                         Projectile.ResetLocalNPCHitImmunity();
                         num2 = Main.rand.NextBool() ? 1 : -1;
                         AttackDelay = (int)(12 / DelayMult);
+                        Shake = true;
                         if (Main.rand.NextBool())
                         {
                             aiStyle = AIStyle.Strike;
@@ -275,16 +277,19 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 {
                     GeneralParticleHandler.SpawnParticle(new AltSparkParticle(target.Center, CEUtils.randomPointInCircle(16), false, 20, Main.rand.NextFloat(0.4f, 1.2f), Color.Lerp(new Color(236, 236, 236), Color.Blue, Main.rand.NextFloat())));
                 }
-                ScreenShaker.AddShake(new ScreenShake(Projectile.rotation.ToRotationVector2() * -1, Projectile.scale * 3 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
+                if(Shake)
+                    ScreenShaker.AddShake(new ScreenShake(Projectile.rotation.ToRotationVector2() * -1, Projectile.scale * 3 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
             }
             else
             {
-                ScreenShaker.AddShake(new ScreenShake(Vector2.Zero, Projectile.scale * 1 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
+                if (Shake)
+                    ScreenShaker.AddShake(new ScreenShake(Vector2.Zero, Projectile.scale * 1 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
                 for (int i = 0; i < 32; i++)
                 {
                     GeneralParticleHandler.SpawnParticle(new AltSparkParticle(target.Center, Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * num2).RotatedByRandom(0.32f) * Main.rand.NextFloat(4, 32), false, 20, Main.rand.NextFloat(0.4f, 1.2f), Color.Lerp(Color.Blue, Color.White, Main.rand.NextFloat())));
                 }
             }
+            Shake = false;
         }
     }
 }
