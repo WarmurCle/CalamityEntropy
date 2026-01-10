@@ -3787,29 +3787,34 @@ Items: {
 
 	AcropolisHeavyArmor: {
 		DisplayName: 阿萨福勒卫城重甲
-		Tooltip: 
-		'''
-		+8% 暴击率
-		+1 召唤栏
-		'''
+		Tooltip:
+			'''
+			+8% 暴击率
+			+1 召唤栏
+			'''
 	}
 
 	AcropolisHeavyHelmet: {
 		DisplayName: 阿萨福勒卫城重盔
-		Tooltip: 
-		'''
-		+10% 伤害
-		+10% 暴击伤害
-		'''
+		Tooltip:
+			'''
+			+10% 伤害
+			+10% 暴击伤害
+			'''
 	}
 
 	AcropolisHeavyLegArmor: {
 		DisplayName: 阿萨福勒卫城腿甲
-		Tooltip: 
-		'''
-		+15% 移速
-		+20%跳跃速度
-		'''
+		Tooltip:
+			'''
+			+15% 移速
+			+20%跳跃速度
+			'''
+	}
+
+	AcropolisCannon: {
+		// DisplayName: Acropolis Cannon
+		// Tooltip: ""
 	}
 }
 
@@ -4424,6 +4429,9 @@ Projectiles: {
 	AmnestyHeld.DisplayName: 神灵
 	AmnestyLaser.DisplayName: 神灵电弧
 	AmnestyMiniLaser.DisplayName: 神灵追踪弹
+	// AcropolisBullet.DisplayName: Acropolis Bullet
+	// AcropolisSlash.DisplayName: Acropolis Slash
+	// AcropolisHarpoon.DisplayName: Acropolis Harpoon
 }
 
 LegendTooltip: - 传奇物品 -

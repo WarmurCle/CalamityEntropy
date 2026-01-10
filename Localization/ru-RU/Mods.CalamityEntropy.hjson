@@ -3556,6 +3556,11 @@ Items: {
 		// DisplayName: Acropolis Heavy Leg Armor
 		// Tooltip: ""
 	}
+
+	AcropolisCannon: {
+		// DisplayName: Acropolis Cannon
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:
@@ -4168,6 +4173,9 @@ Projectiles: {
 	// AmnestyHeld.DisplayName: Amnesty Held
 	// AmnestyLaser.DisplayName: Amnesty Arc
 	// AmnestyMiniLaser.DisplayName: Amnesty Mini Laser
+	// AcropolisBullet.DisplayName: Acropolis Bullet
+	// AcropolisSlash.DisplayName: Acropolis Slash
+	// AcropolisHarpoon.DisplayName: Acropolis Harpoon
 }
 
 LegendTooltip: - Легенда -

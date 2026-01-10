@@ -1,9 +1,11 @@
 using CalamityEntropy.Common;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.Acropolis;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Items.Armor.Wulfrum;
 using CalamityMod.Particles;
 using CalamityMod.UI.Rippers;
 using Microsoft.Xna.Framework.Graphics;
@@ -49,6 +51,27 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             player.GetDamage(DamageClass.Generic) += 0.15f;
             player.GetCritChance(DamageClass.Generic) += 5f;
             player.noKnockback = true;
+            var mp = player.GetModPlayer<AcropolisArmorPlayer>();
+            if (mp.MechFrame > 18)
+            {
+                if (mp.DummyCannon == null)
+                {
+                    mp.DummyCannon = new Item();
+                    mp.DummyCannon.SetDefaults(0);
+                }
+                if (Main.myPlayer == player.whoAmI)
+                {
+                    if (!Main.mouseItem.IsAir)
+                        Main.LocalPlayer.QuickSpawnItem(null, Main.mouseItem, Main.mouseItem.stack);
+
+                    Main.mouseItem = mp.DummyCannon;
+                }
+
+                player.inventory[58] = mp.DummyCannon;
+                player.selectedItem = 58;
+                player.itemTime = player.itemAnimation = 2;
+                
+            }
         }
         public override void UpdateEquip(Player player)
         {
@@ -160,8 +183,8 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 Seg2Rot = seg2Rot;
                 this.offset = offset;
             }
-            public Vector2 TopPos => seg1end + Seg2Rot.ToRotationVector2() * 46;
-            public void PointAPos(Vector2 pos)
+            public Vector2 TopPos => seg1end + Seg2Rot.ToRotationVector2() * 56;
+            public void PointAPos(Vector2 pos, float r = 0.06f)
             {
                 Seg1Rot = CEUtils.RotateTowardsAngle(Seg1Rot, (pos - (Player.Center + (offset * new Vector2(1, 1)).RotatedBy(Player.fullRotation))).ToRotation(), 0.06f, false);
                 if (CEUtils.GetAngleBetweenVectors(Seg1Rot.ToRotationVector2(), -Vector2.UnitY) > Seg1MaxRadians * 2)
@@ -175,7 +198,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                         Seg1Rot = (MathHelper.PiOver2 - Seg1MaxRadians);
                     }
                 }
-                Seg2Rot = CEUtils.RotateTowardsAngle(Seg2Rot, (pos - seg1end).ToRotation(), 0.06f, false);
+                Seg2Rot = CEUtils.RotateTowardsAngle(Seg2Rot, (pos - seg1end).ToRotation(), r, false);
             }
 
             public void Update()
@@ -247,7 +270,13 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             }
             cannon.Update();
             harpoon.Update();
-            cannon.PointAPos(Player.Calamity().mouseWorld);
+            Vector2 vec = Player.Calamity().mouseWorld;
+            Player.Calamity().mouseRotationListener = true;
+            if(SlashP != 0)
+            {
+                vec = Player.Center + (Player.Calamity().mouseWorld - Player.Center).RotatedBy(3 * slashDir * (SlashP - 0.5f));
+            }
+            cannon.PointAPos(vec, SlashP == 0 ? 0.06f : 1);
             harpoon.PointAPos(Player.Calamity().mouseWorld);
             foreach (var l in legs)
             {
@@ -351,48 +380,51 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
 
             int drawDir = (Player.Calamity().mouseWorld.X - Player.Center.X) > 0 ? 1 : -1;
 
-            if (legs == null)
-                return;
-            if (MechFrame == 19)
-            {
-                foreach (var leg in legs)
+            if (legs != null) {
+                if (MechFrame == 19)
                 {
-                    float l1 = 40 * leg.Scale;
-                    float l2 = 36 * leg.Scale;
-                    float l3 = 66 * leg.Scale;
-                    List<Vector2> points = new List<Vector2>();
-                    points.Add(Player.Center + (new Vector2(Math.Sign(leg.offset.X) * 10, 26)).RotatedBy(Player.fullRotation));
-                    Vector2 e = CalculateLegJoints(points[0], leg.StandPoint, l1, l2, l3, out var p1, out var p2);
-                    points.Add(p1);
-                    points.Add(CEUtils.GetCircleIntersection(p1, l2, leg.StandPoint, l3, leg.offset.X > 0, true));
-                    points.Add(points[points.Count - 1] + (leg.StandPoint - points[points.Count - 1]).normalize() * l3);
-                    
-                    Main.EntitySpriteDraw(leg1, points[0] - Main.screenPosition, null, drawColor, (points[1] - points[0]).ToRotation(), new Vector2(4, 13), 1 * leg.Scale, SpriteEffects.None);
-                    Main.EntitySpriteDraw(leg2, points[1] - Main.screenPosition, null, drawColor, (points[2] - points[1]).ToRotation(), new Vector2(6, 9), 1 * leg.Scale, SpriteEffects.None);
-                    Main.EntitySpriteDraw(leg3, points[2] - Main.screenPosition, null, drawColor, (points[3] - points[2]).ToRotation() + ((leg.offset.X > 0 ? 1 : -1) * MathHelper.ToRadians(34)), new Vector2(10, leg3.Height / 2f), 1 * leg.Scale, leg.offset.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
-                    //CEUtils.DrawLines(points, Color.Blue, 4);
-                }
-                Main.EntitySpriteDraw(arm, (harpoon.offset * new Vector2(drawDir, 1)).RotatedBy(drawDir > 0 ? Player.fullRotation : (Player.fullRotation + MathHelper.Pi)) + Player.Center - Main.screenPosition, null, drawColor, harpoon.Seg1Rot, new Vector2(6, arm.Height / 2f), 1, SpriteEffects.None);
-                Main.EntitySpriteDraw(arm, (cannon.offset * new Vector2(drawDir, 1)).RotatedBy(drawDir > 0 ? Player.fullRotation : (Player.fullRotation + MathHelper.Pi)) + Player.Center - Main.screenPosition, null, drawColor, cannon.Seg1Rot, new Vector2(6, arm.Height / 2f), 1, SpriteEffects.None);
+                    foreach (var leg in legs)
+                    {
+                        float l1 = 40 * leg.Scale;
+                        float l2 = 36 * leg.Scale;
+                        float l3 = 66 * leg.Scale;
+                        List<Vector2> points = new List<Vector2>();
+                        points.Add(Player.Center + (new Vector2(Math.Sign(leg.offset.X) * 10, 26)).RotatedBy(Player.fullRotation));
+                        Vector2 e = CalculateLegJoints(points[0], leg.StandPoint, l1, l2, l3, out var p1, out var p2);
+                        points.Add(p1);
+                        points.Add(CEUtils.GetCircleIntersection(p1, l2, leg.StandPoint, l3, leg.offset.X > 0, true));
+                        points.Add(points[points.Count - 1] + (leg.StandPoint - points[points.Count - 1]).normalize() * l3);
+                        SpriteEffects ef = leg.offset.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+                        Main.EntitySpriteDraw(leg1, points[0] - Main.screenPosition, null, drawColor, (points[1] - points[0]).ToRotation(), new Vector2(4, 13), 1 * leg.Scale, ef);
+                        Main.EntitySpriteDraw(leg2, points[1] - Main.screenPosition, null, drawColor, (points[2] - points[1]).ToRotation(), new Vector2(6, 9), 1 * leg.Scale, ef);
+                        Main.EntitySpriteDraw(leg3, points[2] - Main.screenPosition, null, drawColor, (points[3] - points[2]).ToRotation() + ((leg.offset.X > 0 ? 1 : -1) * MathHelper.ToRadians(34)), new Vector2(10, leg3.Height / 2f), 1 * leg.Scale, leg.offset.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+                        //CEUtils.DrawLines(points, Color.Blue, 4);
+                    }
+                    Main.EntitySpriteDraw(gear, (harpoon.offset * new Vector2(drawDir, 1)).RotatedBy(drawDir > 0 ? Player.fullRotation : (Player.fullRotation + MathHelper.Pi)) + Player.Center - Main.screenPosition, null, drawColor, Main.GameUpdateCount * 0.15f, gear.Size() / 2f, 1, SpriteEffects.None);
+                    Main.EntitySpriteDraw(gear, (cannon.offset * new Vector2(drawDir, 1)).RotatedBy(drawDir > 0 ? Player.fullRotation : (Player.fullRotation + MathHelper.Pi)) + Player.Center - Main.screenPosition, null, drawColor, -Main.GameUpdateCount * 0.15f, gear.Size() / 2f, 1, SpriteEffects.None);
 
-                
+                    Main.EntitySpriteDraw(arm, (harpoon.offset * new Vector2(drawDir, 1)).RotatedBy(drawDir > 0 ? Player.fullRotation : (Player.fullRotation + MathHelper.Pi)) + Player.Center - Main.screenPosition, null, drawColor, harpoon.Seg1Rot, new Vector2(6, arm.Height / 2f), 1, SpriteEffects.None);
+                    Main.EntitySpriteDraw(arm, (cannon.offset * new Vector2(drawDir, 1)).RotatedBy(drawDir > 0 ? Player.fullRotation : (Player.fullRotation + MathHelper.Pi)) + Player.Center - Main.screenPosition, null, drawColor, cannon.Seg1Rot, new Vector2(6, arm.Height / 2f), 1, SpriteEffects.None);
+
+                }
             }
             if (MechFrame == 19)
             {
                 Main.EntitySpriteDraw(body, Player.Center - Main.screenPosition, null, drawColor, Player.fullRotation, body.Size() / 2f, 1, drawDir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
-                if (true)
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<AcropolisHarpoon>()] == 0)
                 {
-                    Main.EntitySpriteDraw(harpoonTex, harpoon.seg1end + harpoon.Seg2Rot.ToRotationVector2() * 40 + new Vector2(0, 10 * drawDir).RotatedBy(harpoon.Seg2Rot) * 1 - Main.screenPosition, null, drawColor, harpoon.Seg2Rot, new Vector2(70, harpoonTex.Height / 2f), 1, drawDir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+                    Main.EntitySpriteDraw(harpoonTex, harpoon.TopPos + harpoon.Seg2Rot.ToRotationVector2() * 38 + new Vector2(0, 0 * drawDir).RotatedBy(harpoon.Seg2Rot) - Main.screenPosition, null, drawColor, harpoon.Seg2Rot, new Vector2(70, harpoonTex.Height / 2f), 1, drawDir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
                 }
-                int CannonFrameTotal = 9;
+                var ht = CannonMode ? cannonTex : knife;
+                int CannonFrameTotal = CannonMode ? 9 : 8;
                 int frame = CannonFrame;
-                if (drawDir < 0)
-                    frame = CannonFrameTotal - 1 - frame;
-                int of = cannonTex.Height / CannonFrameTotal;
-                Rectangle rect = new Rectangle(0, of * frame, cannonTex.Width, of - 2);
+                
+                int of = ht.Height / CannonFrameTotal;
+                Rectangle rect = new Rectangle(0, of * frame, ht.Width, of - 2);
                 Main.EntitySpriteDraw(harpoonCannon, harpoon.seg1end - Main.screenPosition, null, drawColor, harpoon.Seg2Rot, new Vector2(6, harpoonCannon.Height / 2f), 1, drawDir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
-
-                Main.EntitySpriteDraw(cannonTex, cannon.seg1end - Main.screenPosition, rect, drawColor, cannon.Seg2Rot, new Vector2(54, cannonTex.Height / CannonFrameTotal / 2 - 1), 1, drawDir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+                int wo = CannonMode ? 84 : 110;
+                
+                Main.EntitySpriteDraw(ht, cannon.seg1end - Main.screenPosition, rect, drawColor, cannon.Seg2Rot + CannonRot, new Vector2(wo, cannonTex.Height / CannonFrameTotal / 2 - 1), 1, drawDir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
 
             }
             else
@@ -413,10 +445,14 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 Player.controlMount = false;
             }
         }
+        public Item DummyCannon = null;
         public void MechUpdate()
         {
-            if(Player.mount.Active)
-                Player.mount.Dismount(Player);
+            if (MechTrans)
+            {
+                if (Player.mount.Active)
+                    Player.mount.Dismount(Player);
+            }
             Player.noFallDmg = true;
             
             int MaxFrame = 19;
@@ -425,9 +461,8 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 Player.gfxOffY = 0;
                 if (!Main.dedServ)
                 {
-                    if (CEKeybinds.AcropolisMechTransformation.JustPressed)
+                    if (Main.myPlayer == Player.whoAmI && CEKeybinds.AcropolisMechTransformation.JustPressed)
                     {
-                        MechTrans = false;
                         DeactiveMech();
                     }
                 }
@@ -440,75 +475,179 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                         MechFrame++;
                     }
                     Player.velocity *= 0;
-                    Player.velocity.Y = -0.05f;
-                    if(Player.Entropy().immune < 5)
+                    if (Player.Entropy().immune < 5)
                         Player.Entropy().immune = 5;
-                }
-                UpdateParts();
-                Player.gravity = 0;
-                int s = 0;
-                float y = 0;
-                foreach(var leg in legs)
-                {
-                    y += leg.StandPoint.Y;
-                    if (leg.OnTile)
-                        s++;
-                }
-                y /= legs.Count;
-                if (s < 3)
-                {
-                    Player.velocity.Y += 0.35f;
-                    LandTime = 0;
                 }
                 else
                 {
-                    if (!Player.controlDown)
+                    UpdateParts();
+                    Player.gravity = 0;
+                    int s = 0;
+                    float y = 0;
+                    foreach (var leg in legs)
                     {
-                        Player.position.Y += 4;
-                        if (CEUtils.CheckSolidTile(Player.getRect()))
-                        {
-                            Player.position.Y -= 15;
-                            if(CEUtils.CheckSolidTile(Player.getRect()))
-                                Player.position.Y += 15;
-                        }
-                        Player.position.Y -= 4;
-                        Player.Center = new Vector2(Player.Center.X, float.Lerp(Player.Center.Y, y - 100, 0.1f));
-                        
-                        Player.velocity.Y *= 0.9f;
+                        y += leg.StandPoint.Y;
+                        if (leg.OnTile)
+                            s++;
+                    }
+                    y /= legs.Count;
+                    if (s < 3)
+                    {
+                        Player.velocity.Y += 0.35f;
+                        LandTime = 0;
                     }
                     else
                     {
-                        Player.velocity.Y *= 0.96f;
-                    }
-                }
-                if(Player.controlDown)
-                {
-                    Player.velocity.Y += 0.2f;
-                }
-                if (s > 2)
-                {
-                    LandTime++;
-                    if (Player.controlUp)
-                    {
-                        Player.velocity.Y -= 0.25f;
-                    }
+                        if (!Player.controlDown)
+                        {
+                            Player.position.Y += 4;
+                            if (CEUtils.CheckSolidTile(Player.getRect()))
+                            {
+                                Player.position.Y -= 15;
+                                if (CEUtils.CheckSolidTile(Player.getRect()))
+                                    Player.position.Y += 15;
+                            }
+                            Player.position.Y -= 4;
+                            Player.Center = new Vector2(Player.Center.X, float.Lerp(Player.Center.Y, y - 100, 0.1f));
 
-                    if (Player.controlJump && LandTime > 8)
+                            Player.velocity.Y *= 0.9f;
+                        }
+                        else
+                        {
+                            Player.velocity.Y *= 0.96f;
+                        }
+                    }
+                    if (Player.controlDown)
                     {
-                        Player.velocity.Y = -18;
+                        Player.velocity.Y += 0.2f;
+                    }
+                    if (s > 2)
+                    {
+                        LandTime++;
+                        if (Player.controlUp)
+                        {
+                            Player.velocity.Y -= 0.25f;
+                        }
+
+                        if (Player.controlJump && LandTime > 8)
+                        {
+                            Player.velocity.Y = -18;
+                        }
+                    }
+                    if (CannonMode && Bullet <= 0)
+                    {
+                        switchDelay = 4;
+                        if (Reload-- == 0)
+                        {
+                            Bullet = 6;
+                        }
+                    }
+                    if(!CannonMode && SlashP > 0)
+                    {
+                        SlashP += 0.15f;
+                        if (SlashP > 1)
+                        {
+                            ShootDelay = 16;
+                            SlashP = 0;
+                        }
+                    }
+                    if (Main.myPlayer == Player.whoAmI)
+                    {
+                        if(ControlHook)
+                        {
+                            if (Player.ownedProjectileCounts[ModContent.ProjectileType<AcropolisHarpoon>()] == 0)
+                            {
+                                harpoon.PointAPos(Player.Calamity().mouseWorld, 1);
+                                int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(2000))).ApplyOldFashionedDmg();
+                                Projectile.NewProjectile(Player.GetSource_FromThis(), harpoon.TopPos, harpoon.Seg2Rot.ToRotationVector2() * 48, ModContent.ProjectileType<AcropolisHarpoon>(), damage, 12, Player.whoAmI);
+                            }
+                        }
+                        if (!Player.mouseInterface && switchDelay-- <= 0) 
+                        {
+                            if (Main.mouseLeft)
+                            {
+                                if (CannonMode)
+                                {
+                                    if (ShootDelay <= 0)
+                                    {
+                                        Bullet--;
+                                        if (Bullet < 1)
+                                            Reload = 40;
+                                        for (int i = 0; i < 12; i++)
+                                            GeneralParticleHandler.SpawnParticle(new LineParticle(cannon.TopPos, cannon.Seg2Rot.ToRotationVector2().RotatedByRandom(0.3f) * 46 * Main.rand.NextFloat(), false, 12, Main.rand.NextFloat(0.4f, 1), new Color(255, 100, 100)));
+
+                                        CEUtils.PlaySound("AcropolisShoot", Main.rand.NextFloat(0.8f, 1.2f), cannon.TopPos);
+                                        ShootDelay = (int)(5f / Player.GetTotalAttackSpeed(Player.GetBestClass()));
+                                        int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(600))).ApplyOldFashionedDmg();
+                                        Projectile.NewProjectile(Player.GetSource_FromThis(), cannon.TopPos, cannon.Seg2Rot.ToRotationVector2().RotatedByRandom(0.12f) * 32, ModContent.ProjectileType<AcropolisBullet>(), damage, 10, Player.whoAmI);
+                                    }
+                                }
+                                else
+                                {
+                                    if(SlashP == 0 && ShootDelay <= 0)
+                                    {
+                                        SlashP += 0.01f;
+                                        int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(2000))).ApplyOldFashionedDmg();
+                                        Projectile.NewProjectile(Player.GetSource_FromThis(), cannon.TopPos, cannon.Seg2Rot.ToRotationVector2() * 8, ModContent.ProjectileType<AcropolisSlash>(), damage, 10, Player.whoAmI);
+
+                                        CEUtils.PlaySound("throw", Main.rand.NextFloat(1.2f, 1.5f), Player.Center, 10, 0.4f);
+                                        if (slashDir == 0)
+                                            slashDir = -1;
+                                        slashDir *= -1;
+                                    }
+                                }
+                            }
+                            if (Main.mouseRight)
+                            {
+                                switchDelay = 30;
+                                CannonFrame = 0;
+                                CannonMode = !CannonMode;
+                            }
+                        } 
+                    }
+                    
+                    CannonRot = float.Lerp(CannonRot, CannonMode ? 0 : MathHelper.Pi, 0.1f);
+                }
+                if(CannonMode)
+                {
+                    SlashP = 0;
+                    CannonFrame = 0;
+                    if(Bullet > 0)
+                    {
+                        CannonFrame = 2;
+                    }
+                    if(Bullet > 2)
+                    {
+                        CannonFrame = 1;
+                    }
+                    if(Bullet > 4)
+                    {
+                        CannonFrame = 0;
+                    }
+                    if(Reload > 0)
+                    {
+                        CannonFrame = 3 + (int)((1-(Reload / 40f)) * 5);
                     }
                 }
-
+                else
+                {
+                    if(CannonFrame < 7)
+                    {
+                        if(Main.GameUpdateCount % 4 == 0)
+                            CannonFrame++;
+                    }
+                }
             }
             else
             {
                 if(!Main.dedServ)
                 {
-                    if(CEKeybinds.AcropolisMechTransformation.JustPressed)
+                    if(Main.myPlayer == Player.whoAmI && CEKeybinds.AcropolisMechTransformation.JustPressed)
                     {
                         if(true) //Check cooldown
                         {
                             MechTrans = true;
+                            CEUtils.PlaySound("WulfrumBastionActivate", 1, Player.Center);
                             DurabilityActive = true;
                             durability = 1;
                             MechSync();
@@ -517,7 +656,22 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 }
                 MechFrame = MechFrameCounter = 0;
             }
+            ShootDelay--;
+            if(MechTrans && MechFrame < 16)
+            {
+                Player.gravity = 0;
+                Player.velocity.Y = -0.6f;
+            }
+            lastJump = Player.controlJump;
         }
+        public bool lastJump = false;
+        public bool CannonMode = true;
+        public float CannonRot = 0;
+        public int switchDelay = 0;
+        public int Reload = 0;
+        public int slashDir = 1;
+        public int Bullet = 6;
+        public float SlashP = 0;
         public override void PostUpdate()
         {
             if (!Main.dedServ)
@@ -531,6 +685,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 }
             }
         }
+        public int ShootDelay = 0;
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
         {
             if (ExplosionFlag && DeathExplosion > 0)
@@ -648,8 +803,9 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 }
                 if(MechTrans)
                 {
-                    Player.Entropy().EDamageReduce += 0.2f;
-                    Player.statDefense += 30;                }
+                    Player.Entropy().EDamageReduce += 0.32f;
+                    Player.statDefense += 32;
+                }
             }
             else
             {
@@ -665,7 +821,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     CEUtils.PlaySound($"ExoHit{Main.rand.Next(1, 5)}", Main.rand.NextFloat(0.6f, 0.8f), Player.Center, 6, 0.45f);
                     if (DurabilityRegenDelay < 5 * 60)
                         DurabilityRegenDelay = 5 * 60;
-                    durability -= float.Min(0.45f, info.SourceDamage / 1200f);
+                    durability -= float.Min(0.45f, info.SourceDamage / (MechTrans ? 2400f : 1200f));
 
                     //耐久没了暂时失效
                     if (durability <= 0)

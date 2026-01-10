@@ -2388,19 +2388,21 @@ namespace CalamityEntropy.Common
             {
                 dashing = false;
             }
-            if ((Player.GetModPlayer<SCDashMP>().Cooldown > 0 || !hasAccVisual(ShadeCloak.ID)) && !NDFlag)
+            if ((Player.GetModPlayer<SCDashMP>().Cooldown > 0 || !hasAcc(ShadeCloak.ID)) && !NDFlag)
             {
             }
             else
             {
                 if (Player.dashDelay < 0)
                 {
-
-                    if (avTrail == null || avTrail.Lifetime <= 0)
+                    if (hasAccVisual(ShadeCloak.ID))
                     {
-                        avTrail = new DashBeam();
-                        EParticle.spawnNew(avTrail, Player.Center, Vector2.Zero, new Color(0, 0, 0, 210), 1f, 1, true, BlendState.NonPremultiplied);
-                        avTrail.maxLength = 30;
+                        if (avTrail == null || avTrail.Lifetime <= 0)
+                        {
+                            avTrail = new DashBeam();
+                            EParticle.spawnNew(avTrail, Player.Center, Vector2.Zero, new Color(0, 0, 0, 210), 1f, 1, true, BlendState.NonPremultiplied);
+                            avTrail.maxLength = 30;
+                        }
                     }
                     ResetRot = true;
                     Player.fullRotation = (new Vector2(Math.Abs(Player.velocity.X), Player.velocity.Y).ToRotation()) * Player.direction;
@@ -2410,9 +2412,12 @@ namespace CalamityEntropy.Common
                         Player.GetModPlayer<SCDashMP>().Cooldown = 158.ApplyCdDec(Player);
                         Player.GetModPlayer<SCDashMP>().flag = false;
                         CEUtils.PlaySound("Dash2", 1, Player.Center);
-                        for (int i = 0; i < 12; i++)
+                        if (hasAccVisual(ShadeCloak.ID))
                         {
-                            EParticle.NewParticle(new ShadeCloakOrb() { PlayerIndex = Player.whoAmI }, Vector2.Zero, CEUtils.randomPointInCircle(4), Color.Black, 1, 1, true, BlendState.NonPremultiplied, -1, 160.ApplyCdDec(Player));
+                            for (int i = 0; i < 12; i++)
+                            {
+                                EParticle.NewParticle(new ShadeCloakOrb() { PlayerIndex = Player.whoAmI }, Vector2.Zero, CEUtils.randomPointInCircle(4), Color.Black, 1, 1, true, BlendState.NonPremultiplied, -1, 160.ApplyCdDec(Player));
+                            }
                         }
                         NDFlag = true;
 
@@ -2426,11 +2431,14 @@ namespace CalamityEntropy.Common
                     }
                     if (Player.GetModPlayer<SCDashMP>().Cooldown > 160.ApplyCdDec(Player) - 24)
                     {
-                        avTrail.Lifetime = 30;
-                        for (int i = 0; i < 4; i++)
+                        if (hasAccVisual(ShadeCloak.ID))
                         {
-                            EParticle.NewParticle(new ShadeDashParticle(), Player.Center + Player.velocity * 6
-                                + CEUtils.randomPointInCircle(26), -(Player.velocity.normalize().RotatedByRandom(0.12f)) * 40, Color.White, 1, 1, true, BlendState.NonPremultiplied, 0, 16);
+                            avTrail.Lifetime = 30;
+                            for (int i = 0; i < 4; i++)
+                            {
+                                EParticle.NewParticle(new ShadeDashParticle(), Player.Center + Player.velocity * 6
+                                    + CEUtils.randomPointInCircle(26), -(Player.velocity.normalize().RotatedByRandom(0.12f)) * 40, Color.White, 1, 1, true, BlendState.NonPremultiplied, 0, 16);
+                            }
                         }
                         if (hasAcc(ShadeCloak.ID))
                         {
