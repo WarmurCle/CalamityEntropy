@@ -3204,7 +3204,8 @@ Items: {
 			Current Level: [LV] / 16
 			$Based on the current level, summons some Abyss Spirits to protect you. 
 			$Right-click to change their behavior mode:
-			$^  In Piercing mode, they repeatedly slash targets; in Shooting mode, they fire tracking Abyss Beams at targets; in Defense mode, they block incoming projectiles for you
+			$^  In Piercing mode, they repeatedly slash targets; in Shooting mode, they fire tracking Abyss Beams
+			at targets; in Defense mode, they block incoming projectiles for you
 			%Fires Crimson Spikes from off-screen that pierce through targets
 			&When shooting, fires tracking Abyss Beams
 			''' */
