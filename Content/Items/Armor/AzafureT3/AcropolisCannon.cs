@@ -131,6 +131,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             CEUtils.FriendlySetDefaults(Projectile, DamageClass.Generic, false, -1);
             Projectile.width = Projectile.height = 14;
             Projectile.timeLeft = 10;
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 6000;
         }
         public override bool ShouldUpdatePosition()
         {
@@ -182,9 +183,9 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 for (float i = 0; i < 1; i += 0.05f)
                 {
                     Projectile.position += Projectile.velocity / 20f;
-                    if (HookNPC == -1 && !back)
+                    if (!HookTile && HookNPC <= -1 && !back)
                     {
-                        if (CEUtils.CheckSolidTile(Projectile.getRect()))
+                        if (!CEUtils.isAir(Projectile.Center, true))
                         {
                             HookNPC = -2;
                             HookTile = true;
@@ -206,11 +207,13 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 Vector2 top = Projectile.GetOwner().GetModPlayer<AcropolisArmorPlayer>().harpoon.TopPos;
                 if (HookTile)
                 {
+                    Projectile.GetOwner().Entropy().FallSpeedUP = 3;
                     Projectile.GetOwner().velocity = (Projectile.Center - Projectile.GetOwner().Center).normalize() * 30;
                     if (CEUtils.getDistance(Projectile.Center, Projectile.GetOwner().Center) < 60)
                     {
                         Projectile.Kill();
                     }
+                    Projectile.GetOwner().Entropy().NoPlatformCollide = 6;
                 }
                 else if (HookNPC >= 0)
                 {
@@ -221,26 +224,31 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     }
                     else
                     {
+                        Projectile.GetOwner().Entropy().FallSpeedUP = 3;
                         Projectile.Center = HookNPC.ToNPC().Center;
+                        mp.harpoon.PointAPos(Projectile.Center, 1);
+
                         if (HookNPC.ToNPC().boss)
                         {
                             Projectile.GetOwner().velocity = (Projectile.Center - Projectile.GetOwner().Center).normalize() * 40;
-                            if (CEUtils.getDistance(Projectile.Center, Projectile.GetOwner().Center) < 360)
+                            if (CEUtils.getDistance(Projectile.Center, Projectile.GetOwner().Center) < 160)
                             {
-                                if (!HookHold)
-                                {
-                                    Projectile.GetOwner().velocity *= 0.5f;
-                                    Projectile.Kill();
-                                }
+                                Projectile.GetOwner().velocity *= -0.1f;
+                                Projectile.Kill();
+                                Projectile.GetOwner().Entropy().immune = 12;
                             }
                         }
                         else
                         {
                             HookNPC.ToNPC().velocity = (top - HookNPC.ToNPC().Center).normalize() * 40;
-                            if (CEUtils.getDistance(Projectile.Center, Projectile.GetOwner().Center) < 60)
+                            
+                            if (CEUtils.getDistance(Projectile.Center, top) < 60)
                             {
+                                HookNPC.ToNPC().velocity *= 0;
                                 mp.harpoon.PointAPos(Projectile.GetOwner().Calamity().mouseWorld, 1);
                                 Projectile.rotation = mp.harpoon.Seg2Rot;
+                                HookNPC.ToNPC().Center = mp.harpoon.TopPos + mp.harpoon.Seg2Rot.ToRotationVector2() * 16;
+
                             }
                         }
                     }
@@ -269,8 +277,8 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 if (Projectile.GetOwner().controlJump && !mp.lastJump)
                     Projectile.Kill();
 
-                if (Projectile.active)
-                    Projectile.GetOwner().GetModPlayer<AcropolisArmorPlayer>().harpoon.PointAPos(Projectile.Center, 1);
+                if (Projectile.active && HookNPC < 0)
+                    mp.harpoon.PointAPos(Projectile.Center, 1);
             }
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

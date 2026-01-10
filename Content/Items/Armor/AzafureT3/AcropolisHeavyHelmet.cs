@@ -436,6 +436,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         public int CannonFrame = 0;
         public int LandTime = 0;
         public bool ControlHook = false;
+        public int HarpoonDelay = 0;
         public override void SetControls()
         {
             ControlHook = Player.controlHook;
@@ -467,6 +468,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     }
                 }
                 UpdateParts();
+                HarpoonDelay--;
                 if (MechFrame < MaxFrame)
                 {
                     MechFrameCounter++;
@@ -553,10 +555,11 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     }
                     if (Main.myPlayer == Player.whoAmI)
                     {
-                        if(ControlHook)
+                        if(ControlHook && !LastHook)
                         {
-                            if (Player.ownedProjectileCounts[ModContent.ProjectileType<AcropolisHarpoon>()] == 0)
+                            if (HarpoonDelay <= 0 && Player.ownedProjectileCounts[ModContent.ProjectileType<AcropolisHarpoon>()] == 0)
                             {
+                                HarpoonDelay = 32;
                                 harpoon.PointAPos(Player.Calamity().mouseWorld, 1);
                                 int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(2000))).ApplyOldFashionedDmg();
                                 Projectile.NewProjectile(Player.GetSource_FromThis(), harpoon.TopPos, harpoon.Seg2Rot.ToRotationVector2() * 48, ModContent.ProjectileType<AcropolisHarpoon>(), damage, 12, Player.whoAmI);
@@ -662,8 +665,10 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 Player.gravity = 0;
                 Player.velocity.Y = -0.6f;
             }
+            LastHook = ControlHook;
             lastJump = Player.controlJump;
         }
+        public bool LastHook = false;
         public bool lastJump = false;
         public bool CannonMode = true;
         public float CannonRot = 0;

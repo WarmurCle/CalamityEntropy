@@ -815,6 +815,7 @@ namespace CalamityEntropy.Common
         public bool NoAdrenaline = false;
         public int NoAdrenalineTime = 0;
         public float EDamageReduce = 0;
+        public int NoPlatformCollide = 0;
         public override void ResetEffects()
         {
             EDamageReduce = 0;
@@ -999,6 +1000,7 @@ namespace CalamityEntropy.Common
 
         public override void PreUpdate()
         {
+            NoPlatformCollide--;
             NoAdrenaline = false;
             if (NoAdrenalineTime > 0)
                 NoAdrenaline = true;
@@ -1168,6 +1170,10 @@ namespace CalamityEntropy.Common
                 Player.maxFallSpeed *= 3;
                 Player.controlDown = true;
             }
+            if(FallSpeedUP > 0)
+            {
+                Player.maxFallSpeed *= 5;
+            }
             Player.maxFallSpeed *= FallSpeed;
             gravAddTime--;
             if (CruiserAntiGravTime > 0)
@@ -1241,7 +1247,7 @@ namespace CalamityEntropy.Common
             {
                 rbDotDist += (-rbDotDist) * 0.06f;
             }
-            if (rBadgeActive || RuneDash > 0 || CruiserAntiGravTime > 0 || Player.mount.Type == ModContent.MountType<ReplicaPenMount>())
+            if (NoPlatformCollide > 0 || rBadgeActive || RuneDash > 0 || CruiserAntiGravTime > 0 || Player.mount.Type == ModContent.MountType<ReplicaPenMount>())
             {
                 resetTileSets = true;
                 tileSolid = (bool[])Main.tileSolid.Clone();
@@ -2136,8 +2142,10 @@ namespace CalamityEntropy.Common
 
             }
         }
+        public int FallSpeedUP = 0;
         public override void PostUpdate()
         {
+            FallSpeedUP--;
             if (NoAdrenaline)
             {
                 Player.Calamity().adrenaline = 0;
