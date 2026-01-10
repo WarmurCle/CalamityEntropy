@@ -347,9 +347,17 @@ namespace CalamityEntropy
                 int reload = reader.ReadInt32();
                 int bullet = reader.ReadInt32();
                 float slash = reader.ReadSingle();
+                int dir = reader.ReadInt32();
+                bool mode = reader.ReadBoolean();
                 if (Main.myPlayer != plr)
                 {
-                    plr.ToPlayer().GetModPlayer<AcropolisArmorPlayer>().MechTrans = active;
+                    var mp = plr.ToPlayer().GetModPlayer<AcropolisArmorPlayer>();
+                    mp.MechTrans = active;
+                    mp.Reload = reload;
+                    mp.Bullet = bullet;
+                    mp.SlashP = slash;
+                    mp.slashDir = dir;
+                    mp.CannonMode = mode;
                 }
                 if (Main.dedServ)
                 {
@@ -360,6 +368,8 @@ namespace CalamityEntropy
                     packet.Write(reload);
                     packet.Write(bullet);
                     packet.Write(slash);
+                    packet.Write(dir);
+                    packet.Write(mode);
                     packet.Send(-1, plr);
                 }
             }

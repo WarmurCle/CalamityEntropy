@@ -16,6 +16,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static CalamityEntropy.Content.Items.Weapons.DustCarverBow.CarverSpirit;
 
 namespace CalamityEntropy.Content.Items.Armor.AzafureT3
 {
@@ -251,6 +252,8 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 packet.Write(Reload);
                 packet.Write(Bullet);
                 packet.Write(SlashP);
+                packet.Write(slashDir);
+                packet.Write(CannonMode);
                 packet.Send();
             }
         }
@@ -592,7 +595,6 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                                 {
                                     if(SlashP == 0 && ShootDelay <= 0)
                                     {
-                                        MechSync();
                                         SlashP += 0.01f;
                                         int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(2000))).ApplyOldFashionedDmg();
                                         Projectile.NewProjectile(Player.GetSource_FromThis(), cannon.TopPos, cannon.Seg2Rot.ToRotationVector2() * 8, ModContent.ProjectileType<AcropolisSlash>(), damage, 10, Player.whoAmI);
@@ -601,6 +603,8 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                                         if (slashDir == 0)
                                             slashDir = -1;
                                         slashDir *= -1;
+
+                                        MechSync();
                                     }
                                 }
                             }
@@ -609,6 +613,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                                 switchDelay = 30;
                                 CannonFrame = 0;
                                 CannonMode = !CannonMode;
+                                MechSync();
                             }
                         } 
                     }
