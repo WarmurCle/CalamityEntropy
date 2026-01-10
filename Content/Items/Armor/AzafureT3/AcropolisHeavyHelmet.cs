@@ -241,7 +241,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         {
             if (MechTrans)
             {
-                Player.AddCooldown(AcropolisCooldown.ID, 2 * 60 * 60);
+                Player.AddCooldown(AcropolisCooldown.ID, (int)(1.5f * 60 * 60));
                 SmokeParticle();
                 DurabilityActive = false;
                 durability = 0;
