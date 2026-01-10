@@ -133,9 +133,9 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     ms = CEUtils.getDistance(targetPos, StandPoint) * 0.25f;
                     return false;
                 }
-                if (!OnTile || (NoMoveTime <= 0 && CEUtils.getDistance(StandPoint, Player.Center + Player.velocity * 8 + (offset * 1).RotatedBy(Player.direction > 0 ? Player.fullRotation : (Player.fullRotation))) > distToMove) || CEUtils.getDistance(StandPoint, Player.Center + Player.velocity * 16 + (offset * 1).RotatedBy(Player.fullRotation)) > distToMove * 1.4f)
+                if (!OnTile || (NoMoveTime <= 0 && CEUtils.getDistance(StandPoint, Player.Center + Player.velocity * 6 + (offset * 1).RotatedBy(Player.direction > 0 ? Player.fullRotation : (Player.fullRotation))) > distToMove) || CEUtils.getDistance(StandPoint, Player.Center + Player.velocity * 16 + (offset * 1).RotatedBy(Player.fullRotation)) > distToMove * 1.4f)
                 {
-                    targetPos = FindStandPoint(Player.Center + Player.velocity * 8 + (offset * 1).RotatedBy(Player.fullRotation) + new Vector2(Math.Sign(Player.velocity.X) == Math.Sign(offset.X) ? (Math.Sign(Player.velocity.X) * 12) : 0, 0), 80 * Scale * 1, 160);
+                    targetPos = FindStandPoint(Player.Center + Player.velocity * 6 + (offset * 1).RotatedBy(Player.fullRotation) + new Vector2(Math.Sign(Player.velocity.X) == Math.Sign(offset.X) ? (Math.Sign(Player.velocity.X) * 12) : 0, 0), 80 * Scale * 1, 160);
                     ms = CEUtils.getDistance(targetPos, StandPoint) * 0.25f;
                     if (NoMoveTime < 4)
                         NoMoveTime = 4;
