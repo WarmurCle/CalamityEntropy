@@ -1,4 +1,6 @@
-﻿using CalamityMod.Items;
+﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,11 +24,14 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             player.GetCritChance(DamageClass.Generic) += 8f;
             player.maxMinions += 1;
         }
-
         public override void AddRecipes()
         {
-
+            CreateRecipe()
+                .AddIngredient<AzafureSteamKnightArmor>()
+                .AddIngredient(ItemID.LunarBar, 16)
+                .AddIngredient<UnholyEssence>(6)
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
         }
-
     }
 }

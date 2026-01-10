@@ -1,4 +1,6 @@
 using CalamityEntropy.Common;
+using CalamityEntropy.Content.Cooldowns;
+using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.Acropolis;
 using CalamityEntropy.Content.Particles;
@@ -6,6 +8,7 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Armor.Wulfrum;
+using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using CalamityMod.UI.Rippers;
 using Microsoft.Xna.Framework.Graphics;
@@ -82,6 +85,12 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
 
         public override void AddRecipes()
         {
+            CreateRecipe()
+                .AddIngredient<AzafureSteamKnightArmor>()
+                .AddIngredient(ItemID.LunarBar, 10)
+                .AddIngredient<UnholyEssence>(5)
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
         }
     }
 
@@ -232,6 +241,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         {
             if (MechTrans)
             {
+                Player.AddCooldown(AcropolisCooldown.ID, 2 * 60 * 60);
                 SmokeParticle();
                 DurabilityActive = false;
                 durability = 0;
@@ -656,7 +666,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 {
                     if(Main.myPlayer == Player.whoAmI && CEKeybinds.AcropolisMechTransformation.JustPressed)
                     {
-                        if(true) //Check cooldown
+                        if(!Player.HasCooldown(AcropolisCooldown.ID))
                         {
                             MechTrans = true;
                             CEUtils.PlaySound("WulfrumBastionActivate", 1, Player.Center);
@@ -797,7 +807,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 if (DurabilityActive)
                 {
                     Player.Entropy().EDamageReduce += durability * 0.32f;
-                    Player.statDefense += (int)(durability * 40);
+                    Player.statDefense += (int)(durability * 50);
                     Player.noKnockback = true;
                 }
                 else

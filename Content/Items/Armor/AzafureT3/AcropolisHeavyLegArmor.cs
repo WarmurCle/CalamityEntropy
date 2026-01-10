@@ -1,4 +1,6 @@
-﻿using CalamityMod.Items;
+﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -24,6 +26,12 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         }
         public override void AddRecipes()
         {
+            CreateRecipe()
+                .AddIngredient<AzafureSteamKnightLeggings>()
+                .AddIngredient(ItemID.LunarBar, 10)
+                .AddIngredient<UnholyEssence>(4)
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
         }
     }
 

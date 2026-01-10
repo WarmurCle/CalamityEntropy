@@ -5422,6 +5422,25 @@ Biomes: {
 	Provide 80 rogue stealth
 	+20% Movement speed and +1 Max minion
 	''' */
+/* AzafureSet3:
+	'''
+	When this armor is equipped, 
+	all Azafure equipment receives partial enhancements
+	Remove adrenaline and gains a Durability bar
+	The Durability bar provides up to 50 defense and 32% damage reduction
+	Durability is consumed based on damage taken when hit
+	Durability slowly regenerates 5 seconds after taking damage
+	When the Durability bar is depleted, it becomes inactive and requires time to restore functionality
+	Provide 120 rogue stealth
+	Press [KEY] to transform into a Acropolis mecha, 
+	press again to cancel the transformation
+	When the mecha is activated, it significantly increases defense and damage reduction, 
+	and you can only use the weapons it provides
+	Left click attack, right-click to switch weapon forms
+	The hook claw will be replaced by a harpoon.
+	Pressing the hook claw button will launch the harpoon, pulling you towards the hooked object
+	The spear will catch weaker enemy monsters, and if it hooks onto the boss, it will pull you over
+	''' */
 // DuraBar: Durability bar
 // AzafureEnhance: Enhance
 
@@ -5468,3 +5487,4 @@ AzafureEnhances: {
 // CardsDesc: There should be a complete set of cards similar to it
 // VoidCoreShield: Void Shield
 // CrossModSupportFish: Cross mod support: You can also put it in Entropy books as a bookmark
+// CdAcr: Acropolis Mech Cooldown

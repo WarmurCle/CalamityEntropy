@@ -94,7 +94,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             for (int i = 0; i < oldRot.Count; i++)
             {
                 Color b = Color.Lerp(new Color(255, 60, 60), new Color(255, 195, 195), (float)i / (float)oldRot.Count) * 0.8f;
-                ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + (new Vector2(54, 0).RotatedBy(oldRot[i])),
+                ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + (new Vector2(190, 0).RotatedBy(oldRot[i])),
                       new Vector3(i / (float)oldRot.Count, 1, 1),
                       b));
                 ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + (new Vector2(0, 0).RotatedBy(oldRot[i])),
@@ -109,12 +109,20 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
             }
             Main.spriteBatch.ExitShaderRegion();
-
+            Texture2D c = CEUtils.getExtraTex("Glow2");
+            Main.spriteBatch.UseBlendState(BlendState.Additive);
+            for(float i = 0; i < 1; i += 0.02f)
+            {
+                float ml = 170;
+                Vector2 pos = Projectile.Center + Projectile.rotation.ToRotationVector2() * (ml * i - 10);
+                Main.spriteBatch.Draw(c, pos + CEUtils.randomPointInCircle(4) - Main.screenPosition, null, new Color(255, 50, 50), Projectile.rotation, c.Size() / 2f, new Vector2(0.6f, 0.04f), SpriteEffects.None, 0);
+            }
+            Main.spriteBatch.ExitShaderRegion();
             return false;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 60, targetHitbox, 32);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 210, targetHitbox, 32);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
