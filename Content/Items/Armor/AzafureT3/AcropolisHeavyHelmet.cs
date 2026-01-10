@@ -466,6 +466,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                         DeactiveMech();
                     }
                 }
+                UpdateParts();
                 if (MechFrame < MaxFrame)
                 {
                     MechFrameCounter++;
@@ -480,7 +481,6 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 }
                 else
                 {
-                    UpdateParts();
                     Player.gravity = 0;
                     int s = 0;
                     float y = 0;
