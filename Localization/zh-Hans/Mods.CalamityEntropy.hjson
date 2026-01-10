@@ -3811,11 +3811,6 @@ Items: {
 			+20%跳跃速度
 			'''
 	}
-
-	AcropolisCannon: {
-		// DisplayName: Acropolis Cannon
-		// Tooltip: ""
-	}
 }
 
 ChaoticSetBonus:
@@ -4429,9 +4424,9 @@ Projectiles: {
 	AmnestyHeld.DisplayName: 神灵
 	AmnestyLaser.DisplayName: 神灵电弧
 	AmnestyMiniLaser.DisplayName: 神灵追踪弹
-	// AcropolisBullet.DisplayName: Acropolis Bullet
-	// AcropolisSlash.DisplayName: Acropolis Slash
-	// AcropolisHarpoon.DisplayName: Acropolis Harpoon
+	AcropolisBullet.DisplayName: 卫城炮弹
+	AcropolisSlash.DisplayName: 光刀
+	AcropolisHarpoon.DisplayName: 叉矛
 }
 
 LegendTooltip: - 传奇物品 -
