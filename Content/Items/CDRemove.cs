@@ -46,10 +46,6 @@ namespace CalamityEntropy.Content.Items
         {
             return false;
         }
-        public override void UpdateInventory(Player player)
-        {
-            player.Entropy().CooldownTimeMult = (1 - CooldownReduce);
-        }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             tooltips.Replace("[R]", CooldownReduce.ToPercent().ToString());

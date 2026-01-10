@@ -3507,6 +3507,13 @@ namespace CalamityEntropy.Common
         public int WindPressureTime = 0;
         public override void PostUpdateEquips()
         {
+            foreach(Item i in Player.inventory)
+            {
+                if(!i.IsAir && i.ModItem != null && i.ModItem is CDRemove cdr)
+                {
+                    Player.Entropy().CooldownTimeMult = (1 - cdr.CooldownReduce);
+                }
+            }
             if (Player.Calamity().chaliceOfTheBloodGod && holyMoonlight)
             {
                 holyMoonlight = false;

@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Mod.GetLocalization("AzafureSet3").Value;
+            player.setBonus = Mod.GetLocalization("AzafureSet3").Value.Replace("[KEY]", CEKeybinds.AcropolisMechTransformation.TooltipHotkeyString());
             player.GetModPlayer<AcropolisArmorPlayer>().ArmorSetBonus = true;
             if (!ModContent.GetInstance<Config>().MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons || player.HeldItem.DamageType.CountsAsClass(CEUtils.RogueDC))
             {

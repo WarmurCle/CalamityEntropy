@@ -2,6 +2,7 @@
 using CalamityEntropy.Content;
 using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Items.Armor.AzafureT3;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Particles;
@@ -72,7 +73,7 @@ namespace CalamityEntropy
         }
         public static bool AzafureEnhance(this Player player)
         {
-            return player.GetModPlayer<AzafureHeavyArmorPlayer>().ArmorSetBonus || player.GetModPlayer<AzafureSteamKnightArmorPlayer>().ArmorSetBonus;
+            return player.GetModPlayer<AzafureHeavyArmorPlayer>().ArmorSetBonus || player.GetModPlayer<AzafureSteamKnightArmorPlayer>().ArmorSetBonus || player.GetModPlayer<AcropolisArmorPlayer>().ArmorSetBonus;
         }
         public static float AzafureDurability(this Player player)
         {
