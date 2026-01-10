@@ -1322,6 +1322,7 @@ namespace CalamityEntropy
             Vector2 drawPos = new Vector2(px, py);
             for (int i = 0; i <= num; i++)
             {
+                color = Lighting.GetColor((drawPos / 16).ToPoint());
                 Main.EntitySpriteDraw(tx, drawPos - Main.screenPosition, null, color, rot, new Vector2(tx.Width / 2, tx.Height / 2), (new Vector2(1, 1)), SpriteEffects.None, 0);
                 drawPos.X += addVec.X * spacing;
                 drawPos.Y += addVec.Y * spacing;

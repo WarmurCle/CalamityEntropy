@@ -828,7 +828,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 }
                 if(MechTrans)
                 {
-                    Player.Entropy().EDamageReduce += 0.32f;
+                    Player.Entropy().EDamageReduce += 0.4f;
                     Player.statDefense += 32;
                 }
             }
@@ -846,7 +846,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     CEUtils.PlaySound($"ExoHit{Main.rand.Next(1, 5)}", Main.rand.NextFloat(0.6f, 0.8f), Player.Center, 6, 0.45f);
                     if (DurabilityRegenDelay < 5 * 60)
                         DurabilityRegenDelay = 5 * 60;
-                    durability -= float.Min(0.45f, info.SourceDamage / (MechTrans ? 2400f : 1200f));
+                    durability -= float.Min(0.35f, info.SourceDamage / (MechTrans ? 3400f : 1200f));
 
                     //耐久没了暂时失效
                     if (durability <= 0)
