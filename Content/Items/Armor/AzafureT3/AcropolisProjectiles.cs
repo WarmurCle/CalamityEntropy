@@ -264,12 +264,12 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 }
                 else
                 {
-                    if (Projectile.ai[2] > 14)
+                    if (Projectile.ai[2] > 17)
                         back = true;
                     if (back)
                     {
                         Projectile.velocity *= 0.9f;
-                        Projectile.velocity += (top - Projectile.Center).normalize() * 4;
+                        Projectile.velocity += (top - Projectile.Center).normalize() * 6;
                         if (CEUtils.getDistance(Projectile.Center, top) < Projectile.velocity.Length() * 1.1f + 8)
                         {
                             Projectile.Kill();

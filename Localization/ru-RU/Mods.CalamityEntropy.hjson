@@ -3556,11 +3556,6 @@ Items: {
 		// DisplayName: Acropolis Heavy Leg Armor
 		// Tooltip: ""
 	}
-
-	AcropolisCannon: {
-		// DisplayName: Acropolis Cannon
-		// Tooltip: ""
-	}
 }
 
 /* ChaoticSetBonus:
