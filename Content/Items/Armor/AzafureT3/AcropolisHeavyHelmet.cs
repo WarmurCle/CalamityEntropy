@@ -86,7 +86,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<AzafureSteamKnightArmor>()
+                .AddIngredient<AzafureSteamKnightHelmet>()
                 .AddIngredient(ItemID.LunarBar, 10)
                 .AddIngredient<UnholyEssence>(5)
                 .AddTile(TileID.LunarCraftingStation)

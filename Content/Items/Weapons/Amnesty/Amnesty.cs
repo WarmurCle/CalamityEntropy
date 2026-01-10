@@ -175,8 +175,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
 
             Vector2 top = Projectile.Center + Projectile.rotation.ToRotationVector2() * (116 + -32 * ActiveProgress) * Projectile.scale;
             
-            Main.EntitySpriteDraw(tPart1, top - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver4) * (ActiveProgress * 8), null, lightColor * ActiveProgress, Projectile.rotation + MathHelper.PiOver4 + 1.8f + -2f * ActiveProgress, new Vector2(0, tPart1.Height / 2), Projectile.scale * ActiveProgress, SpriteEffects.None);
-            Main.EntitySpriteDraw(tPart2, top - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(-MathHelper.PiOver4) * (ActiveProgress * 8), null, lightColor * ActiveProgress, Projectile.rotation + MathHelper.PiOver4 + -1.8f + 2f * ActiveProgress, new Vector2(tPart2.Width / 2, tPart2.Height), Projectile.scale * ActiveProgress, SpriteEffects.None);
+            Main.EntitySpriteDraw(tPart1, top - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver4) * (ActiveProgress * 8), null, new Color(200, 200, 255) * ActiveProgress * 0.7f, Projectile.rotation + MathHelper.PiOver4 + 1.8f + -2f * ActiveProgress, new Vector2(0, tPart1.Height / 2), Projectile.scale * ActiveProgress, SpriteEffects.None);
+            Main.EntitySpriteDraw(tPart2, top - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(-MathHelper.PiOver4) * (ActiveProgress * 8), null, new Color(200, 200, 255) * ActiveProgress * 0.7f, Projectile.rotation + MathHelper.PiOver4 + -1.8f + 2f * ActiveProgress, new Vector2(tPart2.Width / 2, tPart2.Height), Projectile.scale * ActiveProgress, SpriteEffects.None);
             
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation + MathHelper.PiOver4, new Vector2(6, tex.Height - 6), Projectile.scale, SpriteEffects.None);
 
