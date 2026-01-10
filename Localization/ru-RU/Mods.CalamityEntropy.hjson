@@ -5432,7 +5432,7 @@ Biomes: {
 	Durability slowly regenerates 5 seconds after taking damage
 	When the Durability bar is depleted, it becomes inactive and requires time to restore functionality
 	Provide 120 rogue stealth
-	Press [KEY] to transform into a Acropolis mecha, 
+	Press [[KEY]] to transform into a Acropolis mecha, 
 	press again to cancel the transformation
 	When the mecha is activated, it significantly increases defense and damage reduction, 
 	and you can only use the weapons it provides
