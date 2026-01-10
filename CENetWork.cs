@@ -344,6 +344,9 @@ namespace CalamityEntropy
             {
                 int plr = reader.ReadInt32();
                 bool active = reader.ReadBoolean();
+                int reload = reader.ReadInt32();
+                int bullet = reader.ReadInt32();
+                float slash = reader.ReadSingle();
                 if (Main.myPlayer != plr)
                 {
                     plr.ToPlayer().GetModPlayer<AcropolisArmorPlayer>().MechTrans = active;
@@ -354,7 +357,9 @@ namespace CalamityEntropy
                     packet.Write((byte)CEMessageType.AcropolisTrans);
                     packet.Write(plr);
                     packet.Write(active);
-
+                    packet.Write(reload);
+                    packet.Write(bullet);
+                    packet.Write(slash);
                     packet.Send(-1, plr);
                 }
             }

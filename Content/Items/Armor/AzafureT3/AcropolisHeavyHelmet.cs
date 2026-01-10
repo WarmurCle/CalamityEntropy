@@ -248,6 +248,9 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 packet.Write((byte)CEMessageType.AcropolisTrans);
                 packet.Write(Player.whoAmI);
                 packet.Write(MechTrans);
+                packet.Write(Reload);
+                packet.Write(Bullet);
+                packet.Write(SlashP);
                 packet.Send();
             }
         }
@@ -578,7 +581,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                                             Reload = 40;
                                         for (int i = 0; i < 12; i++)
                                             GeneralParticleHandler.SpawnParticle(new LineParticle(cannon.TopPos, cannon.Seg2Rot.ToRotationVector2().RotatedByRandom(0.3f) * 46 * Main.rand.NextFloat(), false, 12, Main.rand.NextFloat(0.4f, 1), new Color(255, 100, 100)));
-
+                                        MechSync();
                                         CEUtils.PlaySound("AcropolisShoot", Main.rand.NextFloat(0.8f, 1.2f), cannon.TopPos);
                                         ShootDelay = (int)(5f / Player.GetTotalAttackSpeed(Player.GetBestClass()));
                                         int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(600))).ApplyOldFashionedDmg();
@@ -589,6 +592,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                                 {
                                     if(SlashP == 0 && ShootDelay <= 0)
                                     {
+                                        MechSync();
                                         SlashP += 0.01f;
                                         int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(2000))).ApplyOldFashionedDmg();
                                         Projectile.NewProjectile(Player.GetSource_FromThis(), cannon.TopPos, cannon.Seg2Rot.ToRotationVector2() * 8, ModContent.ProjectileType<AcropolisSlash>(), damage, 10, Player.whoAmI);
