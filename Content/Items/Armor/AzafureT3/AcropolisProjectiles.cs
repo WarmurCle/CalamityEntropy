@@ -37,6 +37,16 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, new Color(255, 60, 60), Projectile.rotation - MathHelper.PiOver2, tex.Size() / 2f, Projectile.scale * new Vector2(1, 1f), SpriteEffects.None, 0);
             return false;
         }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (Projectile.numHits < 2)
+            {
+                CEUtils.PlaySound("pulseBlast", 0.8f, Projectile.Center, 6, 0.4f);
+                GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 0.7f, 8));
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 1.6f, 1, true, BlendState.Additive, 0, 16);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 1f, 1, true, BlendState.Additive, 0, 16);
+            }
+        }
         public override void OnKill(int timeLeft)
         {
             if (!Main.dedServ)
@@ -123,7 +133,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 210, targetHitbox, 32);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 210, targetHitbox, 80);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
