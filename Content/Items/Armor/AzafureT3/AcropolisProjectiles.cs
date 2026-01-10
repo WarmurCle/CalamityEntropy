@@ -19,7 +19,8 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         public override void SetDefaults()
         {
             CEUtils.FriendlySetDefaults(Projectile, DamageClass.Generic, true, 3);
-            Projectile.width = Projectile.height = 12;
+            Projectile.width = Projectile.height = 18;
+            Projectile.timeLeft = 300;
         }
         public override void AI()
         {
@@ -295,7 +296,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (Projectile.numHits > 1)
+            if (Projectile.numHits > 0)
                 modifiers.SourceDamage *= 0.1f;
         }
         public override bool PreDraw(ref Color lightColor)

@@ -577,7 +577,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                             {
                                 HarpoonDelay = 32;
                                 harpoon.PointAPos(Player.Calamity().mouseWorld, 1);
-                                int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(2000))).ApplyOldFashionedDmg();
+                                int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(3000))).ApplyOldFashionedDmg();
                                 Projectile.NewProjectile(Player.GetSource_FromThis(), harpoon.TopPos, harpoon.Seg2Rot.ToRotationVector2() * 48, ModContent.ProjectileType<AcropolisHarpoon>(), damage, 12, Player.whoAmI);
                             }
                         }
@@ -591,14 +591,15 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                                     {
                                         Bullet--;
                                         if (Bullet < 1)
-                                            Reload = 40;
+                                            Reload = 34;
                                         for (int i = 0; i < 12; i++)
                                             GeneralParticleHandler.SpawnParticle(new LineParticle(cannon.TopPos, cannon.Seg2Rot.ToRotationVector2().RotatedByRandom(0.3f) * 46 * Main.rand.NextFloat(), false, 12, Main.rand.NextFloat(0.4f, 1), new Color(255, 100, 100)));
                                         MechSync();
+                                        cannon.PointAPos(Player.Calamity().mouseWorld, 1);
                                         CEUtils.PlaySound("AcropolisShoot", Main.rand.NextFloat(0.8f, 1.2f), cannon.TopPos);
                                         ShootDelay = (int)(5f / Player.GetTotalAttackSpeed(Player.GetBestClass()));
-                                        int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(600))).ApplyOldFashionedDmg();
-                                        Projectile.NewProjectile(Player.GetSource_FromThis(), cannon.TopPos, cannon.Seg2Rot.ToRotationVector2().RotatedByRandom(0.12f) * 32, ModContent.ProjectileType<AcropolisBullet>(), damage, 10, Player.whoAmI);
+                                        int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(850))).ApplyOldFashionedDmg();
+                                        Projectile.NewProjectile(Player.GetSource_FromThis(), cannon.TopPos, cannon.Seg2Rot.ToRotationVector2().RotatedByRandom(0.08f) * 43, ModContent.ProjectileType<AcropolisBullet>(), damage, 10, Player.whoAmI);
                                     }
                                 }
                                 else
