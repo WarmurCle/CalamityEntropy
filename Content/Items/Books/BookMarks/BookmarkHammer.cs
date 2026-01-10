@@ -89,7 +89,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public float num = 0;
         public float num2 = 0;
         public TrailParticle trail = null;
-        public override float DamageMult => 0.6f;
+        public override float DamageMult => 0.9f;
         
         public override void AI()
         {
