@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         public override void SetDefaults()
         {
             CEUtils.FriendlySetDefaults(Projectile, DamageClass.Generic, true, 3);
-            Projectile.width = Projectile.height = 20;
+            Projectile.width = Projectile.height = 12;
             Projectile.timeLeft = 300;
         }
         public override void AI()
@@ -47,6 +47,12 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 1f, 1, true, BlendState.Additive, 0, 16);
             }
         }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            if (CEUtils.LineThroughRect(Projectile.Center, Projectile.Center - Projectile.velocity, targetHitbox, 12))
+                return true;
+            return null;
+        }
         public override void OnKill(int timeLeft)
         {
             if (!Main.dedServ)
@@ -64,7 +70,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         {
             CEUtils.FriendlySetDefaults(Projectile, DamageClass.Generic, false, -1);
             Projectile.width = Projectile.height = 12;
-            Projectile.timeLeft = 10;
+            Projectile.timeLeft = 120;
         }
         public override void AI()
         {

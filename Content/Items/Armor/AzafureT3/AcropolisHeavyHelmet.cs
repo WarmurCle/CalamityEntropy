@@ -562,10 +562,10 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     }
                     if(!CannonMode && SlashP > 0)
                     {
-                        SlashP += 0.15f;
-                        if (SlashP > 1)
+                        SlashP += 0.15f * Player.GetTotalAttackSpeed(Player.GetBestClass());
+                        if (SlashP > 1.25f)
                         {
-                            ShootDelay = 16;
+                            ShootDelay = (int)(16f / Player.GetTotalAttackSpeed(Player.GetBestClass()));
                             SlashP = 0;
                         }
                     }
@@ -577,7 +577,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                             {
                                 HarpoonDelay = 32;
                                 harpoon.PointAPos(Player.Calamity().mouseWorld, 1);
-                                int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(3000))).ApplyOldFashionedDmg();
+                                int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(3200))).ApplyOldFashionedDmg();
                                 Projectile.NewProjectile(Player.GetSource_FromThis(), harpoon.TopPos, harpoon.Seg2Rot.ToRotationVector2() * 48, ModContent.ProjectileType<AcropolisHarpoon>(), damage, 12, Player.whoAmI);
                             }
                         }
@@ -591,7 +591,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                                     {
                                         Bullet--;
                                         if (Bullet < 1)
-                                            Reload = 34;
+                                            Reload = (int)(34f / Player.GetTotalAttackSpeed(Player.GetBestClass()));
                                         for (int i = 0; i < 12; i++)
                                             GeneralParticleHandler.SpawnParticle(new LineParticle(cannon.TopPos, cannon.Seg2Rot.ToRotationVector2().RotatedByRandom(0.3f) * 46 * Main.rand.NextFloat(), false, 12, Main.rand.NextFloat(0.4f, 1), new Color(255, 100, 100)));
                                         MechSync();
@@ -607,7 +607,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                                     if(SlashP == 0 && ShootDelay <= 0)
                                     {
                                         SlashP += 0.01f;
-                                        int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(2000))).ApplyOldFashionedDmg();
+                                        int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(2800))).ApplyOldFashionedDmg();
                                         Projectile.NewProjectile(Player.GetSource_FromThis(), cannon.TopPos, cannon.Seg2Rot.ToRotationVector2() * 8, ModContent.ProjectileType<AcropolisSlash>(), damage, 10, Player.whoAmI);
 
                                         CEUtils.PlaySound("throw", Main.rand.NextFloat(1.2f, 1.5f), Player.Center, 10, 0.4f);
@@ -621,7 +621,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                             }
                             if (Main.mouseRight)
                             {
-                                switchDelay = 30;
+                                switchDelay = (int)(30f / Player.GetTotalAttackSpeed(Player.GetBestClass()));
                                 CannonFrame = 0;
                                 CannonMode = !CannonMode;
                                 MechSync();
