@@ -2082,24 +2082,55 @@ namespace CalamityEntropy.Common
 
                 itemLoot.AddIf((info) => (info.player.name.ToLower().Contains("lily") || info.player.name.Contains("莉莉")), ModContent.ItemType<LostHeirloom>());
                 itemLoot.AddIf((info) => info.player.name.ToLower() == "tlipoca" || info.player.name.ToLower().Contains("kino"), ModContent.ItemType<TlipocasScythe>());
-
+                bool cfg(DropAttemptInfo info)
+                {
+                    return ModContent.GetInstance<ServerConfig>().ExtraItemsInStarterBag;
+                }
                 if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage))
                 {
                     ModItem i;
                     if (magicStorage.TryFind<ModItem>("CraftingAccess", out i))
                     {
-                        itemLoot.Add(i.Type, 1);
+                        itemLoot.AddIf(cfg, i.Type);
                     }
                     if (magicStorage.TryFind<ModItem>("StorageHeart", out i))
                     {
-                        itemLoot.Add(i.Type, 1);
+                        itemLoot.AddIf(cfg, i.Type, 1);
                     }
                     if (magicStorage.TryFind<ModItem>("StorageUnit", out i))
                     {
-                        itemLoot.Add(i.Type, 1, 10, 10);
+                        itemLoot.AddIf(cfg, i.Type, 1, 10, 10);
                     }
-
                 }
+                if(ModLoader.TryGetMod("ImproveGame", out Mod qot))
+                {
+                    ModItem i;
+                    if (qot.TryFind<ModItem>("MagickWand", out i))
+                    {
+                        itemLoot.AddIf(cfg, i.Type);
+                    }
+                    if (qot.TryFind<ModItem>("SpaceWand", out i))
+                    {
+                        itemLoot.AddIf(cfg, i.Type);
+                    }
+                    if (qot.TryFind<ModItem>("CreateWand", out i))
+                    {
+                        itemLoot.AddIf(cfg, i.Type);
+                    }
+                    if (qot.TryFind<ModItem>("PotionBag", out i))
+                    {
+                        itemLoot.AddIf(cfg, i.Type);
+                    }
+                    if (qot.TryFind<ModItem>("BannerChest", out i))
+                    {
+                        itemLoot.AddIf(cfg, i.Type);
+                    }
+                }
+                itemLoot.AddIf(cfg, 300, 1, 30, 30);
+                itemLoot.AddIf(cfg, 2324, 1, 30, 30);
+                itemLoot.AddIf(cfg, 148);
+                itemLoot.AddIf(cfg, 3117);
+                itemLoot.AddIf(cfg, ItemID.Sunflower);
             }
         }
         public class IsDeathMode : IItemDropRuleCondition, IProvideItemConditionDescription

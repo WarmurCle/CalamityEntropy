@@ -14,6 +14,8 @@ namespace CalamityEntropy.Common
         [DefaultValue(false)]
         public bool BramblecleaveAlwaysUnlockAllSkill { get; set; }
 
+        [DefaultValue(true)]
+        public bool ExtraItemsInStarterBag { get; set; }
 
         [DefaultValue(true)]
         public bool LoreSpecialEffect { get; set; }
