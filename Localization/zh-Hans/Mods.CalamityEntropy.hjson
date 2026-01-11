@@ -5715,8 +5715,8 @@ AzafureEnhances: {
 	AzafurePeaceKey: 每次发射两发核弹
 	AzafureDriverCore:
 		'''
-		减小充能消耗
-		-40% 护盾承受的伤害
+		降低充能消耗
+		-20% 护盾承受的伤害
 		增加护盾恢复速度
 		'''
 }

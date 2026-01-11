@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                 charge += 1f / 300f;
             }
 
-            if (charge >= (player.AzafureEnhance() ? 0.6f : 1) || player.Entropy().AzDash > 0)
+            if (charge >= (player.AzafureEnhance() ? 0.8f : 1) || player.Entropy().AzDash > 0)
             {
                 modPlayer.DashID = AzafureDriverDash.ID;
                 player.dashType = 0;

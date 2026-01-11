@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             NPC.boss = true;
             NPC.width = 110;
             NPC.height = 110;
-            NPC.damage = 85;
+            NPC.damage = 105;
             if (Main.expertMode)
             {
                 NPC.damage += 2;
