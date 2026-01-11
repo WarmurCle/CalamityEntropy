@@ -748,6 +748,10 @@ namespace CalamityEntropy.Common
             {
                 npcLoot.Add(ModContent.ItemType<OsseousRemains>(), 3, 6, 8);
             }
+            if (npc.type == NPCID.KingSlime)
+            {
+                npcLoot.AddNormalOnly(ModContent.ItemType<ExquisiteCrown>(), 3, 1, 1);
+            }
             if (npc.type == NPCID.Deerclops)
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<BookmarkSnowgrave>(), 5, 1, 1);

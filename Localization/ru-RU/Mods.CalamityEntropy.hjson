@@ -3557,6 +3557,11 @@ Items: {
 		// DisplayName: Acropolis Heavy Leg Armor
 		// Tooltip: ""
 	}
+
+	ExquisiteCrown: {
+		// DisplayName: Exquisite Crown
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:
@@ -4172,6 +4177,8 @@ Projectiles: {
 	// AcropolisBullet.DisplayName: Acropolis Bullet
 	// AcropolisSlash.DisplayName: Acropolis Slash
 	// AcropolisHarpoon.DisplayName: Acropolis Harpoon
+	// CrownRubyProj.DisplayName: Crown Ruby Proj
+	// RubyCrown.DisplayName: Ruby Crown
 }
 
 LegendTooltip: - Легенда -

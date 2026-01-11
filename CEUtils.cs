@@ -1163,7 +1163,14 @@ namespace CalamityEntropy
         {
             return Main.npc[ins];
         }
-
+        public static EModPlayer OwnerEntropy(this Projectile proj)
+        {
+            if (proj.GetOwner().TryGetModPlayer<EModPlayer>(out var mp))
+            {
+                return mp;
+            }
+            return new EModPlayer();
+        }
         public static EModPlayer Entropy(this Player player)
         {
             if (player.TryGetModPlayer<EModPlayer>(out var mp))

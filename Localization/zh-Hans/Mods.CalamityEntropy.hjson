@@ -3811,6 +3811,15 @@ Items: {
 			+20%跳跃速度
 			'''
 	}
+
+	ExquisiteCrown: {
+		DisplayName: 精致皇冠
+		Tooltip: 
+		'''
+		召唤一顶向附近敌人发射射线的金冠
+		+1 召唤栏
+		'''
+	}
 }
 
 ChaoticSetBonus:
@@ -4427,6 +4436,8 @@ Projectiles: {
 	AcropolisBullet.DisplayName: 卫城炮弹
 	AcropolisSlash.DisplayName: 光刀
 	AcropolisHarpoon.DisplayName: 叉矛
+	CrownRubyProj.DisplayName: 红宝石射线
+	RubyCrown.DisplayName: 精致皇冠
 }
 
 LegendTooltip: - 传奇物品 -
