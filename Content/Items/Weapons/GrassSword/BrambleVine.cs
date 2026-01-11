@@ -133,10 +133,10 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                         {
                             player.Heal(Bramblecleave.GetLevel() / 2);
                         }
-                        if(player.wingTime < player.wingTimeMax)
+                        if (player.wingTime < player.wingTimeMax)
                         {
                             player.wingTime += player.wingTimeMax / 80f;
-                            if(player.wingTime > player.wingTimeMax)
+                            if (player.wingTime > player.wingTimeMax)
                                 player.wingTime = player.wingTimeMax;
                         }
                         player.Entropy().temporaryArmor = float.Max(player.Entropy().temporaryArmor, Bramblecleave.GetLevel() * 3);

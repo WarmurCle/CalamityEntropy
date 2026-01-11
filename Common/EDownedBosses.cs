@@ -64,7 +64,7 @@ namespace CalamityEntropy.Common
             {
                 tag["downedAcropolis"] = true;
             }
-            if(DownedBossSystem.downedPrimordialWyrm)
+            if (DownedBossSystem.downedPrimordialWyrm)
             {
                 tag["downedPrimordialWyrm"] = true;
             }

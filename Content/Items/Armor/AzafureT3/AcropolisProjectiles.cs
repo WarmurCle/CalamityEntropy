@@ -1,14 +1,10 @@
-﻿using CalamityEntropy;
-using CalamityEntropy.Content.Items.Armor.AzafureT3;
-using CalamityEntropy.Content.NPCs.Acropolis;
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -80,7 +76,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             if (Main.myPlayer == Projectile.owner)
                 if (mp.SlashP == 0)
                     Projectile.Kill();
-            if(oldPos.Count == 0)
+            if (oldPos.Count == 0)
             {
                 oldPos.Add(Projectile.Center);
                 oldRot.Add(Projectile.rotation);
@@ -89,7 +85,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             {
                 var p = oldPos[oldPos.Count - 1];
                 var r = oldRot[oldRot.Count - 1];
-                for (float i = 0.1f; i <= 1; i+=0.1f)
+                for (float i = 0.1f; i <= 1; i += 0.1f)
                 {
                     oldPos.Add(Vector2.Lerp(p, Projectile.Center, i));
                     oldRot.Add(CEUtils.RotateTowardsAngle(r, Projectile.rotation, i, false));
@@ -128,7 +124,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             Main.spriteBatch.ExitShaderRegion();
             Texture2D c = CEUtils.getExtraTex("Glow2");
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            for(float i = 0; i < 1; i += 0.02f)
+            for (float i = 0; i < 1; i += 0.02f)
             {
                 float ml = 250;
                 Vector2 pos = Projectile.Center + Projectile.rotation.ToRotationVector2() * (ml * i - 10);
@@ -148,7 +144,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         public List<Vector2> oldPos = new();
         public List<float> oldRot = new();
     }
-    public class AcropolisHarpoon: ModProjectile
+    public class AcropolisHarpoon : ModProjectile
     {
         public override string Texture => "CalamityEntropy/Content/Items/Armor/AzafureT3/Harpoon";
         public override void SetDefaults()
@@ -266,7 +262,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                         else
                         {
                             HookNPC.ToNPC().velocity = (top - HookNPC.ToNPC().Center).normalize() * 40;
-                            
+
                             if (CEUtils.getDistance(Projectile.Center, top) < 60)
                             {
                                 HookNPC.ToNPC().velocity *= 0;
@@ -298,7 +294,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     CEUtils.PlaySound("chainsawHit", 1, Projectile.Center);
                 }
                 Projectile.ai[2]++;
-                
+
                 if (Projectile.GetOwner().controlJump && !mp.lastJump)
                     Projectile.Kill();
 

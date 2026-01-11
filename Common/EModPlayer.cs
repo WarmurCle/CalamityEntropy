@@ -479,7 +479,7 @@ namespace CalamityEntropy.Common
         public float EDamageReduce = 0;
         public int NoPlatformCollide = 0;
         public bool exquisiteCrown = false;
-#endregion
+        #endregion
         public void UpdateDriverShield()
         {
             bool Equiped = AzafureDriverShieldItem != null;
@@ -538,7 +538,7 @@ namespace CalamityEntropy.Common
                 RemoveCooldown(DriverCoreCooldown.ID);
             }
         }
-        
+
         public void UpdateNihShield()
         {
             bool Equiped = NihilityShieldEnabled;
@@ -637,7 +637,7 @@ namespace CalamityEntropy.Common
         }
         public void UpdateVoidShield(bool Equiped, string CooldownID, ref float Scale, ref int shieldCount, ref int regenDelay, ref int rechargeCounter, int MaxShield, int RechargeTime)
         {
-            
+
             Scale = float.Lerp(Scale, Equiped ? (shieldCount > 0 ? (0.6f + 0.4f * ((float)Scale / MaxShield)) : 0.5f) : 0, 0.05f);
             if (Equiped)
             {
@@ -688,7 +688,7 @@ namespace CalamityEntropy.Common
             {
                 rechargeCounter = 0;
                 shieldCount = 0;
-                if(regenDelay < 2 * 60)
+                if (regenDelay < 2 * 60)
                     regenDelay = 2 * 60;
                 RemoveCooldown(CooldownID);
             }
@@ -701,7 +701,7 @@ namespace CalamityEntropy.Common
                 p.Calamity().cooldowns.Remove(id);
             }
         }
-        
+
         public void DriverShieldHit(ref Player.HurtInfo info)
         {
             if (DriverShield > 0)
@@ -804,7 +804,7 @@ namespace CalamityEntropy.Common
                 CombatText.NewText(Player.getRect(), Color.LightSkyBlue, "-" + reduceDmg);
             }
         }
-        
+
         public void ApplyScale()
         {
             oWidth = Player.width;
@@ -1180,7 +1180,7 @@ namespace CalamityEntropy.Common
                 Player.maxFallSpeed *= 3;
                 Player.controlDown = true;
             }
-            if(FallSpeedUP > 0)
+            if (FallSpeedUP > 0)
             {
                 Player.maxFallSpeed *= 5;
             }
@@ -1509,7 +1509,7 @@ namespace CalamityEntropy.Common
             {
                 voidslashType = ModContent.ProjectileType<VoidSlash>();
             }
-            if(mariviniumBody)
+            if (mariviniumBody)
             {
                 Player.breath = Player.breathMax + 91;
             }
@@ -2155,9 +2155,9 @@ namespace CalamityEntropy.Common
         public int FallSpeedUP = 0;
         public override void PostUpdate()
         {
-            if(exquisiteCrown)
+            if (exquisiteCrown)
             {
-                if(Player.whoAmI == Main.myPlayer)
+                if (Player.whoAmI == Main.myPlayer)
                 {
                     int crptype = ModContent.ProjectileType<RubyCrown>();
                     if (Player.ownedProjectileCounts[crptype] <= 0)

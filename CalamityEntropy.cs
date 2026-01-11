@@ -695,9 +695,9 @@ namespace CalamityEntropy
 
 
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
-            foreach(Player player in Main.ActivePlayers)
+            foreach (Player player in Main.ActivePlayers)
             {
-                if(player.TryGetModPlayer<AcropolisArmorPlayer>(out var mp))
+                if (player.TryGetModPlayer<AcropolisArmorPlayer>(out var mp))
                 {
                     mp.DrawMech();
                 }

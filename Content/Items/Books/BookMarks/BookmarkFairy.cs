@@ -63,7 +63,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 return;
             }
-            if(num < 0)
+            if (num < 0)
             {
                 if (Projectile.velocity.Length() > 12)
                     Projectile.velocity *= 0.9f;

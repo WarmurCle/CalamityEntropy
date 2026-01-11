@@ -1,25 +1,20 @@
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Items.Armor.Azafure;
-using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.NPCs.Acropolis;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Armor.Wulfrum;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using CalamityMod.UI.Rippers;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static CalamityEntropy.Content.Items.Weapons.DustCarverBow.CarverSpirit;
 
 namespace CalamityEntropy.Content.Items.Armor.AzafureT3
 {
@@ -74,7 +69,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 player.inventory[58] = mp.DummyCannon;
                 player.selectedItem = 58;
                 player.itemTime = player.itemAnimation = 2;
-                
+
             }
         }
         public override void UpdateEquip(Player player)
@@ -253,7 +248,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         public int MechFrameCounter = 0;
         public void MechSync()
         {
-            if(Main.netMode == NetmodeID.MultiplayerClient)
+            if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 ModPacket packet = Mod.GetPacket();
                 packet.Write((byte)CEMessageType.AcropolisTrans);
@@ -288,7 +283,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             harpoon.Update();
             Vector2 vec = Player.Calamity().mouseWorld;
             Player.Calamity().mouseRotationListener = true;
-            if(SlashP != 0)
+            if (SlashP != 0)
             {
                 vec = Player.Center + (Player.Calamity().mouseWorld - Player.Center).RotatedBy(3 * slashDir * (SlashP - 0.5f));
             }
@@ -396,7 +391,8 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
 
             int drawDir = (Player.Calamity().mouseWorld.X - Player.Center.X) > 0 ? 1 : -1;
 
-            if (legs != null) {
+            if (legs != null)
+            {
                 if (MechFrame == 19)
                 {
                     foreach (var leg in legs)
@@ -434,12 +430,12 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 var ht = CannonMode ? cannonTex : knife;
                 int CannonFrameTotal = CannonMode ? 9 : 8;
                 int frame = CannonFrame;
-                
+
                 int of = ht.Height / CannonFrameTotal;
                 Rectangle rect = new Rectangle(0, of * frame, ht.Width, of - 2);
                 Main.EntitySpriteDraw(harpoonCannon, harpoon.seg1end - Main.screenPosition, null, drawColor, harpoon.Seg2Rot, new Vector2(6, harpoonCannon.Height / 2f), 1, drawDir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
                 int wo = CannonMode ? 84 : 110;
-                
+
                 Main.EntitySpriteDraw(ht, cannon.seg1end - Main.screenPosition, rect, drawColor, cannon.Seg2Rot + CannonRot, new Vector2(wo, cannonTex.Height / CannonFrameTotal / 2 - 1), 1, drawDir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
 
             }
@@ -447,7 +443,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             {
                 Main.EntitySpriteDraw(trans, Player.Center - Main.screenPosition, new Rectangle(0, (trans.Height / 19) * MechFrame, trans.Width, trans.Height / 19 - 2), drawColor, Player.fullRotation, new Vector2(trans.Width / 2f, (trans.Height / 19 - 2) / 2f), 1, drawDir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
             }
-            
+
         }
         public int CannonFrame = 0;
         public int LandTime = 0;
@@ -456,7 +452,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         public override void SetControls()
         {
             ControlHook = Player.controlHook;
-            if(MechTrans)
+            if (MechTrans)
             {
                 Player.controlHook = false;
                 Player.controlMount = false;
@@ -471,9 +467,9 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     Player.mount.Dismount(Player);
             }
             Player.noFallDmg = true;
-            
+
             int MaxFrame = 19;
-            if(MechTrans)
+            if (MechTrans)
             {
                 Player.gfxOffY = 0;
                 if (!Main.dedServ)
@@ -560,7 +556,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                             Bullet = 6;
                         }
                     }
-                    if(!CannonMode && SlashP > 0)
+                    if (!CannonMode && SlashP > 0)
                     {
                         SlashP += 0.15f * Player.GetTotalAttackSpeed(Player.GetBestClass());
                         if (SlashP > 1.25f)
@@ -571,7 +567,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     }
                     if (Main.myPlayer == Player.whoAmI)
                     {
-                        if(ControlHook && !LastHook)
+                        if (ControlHook && !LastHook)
                         {
                             if (HarpoonDelay <= 0 && Player.ownedProjectileCounts[ModContent.ProjectileType<AcropolisHarpoon>()] == 0)
                             {
@@ -581,7 +577,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                                 Projectile.NewProjectile(Player.GetSource_FromThis(), harpoon.TopPos, harpoon.Seg2Rot.ToRotationVector2() * 48, ModContent.ProjectileType<AcropolisHarpoon>(), damage, 12, Player.whoAmI);
                             }
                         }
-                        if (!Player.mouseInterface && switchDelay-- <= 0) 
+                        if (!Player.mouseInterface && switchDelay-- <= 0)
                         {
                             if (Main.mouseLeft)
                             {
@@ -604,7 +600,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                                 }
                                 else
                                 {
-                                    if(SlashP == 0 && ShootDelay <= 0)
+                                    if (SlashP == 0 && ShootDelay <= 0)
                                     {
                                         SlashP += 0.01f;
                                         int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(2800))).ApplyOldFashionedDmg();
@@ -626,48 +622,48 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                                 CannonMode = !CannonMode;
                                 MechSync();
                             }
-                        } 
+                        }
                     }
-                    
+
                     CannonRot = float.Lerp(CannonRot, CannonMode ? 0 : MathHelper.Pi, 0.1f);
                 }
-                if(CannonMode)
+                if (CannonMode)
                 {
                     SlashP = 0;
                     CannonFrame = 0;
-                    if(Bullet > 0)
+                    if (Bullet > 0)
                     {
                         CannonFrame = 2;
                     }
-                    if(Bullet > 2)
+                    if (Bullet > 2)
                     {
                         CannonFrame = 1;
                     }
-                    if(Bullet > 4)
+                    if (Bullet > 4)
                     {
                         CannonFrame = 0;
                     }
-                    if(Reload > 0)
+                    if (Reload > 0)
                     {
-                        CannonFrame = 3 + (int)((1-(Reload / 40f)) * 5);
+                        CannonFrame = 3 + (int)((1 - (Reload / 40f)) * 5);
                     }
                 }
                 else
                 {
-                    if(CannonFrame < 7)
+                    if (CannonFrame < 7)
                     {
-                        if(Main.GameUpdateCount % 4 == 0)
+                        if (Main.GameUpdateCount % 4 == 0)
                             CannonFrame++;
                     }
                 }
             }
             else
             {
-                if(!Main.dedServ)
+                if (!Main.dedServ)
                 {
-                    if(Main.myPlayer == Player.whoAmI && CEKeybinds.AcropolisMechTransformation.JustPressed)
+                    if (Main.myPlayer == Player.whoAmI && CEKeybinds.AcropolisMechTransformation.JustPressed)
                     {
-                        if(!Player.HasCooldown(AcropolisCooldown.ID))
+                        if (!Player.HasCooldown(AcropolisCooldown.ID))
                         {
                             MechTrans = true;
                             CEUtils.PlaySound("WulfrumBastionActivate", 1, Player.Center);
@@ -680,7 +676,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 MechFrame = MechFrameCounter = 0;
             }
             ShootDelay--;
-            if(MechTrans && MechFrame < 16)
+            if (MechTrans && MechFrame < 16)
             {
                 Player.gravity = 0;
                 Player.velocity.Y = -0.6f;
@@ -826,7 +822,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                         DurabilityActive = true;
                     }
                 }
-                if(MechTrans)
+                if (MechTrans)
                 {
                     Player.Entropy().EDamageReduce += 0.55f;
                     Player.statDefense += 32;
@@ -880,7 +876,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             }
             string folder = "CalamityEntropy/Content/Items/Armor/AzafureT3/";
             Texture2D tex1 = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Armor/Azafure/DurabilityBarA").Value;
-            if(Main.LocalPlayer.TryGetModPlayer<AcropolisArmorPlayer>(out var mp) && mp.MechTrans)
+            if (Main.LocalPlayer.TryGetModPlayer<AcropolisArmorPlayer>(out var mp) && mp.MechTrans)
             {
                 tex1 = CEUtils.RequestTex($"{folder}MechDura");
             }

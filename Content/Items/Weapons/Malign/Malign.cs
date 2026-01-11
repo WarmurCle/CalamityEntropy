@@ -150,10 +150,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
             Texture2D tex = Projectile.GetTexture();
 
             Vector2 top = Projectile.Center + Projectile.rotation.ToRotationVector2() * (56 + 10 * ActiveProgress) * Projectile.scale;
-            
+
             Main.EntitySpriteDraw(tPart1, top - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver4) * (ActiveProgress * 18 - 12), null, Color.White * 0.5f * ActiveProgress, Projectile.rotation + MathHelper.PiOver4 + 0.3f * ActiveProgress, new Vector2(0, tPart1.Height / 2), Projectile.scale, SpriteEffects.None);
             Main.EntitySpriteDraw(tPart2, top - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(-MathHelper.PiOver4) * (ActiveProgress * 18 - 12), null, Color.White * 0.5f * ActiveProgress, Projectile.rotation + MathHelper.PiOver4 + -0.3f * ActiveProgress, new Vector2(tPart2.Width / 2, tPart2.Height), Projectile.scale, SpriteEffects.None);
-            
+
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation + MathHelper.PiOver4, new Vector2(6, tex.Height - 6), Projectile.scale, SpriteEffects.None);
             Main.EntitySpriteDraw(tCircle1, Projectile.Center + Projectile.rotation.ToRotationVector2() * 94 * Projectile.scale - Main.screenPosition, null, Color.White * (ActiveProgress * ActiveProgress * ActiveProgress * 0.8f), Main.GlobalTimeWrappedHourly * 16, tCircle1.Size() / 2f, Projectile.scale, SpriteEffects.None);
             Main.EntitySpriteDraw(tCircle2, Projectile.Center + Projectile.rotation.ToRotationVector2() * 94 * Projectile.scale - Main.screenPosition, null, Color.White * (ActiveProgress * ActiveProgress * ActiveProgress * 0.8f), Main.GlobalTimeWrappedHourly * -16, tCircle2.Size() / 2f, Projectile.scale, SpriteEffects.None);
@@ -274,7 +274,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
         }
         public override void OnKill(int timeLeft)
         {
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.normalize() * 500, ModContent.ProjectileType<MalignLaser>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(255, 190, 255), 1, 1, true, BlendState.Additive, 0, 12);
         }

@@ -760,7 +760,7 @@ namespace CalamityEntropy.Common
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<BookmarkSnowgrave>(), 5, 1, 1);
             }
-            if(npc.type == ModContent.NPCType<CeaselessVoid>())
+            if (npc.type == ModContent.NPCType<CeaselessVoid>())
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<BottleDarkMatter>(), 4);
             }

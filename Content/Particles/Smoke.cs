@@ -16,12 +16,12 @@ namespace CalamityEntropy.Content.Particles
         private Color startColor = Color.White;
         public override void AI()
         {
-            if(setColor)
+            if (setColor)
             {
                 setColor = false;
                 startColor = Color;
             }
-            if(colorTrans)
+            if (colorTrans)
             {
                 Color = Color.Lerp(startColor, endColor, 1 - ((float)Lifetime / timeleftmax));
             }

@@ -1,10 +1,6 @@
-﻿using CalamityEntropy.Content.Items.Books;
-using CalamityMod.Items;
+﻿using CalamityMod.Items;
 using CalamityMod.Particles;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 

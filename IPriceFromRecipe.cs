@@ -31,7 +31,7 @@ namespace CalamityEntropy
         {
             VaultLoad.EndLoadenEvent += endLoad;
         }
-        
+
         public override void Unload()
         {
             VaultLoad.EndLoadenEvent -= endLoad;
@@ -39,7 +39,7 @@ namespace CalamityEntropy
 
         private void endLoad()
         {
-            if(MaliciousCode.CALAMITY__OVERHAUL)
+            if (MaliciousCode.CALAMITY__OVERHAUL)
             {
                 CWRWeakRef.CWRRef.SetupFishSkillBM();
             }

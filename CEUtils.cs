@@ -430,7 +430,7 @@ namespace CalamityEntropy
             if (flag2)
             {
                 return flag ? intersection1 : intersection2;
-            }    
+            }
             return (intersection1.Y < intersection2.Y) ? intersection1 : intersection2;
         }
         public static void AddLight(Vector2 position, Color lightColor, float mult = 1)

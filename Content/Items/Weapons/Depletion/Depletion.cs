@@ -1,10 +1,8 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Magic;
-using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -117,10 +115,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
                         {
                             Projectile.ai[1] = player.HeldItem.useTime;
                             if (player.CheckMana(player.HeldItem.mana, true))
-                            { 
+                            {
                                 Vector2 vel = Projectile.velocity.RotatedByRandom(0.6f) * 2;
                                 Vector2 pos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 130;
-                                for(int i = 0; i < 16; i++)
+                                for (int i = 0; i < 16; i++)
                                 {
                                     var d = Dust.NewDustDirect(pos, 0, 0, DustID.YellowTorch);
                                     d.position += CEUtils.randomPointInCircle(10);
@@ -169,14 +167,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
             Texture2D tex = Projectile.GetTexture();
 
             Vector2 top = Projectile.Center + Projectile.rotation.ToRotationVector2() * (48 + 12 * ActiveProgress) * Projectile.scale;
-            
+
             Main.EntitySpriteDraw(tPart1, top - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver4) * (ActiveProgress * 16 - 4), null, lightColor * ActiveProgress, Projectile.rotation + MathHelper.PiOver4 + -0.8f + 0.2f * ActiveProgress, new Vector2(0, tPart1.Height / 2), Projectile.scale, SpriteEffects.None);
             Main.EntitySpriteDraw(tPart2, top - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(-MathHelper.PiOver4) * (ActiveProgress * 16 - 4), null, lightColor * ActiveProgress, Projectile.rotation + MathHelper.PiOver4 + 0.8f + -0.2f * ActiveProgress, new Vector2(tPart2.Width / 2, tPart2.Height), Projectile.scale, SpriteEffects.None);
-            
+
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation + MathHelper.PiOver4, new Vector2(6, tex.Height - 6), Projectile.scale, SpriteEffects.None);
 
             DrawCircle(Projectile.Center + Projectile.rotation.ToRotationVector2() * 118, ActiveProgress, Projectile.rotation);
-            
+
             CEUtils.DrawGlow(Projectile.Center + Projectile.rotation.ToRotationVector2() * 118 * Projectile.scale, Color.Yellow * 0.5f * (ActiveProgress * ActiveProgress * ActiveProgress), 1.2f);
 
             return false;
@@ -188,7 +186,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
             void SetPoint(float r, int step, float rot = 0, Vector2 c = default)
             {
                 points.Clear();
-                for(int i = 0; i <= step; i++)
+                for (int i = 0; i <= step; i++)
                 {
                     points.Add(center + c + Vector2.UnitX.RotatedBy((MathHelper.TwoPi / step) * i + rot) * r * scale);
                 }
@@ -278,7 +276,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         {
             Texture2D tex = CEUtils.getExtraTex("Triangle");
             Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied);
-            Color clr = Color.Lerp(Color.Yellow, Color.White, num*num*num*num);
+            Color clr = Color.Lerp(Color.Yellow, Color.White, num * num * num * num);
             clr.A = (byte)(255 * num);
             if (Projectile.ai[0] == 0)
                 Projectile.ai[0]++;
@@ -317,7 +315,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
             {
                 if (Projectile.timeLeft % 6 == 0)
                 {
-                    for(int i = 0; i < 2; i++)
+                    for (int i = 0; i < 2; i++)
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy((i == 0 ? -1 : 1) * 2.6f).normalize() * Main.rand.NextFloat(100, 140), ModContent.ProjectileType<DepletionLaser>(), Projectile.damage / 2, Projectile.knockBack / 4, Projectile.owner, 0.4f);
                 }
             }
@@ -338,8 +336,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
                     Projectile.velocity = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.12f, true).ToRotationVector2() * Projectile.velocity.Length();
                 }
             }
-            
-            for(float i = 0; i < 1; i+=0.05f)
+
+            for (float i = 0; i < 1; i += 0.05f)
             {
                 if (f < 1)
                     f += 0.01f;
@@ -362,7 +360,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
             CEUtils.PlaySound("light_bolt", Main.rand.NextFloat(2.4f, 2.8f), Projectile.Center, 50, 0.4f);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Yellow, 0.8f, 1, true, BlendState.Additive, 0, 12);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.6f, 1, true, BlendState.Additive, 0, 12);
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
                 for (int i = 0; i < 2; i++)
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.Pi * i - MathHelper.PiOver2).normalize() * Main.rand.NextFloat(100, 140), ModContent.ProjectileType<DepletionLaser>(), Projectile.damage / 2, Projectile.knockBack / 4, Projectile.owner);

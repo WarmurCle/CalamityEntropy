@@ -1,13 +1,5 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
-using CalamityMod.Particles;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using static CalamityEntropy.ScreenShaker;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {

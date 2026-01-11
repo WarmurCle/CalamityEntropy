@@ -284,7 +284,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
             Rectangle sourceRect = new Rectangle(0, num1 * frame, slash.Width, num1 - 2);
             Main.EntitySpriteDraw(slash, Projectile.Center + new Vector2(16 * Projectile.GetOwner().direction, -16) * Projectile.scale - Main.screenPosition, sourceRect, Color.White, 0, new Vector2(slash.Width / 2f, (num1 - 2) / 2), Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
             //if (hitbox != null)
-                //hitbox.Testing_DrawBox(Color.Yellow, 2, Projectile.Center, 0, Projectile.velocity.X < 0, Projectile.scale);
+            //hitbox.Testing_DrawBox(Color.Yellow, 2, Projectile.Center, 0, Projectile.velocity.X < 0, Projectile.scale);
             return false;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

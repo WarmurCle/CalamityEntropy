@@ -1,9 +1,7 @@
-﻿using CalamityEntropy.Content.Items.Books;
-using CalamityMod.Items;
+﻿using CalamityMod.Items;
 using CalamityMod.Particles;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -57,7 +55,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY + Vector2.UnitY * -24;
             if (Projectile.ai[0]-- <= -60)
             {
-                if(Main.myPlayer == Projectile.owner)
+                if (Main.myPlayer == Projectile.owner)
                 {
                     NPC target = Projectile.FindMinionTarget(1400);
                     if (target != null)

@@ -594,7 +594,7 @@ namespace CalamityEntropy.Common
                 tl.OverrideColor = new Microsoft.Xna.Framework.Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
                 tooltips.Add(tl);
             }
-            if(MaliciousCode.CALAMITY__OVERHAUL)
+            if (MaliciousCode.CALAMITY__OVERHAUL)
             {
                 CWRWeakRef.CWRRef.CheckTooltips(item, tooltips);
             }
@@ -1764,7 +1764,7 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<ObscureCard>(), 5);
             }
-            if(item.Is<CeaselessVoidBag>())
+            if (item.Is<CeaselessVoidBag>())
             {
                 itemLoot.Add(ModContent.ItemType<BottleDarkMatter>(), 4);
             }

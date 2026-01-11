@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Items
         }
         public override void LoadData(TagCompound tag)
         {
-            if(tag.TryGet<float>("Time", out float t))
+            if (tag.TryGet<float>("Time", out float t))
             {
                 CooldownReduce = t;
             }

@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.damage = 514;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.useAnimation = Item.useTime = 40;
+            Item.useAnimation = Item.useTime = 60;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 4f;
             Item.UseSound = SoundID.Item1;
@@ -173,13 +173,13 @@ namespace CalamityEntropy.Content.Items.Donator
                 CalamityEntropy.FlashEffectStrength = 0.6f;
                 player.AddCooldown(FetalDreamCooldown.ID, 4320);
                 CEUtils.PlaySound("ThunderStrike", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 6, 0.6f);
-                int dmg = (int)(target.lifeMax * 0.0514);
+                int dmg = (int)(target.lifeMax * 0.025);
                 var info = target.CalculateHitInfo(dmg, Projectile.velocity.X > 0 ? 1 : -1, false, 6, DamageClass.Default);
                 info.Damage = dmg;
                 target.StrikeNPC(info);
             }
             CalamityEntropy.FlashEffectStrength = 0.2f;
-            player.Entropy().immune = 80;
+            player.Entropy().immune = 40;
             target.AddBuff<Koishi>(16 * 60);
             player.AddBuff(ModContent.BuffType<Koishi>(), 600);
             player.Entropy().DmgAdd20 = 300;
