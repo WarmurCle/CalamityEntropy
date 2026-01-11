@@ -3814,11 +3814,16 @@ Items: {
 
 	ExquisiteCrown: {
 		DisplayName: 精致皇冠
-		Tooltip: 
-		'''
-		召唤一顶向附近敌人发射射线的金冠
-		+1 召唤栏
-		'''
+		Tooltip:
+			'''
+			召唤一顶向附近敌人发射射线的金冠
+			+1 召唤栏
+			'''
+	}
+
+	RottenFangs: {
+		// DisplayName: Rotten Fangs
+		// Tooltip: ""
 	}
 }
 
@@ -4438,6 +4443,7 @@ Projectiles: {
 	AcropolisHarpoon.DisplayName: 叉矛
 	CrownRubyProj.DisplayName: 红宝石射线
 	RubyCrown.DisplayName: 精致皇冠
+	// RottenFangsBloodBullet.DisplayName: Rotten Fangs Blood Bullet
 }
 
 LegendTooltip: - 传奇物品 -

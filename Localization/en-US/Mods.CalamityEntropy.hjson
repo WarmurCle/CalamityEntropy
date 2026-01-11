@@ -3545,11 +3545,16 @@ Items: {
 
 	ExquisiteCrown: {
 		DisplayName: Exquisite Crown
-		Tooltip: 
-		'''
-		Summon a crown that will shoot ruby beams to enemies
-		+1 Minion Slot
-		'''
+		Tooltip:
+			'''
+			Summon a crown that will shoot ruby beams to enemies
+			+1 Minion Slot
+			'''
+	}
+
+	RottenFangs: {
+		DisplayName: Rotten Fangs
+		Tooltip: ""
 	}
 }
 
@@ -4182,6 +4187,7 @@ Projectiles: {
 	AcropolisHarpoon.DisplayName: Acropolis Harpoon
 	CrownRubyProj.DisplayName: Crown Ruby Proj
 	RubyCrown.DisplayName: Ruby Crown
+	RottenFangsBloodBullet.DisplayName: Rotten Fangs Blood Bullet
 }
 
 LegendTooltip: - Legend -

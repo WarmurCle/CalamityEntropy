@@ -61,6 +61,7 @@ namespace CalamityEntropy.Common
 
             return p;
         }
+        public bool rottenFangs = false;
         public float alpha = 1f;
         public float CooldownTimeMult = 1;
         public List<int> enabledLoreItems = new List<int>();
@@ -825,6 +826,7 @@ namespace CalamityEntropy.Common
         }
         public override void ResetEffects()
         {
+            rottenFangs = false;
             exquisiteCrown = false;
             EDamageReduce = 0;
             VoidShieldVisual = false;
