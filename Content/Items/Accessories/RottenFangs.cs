@@ -31,18 +31,21 @@ namespace CalamityEntropy.Content.Items.Accessories
     {
         public override void AI(Projectile projectile)
         {
-            if (projectile.owner == Main.myPlayer && projectile.OwnerEntropy().rottenFangs)
+            if (projectile.minion)
             {
-                if (projectile.Entropy().counter % 30 == 0 && Main.rand.NextBool(5))
+                if (projectile.owner == Main.myPlayer && projectile.OwnerEntropy().rottenFangs)
                 {
-                    NPC target = projectile.FindMinionTarget(1400);
-                    if (target != null)
+                    if (projectile.Entropy().counter % 30 == 0 && Main.rand.NextBool(5))
                     {
-                        int dmg = ((int)(projectile.GetOwner().GetTotalDamage(DamageClass.Summon).ApplyTo(16))).ApplyOldFashionedDmg();
-                        for (int i = 0; i < 5; i++)
+                        NPC target = projectile.FindMinionTarget(1400);
+                        if (target != null)
                         {
-                            Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, (target.Center - projectile.Center).normalize().RotatedByRandom(0.6f) * Main.rand.NextFloat(4, 8), ModContent.ProjectileType<RottenFangsBloodBullet>(), dmg, 5, projectile.owner);
-                            CEUtils.PlaySound("ksLand", Main.rand.NextFloat(0.6f, 0.8f), projectile.Center, 60, 0.4f);
+                            int dmg = ((int)(projectile.GetOwner().GetTotalDamage(DamageClass.Summon).ApplyTo(16))).ApplyOldFashionedDmg();
+                            for (int i = 0; i < 5; i++)
+                            {
+                                Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, (target.Center - projectile.Center).normalize().RotatedByRandom(0.6f) * Main.rand.NextFloat(4, 8), ModContent.ProjectileType<RottenFangsBloodBullet>(), dmg, 5, projectile.owner);
+                                CEUtils.PlaySound("ksLand", Main.rand.NextFloat(0.6f, 0.8f), projectile.Center, 60, 0.4f);
+                            }
                         }
                     }
                 }
@@ -70,6 +73,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             }
             Dust d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Blood);
             d.velocity = Projectile.velocity * Main.rand.NextFloat(0.3f, 0.5f);
+            Projectile.rotation = Projectile.velocity.ToRotation();
         }
         public override void OnKill(int timeLeft)
         {

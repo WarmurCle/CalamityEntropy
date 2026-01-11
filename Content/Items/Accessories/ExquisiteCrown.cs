@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                         Projectile.ai[0] = 0;
                         int dmg = ((int)(player.GetTotalDamage(DamageClass.Summon).ApplyTo(32))).ApplyOldFashionedDmg();
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 12, ModContent.ProjectileType<CrownRubyProj>(), dmg, 6, player.whoAmI);
-                        CEUtils.PlaySound("soulshine", Main.rand.NextFloat(0.6f, 1), Projectile.Center, 60, 0.7f);
+                        CEUtils.PlaySound("soulshine", Main.rand.NextFloat(0.6f, 1), Projectile.Center, 60, 0.5f);
                     }
                 }
             }
