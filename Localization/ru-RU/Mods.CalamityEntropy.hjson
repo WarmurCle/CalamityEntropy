@@ -4859,6 +4859,11 @@ Configs: {
 			// Label: Clear Stealth When Change Equip Set
 			// Tooltip: ""
 		}
+
+		ExtraItemsInStarterBag: {
+			// Label: Extra Items In Starter Bag
+			// Tooltip: ""
+		}
 	}
 }
 

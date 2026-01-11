@@ -4447,7 +4447,7 @@ Projectiles: {
 	AcropolisHarpoon.DisplayName: 叉矛
 	CrownRubyProj.DisplayName: 红宝石射线
 	RubyCrown.DisplayName: 精致皇冠
-	// RottenFangsBloodBullet.DisplayName: Rotten Fangs Blood Bullet
+	RottenFangsBloodBullet.DisplayName: 血弹
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4974,7 +4974,7 @@ Keybinds: {
 	RuneDash.DisplayName: 符文之翼冲刺
 	CommandMinions.DisplayName: 命令仆从
 	NihilityAndChaoticArmorConnectKey.DisplayName: 噬虚者&混沌套装连接
-	// AcropolisMechTransformation.DisplayName: Mods.CalamityEntropy.Keybinds.AcropolisMechTransformation.DisplayName
+	AcropolisMechTransformation.DisplayName: 激活阿萨福勒卫城重甲机甲模式
 }
 
 ProphetLoreEffect:
@@ -5115,6 +5115,11 @@ Configs: {
 		ClearStealthWhenChangeEquipSet: {
 			Label: 切换装备时清空潜行条
 			Tooltip: ""
+		}
+
+		ExtraItemsInStarterBag: {
+			Label: 新手礼包额外物品
+			Tooltip: "新手礼包将提供一些额外的有用物品（如魔法存储，更好的体验魔杖等）"
 		}
 	}
 }
