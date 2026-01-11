@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace CalamityEntropy.Content.Items
 {
@@ -33,6 +34,17 @@ namespace CalamityEntropy.Content.Items
         public override bool CanRightClick()
         {
             return true;
+        }
+        public override void SaveData(TagCompound tag)
+        {
+            tag["Time"] = CooldownReduce;
+        }
+        public override void LoadData(TagCompound tag)
+        {
+            if(tag.TryGet<float>("Time", out float t))
+            {
+                CooldownReduce = t;
+            }
         }
         public override void RightClick(Player player)
         {
