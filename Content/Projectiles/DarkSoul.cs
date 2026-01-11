@@ -31,7 +31,6 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
-            Projectile.light = 1f;
             Projectile.timeLeft = 260;
             Projectile.ArmorPenetration = 12;
         }
