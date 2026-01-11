@@ -2417,7 +2417,7 @@ namespace CalamityEntropy.Common
             {
                 dashing = false;
             }
-            if ((Player.GetModPlayer<SCDashMP>().Cooldown > 0 || !hasAcc(ShadeCloak.ID)) && !NDFlag)
+            if ((Player.GetModPlayer<SCDashMP>().Cooldown > 0 || (!hasAcc(ShadeCloak.ID) && !hasAccVisual(ShadeCloak.ID))) && !NDFlag)
             {
             }
             else
@@ -2433,16 +2433,14 @@ namespace CalamityEntropy.Common
                             avTrail.maxLength = 30;
                         }
                     }
-                    ResetRot = true;
-                    Player.fullRotation = (new Vector2(Math.Abs(Player.velocity.X), Player.velocity.Y).ToRotation()) * Player.direction;
-
                     if (Player.GetModPlayer<SCDashMP>().flag)
                     {
                         Player.GetModPlayer<SCDashMP>().Cooldown = 158.ApplyCdDec(Player);
                         Player.GetModPlayer<SCDashMP>().flag = false;
-                        CEUtils.PlaySound("Dash2", 1, Player.Center);
                         if (hasAccVisual(ShadeCloak.ID))
                         {
+                            CEUtils.PlaySound("Dash2", 1, Player.Center);
+                        
                             for (int i = 0; i < 12; i++)
                             {
                                 EParticle.NewParticle(new ShadeCloakOrb() { PlayerIndex = Player.whoAmI }, Vector2.Zero, CEUtils.randomPointInCircle(4), Color.Black, 1, 1, true, BlendState.NonPremultiplied, -1, 160.ApplyCdDec(Player));
