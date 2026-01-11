@@ -5119,7 +5119,7 @@ Configs: {
 
 		ExtraItemsInStarterBag: {
 			Label: 新手礼包额外物品
-			Tooltip: "新手礼包将提供一些额外的有用物品（如魔法存储，更好的体验魔杖等）"
+			Tooltip: 新手礼包将提供一些额外的有用物品（如魔法存储，更好的体验魔杖等）
 		}
 	}
 }

@@ -4862,7 +4862,7 @@ Configs: {
 
 		ExtraItemsInStarterBag: {
 			// Label: Extra Items In Starter Bag
-			// Tooltip: ""
+			// Tooltip: Starter bag provide additional useful items
 		}
 	}
 }
