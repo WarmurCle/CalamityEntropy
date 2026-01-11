@@ -5490,7 +5490,7 @@ AzafureEnhances: {
 	/* AzafureDriverCore:
 		'''
 		Reduce energy cost
-		-40% damage taken by shield
+		-20% damage taken by shield
 		Increase shield regen speed
 		''' */
 }
