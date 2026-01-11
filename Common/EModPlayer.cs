@@ -335,6 +335,7 @@ namespace CalamityEntropy.Common
         public int summonCrit = 0;
         public float meleeDamageReduce = 0;
         public int hitTimeCount = 999999;
+
         public bool isUsingItem()
         {
             return Main.mouseLeft && !Player.mouseInterface && Player.HeldItem.damage > 0 && Player.HeldItem.active;
@@ -418,6 +419,7 @@ namespace CalamityEntropy.Common
                     player.GetDamage(dmgClass) += McDamage - player.GetDamage(dmgClass).Additive;
             }
         }
+        #region Misc
         public List<McAttributeRecord> McAttributes = null;
         public bool devouringCard = false;
         public bool NoNaturalStealthRegen = false;
@@ -461,6 +463,22 @@ namespace CalamityEntropy.Common
         public float VoidCoreShieldScale = 0;
         public bool ChaoticSet = false;
         public bool SpawnChaoticCellOnHurt = false;
+        public NPC lastHitTarget = null;
+        public int ShootLaserTime = 0;
+        public float DriverScale = 0;
+        public bool DriverShieldVisual = false;
+        public bool VoidShieldVisual = false;
+        public float Scale = 1;
+        public int oWidth = 20;
+        public int oHeight = 42;
+        public float ScaleTarget = 1;
+        public float snowgrave = 0;
+        public bool NoAdrenaline = false;
+        public int NoAdrenalineTime = 0;
+        public float EDamageReduce = 0;
+        public int NoPlatformCollide = 0;
+        public bool exquisiteCrown = false;
+#endregion
         public void UpdateDriverShield()
         {
             bool Equiped = AzafureDriverShieldItem != null;
@@ -519,8 +537,7 @@ namespace CalamityEntropy.Common
                 RemoveCooldown(DriverCoreCooldown.ID);
             }
         }
-        public NPC lastHitTarget = null;
-        public int ShootLaserTime = 0;
+        
         public void UpdateNihShield()
         {
             bool Equiped = NihilityShieldEnabled;
@@ -683,7 +700,7 @@ namespace CalamityEntropy.Common
                 p.Calamity().cooldowns.Remove(id);
             }
         }
-        public float DriverScale = 0;
+        
         public void DriverShieldHit(ref Player.HurtInfo info)
         {
             if (DriverShield > 0)
@@ -786,12 +803,7 @@ namespace CalamityEntropy.Common
                 CombatText.NewText(Player.getRect(), Color.LightSkyBlue, "-" + reduceDmg);
             }
         }
-        public bool DriverShieldVisual = false;
-        public bool VoidShieldVisual = false;
-        public float Scale = 1;
-        public int oWidth = 20;
-        public int oHeight = 42;
-        public float ScaleTarget = 1;
+        
         public void ApplyScale()
         {
             oWidth = Player.width;
@@ -811,13 +823,9 @@ namespace CalamityEntropy.Common
             Player.height = oHeight;
             Player.position = c - new Vector2(Player.width / 2, Player.height);
         }
-        public float snowgrave = 0;
-        public bool NoAdrenaline = false;
-        public int NoAdrenalineTime = 0;
-        public float EDamageReduce = 0;
-        public int NoPlatformCollide = 0;
         public override void ResetEffects()
         {
+            exquisiteCrown = false;
             EDamageReduce = 0;
             VoidShieldVisual = false;
             ScaleTarget = 1;
@@ -2145,6 +2153,17 @@ namespace CalamityEntropy.Common
         public int FallSpeedUP = 0;
         public override void PostUpdate()
         {
+            if(exquisiteCrown)
+            {
+                if(Player.whoAmI == Main.myPlayer)
+                {
+                    int crptype = ModContent.ProjectileType<RubyCrown>();
+                    if (Player.ownedProjectileCounts[crptype] <= 0)
+                    {
+                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, crptype, 32, 0, Player.whoAmI);
+                    }
+                }
+            }
             FallSpeedUP--;
             if (NoAdrenaline)
             {

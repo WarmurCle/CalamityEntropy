@@ -1740,6 +1740,10 @@ namespace CalamityEntropy.Common
         {
             if (item.type == ItemID.DeerclopsBossBag)
                 itemLoot.Add(ModContent.ItemType<BookmarkSnowgrave>(), 5, 1, 1);
+            if (item.type == ItemID.KingSlimeBossBag)
+            {
+                itemLoot.AddNormalOnly(ModContent.ItemType<ExquisiteCrown>(), 2);
+            }
             if (item.type == ItemID.FishronBossBag)
             {
                 itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<IlmeranAsylum>()));
