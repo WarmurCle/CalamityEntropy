@@ -3822,8 +3822,12 @@ Items: {
 	}
 
 	RottenFangs: {
-		// DisplayName: Rotten Fangs
-		// Tooltip: ""
+		DisplayName: 腐檀獠牙
+		Tooltip: 
+		'''
+		仆从会时不时向附近敌人发射一些血弹
+		+1 召唤栏
+		'''
 	}
 }
 
