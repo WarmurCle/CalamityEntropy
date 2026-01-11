@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                                 int dmg = ((int)(projectile.GetOwner().GetTotalDamage(DamageClass.Summon).ApplyTo(16))).ApplyOldFashionedDmg();
                                 for (int i = 0; i < 5; i++)
                                 {
-                                    Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, (target.Center - projectile.Center).normalize().RotatedByRandom(0.3f) * Main.rand.NextFloat(6, 8), ModContent.ProjectileType<RottenFangsBloodBullet>(), dmg, 5, projectile.owner);
+                                    Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, (target.Center - projectile.Center).normalize().RotatedByRandom(0.2f) * Main.rand.NextFloat(5, 8), ModContent.ProjectileType<RottenFangsBloodBullet>(), dmg, 5, projectile.owner);
                                 }
                                 CEUtils.PlaySound("ksLand", Main.rand.NextFloat(0.6f, 0.8f), projectile.Center, 60, 0.32f);
                             }
