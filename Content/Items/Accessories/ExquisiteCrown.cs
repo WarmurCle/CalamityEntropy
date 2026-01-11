@@ -106,11 +106,14 @@ namespace CalamityEntropy.Content.Items.Accessories
                 dust.noGravity = true;
                 dust.velocity *= 0.3f;
             }*/
-            for (float i = 0; i <= 1; i += 0.25f)
+            if (!Main.dedServ)
             {
-                Vector2 velocity1 = CEUtils.randomPointInCircle(3);
-                Particle sparkle1 = new CritSpark(Projectile.Center - Projectile.velocity * i + Projectile.velocity * 1, velocity1, Color.White * 0.6f, Color.Crimson, 0.5f, 12, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
-                GeneralParticleHandler.SpawnParticle(sparkle1);
+                for (float i = 0; i <= 1; i += 0.25f)
+                {
+                    Vector2 velocity1 = CEUtils.randomPointInCircle(3);
+                    Particle sparkle1 = new CritSpark(Projectile.Center - Projectile.velocity * i + Projectile.velocity * 1, velocity1, Color.White * 0.6f, Color.Crimson, 0.5f, 12, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
+                    GeneralParticleHandler.SpawnParticle(sparkle1);
+                }
             }
         }
         public override void OnKill(int timeLeft)

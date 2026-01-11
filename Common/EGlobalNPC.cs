@@ -752,6 +752,10 @@ namespace CalamityEntropy.Common
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<ExquisiteCrown>(), 3, 1, 1);
             }
+            if (npc.type == NPCID.EyeofCthulhu)
+            {
+                npcLoot.AddNormalOnly(ModContent.ItemType<RottenFangs>(), 3, 1, 1);
+            }
             if (npc.type == NPCID.Deerclops)
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<BookmarkSnowgrave>(), 5, 1, 1);

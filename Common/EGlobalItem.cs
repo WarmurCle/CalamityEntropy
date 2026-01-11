@@ -1744,6 +1744,10 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.AddNormalOnly(ModContent.ItemType<ExquisiteCrown>(), 2);
             }
+            if (item.type == ItemID.EyeOfCthulhuBossBag)
+            {
+                itemLoot.AddNormalOnly(ModContent.ItemType<RottenFangs>(), 2);
+            }
             if (item.type == ItemID.FishronBossBag)
             {
                 itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<IlmeranAsylum>()));
