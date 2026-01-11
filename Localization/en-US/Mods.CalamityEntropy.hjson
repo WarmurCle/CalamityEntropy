@@ -3554,11 +3554,11 @@ Items: {
 
 	RottenFangs: {
 		DisplayName: Rotten Fangs
-		Tooltip: 
-		'''
-		Minions will shoot blood bullets to enemies
-		+1 Minion Slot
-		'''
+		Tooltip:
+			'''
+			Minions will shoot blood bullets to enemies
+			+1 Minion Slot
+			'''
 	}
 }
 
