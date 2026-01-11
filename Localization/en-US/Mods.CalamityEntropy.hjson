@@ -2529,7 +2529,7 @@ Items: {
 		DisplayName: Worship Relic
 		Tooltip:
 			'''
-			tealth no longer regenerates passively.
+			Stealth no longer regenerates passively.
 			Hitting enemies with Rogue weapons restores some Stealth.
 			When Stealth is full, your attack becomes a Stealth Strike and fires additional Solar Arrows
 			Forbid Crit
