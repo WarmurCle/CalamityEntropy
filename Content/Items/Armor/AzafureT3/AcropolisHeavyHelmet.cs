@@ -135,7 +135,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 }
                 if (!OnTile || (NoMoveTime <= 0 && CEUtils.getDistance(StandPoint, Player.Center + Player.velocity * 6 + (offset * 1).RotatedBy(Player.direction > 0 ? Player.fullRotation : (Player.fullRotation))) > distToMove) || CEUtils.getDistance(StandPoint, Player.Center + Player.velocity * 16 + (offset * 1).RotatedBy(Player.fullRotation)) > distToMove * 1.4f)
                 {
-                    targetPos = FindStandPoint(Player.Center + Player.velocity * 6 + (offset * 1).RotatedBy(Player.fullRotation) + new Vector2(Math.Sign(Player.velocity.X) == Math.Sign(offset.X) ? (Math.Sign(Player.velocity.X) * 12) : 0, 0), 80 * Scale * 1, 160);
+                    targetPos = FindStandPoint(Player.Center + Player.velocity * 6 + (offset * 1).RotatedBy(Player.fullRotation) + new Vector2(Math.Sign(Player.velocity.X) == Math.Sign(offset.X) ? (Math.Sign(Player.velocity.X) * 12) : 0, 0), 85 * 1, 160);
                     ms = CEUtils.getDistance(targetPos, StandPoint) * 0.25f;
                     if (NoMoveTime < 4)
                         NoMoveTime = 4;
@@ -537,14 +537,14 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     }
                     if (Player.controlDown)
                     {
-                        Player.velocity.Y += 0.2f;
+                        Player.velocity.Y += 0.5f;
                     }
                     if (s > 2)
                     {
                         LandTime++;
                         if (Player.controlUp)
                         {
-                            Player.velocity.Y -= 0.25f;
+                            Player.velocity.Y -= 0.3f;
                         }
 
                         if (Player.controlJump && LandTime > 8)

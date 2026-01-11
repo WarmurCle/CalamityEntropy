@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         public override void SetDefaults()
         {
             CEUtils.FriendlySetDefaults(Projectile, DamageClass.Generic, true, 3);
-            Projectile.width = Projectile.height = 18;
+            Projectile.width = Projectile.height = 20;
             Projectile.timeLeft = 300;
         }
         public override void AI()
@@ -105,7 +105,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             for (int i = 0; i < oldRot.Count; i++)
             {
                 Color b = Color.Lerp(new Color(255, 60, 60), new Color(255, 195, 195), (float)i / (float)oldRot.Count) * 0.8f;
-                ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + (new Vector2(190, 0).RotatedBy(oldRot[i])),
+                ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + (new Vector2(270, 0).RotatedBy(oldRot[i])),
                       new Vector3(i / (float)oldRot.Count, 1, 1),
                       b));
                 ve.Add(new ColoredVertex(oldPos[i] - Main.screenPosition + (new Vector2(0, 0).RotatedBy(oldRot[i])),
@@ -124,7 +124,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             for(float i = 0; i < 1; i += 0.02f)
             {
-                float ml = 170;
+                float ml = 250;
                 Vector2 pos = Projectile.Center + Projectile.rotation.ToRotationVector2() * (ml * i - 10);
                 Main.spriteBatch.Draw(c, pos + CEUtils.randomPointInCircle(4) - Main.screenPosition, null, new Color(255, 50, 50), Projectile.rotation, c.Size() / 2f, new Vector2(0.6f, 0.04f), SpriteEffects.None, 0);
             }
@@ -133,7 +133,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 210, targetHitbox, 80);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 260, targetHitbox, 80);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
