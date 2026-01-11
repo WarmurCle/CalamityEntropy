@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Projectile.width = 64;
             Projectile.height = 128;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
+            Projectile.localNPCHitCooldown = 8;
             Projectile.penetrate = -1;
         }
         public override void AI()

@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         {
             Item.width = 84;
             Item.height = 46;
-            Item.damage = 1600;
+            Item.damage = 1720;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 30;
             Item.useAnimation = 30;
