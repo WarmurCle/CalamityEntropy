@@ -1742,11 +1742,11 @@ namespace CalamityEntropy.Common
                 itemLoot.Add(ModContent.ItemType<BookmarkSnowgrave>(), 5, 1, 1);
             if (item.type == ItemID.KingSlimeBossBag)
             {
-                itemLoot.AddNormalOnly(ModContent.ItemType<ExquisiteCrown>(), 2);
+                itemLoot.Add(ModContent.ItemType<ExquisiteCrown>(), 2);
             }
             if (item.type == ItemID.EyeOfCthulhuBossBag)
             {
-                itemLoot.AddNormalOnly(ModContent.ItemType<RottenFangs>(), 2);
+                itemLoot.Add(ModContent.ItemType<RottenFangs>(), 2);
             }
             if (item.type == ItemID.FishronBossBag)
             {
