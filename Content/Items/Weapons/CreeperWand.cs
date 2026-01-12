@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.LuminarisShoots;
 using CalamityMod;
+using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Items;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 64;
+            Item.damage = 50;
             Item.DamageType = DamageClass.Summon;
             Item.width = 46;
             Item.height = 46;
@@ -84,7 +85,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 16;
         }
-        public bool Active => ((int)Main.GameUpdateCount + Projectile.ai[1]) % 450 < 120;
+        public bool Active => Projectile.GetOwner().HasBuff<AdrenalineMode>() || (((int)Main.GameUpdateCount + Projectile.ai[1]) % 450 < 120);
         public override bool? CanHitNPC(NPC target)
         {
             return Active ? null : false;
