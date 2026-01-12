@@ -236,7 +236,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         {
             if (MechTrans)
             {
-                Player.AddCooldown(AcropolisCooldown.ID, (int)(1.5f * 60 * 60));
+                Player.AddCooldown(AcropolisCooldown.ID, (int)(1f * 60 * 60));
                 SmokeParticle();
                 DurabilityActive = false;
                 durability = 0;
@@ -843,7 +843,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     CEUtils.PlaySound($"ExoHit{Main.rand.Next(1, 5)}", Main.rand.NextFloat(0.6f, 0.8f), Player.Center, 6, 0.45f);
                     if (DurabilityRegenDelay < 5 * 60)
                         DurabilityRegenDelay = 5 * 60;
-                    durability -= float.Min(0.36f, info.SourceDamage / (MechTrans ? 2200f : 1200f));
+                    durability -= float.Min(0.36f, info.SourceDamage / (MechTrans ? 2800f : 1200f));
 
                     //耐久没了暂时失效
                     if (durability <= 0)
