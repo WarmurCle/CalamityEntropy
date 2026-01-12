@@ -3568,11 +3568,11 @@ Items: {
 
 	CursedTorch: {
 		DisplayName: Cursed Torch
-		Tooltip: 
-		'''
-		Summon a cursed torch that throw fire to enemies
-		Consume 2 minion slot
-		'''
+		Tooltip:
+			'''
+			Summon a cursed torch that throw fire to enemies
+			Consume 2 minion slot
+			'''
 	}
 }
 

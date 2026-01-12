@@ -3837,11 +3837,11 @@ Items: {
 
 	CursedTorch: {
 		DisplayName: 诅咒火炬
-		Tooltip: 
-		'''
-		召唤诅咒火炬，向敌人喷射诅咒焰
-		消耗2召唤栏
-		'''
+		Tooltip:
+			'''
+			召唤诅咒火炬，向敌人喷射诅咒焰
+			消耗2召唤栏
+			'''
 	}
 }
 
@@ -4817,7 +4817,7 @@ Buffs: {
 
 	CursingFire: {
 		DisplayName: 诅咒烈焰
-		Description: "永恒之火燃烧着..."
+		Description: 永恒之火燃烧着...
 	}
 }
 

@@ -3583,7 +3583,11 @@ Items: {
 
 	CursedTorch: {
 		// DisplayName: Cursed Torch
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Summon a cursed torch that throw fire to enemies
+			Consume 2 minion slot
+			''' */
 	}
 }
 
@@ -4558,7 +4562,7 @@ Buffs: {
 
 	CursingFire: {
 		// DisplayName: Cursing Fire
-		// Description: Mods.CalamityEntropy.Buffs.CursingFire.Description
+		// Description: The eternal fire is burning...
 	}
 }
 
