@@ -254,9 +254,9 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                             Projectile.GetOwner().velocity = (Projectile.Center - Projectile.GetOwner().Center).normalize() * 40;
                             if (CEUtils.getDistance(Projectile.Center, Projectile.GetOwner().Center) < 160)
                             {
-                                Projectile.GetOwner().velocity *= -0.1f;
+                                Projectile.GetOwner().velocity *= -0.16f;
                                 Projectile.Kill();
-                                Projectile.GetOwner().Entropy().immune = 12;
+                                Projectile.GetOwner().Entropy().immune = 50;
                             }
                         }
                         else
