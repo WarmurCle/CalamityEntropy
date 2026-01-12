@@ -110,12 +110,26 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             }
             bool o = false;
             public bool OnTile => !CEUtils.isAir(StandPoint, true) && o;
+            public bool sound = true;
             public bool Update()
             {
                 SoundCD--;
                 if (CEUtils.getDistance(StandPoint, targetPos) < ms * (Player.velocity.Y > 1f ? 3 : 1))
                 {
                     StandPoint = targetPos;
+                    if(sound)
+                    {
+                        sound = false;
+                        if (!CEUtils.isAir(targetPos + new Vector2(0, 2), true))
+                        {
+                            if (SoundCD <= 0)
+                            {
+                                CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, targetPos + new Vector2(0, -10), 220, 32, DamageClass.Generic);
+                                SoundCD = 6;
+                                CEUtils.PlaySound("mechStep", Main.rand.NextFloat(1.6f, 2f), StandPoint, 32, 0.16f);
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -135,14 +149,10 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     targetPos = FindStandPoint(Player.Center + Player.velocity * 8 + (offset * 1).RotatedBy(Player.fullRotation) + new Vector2(Math.Sign(Player.velocity.X) == Math.Sign(offset.X) ? (Math.Sign(Player.velocity.X) * 12) : 0, 0), 85 * 1, 160);
                     ms = CEUtils.getDistance(targetPos, StandPoint) * 0.25f;
                     if (NoMoveTime < 7)
-                        NoMoveTime = 7;
-                    if(!CEUtils.isAir(targetPos + new Vector2(0, 2), true))
+                        NoMoveTime = 7; 
+                    if (!CEUtils.isAir(targetPos + new Vector2(0, 2), true))
                     {
-                        if (SoundCD <= 0)
-                        {
-                            SoundCD = 6;
-                            CEUtils.PlaySound("mechStep", Main.rand.NextFloat(1.6f, 2f), StandPoint, 32, 0.16f);
-                        }
+                        sound = true;
                     }
                     return true;
                 }

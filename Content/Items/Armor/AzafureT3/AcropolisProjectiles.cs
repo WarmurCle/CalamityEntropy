@@ -35,13 +35,13 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (Projectile.numHits < 2)
-            {
-                CEUtils.PlaySound("pulseBlast", 0.8f, Projectile.Center, 6, 0.4f);
-                GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 0.7f, 8));
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 1.6f, 1, true, BlendState.Additive, 0, 16);
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 1f, 1, true, BlendState.Additive, 0, 16);
-            }
+            CEUtils.PlaySound("AcrHit", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
+            CEUtils.PlaySound("AcrHit", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
+
+            CEUtils.PlaySound("pulseBlast", 0.8f, Projectile.Center, 6, 0.4f);
+            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 0.7f, 8));
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 1.6f, 1, true, BlendState.Additive, 0, 16);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 1f, 1, true, BlendState.Additive, 0, 16);
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
@@ -53,6 +53,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         {
             if (!Main.dedServ)
             {
+                CEUtils.PlaySound("AcrHit", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
                 CEUtils.PlaySound("AcrHit", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
                 for (int i = 0; i < 6; i++)
                     GeneralParticleHandler.SpawnParticle(new LineParticle(Projectile.Center, Projectile.velocity.RotatedByRandom(0.4f) * Main.rand.NextFloat(), false, 12, Main.rand.NextFloat(0.6f, 1.2f), new Color(255, 100, 100)));
