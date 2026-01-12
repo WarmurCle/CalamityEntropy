@@ -317,7 +317,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             if (Projectile.GetOwner().TryGetModPlayer<AcropolisArmorPlayer>(out var mp) && mp.harpoon != null)
             {
                 int s = 12;
-                CEUtils.drawChain(Projectile.Center, mp.harpoon.TopPos, s, "CalamityEntropy/Content/Items/Armor/AzafureT3/Chain");
+                CEUtils.drawChain(Projectile.Center, mp.harpoon.TopPos - mp.harpoon.Seg2Rot.ToRotationVector2() * 12, s, "CalamityEntropy/Content/Items/Armor/AzafureT3/Chain");
                 Texture2D tex = Projectile.GetTexture();
                 Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2f, 1, SpriteEffects.None);
             }

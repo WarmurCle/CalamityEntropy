@@ -208,7 +208,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 Seg2Rot = seg2Rot;
                 this.offset = offset;
             }
-            public Vector2 TopPos => seg1end + Seg2Rot.ToRotationVector2() * 56;
+            public Vector2 TopPos => seg1end + Seg2Rot.ToRotationVector2() * 60;
             public void PointAPos(Vector2 pos, float r = 0.06f)
             {
                 Seg1Rot = CEUtils.RotateTowardsAngle(Seg1Rot, (pos - (Player.Center + (offset * new Vector2(1, 1)).RotatedBy(Player.fullRotation))).ToRotation(), 0.06f, false);
@@ -261,6 +261,9 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 DurabilityActive = false;
                 durability = 0;
                 MechTrans = false;
+                Player.velocity.Y = -20;
+                Player.velocity.X *= 2;
+                Player.Entropy().immune = 90;
                 MechSync();
             }
         }
@@ -326,7 +329,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 }
             }
         }
-        public bool PlayerVisual => MechFrame < 12;
+        public bool PlayerVisual => MechFrame < 16;
         public Vector2 CalculateLegJoints(Vector2 Center, Vector2 legStandPoint, float l1, float l2, float l3, out Vector2 P1, out Vector2 P2)
         {
             P1 = Vector2.Zero;
@@ -510,6 +513,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                         MechFrame++;
                     }
                     Player.velocity *= 0;
+                    Player.immuneNoBlink = true;
                     if (Player.Entropy().immune < 5)
                         Player.Entropy().immune = 5;
                 }
