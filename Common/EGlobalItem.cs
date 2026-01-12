@@ -18,6 +18,7 @@ using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.CrystalBalls;
 using CalamityEntropy.Content.Items.Weapons.DustCarverBow;
+using CalamityEntropy.Content.Items.Weapons.Torch;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Rarities;
@@ -1743,6 +1744,14 @@ namespace CalamityEntropy.Common
             if (item.type == ItemID.KingSlimeBossBag)
             {
                 itemLoot.Add(ModContent.ItemType<ExquisiteCrown>(), 2);
+            }
+            if (item.type == ItemID.EaterOfWorldsBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<CreeperWand>(), 2);
+            }
+            if (item.type == ItemID.BrainOfCthulhuBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<CursedTorch>(), 2);
             }
             if (item.type == ItemID.EyeOfCthulhuBossBag)
             {

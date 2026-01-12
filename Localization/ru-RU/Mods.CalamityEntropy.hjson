@@ -3575,6 +3575,16 @@ Items: {
 			+1 Minion Slot
 			''' */
 	}
+
+	CreeperWand: {
+		// DisplayName: Creeper Wand
+		// Tooltip: Summon creepers that take turns attacking
+	}
+
+	CursedTorch: {
+		// DisplayName: Cursed Torch
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:
@@ -4193,6 +4203,9 @@ Projectiles: {
 	// CrownRubyProj.DisplayName: Crown Ruby Proj
 	// RubyCrown.DisplayName: Ruby Crown
 	// RottenFangsBloodBullet.DisplayName: Rotten Fangs Blood Bullet
+	// CreeperMinion.DisplayName: Creeper Minion
+	// CursedTorchMinion.DisplayName: Cursed Torch Minion
+	// CursingFlame.DisplayName: Cursing Flame
 }
 
 LegendTooltip: - Легенда -
@@ -4536,6 +4549,16 @@ Buffs: {
 	IllusoryBlade: {
 		// DisplayName: Illusory Blade
 		// Description: Illusory blade will fight for you
+	}
+
+	CreeperBuff: {
+		// DisplayName: Creeper
+		// Description: Creeper will fight for you
+	}
+
+	CursingFire: {
+		// DisplayName: Cursing Fire
+		// Description: Mods.CalamityEntropy.Buffs.CursingFire.Description
 	}
 }
 

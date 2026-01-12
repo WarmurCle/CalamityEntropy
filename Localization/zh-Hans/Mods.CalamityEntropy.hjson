@@ -3829,6 +3829,20 @@ Items: {
 			+1 召唤栏
 			'''
 	}
+
+	CreeperWand: {
+		DisplayName: 飞眼法杖
+		Tooltip: 召唤轮流攻击的飞眼
+	}
+
+	CursedTorch: {
+		DisplayName: 诅咒火炬
+		Tooltip: 
+		'''
+		召唤诅咒火炬，向敌人喷射诅咒焰
+		消耗2召唤栏
+		'''
+	}
 }
 
 ChaoticSetBonus:
@@ -4448,6 +4462,9 @@ Projectiles: {
 	CrownRubyProj.DisplayName: 红宝石射线
 	RubyCrown.DisplayName: 精致皇冠
 	RottenFangsBloodBullet.DisplayName: 血弹
+	CreeperMinion.DisplayName: 飞眼
+	CursedTorchMinion.DisplayName: 诅咒火炬
+	CursingFlame.DisplayName: 诅咒烈焰
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4791,6 +4808,16 @@ Buffs: {
 	IllusoryBlade: {
 		DisplayName: 虚幻神锋
 		Description: 虚幻神锋将为你而战
+	}
+
+	CreeperBuff: {
+		DisplayName: 飞眼
+		Description: 飞眼将为你战斗
+	}
+
+	CursingFire: {
+		DisplayName: 诅咒烈焰
+		Description: "永恒之火燃烧着..."
 	}
 }
 
