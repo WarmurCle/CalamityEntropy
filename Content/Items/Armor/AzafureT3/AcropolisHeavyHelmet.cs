@@ -516,6 +516,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 else
                 {
                     Player.gravity = 0;
+                    Player.direction = (Player.Calamity().mouseWorld.X - Player.Center.X) > 0 ? 1 : -1;
                     int s = 0;
                     float y = 0;
                     foreach (var leg in legs)
@@ -529,7 +530,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     y /= legs.Count;
                     if (s < 3)
                     {
-                        Player.velocity.Y += 0.35f;
+                        Player.velocity.Y += (Player.wingTime > 0 && Player.controlJump) ? 0.2f : 0.5f;
                         LandTime = 0;
                     }
                     else
@@ -555,7 +556,9 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     }
                     if (Player.controlDown)
                     {
-                        Player.velocity.Y += 0.5f;
+                        Player.velocity.Y += 0.65f;
+                        if(Player.Entropy().NoPlatformCollide < 4)
+                            Player.Entropy().NoPlatformCollide = 4;
                     }
                     if (s > 2)
                     {
@@ -577,7 +580,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
 
                         if (Player.controlJump && LandTime > 8)
                         {
-                            Player.velocity.Y = -18;
+                            Player.velocity.Y = -24;
                         }
                     }
                     if (CannonMode && Bullet <= 0)
@@ -865,6 +868,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 {
                     Player.Entropy().EDamageReduce += 0.55f;
                     Player.statDefense += 32;
+                    Player.Entropy().FallSpeed += 0.5f;
                 }
             }
             else
