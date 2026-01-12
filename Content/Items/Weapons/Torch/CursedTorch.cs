@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Torch
         }
         public override void SetDefaults()
         {
-            Item.damage = 36;
+            Item.damage = 19;
             Item.DamageType = DamageClass.Summon;
             Item.width = 46;
             Item.height = 46;
