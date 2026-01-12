@@ -1511,7 +1511,7 @@ namespace CalamityEntropy.Common
             }
             if (mariviniumBody)
             {
-                Player.breath = Player.breathMax + 91;
+                Player.breath = Player.breathMax + 99999;
             }
             if (Player.ownedProjectileCounts[voidslashType] > 0)
             {

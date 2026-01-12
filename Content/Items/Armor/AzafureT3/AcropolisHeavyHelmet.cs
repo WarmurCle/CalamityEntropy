@@ -538,6 +538,10 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     if (s > 2)
                     {
                         LandTime++;
+                        if(LandTime > 6)
+                        {
+                            Player.wingTime = Player.wingTimeMax;
+                        }
                         if (Player.controlUp)
                         {
                             Player.velocity.Y -= 0.3f;
