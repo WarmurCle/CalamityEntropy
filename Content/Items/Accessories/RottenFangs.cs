@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                             NPC target = projectile.FindMinionTarget(1400);
                             if (target != null)
                             {
-                                int dmg = ((int)(projectile.GetOwner().GetTotalDamage(DamageClass.Summon).ApplyTo(12))).ApplyOldFashionedDmg();
+                                int dmg = ((int)(projectile.GetOwner().GetTotalDamage(DamageClass.Summon).ApplyTo(10))).ApplyOldFashionedDmg();
                                 for (int i = 0; i < 5; i++)
                                 {
                                     Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, (target.Center - projectile.Center).normalize().RotatedByRandom(0.2f) * Main.rand.NextFloat(5, 8), ModContent.ProjectileType<RottenFangsBloodBullet>(), dmg, 5, projectile.owner);

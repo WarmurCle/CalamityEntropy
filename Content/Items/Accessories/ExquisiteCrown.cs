@@ -61,7 +61,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                     if (target != null)
                     {
                         Projectile.ai[0] = 0;
-                        int dmg = ((int)(player.GetTotalDamage(DamageClass.Summon).ApplyTo(32))).ApplyOldFashionedDmg();
+                        int dmg = ((int)(player.GetTotalDamage(DamageClass.Summon).ApplyTo(90))).ApplyOldFashionedDmg();
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 12, ModContent.ProjectileType<CrownRubyProj>(), dmg, 6, player.whoAmI);
                         CEUtils.PlaySound("soulshine", Main.rand.NextFloat(0.6f, 1), Projectile.Center, 60, 0.5f);
                     }
@@ -87,8 +87,9 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             Projectile.FriendlySetDefaults(DamageClass.Summon, true, 1);
             Projectile.width = Projectile.height = 16;
-            Projectile.MaxUpdates = 4;
+            Projectile.MaxUpdates = 5;
             Projectile.light = 0.42f;
+            Projectile.timeLeft = 300;
         }
         public override void AI()
         {
