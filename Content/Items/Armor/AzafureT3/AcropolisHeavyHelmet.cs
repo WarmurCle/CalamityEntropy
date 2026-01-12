@@ -100,6 +100,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             public Vector2 offset;
             public int NoMoveTime = 0;
             public Vector2 targetPos;
+            public int SoundCD = 0;
             public AcropolisLeg(Player plr, Vector2 offset, float scale = 1)
             {
                 Player = plr;
@@ -111,6 +112,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             public bool OnTile => !CEUtils.isAir(StandPoint, true) && o;
             public bool Update()
             {
+                SoundCD--;
                 if (CEUtils.getDistance(StandPoint, targetPos) < ms * (Player.velocity.Y > 1f ? 3 : 1))
                 {
                     StandPoint = targetPos;
@@ -128,18 +130,26 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     ms = CEUtils.getDistance(targetPos, StandPoint) * 0.25f;
                     return false;
                 }
-                if (!OnTile || (NoMoveTime <= 0 && CEUtils.getDistance(StandPoint, Player.Center + Player.velocity * 6 + (offset * 1).RotatedBy(Player.direction > 0 ? Player.fullRotation : (Player.fullRotation))) > distToMove) || CEUtils.getDistance(StandPoint, Player.Center + Player.velocity * 16 + (offset * 1).RotatedBy(Player.fullRotation)) > distToMove * 1.4f)
+                if (!OnTile || (NoMoveTime <= 0 && CEUtils.getDistance(StandPoint, Player.Center + Player.velocity * 8 + (offset * 1).RotatedBy(Player.direction > 0 ? Player.fullRotation : (Player.fullRotation))) > distToMove) || CEUtils.getDistance(StandPoint, Player.Center + Player.velocity * 16 + (offset * 1).RotatedBy(Player.fullRotation)) > distToMove * 1.8f)
                 {
-                    targetPos = FindStandPoint(Player.Center + Player.velocity * 6 + (offset * 1).RotatedBy(Player.fullRotation) + new Vector2(Math.Sign(Player.velocity.X) == Math.Sign(offset.X) ? (Math.Sign(Player.velocity.X) * 12) : 0, 0), 85 * 1, 160);
+                    targetPos = FindStandPoint(Player.Center + Player.velocity * 8 + (offset * 1).RotatedBy(Player.fullRotation) + new Vector2(Math.Sign(Player.velocity.X) == Math.Sign(offset.X) ? (Math.Sign(Player.velocity.X) * 12) : 0, 0), 85 * 1, 160);
                     ms = CEUtils.getDistance(targetPos, StandPoint) * 0.25f;
-                    if (NoMoveTime < 4)
-                        NoMoveTime = 4;
+                    if (NoMoveTime < 7)
+                        NoMoveTime = 7;
+                    if(!CEUtils.isAir(targetPos + new Vector2(0, 2), true))
+                    {
+                        if (SoundCD <= 0)
+                        {
+                            SoundCD = 6;
+                            CEUtils.PlaySound("mechStep", Main.rand.NextFloat(1.6f, 2f), StandPoint, 32, 0.16f);
+                        }
+                    }
                     return true;
                 }
-
                 return false;
             }
             public float ms;
+            public bool LastOnTile = false;
             public static bool CanStandOn(Vector2 pos)
             {
                 return !CEUtils.isAir(pos, true);
@@ -297,9 +307,9 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     {
                         if (Math.Sign(l2.offset.X) == Math.Sign(l.offset.X))
                         {
-                            if (l2.NoMoveTime < 8)
+                            if (l2.NoMoveTime < 7)
                             {
-                                l2.NoMoveTime = 8;
+                                l2.NoMoveTime = 7;
                             }
                         }
                     }
@@ -504,6 +514,8 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                         if (leg.OnTile)
                             s++;
                     }
+                    if (CEUtils.CheckSolidTile((Player.Center + new Vector2(0, 100)).getRectCentered(32, 32)))
+                        s = 4;
                     y /= legs.Count;
                     if (s < 3)
                     {
@@ -537,6 +549,12 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     }
                     if (s > 2)
                     {
+                        if (Math.Abs(Player.velocity.X) > 9)
+                            Player.velocity.X *= 0.95f;
+                        if(LandTime == 2 && Player.velocity.Y > 5)
+                        {
+                            CEUtils.PlaySound("mechStepHeavy", Main.rand.NextFloat(1, 1.4f), Player.Center + new Vector2(0, 60), 6, Utils.Remap(Player.velocity.Y, 0, 10, 0, 1));
+                        }
                         LandTime++;
                         if(LandTime > 6)
                         {
@@ -713,6 +731,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         public int ShootDelay = 0;
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
         {
+            DeactiveMech();
             if (ExplosionFlag && DeathExplosion > 0)
                 return false;
             if (ArmorSetBonus && !ExplosionFlag && DeathExplosionCD <= 0)
@@ -723,6 +742,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
+            DeactiveMech();
             if (ArmorSetBonus)
             {
                 if (DeathExplosionCD <= 0 && !ExplosionFlag)
@@ -799,6 +819,10 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         }
         public override void PostUpdateEquips()
         {
+            if(Player.moveSpeed > 1)
+            {
+                Player.moveSpeed = 1 + (Player.moveSpeed - 1) * 0.2f;
+            }
             if (!ExplosionFlag || DeathExplosion == 0)
                 DeathExplosion = -1;
             DeathExplosionCD--;

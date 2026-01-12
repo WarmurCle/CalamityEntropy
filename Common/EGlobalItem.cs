@@ -1747,11 +1747,11 @@ namespace CalamityEntropy.Common
             }
             if (item.type == ItemID.EaterOfWorldsBossBag)
             {
-                itemLoot.Add(ModContent.ItemType<CreeperWand>(), 2);
+                itemLoot.Add(ModContent.ItemType<CursedTorch>(), 2);
             }
             if (item.type == ItemID.BrainOfCthulhuBossBag)
             {
-                itemLoot.Add(ModContent.ItemType<CursedTorch>(), 2);
+                itemLoot.Add(ModContent.ItemType<CreeperWand>(), 2);
             }
             if (item.type == ItemID.EyeOfCthulhuBossBag)
             {
