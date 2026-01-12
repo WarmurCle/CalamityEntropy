@@ -276,7 +276,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 }
                 else
                 {
-                    if (Projectile.ai[2] > 17)
+                    if (Projectile.ai[2] > 19)
                         back = true;
                     if (back)
                     {
