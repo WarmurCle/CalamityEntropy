@@ -97,8 +97,8 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             NPC.height = 96;
             NPC.damage = 68;
             NPC.Calamity().DR = 0.1f;
-            NPC.defense = 10;
-            NPC.lifeMax = 22000;
+            NPC.defense = 18;
+            NPC.lifeMax = 28000;
             if (BossRushEvent.BossRushActive)
             {
                 NPC.lifeMax += 250000;
