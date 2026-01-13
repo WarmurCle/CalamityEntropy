@@ -1216,7 +1216,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         if (Main.masterMode)
                         {
                             num += 2;
-			    counts +=1;
+			                counts +=1;
                             speed *= 1.40f;
                         }
                         if (ai == AIStyle.AroundPlayerAndShootVoidStar)
