@@ -96,7 +96,6 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
             Player player = Projectile.owner.ToPlayer();
-            Projectile.rotation = Projectile.velocity.ToRotation();
             updateBodies();
             if (bite)
             {
@@ -135,25 +134,29 @@ namespace CalamityEntropy.Content.Projectiles
             if (n != null)
             {
                 targetPos = n.Center;
-                if (CEUtils.getDistance(targetPos, Projectile.Center) > 60)
+                if (CEUtils.getDistance(targetPos, Projectile.Center) > 120)
                 {
+                    if(rt < 40)
+                    {
+                        rt += Main.rand.NextFloat(1, 4);
+                    }
                     Projectile.velocity *= 0.9f;
                     Projectile.rotation = Projectile.velocity.ToRotation();
-                    Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (targetPos - Projectile.Center).ToRotation(), 36f.ToRadians());
+                    Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (targetPos - Projectile.Center).ToRotation(), rt.ToRadians());
 
                     Projectile.velocity = new Vector2(Projectile.velocity.Length() + 10, 0).RotatedBy(Projectile.rotation);
                 }
                 else
                 {
-                    Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 20f;
-                    Projectile.velocity *= 0.8f;
+                    rt = Main.rand.NextFloat(0, 10);
+                    Projectile.velocity *= 1.01f;
                 }
             }
             else
             {
                 if (CEUtils.getDistance(Projectile.Center, targetPos) > 1000)
                 {
-                    Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 40f;
+                    Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 16f;
                     Projectile.velocity *= 0.8f;
                 }
                 else
@@ -164,6 +167,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
         }
+        public float rt = 0;
         public int noChase = 0;
         public override void SendExtraAI(BinaryWriter writer)
         {
