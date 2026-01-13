@@ -17,6 +17,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             CEUtils.FriendlySetDefaults(Projectile, DamageClass.Generic, true, 3);
             Projectile.width = Projectile.height = 12;
             Projectile.timeLeft = 300;
+            Projectile.localNPCHitCooldown = -1;
         }
         public override void AI()
         {
@@ -25,6 +26,12 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             {
                 EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center + Projectile.velocity * (i / 8f), CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
             }
+            bool f(int n)
+            {
+                return Projectile.localNPCImmunity[n] == 0;
+            }
+            if (Projectile.localAI[1]++ > 5)
+                Projectile.HomingToNPCNearby(12, 0.75f, 360, f);
         }
         public override bool PreDraw(ref Color lightColor)
         {

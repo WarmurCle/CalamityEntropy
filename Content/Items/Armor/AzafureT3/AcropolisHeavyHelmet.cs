@@ -626,14 +626,18 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                                     {
                                         Bullet--;
                                         if (Bullet < 1)
-                                            Reload = (int)(34f / Player.GetTotalAttackSpeed(Player.GetBestClass()));
+                                            Reload = (int)(30f / Player.GetTotalAttackSpeed(Player.GetBestClass()));
                                         for (int i = 0; i < 12; i++)
                                             GeneralParticleHandler.SpawnParticle(new LineParticle(cannon.TopPos, cannon.Seg2Rot.ToRotationVector2().RotatedByRandom(0.3f) * 46 * Main.rand.NextFloat(), false, 12, Main.rand.NextFloat(0.4f, 1), new Color(255, 100, 100)));
                                         MechSync();
                                         cannon.PointAPos(Player.Calamity().mouseWorld, 1);
                                         CEUtils.PlaySound("AcropolisShoot", Main.rand.NextFloat(0.8f, 1.2f), cannon.TopPos);
                                         ShootDelay = (int)(5f / Player.GetTotalAttackSpeed(Player.GetBestClass()));
-                                        int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(850))).ApplyAccArmorDamageBonus(Player);
+                                        int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(820))).ApplyAccArmorDamageBonus(Player);
+                                        if(!Main.dedServ)
+                                        {
+                                            Gore.NewGoreDirect(Player.GetSource_FromThis(), cannon.TopPos - cannon.Seg2Rot.ToRotationVector2() * 46, Player.velocity + (cannon.Seg2Rot + Player.direction * -2.4f).ToRotationVector2() * 12 + CEUtils.randomPointInCircle(3), Mod.Find<ModGore>("AcropolisShell").Type).timeLeft = 0;
+                                        }
                                         Projectile.NewProjectile(Player.GetSource_FromThis(), cannon.TopPos, cannon.Seg2Rot.ToRotationVector2().RotatedByRandom(0.08f) * 43, ModContent.ProjectileType<AcropolisBullet>(), damage, 10, Player.whoAmI);
                                     }
                                 }
@@ -684,7 +688,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     }
                     if (Reload > 0)
                     {
-                        CannonFrame = 3 + (int)((1 - (Reload / 40f)) * 5);
+                        CannonFrame = 3 + (int)((1 - (Reload / 30f)) * 5);
                     }
                 }
                 else
