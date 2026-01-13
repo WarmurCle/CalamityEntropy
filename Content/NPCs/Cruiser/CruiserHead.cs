@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Biomes;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
@@ -135,11 +135,11 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override void SetDefaults()
         {
             NPC.Calamity().canBreakPlayerDefense = true;
-            NPC.Calamity().DR = 0.25f;
+            NPC.Calamity().DR = 0.40f;
             NPC.boss = true;
             NPC.width = 100;
             NPC.height = 100;
-            NPC.damage = 200;
+            NPC.damage = 225;
             if (Main.expertMode)
             {
                 NPC.damage += 10;
@@ -148,11 +148,11 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             {
                 NPC.damage += 4;
             }
-            NPC.defense = 80;
-            NPC.lifeMax = 1200000;
+            NPC.defense = 90;
+            NPC.lifeMax = 1500000;
             if (CalamityWorld.death)
             {
-                NPC.damage += 20;
+                NPC.damage += 25;
                 length += 4;
             }
             else if (CalamityWorld.revenge)
@@ -178,7 +178,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             {
                 NPC.scale = 1.5f;
                 length += 46;
-                NPC.lifeMax += 600000;
+                NPC.lifeMax += 750000;
                 NPC.defense += 40;
             }
             if (Main.zenithWorld)
@@ -200,7 +200,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
-            target.AddBuff(Main.zenithWorld ? ModContent.BuffType<MaliciousCode>() : ModContent.BuffType<VoidTouch>(), 120);
+            target.AddBuff(Main.zenithWorld ? ModContent.BuffType<MaliciousCode>() : ModContent.BuffType<VoidTouch>(), 150);
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
@@ -378,8 +378,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             }
             else
             {
-                NPC.defense = 40;
-                NPC.Calamity().DR = 0.125f;
+                NPC.defense = 50;
+                NPC.Calamity().DR = 0.25f;
                 aiRound++;
                 if (aiRound >= 9)
                 {
@@ -1198,31 +1198,32 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         float speed = 14;
                         if (CalamityWorld.revenge)
                         {
-                            num = 10;
-                            counts = 3;
+                            num = 11;
+                            counts = 4;
                             speed = 18;
                         }
                         if (CalamityWorld.death)
                         {
-                            num = 10;
-                            counts = 4;
-                            speed = 20;
+                            num = 11;
+                            counts = 5;
+                            speed = 22;
                         }
                         if (Main.expertMode)
                         {
-                            num += 1;
-                            speed *= 1.08f;
+                            num += 2;
+                            speed *= 1.25f;
                         }
                         if (Main.masterMode)
                         {
-                            num += 1;
-                            speed *= 1.13f;
+                            num += 2;
+			                counts +=1;
+                            speed *= 1.40f;
                         }
                         if (ai == AIStyle.AroundPlayerAndShootVoidStar)
                         {
-                            counts -= 1;
+                            counts -= 2;
                             num /= 2;
-                            speed *= 0.7f;
+                            speed *= 0.6f;
                         }
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -1500,8 +1501,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 sb.End();
                 sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             }
-
-
         }
     }
 }

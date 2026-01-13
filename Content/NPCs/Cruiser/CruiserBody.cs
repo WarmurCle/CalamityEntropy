@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
             NPC.width = 70;
             NPC.height = 70;
-            NPC.damage = 140;
+            NPC.damage = 180;
             NPC.dontCountMe = true;
             NPC.dontCountMe = true;
             NPC.lifeMax = 80000;
