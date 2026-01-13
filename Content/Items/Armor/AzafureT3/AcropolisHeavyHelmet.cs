@@ -612,7 +612,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                             {
                                 HarpoonDelay = 32;
                                 harpoon.PointAPos(Player.Calamity().mouseWorld, 1);
-                                int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(3200))).ApplyOldFashionedDmg();
+                                int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(3200))).ApplyAccArmorDamageBonus(Player);
                                 Projectile.NewProjectile(Player.GetSource_FromThis(), harpoon.TopPos, harpoon.Seg2Rot.ToRotationVector2() * 48, ModContent.ProjectileType<AcropolisHarpoon>(), damage, 12, Player.whoAmI);
                             }
                         }
@@ -633,7 +633,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                                         cannon.PointAPos(Player.Calamity().mouseWorld, 1);
                                         CEUtils.PlaySound("AcropolisShoot", Main.rand.NextFloat(0.8f, 1.2f), cannon.TopPos);
                                         ShootDelay = (int)(5f / Player.GetTotalAttackSpeed(Player.GetBestClass()));
-                                        int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(850))).ApplyOldFashionedDmg();
+                                        int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(850))).ApplyAccArmorDamageBonus(Player);
                                         Projectile.NewProjectile(Player.GetSource_FromThis(), cannon.TopPos, cannon.Seg2Rot.ToRotationVector2().RotatedByRandom(0.08f) * 43, ModContent.ProjectileType<AcropolisBullet>(), damage, 10, Player.whoAmI);
                                     }
                                 }
@@ -642,7 +642,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                                     if (SlashP == 0 && ShootDelay <= 0)
                                     {
                                         SlashP += 0.01f;
-                                        int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(2800))).ApplyOldFashionedDmg();
+                                        int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(2800))).ApplyAccArmorDamageBonus(Player);
                                         Projectile.NewProjectile(Player.GetSource_FromThis(), cannon.TopPos, cannon.Seg2Rot.ToRotationVector2() * 8, ModContent.ProjectileType<AcropolisSlash>(), damage, 10, Player.whoAmI);
 
                                         CEUtils.PlaySound("throw", Main.rand.NextFloat(1.2f, 1.5f), Player.Center, 10, 0.4f);
@@ -814,7 +814,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.Firebrick, 20f, 1, true, BlendState.Additive, 0, 16);
                     EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.White, 16f, 1, true, BlendState.Additive, 0, 16);
                     ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 100), 1200);
-                    var proj = CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ((int)(Player.GetBestClassDamage().ApplyTo(3500))).ApplyOldFashionedDmg(), 1200, DamageClass.Generic);
+                    var proj = CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ((int)(Player.GetBestClassDamage().ApplyTo(3500))).ApplyAccArmorDamageBonus(Player), 1200, DamageClass.Generic);
                     proj.ArmorPenetration = 60;
                     if (proj.ModProjectile is CommonExplotionFriendly cef)
                     {

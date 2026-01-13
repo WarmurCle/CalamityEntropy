@@ -859,7 +859,7 @@ namespace CalamityEntropy.Common
                                     if (canHit)
                                     {
                                         int ydf = n.defense;
-                                        Main.LocalPlayer.ApplyDamageToNPC(n, projectile.damage.ApplyOldFashionedDmg() / 26, 0, 0, false, DamageClass.Generic, false);
+                                        Main.LocalPlayer.ApplyDamageToNPC(n, projectile.damage.ApplyAccArmorDamageBonus(projectile.owner.ToPlayer()) / 26, 0, 0, false, DamageClass.Generic, false);
                                     }
                                 }
                                 projectile.Entropy().ghcounter++;
@@ -1341,7 +1341,7 @@ namespace CalamityEntropy.Common
                         if (Main.rand.NextBool(3))
                         {
                             MariExplode = false;
-                            Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<WaterExplosion>(), projectile.damage.ApplyOldFashionedDmg(), projectile.knockBack, projectile.owner);
+                            Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<WaterExplosion>(), projectile.damage.ApplyAccArmorDamageBonus(projectile.GetOwner()), projectile.knockBack, projectile.owner);
                         }
                     }
                 }
