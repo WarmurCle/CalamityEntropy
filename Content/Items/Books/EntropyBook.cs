@@ -661,7 +661,6 @@ namespace CalamityEntropy.Content.Items.Books
                 initColor = false;
                 color = baseColor;
             }
-            Main.NewText(Projectile.CritChance);
             return true;
         }
         public override void SetDefaults()
