@@ -497,6 +497,7 @@ namespace CalamityEntropy.Content.Items.Books
                 }
                 if (active && Opened)
                 {
+                    ManaNoRegen = 60;
                     if (shotCooldown <= 0 && CanShoot())
                     {
                         if (Projectile.GetOwner().CheckMana(bookItem.mana, true) && Shoot())
@@ -535,6 +536,7 @@ namespace CalamityEntropy.Content.Items.Books
 
                             }
                             shotCooldown = (int)((float)shotCooldown / m.attackSpeed);
+
                         }
                         else
                         {
@@ -543,6 +545,8 @@ namespace CalamityEntropy.Content.Items.Books
                     }
                 }
             }
+            if (ManaNoRegen-- > 0 && player.manaRegenDelay < 20)
+                player.manaRegenDelay = 20;
             if (active)
             {
                 for (int i = 0; i < Projectile.GetOwner().GetMyMaxActiveBookMarks(bookItem); i++)
@@ -563,9 +567,9 @@ namespace CalamityEntropy.Content.Items.Books
 
         public virtual void SetPosision()
         {
-            Projectile.Center = Projectile.GetOwner().GetDrawCenter() + (UIOpen ? UIHeldOffset : new Vector2(heldOffset.X, heldOffset.Y * (Projectile.velocity.X > 0 ? 1 : -1))).RotatedBy(Projectile.rotation);
+            Projectile.Center = Projectile.GetOwner().MountedCenter + (UIOpen ? UIHeldOffset : new Vector2(heldOffset.X, heldOffset.Y * (Projectile.velocity.X > 0 ? 1 : -1))).RotatedBy(Projectile.rotation);
         }
-
+        public int ManaNoRegen = 0;
         public virtual bool Opened => openAnim >= 2;
         public virtual void UpdateAnimations()
         {
