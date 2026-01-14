@@ -313,7 +313,7 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile proj = Projectile.NewProjectile(Projectile.GetOwner().GetSource_ItemUse(bookItem), pos, shootVel, type, dmg, kb, Projectile.owner).ToProj();
                 if (proj.penetrate >= 0)
                     proj.penetrate += modifer.PenetrateAddition;
-                proj.CritChance = bookItem.crit + (int)modifer.Crit;
+                proj.CritChance = (int)modifer.Crit;
                 proj.scale *= modifer.Size * scaleMul;
                 proj.ArmorPenetration += (int)(Projectile.GetOwner().GetTotalArmorPenetration(Projectile.DamageType) + modifer.armorPenetration + bookItem.ArmorPenetration);
 
@@ -660,8 +660,8 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile.rotation = Projectile.velocity.ToRotation();
                 initColor = false;
                 color = baseColor;
-                Projectile.CritChance /= 2;
             }
+            Main.NewText(Projectile.CritChance);
             return true;
         }
         public override void SetDefaults()
