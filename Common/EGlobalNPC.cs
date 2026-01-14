@@ -70,7 +70,10 @@ namespace CalamityEntropy.Common
         public float damageMul = 1;
         public int AnimaTrapped = 0;
         public int[] tfriendlyNPCHitCooldown = new int[201];
-
+        public override bool AppliesToEntity(NPC entity, bool lateInstantiation)
+        {
+            return true;
+        }
         public override bool InstancePerEntity => true;
         public int dscd = 0;
         public bool daTarget = false;

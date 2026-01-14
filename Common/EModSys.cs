@@ -773,6 +773,10 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdateNPCs()
         {
+            if (ModLoader.HasMod("Fargowiltas"))
+                foreach(NPC npc in Main.ActiveNPCs)
+                    if(npc.type == 0)
+                        npc.active = false;
             if (CalamityEntropy.Instance.screenShakeAmp > 0)
             {
                 CalamityEntropy.Instance.screenShakeAmp -= 0.5f;
