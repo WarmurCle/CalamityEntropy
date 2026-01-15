@@ -173,7 +173,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 CalamityEntropy.FlashEffectStrength = 0.6f;
                 player.AddCooldown(FetalDreamCooldown.ID, 4320);
                 CEUtils.PlaySound("ThunderStrike", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 6, 0.6f);
-                int dmg = (int)(target.lifeMax * 0.025);
+                int dmg = (int)(target.lifeMax * 0.0514);
                 var info = target.CalculateHitInfo(dmg, Projectile.velocity.X > 0 ? 1 : -1, false, 6, DamageClass.Default);
                 info.Damage = dmg;
                 target.StrikeNPC(info);
