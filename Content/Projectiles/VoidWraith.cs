@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (Projectile.ai[1] <= 0)
                 {
                     Projectile.ai[1] = 20;
-                    int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).SafeNormalize(Vector2.One) * 18, ModContent.ProjectileType<VoidBullet>(), Projectile.damage, 4, Projectile.owner);
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).SafeNormalize(Vector2.One) * 18, ModContent.ProjectileType<VoidBullet>(), Projectile.damage.ApplyAccArmorDamageBonus(Projectile.GetOwner()), 4, Projectile.owner);
                     if (!Projectile.owner.ToPlayer().HeldItem.IsAir)
                     {
                         p.ToProj().DamageType = Projectile.owner.ToPlayer().HeldItem.DamageType;

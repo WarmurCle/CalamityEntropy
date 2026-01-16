@@ -30,11 +30,6 @@ namespace CalamityEntropy.Content.Items.Tools
             Item.useTurn = false;
             Item.tileBoost = -1;
         }
-        public override void UpdateInventory(Player player)
-        {
-            Item.pick = player.AzafureEnhance() ? 90 : 70;
-            Item.tileBoost = player.AzafureEnhance() ? 2 : -1;
-        }
         public override void AddRecipes()
         {
             CreateRecipe().
@@ -45,8 +40,12 @@ namespace CalamityEntropy.Content.Items.Tools
                 Register();
         }
 
-        public override void HoldItem(Player player) => player.Calamity().mouseWorldListener = true;
-
+        public override void HoldItem(Player player)
+        {
+            Item.pick = player.AzafureEnhance() ? 100 : 70;
+            Item.tileBoost = player.AzafureEnhance() ? 3 : -1;
+            player.Calamity().mouseWorldListener = true;
+        }
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
             player.ChangeDir(Math.Sign((player.Calamity().mouseWorld - player.Center).X));

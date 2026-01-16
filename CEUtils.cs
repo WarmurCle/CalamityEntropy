@@ -49,9 +49,13 @@ namespace CalamityEntropy
             projectile.velocity += (target.Center - projectile.Center).normalize() * vel;
             return true;
         }
-        public static int ApplyOldFashionedDmg(this int origDmg)
+        public static int ApplyAccArmorDamageBonus(this int origDmg, Player player = null)
         {
-            return (int)(origDmg * (Main.LocalPlayer.HasBuff<OldFashionedBuff>() ? OldFashioned.AccessoryAndSetBonusDamageMultiplier : 1));
+            if(player == null)
+            {
+                player = Main.LocalPlayer;
+            }
+            return CalamityUtils.ApplyArmorAccDamageBonusesTo(player, origDmg);//(int)(origDmg * (Main.LocalPlayer.HasBuff<OldFashionedBuff>() ? OldFashioned.AccessoryAndSetBonusDamageMultiplier : 1));
         }
         public static int GetPriceFromRecipe(this ModItem item, Recipe recipe)
         {

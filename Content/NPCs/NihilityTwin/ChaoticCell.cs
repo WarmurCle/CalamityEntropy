@@ -1,6 +1,7 @@
-﻿using CalamityEntropy.Content.Biomes;
+using CalamityEntropy.Content.Biomes;
 using CalamityEntropy.Content.Buffs;
 using CalamityMod;
+using CalamityMod.Events;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -49,7 +50,8 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             NPC.boss = true;
             NPC.width = 110;
             NPC.height = 110;
-            NPC.damage = 105;
+            NPC.damage = 110;
+	        NPC.Calamity().DR = 0.20f;
             if (Main.expertMode)
             {
                 NPC.damage += 2;
@@ -58,11 +60,15 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             {
                 NPC.damage += 2;
             }
-            NPC.defense = 30;
-            NPC.lifeMax = 270000;
+            NPC.defense = 40;
+            NPC.lifeMax = 360000;
+	    if (BossRushEvent.BossRushActive)
+            {
+                NPC.lifeMax += 360000;
+            }
             if (CalamityWorld.death)
             {
-                NPC.damage += 5;
+                NPC.damage += 12;
             }
             else if (CalamityWorld.revenge)
             {
