@@ -1076,7 +1076,7 @@ namespace CalamityEntropy.Common
 
                 needExitShader = true;
             }
-            if (CalamityEntropy.EntropyMode)
+            /*if (CalamityEntropy.EntropyMode)
             {
                 if (npc.type == NPCID.AncientLight || npc.type == NPCID.AncientDoom || EModILEdit.LostNPCsEntropy.Contains(npc.type))
                 {
@@ -1087,7 +1087,7 @@ namespace CalamityEntropy.Common
                     trans.Parameters["color"].SetValue(new Vector4(0, 0, 0, 1));
                     trans.CurrentTechnique.Passes[0].Apply();
                 }
-            }
+            }*/
             return true;
         }
         public float hdStrength = 0;
