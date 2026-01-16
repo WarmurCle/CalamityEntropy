@@ -19,9 +19,9 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
         public override void SetDefaults()
         {
-            NPC.width = 40;
-            NPC.height = 40;
-            NPC.damage = 34;
+            NPC.width = 30;
+            NPC.height = 30;
+            NPC.damage = 30;
             NPC.dontTakeDamage = true;
             NPC.lifeMax = 1400;
             NPC.HitSound = SoundID.NPCHit4;

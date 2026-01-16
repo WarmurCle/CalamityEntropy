@@ -221,13 +221,18 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         {
             target.AddBuff(ModContent.BuffType<MechanicalTrauma>(), 180);
         }
+        public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
+        {
+            modifiers.SourceDamage /= 2f;
+        }
+        
         public override void SetDefaults()
         {
             NPC.width = 142;
             NPC.height = 132;
-            NPC.damage = 28;
-            NPC.defense = 12;
-            NPC.lifeMax = 3600;
+            NPC.damage = 25;
+            NPC.defense = 8;
+            NPC.lifeMax = 3000;
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = CEUtils.GetSound("chainsaw_break");
             NPC.value = 1600f;
@@ -290,7 +295,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
-            return NPC.boss;
+            return false;// NPC.boss;
         }
         public LoopSound chargeSnd = null;
         public int dcounter = 0;
@@ -561,19 +566,19 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             float enrange = 1 + (1 - (float)NPC.life / NPC.lifeMax);
             if (Main.expertMode)
             {
-                enrange += 0.1f;
+                enrange += 0.07f;
             }
             if (Main.masterMode)
             {
-                enrange += 0.1f;
+                enrange += 0.07f;
             }
             if (CalamityWorld.revenge)
             {
-                enrange += 0.15f;
+                enrange += 0.1f;
             }
             if (CalamityWorld.death)
             {
-                enrange += 0.15f;
+                enrange += 0.1f;
             }
             if (CalamityEntropy.EntropyMode)
             {
