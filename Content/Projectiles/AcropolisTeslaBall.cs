@@ -14,8 +14,8 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Ranged;
-            Projectile.width = 16;
-            Projectile.height = 16;
+            Projectile.width = 8;
+            Projectile.height = 8;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
             Projectile.light = 1f;

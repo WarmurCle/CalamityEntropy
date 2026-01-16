@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public int Back = 0;
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
-            return owner.boss;
+            return owner.boss && !OnLauncher;
         }
         public Vector2 sVel = Vector2.Zero;
         public bool Stuck = false;
