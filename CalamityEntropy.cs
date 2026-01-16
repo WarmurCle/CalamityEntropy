@@ -249,7 +249,7 @@ namespace CalamityEntropy
         }
 
         private void on_player_hurt(On_Player.orig_Hurt_HurtInfo_bool orig, Player self, Player.HurtInfo info, bool quiet)
-        {+
+        {
             if (EntropyMode)
                 info.Damage = (int)(info.Damage * 1.25f);
             float num = ModContent.GetInstance<ServerConfig>().LeastDamageSufferedBasedOnMaxHealth;
