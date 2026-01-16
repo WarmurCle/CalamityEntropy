@@ -1421,12 +1421,12 @@ namespace CalamityEntropy.Common
 
             if (CalamityEntropy.EntropyMode)
             {
-                Player.maxRunSpeed *= 0.98f;
-                Player.accRunSpeed *= 0.98f;
+                Player.maxRunSpeed *= 0.96f;
+                Player.accRunSpeed *= 0.96f;
                 if (HitTCounter > 0)
                 {
-                    Player.maxRunSpeed *= 0.96f;
-                    Player.accRunSpeed *= 0.96f;
+                    Player.maxRunSpeed *= 0.86f;
+                    Player.accRunSpeed *= 0.86f;
                 }
             }
         }
@@ -1616,9 +1616,10 @@ namespace CalamityEntropy.Common
             if (CalamityEntropy.EntropyMode)
             {
                 Player.statLifeMax2 = (int)(Player.statLifeMax2 * 0.8f);
-                Player.statDefense *= 0.7f;
-                Player.lifeRegen /= 2;
-                lifeRegenPerSec /= 2;
+                Player.statDefense *= 0.5f;
+                Player.endurance *= 0.5f;
+                Player.lifeRegen /= 3;
+                lifeRegenPerSec /= 3;
                 if (HitTCounter > 0)
                 {
                     Player.lifeRegen = 0;
@@ -1630,12 +1631,8 @@ namespace CalamityEntropy.Common
                     DamageClass dc = dmgClasses[i];
                     if (Player.GetDamage(dc).Additive > 1)
                     {
-                        float tv = (float)Math.Pow(Player.GetDamage(dc).Additive, 0.9f);
+                        float tv = (float)Math.Pow(Player.GetDamage(dc).Additive, 0.85f);
                         Player.GetDamage(dc) -= (Player.GetDamage(dc).Additive - tv);
-                    }
-                    if (Player.GetCritChance(dc) > 75)
-                    {
-                        Player.GetCritChance(dc) = 75;
                     }
                 }
             }
@@ -1757,7 +1754,7 @@ namespace CalamityEntropy.Common
             {
                 CEUtils.PlaySound("llHurt", 1, Player.Center);
             }
-            HitTCounter = 300;
+            HitTCounter = 600;
             hitTimeCount = 0;
             JustHit = true;
             if (LoreReworkSystem.Enabled<LorePerforators>())
@@ -2155,6 +2152,23 @@ namespace CalamityEntropy.Common
         public int FallSpeedUP = 0;
         public override void PostUpdate()
         {
+            if(CalamityEntropy.EntropyMode)
+            {
+                List<DamageClass> dmgClasses = new List<DamageClass>() { ModContent.GetInstance<AverageDamageClass>(), ModContent.GetInstance<DefaultDamageClass>(), ModContent.GetInstance<GenericDamageClass>(), ModContent.GetInstance<MagicDamageClass>(), ModContent.GetInstance<MagicSummonHybridDamageClass>(), ModContent.GetInstance<MeleeDamageClass>(), ModContent.GetInstance<MeleeNoSpeedDamageClass>(), ModContent.GetInstance<MeleeRangedHybridDamageClass>(), ModContent.GetInstance<NoneTypeDamageClass>(), ModContent.GetInstance<RangedDamageClass>(), ModContent.GetInstance<RogueDamageClass>(), ModContent.GetInstance<StealthDamageClass>(), ModContent.GetInstance<SummonDamageClass>(), ModContent.GetInstance<SummonMeleeSpeedDamageClass>(), ModContent.GetInstance<ThrowingDamageClass>(), ModContent.GetInstance<TrueMeleeDamageClass>(), ModContent.GetInstance<TrueMeleeNoSpeedDamageClass>() };
+                for (int i = 0; i < dmgClasses.Count; i++)
+                {
+                    DamageClass dc = dmgClasses[i];
+                    if (Player.GetDamage(dc).Additive > 1)
+                    {
+                        float tv = (float)Math.Pow(Player.GetDamage(dc).Additive - 1, 0.85f);
+                        Player.GetDamage(dc) += 1 + tv - Player.GetDamage(dc).Additive;
+                    }
+                    if (Player.GetCritChance(dc) > 50)
+                    {
+                        Player.GetCritChance(dc) = 50;
+                    }
+                }
+            }
             if (exquisiteCrown)
             {
                 if (Player.whoAmI == Main.myPlayer)

@@ -89,7 +89,7 @@ namespace CalamityEntropy.Common
         public int StareOfAbyssTime = 0;
         public int EclipsedImprintTime = 0;
         public int friendFinderOwner = 0;
-        public int TDRCounter = 3 * 60 * 60;
+        public float TDRCounter = 3 * 60 * 60;
         public int HitCounter = 0;
         public static float DamageReduceMult(NPC npc)
         {
@@ -273,7 +273,9 @@ namespace CalamityEntropy.Common
             }
             if (TDRCounter > 0)
             {
-                TDRCounter--;
+                TDRCounter-=0.75f;
+                if (TDRCounter < 0)
+                    TDRCounter = 0;
             }
             noelctime--;
             if (deusBloodOut > 0 && !npc.dontTakeDamage)

@@ -251,8 +251,8 @@ namespace CalamityEntropy
         private void on_player_hurt(On_Player.orig_Hurt_HurtInfo_bool orig, Player self, Player.HurtInfo info, bool quiet)
         {
             float num = ModContent.GetInstance<ServerConfig>().LeastDamageSufferedBasedOnMaxHealth;
-            if (EntropyMode && num < 16)
-                num = 16;
+            if (EntropyMode && num < 22)
+                num = 22;
             int leastDmg = (int)((num * 0.01f) * self.statLifeMax2);
             if (self.Entropy().oracleDeck)
             {
