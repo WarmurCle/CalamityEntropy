@@ -211,7 +211,7 @@ namespace CalamityEntropy
             On_Projectile.GetWhipSettings += get_whip_settings_hook;
             On_Player.PickAmmo_Item_refInt32_refSingle_refBoolean_refInt32_refSingle_refInt32_bool += pickammoHook;
             On_LegacyPlayerRenderer.DrawPlayer += render_player;
-
+            On_Player.GetTotalCritChance += gettotalcrit;
             //On_Player.ApplyDamageToNPC += applydamagetonpc;
             On_Main.DrawCursor += draw_cursor_hook;
             On_Main.DrawThickCursor += draw_thick_cursor_hook;
@@ -239,6 +239,14 @@ namespace CalamityEntropy
                 PlayerDashManager.TryAddDash(dashEffect);
             }
 
+        }
+
+        private float gettotalcrit(On_Player.orig_GetTotalCritChance orig, Player self, DamageClass damageClass)
+        {
+            float rt = orig(self, damageClass);
+            if (EntropyMode)
+                rt = float.Min(50, rt);
+            return rt;
         }
 
         private void update_npc_collision(On_Player.orig_Update_NPCCollision orig, Player self)
@@ -493,6 +501,7 @@ namespace CalamityEntropy
             On_Projectile.FillWhipControlPoints -= fill_whip_ctrl_points_hook;
             On_Projectile.GetWhipSettings -= get_whip_settings_hook;
             //On_Player.ApplyDamageToNPC -= applydamagetonpc;
+            On_Player.GetTotalCritChance -= gettotalcrit;
             On_Main.DrawCursor -= draw_cursor_hook;
             On_Main.DrawThickCursor -= draw_thick_cursor_hook;
             On_Player.UpdateItemDye -= update_item_dye;
