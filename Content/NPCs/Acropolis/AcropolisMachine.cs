@@ -293,9 +293,10 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 harpoon = new Hand(NPC, new Vector2(60, -18), 66, MathHelper.PiOver2, MathHelper.PiOver2);
             }
         }
+        
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
-            return false;// NPC.boss;
+            return NPC.boss;
         }
         public LoopSound chargeSnd = null;
         public int dcounter = 0;
