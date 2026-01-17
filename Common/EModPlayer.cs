@@ -2160,8 +2160,8 @@ namespace CalamityEntropy.Common
                     DamageClass dc = dmgClasses[i];
                     if (Player.GetDamage(dc).Additive > 1)
                     {
-                        float tv = (float)Math.Pow(Player.GetDamage(dc).Additive - 1, 0.85f);
-                        Player.GetDamage(dc) += 1 + tv - Player.GetDamage(dc).Additive;
+                        float tv = (float)Math.Pow(Player.GetDamage(dc).Additive, 0.85f);
+                        Player.GetDamage(dc) += tv - Player.GetDamage(dc).Additive;
                     }
                     if (Player.GetCritChance(dc) > 50)
                     {
