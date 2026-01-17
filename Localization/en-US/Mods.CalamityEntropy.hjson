@@ -1512,7 +1512,7 @@ Items: {
 		Tooltip:
 			'''
 			Launching boulders
-			+15% Damage
+			+20% Damage
 			+1 Penetrate 
 			'''
 		DisplayName: Bookmark - Terra
