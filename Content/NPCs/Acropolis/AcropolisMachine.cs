@@ -218,11 +218,11 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public bool SetBoss = true;
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
+            target.velocity = (target.Center - NPC.Center).SafeNormalize(Vector2.UnitX) * 8;
             target.AddBuff(ModContent.BuffType<MechanicalTrauma>(), 180);
         }
         public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
         {
-            target.velocity = (target.Center - NPC.Center).SafeNormalize(Vector2.UnitX) * 7;
         }
         
         public override void SetDefaults()
