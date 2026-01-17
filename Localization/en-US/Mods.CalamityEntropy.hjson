@@ -3658,7 +3658,7 @@ MariviniumSet:
 	When using a whip, enhance summoner attributes
 	Stealth strike has a probability of causing an water explosion
 	Obtain 2 layers of shields, which will take 20 seconds to recover after being shattered
-	After shield shattered, treat 140 health points and double your damage for 5 seconds
+	After shield shattered, treat 140 health points and +100% damage for 5 seconds
 	'''
 DeathMode: Death Mode
 CdMantle: Holy Mantle Cooldown
