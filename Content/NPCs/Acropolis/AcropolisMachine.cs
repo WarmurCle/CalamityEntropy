@@ -200,7 +200,6 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             NPC.dontTakeDamage = true;
             NPC.active = true;
             NPC.netUpdate = true;
-            NPC.dontTakeDamage = true;
             NPC.damage = 0;
             NPC.boss = true;
             NPC.life = 1;
@@ -223,14 +222,13 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
         {
-            modifiers.SourceDamage /= 2f;
         }
         
         public override void SetDefaults()
         {
             NPC.width = 142;
             NPC.height = 132;
-            NPC.damage = 25;
+            NPC.damage = 28;
             NPC.defense = 8;
             NPC.lifeMax = 3000;
             NPC.HitSound = SoundID.NPCHit4;
