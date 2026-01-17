@@ -336,7 +336,10 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 NPC.netUpdate = true;
                 if (NPC.netSpam >= 10)
                     NPC.netSpam = 9;
-                int d = CalamityWorld.death ? 2 : 1;
+                int d = 1;
+                if (CalamityWorld.death)
+                    if (Main.GameUpdateCount % 2 == 0)
+                        d++;
                 if (Main.zenithWorld)
                     d = 1;
                 DeathCounter -= d;
