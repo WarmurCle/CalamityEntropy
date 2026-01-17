@@ -133,7 +133,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public bool shake = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff<MechanicalTrauma>(260);
+            target.AddBuff<MechanicalTrauma>(160);
             Player Owner = Projectile.GetOwner();
             if (target.Organic())
                 SoundEngine.PlaySound(Murasama.OrganicHit with { Pitch = -Main.rand.NextFloat(0.2f, 0.36f), Volume = 0.26f }, Projectile.Center);

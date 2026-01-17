@@ -222,6 +222,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
         {
+            target.velocity = (target.Center - NPC.Center).SafeNormalize(Vector2.UnitX) * 7;
         }
         
         public override void SetDefaults()

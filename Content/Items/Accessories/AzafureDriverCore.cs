@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public float charge = 0;
         public float maxCharge = 5f;
         public static int RechargeTime = 18 * 60;
-        public static int MaxShield = 140;
+        public static int MaxShield = 80;
         public override void SetDefaults()
         {
             Item.width = 60;
