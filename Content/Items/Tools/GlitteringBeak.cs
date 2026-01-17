@@ -38,6 +38,7 @@ namespace CalamityEntropy.Content.Items.Tools
             Item.rare = ModContent.RarityType<AbyssalBlue>();
             Item.crit = 18;
             Item.useTurn = true;
+            Item.autoReuse = true;
         }
 
         public override bool AltFunctionUse(Player player) => true;

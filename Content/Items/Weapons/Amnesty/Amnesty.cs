@@ -306,7 +306,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
-            Projectile.timeLeft = 120 * 6;
+            Projectile.timeLeft = 30 * 6;
             Projectile.penetrate = 1;
             Projectile.MaxUpdates = 6;
         }
@@ -321,7 +321,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
                 }
             }
             if (Projectile.localAI[1]++ > 10)
-                Projectile.HomingToNPCNearby(0.2f, 0.99f, 1200);
+                if(Projectile.HomingToNPCNearby(0.2f, 0.99f, 1200))
+                {
+                    if (Projectile.timeLeft < 15 * 6)
+                        Projectile.timeLeft = 15 * 6;
+                    Projectile.timeLeft++;
+                }
+            Projectile.Opacity = float.Min(1, Projectile.timeLeft / (15f * 6));
         }
 
         public override bool PreDraw(ref Color lightColor)
