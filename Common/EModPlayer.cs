@@ -1422,11 +1422,9 @@ namespace CalamityEntropy.Common
             if (CalamityEntropy.EntropyMode)
             {
                 Player.maxRunSpeed *= 0.96f;
-                Player.accRunSpeed *= 0.96f;
                 if (HitTCounter > 0)
                 {
                     Player.maxRunSpeed *= 0.86f;
-                    Player.accRunSpeed *= 0.86f;
                 }
             }
         }
