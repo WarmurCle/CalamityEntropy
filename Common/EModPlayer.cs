@@ -1410,15 +1410,35 @@ namespace CalamityEntropy.Common
             {
                 Player.maxRunSpeed *= MaliciousCode.CALAMITY__OVERHAUL ? 0.8f : 0.85f;
             }
+            if (maliciousCode)
+            {
+                //恶意代码debuff
+                //加了大修增加一些效果强度
+                //那很恶意了
+                Player.GetDamage(DamageClass.Generic) *= MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f;
+                Player.GetAttackSpeed(DamageClass.Generic) *= MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f;
+                Player.statLifeMax2 = (int)(Player.statLifeMax2 * (MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f));
+                Player.lifeRegen /= 2;
+                lifeRegenPerSec /= 2;
+                Player.statDefense *= MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f;
+                Player.maxRunSpeed *= (MaliciousCode.CALAMITY__OVERHAUL ? 0.85f : 0.88f);
+            }
 
-
-            Player.runAcceleration *= 1f + 0.02f * VoidCharge;
-            Player.maxRunSpeed *= 1f + 0.15f * VoidCharge;
-            Player.runAcceleration *= 1f + moveSpeed;
-            Player.maxRunSpeed *= 1f + moveSpeed;
-            Player.maxRunSpeed *= Scale;
-            Player.runAcceleration *= Scale;
-
+            if (VFSet)
+            {
+                Player.runAcceleration *= 1f + 0.02f * VoidCharge;
+                Player.maxRunSpeed *= 1f + 0.15f * VoidCharge;
+            }
+            if (moveSpeed != 0)
+            {
+                Player.runAcceleration *= 1f + moveSpeed;
+                Player.maxRunSpeed *= 1f + moveSpeed;
+            }
+            if (Scale != 1)
+            {
+                Player.maxRunSpeed *= Scale;
+                Player.runAcceleration *= Scale;
+            }
             if (CalamityEntropy.EntropyMode)
             {
                 Player.maxRunSpeed *= 0.96f;
@@ -1527,19 +1547,7 @@ namespace CalamityEntropy.Common
                 }
 
             }
-            if (maliciousCode)
-            {
-                //恶意代码debuff
-                //加了大修增加一些效果强度
-                //那很恶意了
-                Player.GetDamage(DamageClass.Generic) *= MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f;
-                Player.GetAttackSpeed(DamageClass.Generic) *= MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f;
-                Player.statLifeMax2 = (int)(Player.statLifeMax2 * (MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f));
-                Player.lifeRegen /= 2;
-                lifeRegenPerSec /= 2;
-                Player.statDefense *= MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f;
-                Player.moveSpeed *= (MaliciousCode.CALAMITY__OVERHAUL ? 0.85f : 0.88f);
-            }
+            
 
             if (bloodBoiling > 0)
             {
