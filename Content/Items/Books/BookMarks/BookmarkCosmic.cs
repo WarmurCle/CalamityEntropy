@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                         spos = target.Center + CEUtils.randomRot().ToRotationVector2() * 460;
                         rot = (target.Center - spos).ToRotation();
                     }
-                    eb.ShootSingleProjectile(BookmarkCosmic.ProjType, spos, rot.ToRotationVector2(), 0.3f, 1, 1f);
+                    eb.ShootSingleProjectile(BookmarkCosmic.ProjType, spos, rot.ToRotationVector2(), 0.28f, 1, 1f);
                 }
             }
         }
@@ -88,14 +88,14 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (Projectile.timeLeft > 8)
             {
-                for (float i = 0; i < 1; i += 0.05f)
+                for (float i = 0; i < 1; i += 0.1f)
                 {
                     int d = Dust.NewDust(Projectile.position - Projectile.velocity * i, Projectile.width, Projectile.height, DustID.CorruptTorch);
                     if (d < 6000)
                     {
                         Dust dust = Main.dust[d];
-                        dust.scale = 0.46f;
-                        dust.velocity = Projectile.velocity * 0.03f;
+                        dust.scale = 0.4f;
+                        dust.velocity = Projectile.velocity * 0.4f * Main.rand.NextFloat();
                     }
                 }
             }
