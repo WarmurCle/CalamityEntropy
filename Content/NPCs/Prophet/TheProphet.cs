@@ -577,7 +577,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                             }
                             if (Main.netMode != NetmodeID.MultiplayerClient && AIChangeDelay % 2 == 0)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedByRandom((phase == 1 ? 0.1f : 0.16f)) * difficult * 1.4f, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 12 * difficult);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedByRandom((phase == 1 ? 0.1f : 0.16f)) * difficult * 1.8f, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 12 * difficult);
                             }
                         }
                         else
@@ -589,7 +589,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                                     CEUtils.PlaySound("crystalsound" + Main.rand.Next(1, 3), Main.rand.NextFloat(0.7f, 1.3f), NPC.Center);
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedByRandom((phase == 1 ? 0.16f : 0.4f)) * difficult * 1f, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 12 * difficult);
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedByRandom((phase == 1 ? 0.16f : 0.4f)) * difficult * 1.5f, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 12 * difficult);
                                     }
                                 }
                             }
