@@ -2478,7 +2478,7 @@ Items: {
 	ShadowMantle: {
 		Tooltip:
 			'''
-			Increase the speed of rogue stealth regen during movement
+			Increase stealth regen based on your movement speed
 			Press [K]([KEY]) to consume all rogue stealh, sprint towards the cursor position for a distance, and slash the enemies encountered
 			Damage depends on stealth consumed
 			'''
