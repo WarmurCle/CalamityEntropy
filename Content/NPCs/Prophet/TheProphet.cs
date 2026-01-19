@@ -357,7 +357,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 }
                 if (AIStyle == 4)
                 {
-                    AIChangeDelay = 100;
+                    AIChangeDelay = 150;
                 }
                 if (AIStyle == 5)
                 {
@@ -562,14 +562,14 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 if (AIStyle == 4)//速射符文洪流
                 {
                     NPC.rotation = (target.Center - NPC.Center).ToRotation();
-                    if (AIChangeDelay == 86)
+                    if (AIChangeDelay == 149)
                     {
                         TeleportTo(target.Center + target.velocity.SafeNormalize(CEUtils.randomRot().ToRotationVector2()) * 900 / difficult);
                         NPC.velocity = (target.Center - NPC.Center).normalize() * 1;
                     }
-                    if (AIChangeDelay > 10)
+                    if (AIChangeDelay > 80)
                     {
-                        if (AIChangeDelay < 60)
+                        if (AIChangeDelay <100)
                         {
                             if (AIChangeDelay % 4 == 0)
                             {
@@ -582,7 +582,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         }
                         else
                         {
-                            if (AIChangeDelay < 70)
+                            if (AIChangeDelay < 120)
                             {
                                 if (AIChangeDelay % 6 == 0)
                                 {
@@ -753,6 +753,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                             {
                                 if (plr.Distance(NPC.Center + new Vector2(0, -80)) > 560)
                                 {
+                                    plr.Entropy().immune = 20;
                                     plr.wingTime = plr.wingTimeMax;
                                     plr.velocity = (NPC.Center + new Vector2(0, -80) - plr.Center).normalize() * 10;
                                     plr.Center += (NPC.Center + new Vector2(0, -80) - plr.Center).normalize() * 36;
