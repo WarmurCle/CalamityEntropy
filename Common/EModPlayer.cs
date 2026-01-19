@@ -3578,7 +3578,7 @@ namespace CalamityEntropy.Common
             }
             if (hasAcc(ShadowMantle.ID))
             {
-                RogueStealthRegen += 0.02f * Player.velocity.Length();
+                RogueStealthRegen += float.Min(0.016f * Player.velocity.Length(), 0.2f);
             }
             if (soulDisorder)
             {
