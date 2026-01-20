@@ -3690,6 +3690,10 @@ namespace CalamityEntropy.Common
             {
                 Player.maxMinions += (int)((Player.GetDamage(DamageClass.Summon).Additive - 1.0f) * ShadowRune.SummonDmgToMinionSlot);
             }
+            if(worshipRelic)
+            {
+                Player.Calamity().rogueStealthMax *= 0.5f;
+            }
         }
         public override void ModifyScreenPosition()
         {
