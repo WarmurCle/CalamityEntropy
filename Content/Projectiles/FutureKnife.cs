@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
-            Projectile.timeLeft = 260;
+            Projectile.timeLeft = 80;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 0;
 
@@ -52,9 +52,11 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     Projectile.velocity += (target.Center - Projectile.Center).normalize() * 4f;
                     Projectile.velocity *= 0.92f;
+                    if (Projectile.timeLeft < 30)
+                        Projectile.timeLeft++;
                 }
             }
-            if (Projectile.timeLeft <= 256)
+            if (Projectile.timeLeft <= 78 && !Main.dedServ && CEUtils.getDistance(Projectile.Center, Main.LocalPlayer.Center) < 1600))
             {
                 EParticle.NewParticle(new Particles.RuneParticle(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, 0.6f, 1, true, BlendState.AlphaBlend, 0);
             }
