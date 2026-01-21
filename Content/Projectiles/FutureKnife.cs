@@ -56,7 +56,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.timeLeft++;
                 }
             }
-            if (Projectile.timeLeft <= 78 && !Main.dedServ && CEUtils.getDistance(Projectile.Center, Main.LocalPlayer.Center) < 1600))
+            if (Projectile.timeLeft <= 78 && !Main.dedServ && CEUtils.getDistance(Projectile.Center, Main.LocalPlayer.Center) < 1600)
             {
                 EParticle.NewParticle(new Particles.RuneParticle(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, 0.6f, 1, true, BlendState.AlphaBlend, 0);
             }
