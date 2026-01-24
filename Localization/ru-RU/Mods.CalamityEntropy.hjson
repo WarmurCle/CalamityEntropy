@@ -3589,6 +3589,11 @@ Items: {
 			Consume 2 minion slot
 			''' */
 	}
+
+	PhantomBottle: {
+		// DisplayName: Phantom Bottle
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:
@@ -4210,6 +4215,7 @@ Projectiles: {
 	// CreeperMinion.DisplayName: Creeper Minion
 	// CursedTorchMinion.DisplayName: Cursed Torch Minion
 	// CursingFlame.DisplayName: Cursing Flame
+	// CruiserPhantomPet.DisplayName: Cruiser Phantom Pet
 }
 
 LegendTooltip: - Легенда -
@@ -4563,6 +4569,11 @@ Buffs: {
 	CursingFire: {
 		// DisplayName: Cursing Fire
 		// Description: The eternal fire is burning...
+	}
+
+	PhantomOfCruiser: {
+		// DisplayName: Phantom Of Cruiser
+		// Description: Mods.CalamityEntropy.Buffs.PhantomOfCruiser.Description
 	}
 }
 

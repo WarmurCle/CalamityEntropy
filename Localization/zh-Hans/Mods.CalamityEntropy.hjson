@@ -3844,6 +3844,11 @@ Items: {
 			消耗2召唤栏
 			'''
 	}
+
+	PhantomBottle: {
+		DisplayName: 幻空瓶
+		Tooltip: "召唤虚空猎食者的投影"
+	}
 }
 
 ChaoticSetBonus:
@@ -4466,6 +4471,7 @@ Projectiles: {
 	CreeperMinion.DisplayName: 飞眼
 	CursedTorchMinion.DisplayName: 诅咒火炬
 	CursingFlame.DisplayName: 诅咒烈焰
+	CruiserPhantomPet.DisplayName: 巡游者
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4819,6 +4825,11 @@ Buffs: {
 	CursingFire: {
 		DisplayName: 诅咒烈焰
 		Description: 永恒之火燃烧着...
+	}
+
+	PhantomOfCruiser: {
+		DisplayName: 巡游者幻影
+		Description: ""
 	}
 }
 
