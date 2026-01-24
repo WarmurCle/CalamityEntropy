@@ -4573,7 +4573,7 @@ Buffs: {
 
 	PhantomOfCruiser: {
 		// DisplayName: Phantom Of Cruiser
-		// Description: Mods.CalamityEntropy.Buffs.PhantomOfCruiser.Description
+		// Description: ""
 	}
 }
 

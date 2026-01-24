@@ -835,8 +835,10 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         }
         public override void PreUpdate()
         {
-            if(ArmorSetBonus)
+            if (ArmorSetBonus)
                 MechUpdate();
+            else
+                MechFrame = 0;
         }
         public override void PostUpdateEquips()
         {

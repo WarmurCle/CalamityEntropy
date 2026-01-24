@@ -3847,7 +3847,7 @@ Items: {
 
 	PhantomBottle: {
 		DisplayName: 幻空瓶
-		Tooltip: "召唤虚空猎食者的投影"
+		Tooltip: 召唤虚空猎食者的投影
 	}
 }
 
