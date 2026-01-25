@@ -791,6 +791,14 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 }
                 else
                     ExplosionFlag = false;
+                if(Main.myPlayer == Player.whoAmI)
+                {
+                    var mp = Mod.GetPacket();
+                    mp.Write((byte)CEMessageType.SyncPlayerDead);
+                    mp.Write(Player.whoAmI);
+                    mp.Write(Player.dead);
+                    mp.Send();
+                }
             }
         }
         public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
