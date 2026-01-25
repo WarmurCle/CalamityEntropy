@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.Cruiser;
@@ -1088,6 +1089,8 @@ namespace CalamityEntropy.Common
             int starlessNightType = ModContent.ProjectileType<StarlessNightProj>();
             foreach (Projectile proj in Main.ActiveProjectiles)
             {
+                if (proj.ModProjectile != null && proj.ModProjectile is CruiserPhantomPet crp)
+                    crp.draw();
                 if (proj.type != starlessNightType)
                 {
                     continue;

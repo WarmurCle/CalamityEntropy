@@ -248,6 +248,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             writer.WriteVector2(SpaceCenter);
             writer.Write(DeathAnm);
             writer.Write(DeathAnmCount);
+            writer.Write(NPC.dontTakeDamage);
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
@@ -268,6 +269,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             SpaceCenter = reader.ReadVector2();
             DeathAnm = reader.ReadBoolean();
             DeathAnmCount = reader.ReadInt32();
+            NPC.dontTakeDamage = reader.ReadBoolean();
         }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
