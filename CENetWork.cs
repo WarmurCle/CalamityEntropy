@@ -378,9 +378,11 @@ namespace CalamityEntropy
             {
                 int plr = reader.ReadInt32();
                 bool d = reader.ReadBoolean();
+                Vector2 pos = reader.ReadVector2();
                 if (Main.myPlayer != plr)
                 {
                     plr.ToPlayer().dead = d;
+                    plr.ToPlayer().position = pos;
                 }
                 if (Main.dedServ)
                 {
@@ -388,6 +390,7 @@ namespace CalamityEntropy
                     packet.Write((byte)CEMessageType.SyncPlayerDead);
                     packet.Write(plr);
                     packet.Write(d);
+                    packet.WriteVector2(pos);
                     packet.Send(-1, plr);
                 }
             }

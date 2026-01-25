@@ -797,6 +797,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     mp.Write((byte)CEMessageType.SyncPlayerDead);
                     mp.Write(Player.whoAmI);
                     mp.Write(Player.dead);
+                    mp.WriteVector2(Player.position);
                     mp.Send();
                 }
             }
