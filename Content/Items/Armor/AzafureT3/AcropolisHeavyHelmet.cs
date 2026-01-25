@@ -753,8 +753,15 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
         {
             DeactiveMech();
+            if (DeathExplosionCD <= 0 && !ExplosionFlag)
+            {
+                playSound = false;
+            }
             if (ExplosionFlag && DeathExplosion > 0)
+            {
+                playSound = false;
                 return false;
+            }
             if (ArmorSetBonus && !ExplosionFlag && DeathExplosionCD <= 0)
             {
                 damageSource = PlayerDeathReason.ByCustomReason("");
