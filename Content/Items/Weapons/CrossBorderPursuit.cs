@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useTime = 16;
             Item.useAnimation = 16;
             Item.useStyle = -1;
-            Item.damage = 1700;
+            Item.damage = 1300;
             Item.DamageType = CEUtils.RogueDC;
             Item.noMelee = true;
             Item.noUseGraphic = true;
@@ -167,7 +167,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (counter == 0) CEUtils.PlaySound("AntivoidDashHit", 1.2f, Projectile.Center);
             if (counter == MaxTime)
             {
-                int stealthRegenDelay = 200.ApplyCdDec(player);
+                int stealthRegenDelay = 240.ApplyCdDec(player);
                 player.Entropy().StealthRegenDelay = stealthRegenDelay;
                 CEUtils.PlaySound("CastTriangles", 0.8f, Projectile.Center);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<NetherRiftCrack>(), Projectile.damage * 2, 1, Projectile.owner).ToProj().DamageType = Projectile.DamageType;
