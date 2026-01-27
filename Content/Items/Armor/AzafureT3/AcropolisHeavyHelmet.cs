@@ -856,12 +856,18 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             else
                 MechFrame = 0;
         }
+        public override void PostUpdateRunSpeeds()
+        {
+            if (ArmorSetBonus && !MechTrans)
+            {
+                if (Player.moveSpeed > 1)
+                {
+                    Player.moveSpeed = 1 + (Player.moveSpeed - 1) * 0.2f;
+                }
+            }
+        }
         public override void PostUpdateEquips()
         {
-            if(Player.moveSpeed > 1)
-            {
-                Player.moveSpeed = 1 + (Player.moveSpeed - 1) * 0.2f;
-            }
             if (!ExplosionFlag || DeathExplosion == 0)
                 DeathExplosion = -1;
             DeathExplosionCD--;
