@@ -858,7 +858,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         }
         public override void PostUpdateRunSpeeds()
         {
-            if (ArmorSetBonus && !MechTrans)
+            if (ArmorSetBonus && MechTrans)
             {
                 if (Player.moveSpeed > 1)
                 {
