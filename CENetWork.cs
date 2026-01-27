@@ -34,6 +34,7 @@ namespace CalamityEntropy
         NihilityConnet,
         SyncBookmarks,
         AcropolisTrans,
+        SyncPlayerDead,
         SyncPlayer = 255
     }
 
@@ -370,6 +371,26 @@ namespace CalamityEntropy
                     packet.Write(slash);
                     packet.Write(dir);
                     packet.Write(mode);
+                    packet.Send(-1, plr);
+                }
+            }
+            else if (messageType == CEMessageType.SyncPlayerDead)
+            {
+                int plr = reader.ReadInt32();
+                bool d = reader.ReadBoolean();
+                Vector2 pos = reader.ReadVector2();
+                if (Main.myPlayer != plr)
+                {
+                    plr.ToPlayer().dead = d;
+                    plr.ToPlayer().position = pos;
+                }
+                if (Main.dedServ)
+                {
+                    ModPacket packet = Instance.GetPacket();
+                    packet.Write((byte)CEMessageType.SyncPlayerDead);
+                    packet.Write(plr);
+                    packet.Write(d);
+                    packet.WriteVector2(pos);
                     packet.Send(-1, plr);
                 }
             }

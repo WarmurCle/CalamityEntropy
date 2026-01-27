@@ -753,8 +753,15 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
         {
             DeactiveMech();
+            if (DeathExplosionCD <= 0 && !ExplosionFlag)
+            {
+                playSound = false;
+            }
             if (ExplosionFlag && DeathExplosion > 0)
+            {
+                playSound = false;
                 return false;
+            }
             if (ArmorSetBonus && !ExplosionFlag && DeathExplosionCD <= 0)
             {
                 damageSource = PlayerDeathReason.ByCustomReason("");
@@ -784,6 +791,15 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 }
                 else
                     ExplosionFlag = false;
+                if(Main.myPlayer == Player.whoAmI)
+                {
+                    var mp = Mod.GetPacket();
+                    mp.Write((byte)CEMessageType.SyncPlayerDead);
+                    mp.Write(Player.whoAmI);
+                    mp.Write(Player.dead);
+                    mp.WriteVector2(Player.position);
+                    mp.Send();
+                }
             }
         }
         public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
