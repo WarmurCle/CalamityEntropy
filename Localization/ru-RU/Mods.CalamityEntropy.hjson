@@ -5396,20 +5396,20 @@ Biomes: {
 /* TSA2B:
 	'''
 	After killing Brimstone Elemental, Press LMB when throwing to teleport to the mouse and launch a larger slash
-	This skill has a 15 second cooldown time.The cooling time will shrink to 10 after killing Cruiser
+	This skill has a 30 second cooldown time.The cooling time will shrink to 20 after killing Cruiser
 	''' */
 // TSU2: Need to kill any evil boss
 /* TSA3:
 	'''
 	When throw out, press RMB to let the scythe follow your curser.
-	Stealth strikes will heal you with 15
+	Stealth strikes will heal you with 7
 	''' */
 // TSU3: Need to kill Prophet
 /* TSA4:
 	'''
 	Teleport slash will empowerment your weapon with void.
-	This will last for 15 seconds.After killing Cruiser, it will gain to 30 sec.
-	The damage you cause will increase by 25% when empowering.
+	This will last for 8 seconds.After killing Cruiser, it will gain to 15 sec.
+	The damage you cause will increase by 20% when empowering.
 	''' */
 // TSU4: Need to kill Void Twins
 /* TSA5:
@@ -5425,7 +5425,7 @@ Biomes: {
 // TSU7: Need to kill Yharon
 // TSA8: Attack will cause void touch
 // TSU8: Need to kill Cruiser
-// TSA9: The closer the distance to the target, the higher the damage caused, with a maximum additional damage of 35%
+// TSA9: The closer the distance to the target, the higher the damage caused, with a maximum additional damage of 25%
 // PressShiftForMoreInfo: Press shift for more info...
 // TSU9: Need to kill Calamitas
 // AchievementBookmarkInsertName: Good reading habits
