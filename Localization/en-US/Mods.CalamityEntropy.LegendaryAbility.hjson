@@ -13,17 +13,17 @@ TlipocasScytheLegend: {
 		TScytheA2B:
 			'''
 			Press LMB when throwing to teleport to the mouse and launch a larger slash
-			This skill has a {0} second cooldown time.
+			This skill has a 30 second cooldown time.
 			'''
 		TScytheA3:
 			'''
 			When throw out, press RMB to let the scythe follow your curser.
-			Stealth strikes will heal you with 15
+			Stealth strikes will heal you with 7
 			'''
 		TScytheA4:
 			'''
-			Teleport slash will empowerment your weapon with void in {0} seconds.
-			{1} increased damage while empowering
+			Teleport slash will empowerment your weapon with void in 8 seconds.
+			20% increased damage while empowering
 			'''
 		TScytheA5:
 			'''
@@ -34,7 +34,7 @@ TlipocasScytheLegend: {
 		TScytheA6: Leave rift when slash dash. The rift will continuously causing harm
 		TScytheA7: Resist a fatal injury and restore your health to half of your maximum health.Need 5 min to cooling
 		TScytheA8: Attacks inflict void touch
-		TScytheA9: The closer the distance to the target, the higher the damage dealt, with a maximum additional damage of 35%
+		TScytheA9: The closer the distance to the target, the higher the damage dealt, with a maximum additional damage of 25%
 	}
 
 	Downed: {

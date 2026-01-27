@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 10; Item.height = 10;
             Item.useStyle = ItemUseStyleID.Shoot; Item.useTime = 25; Item.useAnimation = 25; Item.noMelee = true; Item.noUseGraphic = true; Item.UseSound = SoundID.Item1;
-            Item.damage = 4; Item.DamageType = DamageClass.MeleeNoSpeed; Item.knockBack = 2.5f; Item.crit = 8; Item.channel = true; Item.rare = ItemRarityID.Green;
+            Item.damage = 10; Item.DamageType = DamageClass.MeleeNoSpeed; Item.knockBack = 2.5f; Item.crit = 8; Item.channel = true; Item.rare = ItemRarityID.Green;
             Item.value = Item.buyPrice(silver: 28);
 
             Item.shoot = ModContent.ProjectileType<SlimeYoyoProjectile>(); Item.shootSpeed = 16f;
