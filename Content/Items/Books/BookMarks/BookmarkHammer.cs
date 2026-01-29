@@ -89,13 +89,13 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public float num = 0;
         public float num2 = 0;
         public TrailParticle trail = null;
-        public override float DamageMult => 0.6f;
-        
+        public override float DamageMult => 1.1f;
+
         public override void AI()
         {
             base.AI();
             var player = Projectile.GetOwner();
-            
+
             float tofs = target == null ? 180 : (target.width + target.height) / 2f + 180;
             if (Main.myPlayer != Projectile.owner || BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkHammerBMEffect>(player))
                 Projectile.timeLeft = 3;
@@ -283,12 +283,12 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(target.Center, Projectile.velocity * 0.01f, Color.Gold * (1.2f - i), new Vector2(0.2f, 1), Projectile.rotation, 0.1f, (i * 5 + 0.2f) * Projectile.scale, 42));
                 }
                 Projectile.velocity *= -0.2f;
-                if(Shake)
+                if (Shake)
                     ScreenShaker.AddShake(new ScreenShake(Projectile.rotation.ToRotationVector2() * -5, Projectile.scale * 3 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
             }
             else
             {
-                if(Shake)
+                if (Shake)
                     ScreenShaker.AddShake(new ScreenShake(Vector2.Zero, Projectile.scale * 6 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
                 GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(target.Center, Vector2.Zero, Color.Gold, new Vector2(0.2f, 1), Projectile.rotation + MathHelper.PiOver2 * num2, 0.1f, 1.4f * Projectile.scale, 42));
                 for (int i = 0; i < 32; i++)

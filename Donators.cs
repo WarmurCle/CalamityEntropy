@@ -11,7 +11,7 @@ namespace CalamityEntropy
             "Wuti-v-", "AtmospherePredator", "松饼", "a3a4", "Zenith", "球球疑惑", "余myku", "The Fool",
             "Votum_Stellarum", "Nienie", "Carter", "Reficul", "OVASA", "Shadow Warrior", "ScarletShelf",
             "黯月殇梦", "鹰身吹雪", "Rathyep", "新星之眼", "嘉登糖", "Carter", "繁星与你共游", "Kino", "血清素",
-            "D_Addict", "散尘化天心", "紊䒥", "Armonia", "薄良荷影", "九月"
+            "D_Addict", "散尘化天心", "紊䒥", "Armonia", "薄良荷影", "九月", "周珛"
         };
     }
 }

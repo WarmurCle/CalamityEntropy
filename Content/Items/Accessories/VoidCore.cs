@@ -1,12 +1,9 @@
-﻿using CalamityEntropy.Content.Items.Armor.Azafure;
-using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.CalPlayer.Dashes;
 using CalamityMod.Enums;
 using CalamityMod.Items;
-using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using CalamityMod.Rarities;
@@ -28,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public const int ShieldSlamIFrames = 18;
         public static int DashDelay = 18;
         public float charge = 0;
-        public static int MaxShield = 180;
+        public static int MaxShield = 120;
         public static int ShieldRecharge = 16 * 60;
         public static float CritDamage = 0.16f;
         public override void SetDefaults()
@@ -57,7 +54,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             tooltips.Replace("[S]", MaxShield.ToString());
             tooltips.Replace("[C]", CritDamage.ToPercent().ToString());
-            
+
         }
         public override void AddRecipes()
         {

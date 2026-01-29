@@ -200,7 +200,6 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             NPC.dontTakeDamage = true;
             NPC.active = true;
             NPC.netUpdate = true;
-            NPC.dontTakeDamage = true;
             NPC.damage = 0;
             NPC.boss = true;
             NPC.life = 1;
@@ -219,15 +218,20 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public bool SetBoss = true;
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
+            target.velocity = (target.Center - NPC.Center).SafeNormalize(Vector2.UnitX) * 8;
             target.AddBuff(ModContent.BuffType<MechanicalTrauma>(), 180);
         }
+        public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
+        {
+        }
+        
         public override void SetDefaults()
         {
             NPC.width = 142;
             NPC.height = 132;
-            NPC.damage = 18;
-            NPC.defense = 12;
-            NPC.lifeMax = 2400;
+            NPC.damage = 28;
+            NPC.defense = 8;
+            NPC.lifeMax = 3000;
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = CEUtils.GetSound("chainsaw_break");
             NPC.value = 1600f;
@@ -288,6 +292,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 harpoon = new Hand(NPC, new Vector2(60, -18), 66, MathHelper.PiOver2, MathHelper.PiOver2);
             }
         }
+        
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
             return NPC.boss;
@@ -331,7 +336,10 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 NPC.netUpdate = true;
                 if (NPC.netSpam >= 10)
                     NPC.netSpam = 9;
-                int d = CalamityWorld.death ? 2 : 1;
+                int d = 1;
+                if (CalamityWorld.death)
+                    if (Main.GameUpdateCount % 2 == 0)
+                        d++;
                 if (Main.zenithWorld)
                     d = 1;
                 DeathCounter -= d;
@@ -561,19 +569,19 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             float enrange = 1 + (1 - (float)NPC.life / NPC.lifeMax);
             if (Main.expertMode)
             {
-                enrange += 0.1f;
+                enrange += 0.07f;
             }
             if (Main.masterMode)
             {
-                enrange += 0.1f;
+                enrange += 0.07f;
             }
             if (CalamityWorld.revenge)
             {
-                enrange += 0.15f;
+                enrange += 0.1f;
             }
             if (CalamityWorld.death)
             {
-                enrange += 0.15f;
+                enrange += 0.1f;
             }
             if (CalamityEntropy.EntropyMode)
             {

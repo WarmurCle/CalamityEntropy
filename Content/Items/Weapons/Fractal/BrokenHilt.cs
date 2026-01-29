@@ -57,6 +57,18 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 .AddIngredient(ItemID.LeadBar, 4)
                 .AddTile(TileID.Anvils)
                 .Register();
+
+            CreateRecipe().AddIngredient(ItemID.TinBar, 6)
+                .AddIngredient(ItemID.StoneBlock, 4)
+                .AddIngredient(ItemID.IronBar, 4)
+                .AddTile(TileID.Anvils)
+                .Register();
+
+            CreateRecipe().AddIngredient(ItemID.TinBar, 6)
+                .AddIngredient(ItemID.StoneBlock, 4)
+                .AddIngredient(ItemID.LeadBar, 4)
+                .AddTile(TileID.Anvils)
+                .Register();
         }
     }
     public class BrokenHiltHeld : ModProjectile

@@ -3204,7 +3204,8 @@ Items: {
 			Current Level: [LV] / 16
 			$Based on the current level, summons some Abyss Spirits to protect you. 
 			$Right-click to change their behavior mode:
-			$^  In Piercing mode, they repeatedly slash targets; in Shooting mode, they fire tracking Abyss Beams at targets; in Defense mode, they block incoming projectiles for you
+			$ In Piercing mode, they repeatedly slash targets; in Shooting mode, they fire tracking Abyss Beams
+			$^ at targets; in Defense mode, they block incoming projectiles for you
 			%Fires Crimson Spikes from off-screen that pierce through targets
 			&When shooting, fires tracking Abyss Beams
 			''' */
@@ -3540,6 +3541,58 @@ Items: {
 			+[LIFE] Max Life
 			+[MANA] Max Mana
 			''' */
+	}
+
+	AcropolisHeavyArmor: {
+		// DisplayName: Acropolis Heavy Armor
+		// Tooltip: ""
+	}
+
+	AcropolisHeavyHelmet: {
+		// DisplayName: Acropolis Heavy Helmet
+		// Tooltip: ""
+	}
+
+	AcropolisHeavyLegArmor: {
+		// DisplayName: Acropolis Heavy Leg Armor
+		// Tooltip: ""
+	}
+
+	ExquisiteCrown: {
+		// DisplayName: Exquisite Crown
+		/* Tooltip:
+			'''
+			Summon a crown that will shoot ruby beams to enemies
+			+1 Minion Slot
+			''' */
+	}
+
+	RottenFangs: {
+		// DisplayName: Rotten Fangs
+		/* Tooltip:
+			'''
+			Minions will shoot blood bullets to enemies
+			+1 Minion Slot
+			''' */
+	}
+
+	CreeperWand: {
+		// DisplayName: Creeper Wand
+		// Tooltip: Summon creepers that take turns attacking
+	}
+
+	CursedTorch: {
+		// DisplayName: Cursed Torch
+		/* Tooltip:
+			'''
+			Summon a cursed torch that throw fire to enemies
+			Consume 2 minion slot
+			''' */
+	}
+
+	PhantomBottle: {
+		// DisplayName: Phantom Bottle
+		// Tooltip: ""
 	}
 }
 
@@ -4153,6 +4206,16 @@ Projectiles: {
 	// AmnestyHeld.DisplayName: Amnesty Held
 	// AmnestyLaser.DisplayName: Amnesty Arc
 	// AmnestyMiniLaser.DisplayName: Amnesty Mini Laser
+	// AcropolisBullet.DisplayName: Acropolis Bullet
+	// AcropolisSlash.DisplayName: Acropolis Slash
+	// AcropolisHarpoon.DisplayName: Acropolis Harpoon
+	// CrownRubyProj.DisplayName: Crown Ruby Proj
+	// RubyCrown.DisplayName: Ruby Crown
+	// RottenFangsBloodBullet.DisplayName: Rotten Fangs Blood Bullet
+	// CreeperMinion.DisplayName: Creeper Minion
+	// CursedTorchMinion.DisplayName: Cursed Torch Minion
+	// CursingFlame.DisplayName: Cursing Flame
+	// CruiserPhantomPet.DisplayName: Cruiser Phantom Pet
 }
 
 LegendTooltip: - Легенда -
@@ -4497,6 +4560,21 @@ Buffs: {
 		// DisplayName: Illusory Blade
 		// Description: Illusory blade will fight for you
 	}
+
+	CreeperBuff: {
+		// DisplayName: Creeper
+		// Description: Creeper will fight for you
+	}
+
+	CursingFire: {
+		// DisplayName: Cursing Fire
+		// Description: The eternal fire is burning...
+	}
+
+	PhantomOfCruiser: {
+		// DisplayName: Phantom Of Cruiser
+		// Description: ""
+	}
 }
 
 Uh: ""
@@ -4682,6 +4760,7 @@ Keybinds: {
 	RuneDash.DisplayName: Рывок крыльями руны
 	// CommandMinions.DisplayName: Command Minions
 	// NihilityAndChaoticArmorConnectKey.DisplayName: Nihility And Chaotic Armor Connect Key
+	// AcropolisMechTransformation.DisplayName: Mods.CalamityEntropy.Keybinds.AcropolisMechTransformation.DisplayName
 }
 
 ProphetLoreEffect:
@@ -4817,6 +4896,11 @@ Configs: {
 		ClearStealthWhenChangeEquipSet: {
 			// Label: Clear Stealth When Change Equip Set
 			// Tooltip: ""
+		}
+
+		ExtraItemsInStarterBag: {
+			// Label: Extra Items In Starter Bag
+			// Tooltip: Starter bag provide additional useful items
 		}
 	}
 }
@@ -5312,20 +5396,20 @@ Biomes: {
 /* TSA2B:
 	'''
 	After killing Brimstone Elemental, Press LMB when throwing to teleport to the mouse and launch a larger slash
-	This skill has a 15 second cooldown time.The cooling time will shrink to 10 after killing Cruiser
+	This skill has a 30 second cooldown time.The cooling time will shrink to 20 after killing Cruiser
 	''' */
 // TSU2: Need to kill any evil boss
 /* TSA3:
 	'''
 	When throw out, press RMB to let the scythe follow your curser.
-	Stealth strikes will heal you with 15
+	Stealth strikes will heal you with 7
 	''' */
 // TSU3: Need to kill Prophet
 /* TSA4:
 	'''
 	Teleport slash will empowerment your weapon with void.
-	This will last for 15 seconds.After killing Cruiser, it will gain to 30 sec.
-	The damage you cause will increase by 25% when empowering.
+	This will last for 8 seconds.After killing Cruiser, it will gain to 15 sec.
+	The damage you cause will increase by 20% when empowering.
 	''' */
 // TSU4: Need to kill Void Twins
 /* TSA5:
@@ -5341,7 +5425,7 @@ Biomes: {
 // TSU7: Need to kill Yharon
 // TSA8: Attack will cause void touch
 // TSU8: Need to kill Cruiser
-// TSA9: The closer the distance to the target, the higher the damage caused, with a maximum additional damage of 35%
+// TSA9: The closer the distance to the target, the higher the damage caused, with a maximum additional damage of 25%
 // PressShiftForMoreInfo: Press shift for more info...
 // TSU9: Need to kill Calamitas
 // AchievementBookmarkInsertName: Good reading habits
@@ -5398,6 +5482,26 @@ Biomes: {
 	Provide 80 rogue stealth
 	+20% Movement speed and +1 Max minion
 	''' */
+/* AzafureSet3:
+	'''
+	Immune to fall damage
+	When this armor is equipped, 
+	all Azafure equipment receives partial enhancements
+	Remove adrenaline and gains a Durability bar
+	The Durability bar provides up to 50 defense and 32% damage reduction
+	Durability is consumed based on damage taken when hit
+	Durability slowly regenerates 5 seconds after taking damage
+	When the Durability bar is depleted, it becomes inactive and requires time to restore functionality
+	Provide 120 rogue stealth
+	Press [[KEY]] to transform into a Acropolis mecha, 
+	press again to cancel the transformation
+	When the mecha is activated, it significantly increases defense and damage reduction, 
+	and you can only use the weapons it provides
+	Left click attack, right-click to switch weapon forms
+	The hook claw will be replaced by a harpoon.
+	Pressing the hook claw button will launch the harpoon, pulling you towards the hooked object
+	The spear will catch weaker enemy monsters, and if it hooks onto the boss, it will pull you over
+	''' */
 // DuraBar: Durability bar
 // AzafureEnhance: Enhance
 
@@ -5430,7 +5534,7 @@ AzafureEnhances: {
 	/* AzafureDriverCore:
 		'''
 		Reduce energy cost
-		-40% damage taken by shield
+		-20% damage taken by shield
 		Increase shield regen speed
 		''' */
 }
@@ -5444,3 +5548,4 @@ AzafureEnhances: {
 // CardsDesc: There should be a complete set of cards similar to it
 // VoidCoreShield: Void Shield
 // CrossModSupportFish: Cross mod support: You can also put it in Entropy books as a bookmark
+// CdAcr: Acropolis Mech Cooldown

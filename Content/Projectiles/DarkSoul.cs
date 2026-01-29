@@ -25,13 +25,12 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.DamageType = DamageClass.Magic;
             Projectile.width = 42;
             Projectile.height = 42;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
-            Projectile.light = 1f;
             Projectile.timeLeft = 260;
             Projectile.ArmorPenetration = 12;
         }

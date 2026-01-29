@@ -38,6 +38,7 @@ namespace CalamityEntropy.Content.Items.Tools
             Item.rare = ModContent.RarityType<AbyssalBlue>();
             Item.crit = 18;
             Item.useTurn = true;
+            Item.autoReuse = true;
         }
 
         public override bool AltFunctionUse(Player player) => true;
@@ -51,16 +52,16 @@ namespace CalamityEntropy.Content.Items.Tools
                 {
                     void KillCircleTile(Vector2 pos)
                     {
-                        for (float i = 0; i <= 4; i += 0.8f)
+                        for (float i = 0; i <= 4; i += 0.95f)
                         {
-                            for (float r = 0; r < 360; r += 15)
+                            for (float r = 0; r < 360; r += 20)
                             {
                                 Point point = ((pos + (r + 5).ToRadians().ToRotationVector2() * i * 16) / 16f).ToPoint();
                                 CEUtils.TryKillTileAndChest(point.X, point.Y, player);
                             }
                         }
                     }
-                    for (float i = 0; i <= 1; i += 0.1f)
+                    for (float i = 0; i <= 1; i += 0.25f)
                     {
                         KillCircleTile(Vector2.Lerp(Main.MouseWorld, mouseLast, i));
                         EParticle.NewParticle(new HadCircle2() { CScale = 0.46f }, Vector2.Lerp(Main.MouseWorld, mouseLast, i), Vector2.Zero, Color.SkyBlue, 0.4f, 1, true, BlendState.Additive, 0);
@@ -76,7 +77,7 @@ namespace CalamityEntropy.Content.Items.Tools
                             CEUtils.TryKillTileAndChest(point.X, point.Y, player);
                         }
                         int c = 0;
-                        for (float i = 0; i <= 1; i += 0.01f)
+                        for (float i = 0; i <= 1; i += 0.02f)
                         {
                             KillCircleTile(Vector2.Lerp(Main.MouseWorld, mouseLast, i));
                             if (c++ % 10 == 0) EParticle.NewParticle(new HadCircle2() { CScale = 0.14f }, Vector2.Lerp(Main.MouseWorld, mouseLast, i), Vector2.Zero, Color.SkyBlue, 0.4f, 1, true, BlendState.Additive, 0);

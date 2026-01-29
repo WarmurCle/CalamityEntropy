@@ -1,13 +1,8 @@
-﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Items.Weapons.Depletion;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Magic;
-using CalamityMod.Items.Weapons.Melee;
-using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework.Graphics;
@@ -122,10 +117,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
                         {
                             Projectile.ai[1] = player.HeldItem.useTime;
                             if (player.CheckMana(player.HeldItem.mana, true))
-                            { 
+                            {
                                 Vector2 vel = Projectile.velocity.RotatedByRandom(0.6f) * 2;
                                 Vector2 pos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 160;
-                                for(int i = 0; i < 16; i++)
+                                for (int i = 0; i < 16; i++)
                                 {
                                     var d = Dust.NewDustDirect(pos, 0, 0, DustID.BlueTorch);
                                     d.position += CEUtils.randomPointInCircle(10);
@@ -174,14 +169,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
             Texture2D tex = Projectile.GetTexture();
 
             Vector2 top = Projectile.Center + Projectile.rotation.ToRotationVector2() * (116 + -32 * ActiveProgress) * Projectile.scale;
-            
-            Main.EntitySpriteDraw(tPart1, top - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver4) * (ActiveProgress * 8), null, lightColor * ActiveProgress, Projectile.rotation + MathHelper.PiOver4 + 1.8f + -2f * ActiveProgress, new Vector2(0, tPart1.Height / 2), Projectile.scale * ActiveProgress, SpriteEffects.None);
-            Main.EntitySpriteDraw(tPart2, top - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(-MathHelper.PiOver4) * (ActiveProgress * 8), null, lightColor * ActiveProgress, Projectile.rotation + MathHelper.PiOver4 + -1.8f + 2f * ActiveProgress, new Vector2(tPart2.Width / 2, tPart2.Height), Projectile.scale * ActiveProgress, SpriteEffects.None);
-            
+
+            Main.EntitySpriteDraw(tPart1, top - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver4) * (ActiveProgress * 8), null, new Color(200, 200, 255) * ActiveProgress * 0.7f, Projectile.rotation + MathHelper.PiOver4 + 1.8f + -2f * ActiveProgress, new Vector2(0, tPart1.Height / 2), Projectile.scale * ActiveProgress, SpriteEffects.None);
+            Main.EntitySpriteDraw(tPart2, top - Main.screenPosition + Projectile.rotation.ToRotationVector2().RotatedBy(-MathHelper.PiOver4) * (ActiveProgress * 8), null, new Color(200, 200, 255) * ActiveProgress * 0.7f, Projectile.rotation + MathHelper.PiOver4 + -1.8f + 2f * ActiveProgress, new Vector2(tPart2.Width / 2, tPart2.Height), Projectile.scale * ActiveProgress, SpriteEffects.None);
+
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation + MathHelper.PiOver4, new Vector2(6, tex.Height - 6), Projectile.scale, SpriteEffects.None);
 
             DrawCircle(Projectile.Center + Projectile.rotation.ToRotationVector2() * 138, ActiveProgress, Projectile.rotation);
-            
+
             CEUtils.DrawGlow(Projectile.Center + Projectile.rotation.ToRotationVector2() * 138 * Projectile.scale, new Color(80, 80, 255) * 0.5f * (ActiveProgress * ActiveProgress * ActiveProgress), 1.2f);
 
             return false;
@@ -193,7 +188,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
             void SetPoint(float r, int step, float rot = 0, Vector2 c = default)
             {
                 points.Clear();
-                for(int i = 0; i <= step; i++)
+                for (int i = 0; i <= step; i++)
                 {
                     points.Add(center + c + Vector2.UnitX.RotatedBy((MathHelper.TwoPi / step) * i + rot) * r * scale);
                 }
@@ -267,12 +262,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
         public bool flag = true;
         public override void AI()
         {
-            if(flag)
+            if (flag)
             {
                 flag = false;
                 points.Add(Projectile.Center);
                 Vector2 end = Projectile.Center + Projectile.velocity;
-                for(float i = 0.05f; i < 1; i+=0.05f)
+                for (float i = 0.05f; i < 1; i += 0.05f)
                 {
                     float n = CEUtils.Parabola(i, 16);
                     points.Add(Vector2.Lerp(Projectile.Center, end, i) + CEUtils.randomPointInCircle(n));
@@ -311,13 +306,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
-            Projectile.timeLeft = 120 * 6;
+            Projectile.timeLeft = 30 * 6;
             Projectile.penetrate = 1;
             Projectile.MaxUpdates = 6;
         }
         public override void AI()
         {
-            for(float i = 0.8f; i >= 0; i -= 0.2f)
+            for (float i = 0.8f; i >= 0; i -= 0.2f)
             {
                 oldPos.Add(Projectile.Center - Projectile.velocity * i);
                 if (oldPos.Count > 64)
@@ -326,7 +321,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
                 }
             }
             if (Projectile.localAI[1]++ > 10)
-                Projectile.HomingToNPCNearby(0.2f, 0.99f, 1200);
+                if(Projectile.HomingToNPCNearby(0.2f, 0.99f, 1200))
+                {
+                    if (Projectile.timeLeft < 15 * 6)
+                        Projectile.timeLeft = 15 * 6;
+                    Projectile.timeLeft++;
+                }
+            Projectile.Opacity = float.Min(1, Projectile.timeLeft / (15f * 6));
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -376,9 +377,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(80, 80, 255), 0.4f, 1, true, BlendState.Additive, 0, 5);
                 CEUtils.PlaySound("malignShoot", Main.rand.NextFloat(1.4f, 1.8f), Projectile.Center, volume: 0.4f);
             }
-            if(Projectile.timeLeft == 27 && Main.myPlayer == Projectile.owner)
+            if (Projectile.timeLeft == 27 && Main.myPlayer == Projectile.owner)
             {
-                for(int i = 0; i < 2; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedByRandom(1).normalize() * 4, ModContent.ProjectileType<AmnestyMiniLaser>(), Projectile.damage / 2, 4, Projectile.owner);
                 }
@@ -388,14 +389,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
                 if (Projectile.timeLeft % 4 == 0 && Main.rand.NextBool(8))
                 {
                     List<Projectile> lp = new();
-                    foreach(Projectile p in Main.ActiveProjectiles)
+                    foreach (Projectile p in Main.ActiveProjectiles)
                     {
-                        if(p.type == Projectile.type && p.owner == Projectile.owner && p.whoAmI != Projectile.whoAmI)
+                        if (p.type == Projectile.type && p.owner == Projectile.owner && p.whoAmI != Projectile.whoAmI)
                         {
                             lp.Add(p);
                         }
                     }
-                    if(lp.Count > 0)
+                    if (lp.Count > 0)
                     {
                         Projectile t = lp[Main.rand.Next(lp.Count)];
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (t.Center - Projectile.Center), ModContent.ProjectileType<AmnestyLaser>(), Projectile.damage / 2, 4, Projectile.owner);
@@ -419,8 +420,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
                     Projectile.velocity = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.12f, true).ToRotationVector2() * Projectile.velocity.Length();
                 }
             }
-            
-            for(float i = 0; i < 1; i+=0.05f)
+
+            for (float i = 0; i < 1; i += 0.05f)
             {
                 if (f < 1)
                     f += 0.01f;

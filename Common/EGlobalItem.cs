@@ -18,6 +18,7 @@ using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.CrystalBalls;
 using CalamityEntropy.Content.Items.Weapons.DustCarverBow;
+using CalamityEntropy.Content.Items.Weapons.Torch;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Rarities;
@@ -594,7 +595,7 @@ namespace CalamityEntropy.Common
                 tl.OverrideColor = new Microsoft.Xna.Framework.Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
                 tooltips.Add(tl);
             }
-            if(MaliciousCode.CALAMITY__OVERHAUL)
+            if (MaliciousCode.CALAMITY__OVERHAUL)
             {
                 CWRWeakRef.CWRRef.CheckTooltips(item, tooltips);
             }
@@ -1740,6 +1741,22 @@ namespace CalamityEntropy.Common
         {
             if (item.type == ItemID.DeerclopsBossBag)
                 itemLoot.Add(ModContent.ItemType<BookmarkSnowgrave>(), 5, 1, 1);
+            if (item.type == ItemID.KingSlimeBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<ExquisiteCrown>(), 2);
+            }
+            if (item.type == ItemID.EaterOfWorldsBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<CursedTorch>(), 2);
+            }
+            if (item.type == ItemID.BrainOfCthulhuBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<CreeperWand>(), 2);
+            }
+            if (item.type == ItemID.EyeOfCthulhuBossBag)
+            {
+                itemLoot.Add(ModContent.ItemType<RottenFangs>(), 2);
+            }
             if (item.type == ItemID.FishronBossBag)
             {
                 itemLoot.Add(ItemDropRule.ByCondition(new IsDeathMode(), ModContent.ItemType<IlmeranAsylum>()));
@@ -1756,7 +1773,7 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<ObscureCard>(), 5);
             }
-            if(item.Is<CeaselessVoidBag>())
+            if (item.Is<CeaselessVoidBag>())
             {
                 itemLoot.Add(ModContent.ItemType<BottleDarkMatter>(), 4);
             }
@@ -2074,24 +2091,55 @@ namespace CalamityEntropy.Common
 
                 itemLoot.AddIf((info) => (info.player.name.ToLower().Contains("lily") || info.player.name.Contains("莉莉")), ModContent.ItemType<LostHeirloom>());
                 itemLoot.AddIf((info) => info.player.name.ToLower() == "tlipoca" || info.player.name.ToLower().Contains("kino"), ModContent.ItemType<TlipocasScythe>());
-
+                bool cfg(DropAttemptInfo info)
+                {
+                    return ModContent.GetInstance<ServerConfig>().ExtraItemsInStarterBag;
+                }
                 if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage))
                 {
                     ModItem i;
                     if (magicStorage.TryFind<ModItem>("CraftingAccess", out i))
                     {
-                        itemLoot.Add(i.Type, 1);
+                        itemLoot.AddIf(cfg, i.Type);
                     }
                     if (magicStorage.TryFind<ModItem>("StorageHeart", out i))
                     {
-                        itemLoot.Add(i.Type, 1);
+                        itemLoot.AddIf(cfg, i.Type, 1);
                     }
                     if (magicStorage.TryFind<ModItem>("StorageUnit", out i))
                     {
-                        itemLoot.Add(i.Type, 1, 10, 10);
+                        itemLoot.AddIf(cfg, i.Type, 1, 10, 10);
                     }
-
                 }
+                if(ModLoader.TryGetMod("ImproveGame", out Mod qot))
+                {
+                    ModItem i;
+                    if (qot.TryFind<ModItem>("MagickWand", out i))
+                    {
+                        itemLoot.AddIf(cfg, i.Type);
+                    }
+                    if (qot.TryFind<ModItem>("SpaceWand", out i))
+                    {
+                        itemLoot.AddIf(cfg, i.Type);
+                    }
+                    if (qot.TryFind<ModItem>("CreateWand", out i))
+                    {
+                        itemLoot.AddIf(cfg, i.Type);
+                    }
+                    if (qot.TryFind<ModItem>("PotionBag", out i))
+                    {
+                        itemLoot.AddIf(cfg, i.Type);
+                    }
+                    if (qot.TryFind<ModItem>("BannerChest", out i))
+                    {
+                        itemLoot.AddIf(cfg, i.Type);
+                    }
+                }
+                itemLoot.AddIf(cfg, 300, 1, 30, 30);
+                itemLoot.AddIf(cfg, 2324, 1, 30, 30);
+                itemLoot.AddIf(cfg, 148);
+                itemLoot.AddIf(cfg, 3117);
+                itemLoot.AddIf(cfg, ItemID.Sunflower);
             }
         }
         public class IsDeathMode : IItemDropRuleCondition, IProvideItemConditionDescription

@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Projectiles
             return false;
         }
         bool back = false;
-        public int ShootTimes = 8;
+        public int ShootTimes = 6;
         public int ShootDelay = 0;
         public override void AI()
         {

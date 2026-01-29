@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Armor.AzafureT3;
 using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.UI.Poops;
 using CalamityMod.Events;
@@ -32,6 +33,8 @@ namespace CalamityEntropy
         SyncPlayerLife,
         NihilityConnet,
         SyncBookmarks,
+        AcropolisTrans,
+        SyncPlayerDead,
         SyncPlayer = 255
     }
 
@@ -336,6 +339,59 @@ namespace CalamityEntropy
                         ItemIO.Send(item, packet);
                     }
                     packet.Send(-1, whoAmI);
+                }
+            }
+            else if (messageType == CEMessageType.AcropolisTrans)
+            {
+                int plr = reader.ReadInt32();
+                bool active = reader.ReadBoolean();
+                int reload = reader.ReadInt32();
+                int bullet = reader.ReadInt32();
+                float slash = reader.ReadSingle();
+                int dir = reader.ReadInt32();
+                bool mode = reader.ReadBoolean();
+                if (Main.myPlayer != plr)
+                {
+                    var mp = plr.ToPlayer().GetModPlayer<AcropolisArmorPlayer>();
+                    mp.MechTrans = active;
+                    mp.Reload = reload;
+                    mp.Bullet = bullet;
+                    mp.SlashP = slash;
+                    mp.slashDir = dir;
+                    mp.CannonMode = mode;
+                }
+                if (Main.dedServ)
+                {
+                    ModPacket packet = Instance.GetPacket();
+                    packet.Write((byte)CEMessageType.AcropolisTrans);
+                    packet.Write(plr);
+                    packet.Write(active);
+                    packet.Write(reload);
+                    packet.Write(bullet);
+                    packet.Write(slash);
+                    packet.Write(dir);
+                    packet.Write(mode);
+                    packet.Send(-1, plr);
+                }
+            }
+            else if (messageType == CEMessageType.SyncPlayerDead)
+            {
+                int plr = reader.ReadInt32();
+                bool d = reader.ReadBoolean();
+                Vector2 pos = reader.ReadVector2();
+                if (Main.myPlayer != plr)
+                {
+                    plr.ToPlayer().dead = d;
+                    plr.ToPlayer().position = pos;
+                }
+                if (Main.dedServ)
+                {
+                    ModPacket packet = Instance.GetPacket();
+                    packet.Write((byte)CEMessageType.SyncPlayerDead);
+                    packet.Write(plr);
+                    packet.Write(d);
+                    packet.WriteVector2(pos);
+                    packet.Send(-1, plr);
                 }
             }
             else if (messageType == CEMessageType.SyncPlayer)

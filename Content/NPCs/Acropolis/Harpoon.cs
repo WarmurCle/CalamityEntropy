@@ -19,9 +19,9 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
         public override void SetDefaults()
         {
-            NPC.width = 40;
-            NPC.height = 40;
-            NPC.damage = 26;
+            NPC.width = 30;
+            NPC.height = 30;
+            NPC.damage = 32;
             NPC.dontTakeDamage = true;
             NPC.lifeMax = 1400;
             NPC.HitSound = SoundID.NPCHit4;
@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public int Back = 0;
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
-            return owner.boss;
+            return owner.boss && !OnLauncher;
         }
         public Vector2 sVel = Vector2.Zero;
         public bool Stuck = false;

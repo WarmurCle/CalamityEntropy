@@ -1,5 +1,4 @@
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles.Pets.DoG;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;

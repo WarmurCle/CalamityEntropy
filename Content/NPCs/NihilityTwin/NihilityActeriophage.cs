@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Biomes;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
@@ -8,6 +8,7 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Utilities;
 using CalamityMod;
+using CalamityMod.Events;
 using CalamityMod.Items.Potions;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
@@ -65,24 +66,29 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             NPC.boss = true;
             NPC.width = 140;
             NPC.height = 140;
-            NPC.damage = 100;
+            NPC.damage = 125;
+	        NPC.Calamity().DR = 0.12f;
             if (Main.expertMode)
             {
-                NPC.damage += 5;
+                NPC.damage += 2;
             }
             if (Main.masterMode)
             {
-                NPC.damage += 5;
+                NPC.damage += 2;
             }
             NPC.defense = 75;
-            NPC.lifeMax = 270000;
+            NPC.lifeMax = 360000;
+	    if (BossRushEvent.BossRushActive)
+            {
+                NPC.lifeMax += 360000;
+            }
             if (CalamityWorld.death)
             {
-                NPC.damage += 5;
+                NPC.damage += 12;
             }
             else if (CalamityWorld.revenge)
             {
-                NPC.damage += 5;
+                NPC.damage += 8;
             }
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCHit4;

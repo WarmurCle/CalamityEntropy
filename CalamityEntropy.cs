@@ -7,6 +7,7 @@ using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
+using CalamityEntropy.Content.Items.Armor.AzafureT3;
 using CalamityEntropy.Content.Items.Atbm;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
@@ -210,7 +211,7 @@ namespace CalamityEntropy
             On_Projectile.GetWhipSettings += get_whip_settings_hook;
             On_Player.PickAmmo_Item_refInt32_refSingle_refBoolean_refInt32_refSingle_refInt32_bool += pickammoHook;
             On_LegacyPlayerRenderer.DrawPlayer += render_player;
-
+            On_Player.GetTotalCritChance += gettotalcrit;
             //On_Player.ApplyDamageToNPC += applydamagetonpc;
             On_Main.DrawCursor += draw_cursor_hook;
             On_Main.DrawThickCursor += draw_thick_cursor_hook;
@@ -240,6 +241,14 @@ namespace CalamityEntropy
 
         }
 
+        private float gettotalcrit(On_Player.orig_GetTotalCritChance orig, Player self, DamageClass damageClass)
+        {
+            float rt = orig(self, damageClass);
+            if (EntropyMode)
+                rt = float.Min(50, rt);
+            return rt;
+        }
+
         private void update_npc_collision(On_Player.orig_Update_NPCCollision orig, Player self)
         {
             self.Entropy().ApplyScale();
@@ -249,9 +258,11 @@ namespace CalamityEntropy
 
         private void on_player_hurt(On_Player.orig_Hurt_HurtInfo_bool orig, Player self, Player.HurtInfo info, bool quiet)
         {
+            if (EntropyMode)
+                info.Damage = (int)(info.Damage * 1.25f);
             float num = ModContent.GetInstance<ServerConfig>().LeastDamageSufferedBasedOnMaxHealth;
-            if (EntropyMode && num < 16)
-                num = 16;
+            if (EntropyMode && num < 22)
+                num = 22;
             int leastDmg = (int)((num * 0.01f) * self.statLifeMax2);
             if (self.Entropy().oracleDeck)
             {
@@ -296,8 +307,15 @@ namespace CalamityEntropy
                     hide = true;
                 if (drawPlayer.Entropy().DontDrawTime > 0)
                     hide = true;
+                if (drawPlayer.TryGetModPlayer<AcropolisArmorPlayer>(out var mp))
+                {
+                    if (!mp.PlayerVisual)
+                        hide = true;
+                }
                 scale *= drawPlayer.Entropy().Scale;
             }
+
+
             if (!hide)
             {
                 if (cbptype == -1)
@@ -483,6 +501,7 @@ namespace CalamityEntropy
             On_Projectile.FillWhipControlPoints -= fill_whip_ctrl_points_hook;
             On_Projectile.GetWhipSettings -= get_whip_settings_hook;
             //On_Player.ApplyDamageToNPC -= applydamagetonpc;
+            On_Player.GetTotalCritChance -= gettotalcrit;
             On_Main.DrawCursor -= draw_cursor_hook;
             On_Main.DrawThickCursor -= draw_thick_cursor_hook;
             On_Player.UpdateItemDye -= update_item_dye;
@@ -687,7 +706,13 @@ namespace CalamityEntropy
 
 
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
-
+            foreach (Player player in Main.ActivePlayers)
+            {
+                if (player.TryGetModPlayer<AcropolisArmorPlayer>(out var mp))
+                {
+                    mp.DrawMech();
+                }
+            }
             EParticle.drawAll();
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform); orig(self);
@@ -1501,7 +1526,7 @@ namespace CalamityEntropy
 
             }
             CalEnchantsRegistry();
-            cooldownBuffs = new List<int>() { BuffID.PotionSickness, BuffID.ChaosState, ModContent.BuffType<DivingShieldCooldown>(), ModContent.BuffType<ShatteredOrb>(), BuffID.PotionSickness };
+            cooldownBuffs = new List<int>() { BuffID.PotionSickness, BuffID.ChaosState, ModContent.BuffType<DivingShieldCooldown>(), ModContent.BuffType<ShatteredOrb>() };
             RegistryDraedonDialogs();
             foreach (ICELoader setup in ILoaders)
             {

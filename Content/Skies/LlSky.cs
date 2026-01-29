@@ -3,9 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Runtime.InteropServices;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.Graphics.Effects;
-using Terraria.ID;
 
 namespace CalamityEntropy.Content.Skies
 {
@@ -55,7 +53,7 @@ namespace CalamityEntropy.Content.Skies
             Texture2D txd = WallpaperHelper.getWallpaper();
             Vector2 scale = Vector2.One;
             scale *= Main.screenWidth / ((float)txd.Width * scale.X);
-            
+
             if (txd.Height * scale.Y < Main.screenHeight)
             {
                 scale *= Main.screenHeight / ((float)txd.Height * scale.Y);

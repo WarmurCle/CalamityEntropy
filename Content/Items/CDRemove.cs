@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace CalamityEntropy.Content.Items
 {
@@ -34,6 +35,17 @@ namespace CalamityEntropy.Content.Items
         {
             return true;
         }
+        public override void SaveData(TagCompound tag)
+        {
+            tag["Time"] = CooldownReduce;
+        }
+        public override void LoadData(TagCompound tag)
+        {
+            if (tag.TryGet<float>("Time", out float t))
+            {
+                CooldownReduce = t;
+            }
+        }
         public override void RightClick(Player player)
         {
             CooldownReduce -= 0.25f;
@@ -48,7 +60,7 @@ namespace CalamityEntropy.Content.Items
         }
         public override void UpdateInventory(Player player)
         {
-            player.Entropy().CooldownTimeMult = (1 - CooldownReduce);
+            player.Entropy().CooldownTimeMult -= CooldownReduce;
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {

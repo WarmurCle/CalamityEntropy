@@ -277,7 +277,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 {
                     GeneralParticleHandler.SpawnParticle(new AltSparkParticle(target.Center, CEUtils.randomPointInCircle(16), false, 20, Main.rand.NextFloat(0.4f, 1.2f), Color.Lerp(new Color(236, 236, 236), Color.Blue, Main.rand.NextFloat())));
                 }
-                if(Shake)
+                if (Shake)
                     ScreenShaker.AddShake(new ScreenShake(Projectile.rotation.ToRotationVector2() * -1, Projectile.scale * 3 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
             }
             else

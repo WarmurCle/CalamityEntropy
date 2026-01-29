@@ -4,6 +4,7 @@ using CalamityEntropy.Content.Projectiles.Prophet;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.NPCs.AstrumDeus;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 86;
+            Item.damage = 70;
             Item.useAnimation = Item.useTime = 11;
             Item.crit = 15;
             Item.mana = 5;
@@ -188,6 +189,10 @@ namespace CalamityEntropy.Content.Items.Books
         {
             base.ModifyHitNPC(target, ref modifiers);
             modifiers.SourceDamage *= width2;
+            if (target.realLife >= 0)
+                modifiers.SourceDamage *= 0.75f;
+            if (target.ModNPC != null && target.ModNPC is AstrumDeusBody)
+                modifiers.SourceDamage *= 0.3f;
         }
         public override bool PreDraw(ref Color lightColor)
         {

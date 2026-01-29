@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
             {
                 var p = Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, (Main.MouseWorld - player.Center).normalize() * Item.shootSpeed, Item.shoot, player.GetWeaponDamage(Item), player.GetWeaponKnockback(Item), player.whoAmI).ToProj();
                 p.originalDamage = Item.damage;
-                
+
             }
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

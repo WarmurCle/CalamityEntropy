@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Items.Armor.AzafureT3;
 using CalamityEntropy.Content.Items.Armor.NihTwins;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
@@ -180,7 +181,7 @@ namespace CalamityEntropy.Common
         }
         public static void DrawVoidShield(Player player, Vector2 pos, float alpha, float scale)
         {
-            if(player.Entropy().VoidShieldVisual && player.Entropy().VoidCoreItem == null)
+            if (player.Entropy().VoidShieldVisual && player.Entropy().VoidCoreItem == null)
             {
                 alpha = 1;
                 scale = 0.6f;
@@ -195,7 +196,7 @@ namespace CalamityEntropy.Common
             var gd = Main.graphics.GraphicsDevice;
             gd.Textures[1] = CEUtils.getExtraTex("Noise_10");
             Texture2D tex = CEUtils.getExtraTex("Circle");
-            for(int i = 0; i < 1; i++)
+            for (int i = 0; i < 1; i++)
             {
                 float rot = 0.8f;
                 rot *= Main.GlobalTimeWrappedHourly * 2;
@@ -236,7 +237,7 @@ namespace CalamityEntropy.Common
                     mp.DrawNihRope();
                     Main.spriteBatch.End();
                 }
-                if(mp.VoidShieldVisual)
+                if (mp.VoidShieldVisual)
                 {
                     float p = 1;
                     if (mp.VoidCoreItem != null)
@@ -471,7 +472,7 @@ namespace CalamityEntropy.Common
                 CalamityEntropy.cutScreen = 0;
                 CalamityEntropy.cutScreenVel = 0;
             }
-            
+
         }
 
         public override void PostUpdatePlayers()
@@ -691,6 +692,10 @@ namespace CalamityEntropy.Common
                         {
                             AzafureSteamKnightArmorPlayer.DrawDuraBar(Main.LocalPlayer.GetModPlayer<AzafureSteamKnightArmorPlayer>().durability);
                         }
+                        if (Main.LocalPlayer.GetModPlayer<AcropolisArmorPlayer>().ArmorSetBonus)
+                        {
+                            AcropolisArmorPlayer.DrawDuraBar(Main.LocalPlayer.GetModPlayer<AcropolisArmorPlayer>().durability);
+                        }
                     }
                     return true;
                 }, InterfaceScaleType.UI));
@@ -768,6 +773,10 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdateNPCs()
         {
+            if (ModLoader.HasMod("Fargowiltas"))
+                foreach(NPC npc in Main.ActiveNPCs)
+                    if(npc.type == 0)
+                        npc.active = false;
             if (CalamityEntropy.Instance.screenShakeAmp > 0)
             {
                 CalamityEntropy.Instance.screenShakeAmp -= 0.5f;

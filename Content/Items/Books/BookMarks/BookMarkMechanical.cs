@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override Texture2D UITexture => BookMark.GetUITexture("Mechanical");
         public override void ModifyStat(EBookStatModifer modifer)
         {
-            modifer.Homing += 0.45f;
+            modifer.Homing += 0.22f;
         }
         public override Color tooltipColor => Color.LightGray;
         public override EBookProjectileEffect getEffect()
@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (ownerClient && (projectile.ModProjectile is EBookBaseProjectile eb && eb.mainProj) && Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 5 : 8) && CECooldowns.CheckCD("MechanicalBookmark", 30))
             {
-                Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, Vector2.UnitY * -8, ModContent.ProjectileType<Detector>(), projectile.damage / 6, projectile.knockBack, projectile.owner);
+                Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, Vector2.UnitY * -8, ModContent.ProjectileType<Detector>(), projectile.damage / 5, projectile.knockBack, projectile.owner);
             }
         }
     }

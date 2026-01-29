@@ -2,6 +2,7 @@
 using CalamityEntropy.Content;
 using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Items.Armor.AzafureT3;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Particles;
@@ -48,9 +49,13 @@ namespace CalamityEntropy
             projectile.velocity += (target.Center - projectile.Center).normalize() * vel;
             return true;
         }
-        public static int ApplyOldFashionedDmg(this int origDmg)
+        public static int ApplyAccArmorDamageBonus(this int origDmg, Player player = null)
         {
-            return (int)(origDmg * (Main.LocalPlayer.HasBuff<OldFashionedBuff>() ? OldFashioned.AccessoryAndSetBonusDamageMultiplier : 1));
+            if(player == null)
+            {
+                player = Main.LocalPlayer;
+            }
+            return CalamityUtils.ApplyArmorAccDamageBonusesTo(player, origDmg);//(int)(origDmg * (Main.LocalPlayer.HasBuff<OldFashionedBuff>() ? OldFashioned.AccessoryAndSetBonusDamageMultiplier : 1));
         }
         public static int GetPriceFromRecipe(this ModItem item, Recipe recipe)
         {
@@ -72,7 +77,7 @@ namespace CalamityEntropy
         }
         public static bool AzafureEnhance(this Player player)
         {
-            return player.GetModPlayer<AzafureHeavyArmorPlayer>().ArmorSetBonus || player.GetModPlayer<AzafureSteamKnightArmorPlayer>().ArmorSetBonus;
+            return player.GetModPlayer<AzafureHeavyArmorPlayer>().ArmorSetBonus || player.GetModPlayer<AzafureSteamKnightArmorPlayer>().ArmorSetBonus || player.GetModPlayer<AcropolisArmorPlayer>().ArmorSetBonus;
         }
         public static float AzafureDurability(this Player player)
         {
@@ -403,7 +408,7 @@ namespace CalamityEntropy
         {
             return player.MountedCenter + player.gfxOffY * Vector2.UnitY;
         }
-        public static Vector2 GetCircleIntersection(Vector2 vec1, float a, Vector2 vec2, float b)
+        public static Vector2 GetCircleIntersection(Vector2 vec1, float a, Vector2 vec2, float b, bool flag = false, bool flag2 = false)
         {
             float distance = Vector2.Distance(vec1, vec2);
 
@@ -426,7 +431,10 @@ namespace CalamityEntropy
             Vector2 intersection2 = new Vector2(
                 p0.X - (h / d) * (vec2.Y - vec1.Y),
                 p0.Y + (h / d) * (vec2.X - vec1.X));
-
+            if (flag2)
+            {
+                return flag ? intersection1 : intersection2;
+            }
             return (intersection1.Y < intersection2.Y) ? intersection1 : intersection2;
         }
         public static void AddLight(Vector2 position, Color lightColor, float mult = 1)
@@ -1159,7 +1167,14 @@ namespace CalamityEntropy
         {
             return Main.npc[ins];
         }
-
+        public static EModPlayer OwnerEntropy(this Projectile proj)
+        {
+            if (proj.GetOwner().TryGetModPlayer<EModPlayer>(out var mp))
+            {
+                return mp;
+            }
+            return new EModPlayer();
+        }
         public static EModPlayer Entropy(this Player player)
         {
             if (player.TryGetModPlayer<EModPlayer>(out var mp))
@@ -1318,6 +1333,7 @@ namespace CalamityEntropy
             Vector2 drawPos = new Vector2(px, py);
             for (int i = 0; i <= num; i++)
             {
+                color = Lighting.GetColor((drawPos / 16).ToPoint());
                 Main.EntitySpriteDraw(tx, drawPos - Main.screenPosition, null, color, rot, new Vector2(tx.Width / 2, tx.Height / 2), (new Vector2(1, 1)), SpriteEffects.None, 0);
                 drawPos.X += addVec.X * spacing;
                 drawPos.Y += addVec.Y * spacing;

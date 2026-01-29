@@ -27,16 +27,16 @@ namespace CalamityEntropy.Common
             }
             public static void ActiveFS(int type, Item item, Projectile proj, int style)
             {
-                if(FishSkill.IDToInstance.TryGetValue(type, out var value) && proj.ModProjectile is EntropyBookHeldProjectile eb)
+                if (FishSkill.IDToInstance.TryGetValue(type, out var value) && proj.ModProjectile is EntropyBookHeldProjectile eb)
                 {
-                    if(style == 0 && Main.myPlayer == proj.owner)
+                    if (style == 0 && Main.myPlayer == proj.owner)
                     {
                         if (value.Cooldown <= 0)
                         {
                             var player = proj.GetOwner();
                             bool set = false;
                             int org = 0;
-                            if(player.TryGetOverride<HalibutPlayer>(out var hp))
+                            if (player.TryGetOverride<HalibutPlayer>(out var hp))
                             {
                                 set = true;
                                 org = hp.SeaDomainLayers;
@@ -78,7 +78,7 @@ namespace CalamityEntropy.Common
                             ActiveFS(kv.Key, p.GetOwner().HeldItem, p, 0);
                         }
                     }
-                    BookMarkLoader.RegisterBookmarkEffect("FishBM" + type, bookUpdate:bu);
+                    BookMarkLoader.RegisterBookmarkEffect("FishBM" + type, bookUpdate: bu);
                     BookMarkLoader.RegisterBookmark(type, TextureAssets.Item[type], "FishBM" + type);
 
                 }
@@ -88,9 +88,9 @@ namespace CalamityEntropy.Common
                 var method = typeof(FishSkill).GetMethod("Active", BindingFlags.Instance | BindingFlags.Public);
                 bool hook(Func<FishSkill, Player, bool> orig, FishSkill skill, Player plr)
                 {
-                    if(BookMarkLoader.GetPlayerHeldEntropyBook(plr, out var eb))
+                    if (BookMarkLoader.GetPlayerHeldEntropyBook(plr, out var eb))
                     {
-                        for(int i = 0; i < plr.GetMyMaxActiveBookMarks(eb.bookItem); i++)
+                        for (int i = 0; i < plr.GetMyMaxActiveBookMarks(eb.bookItem); i++)
                         {
                             if (plr.Entropy().EBookStackItems[i].type == skill.UnlockFishID)
                                 return true;
@@ -103,9 +103,9 @@ namespace CalamityEntropy.Common
 
             public static void CheckTooltips(Item item, List<TooltipLine> tooltips)
             {
-                if(FishSkill.UnlockFishs.TryGetValue(item.type, out var _))
+                if (FishSkill.UnlockFishs.TryGetValue(item.type, out var _))
                 {
-                    tooltips.Add(new TooltipLine(CalamityEntropy.Instance, "CE Cross mod support - fish bookmark", Language.GetTextValue("Mods.CalamityEntropy.CrossModSupportFish")){ OverrideColor = Color.Yellow});
+                    tooltips.Add(new TooltipLine(CalamityEntropy.Instance, "CE Cross mod support - fish bookmark", Language.GetTextValue("Mods.CalamityEntropy.CrossModSupportFish")) { OverrideColor = Color.Yellow });
                 }
             }
         }

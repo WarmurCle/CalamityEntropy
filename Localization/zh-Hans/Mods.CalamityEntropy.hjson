@@ -1679,7 +1679,7 @@ Items: {
 		Tooltip:
 			'''
 			发射巨石
-			+15% 伤害
+			+20% 伤害
 			+1 穿透
 			'''
 		DisplayName: 泰拉书签
@@ -1943,7 +1943,7 @@ Items: {
 		Tooltip:
 			'''
 			增加挑战性，更少的生命，伤害和生存能力。
-			Boss获得动态减伤和单次受伤最大伤害限制，百分比减少生命、护甲，暴击率最高只能达到75%，伤害增幅削减，降低部分机动
+			Boss获得动态减伤和单次受伤最大伤害限制，百分比减少生命、护甲，暴击率最高只能达到50%，伤害增幅削减，降低部分机动
 			部分boss获得AI改动
 			暂时没有其他额外内容
 			[c/ff0000:注：该模式不处于灾熵官方的推荐流程内，灾熵的流程和平衡性调整从来不考虑该模式]
@@ -2724,7 +2724,7 @@ Items: {
 	ShadowMantle: {
 		Tooltip:
 			'''
-			增加移动时的潜行值回复速度
+			根据移动速度增加潜行值恢复速度
 			按下[K]([KEY])键消耗所有潜行值向光标位置冲刺一段距离并斩击碰到的敌人
 			伤害取决于消耗的潜行值
 			'''
@@ -2780,6 +2780,7 @@ Items: {
 			潜行值不再自然增长
 			使用盗贼武器击中敌怪后回复部分潜行值
 			潜行值满时攻击会触发潜伏攻击并同时发射追踪耀阳矢
+			减半最大潜行值
 			你无法暴击
 			'''
 	}
@@ -3438,7 +3439,7 @@ Items: {
 		Tooltip:
 			'''
 			在不被注意的瞬间移动到目标背后，施加致命的斩击
-			额外造成目标最大生命值5.14%的伤害，此效果有较长冷却
+			额外造成目标最大生命值2.5%的伤害，此效果有较长冷却
 			[c/E13B3B:“曾被用来无意识杀人的小刀，似乎残留着少女的体温....”]
 			'''
 	}
@@ -3451,7 +3452,8 @@ Items: {
 			当前等级：[LV] / 16
 			$根据当前等级生成一些深渊之灵保护你
 			$右键改变其行为模式，按住Shift再点击右键只改变距离光标最近的魔灵行为模式:
-			$^  穿刺状态能反复切割目标，射击状态下会朝目标发射追踪深渊束，防御状态会为你阻挡来袭的射弹并增加伤害减免
+			$  穿刺状态能反复切割目标，射击状态下会朝目标发射追踪深渊束，
+			$^  防御状态会为你阻挡来袭的射弹并增加伤害减免
 			%从屏幕外发射猩红尖刺穿透目标
 			&射击时发射追踪深渊束
 			'''
@@ -3784,6 +3786,70 @@ Items: {
 			+[MANA] 最大魔力值
 			'''
 	}
+
+	AcropolisHeavyArmor: {
+		DisplayName: 阿萨福勒卫城重甲
+		Tooltip:
+			'''
+			+8% 暴击率
+			+1 召唤栏
+			'''
+	}
+
+	AcropolisHeavyHelmet: {
+		DisplayName: 阿萨福勒卫城重盔
+		Tooltip:
+			'''
+			+10% 伤害
+			+10% 暴击伤害
+			'''
+	}
+
+	AcropolisHeavyLegArmor: {
+		DisplayName: 阿萨福勒卫城腿甲
+		Tooltip:
+			'''
+			+15% 移速
+			+20%跳跃速度
+			'''
+	}
+
+	ExquisiteCrown: {
+		DisplayName: 精致皇冠
+		Tooltip:
+			'''
+			召唤一顶向附近敌人发射射线的金冠
+			+1 召唤栏
+			'''
+	}
+
+	RottenFangs: {
+		DisplayName: 腐檀獠牙
+		Tooltip:
+			'''
+			仆从会时不时向附近敌人发射一些血弹
+			+1 召唤栏
+			'''
+	}
+
+	CreeperWand: {
+		DisplayName: 飞眼法杖
+		Tooltip: 召唤轮流攻击的飞眼
+	}
+
+	CursedTorch: {
+		DisplayName: 诅咒火炬
+		Tooltip:
+			'''
+			召唤诅咒火炬，向敌人喷射诅咒焰
+			消耗2召唤栏
+			'''
+	}
+
+	PhantomBottle: {
+		DisplayName: 幻空瓶
+		Tooltip: 召唤虚空猎食者的投影
+	}
 }
 
 ChaoticSetBonus:
@@ -3854,7 +3920,7 @@ MariviniumSet:
 	盗贼潜伏攻击有几率产生高伤害的水爆炸
 
 	获得2层可以抵挡伤害的护盾，第一层护盾恢复需要20秒的时间，第二层需要10秒
-	护盾破损会让玩家回复140点生命值，同时获得5秒“深渊狂怒”增益，使玩家伤害翻倍
+	护盾破损会让玩家回复140点生命值，同时获得5秒“深渊狂怒”增益，增加100%伤害
 	护盾不会抵御造成伤害低于5%最大生命值的攻击
 	'''
 DeathMode: 死亡模式
@@ -4397,6 +4463,16 @@ Projectiles: {
 	AmnestyHeld.DisplayName: 神灵
 	AmnestyLaser.DisplayName: 神灵电弧
 	AmnestyMiniLaser.DisplayName: 神灵追踪弹
+	AcropolisBullet.DisplayName: 卫城炮弹
+	AcropolisSlash.DisplayName: 光刀
+	AcropolisHarpoon.DisplayName: 叉矛
+	CrownRubyProj.DisplayName: 红宝石射线
+	RubyCrown.DisplayName: 精致皇冠
+	RottenFangsBloodBullet.DisplayName: 血弹
+	CreeperMinion.DisplayName: 飞眼
+	CursedTorchMinion.DisplayName: 诅咒火炬
+	CursingFlame.DisplayName: 诅咒烈焰
+	CruiserPhantomPet.DisplayName: 巡游者
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4741,6 +4817,21 @@ Buffs: {
 		DisplayName: 虚幻神锋
 		Description: 虚幻神锋将为你而战
 	}
+
+	CreeperBuff: {
+		DisplayName: 飞眼
+		Description: 飞眼将为你战斗
+	}
+
+	CursingFire: {
+		DisplayName: 诅咒烈焰
+		Description: 永恒之火燃烧着...
+	}
+
+	PhantomOfCruiser: {
+		DisplayName: 巡游者幻影
+		Description: ""
+	}
 }
 
 Uh: 呃啊~
@@ -4923,6 +5014,7 @@ Keybinds: {
 	RuneDash.DisplayName: 符文之翼冲刺
 	CommandMinions.DisplayName: 命令仆从
 	NihilityAndChaoticArmorConnectKey.DisplayName: 噬虚者&混沌套装连接
+	AcropolisMechTransformation.DisplayName: 激活阿萨福勒卫城重甲机甲模式
 }
 
 ProphetLoreEffect:
@@ -5063,6 +5155,11 @@ Configs: {
 		ClearStealthWhenChangeEquipSet: {
 			Label: 切换装备时清空潜行条
 			Tooltip: ""
+		}
+
+		ExtraItemsInStarterBag: {
+			Label: 新手礼包额外物品
+			Tooltip: 新手礼包将提供一些额外的有用物品（如魔法存储，更好的体验魔杖等）
 		}
 	}
 }
@@ -5538,20 +5635,20 @@ TSA1: 按住[上]发动攻击时会向鼠标方向突进一段距离
 TSA1B: 击败史莱姆之神后可以获得无敌时间并对接触到的目标造成伤害
 TSU1: 需击败克苏鲁之眼
 TSA2: 右键将镰刀丢出，造成多次伤害
-TSA2B: 击败硫磺火元素后，在丢出时按下左键将传送到鼠标处并发动一次较大的斩击，该技能有15秒冷却时间，在击败巡游者后将降为10秒
+TSA2B: 击败硫磺火元素后，在丢出时按下左键将传送到鼠标处并发动一次较大的斩击，该技能有30秒冷却时间，在击败巡游者后将降为20秒
 TSU2: 需击败任意邪恶Boss
 TSA3:
 	'''
 	丢出时按下鼠标右键可以让镰刀跟随鼠标一段时间
-	潜伏攻击命中将为你回复15点生命值
+	潜伏攻击命中将为你回复7点生命值
 	'''
 TSU3: 需击败先知
-TSA4: 传送斩击命中将使武器被虚空赋能，持续15秒，在击败巡游者后将提升至30秒，此时，造成的伤害将增加25%
+TSA4: 传送斩击命中将使武器被虚空赋能，持续8秒，在击败巡游者后将提升至15秒，此时，造成的伤害将增加20%
 TSU4: 需击败虚无双子
 TSA5:
 	'''
 	传送斩击会在原地也留下一个影子，影子也会进行一次大范围的劈砍，并且冲刺会额外产生一条垂直于原冲刺的斩击
-	潜伏攻击命中的治疗量增加至30
+	潜伏攻击命中的治疗量增加至10
 	'''
 TSU5: 需击败噬魂幽花
 TSA6: 冲刺时留下裂缝，持续对接触到的目标造成伤害
@@ -5560,7 +5657,7 @@ TSA7: 抵挡一次致命伤害并将你的生命值回复至最大生命值的�
 TSU7: 需击败犽狨
 TSA8: 攻击造成虚空之触
 TSU8: 需击败巡游者
-TSA9: 与目标之间的距离越近，造成的伤害越高，最高额外造成35%伤害
+TSA9: 与目标之间的距离越近，造成的伤害越高，最高额外造成25%伤害
 PressShiftForMoreInfo: 按住Shift查看详细信息...
 TSU9: 需击败至尊灾厄
 AchievementBookmarkInsertName: 良好的阅读习惯
@@ -5616,6 +5713,23 @@ AzafureSet2:
 	提供80点潜行值
 	增加20%移动速度和1最大仆从栏位
 	'''
+AzafureSet3:
+	'''
+	免疫摔落伤害
+	穿着此盔甲时所有阿萨福勒装备将获得部分强化
+	将肾上腺素替换为耐力条
+	耐力条会为你提供至多50点护甲与32%伤害减免
+	在受到伤害时会根据伤害值扣除耐力，耐力减少同时会使你的防御和减伤暂时降低
+	耐力会在受击5秒后缓慢回复
+	当耐力清空时会失效，并需要一段时间重新启用
+	死亡后产生威力巨大的爆炸
+	提供120点潜行值
+	按下[[KEY]]变形为一架卫城机甲，再次按下取消变身
+	当机甲激活时，大幅增加防御与伤害减免，且你只能使用其提供的武器
+	左键攻击，右键以切换武器形态
+	钩爪将会被叉矛取代，按下钩爪键将发射叉矛，将你拉向钩住的物块
+	叉矛会抓住较弱的敌怪，如果钩住Boss时将会把你拉过去
+	'''
 DuraBar: 耐力条
 AzafureEnhance: 能力强化
 
@@ -5647,8 +5761,8 @@ AzafureEnhances: {
 	AzafurePeaceKey: 每次发射两发核弹
 	AzafureDriverCore:
 		'''
-		减小充能消耗
-		-40% 护盾承受的伤害
+		降低充能消耗
+		-20% 护盾承受的伤害
 		增加护盾恢复速度
 		'''
 }
@@ -5662,3 +5776,4 @@ NihilityShield: 噬菌体护盾
 CardsDesc: 与它相似的卡片应该还有一整套
 VoidCoreShield: 虚空核心护盾
 CrossModSupportFish: 联动内容:比目鱼炮技能鱼也能被放入任意熵语之书当作书签使用
+CdAcr: 卫城机甲冷却

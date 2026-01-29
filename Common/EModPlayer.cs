@@ -61,6 +61,7 @@ namespace CalamityEntropy.Common
 
             return p;
         }
+        public bool rottenFangs = false;
         public float alpha = 1f;
         public float CooldownTimeMult = 1;
         public List<int> enabledLoreItems = new List<int>();
@@ -335,6 +336,7 @@ namespace CalamityEntropy.Common
         public int summonCrit = 0;
         public float meleeDamageReduce = 0;
         public int hitTimeCount = 999999;
+
         public bool isUsingItem()
         {
             return Main.mouseLeft && !Player.mouseInterface && Player.HeldItem.damage > 0 && Player.HeldItem.active;
@@ -418,6 +420,7 @@ namespace CalamityEntropy.Common
                     player.GetDamage(dmgClass) += McDamage - player.GetDamage(dmgClass).Additive;
             }
         }
+        #region Misc
         public List<McAttributeRecord> McAttributes = null;
         public bool devouringCard = false;
         public bool NoNaturalStealthRegen = false;
@@ -461,6 +464,22 @@ namespace CalamityEntropy.Common
         public float VoidCoreShieldScale = 0;
         public bool ChaoticSet = false;
         public bool SpawnChaoticCellOnHurt = false;
+        public NPC lastHitTarget = null;
+        public int ShootLaserTime = 0;
+        public float DriverScale = 0;
+        public bool DriverShieldVisual = false;
+        public bool VoidShieldVisual = false;
+        public float Scale = 1;
+        public int oWidth = 20;
+        public int oHeight = 42;
+        public float ScaleTarget = 1;
+        public float snowgrave = 0;
+        public bool NoAdrenaline = false;
+        public int NoAdrenalineTime = 0;
+        public float EDamageReduce = 0;
+        public int NoPlatformCollide = 0;
+        public bool exquisiteCrown = false;
+        #endregion
         public void UpdateDriverShield()
         {
             bool Equiped = AzafureDriverShieldItem != null;
@@ -519,8 +538,7 @@ namespace CalamityEntropy.Common
                 RemoveCooldown(DriverCoreCooldown.ID);
             }
         }
-        public NPC lastHitTarget = null;
-        public int ShootLaserTime = 0;
+
         public void UpdateNihShield()
         {
             bool Equiped = NihilityShieldEnabled;
@@ -619,7 +637,7 @@ namespace CalamityEntropy.Common
         }
         public void UpdateVoidShield(bool Equiped, string CooldownID, ref float Scale, ref int shieldCount, ref int regenDelay, ref int rechargeCounter, int MaxShield, int RechargeTime)
         {
-            
+
             Scale = float.Lerp(Scale, Equiped ? (shieldCount > 0 ? (0.6f + 0.4f * ((float)Scale / MaxShield)) : 0.5f) : 0, 0.05f);
             if (Equiped)
             {
@@ -670,7 +688,7 @@ namespace CalamityEntropy.Common
             {
                 rechargeCounter = 0;
                 shieldCount = 0;
-                if(regenDelay < 2 * 60)
+                if (regenDelay < 2 * 60)
                     regenDelay = 2 * 60;
                 RemoveCooldown(CooldownID);
             }
@@ -683,7 +701,7 @@ namespace CalamityEntropy.Common
                 p.Calamity().cooldowns.Remove(id);
             }
         }
-        public float DriverScale = 0;
+
         public void DriverShieldHit(ref Player.HurtInfo info)
         {
             if (DriverShield > 0)
@@ -786,12 +804,7 @@ namespace CalamityEntropy.Common
                 CombatText.NewText(Player.getRect(), Color.LightSkyBlue, "-" + reduceDmg);
             }
         }
-        public bool DriverShieldVisual = false;
-        public bool VoidShieldVisual = false;
-        public float Scale = 1;
-        public int oWidth = 20;
-        public int oHeight = 42;
-        public float ScaleTarget = 1;
+
         public void ApplyScale()
         {
             oWidth = Player.width;
@@ -811,12 +824,10 @@ namespace CalamityEntropy.Common
             Player.height = oHeight;
             Player.position = c - new Vector2(Player.width / 2, Player.height);
         }
-        public float snowgrave = 0;
-        public bool NoAdrenaline = false;
-        public int NoAdrenalineTime = 0;
-        public float EDamageReduce = 0;
         public override void ResetEffects()
         {
+            rottenFangs = false;
+            exquisiteCrown = false;
             EDamageReduce = 0;
             VoidShieldVisual = false;
             ScaleTarget = 1;
@@ -999,6 +1010,7 @@ namespace CalamityEntropy.Common
 
         public override void PreUpdate()
         {
+            NoPlatformCollide--;
             NoAdrenaline = false;
             if (NoAdrenalineTime > 0)
                 NoAdrenaline = true;
@@ -1168,6 +1180,10 @@ namespace CalamityEntropy.Common
                 Player.maxFallSpeed *= 3;
                 Player.controlDown = true;
             }
+            if (FallSpeedUP > 0)
+            {
+                Player.maxFallSpeed *= 5;
+            }
             Player.maxFallSpeed *= FallSpeed;
             gravAddTime--;
             if (CruiserAntiGravTime > 0)
@@ -1241,7 +1257,7 @@ namespace CalamityEntropy.Common
             {
                 rbDotDist += (-rbDotDist) * 0.06f;
             }
-            if (rBadgeActive || RuneDash > 0 || CruiserAntiGravTime > 0 || Player.mount.Type == ModContent.MountType<ReplicaPenMount>())
+            if (NoPlatformCollide > 0 || rBadgeActive || RuneDash > 0 || CruiserAntiGravTime > 0 || Player.mount.Type == ModContent.MountType<ReplicaPenMount>())
             {
                 resetTileSets = true;
                 tileSolid = (bool[])Main.tileSolid.Clone();
@@ -1394,23 +1410,41 @@ namespace CalamityEntropy.Common
             {
                 Player.maxRunSpeed *= MaliciousCode.CALAMITY__OVERHAUL ? 0.8f : 0.85f;
             }
+            if (maliciousCode)
+            {
+                //恶意代码debuff
+                //加了大修增加一些效果强度
+                //那很恶意了
+                Player.GetDamage(DamageClass.Generic) *= MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f;
+                Player.GetAttackSpeed(DamageClass.Generic) *= MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f;
+                Player.statLifeMax2 = (int)(Player.statLifeMax2 * (MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f));
+                Player.lifeRegen /= 2;
+                lifeRegenPerSec /= 2;
+                Player.statDefense *= MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f;
+                Player.maxRunSpeed *= (MaliciousCode.CALAMITY__OVERHAUL ? 0.85f : 0.88f);
+            }
 
-
-            Player.runAcceleration *= 1f + 0.02f * VoidCharge;
-            Player.maxRunSpeed *= 1f + 0.15f * VoidCharge;
-            Player.runAcceleration *= 1f + moveSpeed;
-            Player.maxRunSpeed *= 1f + moveSpeed;
-            Player.maxRunSpeed *= Scale;
-            Player.runAcceleration *= Scale;
-
+            if (VFSet)
+            {
+                Player.runAcceleration *= 1f + 0.02f * VoidCharge;
+                Player.maxRunSpeed *= 1f + 0.15f * VoidCharge;
+            }
+            if (moveSpeed != 0)
+            {
+                Player.runAcceleration *= 1f + moveSpeed;
+                Player.maxRunSpeed *= 1f + moveSpeed;
+            }
+            if (Scale != 1)
+            {
+                Player.maxRunSpeed *= Scale;
+                Player.runAcceleration *= Scale;
+            }
             if (CalamityEntropy.EntropyMode)
             {
-                Player.maxRunSpeed *= 0.98f;
-                Player.accRunSpeed *= 0.98f;
+                Player.maxRunSpeed *= 0.96f;
                 if (HitTCounter > 0)
                 {
-                    Player.maxRunSpeed *= 0.96f;
-                    Player.accRunSpeed *= 0.96f;
+                    Player.maxRunSpeed *= 0.86f;
                 }
             }
         }
@@ -1493,9 +1527,9 @@ namespace CalamityEntropy.Common
             {
                 voidslashType = ModContent.ProjectileType<VoidSlash>();
             }
-            if(mariviniumBody)
+            if (mariviniumBody)
             {
-                Player.breath = Player.breathMax + 91;
+                Player.breath = Player.breathMax + 99999;
             }
             if (Player.ownedProjectileCounts[voidslashType] > 0)
             {
@@ -1513,19 +1547,7 @@ namespace CalamityEntropy.Common
                 }
 
             }
-            if (maliciousCode)
-            {
-                //恶意代码debuff
-                //加了大修增加一些效果强度
-                //那很恶意了
-                Player.GetDamage(DamageClass.Generic) *= MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f;
-                Player.GetAttackSpeed(DamageClass.Generic) *= MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f;
-                Player.statLifeMax2 = (int)(Player.statLifeMax2 * (MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f));
-                Player.lifeRegen /= 2;
-                lifeRegenPerSec /= 2;
-                Player.statDefense *= MaliciousCode.CALAMITY__OVERHAUL ? 0.75f : 0.8f;
-                Player.moveSpeed *= (MaliciousCode.CALAMITY__OVERHAUL ? 0.85f : 0.88f);
-            }
+            
 
             if (bloodBoiling > 0)
             {
@@ -1600,9 +1622,10 @@ namespace CalamityEntropy.Common
             if (CalamityEntropy.EntropyMode)
             {
                 Player.statLifeMax2 = (int)(Player.statLifeMax2 * 0.8f);
-                Player.statDefense *= 0.7f;
-                Player.lifeRegen /= 2;
-                lifeRegenPerSec /= 2;
+                Player.statDefense *= 0.5f;
+                Player.endurance *= 0.5f;
+                Player.lifeRegen /= 3;
+                lifeRegenPerSec /= 3;
                 if (HitTCounter > 0)
                 {
                     Player.lifeRegen = 0;
@@ -1614,12 +1637,8 @@ namespace CalamityEntropy.Common
                     DamageClass dc = dmgClasses[i];
                     if (Player.GetDamage(dc).Additive > 1)
                     {
-                        float tv = (float)Math.Pow(Player.GetDamage(dc).Additive, 0.9f);
+                        float tv = (float)Math.Pow(Player.GetDamage(dc).Additive, 0.85f);
                         Player.GetDamage(dc) -= (Player.GetDamage(dc).Additive - tv);
-                    }
-                    if (Player.GetCritChance(dc) > 75)
-                    {
-                        Player.GetCritChance(dc) = 75;
                     }
                 }
             }
@@ -1720,7 +1739,7 @@ namespace CalamityEntropy.Common
                         {
                             if (Player.ownedProjectileCounts[type] < ChaoticHelmet.MaxCells)
                             {
-                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 15, type, ((int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(ChaoticCellMinion.BaseDamage)).ApplyOldFashionedDmg(), 2, Player.whoAmI);
+                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 15, type, ((int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(ChaoticCellMinion.BaseDamage)).ApplyAccArmorDamageBonus(Player), 2, Player.whoAmI);
                             }
                         }
                     }
@@ -1741,7 +1760,7 @@ namespace CalamityEntropy.Common
             {
                 CEUtils.PlaySound("llHurt", 1, Player.Center);
             }
-            HitTCounter = 300;
+            HitTCounter = 600;
             hitTimeCount = 0;
             JustHit = true;
             if (LoreReworkSystem.Enabled<LorePerforators>())
@@ -2008,7 +2027,7 @@ namespace CalamityEntropy.Common
                             Player.buffTime[i] = 0;
                         }
                     }
-                    Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MoonlightShieldBreak>(), 8000.ApplyOldFashionedDmg(), 0, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<MoonlightShieldBreak>(), 8000.ApplyAccArmorDamageBonus(Player), 0, Player.whoAmI);
                     Player.statMana = Player.statManaMax2;
                 }
             }
@@ -2136,8 +2155,38 @@ namespace CalamityEntropy.Common
 
             }
         }
+        public int FallSpeedUP = 0;
         public override void PostUpdate()
         {
+            if(CalamityEntropy.EntropyMode)
+            {
+                List<DamageClass> dmgClasses = new List<DamageClass>() { ModContent.GetInstance<AverageDamageClass>(), ModContent.GetInstance<DefaultDamageClass>(), ModContent.GetInstance<GenericDamageClass>(), ModContent.GetInstance<MagicDamageClass>(), ModContent.GetInstance<MagicSummonHybridDamageClass>(), ModContent.GetInstance<MeleeDamageClass>(), ModContent.GetInstance<MeleeNoSpeedDamageClass>(), ModContent.GetInstance<MeleeRangedHybridDamageClass>(), ModContent.GetInstance<NoneTypeDamageClass>(), ModContent.GetInstance<RangedDamageClass>(), ModContent.GetInstance<RogueDamageClass>(), ModContent.GetInstance<StealthDamageClass>(), ModContent.GetInstance<SummonDamageClass>(), ModContent.GetInstance<SummonMeleeSpeedDamageClass>(), ModContent.GetInstance<ThrowingDamageClass>(), ModContent.GetInstance<TrueMeleeDamageClass>(), ModContent.GetInstance<TrueMeleeNoSpeedDamageClass>() };
+                for (int i = 0; i < dmgClasses.Count; i++)
+                {
+                    DamageClass dc = dmgClasses[i];
+                    if (Player.GetDamage(dc).Additive > 1)
+                    {
+                        float tv = (float)Math.Pow(Player.GetDamage(dc).Additive, 0.85f);
+                        Player.GetDamage(dc) += tv - Player.GetDamage(dc).Additive;
+                    }
+                    if (Player.GetCritChance(dc) > 50)
+                    {
+                        Player.GetCritChance(dc) = 50;
+                    }
+                }
+            }
+            if (exquisiteCrown)
+            {
+                if (Player.whoAmI == Main.myPlayer)
+                {
+                    int crptype = ModContent.ProjectileType<RubyCrown>();
+                    if (Player.ownedProjectileCounts[crptype] <= 0)
+                    {
+                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, crptype, 32, 0, Player.whoAmI);
+                    }
+                }
+            }
+            FallSpeedUP--;
             if (NoAdrenaline)
             {
                 Player.Calamity().adrenaline = 0;
@@ -2215,7 +2264,7 @@ namespace CalamityEntropy.Common
                 {
                     Vector2 tpos = lastHitTarget.Center + lastHitTarget.velocity * 4;
                     Vector2 spos = Player.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(70, 120);
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), spos, (tpos - spos).normalize() * 16, ModContent.ProjectileType<VENihilityLaser>(), ((int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(VoidEaterHelmet.LaserDamage)).ApplyOldFashionedDmg(), 8, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), spos, (tpos - spos).normalize() * 16, ModContent.ProjectileType<VENihilityLaser>(), ((int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(VoidEaterHelmet.LaserDamage)).ApplyAccArmorDamageBonus(Player), 8, Player.whoAmI);
                     if (CECooldowns.CheckCD("NihLaserSound", 1))
                         CEUtils.PlaySound("void_laser", 2.4f, spos, 6, 0.2f);
                 }
@@ -2270,7 +2319,7 @@ namespace CalamityEntropy.Common
                         {
                             if (Player.ownedProjectileCounts[type] < ChaoticHelmet.MaxCells)
                             {
-                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 15, type, ((int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(ChaoticCellMinion.BaseDamage)).ApplyOldFashionedDmg(), 2, Player.whoAmI);
+                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 15, type, ((int)Player.GetTotalDamage<AverageDamageClass>().ApplyTo(ChaoticCellMinion.BaseDamage)).ApplyAccArmorDamageBonus(Player), 2, Player.whoAmI);
                             }
                         }
                     }
@@ -2388,31 +2437,34 @@ namespace CalamityEntropy.Common
             {
                 dashing = false;
             }
-            if ((Player.GetModPlayer<SCDashMP>().Cooldown > 0 || !hasAccVisual(ShadeCloak.ID)) && !NDFlag)
+            if ((Player.GetModPlayer<SCDashMP>().Cooldown > 0 || (!hasAcc(ShadeCloak.ID) && !hasAccVisual(ShadeCloak.ID))) && !NDFlag)
             {
             }
             else
             {
                 if (Player.dashDelay < 0)
                 {
-
-                    if (avTrail == null || avTrail.Lifetime <= 0)
+                    if (hasAccVisual(ShadeCloak.ID))
                     {
-                        avTrail = new DashBeam();
-                        EParticle.spawnNew(avTrail, Player.Center, Vector2.Zero, new Color(0, 0, 0, 210), 1f, 1, true, BlendState.NonPremultiplied);
-                        avTrail.maxLength = 30;
+                        if (avTrail == null || avTrail.Lifetime <= 0)
+                        {
+                            avTrail = new DashBeam();
+                            EParticle.spawnNew(avTrail, Player.Center, Vector2.Zero, new Color(0, 0, 0, 210), 1f, 1, true, BlendState.NonPremultiplied);
+                            avTrail.maxLength = 30;
+                        }
                     }
-                    ResetRot = true;
-                    Player.fullRotation = (new Vector2(Math.Abs(Player.velocity.X), Player.velocity.Y).ToRotation()) * Player.direction;
-
                     if (Player.GetModPlayer<SCDashMP>().flag)
                     {
                         Player.GetModPlayer<SCDashMP>().Cooldown = 158.ApplyCdDec(Player);
                         Player.GetModPlayer<SCDashMP>().flag = false;
-                        CEUtils.PlaySound("Dash2", 1, Player.Center);
-                        for (int i = 0; i < 12; i++)
+                        if (hasAccVisual(ShadeCloak.ID))
                         {
-                            EParticle.NewParticle(new ShadeCloakOrb() { PlayerIndex = Player.whoAmI }, Vector2.Zero, CEUtils.randomPointInCircle(4), Color.Black, 1, 1, true, BlendState.NonPremultiplied, -1, 160.ApplyCdDec(Player));
+                            CEUtils.PlaySound("Dash2", 1, Player.Center);
+                        
+                            for (int i = 0; i < 12; i++)
+                            {
+                                EParticle.NewParticle(new ShadeCloakOrb() { PlayerIndex = Player.whoAmI }, Vector2.Zero, CEUtils.randomPointInCircle(4), Color.Black, 1, 1, true, BlendState.NonPremultiplied, -1, 160.ApplyCdDec(Player));
+                            }
                         }
                         NDFlag = true;
 
@@ -2426,11 +2478,14 @@ namespace CalamityEntropy.Common
                     }
                     if (Player.GetModPlayer<SCDashMP>().Cooldown > 160.ApplyCdDec(Player) - 24)
                     {
-                        avTrail.Lifetime = 30;
-                        for (int i = 0; i < 4; i++)
+                        if (hasAccVisual(ShadeCloak.ID))
                         {
-                            EParticle.NewParticle(new ShadeDashParticle(), Player.Center + Player.velocity * 6
-                                + CEUtils.randomPointInCircle(26), -(Player.velocity.normalize().RotatedByRandom(0.12f)) * 40, Color.White, 1, 1, true, BlendState.NonPremultiplied, 0, 16);
+                            avTrail.Lifetime = 30;
+                            for (int i = 0; i < 4; i++)
+                            {
+                                EParticle.NewParticle(new ShadeDashParticle(), Player.Center + Player.velocity * 6
+                                    + CEUtils.randomPointInCircle(26), -(Player.velocity.normalize().RotatedByRandom(0.12f)) * 40, Color.White, 1, 1, true, BlendState.NonPremultiplied, 0, 16);
+                            }
                         }
                         if (hasAcc(ShadeCloak.ID))
                         {
@@ -2645,7 +2700,7 @@ namespace CalamityEntropy.Common
                 {
                     Player.AddCooldown(ShadowDashCD.ID, ShadowMantle.CooldownTicks);
                     immune = 16;
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).normalize() * 800, ModContent.ProjectileType<ShadowMantleSlash>(), (int)Player.GetTotalDamage<RogueDamageClass>().ApplyTo(((int)(1 + ShadowMantle.BaseDamage * Player.Calamity().rogueStealth)).ApplyOldFashionedDmg()), 0, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).normalize() * 800, ModContent.ProjectileType<ShadowMantleSlash>(), (int)Player.GetTotalDamage<RogueDamageClass>().ApplyTo(((int)(1 + ShadowMantle.BaseDamage * Player.Calamity().rogueStealth)).ApplyAccArmorDamageBonus(Player)), 0, Player.whoAmI);
                     Player.Calamity().rogueStealth = 0;
                 }
             }
@@ -2655,7 +2710,7 @@ namespace CalamityEntropy.Common
             {
                 if (Player.ownedProjectileCounts[ilVortexType] < 3)
                 {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ilVortexType, 1000.ApplyOldFashionedDmg(), 1, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ilVortexType, 1000.ApplyAccArmorDamageBonus(Player), 1, Player.whoAmI);
                 }
             }
             if (Player.itemTime > 0 || Player.channel)
@@ -2876,7 +2931,7 @@ namespace CalamityEntropy.Common
                                 if (Main.mouseRight)
                                 {
                                     mawOfVoidUsing = true;
-                                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<BloodRing>(), ((int)Player.GetDamage(Player.GetBestClass()).ApplyTo(MawOfTheVoid.Damage)).ApplyOldFashionedDmg(), 0, Player.whoAmI);
+                                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<BloodRing>(), ((int)Player.GetDamage(Player.GetBestClass()).ApplyTo(MawOfTheVoid.Damage)).ApplyAccArmorDamageBonus(Player), 0, Player.whoAmI);
                                 }
                             }
                         }
@@ -2885,7 +2940,7 @@ namespace CalamityEntropy.Common
                             if (mawOfVoidCharge == 1)
                             {
                                 mawOfVoidUsing = true;
-                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<BloodRing>(), ((int)Player.GetDamage(Player.GetBestClass()).ApplyTo(MawOfTheVoid.Damage)).ApplyOldFashionedDmg(), 0, Player.whoAmI);
+                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<BloodRing>(), ((int)Player.GetDamage(Player.GetBestClass()).ApplyTo(MawOfTheVoid.Damage)).ApplyAccArmorDamageBonus(Player), 0, Player.whoAmI);
                             }
                             else
                             {
@@ -2924,7 +2979,7 @@ namespace CalamityEntropy.Common
                                 if (Main.mouseRight)
                                 {
                                     revelationUsing = true;
-                                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<HolyBeamRevelation>(), ((int)Player.GetDamage(Player.GetBestClass()).ApplyTo(TheRevelation.Damage)).ApplyOldFashionedDmg(), 0, Player.whoAmI);
+                                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<HolyBeamRevelation>(), ((int)Player.GetDamage(Player.GetBestClass()).ApplyTo(TheRevelation.Damage)).ApplyAccArmorDamageBonus(Player), 0, Player.whoAmI);
                                 }
                             }
                         }
@@ -2933,7 +2988,7 @@ namespace CalamityEntropy.Common
                             if (revelationCharge == 1)
                             {
                                 revelationUsing = true;
-                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<HolyBeamRevelation>(), ((int)Player.GetDamage(Player.GetBestClass()).ApplyTo(TheRevelation.Damage)).ApplyOldFashionedDmg(), 0, Player.whoAmI);
+                                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX), ModContent.ProjectileType<HolyBeamRevelation>(), ((int)Player.GetDamage(Player.GetBestClass()).ApplyTo(TheRevelation.Damage)).ApplyAccArmorDamageBonus(Player), 0, Player.whoAmI);
                             }
                             else
                             {
@@ -3026,7 +3081,7 @@ namespace CalamityEntropy.Common
                         if (PoopHold is not null)
                         {
                             PoopsUI.holdAnmj = 0.2f;
-                            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, new Vector2(0, 0), PoopHold.ProjectileType(), 80.ApplyOldFashionedDmg(), 3, Player.whoAmI);
+                            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, new Vector2(0, 0), PoopHold.ProjectileType(), 80.ApplyAccArmorDamageBonus(Player), 3, Player.whoAmI);
                             holdingPoop = true;
                             PoopHold = null;
                             CEUtils.PlaySound("poop_itemthrow");
@@ -3192,7 +3247,7 @@ namespace CalamityEntropy.Common
                 {
                     SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/OmegaBlueAbility"), Player.Center);
                     VoidInspire = 600;
-                    Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<VoidWraith>(), 2000.ApplyOldFashionedDmg(), 0, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, ModContent.ProjectileType<VoidWraith>(), 2000.ApplyAccArmorDamageBonus(Player), 0, Player.whoAmI);
                 }
             }
 
@@ -3523,7 +3578,7 @@ namespace CalamityEntropy.Common
             }
             if (hasAcc(ShadowMantle.ID))
             {
-                RogueStealthRegen += 0.02f * Player.velocity.Length();
+                RogueStealthRegen += float.Min(0.016f * Player.velocity.Length(), 0.2f);
             }
             if (soulDisorder)
             {
@@ -3634,6 +3689,10 @@ namespace CalamityEntropy.Common
             if (shadowRune)
             {
                 Player.maxMinions += (int)((Player.GetDamage(DamageClass.Summon).Additive - 1.0f) * ShadowRune.SummonDmgToMinionSlot);
+            }
+            if(worshipRelic)
+            {
+                Player.Calamity().rogueStealthMax *= 0.5f;
             }
         }
         public override void ModifyScreenPosition()

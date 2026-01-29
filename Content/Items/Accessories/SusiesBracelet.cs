@@ -1,14 +1,9 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Accessories;
-using CalamityMod.Rarities;
-using InnoVault.Trails;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
-using Terraria.GameContent.UI;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -51,7 +46,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void LoadData(TagCompound tag)
         {
-            if(tag.TryGet<int>("Level", out int lv))
+            if (tag.TryGet<int>("Level", out int lv))
             {
                 Level = lv;
             }
@@ -71,7 +66,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             void Check(bool f, int lv)
             {
-                if(lv > Level && f)
+                if (lv > Level && f)
                 {
                     Level = lv;
                 }
@@ -91,7 +86,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             int index = 0;
-            for(int i = 0; i < tooltips.Count; i++)
+            for (int i = 0; i < tooltips.Count; i++)
             {
                 if (tooltips[i].Name.Contains("Tooltip"))
                 {
@@ -99,7 +94,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                 }
             }
             index++;
-            if(GetLevel() < 11)
+            if (GetLevel() < 11)
             {
                 tooltips.Add(new TooltipLine(Mod, $"Tooltip{index}", GetLt($"Trial", "Trials").Value + $"{GetLevel() + 1} - " + GetLt($"t{GetLevel()}", "Trials").Value) { OverrideColor = Color.Yellow });
             }
@@ -107,7 +102,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             {
                 tooltips.Add(new TooltipLine(Mod, $"Tooltip{index}", GetLt("t11", "Trials").Value) { OverrideColor = Color.Yellow });
             }
-            
+
             tooltips.Add(new TooltipLine(Mod, $"Tooltip{index}", GetLt($"l{GetLevel()}").Value) { OverrideColor = Color.Pink });
 
             tooltips.Replace("[DMG]", AddDamage.ToPercent().ToString());
@@ -130,7 +125,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             10 => 0.22f,
             11 => 0.24f,
             _ => 0.24f
-        }; 
+        };
         public int AddHP => GetLevel() switch
         {
             0 => 10,

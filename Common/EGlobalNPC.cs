@@ -70,7 +70,10 @@ namespace CalamityEntropy.Common
         public float damageMul = 1;
         public int AnimaTrapped = 0;
         public int[] tfriendlyNPCHitCooldown = new int[201];
-
+        public override bool AppliesToEntity(NPC entity, bool lateInstantiation)
+        {
+            return true;
+        }
         public override bool InstancePerEntity => true;
         public int dscd = 0;
         public bool daTarget = false;
@@ -89,7 +92,7 @@ namespace CalamityEntropy.Common
         public int StareOfAbyssTime = 0;
         public int EclipsedImprintTime = 0;
         public int friendFinderOwner = 0;
-        public int TDRCounter = 3 * 60 * 60;
+        public float TDRCounter = 3 * 60 * 60;
         public int HitCounter = 0;
         public static float DamageReduceMult(NPC npc)
         {
@@ -273,7 +276,9 @@ namespace CalamityEntropy.Common
             }
             if (TDRCounter > 0)
             {
-                TDRCounter--;
+                TDRCounter-=0.75f;
+                if (TDRCounter < 0)
+                    TDRCounter = 0;
             }
             noelctime--;
             if (deusBloodOut > 0 && !npc.dontTakeDamage)
@@ -748,11 +753,23 @@ namespace CalamityEntropy.Common
             {
                 npcLoot.Add(ModContent.ItemType<OsseousRemains>(), 3, 6, 8);
             }
+            if (npc.type == NPCID.BrainofCthulhu)
+            {
+                npcLoot.AddNormalOnly(ModContent.ItemType<CreeperWand>(), 3, 1, 1);
+            }
+            if (npc.type == NPCID.KingSlime)
+            {
+                npcLoot.AddNormalOnly(ModContent.ItemType<ExquisiteCrown>(), 3, 1, 1);
+            }
+            if (npc.type == NPCID.EyeofCthulhu)
+            {
+                npcLoot.AddNormalOnly(ModContent.ItemType<RottenFangs>(), 3, 1, 1);
+            }
             if (npc.type == NPCID.Deerclops)
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<BookmarkSnowgrave>(), 5, 1, 1);
             }
-            if(npc.type == ModContent.NPCType<CeaselessVoid>())
+            if (npc.type == ModContent.NPCType<CeaselessVoid>())
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<BottleDarkMatter>(), 4);
             }
@@ -1059,7 +1076,7 @@ namespace CalamityEntropy.Common
 
                 needExitShader = true;
             }
-            if (CalamityEntropy.EntropyMode)
+            /*if (CalamityEntropy.EntropyMode)
             {
                 if (npc.type == NPCID.AncientLight || npc.type == NPCID.AncientDoom || EModILEdit.LostNPCsEntropy.Contains(npc.type))
                 {
@@ -1070,7 +1087,7 @@ namespace CalamityEntropy.Common
                     trans.Parameters["color"].SetValue(new Vector4(0, 0, 0, 1));
                     trans.CurrentTechnique.Passes[0].Apply();
                 }
-            }
+            }*/
             return true;
         }
         public float hdStrength = 0;
@@ -1359,7 +1376,7 @@ namespace CalamityEntropy.Common
                         }
                         if (player.Entropy().hasAcc(MineBox.ID) && pr.Calamity().stealthStrike && CECooldowns.CheckCD(ref CECooldowns.MineBoxCd, 60))
                         {
-                            Projectile.NewProjectile(pr.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<BoobyMine>(), ((int)player.GetTotalDamage(pr.DamageType).ApplyTo(MineBox.BaseDamage)).ApplyOldFashionedDmg(), 0, player.whoAmI);
+                            Projectile.NewProjectile(pr.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<BoobyMine>(), ((int)player.GetTotalDamage(pr.DamageType).ApplyTo(MineBox.BaseDamage)).ApplyAccArmorDamageBonus(player), 0, player.whoAmI);
                         }
                     }
                 }
@@ -1392,7 +1409,7 @@ namespace CalamityEntropy.Common
                             if (target != null)
                             {
                                 noelctime = 4;
-                                Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center, Vector2.Zero, lasertype, damage.ApplyOldFashionedDmg() / 10, 0, player.whoAmI, target.Center.X, target.Center.Y, (source is Projectile p && p.type == lasertype) ? p.ai[2] + 1 : 0);
+                                Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center, Vector2.Zero, lasertype, damage.ApplyAccArmorDamageBonus(player) / 10, 0, player.whoAmI, target.Center.X, target.Center.Y, (source is Projectile p && p.type == lasertype) ? p.ai[2] + 1 : 0);
                             }
                         }
                     }

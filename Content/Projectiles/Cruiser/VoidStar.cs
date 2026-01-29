@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.scale = 1f;
-            Projectile.timeLeft = 520;
+            Projectile.timeLeft = 480;
             Projectile.extraUpdates = 1;
         }
         public bool setv = true;
@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             Projectile.rotation += 0.1f;
             Lighting.AddLight(Projectile.Center, 0.75f, 1f, 0.24f);
 
-            if (Main.rand.NextBool(2))
+            if (Main.rand.NextBool(5))
             {
                 Particle smoke = new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.5f, Color.Lerp(Color.DodgerBlue, Color.MediumVioletRed, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), 20, Main.rand.NextFloat(0.6f, 1.2f) * Projectile.scale, 0.28f, 0, false, 0, true);
                 GeneralParticleHandler.SpawnParticle(smoke);

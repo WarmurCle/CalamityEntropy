@@ -115,7 +115,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             NPC.boss = true;
             NPC.width = 80;
             NPC.height = 80;
-            NPC.damage = 70;
+            NPC.damage = 76;
             NPC.Calamity().DR = 0.10f;
             NPC.lifeMax = 52000;
             if (BossRushEvent.BossRushActive)
@@ -357,7 +357,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 }
                 if (AIStyle == 4)
                 {
-                    AIChangeDelay = 100;
+                    AIChangeDelay = 150;
                 }
                 if (AIStyle == 5)
                 {
@@ -398,7 +398,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, (target.Center - NPC.Center).ToRotation(), 0.6f, false);
                     if (AIChangeDelay >= 30 && AIChangeDelay % (phase == 1 ? 60 : 46) == 0)
                     {
-                        TeleportTo(target.Center + target.velocity.SafeNormalize(CEUtils.randomRot().ToRotationVector2()) * 1000 / difficult);
+                        TeleportTo(target.Center + target.velocity.SafeNormalize(CEUtils.randomRot().ToRotationVector2()) * 1250 / difficult);
                     }
                     if (AIChangeDelay >= 30 && AIChangeDelay % (phase == 1 ? 60 : 50) == (phase == 1 ? 56 : 46))
                     {
@@ -562,14 +562,14 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 if (AIStyle == 4)//速射符文洪流
                 {
                     NPC.rotation = (target.Center - NPC.Center).ToRotation();
-                    if (AIChangeDelay == 86)
+                    if (AIChangeDelay == 149)
                     {
                         TeleportTo(target.Center + target.velocity.SafeNormalize(CEUtils.randomRot().ToRotationVector2()) * 900 / difficult);
                         NPC.velocity = (target.Center - NPC.Center).normalize() * 1;
                     }
-                    if (AIChangeDelay > 10)
+                    if (AIChangeDelay > 80)
                     {
-                        if (AIChangeDelay < 60)
+                        if (AIChangeDelay <100)
                         {
                             if (AIChangeDelay % 4 == 0)
                             {
@@ -577,19 +577,19 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                             }
                             if (Main.netMode != NetmodeID.MultiplayerClient && AIChangeDelay % 2 == 0)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedByRandom((phase == 1 ? 0.1f : 0.16f)) * difficult * 1.4f, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 12 * difficult);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedByRandom((phase == 1 ? 0.1f : 0.16f)) * difficult * 1.8f, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 12 * difficult);
                             }
                         }
                         else
                         {
-                            if (AIChangeDelay < 70)
+                            if (AIChangeDelay < 120)
                             {
                                 if (AIChangeDelay % 6 == 0)
                                 {
                                     CEUtils.PlaySound("crystalsound" + Main.rand.Next(1, 3), Main.rand.NextFloat(0.7f, 1.3f), NPC.Center);
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedByRandom((phase == 1 ? 0.16f : 0.4f)) * difficult * 1f, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 12 * difficult);
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (target.Center - NPC.Center).normalize().RotatedByRandom((phase == 1 ? 0.16f : 0.4f)) * difficult * 1.5f, ModContent.ProjectileType<RuneTorrent>(), NPC.damage / 6, 4, -1, 12 * difficult);
                                     }
                                 }
                             }
@@ -753,6 +753,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                             {
                                 if (plr.Distance(NPC.Center + new Vector2(0, -80)) > 560)
                                 {
+                                    plr.Entropy().immune = 20;
                                     plr.wingTime = plr.wingTimeMax;
                                     plr.velocity = (NPC.Center + new Vector2(0, -80) - plr.Center).normalize() * 10;
                                     plr.Center += (NPC.Center + new Vector2(0, -80) - plr.Center).normalize() * 36;

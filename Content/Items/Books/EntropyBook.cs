@@ -313,7 +313,7 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile proj = Projectile.NewProjectile(Projectile.GetOwner().GetSource_ItemUse(bookItem), pos, shootVel, type, dmg, kb, Projectile.owner).ToProj();
                 if (proj.penetrate >= 0)
                     proj.penetrate += modifer.PenetrateAddition;
-                proj.CritChance = bookItem.crit + (int)modifer.Crit;
+                proj.CritChance = (int)modifer.Crit;
                 proj.scale *= modifer.Size * scaleMul;
                 proj.ArmorPenetration += (int)(Projectile.GetOwner().GetTotalArmorPenetration(Projectile.DamageType) + modifer.armorPenetration + bookItem.ArmorPenetration);
 
@@ -497,6 +497,7 @@ namespace CalamityEntropy.Content.Items.Books
                 }
                 if (active && Opened)
                 {
+                    ManaNoRegen = 60;
                     if (shotCooldown <= 0 && CanShoot())
                     {
                         if (Projectile.GetOwner().CheckMana(bookItem.mana, true) && Shoot())
@@ -535,6 +536,7 @@ namespace CalamityEntropy.Content.Items.Books
 
                             }
                             shotCooldown = (int)((float)shotCooldown / m.attackSpeed);
+
                         }
                         else
                         {
@@ -543,6 +545,8 @@ namespace CalamityEntropy.Content.Items.Books
                     }
                 }
             }
+            if (ManaNoRegen-- > 0 && player.manaRegenDelay < 20)
+                player.manaRegenDelay = 20;
             if (active)
             {
                 for (int i = 0; i < Projectile.GetOwner().GetMyMaxActiveBookMarks(bookItem); i++)
@@ -563,9 +567,9 @@ namespace CalamityEntropy.Content.Items.Books
 
         public virtual void SetPosision()
         {
-            Projectile.Center = Projectile.GetOwner().GetDrawCenter() + (UIOpen ? UIHeldOffset : new Vector2(heldOffset.X, heldOffset.Y * (Projectile.velocity.X > 0 ? 1 : -1))).RotatedBy(Projectile.rotation);
+            Projectile.Center = Projectile.GetOwner().MountedCenter + (UIOpen ? UIHeldOffset : new Vector2(heldOffset.X, heldOffset.Y * (Projectile.velocity.X > 0 ? 1 : -1))).RotatedBy(Projectile.rotation);
         }
-
+        public int ManaNoRegen = 0;
         public virtual bool Opened => openAnim >= 2;
         public virtual void UpdateAnimations()
         {
@@ -660,7 +664,6 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile.rotation = Projectile.velocity.ToRotation();
                 initColor = false;
                 color = baseColor;
-                Projectile.CritChance /= 2;
             }
             return true;
         }
