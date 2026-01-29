@@ -828,12 +828,6 @@ namespace CalamityEntropy
                     {
                         orig(self, i);
                         self.Center -= self.velocity * 0.5f;
-                        orig(self, i);
-                        self.Center -= self.velocity * 0.5f;
-                    }
-                    if (self.type == NPCID.CultistBoss)
-                    {
-                        orig(self, i);
                     }
                     if (new List<int> { NPCID.SkeletronPrime, 128, 129, 130, 131, NPCID.TheDestroyer, NPCID.TheDestroyerBody, NPCID.TheDestroyerTail, 139, 125, 126 }.Contains(self.type))
                     {
