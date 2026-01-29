@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Items.Books
             CreateRecipe()
                 .AddIngredient<SelenbiteVolume>()
                 .AddIngredient<CosmiliteBar>(10)
-                .AddIngredient<RuinousSoul>(2)
+                .AddIngredient<AscendantSpiritEssence>(2)
                 .AddTile<CosmicAnvil>()
                 .Register();
         }

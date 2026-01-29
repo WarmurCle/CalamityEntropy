@@ -170,7 +170,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             for (int i = 0; i < 2; i++)
             {
                 Vector2 pos = target.Center + new Vector2(0, -900) + CEUtils.randomPointInCircle(400);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (target.Center - pos).normalize() * 42, ModContent.ProjectileType<AstralStarMelee>(), Projectile.damage / 2, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (target.Center - pos).normalize() * 42, ModContent.ProjectileType<AstralStarMelee>(), Projectile.damage / 4, Projectile.owner);
             }
             if (playHitSound)
             {
