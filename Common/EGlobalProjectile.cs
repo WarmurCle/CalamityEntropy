@@ -484,7 +484,7 @@ namespace CalamityEntropy.Common
         {
             if (Losted && slowFlag)
             {
-                projectile.velocity *= 0.6f;
+                projectile.velocity *= 1.5f;
                 slowFlag = false;
             }
             if (bulletInit)
