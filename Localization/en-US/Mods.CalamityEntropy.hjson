@@ -3580,6 +3580,11 @@ Items: {
 		DisplayName: Phantom Bottle
 		Tooltip: ""
 	}
+
+	PureIceShard: {
+		DisplayName: Pure Ice Shard
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:
