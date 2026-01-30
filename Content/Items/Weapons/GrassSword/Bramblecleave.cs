@@ -29,6 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             Item.width = 48;
             Item.height = 60;
             Item.useTime = 24;
+            Item.crit = 12;
             Item.useAnimation = 24;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 2;
