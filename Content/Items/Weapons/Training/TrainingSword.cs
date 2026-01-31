@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
     {
         public override void SetDefaults()
         {
-            Item.damage = 16;
+            Item.damage = 12;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 28;
             Item.height = 68;
