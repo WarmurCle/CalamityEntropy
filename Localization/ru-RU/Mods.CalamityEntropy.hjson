@@ -3615,6 +3615,7 @@ Items: {
 		// DisplayName: Mottled Spear
 		/* Tooltip:
 			'''
+			Retracts upon attaching to a tile
 			Automatically unhook when approaching
 			Reach: [1] tiles
 			Launch Velocity: [2]

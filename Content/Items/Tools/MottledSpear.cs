@@ -29,13 +29,13 @@ namespace CalamityEntropy.Content.Items.Tools
     }
     public class MottledSpearHook : ModProjectile
     {
-        public const float PullSpeed = 24f;
+        public const float PullSpeed = 25f;
 
         public const float ReelbackSpeed = 28f;
 
         public const float LaunchSpeed = 28f;
 
-        public const float GrappleRangInTiles = 32f;
+        public const float GrappleRangInTiles = 35f;
 
         public override void SetDefaults()
         {
@@ -71,27 +71,40 @@ namespace CalamityEntropy.Content.Items.Tools
 
         public override void GrappleRetreatSpeed(Player player, ref float speed)
         {
+            hitsnd = false;
             speed = ReelbackSpeed;
         }
 
         public override void GrapplePullSpeed(Player player, ref float speed)
         {
+            if(hitsnd)
+            {
+                CEUtils.PlaySound("ExoHit1", 1.6f, Projectile.Center, volume: 0.45f);
+                hitsnd = false;
+            }
             speed = PullSpeed;
-            if (Projectile.Distance(player.MountedCenter) < 32)
+            if (Projectile.Distance(player.MountedCenter) < PullSpeed * 2.2f)
+            {
+                player.velocity = player.velocity.normalize() * PullSpeed;
                 Projectile.Kill();
+            }
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
+            if (hitsnd)
+                Projectile.rotation = Projectile.velocity.ToRotation();
             Texture2D hook = Projectile.GetTexture();
             Projectile.DrawHook(this.getTextureAlt("Chain")); //Draw the chain
-            Vector2 origin = new Vector2(40, hook.Height / 2);
+            Vector2 origin = new Vector2(32, hook.Height / 2);
             Main.EntitySpriteDraw(hook, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, origin, Projectile.scale, Projectile.Center.X > Projectile.GetOwner().Center.X ? SpriteEffects.None : SpriteEffects.FlipVertically);
             return false;
         }
 
         public override void AI()
         {
+            if (Projectile.localAI[2]++ == 0)
+                CEUtils.PlaySound("chains_break", 1f, Projectile.Center, volume:0.18f);
             base.Projectile.spriteDirection = -base.Projectile.direction;
             if (base.Projectile.ai[0] == 2f)
             {
@@ -103,5 +116,6 @@ namespace CalamityEntropy.Content.Items.Tools
             }
             Projectile.rotation = (Projectile.Center - Projectile.GetOwner().Center).ToRotation();
         }
+        public bool hitsnd = true;
     }
 }
