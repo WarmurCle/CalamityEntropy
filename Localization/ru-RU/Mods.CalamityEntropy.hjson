@@ -3040,7 +3040,7 @@ Items: {
 	}
 
 	BigShotsWing: {
-		// DisplayName: Big Shot's Wing
+		// DisplayName: Big Shot's Wings
 		/* Tooltip:
 			'''
 			Horizontal speed: [A]
@@ -3049,6 +3049,17 @@ Items: {
 			Flight time: [C]
 			-90% flight time if there're any boss
 			"Now's your chance to be a..."
+			''' */
+	}
+
+	IceShardWing: {
+		// DisplayName: Ice Shard Wings
+		/* Tooltip:
+			'''
+			Horizontal speed: [A]
+			Acceleration multiplier: [B]
+			Excellent vertical speed
+			Flight time: [C]
 			''' */
 	}
 
@@ -3598,6 +3609,18 @@ Items: {
 	PureIceShard: {
 		// DisplayName: Pure Ice Shard
 		// Tooltip: ""
+	}
+
+	MottledSpear: {
+		// DisplayName: Mottled Spear
+		/* Tooltip:
+			'''
+			Automatically unhook when approaching
+			Reach: [1] tiles
+			Launch Velocity: [2]
+			Reelback Velocity: [3]
+			Pull Velocity: [4]
+			''' */
 	}
 }
 
@@ -4221,6 +4244,7 @@ Projectiles: {
 	// CursedTorchMinion.DisplayName: Cursed Torch Minion
 	// CursingFlame.DisplayName: Cursing Flame
 	// CruiserPhantomPet.DisplayName: Cruiser Phantom Pet
+	// MottledSpearHook.DisplayName: Mottled Spear Hook
 }
 
 LegendTooltip: - Легенда -
@@ -4579,6 +4603,11 @@ Buffs: {
 	PhantomOfCruiser: {
 		// DisplayName: Phantom Of Cruiser
 		// Description: ""
+	}
+
+	BonePiercingToxin: {
+		// DisplayName: Bone-piercing Toxin
+		// Description: It hurts
 	}
 }
 

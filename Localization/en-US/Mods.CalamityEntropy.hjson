@@ -3037,7 +3037,7 @@ Items: {
 			"Now's your chance to be a..."
 			'''
 	}
-	
+
 	IceShardWing: {
 		DisplayName: Ice Shard Wings
 		Tooltip:
@@ -3048,6 +3048,7 @@ Items: {
 			Flight time: [C]
 			'''
 	}
+
 	BookmarkSulphurous: {
 		DisplayName: Bookmark - Sulphurous
 		Tooltip:
@@ -3594,6 +3595,19 @@ Items: {
 	PureIceShard: {
 		DisplayName: Pure Ice Shard
 		Tooltip: ""
+	}
+
+	MottledSpear: {
+		DisplayName: Mottled Spear
+		Tooltip:
+			'''
+			Retracts upon attaching to a tile
+			Automatically unhook when approaching
+			Reach: [1] tiles
+			Launch Velocity: [2]
+			Reelback Velocity: [3]
+			Pull Velocity: [4]
+			'''
 	}
 }
 
@@ -4231,6 +4245,7 @@ Projectiles: {
 	CursedTorchMinion.DisplayName: Cursed Torch Minion
 	CursingFlame.DisplayName: Cursing Flame
 	CruiserPhantomPet.DisplayName: Cruiser Phantom Pet
+	MottledSpearHook.DisplayName: Mottled Spear Hook
 }
 
 LegendTooltip: - Legend -
@@ -4593,7 +4608,7 @@ Buffs: {
 
 	BonePiercingToxin: {
 		DisplayName: Bone-piercing Toxin
-		Description: "It hurts"
+		Description: It hurts
 	}
 }
 

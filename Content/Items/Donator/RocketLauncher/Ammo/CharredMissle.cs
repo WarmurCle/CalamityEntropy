@@ -18,6 +18,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             Item.ammo = BaseMissleProj.AmmoType;
             Item.damage = 8;
             Item.shoot = ModContent.ProjectileType<CharredMissleProj>();
+            Item.consumable = true;
         }
 
         public override void AddRecipes()

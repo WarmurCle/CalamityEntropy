@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Tools;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
@@ -1049,6 +1050,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<HellIndustrialComponents>(), 1, 24, 30));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DubiousPlating>(), 1, 18, 36));
+            npcLoot.Add(ModContent.ItemType<MottledSpear>(), new Fraction(2, 5));
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<AcropolisRelic>());
             npcLoot.Add(ModContent.ItemType<AcropolisTrophy>(), 10);
         }
