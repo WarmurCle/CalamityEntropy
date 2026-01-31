@@ -13,14 +13,20 @@ namespace CalamityEntropy.Common
             {
                 damageApply += 60;
             }
-            if (Player.HasBuff<MechanicalTrauma>())
+            var dict = DotBuff.InstanceByType();
+            for (int i = 0; i < Player.buffType.Length; i++)
             {
-                damageApply += 8;
+                if (Player.buffTime[i] > 0)
+                {
+                    if (dict.TryGetValue(Player.buffType[i], out var res) && res is DotBuff)
+                    {
+                        damageApply += res.DamagePlayerPerSec * 2;
+                    }
+                }
             }
             if (damageApply > 0)
             {
-                if (Player.lifeRegen > 0)
-                    Player.lifeRegen = 0;
+                Player.lifeRegenTime = 0;
                 Player.lifeRegen -= damageApply;
             }
         }

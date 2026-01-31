@@ -944,12 +944,14 @@ namespace CalamityEntropy.Common
                             currentDebuffs.Add(TextureAssets.Buff[ModContent.BuffType<T>()].Value);
                         }
                     }
-                    AddBuffDraw<VoidVirus>();
+
+                    AddBuffDraw<MechanicalTrauma>();
+                    AddBuffDraw<BonePiercingToxin>();
                     AddBuffDraw<Deceive>();
+                    AddBuffDraw<VoidVirus>();
                     AddBuffDraw<SoulDisorder>();
                     AddBuffDraw<HeatDeath>();
                     AddBuffDraw<Koishi>();
-                    AddBuffDraw<MechanicalTrauma>();
                     AddBuffDraw<LifeOppress>();
 
                     if (npc.GetGlobalNPC<ScorpioEffectNPC>().effectLevel > 0)

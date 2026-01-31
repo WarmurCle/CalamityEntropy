@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using CalamityEntropy.Content.Buffs;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -32,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            target.AddBuff(BuffID.Venom, 200);
+            target.AddBuff(ModContent.BuffType<BonePiercingToxin>(), 200);
         }
         public static int type = -1;
         public override void BookUpdate(Projectile projectile, bool ownerClient)

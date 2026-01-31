@@ -3297,7 +3297,16 @@ Items: {
 			“是时候成为...”
 			'''
 	}
-
+	IceShardWing: {
+		DisplayName: 冰晶之翼
+		Tooltip:
+			'''
+			水平飞行速度： [A]
+			加速倍率： [B]
+			优良的垂直飞行速度
+			飞行时间：[C]
+			'''
+	}
 	BookmarkSulphurous: {
 		DisplayName: 硫磺书签
 		Tooltip:
@@ -4837,6 +4846,11 @@ Buffs: {
 		DisplayName: 巡游者幻影
 		Description: ""
 	}
+
+	BonePiercingToxin: {
+		DisplayName: 穿骨毒素
+		Description: "你感到钻心的疼痛"
+	}
 }
 
 Uh: 呃啊~
@@ -5422,7 +5436,7 @@ AmmoGel: 凝胶
 AmmoJackOLantern: 南瓜灯
 AmmoNail: 钉子
 AmmoRocket: 火箭
-AmmoSand: 沙子
+AmmoSand: 沙块
 AmmoSnowball: 雪球
 AmmoStake: 桩
 AmmoStyngerBolt: 毒刺

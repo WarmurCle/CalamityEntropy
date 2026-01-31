@@ -3026,7 +3026,7 @@ Items: {
 	}
 
 	BigShotsWing: {
-		DisplayName: Big Shot's Wing
+		DisplayName: Big Shot's Wings
 		Tooltip:
 			'''
 			Horizontal speed: [A]
@@ -3037,7 +3037,17 @@ Items: {
 			"Now's your chance to be a..."
 			'''
 	}
-
+	
+	IceShardWing: {
+		DisplayName: Ice Shard Wings
+		Tooltip:
+			'''
+			Horizontal speed: [A]
+			Acceleration multiplier: [B]
+			Excellent vertical speed
+			Flight time: [C]
+			'''
+	}
 	BookmarkSulphurous: {
 		DisplayName: Bookmark - Sulphurous
 		Tooltip:
@@ -4579,6 +4589,11 @@ Buffs: {
 	PhantomOfCruiser: {
 		DisplayName: Phantom Of Cruiser
 		Description: ""
+	}
+
+	BonePiercingToxin: {
+		DisplayName: Bone-piercing Toxin
+		Description: "It hurts"
 	}
 }
 

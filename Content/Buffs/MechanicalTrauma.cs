@@ -3,13 +3,9 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Buffs
 {
-    public class MechanicalTrauma : ModBuff
+    public class MechanicalTrauma : DotBuff
     {
-        public override void SetStaticDefaults()
-        {
-            Main.buffNoSave[Type] = true;
-            Main.debuff[Type] = true;
-            Main.pvpBuff[Type] = true;
-        }
+        public override int DamagePlayerPerSec => 4;
+        public override int DamageEnemiesPerSec => 20;
     }
 }

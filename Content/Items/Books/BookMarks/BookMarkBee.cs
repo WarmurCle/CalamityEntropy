@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -28,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            target.AddBuff(BuffID.Venom, 8 * 60);
+            target.AddBuff(ModContent.BuffType<BonePiercingToxin>(), 8 * 60);
             for (int i = 0; i < 1; i++)
             {
                 Vector2 shotDir = CEUtils.randomRot().ToRotationVector2();

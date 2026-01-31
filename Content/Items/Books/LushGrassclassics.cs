@@ -1,3 +1,4 @@
+using CalamityEntropy.Content.Buffs;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace CalamityEntropy.Content.Items.Books
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            target.AddBuff(BuffID.Poisoned, 360);
+            target.AddBuff(ModContent.BuffType<BonePiercingToxin>(), 360);
         }
     }
     public class LushVine : EBookBaseProjectile

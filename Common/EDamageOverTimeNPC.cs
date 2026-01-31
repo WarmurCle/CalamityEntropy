@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Common
@@ -16,9 +17,16 @@ namespace CalamityEntropy.Common
             {
                 damageApply += 1600;
             }
-            if (npc.HasBuff<MechanicalTrauma>())
+            var dict = DotBuff.InstanceByType();
+            for(int i = 0; i < npc.buffType.Length; i++)
             {
-                damageApply += 20;
+                if (npc.buffTime[i] > 0)
+                {
+                    if (dict.TryGetValue(npc.buffType[i], out var res) && res is DotBuff)
+                    {
+                        damageApply += res.DamageEnemiesPerSec;
+                    }
+                }
             }
             damage += damageApply * 2;
             npc.lifeRegen -= damageApply * 2;
