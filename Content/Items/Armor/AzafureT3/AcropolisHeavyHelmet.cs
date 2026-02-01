@@ -15,6 +15,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace CalamityEntropy.Content.Items.Armor.AzafureT3
 {
@@ -53,22 +54,24 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             var mp = player.GetModPlayer<AcropolisArmorPlayer>();
             if (mp.MechFrame > 18)
             {
+                if(player.channel)
+                    player.channel = false;
                 if (mp.DummyCannon == null)
                 {
                     mp.DummyCannon = new Item();
                     mp.DummyCannon.SetDefaults(0);
                 }
+                mp.DummyCannon.stack = 0;
+                mp.DummyCannon.type = 0;
                 if (Main.myPlayer == player.whoAmI)
                 {
-                    if (!Main.mouseItem.IsAir)
+                    if (Main.mouseItem.type != 0 && Main.mouseItem.stack > 0)
                         Main.LocalPlayer.QuickSpawnItem(null, Main.mouseItem, Main.mouseItem.stack);
-
                     Main.mouseItem = mp.DummyCannon;
                 }
-
-                player.inventory[58] = mp.DummyCannon;
+                ItemIO.Load(player.inventory[58], ItemIO.Save(mp.DummyCannon));
                 player.selectedItem = 58;
-                player.itemTime = player.itemAnimation = 2;
+                //player.itemTime = player.itemAnimation = 2;
 
             }
         }
@@ -712,11 +715,6 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                             CEUtils.PlaySound("WulfrumBastionActivate", 1, Player.Center);
                             DurabilityActive = true;
                             durability = 1;
-                            foreach(Projectile proj in Main.ActiveProjectiles)
-                            {
-                                if (Player.heldProj == proj.whoAmI)
-                                    proj.Kill();
-                            }
                             MechSync();
                         }
                     }
