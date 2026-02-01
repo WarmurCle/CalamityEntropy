@@ -1347,11 +1347,11 @@ namespace CalamityEntropy.Common
             HitCounter = 0;
             if (player != null)
             {
+                player.Entropy().lastHitTarget = npc;
                 if (player.Entropy().NihilitySet)
                 {
                     if (CECooldowns.CheckCD("NihilityLasers", 150))
                     {
-                        player.Entropy().lastHitTarget = npc;
                         player.Entropy().ShootLaserTime = 20;
                     }
                 }

@@ -183,7 +183,10 @@ namespace CalamityEntropy.Content.Projectiles
                 CEUtils.drawLine(points[i - 1], points[i], color, 2 * Projectile.scale);
             }
         }
-
+        public virtual Color modifySegColor(int segCount, Color color)
+        {
+            return color;
+        }
         public virtual void DrawSegs(List<Vector2> points)
         {
             for (int i = 0; i < points.Count; i++)
@@ -195,7 +198,7 @@ namespace CalamityEntropy.Content.Projectiles
                 float drawScale = Projectile.scale * this.getSegScale(i, points.Count);
                 Vector2 lightPos = i == 0 ? points[i] : Vector2.Lerp(points[i - 1], points[i], 0.5f);
                 Color color = Color.Lerp(Lighting.GetColor((int)(lightPos.X / 16f), (int)(lightPos.Y / 16f)), this.StringColor, Projectile.light);
-
+                color = modifySegColor(i, color);
                 float rot = 0;
                 if (i == points.Count - 1)
                 {

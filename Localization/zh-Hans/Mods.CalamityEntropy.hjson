@@ -3879,6 +3879,17 @@ Items: {
 			牵引速度: [4]
 			'''
 	}
+
+	Daylight: {
+		DisplayName: 朝霞
+		Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			鞭击命中后在目标附近生成一个朝霞之阳
+			召唤物攻击会使朝霞之阳向目标发射日光射线
+			'''
+	}
 }
 
 ChaoticSetBonus:
@@ -4502,7 +4513,10 @@ Projectiles: {
 	CursedTorchMinion.DisplayName: 诅咒火炬
 	CursingFlame.DisplayName: 诅咒烈焰
 	CruiserPhantomPet.DisplayName: 巡游者
-	// MottledSpearHook.DisplayName: Mottled Spear Hook
+	MottledSpearHook.DisplayName: 斑驳矛索
+	DaylightProjectile.DisplayName: 朝霞
+	DaylightLaser.DisplayName: 日光射线
+	DaylightSun.DisplayName: 朝霞之阳
 }
 
 LegendTooltip: - 传奇物品 -

@@ -3623,6 +3623,15 @@ Items: {
 			Pull Velocity: [4]
 			''' */
 	}
+
+	Daylight: {
+		// DisplayName: Daylight
+		/* Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			''' */
+	}
 }
 
 /* ChaoticSetBonus:
@@ -4246,6 +4255,9 @@ Projectiles: {
 	// CursingFlame.DisplayName: Cursing Flame
 	// CruiserPhantomPet.DisplayName: Cruiser Phantom Pet
 	// MottledSpearHook.DisplayName: Mottled Spear Hook
+	// DaylightProjectile.DisplayName: Daylight Projectile
+	// DaylightLaser.DisplayName: Daylight Laser
+	// DaylightSun.DisplayName: Daylight Sun
 }
 
 LegendTooltip: - Легенда -

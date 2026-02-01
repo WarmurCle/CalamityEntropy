@@ -95,7 +95,18 @@ namespace CalamityEntropy.Content.Buffs
                 if (Main.rand.NextFloat() < t.CritChance)
                 {
                     modifiers.SetCrit();
-
+                }
+                if(t.EffectName == "DaylightProjectile")
+                {
+                    int type = ModContent.ProjectileType<DaylightSun>();
+                    foreach(Projectile p in Main.ActiveProjectiles)
+                    {
+                        if(p.owner == projectile.owner && p.type == type)
+                        {
+                            if (p.ai[0] == 0)
+                                p.ai[0]++;
+                        }
+                    }
                 }
             }
 
