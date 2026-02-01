@@ -712,6 +712,11 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                             CEUtils.PlaySound("WulfrumBastionActivate", 1, Player.Center);
                             DurabilityActive = true;
                             durability = 1;
+                            foreach(Projectile proj in Main.ActiveProjectiles)
+                            {
+                                if (Player.heldProj == proj.whoAmI)
+                                    proj.Kill();
+                            }
                             MechSync();
                         }
                     }
