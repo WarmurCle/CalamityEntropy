@@ -3630,6 +3630,8 @@ Items: {
 			'''
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
+			Summon a daylight sun when attack enemies
+			Daylight sun will launch some sunbeam towards the target after minions hit target
 			''' */
 	}
 }
