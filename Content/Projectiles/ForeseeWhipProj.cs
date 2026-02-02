@@ -50,9 +50,11 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            CEUtils.PlaySound("ProphetWhipHitShine", 1, target.Center, volume: 0.4f);
-            CEUtils.PlaySound("runesonghit", 2, target.Center, volume: 0.4f);
-
+            if (Projectile.localAI[2]++ == 0)
+            {
+                CEUtils.PlaySound("ProphetWhipHitShine", 1, target.Center, volume: 0.3f);
+                CEUtils.PlaySound("runesonghit", 2, target.Center, volume: 0.3f);
+            }
         }
         public override bool PreDraw(ref Color lightColor)
         {

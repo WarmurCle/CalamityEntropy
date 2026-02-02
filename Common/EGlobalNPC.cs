@@ -1096,10 +1096,29 @@ namespace CalamityEntropy.Common
         }
         public float hdStrength = 0;
         public bool needExitShader = false;
+        public override void HitEffect(NPC npc, NPC.HitInfo hit)
+        {
+            if (npc.life <= 0)
+            {
+                if (!Main.dedServ)
+                {
+                    if (npc.HasBuff<FlamingBlood>())
+                    {
+                        SoundEngine.PlaySound(PerforatorHive.DeathSound with { Pitch = 0.4f }, npc.Center);
+                        for (int i = 0; i < 90; i++)
+                        {
+                            GeneralParticleHandler.SpawnParticle(new BloodParticle(npc.Center, CEUtils.randomPointInCircle(22), 16, Main.rand.NextFloat(0.6f, 1), Color.Red));
+                        }
+                        GeneralParticleHandler.SpawnParticle(new CustomPulse(npc.Center, Vector2.Zero, new Color(255, 24, 24), "CalamityMod/Particles/FlameExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.01f, 0.15f, 28));
+                    }
+                }
+            }
+        }
         public override void OnKill(NPC npc)
         {
             if(npc.HasBuff<FlamingBlood>())
             {
+                bool spawnExp = true;
                 int dmg = (int)(npc.lifeMax * 0.32f);
                 if (dmg > 800)
                     dmg = 800;
@@ -1107,20 +1126,23 @@ namespace CalamityEntropy.Common
                     dmg = 100;
                 if (npc.lifeMax < 25)
                     dmg = 10;
-                var plr = Main.player[Player.FindClosest(npc.Center, 99999, 99999)];
-                var p = CEUtils.SpawnExplotionFriendly(npc.GetSource_Death(), plr, npc.Center, dmg, 260, DamageClass.Summon);
-                SoundEngine.PlaySound(PerforatorHive.DeathSound with { Pitch = 0.4f}, npc.Center);
-                for(int i = 0; i < 128; i++)
+                if (npc.realLife >= 0 || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
                 {
-                    GeneralParticleHandler.SpawnParticle(new BloodParticle(npc.Center, CEUtils.randomPointInCircle(18), 16, Main.rand.NextFloat(0.6f, 1), Color.Red));
+                    spawnExp = Main.rand.NextBool(5);
+                    dmg = 12;
                 }
-                if (p.ModProjectile is CommonExplotionFriendly cef)
+                var plr = Main.player[Player.FindClosest(npc.Center, 99999, 99999)];
+                if (spawnExp)
                 {
-                    void onhit(NPC npc)
+                    var p = CEUtils.SpawnExplotionFriendly(npc.GetSource_Death(), plr, npc.Center, dmg, 260, DamageClass.Summon);
+                    if (p.ModProjectile is CommonExplotionFriendly cef)
                     {
-                        npc.AddBuff<FlamingBlood>(16 * 60);
+                        void onhit(NPC npc)
+                        {
+                            npc.AddBuff<FlamingBlood>(16 * 60);
+                        }
+                        cef.modifyHitAction = onhit;
                     }
-                    cef.modifyHitAction = onhit;
                 }
             }
             if (npc.type == NPCID.WallofFlesh)

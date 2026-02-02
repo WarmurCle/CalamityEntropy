@@ -193,7 +193,7 @@ namespace CalamityEntropy.Content.Buffs
                     }
                     if (t.EffectName == "ForeseeWhip")
                     {
-                        int C = 4;
+                        int C = 5;
                         foreach (NPC n in Main.ActiveNPCs)
                         {
                             if (!n.friendly && n.CanBeChasedBy(projectile) && n.Distance(npc.Center) < 400 && n != npc)
@@ -201,7 +201,7 @@ namespace CalamityEntropy.Content.Buffs
                                 if (C > 0)
                                 {
                                     C--;
-                                    int dmg = (int)(damageDone * 0.12f);
+                                    int dmg = damageDone;
                                     projectile.GetOwner().ApplyDamageToNPC(n, dmg, 0, 0, false, projectile.DamageType);
                                     for (float f = 0; f <= 1; f += 0.1f)
                                     {

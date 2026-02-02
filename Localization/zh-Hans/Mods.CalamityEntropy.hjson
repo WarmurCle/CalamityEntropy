@@ -2403,7 +2403,7 @@ Items: {
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
 			增加10%召唤物暴击率
-			召唤物暴击会将伤害的12%传递给附近最多4个敌人
+			召唤物暴击会将伤害传递给附近最多5个敌人
 			'''
 	}
 
@@ -3895,20 +3895,20 @@ Items: {
 
 	AmuletOfHealing: {
 		DisplayName: 治愈护符
-		Tooltip: 
-		'''
-		+8%召唤伤害
-		每有一个召唤栏位，增加0.5/s生命再生，最多增加3/s
-		'''
+		Tooltip:
+			'''
+			+8%召唤伤害
+			每有一个召唤栏位，增加0.5/s生命再生，最多增加3/s
+			'''
 	}
 
 	AmuletOfSanctuary: {
 		DisplayName: 庇护护符
-		Tooltip: 
-		'''
-		+8%召唤伤害
-		每有一个召唤栏位，增加4点防御，最多增加24点
-		'''
+		Tooltip:
+			'''
+			+8%召唤伤害
+			每有一个召唤栏位，增加4点防御，最多增加24点
+			'''
 	}
 }
 

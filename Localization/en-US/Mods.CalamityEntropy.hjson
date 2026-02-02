@@ -2174,7 +2174,7 @@ Items: {
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
 			Increase the critical hit rate of minions by 10%
-			Minions' critical strike will pass 12% of damage to up to 4 nearby enemies
+			Minions' critical strike will pass 100% of damage to up to 5 nearby enemies
 			'''
 	}
 
@@ -3625,22 +3625,22 @@ Items: {
 
 	AmuletOfHealing: {
 		DisplayName: Amulet Of Healing
-		Tooltip: 
-		'''
-		Increase 8% summon damage
-		+0.5/s life regen for each minion slot
-		Maximum increase of 3/s
-		'''
+		Tooltip:
+			'''
+			Increase 8% summon damage
+			+0.5/s life regen for each minion slot
+			Maximum increase of 3/s
+			'''
 	}
 
 	AmuletOfSanctuary: {
 		DisplayName: Amulet Of Sanctuary
-		Tooltip: 
-		'''
-		Increase 8% summon damage
-		+4 defence for each minion slot
-		Maximum increase of 24
-		'''
+		Tooltip:
+			'''
+			Increase 8% summon damage
+			+4 defence for each minion slot
+			Maximum increase of 24
+			'''
 	}
 }
 
