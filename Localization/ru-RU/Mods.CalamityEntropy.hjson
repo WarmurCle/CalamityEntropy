@@ -4260,6 +4260,7 @@ Projectiles: {
 	// DaylightProjectile.DisplayName: Daylight Projectile
 	// DaylightLaser.DisplayName: Daylight Laser
 	// DaylightSun.DisplayName: Daylight Sun
+	// FleshChunk.DisplayName: Flesh Chunk
 }
 
 LegendTooltip: - Легенда -
@@ -4623,6 +4624,11 @@ Buffs: {
 	BonePiercingToxin: {
 		// DisplayName: Bone-piercing Toxin
 		// Description: It hurts
+	}
+
+	FlamingBlood: {
+		// DisplayName: Flaming Blood
+		// Description: Mods.CalamityEntropy.Buffs.FlamingBlood.Description
 	}
 }
 

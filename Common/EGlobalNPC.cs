@@ -41,6 +41,7 @@ using CalamityMod.NPCs.SunkenSea;
 using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.NPCs.Yharon;
+using CalamityMod.Particles;
 using CalamityMod.UI;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -538,7 +539,7 @@ namespace CalamityEntropy.Common
                 {
                     for (int i = 0; i < 1; i++)
                     {
-                        Particle p = new Particle();
+                        Content.Particles.Particle p = new Content.Particles.Particle();
                         p.position = npc.Center;
                         p.alpha = 0.5f;
 
@@ -945,6 +946,7 @@ namespace CalamityEntropy.Common
                         }
                     }
 
+                    AddBuffDraw<FlamingBlood>();
                     AddBuffDraw<MechanicalTrauma>();
                     AddBuffDraw<BonePiercingToxin>();
                     AddBuffDraw<Deceive>();
@@ -1096,6 +1098,31 @@ namespace CalamityEntropy.Common
         public bool needExitShader = false;
         public override void OnKill(NPC npc)
         {
+            if(npc.HasBuff<FlamingBlood>())
+            {
+                int dmg = (int)(npc.lifeMax * 0.32f);
+                if (dmg > 800)
+                    dmg = 800;
+                if (dmg < 100)
+                    dmg = 100;
+                if (npc.lifeMax < 25)
+                    dmg = 10;
+                var plr = Main.player[Player.FindClosest(npc.Center, 99999, 99999)];
+                var p = CEUtils.SpawnExplotionFriendly(npc.GetSource_Death(), plr, npc.Center, dmg, 260, DamageClass.Summon);
+                SoundEngine.PlaySound(PerforatorHive.DeathSound with { Pitch = 0.4f}, npc.Center);
+                for(int i = 0; i < 128; i++)
+                {
+                    GeneralParticleHandler.SpawnParticle(new BloodParticle(npc.Center, CEUtils.randomPointInCircle(18), 16, Main.rand.NextFloat(0.6f, 1), Color.Red));
+                }
+                if (p.ModProjectile is CommonExplotionFriendly cef)
+                {
+                    void onhit(NPC npc, NPC.HitInfo info, int dmg)
+                    {
+                        npc.AddBuff<FlamingBlood>(16 * 60);
+                    }
+                    cef.onHitAction = onhit;
+                }
+            }
             if (npc.type == NPCID.WallofFlesh)
             {
                 for (int i = 0; i < 32; i++)

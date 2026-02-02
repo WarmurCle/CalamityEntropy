@@ -2,6 +2,7 @@
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Particles;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -174,5 +175,86 @@ namespace CalamityEntropy.Content.Projectiles
         public override int segHeight => 20;
         public override int endHeight => 24;
         public override int segTypes => 2;
+    }
+
+    public class FleshChunk : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.MinionShot[Type] = true;
+        }
+        public override void SetDefaults()
+        {
+            Projectile.FriendlySetDefaults(DamageClass.Summon, false, 1);
+            Projectile.width = Projectile.height = 16;
+            Projectile.timeLeft = 180;
+        }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center - Projectile.velocity, targetHitbox, 16);
+        }
+        public override bool? CanHitNPC(NPC target)
+        {
+            return Projectile.ai[0] > 38 ? null : false;
+        }
+        public override void AI()
+        {
+            if (Projectile.ai[0] < 38)
+            {
+                Projectile.rotation += Projectile.velocity.X * 0.012f;
+                Projectile.velocity *= 0.98f;
+            }
+            else
+            {
+                if (Projectile.ai[1] < 1)
+                {
+                    Projectile.ai[1] += 0.1f;
+                    if (Projectile.ai[1] > 1)
+                        Projectile.ai[1] = 1;
+                }
+                if (Projectile.ai[0] > 52)
+                {
+                    NPC target = Projectile.FindMinionTarget(1400);
+                    if (target != null)
+                    {
+                        Projectile.velocity *= 0.97f;
+                        Projectile.velocity += (target.Center - Projectile.Center).normalize() * 6;
+                    }
+                    else
+                    {
+                        Projectile.Kill();
+                    }
+
+                }
+
+            }
+            Projectile.ai[0]++;
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            if (Projectile.ai[1] > 0 && Projectile.ai[1] < 1)
+            {
+                Texture2D texr = CEUtils.getExtraTex("BloomRing");
+                Main.spriteBatch.UseBlendState(BlendState.Additive);
+                Main.spriteBatch.Draw(texr, Projectile.Center - Main.screenPosition, null, new Color(255, 80, 80) * Projectile.ai[1], 0, texr.Size() / 2f, 1 - Projectile.ai[1], SpriteEffects.None, 0);
+                Main.spriteBatch.ExitShaderRegion();
+            }
+            Texture2D tex = Projectile.ai[2] == 0 ? Projectile.GetTexture() : this.getTextureAlt();
+            Main.EntitySpriteDraw(Projectile.getDrawData(lightColor, tex));
+            return false;
+        }
+        public override void OnKill(int timeLeft)
+        {
+            if (Main.dedServ)
+                return;
+            for(int i = 0; i < 64; i++)
+            {
+                Vector2 v = (-Projectile.velocity.RotatedByRandom(2.6)).normalize() * Main.rand.NextFloat(16);
+                var d = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Blood);
+                d.scale = 1.2f;
+            }
+            for (int i = 0; i < 4; i++)
+                Gore.NewGore(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomPointInCircle(6), Mod.Find<ModGore>($"FleshGore{(Main.rand.NextBool() ? "" : "2")}").Type);
+        }
     }
 }

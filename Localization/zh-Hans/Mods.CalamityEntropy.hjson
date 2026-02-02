@@ -806,6 +806,7 @@ Items: {
 			召唤物获得4%暴击率
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
+			敌怪死亡后产生血爆
 			'''
 		DisplayName: 冥界之刑
 	}
@@ -1995,6 +1996,7 @@ Items: {
 			召唤物获得6%的暴击率
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
+			仆从攻击会从敌人身上撕扯出肉块
 			'''
 		DisplayName: 撕裂之腱
 	}
@@ -4517,6 +4519,7 @@ Projectiles: {
 	DaylightProjectile.DisplayName: 朝霞
 	DaylightLaser.DisplayName: 日光射线
 	DaylightSun.DisplayName: 朝霞之阳
+	FleshChunk.DisplayName: 血肉碎块
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4880,6 +4883,11 @@ Buffs: {
 	BonePiercingToxin: {
 		DisplayName: 穿骨毒素
 		Description: 你感到钻心的疼痛
+	}
+
+	FlamingBlood: {
+		DisplayName: 燃烧之血
+		Description: 易燃易爆
 	}
 }
 

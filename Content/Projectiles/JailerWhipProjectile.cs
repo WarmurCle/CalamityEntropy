@@ -74,6 +74,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<JailerWhipDebuff>(), 240);
+            target.AddBuff(ModContent.BuffType<FlamingBlood>(), 16 * 60);
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
             Projectile.damage = (int)(Projectile.damage * 0.85f);
             target.AddBuff(ModContent.BuffType<BurningBlood>(), 240);

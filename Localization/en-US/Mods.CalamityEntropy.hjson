@@ -755,6 +755,7 @@ Items: {
 			Minion gain 5% crit chance
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
+			Enemies will explode when dead
 			'''
 		DisplayName: Jailer Whip
 	}
@@ -1821,6 +1822,7 @@ Items: {
 			Minions gain 6% increased critical strike chance
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
+			Minions will tear enemies' flesh chunk when attaking
 			'''
 		DisplayName: Sinew Lash
 	}
@@ -4260,6 +4262,7 @@ Projectiles: {
 	DaylightProjectile.DisplayName: Daylight Projectile
 	DaylightLaser.DisplayName: Daylight Laser
 	DaylightSun.DisplayName: Daylight Sun
+	FleshChunk.DisplayName: Flesh Chunk
 }
 
 LegendTooltip: - Legend -
@@ -4623,6 +4626,11 @@ Buffs: {
 	BonePiercingToxin: {
 		DisplayName: Bone-piercing Toxin
 		Description: It hurts
+	}
+
+	FlamingBlood: {
+		DisplayName: Flaming Blood
+		Description: ""
 	}
 }
 

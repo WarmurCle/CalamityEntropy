@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -95,18 +96,6 @@ namespace CalamityEntropy.Content.Buffs
                 if (Main.rand.NextFloat() < t.CritChance)
                 {
                     modifiers.SetCrit();
-                }
-                if(t.EffectName == "DaylightProjectile")
-                {
-                    int type = ModContent.ProjectileType<DaylightSun>();
-                    foreach(Projectile p in Main.ActiveProjectiles)
-                    {
-                        if(p.owner == projectile.owner && p.type == type)
-                        {
-                            if (p.ai[0] == 0)
-                                p.ai[0]++;
-                        }
-                    }
                 }
             }
 
@@ -228,7 +217,25 @@ namespace CalamityEntropy.Content.Buffs
                     float rot = CEUtils.randomRot();
                     Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center - rot.ToRotationVector2() * 128, rot.ToRotationVector2() * 256 / 10f, ModContent.ProjectileType<CorruptStrike>(), projectile.damage / 12 + 1, 2, projectile.owner);
                 }
-
+                if (t.EffectName == "DaylightProjectile")
+                {
+                    int type = ModContent.ProjectileType<DaylightSun>();
+                    foreach (Projectile p in Main.ActiveProjectiles)
+                    {
+                        if (p.owner == projectile.owner && p.type == type)
+                        {
+                            if (p.ai[0] == 0)
+                                p.ai[0]++;
+                        }
+                    }
+                }
+                if (t.EffectName == "SinewLash")
+                {
+                    if(CECooldowns.CheckCD("SinwLashFlesh", 70))
+                    {
+                        Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(8, 14), ModContent.ProjectileType<FleshChunk>(), (int)(projectile.GetOwner().GetTotalDamage(DamageClass.Summon).ApplyTo(34)), 5, projectile.owner, 0, 0, Main.rand.Next(0, 2));
+                    }
+                }
             }
         }
     }

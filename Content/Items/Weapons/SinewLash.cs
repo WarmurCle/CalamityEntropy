@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override float TagCritChance => 0.06f;
         public override void SetDefaults()
         {
-            Item.DefaultToWhip(ModContent.ProjectileType<SinewLashProj>(), 40, 3, 4, 42);
+            Item.DefaultToWhip(ModContent.ProjectileType<SinewLashProj>(), 30, 3, 4, 42);
             Item.rare = ItemRarityID.Blue;
             Item.value = CalamityGlobalItem.RarityBlueBuyPrice;
             Item.autoReuse = true;
