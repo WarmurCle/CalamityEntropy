@@ -3634,6 +3634,16 @@ Items: {
 			Daylight sun will launch some sunbeam towards the target after minions hit target
 			''' */
 	}
+
+	AmuletOfHealing: {
+		// DisplayName: Amulet Of Healing
+		// Tooltip: ""
+	}
+
+	AmuletOfSanctuary: {
+		// DisplayName: Amulet Of Sanctuary
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:

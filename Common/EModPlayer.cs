@@ -3694,6 +3694,16 @@ namespace CalamityEntropy.Common
             {
                 Player.Calamity().rogueStealthMax *= 0.5f;
             }
+            if(hasAcc(AmuletOfSanctuary.ID))
+            {
+                int defence = AmuletOfSanctuary.GetDefence(Player.maxMinions);
+                Player.statDefense += defence;
+            }
+            if (hasAcc(AmuletOfHealing.ID))
+            {
+                int regen = AmuletOfHealing.GetRegen(Player.maxMinions);
+                Player.lifeRegen += regen;
+            }
         }
         public override void ModifyScreenPosition()
         {

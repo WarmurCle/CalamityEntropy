@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.Items.Tools
         public override bool PreDraw(ref Color lightColor)
         {
             if (hitsnd)
-                Projectile.rotation = Projectile.velocity.ToRotation();
+                Projectile.rotation = (Projectile.Center - Projectile.GetOwner().Center).ToRotation();
             Texture2D hook = Projectile.GetTexture();
             Projectile.DrawHook(this.getTextureAlt("Chain")); //Draw the chain
             Vector2 origin = new Vector2(32, hook.Height / 2);
@@ -104,7 +104,10 @@ namespace CalamityEntropy.Content.Items.Tools
         public override void AI()
         {
             if (Projectile.localAI[2]++ == 0)
-                CEUtils.PlaySound("chains_break", 1f, Projectile.Center, volume:0.18f);
+            {
+                Projectile.velocity += Projectile.GetOwner().velocity;
+                CEUtils.PlaySound("chains_break", 1f, Projectile.Center, volume: 0.18f);
+            }
             base.Projectile.spriteDirection = -base.Projectile.direction;
             if (base.Projectile.ai[0] == 2f)
             {
