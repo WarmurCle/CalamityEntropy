@@ -4628,7 +4628,7 @@ Buffs: {
 
 	FlamingBlood: {
 		// DisplayName: Flaming Blood
-		// Description: Mods.CalamityEntropy.Buffs.FlamingBlood.Description
+		// Description: ""
 	}
 }
 

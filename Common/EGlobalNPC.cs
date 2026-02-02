@@ -1116,11 +1116,11 @@ namespace CalamityEntropy.Common
                 }
                 if (p.ModProjectile is CommonExplotionFriendly cef)
                 {
-                    void onhit(NPC npc, NPC.HitInfo info, int dmg)
+                    void onhit(NPC npc)
                     {
                         npc.AddBuff<FlamingBlood>(16 * 60);
                     }
-                    cef.onHitAction = onhit;
+                    cef.modifyHitAction = onhit;
                 }
             }
             if (npc.type == NPCID.WallofFlesh)

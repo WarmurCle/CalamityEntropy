@@ -199,10 +199,12 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void AI()
         {
+            if (Projectile.ai[0] == 0)
+                SoundEngine.PlaySound(SoundID.NPCDeath1 with { Pitch = 0.4f }, Projectile.Center);
             if (Projectile.ai[0] < 38)
             {
                 Projectile.rotation += Projectile.velocity.X * 0.012f;
-                Projectile.velocity *= 0.98f;
+                Projectile.velocity *= 0.96f;
             }
             else
             {
@@ -247,11 +249,13 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Main.dedServ)
                 return;
-            for(int i = 0; i < 64; i++)
+            SoundEngine.PlaySound(SoundID.NPCDeath19 with { Pitch = 0f }, Projectile.Center);
+            for (int i = 0; i < 128; i++)
             {
-                Vector2 v = (-Projectile.velocity.RotatedByRandom(2.6)).normalize() * Main.rand.NextFloat(16);
+                Vector2 v = (-Projectile.velocity.RotatedByRandom(1.6f)).normalize() * Main.rand.NextFloat(12);
                 var d = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Blood);
                 d.scale = 1.2f;
+                d.velocity = v;
             }
             for (int i = 0; i < 4; i++)
                 Gore.NewGore(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomPointInCircle(6), Mod.Find<ModGore>($"FleshGore{(Main.rand.NextBool() ? "" : "2")}").Type);
