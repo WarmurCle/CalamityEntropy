@@ -1129,7 +1129,7 @@ namespace CalamityEntropy.Common
                 if (npc.realLife >= 0 || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
                 {
                     spawnExp = Main.rand.NextBool(5);
-                    dmg = 12;
+                    dmg = 4;
                 }
                 var plr = Main.player[Player.FindClosest(npc.Center, 99999, 99999)];
                 if (spawnExp)
