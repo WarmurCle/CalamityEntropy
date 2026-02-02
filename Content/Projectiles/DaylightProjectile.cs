@@ -20,9 +20,9 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.MaxUpdates = 4;
+            Projectile.MaxUpdates = 5;
             this.segments = 20;
-            this.rangeMult = 2.8f;
+            this.rangeMult = 1;
         }
         public override float getSegScale(int segCount, int segCounts)
         {
@@ -74,9 +74,11 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(160, 200), Vector2.Zero, ds_type, (int)(Projectile.GetOwner().GetTotalDamage(DamageClass.Summon).ApplyTo(18)), 0, Projectile.GetOwner().whoAmI);
             }
-            if (Projectile.localAI[1] ++ == 0)
-                CEUtils.PlaySound("beast_lavaball_rise1", Main.rand.NextFloat(1.2f, 1.4f), target.Center, 8, 0.75f);
-
+            if (Projectile.localAI[1]++ == 0)
+            {
+                SoundEngine.PlaySound(SoundID.Item153 with { PitchRange = (-0.2f, 0)}, target.Center);
+                CEUtils.PlaySound("beast_lavaball_rise1", Main.rand.NextFloat(1.2f, 1.4f), target.Center, 8, 0.9f);
+            }
             base.OnHitNPC(target, hit, damageDone);
         }
         public override bool PreAI()
@@ -86,19 +88,21 @@ namespace CalamityEntropy.Content.Projectiles
 
             if (FlyProgress > 0.43f && FlyProgress < 0.86f)
             {
-                for (int i = 0; i < 2; i++)
-                {
-                    var d = Dust.NewDustDirect(points[points.Count - 1], 0, 0, DustID.YellowStarDust);
-                    d.scale = 2f;
-                    d.noGravity = true;
-                }
-                for (int i = 0; i < 6; i++)
+                if (Main.rand.NextBool())
+                    for (int i = 0; i < 1; i++)
+                    {
+                        var d = Dust.NewDustDirect(points[points.Count - 1], 0, 0, DustID.YellowStarDust);
+                        d.scale = 1.4f;
+                        d.noGravity = true;
+                    }
+                for (int i = 0; i < 1; i++)
                 {
                     var d = Dust.NewDustDirect(Vector2.Lerp(Projectile.GetOwner().Center, points[points.Count - 1], Main.rand.NextFloat(Main.rand.NextFloat(0, 0.4f), 1)), 0, 0, DustID.YellowStarDust);
                     d.scale = 1.4f;
                     d.noGravity = true;
                     d.velocity += (points[points.Count - 1] - Projectile.GetOwner().Center).normalize() * 5;
                 }
+                EParticle.spawnNew(new GlowLightParticle(), points[points.Count - 1], CEUtils.randomPointInCircle(4), Color.Lerp(Color.Red, Color.Yellow, Main.rand.NextFloat()), Main.rand.NextFloat(0.6f, 1f), 0.9f, true, BlendState.Additive, 0, 38);
             }
             return base.PreAI();
         }

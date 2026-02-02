@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.DefaultToWhip(ModContent.ProjectileType<DaylightProjectile>(), 40, 4, 3.2f, 30);
+            Item.DefaultToWhip(ModContent.ProjectileType<DaylightProjectile>(), 40, 4, 8f, 30);
             Item.rare = ItemRarityID.Yellow;
             Item.UseSound = SoundID.Item130;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
