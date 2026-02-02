@@ -238,7 +238,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Texture2D texr = CEUtils.getExtraTex("BloomRing");
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
-                Main.spriteBatch.Draw(texr, Projectile.Center - Main.screenPosition, null, new Color(255, 80, 80) * Projectile.ai[1], 0, texr.Size() / 2f, 1 - Projectile.ai[1], SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(texr, Projectile.Center - Main.screenPosition, null, new Color(255, 160, 160) * Projectile.ai[1], 0, texr.Size() / 2f, 1 - Projectile.ai[1], SpriteEffects.None, 0);
                 Main.spriteBatch.ExitShaderRegion();
             }
             Texture2D tex = Projectile.ai[2] == 0 ? Projectile.GetTexture() : this.getTextureAlt();

@@ -52,12 +52,12 @@ namespace CalamityEntropy.Content.Projectiles
             Color color = (Color)colorset;
             Vector2 direction = new Vector2(-1, 0).RotatedBy(projectile.velocity.ToRotation());
             Vector2 smokeSpeed = direction.RotatedByRandom(MathHelper.PiOver4 * 0.1f) * Main.rand.NextFloat(10f, 30f) * 0.9f;
-            CalamityMod.Particles.Particle smoke = new HeavySmokeParticle(projectile.Center + direction * 46f, smokeSpeed + projectile.velocity, color, 30, Main.rand.NextFloat(0.6f, 1.2f), 0.8f, 0, false, 0, true);
+            CalamityMod.Particles.Particle smoke = new HeavySmokeParticle(projectile.Center + direction * 46f, smokeSpeed + projectile.velocity, color, 20, Main.rand.NextFloat(0.6f, 1.2f), 0.8f, 0, false, 0, true);
             GeneralParticleHandler.SpawnParticle(smoke);
 
             if (Main.rand.NextBool(2))
             {
-                CalamityMod.Particles.Particle smokeGlow = new HeavySmokeParticle(projectile.Center + direction * 46f, smokeSpeed + projectile.velocity, Projectile.owner.ToPlayer().Entropy().WeaponBoost > 0 ? Main.hslToRgb(0.85f, 1, 0.8f) : new Color(255, 85, 0), 20, Main.rand.NextFloat(0.4f, 0.7f), 0.8f, 0.01f, true, 0.01f, true);
+                CalamityMod.Particles.Particle smokeGlow = new HeavySmokeParticle(projectile.Center + direction * 46f, smokeSpeed + projectile.velocity, Projectile.owner.ToPlayer().Entropy().WeaponBoost > 0 ? Main.hslToRgb(0.85f, 1, 0.8f) : new Color(255, 85, 0), 16, Main.rand.NextFloat(0.4f, 0.7f), 0.8f, 0.01f, true, 0.01f, true);
                 GeneralParticleHandler.SpawnParticle(smokeGlow);
             }
 
