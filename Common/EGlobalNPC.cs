@@ -1125,7 +1125,7 @@ namespace CalamityEntropy.Common
                 if (dmg < 70)
                     dmg = 70;
                 if (npc.lifeMax < 40)
-                    dmg = 10;
+                    dmg = 40;
                 if (npc.realLife >= 0 || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
                 {
                     spawnExp = Main.rand.NextBool(5);
