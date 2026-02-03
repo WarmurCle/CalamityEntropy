@@ -1122,19 +1122,19 @@ namespace CalamityEntropy.Common
                 int dmg = (int)(npc.lifeMax * 0.32f);
                 if (dmg > 800)
                     dmg = 800;
-                if (dmg < 100)
-                    dmg = 100;
-                if (npc.lifeMax < 25)
+                if (dmg < 70)
+                    dmg = 70;
+                if (npc.lifeMax < 40)
                     dmg = 10;
                 if (npc.realLife >= 0 || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
                 {
                     spawnExp = Main.rand.NextBool(5);
-                    dmg = 4;
+                    dmg = 5;
                 }
                 var plr = Main.player[Player.FindClosest(npc.Center, 99999, 99999)];
                 if (spawnExp)
                 {
-                    var p = CEUtils.SpawnExplotionFriendly(npc.GetSource_Death(), plr, npc.Center, dmg, 260, DamageClass.Summon);
+                    var p = CEUtils.SpawnExplotionFriendly(npc.GetSource_Death(), plr, npc.Center, dmg, 200, DamageClass.Summon);
                     if (p.ModProjectile is CommonExplotionFriendly cef)
                     {
                         void onhit(NPC npc)
