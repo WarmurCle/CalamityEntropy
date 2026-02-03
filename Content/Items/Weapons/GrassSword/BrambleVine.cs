@@ -129,9 +129,9 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 {
                     if ((Main.myPlayer != Projectile.owner || Main.mouseLeft) && Projectile.localAI[1]++ <= 60 * 16 && CEUtils.getDistance(HookNPC.ToNPC().Center, Projectile.Center) < (400 + (Bramblecleave.GetLevel() * 60) * 1f) * 1.4f)
                     {
-                        if (Projectile.localAI[1] % 12 == 0)
+                        if (Projectile.localAI[1] % 30 == 0)
                         {
-                            player.Heal(Bramblecleave.GetLevel() / 2);
+                            player.Heal(Bramblecleave.GetLevel() / 3);
                         }
                         if (player.wingTime < player.wingTimeMax)
                         {

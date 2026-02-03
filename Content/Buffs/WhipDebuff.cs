@@ -148,7 +148,7 @@ namespace CalamityEntropy.Content.Buffs
             if (projectile.npcProj || projectile.trap || !(projectile.minion || projectile.sentry || ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type]))
                 return;
 
-
+            if(!(ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type])) { 
             if (npc.HasBuff<DragonWhipDebuff>())
             {
                 if (!Main.rand.NextBool(3))
@@ -160,80 +160,81 @@ namespace CalamityEntropy.Content.Buffs
                     owner.Heal((int)MathHelper.Max(damageDone / 1200, 0));
                 }
             }
-            foreach (var t in Tags)
-            {
-                if (hit.Crit)
+                foreach (var t in Tags)
                 {
-                    if (t.EffectName == "LashingBramblerod")
+                    if (hit.Crit)
                     {
-                        if (projectile.TryGetOwner(out var owner))
+                        if (t.EffectName == "LashingBramblerod")
                         {
-                            if (owner.ownedProjectileCounts[SilvaVineDRPlayer.VineType] > 0)
+                            if (projectile.TryGetOwner(out var owner))
                             {
-                                foreach (Projectile p in Main.ActiveProjectiles)
+                                if (owner.ownedProjectileCounts[SilvaVineDRPlayer.VineType] > 0)
                                 {
-                                    if (p.type == SilvaVineDRPlayer.VineType && p.ModProjectile is SilvaVine sv)
+                                    foreach (Projectile p in Main.ActiveProjectiles)
                                     {
-                                        if (sv.flowerCount < SilvaVine.MaxFlowers)
+                                        if (p.type == SilvaVineDRPlayer.VineType && p.ModProjectile is SilvaVine sv)
                                         {
-                                            sv.flowerCount++;
+                                            if (sv.flowerCount < SilvaVine.MaxFlowers)
+                                            {
+                                                sv.flowerCount++;
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    Projectile.NewProjectile(owner.GetSource_FromThis(), owner.position, Vector2.Zero, SilvaVineDRPlayer.VineType, 40, 0, owner.whoAmI);
+                                }
+                            }
+                        }
+                        if (t.EffectName == "Crystedge")
+                        {
+                            Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, CEUtils.randomVec(5.6f), ModContent.ProjectileType<CrystedgeCrystalBig>(), projectile.damage * 3, projectile.knockBack, projectile.owner);
+                        }
+                        if (t.EffectName == "ForeseeWhip")
+                        {
+                            int C = 5;
+                            foreach (NPC n in Main.ActiveNPCs)
+                            {
+                                if (!n.friendly && n.CanBeChasedBy(projectile) && n.Distance(npc.Center) < 400 && n != npc)
+                                {
+                                    if (C > 0)
+                                    {
+                                        C--;
+                                        int dmg = damageDone;
+                                        projectile.GetOwner().ApplyDamageToNPC(n, dmg, 0, 0, false, projectile.DamageType);
+                                        for (float f = 0; f <= 1; f += 0.1f)
+                                        {
+                                            EParticle.NewParticle(new RuneParticle(), Vector2.Lerp(npc.Center, n.Center, f), CEUtils.randomPointInCircle(0.1f), Color.White, 0.5f, 1, true, BlendState.Additive, 0);
                                         }
                                     }
                                 }
                             }
-                            else
+                        }
+                    }
+                    if (t.EffectName == "MindCorruptor")
+                    {
+                        float rot = CEUtils.randomRot();
+                        Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center - rot.ToRotationVector2() * 128, rot.ToRotationVector2() * 256 / 10f, ModContent.ProjectileType<CorruptStrike>(), projectile.damage / 12 + 1, 2, projectile.owner);
+                    }
+                    if (t.EffectName == "DaylightProjectile")
+                    {
+                        int type = ModContent.ProjectileType<DaylightSun>();
+                        foreach (Projectile p in Main.ActiveProjectiles)
+                        {
+                            if (p.owner == projectile.owner && p.type == type)
                             {
-                                Projectile.NewProjectile(owner.GetSource_FromThis(), owner.position, Vector2.Zero, SilvaVineDRPlayer.VineType, 40, 0, owner.whoAmI);
+                                if (p.ai[0] == 0)
+                                    p.ai[0]++;
                             }
                         }
                     }
-                    if (t.EffectName == "Crystedge")
+                    if (t.EffectName == "SinewLash")
                     {
-                        Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, CEUtils.randomVec(5.6f), ModContent.ProjectileType<CrystedgeCrystalBig>(), projectile.damage * 3, projectile.knockBack, projectile.owner);
-                    }
-                    if (t.EffectName == "ForeseeWhip")
-                    {
-                        int C = 5;
-                        foreach (NPC n in Main.ActiveNPCs)
+                        if (CECooldowns.CheckCD("SinwLashFlesh", 70))
                         {
-                            if (!n.friendly && n.CanBeChasedBy(projectile) && n.Distance(npc.Center) < 400 && n != npc)
-                            {
-                                if (C > 0)
-                                {
-                                    C--;
-                                    int dmg = damageDone;
-                                    projectile.GetOwner().ApplyDamageToNPC(n, dmg, 0, 0, false, projectile.DamageType);
-                                    for (float f = 0; f <= 1; f += 0.1f)
-                                    {
-                                        EParticle.NewParticle(new RuneParticle(), Vector2.Lerp(npc.Center, n.Center, f), CEUtils.randomPointInCircle(0.1f), Color.White, 0.5f, 1, true, BlendState.Additive, 0);
-                                    }
-                                }
-                            }
+                            Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(8, 14), ModContent.ProjectileType<FleshChunk>(), (int)(projectile.GetOwner().GetTotalDamage(DamageClass.Summon).ApplyTo(34)), 5, projectile.owner, 0, 0, Main.rand.Next(0, 2));
                         }
-                    }
-                }
-                if (t.EffectName == "MindCorruptor")
-                {
-                    float rot = CEUtils.randomRot();
-                    Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center - rot.ToRotationVector2() * 128, rot.ToRotationVector2() * 256 / 10f, ModContent.ProjectileType<CorruptStrike>(), projectile.damage / 12 + 1, 2, projectile.owner);
-                }
-                if (t.EffectName == "DaylightProjectile")
-                {
-                    int type = ModContent.ProjectileType<DaylightSun>();
-                    foreach (Projectile p in Main.ActiveProjectiles)
-                    {
-                        if (p.owner == projectile.owner && p.type == type)
-                        {
-                            if (p.ai[0] == 0)
-                                p.ai[0]++;
-                        }
-                    }
-                }
-                if (t.EffectName == "SinewLash")
-                {
-                    if(CECooldowns.CheckCD("SinwLashFlesh", 70))
-                    {
-                        Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(8, 14), ModContent.ProjectileType<FleshChunk>(), (int)(projectile.GetOwner().GetTotalDamage(DamageClass.Summon).ApplyTo(34)), 5, projectile.owner, 0, 0, Main.rand.Next(0, 2));
                     }
                 }
             }
