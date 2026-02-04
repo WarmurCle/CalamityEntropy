@@ -3678,7 +3678,11 @@ Items: {
 
 	OblivionSkull: {
 		// DisplayName: Oblivion Skull
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Summon a cursed skull that shoots tiny skull to enemies
+			Cost 2 minion slots
+			''' */
 	}
 }
 
@@ -4312,7 +4316,7 @@ Projectiles: {
 	// OuijaBoardHeld.DisplayName: Ouija Board Held
 	// OuijaSpirit.DisplayName: Ouija Spirit
 	// OblivionSkullMinion.DisplayName: Oblivion Skull Minion
-	// SkullProj.DisplayName: Skull Proj
+	// SkullProj.DisplayName: Skull
 }
 
 LegendTooltip: - Легенда -
@@ -4684,8 +4688,8 @@ Buffs: {
 	}
 
 	OblivionSkullBuff: {
-		// DisplayName: Oblivion Skull Buff
-		// Description: Mods.CalamityEntropy.Buffs.OblivionSkullBuff.Description
+		// DisplayName: Oblivion Skull
+		// Description: It hates the living
 	}
 }
 

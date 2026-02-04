@@ -3666,11 +3666,11 @@ Items: {
 
 	OblivionSkull: {
 		DisplayName: Oblivion Skull
-		Tooltip: 
-		'''
-		Summon a cursed skull that shoots tiny skull to enemies
-		Cost 2 minion slots
-		'''
+		Tooltip:
+			'''
+			Summon a cursed skull that shoots tiny skull to enemies
+			Cost 2 minion slots
+			'''
 	}
 }
 
@@ -4691,7 +4691,7 @@ Buffs: {
 
 	OblivionSkullBuff: {
 		DisplayName: Oblivion Skull
-		Description: "It hates the living"
+		Description: It hates the living
 	}
 }
 
