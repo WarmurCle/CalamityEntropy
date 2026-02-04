@@ -37,6 +37,10 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
     public class BookmarkMariviumEffect : EBookProjectileEffect
     {
+        public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
+        {
+            target.AddBuff<LifeOppress>(5 * 60);
+        }
     }
     public class MiniWyrm : BaseBookMinion, iWyrmSeg
     {

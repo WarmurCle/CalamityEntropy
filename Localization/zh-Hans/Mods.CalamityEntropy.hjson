@@ -3913,7 +3913,11 @@ Items: {
 
 	BookmarkMarivium: {
 		DisplayName: 渊洋书签
-		Tooltip: 召唤一条小型妖龙，为你阻挡弹幕
+		Tooltip:
+		'''
+		召唤一条小型妖龙，为你阻挡弹幕
+		攻击将施加生命压制
+		'''
 	}
 
 	HungryLantern: {

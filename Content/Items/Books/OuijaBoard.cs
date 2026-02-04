@@ -64,14 +64,14 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.width = 8;
-            Projectile.height = 8;
+            Projectile.width = 16;
+            Projectile.height = 16;
             Projectile.penetrate = 1;
             Projectile.light = 0.15f;
             Projectile.timeLeft = 280;
             Projectile.tileCollide = false;
         }
-        public int FacingTime = 60;
+        public int FacingTime = 38;
         public override void ApplyHoming()
         {
             if(FacingTime <= 0)
