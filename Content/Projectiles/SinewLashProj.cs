@@ -164,7 +164,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool? CanHitNPC(NPC target)
         {
-            if (Projectile.ai[0] / (this.getFlyTime() * Projectile.MaxUpdates) < 0.46f)
+            if (Projectile.ai[0] / (this.getFlyTime() * Projectile.MaxUpdates) < 0.3f)
             {
                 return false;
             }
