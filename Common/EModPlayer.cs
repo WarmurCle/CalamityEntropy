@@ -5,6 +5,7 @@ using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
+using CalamityEntropy.Content.Items.Accessories.Hungry;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Armor.Marivinium;
 using CalamityEntropy.Content.Items.Armor.NihTwins;
@@ -2342,8 +2343,20 @@ namespace CalamityEntropy.Common
 
             StealthMaxLast = Player.Calamity().rogueStealthMax;
 
+            if (hasAcc(HungryLantern.ID))
+            {
+                if (Player.ownedProjectileCounts[HungryLantern.ProjType] < 1)
+                {
+                    int p = Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomPointInCircle(8), HungryLantern.ProjType, HungryLantern.Damage, 0, Player.whoAmI);
+                    p.ToProj().originalDamage = HungryLantern.Damage;
+                }
+            }
             if (Main.myPlayer == Player.whoAmI && BookMarkLoader.GetPlayerHeldEntropyBook(Player, out var eb))
             {
+                if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkMariviumEffect>(Player) && Player.ownedProjectileCounts[BookmarkMarivium.ProjType] < 1)
+                {
+                    eb.ShootSingleProjectile(BookmarkMarivium.ProjType, Player.Center, Vector2.UnitY * -0.01f, 1, 1, 1);
+                }
                 if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkHammerBMEffect>(Player) && Player.ownedProjectileCounts[BookmarkHammer.ProjType] < 1)
                 {
                     eb.ShootSingleProjectile(BookmarkHammer.ProjType, Player.Center, Vector2.UnitY * -0.02f, 1, 1, 1);

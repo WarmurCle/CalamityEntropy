@@ -3642,6 +3642,11 @@ Items: {
 			Maximum increase of 24
 			'''
 	}
+
+	BookmarkMarivium: {
+		DisplayName: Bookmark - Marivium
+		Tooltip: Summon a tiny wyrm to block projectiles
+	}
 }
 
 ChaoticSetBonus:
@@ -4283,6 +4288,7 @@ Projectiles: {
 	DaylightLaser.DisplayName: Daylight Laser
 	DaylightSun.DisplayName: Daylight Sun
 	FleshChunk.DisplayName: Flesh Chunk
+	MiniWyrm.DisplayName: Mini Wyrm
 }
 
 LegendTooltip: - Legend -

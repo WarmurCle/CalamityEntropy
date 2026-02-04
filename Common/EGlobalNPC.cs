@@ -5,6 +5,7 @@ using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
+using CalamityEntropy.Content.Items.Accessories.Hungry;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
@@ -431,6 +432,8 @@ namespace CalamityEntropy.Common
         public int Decrease20DR = 0;
         public override bool PreAI(NPC npc)
         {
+            if (HungryTagged > 0)
+                HungryTagged--;
             if (Decrease20DR > 0)
                 Decrease20DR--;
             StickByMissle--;
@@ -591,6 +594,10 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
+            if (HungryTagged > 0)
+            {
+                modifiers.SourceDamage *= 1f + (HungryLantern.TagDamage);
+            }
             modifiers.SourceDamage += MissleDamageAddition;
             if (npc.active)
             {
@@ -666,6 +673,7 @@ namespace CalamityEntropy.Common
             }
 
         }
+        public int HungryTagged = 0;
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
             if (player.Entropy().devouringCard)
@@ -847,6 +855,7 @@ namespace CalamityEntropy.Common
             if (npc.type == ModContent.NPCType<PrimordialWyrmHead>())
             {
                 npcLoot.Add(ModContent.ItemType<WyrmTooth>(), 1, 28, 32);
+                npcLoot.Add(ModContent.ItemType<BookmarkMarivium>(), 2);
             }
             if (npc.type == ModContent.NPCType<EidolonWyrmHead>())
             {
