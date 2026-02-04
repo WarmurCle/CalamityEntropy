@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 52;
+            Item.damage = 45;
             Item.DamageType = DamageClass.Summon;
             Item.width = 30;
             Item.height = 46;
@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.autoReuse = true;
             Item.UseSound = SoundID.Item8;
             Item.noMelee = true;
-            Item.mana = 5;
+            Item.mana = 8;
             Item.buffType = ModContent.BuffType<OblivionSkullBuff>();
             Item.rare = ItemRarityID.Orange;
         }
@@ -109,8 +109,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             float speedMult = 0.95f;
             NPC target = Projectile.FindMinionTarget();
             float targetRot = Projectile.rotation;
+            maxProj = 6;
             if (target != null)
             {
+                maxProj = int.Min(6, (int)((target.life + target.defense * 6f) / (1 - target.Calamity().DR) / Projectile.damage) + 1);
                 targetRot = (target.Center - Projectile.Center).ToRotation();
                 if(delay-- < 0)
                 {
@@ -120,7 +122,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     {
                         projCharge++;
                         CEUtils.PlaySound("YharonFireball1", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center);
-                        Vector2 pos = ((projCharge - 1) * (MathHelper.TwoPi / 6f)).ToRotationVector2() * 60 + Projectile.Center;
+                        Vector2 pos = ((projCharge - 1) * (MathHelper.TwoPi / maxProj)).ToRotationVector2() * 60 + Projectile.Center;
                         for(int i = 0; i < 9; i++)
                         {
                             GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(pos + CEUtils.randomPointInCircle(3), CEUtils.randomPointInCircle(6), Color.MediumPurple, 18, Main.rand.NextFloat(0.26f, 0.36f), 0.6f, Main.rand.NextFloat(-0.1f, 0.1f), true));
@@ -131,7 +133,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         Vector2 pos = Projectile.Center + vec;
                         CEUtils.AddLight(pos, new Color(230, 255, 255), 0.4f);
                     }
-                    if (ChargeCounter > (maxProj + 4) * chargeTime)
+                    if (ChargeCounter > (maxProj + 2) * chargeTime)
                     {
                         ChargeCounter = 0;
                         Fire(target.Center);
@@ -173,7 +175,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             for (int i = 0; i < projCharge; i++)
             {
-                yield return (i * (MathHelper.TwoPi / 6f)).ToRotationVector2() * 60;
+                yield return (i * (MathHelper.TwoPi / maxProj)).ToRotationVector2() * 60;
             }
         }
         public int projCharge = 0;
@@ -216,7 +218,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.ArmorPenetration += 8;
+            modifiers.ArmorPenetration += 16;
         }
         public NPC target;
         public override void AI()
