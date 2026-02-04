@@ -770,6 +770,10 @@ namespace CalamityEntropy.Common
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<CreeperWand>(), 3, 1, 1);
             }
+            if (npc.type == NPCID.SkeletronHead)
+            {
+                npcLoot.AddNormalOnly(ModContent.ItemType<OblivionSkull>(), 1, 1, 1);
+            }
             if (npc.type == NPCID.KingSlime)
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<ExquisiteCrown>(), 3, 1, 1);

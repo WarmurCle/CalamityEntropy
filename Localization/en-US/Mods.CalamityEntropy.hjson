@@ -3663,6 +3663,15 @@ Items: {
 		DisplayName: Ouija Board
 		Tooltip: Summon souls to attack the enemy
 	}
+
+	OblivionSkull: {
+		DisplayName: Oblivion Skull
+		Tooltip: 
+		'''
+		Summon a cursed skull that shoots tiny skull to enemies
+		Cost 2 minion slots
+		'''
+	}
 }
 
 ChaoticSetBonus:
@@ -4308,6 +4317,8 @@ Projectiles: {
 	TheHungry.DisplayName: The Hungry
 	OuijaBoardHeld.DisplayName: Ouija Board Held
 	OuijaSpirit.DisplayName: Ouija Spirit
+	OblivionSkullMinion.DisplayName: Oblivion Skull Minion
+	SkullProj.DisplayName: Skull
 }
 
 LegendTooltip: - Legend -
@@ -4676,6 +4687,11 @@ Buffs: {
 	FlamingBlood: {
 		DisplayName: Flaming Blood
 		Description: ""
+	}
+
+	OblivionSkullBuff: {
+		DisplayName: Oblivion Skull
+		Description: "It hates the living"
 	}
 }
 

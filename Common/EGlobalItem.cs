@@ -1818,6 +1818,7 @@ namespace CalamityEntropy.Common
             if (item.type == ItemID.SkeletronBossBag)
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkAries>(), new Fraction(1, 1));
+                itemLoot.Add(ModContent.ItemType<OblivionSkull>(), new Fraction(1, 1));
             }
             if (item.Is<AstrumDeusBag>())
             {

@@ -3914,10 +3914,10 @@ Items: {
 	BookmarkMarivium: {
 		DisplayName: 渊洋书签
 		Tooltip:
-		'''
-		召唤一条小型妖龙，为你阻挡弹幕
-		攻击将施加生命压制
-		'''
+			'''
+			召唤一条小型妖龙，为你阻挡弹幕
+			攻击将施加生命压制
+			'''
 	}
 
 	HungryLantern: {
@@ -3933,6 +3933,15 @@ Items: {
 	OuijaBoard: {
 		DisplayName: 通灵石板
 		Tooltip: 召唤灵魂攻击敌人
+	}
+
+	OblivionSkull: {
+		DisplayName: 冥骸头骨
+		Tooltip: 
+		'''
+		召唤一只诅咒头骨，向敌人发射骷髅头
+		消耗2召唤栏
+		'''
 	}
 }
 
@@ -4562,10 +4571,12 @@ Projectiles: {
 	DaylightLaser.DisplayName: 日光射线
 	DaylightSun.DisplayName: 朝霞之阳
 	FleshChunk.DisplayName: 血肉碎块
-	// MiniWyrm.DisplayName: Mini Wyrm
-	// TheHungry.DisplayName: The Hungry
-	// OuijaBoardHeld.DisplayName: Ouija Board Held
-	// OuijaSpirit.DisplayName: Ouija Spirit
+	MiniWyrm.DisplayName: 小妖龙
+	TheHungry.DisplayName: 饿鬼
+	OuijaBoardHeld.DisplayName: 通灵板
+	OuijaSpirit.DisplayName: 灵魂
+	OblivionSkullMinion.DisplayName: 冥骸头骨
+	SkullProj.DisplayName: 头骨
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4934,6 +4945,11 @@ Buffs: {
 	FlamingBlood: {
 		DisplayName: 燃烧之血
 		Description: 易燃易爆
+	}
+
+	OblivionSkullBuff: {
+		DisplayName: 诅咒头骨
+		Description: “它憎恶生者”
 	}
 }
 
