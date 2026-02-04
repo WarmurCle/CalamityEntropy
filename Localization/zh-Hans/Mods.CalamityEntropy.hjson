@@ -3831,8 +3831,8 @@ Items: {
 		DisplayName: 精致皇冠
 		Tooltip:
 			'''
+			增加1个召唤栏
 			召唤一顶向附近敌人发射射线的金冠
-			+1 召唤栏
 			'''
 	}
 
@@ -3840,8 +3840,8 @@ Items: {
 		DisplayName: 腐檀獠牙
 		Tooltip:
 			'''
+			增加1个召唤栏
 			仆从会时不时向附近敌人发射一些血弹
-			+1 召唤栏
 			'''
 	}
 
@@ -3914,6 +3914,16 @@ Items: {
 	BookmarkMarivium: {
 		DisplayName: 渊洋书签
 		Tooltip: 召唤一条小型妖龙，为你阻挡弹幕
+	}
+
+	HungryLantern: {
+		DisplayName: 饿鬼提灯
+		Tooltip: 
+		'''
+		增加1个召唤栏
+		召唤一只饿鬼，饿鬼会咬住敌人并持续造成伤害
+		同时，所有对这名敌人的伤害将乘算提升[A]%
+		'''
 	}
 }
 
@@ -4544,6 +4554,7 @@ Projectiles: {
 	DaylightSun.DisplayName: 朝霞之阳
 	FleshChunk.DisplayName: 血肉碎块
 	// MiniWyrm.DisplayName: Mini Wyrm
+	// TheHungry.DisplayName: The Hungry
 }
 
 LegendTooltip: - 传奇物品 -

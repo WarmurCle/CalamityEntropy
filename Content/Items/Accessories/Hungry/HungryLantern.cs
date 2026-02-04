@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
 {
     public class HungryLantern : ModItem
     {
-        public static int Damage = 25;
+        public static int Damage = 16;
         public override void SetDefaults()
         {
             Item.width = 36;
@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
             Item.rare = ItemRarityID.LightRed;
         }
         public static string ID => "HungryLantern";
-        public static float TagDamage = 0.12f;
+        public static float TagDamage = 0.1f;
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().addEquip(ID);
@@ -64,47 +64,54 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
         
         public override void AI()
         {
+            if (CEUtils.getDistance(Projectile.Center, Projectile.GetOwner().Center) > 2000)
+                Projectile.Kill();
             Projectile.frameCounter++;
             if (Projectile.frameCounter > 3) {
                 Projectile.frame++;
+                if (Projectile.frame > 2)
+                    Projectile.frame = 0;
                 Projectile.frameCounter = 0;
             }
             if (Projectile.OwnerEntropy().hasAcc(HungryLantern.ID))
                 Projectile.timeLeft = 5;
 
             var t = Projectile.FindMinionTarget(1000);
-            if (target != null && (!target.active || target.Distance(Projectile.Center) > 1200))
-                target = null;
             if (target == null || (t != null && target.whoAmI != t.whoAmI))
                 target = t;
-            Projectile.position += Projectile.GetOwner().velocity;
-            if (target == null)
+            if (target != null && (!target.active || target.Distance(Projectile.GetOwner().Center) > 1200))
+                target = null;
+            if (target != null)
             {
-                Projectile.velocity *= 0.92f;
-                Projectile.velocity += (target.Center - Projectile.Center).normalize() * 1.8f;
-                if (CEUtils.getDistance(Projectile.Center, target.Center) < Projectile.velocity.Length() + 30)
+                Vector2 targetPos = (target.Center + (Projectile.GetOwner().Center - target.Center).normalize() * 18);
+                Projectile.velocity *= 0.75f;
+                Projectile.velocity += (targetPos - Projectile.Center).normalize() * 6.5f;
+                if (CEUtils.getDistance(Projectile.Center, targetPos) < Projectile.velocity.Length() + target.velocity.Length() + 6)
                 {
-                    Projectile.Center = target.Center;
+                    Projectile.Center = targetPos;
                     target.Entropy().HungryTagged = 3;
                     Projectile.frame = 0;
                     Projectile.frameCounter = 0;
+                    Projectile.velocity *= 0;
                 }
             }
             else
             {
                 Player player = Projectile.GetOwner();
-                if (CEUtils.getDistance(Projectile.Center, player.Center) > 280)
+                Projectile.position += player.velocity;
+                if (CEUtils.getDistance(Projectile.Center, player.Center) > 180)
                 {
                     Projectile.velocity *= 0.98f;
                     Projectile.velocity += (player.Center - Projectile.Center).normalize().RotatedBy(Projectile.ai[2]) * 0.6f;
                 }
                 else
                 {
-                    Projectile.ai[2] = Main.rand.NextFloat(-0.08f, 0.08f);
+                    Projectile.ai[2] = Main.rand.NextFloat(-0.2f, 0.2f);
                     Projectile.velocity = Projectile.velocity.SafeNormalize(Vector2.One) * float.Lerp(Projectile.velocity.Length(), 12, 0.05f);
                 }
             }
             Projectile.ai[1]--;
+            Projectile.rotation = (Projectile.Center - Projectile.GetOwner().Center).ToRotation();
         }
     }
 }

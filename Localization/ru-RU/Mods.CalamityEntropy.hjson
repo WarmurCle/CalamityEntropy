@@ -3659,6 +3659,11 @@ Items: {
 		// DisplayName: Bookmark - Marivium
 		// Tooltip: Summon a tiny wyrm to block projectiles
 	}
+
+	HungryLantern: {
+		// DisplayName: Hungry Lantern
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:
@@ -4287,6 +4292,7 @@ Projectiles: {
 	// DaylightSun.DisplayName: Daylight Sun
 	// FleshChunk.DisplayName: Flesh Chunk
 	// MiniWyrm.DisplayName: Mini Wyrm
+	// TheHungry.DisplayName: The Hungry
 }
 
 LegendTooltip: - Легенда -

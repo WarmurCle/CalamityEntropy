@@ -5,6 +5,7 @@ using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
+using CalamityEntropy.Content.Items.Accessories.Hungry;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Items.Armor.VoidFaquir;
@@ -1853,6 +1854,7 @@ namespace CalamityEntropy.Common
             if (item.type == ItemID.WallOfFleshBossBag)
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkFlesh>(), new Fraction(1, 1));
+                itemLoot.Add(ModContent.ItemType<HungryLantern>(), new Fraction(1, 3));
             }
             if (item.Is<NihilityTwinBag>())
             {
