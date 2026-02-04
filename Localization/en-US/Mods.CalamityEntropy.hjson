@@ -3650,13 +3650,18 @@ Items: {
 
 	HungryLantern: {
 		DisplayName: Hungry Lantern
-		Tooltip: 
-		'''
-		+1 Minion slot
-		Summon The Hungry
-		The Hungry will sink teeth into the enemy and dealing damage
-		Simultaneously, all damage this enemy taking will increase by [A]%
-		'''
+		Tooltip:
+			'''
+			+1 Minion slot
+			Summon The Hungry
+			The Hungry will sink teeth into the enemy and dealing damage
+			Simultaneously, all damage this enemy taking will increase by [A]%
+			'''
+	}
+
+	OuijaBoard: {
+		DisplayName: Ouija Board
+		Tooltip: Summon souls to attack the enemy
 	}
 }
 
@@ -4301,6 +4306,8 @@ Projectiles: {
 	FleshChunk.DisplayName: Flesh Chunk
 	MiniWyrm.DisplayName: Mini Wyrm
 	TheHungry.DisplayName: The Hungry
+	OuijaBoardHeld.DisplayName: Ouija Board Held
+	OuijaSpirit.DisplayName: Ouija Spirit
 }
 
 LegendTooltip: - Legend -

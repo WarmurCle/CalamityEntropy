@@ -3918,12 +3918,17 @@ Items: {
 
 	HungryLantern: {
 		DisplayName: 饿鬼提灯
-		Tooltip: 
-		'''
-		增加1个召唤栏
-		召唤一只饿鬼，饿鬼会咬住敌人并持续造成伤害
-		同时，所有对这名敌人的伤害将乘算提升[A]%
-		'''
+		Tooltip:
+			'''
+			增加1个召唤栏
+			召唤一只饿鬼，饿鬼会咬住敌人并持续造成伤害
+			同时，所有对这名敌人的伤害将乘算提升[A]%
+			'''
+	}
+
+	OuijaBoard: {
+		DisplayName: 通灵石板
+		Tooltip: 召唤灵魂攻击敌人
 	}
 }
 
@@ -4555,6 +4560,8 @@ Projectiles: {
 	FleshChunk.DisplayName: 血肉碎块
 	// MiniWyrm.DisplayName: Mini Wyrm
 	// TheHungry.DisplayName: The Hungry
+	// OuijaBoardHeld.DisplayName: Ouija Board Held
+	// OuijaSpirit.DisplayName: Ouija Spirit
 }
 
 LegendTooltip: - 传奇物品 -
