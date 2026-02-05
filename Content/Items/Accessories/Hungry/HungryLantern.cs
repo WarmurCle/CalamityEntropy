@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
             Item.rare = ItemRarityID.LightRed;
         }
         public static string ID => "HungryLantern";
-        public static float TagDamage = 0.1f;
+        public static float TagDamage = 0.09f;
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().addEquip(ID);
@@ -69,7 +69,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
         
         public override void AI()
         {
-            if (CEUtils.getDistance(Projectile.Center, Projectile.GetOwner().Center) > 2000)
+            if (CEUtils.getDistance(Projectile.Center, Projectile.GetOwner().Center) > 3000)
                 Projectile.Kill();
             Projectile.frameCounter++;
             if (Projectile.frameCounter > 3) {
@@ -84,7 +84,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
             var t = Projectile.FindMinionTarget(1000);
             if (target == null || (t != null && target.whoAmI != t.whoAmI))
                 target = t;
-            if (target != null && (!target.active || target.Distance(Projectile.GetOwner().Center) > 850))
+            if (target != null && (!target.active || target.Distance(Projectile.GetOwner().Center) > 760))
                 target = null;
             if (target != null)
             {

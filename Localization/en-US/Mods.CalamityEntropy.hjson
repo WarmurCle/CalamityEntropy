@@ -3686,6 +3686,11 @@ Items: {
 		DisplayName: Pressure Esoterica
 		Tooltip: Shoot abyssal bolts
 	}
+
+	SpectralWhispers: {
+		DisplayName: Spectral Whispers
+		Tooltip: Shoot whispering spikes
+	}
 }
 
 ChaoticSetBonus:
@@ -4337,6 +4342,8 @@ Projectiles: {
 	BloodSpray.DisplayName: Blood Spray
 	AbyssalRift.DisplayName: Abyssal Rift
 	PressureEsotericaHeld.DisplayName: Pressure Esoterica Held
+	SpectralWhispersHeld.DisplayName: Spectral Whispers Held
+	WhisperingSpike.DisplayName: Whispering Spike
 }
 
 LegendTooltip: - Legend -

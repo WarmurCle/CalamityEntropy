@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Books
             base.SetDefaults();
             Item.damage = 12;
             Item.useAnimation = Item.useTime = 9;
-            Item.crit = 16;
+            Item.crit = 6;
             Item.mana = 2;
             Item.rare = ItemRarityID.Blue;
             Item.value = CalamityGlobalItem.RarityBlueBuyPrice;

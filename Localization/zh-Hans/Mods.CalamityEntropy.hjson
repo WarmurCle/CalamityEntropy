@@ -3957,6 +3957,11 @@ Items: {
 		DisplayName: 重压秘笈
 		Tooltip: 发射深渊束
 	}
+
+	SpectralWhispers: {
+		DisplayName: 魂语秘卷
+		Tooltip: 发射会爆炸的低语尖刺
+	}
 }
 
 ChaoticSetBonus:
@@ -4591,10 +4596,12 @@ Projectiles: {
 	OuijaSpirit.DisplayName: 灵魂
 	OblivionSkullMinion.DisplayName: 冥骸头骨
 	SkullProj.DisplayName: 头骨
-	// BloodCodexHeld.DisplayName: Blood Codex Held
-	// BloodSpray.DisplayName: Blood Spray
-	// AbyssalRift.DisplayName: Abyssal Rift
-	// PressureEsotericaHeld.DisplayName: Pressure Esoterica Held
+	BloodCodexHeld.DisplayName: 血脉巨典
+	BloodSpray.DisplayName: 血液
+	AbyssalRift.DisplayName: 深渊裂隙
+	PressureEsotericaHeld.DisplayName: 重压秘笈
+	SpectralWhispersHeld.DisplayName: 魂语秘卷
+	WhisperingSpike.DisplayName: 低语尖刺
 }
 
 LegendTooltip: - 传奇物品 -

@@ -3698,6 +3698,11 @@ Items: {
 		// DisplayName: Pressure Esoterica
 		// Tooltip: Shoot abyssal bolts
 	}
+
+	SpectralWhispers: {
+		// DisplayName: Spectral Whispers
+		// Tooltip: Shoot whispering spikes
+	}
 }
 
 /* ChaoticSetBonus:
@@ -4335,6 +4340,8 @@ Projectiles: {
 	// BloodSpray.DisplayName: Blood Spray
 	// AbyssalRift.DisplayName: Abyssal Rift
 	// PressureEsotericaHeld.DisplayName: Pressure Esoterica Held
+	// SpectralWhispersHeld.DisplayName: Spectral Whispers Held
+	// WhisperingSpike.DisplayName: Whispering Spike
 }
 
 LegendTooltip: - Легенда -
@@ -5598,7 +5605,7 @@ Biomes: {
 	When this armor is equipped, 
 	all Azafure equipment receives partial enhancements
 	Remove adrenaline and gains a Durability bar
-	The Durability bar provides up to 18 defense and 25% damage reduction, 
+	The Durability bar provides up to 12 defense and 25% damage reduction, 
 	while slowing your movement speed
 	Durability is consumed based on damage taken when hit
 	Durability slowly regenerates 5 seconds after taking damage
@@ -5609,7 +5616,7 @@ Biomes: {
 	When this armor is equipped, 
 	all Azafure equipment receives partial enhancements
 	Remove adrenaline and gains a Durability bar
-	The Durability bar provides up to 36 defense and 30% damage reduction
+	The Durability bar provides up to 24 defense and 30% damage reduction
 	Durability is consumed based on damage taken when hit
 	Durability slowly regenerates 5 seconds after taking damage
 	When the Durability bar is depleted, it becomes inactive and requires time to restore functionality
@@ -5622,7 +5629,7 @@ Biomes: {
 	When this armor is equipped, 
 	all Azafure equipment receives partial enhancements
 	Remove adrenaline and gains a Durability bar
-	The Durability bar provides up to 50 defense and 32% damage reduction
+	The Durability bar provides up to 36 defense and 32% damage reduction
 	Durability is consumed based on damage taken when hit
 	Durability slowly regenerates 5 seconds after taking damage
 	When the Durability bar is depleted, it becomes inactive and requires time to restore functionality
