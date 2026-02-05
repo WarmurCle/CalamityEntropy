@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod;
+using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables.Ores;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,11 +18,14 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
+            Item.width = 40;
+            Item.height = 52;
             Item.damage = 60;
             Item.useAnimation = Item.useTime = 18;
             Item.crit = 16;
             Item.mana = 15;
             Item.rare = ItemRarityID.Red;
+            Item.value = CalamityGlobalItem.RarityRedBuyPrice;
         }
         public override Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/SV").Value;
         public override int HeldProjectileType => ModContent.ProjectileType<SelenbiteVolumeHeld>();

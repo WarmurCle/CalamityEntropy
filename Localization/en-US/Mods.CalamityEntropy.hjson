@@ -3672,6 +3672,20 @@ Items: {
 			Cost 2 minion slots
 			'''
 	}
+
+	BloodCodex: {
+		DisplayName: Blood Codex
+		Tooltip:
+			'''
+			Shoot blood from the book
+			Enemies will explode when dead
+			'''
+	}
+
+	PressureEsoterica: {
+		DisplayName: Pressure Esoterica
+		Tooltip: Shoot abyssal bolts
+	}
 }
 
 ChaoticSetBonus:
@@ -4319,6 +4333,10 @@ Projectiles: {
 	OuijaSpirit.DisplayName: Ouija Spirit
 	OblivionSkullMinion.DisplayName: Oblivion Skull Minion
 	SkullProj.DisplayName: Skull
+	BloodCodexHeld.DisplayName: Blood Codex Held
+	BloodSpray.DisplayName: Blood Spray
+	AbyssalRift.DisplayName: Abyssal Rift
+	PressureEsotericaHeld.DisplayName: Pressure Esoterica Held
 }
 
 LegendTooltip: - Legend -

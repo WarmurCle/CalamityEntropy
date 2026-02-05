@@ -3943,6 +3943,20 @@ Items: {
 			消耗2召唤栏
 			'''
 	}
+
+	BloodCodex: {
+		DisplayName: 血脉巨典
+		Tooltip:
+			'''
+			从翻开的书页中发射血液
+			敌怪死亡后产生血爆
+			'''
+	}
+
+	PressureEsoterica: {
+		DisplayName: 重压秘笈
+		Tooltip: 发射深渊束
+	}
 }
 
 ChaoticSetBonus:
@@ -4577,6 +4591,10 @@ Projectiles: {
 	OuijaSpirit.DisplayName: 灵魂
 	OblivionSkullMinion.DisplayName: 冥骸头骨
 	SkullProj.DisplayName: 头骨
+	// BloodCodexHeld.DisplayName: Blood Codex Held
+	// BloodSpray.DisplayName: Blood Spray
+	// AbyssalRift.DisplayName: Abyssal Rift
+	// PressureEsotericaHeld.DisplayName: Pressure Esoterica Held
 }
 
 LegendTooltip: - 传奇物品 -

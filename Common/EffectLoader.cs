@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Donator;
+﻿using CalamityEntropy.Content.Items.Books;
+using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
@@ -436,6 +437,8 @@ namespace CalamityEntropy.Common
                 {
                     ac.draw();
                 }
+                if (proj.ModProjectile is AbyssalRift ar)
+                    ar.draw();
                 if (proj.ModProjectile is AbyssBookmarkCrack ac2)
                 {
                     ac2.drawVoid();
