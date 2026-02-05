@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.damage = 12;
             Item.useAnimation = Item.useTime = 36;
             Item.crit = 3;
-            Item.mana = 7;
+            Item.mana = 11;
             Item.rare = ItemRarityID.Blue;
             Item.value = CalamityGlobalItem.RarityBlueBuyPrice;
             Item.width = 40;
@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/SW").Value;
         public override int HeldProjectileType => ModContent.ProjectileType<SpectralWhispersHeld>();
-        public override int SlotCount => 4;
+        public override int SlotCount => 1;
 
         public override void AddRecipes()
         {
@@ -155,7 +155,7 @@ namespace CalamityEntropy.Content.Items.Books
             {
                 GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Lerp(Color.LightBlue, Color.Purple, i) * 0.8f, "CalamityMod/Particles/FlameExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, i * 0.14f, (int)((1.2f - i) * 20)));
             }
-            SoundEngine.PlaySound(SoundID.Item122 with { PitchRange = (0.6f, 1) }, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item122 with { PitchRange = (1.2f, 1.6f) }, Projectile.Center);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
