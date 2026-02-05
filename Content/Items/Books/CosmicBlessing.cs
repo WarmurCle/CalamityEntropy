@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.shootSpeed = 18;
             Item.width = 28;
             Item.height = 40;
-            Item.damage = 160;
+            Item.damage = 140;
             Item.useAnimation = Item.useTime = 8;
             Item.crit = 10;
             Item.mana = 5;

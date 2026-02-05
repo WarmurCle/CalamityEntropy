@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 45;
+            Item.damage = 38;
             Item.DamageType = DamageClass.Summon;
             Item.width = 30;
             Item.height = 46;
@@ -109,10 +109,13 @@ namespace CalamityEntropy.Content.Items.Weapons
             float speedMult = 0.95f;
             NPC target = Projectile.FindMinionTarget();
             float targetRot = Projectile.rotation;
-            maxProj = 6;
             if (target != null)
             {
-                maxProj = int.Min(6, (int)((target.life + target.defense * 6f) / (1 - target.Calamity().DR) / Projectile.damage) + 1);
+                if (delay >= 0)
+                {
+                    maxProj = 6;
+                    maxProj = int.Min(6, (int)((target.life + target.defense * 6f) / (1 - target.Calamity().DR) / Projectile.damage) + 1);
+                }
                 targetRot = (target.Center - Projectile.Center).ToRotation();
                 if(delay-- < 0)
                 {
@@ -138,7 +141,9 @@ namespace CalamityEntropy.Content.Items.Weapons
                         ChargeCounter = 0;
                         Fire(target.Center);
                         projCharge = 0;
-                        delay = 30;
+                        delay = maxProj * 5;
+                        if (player.HasBuff<AdrenalineMode>())
+                            delay /= 2;
                     }
                 }
             }
