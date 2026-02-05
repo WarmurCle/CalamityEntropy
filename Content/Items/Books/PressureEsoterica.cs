@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 75;
+            Item.damage = 50;
             Item.useAnimation = Item.useTime = 24;
             Item.crit = 4;
             Item.mana = 18;
@@ -120,7 +120,7 @@ namespace CalamityEntropy.Content.Items.Books
             NPC homingTarget = CEUtils.findTarget(Projectile.GetOwner(), Projectile, (int)homingRange, (Projectile.tileCollide ? true : false));
             if (homingTarget != null)
             {
-                tpos = Vector2.Lerp(tpos, Projectile.Center + ((homingTarget.Center - Projectile.Center).normalize() * tpos.Distance(Projectile.Center)), homing * 0.4f);
+                tpos = Vector2.Lerp(tpos, Projectile.Center + ((homingTarget.Center - Projectile.Center).normalize() * tpos.Distance(Projectile.Center)), homing * 0.6f);
             }
         }
         public override void AI()
@@ -129,7 +129,7 @@ namespace CalamityEntropy.Content.Items.Books
                 tpos = Projectile.Center + Projectile.velocity.normalize() * 4600;
             base.AI();
             if (Main.rand.NextBool(12))
-                r += Main.rand.NextFloat(-0.12f, 0.12f);
+                r += Main.rand.NextFloat(-0.04f, 0.04f);
             Projectile.velocity = Projectile.velocity.RotatedBy(r);
             r *= 0.95f;
             Projectile.velocity = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (tpos - Projectile.Center).ToRotation(), 0.04f + r * 0.4f).ToRotationVector2() * Projectile.velocity.Length();

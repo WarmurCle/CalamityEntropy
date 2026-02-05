@@ -15,9 +15,9 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 18;
+            Item.damage = 14;
             Item.useTime = Item.useAnimation = 25;
-            Item.shootSpeed = 10;
+            Item.shootSpeed = 14;
         }
         public override int HeldProjectileType => ModContent.ProjectileType<OuijaBoardHeld>();
         public override int SlotCount => 1; 
@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override EBookStatModifer getBaseModifer()
         {
             var m = base.getBaseModifer();
-            m.Homing += 0.05f;
+            m.Homing += 0.1f;
             return m;
         }
         public override void AI()

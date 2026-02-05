@@ -121,7 +121,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     if (projCharge < maxProj && ChargeCounter % chargeTime == 0)
                     {
                         projCharge++;
-                        CEUtils.PlaySound("YharonFireball1", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center);
+                        CEUtils.PlaySound("YharonFireball1", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, 8, 0.6f);
                         Vector2 pos = ((projCharge - 1) * (MathHelper.TwoPi / maxProj)).ToRotationVector2() * 60 + Projectile.Center;
                         for(int i = 0; i < 9; i++)
                         {
@@ -159,7 +159,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public void Fire(Vector2 targetPos)
         {
-            SoundEngine.PlaySound(SoundID.NPCDeath25, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCDeath25 with { Volume = 0.4f }, Projectile.Center);
             int projType = ModContent.ProjectileType<SkullProj>();
             foreach(Vector2 vec in GetProjOffsets())
             {
