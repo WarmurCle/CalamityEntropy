@@ -119,7 +119,10 @@ namespace CalamityEntropy.Content.Items.Books
             }
             if (HideTime == 0)
             {
-                GeneralParticleHandler.SpawnParticle(new CalamityMod.Particles.CritSpark(Projectile.Center, CEUtils.randomPointInCircle(6), color * 4, color, 6f * Projectile.scale, 12));
+                for(int i = 0; i < 12; i++)
+                {
+                    GeneralParticleHandler.SpawnParticle(new CalamityMod.Particles.CritSpark(Projectile.Center, CEUtils.randomPointInCircle(9), color * 4, color, Main.rand.NextFloat(0.5f, 1.2f) * Projectile.scale, 18, 0.3f));
+                }
             }
             if (stick > 0)
             {
