@@ -143,6 +143,7 @@ namespace CalamityEntropy.Content.Items.Books
         public float size = 1;
         public override bool PreDraw(ref Color lightColor)
         {
+            Vector2 offset = Vector2.Zero;
             if (HideTime > 0)
                 return false;
             Texture2D tex1 = Projectile.GetTexture();
@@ -150,9 +151,9 @@ namespace CalamityEntropy.Content.Items.Books
             float scale = size * Projectile.scale;
             CEUtils.DrawGlow(Projectile.Center, color, scale * 1.4f);
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            Main.spriteBatch.Draw(tex1, Projectile.Center - Main.screenPosition, null, color * 4f, Projectile.rotation + MathHelper.PiOver2, tex1.Size() / 2, scale * 2f, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(tex1, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation + MathHelper.PiOver2, tex1.Size() / 2, scale * 0.8f, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(tex2, Projectile.Center - Main.screenPosition, null, color, Projectile.rotation, tex2.Size() / 2, Projectile.scale * (size - 1) * 5f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex1, Projectile.Center + offset - Main.screenPosition, null, color * 4f, Projectile.rotation + MathHelper.PiOver2, tex1.Size() / 2, scale * 2f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex1, Projectile.Center + offset - Main.screenPosition, null, Color.White, Projectile.rotation + MathHelper.PiOver2, tex1.Size() / 2, scale * 0.8f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex2, Projectile.Center + offset - Main.screenPosition, null, color, Projectile.rotation, tex2.Size() / 2, Projectile.scale * (size - 1) * 5f, SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
             return false;
         }
