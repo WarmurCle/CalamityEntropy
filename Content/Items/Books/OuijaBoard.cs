@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items.LoreItems;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -76,6 +77,10 @@ namespace CalamityEntropy.Content.Items.Books
         {
             if(FacingTime <= 0)
                 base.ApplyHoming();
+        }
+        public override void OnKill(int timeLeft)
+        {
+            GeneralParticleHandler.SpawnParticle(new CalamityMod.Particles.ImpactParticle(Projectile.Center, 0, 9, 0.4f, new Color(255, 255, 255)));
         }
         public override void AI()
         {

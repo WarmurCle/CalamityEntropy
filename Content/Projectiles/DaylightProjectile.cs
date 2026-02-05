@@ -115,7 +115,7 @@ namespace CalamityEntropy.Content.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.MinionShot[Type] = true;
+            //ProjectileID.Sets.MinionShot[Type] = true;
         }
         public override void SetDefaults()
         {
@@ -181,7 +181,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.MinionShot[Type] = true;
+            //ProjectileID.Sets.MinionShot[Type] = true;
             Main.projFrames[Projectile.type] = 1;
             ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 8000;
         }

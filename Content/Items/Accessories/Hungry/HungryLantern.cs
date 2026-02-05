@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().addEquip(ID);
-            player.maxMinions += 1;
+            player.maxMinions += 1;TagDamage = 0.1f;
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {

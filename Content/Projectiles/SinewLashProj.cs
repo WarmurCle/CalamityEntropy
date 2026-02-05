@@ -181,7 +181,7 @@ namespace CalamityEntropy.Content.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.MinionShot[Type] = true;
+            //ProjectileID.Sets.MinionShot[Type] = true;
         }
         public override void SetDefaults()
         {

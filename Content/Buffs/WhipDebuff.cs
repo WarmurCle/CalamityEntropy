@@ -148,18 +148,19 @@ namespace CalamityEntropy.Content.Buffs
             if (projectile.npcProj || projectile.trap || !(projectile.minion || projectile.sentry || ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type]))
                 return;
 
-            if(!(ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type])) { 
-            if (npc.HasBuff<DragonWhipDebuff>())
+            if (true)
             {
-                if (!Main.rand.NextBool(3))
+                if (npc.HasBuff<DragonWhipDebuff>())
                 {
-                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, CEUtils.randomRot().ToRotationVector2() * 24, ModContent.ProjectileType<DragonGoldenFire>(), projectile.damage / 8, 1, projectile.owner);
+                    if (!Main.rand.NextBool(3))
+                    {
+                        Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, CEUtils.randomRot().ToRotationVector2() * 24, ModContent.ProjectileType<DragonGoldenFire>(), projectile.damage / 8, 1, projectile.owner);
+                    }
+                    if (projectile.TryGetOwner(out var owner))
+                    {
+                        owner.Heal((int)MathHelper.Max(damageDone / 1200, 0));
+                    }
                 }
-                if (projectile.TryGetOwner(out var owner))
-                {
-                    owner.Heal((int)MathHelper.Max(damageDone / 1200, 0));
-                }
-            }
                 foreach (var t in Tags)
                 {
                     if (hit.Crit)

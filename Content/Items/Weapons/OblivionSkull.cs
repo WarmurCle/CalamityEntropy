@@ -71,8 +71,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Summon;
-            Projectile.width = 36;
-            Projectile.height = 36;
+            Projectile.width = 50;
+            Projectile.height = 50;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.penetrate = -1;
@@ -211,7 +211,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(DamageClass.Summon, false, 1);
-            Projectile.width = Projectile.height = 16;
+            Projectile.width = Projectile.height = 26;
             Projectile.MaxUpdates = 4;
             Projectile.light = 0.42f;
             Projectile.timeLeft = 600;
@@ -225,7 +225,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (!Main.dedServ)
             {
-                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomPointInCircle(3), Vector2.Zero, Color.MediumPurple * 0.3f, 18, Main.rand.NextFloat(0.35f, 0.4f), 0.6f, Main.rand.NextFloat(-0.1f, 0.1f), true));
+                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomPointInCircle(3), Vector2.Zero, Color.MediumPurple * 0.36f, 18, Main.rand.NextFloat(0.35f, 0.4f), 0.6f, Main.rand.NextFloat(-0.1f, 0.1f), true));
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
             if(target == null || !target.active)
@@ -240,7 +240,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath3, Projectile.Center);
-            GeneralParticleHandler.SpawnParticle(new CalamityMod.Particles.ImpactParticle(Projectile.Center, 0, 4, 0.4f, new Color(255, 255, 255)));
+            for (int i = 0; i < 12; i++)
+            {
+                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomPointInCircle(6), CEUtils.randomPointInCircle(12), Color.MediumPurple, 32, Main.rand.NextFloat(0.4f, 0.6f), 0.6f, Main.rand.NextFloat(-0.05f, 0.05f), true));
+            }
         }
         public override bool PreDraw(ref Color lightColor)
         {
