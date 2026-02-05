@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
 {
     public class HungryLantern : ModItem
     {
-        public static int Damage = 16;
+        public static int Damage = 25;
         public override void SetDefaults()
         {
             Item.width = 36;
@@ -50,9 +50,13 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
             Projectile.width = Projectile.height = 32;
             Projectile.timeLeft = 5;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
+            Projectile.localNPCHitCooldown = 8;
             Projectile.minion = true;
             Projectile.minionSlots = 0;
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.ArmorPenetration += 50;
         }
         public NPC target = null;
         public override bool PreDraw(ref Color lightColor)
