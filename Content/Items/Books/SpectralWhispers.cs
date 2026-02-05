@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 9;
+            Item.damage = 10;
             Item.useAnimation = Item.useTime = 38;
             Item.crit = 1;
             Item.mana = 11;
@@ -57,6 +57,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override EBookStatModifer getBaseModifer()
         {
             var m = base.getBaseModifer();
+            m.armorPenetration += 40;
             return m;
         }
         public override void AI()
@@ -159,7 +160,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override void OnKill(int timeLeft)
         {
-            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 130, Projectile.DamageType);
+            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 130, Projectile.DamageType).ArmorPenetration = Projectile.ArmorPenetration + 10;
             for (float i = 0; i <= 1; i += 0.1f)
             {
                 GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Lerp(Color.LightBlue, Color.Purple, i) * 0.8f, "CalamityMod/Particles/FlameExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, i * 0.165f, (int)((1.2f - i) * 20)));
