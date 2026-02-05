@@ -23,9 +23,9 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 60;
-            Item.useAnimation = Item.useTime = 25;
-            Item.crit = 16;
+            Item.damage = 75;
+            Item.useAnimation = Item.useTime = 24;
+            Item.crit = 4;
             Item.mana = 18;
             Item.rare = ItemRarityID.Lime;
             Item.value = CalamityGlobalItem.RarityLimeBuyPrice;
@@ -59,7 +59,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             var m = base.getBaseModifer();
             m.armorPenetration += 36;
-            m.Homing += 0.15f;
+            m.Homing += 0.1f;
             m.HomingRange += 0.2f;
             return m;
         }
@@ -91,6 +91,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.penetrate = -1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 3;
+            Projectile.MaxUpdates = 2;
         }
         public override Color baseColor => Color.DarkBlue;
         public List<Vector2> points = new List<Vector2>();
@@ -101,11 +102,13 @@ namespace CalamityEntropy.Content.Items.Books
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            damage *= 0.97f;
+            damage *= 0.98f;
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             modifiers.SourceDamage *= damage;
+            modifiers.ArmorPenetration += 16;
+            target.Entropy().Decrease20DR = 7;
             base.ModifyHitNPC(target, ref modifiers);
         }
         public override void ApplyHoming()
@@ -114,7 +117,7 @@ namespace CalamityEntropy.Content.Items.Books
             {
                 return;
             }
-            NPC homingTarget = Projectile.FindTargetWithinRange(this.homingRange, (Projectile.tileCollide ? true : false));
+            NPC homingTarget = CEUtils.findTarget(Projectile.GetOwner(), Projectile, (int)homingRange, (Projectile.tileCollide ? true : false));
             if (homingTarget != null)
             {
                 tpos = Vector2.Lerp(tpos, Projectile.Center + ((homingTarget.Center - Projectile.Center).normalize() * tpos.Distance(Projectile.Center)), homing * 0.4f);
@@ -122,15 +125,15 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override void AI()
         {
-            base.AI();
             if (tpos == Vector2.Zero)
                 tpos = Projectile.Center + Projectile.velocity.normalize() * 4600;
-            if (Main.rand.NextBool(6))
-                r += Main.rand.NextFloat(-0.08f, 0.08f);
+            base.AI();
+            if (Main.rand.NextBool(12))
+                r += Main.rand.NextFloat(-0.12f, 0.12f);
             Projectile.velocity = Projectile.velocity.RotatedBy(r);
-            r *= 0.97f;
-            Projectile.velocity = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (tpos - Projectile.Center).ToRotation(), 0.04f).ToRotationVector2() * Projectile.velocity.Length();
-            Projectile.velocity = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (tpos - Projectile.Center).ToRotation(), 0.08f, false).ToRotationVector2() * Projectile.velocity.Length();
+            r *= 0.95f;
+            Projectile.velocity = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (tpos - Projectile.Center).ToRotation(), 0.04f + r * 0.4f).ToRotationVector2() * Projectile.velocity.Length();
+            Projectile.velocity = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (tpos - Projectile.Center).ToRotation(), 0.1f + r, false).ToRotationVector2() * Projectile.velocity.Length();
             points.Add(Projectile.Center + CEUtils.randomPointInCircle(Projectile.velocity.Length() * 0.4f));
             if (points.Count > 19)
                 points.RemoveAt(0);
