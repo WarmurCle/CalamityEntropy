@@ -70,6 +70,8 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
+            if (Projectile.ai[0] < 400)
+                return Projectile.Center.getRectCentered(Projectile.ai[0] * 2, Projectile.ai[0] * 2).Intersects(targetHitbox);
             return CEUtils.getDistance(projHitbox.Center.ToVector2(), targetHitbox.Center.ToVector2()) < Projectile.ai[0];
         }
     }

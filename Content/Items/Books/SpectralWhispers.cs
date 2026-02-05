@@ -31,6 +31,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.value = CalamityGlobalItem.RarityBlueBuyPrice;
             Item.width = 40;
             Item.height = 52;
+            Item.shootSpeed = 32;
         }
         public override Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/SW").Value;
         public override int HeldProjectileType => ModContent.ProjectileType<SpectralWhispersHeld>();
@@ -78,13 +79,17 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.width = 14;
-            Projectile.height = 14;
+            Projectile.width = 10;
+            Projectile.height = 10;
             Projectile.MaxUpdates = 2;
             Projectile.tileCollide = true;
             Projectile.light = 0.35f;
             Projectile.timeLeft = 800;
             Projectile.penetrate = 1;
+        }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return CEUtils.LineThroughRect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 9 * Projectile.scale, Projectile.Center - Projectile.rotation.ToRotationVector2() * 9 * Projectile.scale, targetHitbox, (int)(Projectile.scale * 12));
         }
         public int Penetrate = -1;
         public override bool PreAI()
@@ -114,7 +119,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             if (HideTime == 0)
             {
-                GeneralParticleHandler.SpawnParticle(new CalamityMod.Particles.ImpactParticle(Projectile.Center, 0, 8, 0.6f, color * 3.6f));
+                GeneralParticleHandler.SpawnParticle(new CalamityMod.Particles.CritSpark(Projectile.Center, CEUtils.randomPointInCircle(6), color * 4, color, 6f * Projectile.scale, 12));
             }
             if (stick > 0)
             {
@@ -142,18 +147,18 @@ namespace CalamityEntropy.Content.Items.Books
             float scale = size * Projectile.scale;
             CEUtils.DrawGlow(Projectile.Center, color, scale * 1.4f);
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            Main.spriteBatch.Draw(tex1, Projectile.Center - Main.screenPosition, null, color * 2.6f, Projectile.rotation + MathHelper.PiOver2, tex1.Size() / 2, scale * 1.6f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex1, Projectile.Center - Main.screenPosition, null, color * 4f, Projectile.rotation + MathHelper.PiOver2, tex1.Size() / 2, scale * 2f, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(tex1, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation + MathHelper.PiOver2, tex1.Size() / 2, scale * 0.8f, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(tex2, Projectile.Center - Main.screenPosition, null, color, Projectile.rotation, tex2.Size() / 2, Projectile.scale * (size - 1) * 3f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex2, Projectile.Center - Main.screenPosition, null, color, Projectile.rotation, tex2.Size() / 2, Projectile.scale * (size - 1) * 5f, SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
             return false;
         }
         public override void OnKill(int timeLeft)
         {
-            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 260, Projectile.DamageType);
+            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 130, Projectile.DamageType);
             for (float i = 0; i <= 1; i += 0.1f)
             {
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Lerp(Color.LightBlue, Color.Purple, i) * 0.8f, "CalamityMod/Particles/FlameExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, i * 0.14f, (int)((1.2f - i) * 20)));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Lerp(Color.LightBlue, Color.Purple, i) * 0.8f, "CalamityMod/Particles/FlameExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, i * 0.165f, (int)((1.2f - i) * 20)));
             }
             SoundEngine.PlaySound(SoundID.Item122 with { PitchRange = (1.2f, 1.6f) }, Projectile.Center);
         }

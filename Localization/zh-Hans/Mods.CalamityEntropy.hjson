@@ -3960,7 +3960,7 @@ Items: {
 
 	SpectralWhispers: {
 		DisplayName: 魂语秘卷
-		Tooltip: 发射会爆炸的低语尖刺
+		Tooltip: 发射会黏附在敌人和物块上并爆炸的低语尖刺
 	}
 }
 
