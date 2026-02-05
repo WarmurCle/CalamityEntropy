@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.damage = 20;
         }
         public override int HeldProjectileType => ModContent.ProjectileType<AncientScripturesHeld>();
-        public override int SlotCount => 1;
+        public override int SlotCount => 2;
 
         public override void AddRecipes()
         {

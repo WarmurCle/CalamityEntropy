@@ -20,9 +20,9 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 12;
-            Item.useAnimation = Item.useTime = 9;
-            Item.crit = 6;
+            Item.damage = 13;
+            Item.useAnimation = Item.useTime = 8;
+            Item.crit = 10;
             Item.mana = 3;
             Item.rare = ItemRarityID.Blue;
             Item.value = CalamityGlobalItem.RarityBlueBuyPrice;
@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/BCdx").Value;
         public override int HeldProjectileType => ModContent.ProjectileType<BloodCodexHeld>();
-        public override int SlotCount => 4;
+        public override int SlotCount => 1;
 
         public override void AddRecipes()
         {
