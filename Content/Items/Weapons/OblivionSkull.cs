@@ -133,7 +133,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         Vector2 pos = Projectile.Center + vec;
                         CEUtils.AddLight(pos, new Color(230, 255, 255), 0.4f);
                     }
-                    if (ChargeCounter > (maxProj + 2) * chargeTime)
+                    if (ChargeCounter > (maxProj * 1.35f) * chargeTime)
                     {
                         ChargeCounter = 0;
                         Fire(target.Center);

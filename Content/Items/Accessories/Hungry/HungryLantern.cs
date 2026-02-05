@@ -14,6 +14,10 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
     public class HungryLantern : ModItem
     {
         public static int Damage = 16;
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 2500;
+        }
         public override void SetDefaults()
         {
             Item.width = 36;
@@ -79,7 +83,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
             var t = Projectile.FindMinionTarget(1000);
             if (target == null || (t != null && target.whoAmI != t.whoAmI))
                 target = t;
-            if (target != null && (!target.active || target.Distance(Projectile.GetOwner().Center) > 1200))
+            if (target != null && (!target.active || target.Distance(Projectile.GetOwner().Center) > 850))
                 target = null;
             if (target != null)
             {
