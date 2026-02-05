@@ -881,7 +881,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 if (DurabilityActive)
                 {
                     Player.Entropy().EDamageReduce += durability * 0.32f;
-                    Player.statDefense += (int)(durability * 50);
+                    Player.statDefense += (int)(durability * 36);
                     Player.noKnockback = true;
                 }
                 else
@@ -901,8 +901,8 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 }
                 if (MechTrans)
                 {
-                    Player.Entropy().EDamageReduce += 0.55f;
-                    Player.statDefense += 32;
+                    Player.Entropy().EDamageReduce += 0.45f;
+                    Player.statDefense += 12;
                     Player.Entropy().FallSpeed += 0.5f;
                 }
             }
