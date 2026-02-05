@@ -14,10 +14,6 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
     public class HungryLantern : ModItem
     {
         public static int Damage = 16;
-        public override void SetStaticDefaults()
-        {
-            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 2500;
-        }
         public override void SetDefaults()
         {
             Item.width = 36;
@@ -46,6 +42,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 3;
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 2500;
         }
         public override void SetDefaults()
         {
