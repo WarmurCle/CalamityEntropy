@@ -3705,8 +3705,13 @@ Items: {
 	}
 
 	BookmarkBloodthirsty: {
-		// DisplayName: Bookmark Bloodthirsty
-		// Tooltip: ""
+		// DisplayName: Bookmark - Bloodthirsty
+		/* Tooltip:
+			'''
+			Increase rage when attack an enemy
+			Reset the shooting cooldown and temporarily increase attack speed based on damage amount when hit
+			+0.1 Life steal
+			''' */
 	}
 }
 
