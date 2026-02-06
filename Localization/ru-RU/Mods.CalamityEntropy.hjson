@@ -5266,6 +5266,7 @@ KilledByVoidVirus2: " кровь"
 KilledByAstral: " полностью испепелён звездным светом"
 CdFF: Время восстановления для поиска друзей
 TooltipBookMark: Можно вставлять в Энтропийные Книги для усиления атаки
+// TooltipBookMark2: Use RMB to quick insert/take out
 SlotInfo: Вставить закладку
 EBookTooltip:
 	'''

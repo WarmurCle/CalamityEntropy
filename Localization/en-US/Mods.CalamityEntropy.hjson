@@ -5267,6 +5267,7 @@ KilledByVoidVirus2: "'s blood"
 KilledByAstral: " completely eroded by starlight"
 CdFF: Friend Finder Cooldown
 TooltipBookMark: Can insert in Entropy Books weapons
+TooltipBookMark2: Use RMB to quick insert/take out
 SlotInfo: Insert Bookmark
 EBookTooltip:
 	'''

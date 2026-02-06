@@ -98,6 +98,8 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
             }
         }
         public static List<float> OutlineAlpha = null;
+        public static List<float> SlotScale = null;
+        public static List<bool> LastItem = null;
         public static void draw()
         {
             bool sync = false;
@@ -105,18 +107,34 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
             {
                 return;
             }
+            
             checkStackItemList();
             if (active || closeAnm > 0)
             {
+                Main.spriteBatch.UseBlendState_UI(BlendState.AlphaBlend, SamplerState.PointClamp);
                 int c = getMaxSlots(Main.LocalPlayer, bookItem);
                 if (OutlineAlpha == null)
                     OutlineAlpha = new();
                 while (OutlineAlpha.Count < c)
                     OutlineAlpha.Add(0);
+                if (SlotScale == null)
+                    SlotScale = new();
+                while (SlotScale.Count < c)
+                    SlotScale.Add(1);
+                if (LastItem == null)
+                    LastItem = new();
+                while (LastItem.Count < c)
+                {
+                    if (Main.LocalPlayer.Entropy().EBookStackItems.Count > LastItem.Count && Main.LocalPlayer.Entropy().EBookStackItems[LastItem.Count - 1] != null)
+                        LastItem.Add(!Main.LocalPlayer.Entropy().EBookStackItems[LastItem.Count].IsAir);
+                    else
+                        LastItem.Add(false);
+                }
                 List<Texture2D> texSpecial = Main.LocalPlayer.Entropy().BookmarkHolderSpecialTextures;
                 bool outlineFlag = false;
                 for (int i = 0; i < c; i++)
                 {
+                    float drawScale = SlotScale[i];
                     bool Holding = false;
                     Texture2D holderTexture = null;
                     Vector2 pos = Main.ScreenSize.ToVector2() / 2 + (MathHelper.ToRadians(i * (360f / c)) + slotRot).ToRotationVector2() * slotDist;
@@ -127,18 +145,18 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                         {
                             holderTexture = texSpecial[i - (c - texSpecial.Count)];
                         }
-                        Main.spriteBatch.Draw(holderTexture, pos, null, Color.White * (closeAnm / 11f), 0, holderTexture.Size() / 2, 1, SpriteEffects.None, 0);
+                        Main.spriteBatch.Draw(holderTexture, pos, null, Color.White * (closeAnm / 11f), 0, holderTexture.Size() / 2, 1 * drawScale, SpriteEffects.None, 0);
                     }
 
                     if (Main.LocalPlayer.Entropy().EBookStackItems.Count > i && Main.LocalPlayer.Entropy().EBookStackItems[i].type != ItemID.None)
                     {
                         if (BookMarkLoader.IsABookMark(Main.LocalPlayer.Entropy().EBookStackItems[i]) && BookMarkLoader.GetUITexture(Main.LocalPlayer.Entropy().EBookStackItems[i]) != null)
                         {
-                            Main.spriteBatch.Draw(BookMarkLoader.GetUITexture(Main.LocalPlayer.Entropy().EBookStackItems[i]), pos, null, Color.White * (closeAnm / 11f), 0, BookMarkLoader.GetUITexture(Main.LocalPlayer.Entropy().EBookStackItems[i]).Size() / 2, 1, SpriteEffects.None, 0);
+                            Main.spriteBatch.Draw(BookMarkLoader.GetUITexture(Main.LocalPlayer.Entropy().EBookStackItems[i]), pos, null, Color.White * (closeAnm / 11f), 0, BookMarkLoader.GetUITexture(Main.LocalPlayer.Entropy().EBookStackItems[i]).Size() / 2, 1 * drawScale, SpriteEffects.None, 0);
                         }
                         else
                         {
-                            ItemSlot.DrawItemIcon(Main.LocalPlayer.Entropy().EBookStackItems[i], 1, Main.spriteBatch, pos, 0.6f, 256, Color.White * (closeAnm / 11f));
+                            ItemSlot.DrawItemIcon(Main.LocalPlayer.Entropy().EBookStackItems[i], 1, Main.spriteBatch, pos, 0.8f * drawScale, 256, Color.White * (closeAnm / 11f));
                         }
 
                     }
@@ -204,24 +222,41 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                             outlineFlag = true;
                         }
                     }
+                    if (!Holding)
+                    {
+                        OutlineAlpha[i] += Utils.Remap(pos.Distance(Main.MouseScreen), 0, 140, 0.3f, 0);
+                        SlotScale[i] += Utils.Remap(pos.Distance(Main.MouseScreen), 0, 140, 0.03f, 0);
+                    }
                     OutlineAlpha[i] = float.Lerp(OutlineAlpha[i], Holding ? 1 : 0, 0.4f);
+                    SlotScale[i] = float.Lerp(SlotScale[i], 1, 0.2f);
                     if (OutlineAlpha[i] >= 0.005f)
                     {
+                        if(!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir)
+                            ItemSlot.DrawItemIcon(Main.LocalPlayer.Entropy().EBookStackItems[i], 1, Main.spriteBatch, pos + new Vector2(0, -8 - OutlineAlpha[i] * 36), 0.85f * OutlineAlpha[i], 256, Color.White * (closeAnm / 11f) * OutlineAlpha[i]);
+
                         if (shader != null)
                         {
                             Main.spriteBatch.End();
                             shader.CurrentTechnique.Passes[0].Apply();
                             shader.Parameters["texSize"].SetValue(holderTexture.Size());
                             shader.Parameters["color"].SetValue(Color.Yellow.ToVector4());
-                            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, shader, Main.UIScaleMatrix);
-                            Main.spriteBatch.Draw(holderTexture, pos, null, Color.White * (closeAnm / 11f) * OutlineAlpha[i], 0, holderTexture.Size() / 2, 1, SpriteEffects.None, 0);
-                            Main.spriteBatch.UseBlendState_UI(BlendState.AlphaBlend);
+                            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, shader, Main.UIScaleMatrix);
+                            Main.spriteBatch.Draw(holderTexture, pos, null, Color.White * (closeAnm / 11f) * OutlineAlpha[i], 0, holderTexture.Size() / 2, 1 * drawScale, SpriteEffects.None, 0);
+
+                            Main.spriteBatch.UseBlendState_UI(BlendState.AlphaBlend, SamplerState.PointClamp);
 
                         }
                     }
-
+                    if (Holding && (BookMarkLoader.IsABookMark(Main.mouseItem) || Main.mouseItem.IsAir))
+                        SlotScale[i] += 0.04f;
+                    if (LastItem[i] != !Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir)
+                    {
+                        SlotScale[i] = Holding ? 1f : 0.8f;
+                    }
+                    LastItem[i] = !Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir;
                 }
-                
+
+                Main.spriteBatch.UseBlendState_UI(BlendState.AlphaBlend);
                 lastMouseLeft = Main.mouseLeft;
                 lastMouseRight = Main.mouseRight;
                 if (sync && Main.netMode != NetmodeID.SinglePlayer)
