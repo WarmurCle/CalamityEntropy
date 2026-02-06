@@ -42,8 +42,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            if(CECooldowns.CheckCD("BloodthirstyRage", 4) && !projectile.GetOwner().HasBuff<RageMode>())
-                projectile.GetOwner().Calamity().rage += projectile.GetOwner().Calamity().rageMax / 34;
+            var plr = projectile.GetOwner();
+            if (plr.Calamity().RageEnabled && CECooldowns.CheckCD("BloodthirstyRage", 4) && !plr.HasBuff<RageMode>())
+            {
+                plr.Calamity().rage += projectile.GetOwner().Calamity().rageMax / 34;    
+            }
         }
     }
 }

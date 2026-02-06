@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Books;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -164,7 +165,8 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                             CEUtils.showItemTooltip(Main.LocalPlayer.Entropy().EBookStackItems[i]);
                         }
                         Main.LocalPlayer.mouseInterface = true;
-                        if (Main.mouseLeft && !lastMouseLeft && (Main.mouseItem.IsAir || BookMarkLoader.IsABookMark(Main.mouseItem)) && !(Main.mouseItem.IsAir && Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir))
+                        bool mlAndShift = Main.mouseLeft && !lastMouseLeft && Keyboard.GetState().IsKeyDown(Keys.LeftShift);
+                        if (!mlAndShift && Main.mouseLeft && !lastMouseLeft && (Main.mouseItem.IsAir || BookMarkLoader.IsABookMark(Main.mouseItem)) && !(Main.mouseItem.IsAir && Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir))
                         {
                             bool flag = true;
                             if (!Main.mouseItem.IsAir)
@@ -192,8 +194,12 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                                 sync = true;
                             }
                         }
-                        if (Main.mouseRight && !lastMouseRight && slotDist > 100)
+                        if (((Main.mouseRight && !lastMouseRight) || mlAndShift) && slotDist > 100)
                         {
+                            if(mlAndShift)
+                            {
+                                lastMouseLeft = true;
+                            }
                             if (!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir)
                             {
                                 for (int ii = 10; ii < 50; ii++)
