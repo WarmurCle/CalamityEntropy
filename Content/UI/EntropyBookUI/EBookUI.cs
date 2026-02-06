@@ -16,7 +16,6 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
         public static float slotRot = 3;
         public static float slotDist = 0;
         public static Item bookItem = null;
-        public static float outline = 0;
         public static int getMaxSlots(Player player, Item item)
         {
             int additional = player.Entropy().AdditionalBookmarkSlot;
@@ -98,7 +97,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                 }
             }
         }
-        public static int ChoosedBMSlot = 0;
+        public static List<float> OutlineAlpha = null;
         public static void draw()
         {
             bool sync = false;
@@ -107,13 +106,18 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                 return;
             }
             checkStackItemList();
-            bool outlineFlag = false;
             if (active || closeAnm > 0)
             {
                 int c = getMaxSlots(Main.LocalPlayer, bookItem);
+                if (OutlineAlpha == null)
+                    OutlineAlpha = new();
+                while (OutlineAlpha.Count < c)
+                    OutlineAlpha.Add(0);
                 List<Texture2D> texSpecial = Main.LocalPlayer.Entropy().BookmarkHolderSpecialTextures;
+                bool outlineFlag = false;
                 for (int i = 0; i < c; i++)
                 {
+                    bool Holding = false;
                     Texture2D holderTexture = null;
                     Vector2 pos = Main.ScreenSize.ToVector2() / 2 + (MathHelper.ToRadians(i * (360f / c)) + slotRot).ToRotationVector2() * slotDist;
                     if (bookItem.ModItem is EntropyBook eb)
@@ -138,9 +142,8 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                         }
 
                     }
-                    if (active && Main.MouseScreen.getRectCentered(2, 2).Intersects(pos.getRectCentered(36, 46)))
+                    if (!outlineFlag && active && Main.MouseScreen.getRectCentered(2, 2).Intersects(pos.getRectCentered(36, 46)))
                     {
-                        ChoosedBMSlot = i;
                         if (!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir)
                         {
                             CEUtils.showItemTooltip(Main.LocalPlayer.Entropy().EBookStackItems[i]);
@@ -196,25 +199,28 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                             Main.instance.MouseText(CalamityEntropy.Instance.GetLocalization("SlotInfo").Value);
                         }
                         if (Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir || (!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir && Main.mouseItem.IsAir))
+                        { 
+                            Holding = true;
                             outlineFlag = true;
+                        }
                     }
-                    if (outline >= 0.005f)
+                    OutlineAlpha[i] = float.Lerp(OutlineAlpha[i], Holding ? 1 : 0, 0.4f);
+                    if (OutlineAlpha[i] >= 0.005f)
                     {
-                        if (i == ChoosedBMSlot && shader != null)
+                        if (shader != null)
                         {
                             Main.spriteBatch.End();
                             shader.CurrentTechnique.Passes[0].Apply();
                             shader.Parameters["texSize"].SetValue(holderTexture.Size());
                             shader.Parameters["color"].SetValue(Color.Yellow.ToVector4());
                             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, shader, Main.UIScaleMatrix);
-                            Main.spriteBatch.Draw(holderTexture, pos, null, Color.White * (closeAnm / 11f) * outline, 0, holderTexture.Size() / 2, 1, SpriteEffects.None, 0);
+                            Main.spriteBatch.Draw(holderTexture, pos, null, Color.White * (closeAnm / 11f) * OutlineAlpha[i], 0, holderTexture.Size() / 2, 1, SpriteEffects.None, 0);
                             Main.spriteBatch.UseBlendState_UI(BlendState.AlphaBlend);
 
                         }
                     }
 
                 }
-                outline = float.Lerp(outline, outlineFlag ? 1 : 0, 0.1f);
                 
                 lastMouseLeft = Main.mouseLeft;
                 lastMouseRight = Main.mouseRight;
