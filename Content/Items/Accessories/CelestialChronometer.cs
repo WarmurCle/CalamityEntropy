@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             Vector2 c = (player.Center + new Vector2(0, player.height / 2 - 2)) / 16;
-            if (Main.rand.NextBool(10))
+            if (!hideVisual && Main.rand.NextBool(10))
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient && TileLoader.CanPlace((int)c.X, (int)c.Y, 84) && Main.tile[(int)c.X, (int)c.Y + 1].HasTile)
                 {
