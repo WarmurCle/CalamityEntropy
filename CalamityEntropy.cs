@@ -1234,7 +1234,7 @@ namespace CalamityEntropy
                             Func<int, int> modifyStat_PenetrateAddition = GetModifierFunc<int, int>(objects, "ModifyStat_PenetrateAddition");
                             Func<float, float> modifyStat_AttackSpeed = GetModifierFunc<float, float>(objects, "ModifyStat_AttackSpeed");
                             Func<int, int> modifyStat_ArmorPenetration = GetModifierFunc<int, int>(objects, "ModifyStat_ArmorPenetration");
-                            Func<float, float> modifyStat_LifeSteal = GetModifierFunc<int, int>(objects, "ModifyStat_LifeSteal");
+                            Func<float, float> modifyStat_LifeSteal = GetModifierFunc<float, float>(objects, "ModifyStat_LifeSteal");
                             Func<int, int> modifyProjectileType = GetModifierFunc<int, int>(objects, "ModifyProjectileType");
                             Func<int> modifyBaseProjectileType = objects.TryGetValue("ModifyBaseProjectileType", out object mbptObj) && mbptObj is Func<int>
                                 ? (Func<int>)mbptObj : null;
