@@ -25,8 +25,8 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             Item.width = 50;
             Item.height = 50;
-            Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
-            Item.rare = ItemRarityID.Orange;
+            Item.value = 1000;
+            Item.rare = ItemRarityID.Blue;
             Item.accessory = true;
 
         }
