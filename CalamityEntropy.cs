@@ -31,6 +31,7 @@ using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Skies;
 using CalamityEntropy.Content.UI;
+using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityEntropy.Content.UI.Poops;
 using CalamityEntropy.Utilities;
 using CalamityMod;
@@ -166,7 +167,10 @@ namespace CalamityEntropy
             efont1 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/EFont", AssetRequestMode.ImmediateLoad).Value;
             efont2 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/VCRFont", AssetRequestMode.ImmediateLoad).Value;
             efont3 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/MaruMonica", AssetRequestMode.ImmediateLoad).Value;
-
+            if (!Main.dedServ)
+            {
+                EBookUI.shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Outline", AssetRequestMode.ImmediateLoad).Value;
+            }
             armorForgingStationUI = new ArmorForgingStationUI();
             armorForgingStationUI.Activate();
             userInterface = new UserInterface();
@@ -448,6 +452,7 @@ namespace CalamityEntropy
             StartBagGItem.items = null;
             EModILEdit.edgeTex = null;
             ShadowCrystalDeltarune.Reset();
+            EBookUI.shader = null;
             if (ILoaders != null)
             {
                 foreach (ICELoader setup in ILoaders)
