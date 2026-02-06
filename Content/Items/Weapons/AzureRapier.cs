@@ -212,7 +212,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public Vector2 plrPos = Vector2.Zero;
         public override bool? CanHitNPC(NPC target)
         {
-            return counter > 16 ? null : true;
+            return counter > 16 ? null : false;
         }
         public override void AI()
         {
