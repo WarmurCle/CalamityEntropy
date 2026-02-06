@@ -53,8 +53,10 @@ namespace CalamityEntropy.Content.Items.Books
         public override EBookStatModifer getBaseModifer()
         {
             var m = base.getBaseModifer();
-            if(Main.rand.NextBool(6))
+            if (Main.rand.NextBool(6))
                 m.lifeSteal++;
+            else
+                m.lifeSteal += 0.1f;
             m.armorPenetration += 32;
             return m;
         }

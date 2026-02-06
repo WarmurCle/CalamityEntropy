@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public override void ModifyStat(EBookStatModifer modifer)
         {
-            modifer.lifeSteal += 1;
+            modifer.lifeSteal += 0.17f;
             modifer.Crit += 4;
         }
         public override Color tooltipColor => Color.Crimson;

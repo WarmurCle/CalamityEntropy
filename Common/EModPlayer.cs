@@ -62,6 +62,22 @@ namespace CalamityEntropy.Common
 
             return p;
         }
+        public float healPoints = 0;
+        public void HealFloat(float amount)
+        {
+            int healInt = (int)amount;
+            if (healInt > 0)
+            {
+                Player.Heal(healInt);
+            }
+            if (amount - healInt > 0)
+                healPoints += amount - healInt;
+            if(healPoints > 1)
+            {
+                healPoints--;
+                Player.Heal(1);
+            }
+        }
         public bool rottenFangs = false;
         public float alpha = 1f;
         public float CooldownTimeMult = 1;

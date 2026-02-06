@@ -36,7 +36,7 @@ namespace CalamityEntropy.Common
        Func<int, int> modifyStat_PenetrateAddition = null,
        Func<float, float> modifyStat_AttackSpeed = null,
       Func<int, int> modifyStat_ArmorPenetration = null,
-      Func<int, int> modifyStat_LifeSteal = null,
+      Func<float, float> modifyStat_LifeSteal = null,
        Func<int, int> modifyProjectileType = null,
        Func<int> modifyBaseProjectileType = null,
        Func<int, int> modifyShootCooldown = null,
@@ -384,7 +384,7 @@ namespace CalamityEntropy.Common
             public Func<int, int> ModifyStat_PenetrateAddition;
             public Func<float, float> ModifyStat_AttackSpeed;
             public Func<int, int> ModifyStat_ArmorPenetration;
-            public Func<int, int> ModifyStat_LifeSteal;
+            public Func<float, float> ModifyStat_LifeSteal;
             public Func<int, int> ModifyProjectileType;
             public Func<int> ModifyBaseProjectileType;
             public Func<int, int> ModifyShootCooldown;

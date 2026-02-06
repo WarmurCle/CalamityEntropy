@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void ModifyStat(EBookStatModifer modifer)
         {
             modifer.PenetrateAddition += 1;
-            modifer.lifeSteal += 1;
+            modifer.lifeSteal += 0.25f;
         }
         public override Color tooltipColor => Color.Red;
         public override EBookProjectileEffect getEffect()

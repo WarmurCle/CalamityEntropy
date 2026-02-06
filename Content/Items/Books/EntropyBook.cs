@@ -86,7 +86,7 @@ namespace CalamityEntropy.Content.Items.Books
         public int PenetrateAddition = 0;
         public float attackSpeed = 1;
         public int armorPenetration = 0;
-        public int lifeSteal = 0;
+        public float lifeSteal = 0;
     }
 
     public abstract class EntropyBookHeldProjectile : ModProjectile
@@ -635,7 +635,7 @@ namespace CalamityEntropy.Content.Items.Books
         public bool init = true;
         public bool sync = false;
         public bool EffectInit = true;
-        public int lifeSteal = 0;
+        public float lifeSteal = 0;
         public float gravity = 0;
         public bool mainProj = false;
         public virtual Color baseColor => Color.White;
@@ -782,7 +782,8 @@ namespace CalamityEntropy.Content.Items.Books
             }
             if (lifeSteal > 0)
             {
-                Projectile.GetOwner()?.Entropy().TryHealMeWithCd(lifeSteal, 4);
+                if(mainProj || Main.rand.NextBool(5))
+                    Projectile.GetOwner()?.Entropy().HealFloat(lifeSteal);
             }
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
