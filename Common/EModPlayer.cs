@@ -1756,10 +1756,17 @@ namespace CalamityEntropy.Common
         public bool cHat = false;
         public float HitCooldown = 0;
         public float DebuffTime = 1;
-
-
+        public float BloodthirstyEffect = 0;
         public override void OnHurt(Player.HurtInfo info)
         {
+            BloodthirstyEffect += (info.Damage / (float)Player.statLifeMax2) * 30;
+            if (BloodthirstyEffect > 36)
+                BloodthirstyEffect = 36;
+            if(BookMarkLoader.GetPlayerHeldEntropyBook(Player, out var eb))
+            {
+                if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BloodthirstBMEffect>(Player))
+                    eb.shotCooldown = 0;
+            }
             if (SpawnChaoticCellOnHurt)
             {
                 if (info.Damage > 12)
@@ -2191,6 +2198,7 @@ namespace CalamityEntropy.Common
         public int FallSpeedUP = 0;
         public override void PostUpdate()
         {
+            BloodthirstyEffect *= 0.974f;
             if(CalamityEntropy.EntropyMode)
             {
                 List<DamageClass> dmgClasses = new List<DamageClass>() { ModContent.GetInstance<AverageDamageClass>(), ModContent.GetInstance<DefaultDamageClass>(), ModContent.GetInstance<GenericDamageClass>(), ModContent.GetInstance<MagicDamageClass>(), ModContent.GetInstance<MagicSummonHybridDamageClass>(), ModContent.GetInstance<MeleeDamageClass>(), ModContent.GetInstance<MeleeNoSpeedDamageClass>(), ModContent.GetInstance<MeleeRangedHybridDamageClass>(), ModContent.GetInstance<NoneTypeDamageClass>(), ModContent.GetInstance<RangedDamageClass>(), ModContent.GetInstance<RogueDamageClass>(), ModContent.GetInstance<StealthDamageClass>(), ModContent.GetInstance<SummonDamageClass>(), ModContent.GetInstance<SummonMeleeSpeedDamageClass>(), ModContent.GetInstance<ThrowingDamageClass>(), ModContent.GetInstance<TrueMeleeDamageClass>(), ModContent.GetInstance<TrueMeleeNoSpeedDamageClass>() };

@@ -1463,7 +1463,7 @@ Items: {
 			'''
 			Split blood beam when your projectile hit enemies
 			+1 Penetration
-			+1 Life steal
+			+0.25 Life steal
 			'''
 	}
 
@@ -1577,7 +1577,7 @@ Items: {
 		Tooltip:
 			'''
 			Chance to summon a Fountain of Blood from below upon hitting an enemy
-			+1 Life steal
+			+0.17 Life steal
 			+4 Crit Chance
 			'''
 	}
@@ -3690,6 +3690,16 @@ Items: {
 	SpectralWhispers: {
 		DisplayName: Spectral Whispers
 		Tooltip: Shoot whispering spikes
+	}
+
+	BookmarkBloodthirsty: {
+		DisplayName: Bookmark - Bloodthirsty
+		Tooltip: 
+		'''
+		Increase rage when attack an enemy
+		Reset the shooting cooldown and temporarily increase attack speed based on damage amount when hit
+		+0.1 Life steal
+		'''
 	}
 }
 

@@ -198,7 +198,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                         {
                             Main.instance.MouseText(CalamityEntropy.Instance.GetLocalization("SlotInfo").Value);
                         }
-                        if (Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir || (!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir && Main.mouseItem.IsAir))
+                        if (Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir || (!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir && (Main.mouseItem.IsAir || BookMarkLoader.IsABookMark(Main.mouseItem))))
                         { 
                             Holding = true;
                             outlineFlag = true;

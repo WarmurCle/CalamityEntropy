@@ -3703,6 +3703,11 @@ Items: {
 		// DisplayName: Spectral Whispers
 		// Tooltip: Shoot whispering spikes
 	}
+
+	BookmarkBloodthirsty: {
+		// DisplayName: Bookmark Bloodthirsty
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:
