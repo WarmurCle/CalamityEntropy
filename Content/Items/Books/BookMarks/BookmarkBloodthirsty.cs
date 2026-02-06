@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
+using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using Microsoft.Xna.Framework.Graphics;
@@ -41,8 +42,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            if(CECooldowns.CheckCD("BloodthirstyRage", 4))
-                projectile.GetOwner().Calamity().rage += projectile.GetOwner().Calamity().rageMax / 32;
+            if(CECooldowns.CheckCD("BloodthirstyRage", 4) && !projectile.GetOwner().HasBuff<RageMode>())
+                projectile.GetOwner().Calamity().rage += projectile.GetOwner().Calamity().rageMax / 34;
         }
     }
 }
