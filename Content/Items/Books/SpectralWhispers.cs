@@ -80,8 +80,8 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.width = 10;
-            Projectile.height = 10;
+            Projectile.width = 12;
+            Projectile.height = 12;
             Projectile.MaxUpdates = 2;
             Projectile.tileCollide = true;
             Projectile.light = 0.35f;
@@ -130,8 +130,9 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile.tileCollide = false;
                 if (stick == 1)
                     Projectile.Center = t.Center + stickOffset;
-                size *= 1.016f;
-                if (size >= 2.4f)
+                size += 0.0014f;
+                size = (float)Math.Pow(size, 1.08f);
+                if (size >= 2.6f)
                     Projectile.Kill();
                 if (!t.active)
                     stick = 2;
@@ -205,6 +206,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
+            Projectile.position += Projectile.rotation.ToRotationVector2() * 5;
             Projectile.velocity = oldVelocity;
             if (stick == -1)
             {
