@@ -5,6 +5,7 @@ using CalamityEntropy.Content.Items.Armor.AzafureT3;
 using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.UI.Poops;
 using CalamityMod.Events;
+using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
@@ -35,6 +36,7 @@ namespace CalamityEntropy
         SyncBookmarks,
         AcropolisTrans,
         SyncPlayerDead,
+        SyncDRShadowCrystal,
         SyncPlayer = 255
     }
 
@@ -392,6 +394,26 @@ namespace CalamityEntropy
                     packet.Write(d);
                     packet.WriteVector2(pos);
                     packet.Send(-1, plr);
+                }
+            }
+            else if(messageType == CEMessageType.SyncDRShadowCrystal)
+            {
+                int plr = reader.ReadInt32();
+                bool ch1 = reader.ReadBoolean();
+                bool ch2 = reader.ReadBoolean();
+                bool ch3 = reader.ReadBoolean();
+                bool ch4 = reader.ReadBoolean();
+                plr.ToPlayer().Entropy().drCrystals = new List<bool>() { ch1, ch2, ch3, ch4 };
+                if(Main.dedServ)
+                {
+                    var mp = Instance.GetPacket();
+                    mp.Write((byte)CEMessageType.SyncDRShadowCrystal);
+                    mp.Write(plr);
+                    mp.Write(ch1);
+                    mp.Write(ch2);
+                    mp.Write(ch3);
+                    mp.Write(ch4);
+                    mp.Send(-1, plr);
                 }
             }
             else if (messageType == CEMessageType.SyncPlayer)

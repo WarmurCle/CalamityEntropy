@@ -59,7 +59,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public bool OwnAble(Player player, ref int count)
         {
-            return ShadowCrystalDeltarune.Ch4Crystal;
+            return player.Entropy().drCrystals[3];
         }
 
         public void CheckUpdate()

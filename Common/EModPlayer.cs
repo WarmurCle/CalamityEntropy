@@ -157,6 +157,8 @@ namespace CalamityEntropy.Common
         public int StealthRegenDelay = 0;
         public bool CanSlainTownNPC = false;
         internal int koishiStabTimer = 0;
+        public List<bool> drCrystals = null;
+        
         public class SpecialWingDrawingData
         {
             public int MaxFrame = 3;
@@ -1003,14 +1005,28 @@ namespace CalamityEntropy.Common
         public override void Load()
         {
             wingData = new SpecialWingDrawingData();
+            drCrystals = null;
         }
         public override void Unload()
         {
             wingData = null;
+            drCrystals = null;
         }
 
         public override void PreUpdate()
         {
+            if(drCrystals == null && Main.myPlayer == Player.whoAmI && !Main.dedServ)
+            {
+                drCrystals = new List<bool>() { ShadowCrystalDeltarune.Ch1Crystal, ShadowCrystalDeltarune.Ch2Crystal, ShadowCrystalDeltarune.Ch3Crystal, ShadowCrystalDeltarune.Ch4Crystal };
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                {
+                    var mp = Mod.GetPacket();
+                    mp.Write((byte)CEMessageType.SyncDRShadowCrystal);
+                    mp.Write(Player.whoAmI);
+                    for (int i = 0; i < 4; i++)
+                        mp.Write(drCrystals[i]);
+                }
+            }
             NoPlatformCollide--;
             NoAdrenaline = false;
             if (NoAdrenalineTime > 0)

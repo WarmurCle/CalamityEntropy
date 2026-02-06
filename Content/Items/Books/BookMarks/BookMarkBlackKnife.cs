@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public bool OwnAble(Player player, ref int count)
         {
-            return ShadowCrystalDeltarune.Ch3Crystal;
+            return player.Entropy().drCrystals[2];
         }
     }
     public class BlackKnifeBMEffect : EBookProjectileEffect
