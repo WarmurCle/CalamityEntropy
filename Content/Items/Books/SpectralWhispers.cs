@@ -111,12 +111,11 @@ namespace CalamityEntropy.Content.Items.Books
         {
             base.AI();
             HideTime--;
-
+            
             if (Projectile.localAI[0] == 1)
             {
                 CEUtils.PlaySound("SoulSpawn" + Main.rand.Next(2).ToString(), Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center);
                 Projectile.Center -= Projectile.velocity.normalize().RotatedByRandom(1.6f) * 120;
-                Projectile.velocity = (Projectile.GetOwner().Calamity().mouseWorld - Projectile.Center).normalize() * Projectile.velocity.Length();
             }
             if (HideTime == 0)
             {
@@ -136,6 +135,11 @@ namespace CalamityEntropy.Content.Items.Books
                     Projectile.Kill();
                 if (!t.active)
                     stick = 2;
+            }
+            if (Projectile.localAI[0] < 24)
+            {
+                Projectile.position += Projectile.GetOwner().velocity / 2;
+                Projectile.velocity = (Projectile.GetOwner().Calamity().mouseWorld - Projectile.Center).normalize() * Projectile.velocity.Length();
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
         }

@@ -85,10 +85,11 @@ namespace CalamityEntropy.Content.Items.Weapons
                     Projectile.ResetLocalNPCHitImmunity();
                     CEUtils.PlaySound("vbapear", 3.8f, Projectile.Center, 0, 0.2f);
                     CEUtils.PlaySound("vbuse", Projectile.frameCounter / 6f + 2, Projectile.Center, 6, 0.35f);
+                    shake = true;
                 }
             }
 
-            if (++Projectile.ai[1] == 4)
+            if (++Projectile.ai[1] >= 4 / (player.GetTotalAttackSpeed(Projectile.DamageType)))
             {
 
                 Projectile.ai[1] = 0;
