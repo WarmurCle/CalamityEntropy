@@ -125,10 +125,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                     LastItem = new();
                 while (LastItem.Count < c)
                 {
-                    if (Main.LocalPlayer.Entropy().EBookStackItems.Count > LastItem.Count && Main.LocalPlayer.Entropy().EBookStackItems[LastItem.Count - 1] != null)
-                        LastItem.Add(!Main.LocalPlayer.Entropy().EBookStackItems[LastItem.Count].IsAir);
-                    else
-                        LastItem.Add(false);
+                    LastItem.Add(false);
                 }
                 List<Texture2D> texSpecial = Main.LocalPlayer.Entropy().BookmarkHolderSpecialTextures;
                 bool outlineFlag = false;
