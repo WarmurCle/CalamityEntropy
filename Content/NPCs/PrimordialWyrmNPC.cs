@@ -14,9 +14,11 @@ using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.Projectiles.Magic;
 using CalamityMod.Sounds;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -84,11 +86,11 @@ namespace CalamityEntropy.Content.NPCs
                     {
                         lc.Add(s);
                     }
-                    for (int i = 0; i < 10; i++)
+                    for (int i = 0; i < 16; i++)
                     {
                         int d = Main.rand.Next(lc.Count);
                         dns += lc[d];
-                        if (i < 9)
+                        if (i < 15)
                         {
                             dns += ", ";
                         }
@@ -129,6 +131,7 @@ namespace CalamityEntropy.Content.NPCs
         public override void SetChatButtons(ref string button, ref string button2)
         {
             button = Language.GetTextValue("LegacyInterface.28");
+            button2 = Mod.GetLocalization("SpecialThanks").Value;
         }
         public override void OnChatButtonClicked(bool firstButton, ref string shopName)
         {
@@ -136,6 +139,28 @@ namespace CalamityEntropy.Content.NPCs
             if (firstButton)
             {
                 shopName = ShopName;
+            }
+            else
+            {
+                string chat = "";
+                string dns = "";
+                var lc = new List<string>();
+                foreach (string s in Donators.Donors)
+                {
+                    lc.Add(s);
+                }
+                for (int i = 0; i < 25; i++)
+                {
+                    int d = Main.rand.Next(lc.Count);
+                    dns += lc[d];
+                    if (i < 24)
+                    {
+                        dns += ", ";
+                    }
+                    lc.RemoveAt(d);
+                }
+                chat = Mod.GetLocalization("WyrmChatDonors").Value.Replace("[0]", dns);
+                Main.npcChatText = chat;
             }
         }
         public static string ShopName = "Shop";
@@ -153,7 +178,7 @@ namespace CalamityEntropy.Content.NPCs
                 .Add<AbyssTorch>()
                 .Add<AbyssShellFossil>()
                 .Add<WyrmTooth>()
-                .Add<Rock>()
+                .Add<Rock>(new Condition(Mod.GetLocalization("PassedBossRush"), () => DownedBossSystem.downedBossRush))
                 .Add(ModLoader.GetMod("CalamityModMusic").Find<ModItem>("PrimordialWyrmMusicBox").Type);
             npcShop.Register();
         }
