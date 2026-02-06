@@ -72,7 +72,7 @@ namespace CalamityEntropy.Common
             }
             if (amount - healInt > 0)
                 healPoints += amount - healInt;
-            if(healPoints > 1)
+            if(healPoints >= 1)
             {
                 healPoints--;
                 Player.Heal(1);
