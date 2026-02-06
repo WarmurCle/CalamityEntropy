@@ -14,10 +14,9 @@ namespace CalamityEntropy.Content.Items.Tools
         {
             Item.width = 18;
             Item.height = 40;
-            Item.damage = 12;
+            Item.damage = 6;
             Item.knockBack = 4f;
-            Item.useTime = 11;
-            Item.useAnimation = 11;
+            Item.useTime = Item.useAnimation = 15;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item1;
