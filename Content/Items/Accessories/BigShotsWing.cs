@@ -11,8 +11,8 @@ namespace CalamityEntropy.Content.Items.Accessories
     [AutoloadEquip(EquipType.Wings)]
     public class BigShotsWing : ModItem, ISpecialDrawingWing, IGetFromStarterBag
     {
-        public static float HorSpeed = 4f;
-        public static float AccMul = 0.5f;
+        public static float HorSpeed = 2.5f;
+        public static float AccMul = 0.3f;
         public static int wTime = 700;
         public int AnimationTick => 4;
         public int FallingFrame => 2;
@@ -67,13 +67,14 @@ namespace CalamityEntropy.Content.Items.Accessories
             ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
         {
             ascentWhenRising = 0.1f;
-            maxCanAscendMultiplier = 1.2f;
-            maxAscentMultiplier = 1.2f;
+            maxCanAscendMultiplier = 0.5f;
+            maxAscentMultiplier = 0.5f;
             constantAscend = 0.06f;
         }
 
         public bool OwnAble(Player player, ref int count)
         {
+            if (player.Entropy().drCrystals == null) return false;
             return player.Entropy().drCrystals[1];
         }
     }

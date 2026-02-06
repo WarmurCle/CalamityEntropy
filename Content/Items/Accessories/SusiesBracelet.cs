@@ -59,6 +59,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public bool OwnAble(Player player, ref int count)
         {
+            if (player.Entropy().drCrystals == null) return false;
             return player.Entropy().drCrystals[3];
         }
 

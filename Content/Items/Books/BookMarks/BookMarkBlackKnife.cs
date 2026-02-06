@@ -28,6 +28,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public bool OwnAble(Player player, ref int count)
         {
+            if (player.Entropy().drCrystals == null) return false;
             return player.Entropy().drCrystals[2];
         }
     }
