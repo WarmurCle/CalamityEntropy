@@ -502,7 +502,7 @@ namespace CalamityEntropy.Content.Items.Books
                     {
                         if (Projectile.GetOwner().CheckMana(bookItem.mana, true))
                         {
-                            if (Main.myPlayer != Projectile.owener || Shoot())
+                            if (Main.myPlayer != Projectile.owner || Shoot())
                             {
                                 if (active && pageTurnAnm == 0)
                                 {
