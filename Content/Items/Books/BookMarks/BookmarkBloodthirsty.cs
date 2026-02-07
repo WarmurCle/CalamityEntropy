@@ -52,6 +52,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             tooltips.Add(new TooltipLine(Mod, "TooltipBt", Mod.GetLocalization("BloodthirstyRequirement").Value) { OverrideColor = Color.Yellow});
+            base.ModifyTooltips(tooltips);
         }
     }
     public class BloodthirstBMEffect : EBookProjectileEffect
