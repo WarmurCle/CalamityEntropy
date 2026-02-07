@@ -54,13 +54,13 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.Opacity -= 1 / 60f;
             }
         }
-        public Color TrailColor(float completionRatio)
+        public Color TrailColor(float completionRatio, Vector2 vertex)
         {
             Color color = (Projectile.ai[1] == 1 ? Color.Lerp(new Color(255, 120, 130), new Color(255, 160, 170), completionRatio) : Color.Lerp(Color.White, Color.Gold, completionRatio)) * (1 - completionRatio) * Projectile.Opacity;
             return color;
         }
 
-        public float TrailWidth(float completionRatio)
+        public float TrailWidth(float completionRatio, Vector2 vertex)
         {
             float widthInterpolant = Utils.GetLerpValue(0f, 0.25f, completionRatio, true) * Utils.GetLerpValue(1.1f, 0.7f, completionRatio, true);
             return MathHelper.SmoothStep(8f, 20f, widthInterpolant);
@@ -77,7 +77,7 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.EnterShaderRegion();
             GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/SylvestaffStreak"));
             GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
-            PrimitiveRenderer.RenderTrail(Projectile.oldPos, new(TrailWidth, TrailColor, (_) => Projectile.Size * 0.5f, shader: GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
+            PrimitiveRenderer.RenderTrail(Projectile.oldPos, new(TrailWidth, TrailColor, (_, _) => Projectile.Size * 0.5f, shader: GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
             Main.spriteBatch.ExitShaderRegion();
 
             Color color = Color.LightGoldenrodYellow;

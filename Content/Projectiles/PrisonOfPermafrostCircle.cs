@@ -168,7 +168,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
                 int cost = 2 + usingTime / 300;
-                if (player.CheckMana(player.ActiveItem(), cost, true, false))
+                if (player.CheckMana(player.HeldItem, cost, true, false))
                 {
                     player.manaRegenDelay = 80;
                 }

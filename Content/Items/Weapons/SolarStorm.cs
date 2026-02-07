@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noMelee = true;
             Item.knockBack = 3f;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.shoot = ProjectileID.WoodenArrowFriendly;
             Item.channel = true;
             Item.shootSpeed = 16f;

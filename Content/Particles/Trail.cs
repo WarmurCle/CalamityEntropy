@@ -70,14 +70,14 @@ namespace CalamityEntropy.Content.Particles
     }
     public class TrailGunShot : EParticle
     {
-        internal Color ColorFunction(float completionRatio)
+        internal Color ColorFunction(float completionRatio, Vector2 vertex)
         {
             completionRatio = 1 - completionRatio;
             float fadeOpacity = Math.Min(Lifetime / (float)trailLength, 1f);
             return Color.PaleGoldenrod * fadeOpacity;
         }
         public int trailLength = 6;
-        internal float WidthFunction(float completionRatio)
+        internal float WidthFunction(float completionRatio, Vector2 vertex)
         {
             float width = completionRatio * 8f;
             return width > 0 ? width : 0;
@@ -99,7 +99,7 @@ namespace CalamityEntropy.Content.Particles
                 return;
 
             GameShaders.Misc["CalamityMod:TrailStreak"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/BasicTrail"));
-            PrimitiveRenderer.RenderTrail(trailPositions, new(WidthFunction, ColorFunction, (_) => Vector2.One * this.Scale * 0.5f, false, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), trailLength);
+            PrimitiveRenderer.RenderTrail(trailPositions, new(WidthFunction, ColorFunction, (_, _) => Vector2.One * this.Scale * 0.5f, false, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), trailLength);
         }
     }
 }

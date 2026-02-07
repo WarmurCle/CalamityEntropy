@@ -282,9 +282,9 @@ namespace CalamityEntropy.Content.Projectiles
             GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
             odp.Add(Projectile.Center);
 
-            PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth, TrailColor, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
+            PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth, TrailColor, (_, _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
             GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/SylvestaffStreak"));
-            PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth, TrailColor2, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
+            PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth, TrailColor2, (_, _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
 
             odp.RemoveAt(odp.Count - 1);
             Main.spriteBatch.ExitShaderRegion();
@@ -431,17 +431,17 @@ namespace CalamityEntropy.Content.Projectiles
         {
             return false;
         }
-        public Color TrailColor(float completionRatio)
+        public Color TrailColor(float completionRatio, Vector2 vertex)
         {
             Color result = new Color(160, 160, 255);
             return result * completionRatio;
         }
-        public Color TrailColor2(float completionRatio)
+        public Color TrailColor2(float completionRatio, Vector2 vertex)
         {
             Color result = new Color(255, 255, 255);
             return result * completionRatio;
         }
-        public float TrailWidth(float completionRatio)
+        public float TrailWidth(float completionRatio, Vector2 vertex)
         {
             return MathHelper.Lerp(0, 122 * Projectile.scale, completionRatio);
         }

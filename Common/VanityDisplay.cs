@@ -83,7 +83,7 @@ namespace CalamityEntropy.Common
         }
         public static bool IsASkinVanity(Item item)
         {
-            if (item.ModItem != null && (item.ModItem is HapuFruit || item.ModItem is RedBow || item.ModItem is OracleHeadphones))
+            if (item.ModItem != null && (item.ModItem is HapuFruit || item.ModItem is OracleHeadphones))
                 return true;
             return VanityItems.Contains(item.type);
         }

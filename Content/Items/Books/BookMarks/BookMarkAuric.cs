@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
         }
         public override Texture2D UITexture => BookMark.GetUITexture("Auric");

@@ -75,12 +75,12 @@ namespace CalamityEntropy.Content.Projectiles
             }
         }
         public override string Texture => CEUtils.WhiteTexPath;
-        public Color ColorFunction(float completionRatio)
+        public Color ColorFunction(float completionRatio, Vector2 vertex)
         {
             return Color.Lerp(Color.LawnGreen, Color.Green, MathHelper.Clamp(completionRatio * 0.8f, 0f, 1f)) * base.Projectile.Opacity;
         }
 
-        public float WidthFunction(float completionRatio)
+        public float WidthFunction(float completionRatio, Vector2 vertex)
         {
             float num = 8f;
             float num2 = ((!(completionRatio < 0.1f)) ? MathHelper.Lerp(num, 0f, Utils.GetLerpValue(0.1f, 1f, completionRatio, clamped: true)) : ((float)Math.Sin(completionRatio / 0.1f * (MathF.PI / 2f)) * num + 0.1f));
@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.EnterShaderRegion();
             GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/StreakGoop"));
             GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
-            PrimitiveRenderer.RenderTrail(base.Projectile.oldPos, new PrimitiveSettings(WidthFunction, ColorFunction, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
+            PrimitiveRenderer.RenderTrail(base.Projectile.oldPos, new PrimitiveSettings(WidthFunction, ColorFunction, (_, _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
             Main.spriteBatch.ExitShaderRegion();
             Texture2D value = CEUtils.getExtraTex("Leaf");
             Main.EntitySpriteDraw(value, Projectile.position - Main.screenPosition, null, Color.White, Projectile.rotation, value.Size() * 0.5f, base.Projectile.scale, SpriteEffects.None);

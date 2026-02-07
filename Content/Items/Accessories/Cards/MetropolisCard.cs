@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
         public override void AddRecipes()
         {
             CreateRecipe().
-                AddIngredient(ModContent.ItemType<DemonicBoneAsh>(), 5).
+                AddIngredient(ModContent.ItemType<AncientBoneDust>(), 5).
                 AddIngredient(ModContent.ItemType<EssenceofHavoc>(), 3).
                 AddTile(TileID.Bookcases).
                 Register();

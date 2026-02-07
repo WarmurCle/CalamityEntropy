@@ -214,10 +214,25 @@ Items: {
 	}
 
 	Lore: {
-		CruiserLore.DisplayName: История - Крейсер
-		NihilityTwinLore.DisplayName: История - Близнецов Пустоты
-		ProphetLore.DisplayName: История - Пророк
-		LuminarisLore.DisplayName: История - Фантомной Моли
+		CruiserLore: {
+			DisplayName: История - Крейсер
+			// Tooltip: ""
+		}
+
+		NihilityTwinLore: {
+			DisplayName: История - Близнецов Пустоты
+			// Tooltip: ""
+		}
+
+		ProphetLore: {
+			DisplayName: История - Пророк
+			// Tooltip: ""
+		}
+
+		LuminarisLore: {
+			DisplayName: История - Фантомной Моли
+			// Tooltip: ""
+		}
 	}
 
 	BrokenChainsaw: {
@@ -5703,3 +5718,5 @@ AzafureEnhances: {
 // CdAcr: Acropolis Mech Cooldown
 // SpecialThanks: Special Thanks
 // PassedBossRush: Passed Boss Rush
+// BloodthirstyRequirement: You need at least 100 health points to craft this item
+// BloodthirstyKilled: bled out

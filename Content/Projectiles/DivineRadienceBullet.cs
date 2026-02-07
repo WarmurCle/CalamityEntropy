@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             CEUtils.PlaySound("CrystalBallActive", 1, Projectile.Center, 4, 0.4f);
         }
-        private float PrimitiveWidthFunction(float completionRatio)
+        private float PrimitiveWidthFunction(float completionRatio, Vector2 vertex)
         {
             float arrowheadCutoff = 0.36f;
             float width = 39f;
@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.Projectiles
         private static Color ShaderColorOne = new Color(237, 66, 66);
         private static Color ShaderColorTwo = new Color(235, 110, 110);
         private static Color ShaderEndColor = new Color(199, 36, 36);
-        private Color PrimitiveColorFunction(float completionRatio)
+        private Color PrimitiveColorFunction(float completionRatio, Vector2 vertex)
         {
             float endFadeRatio = 0.41f;
 
@@ -89,7 +89,7 @@ namespace CalamityEntropy.Content.Projectiles
             Vector2 overallOffset = Projectile.Size * 0.5f;
             overallOffset += Projectile.velocity * 1.4f;
             int numPoints = 92;
-            PrimitiveRenderer.RenderTrail(Projectile.oldPos, new(PrimitiveWidthFunction, PrimitiveColorFunction, (_) => overallOffset, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), numPoints);
+            PrimitiveRenderer.RenderTrail(Projectile.oldPos, new(PrimitiveWidthFunction, PrimitiveColorFunction, (_, _) => overallOffset, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), numPoints);
             return false;
         }
     }

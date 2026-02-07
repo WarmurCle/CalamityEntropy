@@ -536,12 +536,12 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             HomingRange = reader.ReadInt32();
         }
         public List<Vector2> oldPos = new();
-        public Color ColorFunction(float completionRatio)
+        public Color ColorFunction(float completionRatio, Vector2 vertex)
         {
             return Color.Lerp(Color.Crimson, Color.DarkRed, MathHelper.Clamp(completionRatio * 0.8f, 0f, 1f)) * projectile.Opacity;
         }
         public Projectile projectile;
-        public float WidthFunction(float completionRatio)
+        public float WidthFunction(float completionRatio, Vector2 vertex)
         {
             float num = 22;
             float num2 = ((!(completionRatio < 0.1f)) ? MathHelper.Lerp(num, 0f, Utils.GetLerpValue(0.1f, 1f, completionRatio, clamped: true)) : ((float)Math.Sin(completionRatio / 0.1f * (MathF.PI / 2f)) * num + 0.1f));
@@ -587,7 +587,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             Main.spriteBatch.EnterShaderRegion();
             GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Streak1"));
             GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
-            PrimitiveRenderer.RenderTrail(oldPos, new PrimitiveSettings(WidthFunction, ColorFunction, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
+            PrimitiveRenderer.RenderTrail(oldPos, new PrimitiveSettings(WidthFunction, ColorFunction, (_, _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
             Main.spriteBatch.ExitShaderRegion();
             Texture2D glow2 = CEUtils.getExtraTex("SpearArrowGlow2");
             Texture2D arrow = CEUtils.getExtraTex("DustArrow");

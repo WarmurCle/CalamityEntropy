@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shoot = ProjectileID.Bullet;
             Item.shootSpeed = 4f;
             Item.useAmmo = AmmoID.Bullet;
-            Item.Calamity().canFirePointBlankShots = true;
+            
         }
         public override Vector2? HoldoutOffset()
         {

@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
 
         }
@@ -136,13 +136,13 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 base.OnHitNPC(target, hit, damageDone);
             }
         }
-        public Color RibbonTrailColorFunction(float completionRatio)
+        public Color RibbonTrailColorFunction(float completionRatio, Vector2 vertex)
         {
             Color startingColor = new Color(34, 40, 48);
             Color endColor = new Color(40, 160, 32);
             return Color.Lerp(startingColor, endColor, (float)Math.Pow(completionRatio, 1.5D)) * Projectile.Opacity;
         }
-        public float RibbonTrailWidthFunction(float completionRatio)
+        public float RibbonTrailWidthFunction(float completionRatio, Vector2 vertex)
         {
             float baseWidth = Utils.GetLerpValue(1f, 0.54f, completionRatio, true) * 5f;
             float endTipWidth = CalamityUtils.Convert01To010(Utils.GetLerpValue(0.96f, 0.89f, completionRatio, true)) * 2.4f;
@@ -301,13 +301,13 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 base.OnHitNPC(target, hit, damageDone);
             }
         }
-        public float RibbonTrailWidthFunction(float completionRatio)
+        public float RibbonTrailWidthFunction(float completionRatio, Vector2 vertex)
         {
             float baseWidth = Utils.GetLerpValue(1f, 0.54f, completionRatio, true) * 5f;
             float endTipWidth = CalamityUtils.Convert01To010(Utils.GetLerpValue(0.96f, 0.89f, completionRatio, true)) * 2.4f;
             return (baseWidth + endTipWidth) * 0.6f * Projectile.scale;
         }
-        public Color RibbonTrailColorFunction(float completionRatio)
+        public Color RibbonTrailColorFunction(float completionRatio, Vector2 vertex)
         {
             Color startingColor = new Color(34, 40, 48);
             Color endColor = new Color(219, 82, 28);

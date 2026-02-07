@@ -67,13 +67,13 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
             return false;
         }
 
-        public Color TrailColor(float completionRatio)
+        public Color TrailColor(float completionRatio, Vector2 vertex)
         {
             Color result = Color.White;
             return result;
         }
 
-        public float TrailWidth(float completionRatio)
+        public float TrailWidth(float completionRatio, Vector2 vertex)
         {
             return MathHelper.Lerp(0, 22 * Projectile.scale, completionRatio);
         }
@@ -126,7 +126,7 @@ namespace CalamityEntropy.Content.Projectiles.AbyssalWraithProjs
             Main.spriteBatch.EnterShaderRegion();
             GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Streak2"));
             GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
-            PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth, TrailColor, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
+            PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth, TrailColor, (_, _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
             Main.spriteBatch.ExitShaderRegion();
             Main.EntitySpriteDraw(value, position, null, base.Projectile.GetAlpha(Color.White), base.Projectile.rotation, origin, base.Projectile.scale, SpriteEffects.None);
 

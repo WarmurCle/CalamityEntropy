@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
         }
         public override Texture2D UITexture => BookMark.GetUITexture("Cosmic");
         public override EBookProjectileEffect getEffect()

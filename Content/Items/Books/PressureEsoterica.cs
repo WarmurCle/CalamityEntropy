@@ -40,8 +40,8 @@ namespace CalamityEntropy.Content.Items.Books
         public override void AddRecipes()
         {
             CreateRecipe()
+                .AddIngredient<PrimordialEarth>()
                 .AddIngredient<DepthCells>(3)
-                .AddIngredient<WrathoftheAncients>()
                 .AddIngredient(ItemID.Ectoplasm, 8)
                 .AddTile(TileID.Bookcases)
                 .Register();

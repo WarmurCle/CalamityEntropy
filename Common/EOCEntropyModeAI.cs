@@ -347,37 +347,7 @@ namespace CalamityEntropy.Common
                         servantSpawnVelocity *= 3f;
 
                     Vector2 servantSpawnCenter = npc.Center + servantSpawnVelocity.SafeNormalize(Vector2.UnitY) * ProjectileOffset;
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        int spawnType = NPCID.ServantofCthulhu;
-                        int maxBloodServants = 4;
-                        bool spawnBloodServant = NPC.CountNPCS(ModContent.NPCType<BloodlettingServant>()) < maxBloodServants;
-                        if (spawnBloodServant)
-                            spawnType = ModContent.NPCType<BloodlettingServant>();
-
-
-                        int servantSpawn = NPC.NewNPC(npc.GetSource_FromAI(), (int)servantSpawnCenter.X, (int)servantSpawnCenter.Y, spawnType, 0, 0f, 0f, enrageScale);
-                        Main.npc[servantSpawn].velocity.X = servantSpawnVelocity.X;
-                        Main.npc[servantSpawn].velocity.Y = servantSpawnVelocity.Y;
-
-                        if (Main.netMode == NetmodeID.Server && servantSpawn < Main.maxNPCs)
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, servantSpawn);
-
-                        if (CalamityWorld.LegendaryMode)
-                        {
-                            int type = ProjectileID.BloodNautilusShot;
-                            Vector2 projectileVelocity = Main.rand.NextVector2CircularEdge(15f, 15f);
-                            int numProj = 3;
-                            int spread = 20;
-                            float rotation = MathHelper.ToRadians(spread);
-                            for (int i = 0; i < numProj; i++)
-                            {
-                                Vector2 perturbedSpeed = projectileVelocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (float)(numProj - 1)));
-                                int proj = Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center + perturbedSpeed.SafeNormalize(Vector2.UnitY) * ProjectileOffset, perturbedSpeed, type, 15, 0f, Main.myPlayer);
-                                Main.projectile[proj].timeLeft = 600;
-                            }
-                        }
-                    }
+                    
 
                     for (int n = 0; n < 10; n++)
                         Dust.NewDust(servantSpawnCenter, 20, 20, DustID.Blood, servantSpawnVelocity.X * 0.4f, servantSpawnVelocity.Y * 0.4f, 0, default, 1f);
@@ -784,31 +754,7 @@ namespace CalamityEntropy.Common
                         int spawnType = NPCID.ServantofCthulhu;
                         bool spawnServant = false;
                         float enrageScaleToPass = enrageScale;
-                        if (masterMode)
-                        {
-                            int maxBloodServants = 2;
-                            bool spawnBloodServant = NPC.CountNPCS(ModContent.NPCType<BloodlettingServant>()) < maxBloodServants;
-                            if (spawnBloodServant)
-                            {
-                                spawnType = ModContent.NPCType<BloodlettingServant>();
-                                spawnServant = true;
-                                enrageScaleToPass += 0.5f;
-                            }
-                            else
-                            {
-                                int maxServants = death ? 1 : 2;
-                                spawnServant = (penultimatePhaseDeath || finalPhaseRev) ? false : NPC.CountNPCS(NPCID.ServantofCthulhu) < maxServants;
-                            }
-                        }
-                        else
-                        {
-                            int maxServants = death ? (finalPhaseDeath ? 1 : penultimatePhaseDeath ? 2 : 3) : (finalPhaseRev ? 2 : 4);
-                            spawnServant = NPC.CountNPCS(NPCID.ServantofCthulhu) < maxServants;
-                        }
-
-                        if (spawnServant)
-                            SoundEngine.PlaySound(SoundID.NPCDeath13, servantSpawnCenter);
-
+                        
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             if (spawnServant)

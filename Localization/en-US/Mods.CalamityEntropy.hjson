@@ -237,10 +237,25 @@ Items: {
 	}
 
 	Lore: {
-		CruiserLore.DisplayName: Cruiser
-		NihilityTwinLore.DisplayName: Nihility Twin
-		ProphetLore.DisplayName: Prophet
-		LuminarisLore.DisplayName: Luminaris
+		CruiserLore: {
+			DisplayName: Cruiser
+			Tooltip: ""
+		}
+
+		NihilityTwinLore: {
+			DisplayName: Nihility Twin
+			Tooltip: ""
+		}
+
+		ProphetLore: {
+			DisplayName: Prophet
+			Tooltip: ""
+		}
+
+		LuminarisLore: {
+			DisplayName: Luminaris
+			Tooltip: ""
+		}
 	}
 
 	BrokenChainsaw: {
@@ -5704,3 +5719,5 @@ CrossModSupportFish: Cross mod support: You can also put it in Entropy books as 
 CdAcr: Acropolis Mech Cooldown
 SpecialThanks: Special Thanks
 PassedBossRush: Passed Boss Rush
+BloodthirstyRequirement: You need at least 100 health points to craft this item
+BloodthirstyKilled: bled out

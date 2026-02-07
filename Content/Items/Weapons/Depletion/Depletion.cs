@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
             Item.knockBack = 0;
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.shoot = ModContent.ProjectileType<DepletionHeld>();
             Item.shootSpeed = 16f;
             Item.mana = 5;
@@ -56,7 +56,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         {
             CreateRecipe()
                 .AddIngredient<Malign.Malign>()
-                .AddIngredient<ElementalRay>()
                 .AddIngredient<UnholyEssence>(8)
                 .AddIngredient<EffulgentFeather>(8)
                 .AddTile(TileID.LunarCraftingStation)

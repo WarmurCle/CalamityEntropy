@@ -9,7 +9,7 @@ namespace CalamityEntropy.Content.Rarities
 
         public override int GetPrefixedRarity(int offset, float valueMult) => offset switch
         {
-            -2 => ModContent.RarityType<Violet>(),
+            -2 => ModContent.RarityType<BurnishedAuric>(),
             -1 => ModContent.RarityType<CalamityRed>(),
             1 => ModContent.RarityType<AbyssalBlue>(),
             2 => ModContent.RarityType<AbyssalBlue>(),

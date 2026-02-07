@@ -37,7 +37,6 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.shootSpeed = 16f;
             Item.useAmmo = AmmoID.Bullet;
             Item.crit = 2;
-            Item.Calamity().canFirePointBlankShots = true;
             Item.ArmorPenetration = 10000;
         }
         public int mode = 0;

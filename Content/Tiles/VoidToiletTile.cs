@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using Terraria;
@@ -59,17 +60,17 @@ namespace CalamityEntropy.Content.Tiles
         {
             num = fail ? 1 : 4;
         }
-        public override void ModifySittingTargetInfo(int i, int j, ref TileRestingInfo info) => CalamityUtils.ChairSitInfo(i, j, ref info, 40, true, shitter: true);
+        public override void ModifySittingTargetInfo(int i, int j, ref TileRestingInfo info) => FurnitureCommon.ChairSitInfo(i, j, ref info, 40, true, shitter: true);
 
         public override bool RightClick(int i, int j)
         {
             Player plr = Main.LocalPlayer;
-            CalamityUtils.ChairRightClick(i, j);
+            FurnitureCommon.ChairRightClick(i, j);
 
             return true;
         }
 
-        public override void MouseOver(int i, int j) => CalamityUtils.ChairMouseOver(i, j, ModContent.ItemType<VoidToilet>(), true);
+        public override void MouseOver(int i, int j) => FurnitureCommon.ChairMouseOver(i, j, ModContent.ItemType<VoidToilet>(), true);
 
         public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
         {

@@ -5,8 +5,11 @@ using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
@@ -36,6 +39,16 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 .AddIngredient<BloodOrb>()
                 .AddTile(TileID.Bookcases)
                 .Register();
+        }
+        public override void OnCraft(Recipe recipe)
+        {
+            Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(Main.LocalPlayer.name + " " + Mod.GetLocalization("BloodthirstyKilled").Value)), 99, 0);
+            if (Main.LocalPlayer.statLife <= 0 || Main.LocalPlayer.dead)
+                Item.TurnToAir();
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.Add(new TooltipLine(Mod, "TooltipBt", Mod.GetLocalization("BloodthirstyRequirement").Value) { OverrideColor = Color.Yellow});
         }
     }
     public class BloodthirstBMEffect : EBookProjectileEffect

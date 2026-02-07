@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.crit = 10;
             Item.mana = 5;
             Item.ArmorPenetration = 32;
-            Item.rare = ModContent.RarityType<DarkBlue>();
+            Item.rare = ModContent.RarityType<CosmicPurple>();
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
         }
         public override Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/CB").Value;

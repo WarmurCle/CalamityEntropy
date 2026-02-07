@@ -131,7 +131,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if (counter > 6 && counter < MaxTime - 24 && counter % 3 == 0)
                 {
                     if (counter % 9 == 0)
-                        EParticle.NewParticle(new PrismShard() { PixelShader = true }, target.Center + CEUtils.randomPointInCircle(128), Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
+                        EParticle.NewParticle(new Particles.PrismShard() { PixelShader = true }, target.Center + CEUtils.randomPointInCircle(128), Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
                     CEUtils.SetShake(Projectile.Center, 4);
                     CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, Projectile.Center, Projectile.damage / 4, 280, Projectile.DamageType).ArmorPenetration = 200;
                     float rot = CEUtils.randomRot();

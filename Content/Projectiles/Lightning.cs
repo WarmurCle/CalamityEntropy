@@ -133,9 +133,9 @@ namespace CalamityEntropy.Content.Projectiles
                 target.AddBuff(ModContent.BuffType<GalvanicCorrosion>(), 240);
             }
         }
-        public float PrimitiveWidthFunction(float completionRatio) => (1 - completionRatio) * Projectile.scale * 12 * ((36f - Projectile.ai[0]) / 36f);
+        public float PrimitiveWidthFunction(float completionRatio, Vector2 vertex) => (1 - completionRatio) * Projectile.scale * 12 * ((36f - Projectile.ai[0]) / 36f);
 
-        public Color PrimitiveColorFunction(float completionRatio)
+        public Color PrimitiveColorFunction(float completionRatio, Vector2 vertex)
         {
             float colorInterpolant = (float)Math.Sin(Projectile.identity / 3f + completionRatio * 20f + Main.GlobalTimeWrappedHourly * 1.1f) * 0.5f + 0.5f;
             Color color = CalamityUtils.MulticolorLerp(colorInterpolant, new Color(Main.rand.Next(20, 100), 204, 250), new Color(Main.rand.Next(20, 100), 204, 250));
@@ -162,7 +162,7 @@ namespace CalamityEntropy.Content.Projectiles
             GameShaders.Misc["CalamityMod:HeavenlyGaleLightningArc"].UseImage1("Images/Misc/Perlin");
             GameShaders.Misc["CalamityMod:HeavenlyGaleLightningArc"].Apply();
 
-            PrimitiveRenderer.RenderTrail(points, new(PrimitiveWidthFunction, PrimitiveColorFunction, (_) => Projectile.Size * 0.2f * lw, false,
+            PrimitiveRenderer.RenderTrail(points, new(PrimitiveWidthFunction, PrimitiveColorFunction, (_, _) => Projectile.Size * 0.2f * lw, false,
                 shader: GameShaders.Misc["CalamityMod:HeavenlyGaleLightningArc"]), 10);
             if (drawEnd && Projectile.ai[0] < 12)
             {

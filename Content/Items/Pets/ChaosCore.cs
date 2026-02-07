@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Pets
             CreateRecipe().
                 AddIngredient(1508, 5).
                 AddIngredient(1729, 4).
-                AddIngredient<CoreofHavoc>(7).
+                AddIngredient<EssenceofHavoc>(7).
                 AddTile(TileID.MythrilAnvil).
                 Register();
         }

@@ -4,8 +4,10 @@ using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
 using CalamityMod.Items.Accessories;
+using CalamityMod.Items.Armor;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Weapons.Melee;
+using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.NPCs;
 using CalamityMod.NPCs.VanillaNPCAIOverrides.Bosses;
 using CalamityMod.Particles;
@@ -29,6 +31,7 @@ using System.Linq;
 using System.Reflection;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
@@ -78,14 +81,14 @@ namespace CalamityEntropy.Content.ILEditing
             null);
             _hook = EModHooks.Add(originalMethod, ConsumeStealthByAttackingHook);
 
-            originalMethod = typeof(EyeOfCthulhuAI)
+            /*originalMethod = typeof(EyeOfCthulhuAI)
             .GetMethod("BuffedEyeofCthulhuAI",
                       System.Reflection.BindingFlags.Public |
                       System.Reflection.BindingFlags.Static,
                       null,
             new Type[] { typeof(NPC), typeof(Mod) },
             null);
-            _hook = EModHooks.Add(originalMethod, EOCAIHook);
+            _hook = EModHooks.Add(originalMethod, EOCAIHook);*/
 
             originalMethod = typeof(LoreItem)
             .GetMethod("CanUseItem",
@@ -116,11 +119,6 @@ namespace CalamityEntropy.Content.ILEditing
 
             _hook = EModHooks.Add(originalMethod, drawStealthBarHook);
 
-            originalMethod = typeof(CalamityPlayer)
-                .GetMethod("ProcessTriggers", BindingFlags.Instance | BindingFlags.Public, null, new Type[] { typeof(TriggersSet) }, null);
-
-            _hook = EModHooks.Add(originalMethod, processTriggersHook);
-
             if (ModLoader.TryGetMod("AlchemistNPCLite", out var anpc))
             {
                 ANPCSupport.ANPCShopAdd.LoadHook();
@@ -150,10 +148,8 @@ namespace CalamityEntropy.Content.ILEditing
             }
 
             var ApplyDRMethod = typeof(CalamityGlobalNPC).GetMethod("ApplyDR", BindingFlags.Instance | BindingFlags.NonPublic, new Type[] { typeof(NPC), typeof(NPC.HitModifiers).MakeByRefType() });
-            if (ApplyDRMethod != null)
-            {
-                EModHooks.Add(ApplyDRMethod, apply_dr_hook);
-            }
+            EModHooks.Add(ApplyDRMethod, apply_dr_hook);
+            
             var update_rogue_stealth_f = typeof(CalamityPlayer).GetMethod("UpdateRogueStealth", BindingFlags.Public | BindingFlags.Instance);
             EModHooks.Add(update_rogue_stealth_f, UpdateRogueStealthHook);
 
@@ -238,6 +234,13 @@ namespace CalamityEntropy.Content.ILEditing
         private static void UpdateRogueStealthHook(CalamityPlayer self)
         {
             Player Player = self.Player;
+            if (self.temporaryStealthTimer > 0)
+            {
+                if (self.rogueStealthMax < self.temporaryStealthMax)
+                    self.rogueStealthMax = self.temporaryStealthMax;
+                self.wearingRogueArmor = true;
+            }
+
             // If the player un-equips rogue armor, then reset the sound so it'll play again when they re-equip it
             if (!self.wearingRogueArmor)
             {
@@ -246,25 +249,34 @@ namespace CalamityEntropy.Content.ILEditing
                 return;
             }
 
+            // Sound plays upon hitting full stealth, not upon having stealth strike available (this can occur at lower than 100% stealth)
             if (self.playRogueStealthSound && self.rogueStealth >= self.rogueStealthMax && Player.whoAmI == Main.myPlayer)
             {
                 self.playRogueStealthSound = false;
                 SoundEngine.PlaySound(CalamityPlayer.RogueStealthSound, Player.Center);
             }
 
+            // If the player isn't at full stealth, reset the sound so it'll play again when they hit full stealth.
             else if (self.rogueStealth < self.rogueStealthMax)
                 self.playRogueStealthSound = true;
 
-            var UpdateStealthGenStatsField = typeof(CalamityPlayer).GetMethod("UpdateStealthGenStats", BindingFlags.Instance | BindingFlags.NonPublic);
-            float currentStealthGen = (float)UpdateStealthGenStatsField.Invoke(self, null);
+            // Calculate stealth generation and gain stealth accordingly
+            // 1f is normal speed, anything higher is faster. Default stealth generation is 2 seconds while standing still.
+            float usgs = (float)typeof(CalamityPlayer).GetMethod("UpdateStealthGenStats", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(self, new object[0]);
+            float currentStealthGen = usgs;
             self.rogueStealth += self.rogueStealthMax * (currentStealthGen / 120f); // 120 frames = 2 seconds
             if (self.rogueStealth > self.rogueStealthMax)
                 self.rogueStealth = self.rogueStealthMax;
 
-            var ProvideStealthStatBonusesField = typeof(CalamityPlayer).GetMethod("ProvideStealthStatBonuses", BindingFlags.Instance | BindingFlags.NonPublic);
-            ProvideStealthStatBonusesField.Invoke(self, null);
+            typeof(CalamityPlayer).GetMethod("ProvideStealthStatBonuses", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(self, new object[0]);
 
-            Item it = Player.ActiveItem();
+            // If the player is using an item that deals damage and is on their first frame of a use of that item,
+            // consume stealth if a stealth strike wasn't triggered manually by item code.
+
+            // This doesn't trigger stealth strike effects (ConsumeStealthStrike instead of StealthStrike)
+            // so non-rogue weapons can't call lasers down from the sky and such.
+            // Using any item which deals no damage or is a tool doesn't consume stealth.
+            Item it = Player.HeldItem;
             bool hasDamage = it.damage > 0;
             bool hasHitboxes = !it.noMelee || it.shoot > ProjectileID.None;
             bool isPickaxe = it.pick > 0;
@@ -275,8 +287,16 @@ namespace CalamityEntropy.Content.ILEditing
             bool hasNonWeaponFunction = isPickaxe || isAxe || isHammer || isPlaced || isChannelable;
             bool playerUsingWeapon = hasDamage && hasHitboxes && !hasNonWeaponFunction;
 
-            // The Gem Tech armor's rogue crystal ensures that stealth is not consumed by non-rogue items.
-            if ((it.IsAir || !it.CountsAsClass<RogueDamageClass>()) && self.GemTechSet && self.GemTechState.IsRedGemActive)
+            // The Gem Tech armor's rogue crystal ensures that stealth is not consumed by non-rogue items. Forbidden Circlet does this for summon weapons
+            if ((it.IsAir || (!it.CountsAsClass<RogueDamageClass>()) && self.GemTechSet && self.GemTechState.IsRedGemActive) || (it.CountsAsClass<SummonDamageClass>() && self.forbiddenCirclet))
+                playerUsingWeapon = false;
+
+            // Molten Amputator consumes stealth in a special way
+            if (it.type == ModContent.ItemType<MoltenAmputator>())
+                playerUsingWeapon = false;
+
+            // Shock Grenade consumes stealth in a special way
+            if (it.type == ModContent.ItemType<DoomsdayDevice>())
                 playerUsingWeapon = false;
 
             // Animation check depends on whether the item is "clockwork", like Clockwork Assault Rifle.
@@ -309,52 +329,6 @@ namespace CalamityEntropy.Content.ILEditing
             return orgName;
         }
         public static FieldInfo mouseTextCacheField = null;
-
-        public static void processTriggersHook(Action<CalamityPlayer, TriggersSet> orig, CalamityPlayer calPlayer, TriggersSet ts)
-        {
-            bool flag = false;
-            if (CalamityKeybinds.AngelicAllianceHotKey.JustPressed && calPlayer.angelicAlliance && Main.myPlayer == calPlayer.Player.whoAmI && !calPlayer.divineBless && !calPlayer.Player.HasCooldown(CalamityMod.Cooldowns.DivineBless.ID))
-            {
-                flag = true;
-                var Player = calPlayer.Player;
-
-                int seconds = CalamityUtils.SecondsToFrames(15f);
-                Player.AddBuff(ModContent.BuffType<CalamityMod.Buffs.StatBuffs.DivineBless>(), seconds, false);
-                SoundEngine.PlaySound(AngelicAlliance.ActivationSound, Player.Center);
-
-                // Spawn an archangel for every minion you have
-                List<int> angelAmtList = new();
-                for (int projIndex = 0; projIndex < Main.maxProjectiles; projIndex++)
-                {
-                    Projectile proj = Main.projectile[projIndex];
-                    if (proj.minionSlots <= 0f || !proj.CountsAsClass<SummonDamageClass>())
-                        continue;
-
-                    if (proj.active && proj.owner == Player.whoAmI)
-                        angelAmtList.Add(projIndex);
-                }
-
-                var source = Player.GetSource_Accessory(calPlayer.FindAccessory(ModContent.ItemType<AngelicAlliance>()));
-                for (int projIndex = 0; projIndex < angelAmtList.Count; projIndex++)
-                {
-                    Projectile proj = Main.projectile[angelAmtList[projIndex]];
-                    float start = 360f / angelAmtList.Count;
-                    int damage = Player.ApplyArmorAccDamageBonusesTo(proj.damage / 10);
-
-                    Projectile.NewProjectile(source, new Vector2((int)(Player.Center.X + (Math.Sin(projIndex * start) * 300)), (int)(Player.Center.Y + (Math.Cos(projIndex * start) * 300))), Vector2.Zero, ModContent.ProjectileType<AngelicAllianceArchangel>(), damage, proj.knockBack / 10f, Player.whoAmI, Main.rand.Next(180), projIndex * start);
-                    Player.statLife += 2;
-                    Player.HealEffect(2);
-                    if (Player.statLife > Player.statLifeMax2)
-                        Player.statLife = Player.statLifeMax2;
-                }
-                calPlayer.angelicAlliance = false;
-            }
-            orig(calPlayer, ts);
-            if (flag)
-            {
-                calPlayer.angelicAlliance = true;
-            }
-        }
         public static void drawStealthBarHook(Action<SpriteBatch, CalamityPlayer, Vector2> orig, SpriteBatch spriteBatch, CalamityPlayer modPlayer, Vector2 screenPos)
         {
             var edgeTexField = typeof(StealthUI).GetField("edgeTexture", BindingFlags.Static | BindingFlags.NonPublic);

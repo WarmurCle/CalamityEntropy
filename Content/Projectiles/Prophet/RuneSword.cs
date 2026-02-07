@@ -61,7 +61,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             }
             Projectile.ai[0]++;
         }
-        internal Color ColorFunction(float completionRatio)
+        internal Color ColorFunction(float completionRatio, Vector2 vertex)
         {
             float fadeToEnd = MathHelper.Lerp(0.65f, 1f, (float)Math.Cos(-Main.GlobalTimeWrappedHourly * 3f) * 0.5f + 0.5f);
             float fadeOpacity = Utils.GetLerpValue(1f, 0.64f, completionRatio, true) * 1;
@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
         {
             target.AddBuff(ModContent.BuffType<SoulDisorder>(), 8 * 60);
         }
-        internal float WidthFunction(float completionRatio)
+        internal float WidthFunction(float completionRatio, Vector2 vertex)
         {
             float expansionCompletion = (float)Math.Pow(1 - completionRatio, 3);
             return MathHelper.Lerp(0f, 12 * Projectile.scale * 1, expansionCompletion);
@@ -82,7 +82,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
         public override bool PreDraw(ref Color lightColor)
         {
             GameShaders.Misc["CalamityMod:TrailStreak"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/ScarletDevilStreak"));
-            PrimitiveRenderer.RenderTrail(Projectile.oldPos, new PrimitiveSettings(WidthFunction, ColorFunction, (_) => Projectile.Size * 0.5f, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), 30);
+            PrimitiveRenderer.RenderTrail(Projectile.oldPos, new PrimitiveSettings(WidthFunction, ColorFunction, (_, _) => Projectile.Size * 0.5f, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), 30);
 
             Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
             Texture2D t = Projectile.GetTexture();

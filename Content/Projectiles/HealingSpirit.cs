@@ -86,13 +86,13 @@ namespace CalamityEntropy.Content.Projectiles
             }
         }
         public int tofs;
-        public Color TrailColor(float completionRatio)
+        public Color TrailColor(float completionRatio, Vector2 vertex)
         {
             Color result = new Color(255, 255, 255) * completionRatio;
             return result;
         }
 
-        public float TrailWidth(float completionRatio)
+        public float TrailWidth(float completionRatio, Vector2 vertex)
         {
             return MathHelper.Lerp(0, 12 * Projectile.scale, completionRatio);
         }

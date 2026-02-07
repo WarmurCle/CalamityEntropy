@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.Items.Vanity
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ModContent.ItemType<DemonicBoneAsh>(), 1)
+            CreateRecipe().AddIngredient(ModContent.ItemType<AncientBoneDust>(), 1)
                 .AddIngredient(ItemID.FallenStar, 5)
                 .AddTile(TileID.WorkBenches).Register();
         }

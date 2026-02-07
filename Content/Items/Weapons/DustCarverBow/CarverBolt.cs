@@ -73,12 +73,12 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                 GeneralParticleHandler.SpawnParticle(spark);
             }
         }
-        public Color ColorFunction(float completionRatio)
+        public Color ColorFunction(float completionRatio, Vector2 vertex)
         {
             return Color.Lerp(Color.Crimson, Color.DarkRed, MathHelper.Clamp(completionRatio * 0.8f, 0f, 1f)) * base.Projectile.Opacity;
         }
 
-        public float WidthFunction(float completionRatio)
+        public float WidthFunction(float completionRatio, Vector2 vertex)
         {
             float num = 20f;
             float num2 = ((!(completionRatio < 0.1f)) ? MathHelper.Lerp(num, 0f, Utils.GetLerpValue(0.1f, 1f, completionRatio, clamped: true)) : ((float)Math.Sin(completionRatio / 0.1f * (MathF.PI / 2f)) * num + 0.1f));
@@ -91,7 +91,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             Main.spriteBatch.EnterShaderRegion();
             GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/StreakGoop"));
             GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
-            PrimitiveRenderer.RenderTrail(base.Projectile.oldPos, new PrimitiveSettings(WidthFunction, ColorFunction, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
+            PrimitiveRenderer.RenderTrail(base.Projectile.oldPos, new PrimitiveSettings(WidthFunction, ColorFunction, (_, _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
             Main.spriteBatch.ExitShaderRegion();
             Texture2D value = Projectile.GetTexture();
             Main.EntitySpriteDraw(value, Projectile.position - Main.screenPosition, null, Color.White * Projectile.Opacity, Projectile.rotation, value.Size() * 0.5f, base.Projectile.scale, SpriteEffects.None);

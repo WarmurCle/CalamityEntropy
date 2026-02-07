@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items
             Item.height = 42;
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(gold: 5);
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
         }
     }
 }

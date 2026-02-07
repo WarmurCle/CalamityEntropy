@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
             Item.knockBack = 0;
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
-            Item.rare = ModContent.RarityType<DarkBlue>();
+            Item.rare = ModContent.RarityType<CosmicPurple>();
             Item.shoot = ModContent.ProjectileType<AmnestyHeld>();
             Item.shootSpeed = 16f;
             Item.mana = 7;
@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
         {
             CreateRecipe()
                 .AddIngredient<Depletion.Depletion>()
-                .AddIngredient<DeathhailStaff>()
+                .AddIngredient<HyperdeathRiftScepter>()
                 .AddIngredient<AscendantSpiritEssence>(2)
                 .AddIngredient<CosmiliteBar>(8)
                 .AddTile<CosmicAnvil>()

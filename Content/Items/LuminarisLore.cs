@@ -18,12 +18,12 @@ namespace CalamityEntropy.Content.Items
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             TooltipLine tooltipLine = new TooltipLine(base.Mod, "CalamityMod:Lore", Language.GetTextValue("Mods.CalamityEntropy.loreLuminaris"));
-            if (LoreColor.HasValue)
+            if (ExtensionIndicatorColor.HasValue)
             {
-                tooltipLine.OverrideColor = LoreColor.Value;
+                tooltipLine.OverrideColor = ExtensionIndicatorColor.Value;
             }
 
-            CalamityUtils.HoldShiftTooltip(tooltips, new TooltipLine[1] { tooltipLine }, hideNormalTooltip: true);
+            CEUtils.HoldShiftTooltip(tooltips, new TooltipLine[1] { tooltipLine }, hideNormalTooltip: true);
         }
         public override void SetDefaults()
         {

@@ -108,23 +108,23 @@ namespace CalamityEntropy.Common
             if (!ModContent.GetInstance<ServerConfig>().LoreSpecialEffect || !LoreReworkSystem.loreEffects.ContainsKey(item.type))
                 return;
 
-            Color? LoreColor = null;
+            Color? ExtensionIndicatorColor = null;
             if (item.ModItem != null && item.ModItem is LoreItem li)
             {
-                LoreColor = li.LoreColor;
+                ExtensionIndicatorColor = li.ExtensionIndicatorColor;
             }
             TooltipLine tooltipLineEF = new TooltipLine(base.Mod, "CalamityEntropy:LoreEffectInfo", Language.GetTextValue("Mods.CalamityEntropy.UseToggle"));
-            if (LoreColor.HasValue)
+            if (ExtensionIndicatorColor.HasValue)
             {
-                tooltipLineEF.OverrideColor = LoreColor.Value;
+                tooltipLineEF.OverrideColor = ExtensionIndicatorColor.Value;
             }
             tooltips.Add(tooltipLineEF);
             var dsc = LoreReworkSystem.loreEffects[item.type].Decription;
 
             TooltipLine tooltipLineA = new TooltipLine(base.Mod, "CalamityEntropy:LoreEffectDesc", dsc.Value);
-            if (LoreColor.HasValue)
+            if (ExtensionIndicatorColor.HasValue)
             {
-                tooltipLineA.OverrideColor = LoreColor.Value;
+                tooltipLineA.OverrideColor = ExtensionIndicatorColor.Value;
             }
             LoreReworkSystem.loreEffects[item.type].ModifyTooltip(tooltipLineA);
             tooltips.Add(tooltipLineA);

@@ -81,7 +81,7 @@ namespace CalamityEntropy.Common
             {
                 foreach (NPC n in Main.ActiveNPCs)
                 {
-                    if (CalamityLists.minibossList.Contains(n.type) || n.IsABoss())
+                    if (n.IsABoss())
                     {
                         if (n.realLife < 0 && CEUtils.getDistance(n.Center, Main.LocalPlayer.Center) < 9000)
                         {

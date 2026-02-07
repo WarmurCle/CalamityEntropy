@@ -32,6 +32,7 @@ using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Placeables;
+using CalamityMod.Items.Placeables.Abyss;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Typeless;
 using InnoVault.PRT;

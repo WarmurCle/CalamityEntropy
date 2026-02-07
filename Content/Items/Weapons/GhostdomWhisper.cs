@@ -55,7 +55,6 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AstrealDefeat>(), 1)
-                .AddIngredient(ModContent.ItemType<Deathwind>(), 1)
                 .AddIngredient(ModContent.ItemType<DarkPlasma>(), 8)
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 5)
                 .AddTile(ModContent.TileType<VoidWellTile>())

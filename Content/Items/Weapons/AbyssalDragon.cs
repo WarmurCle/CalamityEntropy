@@ -52,8 +52,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<DeathhailStaff>())
-                .AddIngredient(ModContent.ItemType<ClamorNoctus>())
+                .AddIngredient(ModContent.ItemType<HyperdeathRiftScepter>())
                 .AddIngredient(ModContent.ItemType<VoidBar>(), 5)
                 .AddTile(ModContent.TileType<VoidWellTile>())
                 .Register();

@@ -1,4 +1,5 @@
 ﻿
+using CalamityMod.Enums;
 using CalamityMod.Graphics.Metaballs;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -11,6 +12,8 @@ namespace CalamityEntropy.Content
 {
     public class ShadowMetaball : Metaball
     {
+        public override GeneralDrawLayer DrawLayer => GeneralDrawLayer.BeforeProjectiles;
+
         public class ShadowParticle
         {
             public float Size;
@@ -18,7 +21,6 @@ namespace CalamityEntropy.Content
             public Vector2 Velocity;
 
             public Vector2 Center;
-
             public ShadowParticle(Vector2 center, Vector2 velocity, float size)
             {
                 Center = center;
@@ -52,8 +54,6 @@ namespace CalamityEntropy.Content
                     yield return layerAssets[i].Value;
             }
         }
-
-        public override MetaballDrawLayer DrawContext => MetaballDrawLayer.BeforeProjectiles;
 
         public override Color EdgeColor => new(255, 255, 255);
 

@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.channel = true;
             Item.knockBack = 4;
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
-            Item.rare = ModContent.RarityType<DarkBlue>();
+            Item.rare = ModContent.RarityType<CosmicPurple>();
             Item.UseSound = null;
             Item.shoot = ModContent.ProjectileType<VBSpawner>();
             Item.shootSpeed = 1f;

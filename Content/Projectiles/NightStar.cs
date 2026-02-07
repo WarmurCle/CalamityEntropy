@@ -60,10 +60,10 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.EnterShaderRegion(BlendState.Additive);
             GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/StreakSolid"));
             GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
-            PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth1, TrailColor1, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
+            PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth1, TrailColor1, (_, _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
 
             GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Streak2"));
-            PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth2, TrailColor2, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
+            PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth2, TrailColor2, (_, _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
 
             Main.spriteBatch.ExitShaderRegion();
 
@@ -89,21 +89,21 @@ namespace CalamityEntropy.Content.Projectiles
                 GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.3f + CEUtils.randomVec(6), color, 40, 0.8f, 1, 0.2f, true, 0, true));
             }
         }
-        public Color TrailColor1(float completionRatio)
+        public Color TrailColor1(float completionRatio, Vector2 vertex)
         {
             Color result = this.color * Projectile.Opacity * (completionRatio);
             return result;
         }
-        public float TrailWidth1(float completionRatio)
+        public float TrailWidth1(float completionRatio, Vector2 vertex)
         {
             return 26 * (completionRatio) * Projectile.scale;
         }
-        public Color TrailColor2(float completionRatio)
+        public Color TrailColor2(float completionRatio, Vector2 vertex)
         {
             Color result = Color.White * Projectile.Opacity * (completionRatio);
             return result;
         }
-        public float TrailWidth2(float completionRatio)
+        public float TrailWidth2(float completionRatio, Vector2 vertex)
         {
             return 18 * (completionRatio) * Projectile.scale;
         }

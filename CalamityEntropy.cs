@@ -1,4 +1,7 @@
 ﻿global using Microsoft.Xna.Framework;
+global using CalamityMod.Items.Placeables.Abyss;
+global using CalamityMod.Items.Placeables.SunkenSea;
+global using CalamityMod.Items.Placeables.Furniture;
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Buffs;
@@ -43,6 +46,7 @@ using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Pets;
 using CalamityMod.Items.Placeables;
+using CalamityMod.Items.Placeables.Abyss;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Items.Weapons.Ranged;
@@ -181,11 +185,6 @@ namespace CalamityEntropy
 
             AbyssalWraith.loadHead();
             CruiserHead.loadHead();
-
-            foreach (int id in CalamityLists.needsDebuffIconDisplayList)
-            {
-                calDebuffIconDisplayList.Add(id);
-            }
 
             BossHealthBarManager.BossExclusionList.Add(ModContent.NPCType<CruiserBody>());
             BossHealthBarManager.BossExclusionList.Add(ModContent.NPCType<CruiserTail>());
@@ -805,7 +804,7 @@ namespace CalamityEntropy
                         spawn.netSpam = 0;
                         npc.active = false;
                     }
-                    if (npc.type != NPCID.DukeFishron && npc.type != ModContent.NPCType<OldDuke>() && npc.type != NPCID.Golem && npc.type != ModContent.NPCType<Bumblefuck>() && npc.type != NPCID.SkeletronHead)
+                    if (npc.type != NPCID.DukeFishron && npc.type != ModContent.NPCType<OldDuke>() && npc.type != NPCID.Golem && npc.type != ModContent.NPCType<Dragonfolly>() && npc.type != NPCID.SkeletronHead)
                     {
                         orig(self, i);
                         if (npc.type != NPCID.EyeofCthulhu && npc.type != NPCID.QueenBee && npc.type != NPCID.Retinazer && npc.type != NPCID.Spazmatism && npc.type != ModContent.NPCType<Yharon>() && npc.type != NPCID.MoonLordCore && npc.type != ModContent.NPCType<PrimordialWyrmHead>())
@@ -822,7 +821,7 @@ namespace CalamityEntropy
                 {
                     orig(self, i);
                 }
-                if (EntropyMode && self.ModNPC != null && (self.ModNPC is BrimstoneElemental || self.ModNPC is AquaticScourgeHead || self.ModNPC is AquaticScourgeTail || self.ModNPC is AquaticScourgeBodyAlt || self.ModNPC is AquaticScourgeBody || self.ModNPC is Cataclysm || self.ModNPC is Catastrophe || (self.ModNPC is CalamitasClone && !self.dontTakeDamage) || self.ModNPC is Leviathan || self.ModNPC is Anahita || self.ModNPC is AstrumAureus || self.ModNPC is PlaguebringerGoliath || self.ModNPC is RavagerBody || self.ModNPC is RavagerHead || self.ModNPC is RavagerHead2 || self.ModNPC is Bumblefuck || self.ModNPC is Polterghast))
+                if (EntropyMode && self.ModNPC != null && (self.ModNPC is BrimstoneElemental || self.ModNPC is AquaticScourgeHead || self.ModNPC is AquaticScourgeTail || self.ModNPC is AquaticScourgeBodyAlt || self.ModNPC is AquaticScourgeBody || self.ModNPC is Cataclysm || self.ModNPC is Catastrophe || (self.ModNPC is CalamitasClone && !self.dontTakeDamage) || self.ModNPC is Leviathan || self.ModNPC is Anahita || self.ModNPC is AstrumAureus || self.ModNPC is PlaguebringerGoliath || self.ModNPC is RavagerBody || self.ModNPC is RavagerHead || self.ModNPC is RavagerHead2 || self.ModNPC is Dragonfolly || self.ModNPC is Polterghast))
                 {
                     orig(self, i);
                     self.position -= self.velocity * 0.85f;
@@ -1552,7 +1551,7 @@ namespace CalamityEntropy
                 NPCID.Sets.SpecificDebuffImmunity[i][ModContent.BuffType<LifeOppress>()] = false;
             }
             List<int> specBuffs = new() { ModContent.BuffType<VoidVirus>(), ModContent.BuffType<SoulDisorder>(), ModContent.BuffType<Deceive>() };
-            List<int> specNpcs = new() { ModContent.NPCType<DesertScourgeHead>(), ModContent.NPCType<DevourerofGodsHead>(), ModContent.NPCType<AstrumDeusHead>(), ModContent.NPCType<AquaticScourgeHead>(), ModContent.NPCType<AstrumAureus>(), ModContent.NPCType<BrimstoneElemental>(), ModContent.NPCType<Bumblefuck>(), ModContent.NPCType<CalamitasClone>(), ModContent.NPCType<CeaselessVoid>(), ModContent.NPCType<Crabulon>(), ModContent.NPCType<Cryogen>(), ModContent.NPCType<CryogenShield>(), ModContent.NPCType<AresBody>(), ModContent.NPCType<Artemis>(), ModContent.NPCType<Apollo>(), ModContent.NPCType<ThanatosHead>(), ModContent.NPCType<GreatSandShark>(), ModContent.NPCType<HiveMind>(), ModContent.NPCType<PerforatorHive>(), ModContent.NPCType<Leviathan>(), ModContent.NPCType<Anahita>(), ModContent.NPCType<PlaguebringerGoliath>(), ModContent.NPCType<Polterghast>(), ModContent.NPCType<PrimordialWyrmHead>(), ModContent.NPCType<Providence>(), ModContent.NPCType<RavagerBody>(), ModContent.NPCType<Signus>(), ModContent.NPCType<StormWeaverHead>(), ModContent.NPCType<Yharon>(), ModContent.NPCType<SupremeCalamitas>() };
+            List<int> specNpcs = new() { ModContent.NPCType<DesertScourgeHead>(), ModContent.NPCType<DevourerofGodsHead>(), ModContent.NPCType<AstrumDeusHead>(), ModContent.NPCType<AquaticScourgeHead>(), ModContent.NPCType<AstrumAureus>(), ModContent.NPCType<BrimstoneElemental>(), ModContent.NPCType<Dragonfolly>(), ModContent.NPCType<CalamitasClone>(), ModContent.NPCType<CeaselessVoid>(), ModContent.NPCType<Crabulon>(), ModContent.NPCType<Cryogen>(), ModContent.NPCType<CryogenShield>(), ModContent.NPCType<AresBody>(), ModContent.NPCType<Artemis>(), ModContent.NPCType<Apollo>(), ModContent.NPCType<ThanatosHead>(), ModContent.NPCType<GreatSandShark>(), ModContent.NPCType<HiveMind>(), ModContent.NPCType<PerforatorHive>(), ModContent.NPCType<Leviathan>(), ModContent.NPCType<Anahita>(), ModContent.NPCType<PlaguebringerGoliath>(), ModContent.NPCType<Polterghast>(), ModContent.NPCType<PrimordialWyrmHead>(), ModContent.NPCType<Providence>(), ModContent.NPCType<RavagerBody>(), ModContent.NPCType<Signus>(), ModContent.NPCType<StormWeaverHead>(), ModContent.NPCType<Yharon>(), ModContent.NPCType<SupremeCalamitas>() };
             foreach (int i in specBuffs)
             {
                 foreach (int j in specNpcs)
@@ -1769,7 +1768,7 @@ namespace CalamityEntropy
             EntropyBossbar.bossbarColor[ModContent.NPCType<ProfanedGuardianDefender>()] = new Color(255, 255, 120);
             EntropyBossbar.bossbarColor[ModContent.NPCType<ProfanedGuardianHealer>()] = new Color(255, 255, 120);
             EntropyBossbar.bossbarColor[ModContent.NPCType<Providence>()] = new Color(255, 255, 120);
-            EntropyBossbar.bossbarColor[ModContent.NPCType<Bumblefuck>()] = new Color(200, 180, 100);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<Dragonfolly>()] = new Color(200, 180, 100);
             EntropyBossbar.bossbarColor[ModContent.NPCType<CeaselessVoid>()] = new Color(180, 210, 220);
             EntropyBossbar.bossbarColor[ModContent.NPCType<StormWeaverHead>()] = new Color(120, 145, 180);
             EntropyBossbar.bossbarColor[ModContent.NPCType<Signus>()] = new Color(223, 75, 170);

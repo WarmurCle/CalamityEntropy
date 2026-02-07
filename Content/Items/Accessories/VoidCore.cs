@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.height = 60;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.accessory = true;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -162,7 +162,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             hitContext.PlayerImmunityFrames = 16;
             int num = VoidCore.ShieldSlamDamage;
             hitContext.damageClass = DamageClass.Melee;
-            hitContext.BaseDamage = player.ApplyArmorAccDamageBonusesTo(num);
+            hitContext.BaseDamage = num.ApplyAccArmorDamageBonus(player);
             hitContext.BaseKnockback = 6f;
         }
     }

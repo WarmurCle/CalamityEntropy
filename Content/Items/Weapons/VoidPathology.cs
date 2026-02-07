@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.UseSound = CEUtils.GetSound("vp_use");
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.shoot = ModContent.ProjectileType<NihilityVirus>();
             Item.shootSpeed = 16f;
             Item.mana = 6;

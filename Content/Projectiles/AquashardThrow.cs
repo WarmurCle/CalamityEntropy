@@ -208,12 +208,12 @@ namespace CalamityEntropy.Content.Projectiles
             return null;
         }
         public bool eff = true;
-        public Color ColorFunction(float completionRatio)
+        public Color ColorFunction(float completionRatio, Vector2 vertex)
         {
             return Color.Lerp(Color.Aqua, Color.AliceBlue, MathHelper.Clamp(completionRatio * 0.8f, 0f, 1f)) * base.Projectile.Opacity;
         }
 
-        public float WidthFunction(float completionRatio)
+        public float WidthFunction(float completionRatio, Vector2 vertex)
         {
             float num = 8f;
             float num2 = ((!(completionRatio < 0.1f)) ? MathHelper.Lerp(num, 0f, Utils.GetLerpValue(0.1f, 1f, completionRatio, clamped: true)) : ((float)Math.Sin(completionRatio / 0.1f * (MathF.PI / 2f)) * num + 0.1f));
@@ -232,7 +232,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     lt.Add(Projectile.oldPos[i] + Projectile.Size / 2 + Projectile.oldRot[i].ToRotationVector2() * 68);
                 }
-                PrimitiveRenderer.RenderTrail(lt, new PrimitiveSettings(WidthFunction, ColorFunction, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
+                PrimitiveRenderer.RenderTrail(lt, new PrimitiveSettings(WidthFunction, ColorFunction, (_, _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
                 Main.spriteBatch.ExitShaderRegion();
             }
             Texture2D tx = TextureAssets.Projectile[Projectile.type].Value;

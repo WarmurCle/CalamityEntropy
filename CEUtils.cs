@@ -12,6 +12,7 @@ using CalamityMod.Buffs.Alcohol;
 using CalamityMod.Items.Potions.Alcohol;
 using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,42 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static void HoldShiftTooltip(List<TooltipLine> tooltips, TooltipLine[] holdShiftTooltips, bool hideNormalTooltip = false)
+        {
+            // Only perform any changes while holding SHIFT.
+            if (!Main.keyState.IsKeyDown(Keys.LeftShift))
+                return;
+
+            // Get the first index, last index and total count of standard vanilla tooltip lines.
+            // The first index and count are used to delete all vanilla tooltips when holding SHIFT, if requested.
+            // The last index is used to insert the "Hold SHIFT" tooltips in the right position.
+            int firstTooltipIndex = -1;
+            int lastTooltipIndex = -1;
+            int standardTooltipCount = 0;
+            for (int i = 0; i < tooltips.Count; i++)
+            {
+                if (tooltips[i].Name.StartsWith("Tooltip"))
+                {
+                    if (firstTooltipIndex == -1)
+                        firstTooltipIndex = i;
+                    lastTooltipIndex = i;
+                    standardTooltipCount++;
+                }
+            }
+
+            if (firstTooltipIndex != -1)
+            {
+                // If asked to, remove all standard tooltip lines. This moves the last tooltip index.
+                if (hideNormalTooltip)
+                {
+                    tooltips.RemoveRange(firstTooltipIndex, standardTooltipCount);
+                    lastTooltipIndex -= standardTooltipCount;
+                }
+
+                // Append every "Hold SHIFT" tooltip at the end of standard tooltips.
+                tooltips.InsertRange(lastTooltipIndex + 1, holdShiftTooltips);
+            }
+        }
         public static bool AnyActiveProj<T>() where T : ModProjectile
         {
             foreach (Projectile p in Main.ActiveProjectiles)
@@ -49,13 +86,17 @@ namespace CalamityEntropy
             projectile.velocity += (target.Center - projectile.Center).normalize() * vel;
             return true;
         }
+        public static int GetProjectileDamage(this NPC npc, int type)
+        {
+            return npc.damage == 0 ? 60 : npc.damage / 3;
+        }
         public static int ApplyAccArmorDamageBonus(this int origDmg, Player player = null)
         {
             if(player == null)
             {
                 player = Main.LocalPlayer;
             }
-            return CalamityUtils.ApplyArmorAccDamageBonusesTo(player, origDmg);//(int)(origDmg * (Main.LocalPlayer.HasBuff<OldFashionedBuff>() ? OldFashioned.AccessoryAndSetBonusDamageMultiplier : 1));
+            return (int)(origDmg * (Main.LocalPlayer.HasBuff<OldFashionedBuff>() ? OldFashioned.DamageBoostMultiplier : 1));
         }
         public static int GetPriceFromRecipe(this ModItem item, Recipe recipe)
         {

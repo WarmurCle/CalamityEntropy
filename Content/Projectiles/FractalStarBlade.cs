@@ -37,10 +37,6 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Player player = Projectile.GetOwner();
             player.Calamity().mouseWorldListener = true;
-            if (Main.myPlayer == Projectile.owner)
-            {
-                Main.LocalPlayer.Calamity().mouseWorld = Main.MouseWorld;
-            }
             if (init)
             {
                 rotSpeed = Projectile.ai[1] * 0.1f;

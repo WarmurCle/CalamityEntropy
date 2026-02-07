@@ -75,7 +75,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
-        internal Color ColorFunction(float completionRatio)
+        internal Color ColorFunction(float completionRatio, Vector2 vertex)
         {
             float fadeToEnd = MathHelper.Lerp(0.65f, 1f, (float)Math.Cos(-Main.GlobalTimeWrappedHourly * 3f) * 0.5f + 0.5f);
             float fadeOpacity = Utils.GetLerpValue(1f, 0.64f, completionRatio, true) * alpha;
@@ -85,7 +85,7 @@ namespace CalamityEntropy.Content.Projectiles
             return Color.Lerp(Color.White, endColor, fadeToEnd) * fadeOpacity;
         }
 
-        internal float WidthFunction(float completionRatio)
+        internal float WidthFunction(float completionRatio, Vector2 vertex)
         {
             float expansionCompletion = (float)Math.Pow(1 - completionRatio, 3);
             return MathHelper.Lerp(0f, 8 * Projectile.scale * alpha, expansionCompletion);
@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             GameShaders.Misc["CalamityMod:TrailStreak"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/ScarletDevilStreak"));
-            PrimitiveRenderer.RenderTrail(Projectile.oldPos, new PrimitiveSettings(WidthFunction, ColorFunction, (_) => Projectile.Size * 0.5f, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), 30);
+            PrimitiveRenderer.RenderTrail(Projectile.oldPos, new PrimitiveSettings(WidthFunction, ColorFunction, (_, _) => Projectile.Size * 0.5f, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), 30);
 
             Texture2D t = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/ZypCrystals/c" + ((int)Projectile.ai[0]).ToString()).Value;
             Main.EntitySpriteDraw(t, Projectile.Center - Main.screenPosition, null, Color.White * alpha, Projectile.rotation, t.Size() / 2, Projectile.scale, SpriteEffects.None, 0);

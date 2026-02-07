@@ -68,9 +68,9 @@ namespace CalamityEntropy.Content.Projectiles
             }
             return false;
         }
-        public float PrimitiveWidthFunction(float completionRatio) => Projectile.scale * 8 * ((10f - Projectile.ai[0]) / 10f);
+        public float PrimitiveWidthFunction(float completionRatio, Vector2 vertex) => Projectile.scale * 8 * ((10f - Projectile.ai[0]) / 10f);
 
-        public Color PrimitiveColorFunction(float completionRatio)
+        public Color PrimitiveColorFunction(float completionRatio, Vector2 vertex)
         {
             Color color = new Color(255, 100, 255);
             return color;

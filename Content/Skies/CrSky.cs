@@ -255,18 +255,18 @@ namespace CalamityEntropy.Content.Skies
                 Main.spriteBatch.EnterShaderRegion();
                 GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Streak2"));
                 GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
-                PrimitiveRenderer.RenderTrail(points, new PrimitiveSettings(TrailWidth, TrailColor, (float _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
+                PrimitiveRenderer.RenderTrail(points, new PrimitiveSettings(TrailWidth, TrailColor, (_, _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
                 Main.spriteBatch.ExitShaderRegion();
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
 
             }
-            public Color TrailColor(float completionRatio)
+            public Color TrailColor(float completionRatio, Vector2 vertex)
             {
                 Color result = Color.Lerp(Color.MediumPurple, Color.LightBlue, new Vector2(1, 0).RotatedBy(completionRatio * MathHelper.Pi).Y) * completionRatio * (opc * 1.4f);
                 return result;
             }
 
-            public float TrailWidth(float completionRatio)
+            public float TrailWidth(float completionRatio, Vector2 vertex)
             {
                 return 48 * new Vector2(1, 0).RotatedBy((timeleft / (float)maxTime) * MathHelper.Pi).Y * new Vector2(1, 0).RotatedBy(completionRatio * MathHelper.Pi).Y;
             }

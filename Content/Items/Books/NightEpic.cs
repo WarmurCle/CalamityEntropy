@@ -28,8 +28,8 @@ namespace CalamityEntropy.Content.Items.Books
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient<RedemptionBible>()
-                .AddIngredient<AstralBar>(6)
-                .AddIngredient<AstralMonolith>(6)
+                .AddIngredient<AstralBar>(8)
+                .AddIngredient<StarblightSoot>(6)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }

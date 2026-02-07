@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             CreateRecipe()
                 .AddIngredient(ItemID.SoulofNight, 15)
                 .AddIngredient<UnholyCore>(10)
-                .AddIngredient<CoreofHavoc>(5)
+                .AddIngredient<EssenceofHavoc>(5)
                 .AddIngredient(ItemID.HallowedBar, 10)
                 .AddTile(TileID.Anvils)
                 .Register();

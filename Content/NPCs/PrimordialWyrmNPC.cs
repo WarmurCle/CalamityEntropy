@@ -175,7 +175,7 @@ namespace CalamityEntropy.Content.NPCs
                 .Add<DepthCells>()
                 .Add<PlantyMush>()
                 .Add<AbyssalTreasure>()
-                .Add<AbyssTorch>()
+                .Add<VoidTorch>()
                 .Add<AbyssShellFossil>()
                 .Add<WyrmTooth>()
                 .Add<Rock>(new Condition(Mod.GetLocalization("PassedBossRush"), () => DownedBossSystem.downedBossRush))

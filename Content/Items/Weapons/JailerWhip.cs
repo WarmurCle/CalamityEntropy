@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ModContent.ItemType<DemonicBoneAsh>(), 2)
+            CreateRecipe().AddIngredient(ModContent.ItemType<AncientBoneDust>(), 2)
                 .AddIngredient(ItemID.Chain, 6)
                 .AddIngredient(ItemID.Silk, 4)
                 .AddIngredient(ItemID.HellstoneBar, 5)

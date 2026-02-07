@@ -248,10 +248,25 @@ Items: {
 	}
 
 	Lore: {
-		CruiserLore.DisplayName: 巡游者
-		NihilityTwinLore.DisplayName: 虚无双子
-		ProphetLore.DisplayName: 先知
-		LuminarisLore.DisplayName: 幻光星蛾
+		CruiserLore: {
+			DisplayName: 巡游者
+			// Tooltip: ""
+		}
+
+		NihilityTwinLore: {
+			DisplayName: 虚无双子
+			// Tooltip: ""
+		}
+
+		ProphetLore: {
+			DisplayName: 先知
+			// Tooltip: ""
+		}
+
+		LuminarisLore: {
+			DisplayName: 幻光星蛾
+			// Tooltip: ""
+		}
 	}
 
 	BrokenChainsaw: {
@@ -5930,3 +5945,5 @@ CrossModSupportFish: 联动内容:比目鱼炮技能鱼也能被放入任意熵�
 CdAcr: 卫城机甲冷却
 SpecialThanks: 特别鸣谢
 PassedBossRush: 通过Boss Rush
+BloodthirstyRequirement: 你至少需要100点生命值才能制作此物品
+BloodthirstyKilled: 放干了血

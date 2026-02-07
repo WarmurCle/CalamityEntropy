@@ -57,9 +57,9 @@ namespace CalamityEntropy.Content.Projectiles.SpiritFountainShoots
             return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.velocity * 500, targetHitbox, 46);
         }
 
-        public float PrimitiveWidthFunction(float completionRatio) => (new Vector2(1, 0).RotatedBy((completionRatio + 0.14f) * MathHelper.Pi)).Y * Projectile.scale * 26 * ((36f - Projectile.ai[0]) / 36f) * CEUtils.Parabola(1 - Projectile.timeLeft / 16f, 1);
+        public float PrimitiveWidthFunction(float completionRatio, Vector2 vertex) => (new Vector2(1, 0).RotatedBy((completionRatio + 0.14f) * MathHelper.Pi)).Y * Projectile.scale * 26 * ((36f - Projectile.ai[0]) / 36f) * CEUtils.Parabola(1 - Projectile.timeLeft / 16f, 1);
 
-        public Color PrimitiveColorFunction(float completionRatio)
+        public Color PrimitiveColorFunction(float completionRatio, Vector2 vertex)
         {
             float colorInterpolant = (float)Math.Sin(Projectile.identity / 3f + completionRatio * 20f + Main.GlobalTimeWrappedHourly * 1.1f) * 0.5f + 0.5f;
             Color color = CalamityUtils.MulticolorLerp(colorInterpolant, new Color(Main.rand.Next(20, 100), 204, 250), new Color(Main.rand.Next(20, 100), 204, 250));
@@ -84,7 +84,7 @@ namespace CalamityEntropy.Content.Projectiles.SpiritFountainShoots
             for (int i = 0; i < lasers.Count; i++)
             {
                 var points = lasers[i];
-                PrimitiveRenderer.RenderTrail(points, new PrimitiveSettings(PrimitiveWidthFunction, PrimitiveColorFunction, (_) => Projectile.Size * 0.2f * lw, false,
+                PrimitiveRenderer.RenderTrail(points, new PrimitiveSettings(PrimitiveWidthFunction, PrimitiveColorFunction, (_, _) => Projectile.Size * 0.2f * lw, false,
                     shader: GameShaders.Misc["CalamityMod:HeavenlyGaleLightningArc"]), 10);
             }
 

@@ -43,6 +43,7 @@ using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.NPCs.Yharon;
 using CalamityMod.Particles;
+using CalamityMod.Systems.Collections;
 using CalamityMod.UI;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -881,7 +882,7 @@ namespace CalamityEntropy.Common
         {
             if (npc.type != NPCID.BrainofCthulhu && (npc.type != NPCID.DukeFishron || npc.ai[0] <= 9f) && npc.active)
             {
-                if (CalamityClientConfig.Instance.DebuffDisplay && (npc.boss || BossHealthBarManager.MinibossHPBarList.Contains(npc.type) || BossHealthBarManager.OneToMany.ContainsKey(npc.type) || CalamityLists.needsDebuffIconDisplayList.Contains(npc.type)))
+                if (CalamityClientConfig.Instance.DebuffDisplay && (npc.boss || BossHealthBarManager.MinibossHPBarList.Contains(npc.type) || BossHealthBarManager.OneToMany.ContainsKey(npc.type) || CalamityNPCSets.ForceDrawDebuffDisplay[npc.type]))
                 {
                     List<Texture2D> currentDebuffs = new List<Texture2D>() { };
                     CalamityGlobalNPC cnpc = npc.Calamity();
@@ -894,7 +895,7 @@ namespace CalamityEntropy.Common
                     }
 
                     // Vanilla damage over time debuffs
-                    if (cnpc.electrified > 0)
+                    if (cnpc.electrified)
                         currentDebuffs.Add(TextureAssets.Buff[BuffID.Electrified].Value);
                     if (npc.onFire)
                         currentDebuffs.Add(TextureAssets.Buff[BuffID.OnFire].Value);
@@ -934,9 +935,47 @@ namespace CalamityEntropy.Common
                         currentDebuffs.Add(TextureAssets.Buff[BuffID.Confused].Value);
                     if (npc.ichor)
                         currentDebuffs.Add(TextureAssets.Buff[BuffID.Ichor].Value);
-                    if (cnpc.slowed > 0)
-                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Slow].Value);
-                    if (cnpc.webbed > 0)
+                    if (cnpc.webbed)
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Webbed].Value);
+                    if (npc.onFire)
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.OnFire].Value);
+                    if (npc.poisoned)
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Poisoned].Value);
+                    if (npc.onFire2)
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.CursedInferno].Value);
+                    if (npc.onFrostBurn)
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Frostburn].Value);
+                    if (npc.venom)
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Venom].Value);
+                    if (npc.shadowFlame)
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.ShadowFlame].Value);
+                    if (npc.oiled)
+                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/Oiled").Value);
+                    if (npc.javelined)
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.BoneJavelin].Value);
+                    if (npc.daybreak)
+                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/Buffs/DamageOverTime/Daybroken").Value);
+                    if (npc.celled)
+                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/Celled").Value);
+                    if (npc.dryadBane)
+                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/DryadsBane").Value);
+                    if (npc.dryadWard)
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.DryadsWard].Value);
+                    if (npc.soulDrain && npc.realLife == -1)
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.SoulDrain].Value);
+                    if (npc.onFire3) // Hellfire
+                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/Hellfire").Value);
+                    if (npc.onFrostBurn2) // Frostbite
+                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/Frostbite").Value);
+                    if (npc.tentacleSpiked)
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.TentacleSpike].Value);
+
+                    // Vanilla stat debuffs
+                    if (npc.confused)
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Confused].Value);
+                    if (npc.ichor)
+                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Ichor].Value);
+                    if (cnpc.webbed)
                         currentDebuffs.Add(TextureAssets.Buff[BuffID.Webbed].Value);
                     if (npc.midas)
                         currentDebuffs.Add(TextureAssets.Buff[BuffID.Midas].Value);
@@ -952,8 +991,6 @@ namespace CalamityEntropy.Common
                         currentDebuffs.Add(TextureAssets.Buff[BuffID.Slimed].Value);
                     if (npc.drippingSparkleSlime)
                         currentDebuffs.Add(TextureAssets.Buff[BuffID.GelBalloonBuff].Value);
-                    if (npc.markedByScytheWhip) // Dark Harvest whip, the only Whip debuff that has an NPC bool
-                        currentDebuffs.Add(TextureAssets.Buff[BuffID.ScytheWhipEnemyDebuff].Value);
 
                     void AddBuffDraw<T>() where T : ModBuff
                     {
@@ -1630,7 +1667,7 @@ namespace CalamityEntropy.Common
                 shop.Add(ModContent.ItemType<SoyMilk>(), new Condition(Mod.GetLocalization("DownedBoss2").Value, () => NPC.downedBoss2));
                 shop.Add(ModContent.ItemType<BrillianceCard>());
             }
-            if (shop.NpcType == ModContent.NPCType<DILF>())
+            if (shop.NpcType == ModContent.NPCType<SeaKing>())
             {
                 shop.Add(ModContent.ItemType<ThreadOfFate>());
                 shop.Add(ModContent.ItemType<ArchmagesHandmirror>());
@@ -1671,7 +1708,7 @@ namespace CalamityEntropy.Common
             {
                 shop.Add(ModContent.ItemType<Confuse>());
             }
-            if (shop.NpcType == ModContent.NPCType<THIEF>())
+            if (shop.NpcType == ModContent.NPCType<Bandit>())
             {
                 shop.Add(ModContent.ItemType<Barren>());
             }

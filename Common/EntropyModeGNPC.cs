@@ -546,14 +546,6 @@ namespace CalamityEntropy.Common
                 ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Announcement.HasAwoken", Main.npc[num].GetTypeNetName()), new Color(175, 75, 255));
             return num;
         }
-        public override void OnKill(NPC npc)
-        {
-            if (CalamityEntropy.EntropyMode && (npc.ModNPC is KingSlimeJewelEmerald || npc.ModNPC is KingSlimeJewelRuby || npc.ModNPC is KingSlimeJewelSapphire || npc.ModNPC is TopazJewel) && Main.netMode != 1)
-            {
-                Vector2 vector = npc.Center;
-                NPC.NewNPC(npc.GetSource_FromAI(null), (int)vector.X, (int)vector.Y - 60, 288, 0, 0f, 0f, 0f, 0f, 255).ToNPC().life /= 2;
-            }
-        }
 
         public bool SpawnAtHalfLife = true;
 

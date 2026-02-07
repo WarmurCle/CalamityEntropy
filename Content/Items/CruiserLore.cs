@@ -23,15 +23,15 @@ namespace CalamityEntropy.Content.Items
             if (ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)
             {
                 TooltipLine tooltipLineEF = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy.UseToggle"));
-                if (LoreColor.HasValue)
+                if (ExtensionIndicatorColor.HasValue)
                 {
-                    tooltipLineEF.OverrideColor = LoreColor.Value;
+                    tooltipLineEF.OverrideColor = ExtensionIndicatorColor.Value;
                 }
                 tooltips.Add(tooltipLineEF);
                 TooltipLine tooltipLineA = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy.loreCruiserEffect"));
-                if (LoreColor.HasValue)
+                if (ExtensionIndicatorColor.HasValue)
                 {
-                    tooltipLineA.OverrideColor = LoreColor.Value;
+                    tooltipLineA.OverrideColor = ExtensionIndicatorColor.Value;
                 }
 
                 tooltips.Add(tooltipLineA);
@@ -42,12 +42,12 @@ namespace CalamityEntropy.Content.Items
             }
 
             TooltipLine tooltipLine = new TooltipLine(base.Mod, "CalamityMod:Lore", Language.GetTextValue("Mods.CalamityEntropy.loreCruiser"));
-            if (LoreColor.HasValue)
+            if (ExtensionIndicatorColor.HasValue)
             {
-                tooltipLine.OverrideColor = LoreColor.Value;
+                tooltipLine.OverrideColor = ExtensionIndicatorColor.Value;
             }
 
-            CalamityUtils.HoldShiftTooltip(tooltips, new TooltipLine[1] { tooltipLine }, hideNormalTooltip: true);
+            CEUtils.HoldShiftTooltip(tooltips, new TooltipLine[1] { tooltipLine }, hideNormalTooltip: true);
         }
         public override void SetDefaults()
         {

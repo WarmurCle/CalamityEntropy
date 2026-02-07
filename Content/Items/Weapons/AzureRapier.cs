@@ -77,7 +77,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CreateRecipe().AddIngredient<PearlShard>(4)
                 .AddIngredient<SeaPrism>(6)
-                .AddIngredient<CalamityMod.Items.Placeables.PrismShard>(10)
+                .AddIngredient<CalamityMod.Items.Placeables.SunkenSea.PrismShard>(10)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

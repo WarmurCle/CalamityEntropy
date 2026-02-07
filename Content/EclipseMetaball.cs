@@ -1,4 +1,5 @@
 ﻿
+using CalamityMod.Enums;
 using CalamityMod.Graphics.Metaballs;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -33,6 +34,7 @@ namespace CalamityEntropy.Content
                 Velocity *= 0.96f;
             }
         }
+        public override GeneralDrawLayer DrawLayer => GeneralDrawLayer.BeforeProjectiles;
 
         private static List<Asset<Texture2D>> layerAssets;
 
@@ -52,8 +54,6 @@ namespace CalamityEntropy.Content
                     yield return layerAssets[i].Value;
             }
         }
-
-        public override MetaballDrawLayer DrawContext => MetaballDrawLayer.BeforeProjectiles;
 
         public override Color EdgeColor => new(255, 206, 60);
 

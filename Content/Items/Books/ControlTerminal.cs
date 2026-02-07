@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.crit = 15;
             Item.mana = 36;
             Item.shootSpeed = 45;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
         }
         public override Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/BookMark7").Value;
@@ -226,22 +226,22 @@ namespace CalamityEntropy.Content.Items.Books
         {
             return NoMoveTime <= 0;
         }
-        public float TrailWidth(float completionRatio)
+        public float TrailWidth(float completionRatio, Vector2 vertex)
         {
             return Utils.GetLerpValue(1f, 0.4f, completionRatio, clamped: true) * (float)Math.Sin(Math.Acos(1f - Utils.GetLerpValue(0f, 0.15f, completionRatio, clamped: true))) * Utils.GetLerpValue(0f, 0.1f, (float)base.Projectile.timeLeft / 600f, clamped: true) * 6;
         }
         public static ReLogic.Content.Asset<Texture2D> TrailTex = null;
-        public Color TrailColor(float completionRatio)
+        public Color TrailColor(float completionRatio, Vector2 vertex)
         {
             return Color.Lerp(Color.Cyan, new Color(0, 0, 255), completionRatio);
         }
 
-        public float MiniTrailWidth(float completionRatio)
+        public float MiniTrailWidth(float completionRatio, Vector2 vertex)
         {
-            return TrailWidth(completionRatio) * 0.8f;
+            return TrailWidth(completionRatio, vertex) * 0.8f;
         }
 
-        public Color MiniTrailColor(float completionRatio)
+        public Color MiniTrailColor(float completionRatio, Vector2 vertex)
         {
             return Color.White;
         }
@@ -294,10 +294,10 @@ namespace CalamityEntropy.Content.Items.Books
                 {
                     tpos[k] = Projectile.oldPos[k] + (Projectile.oldRot[k] + ra).ToRotationVector2() * 37 * Projectile.scale;
                 }
-                PrimitiveRenderer.RenderTrail(tpos, new PrimitiveSettings(TrailWidth, TrailColor, (float _) => base.Projectile.Size * 0.5f, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ExobladePierce"]), 30);
+                PrimitiveRenderer.RenderTrail(tpos, new PrimitiveSettings(TrailWidth, TrailColor, (_, _) => base.Projectile.Size * 0.5f, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ExobladePierce"]), 30);
                 GameShaders.Misc["CalamityMod:ExobladePierce"].UseColor(Color.White);
                 GameShaders.Misc["CalamityMod:ExobladePierce"].UseSecondaryColor(Color.White);
-                PrimitiveRenderer.RenderTrail(tpos, new PrimitiveSettings(MiniTrailWidth, MiniTrailColor, (float _) => base.Projectile.Size * 0.5f, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ExobladePierce"]), 30);
+                PrimitiveRenderer.RenderTrail(tpos, new PrimitiveSettings(MiniTrailWidth, MiniTrailColor, (_, _) => base.Projectile.Size * 0.5f, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ExobladePierce"]), 30);
                 Main.spriteBatch.ExitShaderRegion();
             }
             Main.EntitySpriteDraw(Projectile.GetTexture(), Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, Projectile.GetTexture().Size() / 2f, Projectile.scale, SpriteEffects.None); ;
@@ -417,22 +417,22 @@ namespace CalamityEntropy.Content.Items.Books
             return white * base.Projectile.Opacity;
         }
 
-        public float TrailWidth(float completionRatio)
+        public float TrailWidth(float completionRatio, Vector2 vertex)
         {
             return Utils.GetLerpValue(1f, 0.4f, completionRatio, clamped: true) * (float)Math.Sin(Math.Acos(1f - Utils.GetLerpValue(0f, 0.15f, completionRatio, clamped: true))) * Utils.GetLerpValue(0f, 0.1f, (float)base.Projectile.timeLeft / 600f, clamped: true) * MaxWidth;
         }
 
-        public Color TrailColor(float completionRatio)
+        public Color TrailColor(float completionRatio, Vector2 vertex)
         {
             return Color.Lerp(Color.Cyan, new Color(0, 0, 255), completionRatio);
         }
 
-        public float MiniTrailWidth(float completionRatio)
+        public float MiniTrailWidth(float completionRatio, Vector2 vertex)
         {
-            return TrailWidth(completionRatio) * 0.8f;
+            return TrailWidth(completionRatio, vertex) * 0.8f;
         }
 
-        public Color MiniTrailColor(float completionRatio)
+        public Color MiniTrailColor(float completionRatio, Vector2 vertex)
         {
             return Color.White;
         }
@@ -478,10 +478,10 @@ namespace CalamityEntropy.Content.Items.Books
             GameShaders.Misc["CalamityMod:ExobladePierce"].UseSecondaryColor(color2);
             GameShaders.Misc["CalamityMod:ExobladePierce"].Apply();
             GameShaders.Misc["CalamityMod:ExobladePierce"].Apply();
-            PrimitiveRenderer.RenderTrail(base.Projectile.oldPos, new PrimitiveSettings(TrailWidth, TrailColor, (float _) => base.Projectile.Size * 0.5f, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ExobladePierce"]), 30);
+            PrimitiveRenderer.RenderTrail(base.Projectile.oldPos, new PrimitiveSettings(TrailWidth, TrailColor, (_, _) => base.Projectile.Size * 0.5f, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ExobladePierce"]), 30);
             GameShaders.Misc["CalamityMod:ExobladePierce"].UseColor(Color.White);
             GameShaders.Misc["CalamityMod:ExobladePierce"].UseSecondaryColor(Color.White);
-            PrimitiveRenderer.RenderTrail(base.Projectile.oldPos, new PrimitiveSettings(MiniTrailWidth, MiniTrailColor, (float _) => base.Projectile.Size * 0.5f, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ExobladePierce"]), 30);
+            PrimitiveRenderer.RenderTrail(base.Projectile.oldPos, new PrimitiveSettings(MiniTrailWidth, MiniTrailColor, (_, _) => base.Projectile.Size * 0.5f, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ExobladePierce"]), 30);
             Main.spriteBatch.ExitShaderRegion();
             Vector2 position4 = base.Projectile.oldPos[2] + base.Projectile.Size / 2f - Main.screenPosition;
             white = Color.White * 0.2f;

@@ -41,14 +41,13 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.noMelee = true;
             Item.knockBack = 2f;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.UseSound = CEUtils.GetSound("gunshot_large");
             Item.autoReuse = true;
             Item.shoot = ProjectileID.Bullet;
             Item.shootSpeed = 32f;
             Item.useAmmo = AmmoID.Bullet;
             Item.crit = 4;
-            Item.Calamity().canFirePointBlankShots = true;
             Item.ArmorPenetration = 200;
         }
         public override void ModifyWeaponCrit(Player player, ref float crit)

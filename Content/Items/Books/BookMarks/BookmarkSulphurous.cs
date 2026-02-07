@@ -2,6 +2,7 @@ using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables;
+using CalamityMod.Items.Placeables.Abyss;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;

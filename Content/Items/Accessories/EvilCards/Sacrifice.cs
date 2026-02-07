@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<CoreofHavoc>(), 6)
+                .AddIngredient(ModContent.ItemType<EssenceofHavoc>(), 6)
                 .AddIngredient(ModContent.ItemType<PerennialBar>(), 2)
                 .Register();
         }

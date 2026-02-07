@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void SetDefaults()
         {
             Item.DefaultToWhip(ModContent.ProjectileType<VitalfeatherProjectile>(), 140, 2, 4, 42);
-            Item.rare = ModContent.RarityType<Violet>();
+            Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.autoReuse = true;
         }

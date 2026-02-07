@@ -191,7 +191,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             hitContext.PlayerImmunityFrames = 12;
             int num = AzafureChargeShield.ShieldSlamDamage;
             hitContext.damageClass = DamageClass.Melee;
-            hitContext.BaseDamage = player.ApplyArmorAccDamageBonusesTo(num);
+            hitContext.BaseDamage = num.ApplyAccArmorDamageBonus(player);
             hitContext.BaseKnockback = 6f;
         }
     }

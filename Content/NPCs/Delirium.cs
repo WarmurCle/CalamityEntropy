@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content.NPCs
             NPCID.CultistBoss,
             ModContent.NPCType<RavagerBody>(),
             NPCID.MoonLordCore,
-            ModContent.NPCType<Bumblefuck>(),
+            ModContent.NPCType<Dragonfolly>(),
             ModContent.NPCType<Providence>(),
             ModContent.NPCType<CeaselessVoid>(),
             ModContent.NPCType<Signus>(),

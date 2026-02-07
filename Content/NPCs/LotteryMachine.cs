@@ -318,7 +318,6 @@ namespace CalamityEntropy.Content.NPCs
                 s1 = new RewardPool();
                 s1.Add(new RewardPoolItem(ModContent.ItemType<WulfrumMetalScrap>(), 10)); s1.Add(new RewardPoolItem(ItemID.Feather, 10));
                 s1.Add(new RewardPoolItem(ModContent.ItemType<EnergyCore>(), 1)); s1.Add(new RewardPoolItem(ItemID.LifeCrystal, 1));
-                s1.Add(new RewardPoolItem(ModContent.ItemType<MurkyPaste>(), 4));
                 s1.Add(new RewardPoolItem(ModContent.ItemType<DubiousPlating>(), 4)); s1.Add(new RewardPoolItem(ModContent.ItemType<MysteriousCircuitry>(), 4));
                 s1.Add(new RewardPoolItem(ModContent.ItemType<StormlionMandible>(), 1)); s1.Add(new RewardPoolItem(ModContent.ItemType<StormjawStaff>(), 1));
                 s1.Add(new RewardPoolItem(ItemID.Diamond, 5));
@@ -334,7 +333,7 @@ namespace CalamityEntropy.Content.NPCs
 
                 g1 = new RewardPool();
                 g1.Add(new RewardPoolItem(ModContent.ItemType<SulphuricScale>(), 1)); g1.Add(new RewardPoolItem(1320, 1));
-                g1.Add(new RewardPoolItem(ModContent.ItemType<DemonicBoneAsh>(), 2));
+                g1.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2));
                 g1.Add(new RewardPoolItem(ItemID.LifeCrystal, 4));
                 g1.Add(new RewardPoolItem(ModContent.ItemType<AshenStalactite>(), 1));
                 g1.Add(new RewardPoolItem(ModContent.ItemType<RottenDogtooth>(), 1));
@@ -348,7 +347,7 @@ namespace CalamityEntropy.Content.NPCs
 
                 p1 = new RewardPool();
                 p1.Add(new RewardPoolItem(2341, 1));
-                p1.Add(new RewardPoolItem(906, 1)); p1.Add(new RewardPoolItem(ModContent.ItemType<AbyssalAmulet>(), 1));
+                p1.Add(new RewardPoolItem(906, 1));
                 p1.Add(new RewardPoolItem(ModContent.ItemType<OldLordClaymore>(), 1)); p1.Add(new RewardPoolItem(2296, 1));
                 p1.Add(new RewardPoolItem(ItemID.FallenStar, 300)); p1.Add(new RewardPoolItem(ModContent.ItemType<AeroStone>(), 1));
                 p1.Add(new RewardPoolItem(2430, 1));
@@ -362,7 +361,6 @@ namespace CalamityEntropy.Content.NPCs
                 g2 = new RewardPool();
                 g2.Add(new RewardPoolItem(ModContent.ItemType<TitanHeart>(), 3));
                 g2.Add(new RewardPoolItem(ModContent.ItemType<UrsaSergeant>(), 1));
-                g2.Add(new RewardPoolItem(ModContent.ItemType<TrapperBulb>(), 5));
                 g2.Add(new RewardPoolItem(ModContent.ItemType<SolarVeil>(), 2));
                 g2.Add(new RewardPoolItem(ModContent.ItemType<AshesofCalamity>(), 1));
                 g2.Add(new RewardPoolItem(1508, 3));
@@ -370,7 +368,6 @@ namespace CalamityEntropy.Content.NPCs
                 g2.Add(new RewardPoolItem(1198, 15));
                 g2.Add(new RewardPoolItem(1612, 1));
                 g2.Add(new RewardPoolItem(ModContent.ItemType<GrandScale>(), 1));
-                g2.Add(new RewardPoolItem(ModContent.ItemType<MomentumCapacitor>(), 1));
                 g2.Add(new RewardPoolItem(ModContent.ItemType<GravityNormalizerPotion>(), 1));
                 g2.Add(new RewardPoolItem(ModContent.ItemType<Abaddon>(), 1));
                 g2.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2));
@@ -396,15 +393,8 @@ namespace CalamityEntropy.Content.NPCs
                 p3.Add(new RewardPoolItem(ModContent.ItemType<Necroplasm>(), 50));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<DarkPlasma>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<ArkoftheElements>(), 1));
-                p3.Add(new RewardPoolItem(ModContent.ItemType<ElementalLance>(), 1));
-                p3.Add(new RewardPoolItem(ModContent.ItemType<ElementalShiv>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<ClockworkBow>(), 1));
-                p3.Add(new RewardPoolItem(ModContent.ItemType<ElementalEruption>(), 1));
-                p3.Add(new RewardPoolItem(ModContent.ItemType<Thunderstorm>(), 1));
-                p3.Add(new RewardPoolItem(ModContent.ItemType<AuguroftheElements>(), 1));
-                p3.Add(new RewardPoolItem(ModContent.ItemType<ElementalAxe>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<SanctifiedSpark>(), 1));
-                p3.Add(new RewardPoolItem(ModContent.ItemType<ElementalDisk>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<AbyssalDivingSuit>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<MirrorBlade>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<Swordsplosion>(), 1));
@@ -426,7 +416,6 @@ namespace CalamityEntropy.Content.NPCs
                 p3.Add(new RewardPoolItem(ModContent.ItemType<Murasama>(), 1));
                 p3.Add(new RewardPoolItem(ItemID.LastPrism, 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<PristineFury>(), 1));
-                p3.Add(new RewardPoolItem(ModContent.ItemType<Deathwind>(), 1));
                 p3.Add(new RewardPoolItem(ModContent.ItemType<AncientBoneDust>(), 2));
 
                 p4 = new RewardPool();

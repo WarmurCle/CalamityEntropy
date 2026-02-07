@@ -69,16 +69,8 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         {
             CreateRecipe()
                 .AddIngredient<AerialiteBar>(15)
-                .AddIngredient<BloodSample>(10)
                 .AddIngredient<OsseousRemains>(5)
                 .AddIngredient(ItemID.Vertebrae, 10)
-                .AddTile(TileID.Anvils)
-                .Register();
-            CreateRecipe()
-                .AddIngredient<AerialiteBar>(15)
-                .AddIngredient<RottenMatter>(10)
-                .AddIngredient<OsseousRemains>(5)
-                .AddIngredient(ItemID.RottenChunk, 10)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

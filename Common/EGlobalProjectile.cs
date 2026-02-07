@@ -1194,7 +1194,7 @@ namespace CalamityEntropy.Common
                 odp.Add(projectile.Center);
                 odp.Reverse();
                 GameShaders.Misc["CalamityMod:TrailStreak"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/ScarletDevilStreak"));
-                PrimitiveRenderer.RenderTrail(odp, new(WidthFunction_Zyp, ColorFunction_Zyp, (_) => projectile.Size * 0.5f, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), 30);
+                PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(WidthFunction_Zyp, ColorFunction_Zyp, (_, _) => projectile.Size * 0.5f, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), 30);
                 odp.Reverse();
                 odp.RemoveAt(odp.Count - 1);
                 Texture2D txx = CEUtils.getExtraTex("WyrmArrow");
@@ -1212,7 +1212,7 @@ namespace CalamityEntropy.Common
             return true;
         }
         public Projectile projectile;
-        internal Color ColorFunction_Zyp(float completionRatio)
+        internal Color ColorFunction_Zyp(float completionRatio, Vector2 vertexPos)
         {
             float fadeToEnd = MathHelper.Lerp(0.65f, 1f, (float)Math.Cos(-Main.GlobalTimeWrappedHourly * 3f) * 0.5f + 0.5f);
             float fadeOpacity = Utils.GetLerpValue(1f, 0.64f, completionRatio, true) * projectile.Opacity;
@@ -1222,7 +1222,7 @@ namespace CalamityEntropy.Common
             return Color.Lerp(Color.White, endColor, fadeToEnd) * fadeOpacity;
         }
 
-        internal float WidthFunction_Zyp(float completionRatio)
+        internal float WidthFunction_Zyp(float completionRatio, Vector2 vertexPos)
         {
             float expansionCompletion = (float)Math.Pow(1 - completionRatio, 3);
             return MathHelper.Lerp(0f, 12 * projectile.scale * projectile.Opacity, expansionCompletion);

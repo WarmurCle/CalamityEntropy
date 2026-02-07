@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAmmo = AmmoID.Bullet;
             Item.crit = 8;
             Item.scale = 0.6f;
-            Item.Calamity().canFirePointBlankShots = true;
+            
         }
 
         public override Vector2? HoldoutOffset()
