@@ -3731,6 +3731,17 @@ Items: {
 
 	GoldenRock: {
 		// DisplayName: Golden Rock
+		/* Tooltip:
+			'''
+			Killing enemies will increase the value of this item
+			Provides damage bonus based on the current value
+			Current value: [A]
+			Damage bonus: +[B]%
+			''' */
+	}
+
+	WhipOfEvilKing: {
+		// DisplayName: Whip Of Evil King
 		// Tooltip: ""
 	}
 }
@@ -4372,6 +4383,8 @@ Projectiles: {
 	// PressureEsotericaHeld.DisplayName: Pressure Esoterica Held
 	// SpectralWhispersHeld.DisplayName: Spectral Whispers Held
 	// WhisperingSpike.DisplayName: Whispering Spike
+	// EvilKingWhipProjectile.DisplayName: Evil King Whip Projectile
+	// Spade.DisplayName: Spade
 }
 
 LegendTooltip: - Легенда -

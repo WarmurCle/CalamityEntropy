@@ -3719,12 +3719,23 @@ Items: {
 
 	GoldenRock: {
 		DisplayName: Golden Rock
+		Tooltip:
+			'''
+			Killing enemies will increase the value of this item
+			Provides damage bonus based on the current value
+			Current value: [A]
+			Damage bonus: +[B]%
+			'''
+	}
+
+	WhipOfEvilKing: {
+		DisplayName: Whip Of Evil King
 		Tooltip: 
 		'''
-		Killing enemies will increase the value of this item
-		Provides damage bonus based on the current value
-		Current value: [A]
-		Damage bonus: +[B]%
+		{$CommonItemTooltip.SummonTagDamage}
+		{$CommonItemTooltip.Whips}
+		Provide 5% crit chance to minions
+		Minion hit enemies will spawn a spade, dealing damage to colliding enemies
 		'''
 	}
 }
@@ -4380,6 +4391,8 @@ Projectiles: {
 	PressureEsotericaHeld.DisplayName: Pressure Esoterica Held
 	SpectralWhispersHeld.DisplayName: Spectral Whispers Held
 	WhisperingSpike.DisplayName: Whispering Spike
+	EvilKingWhipProjectile.DisplayName: Evil King Whip Projectile
+	Spade.DisplayName: Spade
 }
 
 LegendTooltip: - Legend -

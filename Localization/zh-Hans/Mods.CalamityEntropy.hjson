@@ -3984,12 +3984,23 @@ Items: {
 
 	GoldenRock: {
 		DisplayName: 金岩石
+		Tooltip:
+			'''
+			击杀敌人会增加此物品的价值
+			根据当前的价值提供部分伤害加成
+			当前价值:[A]
+			伤害增幅;+[B]%
+			'''
+	}
+
+	WhipOfEvilKing: {
+		DisplayName: 邪恶国王之鞭
 		Tooltip: 
 		'''
-		击杀敌人会增加此物品的价值
-		根据当前的价值提供部分伤害加成
-		当前价值:[A]
-		伤害增幅;+[B]%
+		{$CommonItemTooltip.SummonTagDamage}
+		{$CommonItemTooltip.Whips}
+		召唤物命中被标记的目标有5%概率暴击
+		同时召唤一个滞留的黑桃弹幕，对接触的敌人持续造成伤害
 		'''
 	}
 }
@@ -4632,6 +4643,8 @@ Projectiles: {
 	PressureEsotericaHeld.DisplayName: 重压秘笈
 	SpectralWhispersHeld.DisplayName: 魂语秘卷
 	WhisperingSpike.DisplayName: 低语尖刺
+	// EvilKingWhipProjectile.DisplayName: Evil King Whip Projectile
+	// Spade.DisplayName: Spade
 }
 
 LegendTooltip: - 传奇物品 -

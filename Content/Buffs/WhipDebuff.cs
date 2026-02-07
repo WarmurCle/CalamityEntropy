@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using Microsoft.Xna.Framework.Graphics;
@@ -242,6 +243,15 @@ namespace CalamityEntropy.Content.Buffs
                         if (CECooldowns.CheckCD("SinwLashFlesh", 70))
                         {
                             Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(8, 14), ModContent.ProjectileType<FleshChunk>(), (int)(projectile.GetOwner().GetTotalDamage(DamageClass.Summon).ApplyTo(34)), 5, projectile.owner, 0, 0, Main.rand.Next(0, 2));
+                        }
+                    }
+                    if(t.EffectName == "EvilKingWhip")
+                    {
+                        if (CECooldowns.CheckCD("EvilKingWhip", 35))
+                        {
+                            int spade = ModContent.ProjectileType<Spade>();
+                            if (projectile.GetOwner().ownedProjectileCounts[spade] < 3)
+                                Projectile.NewProjectile(projectile.GetSource_FromAI(), CEUtils.randomPoint(npc.Hitbox), Vector2.Zero, spade, (int)(projectile.GetOwner().GetTotalDamage(DamageClass.Summon).ApplyTo(6)), 0);
                         }
                     }
                 }
