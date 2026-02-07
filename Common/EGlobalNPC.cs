@@ -1407,6 +1407,13 @@ namespace CalamityEntropy.Common
         public int noelctime = 0;
         public void onHurt(NPC npc, int damage, Player player, Entity source, NPC.HitInfo hit)
         {
+            if(npc.life <= 0)
+            {
+                if(player != null && player.Entropy().goldenRock != null && player.Entropy().goldenRock.ModItem is GoldenRock gr)
+                {
+                    gr.price += int.Min(5000, (int)npc.value) + npc.lifeMax / 5;
+                }    
+            }
             HitCounter = 0;
             if (player != null)
             {

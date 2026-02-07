@@ -14,6 +14,7 @@ using CalamityEntropy.Content.Projectiles.VoidEchoProj;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
+using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.NPCs.Signus;
 using CalamityMod.NPCs.StormWeaver;
@@ -788,7 +789,7 @@ namespace CalamityEntropy.Common
                 ParticleOnMe.Position = projectile.Center;
             }
             projectile.Entropy().counter++;
-            projectile.Entropy().odp.Add(projectile.Center);
+            projectile.Entropy().odp.Add(zypArrow ? projectile.position : projectile.Center);
             projectile.Entropy().odp2.Add(projectile.Center);
             projectile.Entropy().odr.Add(projectile.rotation);
             if (projectile.Entropy().odp.Count > (zypArrow ? 24 : 7))
@@ -969,6 +970,37 @@ namespace CalamityEntropy.Common
         {
             if (Losted)
                 Main.spriteBatch.ExitShaderRegion();
+            if (rpBow)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+                lightColor = Color.White;
+                Texture2D txx = TextureAssets.Projectile[projectile.type].Value;
+                float rot = 0;
+                for (int i = 0; i < 8; i++)
+                {
+                    Main.spriteBatch.Draw(txx, projectile.Center + rot.ToRotationVector2() * 2 - Main.screenPosition, null, lightColor, projectile.rotation, new Vector2(txx.Width / 2, 0), float.Max(1, projectile.scale), SpriteEffects.None, 0);
+                    rot += MathHelper.Pi * 2f / 8f;
+                }
+
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                Main.spriteBatch.Draw(txx, projectile.Center - Main.screenPosition, null, lightColor, projectile.rotation, new Vector2(txx.Width / 2, 0), float.Max(1, projectile.scale), SpriteEffects.None, 0);
+            }
+            if (zypArrow)
+            {
+                Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
+                odp.Add(projectile.position);
+                odp.Reverse();
+                GameShaders.Misc["CalamityMod:TrailStreak"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/ScarletDevilStreak"));
+                PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(WidthFunction_Zyp, ColorFunction_Zyp, (_, _) => projectile.Size * 0.5f, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), 30);
+                odp.Reverse();
+                odp.RemoveAt(odp.Count - 1);
+                Texture2D txx = CEUtils.getExtraTex("WyrmArrow");
+                Main.spriteBatch.ExitShaderRegion();
+                Main.spriteBatch.Draw(txx, projectile.Center - Main.screenPosition + projectile.velocity.SafeNormalize(Vector2.UnitX) * 4, null, lightColor, projectile.velocity.ToRotation() + MathHelper.PiOver2, txx.Size() / 2f, float.Max(projectile.scale, 1), (projectile.velocity.X < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally), 0);
+            }
             if (GWBow || WisperArrow)
             {
 
@@ -1165,42 +1197,17 @@ namespace CalamityEntropy.Common
                 }
 
             }
-            if (rpBow)
+            
+            if (LuminarArrow)
             {
-                Main.spriteBatch.End();
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
-                lightColor = Color.White;
-                Texture2D txx = TextureAssets.Projectile[projectile.type].Value;
-                float rot = 0;
-                for (int i = 0; i < 8; i++)
-                {
-                    Main.spriteBatch.Draw(txx, projectile.Center + rot.ToRotationVector2() * 2 - Main.screenPosition, null, lightColor, projectile.rotation, new Vector2(txx.Width / 2, 0), projectile.scale, SpriteEffects.None, 0);
-                    rot += MathHelper.Pi * 2f / 8f;
-                }
-
-                Main.spriteBatch.End();
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                Main.spriteBatch.Draw(txx, projectile.Center - Main.screenPosition, null, lightColor, projectile.rotation, new Vector2(txx.Width / 2, 0), projectile.scale, SpriteEffects.None, 0);
-
                 return false;
             }
-            if (LuminarArrow)
+            if (rpBow)
             {
                 return false;
             }
             if (zypArrow)
             {
-                odp.Add(projectile.Center);
-                odp.Reverse();
-                GameShaders.Misc["CalamityMod:TrailStreak"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/ScarletDevilStreak"));
-                PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(WidthFunction_Zyp, ColorFunction_Zyp, (_, _) => projectile.Size * 0.5f, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), 30);
-                odp.Reverse();
-                odp.RemoveAt(odp.Count - 1);
-                Texture2D txx = CEUtils.getExtraTex("WyrmArrow");
-
-                Main.spriteBatch.Draw(txx, projectile.Center + new Vector2(0, 8) - Main.screenPosition + projectile.velocity.SafeNormalize(Vector2.UnitX) * 18, null, lightColor, projectile.velocity.ToRotation() + MathHelper.PiOver2, new Vector2(txx.Width / 2, 0), projectile.scale, (projectile.velocity.X < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally), 0);
-
                 return false;
             }
             if (projectile.ModProjectile != null && projectile.ModProjectile is BobbitHead)
@@ -1225,7 +1232,7 @@ namespace CalamityEntropy.Common
         internal float WidthFunction_Zyp(float completionRatio, Vector2 vertexPos)
         {
             float expansionCompletion = (float)Math.Pow(1 - completionRatio, 3);
-            return MathHelper.Lerp(0f, 12 * projectile.scale * projectile.Opacity, expansionCompletion);
+            return MathHelper.Lerp(0f, 12 * float.Max(projectile.scale, 1) * projectile.Opacity, expansionCompletion);
         }
 
         public bool zypArrow = false;
@@ -1255,6 +1262,21 @@ namespace CalamityEntropy.Common
         public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if (zypArrow)
+            {
+                GeneralParticleHandler.SpawnParticle(new GlowOrbParticle(projectile.Center, Vector2.Zero, false, 20, 6, new Color(Main.rand.Next(140, 220), Main.rand.Next(140, 220), 255)));
+
+                for (int i = 0; i < 8; i++)
+                {
+                    Vector2 pos = target.Center;
+                    Vector2 vel = projectile.velocity.normalize().RotatedByRandom(0.2f) * Main.rand.NextFloat(8, 38);
+                    Color clr = new Color(Main.rand.Next(140, 220), Main.rand.Next(140, 220), 255);
+                    Color clr2 = Color.Blue;
+                    float scale = Main.rand.NextFloat(0.5f, 0.9f) * 0.08f;
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(pos, vel, false, 20, scale, clr, new Vector2(0.25f, 1)));
+                }
+            }
+            
             foreach (int id in applyBuffs)
             {
                 target.AddBuff(id, 5 * 60);

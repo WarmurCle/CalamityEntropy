@@ -3728,6 +3728,11 @@ Items: {
 			+0.1 Life steal
 			''' */
 	}
+
+	GoldenRock: {
+		// DisplayName: Golden Rock
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:

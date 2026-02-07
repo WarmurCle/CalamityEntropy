@@ -55,14 +55,13 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
+            if(Projectile.localAI[2]++ > 2 && Main.rand.NextBool(2))
             {
-                Vector2 top = Projectile.Center - Projectile.velocity;
-                Vector2 sparkVelocity2 = Projectile.velocity * -1.2f;
-                int sparkLifetime2 = Main.rand.Next(8, 12);
-                float sparkScale2 = Main.rand.NextFloat(0.6f, 1.2f);
-                Color sparkColor2 = Color.Lerp(Color.DarkBlue, Color.DeepSkyBlue, Main.rand.NextFloat(0, 1));
-                LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-                GeneralParticleHandler.SpawnParticle(spark);
+                Vector2 pos = Projectile.Center - Projectile.velocity.normalize() * 9 + CEUtils.randomPointInCircle(2);
+                Vector2 vel = Projectile.velocity.normalize();
+                Color clr = new Color(Main.rand.Next(40, 100), Main.rand.Next(40, 100), 255);
+                float scale = Main.rand.NextFloat(0.7f, 1) * 0.05f;
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(pos, vel, false, 8, scale, clr, new Vector2(0.2f, 1)));
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }

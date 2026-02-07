@@ -844,8 +844,10 @@ namespace CalamityEntropy.Common
             Player.height = oHeight;
             Player.position = c - new Vector2(Player.width / 2, Player.height);
         }
+        public Item goldenRock = null;
         public override void ResetEffects()
         {
+            goldenRock = null;
             rottenFangs = false;
             exquisiteCrown = false;
             EDamageReduce = 0;

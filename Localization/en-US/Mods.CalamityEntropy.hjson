@@ -3716,6 +3716,17 @@ Items: {
 			+0.1 Life steal
 			'''
 	}
+
+	GoldenRock: {
+		DisplayName: Golden Rock
+		Tooltip: 
+		'''
+		Killing enemies will increase the value of this item
+		Provides damage bonus based on the current value
+		Current value: [A]
+		Damage bonus: +[B]%
+		'''
+	}
 }
 
 ChaoticSetBonus:

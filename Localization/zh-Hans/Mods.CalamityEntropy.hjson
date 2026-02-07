@@ -3981,6 +3981,17 @@ Items: {
 			+0.1 生命汲取
 			'''
 	}
+
+	GoldenRock: {
+		DisplayName: 金岩石
+		Tooltip: 
+		'''
+		击杀敌人会增加此物品的价值
+		根据当前的价值提供部分伤害加成
+		当前价值:[A]
+		伤害增幅;+[B]%
+		'''
+	}
 }
 
 ChaoticSetBonus:
