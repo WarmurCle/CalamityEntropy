@@ -914,46 +914,6 @@ namespace CalamityEntropy.Common
                     if (npc.javelined)
                         currentDebuffs.Add(TextureAssets.Buff[BuffID.BoneJavelin].Value);
                     if (npc.daybreak)
-                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/Daybroken").Value);
-                    if (npc.celled)
-                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/Celled").Value);
-                    if (npc.dryadBane)
-                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/DryadsBane").Value);
-                    if (npc.dryadWard)
-                        currentDebuffs.Add(TextureAssets.Buff[BuffID.DryadsWard].Value);
-                    if (npc.soulDrain && npc.realLife == -1)
-                        currentDebuffs.Add(TextureAssets.Buff[BuffID.SoulDrain].Value);
-                    if (npc.onFire3) // Hellfire
-                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/Hellfire").Value);
-                    if (npc.onFrostBurn2) // Frostbite
-                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/Frostbite").Value);
-                    if (npc.tentacleSpiked)
-                        currentDebuffs.Add(TextureAssets.Buff[BuffID.TentacleSpike].Value);
-
-                    // Vanilla stat debuffs
-                    if (npc.confused)
-                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Confused].Value);
-                    if (npc.ichor)
-                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Ichor].Value);
-                    if (cnpc.webbed)
-                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Webbed].Value);
-                    if (npc.onFire)
-                        currentDebuffs.Add(TextureAssets.Buff[BuffID.OnFire].Value);
-                    if (npc.poisoned)
-                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Poisoned].Value);
-                    if (npc.onFire2)
-                        currentDebuffs.Add(TextureAssets.Buff[BuffID.CursedInferno].Value);
-                    if (npc.onFrostBurn)
-                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Frostburn].Value);
-                    if (npc.venom)
-                        currentDebuffs.Add(TextureAssets.Buff[BuffID.Venom].Value);
-                    if (npc.shadowFlame)
-                        currentDebuffs.Add(TextureAssets.Buff[BuffID.ShadowFlame].Value);
-                    if (npc.oiled)
-                        currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/Oiled").Value);
-                    if (npc.javelined)
-                        currentDebuffs.Add(TextureAssets.Buff[BuffID.BoneJavelin].Value);
-                    if (npc.daybreak)
                         currentDebuffs.Add(Request<Texture2D>("CalamityMod/Buffs/DamageOverTime/Daybroken").Value);
                     if (npc.celled)
                         currentDebuffs.Add(Request<Texture2D>("CalamityMod/ExtraTextures/VanillaBuffs/Celled").Value);
