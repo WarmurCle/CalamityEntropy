@@ -17,9 +17,6 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Green;
             Item.accessory = true;
-            var modItem = Item.Calamity();
-            modItem.UsesCharge = true;
-            modItem.MaxCharge = 64f;
         }
         public static string ID = "RustyDetectorEquipment";
 

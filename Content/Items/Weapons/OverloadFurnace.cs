@@ -29,10 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.channel = true;
             Item.noUseGraphic = true;
             var modItem = Item.Calamity();
-            modItem.UsesCharge = true;
             Item.mana = 6;
-            modItem.MaxCharge = 100f;
-            modItem.ChargePerUse = 0.05f;
         }
 
         public override void AddRecipes()

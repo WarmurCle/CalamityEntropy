@@ -30,9 +30,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.channel = true;
             Item.noUseGraphic = true;
             var modItem = Item.Calamity();
-            modItem.UsesCharge = true;
-            modItem.MaxCharge = 85f;
-            modItem.ChargePerUse = 0.04f;
         }
         public bool cs = false;
         public override bool CanConsumeAmmo(Item ammo, Player player)

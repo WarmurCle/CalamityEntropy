@@ -30,9 +30,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<TeslaBall>();
             Item.shootSpeed = 6;
             var modItem = Item.Calamity();
-            modItem.UsesCharge = true;
-            modItem.MaxCharge = 80f;
-            modItem.ChargePerUse = 0.05f;
         }
         public override void AddRecipes()
         {
