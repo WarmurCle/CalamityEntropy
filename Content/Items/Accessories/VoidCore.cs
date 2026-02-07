@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.CalPlayer.Dashes;
@@ -15,6 +16,7 @@ using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Core;
 
 namespace CalamityEntropy.Content.Items.Accessories
 {
@@ -34,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.height = 60;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.accessory = true;
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            Item.rare = ModContent.RarityType<VoidPurple>();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -74,6 +76,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public bool PostHit;
 
         public new static string ID => "Void Core";
+        public override string DashID => ID;
 
         public override DashCollisionType CollisionType => DashCollisionType.ShieldSlam;
 

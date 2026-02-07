@@ -229,18 +229,7 @@ namespace CalamityEntropy
             BossRushEvent.Bosses.Insert(24, new BossRushEvent.Boss(ModContent.NPCType<Luminaris>()));
 
             EModILEdit.load();
-            Type baseType = typeof(PlayerDashEffect);
-            Type[] types = AssemblyManager.GetLoadableTypes(this.Code);
-            foreach (Type type in types)
-            {
-                if (!type.IsSubclassOf(baseType) || type.IsAbstract)
-                    continue;
-
-                string id = (string)type.GetProperty("ID").GetValue(null);
-
-                PlayerDashEffect dashEffect = (PlayerDashEffect)Activator.CreateInstance(type);
-                PlayerDashManager.TryAddDash(dashEffect);
-            }
+            
 
         }
 
@@ -1450,7 +1439,18 @@ namespace CalamityEntropy
             Typer.activeTypers = new();
             StartBagGItem.items = new List<int>();
             VanityDisplaySys.SetupVanities();
+            Type baseType = typeof(PlayerDashEffect);
+            Type[] types = AssemblyManager.GetLoadableTypes(this.Code);
+            foreach (Type type in types)
+            {
+                if (!type.IsSubclassOf(baseType) || type.IsAbstract)
+                    continue;
 
+                string id = (string)type.GetProperty("ID").GetValue(null);
+
+                PlayerDashEffect dashEffect = (PlayerDashEffect)Activator.CreateInstance(type);
+                PlayerDashManager.TryAddDash(dashEffect);
+            }
 
             void bookUpdateDirt(Projectile projectile, bool ownerClient)
             {

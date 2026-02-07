@@ -87,7 +87,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public bool PostHit;
 
         public new static string ID => "Azafure Driver Core";
-
+        public override string DashID => ID;
         public override DashCollisionType CollisionType => DashCollisionType.ShieldSlam;
 
         public override bool IsOmnidirectional => false;
