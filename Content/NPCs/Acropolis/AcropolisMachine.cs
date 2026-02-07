@@ -204,7 +204,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             NPC.damage = 0;
             NPC.boss = true;
             NPC.life = 1;
-            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI);
+            if(Main.dedServ)
+                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI);
 
             return false;
         }
