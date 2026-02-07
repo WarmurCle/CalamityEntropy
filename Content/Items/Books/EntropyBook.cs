@@ -500,43 +500,45 @@ namespace CalamityEntropy.Content.Items.Books
                     ManaNoRegen = 60;
                     if (shotCooldown <= 0 && CanShoot())
                     {
-                        if (Projectile.GetOwner().CheckMana(bookItem.mana, true) && Shoot())
+                        if (Projectile.GetOwner().CheckMana(bookItem.mana, true))
                         {
-                            if (active && pageTurnAnm == 0)
+                            if (Main.myPlayer != Projectile.owener || Shoot())
                             {
-                                playTurnPageAnimation();
-                            }
-                            shotCooldown = bookItem.useTime;
-
-                            EBookStatModifer m = getBaseModifer();
-                            for (int i = 0; i < Main.LocalPlayer.GetMyMaxActiveBookMarks(bookItem); i++)
-                            {
-                                Item it = Projectile.GetOwner().Entropy().EBookStackItems[i];
-                                if (BookMarkLoader.IsABookMark(it))
+                                if (active && pageTurnAnm == 0)
                                 {
-                                    var e = BookMarkLoader.GetEffect(it);
-                                    BookMarkLoader.ModifyStat(it, m);
-                                    if (this.canApplyShootCDModifer)
+                                    playTurnPageAnimation();
+                                }
+                                shotCooldown = bookItem.useTime;
+
+                                EBookStatModifer m = getBaseModifer();
+                                for (int i = 0; i < Main.LocalPlayer.GetMyMaxActiveBookMarks(bookItem); i++)
+                                {
+                                    Item it = Projectile.GetOwner().Entropy().EBookStackItems[i];
+                                    if (BookMarkLoader.IsABookMark(it))
                                     {
-                                        BookMarkLoader.modifyShootCooldown(it, ref shotCooldown);
+                                        var e = BookMarkLoader.GetEffect(it);
+                                        BookMarkLoader.ModifyStat(it, m);
+                                        if (this.canApplyShootCDModifer)
+                                        {
+                                            BookMarkLoader.modifyShootCooldown(it, ref shotCooldown);
+                                        }
+                                        if (e != null)
+                                        {
+                                            e.OnShoot(this);
+                                        }
                                     }
+                                }
+                                if (this.getEffect() != null)
+                                {
+                                    var e = this.getEffect();
                                     if (e != null)
                                     {
                                         e.OnShoot(this);
                                     }
-                                }
-                            }
-                            if (this.getEffect() != null)
-                            {
-                                var e = this.getEffect();
-                                if (e != null)
-                                {
-                                    e.OnShoot(this);
-                                }
 
+                                }
+                                shotCooldown = (int)((float)shotCooldown / m.attackSpeed);
                             }
-                            shotCooldown = (int)((float)shotCooldown / m.attackSpeed);
-
                         }
                         else
                         {
