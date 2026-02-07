@@ -77,6 +77,7 @@ namespace CalamityEntropy.Common
         {
             return true;
         }
+        public bool nextHitCrit = false;
         public override bool InstancePerEntity => true;
         public int dscd = 0;
         public bool daTarget = false;

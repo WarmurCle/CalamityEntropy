@@ -72,21 +72,21 @@ namespace CalamityEntropy.Content.Buffs
         {
             if (projectile.npcProj || projectile.trap || !(projectile.DamageType == DamageClass.Summon) || ProjectileID.Sets.IsAWhip[projectile.type])
                 return;
+            bool crit = false;
             if (projectile.TryGetOwner(out var owner))
             {
                 if (Main.rand.Next(0, 100) < owner.Entropy().summonCrit)
                 {
-                    modifiers.SetCrit();
+                    crit = true;
                 }
             }
-
             var projTagMultiplier = ProjectileID.Sets.SummonTagDamageMultiplier[projectile.type];
             if (npc.HasBuff<JailerWhipDebuff>())
             {
                 modifiers.FlatBonusDamage += JailerWhipDebuff.TagDamage * projTagMultiplier;
                 if (Main.rand.NextBool(25))
                 {
-                    modifiers.SetCrit();
+                    crit = true;
                 }
             }
             foreach (var t in Tags)
@@ -95,7 +95,7 @@ namespace CalamityEntropy.Content.Buffs
                 modifiers.SourceDamage *= t.TagDamageMult;
                 if (Main.rand.NextFloat() < t.CritChance)
                 {
-                    modifiers.SetCrit();
+                    crit = true;
                 }
             }
 
@@ -104,7 +104,7 @@ namespace CalamityEntropy.Content.Buffs
                 modifiers.FlatBonusDamage += DragonWhipDebuff.TagDamage * projTagMultiplier;
                 if (Main.rand.NextBool(50))
                 {
-                    modifiers.SetCrit();
+                    crit = true;
                 }
             }
             if (npc.HasBuff<CruiserWhipDebuff>())
@@ -112,7 +112,7 @@ namespace CalamityEntropy.Content.Buffs
                 modifiers.FlatBonusDamage += CruiserWhipDebuff.TagDamage * projTagMultiplier;
                 if (Main.rand.NextBool(10))
                 {
-                    modifiers.SetCrit();
+                    crit = true;
                 }
             }
             if (npc.HasBuff<WyrmWhipDebuff>())
@@ -121,7 +121,7 @@ namespace CalamityEntropy.Content.Buffs
                 modifiers.SourceDamage += WyrmWhipDebuff.TagDamageMul * projTagMultiplier;
                 if (Main.rand.NextBool(8))
                 {
-                    modifiers.SetCrit();
+                    crit = true;
                 }
             }
 
@@ -130,6 +130,9 @@ namespace CalamityEntropy.Content.Buffs
                 modifiers.FlatBonusDamage += -(modifiers.FlatBonusDamage.Value * 0.6f);
                 modifiers.ArmorPenetration += 128;
             }
+
+            if (crit)
+                npc.Entropy().nextHitCrit = true;
         }
 
         public override bool PreAI(NPC npc)
@@ -147,7 +150,11 @@ namespace CalamityEntropy.Content.Buffs
         {
             if (projectile.npcProj || projectile.trap || !(projectile.minion || projectile.sentry || ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type]))
                 return;
-
+            if(npc.Entropy().nextHitCrit)
+            {
+                npc.Entropy().nextHitCrit = false;
+                hit.Crit = true;
+            }
             if (true)
             {
                 if (npc.HasBuff<DragonWhipDebuff>())

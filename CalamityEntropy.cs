@@ -846,6 +846,11 @@ namespace CalamityEntropy
 
         private int StrikeNpc(On_NPC.orig_StrikeNPC_HitInfo_bool_bool orig, NPC self, NPC.HitInfo hit, bool fromNet, bool noPlayerInteraction)
         {
+            if (self.Entropy().nextHitCrit)
+            {
+                hit.Crit = true;
+                hit.Damage *= 2;
+            }
             if (!hit.InstantKill)
             {
                 /*if (self.ModNPC != null && self.ModNPC is AbyssalWraith aw)
