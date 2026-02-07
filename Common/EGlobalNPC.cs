@@ -1001,21 +1001,19 @@ namespace CalamityEntropy.Common
                     // Total amount of elements in the buff list
                     int currentDebuffsLength = currentDebuffs.Count();
 
-                    // Total length of a single row in the buff display
-                    int totalLength = currentDebuffsLength * 14;
 
+                    int buffTextureListLength = currentDebuffs.Count;
+                    // Total length of a single row in the buff display
+                    int totalLength = buffTextureListLength * 14;
                     // Max amount of buffs per row
                     int buffDisplayRowLimit = 5;
-
                     // The maximum length of a single row in the buff display
                     // Limited to 80 units, because every buff drawn here is half the size of a normal buff, 16 x 16, 16 * 5 = 80 units
                     float drawPosX = totalLength >= 80f ? 40f : (float)(totalLength / 2);
-
                     // The height of a single frame of the npc
-                    float npcHeight = (float)(TextureAssets.Npc[npc.type].Value.Height / Main.npcFrameCount[npc.type] / 2) * npc.scale;
-
+                    float npcHeight = (npc.height * npc.scale) / 2;
                     // Offset the debuff display based on the npc's graphical offset, and 16 units, to create some space between the sprite and the display
-                    float drawPosY = npcHeight + npc.gfxOffY + 16f;
+                    float drawPosY = npcHeight + npc.gfxOffY + 32f;
 
                     // Iterate through the buff texture list
                     for (int i = 0; i < currentDebuffs.Count; i++)
@@ -1029,6 +1027,7 @@ namespace CalamityEntropy.Common
                                 drawPosX -= 14f;
                         }
 
+                        // Offset the Y position every row after 5 iterations to limit each displayed row to 5 debuffs
                         float additionalYOffset = 14f * (float)Math.Floor(i * 0.2);
 
                         var tex = currentDebuffs[i];
