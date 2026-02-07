@@ -40,11 +40,14 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 .AddTile(TileID.Bookcases)
                 .Register();
         }
-        public override void OnCraft(Recipe recipe)
+        public override void OnCreated(ItemCreationContext context)
         {
-            Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(Main.LocalPlayer.name + " " + Mod.GetLocalization("BloodthirstyKilled").Value)), 99, 0);
-            if (Main.LocalPlayer.statLife <= 0 || Main.LocalPlayer.dead)
-                Item.TurnToAir();
+            if (context is RecipeItemCreationContext)
+            {
+                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(Main.LocalPlayer.name + " " + Mod.GetLocalization("BloodthirstyKilled").Value)), 99, 0);
+                if (Main.LocalPlayer.statLife <= 0 || Main.LocalPlayer.dead)
+                    Item.TurnToAir();
+            }
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
