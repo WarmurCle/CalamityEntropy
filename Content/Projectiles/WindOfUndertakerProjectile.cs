@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityMod.Buffs.StatDebuffs;
 using Microsoft.Xna.Framework.Graphics;
@@ -76,6 +77,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            EGlobalNPC.RemoveAllTags(target);
             target.AddBuff(ModContent.BuffType<CruiserWhipDebuff>(), 240);
             target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 150);
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;

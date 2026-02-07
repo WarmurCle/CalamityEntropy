@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.WorldBuilding;
 
 namespace CalamityEntropy.Content.Buffs
 {
@@ -69,7 +70,7 @@ namespace CalamityEntropy.Content.Buffs
     {
         public override bool InstancePerEntity => true;
         public List<WhipTag> Tags = new List<WhipTag>();
-        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
+        public void ModifyHitByProj(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             if (projectile.npcProj || projectile.trap || !(projectile.DamageType == DamageClass.Summon) || ProjectileID.Sets.IsAWhip[projectile.type])
                 return;
@@ -133,9 +134,15 @@ namespace CalamityEntropy.Content.Buffs
             }
 
             if (crit)
-                npc.Entropy().nextHitCrit = true;
+            {
+                //npc.Entropy().nextHitCrit = true;
+                //modifiers.SetCrit();
+                var fInfo = modifiers.GetType().GetField("_critOverride", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                object boxed = modifiers;
+                fInfo.SetValue(boxed, (bool?)true);
+                modifiers = (NPC.HitModifiers)boxed;
+            }
         }
-
         public override bool PreAI(NPC npc)
         {
             for (int i = Tags.Count - 1; i >= 0; i--)
@@ -151,11 +158,11 @@ namespace CalamityEntropy.Content.Buffs
         {
             if (projectile.npcProj || projectile.trap || !(projectile.minion || projectile.sentry || ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type]))
                 return;
-            if(npc.Entropy().nextHitCrit)
+            /*if(npc.Entropy().nextHitCrit)
             {
                 npc.Entropy().nextHitCrit = false;
                 hit.Crit = true;
-            }
+            }*/
             if (true)
             {
                 if (npc.HasBuff<DragonWhipDebuff>())

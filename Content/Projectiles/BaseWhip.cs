@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -125,6 +126,7 @@ namespace CalamityEntropy.Content.Projectiles
         public Item ownerItem = null;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            EGlobalNPC.RemoveAllTags(target);
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
             if (ownerItem != null && ownerItem.ModItem is BaseWhipItem bw)
             {

@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityMod.Buffs.DamageOverTime;
 using Microsoft.Xna.Framework.Graphics;
@@ -83,6 +84,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            EGlobalNPC.RemoveAllTags(target);
             target.AddBuff(ModContent.BuffType<DragonWhipDebuff>(), 240);
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
             Projectile.damage = (int)(Projectile.damage * 0.9f);

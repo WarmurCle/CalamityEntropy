@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
 using CalamityMod.Buffs.DamageOverTime;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -73,6 +74,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            EGlobalNPC.RemoveAllTags(target);
             target.AddBuff(ModContent.BuffType<JailerWhipDebuff>(), 240);
             target.AddBuff(ModContent.BuffType<FlamingBlood>(), 16 * 60);
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;

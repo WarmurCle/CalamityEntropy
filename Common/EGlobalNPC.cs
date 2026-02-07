@@ -22,6 +22,7 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Pets;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
+using CalamityMod.DataStructures;
 using CalamityMod.Events;
 using CalamityMod.NPCs;
 using CalamityMod.NPCs.Abyss;
@@ -60,6 +61,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.WorldBuilding;
 using static Terraria.ModLoader.ModContent;
 
 namespace CalamityEntropy.Common
@@ -77,7 +79,25 @@ namespace CalamityEntropy.Common
         {
             return true;
         }
+        public static void RemoveAllTags(NPC npc)
+        {
+            npc.GetGlobalNPC<WhipDebuffNPC>().Tags.Clear();
+            for (int i = 0; i < npc.buffTime.Length; i++)
+            {
+                if (npc.buffTime[i] <= 0)
+                    continue;
+                if (BuffID.Sets.IsATagBuff[npc.buffType[i]])
+                    npc.buffTime[i] = 0;
+                if (npc.buffTime[i] >= 1)
+                {
+                    int type = npc.buffType[i];
+                    if (CalamityBuffSets.SummonTagDebuff.TryGetValue(type, out SummonTag tag))
+                        npc.buffTime[i] = 0;
+                }
+            }
+        }
         public bool nextHitCrit = false;
+        public StatModifier critDamage = new StatModifier(2, 1);
         public override bool InstancePerEntity => true;
         public int dscd = 0;
         public bool daTarget = false;
@@ -673,7 +693,7 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-
+            critDamage = modifiers.CritDamage;
         }
         public int HungryTagged = 0;
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
@@ -715,6 +735,7 @@ namespace CalamityEntropy.Common
                 }
             }
 
+            critDamage = modifiers.CritDamage;
         }
 
         public static bool AddVoidTouch(NPC nPC, int time, float level, int maxTime = 600, int maxLevel = 10)
@@ -1634,7 +1655,7 @@ namespace CalamityEntropy.Common
                 shop.Add(ModContent.ItemType<SoyMilk>(), new Condition(Mod.GetLocalization("DownedBoss2").Value, () => NPC.downedBoss2));
                 shop.Add(ModContent.ItemType<BrillianceCard>());
             }
-            if (shop.NpcType == ModContent.NPCType<SeaKing>())
+            if (shop.NpcType == ModContent.NPCType<Archmage>())
             {
                 shop.Add(ModContent.ItemType<ThreadOfFate>());
                 shop.Add(ModContent.ItemType<ArchmagesHandmirror>());

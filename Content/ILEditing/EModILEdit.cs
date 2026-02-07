@@ -36,6 +36,7 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.WorldBuilding;
 using static InnoVault.GameSystem.ItemRebuildLoader;
 
 namespace CalamityEntropy.Content.ILEditing
@@ -59,6 +60,13 @@ namespace CalamityEntropy.Content.ILEditing
         public static MethodBase updateStealthGenMethod;
         private delegate float UpdateStealthGenDelegate(Func<CalamityPlayer, float> orig, CalamityPlayer self);
         private delegate float CALEOCAI_Delegate(Func<NPC, Mod, bool> orig, NPC npc, Mod mod);
+        private delegate void CalNPCModifyDelegate(CalamityGlobalNPC self, NPC npc, Projectile proj, ref NPC.HitModifiers modifuer);
+        private delegate void CalNPCModifyHitByProj(CalNPCModifyDelegate orig, CalamityPlayer self, NPC npc, Projectile proj, ref NPC.HitModifiers modifier);
+        private static void HookModifyHitByProj(CalNPCModifyDelegate orig, CalamityGlobalNPC self, NPC npc, Projectile proj, ref NPC.HitModifiers modifier)
+        {
+            orig.Invoke(self, npc, proj, ref modifier);
+            npc.GetGlobalNPC<WhipDebuffNPC>().ModifyHitByProj(npc, proj, ref modifier);
+        }
         public static void load()
         {
             updateStealthGenMethod = typeof(CalamityPlayer)
@@ -81,6 +89,14 @@ namespace CalamityEntropy.Content.ILEditing
             null);
             _hook = EModHooks.Add(originalMethod, ConsumeStealthByAttackingHook);
 
+            originalMethod = typeof(CalamityGlobalNPC)
+             .GetMethod("ModifyHitByProjectile",
+                    System.Reflection.BindingFlags.Public |
+                    System.Reflection.BindingFlags.Instance,
+                    null,
+                    new Type[] {typeof(NPC), typeof(Projectile), typeof(NPC.HitModifiers).MakeByRefType()},
+              null);
+            _hook = EModHooks.Add(originalMethod, HookModifyHitByProj);
             /*originalMethod = typeof(EyeOfCthulhuAI)
             .GetMethod("BuffedEyeofCthulhuAI",
                       System.Reflection.BindingFlags.Public |
