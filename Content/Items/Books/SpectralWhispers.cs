@@ -216,7 +216,8 @@ namespace CalamityEntropy.Content.Items.Books
             {
                 stick = 2;
             }
-            CEUtils.SyncProj(Projectile.whoAmI);
+            if(Main.myPlayer == Projectile.owner)
+                CEUtils.SyncProj(Projectile.whoAmI);
             return false;
         }
         public Vector2 stickOffset = Vector2.Zero;
