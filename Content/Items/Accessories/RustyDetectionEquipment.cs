@@ -22,20 +22,13 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            if (Item.Calamity().Charge > 0)
-            {
-                if (player.controlJump)
-                {
-                    Item.Calamity().Charge -= 64f / (180 * 60f);
-                }
-                player.rocketBoots += 30;
-                player.noFallDmg = true;
-                player.jumpSpeedBoost += 0.5f;
-                player.maxRunSpeed *= 1.10f;
-                player.Entropy().addEquip(ID, !hideVisual);
-                if (Item.Calamity().Charge < 0)
-                    Item.Calamity().Charge = 0;
-            }
+            player.rocketBoots += 30;
+            player.noFallDmg = true;
+            player.jumpSpeedBoost += 0.5f;
+            player.maxRunSpeed *= 1.10f;
+            player.Entropy().addEquip(ID, !hideVisual);
+            if (Item.Calamity().Charge < 0)
+                Item.Calamity().Charge = 0;
         }
         public override void UpdateVanity(Player player)
         {
