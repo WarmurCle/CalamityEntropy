@@ -96,7 +96,7 @@ namespace CalamityEntropy
             {
                 player = Main.LocalPlayer;
             }
-            return (int)(origDmg * (Main.LocalPlayer.HasBuff<OldFashionedBuff>() ? OldFashioned.DamageBoostMultiplier : 1));
+            return (int)(origDmg * (player.Calamity().oldFashioned ? OldFashioned.DamageBoostMultiplier : 1));
         }
         public static int GetPriceFromRecipe(this ModItem item, Recipe recipe)
         {
