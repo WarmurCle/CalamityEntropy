@@ -3995,13 +3995,13 @@ Items: {
 
 	WhipOfEvilKing: {
 		DisplayName: 邪恶国王之鞭
-		Tooltip: 
-		'''
-		{$CommonItemTooltip.SummonTagDamage}
-		{$CommonItemTooltip.Whips}
-		召唤物命中被标记的目标有5%概率暴击
-		同时召唤一个滞留的黑桃弹幕，对接触的敌人持续造成伤害
-		'''
+		Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			召唤物命中被标记的目标有5%概率暴击
+			同时召唤一个滞留的黑桃弹幕，对接触的敌人持续造成伤害
+			'''
 	}
 }
 

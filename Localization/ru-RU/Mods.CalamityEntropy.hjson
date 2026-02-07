@@ -3742,7 +3742,13 @@ Items: {
 
 	WhipOfEvilKing: {
 		// DisplayName: Whip Of Evil King
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			Provide 5% crit chance to minions
+			Minion hit enemies will spawn a spade, dealing damage to colliding enemies
+			''' */
 	}
 }
 
