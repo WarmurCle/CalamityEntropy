@@ -14,6 +14,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class GoldenRock : ModItem
     {
+        public static float PriceMult = 4;
         public int price = 2000;
         public override void SaveData(TagCompound tag)
         {
@@ -42,18 +43,18 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void UpdateInventory(Player player)
         {
-            Item.value = price * 100;
+            Item.value = (int)(price * PriceMult * 5);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            Item.value = price * 100;
+            Item.value = (int)(price * PriceMult * 5);
             player.GetDamage(DamageClass.Generic) += GetDamageBonus();
             player.Entropy().goldenRock = Item;
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            Item.value = price * 100;
-            tooltips.Replace("[A]", Main.ValueToCoins(price * 20));
+            Item.value = (int)(price * PriceMult * 5);
+            tooltips.Replace("[A]", Main.ValueToCoins((int)(price * PriceMult)));
             tooltips.Replace("[B]", GetDamageBonus().ToPercent());
         }
         public float GetDamageBonus()
