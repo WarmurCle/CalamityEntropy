@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class GoldenRock : ModItem
     {
-        public static float PriceMult = 8;
+        public static float PriceMult = 10;
         public int price = 2000;
         public override void SaveData(TagCompound tag)
         {
