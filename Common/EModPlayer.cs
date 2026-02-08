@@ -108,6 +108,7 @@ namespace CalamityEntropy.Common
         public bool oracleDeckInInv = false;
         public bool taintedDeckInInv = false;
         public bool hasSM = false;
+        public bool yuzuCheck = false;
         public bool summonerVF;
         public bool magiVF;
         public bool rogueVF;
@@ -3895,8 +3896,10 @@ namespace CalamityEntropy.Common
             boost.AddWithCondition("CruiserLore", CruiserLoreBonus);
             boost.AddWithCondition("NihTwinLore", NihilityTwinLoreBonus);
             boost.AddWithCondition("ProphetLore", ProphetLoreBonus);
+
             tag["EntropyBoosts"] = boost;
             tag["LoreEnabled"] = enabledLoreItems;
+            tag["yuzuCheck"] = yuzuCheck;
             if (EBookStackItems != null)
             {
                 int BookMarks = EBookStackItems.Count;
@@ -3969,7 +3972,8 @@ namespace CalamityEntropy.Common
             ProphetLoreBonus = boost.Contains("ProphetLore");
             enabledLoreItems = [.. tag.GetList<int>("LoreEnabled")];
             EBookStackItems = new List<Item>();
-
+            if (tag.TryGet<bool>("yuzuCheck", out bool yz))
+                yuzuCheck = yz;
             if (tag.ContainsKey("EntropyBookMarks"))
             {
                 int BookMarks = (int)tag["EntropyBookMarks"];

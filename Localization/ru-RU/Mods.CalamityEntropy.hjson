@@ -3750,6 +3750,17 @@ Items: {
 			Minion hit enemies will spawn a spade, dealing damage to colliding enemies
 			''' */
 	}
+
+	ChargingYuzu: {
+		// DisplayName: Charging Yuzu
+		/* Tooltip:
+			'''
+			Each running Yuzusoft's game will provide bonus below:
+			+10% Damage
+			+5% Damage reduce
+			Current: [A]
+			''' */
+	}
 }
 
 /* ChaoticSetBonus:
