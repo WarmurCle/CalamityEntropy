@@ -139,7 +139,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                     if (ChargeCounter > (maxProj * 1.35f) * chargeTime)
                     {
                         ChargeCounter = 0;
-                        Fire(target.Center);
+                        if(Projectile.owner == Main.myPlayer)
+                            Fire(target.Center);
                         projCharge = 0;
                         delay = maxProj * 5;
                         if (player.HasBuff<AdrenalineMode>())
