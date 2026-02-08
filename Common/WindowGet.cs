@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent.UI;
@@ -82,11 +83,14 @@ namespace CalamityEntropy.Common
         }
         public override void PostUpdate()
         {
-            if (Main.GameUpdateCount % 200 == 0)
+            if (Main.GameUpdateCount % 120 == 0)
             {
-                if(accEquiped)
+                if (accEquiped)
                 {
-                    count = RunningGames();
+                    ThreadPool.QueueUserWorkItem(_ =>
+                    {
+                        count = RunningGames();
+                    });
                 }
             }
         }
