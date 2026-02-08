@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class GoldenRock : ModItem
     {
-        public static float PriceMult = 4;
+        public static float PriceMult = 8;
         public int price = 2000;
         public override void SaveData(TagCompound tag)
         {
@@ -61,7 +61,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             if (price <= 2000)
                 return 0;
-            return float.Min(0.2f, (float)Math.Pow((price - 2000) * 0.00004f, 0.38f) * 0.1f);
+            return float.Min(0.2f, (float)Math.Pow((price - 2000) * 0.00004f, 0.3f) * 0.1f);
         }
 
         public override void AddRecipes()
