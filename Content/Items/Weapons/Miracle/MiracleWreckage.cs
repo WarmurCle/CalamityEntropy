@@ -14,10 +14,11 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items.Weapons
+namespace CalamityEntropy.Content.Items.Weapons.Miracle
 {
     public class MiracleWreckage : ModItem
     {
+        public const int MaxPlugged = 6;
         public override void SetDefaults()
         {
             Item.damage = 2368;
@@ -34,16 +35,12 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.autoReuse = true;
-            Item.shoot = ModContent.ProjectileType<MiracleWreckageHeld>();
+            Item.shoot = ModContent.ProjectileType<MiracleWreckageThrow>();
             Item.shootSpeed = 12f;
         }
-        public int atkType = 1;
-        public int useCount = 0;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            useCount++;
-            Projectile.NewProjectile(source, position, velocity, type, damage * (useCount % 4 == 2 ? 2 : 1), knockback, player.whoAmI, atkType == 0 ? -1 : atkType, useCount % 4 == 2 ? 0.5f : 0);
-            atkType *= -1;
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
             return false;
         }
 
@@ -56,6 +53,137 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CreateRecipe().AddIngredient<DevilsDevastation>().AddIngredient<AshesofAnnihilation>(6).AddIngredient<GalactusBlade>().AddTile<CosmicAnvil>().Register();
         }
+    }
+    public class MiracleWreckageThrow: ModProjectile
+    {
+        public override string Texture => "CalamityEntropy/Content/Items/Weapons/MiracleWreckage";
+        public override void SetDefaults()
+        {
+            Projectile.FriendlySetDefaults(DamageClass.Melee, true, -1);
+            Projectile.width = Projectile.height = 90;
+            Projectile.timeLeft = 120;
+            Projectile.light = 1;
+        }
+        public int Hit = 0; //1 for npc  2 for tile
+        public Vector2 offset = Vector2.Zero;
+        public int target = -1;
+        public uint hitTime = 0;
+        public override bool? CanHitNPC(NPC target)
+        {
+            return Hit == 0 ? null : false;
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            Projectile.velocity = oldVelocity;
+            if (Hit == 0)
+            {
+                hitTime = Main.GameUpdateCount;
+                Projectile.velocity *= 0.1f;
+                Hit = 2;
+                HitEffect(Projectile.Center);
+            }
+            return false;
+        }
+        public void Update()
+        {
+            if (Main.myPlayer == Projectile.owner)
+                CEUtils.SyncProj(Projectile.whoAmI);
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (Hit == 0)
+            {
+                hitTime = Main.GameUpdateCount;
+                Projectile.timeLeft = 15 * 60;
+                uint last = uint.MaxValue;
+                Projectile lastProj = null;
+                int amount = 0;
+                foreach(Projectile p in Main.ActiveProjectiles)
+                {
+                    if(p.type == Projectile.type && p.whoAmI != Projectile.whoAmI && p.owner == Projectile.owner)
+                    {
+                        if(p.ModProjectile is MiracleWreckageThrow mw)
+                        {
+                            if(mw.Hit == 1 && mw.target == target.whoAmI)
+                            {
+                                amount++;
+                                if (mw.hitTime < last)
+                                {
+                                    lastProj = p;
+                                    last = mw.hitTime;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (amount > MiracleWreckage.MaxPlugged)
+                {
+                    if (lastProj != null)
+                    {
+                        // Shoot Pop out proj
+                        lastProj.Kill();
+                    }
+                }
+                Hit = 1;
+                this.target = target.whoAmI;
+                offset = Projectile.Center - target.Center;
+                HitEffect(Projectile.Center);
+            }
+        }
+        public void HitEffect(Vector2 position)
+        {
+            for(int i = 0; i < 16; i++)
+            {
+                Color clr = Main.rand.NextBool() ? new Color(240, 240, 255) : new Color(210, 160, 255);
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(position, Projectile.rotation.ToRotationVector2().RotatedByRandom(0.3f) * -1 * Main.rand.NextFloat(2, 16), false, 16, Main.rand.NextFloat(0.5f, 1) * 0.3f, clr, new Vector2(0.16f, 1)));
+            }
+        }
+        public override bool ShouldUpdatePosition()
+        {
+            return Hit != 1;
+        }
+        public override void AI()
+        {
+            if (Hit == 1)
+            {
+                StrokeAlpha = float.Lerp(StrokeAlpha, 1, 0.1f);
+                Projectile.Center = target.ToNPC().Center + offset;
+            }
+            else if (Hit == 2)
+            {
+                StrokeAlpha *= 0.9f;
+            }
+            else
+            {
+                if (Projectile.timeLeft < 30)
+                {
+                    StrokeAlpha = float.Lerp(StrokeAlpha, 0, 0.08f);
+                    Projectile.Opacity -= 1 / 30f;
+                    Projectile.velocity *= 0.95f;
+                }
+                else
+                {
+                    StrokeAlpha = float.Lerp(StrokeAlpha, 1, 0.08f);
+                }
+            }
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D tex = Projectile.GetTexture();
+            Main.spriteBatch.UseBlendState(BlendState.Additive);
+            Vector2 origin = tex.Size() / 2f;
+            float rotation = Projectile.rotation + MathHelper.PiOver4;
+            for(float i = 0; i < 360; i += 60)
+            {
+                float rot = MathHelper.ToRadians(i) + Main.GlobalTimeWrappedHourly * 16;
+                Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition + rot.ToRotationVector2() * 2, null, Color.White * StrokeAlpha * Projectile.Opacity, rotation, origin, Projectile.scale, SpriteEffects.None, 0);
+            }
+            Main.spriteBatch.ExitShaderRegion();
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor * Projectile.Opacity, rotation, origin, Projectile.scale, SpriteEffects.None, 0);
+
+            return false;
+        }
+        public float StrokeAlpha = 0;
     }
     public class MiracleWreckageHeld : ModProjectile
     {
