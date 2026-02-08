@@ -4646,6 +4646,7 @@ Projectiles: {
 	// EvilKingWhipProjectile.DisplayName: Evil King Whip Projectile
 	// Spade.DisplayName: Spade
 	// MiracleWreckageThrow.DisplayName: Miracle Wreckage Throw
+	// Blackhole.DisplayName: Blackhole
 }
 
 LegendTooltip: - 传奇物品 -
