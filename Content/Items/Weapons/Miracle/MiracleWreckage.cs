@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
+using CalamityMod.Dusts;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
@@ -36,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             Item.noUseGraphic = true;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<MiracleWreckageThrow>();
-            Item.shootSpeed = 12f;
+            Item.shootSpeed = 16f;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -56,13 +57,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
     }
     public class MiracleWreckageThrow: ModProjectile
     {
-        public override string Texture => "CalamityEntropy/Content/Items/Weapons/MiracleWreckage";
+        public override string Texture => "CalamityEntropy/Content/Items/Weapons/Miracle/MiracleWreckage";
         public override void SetDefaults()
         {
-            Projectile.FriendlySetDefaults(DamageClass.Melee, true, -1);
+            Projectile.FriendlySetDefaults(DamageClass.Melee, false, -1);
             Projectile.width = Projectile.height = 90;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 80;
             Projectile.light = 1;
+            Projectile.MaxUpdates = 3;
         }
         public int Hit = 0; //1 for npc  2 for tile
         public Vector2 offset = Vector2.Zero;
@@ -74,13 +76,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
+            Projectile.timeLeft = 30;
             Projectile.velocity = oldVelocity;
             if (Hit == 0)
             {
                 hitTime = Main.GameUpdateCount;
                 Projectile.velocity *= 0.1f;
                 Hit = 2;
-                HitEffect(Projectile.Center);
+                HitEffect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 90);
             }
             return false;
         }
@@ -93,8 +96,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         {
             if (Hit == 0)
             {
+                CEUtils.PlaySound("DemonSwordImpact2", Main.rand.NextFloat(0.9f, 1.2f), target.Center);
                 hitTime = Main.GameUpdateCount;
-                Projectile.timeLeft = 15 * 60;
+                Projectile.timeLeft = 36 * 60;
                 uint last = uint.MaxValue;
                 Projectile lastProj = null;
                 int amount = 0;
@@ -120,22 +124,25 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 {
                     if (lastProj != null)
                     {
-                        // Shoot Pop out proj
-                        lastProj.Kill();
+                        ((MiracleWreckageThrow)lastProj.ModProjectile).PopOut(lastProj.rotation.ToRotationVector2() * 20);
                     }
                 }
                 Hit = 1;
                 this.target = target.whoAmI;
                 offset = Projectile.Center - target.Center;
-                HitEffect(Projectile.Center);
+                HitEffect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 90);
             }
+        }
+        public void PopOut(Vector2 vel)
+        {
+            Projectile.Kill();
         }
         public void HitEffect(Vector2 position)
         {
             for(int i = 0; i < 16; i++)
             {
-                Color clr = Main.rand.NextBool() ? new Color(240, 240, 255) : new Color(210, 160, 255);
-                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(position, Projectile.rotation.ToRotationVector2().RotatedByRandom(0.3f) * -1 * Main.rand.NextFloat(2, 16), false, 16, Main.rand.NextFloat(0.5f, 1) * 0.3f, clr, new Vector2(0.16f, 1)));
+                Color clr = Main.rand.NextBool() ? new Color(200, 200, 255) : new Color(190, 140, 255);
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(position, Projectile.rotation.ToRotationVector2().RotatedByRandom(0.3f) * -1 * Main.rand.NextFloat(12, 36), false, 16, Main.rand.NextFloat(0.5f, 1) * 0.08f, clr, new Vector2(0.16f, 1)));
             }
         }
         public override bool ShouldUpdatePosition()
@@ -144,26 +151,74 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         }
         public override void AI()
         {
+            if (Projectile.localAI[0] == 0)
+            {
+                CEUtils.PlaySound("DemonSwordSwing1", Main.rand.NextFloat(1, 1.4f), Projectile.Center);
+            }
+            Projectile.localAI[0]++;
+            Projectile.rotation = Projectile.velocity.ToRotation();
             if (Hit == 1)
             {
-                StrokeAlpha = float.Lerp(StrokeAlpha, 1, 0.1f);
+                if (!target.ToNPC().active)
+                { PopOut(Vector2.Zero); return; }
+                if (Projectile.timeLeft < 30)
+                {
+                    StrokeAlpha = float.Lerp(StrokeAlpha, 0, 0.01f);
+                    Projectile.Opacity -= 1 / 30f;
+                    Projectile.velocity *= 0.95f;
+                }
+                else
+                    StrokeAlpha = float.Lerp(StrokeAlpha, 1, 0.3f);
                 Projectile.Center = target.ToNPC().Center + offset;
             }
             else if (Hit == 2)
             {
-                StrokeAlpha *= 0.9f;
+                StrokeAlpha *= 0.99f;
+                Projectile.Opacity -= 1 / 30f;
             }
             else
             {
+                Color clr = Main.rand.NextBool() ? new Color(200, 200, 255) : new Color(190, 140, 255);
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center - Projectile.rotation.ToRotationVector2() * 90 + Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * Main.rand.NextFloat(-16, 16), Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(12, 36), false, 16, Main.rand.NextFloat(0.5f, 1) * 0.02f, clr, new Vector2(0.16f, 1) * Projectile.Opacity * 1f));
+                for (float j = 0; j < 1; j += 0.5f)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        clr = Main.rand.NextBool() ? new Color(235, 40, 180) : new Color(255, 40, 180);
+                        Vector2 offset = Projectile.velocity * -j;
+                        Vector2 safeVel = Projectile.velocity.SafeNormalize(Vector2.UnitX);
+                        Vector2 dustVel = safeVel.RotatedBy(MathHelper.ToRadians(70 * (i == 0 ? 1 : -1))) * 10;
+                        Vector2 ofs2 = -dustVel * j * (Projectile.localAI[0] % Projectile.MaxUpdates);
+                        if (true)
+                        {
+                            VelChangingSpark spark = new VelChangingSpark(Projectile.Center + ofs2 + offset + safeVel * 120, -dustVel, -Projectile.velocity, "CalamityMod/Particles/BloomCircle", 5, 0.2f, (clr) * 0.95f, new Vector2(1.2f, 1f), true, false, 0, false, 1.0f, 0.22f);
+                            GeneralParticleHandler.SpawnParticle(spark);
+
+                            VelChangingSpark spark2 = new VelChangingSpark(Projectile.Center + ofs2 + offset + safeVel * 120, -dustVel, -Projectile.velocity, "CalamityMod/Particles/BloomCircle", 10, 0.2f, clr * 0.65f, new Vector2(1.2f, 1f), true, false, 0, false, 1.0f, 0.22f);
+                            GeneralParticleHandler.SpawnParticle(spark2);
+                        }
+                        float rot = Projectile.rotation + (MathHelper.TwoPi * i);
+                        Vector2 vel = (Utils.MoveTowards(-Projectile.velocity, new Vector2(0, -130).RotatedBy(rot).RotatedBy(-1.3f * Projectile.direction), (Utils.GetLerpValue(5, 2, Projectile.velocity.Length(), true))));
+                        if (i == 0)
+                        {
+                            Dust dust2 = Dust.NewDustPerfect(Projectile.Center + offset + new Vector2(0, -70).RotatedBy(rot), Main.rand.NextBool(4) ? 278 : ModContent.DustType<LightDust>());
+                            dust2.noGravity = (dust2.type == 278 ? false : true);
+                            dust2.scale = dust2.type == 278 ? 0.75f : 0.9f;
+                            dust2.color = Main.rand.NextBool() ? Color.BlueViolet : clr;
+                            dust2.velocity = (vel * 2).RotatedByRandom(0.4f);
+                            dust2.position = Projectile.Center;
+                        }
+                    }
+                }
                 if (Projectile.timeLeft < 30)
                 {
-                    StrokeAlpha = float.Lerp(StrokeAlpha, 0, 0.08f);
+                    StrokeAlpha = float.Lerp(StrokeAlpha, 0, 0.01f);
                     Projectile.Opacity -= 1 / 30f;
                     Projectile.velocity *= 0.95f;
                 }
                 else
                 {
-                    StrokeAlpha = float.Lerp(StrokeAlpha, 1, 0.08f);
+                    StrokeAlpha = float.Lerp(StrokeAlpha, 1, 0.1f);
                 }
             }
         }
@@ -176,7 +231,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             for(float i = 0; i < 360; i += 60)
             {
                 float rot = MathHelper.ToRadians(i) + Main.GlobalTimeWrappedHourly * 16;
-                Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition + rot.ToRotationVector2() * 2, null, Color.White * StrokeAlpha * Projectile.Opacity, rotation, origin, Projectile.scale, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition + CEUtils.randomPointInCircle(2) + rot.ToRotationVector2() * 4, null, Color.White * StrokeAlpha * Projectile.Opacity, rotation, origin, Projectile.scale, SpriteEffects.None, 0);
             }
             Main.spriteBatch.ExitShaderRegion();
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor * Projectile.Opacity, rotation, origin, Projectile.scale, SpriteEffects.None, 0);
@@ -221,7 +276,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             }
         }
         public List<MWParticle> particles = new List<MWParticle>();
-        public override string Texture => "CalamityEntropy/Content/Items/Weapons/MiracleWreckage";
+        public override string Texture => "CalamityEntropy/Content/Items/Weapons/Miracle/MiracleWreckage";
         List<float> odr = new List<float>();
         public override void SetStaticDefaults()
         {

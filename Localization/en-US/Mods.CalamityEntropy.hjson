@@ -4393,6 +4393,7 @@ Projectiles: {
 	WhisperingSpike.DisplayName: Whispering Spike
 	EvilKingWhipProjectile.DisplayName: Evil King Whip Projectile
 	Spade.DisplayName: Spade
+	MiracleWreckageThrow.DisplayName: Miracle Wreckage Throw
 }
 
 LegendTooltip: - Legend -
