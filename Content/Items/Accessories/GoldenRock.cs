@@ -71,6 +71,11 @@ namespace CalamityEntropy.Content.Items.Accessories
                 AddIngredient(ItemID.StoneBlock, 15).
                 AddTile(TileID.Furnaces).
                 Register();
+            CreateRecipe().
+                AddIngredient(ItemID.PlatinumOre, 8).
+                AddIngredient(ItemID.StoneBlock, 15).
+                AddTile(TileID.Furnaces).
+                Register();
         }
     }
 }
