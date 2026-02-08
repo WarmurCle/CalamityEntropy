@@ -386,6 +386,7 @@ namespace CalamityEntropy
                     plr.ToPlayer().dead = d;
                     plr.ToPlayer().position = pos;
                 }
+                plr.ToPlayer().offset
                 if (Main.dedServ)
                 {
                     ModPacket packet = Instance.GetPacket();
