@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             Item.width = 28;
             Item.height = 30;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
-            Item.defense = 32;
+            Item.defense = 22;
             Item.rare = ItemRarityID.Red;
         }
 
@@ -48,8 +48,6 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             player.Entropy().NoAdrenalineTime = 1;
 
             player.maxMinions += 1;
-            player.GetDamage(DamageClass.Generic) += 0.15f;
-            player.GetCritChance(DamageClass.Generic) += 5f;
             player.noKnockback = true;
             var mp = player.GetModPlayer<AcropolisArmorPlayer>();
             if (mp.MechFrame > 18)
@@ -615,7 +613,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                             {
                                 HarpoonDelay = 32;
                                 harpoon.PointAPos(Player.Calamity().mouseWorld, 1);
-                                int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(3200))).ApplyAccArmorDamageBonus(Player);
+                                int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(1500))).ApplyAccArmorDamageBonus(Player);
                                 Projectile.NewProjectile(Player.GetSource_FromThis(), harpoon.TopPos, harpoon.Seg2Rot.ToRotationVector2() * 48, ModContent.ProjectileType<AcropolisHarpoon>(), damage, 12, Player.whoAmI);
                             }
                         }
@@ -636,7 +634,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                                         cannon.PointAPos(Player.Calamity().mouseWorld, 1);
                                         CEUtils.PlaySound("AcropolisShoot", Main.rand.NextFloat(0.8f, 1.2f), cannon.TopPos);
                                         ShootDelay = (int)(5f / Player.GetTotalAttackSpeed(Player.GetBestClass()));
-                                        int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(820))).ApplyAccArmorDamageBonus(Player);
+                                        int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(400))).ApplyAccArmorDamageBonus(Player);
                                         if(!Main.dedServ)
                                         {
                                             Gore.NewGoreDirect(Player.GetSource_FromThis(), cannon.TopPos - cannon.Seg2Rot.ToRotationVector2() * 46, Player.velocity + (cannon.Seg2Rot + Player.direction * -2.4f).ToRotationVector2() * 12 + CEUtils.randomPointInCircle(3), Mod.Find<ModGore>("AcropolisShell").Type).timeLeft = 0;
@@ -649,7 +647,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                                     if (SlashP == 0 && ShootDelay <= 0)
                                     {
                                         SlashP += 0.01f;
-                                        int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(2800))).ApplyAccArmorDamageBonus(Player);
+                                        int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(1500))).ApplyAccArmorDamageBonus(Player);
                                         Projectile.NewProjectile(Player.GetSource_FromThis(), cannon.TopPos, cannon.Seg2Rot.ToRotationVector2() * 8, ModContent.ProjectileType<AcropolisSlash>(), damage, 10, Player.whoAmI);
 
                                         CEUtils.PlaySound("throw", Main.rand.NextFloat(1.2f, 1.5f), Player.Center, 10, 0.4f);
@@ -876,11 +874,11 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             DeathExplosionCD--;
             if (ArmorSetBonus)
             {
-                Player.Entropy().moveSpeed += 0.2f;
+                Player.Entropy().moveSpeed += 0.1f;
                 DurabilityRegenDelay--;
                 if (DurabilityActive)
                 {
-                    Player.Entropy().EDamageReduce += durability * 0.32f;
+                    Player.Entropy().EDamageReduce += durability * 0.24f;
                     Player.statDefense += (int)(durability * 36);
                     Player.noKnockback = true;
                 }
@@ -901,8 +899,8 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 }
                 if (MechTrans)
                 {
-                    Player.Entropy().EDamageReduce += 0.45f;
-                    Player.statDefense += 12;
+                    Player.Entropy().EDamageReduce += 0.10f;
+                    Player.statDefense += 15;
                     Player.Entropy().FallSpeed += 0.5f;
                 }
             }
