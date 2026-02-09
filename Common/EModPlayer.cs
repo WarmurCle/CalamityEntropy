@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Common.LoreReworks;
+using CalamityEntropy.Common.LoreReworks;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.ILEditing;
@@ -108,7 +108,6 @@ namespace CalamityEntropy.Common
         public bool oracleDeckInInv = false;
         public bool taintedDeckInInv = false;
         public bool hasSM = false;
-        public bool yuzuCheck = false;
         public bool summonerVF;
         public bool magiVF;
         public bool rogueVF;
@@ -1847,9 +1846,9 @@ namespace CalamityEntropy.Common
             {
                 immune = 45;
                 MariviniumShieldCount--;
-                Player.Heal(140);
+                Player.Heal(100);
                 CEUtils.PlaySound("crystalShieldBreak", 1, Player.Center, 1, 0.7f);
-                Player.AddBuff(ModContent.BuffType<AbyssalWrath>(), 300);
+                Player.AddBuff(ModContent.BuffType<AbyssalWrath>(), 600);
                 for (int i = 0; i < 42; i++)
                 {
                     Dust.NewDust(Player.Center, 1, 1, DustID.BlueCrystalShard, Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-6, 6), Scale: 2);
@@ -2512,7 +2511,7 @@ namespace CalamityEntropy.Common
                     }
                     if (Player.GetModPlayer<SCDashMP>().flag)
                     {
-                        Player.GetModPlayer<SCDashMP>().Cooldown = 158.ApplyCdDec(Player);
+                        Player.GetModPlayer<SCDashMP>().Cooldown = 180.ApplyCdDec(Player);
                         Player.GetModPlayer<SCDashMP>().flag = false;
                         if (hasAccVisual(ShadeCloak.ID))
                         {
@@ -3360,7 +3359,7 @@ namespace CalamityEntropy.Common
                 }
                 else
                 {
-                    int magiShieldAddCount = (int)(Player.statManaMax2 * 0.5f);
+                    int magiShieldAddCount = (int)(Player.statManaMax2 * 0.25f);
                     magiShieldCd = 30 * 60;
                     if (MagiShield < magiShieldAddCount)
                     {
@@ -3896,10 +3895,8 @@ namespace CalamityEntropy.Common
             boost.AddWithCondition("CruiserLore", CruiserLoreBonus);
             boost.AddWithCondition("NihTwinLore", NihilityTwinLoreBonus);
             boost.AddWithCondition("ProphetLore", ProphetLoreBonus);
-
             tag["EntropyBoosts"] = boost;
             tag["LoreEnabled"] = enabledLoreItems;
-            tag["yuzuCheck"] = yuzuCheck;
             if (EBookStackItems != null)
             {
                 int BookMarks = EBookStackItems.Count;
@@ -3972,8 +3969,7 @@ namespace CalamityEntropy.Common
             ProphetLoreBonus = boost.Contains("ProphetLore");
             enabledLoreItems = [.. tag.GetList<int>("LoreEnabled")];
             EBookStackItems = new List<Item>();
-            if (tag.TryGet<bool>("yuzuCheck", out bool yz))
-                yuzuCheck = yz;
+
             if (tag.ContainsKey("EntropyBookMarks"))
             {
                 int BookMarks = (int)tag["EntropyBookMarks"];
@@ -3991,3 +3987,4 @@ namespace CalamityEntropy.Common
         }
     }
 }
+
