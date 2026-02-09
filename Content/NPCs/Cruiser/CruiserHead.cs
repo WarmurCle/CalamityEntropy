@@ -142,22 +142,22 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.damage = 225;
             if (Main.expertMode)
             {
-                NPC.damage += 10;
+                NPC.damage += 5;
             }
             if (Main.masterMode)
             {
-                NPC.damage += 4;
+                NPC.damage += 5;
             }
             NPC.defense = 90;
             NPC.lifeMax = 1500000;
             if (CalamityWorld.death)
             {
-                NPC.damage += 25;
+                NPC.damage += 5;
                 length += 4;
             }
             else if (CalamityWorld.revenge)
             {
-                NPC.damage += 20;
+                NPC.damage += 5;
                 length += 2;
             }
             tdamage = NPC.damage;
