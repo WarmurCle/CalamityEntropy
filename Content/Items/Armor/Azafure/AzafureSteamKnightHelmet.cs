@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
             Item.width = 48;
             Item.height = 48;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
-            Item.defense = 18;
+            Item.defense = 12;
             Item.rare = ItemRarityID.Pink;
         }
 
@@ -177,11 +177,11 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
             DeathExplosionCD--;
             if (ArmorSetBonus)
             {
-                Player.Entropy().moveSpeed += 0.2f;
+                Player.Entropy().moveSpeed += 0.1f;
                 DurabilityRegenDelay--;
                 if (DurabilityActive)
                 {
-                    Player.Entropy().EDamageReduce += durability * 0.3f;
+                    Player.Entropy().EDamageReduce += durability * 0.2f;
                     Player.statDefense += (int)(durability * 24);
                     Player.noKnockback = true;
                 }

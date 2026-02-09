@@ -115,20 +115,20 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             NPC.boss = true;
             NPC.width = 80;
             NPC.height = 80;
-            NPC.damage = 76;
+            NPC.damage = 70;
             NPC.Calamity().DR = 0.10f;
-            NPC.lifeMax = 52000;
+            NPC.lifeMax = 50000;
             if (BossRushEvent.BossRushActive)
             {
                 NPC.lifeMax += 350000;
             }
             if (CalamityWorld.death)
             {
-                NPC.damage += 12;
+                NPC.damage += 4;
             }
             else if (CalamityWorld.revenge)
             {
-                NPC.damage += 6;
+                NPC.damage += 2;
             }
             var snd = CEUtils.GetSound("prophet_hurt", maxIns: 1);
             var snd2 = CEUtils.GetSound("prophet_death");

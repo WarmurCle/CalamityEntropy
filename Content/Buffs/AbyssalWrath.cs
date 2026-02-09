@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetDamage(DamageClass.Generic) *= 2;
+            player.GetDamage(DamageClass.Generic) *= 1.5f;
         }
     }
 }

@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
         {
             player.Entropy().moveSpeed += 0.36f;
             player.Entropy().ManaCost -= 0.2f;
-            player.GetDamage(DamageClass.Generic) += 0.2f;
+            player.GetDamage(DamageClass.Generic) += 0.15f;
             player.GetCritChance(DamageClass.Generic) += 5;
 
         }

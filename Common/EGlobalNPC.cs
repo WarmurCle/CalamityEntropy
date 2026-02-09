@@ -143,7 +143,7 @@ namespace CalamityEntropy.Common
                 mult = 0;
 
             if (npc.HasBuff<LifeOppress>())
-                mult -= 0.65f;
+                mult -= 0.35f;
 
             return mult;
         }

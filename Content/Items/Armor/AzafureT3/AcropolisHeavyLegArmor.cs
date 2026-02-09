@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             Item.width = 34;
             Item.height = 18;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
-            Item.defense = 26;
+            Item.defense = 18;
             Item.rare = ItemRarityID.Red;
         }
 

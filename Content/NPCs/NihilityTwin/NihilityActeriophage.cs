@@ -66,8 +66,8 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             NPC.boss = true;
             NPC.width = 140;
             NPC.height = 140;
-            NPC.damage = 125;
-	        NPC.Calamity().DR = 0.12f;
+            NPC.damage = 115;
+	        NPC.Calamity().DR = 0.10f;
             if (Main.expertMode)
             {
                 NPC.damage += 2;
@@ -76,7 +76,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             {
                 NPC.damage += 2;
             }
-            NPC.defense = 75;
+            NPC.defense = 60;
             NPC.lifeMax = 360000;
 	    if (BossRushEvent.BossRushActive)
             {
@@ -84,11 +84,11 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             }
             if (CalamityWorld.death)
             {
-                NPC.damage += 12;
+                NPC.damage += 8;
             }
             else if (CalamityWorld.revenge)
             {
-                NPC.damage += 8;
+                NPC.damage += 4;
             }
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCHit4;

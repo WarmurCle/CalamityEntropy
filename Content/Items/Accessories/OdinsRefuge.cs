@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
             Item.rare = ModContent.RarityType<Turquoise>();
             Item.accessory = true;
-            Item.defense = 30;
+            Item.defense = 24;
 
         }
 

@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items;
 using CalamityMod.Items.Armor.OmegaBlue;
@@ -25,7 +25,6 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             player.Entropy().mariviniumBody = true;
             player.GetDamage(DamageClass.Generic) += 0.15f;
             player.GetCritChance(DamageClass.Generic) += 15;
-            player.statManaMax2 += 250;
         }
 
         public override void AddRecipes()

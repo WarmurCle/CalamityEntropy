@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
     public class VoidEaterHelmet : ModItem
     {
         public static int ShieldRecharge = 10 * 60;
-        public static int MaxShield = 150;
+        public static int MaxShield = 80;
         public static int LaserDamage = 250;
         public override void SetDefaults()
         {
