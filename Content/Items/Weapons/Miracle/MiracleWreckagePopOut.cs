@@ -51,6 +51,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 }
                 if (Projectile.localAI[0] == 80 * Projectile.MaxUpdates)
                 {
+                    CEUtils.PlaySound("DemonSwordSwing2", Main.rand.NextFloat(1.2f, 1.5f), Projectile.Center);
                     Projectile.ResetLocalNPCHitImmunity();
                     Projectile.velocity = (targetPos - Projectile.Center).normalize() * 26;
                     Projectile.rotation = Projectile.velocity.ToRotation();
@@ -67,7 +68,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("HalleysInfernoHit", Main.rand.NextFloat(0.9f, 1.2f), target.Center, 4, 0.4f * CEUtils.WeapSound, path: "CalamityMod/Sounds/Item/");
+            CEUtils.PlaySound("HalleysInfernoHit", Main.rand.NextFloat(2.8f, 3.2f), target.Center, 4, 0.4f * CEUtils.WeapSound, path: "CalamityMod/Sounds/Item/");
             EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, new Color(255, 180, 255), 1.2f, 1, true, BlendState.Additive, 0, 6);
         }
         public override bool PreDraw(ref Color lightColor)
