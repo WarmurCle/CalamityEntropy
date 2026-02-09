@@ -117,7 +117,8 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "Description", Mod.GetLocalization(Main.zenithWorld ? "TScytheZenithDesc" : "TScytheDesc").Value) { OverrideColor = Color.Crimson });
+            if(!AltType(Main.LocalPlayer))
+                tooltips.Add(new TooltipLine(Mod, "Description", Mod.GetLocalization(Main.zenithWorld ? "TScytheZenithDesc" : "TScytheDesc").Value) { OverrideColor = Color.Crimson });
             bool holdAlt = Keyboard.GetState().IsKeyDown(Keys.LeftAlt);
             bool holdShift = Keyboard.GetState().IsKeyDown(Keys.LeftShift);
             if (holdShift && holdAlt)
@@ -360,8 +361,6 @@ namespace CalamityEntropy.Content.Items.Donator
         #endregion
         public override void UpdateInventory(Player player)
         {
-            if (Main.LocalPlayer != null && !Main.gameMenu && Main.myPlayer == player.whoAmI)
-                TextureAssets.Item[Item.type] = TlipocasScythe.GetTexture(player);
             int lv = GetLevel();
             if (NowLevel != lv || RecheckStats)
             {

@@ -250,22 +250,22 @@ Items: {
 	Lore: {
 		CruiserLore: {
 			DisplayName: 巡游者
-			// Tooltip: ""
+			Tooltip: ""
 		}
 
 		NihilityTwinLore: {
 			DisplayName: 虚无双子
-			// Tooltip: ""
+			Tooltip: ""
 		}
 
 		ProphetLore: {
 			DisplayName: 先知
-			// Tooltip: ""
+			Tooltip: ""
 		}
 
 		LuminarisLore: {
 			DisplayName: 幻光星蛾
-			// Tooltip: ""
+			Tooltip: ""
 		}
 	}
 
@@ -4655,13 +4655,14 @@ Projectiles: {
 	PressureEsotericaHeld.DisplayName: 重压秘笈
 	SpectralWhispersHeld.DisplayName: 魂语秘卷
 	WhisperingSpike.DisplayName: 低语尖刺
-	// EvilKingWhipProjectile.DisplayName: Evil King Whip Projectile
-	// Spade.DisplayName: Spade
-	// MiracleWreckageThrow.DisplayName: Miracle Wreckage Throw
-	// Blackhole.DisplayName: Blackhole
-	// MiracleWreckageHeldAnm.DisplayName: Miracle Wreckage Held Anm
-	// MiracleExplosion.DisplayName: Miracle Explosion
-	// MiracleWreckagePopOut.DisplayName: Miracle Wreckage Pop Out
+	EvilKingWhipProjectile.DisplayName: 邪恶国王之鞭
+	Spade.DisplayName: 黑桃
+	MiracleWreckageThrow.DisplayName: 神迹残骸
+	Blackhole.DisplayName: 黑洞
+	MiracleWreckageHeldAnm.DisplayName: 神迹残骸
+	MiracleExplosion.DisplayName: 洪光爆破
+	MiracleWreckagePopOut.DisplayName: 神迹残骸
+	MiracleVortex.DisplayName: 神迹涡流
 }
 
 LegendTooltip: - 传奇物品 -

@@ -17,6 +17,88 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons.Miracle
 {
+    public class MiracleVortex : ModProjectile
+    {
+        public override string Texture => CEUtils.WhiteTexPath;
+        public override void SetDefaults()
+        {
+            Projectile.FriendlySetDefaults(DamageClass.Melee, false, 1);
+            Projectile.width = Projectile.height = 24;
+            Projectile.timeLeft = 260;
+            Projectile.light = 1;
+        }
+        public override bool? CanHitNPC(NPC target)
+        {
+            return Projectile.localAI[0] > 16;
+        }
+        public override void AI()
+        {
+            Projectile.ai[0] = float.Lerp(Projectile.ai[0], 1, 0.14f);
+            NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 1800);
+            if (target != null)
+            {
+                if (Projectile.localAI[0]++ < 32)
+                {
+                    Projectile.velocity = (CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.08f)).ToRotationVector2() * Projectile.velocity.Length();
+                }
+                else
+                {
+                    if (Projectile.localAI[0]++ < 32)
+                    {
+                        Projectile.velocity *= 0.94f;
+                        Projectile.velocity += (target.Center - Projectile.Center).normalize() * 1.6f;
+                    }
+                }
+            }
+        }
+        public void DrawRing(Vector2 position, Texture2D trail, Vector2 scaleOutside, Vector2 scaleInside, Color color, BlendState blend, bool? drawUpside = null)
+        {
+            List<ColoredVertex> ve = new List<ColoredVertex>();
+            List<Vector2> points1 = new List<Vector2>();
+            List<Vector2> points2 = new List<Vector2>();
+            for (float i = 0; i <= 1; i += 0.01f)
+            {
+                Vector2 rv = (i * MathHelper.TwoPi).ToRotationVector2();
+                Vector2 p = rv * scaleOutside;
+                if (drawUpside.HasValue)
+                {
+                    if (drawUpside.Value)
+                    {
+                        if (i == 0)
+                            i = 0.5f;
+                    }
+                    else
+                    {
+                        if (i > 0.5f)
+                            break;
+                    }
+                }
+                rv = (i * MathHelper.TwoPi).ToRotationVector2();
+                p = rv * scaleOutside;
+                points1.Add(p);
+                points2.Add((i * MathHelper.TwoPi).ToRotationVector2() * scaleInside);
+            }
+            for (int i = 0; i < points1.Count; i++)
+            {
+                ve.Add(new ColoredVertex(position + points1[i], color, new Vector3(i / 50f + Main.GlobalTimeWrappedHourly, 0, 1)));
+                ve.Add(new ColoredVertex(position + points2[i], color, new Vector3(i / 50f + Main.GlobalTimeWrappedHourly, 1, 1)));
+            }
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, blend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            GraphicsDevice gd = Main.graphics.GraphicsDevice;
+            gd.Textures[0] = trail;
+            gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+            Main.spriteBatch.ExitShaderRegion();
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D trail1 = CEUtils.getExtraTex("Streak2Trans");
+            CEUtils.DrawGlow(Projectile.Center, Color.MediumVioletRed, 1.4f * Projectile.ai[0]);
+            CEUtils.DrawGlow(Projectile.Center, Color.MediumVioletRed, 1.4f * Projectile.ai[0]);
+            DrawRing(Projectile.Center - Main.screenPosition, trail1, new Vector2(90, 90) * Projectile.ai[0], new Vector2(30, 30) * Projectile.ai[0], Color.Violet, BlendState.Additive);
+            return false;
+        }
+    }
     public class Blackhole : ModProjectile
     {
         public override string Texture => CEUtils.WhiteTexPath;

@@ -556,6 +556,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                     count++;
                     if (p.ModProjectile is MiracleWreckageThrow mw)
                         mw.PopOut();
+                    for(int i = 0; i < 2; i++)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Projectile.velocity.normalize().RotatedByRandom(1) * Main.rand.NextFloat(16, 20), ModContent.ProjectileType<MiracleVortex>(), Projectile.damage / 2, 0, Projectile.owner);
+                    }
                 }
             }
             if(count >= 6)
@@ -586,6 +590,18 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         public float vsAlpha = 0;
         public float rotVel = 0;
         public bool rcl = true;
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(Dir);
+            writer.Write(swing);
+            writer.Write(rotVel);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            Dir = reader.ReadInt32();
+            swing = reader.ReadInt32();
+            rotVel = reader.ReadSingle();
+        }
         public override void AI()
         {
             if(Main.myPlayer == Projectile.owner)
@@ -613,12 +629,18 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             rotVel *= (float)(Math.Pow(0.987f, speed));
             if(swing < 0)
                 Projectile.velocity = rot.ToRotationVector2() * 16;
-            if(swing-- < -24 * Projectile.MaxUpdates && Main.mouseLeft)
+            if (Main.myPlayer == Projectile.owner)
             {
-                Dir *= -1;
-                Projectile.ResetLocalNPCHitImmunity();
-                swing = (int)(36 * Projectile.MaxUpdates / speed);
-                rotVel = Dir * 0.062f;
+                if (swing-- < -24 * Projectile.MaxUpdates && Main.mouseLeft)
+                {
+                    Dir *= -1;
+                    Projectile.ResetLocalNPCHitImmunity();
+                    swing = (int)(36 * Projectile.MaxUpdates / speed);
+                    rotVel = Dir * 0.062f;
+                    CEUtils.PlaySound("DemonSwordSwing1", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center);
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                        CEUtils.SyncProj(Projectile.whoAmI);
+                }
             }
             if (Projectile.localAI[1] % 5 == 0)
             {

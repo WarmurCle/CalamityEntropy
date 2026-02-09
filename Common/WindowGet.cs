@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Donator;
 using CalamityMod.Items.Potions.Alcohol;
 using Microsoft.CodeAnalysis.CodeStyle;
 using System;
@@ -10,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -29,7 +31,7 @@ namespace CalamityEntropy.Common
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<PGetPlayer>().accEquiped = true;
-            player.GetModPlayer<PGetPlayer>().accVanity = true;
+            player.GetModPlayer<PGetPlayer>().accVnTime = 3;
             player.endurance += 0.05f * player.GetModPlayer<PGetPlayer>().count;
             player.GetDamage(DamageClass.Generic) += player.GetModPlayer<PGetPlayer>().count * 0.1f;
         }
@@ -48,10 +50,12 @@ namespace CalamityEntropy.Common
         public int count = 0;
         public bool accEquiped = false;
         public bool accVanity = false;
+        public int accVnTime = 0;
         public override void ResetEffects()
         {
+            accVnTime--;
             accEquiped = false;
-            accVanity = false;
+            accVanity = accVnTime > 0;
         }
         public override void OnEnterWorld()
         {
@@ -90,6 +94,8 @@ namespace CalamityEntropy.Common
         }
         public override void PostUpdate()
         {
+            if (Main.LocalPlayer != null && !Main.gameMenu)
+                TextureAssets.Item[ModContent.ItemType<TlipocasScythe>()] = TlipocasScythe.GetTexture(Main.LocalPlayer);
             if (Main.GameUpdateCount % 120 == 0)
             {
                 if (accEquiped)

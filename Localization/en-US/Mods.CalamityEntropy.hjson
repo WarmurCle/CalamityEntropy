@@ -4409,6 +4409,7 @@ Projectiles: {
 	MiracleWreckageHeldAnm.DisplayName: Miracle Wreckage Held Anm
 	MiracleExplosion.DisplayName: Miracle Explosion
 	MiracleWreckagePopOut.DisplayName: Miracle Wreckage Pop Out
+	MiracleVortex.DisplayName: Miracle Vortex
 }
 
 LegendTooltip: - Legend -
