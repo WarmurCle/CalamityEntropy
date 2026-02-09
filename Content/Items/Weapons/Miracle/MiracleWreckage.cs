@@ -630,7 +630,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             owner.Calamity().mouseWorldListener = true;
             Projectile.Center = Projectile.GetOwner().MountedCenter;
             float rot = (owner.Calamity().mouseWorld - Projectile.Center).ToRotation();
-            float targetRot = rot + Dir * 2f;
+            float targetRot = rot + Dir * 2.4f;
             if (Projectile.localAI[1]++ == 0)
                 Projectile.rotation = rot + Dir * 1.2f;
             float speed = owner.GetTotalAttackSpeed(DamageClass.Melee);
@@ -657,13 +657,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 Projectile.velocity = rot.ToRotationVector2() * 16;
             if (Main.myPlayer == Projectile.owner && !flag)
             {
-                if (swing-- < -24 * Projectile.MaxUpdates && Main.mouseLeft)
+                if (swing-- < -16 * Projectile.MaxUpdates && Main.mouseLeft)
                 {
                     Dir *= -1;
                     shake = true;
                     Projectile.ResetLocalNPCHitImmunity();
                     swing = (int)(36 * Projectile.MaxUpdates / speed);
-                    rotVel = Dir * 0.062f;
+                    rotVel = Dir * 0.058f;
                     CEUtils.PlaySound("DemonSwordSwing1", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center);
                     if (Main.netMode == NetmodeID.MultiplayerClient)
                         CEUtils.SyncProj(Projectile.whoAmI);
