@@ -36,7 +36,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             {
                 Projectile.velocity *= 0.996f;
                 Projectile.rotation += Projectile.velocity.Length() * 0.08f * (Projectile.velocity.X > 0 ? 1 : -1);
-                GeneralParticleHandler.SpawnParticle(new CritSpark(Projectile.Center + Projectile.rotation.ToRotationVector2() * 80, Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * (Projectile.velocity.X > 0 ? -1 : 1)) * 4, Color.MediumVioletRed, Color.Violet, 1f, 14));
+                if (Projectile.localAI[0] % 8 == 0)
+                    GeneralParticleHandler.SpawnParticle(new CritSpark(Projectile.Center + Projectile.rotation.ToRotationVector2() * 80, Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * (Projectile.velocity.X > 0 ? -1 : 1)) * 4, new Color(255, 200, 255), Color.Violet, 1f, 18));
             }
             else
             {
@@ -56,10 +57,18 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 }
                 if (Projectile.localAI[0] >= 80 * Projectile.MaxUpdates)
                 {
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, Projectile.velocity * 0.1f, false, 16, 0.05f, Color.MediumVioletRed, new Vector2(0.32f, 1)));
-                    EParticle.spawnNew(new AbyssalLine() { lx = 0.8f, xadd = 1f, spawnColor = Color.Violet, endColor = Color.Red }, Projectile.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Projectile.rotation, 40);
+                    if (Projectile.ai[0] % 20 == 0)
+                    {
+                        GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, Projectile.velocity * 0.1f, false, 16, 0.05f, Color.MediumVioletRed, new Vector2(0.32f, 1)));
+                        EParticle.spawnNew(new AbyssalLine() { lx = 0.8f, xadd = 1f, spawnColor = Main.rand.NextBool() ? Color.MediumVioletRed : Color.MediumPurple, endColor = Color.Red * 0.2f }, Projectile.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Projectile.rotation, 40);
+                    }
                 }
             }
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            CEUtils.PlaySound("HalleysInfernoHit", Main.rand.NextFloat(0.9f, 1.2f), target.Center, 4, 0.4f * CEUtils.WeapSound, path: "CalamityMod/Sounds/Item/");
+            EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, new Color(255, 180, 255), 1.2f, 1, true, BlendState.Additive, 0, 6);
         }
         public override bool PreDraw(ref Color lightColor)
         {
