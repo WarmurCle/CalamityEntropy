@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(DamageClass.Melee, false, 1);
-            Projectile.width = Projectile.height = 46;
+            Projectile.width = Projectile.height = 100;
             Projectile.timeLeft = 260;
             Projectile.light = 1;
         }
@@ -41,7 +41,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 if (Projectile.localAI[0] < 26)
                 {
                     Projectile.velocity *= 0.98f;
-                    Projectile.velocity = (CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.02f)).ToRotationVector2() * Projectile.velocity.Length();
+                    if (Projectile.localAI[0] > 5)
+                        Projectile.velocity = (CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.1f)).ToRotationVector2() * Projectile.velocity.Length();
                 }
                 else
                 {
@@ -56,10 +57,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                     }
                 }
             }
+            
             Vector2 d = Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * Projectile.ai[0] * 32;
 
-            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * 1, Projectile.velocity * -0.1f, false, 8, 0.03f, Color.Violet, new Vector2(0.38f, 1)));
-            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * -1, Projectile.velocity * -0.1f, false, 8, 0.03f, Color.Violet, new Vector2(0.38f, 1)));
+            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * 1, Projectile.velocity * -0.1f, false, 8, 0.03f, Color.Violet, new Vector2(0.7f, 1)));
+            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * -1, Projectile.velocity * -0.1f, false, 8, 0.03f, Color.Violet, new Vector2(0.7f, 1)));
             GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * 1 + Projectile.velocity / 2f, Projectile.velocity * -0.1f, false, 8, 0.03f, Color.Violet, new Vector2(0.9f, 1)));
             GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * -1 + Projectile.velocity / 2f, Projectile.velocity * -0.1f, false, 8, 0.03f, Color.Violet, new Vector2(0.9f, 1)));
         }
@@ -156,6 +158,20 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             }
             if (Projectile.localAI[0] == 60)
                 CEUtils.PlaySound("BlackholeSpawn", 1f, Projectile.Center);
+
+            if (CanDamage().Value)
+            {
+                foreach (NPC n in Main.ActiveNPCs)
+                {
+                    if (!n.friendly && !n.boss && !(n.realLife >= 0) && n.Distance(Projectile.Center) < 3000)
+                    {
+                        n.velocity *= 0.9f;
+                        var vec = (Projectile.Center - n.Center).normalize();
+                        n.velocity += vec * 6;
+                        n.Center += vec * 4;
+                    }
+                }
+            }
         }
         public override bool? CanDamage()
         {

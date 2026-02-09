@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Dusts;
 using CalamityMod.Items;
@@ -69,7 +70,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<DevilsDevastation>().AddIngredient<AshesofAnnihilation>(6).AddIngredient<GalactusBlade>().AddTile<CosmicAnvil>().Register();
+            CreateRecipe().AddIngredient<DevilsDevastation>().
+                AddIngredient<FadingRunestone>(2).
+                AddTile<AbyssalAltarTile>().
+                Register();
         }
     }
     public class MiracleWreckageHeldAnm : ModProjectile
@@ -545,6 +549,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         public float alpha = 0;
         public bool init = true;
         public bool shoot = true;
+        public bool shake = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             int count = 0;
@@ -553,22 +558,29 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             {
                 if(p.type == type && p.owner == Projectile.owner)
                 {
-                    count++;
-                    if (p.ModProjectile is MiracleWreckageThrow mw)
-                        mw.PopOut();
-                    for(int i = 0; i < 2; i++)
+                    if (p.ModProjectile is MiracleWreckageThrow mw && mw.target == target.whoAmI)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Projectile.velocity.normalize().RotatedByRandom(1) * Main.rand.NextFloat(38, 46), ModContent.ProjectileType<MiracleVortex>(), Projectile.damage / 2, 0, Projectile.owner);
+                        count++;
+                        mw.PopOut();
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Projectile.velocity.normalize().RotatedByRandom(1) * Main.rand.NextFloat(38, 46), ModContent.ProjectileType<MiracleVortex>(), Projectile.damage / 2, 0, Projectile.owner);
+                        }
                     }
                 }
             }
             if(count >= 6)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<Blackhole>(), Projectile.damage / 16, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<Blackhole>(), Projectile.damage / 6, 0, Projectile.owner);
             }
-            ScreenShaker.AddShake(new ScreenShaker.ScreenShake(-(target.Center - Projectile.Center).normalize(), 26));
-            CEUtils.PlaySound("DemonSwordInsaneImpact", Main.rand.NextFloat(0.8f, 1.4f), target.Center);
-            CEUtils.PlaySound("HalleysInfernoHit", Main.rand.NextFloat(0.6f, 1.12f), target.Center, 4, 1f * CEUtils.WeapSound, path: "CalamityMod/Sounds/Item/");
+            if (shake)
+            {
+                CEUtils.PlaySound("DemonSwordInsaneImpact", Main.rand.NextFloat(0.8f, 1.4f), target.Center);
+                CEUtils.PlaySound("HalleysInfernoHit", Main.rand.NextFloat(0.6f, 1.12f), target.Center, 4, 1f * CEUtils.WeapSound, path: "CalamityMod/Sounds/Item/");
+
+                ScreenShaker.AddShake(new ScreenShaker.ScreenShake(-(target.Center - Projectile.Center).normalize(), 26));
+                shake = false;
+            }
             for (int i = 0; i < 32; i++)
             {
                 Color clr = Main.rand.NextBool() ? new Color(240, 240, 255) : new Color(210, 160, 255);
@@ -602,18 +614,17 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             swing = reader.ReadInt32();
             rotVel = reader.ReadSingle();
         }
+        public bool flag = false;
+        public bool flag2 = true;
         public override void AI()
         {
-            if(Main.myPlayer == Projectile.owner)
+            if(flag2)
             {
-                if (!rcl && Main.mouseRight)
-                {
-                    Projectile.Kill(); 
-                    return;
-                }
-                rcl = Main.mouseRight;
+                flag2 = false;
+                Dir = Projectile.velocity.X > 0 ? -1 : 1;
             }
-            length = float.Lerp(length, 1, 0.01f);
+            if(!flag)
+                length = float.Lerp(length, 1, 0.01f);
             Player owner = Projectile.GetOwner();
             Projectile.timeLeft = 3;
             owner.Calamity().mouseWorldListener = true;
@@ -625,15 +636,31 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             float speed = owner.GetTotalAttackSpeed(DamageClass.Melee);
             if(swing < 0)
                 Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, targetRot, 0.01f, false);
+            if (flag)
+            {
+                length *= 0.995f;
+                length -= 0.002f;
+                if (length <= 0.04f)
+                    Projectile.Kill();
+            }
+            if (Main.myPlayer == Projectile.owner)
+            {
+                if (!rcl && Main.mouseRight && swing < -16)
+                {
+                    flag = true;
+                }
+                rcl = Main.mouseRight;
+            }
             Projectile.rotation += rotVel * speed;
             rotVel *= (float)(Math.Pow(0.987f, speed));
             if(swing < 0)
                 Projectile.velocity = rot.ToRotationVector2() * 16;
-            if (Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner && !flag)
             {
                 if (swing-- < -24 * Projectile.MaxUpdates && Main.mouseLeft)
                 {
                     Dir *= -1;
+                    shake = true;
                     Projectile.ResetLocalNPCHitImmunity();
                     swing = (int)(36 * Projectile.MaxUpdates / speed);
                     rotVel = Dir * 0.062f;
@@ -644,9 +671,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             }
             if (Projectile.localAI[1] % 5 == 0)
             {
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 1; i++)
                 {
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(0.2f, float.Max(0.2f, length)) * 470, Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(6, 9), false, 6, Main.rand.NextFloat(0.04f, 0.054f), Color.MediumVioletRed, new Vector2(0.5f, 1)));
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(0.2f, float.Max(0.2f, length)) * 410, Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(12, 18) * length, true, 32, Main.rand.NextFloat(0.04f, 0.054f) * length, Color.MediumVioletRed, new Vector2(0.5f, 1)));
                 }
             }
             if (swing > 0)
@@ -671,7 +698,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             for (int i = 0; i < 1; i++)
             {
                 particles.Add(new MWParticle(new Vector2(Main.rand.NextFloat(11, 12) * length, 0).RotatedByRandom(0.02f)) { offset = CEUtils.randomPointInCircle(10) });
-                particles[particles.Count - 1].scale *= 1.6f;
+                particles[particles.Count - 1].scale *= 1.3f * length;
             }
             if (odr.Count > 2600)
             {
