@@ -1,4 +1,4 @@
-﻿using CalamityMod.Items;
+using CalamityMod.Items;
 using CalamityMod.Particles;
 using System.Collections.Generic;
 using Terraria;
@@ -13,6 +13,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             Item.width = 26;
             Item.height = 16;
+            Item.defense = 1;
             Item.rare = ItemRarityID.Orange;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.accessory = true;
@@ -61,7 +62,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                     if (target != null)
                     {
                         Projectile.ai[0] = 0;
-                        int dmg = ((int)(player.GetTotalDamage(DamageClass.Summon).ApplyTo(90))).ApplyAccArmorDamageBonus(Projectile.GetOwner());
+                        int dmg = ((int)(player.GetTotalDamage(DamageClass.Summon).ApplyTo(30))).ApplyAccArmorDamageBonus(Projectile.GetOwner());
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 12, ModContent.ProjectileType<CrownRubyProj>(), dmg, 6, player.whoAmI);
                         CEUtils.PlaySound("soulshine", Main.rand.NextFloat(0.6f, 1), Projectile.Center, 60, 0.5f);
                     }
