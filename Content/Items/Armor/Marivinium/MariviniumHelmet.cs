@@ -16,14 +16,14 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
     [AutoloadEquip(EquipType.Head)]
     public class MariviniumHelmet : ModItem
     {
-        public static int ShieldCd = 20 * 60;
+        public static int ShieldCd = 30 * 60;
         public static int MaxShield = 2;
         public override void SetDefaults()
         {
             Item.width = 48;
             Item.height = 48;
             Item.value = CalamityGlobalItem.RarityHotPinkBuyPrice;
-            Item.defense = 58;
+            Item.defense = 50;
             Item.rare = ModContent.RarityType<AbyssalBlue>();
         }
 
@@ -43,7 +43,6 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             player.whipRangeMultiplier += 0.2f;
             player.GetAttackSpeed(DamageClass.Summon) += 0.2f;
             player.Entropy().summonCrit += 5;
-            player.GetArmorPenetration(DamageClass.Generic) += 50;
             player.Entropy().MariviniumSet = true;
             if (!ModContent.GetInstance<Config>().MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons || player.HeldItem.DamageType.CountsAsClass(CEUtils.RogueDC))
             {
@@ -58,8 +57,8 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             ApplyBuffImmune(player);
             if (player.HeldItem.DamageType.CountsAsClass(ModContent.GetInstance<TrueMeleeDamageClass>()))
             {
-                player.Entropy().damageReduce += 0.15f;
-                player.statDefense += 25;
+                player.Entropy().damageReduce += 0.10f;
+                player.statDefense += 15;
             }
         }
         public static void ApplyBuffImmune(Player player)
@@ -102,7 +101,8 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             player.GetDamage(DamageClass.Generic) += 0.2f;
             player.GetCritChance(DamageClass.Generic) += 20;
             player.GetAttackSpeed(DamageClass.Melee) += 0.30f;
-            player.statLifeMax2 += 250;
+            player.statLifeMax2 += 200;
+            player.statManaMax2 += 200;
         }
 
         public override void AddRecipes()
