@@ -517,7 +517,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 {
                     alpha *= 0.7f;
                 }
-                scale *= 0.99f;
+                scale *= 0.96f;
             }
         }
         public List<MWParticle> particles = new List<MWParticle>();
@@ -673,7 +673,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             {
                 for (int i = 0; i < 1; i++)
                 {
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(0.2f, float.Max(0.2f, length)) * 410, Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(12, 18) * length, true, 32, Main.rand.NextFloat(0.04f, 0.054f) * length, Color.MediumVioletRed, new Vector2(0.5f, 1)));
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(0.2f, float.Max(0.2f, length)) * 522, Projectile.rotation.ToRotationVector2().RotatedByRandom(0.2f) * Main.rand.NextFloat(32, 42) * length, false, 8, Main.rand.NextFloat(0.04f, 0.054f) * length, Color.MediumVioletRed * 0.6f, new Vector2(0.34f, 1)));
                 }
             }
             if (swing > 0)
@@ -697,8 +697,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 }
             for (int i = 0; i < 1; i++)
             {
-                particles.Add(new MWParticle(new Vector2(Main.rand.NextFloat(11, 12) * length, 0).RotatedByRandom(0.02f)) { offset = CEUtils.randomPointInCircle(10) });
-                particles[particles.Count - 1].scale *= 1.3f * length;
+                particles.Add(new MWParticle(new Vector2(Main.rand.NextFloat(15, 17) * length, 0).RotatedByRandom(0.025f)) { offset = CEUtils.randomPointInCircle(10) });
+                particles[particles.Count - 1].scale *= 2.4f * length;
             }
             if (odr.Count > 2600)
             {
@@ -816,7 +816,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             Main.spriteBatch.Draw(c, Projectile.Center - Main.screenPosition, null, Color.Pink * alphac * 0.6f, crot, c.Size() / 2f, 10 * (Projectile.ai[1] + 0.5f), SpriteEffects.None, 0);
             foreach (var p in particles)
             {
-                Main.spriteBatch.Draw(g, Projectile.Center + p.offset.RotatedBy(Projectile.rotation) - Main.screenPosition, null, p.color, Projectile.rotation + p.velocity.ToRotation(), new Vector2(40, 128), new Vector2(1f, 0.16f) * p.scale, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(g, Projectile.Center + p.offset.RotatedBy(Projectile.rotation) - Main.screenPosition, null, p.color, Projectile.rotation + p.velocity.ToRotation(), new Vector2(40, 128), new Vector2(1f, 0.25f) * 0.6f * p.scale, SpriteEffects.None, 0);
             }
             Main.spriteBatch.ExitShaderRegion();
             return false;
