@@ -549,6 +549,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         public float alpha = 0;
         public bool init = true;
         public bool shoot = true;
+        public bool shake = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             int count = 0;
@@ -557,12 +558,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             {
                 if(p.type == type && p.owner == Projectile.owner)
                 {
-                    count++;
-                    if (p.ModProjectile is MiracleWreckageThrow mw)
-                        mw.PopOut();
-                    for(int i = 0; i < 2; i++)
+                    if (p.ModProjectile is MiracleWreckageThrow mw && mw.target == target.whoAmI)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Projectile.velocity.normalize().RotatedByRandom(1) * Main.rand.NextFloat(38, 46), ModContent.ProjectileType<MiracleVortex>(), Projectile.damage / 2, 0, Projectile.owner);
+                        count++;
+                        mw.PopOut();
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Projectile.velocity.normalize().RotatedByRandom(1) * Main.rand.NextFloat(38, 46), ModContent.ProjectileType<MiracleVortex>(), Projectile.damage / 2, 0, Projectile.owner);
+                        }
                     }
                 }
             }
@@ -570,9 +573,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<Blackhole>(), Projectile.damage / 16, 0, Projectile.owner);
             }
-            ScreenShaker.AddShake(new ScreenShaker.ScreenShake(-(target.Center - Projectile.Center).normalize(), 26));
-            CEUtils.PlaySound("DemonSwordInsaneImpact", Main.rand.NextFloat(0.8f, 1.4f), target.Center);
-            CEUtils.PlaySound("HalleysInfernoHit", Main.rand.NextFloat(0.6f, 1.12f), target.Center, 4, 1f * CEUtils.WeapSound, path: "CalamityMod/Sounds/Item/");
+            if (shake)
+            {
+                CEUtils.PlaySound("DemonSwordInsaneImpact", Main.rand.NextFloat(0.8f, 1.4f), target.Center);
+                CEUtils.PlaySound("HalleysInfernoHit", Main.rand.NextFloat(0.6f, 1.12f), target.Center, 4, 1f * CEUtils.WeapSound, path: "CalamityMod/Sounds/Item/");
+
+                ScreenShaker.AddShake(new ScreenShaker.ScreenShake(-(target.Center - Projectile.Center).normalize(), 26));
+                shake = false;
+            }
             for (int i = 0; i < 32; i++)
             {
                 Color clr = Main.rand.NextBool() ? new Color(240, 240, 255) : new Color(210, 160, 255);
@@ -652,6 +660,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 if (swing-- < -24 * Projectile.MaxUpdates && Main.mouseLeft)
                 {
                     Dir *= -1;
+                    shake = true;
                     Projectile.ResetLocalNPCHitImmunity();
                     swing = (int)(36 * Projectile.MaxUpdates / speed);
                     rotVel = Dir * 0.062f;

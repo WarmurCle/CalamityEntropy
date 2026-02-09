@@ -56,6 +56,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                     }
                 }
             }
+            
             Vector2 d = Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * Projectile.ai[0] * 32;
 
             GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * 1, Projectile.velocity * -0.1f, false, 8, 0.03f, Color.Violet, new Vector2(0.38f, 1)));
@@ -156,6 +157,20 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             }
             if (Projectile.localAI[0] == 60)
                 CEUtils.PlaySound("BlackholeSpawn", 1f, Projectile.Center);
+
+            if (CanDamage().Value)
+            {
+                foreach (NPC n in Main.ActiveNPCs)
+                {
+                    if (!n.friendly && !n.boss && !(n.realLife >= 0) && n.Distance(Projectile.Center) < 3000)
+                    {
+                        n.velocity *= 0.9f;
+                        var vec = (Projectile.Center - n.Center).normalize();
+                        n.velocity += vec * 6;
+                        n.Center += vec * 4;
+                    }
+                }
+            }
         }
         public override bool? CanDamage()
         {
