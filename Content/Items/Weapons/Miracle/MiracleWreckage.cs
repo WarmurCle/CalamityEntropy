@@ -661,6 +661,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 {
                     Dir *= -1;
                     shake = true;
+                    odr.Clear();
                     Projectile.ResetLocalNPCHitImmunity();
                     swing = (int)(36 * Projectile.MaxUpdates / speed);
                     rotVel = Dir * 0.058f;
@@ -700,10 +701,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 particles.Add(new MWParticle(new Vector2(Main.rand.NextFloat(15, 17) * length, 0).RotatedByRandom(0.025f)) { offset = CEUtils.randomPointInCircle(10) });
                 particles[particles.Count - 1].scale *= 2.4f * length;
             }
-            if (odr.Count > 2600)
-            {
-                odr.RemoveAt(0);
-            }
             if (Projectile.velocity.X > 0)
             {
                 owner.direction = 1;
@@ -718,7 +715,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             owner.itemTime = 2;
             owner.itemAnimation = 2;
             odr.Add(Projectile.rotation);
-            if (odr.Count > 44)
+            if (odr.Count > 90)
             {
                 odr.RemoveAt(0);
             }
@@ -753,9 +750,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                     Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SwordTrail3", AssetRequestMode.ImmediateLoad).Value;
 
                     sb.End();
-                    sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
+                    sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
                     shader.Parameters["color2"].SetValue((Color.LightBlue).ToVector4());
-                    shader.Parameters["color1"].SetValue((Color.MediumPurple).ToVector4());
+                    shader.Parameters["color1"].SetValue((Color.Purple).ToVector4());
                     shader.Parameters["uTime"].SetValue(Main.GameUpdateCount * 2);
                     shader.Parameters["alpha"].SetValue(vsAlpha);
                     shader.CurrentTechnique.Passes["EffectPass"].Apply();
@@ -783,9 +780,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                     Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SwordTrail3", AssetRequestMode.ImmediateLoad).Value;
 
                     sb.End();
-                    sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
-                    shader.Parameters["color2"].SetValue((new Color(240, 200, 255)).ToVector4());
-                    shader.Parameters["color1"].SetValue((Color.Red).ToVector4());
+                    sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
+                    shader.Parameters["color2"].SetValue((new Color(255, 200, 255)).ToVector4());
+                    shader.Parameters["color1"].SetValue((Color.Violet).ToVector4());
                     shader.Parameters["uTime"].SetValue(Main.GameUpdateCount * 2);
                     shader.Parameters["alpha"].SetValue(vsAlpha);
                     shader.CurrentTechnique.Passes["EffectPass"].Apply();
