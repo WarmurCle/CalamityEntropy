@@ -29,8 +29,13 @@ namespace CalamityEntropy.Common
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<PGetPlayer>().accEquiped = true;
+            player.GetModPlayer<PGetPlayer>().accVanity = true;
             player.endurance += 0.05f * player.GetModPlayer<PGetPlayer>().count;
             player.GetDamage(DamageClass.Generic) += player.GetModPlayer<PGetPlayer>().count * 0.1f;
+        }
+        public override void UpdateVanity(Player player)
+        {
+            player.GetModPlayer<PGetPlayer>().accVanity = true;
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
@@ -42,9 +47,11 @@ namespace CalamityEntropy.Common
         public static List<string> yuzuGames = new() { "SenrenBanka", "RiddleJoker", "SabbatOfTheWitch", "CafeStella", "tenshi", "Angelic", "DracuRiot", "PARQUET", "NobleWorks" };
         public int count = 0;
         public bool accEquiped = false;
+        public bool accVanity = false;
         public override void ResetEffects()
         {
             accEquiped = false;
+            accVanity = false;
         }
         public override void OnEnterWorld()
         {

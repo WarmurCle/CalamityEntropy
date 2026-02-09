@@ -4404,6 +4404,9 @@ Projectiles: {
 	// Spade.DisplayName: Spade
 	// MiracleWreckageThrow.DisplayName: Miracle Wreckage Throw
 	// Blackhole.DisplayName: Blackhole
+	// MiracleWreckageHeldAnm.DisplayName: Miracle Wreckage Held Anm
+	// MiracleExplosion.DisplayName: Miracle Explosion
+	// MiracleWreckagePopOut.DisplayName: Miracle Wreckage Pop Out
 }
 
 LegendTooltip: - Легенда -
@@ -5510,6 +5513,7 @@ Biomes: {
 // ScytheReviveCooldown: Scythe Revive Cooldown
 // TScytheZenithName: Night Master's Scythe
 // TScytheSpecialName: Scarlet
+// TScytheSpecialName2: Kanna's Scythe
 // TScytheZenithDesc: '''"Crown me, my king, and the world will welcome the end of the night."'''
 // TScytheDesc: '''"A scarlet scythe with tlipoca's soul adhering."'''
 /* TSL1:

@@ -31,6 +31,25 @@ namespace CalamityEntropy.Content.Items.Donator
 {
     public class TlipocasScythe : RogueWeapon, IDevItem
     {
+        public static Asset<Texture2D> GetTexture(Player player)
+        {
+            if (player != null && AltType(player))
+                return ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Donator/Scythe2");
+            return ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Donator/TlipocasScythe");
+        }
+        public static bool AltType(Player player)
+        {
+            return ((player.TryGetModPlayer<PGetPlayer>(out var mp) && mp.accVanity) || StartBagGItem.NameContains(player, "kanna"));       
+        }
+        public static Color TrailColor(Projectile Projectile)
+        {
+            Player player = Projectile.GetOwner();
+            if (player.HasBuff<VoidEmpowerment>())
+                return Color.Purple;
+            if (player != null && AltType(player))
+                return new Color(217, 214, 255);
+            return Color.Firebrick;
+        }
         public override void SetStaticDefaults()
         {
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
@@ -86,7 +105,7 @@ namespace CalamityEntropy.Content.Items.Donator
 
         public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
         {
-            Texture2D tex = TextureAssets.Item[Type].Value;
+            Texture2D tex = TlipocasScythe.GetTexture(Main.LocalPlayer).Value;
             Vector2 position = Item.position - Main.screenPosition + tex.Size() / 2;
             Rectangle iFrame = tex.Frame();
             for (int i = 0; i < 16; i++)
@@ -341,6 +360,8 @@ namespace CalamityEntropy.Content.Items.Donator
         #endregion
         public override void UpdateInventory(Player player)
         {
+            if (Main.LocalPlayer != null && !Main.gameMenu && Main.myPlayer == player.whoAmI)
+                TextureAssets.Item[Item.type] = TlipocasScythe.GetTexture(player);
             int lv = GetLevel();
             if (NowLevel != lv || RecheckStats)
             {
@@ -376,7 +397,12 @@ namespace CalamityEntropy.Content.Items.Donator
             else
             {
                 Item.ClearNameOverride();
-                if (player.name.ToLower() is "tlipoca" or "Kino" || (player.TryGetModPlayer<VanityModPlayer>(out var mp) && mp.vanityEquippedLast == "BlackFlower"))
+                
+                if (player != null && (player.name.ToLower() == "kanna" || player.name.ToLower() == "akizukikanna" || player.GetModPlayer<PGetPlayer>().accVanity))
+                {
+                    Item.SetNameOverride(Mod.GetLocalization("TScytheSpecialName2").Value);
+                }
+                else if (player != null && (player.name.ToLower() is "tlipoca" or "kino" || (player.TryGetModPlayer<VanityModPlayer>(out var mp) && mp.vanityEquippedLast == "BlackFlower")))
                 {
                     Item.SetNameOverride(Mod.GetLocalization("TScytheSpecialName").Value);
                 }
@@ -384,6 +410,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 {
                     Item.SetNameOverride(Mod.GetLocalization("TScytheZenithName").Value);
                 }
+
                 if (throwType == -1)
                     throwType = ModContent.ProjectileType<TlipocasScytheThrow>();
                 FuncKilledTownNPC(player);
@@ -725,9 +752,8 @@ namespace CalamityEntropy.Content.Items.Donator
             Color impactColor = Color.Red;
             float impactParticleScale = Main.rand.NextFloat(1.4f, 1.6f);
 
-            SparkleParticle impactParticle = new SparkleParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, impactColor, Color.LawnGreen, impactParticleScale, 8, 0, 2.5f);
+            SparkleParticle impactParticle = new SparkleParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, impactColor, Color.Firebrick, impactParticleScale, 8, 0, 2.5f);
             GeneralParticleHandler.SpawnParticle(impactParticle);
-
 
             float sparkCount = 8 + TlipocasScythe.GetLevel();
             for (int i = 0; i < sparkCount; i++)
@@ -754,6 +780,8 @@ namespace CalamityEntropy.Content.Items.Donator
                 }
                 else
                 {
+                    if (TlipocasScythe.AltType(Projectile.GetOwner()))
+                        sparkColor2 = TlipocasScythe.TrailColor(Projectile);
                     if (Main.rand.NextBool())
                     {
                         AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
@@ -873,7 +901,7 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = Projectile.GetTexture();
+            Texture2D tex = TlipocasScythe.GetTexture(Projectile.GetOwner()).Value;
             Texture2D trail = CEUtils.getExtraTex("StreakGoop");
             List<ColoredVertex> ve = new List<ColoredVertex>();
             float MaxUpdateTimes = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
@@ -898,8 +926,8 @@ namespace CalamityEntropy.Content.Items.Donator
 
                     sb.End();
                     sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, _shader, Main.GameViewMatrix.TransformationMatrix);
-                    _shader.Parameters["color1"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? Color.Purple : Color.Firebrick).ToVector4());
-                    _shader.Parameters["color2"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? new Color(190, 190, 255) : new Color(255, 60, 60)).ToVector4());
+                    _shader.Parameters["color1"].SetValue(TlipocasScythe.TrailColor(Projectile).ToVector4());
+                    _shader.Parameters["color2"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? new Color(190, 190, 255) : (TlipocasScythe.AltType(Projectile.GetOwner()) ? TlipocasScythe.TrailColor(Projectile) * 1.2f : new Color(255, 60, 60))).ToVector4());
 
                     _shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 2.4f);
                     _shader.Parameters["alpha"].SetValue(1);
@@ -1106,6 +1134,8 @@ namespace CalamityEntropy.Content.Items.Donator
                 }
                 else
                 {
+                    if (TlipocasScythe.AltType(Projectile.GetOwner()))
+                        sparkColor2 = TlipocasScythe.TrailColor(Projectile);
                     if (Main.rand.NextBool())
                     {
                         AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
@@ -1205,7 +1235,7 @@ namespace CalamityEntropy.Content.Items.Donator
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = Projectile.GetTexture();
+            Texture2D tex = TlipocasScythe.GetTexture(Projectile.GetOwner()).Value;
             Texture2D trail = CEUtils.getExtraTex("StreakGoop");
             List<ColoredVertex> ve = new List<ColoredVertex>();
             float MaxUpdateTimes = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
@@ -1231,8 +1261,8 @@ namespace CalamityEntropy.Content.Items.Donator
 
                     sb.End();
                     sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
-                    shader.Parameters["color1"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? Color.Purple : Color.Firebrick).ToVector4());
-                    shader.Parameters["color2"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? new Color(190, 190, 255) : new Color(255, 60, 60)).ToVector4());
+                    shader.Parameters["color1"].SetValue(TlipocasScythe.TrailColor(Projectile).ToVector4());
+                    shader.Parameters["color2"].SetValue((Projectile.GetOwner().HasBuff<VoidEmpowerment>() ? new Color(190, 190, 255) : (TlipocasScythe.AltType(Projectile.GetOwner()) ? TlipocasScythe.TrailColor(Projectile) * 1.2f : new Color(255, 60, 60))).ToVector4());
                     shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 2.4f);
                     shader.Parameters["alpha"].SetValue(1);
                     shader.CurrentTechnique.Passes["EffectPass"].Apply();
