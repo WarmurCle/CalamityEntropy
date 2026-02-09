@@ -22,19 +22,20 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class VoidCore : ModItem
     {
-        public const int ShieldSlamDamage = 1800;
+        public const int ShieldSlamDamage = 1200;
         public const float ShieldSlamKnockback = 8f;
         public const int ShieldSlamIFrames = 18;
-        public static int DashDelay = 18;
+        public static int DashDelay = 20;
         public float charge = 0;
-        public static int MaxShield = 120;
-        public static int ShieldRecharge = 16 * 60;
-        public static float CritDamage = 0.16f;
+        public static int MaxShield = 100;
+        public static int ShieldRecharge = 20 * 60;
+        public static float CritDamage = 0.12f;
         public override void SetDefaults()
         {
             Item.width = 60;
             Item.height = 60;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
+            Item.defense = 8;
             Item.accessory = true;
             Item.rare = ModContent.RarityType<VoidPurple>();
         }
@@ -84,7 +85,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override float CalculateDashSpeed(Player player)
         {
-            return 38f;
+            return 26f;
         }
 
         public override void OnDashEffects(Player player)
@@ -132,7 +133,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                     GeneralParticleHandler.SpawnParticle(new LineParticle(CEUtils.randomPointInCircle(18) + player.Center - player.velocity * Main.rand.NextFloat(), -player.velocity * Main.rand.NextFloat(0.4f, 0.6f), false, 8, Main.rand.NextFloat(0.6f, 1), Color.LightBlue));
                 }
                 EParticle.spawnNew(new AbyssalLine() { xadd = 0.84f, lx = 0.84f }, player.Center - player.velocity, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, player.velocity.ToRotation(), 26);
-                dashSpeed = 30f;
+                dashSpeed = 20f;
             }
         }
 
