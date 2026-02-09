@@ -107,8 +107,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D trail1 = CEUtils.getExtraTex("Streak2Trans");
-            CEUtils.DrawGlow(Projectile.Center, Color.MediumVioletRed, 0.4f * Projectile.ai[0]);
-            CEUtils.DrawGlow(Projectile.Center, Color.MediumVioletRed, 0.4f * Projectile.ai[0]);
+            CEUtils.DrawGlow(Projectile.Center, Color.MediumVioletRed * 2, 0.4f * Projectile.ai[0]);
+            CEUtils.DrawGlow(Projectile.Center, Color.MediumVioletRed * 2, 0.4f * Projectile.ai[0]);
             DrawRing(Projectile.Center - Main.screenPosition, trail1, new Vector2(64, 64) * Projectile.ai[0], new Vector2(1, 1) * Projectile.ai[0], Color.Violet, BlendState.Additive);
             return false;
         }
