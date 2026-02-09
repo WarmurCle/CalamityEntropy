@@ -606,18 +606,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             swing = reader.ReadInt32();
             rotVel = reader.ReadSingle();
         }
+        public bool flag = false;
         public override void AI()
         {
-            if(Main.myPlayer == Projectile.owner)
-            {
-                if (!rcl && Main.mouseRight && swing < -16)
-                {
-                    Projectile.Kill(); 
-                    return;
-                }
-                rcl = Main.mouseRight;
-            }
-            length = float.Lerp(length, 1, 0.01f);
+            if(!flag)
+                length = float.Lerp(length, 1, 0.01f);
             Player owner = Projectile.GetOwner();
             Projectile.timeLeft = 3;
             owner.Calamity().mouseWorldListener = true;
@@ -629,11 +622,26 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             float speed = owner.GetTotalAttackSpeed(DamageClass.Melee);
             if(swing < 0)
                 Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, targetRot, 0.01f, false);
+            if (flag)
+            {
+                length *= 0.995f;
+                length -= 0.002f;
+                if (length <= 0.04f)
+                    Projectile.Kill();
+            }
+            if (Main.myPlayer == Projectile.owner)
+            {
+                if (!rcl && Main.mouseRight && swing < -16)
+                {
+                    flag = true;
+                }
+                rcl = Main.mouseRight;
+            }
             Projectile.rotation += rotVel * speed;
             rotVel *= (float)(Math.Pow(0.987f, speed));
             if(swing < 0)
                 Projectile.velocity = rot.ToRotationVector2() * 16;
-            if (Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner && !flag)
             {
                 if (swing-- < -24 * Projectile.MaxUpdates && Main.mouseLeft)
                 {
@@ -648,9 +656,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             }
             if (Projectile.localAI[1] % 5 == 0)
             {
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 1; i++)
                 {
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(0.2f, float.Max(0.2f, length)) * 470, Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(6, 9), false, 6, Main.rand.NextFloat(0.04f, 0.054f), Color.MediumVioletRed, new Vector2(0.5f, 1)));
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(0.2f, float.Max(0.2f, length)) * 410, Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(12, 18) * length, true, 32, Main.rand.NextFloat(0.04f, 0.054f) * length, Color.MediumVioletRed, new Vector2(0.5f, 1)));
                 }
             }
             if (swing > 0)
@@ -675,7 +683,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             for (int i = 0; i < 1; i++)
             {
                 particles.Add(new MWParticle(new Vector2(Main.rand.NextFloat(11, 12) * length, 0).RotatedByRandom(0.02f)) { offset = CEUtils.randomPointInCircle(10) });
-                particles[particles.Count - 1].scale *= 1.6f;
+                particles[particles.Count - 1].scale *= 1.3f * length;
             }
             if (odr.Count > 2600)
             {
