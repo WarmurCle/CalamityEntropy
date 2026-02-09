@@ -77,7 +77,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                     attackFrameCounter = 0;
                     if (!Main.dedServ)
                     {
-                        SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/SwiftSlice"), NPC.Center);
+                        SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/SwiftSlice"), NPC.Center);
                     }
                 }
             }
