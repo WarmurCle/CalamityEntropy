@@ -673,7 +673,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             {
                 for (int i = 0; i < 1; i++)
                 {
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(0.2f, float.Max(0.2f, length)) * 522, Projectile.rotation.ToRotationVector2().RotatedByRandom(0.2f) * Main.rand.NextFloat(32, 42) * length, false, 8, Main.rand.NextFloat(0.04f, 0.054f) * length, Color.MediumVioletRed * 0.6f, new Vector2(0.34f, 1)));
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + owner.velocity + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(0.2f, float.Max(0.2f, length)) * 522, owner.velocity * 0.4f + Projectile.rotation.ToRotationVector2().RotatedByRandom(0.2f) * Main.rand.NextFloat(32, 42) * length, false, 8, Main.rand.NextFloat(0.04f, 0.054f) * length, Color.MediumVioletRed * 0.6f, new Vector2(0.34f, 1)));
                 }
             }
             if (swing > 0)
