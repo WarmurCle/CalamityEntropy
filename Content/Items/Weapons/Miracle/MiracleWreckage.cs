@@ -558,7 +558,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                         mw.PopOut();
                     for(int i = 0; i < 2; i++)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Projectile.velocity.normalize().RotatedByRandom(1) * Main.rand.NextFloat(16, 20), ModContent.ProjectileType<MiracleVortex>(), Projectile.damage / 2, 0, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Projectile.velocity.normalize().RotatedByRandom(1) * Main.rand.NextFloat(38, 46), ModContent.ProjectileType<MiracleVortex>(), Projectile.damage / 2, 0, Projectile.owner);
                     }
                 }
             }
@@ -582,7 +582,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.FinalDamage *= Main.rand.NextFloat(1, 1.25f);
+            modifiers.FinalDamage *= 8f;
         }
         public float length = 0;
         public int Dir = -1;
@@ -613,7 +613,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 }
                 rcl = Main.mouseRight;
             }
-            length = float.Lerp(length, 1, 0.12f);
+            length = float.Lerp(length, 1, 0.01f);
             Player owner = Projectile.GetOwner();
             Projectile.timeLeft = 3;
             owner.Calamity().mouseWorldListener = true;
@@ -798,7 +798,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         {
             if (swing < 0)
                 return false;
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * Projectile.scale * scale * 900 * (Projectile.ai[1] + 0.5f), targetHitbox, 300);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * Projectile.scale * scale * 900 * (Projectile.ai[1] + 0.5f), targetHitbox, 420);
         }
         public override void CutTiles()
         {

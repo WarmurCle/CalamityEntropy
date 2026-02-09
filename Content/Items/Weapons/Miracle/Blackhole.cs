@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(DamageClass.Melee, false, 1);
-            Projectile.width = Projectile.height = 24;
+            Projectile.width = Projectile.height = 46;
             Projectile.timeLeft = 260;
             Projectile.light = 1;
         }
@@ -34,22 +34,34 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         public override void AI()
         {
             Projectile.ai[0] = float.Lerp(Projectile.ai[0], 1, 0.14f);
+            Projectile.localAI[0]++;
             NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 1800);
             if (target != null)
             {
-                if (Projectile.localAI[0]++ < 32)
+                if (Projectile.localAI[0] < 26)
                 {
-                    Projectile.velocity = (CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.08f)).ToRotationVector2() * Projectile.velocity.Length();
+                    Projectile.velocity *= 0.98f;
+                    Projectile.velocity = (CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.02f)).ToRotationVector2() * Projectile.velocity.Length();
                 }
                 else
                 {
-                    if (Projectile.localAI[0]++ < 32)
+                    if (Projectile.localAI[0] > 38)
                     {
-                        Projectile.velocity *= 0.94f;
-                        Projectile.velocity += (target.Center - Projectile.Center).normalize() * 1.6f;
+                        Projectile.velocity *= 0.96f;
+                        Projectile.velocity += (target.Center - Projectile.Center).normalize() * 5f;
+                    }
+                    else
+                    {
+                        Projectile.velocity *= 0.97f;
                     }
                 }
             }
+            Vector2 d = Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * Projectile.ai[0] * 32;
+
+            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * 1, Projectile.velocity * -0.1f, false, 8, 0.03f, Color.Violet, new Vector2(0.38f, 1)));
+            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * -1, Projectile.velocity * -0.1f, false, 8, 0.03f, Color.Violet, new Vector2(0.38f, 1)));
+            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * 1 + Projectile.velocity / 2f, Projectile.velocity * -0.1f, false, 8, 0.03f, Color.Violet, new Vector2(0.9f, 1)));
+            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * -1 + Projectile.velocity / 2f, Projectile.velocity * -0.1f, false, 8, 0.03f, Color.Violet, new Vector2(0.9f, 1)));
         }
         public void DrawRing(Vector2 position, Texture2D trail, Vector2 scaleOutside, Vector2 scaleInside, Color color, BlendState blend, bool? drawUpside = null)
         {
@@ -93,9 +105,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D trail1 = CEUtils.getExtraTex("Streak2Trans");
-            CEUtils.DrawGlow(Projectile.Center, Color.MediumVioletRed, 1.4f * Projectile.ai[0]);
-            CEUtils.DrawGlow(Projectile.Center, Color.MediumVioletRed, 1.4f * Projectile.ai[0]);
-            DrawRing(Projectile.Center - Main.screenPosition, trail1, new Vector2(90, 90) * Projectile.ai[0], new Vector2(30, 30) * Projectile.ai[0], Color.Violet, BlendState.Additive);
+            CEUtils.DrawGlow(Projectile.Center, Color.MediumVioletRed, 0.4f * Projectile.ai[0]);
+            CEUtils.DrawGlow(Projectile.Center, Color.MediumVioletRed, 0.4f * Projectile.ai[0]);
+            DrawRing(Projectile.Center - Main.screenPosition, trail1, new Vector2(64, 64) * Projectile.ai[0], new Vector2(1, 1) * Projectile.ai[0], Color.Violet, BlendState.Additive);
             return false;
         }
     }
