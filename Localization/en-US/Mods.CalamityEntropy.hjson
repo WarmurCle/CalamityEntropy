@@ -628,8 +628,8 @@ Items: {
 		DisplayName: Holy Moonlight
 		Tooltip:
 			'''
-			+10% Magic Damage
-			Get a magic shield every thirty seconds, which is equivalent to 50% of the magic limit,
+			+15% Magic Damage
+			Get a magic shield every thirty seconds, which is equivalent to 25% of the magic limit,
 			During the existence of the Magic Shield, increase movement speed by 10% and reduce magic consumption by 10%,
 			The shield will deal damage to the enemies it touches,
 			When the magic shield is broken, it eliminates its own magic sickness and benefits, and returns to its full magic value,
@@ -794,7 +794,7 @@ Items: {
 		Tooltip:
 			'''
 			Gives you 40% extra mana
-			Every 1 extra mana provides 0.1% magic damage bonus
+			Every 1 extra mana provides 0.15% magic damage bonus
 			'''
 		DisplayName: Archmage's Handmirror
 	}
@@ -1417,7 +1417,7 @@ Items: {
 			'''
 			+15% Damage
 			+15 Crit Chance
-			+250 Max Mana
+
 			Now you can breath in the abyss
 			'''
 	}
@@ -1429,7 +1429,8 @@ Items: {
 			+20% Damage
 			+20% Crit Chance
 			+30% Melee Speed
-			+250 Max Life
+			+200 Max Life
+			+200 Max Mana
 			'''
 	}
 
@@ -1439,7 +1440,7 @@ Items: {
 			'''
 			+30% Speed
 			-20% Mana Cost
-			+20 Damage
+			+15% Damage
 			+5 Crit Chance
 			'''
 	}
@@ -3833,16 +3834,14 @@ MariviniumSet:
 	+100% Summon Damage
 	+5% Summon Crit
 	+10% Damage Reduce
-	+50 Armor Penetration
-	if your crit chance is over 100%, convert excess crit chance into damage bonus
 	+135 Rogue Stealth
 	When standing, increase life regen
 	Immunity to most debuffs
-	When using true melee weapons, +15% Damage reduce and 25 defense
+	When using true melee weapons, +10% Damage reduce and 15 defense
 	When using a whip, enhance summoner attributes
 	Stealth strike has a probability of causing an water explosion
-	Obtain 2 layers of shields, which will take 20 seconds to recover after being shattered
-	After shield shattered, treat 140 health points and +100% damage for 5 seconds
+	Obtain 2 layers of shields, which will take 30 seconds to recover after being shattered
+	After shield shattered, treat 100 health points and +50% damage for 10 seconds
 	'''
 DeathMode: Death Mode
 CdMantle: Holy Mantle Cooldown
@@ -5683,7 +5682,7 @@ AzafureSet:
 	When this armor is equipped, 
 	all Azafure equipment receives partial enhancements
 	Remove adrenaline and gains a Durability bar
-	The Durability bar provides up to 12 defense and 25% damage reduction, 
+	The Durability bar provides up to 12 defense and 16% damage reduction, 
 	while slowing your movement speed
 	Durability is consumed based on damage taken when hit
 	Durability slowly regenerates 5 seconds after taking damage
@@ -5694,12 +5693,12 @@ AzafureSet2:
 	When this armor is equipped, 
 	all Azafure equipment receives partial enhancements
 	Remove adrenaline and gains a Durability bar
-	The Durability bar provides up to 24 defense and 30% damage reduction
+	The Durability bar provides up to 24 defense and 20% damage reduction
 	Durability is consumed based on damage taken when hit
 	Durability slowly regenerates 5 seconds after taking damage
 	When the Durability bar is depleted, it becomes inactive and requires time to restore functionality
 	Provide 80 rogue stealth
-	+20% Movement speed and +1 Max minion
+	+10% Movement speed and +1 Max minion
 	'''
 AzafureSet3:
 	'''
@@ -5707,7 +5706,7 @@ AzafureSet3:
 	When this armor is equipped, 
 	all Azafure equipment receives partial enhancements
 	Remove adrenaline and gains a Durability bar
-	The Durability bar provides up to 36 defense and 32% damage reduction
+	The Durability bar provides up to 36 defense and 24% damage reduction
 	Durability is consumed based on damage taken when hit
 	Durability slowly regenerates 5 seconds after taking damage
 	When the Durability bar is depleted, it becomes inactive and requires time to restore functionality
