@@ -2888,12 +2888,12 @@ Items: {
 		Tooltip:
 			'''
 			Left-click to throw two swords, which will stick to the enemy
-			If the number of swords on the enemy exceeds six, 
+			If the number of swords on the enemy exceeds seven, 
 			the extra swords will be ejected and stab at the enemy
 			Press RMB to extend the sword blades with Miracle Fire
 			At this time, pressing the left button allows for swinging,
 			ejecting the sword blades stuck to the enemy and simultaneously generating a Miracle Vortex
-			If there are six swords on the enemy, a black hole will appear
+			If there are more than five swords on the enemy, a black hole will appear
 			'''
 	}
 
