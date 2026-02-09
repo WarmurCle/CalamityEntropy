@@ -2896,7 +2896,16 @@ Items: {
 
 	MiracleWreckage: {
 		// DisplayName: Miracle Wreckage
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Left-click to throw two swords, which will stick to the enemy
+			If the number of swords on the enemy exceeds six, 
+			the extra swords will be ejected and stab at the enemy
+			Press RMB to extend the sword blades with Miracle Fire
+			At this time, pressing the left button allows for swinging,
+			ejecting the sword blades stuck to the enemy and simultaneously generating a Miracle Vortex
+			If there are six swords on the enemy, a black hole will appear
+			''' */
 	}
 
 	TheocracyMark: {
