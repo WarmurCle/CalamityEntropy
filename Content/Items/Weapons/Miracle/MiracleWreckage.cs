@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Dusts;
 using CalamityMod.Items;
@@ -69,7 +70,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<DevilsDevastation>().AddIngredient<AshesofAnnihilation>(6).AddIngredient<GalactusBlade>().AddTile<CosmicAnvil>().Register();
+            CreateRecipe().AddIngredient<DevilsDevastation>().
+                AddIngredient<FadingRunestone>(2).
+                AddTile<AbyssalAltarTile>().
+                Register();
         }
     }
     public class MiracleWreckageHeldAnm : ModProjectile
@@ -606,7 +610,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         {
             if(Main.myPlayer == Projectile.owner)
             {
-                if (!rcl && Main.mouseRight)
+                if (!rcl && Main.mouseRight && swing < -16)
                 {
                     Projectile.Kill(); 
                     return;
