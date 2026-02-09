@@ -607,8 +607,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             rotVel = reader.ReadSingle();
         }
         public bool flag = false;
+        public bool flag2 = true;
         public override void AI()
         {
+            if(flag2)
+            {
+                flag2 = false;
+                Dir = Projectile.velocity.X > 0 ? -1 : 1;
+            }
             if(!flag)
                 length = float.Lerp(length, 1, 0.01f);
             Player owner = Projectile.GetOwner();
