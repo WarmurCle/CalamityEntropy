@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.accessory = true;
-            Item.defense = 4;
+            Item.defense = 2;
         }
         public static string ID = "AzafureDetectorEquipment";
 
