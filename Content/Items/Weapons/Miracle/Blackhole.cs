@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(DamageClass.Melee, false, 1);
-            Projectile.width = Projectile.height = 46;
+            Projectile.width = Projectile.height = 100;
             Projectile.timeLeft = 260;
             Projectile.light = 1;
         }
@@ -41,7 +41,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 if (Projectile.localAI[0] < 26)
                 {
                     Projectile.velocity *= 0.98f;
-                    Projectile.velocity = (CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.02f)).ToRotationVector2() * Projectile.velocity.Length();
+                    if (Projectile.localAI[0] > 5)
+                        Projectile.velocity = (CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.1f)).ToRotationVector2() * Projectile.velocity.Length();
                 }
                 else
                 {
