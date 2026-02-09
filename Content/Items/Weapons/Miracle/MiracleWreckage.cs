@@ -808,7 +808,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             Texture2D g = CEUtils.getExtraTex("Glow");
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Texture2D c = CEUtils.getExtraTex("SemiCircularSmear");
-            float alphac = vsAlpha * 0.65f;
+            float alphac = vsAlpha * 0.82f;
             float crot = Projectile.rotation + Dir * -1.2f;
             Main.spriteBatch.Draw(c, Projectile.Center - Main.screenPosition, null, Color.MediumPurple * alphac, crot, c.Size() / 2f, 13f * 0.5f, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(c, Projectile.Center - Main.screenPosition, null, Color.Red * alphac * 0.5f, crot, c.Size() / 2f, 5f * (Projectile.ai[1] + 0.5f), SpriteEffects.None, 0);
