@@ -121,7 +121,7 @@ namespace CalamityEntropy.Common
         {
             if (entity.type == ModContent.ItemType<StarblightSoot>())
             {
-                entity.ammo = 3728;
+                //entity.ammo = 3728;
             }
             if (entity.type == ItemID.ChainKnife)
             {
