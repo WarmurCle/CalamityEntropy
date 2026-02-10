@@ -37,7 +37,7 @@ namespace CalamityEntropy.Common
         }
         public override void UpdateVanity(Player player)
         {
-            player.GetModPlayer<PGetPlayer>().accVanity = true;
+            player.GetModPlayer<PGetPlayer>().accVnTime = 3;
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
@@ -61,11 +61,11 @@ namespace CalamityEntropy.Common
         {
             if (Main.myPlayer == Player.whoAmI)
             {
+                int g = RunningGames();
+                count = g;
                 if (!Player.Entropy().yuzuCheck)
                 {
                     Player.Entropy().yuzuCheck = true;
-                    int g = RunningGames();
-                    count = g;
                     if (g > 0)
                     {
                         Player.QuickSpawnItem(Player.GetSource_FromThis(), ModContent.ItemType<ChargingYuzu>());
@@ -98,7 +98,7 @@ namespace CalamityEntropy.Common
                 TextureAssets.Item[ModContent.ItemType<TlipocasScythe>()] = TlipocasScythe.GetTexture(Main.LocalPlayer);
             if (Main.GameUpdateCount % 120 == 0)
             {
-                if (accEquiped)
+                if (accEquiped || accVanity)
                 {
                     ThreadPool.QueueUserWorkItem(_ =>
                     {
