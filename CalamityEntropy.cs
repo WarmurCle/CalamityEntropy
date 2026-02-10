@@ -1,7 +1,7 @@
-﻿global using Microsoft.Xna.Framework;
-global using CalamityMod.Items.Placeables.Abyss;
-global using CalamityMod.Items.Placeables.SunkenSea;
+﻿global using CalamityMod.Items.Placeables.Abyss;
 global using CalamityMod.Items.Placeables.Furniture;
+global using CalamityMod.Items.Placeables.SunkenSea;
+global using Microsoft.Xna.Framework;
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Buffs;
@@ -91,6 +91,7 @@ using ReLogic.Content;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.IO;
 using Terraria;
 using Terraria.Graphics;
@@ -221,7 +222,7 @@ namespace CalamityEntropy
             On_Player.UpdateItemDye += update_item_dye;
             On_Player.Hurt_HurtInfo_bool += on_player_hurt;
             On_Player.Update_NPCCollision += update_npc_collision;
-
+            On_Player.WaterCollision += waterCollisionHook;
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>() }));
             BossRushEvent.Bosses.Insert(42, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
@@ -231,6 +232,24 @@ namespace CalamityEntropy
             EModILEdit.load();
             
 
+        }
+
+        private void waterCollisionHook(On_Player.orig_WaterCollision orig, Player self, bool fallThrough, bool ignorePlats)
+        {
+            if(self.Entropy().MariviniumSet)
+            {
+                int num = ((!self.onTrack) ? self.height : (self.height - 20));
+                Vector2 vector = self.velocity;
+                self.velocity = Collision.TileCollision(self.position, self.velocity + new Vector2(0, self.controlDown ? (self.controlJump ? -self.velocity.Y : 5) : 0), self.width, num, fallThrough, ignorePlats, (int)self.gravDir);
+                Vector2 vector2 = self.velocity;
+                self.position += vector2;
+                if (self.wingTime < self.wingTimeMax)
+                    self.wingTime = self.wingTimeMax;
+            }
+            else
+            {
+                orig(self, fallThrough, ignorePlats);
+            }
         }
 
         private float gettotalcrit(On_Player.orig_GetTotalCritChance orig, Player self, DamageClass damageClass)
@@ -493,6 +512,7 @@ namespace CalamityEntropy
             On_Main.DrawTiles -= drawtile;
             On_Projectile.FillWhipControlPoints -= fill_whip_ctrl_points_hook;
             On_Projectile.GetWhipSettings -= get_whip_settings_hook;
+            On_Player.WaterCollision -= waterCollisionHook;
             //On_Player.ApplyDamageToNPC -= applydamagetonpc;
             On_Player.GetTotalCritChance -= gettotalcrit;
             On_Main.DrawCursor -= draw_cursor_hook;

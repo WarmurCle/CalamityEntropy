@@ -31,6 +31,7 @@ using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
+using CalamityMod.Graphics;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Placeables;
 using CalamityMod.Items.Placeables.Abyss;
@@ -2201,8 +2202,18 @@ namespace CalamityEntropy.Common
             }
         }
         public int FallSpeedUP = 0;
+        public float MariviumLight = 0;
         public override void PostUpdate()
         {
+            MariviumLight = float.Lerp(MariviumLight, MariviniumSet ? 1 : 0, 0.05f);
+            EnhancedDarknessSystem.lights.Add(new(center: Player.Center, scale: 36 * MariviumLight));
+            for (float i = 0; i < 360; i += 2.5f)
+            {
+                for(float d = 0; d < 1; d += 0.1f)
+                {
+                    CEUtils.AddLight(Player.Center + Player.velocity + MathHelper.ToRadians(i).ToRotationVector2() * (1 - d) * 450 * MariviumLight, Color.LightBlue * MariviumLight * d * 0.8f, 1.5f);
+                }
+            }
             BloodthirstyEffect *= 0.974f;
             if(CalamityEntropy.EntropyMode)
             {

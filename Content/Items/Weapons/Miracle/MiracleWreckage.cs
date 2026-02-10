@@ -52,6 +52,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 return false;
             if (player.altFunctionUse == 2)
             {
+                CEUtils.PlaySound("flamethrower start", 1.6f, position);
                 Projectile.NewProjectile(source, position, velocity, heldType, damage, knockback, player.whoAmI);
                 return false;
             }
@@ -171,7 +172,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         {
             Projectile.FriendlySetDefaults(DamageClass.Melee, false, -1);
             Projectile.width = Projectile.height = 90;
-            Projectile.timeLeft = 80;
+            Projectile.timeLeft = 120;
             Projectile.light = 1;
             Projectile.MaxUpdates = 3;
         }
@@ -222,7 +223,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<MiracleExplosion>(), Projectile.damage, 0, Projectile.owner);
                 CEUtils.PlaySound("DemonSwordImpact2", Main.rand.NextFloat(0.9f, 1.2f), target.Center);
                 hitTime = Main.GameUpdateCount;
-                Projectile.timeLeft = 36 * 60;
+                Projectile.timeLeft = 50 * 60;
                 uint last = uint.MaxValue;
                 Projectile lastProj = null;
                 int amount = 0;
@@ -551,6 +552,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         public bool init = true;
         public bool shoot = true;
         public bool shake = true;
+        public int SpeedUp = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             int count = 0;
@@ -573,6 +575,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             if(count >= 6)  
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<Blackhole>(), Projectile.damage / 8, 0, Projectile.owner, 0, target.whoAmI);
+            }
+            if(count > 0)
+            {
+                SpeedUp = 2;
             }
             if (shake)
             {
@@ -625,7 +631,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 Dir = Projectile.velocity.X > 0 ? -1 : 1;
             }
             if(!flag)
-                length = float.Lerp(length, 1, 0.01f);
+                if(Projectile.localAI[0]++ > 300)
+                    length = float.Lerp(length, 1, 0.01f);
             Player owner = Projectile.GetOwner();
             Projectile.timeLeft = 3;
             owner.Calamity().mouseWorldListener = true;
@@ -635,43 +642,51 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             if (Projectile.localAI[1]++ == 0)
                 Projectile.rotation = rot + Dir * 1.2f;
             float speed = owner.GetTotalAttackSpeed(DamageClass.Melee);
-            if(swing < 0)
+            if (SpeedUp > 0)
+            {
+                speed *= 2;
+            }
+            if (swing < 0)
                 Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, targetRot, 0.01f, false);
             if (flag)
             {
-                length *= 0.995f;
-                length -= 0.002f;
+                length *= 0.998f;
+                length -= 0.0005f;
                 if (length <= 0.04f)
                     Projectile.Kill();
             }
             if (Main.myPlayer == Projectile.owner)
             {
-                if (!rcl && Main.mouseRight && swing < -16)
+                if (!rcl && Main.mouseRight && swing < -16 && (flag || length > 0.85f))
                 {
-                    flag = true;
+                    flag = !flag;
                 }
                 rcl = Main.mouseRight;
             }
+            
             Projectile.rotation += rotVel * speed;
             rotVel *= (float)(Math.Pow(0.987f, speed));
             if(swing < 0)
                 Projectile.velocity = rot.ToRotationVector2() * 16;
+            swing--;
+            if (swing == 0)
+                SpeedUp --;
             if (!flag)
             {
-                if (swing-- < -16 * Projectile.MaxUpdates && Main.mouseLeft && Main.myPlayer == Projectile.owner)
+                if (length > 0.9f && swing < -16 * Projectile.MaxUpdates / speed / (SpeedUp > 0 ? 2 : 1) && Main.mouseLeft && Main.myPlayer == Projectile.owner)
                 {
                     Dir *= -1;
                     shake = true;
                     odr.Clear();
                     Projectile.ResetLocalNPCHitImmunity();
-                    swing = (int)(36 * Projectile.MaxUpdates / speed);
+                    swing = (int)(30 * Projectile.MaxUpdates / speed);
                     rotVel = Dir * 0.058f;
                     CEUtils.PlaySound("DemonSwordSwing1", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center);
                     if (Main.netMode == NetmodeID.MultiplayerClient)
                         CEUtils.SyncProj(Projectile.whoAmI);
                 }
             }
-            if (Projectile.localAI[1] % 5 == 0)
+            if (Projectile.localAI[1] % 5 == 0 && length > 0.24f)
             {
                 for (int i = 0; i < 1; i++)
                 {
@@ -801,7 +816,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
 
             float MaxUpdateTime = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
 
-            Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor, rot, origin, Projectile.scale * scale, effect);
+            Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor, rot, origin, Projectile.scale * scale * (length < 0.35f && flag ? 0 : 1), effect);
 
             Texture2D g = CEUtils.getExtraTex("Glow");
             Main.spriteBatch.UseBlendState(BlendState.Additive);
