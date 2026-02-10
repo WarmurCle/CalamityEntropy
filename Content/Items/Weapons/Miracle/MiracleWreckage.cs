@@ -572,7 +572,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             }
             if(count > 0)
             {
-                SpeedUp = 2;
+                SpeedUp = 3;
             }
             if (shake)
             {

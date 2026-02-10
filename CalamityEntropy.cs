@@ -1731,7 +1731,7 @@ namespace CalamityEntropy
             }
             if (!Main.dedServ)
             {
-                ealaserSound = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/corruptedBeaconLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                ealaserSound = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/VoidLaserLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 ealaserSound2 = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/portal_loop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 ofCharge = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/ElectricLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 FableEye.sound = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/prophetlaserloop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
