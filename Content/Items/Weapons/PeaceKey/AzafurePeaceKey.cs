@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
                 }
             }
             player.FindSentryRestingSpot(type, out int XPosition, out int YPosition, out int YOffset);
-            YOffset -= 16;
+            YOffset -= 18;
             position = new Vector2((float)XPosition, (float)(YPosition - YOffset));
             int p = Projectile.NewProjectile(source, position, Vector2.Zero, type, damage, knockback, player.whoAmI, 20f);
             if (Main.projectile.IndexInRange(p))
