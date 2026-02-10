@@ -212,7 +212,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         }
         public void Update()
         {
-            if (Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner && Main.netMode == NetmodeID.MultiplayerClient)
                 CEUtils.SyncProj(Projectile.whoAmI);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -257,6 +257,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 offset = Projectile.Center - target.Center;
                 HitEffect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 90);
             }
+            Update();
         }
         public void PopOut()
         {
@@ -655,9 +656,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             rotVel *= (float)(Math.Pow(0.987f, speed));
             if(swing < 0)
                 Projectile.velocity = rot.ToRotationVector2() * 16;
-            if (Main.myPlayer == Projectile.owner && !flag)
+            if (!flag)
             {
-                if (swing-- < -16 * Projectile.MaxUpdates && Main.mouseLeft)
+                if (swing-- < -16 * Projectile.MaxUpdates && Main.mouseLeft && Main.myPlayer == Projectile.owner)
                 {
                     Dir *= -1;
                     shake = true;
