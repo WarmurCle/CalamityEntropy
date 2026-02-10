@@ -714,26 +714,19 @@ namespace CalamityEntropy
         public int pocType = -1;
         private void drawmenu(On_Main.orig_DrawMenu orig, Main self, GameTime gameTime)
         {
-            if (orig != null && self != null && gameTime != null)
+            orig(self, gameTime);
+            EModSys.mi = false;
+            if (LoopSoundManager.sounds != null)
             {
-                try
+                if (LoopSoundManager.sounds.Count > 0)
                 {
-                    orig(self, gameTime);
-                    EModSys.mi = false;
-                    if (LoopSoundManager.sounds != null)
+                    for (int i = 0; i < LoopSoundManager.sounds.Count; i++)
                     {
-                        if (LoopSoundManager.sounds.Count > 0)
-                        {
-                            for (int i = 0; i < LoopSoundManager.sounds.Count; i++)
-                            {
-                                var sound = LoopSoundManager.sounds[i];
-                                sound.stop();
-                            }
-                        }
-                        LoopSoundManager.sounds.Clear();
+                        var sound = LoopSoundManager.sounds[i];
+                        sound.stop();
                     }
                 }
-                catch { }
+                LoopSoundManager.sounds.Clear();
             }
         }
 
