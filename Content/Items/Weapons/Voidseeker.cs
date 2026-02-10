@@ -17,13 +17,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 36;
             Item.height = 34;
-            Item.damage = 690;
-            Item.ArmorPenetration = 6;
+            Item.damage = 725;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 30;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.ArmorPenetration = 86;
             Item.knockBack = 1f;
             Item.UseSound = null;
             Item.autoReuse = true;
