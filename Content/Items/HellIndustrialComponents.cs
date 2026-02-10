@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items
         public override void ExtractinatorUse(int extractinatorBlockType, ref int resultType, ref int resultStack)
         {
             float dropRand = Main.rand.NextFloat();
-            resultStack = 1;
+            resultStack = 2;
 
             // 40% chance for Mysterious Circuitry
             // 40% chance for Dubious Plating
