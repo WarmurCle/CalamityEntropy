@@ -170,11 +170,11 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Projectile.velocity *= 0.98f;
                 if (player.statLife < player.statLifeMax2)
                 {
-                    for (int i = 0; i < 2; i++)
+                    for (int i = 0; i < 16; i++)
                     {
                         var d = Dust.NewDustDirect(Projectile.Center + CEUtils.randomPointInCircle(22), 0, 0, DustID.GemEmerald);
                         d.noGravity = true;
-                        d.velocity = (player.Center - Projectile.Center).normalize() * Main.rand.NextFloat(1, 6);
+                        d.velocity = (player.Center - Projectile.Center).normalize() * Main.rand.NextFloat(5, 9);
                     }
                 }
             }
