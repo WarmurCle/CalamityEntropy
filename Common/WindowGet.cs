@@ -44,7 +44,7 @@ namespace CalamityEntropy.Common
             tooltips.Replace("[A]", Main.LocalPlayer.GetModPlayer<PGetPlayer>().count);
         }
     }
-    public class PGetPlayer : EModPlayer
+    public class PGetPlayer : ModPlayer
     {
         public static List<string> yuzuGames = new() { "SenrenBanka", "RiddleJoker", "SabbatOfTheWitch", "CafeStella", "tenshi", "Angelic", "DracuRiot", "PARQUET", "NobleWorks" };
         public int count = 0;
