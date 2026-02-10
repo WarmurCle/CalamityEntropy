@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void AI()
         {
-            if (Projectile.OwnerEntropy().exquisiteCrown)
+            if (!Projectile.GetOwner().dead && Projectile.OwnerEntropy().exquisiteCrown)
             {
                 Projectile.timeLeft = 3;
             }

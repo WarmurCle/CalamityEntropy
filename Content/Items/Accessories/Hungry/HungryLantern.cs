@@ -71,6 +71,10 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
         {
             if (CEUtils.getDistance(Projectile.Center, Projectile.GetOwner().Center) > 3000)
                 Projectile.Kill();
+            if (Projectile.GetOwner().dead)
+                Projectile.Kill();
+            if (!Projectile.active)
+                return;
             Projectile.frameCounter++;
             if (Projectile.frameCounter > 3) {
                 Projectile.frame++;
