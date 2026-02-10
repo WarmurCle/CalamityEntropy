@@ -61,6 +61,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
     {
         public override void SetStaticDefaults()
         {
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 100000;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
 

@@ -180,6 +180,11 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
             Projectile.FriendlySetDefaults(DamageClass.Summon, false, -1);
             Projectile.timeLeft = 49;
         }
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 100000;
+            ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
+        }
         public override bool? CanDamage()
         {
             return false;
