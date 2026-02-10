@@ -569,9 +569,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                     }
                 }
             }
-            if(count >= 6)
+            if(count >= 6)  
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<Blackhole>(), Projectile.damage / 6, 0, Projectile.owner, 0, target.whoAmI);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<Blackhole>(), Projectile.damage / 8, 0, Projectile.owner, 0, target.whoAmI);
             }
             if (shake)
             {
@@ -594,7 +594,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.FinalDamage *= 8f;
+            modifiers.FinalDamage *= 8.4f;
         }
         public float length = 0;
         public int Dir = -1;
