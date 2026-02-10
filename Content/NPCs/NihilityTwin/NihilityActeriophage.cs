@@ -165,16 +165,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             rotation = NPC.rotation + MathHelper.PiOver2;
         }
         public NPC cell = null;
-        public override void OnSpawn(IEntitySource source)
-        {
-            int n = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<ChaoticCell>());
-            n.ToNPC().realLife = NPC.whoAmI;
-            n.ToNPC().netUpdate = true;
-            cell = n.ToNPC();
-            cellIndex = cell.whoAmI;
-            NPC.netUpdate = true;
-            NPC.netSpam = 9;
-        }
+        public bool SpawnCell = true;
         public Rope rope = null;
         public int aitype = 3;
         public int phase = 1;
@@ -211,8 +202,41 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         public float ropeLerp = 1;
         public int spawnAnm = 150;
         float shake = 0;
+        public override void OnSpawn(IEntitySource source)
+        {
+        }
         public override void AI()
         {
+            if(Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                if(SpawnCell)
+                {
+                    SpawnCell = false;
+                    if (NPC.realLife < 0)
+                    {
+                        int n = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<ChaoticCell>());
+                        n.ToNPC().realLife = NPC.whoAmI;
+                        n.ToNPC().netUpdate = true;
+                        cell = n.ToNPC();
+                        cellIndex = cell.whoAmI;
+                        NPC.netUpdate = true;
+                        NPC.netSpam = 9;
+
+                        if (Main.zenithWorld)
+                        {
+                            int n2 = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NihilityActeriophage>());
+                            n2.ToNPC().realLife = NPC.whoAmI;
+                            n2.ToNPC().netUpdate = true;
+                            n2.ToNPC().position += CEUtils.randomPointInCircle(500);
+                            if (n2.ToNPC().ModNPC is NihilityActeriophage na)
+                            {
+                                na.cell = cell;
+                                na.cellIndex = cellIndex;
+                            }
+                        }
+                    }
+                }
+            }
             if (spawnAnm > 0)
             {
                 spawnAnm--;
@@ -231,13 +255,16 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             {
                 if (cell == null || !cell.active)
                 {
-                    int n = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<ChaoticCell>());
-                    n.ToNPC().realLife = NPC.whoAmI;
-                    n.ToNPC().netUpdate = true;
-                    cell = n.ToNPC();
-                    cellIndex = cell.whoAmI;
-                    NPC.netUpdate = true;
-                    NPC.netSpam = 9;
+                    if (NPC.realLife < 0)
+                    {
+                        int n = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<ChaoticCell>());
+                        n.ToNPC().realLife = NPC.whoAmI;
+                        n.ToNPC().netUpdate = true;
+                        cell = n.ToNPC();
+                        cellIndex = cell.whoAmI;
+                        NPC.netUpdate = true;
+                        NPC.netSpam = 9;
+                    }
                 }
             }
             if (NPC.netSpam > 10)

@@ -269,6 +269,23 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                     }
                     na.drawRope();
                 }
+                if(Main.zenithWorld)
+                {
+                    foreach (NPC n in Main.ActiveNPCs)
+                    {
+                        if(n.type == owner.type && n.whoAmI != owner.whoAmI)
+                        {
+                            if(n.ModNPC is NihilityActeriophage na2)
+                            {
+                                if (na2.spawnAnm > 0)
+                                {
+                                    return false;
+                                }
+                                na2.drawRope();
+                            }
+                        }
+                    }
+                }
             }
             else
             {

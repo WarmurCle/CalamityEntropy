@@ -115,6 +115,10 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             {
                 Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/LuminarisBoss");
             }
+            if(Main.zenithWorld)
+            {
+                NPC.scale *= 0.5f;
+            }
             SpawnModBiomes = new int[] { ModContent.GetInstance<AstralInfectionBiome>().Type };
         }
         public int frameCounter = 0;
@@ -123,9 +127,47 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         public AIStyle ai = AIStyle.RoundShooting;
         public int AfterImageTime = 0;
         public int SD = 4;
+        public bool SpawnFlag = true;
         public int deactiveCount = 120;
+        public override bool CheckDead()
+        {
+            if(NPC.realLife >= 0 && NPC.realLife.ToNPC().active)
+            {
+                NPC.life = NPC.realLife.ToNPC().life;
+                return false;
+            }
+            return true;
+        }
         public override void AI()
         {
+            if (SpawnFlag)
+            {
+                if (Main.zenithWorld && Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    if (NPC.realLife < 0)
+                    {
+                        for (int i = 0; i < 5; i++)
+                        {
+                            int n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)(NPC.Center.X) + Main.rand.Next(-500, 500), (int)(NPC.Center.Y) - 2000, NPC.type);
+                            n.ToNPC().realLife = NPC.whoAmI;
+                            n.ToNPC().netUpdate = true;
+                            ((Luminaris)n.ToNPC().ModNPC).AIChangeCounter = Main.rand.Next(210, 270);
+                        }
+                        AIChangeCounter = Main.rand.Next(210, 270);
+                    }
+                }
+            }
+            if (NPC.realLife >= 0)
+            {
+                if(!NPC.realLife.ToNPC().active)
+                    NPC.active = false;
+                else
+                {
+                    NPC.life = NPC.realLife.ToNPC().life;
+                    NPC.boss = false;
+                }
+            }
+            SpawnFlag = false;
             if (SD-- > 0)
             {
                 return;
@@ -220,7 +262,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             }
             if (Main.zenithWorld)
             {
-                enrange *= 1.4f;
+                enrange *= 0.85f;
             }
             if (AIChangeCounter-- < 0)
             {

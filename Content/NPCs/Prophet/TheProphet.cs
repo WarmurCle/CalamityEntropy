@@ -902,7 +902,10 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             if (Main.zenithWorld)
+            {
+                DrawTail();
                 return zenithAI.PreDraw(NPC, spriteBatch, screenPos, drawColor);
+            }
             else
             {
                 Draw();

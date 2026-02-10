@@ -41,6 +41,8 @@ namespace CalamityEntropy.Content.Projectiles
                 init = true;
                 Projectile.ai[2] = -1;
                 Projectile.localAI[0] = -1;
+                if (Main.zenithWorld)
+                    Projectile.scale *= 2;
             }
             if (Projectile.ai[2] > 0)
             {
@@ -100,7 +102,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.ai[1]++;
                         player.mount.Dismount(player);
                         player.RemoveAllGrapplingHooks();
-                        player.velocity = Projectile.velocity * 4;
+                        player.velocity = Projectile.velocity * 4 * (Main.zenithWorld ? -1 : 1);
                     }
                     if (Projectile.timeLeft > 52)
                     {

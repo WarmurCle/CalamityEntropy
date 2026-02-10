@@ -77,35 +77,86 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-
+            NPC attack = null;
             Player healing = null;
             float dist = 900;
             int p = -1;
-            foreach (Player plr in Main.ActivePlayers)
+            if (Main.zenithWorld)
             {
-                if (CEUtils.getDistance(plr.Center, Projectile.Center) < dist && plr.statLife < plr.statLifeMax2)
+                foreach (Player plr in Main.ActivePlayers)
                 {
-                    dist = CEUtils.getDistance(plr.Center, Projectile.Center);
-                    p = plr.whoAmI;
+                    if (CEUtils.getDistance(plr.Center, Projectile.Center) < dist)
+                    {
+                        dist = CEUtils.getDistance(plr.Center, Projectile.Center);
+                        p = plr.whoAmI;
+                    }
+                }
+                if (p >= 0 && Main.player[p].active)
+                {
+                    healing = Main.player[p];
+                    AttackMode = false;
+                }
+                p = -1; dist = 900;
+                foreach (NPC plr in Main.ActiveNPCs)
+                {
+                    if (CEUtils.getDistance(plr.Center, Projectile.Center) < dist && plr.life < plr.lifeMax)
+                    {
+                        dist = CEUtils.getDistance(plr.Center, Projectile.Center);
+                        p = plr.whoAmI;
+                    }
+                }
+
+                if (p >= 0 && Main.npc[p].active)
+                {
+                    attack = Main.npc[p];
+                    AttackMode = true;
+                    healing = null;
                 }
             }
-            if (p >= 0 && Main.player[p].active)
+            else
             {
-                healing = Main.player[p];
+                foreach (Player plr in Main.ActivePlayers)
+                {
+                    if (CEUtils.getDistance(plr.Center, Projectile.Center) < dist && plr.statLife < plr.statLifeMax2)
+                    {
+                        dist = CEUtils.getDistance(plr.Center, Projectile.Center);
+                        p = plr.whoAmI;
+                    }
+                }
+                if (p >= 0 && Main.player[p].active)
+                {
+                    healing = Main.player[p];
+                }
             }
             bool flag = false;
 
-
             if (CheckCD > 0)
                 CheckCD--;
+            
             if (healing != null)
             {
                 flag = true;
-                AttackMode = false;
+                if(!Main.zenithWorld)
+                    AttackMode = false;
                 if (CheckCD <= 0)
                 {
-                    CheckCD = (int)(60f * (100f / player.GetTotalDamage(DamageClass.Summon).ApplyTo(100f)) * (1 - 0.5f * player.AzafureDurability()));
-                    healing.Heal(1);
+                    CheckCD = (int)((Main.zenithWorld ? 20f : 60f) * (100f / player.GetTotalDamage(DamageClass.Summon).ApplyTo(100f)) * (1 - 0.5f * player.AzafureDurability()));
+                    if (Main.zenithWorld)
+                    {
+                        healing.immune = false;
+                        healing.immuneTime = 0;
+                        for (int i = 0; i < healing.hurtCooldowns.Length; i++)
+                            healing.hurtCooldowns[i] = 0;
+                        healing.Hurt(PlayerDeathReason.ByProjectile(healing.whoAmI, Projectile.whoAmI), Projectile.damage, 0);
+                        healing.immune = false;
+                        healing.immuneTime = 0;
+                        for (int i = 0; i < healing.hurtCooldowns.Length; i++)
+                            healing.hurtCooldowns[i] = 0;
+                    }
+                    else
+                    {
+                        healing.Heal(1);
+                    }
                     for (int i = 0; i < 3; i++)
                         EParticle.spawnNew(new HealingParticle(), healing.position + CEUtils.randomPoint(new Rectangle(-6, -6, 12 + healing.width, 12 + healing.height)), new Vector2(0, -2), Color.White, 0.8f, 1, true, BlendState.AlphaBlend);
                 }
@@ -113,8 +164,12 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             else
             {
-                AttackMode = true;
-                NPC attack = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 900);
+                if(!Main.zenithWorld)
+                    AttackMode = true;
+                if (!Main.zenithWorld)
+                {
+                    attack = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 900);
+                }
                 if (attack != null)
                 {
                     flag = true;
@@ -122,7 +177,18 @@ namespace CalamityEntropy.Content.Items.Weapons
                     if (CheckCD <= 0)
                     {
                         CheckCD = 10 / (player.AzafureEnhance() ? 2 : 1);
-                        CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, attack.Center + attack.velocity, Projectile.damage, 42, Projectile.DamageType);
+                        if(!Main.zenithWorld)
+                            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, attack.Center + attack.velocity, Projectile.damage, 42, Projectile.DamageType);
+                        else
+                        {
+                            if(attack.life < attack.lifeMax)
+                            {
+                                attack.HealEffect(Projectile.damage);
+                                attack.life += Projectile.damage;
+                                if (attack.life > attack.lifeMax)
+                                    attack.life = attack.lifeMax;
+                            }
+                        }
                     }
                 }
             }
@@ -168,10 +234,11 @@ namespace CalamityEntropy.Content.Items.Weapons
                 float scale = 1 + 0.16f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * 12));
                 scale *= LineWidth;
                 //Main.spriteBatch.UseBlendState(BlendState.Additive);
-                CEUtils.drawLine(laserStart, LaserTargetPos, (AttackMode ? Color.Red : Color.LightGreen), 9 * scale);
+                Color laserColor = Main.zenithWorld ? (!AttackMode ? Color.Red : Color.LightGreen) : (AttackMode ? Color.Red : Color.LightGreen);
+                CEUtils.drawLine(laserStart, LaserTargetPos, laserColor, 9 * scale);
 
-                Main.spriteBatch.Draw(ball, laserStart - Main.screenPosition, null, (AttackMode ? Color.Red : Color.LightGreen), 0, ball.Size() / 2f, scale * 0.2f, SpriteEffects.None, 0);
-                Main.spriteBatch.Draw(ball, LaserTargetPos - Main.screenPosition, null, (AttackMode ? Color.Red : Color.LightGreen), 0, ball.Size() / 2f, scale * 0.2f, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(ball, laserStart - Main.screenPosition, null, laserColor, 0, ball.Size() / 2f, scale * 0.2f, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(ball, LaserTargetPos - Main.screenPosition, null, laserColor, 0, ball.Size() / 2f, scale * 0.2f, SpriteEffects.None, 0);
                 CEUtils.drawLine(laserStart, LaserTargetPos, Color.White, 4 * scale);
                 Main.spriteBatch.Draw(ball, laserStart - Main.screenPosition, null, Color.White, 0, ball.Size() / 2f, scale * 0.12f, SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(ball, LaserTargetPos - Main.screenPosition, null, Color.White, 0, ball.Size() / 2f, scale * 0.12f, SpriteEffects.None, 0);

@@ -183,7 +183,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             }
             if (Main.zenithWorld)
             {
-                NPC.scale = 1.2f;
+                NPC.scale = 1.6f;
+                length = 6;
             }
             NPC.netAlways = true;
             NPC.Entropy().damageMul = 0.1f;
@@ -1249,7 +1250,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                 {
                                     for (int i = 1; i < bodies.Count; i++)
                                     {
-                                        for (int _ = 0; _ < Main.rand.Next(-3, 3); _++)
+                                        for (int _ = 0; _ < Main.rand.Next(3, 10); _++)
                                         {
                                             Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[i] - (bodies[i - 1] - bodies[i]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, CEUtils.randomRot().ToRotationVector2() * speed * 3f, ModContent.ProjectileType<VoidStar>(), (int)(NPC.damage / 6f), 1);
                                         }

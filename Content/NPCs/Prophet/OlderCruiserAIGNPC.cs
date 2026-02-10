@@ -9,6 +9,7 @@ using System;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -730,7 +731,9 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     }
                 }
             }
-            return true;
+            Texture2D tex = TextureAssets.Npc[NPC.type].Value;
+            Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition, null, drawColor, NPC.rotation + MathHelper.PiOver2, tex.Size() / 2f, NPC.scale, SpriteEffects.None);
+            return false;
         }
         public float ProgressDraw;
 

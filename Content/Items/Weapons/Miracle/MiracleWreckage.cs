@@ -626,7 +626,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             }
             if(!flag)
                 if(Projectile.localAI[0]++ > 300)
-                    length = float.Lerp(length, 1, 0.01f);
+                    length = float.Lerp(length, Main.zenithWorld ? 2.5f : 1, 0.01f);
             Player owner = Projectile.GetOwner();
             Projectile.timeLeft = 3;
             owner.Calamity().mouseWorldListener = true;
@@ -684,7 +684,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             {
                 for (int i = 0; i < 1; i++)
                 {
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + owner.velocity + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(0.2f, float.Max(0.2f, length)) * 522, owner.velocity * 0.4f + Projectile.rotation.ToRotationVector2().RotatedByRandom(0.2f) * Main.rand.NextFloat(32, 42) * length, false, 8, Main.rand.NextFloat(0.04f, 0.054f) * length, Color.MediumVioletRed * 0.6f, new Vector2(0.34f, 1)));
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + owner.velocity + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(0.2f, float.Max(0.2f, length)) * 522 - (Main.zenithWorld ? Projectile.rotation.ToRotationVector2() * (length * 20) : Vector2.Zero), owner.velocity * 0.4f + Projectile.rotation.ToRotationVector2().RotatedByRandom(0.2f) * Main.rand.NextFloat(32, 42) * length, false, 8, Main.rand.NextFloat(0.04f, 0.054f) * length, Color.MediumVioletRed * 0.6f, new Vector2(0.34f, 1)));
                 }
             }
             if (swing > 0)
@@ -710,6 +710,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             {
                 particles.Add(new MWParticle(new Vector2(Main.rand.NextFloat(15, 17) * length, 0).RotatedByRandom(0.025f)) { offset = CEUtils.randomPointInCircle(10) });
                 particles[particles.Count - 1].scale *= 2.4f * length;
+                particles[particles.Count - 1].offset -= (Main.zenithWorld ? new Vector2(length * 85, 0) : Vector2.Zero);
             }
             if (Projectile.velocity.X > 0)
             {
@@ -746,10 +747,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 for (int i = 0; i < odr.Count; i++)
                 {
                     Color b = new Color(255, 255, 255);
-                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(220 * Projectile.scale, 0).RotatedBy(odr[i])),
+                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(220 * Projectile.scale * length, 0).RotatedBy(odr[i])),
                           new Vector3((i) / ((float)odr.Count - 1), 1, 1),
                           b));
-                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(140 * Projectile.scale, 0).RotatedBy(odr[i])),
+                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(140 * Projectile.scale * length, 0).RotatedBy(odr[i])),
                           new Vector3((i) / ((float)odr.Count - 1), 0, 1),
                           b));
                 }
@@ -776,10 +777,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 for (int i = 0; i < odr.Count; i++)
                 {
                     Color b = new Color(255, 255, 255);
-                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(1000 * (0.5f + Projectile.ai[1]) * Projectile.scale, 0).RotatedBy(odr[i])),
+                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(1000 * (0.5f + Projectile.ai[1]) * Projectile.scale * length, 0).RotatedBy(odr[i])),
                           new Vector3((i) / ((float)odr.Count - 1), 1, 1),
                           b));
-                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(800 * (0.5f + Projectile.ai[1]) * Projectile.scale, 0).RotatedBy(odr[i])),
+                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(800 * (0.5f + Projectile.ai[1]) * Projectile.scale * length, 0).RotatedBy(odr[i])),
                           new Vector3((i) / ((float)odr.Count - 1), 0, 1),
                           b));
                 }
@@ -817,10 +818,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             Texture2D c = CEUtils.getExtraTex("SemiCircularSmear");
             float alphac = vsAlpha * 0.82f;
             float crot = Projectile.rotation + Dir * -1.2f;
-            Main.spriteBatch.Draw(c, Projectile.Center - Main.screenPosition, null, Color.MediumPurple * alphac, crot, c.Size() / 2f, 13f * 0.5f, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(c, Projectile.Center - Main.screenPosition, null, Color.Red * alphac * 0.5f, crot, c.Size() / 2f, 5f * (Projectile.ai[1] + 0.5f), SpriteEffects.None, 0);
-
-            Main.spriteBatch.Draw(c, Projectile.Center - Main.screenPosition, null, Color.Pink * alphac * 0.6f, crot, c.Size() / 2f, 10 * (Projectile.ai[1] + 0.5f), SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(c, Projectile.Center - Main.screenPosition, null, Color.MediumPurple * alphac, crot, c.Size() / 2f, 13f * 0.5f * length, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(c, Projectile.Center - Main.screenPosition, null, Color.Red * alphac * 0.5f, crot, c.Size() / 2f, 5f * (Projectile.ai[1] + 0.5f) * length, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(c, Projectile.Center - Main.screenPosition, null, Color.Pink * alphac * 0.6f, crot, c.Size() / 2f, 10 * (Projectile.ai[1] + 0.5f) * length, SpriteEffects.None, 0);
             foreach (var p in particles)
             {
                 Main.spriteBatch.Draw(g, Projectile.Center + p.offset.RotatedBy(Projectile.rotation) - Main.screenPosition, null, p.color, Projectile.rotation + p.velocity.ToRotation(), new Vector2(40, 128), new Vector2(1f, 0.25f) * 0.6f * p.scale, SpriteEffects.None, 0);
@@ -832,11 +832,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         {
             if (swing < 0)
                 return false;
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * Projectile.scale * scale * 900 * (Projectile.ai[1] + 0.5f), targetHitbox, 420);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * Projectile.scale * scale * 900 * length * (Projectile.ai[1] + 0.5f), targetHitbox, 420);
         }
         public override void CutTiles()
         {
-            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * Projectile.scale * scale * 860 * (Projectile.ai[1] + 0.5f), 128, DelegateMethods.CutTiles);
+            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * Projectile.scale * scale * 860 * length * (Projectile.ai[1] + 0.5f), 128, DelegateMethods.CutTiles);
         }
     }
     public class MiracleShoot : ModProjectile

@@ -137,6 +137,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         {
             Projectile.FriendlySetDefaults(DamageClass.Melee, false, -1);
             Projectile.width = Projectile.height = 470;
+            if(Main.zenithWorld)
+            {
+                Projectile.width *= 6;
+                Projectile.height *= 6;
+            }
             Projectile.timeLeft = 260;
             Projectile.light = 1;
             Projectile.usesLocalNPCImmunity = true;
@@ -183,7 +188,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             }
             else if (Projectile.localAI[0] >= 60)
             {
-                scale3 = float.Lerp(scale3, 1, 0.24f);
+                scale3 = float.Lerp(scale3, Main.zenithWorld ? 6 : 1, 0.24f);
                 scale2 *= 0.86f;
             }
             if (Projectile.localAI[0] == 60)

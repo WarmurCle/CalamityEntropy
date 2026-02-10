@@ -28,6 +28,13 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.light = 1f;
             Projectile.timeLeft = 1024;
             Projectile.penetrate = 1;
+            if (Main.zenithWorld)
+            {
+                Projectile.usesLocalNPCImmunity = true;
+                Projectile.localNPCHitCooldown = 12;
+                Projectile.penetrate = 5;
+                Projectile.tileCollide = false;
+            }
             Projectile.extraUpdates = 9;
         }
         public TrailParticle t1 = new TrailParticle();
@@ -38,6 +45,10 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff<MechanicalTrauma>(340);
+            if(Main.zenithWorld)
+            {
+                OnKill(Projectile.timeLeft);
+            }
         }
         public override void AI()
         {

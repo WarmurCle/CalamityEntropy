@@ -42,6 +42,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shootSpeed = 12;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ModContent.RarityType<DarkOrange>();
+            if (Main.zenithWorld)
+                Item.damage *= 2;
         }
         public override bool MeleePrefix()
         {
@@ -67,7 +69,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
         }
-        public float Scale => Projectile.scale * (Projectile.GetOwner().AzafureEnhance() ? 1.5f : 1);
+        public float Scale => Projectile.scale * (Projectile.GetOwner().AzafureEnhance() ? 1.5f : 1) * (Main.zenithWorld ? 0.65f : 1);
         public List<int> OldFrames = new();
         public override void AI()
         {

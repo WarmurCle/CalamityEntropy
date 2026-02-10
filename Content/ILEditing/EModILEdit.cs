@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.NPCs.LuminarisMoth;
 using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
@@ -219,8 +220,9 @@ namespace CalamityEntropy.Content.ILEditing
             {
                 if (npc.type == NPCID.CultistBoss || npc.type == NPCID.Golem || npc.type == NPCID.GolemFistLeft || npc.type == NPCID.GolemFistRight || npc.type == NPCID.GolemHead || npc.type == NPCID.GolemHeadFree || LostNPCsEntropy.Contains(npc.type))
                     n = (Language.ActiveCulture == GameCulture.FromCultureName(GameCulture.CultureName.Chinese) ? "失心" : "Lost") + " " + n;
-
             }
+            if (npc.ModNPC != null && npc.ModNPC is Luminaris && Main.zenithWorld)
+                n = CalamityEntropy.Instance.GetLocalization("Luminariswarm").Value;
             return n;
         }
         public static bool On_AdrenalineEnabled_Get_Hook(AdrEnabled_get_Delegate orig, CalamityPlayer calPlayer)
