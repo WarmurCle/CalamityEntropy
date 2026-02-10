@@ -4028,6 +4028,19 @@ Items: {
 			人物首次进入一个世界时开启任意柚子社游戏时获得
 			'''
 	}
+
+	TalismanOfTheAzureAbyss: {
+		DisplayName: 苍溟护符
+		Tooltip:
+			'''
+			增加15%伤害
+			增加5/s自然生命再生
+			受到大于最大生命值35%的伤害时生成环绕你的苍溟护盾，将所有伤害减少25%，持续8秒
+			同时召唤一些苍溟漩涡追击敌人，护盾存在时受击也会生成苍茫漩涡
+			在水中时能够恢复飞行时间
+			显著提升在水中的机动性和在深渊中的视野，护盾存在时此效果将增强
+			'''
+	}
 }
 
 ChaoticSetBonus:
@@ -4676,6 +4689,8 @@ Projectiles: {
 	MiracleExplosion.DisplayName: 洪光爆破
 	MiracleWreckagePopOut.DisplayName: 神迹残骸
 	MiracleVortex.DisplayName: 神迹涡流
+	AzureShield.DisplayName: 苍溟护盾
+	AzureVortex.DisplayName: 苍溟漩涡
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5344,9 +5359,9 @@ Configs: {
 			Label: 允许复古照明模式和关闭水波
 			Tooltip:
 				'''
-				如果你任然想使用复古照明并关闭水波质量模式，开启此选项。
-				确保你同时关闭了[启用像素特效]选项，否则由于Bug，UI可能不会正常显示
-				[c/FF0000:警告：开启复古照明模式或关闭水波会导致某些特效，射弹或NPC无法正常绘制进而影响游戏体验]
+				如果你仍然想使用复古照明或者关闭水波质量模式，开启此选项。
+				关闭此选项将会关闭[启用像素特效]选项，由于Bug，在这些模式下UI不会正常显示
+				[c/FF0000:警告：开启复古照明模式或关闭水波会导致某些特效、射弹或NPC无法正常绘制进而影响游戏体验]
 				'''
 		}
 	}

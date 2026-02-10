@@ -3,23 +3,17 @@ using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Dusts;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Particles;
-using CalamityMod.Projectiles.Typeless;
-using CalamityMod.Tiles.Furniture.CraftingStations;
-using Microsoft.Build.Tasks.Deployment.ManifestUtilities;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 namespace CalamityEntropy.Content.Items.Weapons.Miracle
 {

@@ -246,6 +246,20 @@ namespace CalamityEntropy
                 if (self.wingTime < self.wingTimeMax)
                     self.wingTime = self.wingTimeMax;
             }
+            else if(self.Entropy().accAzureAbyss)
+            {
+                int num = ((!self.onTrack) ? self.height : (self.height - 20));
+                Vector2 vector = self.velocity;
+                self.velocity = Collision.TileCollision(self.position, self.velocity, self.width, num, fallThrough, ignorePlats, (int)self.gravDir);
+                Vector2 vector2 = self.velocity * 0.74f;
+                if (self.velocity.X != vector.X)
+                    vector2.X = self.velocity.X;
+
+                if (self.velocity.Y != vector.Y)
+                    vector2.Y = self.velocity.Y;
+
+                self.position += vector2;
+            }
             else
             {
                 orig(self, fallThrough, ignorePlats);

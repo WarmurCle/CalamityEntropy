@@ -3770,6 +3770,21 @@ Items: {
 			Current: [A]
 			''' */
 	}
+
+	TalismanOfTheAzureAbyss: {
+		// DisplayName: Talisman of the Azure Abyss
+		/* Tooltip:
+			'''
+			Increase 15% damage
+			Increase 5/s life regen
+			When receiving damage greater than 35% of maximum health, spawn an Azure Shield
+			Azure Shield will reduce 25% damage you take
+			Spawn some Azure Vortexs that will chase enemies simultaneously
+			Vortexs will also spawn when you take damage with shield
+			Significantly enhance the vision in the abyss, this effect,
+			and this effect will be further amplified when the shield is present
+			''' */
+	}
 }
 
 /* ChaoticSetBonus:
@@ -4417,6 +4432,8 @@ Projectiles: {
 	// MiracleExplosion.DisplayName: Miracle Explosion
 	// MiracleWreckagePopOut.DisplayName: Miracle Wreckage Pop Out
 	// MiracleVortex.DisplayName: Miracle Vortex
+	// AzureShield.DisplayName: Azure Shield
+	// AzureVortex.DisplayName: Azure Vortex
 }
 
 LegendTooltip: - Легенда -

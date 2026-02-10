@@ -850,6 +850,7 @@ namespace CalamityEntropy.Common
         public Item goldenRock = null;
         public override void ResetEffects()
         {
+            accAzureAbyss = false;
             goldenRock = null;
             rottenFangs = false;
             exquisiteCrown = false;
@@ -1218,6 +1219,17 @@ namespace CalamityEntropy.Common
                 Player.gravity *= 1.6f;
                 Player.maxFallSpeed *= 3;
                 Player.controlDown = true;
+            }
+            if(Player.wet && accAzureAbyss)
+            {
+                if (!Player.controlJump)
+                {
+                    Player.gravity *= Player.controlDown ? 4 : 1.8f;
+                }
+                else
+                    if (Math.Abs(Player.velocity.Y) < 8 && Player.velocity.Y < 0)
+                    Player.velocity.Y *= 1.5f;
+                Player.maxFallSpeed *= Player.controlDown ? 3.2f : 1.8f;
             }
             if (FallSpeedUP > 0)
             {
@@ -1748,6 +1760,10 @@ namespace CalamityEntropy.Common
 
             modifiers.ModifyHurtInfo += EPHurtModifier;
             modifiers.ModifyHurtInfo += EPHurtModifier2;
+            if(AzureShield > 0)
+            {
+                modifiers.SourceDamage *= 0.75f;
+            }
             if (soulDisorder)
             {
                 modifiers.SourceDamage *= 1.25f;
@@ -1765,6 +1781,31 @@ namespace CalamityEntropy.Common
         public float BloodthirstyEffect = 0;
         public override void OnHurt(Player.HurtInfo info)
         {
+            if(AzureShield > 0)
+            {
+                CEUtils.PlaySound("YharonFireball1", 2.2f, Player.Center);
+            }
+            if(info.Damage > Player.statLifeMax2 * 0.35f)
+            {
+                if(accAzureAbyss)
+                {
+                    if(true)
+                    {
+                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<AzureShield>(), 0, 0, Player.whoAmI);
+                        for(int i= 0; i < 3; i++)
+                        {
+                            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 16, ModContent.ProjectileType<AzureVortex>(), (int)(Player.GetBestClassDamage().ApplyTo(1200.ApplyAccArmorDamageBonus())), 0, Player.whoAmI);
+                        }
+                    }
+                }
+            }
+            if (AzureShield > 0)
+            {
+                if (info.Damage > 9)
+                {
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 16, ModContent.ProjectileType<AzureVortex>(), (int)(Player.GetBestClassDamage().ApplyTo(1200.ApplyAccArmorDamageBonus())), 0, Player.whoAmI);
+                }
+            }
             BloodthirstyEffect += (info.Damage / (float)Player.statLifeMax2) * 30;
             if (BloodthirstyEffect > 36)
                 BloodthirstyEffect = 36;
@@ -2140,6 +2181,7 @@ namespace CalamityEntropy.Common
         public float StealthMaxLast = -1;
         public bool RstStealth = false;
         public int DmgAdd20 = 0;
+        public bool accAzureAbyss = false;
         public int NihTwinArmorConnetPlayer = -1;
         public void SyncLife(Player plr = null)
         {
@@ -2203,15 +2245,38 @@ namespace CalamityEntropy.Common
         }
         public int FallSpeedUP = 0;
         public float MariviumLight = 0;
+        public int AzureShield = 0;
         public override void PostUpdate()
         {
-            MariviumLight = float.Lerp(MariviumLight, MariviniumSet ? 1 : 0, 0.05f);
-            EnhancedDarknessSystem.lights.Add(new(center: Player.Center, scale: 36 * MariviumLight));
-            for (float i = 0; i < 360; i += 2.5f)
+            AzureShield--;
+            MariviumLight = float.Lerp(MariviumLight, MariviniumSet ? 1 : (accAzureAbyss ? (AzureShield > 0 ? 1f : 0.8f) : 0), 0.05f);
+            if(accAzureAbyss)
             {
-                for(float d = 0; d < 1; d += 0.1f)
+                if(Player.wet)
                 {
-                    CEUtils.AddLight(Player.Center + Player.velocity + MathHelper.ToRadians(i).ToRotationVector2() * (1 - d) * 450 * MariviumLight, Color.LightBlue * MariviumLight * d * 0.8f, 1.5f);
+                    if(Player.wingTime < Player.wingTimeMax)
+                    {
+                        if(!Player.controlJump)
+                        {
+                            Player.wingTime += 1.65f;
+                            if (Player.wingTime > Player.wingTimeMax)
+                                Player.wingTime = Player.wingTimeMax;
+                        }
+                    }
+                }
+            }
+            if (MariviumLight > 0.02f)
+            {
+                EnhancedDarknessSystem.lights.Add(new(center: Player.Center, scale: 36 * MariviumLight));
+                if (MariviniumSet)
+                {
+                    for (float i = 0; i < 360; i += 2.5f)
+                    {
+                        for (float d = 0; d < 1; d += 0.1f)
+                        {
+                            CEUtils.AddLight(Player.Center + Player.velocity + MathHelper.ToRadians(i).ToRotationVector2() * (1 - d) * 450 * MariviumLight, Color.LightBlue * MariviumLight * d * 0.8f, 1.5f);
+                        }
+                    }
                 }
             }
             BloodthirstyEffect *= 0.974f;
