@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items;
+﻿using CalamityEntropy.Common;
+using CalamityMod.Items;
 using CalamityMod.Projectiles.Turret;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -31,22 +32,31 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            int shootCount = 5;
-
-            foreach (NPC npc in Main.ActiveNPCs)
+            if (projectile.ModProjectile is EBookBaseProjectile ebp)
             {
-                float rot = 0;
-                if (npc != target && npc.Distance(target.Center) < 800 && !npc.friendly && !npc.dontTakeDamage)
+                if (ebp.mainProj || Main.rand.NextBool(projectile.HasEBookEffect<APlusBMEffect>() ? 2 : 3))
                 {
-                    rot = (target.Center - npc.Center).ToRotation();
-                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, rot.ToRotationVector2() * 8, ModContent.ProjectileType<WaterShot>(), projectile.damage / 6, projectile.knockBack + 0.5f, projectile.owner);
-                    shootCount--;
+                    if (CECooldowns.CheckCD("AquariusBM", 2))
+                    {
+                        int shootCount = 5;
+
+                        foreach (NPC npc in Main.ActiveNPCs)
+                        {
+                            float rot = 0;
+                            if (npc != target && npc.Distance(target.Center) < 800 && !npc.friendly && !npc.dontTakeDamage)
+                            {
+                                rot = (target.Center - npc.Center).ToRotation();
+                                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, rot.ToRotationVector2() * 8, ModContent.ProjectileType<WaterShot>(), projectile.damage / 6, projectile.knockBack + 0.5f, projectile.owner);
+                                shootCount--;
+                            }
+                        }
+                        for (; shootCount > 0; shootCount--)
+                        {
+                            float rot = CEUtils.randomRot();
+                            Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, rot.ToRotationVector2() * 8, ModContent.ProjectileType<WaterShot>(), projectile.damage / 6, projectile.knockBack + 0.5f, projectile.owner);
+                        }
+                    }
                 }
-            }
-            for (; shootCount > 0; shootCount--)
-            {
-                float rot = CEUtils.randomRot();
-                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, rot.ToRotationVector2() * 8, ModContent.ProjectileType<WaterShot>(), projectile.damage / 6, projectile.knockBack + 0.5f, projectile.owner);
             }
         }
     }
