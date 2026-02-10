@@ -3781,6 +3781,7 @@ Items: {
 			Azure Shield will reduce 25% damage you take
 			Spawn some Azure Vortexs that will chase enemies simultaneously
 			Vortexs will also spawn when you take damage with shield
+			Reduce the drag in water and resume wing time
 			Significantly enhance the vision in the abyss, this effect,
 			and this effect will be further amplified when the shield is present
 			''' */

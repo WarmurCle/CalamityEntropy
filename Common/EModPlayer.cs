@@ -2268,7 +2268,7 @@ namespace CalamityEntropy.Common
             if (MariviumLight > 0.02f)
             {
                 EnhancedDarknessSystem.lights.Add(new(center: Player.Center, scale: 36 * MariviumLight));
-                if (MariviniumSet)
+                if (MariviniumSet || accAzureAbyss)
                 {
                     for (float i = 0; i < 360; i += 2.5f)
                     {

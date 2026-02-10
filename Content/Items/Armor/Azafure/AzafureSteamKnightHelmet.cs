@@ -112,7 +112,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                 }
                 else
                     ExplosionFlag = false;
-                if (Main.myPlayer == Player.whoAmI)
+                if (Main.myPlayer == Player.whoAmI && Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     var mp = Mod.GetPacket();
                     mp.Write((byte)CEMessageType.SyncPlayerDead);
@@ -167,6 +167,15 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                     DeathExplosion = -1;
                     ExplosionFlag = false;
                     Player.KillMe(PlayerDeathReason.ByCustomReason(Mod.GetLocalization("DeathExplode").Value.Replace("[PlayerName]", Player.name)), 10000, 0);
+                    if (Main.myPlayer == Player.whoAmI && Main.netMode == NetmodeID.MultiplayerClient)
+                    {
+                        var mp = Mod.GetPacket();
+                        mp.Write((byte)CEMessageType.SyncPlayerDead);
+                        mp.Write(Player.whoAmI);
+                        mp.Write(Player.dead);
+                        mp.WriteVector2(Player.position);
+                        mp.Send();
+                    }
                 }
             }
         }
