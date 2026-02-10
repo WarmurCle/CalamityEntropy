@@ -10,8 +10,8 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.width = 30;
-            Item.height = 80;
+            Item.width = 38;
+            Item.height = 84;
             Item.damage = 64;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 13;
@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(-18, 0);
+            return new Vector2(-2, 0);
         }
         public override bool RangedPrefix()
         {
