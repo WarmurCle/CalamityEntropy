@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 84;
             Item.height = 84;
-            Item.damage = 550;
+            Item.damage = 600;
             Item.noMelee = true;
             Item.crit = 10;
             Item.useAnimation = Item.useTime = 32;
@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.rare = ModContent.RarityType<VoidPurple>();
             Item.shoot = ModContent.ProjectileType<AbyssDragonProj>();
             Item.shootSpeed = 20f;
-            Item.mana = 7;
+            Item.mana = 6;
             Item.DamageType = DamageClass.Magic;
             Item.channel = true;
         }
