@@ -571,7 +571,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             }
             if(count >= 6)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<Blackhole>(), Projectile.damage / 6, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<Blackhole>(), Projectile.damage / 6, 0, Projectile.owner, 0, target.whoAmI);
             }
             if (shake)
             {

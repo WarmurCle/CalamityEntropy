@@ -131,6 +131,19 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         public float scale3 = 0;
         public override void AI()
         {
+            int w = ((int)(Projectile.ai[1]));
+            if (w >= 0)
+            {
+                NPC npc = w.ToNPC();
+                if(npc.active)
+                {
+                    Projectile.Center = npc.Center;
+                }
+                else
+                {
+                    Projectile.ai[1] -= -1;
+                }
+            }
             Projectile.localAI[0]++;
             scale1 -= 0.05f;
             alpha1 += 1 / 8f;
