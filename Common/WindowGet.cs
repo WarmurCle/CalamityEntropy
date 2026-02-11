@@ -131,6 +131,10 @@ namespace CalamityEntropy.Common
 
             public static List<WindowInfo> GetAllVisibleWindows()
             {
+                if(!OperatingSystem.IsWindows())
+                {
+                    return new List<WindowInfo>();
+                }
                 List<WindowInfo> windows = new List<WindowInfo>();
                 IntPtr shellWindow = GetShellWindow();
 
