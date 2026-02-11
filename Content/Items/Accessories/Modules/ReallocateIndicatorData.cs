@@ -45,6 +45,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
                 name = item.ModItem.Name;
             }
             int seed = name.GetHashCode() + 14;
+            seed += Main.worldName.GetHashCode() / 2 + player.name.GetHashCode() / 2;
             if (Main.zenithWorld)
             {
                 seed += player.position.ToPoint().GetHashCode();
