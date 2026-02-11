@@ -1582,6 +1582,10 @@ namespace CalamityEntropy.Common
             {
                 Player.breath = Player.breathMax + 99999;
             }
+            if (accAzureAbyss)
+            {
+                Player.breath = Player.breathMax + 99999;
+            }
             if (Player.ownedProjectileCounts[voidslashType] > 0)
             {
                 foreach (Projectile p in Main.ActiveProjectiles)

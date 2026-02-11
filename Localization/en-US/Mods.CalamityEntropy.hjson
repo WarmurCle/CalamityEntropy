@@ -3764,6 +3764,7 @@ Items: {
 		DisplayName: Talisman of the Azure Abyss
 		Tooltip:
 			'''
+			You can now breath in abyss
 			Increase 15% damage
 			Increase 5/s life regen
 			When receiving damage greater than 35% of maximum health, spawn an Azure Shield
