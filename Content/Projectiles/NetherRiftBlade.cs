@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 3;
-            Projectile.MaxUpdates = 8;
+            Projectile.MaxUpdates = 6;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 5;
             Projectile.ArmorPenetration = 1000;
@@ -84,7 +84,7 @@ namespace CalamityEntropy.Content.Projectiles
             counter1++;
             if (rope == null)
             {
-                rope = new Rope(Projectile.owner.ToPlayer().Center, Projectile.Center, 92, 0, new Vector2(0, 0), 0.02f, 100, false);
+                rope = new Rope(Projectile.owner.ToPlayer().Center, Projectile.Center, 92, 0, new Vector2(0, 0), 0.02f, 32, false);
             }
             rope.segmentLength = CEUtils.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) / 92f;
             rope.Start = Projectile.owner.ToPlayer().Center;
