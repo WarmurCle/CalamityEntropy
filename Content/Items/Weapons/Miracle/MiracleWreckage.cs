@@ -559,10 +559,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                     {
                         count++;
                         mw.PopOut();
-                        for (int i = 0; i < 2; i++)
-                        {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Projectile.velocity.normalize().RotatedByRandom(1) * Main.rand.NextFloat(38, 46), ModContent.ProjectileType<MiracleVortex>(), Projectile.damage / 2, 0, Projectile.owner);
-                        }
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Projectile.velocity.normalize().RotatedByRandom(1) * Main.rand.NextFloat(38, 46), ModContent.ProjectileType<MiracleVortex>(), Projectile.damage, 0, Projectile.owner);
                     }
                 }
             }
