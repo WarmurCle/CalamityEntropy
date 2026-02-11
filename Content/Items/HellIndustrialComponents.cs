@@ -19,6 +19,8 @@ namespace CalamityEntropy.Content.Items
             Item.value = Item.sellPrice(silver: 4);
             Item.rare = ItemRarityID.Orange;
             Item.maxStack = 9999;
+            Item.MakeUsableWithChlorophyteExtractinator();
+            Item.useTime = 2;
         }
         public override void ExtractinatorUse(int extractinatorBlockType, ref int resultType, ref int resultStack)
         {
