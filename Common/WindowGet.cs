@@ -41,7 +41,7 @@ namespace CalamityEntropy.Common
         }
         public static void Ciallo(Vector2 position)
         {
-            CEUtils.PlaySound("yzc/cia" + Main.rand.NextBool(1, 11), 1, position);
+            CEUtils.PlaySound("yzc/cia" + Main.rand.Next(1, 11), 1, position);
         }
         public static List<SoundStyle> cialloSnd;
         public override void Load()
