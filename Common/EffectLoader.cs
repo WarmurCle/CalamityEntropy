@@ -85,7 +85,7 @@ namespace CalamityEntropy.Common
         //----HoCha113 2025-5-6
         private static void CE_EffectHandler(GraphicsDevice graphicsDevice)
         {
-            if (ModContent.GetInstance<Config>().EnablePixelEffect)
+            if (!Main.gameMenu && ModContent.GetInstance<Config>().EnablePixelEffect)
             {
                 //初始化
                 InitializeEffectHandler();
