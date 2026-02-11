@@ -40,11 +40,22 @@ namespace CalamityEntropy.Common
     }
     public class PGetPlayer : ModPlayer
     {
-        public static List<string> yuzuGames = new() { "SenrenBanka", "RiddleJoker", "SabbatOfTheWitch", "CafeStella", "tenshi", "Angelic", "DracuRiot", "PARQUET", "NobleWorks" };
+        public static List<string> yuzuGames = new() { "SenrenBanka", "RiddleJoker", "SabbatOfTheWitch", "CafeStella", "tenshi_sz", "DracuRiot", "PARQUET", "NobleWorks", "夏空カナタ", "夏空彼方", "天使纷扰", "天神乱漫", "NOBLEWORKS", "天色アイルノーツ", "ライムライト・レモネードジャム", "LimelightLemonade" };
         public int count = 0;
         public bool accEquiped = false;
         public bool accVanity = false;
         public int accVnTime = 0;
+        public static string RemoveCharAndToLower(string str)
+        {
+            string ret = "";
+            for (int i = 0; i < str.Length; i++)
+            {
+                if ("-=!@#$%^&z8(){}[]/\\☆＊_".Contains("str[i]"))
+                    continue;
+                ret += str[i].ToString().ToLower();
+            }
+            return ret;
+        }
         public override void ResetEffects()
         {
             accVnTime--;
@@ -76,7 +87,7 @@ namespace CalamityEntropy.Common
                 bool flag = false;
                 foreach (string name in yuzuGames)
                 {
-                    if (win.ProcessName.ToLower().Contains(name.ToLower()))
+                    if (RemoveCharAndToLower(win.ProcessName).Contains(RemoveCharAndToLower(name)))
                     {
                         flag = true;
                         break;
