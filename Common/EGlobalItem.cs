@@ -902,6 +902,11 @@ namespace CalamityEntropy.Common
             }
             if (line.Name == "ItemName")
             {
+                if(item.rare == ModContent.RarityType<ShiningViolet>())
+                {
+                    ShiningViolet.Draw(item, line);
+                    return false;
+                }
                 if (item.Entropy().tooltipStyle == 1 || item.Entropy().tooltipStyle == 4)
                 {
                     float xa = 0;
@@ -1172,8 +1177,30 @@ namespace CalamityEntropy.Common
                 }
                 if (item.rare == ModContent.RarityType<AbyssalBlue>())
                 {
-                    float xa = 0; var font = FontAssets.MouseText.Value;
+                    Texture2D glow = CEUtils.getExtraTex("Glow");
+                    Texture2D star = CEUtils.getExtraTex("StarTexture");
+                    var font = FontAssets.MouseText.Value;
+                    float xa = 0; 
                     float h = 0;
+                    for (int i = 0; i < line.Text.Length; i++)
+                    {
+                        string text = line.Text[i].ToString();
+                        Vector2 size = font.MeasureString(text);
+                        if (size.Y > h)
+                        {
+                            h = size.Y;
+                        }
+                        xa += size.X + 2;
+                    }
+                    SpriteBatch sb = Main.spriteBatch;
+                    sb.End();
+                    sb.Begin(0, BlendState.Additive, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
+                    float ssz = 1f + (float)(Math.Cos(Main.GlobalTimeWrappedHourly * 36) * 0.14f);
+                    sb.Draw(star, new Vector2(line.X + xa / 2, line.Y + h / 4), null, new Color(140, 150, 255), 0, star.Size() / 2, ssz * new Vector2((12 + xa * 2f) / glow.Width, 0.1f), SpriteEffects.None, 0);
+                    sb.Draw(star, new Vector2(line.X + xa / 2, line.Y + h / 4), null, new Color(140, 150, 255), 0, star.Size() / 2, ssz * new Vector2((12 + xa * 2f) / glow.Width * 0.2f, 0.16f), SpriteEffects.None, 0);
+                    sb.End();
+                    sb.Begin(0, BlendState.AlphaBlend, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
+                    xa = h = 0;
                     for (int i = 0; i < line.Text.Length; i++)
                     {
                         string text = line.Text[i].ToString();
@@ -1184,9 +1211,12 @@ namespace CalamityEntropy.Common
                         {
                             h = size.Y;
                         }
-                        Color color = new Color(248, 132, 56);
+                        Color color = Color.Lerp(new Color(255, 210, 12), new Color(140, 180, 255), (i / (line.Text.Length - 1f)));
                         yofs = 0;
-                        Color strokeColord = new Color(104, 120, 255);
+                        Color strokeColord = Color.Lerp(new Color(70, 110, 255), new Color(150, 155, 180), (i / (line.Text.Length - 1f)));
+                        float n = (float)(0.25f * Math.Sin(Main.GlobalTimeWrappedHourly * -6 + i * 0.65f));
+                        strokeColord *= 1 + n;
+                        color *= 1 + n;
 
                         Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
                         Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 0), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
@@ -1203,11 +1233,10 @@ namespace CalamityEntropy.Common
                         xa += size.X + 2;
 
                     }
-                    SpriteBatch sb = Main.spriteBatch;
                     sb.End();
                     sb.Begin(0, BlendState.Additive, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
-                    Texture2D glow = CEUtils.getExtraTex("Glow");
-                    sb.Draw(glow, new Vector2(line.X + xa / 2, line.Y + h / 4), null, new Color(140, 150, 255) * 0.8f, 0, glow.Size() / 2, new Vector2((32 + xa * 2.4f) / glow.Width, 0.34f), SpriteEffects.None, 0);
+                    sb.Draw(glow, new Vector2(line.X + xa / 2, line.Y + h / 4), null, new Color(140, 150, 255) * 0.7f, 0, glow.Size() / 2, new Vector2((32 + xa * 2.4f) / glow.Width, 0.36f), SpriteEffects.None, 0);
+                    sb.Draw(glow, new Vector2(line.X + xa / 2, line.Y + h / 4), null, new Color(140, 150, 255) * 0.5f, 0, glow.Size() / 2, new Vector2((42 + xa * 2.4f) / glow.Width, 0.16f), SpriteEffects.None, 0);
                     sb.End();
                     sb.Begin(0, BlendState.AlphaBlend, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
 

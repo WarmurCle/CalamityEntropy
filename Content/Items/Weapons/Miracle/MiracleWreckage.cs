@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Dusts;
@@ -30,8 +31,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             Item.useAnimation = 46;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 4;
-            Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
-            Item.rare = ItemRarityID.Pink;
+            Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
+            Item.rare = ModContent.RarityType<ShiningViolet>();
             Item.UseSound = null;
             Item.noMelee = true;
             Item.noUseGraphic = true;

@@ -46,7 +46,6 @@ namespace CalamityEntropy.Content.Projectiles
                 if (Projectile.owner.ToPlayer().Entropy().WeaponBoost > 0)
                 {
                     colorset = Color.Lerp(Color.Purple, Color.Indigo, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f));
-
                 }
             }
             Color color = (Color)colorset;
