@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             NPC.width = 140;
             NPC.height = 140;
             NPC.damage = 115;
-	        NPC.Calamity().DR = 0.10f;
+            NPC.Calamity().DR = 0.10f;
             if (Main.expertMode)
             {
                 NPC.damage += 2;
@@ -78,7 +78,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             }
             NPC.defense = 60;
             NPC.lifeMax = 360000;
-	    if (BossRushEvent.BossRushActive)
+            if (BossRushEvent.BossRushActive)
             {
                 NPC.lifeMax += 360000;
             }
@@ -207,9 +207,9 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         }
         public override void AI()
         {
-            if(Main.netMode != NetmodeID.MultiplayerClient)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                if(SpawnCell)
+                if (SpawnCell)
                 {
                     SpawnCell = false;
                     if (NPC.realLife < 0)

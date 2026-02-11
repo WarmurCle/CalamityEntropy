@@ -3,7 +3,6 @@ using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.LoreItems;
-using CalamityMod.Items.Placeables;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;

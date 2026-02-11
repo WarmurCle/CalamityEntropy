@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.WorldBuilding;
 
 namespace CalamityEntropy.Content.Buffs
 {
@@ -252,7 +251,7 @@ namespace CalamityEntropy.Content.Buffs
                             Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(8, 14), ModContent.ProjectileType<FleshChunk>(), (int)(projectile.GetOwner().GetTotalDamage(DamageClass.Summon).ApplyTo(34)), 5, projectile.owner, 0, 0, Main.rand.Next(0, 2));
                         }
                     }
-                    if(t.EffectName == "EvilKingWhip")
+                    if (t.EffectName == "EvilKingWhip")
                     {
                         if (CECooldowns.CheckCD("EvilKingWhip", 35))
                         {

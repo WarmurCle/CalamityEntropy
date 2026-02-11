@@ -1,13 +1,9 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
-using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -91,7 +87,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Texture2D tex = Projectile.GetTexture();
             Vector2 origin = tex.Size() / 2f;
-            for(float i = 0; i < MathHelper.TwoPi; i+=MathHelper.PiOver2)
+            for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver2)
             {
                 Vector2 offset = i.ToRotationVector2() * 4;
                 Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + offset, null, Color.Black * Projectile.ai[1], 0, origin, Projectile.scale * Projectile.ai[0], SpriteEffects.None);

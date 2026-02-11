@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff<MechanicalTrauma>(340);
-            if(Main.zenithWorld)
+            if (Main.zenithWorld)
             {
                 OnKill(Projectile.timeLeft);
             }

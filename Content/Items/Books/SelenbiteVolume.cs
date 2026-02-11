@@ -118,7 +118,7 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile.Opacity -= 1 / 25f;
             else
                 if (Projectile.Opacity < 1)
-                Projectile.Opacity += 1 / 24f;
+                    Projectile.Opacity += 1 / 24f;
             Projectile.velocity *= 0.97f;
         }
         public override Color baseColor => Color.YellowGreen;

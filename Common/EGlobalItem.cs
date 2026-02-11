@@ -30,11 +30,7 @@ using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.TreasureBags;
 using CalamityMod.Items.TreasureBags.MiscGrabBags;
-using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Melee;
-using CalamityMod.Items.Weapons.Ranged;
-using CalamityMod.Items.Weapons.Rogue;
-using CalamityMod.Projectiles.Rogue;
 using CalamityMod.World;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
@@ -902,7 +898,7 @@ namespace CalamityEntropy.Common
             }
             if (line.Name == "ItemName")
             {
-                if(item.rare == ModContent.RarityType<ShiningViolet>())
+                if (item.rare == ModContent.RarityType<ShiningViolet>())
                 {
                     ShiningViolet.Draw(item, line);
                     return false;
@@ -1180,7 +1176,7 @@ namespace CalamityEntropy.Common
                     Texture2D glow = CEUtils.getExtraTex("Glow");
                     Texture2D star = CEUtils.getExtraTex("StarTexture");
                     var font = FontAssets.MouseText.Value;
-                    float xa = 0; 
+                    float xa = 0;
                     float h = 0;
                     for (int i = 0; i < line.Text.Length; i++)
                     {
@@ -1944,7 +1940,7 @@ namespace CalamityEntropy.Common
                         itemLoot.AddIf(cfg, i.Type, 1, 10, 10);
                     }
                 }
-                if(ModLoader.TryGetMod("ImproveGame", out Mod qot))
+                if (ModLoader.TryGetMod("ImproveGame", out Mod qot))
                 {
                     ModItem i;
                     if (qot.TryFind<ModItem>("MagickWand", out i))

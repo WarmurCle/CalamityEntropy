@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Projectiles;
-using CalamityMod;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;

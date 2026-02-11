@@ -136,7 +136,7 @@ namespace CalamityEntropy.Content.Projectiles
                 targetPos = n.Center;
                 if (CEUtils.getDistance(targetPos, Projectile.Center) > 120)
                 {
-                    if(rt < 40)
+                    if (rt < 40)
                     {
                         rt += Main.rand.NextFloat(1, 4);
                     }
@@ -160,11 +160,11 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.velocity *= 0.8f;
                 }
                 else
-                if (CEUtils.getDistance(Projectile.Center, targetPos) > 100)
-                {
-                    Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.9f;
-                    Projectile.velocity *= 0.996f;
-                }
+                    if (CEUtils.getDistance(Projectile.Center, targetPos) > 100)
+                    {
+                        Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.9f;
+                        Projectile.velocity *= 0.996f;
+                    }
             }
         }
         public float rt = 0;

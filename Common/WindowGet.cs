@@ -1,25 +1,19 @@
-﻿using CalamityEntropy.Content.Items.Accessories;
-using CalamityEntropy.Content.Items.Donator;
-using CalamityMod.Items.Potions.Alcohol;
-using Microsoft.CodeAnalysis.CodeStyle;
+﻿using CalamityEntropy.Content.Items.Donator;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.GameContent.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Common
 {
     //我脑袋抽了做的这玩意
-    public class ChargingYuzu: ModItem
+    public class ChargingYuzu : ModItem
     {
         public override string Texture => "CalamityEntropy/Assets/Extra/ChargingYuzu";
         public override void SetDefaults()
@@ -80,7 +74,8 @@ namespace CalamityEntropy.Common
             foreach (var win in windows)
             {
                 bool flag = false;
-                foreach (string name in yuzuGames) {
+                foreach (string name in yuzuGames)
+                {
                     if (win.ProcessName.ToLower().Contains(name.ToLower()))
                     {
                         flag = true;
@@ -131,7 +126,7 @@ namespace CalamityEntropy.Common
 
             public static List<WindowInfo> GetAllVisibleWindows()
             {
-                if(!OperatingSystem.IsWindows())
+                if (!OperatingSystem.IsWindows())
                 {
                     return new List<WindowInfo>();
                 }

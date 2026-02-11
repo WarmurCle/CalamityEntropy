@@ -1,18 +1,13 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Items.Weapons.DustCarverBow;
-using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using static CalamityEntropy.ScreenShaker;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
@@ -83,7 +78,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public float BlockTimes { get { return Projectile.ai[1]; } set { Projectile.ai[1] = value; } }
         public override bool PreAI()
         {
-            if(segs == null)
+            if (segs == null)
             {
                 segs = new List<WyrmSeg>();
                 segs.Add(new WyrmSeg() { Center = Projectile.Center, follow = this, spacing = 18 });
@@ -104,12 +99,12 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 BlockTimes += 1 / 70f;
 
             bool roundPlr = false;
-            if(BlockTimes >= 1)
+            if (BlockTimes >= 1)
             {
                 Projectile tar = null;
                 bool b = false;
                 float distance = 999999;
-                foreach(Projectile p in Main.ActiveProjectiles)
+                foreach (Projectile p in Main.ActiveProjectiles)
                 {
                     if (p.hostile && !p.friendly && p.damage > 0 && Math.Max(p.width, p.height) < 150 && CEUtils.getDistance(player.Center, p.Center) < 800)
                     {
@@ -125,7 +120,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                             {
                                 p.Kill();
                                 CEUtils.PlaySound("LightHit", 1, Projectile.Center);
-                                if(!b)
+                                if (!b)
                                 {
                                     b = true;
                                     BlockTimes--;
@@ -136,7 +131,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                         }
                     }
                 }
-                if(tar != null)
+                if (tar != null)
                 {
                     Projectile.velocity *= 0.7f;
                     Projectile.velocity += (tar.Center - Projectile.Center).normalize() * 10;
@@ -148,7 +143,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             }
             else { roundPlr = true; }
 
-            if (roundPlr) 
+            if (roundPlr)
             {
                 if (CEUtils.getDistance(Projectile.Center, player.Center) > 250)
                 {

@@ -14,7 +14,6 @@ using CalamityEntropy.Content.Projectiles.VoidEchoProj;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
-using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.NPCs.Signus;
 using CalamityMod.NPCs.StormWeaver;
@@ -1197,7 +1196,7 @@ namespace CalamityEntropy.Common
                 }
 
             }
-            
+
             if (LuminarArrow)
             {
                 return false;
@@ -1276,7 +1275,7 @@ namespace CalamityEntropy.Common
                     GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(pos, vel, false, 20, scale, clr, new Vector2(0.25f, 1)));
                 }
             }
-            
+
             foreach (int id in applyBuffs)
             {
                 target.AddBuff(id, 5 * 60);

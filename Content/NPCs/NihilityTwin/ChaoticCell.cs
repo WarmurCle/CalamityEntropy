@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             NPC.width = 110;
             NPC.height = 110;
             NPC.damage = 105;
-	        NPC.Calamity().DR = 0.15f;
+            NPC.Calamity().DR = 0.15f;
             if (Main.expertMode)
             {
                 NPC.damage += 2;
@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             }
             NPC.defense = 40;
             NPC.lifeMax = 360000;
-	    if (BossRushEvent.BossRushActive)
+            if (BossRushEvent.BossRushActive)
             {
                 NPC.lifeMax += 360000;
             }
@@ -269,13 +269,13 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                     }
                     na.drawRope();
                 }
-                if(Main.zenithWorld)
+                if (Main.zenithWorld)
                 {
                     foreach (NPC n in Main.ActiveNPCs)
                     {
-                        if(n.type == owner.type && n.whoAmI != owner.whoAmI)
+                        if (n.type == owner.type && n.whoAmI != owner.whoAmI)
                         {
-                            if(n.ModNPC is NihilityActeriophage na2)
+                            if (n.ModNPC is NihilityActeriophage na2)
                             {
                                 if (na2.spawnAnm > 0)
                                 {

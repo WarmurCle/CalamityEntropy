@@ -1,7 +1,4 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-
-namespace CalamityEntropy.Content.Buffs
+﻿namespace CalamityEntropy.Content.Buffs
 {
     public class MechanicalTrauma : DotBuff
     {

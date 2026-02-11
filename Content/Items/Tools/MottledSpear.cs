@@ -1,9 +1,7 @@
 ﻿using CalamityMod;
-using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -30,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Tools
     public class MottledSpearHook : ModProjectile
     {
         public const float PullSpeed = 20f;
-            
+
         public const float ReelbackSpeed = 18f;
 
         public const float LaunchSpeed = 18f;
@@ -77,7 +75,7 @@ namespace CalamityEntropy.Content.Items.Tools
 
         public override void GrapplePullSpeed(Player player, ref float speed)
         {
-            if(hitsnd)
+            if (hitsnd)
             {
                 CEUtils.PlaySound("ExoHit1", 1.6f, Projectile.Center, volume: 0.45f);
                 hitsnd = false;

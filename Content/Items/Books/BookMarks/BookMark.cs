@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 tooltipLine.OverrideColor = tooltipColor;
             }
             tooltips.Add(new TooltipLine(CalamityEntropy.Instance, "BookMarkTooltip", CalamityEntropy.Instance.GetLocalization("TooltipBookMark").Value) { OverrideColor = Color.Yellow });
-            if(EBookUI.active)
+            if (EBookUI.active)
             {
                 tooltips.Add(new TooltipLine(CalamityEntropy.Instance, "BookMarkTooltip2", CalamityEntropy.Instance.GetLocalization("TooltipBookMark2").Value) { OverrideColor = Color.Lerp(new Color(124, 124, 0), Color.LightGoldenrodYellow, 0.5f + 0.25f * (float)(Math.Cos(Main.GlobalTimeWrappedHourly * 15))) });
             }

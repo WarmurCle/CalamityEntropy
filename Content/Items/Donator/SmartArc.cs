@@ -1,6 +1,5 @@
 ﻿using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Placeables;
 using System;
 using Terraria;
 using Terraria.DataStructures;

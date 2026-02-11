@@ -569,7 +569,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     }
                     if (AIChangeDelay > 80)
                     {
-                        if (AIChangeDelay <100)
+                        if (AIChangeDelay < 100)
                         {
                             if (AIChangeDelay % 4 == 0)
                             {

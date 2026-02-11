@@ -396,7 +396,7 @@ namespace CalamityEntropy
                     packet.Send(-1, plr);
                 }
             }
-            else if(messageType == CEMessageType.SyncDRShadowCrystal)
+            else if (messageType == CEMessageType.SyncDRShadowCrystal)
             {
                 int plr = reader.ReadInt32();
                 bool ch1 = reader.ReadBoolean();
@@ -404,7 +404,7 @@ namespace CalamityEntropy
                 bool ch3 = reader.ReadBoolean();
                 bool ch4 = reader.ReadBoolean();
                 plr.ToPlayer().Entropy().drCrystals = new List<bool>() { ch1, ch2, ch3, ch4 };
-                if(Main.dedServ)
+                if (Main.dedServ)
                 {
                     var mp = Instance.GetPacket();
                     mp.Write((byte)CEMessageType.SyncDRShadowCrystal);

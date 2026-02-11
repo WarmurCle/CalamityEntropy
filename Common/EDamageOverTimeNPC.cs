@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Common
@@ -18,7 +17,7 @@ namespace CalamityEntropy.Common
                 damageApply += 4500;
             }
             var dict = DotBuff.InstanceByType();
-            for(int i = 0; i < npc.buffType.Length; i++)
+            for (int i = 0; i < npc.buffType.Length; i++)
             {
                 if (npc.buffTime[i] > 0)
                 {

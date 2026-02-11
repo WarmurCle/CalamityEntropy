@@ -45,8 +45,6 @@ using CalamityMod.Events;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Pets;
-using CalamityMod.Items.Placeables;
-using CalamityMod.Items.Placeables.Abyss;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Items.Weapons.Ranged;
@@ -91,7 +89,6 @@ using ReLogic.Content;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.IO;
 using Terraria;
 using Terraria.Graphics;
@@ -230,13 +227,13 @@ namespace CalamityEntropy
             BossRushEvent.Bosses.Insert(24, new BossRushEvent.Boss(ModContent.NPCType<Luminaris>()));
 
             EModILEdit.load();
-            
+
 
         }
 
         private void waterCollisionHook(On_Player.orig_WaterCollision orig, Player self, bool fallThrough, bool ignorePlats)
         {
-            if(self.Entropy().MariviniumSet)
+            if (self.Entropy().MariviniumSet)
             {
                 int num = ((!self.onTrack) ? self.height : (self.height - 20));
                 Vector2 vector = self.velocity;
@@ -246,7 +243,7 @@ namespace CalamityEntropy
                 if (self.wingTime < self.wingTimeMax)
                     self.wingTime = self.wingTimeMax;
             }
-            else if(self.Entropy().accAzureAbyss)
+            else if (self.Entropy().accAzureAbyss)
             {
                 int num = ((!self.onTrack) ? self.height : (self.height - 20));
                 Vector2 vector = self.velocity;

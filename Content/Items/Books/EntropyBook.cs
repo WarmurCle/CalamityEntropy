@@ -784,7 +784,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             if (lifeSteal > 0)
             {
-                if(mainProj || Main.rand.NextBool(5))
+                if (mainProj || Main.rand.NextBool(5))
                     Projectile.GetOwner()?.Entropy().HealFloat(lifeSteal);
             }
         }

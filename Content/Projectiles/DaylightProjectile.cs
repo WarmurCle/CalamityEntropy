@@ -1,15 +1,11 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Items.Armor.NihTwins;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -54,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override Color StringColor => new Color(140, 140, 0);
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            for(int i = 0; i < 46; i++)
+            for (int i = 0; i < 46; i++)
             {
                 var d = Dust.NewDustDirect(target.position, target.width, target.height, DustID.YellowTorch);
                 d.scale = 3.2f;
@@ -66,8 +62,8 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 int ds_type = ModContent.ProjectileType<DaylightSun>();
                 foreach (Projectile p in Main.ActiveProjectiles)
-                { 
-                    if(p.owner == Projectile.owner && p.type == ds_type)
+                {
+                    if (p.owner == Projectile.owner && p.type == ds_type)
                     {
                         p.timeLeft = 40;
                     }
@@ -76,7 +72,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.localAI[1]++ == 0)
             {
-                SoundEngine.PlaySound(SoundID.Item153 with { PitchRange = (-0.2f, 0)}, target.Center);
+                SoundEngine.PlaySound(SoundID.Item153 with { PitchRange = (-0.2f, 0) }, target.Center);
                 CEUtils.PlaySound("beast_lavaball_rise1", Main.rand.NextFloat(1.2f, 1.4f), target.Center, 8, 0.9f);
             }
             base.OnHitNPC(target, hit, damageDone);
@@ -147,7 +143,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
-            if(Projectile.timeLeft < 40)
+            if (Projectile.timeLeft < 40)
             {
                 Projectile.Opacity -= 1 / 40f;
             }
@@ -157,7 +153,7 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D tex = Projectile.GetTexture();
             Texture2D c = CEUtils.getExtraTex("Circle");
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            for(float i = 0; i < 1; i += 0.2f)
+            for (float i = 0; i < 1; i += 0.2f)
             {
                 float scale = (1 - i) * 1.2f;
                 float alpha = 0.16f;

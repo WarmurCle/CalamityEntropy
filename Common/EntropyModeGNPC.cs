@@ -6,7 +6,6 @@ using CalamityMod.NPCs.Crabulon;
 using CalamityMod.NPCs.Cryogen;
 using CalamityMod.NPCs.DesertScourge;
 using CalamityMod.NPCs.DevourerofGods;
-using CalamityMod.NPCs.NormalNPCs;
 using CalamityMod.NPCs.Perforator;
 using CalamityMod.NPCs.Signus;
 using CalamityMod.NPCs.SlimeGod;

@@ -104,7 +104,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                                     GeneralParticleHandler.SpawnParticle(new AltSparkParticle(npc.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(16, 24), false, Main.rand.Next(6, 10), Main.rand.NextFloat(0.9f, 2), new Color(240, 240, 255)));
                                 }
                                 npc.AddBuff<MechanicalTrauma>(360);
-                                if(Main.zenithWorld)
+                                if (Main.zenithWorld)
                                 {
                                     npc.velocity = (Projectile.Center - npc.Center).normalize() * 18;
                                 }

@@ -8,7 +8,6 @@ using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
-using CalamityMod.Buffs.Alcohol;
 using CalamityMod.Items.Potions.Alcohol;
 using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework.Graphics;
@@ -92,7 +91,7 @@ namespace CalamityEntropy
         }
         public static int ApplyAccArmorDamageBonus(this int origDmg, Player player = null)
         {
-            if(player == null)
+            if (player == null)
             {
                 player = Main.LocalPlayer;
             }

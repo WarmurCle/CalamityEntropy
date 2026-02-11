@@ -1,14 +1,8 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.UI.EntropyBookUI;
-using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -89,7 +83,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void OnKill(int timeLeft)
         {
             base.OnKill(timeLeft);
-            for(int i = 0; i < 12; i++)
+            for (int i = 0; i < 12; i++)
             {
                 GeneralParticleHandler.SpawnParticle(new BloodParticle(Projectile.Center, CEUtils.randomPointInCircle(16), 26, Main.rand.NextFloat(0.6f, 1f), baseColor));
             }

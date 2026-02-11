@@ -1,7 +1,6 @@
 ﻿
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Buffs
@@ -14,7 +13,7 @@ namespace CalamityEntropy.Content.Buffs
             Dictionary<int, DotBuff> r = new Dictionary<int, DotBuff>();
             if (Instances == null)
                 return r;
-            foreach(var instance in Instances)
+            foreach (var instance in Instances)
             {
                 r[instance.Type] = instance;
             }
@@ -22,7 +21,7 @@ namespace CalamityEntropy.Content.Buffs
         }
         public override void Load()
         {
-            if(Instances == null)
+            if (Instances == null)
                 Instances = new List<DotBuff>();
             Instances.Add(this);
         }

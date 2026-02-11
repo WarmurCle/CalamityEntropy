@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
-            if(Projectile.localAI[2]++ > 2 && Main.rand.NextBool(2))
+            if (Projectile.localAI[2]++ > 2 && Main.rand.NextBool(2))
             {
                 Vector2 pos = Projectile.Center - Projectile.velocity.normalize() * 9 + CEUtils.randomPointInCircle(2);
                 Vector2 vel = Projectile.velocity.normalize();

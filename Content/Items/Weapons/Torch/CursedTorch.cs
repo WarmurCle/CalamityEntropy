@@ -1,17 +1,8 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles.LuminarisShoots;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Dusts;
 using CalamityMod.Items;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -92,7 +83,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Torch
         {
             return false;
         }
-        
+
         public override void AI()
         {
             Player player = Projectile.GetOwner();
@@ -110,7 +101,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Torch
             Projectile.rotation = Projectile.velocity.X * 0.02f;
             Projectile.velocity *= 0.95f;
             Projectile.frameCounter++;
-            if(Projectile.frameCounter > 3)
+            if (Projectile.frameCounter > 3)
             {
                 Projectile.frameCounter = 0;
                 Projectile.frame++;
@@ -125,7 +116,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Torch
                 if (Projectile.ai[0]++ > 12)
                 {
                     Projectile.ai[0] = 0;
-                    if(Main.myPlayer == Projectile.owner)
+                    if (Main.myPlayer == Projectile.owner)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + new Vector2(0, -16).RotatedBy(Projectile.rotation), (target.Center + target.velocity * 10 - Projectile.Center).normalize() * 8 + Projectile.velocity * 0.25f, ModContent.ProjectileType<CursingFlame>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }

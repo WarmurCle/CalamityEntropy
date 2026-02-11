@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             var mp = player.GetModPlayer<AcropolisArmorPlayer>();
             if (mp.MechFrame > 18)
             {
-                if(player.channel)
+                if (player.channel)
                     player.channel = false;
                 if (mp.DummyCannon == null)
                 {
@@ -118,7 +118,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 if (CEUtils.getDistance(StandPoint, targetPos) < ms * (Player.velocity.Y > 1f ? 3 : 1))
                 {
                     StandPoint = targetPos;
-                    if(sound)
+                    if (sound)
                     {
                         sound = false;
                         if (!CEUtils.isAir(targetPos + new Vector2(0, 2), true))
@@ -150,7 +150,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     targetPos = FindStandPoint(Player.Center + Player.velocity * 8 + (offset * 1).RotatedBy(Player.fullRotation) + new Vector2(Math.Sign(Player.velocity.X) == Math.Sign(offset.X) ? (Math.Sign(Player.velocity.X) * 12) : 0, 0), 85 * 1, 160);
                     ms = CEUtils.getDistance(targetPos, StandPoint) * 0.25f;
                     if (NoMoveTime < 7)
-                        NoMoveTime = 7; 
+                        NoMoveTime = 7;
                     if (!CEUtils.isAir(targetPos + new Vector2(0, 2), true))
                     {
                         sound = true;
@@ -562,19 +562,19 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                     if (Player.controlDown)
                     {
                         Player.velocity.Y += 0.65f;
-                        if(Player.Entropy().NoPlatformCollide < 4)
+                        if (Player.Entropy().NoPlatformCollide < 4)
                             Player.Entropy().NoPlatformCollide = 4;
                     }
                     if (s > 2)
                     {
                         if (Math.Abs(Player.velocity.X) > 9)
                             Player.velocity.X *= 0.95f;
-                        if(LandTime == 2 && Player.velocity.Y > 5)
+                        if (LandTime == 2 && Player.velocity.Y > 5)
                         {
                             CEUtils.PlaySound("mechStepHeavy", Main.rand.NextFloat(1, 1.4f), Player.Center + new Vector2(0, 60), 6, Utils.Remap(Player.velocity.Y, 0, 10, 0, 1));
                         }
                         LandTime++;
-                        if(LandTime > 6)
+                        if (LandTime > 6)
                         {
                             Player.wingTime = Player.wingTimeMax;
                         }
@@ -635,7 +635,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                                         CEUtils.PlaySound("AcropolisShoot", Main.rand.NextFloat(0.8f, 1.2f), cannon.TopPos);
                                         ShootDelay = (int)(5f / Player.GetTotalAttackSpeed(Player.GetBestClass()));
                                         int damage = ((int)(Player.GetTotalDamage(Player.GetBestClass()).ApplyTo(400))).ApplyAccArmorDamageBonus(Player);
-                                        if(!Main.dedServ)
+                                        if (!Main.dedServ)
                                         {
                                             Gore.NewGoreDirect(Player.GetSource_FromThis(), cannon.TopPos - cannon.Seg2Rot.ToRotationVector2() * 46, Player.velocity + (cannon.Seg2Rot + Player.direction * -2.4f).ToRotationVector2() * 12 + CEUtils.randomPointInCircle(3), Mod.Find<ModGore>("AcropolisShell").Type).timeLeft = 0;
                                         }

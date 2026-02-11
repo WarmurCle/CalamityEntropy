@@ -1,16 +1,8 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles.LuminarisShoots;
-using CalamityMod;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Items;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -94,7 +86,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             return false;
         }
-        
+
         public override void AI()
         {
             Player player = Projectile.GetOwner();
@@ -114,9 +106,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             int sum = 0;
             int self = 0;
 
-            foreach(Projectile p in Main.ActiveProjectiles)
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
-                if(p.owner == Projectile.owner && p.type == Projectile.type)
+                if (p.owner == Projectile.owner && p.type == Projectile.type)
                 {
                     if (p.whoAmI == Projectile.whoAmI)
                     {
@@ -143,8 +135,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if (num > 1)
                     num = 1;
                 num2 = CEUtils.RotateTowardsAngle(num2, (target.Center - Projectile.Center).ToRotation(), num, false);
-                
-                
+
+
                 trailAlpha = 1;
             }
             else
@@ -152,7 +144,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if (trailAlpha > 0)
                     trailAlpha -= 0.05f;
                 num = 0;
-                if(target != null)
+                if (target != null)
                 {
                     num2 = (target.Center - Projectile.Center).ToRotation();
                 }

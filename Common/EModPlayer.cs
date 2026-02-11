@@ -1,5 +1,5 @@
 
-﻿using CalamityEntropy.Common.LoreReworks;
+using CalamityEntropy.Common.LoreReworks;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.ILEditing;
@@ -33,8 +33,6 @@ using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Graphics;
 using CalamityMod.Items.LoreItems;
-using CalamityMod.Items.Placeables;
-using CalamityMod.Items.Placeables.Abyss;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Typeless;
 using InnoVault.PRT;
@@ -75,7 +73,7 @@ namespace CalamityEntropy.Common
             }
             if (amount - healInt > 0)
                 healPoints += amount - healInt;
-            if(healPoints >= 1)
+            if (healPoints >= 1)
             {
                 healPoints--;
                 Player.Heal(1);
@@ -178,7 +176,7 @@ namespace CalamityEntropy.Common
         public bool CanSlainTownNPC = false;
         internal int koishiStabTimer = 0;
         public List<bool> drCrystals = null;
-        
+
         public class SpecialWingDrawingData
         {
             public int MaxFrame = 3;
@@ -1038,7 +1036,7 @@ namespace CalamityEntropy.Common
 
         public override void PreUpdate()
         {
-            if(drCrystals == null && Main.myPlayer == Player.whoAmI && !Main.dedServ)
+            if (drCrystals == null && Main.myPlayer == Player.whoAmI && !Main.dedServ)
             {
                 drCrystals = new List<bool>() { ShadowCrystalDeltarune.Ch1Crystal, ShadowCrystalDeltarune.Ch2Crystal, ShadowCrystalDeltarune.Ch3Crystal, ShadowCrystalDeltarune.Ch4Crystal };
                 if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -1220,7 +1218,7 @@ namespace CalamityEntropy.Common
                 Player.maxFallSpeed *= 3;
                 Player.controlDown = true;
             }
-            if(Player.wet && accAzureAbyss)
+            if (Player.wet && accAzureAbyss)
             {
                 if (!Player.controlJump)
                 {
@@ -1602,7 +1600,7 @@ namespace CalamityEntropy.Common
                 }
 
             }
-            
+
 
             if (bloodBoiling > 0)
             {
@@ -1764,7 +1762,7 @@ namespace CalamityEntropy.Common
 
             modifiers.ModifyHurtInfo += EPHurtModifier;
             modifiers.ModifyHurtInfo += EPHurtModifier2;
-            if(AzureShield > 0)
+            if (AzureShield > 0)
             {
                 modifiers.SourceDamage *= 0.75f;
             }
@@ -1785,18 +1783,18 @@ namespace CalamityEntropy.Common
         public float BloodthirstyEffect = 0;
         public override void OnHurt(Player.HurtInfo info)
         {
-            if(AzureShield > 0)
+            if (AzureShield > 0)
             {
                 CEUtils.PlaySound("YharonFireball1", 2.2f, Player.Center);
             }
-            if(info.Damage > Player.statLifeMax2 * 0.35f)
+            if (info.Damage > Player.statLifeMax2 * 0.35f)
             {
-                if(accAzureAbyss)
+                if (accAzureAbyss)
                 {
-                    if(true)
+                    if (true)
                     {
                         Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<AzureShield>(), 0, 0, Player.whoAmI);
-                        for(int i= 0; i < 3; i++)
+                        for (int i = 0; i < 3; i++)
                         {
                             Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 16, ModContent.ProjectileType<AzureVortex>(), (int)(Player.GetBestClassDamage().ApplyTo(1200.ApplyAccArmorDamageBonus())), 0, Player.whoAmI);
                         }
@@ -1813,7 +1811,7 @@ namespace CalamityEntropy.Common
             BloodthirstyEffect += (info.Damage / (float)Player.statLifeMax2) * 30;
             if (BloodthirstyEffect > 36)
                 BloodthirstyEffect = 36;
-            if(BookMarkLoader.GetPlayerHeldEntropyBook(Player, out var eb) && info.Damage > 19 && CECooldowns.CheckCD("BloodthirstResetShootDelay", 30))
+            if (BookMarkLoader.GetPlayerHeldEntropyBook(Player, out var eb) && info.Damage > 19 && CECooldowns.CheckCD("BloodthirstResetShootDelay", 30))
             {
                 if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BloodthirstBMEffect>(Player))
                     eb.shotCooldown = 0;
@@ -2254,13 +2252,13 @@ namespace CalamityEntropy.Common
         {
             AzureShield--;
             MariviumLight = float.Lerp(MariviumLight, MariviniumSet ? 1 : (accAzureAbyss ? (AzureShield > 0 ? 1f : 0.8f) : 0), 0.05f);
-            if(accAzureAbyss)
+            if (accAzureAbyss)
             {
-                if(Player.wet)
+                if (Player.wet)
                 {
-                    if(Player.wingTime < Player.wingTimeMax)
+                    if (Player.wingTime < Player.wingTimeMax)
                     {
-                        if(!Player.controlJump)
+                        if (!Player.controlJump)
                         {
                             Player.wingTime += 1.2f;
                             if (Player.wingTime > Player.wingTimeMax)
@@ -2284,7 +2282,7 @@ namespace CalamityEntropy.Common
                 }
             }
             BloodthirstyEffect *= 0.974f;
-            if(CalamityEntropy.EntropyMode)
+            if (CalamityEntropy.EntropyMode)
             {
                 List<DamageClass> dmgClasses = new List<DamageClass>() { ModContent.GetInstance<AverageDamageClass>(), ModContent.GetInstance<DefaultDamageClass>(), ModContent.GetInstance<GenericDamageClass>(), ModContent.GetInstance<MagicDamageClass>(), ModContent.GetInstance<MagicSummonHybridDamageClass>(), ModContent.GetInstance<MeleeDamageClass>(), ModContent.GetInstance<MeleeNoSpeedDamageClass>(), ModContent.GetInstance<MeleeRangedHybridDamageClass>(), ModContent.GetInstance<NoneTypeDamageClass>(), ModContent.GetInstance<RangedDamageClass>(), ModContent.GetInstance<RogueDamageClass>(), ModContent.GetInstance<StealthDamageClass>(), ModContent.GetInstance<SummonDamageClass>(), ModContent.GetInstance<SummonMeleeSpeedDamageClass>(), ModContent.GetInstance<ThrowingDamageClass>(), ModContent.GetInstance<TrueMeleeDamageClass>(), ModContent.GetInstance<TrueMeleeNoSpeedDamageClass>() };
                 for (int i = 0; i < dmgClasses.Count; i++)
@@ -2598,7 +2596,7 @@ namespace CalamityEntropy.Common
                         if (hasAccVisual(ShadeCloak.ID))
                         {
                             CEUtils.PlaySound("Dash2", 1, Player.Center);
-                        
+
                             for (int i = 0; i < 12; i++)
                             {
                                 EParticle.NewParticle(new ShadeCloakOrb() { PlayerIndex = Player.whoAmI }, Vector2.Zero, CEUtils.randomPointInCircle(4), Color.Black, 1, 1, true, BlendState.NonPremultiplied, -1, 160.ApplyCdDec(Player));
@@ -3828,11 +3826,11 @@ namespace CalamityEntropy.Common
             {
                 Player.maxMinions += (int)((Player.GetDamage(DamageClass.Summon).Additive - 1.0f) * ShadowRune.SummonDmgToMinionSlot);
             }
-            if(worshipRelic)
+            if (worshipRelic)
             {
                 Player.Calamity().rogueStealthMax *= 0.5f;
             }
-            if(hasAcc(AmuletOfSanctuary.ID))
+            if (hasAcc(AmuletOfSanctuary.ID))
             {
                 int defence = AmuletOfSanctuary.GetDefence(Player.maxMinions);
                 Player.statDefense += defence;

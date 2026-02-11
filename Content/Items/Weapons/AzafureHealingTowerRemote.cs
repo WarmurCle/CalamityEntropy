@@ -132,11 +132,11 @@ namespace CalamityEntropy.Content.Items.Weapons
 
             if (CheckCD > 0)
                 CheckCD--;
-            
+
             if (healing != null)
             {
                 flag = true;
-                if(!Main.zenithWorld)
+                if (!Main.zenithWorld)
                     AttackMode = false;
                 if (CheckCD <= 0)
                 {
@@ -164,7 +164,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             else
             {
-                if(!Main.zenithWorld)
+                if (!Main.zenithWorld)
                     AttackMode = true;
                 if (!Main.zenithWorld)
                 {
@@ -177,11 +177,11 @@ namespace CalamityEntropy.Content.Items.Weapons
                     if (CheckCD <= 0)
                     {
                         CheckCD = 10 / (player.AzafureEnhance() ? 2 : 1);
-                        if(!Main.zenithWorld)
+                        if (!Main.zenithWorld)
                             CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, attack.Center + attack.velocity, Projectile.damage, 42, Projectile.DamageType);
                         else
                         {
-                            if(attack.life < attack.lifeMax)
+                            if (attack.life < attack.lifeMax)
                             {
                                 attack.HealEffect(Projectile.damage);
                                 attack.life += Projectile.damage;

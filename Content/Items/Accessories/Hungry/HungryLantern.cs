@@ -1,8 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Books.BookMarks;
-using CalamityEntropy.Content.Tiles;
-using CalamityMod.Items;
-using CalamityMod.Items.Accessories;
-using CalamityMod.Rarities;
+﻿using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -27,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().addEquip(ID);
-            player.maxMinions += 1;TagDamage = 0.1f;
+            player.maxMinions += 1; TagDamage = 0.1f;
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
@@ -66,7 +62,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
             Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
             return false;
         }
-        
+
         public override void AI()
         {
             if (CEUtils.getDistance(Projectile.Center, Projectile.GetOwner().Center) > 3000)
@@ -76,7 +72,8 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
             if (!Projectile.active)
                 return;
             Projectile.frameCounter++;
-            if (Projectile.frameCounter > 3) {
+            if (Projectile.frameCounter > 3)
+            {
                 Projectile.frame++;
                 if (Projectile.frame > 2)
                     Projectile.frame = 0;

@@ -1,7 +1,6 @@
 ﻿using CalamityMod;
 using CalamityMod.Events;
 using CalamityMod.NPCs;
-using CalamityMod.NPCs.NormalNPCs;
 using CalamityMod.World;
 using System;
 using Terraria;
@@ -347,7 +346,7 @@ namespace CalamityEntropy.Common
                         servantSpawnVelocity *= 3f;
 
                     Vector2 servantSpawnCenter = npc.Center + servantSpawnVelocity.SafeNormalize(Vector2.UnitY) * ProjectileOffset;
-                    
+
 
                     for (int n = 0; n < 10; n++)
                         Dust.NewDust(servantSpawnCenter, 20, 20, DustID.Blood, servantSpawnVelocity.X * 0.4f, servantSpawnVelocity.Y * 0.4f, 0, default, 1f);
@@ -754,7 +753,7 @@ namespace CalamityEntropy.Common
                         int spawnType = NPCID.ServantofCthulhu;
                         bool spawnServant = false;
                         float enrageScaleToPass = enrageScale;
-                        
+
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             if (spawnServant)

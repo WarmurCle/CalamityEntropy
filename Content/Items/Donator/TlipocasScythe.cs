@@ -9,8 +9,6 @@ using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables;
-using CalamityMod.Items.Placeables.Abyss;
 using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.NPCs.Perforator;
 using CalamityMod.Particles;
@@ -23,7 +21,6 @@ using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -39,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public static bool AltType(Player player)
         {
-            return ((player.TryGetModPlayer<PGetPlayer>(out var mp) && mp.accVanity) || StartBagGItem.NameContains(player, "kanna"));       
+            return ((player.TryGetModPlayer<PGetPlayer>(out var mp) && mp.accVanity) || StartBagGItem.NameContains(player, "kanna"));
         }
         public static Color TrailColor(Projectile Projectile)
         {
@@ -117,7 +114,7 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            if(!AltType(Main.LocalPlayer))
+            if (!AltType(Main.LocalPlayer))
                 tooltips.Add(new TooltipLine(Mod, "Description", Mod.GetLocalization(Main.zenithWorld ? "TScytheZenithDesc" : "TScytheDesc").Value) { OverrideColor = Color.Crimson });
             bool holdAlt = Keyboard.GetState().IsKeyDown(Keys.LeftAlt);
             bool holdShift = Keyboard.GetState().IsKeyDown(Keys.LeftShift);
@@ -396,7 +393,7 @@ namespace CalamityEntropy.Content.Items.Donator
             else
             {
                 Item.ClearNameOverride();
-                
+
                 if (player != null && (player.name.ToLower() == "kanna" || player.name.ToLower() == "akizukikanna" || player.GetModPlayer<PGetPlayer>().accVanity))
                 {
                     Item.SetNameOverride(Mod.GetLocalization("TScytheSpecialName2").Value);
@@ -489,14 +486,14 @@ namespace CalamityEntropy.Content.Items.Donator
                 Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<TlipocasScytheHeld>(), DashUpgrade() ? damage : damage / 4, knockback, player.whoAmI, swing == 0 ? 1 : -1, -1);
                 player.AddCooldown(TlipocasScytheSlashCooldown.ID, 15 * 60);
                 CalamityEntropy.FlashEffectStrength = 0.2f;
-                int p = Projectile.NewProjectile(source, position, velocity.normalize() * 1000 * (DashUpgrade() ? 1.33f : 1), ModContent.ProjectileType<TSSlash>(), damage * 2 , knockback, player.whoAmI);
+                int p = Projectile.NewProjectile(source, position, velocity.normalize() * 1000 * (DashUpgrade() ? 1.33f : 1), ModContent.ProjectileType<TSSlash>(), damage * 2, knockback, player.whoAmI);
                 if (player.Calamity().StealthStrikeAvailable() && p.WithinBounds(Main.maxProjectiles))
                 {
                     Main.projectile[p].Calamity().stealthStrike = true;
                 }
                 if (DownedBossSystem.downedPolterghast)
                 {
-                    Projectile.NewProjectile(source, position + velocity.normalize() * 400 * (DashUpgrade() ? 1.33f : 1), velocity.normalize() * 1000 * (DashUpgrade() ? 1.33f : 1), ModContent.ProjectileType<TSSlash>() , damage * 2 , knockback, player.whoAmI, 0, 1);
+                    Projectile.NewProjectile(source, position + velocity.normalize() * 400 * (DashUpgrade() ? 1.33f : 1), velocity.normalize() * 1000 * (DashUpgrade() ? 1.33f : 1), ModContent.ProjectileType<TSSlash>(), damage * 2, knockback, player.whoAmI, 0, 1);
                 }
             }
             else

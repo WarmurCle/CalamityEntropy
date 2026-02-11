@@ -4,8 +4,6 @@ using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Placeables;
-using CalamityMod.Items.Placeables.SunkenSea;
 using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;

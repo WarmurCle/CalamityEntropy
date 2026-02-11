@@ -1,7 +1,4 @@
-﻿using CalamityEntropy.Content.Tiles;
-using CalamityMod.Items;
-using CalamityMod.Items.Accessories;
-using CalamityMod.Rarities;
+﻿using CalamityMod.Items;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;

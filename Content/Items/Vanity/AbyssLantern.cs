@@ -1,9 +1,4 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityMod.Items.Placeables;
-using CalamityMod.Items.Placeables.Abyss;
-using CalamityMod.Items.Placeables.Furniture;
-using CalamityMod.Items.Placeables.FurnitureAbyss;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

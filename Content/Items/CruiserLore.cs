@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Common;
-using CalamityMod;
 using CalamityMod.Items.LoreItems;
 using System.Collections.Generic;
 using Terraria;

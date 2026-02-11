@@ -1,7 +1,5 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
-using CalamityMod.Items.LoreItems;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -20,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.shootSpeed = 14;
         }
         public override int HeldProjectileType => ModContent.ProjectileType<OuijaBoardHeld>();
-        public override int SlotCount => 1; 
+        public override int SlotCount => 1;
         public override Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/OB").Value;
 
 
@@ -75,7 +73,7 @@ namespace CalamityEntropy.Content.Items.Books
         public int FacingTime = 38;
         public override void ApplyHoming()
         {
-            if(FacingTime <= 0)
+            if (FacingTime <= 0)
                 base.ApplyHoming();
         }
         public override void OnKill(int timeLeft)
@@ -101,8 +99,8 @@ namespace CalamityEntropy.Content.Items.Books
             if (Projectile.localAI[0] == 150)
                 Projectile.tileCollide = true;
             for (float i = 0; i < 1; i += 0.25f)
-                EParticle.spawnNew(new GlowLightParticle() { lightColor = Color.White * 0.14f}, Projectile.Center + Projectile.velocity * i, CEUtils.randomPointInCircle(2), new Color(160, 160, 200), Main.rand.NextFloat(0.6f, 1f), 1, true, BlendState.Additive, 0, 24);
-            
+                EParticle.spawnNew(new GlowLightParticle() { lightColor = Color.White * 0.14f }, Projectile.Center + Projectile.velocity * i, CEUtils.randomPointInCircle(2), new Color(160, 160, 200), Main.rand.NextFloat(0.6f, 1f), 1, true, BlendState.Additive, 0, 24);
+
         }
     }
 }

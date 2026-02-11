@@ -115,7 +115,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             {
                 Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/LuminarisBoss");
             }
-            if(Main.zenithWorld)
+            if (Main.zenithWorld)
             {
                 NPC.scale *= 0.5f;
             }
@@ -131,7 +131,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         public int deactiveCount = 120;
         public override bool CheckDead()
         {
-            if(NPC.realLife >= 0 && NPC.realLife.ToNPC().active)
+            if (NPC.realLife >= 0 && NPC.realLife.ToNPC().active)
             {
                 NPC.life = NPC.realLife.ToNPC().life;
                 return false;
@@ -159,7 +159,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             }
             if (NPC.realLife >= 0)
             {
-                if(!NPC.realLife.ToNPC().active)
+                if (!NPC.realLife.ToNPC().active)
                     NPC.active = false;
                 else
                 {

@@ -204,7 +204,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             NPC.damage = 0;
             NPC.boss = true;
             NPC.life = 1;
-            if(Main.dedServ)
+            if (Main.dedServ)
                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI);
 
             return false;
@@ -226,7 +226,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
         {
         }
-        
+
         public override void SetDefaults()
         {
             NPC.width = 142;
@@ -294,7 +294,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 harpoon = new Hand(NPC, new Vector2(60, -18), 66, MathHelper.PiOver2, MathHelper.PiOver2);
             }
         }
-        
+
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
             return NPC.boss;

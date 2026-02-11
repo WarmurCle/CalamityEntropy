@@ -1,18 +1,10 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
-using CalamityMod.Dusts;
-using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Particles;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons.Miracle
@@ -36,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         }
         public override void AI()
         {
-            if(Projectile.numHits == 0)
+            if (Projectile.numHits == 0)
                 Projectile.ai[0] = float.Lerp(Projectile.ai[0], 1, 0.14f);
             else
             {
@@ -44,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 if (Projectile.ai[0] <= 0)
                     Projectile.Kill();
             }
-                Projectile.localAI[0]++;
+            Projectile.localAI[0]++;
             NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 1800);
             if (target != null)
             {
@@ -74,7 +66,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                     }
                 }
             }
-            
+
             Vector2 d = Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * Projectile.ai[0] * 28;
 
             GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * 1, Projectile.velocity * -0.1f, false, 8, 0.03f * Projectile.ai[0], Color.Violet, new Vector2(0.7f, 1)));
@@ -137,7 +129,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         {
             Projectile.FriendlySetDefaults(DamageClass.Melee, false, -1);
             Projectile.width = Projectile.height = 470;
-            if(Main.zenithWorld)
+            if (Main.zenithWorld)
             {
                 Projectile.width *= 6;
                 Projectile.height *= 6;
@@ -157,7 +149,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             if (w >= 0 && Main.npc.Length > w)
             {
                 NPC npc = w.ToNPC();
-                if(npc.active)
+                if (npc.active)
                 {
                     Projectile.Center = npc.Center;
                 }
@@ -217,11 +209,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             List<ColoredVertex> ve = new List<ColoredVertex>();
             List<Vector2> points1 = new List<Vector2>();
             List<Vector2> points2 = new List<Vector2>();
-            for(float i = 0; i <= 1; i += 0.01f)
+            for (float i = 0; i <= 1; i += 0.01f)
             {
                 Vector2 rv = (i * MathHelper.TwoPi).ToRotationVector2();
                 Vector2 p = rv * scaleOutside;
-                if(drawUpside.HasValue)
+                if (drawUpside.HasValue)
                 {
                     if (drawUpside.Value)
                     {
@@ -282,7 +274,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 DrawRing(Projectile.Center - Main.screenPosition, trail2, new Vector2(dist * num + width * 0.08f, dist * num + width * 0.08f) / hmul * scale, new Vector2(dist * num, dist * num) * scale / hmul, new Color(255, 255, 140) * 0.5f, BlendState.Additive);
                 DrawRing(Projectile.Center - Main.screenPosition, trail1, new Vector2(dist + width * wm, dist + width * wm) * scale * sq, new Vector2(dist, dist) * scale * sq, new Color(225, 225, 160, 255), BlendState.Additive, false);
             }
-            if(alpha1 > 0)
+            if (alpha1 > 0)
             {
                 DrawRing(Projectile.Center - Main.screenPosition, trail1, new Vector2(1200, 1200) * scale1, new Vector2(800, 800) * scale1, new Color(255, 255, 230) * alpha1, BlendState.Additive);
             }

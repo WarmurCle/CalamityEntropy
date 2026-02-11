@@ -321,7 +321,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
                 }
             }
             if (Projectile.localAI[1]++ > 10)
-                if(Projectile.HomingToNPCNearby(0.2f, 0.99f, 1200))
+                if (Projectile.HomingToNPCNearby(0.2f, 0.99f, 1200))
                 {
                     if (Projectile.timeLeft < 15 * 6)
                         Projectile.timeLeft = 15 * 6;

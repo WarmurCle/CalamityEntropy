@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Graphics.Renderers;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Accessories
@@ -59,7 +58,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             if (Projectile.localAI[1]++ == 0)
                 CEUtils.PlaySound("vp_use", 1.25f, Projectile.Center);
             Player player = Projectile.GetOwner();
-            if(player.dead)
+            if (player.dead)
             {
                 Projectile.Kill();
             }

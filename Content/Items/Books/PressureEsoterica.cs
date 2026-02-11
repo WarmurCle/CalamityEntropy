@@ -1,16 +1,9 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.UI.EntropyBookUI;
-using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Items.Weapons.Magic;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;

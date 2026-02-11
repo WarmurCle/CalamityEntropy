@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.NPCs.NihilityTwin;
 using CalamityMod.Events;
-using CalamityMod.Items.Placeables;
 using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Rarities;
 using Terraria;

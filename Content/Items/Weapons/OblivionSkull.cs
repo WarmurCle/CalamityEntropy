@@ -1,16 +1,10 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles.LuminarisShoots;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityMod;
 using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Items;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -90,7 +84,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             return false;
         }
-        
+
         public override void AI()
         {
             Player player = Projectile.GetOwner();
@@ -117,7 +111,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     maxProj = int.Min(6, (int)((target.life + target.defense * 6f) / (1 - target.Calamity().DR) / Projectile.damage) + 1);
                 }
                 targetRot = (target.Center - Projectile.Center).ToRotation();
-                if(delay-- < 0)
+                if (delay-- < 0)
                 {
                     speedMult = 0.85f;
                     ChargeCounter++;
@@ -126,7 +120,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         projCharge++;
                         CEUtils.PlaySound("YharonFireball1", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, 8, 0.6f);
                         Vector2 pos = ((projCharge - 1) * (MathHelper.TwoPi / maxProj)).ToRotationVector2() * 60 + Projectile.Center;
-                        for(int i = 0; i < 9; i++)
+                        for (int i = 0; i < 9; i++)
                         {
                             GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(pos + CEUtils.randomPointInCircle(3), CEUtils.randomPointInCircle(6), Color.MediumPurple, 18, Main.rand.NextFloat(0.26f, 0.36f), 0.6f, Main.rand.NextFloat(-0.1f, 0.1f), true));
                         }
@@ -139,7 +133,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     if (ChargeCounter > (maxProj * 1.35f) * chargeTime)
                     {
                         ChargeCounter = 0;
-                        if(Projectile.owner == Main.myPlayer)
+                        if (Projectile.owner == Main.myPlayer)
                             Fire(target.Center);
                         projCharge = 0;
                         delay = maxProj * 5;
@@ -157,7 +151,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Vector2 tpos = player.Center + new Vector2(0, -120);
             float dist = CEUtils.getDistance(Projectile.Center, tpos);
             float num = Utils.Remap(dist, 0, 1000, 0, 10) * speedMult;
-            if(CEUtils.getDistance(Projectile.Center, tpos) > 100)
+            if (CEUtils.getDistance(Projectile.Center, tpos) > 100)
                 Projectile.velocity *= 0.97f;
             Projectile.velocity += (tpos - Projectile.Center).normalize() * num;
             Projectile.velocity *= speedMult;
@@ -167,7 +161,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             SoundEngine.PlaySound(SoundID.NPCDeath25 with { Volume = 0.4f }, Projectile.Center);
             int projType = ModContent.ProjectileType<SkullProj>();
-            foreach(Vector2 vec in GetProjOffsets())
+            foreach (Vector2 vec in GetProjOffsets())
             {
                 Vector2 pos = Projectile.Center + vec;
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), pos, (targetPos - pos).normalize() * 8, projType, Projectile.damage, Projectile.knockBack, Projectile.owner);
@@ -234,11 +228,11 @@ namespace CalamityEntropy.Content.Items.Weapons
                 GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomPointInCircle(3), Vector2.Zero, Color.MediumPurple * 0.36f, 18, Main.rand.NextFloat(0.35f, 0.4f), 0.6f, Main.rand.NextFloat(-0.1f, 0.1f), true));
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if(target == null || !target.active)
+            if (target == null || !target.active)
             {
                 target = Projectile.FindMinionTarget();
             }
-            if(target != null)
+            if (target != null)
             {
                 Projectile.velocity = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.02f).ToRotationVector2() * Projectile.velocity.Length();
             }

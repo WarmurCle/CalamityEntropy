@@ -59,7 +59,7 @@ namespace CalamityEntropy.Common
                     drawInfo.BoringSetup(dummy, new List<DrawData>(), new List<int>(), new List<int>(), new Vector2(line.X, line.Y) + Main.screenPosition * 1, 0, 0, Vector2.Zero);
                     drawInfo.colorArmorBody = drawInfo.colorArmorHead = drawInfo.colorArmorLegs = Color.White;
                     drawInfo.colorHead = drawInfo.colorBodySkin = drawInfo.colorLegs = Main.LocalPlayer.skinColor;
-                    
+
                     foreach (var layer in PlayerDrawLayerLoader.GetDrawLayers(drawInfo))
                     {
                         layer.DrawWithTransformationAndChildren(ref drawInfo);

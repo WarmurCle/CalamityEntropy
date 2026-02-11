@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.DamageClasses;
-using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
@@ -61,7 +60,6 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.WorldBuilding;
 using static Terraria.ModLoader.ModContent;
 
 namespace CalamityEntropy.Common
@@ -300,7 +298,7 @@ namespace CalamityEntropy.Common
             }
             if (TDRCounter > 0)
             {
-                TDRCounter-=0.75f;
+                TDRCounter -= 0.75f;
                 if (TDRCounter < 0)
                     TDRCounter = 0;
             }
@@ -1151,7 +1149,7 @@ namespace CalamityEntropy.Common
         }
         public override void OnKill(NPC npc)
         {
-            if(npc.HasBuff<FlamingBlood>())
+            if (npc.HasBuff<FlamingBlood>())
             {
                 bool spawnExp = true;
                 int dmg = (int)(npc.lifeMax * 0.32f);
@@ -1428,12 +1426,12 @@ namespace CalamityEntropy.Common
         public int noelctime = 0;
         public void onHurt(NPC npc, int damage, Player player, Entity source, NPC.HitInfo hit)
         {
-            if(npc.life <= 0)
+            if (npc.life <= 0)
             {
-                if(player != null && player.Entropy().goldenRock != null && player.Entropy().goldenRock.ModItem is GoldenRock gr)
+                if (player != null && player.Entropy().goldenRock != null && player.Entropy().goldenRock.ModItem is GoldenRock gr)
                 {
                     gr.price += int.Min(5000, (int)npc.value) + npc.lifeMax / 5;
-                }    
+                }
             }
             HitCounter = 0;
             if (player != null)

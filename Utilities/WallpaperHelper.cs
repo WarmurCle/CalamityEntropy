@@ -1,12 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using Terraria;
 using Terraria.ModLoader;
-using static CalamityEntropy.Common.PGetPlayer;
 
 namespace CalamityEntropy.Utilities
 {

@@ -4,16 +4,12 @@ using CalamityEntropy.Content.NPCs.LuminarisMoth;
 using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
-using CalamityMod.Items.Accessories;
-using CalamityMod.Items.Armor;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.NPCs;
-using CalamityMod.NPCs.VanillaNPCAIOverrides.Bosses;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Melee;
-using CalamityMod.Projectiles.Summon;
 using CalamityMod.Schematics;
 using CalamityMod.UI;
 using CalamityMod.UI.Rippers;
@@ -32,12 +28,9 @@ using System.Linq;
 using System.Reflection;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent;
-using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.WorldBuilding;
 using static InnoVault.GameSystem.ItemRebuildLoader;
 
 namespace CalamityEntropy.Content.ILEditing
@@ -95,7 +88,7 @@ namespace CalamityEntropy.Content.ILEditing
                     System.Reflection.BindingFlags.Public |
                     System.Reflection.BindingFlags.Instance,
                     null,
-                    new Type[] {typeof(NPC), typeof(Projectile), typeof(NPC.HitModifiers).MakeByRefType()},
+                    new Type[] { typeof(NPC), typeof(Projectile), typeof(NPC.HitModifiers).MakeByRefType() },
               null);
             _hook = EModHooks.Add(originalMethod, HookModifyHitByProj);
             /*originalMethod = typeof(EyeOfCthulhuAI)
@@ -166,7 +159,7 @@ namespace CalamityEntropy.Content.ILEditing
 
             var ApplyDRMethod = typeof(CalamityGlobalNPC).GetMethod("ApplyDR", BindingFlags.Instance | BindingFlags.NonPublic, new Type[] { typeof(NPC), typeof(NPC.HitModifiers).MakeByRefType() });
             EModHooks.Add(ApplyDRMethod, apply_dr_hook);
-            
+
             var update_rogue_stealth_f = typeof(CalamityPlayer).GetMethod("UpdateRogueStealth", BindingFlags.Public | BindingFlags.Instance);
             EModHooks.Add(update_rogue_stealth_f, UpdateRogueStealthHook);
 

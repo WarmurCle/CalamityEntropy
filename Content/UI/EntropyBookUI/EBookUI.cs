@@ -108,7 +108,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
             {
                 return;
             }
-            
+
             checkStackItemList();
             if (active || closeAnm > 0)
             {
@@ -196,7 +196,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                         }
                         if (((Main.mouseRight && !lastMouseRight) || mlAndShift) && slotDist > 100)
                         {
-                            if(mlAndShift)
+                            if (mlAndShift)
                             {
                                 lastMouseLeft = true;
                             }
@@ -220,7 +220,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                             Main.instance.MouseText(CalamityEntropy.Instance.GetLocalization("SlotInfo").Value);
                         }
                         if (Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir || (!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir && (Main.mouseItem.IsAir || BookMarkLoader.IsABookMark(Main.mouseItem))))
-                        { 
+                        {
                             Holding = true;
                             outlineFlag = true;
                         }
@@ -234,7 +234,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                     SlotScale[i] = float.Lerp(SlotScale[i], 1, 0.2f);
                     if (OutlineAlpha[i] >= 0.005f)
                     {
-                        if(!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir)
+                        if (!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir)
                             ItemSlot.DrawItemIcon(Main.LocalPlayer.Entropy().EBookStackItems[i], 1, Main.spriteBatch, pos + new Vector2(0, -8 - OutlineAlpha[i] * 36), 0.85f * OutlineAlpha[i], 256, Color.White * (closeAnm / 11f) * OutlineAlpha[i]);
 
                         if (shader != null)

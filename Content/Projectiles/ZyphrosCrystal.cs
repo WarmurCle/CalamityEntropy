@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.velocity = (Main.MouseWorld - Projectile.Center).SafeNormalize(Vector2.UnitX) * 16;
                     Projectile.netUpdate = true;
                     Projectile.ai[1]--;
-                    for(int i = 0; i < 6; i++)
+                    for (int i = 0; i < 6; i++)
                     {
                         GeneralParticleHandler.SpawnParticle(new CritSpark(Projectile.Center, CEUtils.randomPointInCircle(8), Color.LightBlue, Color.Blue, Main.rand.NextFloat(0.7f, 1.3f), 16));
                     }

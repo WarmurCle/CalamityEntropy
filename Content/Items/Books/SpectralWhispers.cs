@@ -1,13 +1,6 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.UI.EntropyBookUI;
-using CalamityMod;
+﻿using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Particles;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -104,14 +97,14 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override void ApplyHoming()
         {
-            if(ShouldUpdatePosition())
+            if (ShouldUpdatePosition())
                 base.ApplyHoming();
         }
         public override void AI()
         {
             base.AI();
             HideTime--;
-            
+
             if (Projectile.localAI[0] == 1)
             {
                 CEUtils.PlaySound("SoulSpawn" + Main.rand.Next(2).ToString(), Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center);
@@ -119,7 +112,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             if (HideTime == 0)
             {
-                for(int i = 0; i < 12; i++)
+                for (int i = 0; i < 12; i++)
                 {
                     GeneralParticleHandler.SpawnParticle(new CalamityMod.Particles.CritSpark(Projectile.Center, CEUtils.randomPointInCircle(9), color * 4, color, Main.rand.NextFloat(0.5f, 1.2f) * Projectile.scale, 18, 0.3f));
                 }
@@ -165,7 +158,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override void OnKill(int timeLeft)
         {
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
                 CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 130 * Projectile.scale, Projectile.DamageType).ArmorPenetration = Projectile.ArmorPenetration + 10;
             if (!Main.dedServ)
             {
@@ -216,7 +209,7 @@ namespace CalamityEntropy.Content.Items.Books
             {
                 stick = 2;
             }
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
                 CEUtils.SyncProj(Projectile.whoAmI);
             return false;
         }

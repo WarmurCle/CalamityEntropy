@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<OblivionThresherHoldout>();
             Item.shootSpeed = 24;
-            
+
         }
         public override void AddRecipes()
         {

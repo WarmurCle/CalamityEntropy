@@ -2,7 +2,6 @@
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Placeables;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;

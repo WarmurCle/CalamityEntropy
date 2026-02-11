@@ -1,11 +1,7 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -67,7 +63,7 @@ namespace CalamityEntropy.Content.Items.Pets
         float counter = 0;
         public override void AI()
         {
-            if(counter == 0)
+            if (counter == 0)
             {
                 for (int i = 0; i < 27; i++)
                 {
@@ -95,14 +91,14 @@ namespace CalamityEntropy.Content.Items.Pets
                 mouthRot *= 0.9f;
             }
             spawnParticles();
-            
+
             Projectile.velocity += Projectile.rotation.ToRotationVector2() * 1;
             float r = Utils.Remap(Projectile.Distance(Projectile.GetOwner().Center), 100, 3600, 0, 0.16f);
             if (f-- > 0)
                 r *= 0.1f;
             Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (Projectile.GetOwner().Center - Projectile.Center).ToRotation(), r, false));
             if (f < -5 && Main.rand.NextBool(80))
-                f = Main.rand.Next(2,32);
+                f = Main.rand.Next(2, 32);
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (Projectile.velocity.Length() < Utils.Remap(Projectile.Distance(Projectile.GetOwner().Center), 1600, 3600, 2, 26))
                 Projectile.velocity *= 1.006f;
@@ -178,7 +174,7 @@ namespace CalamityEntropy.Content.Items.Pets
 
         public override bool PreDraw(ref Color lightColor)
         {
-            
+
             return false;
         }
         public void draw()

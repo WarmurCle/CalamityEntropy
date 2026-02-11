@@ -2,7 +2,6 @@
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;

@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Items;
@@ -51,7 +50,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "TooltipBt", Mod.GetLocalization("BloodthirstyRequirement").Value) { OverrideColor = Color.Yellow});
+            tooltips.Add(new TooltipLine(Mod, "TooltipBt", Mod.GetLocalization("BloodthirstyRequirement").Value) { OverrideColor = Color.Yellow });
             base.ModifyTooltips(tooltips);
         }
     }
@@ -62,7 +61,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             var plr = projectile.GetOwner();
             if (plr.Calamity().RageEnabled && CECooldowns.CheckCD("BloodthirstyRage", 4) && !plr.HasBuff<RageMode>())
             {
-                plr.Calamity().rage += projectile.GetOwner().Calamity().rageMax / 34;    
+                plr.Calamity().rage += projectile.GetOwner().Calamity().rageMax / 34;
             }
         }
     }

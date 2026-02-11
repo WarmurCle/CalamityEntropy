@@ -64,9 +64,9 @@ namespace CalamityEntropy.Content.Projectiles
                     alpha = 0;
                 }
             }
-            if(Main.myPlayer != Projectile.owner)
+            if (Main.myPlayer != Projectile.owner)
             {
-                foreach(NPC n in Main.ActiveNPCs)
+                foreach (NPC n in Main.ActiveNPCs)
                 {
                     if (!n.friendly && n.life > 5 && !n.dontTakeDamage && Projectile.Colliding(Projectile.Hitbox, n.Hitbox))
                         Projectile.Kill();
