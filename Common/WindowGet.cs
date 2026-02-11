@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,7 +26,8 @@ namespace CalamityEntropy.Common
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<PGetPlayer>().accEquiped = true;
-            player.GetModPlayer<PGetPlayer>().accVnTime = 3;
+            if(!hideVisual)
+                player.GetModPlayer<PGetPlayer>().accVnTime = 3;
             player.endurance += 0.05f * player.GetModPlayer<PGetPlayer>().count;
             player.GetDamage(DamageClass.Generic) += player.GetModPlayer<PGetPlayer>().count * 0.1f;
         }
@@ -37,6 +39,23 @@ namespace CalamityEntropy.Common
         {
             tooltips.Replace("[A]", Main.LocalPlayer.GetModPlayer<PGetPlayer>().count);
         }
+        public static void Ciallo(Vector2 position)
+        {
+            CEUtils.PlaySound("yzc/cia" + Main.rand.NextBool(1, 11), 1, position);
+        }
+        public static List<SoundStyle> cialloSnd;
+        public override void Load()
+        {
+            cialloSnd = new List<SoundStyle>();
+            for(int i = 1; i <= 10; i++)
+            {
+                cialloSnd.Add(new SoundStyle("CalamityEntropy/Assets/Sounds/yzc/cia" + i));
+            }
+        }
+        public override void Unload()
+        {
+            cialloSnd = null;
+        }
     }
     public class PGetPlayer : ModPlayer
     {
@@ -45,6 +64,13 @@ namespace CalamityEntropy.Common
         public bool accEquiped = false;
         public bool accVanity = false;
         public int accVnTime = 0;
+        public override void OnHurt(Player.HurtInfo info)
+        {
+            if(accVanity)
+            {
+                ChargingYuzu.Ciallo(Player.Center);
+            }
+        }
         public static string RemoveCharAndToLower(string str)
         {
             string ret = "";

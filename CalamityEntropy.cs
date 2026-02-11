@@ -87,10 +87,12 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ReLogic.Graphics;
+using ReLogic.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.Graphics;
 using Terraria.Graphics.Renderers;
 using Terraria.ID;
@@ -220,6 +222,8 @@ namespace CalamityEntropy
             On_Player.Hurt_HurtInfo_bool += on_player_hurt;
             On_Player.Update_NPCCollision += update_npc_collision;
             On_Player.WaterCollision += waterCollisionHook;
+            On_SoundPlayer.Play += playSnd;
+            
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>() }));
             BossRushEvent.Bosses.Insert(42, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
@@ -229,6 +233,15 @@ namespace CalamityEntropy
             EModILEdit.load();
 
 
+        }
+
+        private SlotId playSnd(On_SoundPlayer.orig_Play orig, SoundPlayer self, ref SoundStyle style, Vector2? position, SoundUpdateCallback updateCallback)
+        {
+            if (Main.dedServ || !Main.LocalPlayer.TryGetModPlayer<PGetPlayer>(out var pp) || !pp.accVanity || !Main.LocalPlayer.HasBuff<AdrenalineMode>())
+                return orig(self, ref style, position, updateCallback);
+
+            var newStyle = ChargingYuzu.cialloSnd[Main.rand.Next(ChargingYuzu.cialloSnd.Count)];
+            return orig(self, ref newStyle, position, updateCallback);
         }
 
         private void waterCollisionHook(On_Player.orig_WaterCollision orig, Player self, bool fallThrough, bool ignorePlats)
@@ -524,6 +537,7 @@ namespace CalamityEntropy
             On_Projectile.FillWhipControlPoints -= fill_whip_ctrl_points_hook;
             On_Projectile.GetWhipSettings -= get_whip_settings_hook;
             On_Player.WaterCollision -= waterCollisionHook;
+            On_SoundPlayer.Play -= playSnd;
             //On_Player.ApplyDamageToNPC -= applydamagetonpc;
             On_Player.GetTotalCritChance -= gettotalcrit;
             On_Main.DrawCursor -= draw_cursor_hook;
