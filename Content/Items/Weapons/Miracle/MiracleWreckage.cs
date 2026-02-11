@@ -644,14 +644,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, targetRot, 0.01f, false);
             if (flag)
             {
-                length *= 0.998f;
-                length -= 0.0005f;
+                length *= 0.997f;
+                length -= 0.005f;
                 if (length <= 0.04f)
                     Projectile.Kill();
             }
             if (Main.myPlayer == Projectile.owner)
             {
-                if (!rcl && Main.mouseRight && swing < -16 && (flag || length > 0.85f))
+                if (!rcl && Main.mouseRight && swing < -16 && ((!flag && length > 0.85f) || (flag && length > 0.32f)))
                 {
                     flag = !flag;
                 }
