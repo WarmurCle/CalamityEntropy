@@ -237,7 +237,7 @@ namespace CalamityEntropy
 
         private SlotId playSnd(On_SoundPlayer.orig_Play orig, SoundPlayer self, ref SoundStyle style, Vector2? position, SoundUpdateCallback updateCallback)
         {
-            if (Main.dedServ || !Main.LocalPlayer.TryGetModPlayer<PGetPlayer>(out var pp) || !pp.accVanity || !Main.LocalPlayer.HasBuff<AdrenalineMode>())
+            if (Main.dedServ || Main.gameMenu || !Main.LocalPlayer.TryGetModPlayer<PGetPlayer>(out var pp) || !pp.accVanity || !Main.LocalPlayer.HasBuff<AdrenalineMode>() || Main.LocalPlayer.HeldItem.type == PGetPlayer.ScytheType())
                 return orig(self, ref style, position, updateCallback);
 
             var newStyle = ChargingYuzu.cialloSnd[Main.rand.Next(ChargingYuzu.cialloSnd.Count)];

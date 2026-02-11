@@ -64,9 +64,16 @@ namespace CalamityEntropy.Common
         public bool accEquiped = false;
         public bool accVanity = false;
         public int accVnTime = 0;
+        public static int _scytheType = -1;
+        public static int ScytheType()
+        {
+            if (_scytheType == -1)
+                _scytheType = ModContent.ItemType<TlipocasScythe>();
+            return _scytheType;
+        }
         public override void OnHurt(Player.HurtInfo info)
         {
-            if(accVanity)
+            if(accVanity && Player.HeldItem.type != ScytheType())
             {
                 ChargingYuzu.Ciallo(Player.Center);
             }
@@ -127,7 +134,7 @@ namespace CalamityEntropy.Common
         public override void PostUpdate()
         {
             if (Main.LocalPlayer != null && !Main.gameMenu)
-                TextureAssets.Item[ModContent.ItemType<TlipocasScythe>()] = TlipocasScythe.GetTexture(Main.LocalPlayer);
+                TextureAssets.Item[ScytheType()] = TlipocasScythe.GetTexture(Main.LocalPlayer);
             if (Main.GameUpdateCount % 120 == 0)
             {
                 if (accEquiped || accVanity)
