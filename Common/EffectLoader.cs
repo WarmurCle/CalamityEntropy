@@ -1016,7 +1016,10 @@ namespace CalamityEntropy.Common
                     if (p.ModProjectile is VoidRExp vre)
                     {
                         float ks = (90f - vre.Projectile.timeLeft) * 0.4f;
-                        Main.spriteBatch.Draw(shockwave.Value, vre.Projectile.Center - Main.screenPosition, null, Color.White * (vre.Projectile.timeLeft / 90f), 0, new Vector2(shockwave.Value.Width, shockwave.Value.Height) / 2, ks, SpriteEffects.None, 0);
+                        if (p.ai[0] == 1)
+                            ks = p.timeLeft * 0.4f;
+                        float a = p.ai[0] == 0 ? (vre.Projectile.timeLeft / 90f) : 1 - (vre.Projectile.timeLeft / 90f);
+                        Main.spriteBatch.Draw(shockwave.Value, vre.Projectile.Center - Main.screenPosition, null, Color.White * a, 0, new Vector2(shockwave.Value.Width, shockwave.Value.Height) / 2, ks, SpriteEffects.None, 0);
                     }
                 }
                 else if (p.type == starlessNightProjType)

@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
@@ -184,10 +185,17 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 scale2 *= 0.86f;
             }
             if (Projectile.localAI[0] == 60)
+            {
                 CEUtils.PlaySound("BlackholeSpawn", 1f, Projectile.Center);
+            }
+            if (Projectile.localAI[0] >= 0 && Projectile.localAI[0] <= 100)
+                if (Main.GameUpdateCount % 10 == 0)
+                    if (Main.myPlayer == Projectile.owner)
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<VoidRExp>(), 0, 0, Projectile.owner, 1, w + 1);
 
             if (CanDamage().Value)
             {
+                
                 foreach (NPC n in Main.ActiveNPCs)
                 {
                     if (!n.friendly && !n.boss && !(n.realLife >= 0) && n.Distance(Projectile.Center) < 3000)

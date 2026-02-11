@@ -32,7 +32,19 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void AI()
         {
-
+            Projectile.extraUpdates = (int)Projectile.ai[1];
+            int n = (int)Projectile.ai[1] - 1;
+            if(n >= 0)
+            {
+                if(n.ToNPC().active)
+                {
+                    Projectile.Center = n.ToNPC().Center;
+                }
+                else
+                {
+                    Projectile.ai[1] = 0;
+                }
+            }
         }
 
         public override bool PreDraw(ref Color lightColor)
