@@ -625,7 +625,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 if(Projectile.localAI[0]++ > 300)
                     length = float.Lerp(length, Main.zenithWorld ? 2.5f : 1, 0.01f);
             Player owner = Projectile.GetOwner();
-            Projectile.timeLeft = 3;
+            if(!owner.dead)
+                Projectile.timeLeft = 3;
             owner.Calamity().mouseWorldListener = true;
             Projectile.Center = Projectile.GetOwner().MountedCenter;
             float rot = (owner.Calamity().mouseWorld - Projectile.Center).ToRotation();
