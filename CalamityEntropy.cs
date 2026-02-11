@@ -251,7 +251,7 @@ namespace CalamityEntropy
                 int num = ((!self.onTrack) ? self.height : (self.height - 20));
                 Vector2 vector = self.velocity;
                 self.velocity = Collision.TileCollision(self.position, self.velocity, self.width, num, fallThrough, ignorePlats, (int)self.gravDir);
-                Vector2 vector2 = self.velocity * 0.74f;
+                Vector2 vector2 = self.velocity * 0.7f;
                 if (self.velocity.X != vector.X)
                     vector2.X = self.velocity.X;
 

@@ -15,9 +15,9 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
         {
             Item.width = 48;
             Item.height = 42;
-            Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
+            Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
             Item.defense = 44;
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            Item.rare = ModContent.RarityType<Turquoise>();
         }
 
         public override void UpdateEquip(Player player)

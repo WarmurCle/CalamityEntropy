@@ -23,9 +23,9 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
         {
             Item.width = 40;
             Item.height = 40;
-            Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
+            Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
             Item.defense = 24;
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            Item.rare = ModContent.RarityType<Turquoise>();
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)

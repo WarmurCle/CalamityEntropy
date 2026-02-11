@@ -1224,12 +1224,12 @@ namespace CalamityEntropy.Common
             {
                 if (!Player.controlJump)
                 {
-                    Player.gravity *= Player.controlDown ? 4 : 1.8f;
+                    Player.gravity *= Player.controlDown ? 2.4f : 1.8f;
                 }
                 else
-                    if (Math.Abs(Player.velocity.Y) < 8 && Player.velocity.Y < 0)
-                    Player.velocity.Y *= 1.5f;
-                Player.maxFallSpeed *= Player.controlDown ? 3.2f : 1.8f;
+                    if (Math.Abs(Player.velocity.Y) < 6 && Player.velocity.Y < 0)
+                        Player.velocity.Y *= 1.3f;
+                Player.maxFallSpeed *= Player.controlDown ? 3f : 1.8f;
             }
             if (FallSpeedUP > 0)
             {
@@ -2262,7 +2262,7 @@ namespace CalamityEntropy.Common
                     {
                         if(!Player.controlJump)
                         {
-                            Player.wingTime += 1.65f;
+                            Player.wingTime += 1.2f;
                             if (Player.wingTime > Player.wingTimeMax)
                                 Player.wingTime = Player.wingTimeMax;
                         }
