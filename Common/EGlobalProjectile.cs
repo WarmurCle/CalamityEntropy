@@ -1209,12 +1209,6 @@ namespace CalamityEntropy.Common
             {
                 return false;
             }
-            if (projectile.ModProjectile != null && projectile.ModProjectile is BobbitHead)
-            {
-                CalamityUtils.DrawHook(projectile, ModContent.Request<Texture2D>("CalamityMod/Projectiles/Typeless/BobbitHookChain").Value);
-                Main.EntitySpriteDraw(projectile.getDrawData(lightColor));
-                return false;
-            }
             return true;
         }
         public Projectile projectile;

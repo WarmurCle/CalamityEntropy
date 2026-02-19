@@ -3787,6 +3787,11 @@ Items: {
 			and this effect will be further amplified when the shield is present
 			''' */
 	}
+
+	TerraTiz: {
+		// DisplayName: Terra Tiz
+		// Tooltip: '''"A shrunken Tiny planet bind by a heavy chain,probably its some civilization result pact with demons"'''
+	}
 }
 
 /* ChaoticSetBonus:

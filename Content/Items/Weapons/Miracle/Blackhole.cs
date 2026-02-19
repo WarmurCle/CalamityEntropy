@@ -188,11 +188,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             {
                 CEUtils.PlaySound("BlackholeSpawn", 1f, Projectile.Center);
             }
-            if (Projectile.localAI[0] >= 0 && Projectile.localAI[0] <= 110)
+            /*if (Projectile.localAI[0] >= 0 && Projectile.localAI[0] <= 110)
                 if (Main.GameUpdateCount % 10 == 0)
                     if (Main.myPlayer == Projectile.owner)
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<VoidRExp>(), 0, 0, Projectile.owner, 1, w + 1);
-
+            */
             if (CanDamage().Value)
             {
                 
