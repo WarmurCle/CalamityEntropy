@@ -31,6 +31,20 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static void ResetMenuButton()
+        {
+            var ff = typeof(Main).GetField("selectedMenu", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var ff2 = typeof(Main).GetField("focusMenu", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var ff3 = typeof(Main).GetField("menuItemScale", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            ff.SetValue(Main.instance, -1);
+            ff2.SetValue(Main.instance, -1);
+            float[] mis = (float[])ff3.GetValue(Main.instance);
+            for (int i = 0; i < mis.Length; i++)
+            {
+                mis[i] = 0.8f;
+            }
+            ff3.SetValue(Main.instance, mis);
+        }
         public static void HoldShiftTooltip(List<TooltipLine> tooltips, TooltipLine[] holdShiftTooltips, bool hideNormalTooltip = false)
         {
             // Only perform any changes while holding SHIFT.

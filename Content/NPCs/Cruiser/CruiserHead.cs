@@ -184,7 +184,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             if (Main.zenithWorld)
             {
                 NPC.scale = 1.6f;
-                length = 6;
+                length = 10;
             }
             NPC.netAlways = true;
             NPC.Entropy().damageMul = 0.1f;
@@ -274,7 +274,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            NPC.Entropy().damageMul *= 0.98f;
             bool flag = false;
             HitRecord hr = null;
             foreach (var hrc in hitRecords)
@@ -288,8 +287,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             }
             if (flag)
             {
-                hr.dmgMult *= CruiserHead.ProjDamageReduce;
                 modifiers.FinalDamage *= hr.dmgMult;
+                hr.dmgMult *= CruiserHead.ProjDamageReduce;
                 if (!projectile.minion)
                 {
                     hr.Timeleft += 20;
@@ -303,10 +302,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             {
                 hitRecords.Add(new HitRecord(projectile.whoAmI));
             }
-        }
-        public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
-        {
-            NPC.Entropy().damageMul *= 0.98f;
         }
         public override bool CheckDead()
         {

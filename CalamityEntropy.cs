@@ -93,6 +93,7 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.Graphics;
 using Terraria.Graphics.Renderers;
 using Terraria.ID;
@@ -1366,8 +1367,8 @@ namespace CalamityEntropy
             return null;
         }
 
-        private static void AddBoss(Mod bossChecklist, Mod hostMod, string name, float difficulty, Func<bool> downed, object npcTypes, Dictionary<string, object> extraInfo)
-            => bossChecklist.Call("LogBoss", hostMod, name, difficulty, downed, npcTypes, extraInfo);
+        private static void AddBoss(Mod bossChecklist, Mod hostMod, string name, float difficulty, Func<bool> downed, object npcTypes, Dictionary<string, object> extraInfo, bool miniBoss = false)
+            => bossChecklist.Call(miniBoss ? "LogMiniBoss" : "LogBoss", hostMod, name, difficulty, downed, npcTypes, extraInfo);
         public static List<MusicBox> mbRegs = null;
         public void RegistryMusicBoxes()
         {
@@ -1637,7 +1638,7 @@ namespace CalamityEntropy
                                 ["despawnMessage"] = Language.GetText("Mods.CalamityEntropy.NPCs.AcropolisMachine.BossChecklistIntegration.DespawnMessage"),
                                 ["collectibles"] = collection,
                                 ["customPortrait"] = portrait
-                            });
+                            }, true);
                         }
                         {
                             string entryName = "Luminaris";

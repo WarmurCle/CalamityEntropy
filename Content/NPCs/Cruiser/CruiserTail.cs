@@ -69,8 +69,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 }
                 if (flag)
                 {
-                    hr.dmgMult *= CruiserHead.ProjDamageReduce;
                     modifiers.FinalDamage *= hr.dmgMult;
+                    hr.dmgMult *= CruiserHead.ProjDamageReduce;
                     if (!projectile.minion)
                     {
                         hr.Timeleft += 20;
