@@ -31,25 +31,38 @@ namespace CalamityEntropy.Content.Items
         }
         public override bool CanUseItem(Player player)
         {
+            if(player.altFunctionUse == 2)
+                return true;
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 return !player.HasCooldown("FriendfinderCd");
-            float slots = 0;
-            foreach (NPC n in Main.ActiveNPCs)
-            {
-                if (n.ModNPC is FriendFindNPC)
-                {
-                    slots += 1;
-                }
-            }
-            if (slots >= player.maxMinions)
-            {
-                return false;
-            }
+            
             return !(player.Entropy().ffinderCd > 0);
+        }
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
         }
 
         public override bool? UseItem(Player player)
         {
+            if(player.altFunctionUse == 2)
+            {
+                if(Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    foreach(NPC npc in Main.ActiveNPCs)
+                    {
+                        if(npc.ModNPC is FriendFindNPC && npc.Entropy().friendFinderOwner == player.whoAmI)
+                        {
+                            npc.active = false;
+                            if (Main.dedServ)
+                            {
+                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
+                            }
+                        }
+                    }
+                }
+                return true;
+            }
             if(!Main.dedServ)
                 player.AddCooldown("FriendfinderCd", CooldownSec);
             if (Main.netMode == NetmodeID.MultiplayerClient)

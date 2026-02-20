@@ -429,6 +429,7 @@ namespace CalamityEntropy.Common
             /* VoidTouchLevel = binaryReader.ReadSingle();
              VoidTouchTime = binaryReader.ReadInt32();*/
         }
+        public bool ffoFlag = false;
         public static void setFriendly(int id, int owner = 0)
         {
             if (id.ToNPC().Entropy().ToFriendly)
@@ -458,10 +459,30 @@ namespace CalamityEntropy.Common
                 Decrease20DR--;
             StickByMissle--;
             MissleDamageAddition = 0;
-            if (npc.ModNPC is FriendFindNPC && npc.localAI[3] > 0)
+            if (npc.ModNPC != null && npc.ModNPC is FriendFindNPC ff)
             {
-                friendFinderOwner = (int)npc.localAI[3] - 1;
-                npc.localAI[3] = 0;
+                if (npc.localAI[3] > 0)
+                {
+                    friendFinderOwner = (int)npc.localAI[3] - 1;
+                    npc.localAI[3] = 0;
+                    ffoFlag = true;
+                }
+                if (ffoFlag)
+                {
+                    float slots = 0;
+                    foreach (NPC n in Main.ActiveNPCs)
+                    {
+                        if (n.ModNPC is FriendFindNPC)
+                        {
+                            slots += 1;
+                        }
+                    }
+                    if (slots > friendFinderOwner.ToPlayer().maxMinions + friendFinderOwner.ToPlayer().Entropy().ffDecSlot)
+                    {
+                        npc.active = false;
+                        return false;
+                    }
+                }
             }
             counter++;
             if (npc.Entropy().EclipsedImprintLevel > 0)

@@ -1388,6 +1388,7 @@ Items: {
 			'''
 			Summon a friendly monster
 			Cost 1 minion slot
+			Right click to kill all monster
 			'''
 		DisplayName: Friend Finder
 	}

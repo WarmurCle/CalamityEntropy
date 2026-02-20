@@ -1502,12 +1502,15 @@ namespace CalamityEntropy.Common
         public int HitTCounter = 0;
         public int voidslashType = -1;
         public float WingTimeMult = 1;
+        public int ffDecSlot = 0;
         public override void PostUpdateMiscEffects()
         {
+            ffDecSlot = 0;
             foreach (NPC npc in Main.ActiveNPCs)
             {
                 if (npc.ModNPC is FriendFindNPC)
                 {
+                    ffDecSlot++;
                     Player.maxMinions--;
                 }
             }
