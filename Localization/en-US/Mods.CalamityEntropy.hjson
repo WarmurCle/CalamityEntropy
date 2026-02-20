@@ -1387,7 +1387,7 @@ Items: {
 		Tooltip:
 			'''
 			Summon a friendly monster
-			Cannot be used in multiplayer mode
+			Cost 1 minion slot
 			'''
 		DisplayName: Friend Finder
 	}

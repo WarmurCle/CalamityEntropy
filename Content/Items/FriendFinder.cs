@@ -11,7 +11,7 @@ namespace CalamityEntropy.Content.Items
     public class FriendFinder : ModItem
     {
         public static List<int> summonList;
-        public static int CooldownSec = CalamityUtils.SecondsToFrames(40);
+        public static int CooldownSec = CalamityUtils.SecondsToFrames(20);
         public override void SetStaticDefaults()
         {
             summonList = new List<int>() { ModContent.NPCType<AeroSlimeFriendly>(), ModContent.NPCType<DespairStoneFriendly>(), ModContent.NPCType<IceClasperFriendly>(), ModContent.NPCType<ScryllarFriendly>(), ModContent.NPCType<SkyfinFriendly>(), ModContent.NPCType<SoulSlurperFriendly>() };
@@ -31,18 +31,9 @@ namespace CalamityEntropy.Content.Items
         }
         public override bool CanUseItem(Player player)
         {
-            if (Main.dedServ || Main.netMode == NetmodeID.MultiplayerClient)
-            {
-                return false;//这玩意多人有bug，到时候再修算了
-            }
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+                return !player.HasCooldown("FriendfinderCd");
             float slots = 0;
-            foreach (Projectile p in Main.ActiveProjectiles)
-            {
-                if (p.minion && p.owner == player.whoAmI)
-                {
-                    slots += p.minionSlots;
-                }
-            }
             foreach (NPC n in Main.ActiveNPCs)
             {
                 if (n.ModNPC is FriendFindNPC)
@@ -50,7 +41,7 @@ namespace CalamityEntropy.Content.Items
                     slots += 1;
                 }
             }
-            if (slots > player.maxMinions - 1)
+            if (slots >= player.maxMinions)
             {
                 return false;
             }
@@ -59,19 +50,21 @@ namespace CalamityEntropy.Content.Items
 
         public override bool? UseItem(Player player)
         {
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if(!Main.dedServ)
+                player.AddCooldown("FriendfinderCd", CooldownSec);
+            if (Main.netMode == NetmodeID.MultiplayerClient)
             {
-                int n = NPC.NewNPC(player.GetSource_FromAI(), (int)player.position.X, (int)player.position.Y, summonList[Main.rand.Next(0, summonList.Count)]);
-                n.ToNPC().localAI[3] = player.whoAmI + 1;
-                n.ToNPC().Center = player.Center - new Vector2(0, 60);
-                if (Main.dedServ)
-                {
-                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
-                }
+                return true;
+            }
+            int n = NPC.NewNPC(player.GetSource_FromAI(), (int)player.position.X, (int)player.position.Y, summonList[Main.rand.Next(0, summonList.Count)]);
+            n.ToNPC().localAI[3] = player.whoAmI + 1;
+            n.ToNPC().Center = player.Center - new Vector2(0, 60);
+            if (Main.dedServ)
+            {
+                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
             }
             player.Entropy().ffinderCd = (int)(CooldownSec * player.Entropy().CooldownTimeMult);
-            player.AddCooldown("FriendfinderCd", CooldownSec);
-
+            
             return true;
         }
 

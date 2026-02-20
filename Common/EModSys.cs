@@ -868,14 +868,7 @@ namespace CalamityEntropy.Common
             {
                 EGlobalProjectile.SSCD++;
             }
-            foreach (NPC npc in Main.ActiveNPCs)
-            {
-                if (npc.ModNPC is FriendFindNPC)
-                {
-                    npc.Entropy().friendFinderOwner.ToPlayer().slotsMinions += 1;
-                    npc.Entropy().friendFinderOwner.ToPlayer().numMinions += 1;
-                }
-            }
+            
             if (!Main.dedServ)
             {
             }

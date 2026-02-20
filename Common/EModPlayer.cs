@@ -18,6 +18,7 @@ using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun;
 using CalamityEntropy.Content.Items.Weapons.DustCarverBow;
 using CalamityEntropy.Content.Items.Weapons.Fractal;
+using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Prefixes;
 using CalamityEntropy.Content.Projectiles;
@@ -1503,6 +1504,13 @@ namespace CalamityEntropy.Common
         public float WingTimeMult = 1;
         public override void PostUpdateMiscEffects()
         {
+            foreach (NPC npc in Main.ActiveNPCs)
+            {
+                if (npc.ModNPC is FriendFindNPC)
+                {
+                    Player.maxMinions--;
+                }
+            }
             if (LoreReworkSystem.Enabled<LoreHiveMind>())
             {
                 if (hitTimeCount < LEHiveCorrupt.TimeSec * 60)
