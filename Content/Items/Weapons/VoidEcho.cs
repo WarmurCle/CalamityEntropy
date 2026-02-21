@@ -27,12 +27,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.mana = 300;
             Item.useStyle = -1;
             Item.noMelee = true;
-            Item.Entropy().stroke = true;
-            Item.Entropy().strokeColor = new Color(20, 26, 92);
-            Item.Entropy().tooltipStyle = 4;
-            Item.Entropy().NameColor = new Color(60, 80, 140);
-            Item.Entropy().HasCustomStrokeColor = true;
-            Item.Entropy().HasCustomNameColor = true;
         }
         public override bool MagicPrefix()
         {

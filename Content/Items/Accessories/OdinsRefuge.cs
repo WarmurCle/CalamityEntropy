@@ -1,3 +1,4 @@
+using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
@@ -16,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.width = 86;
             Item.height = 86;
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
-            Item.rare = ModContent.RarityType<Turquoise>();
+            Item.rare = ModContent.RarityType<VoidPurple>();
             Item.accessory = true;
             Item.defense = 24;
 

@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Tiles;
+﻿using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Rarities;
@@ -15,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.height = 46;
             Item.accessory = true;
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
-            Item.rare = ModContent.RarityType<Turquoise>();
+            Item.rare = ModContent.RarityType<AbyssalBlue>();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
