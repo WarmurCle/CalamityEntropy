@@ -106,7 +106,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Vector2 position = Item.position - Main.screenPosition + tex.Size() / 2;
             Rectangle iFrame = tex.Frame();
             for (int i = 0; i < 16; i++)
-                spriteBatch.Draw(tex, position + MathHelper.ToRadians(i * 60f).ToRotationVector2() * 2f, null, Color.DarkRed with { A = 0 }, rotation, tex.Size() / 2, scale, 0, 0f);
+                spriteBatch.Draw(tex, position + MathHelper.ToRadians(i * 60f).ToRotationVector2() * 4f, null, (!AltType(Main.LocalPlayer) ? Color.DarkRed : Color.Silver) with { A = 0 }, rotation, tex.Size() / 2, scale, 0, 0f);
 
             spriteBatch.Draw(tex, position, iFrame, Color.White, rotation, tex.Size() / 2, scale, 0, 0f);
             Lighting.AddLight(position, TorchID.Red);

@@ -1816,7 +1816,7 @@ namespace CalamityEntropy
             Vector2 position = item.position - Main.screenPosition + tex.Size() / 2;
             Rectangle iFrame = tex.Frame();
             for (int i = 0; i < 16; i++)
-                SB.Draw(tex, position + MathHelper.ToRadians(i * 60f).ToRotationVector2() * 3f, null, color with { A = 0 }, rot, tex.Size() / 2, scale, 0, 0f);
+                SB.Draw(tex, position + MathHelper.ToRadians(i * 60f).ToRotationVector2() * 4f, null, color with { A = 0 }, rot, tex.Size() / 2, scale, 0, 0f);
             SB.Draw(tex, position, iFrame, Color.White, rot, tex.Size() / 2, scale, 0f, 0f);
         }
         public static SpriteEffects FlipHorizonHandler(this Projectile projectile)
