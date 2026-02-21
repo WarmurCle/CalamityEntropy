@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using Terraria;
@@ -21,7 +22,7 @@ namespace CalamityEntropy.Content.Items
             Item.useStyle = ItemUseStyleID.Swing;
             Item.consumable = true;
             Item.value = Item.buyPrice(platinum: 2);
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ModContent.RarityType<VoidPurple>();
             Item.createTile = ModContent.TileType<VoidCandleTile>();
             Item.buffType = ModContent.BuffType<VoidCandleBuff>();
             Item.buffTime = CalamityUtils.SecondsToFrames(600);

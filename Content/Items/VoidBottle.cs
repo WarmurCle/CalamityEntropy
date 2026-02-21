@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod.Events;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
@@ -25,8 +26,7 @@ namespace CalamityEntropy.Content.Items
 
             Item.useStyle = ItemUseStyleID.Swing;
             Item.consumable = false;
-            Item.rare = ModContent.RarityType<Turquoise>();
-
+            Item.rare = ModContent.RarityType<VoidPurple>();
         }
         public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)
         {
