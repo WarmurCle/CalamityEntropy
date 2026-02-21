@@ -3785,10 +3785,7 @@ Items: {
 
 	SignalBlocker: {
 		DisplayName: Signal Blocker
-		Tooltip: 
-		'''
-		Set to favorite to block Acropolis Machine spawning
-		'''
+		Tooltip: Set to favorite to block Acropolis Machine spawning
 	}
 }
 

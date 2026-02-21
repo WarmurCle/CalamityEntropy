@@ -4055,7 +4055,7 @@ Items: {
 	}
 
 	SignalBlocker: {
-		DisplayName: Signal Blocker
+		DisplayName: 信号屏蔽器
 		Tooltip: 标记为收藏以诅咒阿萨福勒卫城机甲自然生成
 	}
 }
