@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using System.Collections.Generic;
 using Terraria;
@@ -26,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 6;
             Item.value = 12000;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ModContent.RarityType<VoidPurple>();
             Item.UseSound = null;
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<VoidAnnihilateProj>();

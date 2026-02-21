@@ -989,16 +989,32 @@ namespace CalamityEntropy.Common
                 }
                 if (item.rare == ModContent.RarityType<VoidPurple>())
                 {
+                    var font = FontAssets.MouseText.Value;
                     float xa = 0;
+                    List<float> scales = new List<float>() { 0, 0.3333f, 0.6666f };
+                    Vector2 ms = font.MeasureString(line.Text);
+                    ms.Y *= 0.7f;
+                    for (int i_ = 0; i_ < scales.Count; i_++)
+                    {
+                        scales[i_] = CEUtils.Frac(scales[i_] + Main.GlobalTimeWrappedHourly);
+                        float sc = scales[i_] * 12f;
+                        Main.spriteBatch.DrawString(font, line.Text, new Vector2(-sc, 0) + new Vector2(line.X, line.Y) + ms * 0.5f, Color.Lerp(new Color(190, 50, 190), new Color(160, 0, 180), scales[i_]) * (1 - scales[i_]), 0, ms * 0.5f, 1, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, line.Text, new Vector2(sc, 0) + new Vector2(line.X, line.Y) + ms * 0.5f, Color.Lerp(new Color(190, 50, 190), new Color(160, 0, 180), scales[i_]) * (1 - scales[i_]), 0, ms * 0.5f, 1, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, line.Text, new Vector2(0, sc) + new Vector2(line.X, line.Y) + ms * 0.5f, Color.Lerp(new Color(190, 50, 190), new Color(160, 0, 180), scales[i_]) * (1 - scales[i_]), 0, ms * 0.5f, 1, SpriteEffects.None, 0);
+                        Main.spriteBatch.DrawString(font, line.Text, new Vector2(0, -sc) + new Vector2(line.X, line.Y) + ms * 0.5f, Color.Lerp(new Color(190, 50, 190), new Color(160, 0, 180), scales[i_]) * (1 - scales[i_]), 0, ms * 0.5f, 1, SpriteEffects.None, 0);
+
+                    }
                     for (int i = 0; i < line.Text.Length; i++)
                     {
                         string text = line.Text[i].ToString();
-                        var font = FontAssets.MouseText.Value;
-                        Vector2 size = font.MeasureString(text);
+                        Vector2 size = font.MeasureString(text); 
                         float yofs;
-                        Color color = Color.Black;
+                        float lerp = 0.5f + (0.5f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * -6 + i * 0.45f)));
+                        Color color = Color.Lerp(Color.Black, new Color(60, 60, 120), lerp);
+                        Color strokeColord = Color.Lerp(new Color(106, 40, 190), new Color(160, 160, 255), lerp);
                         yofs = 0;
-                        Color strokeColord = new Color(106, 40, 190);
+                        
+
                         Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
                         Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 0), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
                         Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
