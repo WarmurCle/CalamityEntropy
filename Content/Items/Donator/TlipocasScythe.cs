@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Items.Donator
             if (player.HasBuff<VoidEmpowerment>())
                 return Color.Purple;
             if (player != null && AltType(player))
-                return new Color(217, 214, 255);
+                return new Color(217, 214, 255) * 0.7f;
             return Color.Firebrick;
         }
         public override void SetStaticDefaults()

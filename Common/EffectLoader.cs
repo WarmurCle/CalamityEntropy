@@ -77,6 +77,7 @@ namespace CalamityEntropy.Common
 
         public override void Load() => This = this;
 
+
         public override void EndCaptureDraw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, RenderTarget2D screenSwap) => CE_EffectHandler(graphicsDevice);
 
         //首先纹理在使用前尽量缓存为静态的，Request函数并非性能的最佳选择，尤其是在每帧调用甚至循环调用中的高频访问
