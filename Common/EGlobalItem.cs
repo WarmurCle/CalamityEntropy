@@ -903,6 +903,11 @@ namespace CalamityEntropy.Common
                     ShiningViolet.Draw(item, line);
                     return false;
                 }
+                if(item.rare == ModContent.RarityType<NihilityBlue>())
+                {
+                    NihilityBlue.Draw(item, line);
+                    return false;
+                }
                 if (item.Entropy().tooltipStyle == 1 || item.Entropy().tooltipStyle == 4)
                 {
                     float xa = 0;

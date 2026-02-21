@@ -1,4 +1,5 @@
-﻿using CalamityMod.Rarities;
+﻿using CalamityEntropy.Content.Rarities;
+using CalamityMod.Rarities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,7 +20,7 @@ namespace CalamityEntropy.Content.Items
             Item.height = 42;
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(gold: 5);
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            Item.rare = ModContent.RarityType<NihilityBlue>();
         }
     }
 }

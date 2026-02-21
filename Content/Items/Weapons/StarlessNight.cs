@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using Terraria;
 using Terraria.DataStructures;
@@ -22,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 6;
             Item.value = 12000;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ModContent.RarityType<NihilityBlue>();
             Item.UseSound = null;
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<StarlessNightProj>();

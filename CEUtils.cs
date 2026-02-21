@@ -31,6 +31,12 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static float Frac(float x)
+        {
+            if (float.IsInfinity(x) || float.IsNaN(x))
+                return x;
+            return x - (float)Math.Floor(x);
+        }
         public static void ResetMenuButton()
         {
             var ff = typeof(Main).GetField("selectedMenu", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);

@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Rogue;
@@ -27,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.autoReuse = true;
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
-            Item.rare = ModContent.RarityType<Turquoise>();
+            Item.rare = ModContent.RarityType<NihilityBlue>();
             Item.shoot = ModContent.ProjectileType<VoidseekerProj>();
             Item.shootSpeed = 10f;
             Item.DamageType = CEUtils.RogueDC;

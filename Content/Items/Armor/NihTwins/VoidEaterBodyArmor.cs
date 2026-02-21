@@ -1,3 +1,4 @@
+using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
@@ -17,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             Item.height = 42;
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
             Item.defense = 35;
-            Item.rare = ModContent.RarityType<Turquoise>();
+            Item.rare = ModContent.RarityType<NihilityBlue>();
         }
 
         public override void UpdateEquip(Player player)

@@ -1,4 +1,5 @@
-﻿using CalamityMod;
+﻿using CalamityEntropy.Content.Rarities;
+using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Rarities;
 using System;
@@ -35,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noMelee = true;
             Item.knockBack = 2f;
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
-            Item.rare = ModContent.RarityType<Turquoise>();
+            Item.rare = ModContent.RarityType<NihilityBlue>();
             Item.UseSound = null;
             Item.autoReuse = true;
             Item.shoot = ProjectileID.Bullet;

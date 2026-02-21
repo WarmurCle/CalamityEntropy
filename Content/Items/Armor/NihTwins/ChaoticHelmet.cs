@@ -1,4 +1,5 @@
 using CalamityEntropy.Common;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Placeables.Ores;
@@ -21,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
             Item.height = 40;
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
             Item.defense = 26;
-            Item.rare = ModContent.RarityType<Turquoise>();
+            Item.rare = ModContent.RarityType<NihilityBlue>();
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)

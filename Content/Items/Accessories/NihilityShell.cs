@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items;
+﻿using CalamityEntropy.Content.Rarities;
+using CalamityMod.Items;
 using CalamityMod.Rarities;
 using Terraria;
 using Terraria.ModLoader;
@@ -15,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.width = 40;
             Item.height = 40;
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
-            Item.rare = ModContent.RarityType<Turquoise>();
+            Item.rare = ModContent.RarityType<NihilityBlue>();
             Item.accessory = true;
 
         }
