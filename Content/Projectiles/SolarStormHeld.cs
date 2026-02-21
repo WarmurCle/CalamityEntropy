@@ -326,7 +326,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 for (int i = 0; i < 55; i++)
                 {
-                    Vector2 randVel = new Vector2(12, 12).RotatedByRandom(100) * Main.rand.NextFloat(0.05f, (Main.rand.NextBool(3) ? 1f : 0.5f));
+                    Vector2 randVel = new Vector2(12, 12).RotatedByRandom(100) * Main.rand.NextFloat(0.05f, (Main.rand.NextBool(3) ? 1f : 0.5f)) * 3;
                     var smoke = new HeavySmokeParticle(Projectile.Center + randVel, randVel, new Color(57, 46, 115) * 0.9f, Main.rand.Next(25, 35 + 1), Main.rand.NextFloat(0.9f, 2.3f), 0.5f);
                     GeneralParticleHandler.SpawnParticle(smoke);
                 }
