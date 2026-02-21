@@ -3792,6 +3792,11 @@ Items: {
 		// DisplayName: Terra Tiz
 		// Tooltip: '''"A shrunken Tiny planet bind by a heavy chain,probably its some civilization result pact with demons"'''
 	}
+
+	SignalBlocker: {
+		// DisplayName: Signal Blocker
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:

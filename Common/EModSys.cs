@@ -52,6 +52,7 @@ namespace CalamityEntropy.Common
         public int slimeGodMaxLife = 0;
         public Vector2 LastPlayerPos;
         public Vector2 LastPlayerVel;
+        public static int AcropolisDontSpawn = 0;
         public static Color GetColorForNPCBossbarFromTexture(Color[] data)
         {
             int pixelCount = 0;
@@ -477,6 +478,8 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdatePlayers()
         {
+            if(AcropolisDontSpawn > 0)
+                AcropolisDontSpawn--;
             CECooldowns.Update();
             EBookUI.update();
             if (ModContent.GetInstance<RepMusicScene>().IsSceneEffectActive(Main.LocalPlayer))

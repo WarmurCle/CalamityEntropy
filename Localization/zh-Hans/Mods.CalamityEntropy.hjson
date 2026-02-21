@@ -4053,6 +4053,11 @@ Items: {
 			佩戴上以后可以变成粉毛恶魔
 			'''
 	}
+
+	SignalBlocker: {
+		DisplayName: Signal Blocker
+		Tooltip: 标记为收藏以诅咒阿萨福勒卫城机甲自然生成
+	}
 }
 
 ChaoticSetBonus:
