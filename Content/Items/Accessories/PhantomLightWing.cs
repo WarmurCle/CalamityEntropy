@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items;
+﻿using CalamityEntropy.Content.Rarities;
+using CalamityMod.Items;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -27,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.width = 22;
             Item.height = 20;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ModContent.RarityType<Lunarblight>();
             Item.accessory = true;
 
         }

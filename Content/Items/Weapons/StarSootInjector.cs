@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -23,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.crit = 10;
             Item.UseSound = SoundID.Item34;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ModContent.RarityType<Lunarblight>();
         }
 
         public override Vector2? HoldoutOffset()

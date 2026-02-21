@@ -50,7 +50,7 @@ namespace CalamityEntropy.Common.DrawLayers
         {
             var player = drawInfo.drawPlayer;
             Texture2D texture = CEUtils.RequestTex("CalamityEntropy/Content/Items/Vanity/Ttiz/Wings");
-            if (player.velocity.Y > 0 && (player.mount == null || !player.mount.Active))
+            if (player.velocity.Y != 0 && (player.mount == null || !player.mount.Active))
                 texture = CEUtils.RequestTex("CalamityEntropy/Content/Items/Vanity/Ttiz/Wings2");
             Vector2 headPos = drawInfo.HeadPosition(true) + new Vector2(player.direction * 2, 12);
             drawInfo.DrawDataCache.Add(new DrawData(texture, headPos, null, drawInfo.colorArmorBody, drawInfo.drawPlayer.fullRotation, new Vector2(texture.Width * 0.5f, texture.Height * 0.5f), 1, drawInfo.playerEffect) { shader = drawInfo.drawPlayer.cBody });

@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.LuminarisShoots;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Particles;
@@ -46,7 +47,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noMelee = true;
             Item.mana = 10;
             Item.buffType = ModContent.BuffType<StarlightMoth>();
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ModContent.RarityType<Lunarblight>();
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {

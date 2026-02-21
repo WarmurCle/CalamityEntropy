@@ -904,7 +904,12 @@ namespace CalamityEntropy.Common
                     ShiningViolet.Draw(item, line);
                     return false;
                 }
-                if(item.rare == ModContent.RarityType<NihilityBlue>())
+                if (item.rare == ModContent.RarityType<Lunarblight>())
+                {
+                    Lunarblight.Draw(item, line);
+                    return false;
+                }
+                if (item.rare == ModContent.RarityType<NihilityBlue>())
                 {
                     NihilityBlue.Draw(item, line);
                     return false;

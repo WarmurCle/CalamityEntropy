@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Rarities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -24,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Vanity.Luminar
             Item.height = 30;
             Item.accessory = true;
             Item.value = CalamityMod.Items.CalamityGlobalItem.RarityPinkBuyPrice;
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ModContent.RarityType<Lunarblight>();
             Item.vanity = true;
         }
 

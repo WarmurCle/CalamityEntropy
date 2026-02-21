@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Rogue;
@@ -30,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.autoReuse = true;
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ModContent.RarityType<Lunarblight>();
             Item.shoot = ModContent.ProjectileType<LunarPlankThrow>();
             Item.shootSpeed = 6.4f;
             Item.DamageType = CEUtils.RogueDC;

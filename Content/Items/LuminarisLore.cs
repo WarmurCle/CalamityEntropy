@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items.LoreItems;
+﻿using CalamityEntropy.Content.Rarities;
+using CalamityMod.Items.LoreItems;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -28,7 +29,7 @@ namespace CalamityEntropy.Content.Items
         {
             Item.width = 20;
             Item.height = 20;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ModContent.RarityType<Lunarblight>();
             Item.maxStack = 1;
         }
     }

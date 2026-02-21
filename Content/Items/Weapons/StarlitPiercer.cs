@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
@@ -24,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 6;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ModContent.RarityType<Lunarblight>();
             Item.UseSound = null;
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<StarlitPiercerHeld>();
