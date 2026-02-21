@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items.LoreItems;
 using System.Collections.Generic;
 using Terraria;
@@ -63,7 +64,7 @@ namespace CalamityEntropy.Content.Items
             Item.useAnimation = 30;
             Item.useTime = 30;
             Item.useStyle = ItemUseStyleID.HoldUp;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ModContent.RarityType<NihilityBlue>();
             SoundStyle s = new("CalamityEntropy/Assets/Sounds/CastTriangles");
             s.Volume = 0.4f;
             s.Pitch = 1.4f;

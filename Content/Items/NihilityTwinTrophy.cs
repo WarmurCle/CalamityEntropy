@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Tiles;
+﻿using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,7 +19,7 @@ namespace CalamityEntropy.Content.Items
             Item.useStyle = ItemUseStyleID.Swing;
             Item.consumable = true;
             Item.value = 50000;
-            Item.rare = ItemRarityID.Blue;
+            Item.rare = ModContent.RarityType<VoidPurple>();
             Item.createTile = ModContent.TileType<NihilityTwinTrophyTile>();
         }
     }
