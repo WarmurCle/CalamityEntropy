@@ -15,7 +15,6 @@ namespace CalamityEntropy.Content.Menu
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/startmenu");
         public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Logo");
         public override Asset<Texture2D> LogoGlow => ModContent.Request<Texture2D("CalamityEntropy/Assets/Extra/Logool");
-        
         public override string DisplayName => "Calamity Entropy - The Church";
         public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
         {
