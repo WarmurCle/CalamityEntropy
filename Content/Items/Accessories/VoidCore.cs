@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public float charge = 0;
         public static int MaxShield = 100;
         public static int ShieldRecharge = 20 * 60;
-        public static float CritDamage = 0.12f;
+        public static float CritDamage = 0.16f;
         public override void SetDefaults()
         {
             Item.width = 60;
