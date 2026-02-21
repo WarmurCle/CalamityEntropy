@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
 using CalamityMod.Rarities;
 using Terraria;
@@ -17,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void SetDefaults()
         {
             Item.DefaultToWhip(ModContent.ProjectileType<WindOfUndertakerProjectile>(), 220, 2, 8, 28);
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            Item.rare = ModContent.RarityType<VoidPurple>();
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.autoReuse = true;

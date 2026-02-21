@@ -20,11 +20,13 @@ namespace CalamityEntropy.Content.Rarities
         public static void Draw(Item Item, SpriteBatch spriteBatch, string text, int X, int Y, float rotation,
             Vector2 baseScale, float time, DynamicSpriteFont font)
         {
+            Texture2D glow = CEUtils.getExtraTex("Glow");
             Texture2D particle = CEUtils.getExtraTex("Ray");
             spriteBatch.UseBlendState_UI(BlendState.Additive);
+            Vector2 origin = font.MeasureString(text) * new Vector2(1, 0.6f) * 0.5f;
+            spriteBatch.Draw(glow, new Vector2(X, Y) + origin, null, Color.AliceBlue * 1f, 0, glow.Size() * 0.5f, origin * 0.02f * new Vector2(1, 0.6f), SpriteEffects.None, 0);
             UnifiedRandom rand = new UnifiedRandom(745367);
-            
-            int particleCount = 24;
+            int particleCount = 32;
             for (int i = 0; i < particleCount; i++)
             {
                 Vector2 vec = new Vector2(rand.NextFloat(), 0.5f);
@@ -37,22 +39,22 @@ namespace CalamityEntropy.Content.Rarities
                 vec.X = 0.5f + (vec.X - 0.5f) * 1.4f;
                 Color clr = Color.Lerp(TextColor1, TextColor2, CEUtils.Parabola(vec.X, 1));
                 Vector2 adjPos = new Vector2(X, Y) + vec * new Vector2(font.MeasureString(text).X, 20);
-                spriteBatch.Draw(particle, adjPos, null, clr * 0.7f, 0, particle.Size() / 2f, baseScale * new Vector2(0.28f, 0.03f) * rand.NextFloat(0.8f, 1.25f) * alpha, SpriteEffects.None, 0);
+                spriteBatch.Draw(particle, adjPos, null, clr * 0.5f, 0, particle.Size() / 2f, baseScale * new Vector2(0.28f, 0.03f) * rand.NextFloat(0.8f, 1.25f) * alpha, SpriteEffects.None, 0);
             }
             spriteBatch.UseBlendState_UI(BlendState.AlphaBlend);
 
             for (float r = 0; r < 360; r += 30)
             {
                 Vector2 addVec = MathHelper.ToRadians(r + time).ToRotationVector2() * ((float)(0.5f + Math.Sin(time * 4) * 0.5f) * 1 + 2);
-                spriteBatch.DrawString(font, text, new Vector2(X, Y) + addVec, new Color(140, 50, 255) * 0.5f);
+                spriteBatch.DrawString(font, text, new Vector2(X, Y) + addVec, new Color(180, 70, 255) * 0.5f);
             }
             spriteBatch.DrawString(font, text, new Vector2(X, Y), new Color(20, 12, 60));
             spriteBatch.UseBlendState_UI(BlendState.Additive);
 
-            particleCount = 64;
+            particleCount = 36;
             for (int i = 0; i < particleCount; i++)
             {
-                Vector2 vec = new Vector2(rand.NextFloat(), rand.NextFloat(0.1f, 0.9f));
+                Vector2 vec = new Vector2(rand.NextFloat(), rand.NextFloat(0f, 0.9f));
                 vec.X = CEUtils.Frac(vec.X - time * 0.18f);
                 float alpha = 1;
                 if (vec.X < 0.2f)
@@ -62,7 +64,7 @@ namespace CalamityEntropy.Content.Rarities
                 vec.X = 0.5f + (vec.X - 0.5f) * 1.4f;
                 Color clr = Color.Lerp(TextColor1, TextColor2, CEUtils.Parabola(vec.X, 1));
                 Vector2 adjPos = new Vector2(X, Y) + vec * new Vector2(font.MeasureString(text).X, 20);
-                spriteBatch.Draw(particle, adjPos, null, clr * 0.4f, 0, particle.Size() / 2f, baseScale * new Vector2(0.28f, 0.03f) * rand.NextFloat(0.8f, 1.25f) * alpha, SpriteEffects.None, 0);
+                spriteBatch.Draw(particle, adjPos, null, clr * 0.5f, 0, particle.Size() / 2f, baseScale * new Vector2(0.28f, 0.03f) * rand.NextFloat(0.8f, 1.25f) * alpha, SpriteEffects.None, 0);
             }
             spriteBatch.UseBlendState_UI(BlendState.AlphaBlend);
         }

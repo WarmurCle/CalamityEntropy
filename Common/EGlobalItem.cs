@@ -47,6 +47,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CalamityEntropy.Common
 {
@@ -990,6 +991,12 @@ namespace CalamityEntropy.Common
                 if (item.rare == ModContent.RarityType<VoidPurple>())
                 {
                     var font = FontAssets.MouseText.Value;
+                    Texture2D glow = CEUtils.getExtraTex("Glow");
+                    Main.spriteBatch.UseBlendState_UI(BlendState.Additive);
+                    Main.spriteBatch.UseBlendState_UI(BlendState.Additive);
+                    Vector2 origin = font.MeasureString(line.Text) * new Vector2(1, 0.6f) * 0.5f;
+                    Main.spriteBatch.Draw(glow, new Vector2(line.X, line.Y) + origin, null, Color.AliceBlue * 0.6f, 0, glow.Size() * 0.5f, origin * 0.02f * new Vector2(1, 0.6f), SpriteEffects.None, 0);
+                    Main.spriteBatch.UseBlendState_UI(BlendState.AlphaBlend);
                     float xa = 0;
                     List<float> scales = new List<float>() { 0, 0.3333f, 0.6666f };
                     Vector2 ms = font.MeasureString(line.Text);
@@ -1009,9 +1016,9 @@ namespace CalamityEntropy.Common
                         string text = line.Text[i].ToString();
                         Vector2 size = font.MeasureString(text); 
                         float yofs;
-                        float lerp = 0.5f + (0.5f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * -6 + i * 0.45f)));
-                        Color color = Color.Lerp(Color.Black, new Color(60, 60, 120), lerp);
-                        Color strokeColord = Color.Lerp(new Color(106, 40, 190), new Color(160, 160, 255), lerp);
+                        float lerp = 0.5f + (0.5f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * -6 + i * 3f / line.Text.Length)));
+                        Color color = Color.Lerp(Color.Black, new Color(40, 40, 100), lerp);
+                        Color strokeColord = Color.Lerp(new Color(106, 40, 190), new Color(2350, 180, 255), lerp);
                         yofs = 0;
                         
 
