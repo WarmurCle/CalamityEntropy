@@ -23,6 +23,11 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
     public class DustCarver : ModItem, IGetFromStarterBag
     {
         public int LevelNow = 0;
+        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+        {
+            Item.QuickDrawItemWithBloomToWorld(spriteBatch, Color.Red, ref scale, rotation);
+            return false;
+        }
         public static int GetLevel()
         {
             //return Main.LocalPlayer.inventory[9].stack;

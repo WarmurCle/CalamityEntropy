@@ -106,7 +106,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
 
         public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
         {
-            Item.QuickDrawItemWithBloomToWorld(spriteBatch, Color.LimeGreen, ref scale);
+            Item.QuickDrawItemWithBloomToWorld(spriteBatch, Color.LimeGreen, ref scale, rotation);
             return false;
         }
         public override void AddRecipes()

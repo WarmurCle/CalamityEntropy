@@ -1810,24 +1810,14 @@ namespace CalamityEntropy
             //直接绘制主射弹位于最顶层
             Main.spriteBatch.Draw(tex, drawPos, null, color, proj.rotation + rotFix, orig, scale, 0, 0.1f);
         }
-        /// <summary>
-        /// 以最快的方法为物品创建一个发光遮罩+描边
-        /// </summary>
-        /// <param name="item"></param>
-        /// <param name="SB"></param>
-        /// <param name="scale"></param>
-        public static void QuickDrawItemWithBloomToWorld(this Item item, SpriteBatch SB, Color color, ref float scale)
+        public static void QuickDrawItemWithBloomToWorld(this Item item, SpriteBatch SB, Color color, ref float scale, float rot)
         {
             Texture2D tex = TextureAssets.Item[item.type].Value;
             Vector2 position = item.position - Main.screenPosition + tex.Size() / 2;
             Rectangle iFrame = tex.Frame();
-            //为物品添加描边，并时刻更新大小
-            //如果你要是有能力做渐变的话，so be it
             for (int i = 0; i < 16; i++)
-                SB.Draw(tex, position + MathHelper.ToRadians(i * 60f).ToRotationVector2() * 2.4f, null, color with { A = 0 }, 0f, tex.Size() / 2, scale, 0, 0f);
-            //然后绘制锤子本身。
-            SB.Draw(tex, position, iFrame, Color.White, 0f, tex.Size() / 2, scale, 0f, 0f);
-
+                SB.Draw(tex, position + MathHelper.ToRadians(i * 60f).ToRotationVector2() * 3f, null, color with { A = 0 }, rot, tex.Size() / 2, scale, 0, 0f);
+            SB.Draw(tex, position, iFrame, Color.White, rot, tex.Size() / 2, scale, 0f, 0f);
         }
         public static SpriteEffects FlipHorizonHandler(this Projectile projectile)
         {

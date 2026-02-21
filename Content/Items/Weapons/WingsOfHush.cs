@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noMelee = true;
             Item.knockBack = 3f;
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
-            Item.rare = ModContent.RarityType<CosmicPurple>();
+            Item.rare = ModContent.RarityType<VoidPurple>();
             Item.UseSound = SoundID.Item5;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<WohLaser>();

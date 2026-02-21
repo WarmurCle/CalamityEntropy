@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Rogue;
@@ -27,17 +28,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.autoReuse = true;
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
-            Item.rare = ModContent.RarityType<CosmicPurple>();
+            Item.rare = ModContent.RarityType<VoidPurple>();
             Item.shoot = ModContent.ProjectileType<SilenceThrow>();
             Item.shootSpeed = 15f;
             Item.DamageType = CEUtils.RogueDC;
-            Item.rare = ItemRarityID.Red;
-            Item.Entropy().stroke = true;
-            Item.Entropy().strokeColor = new Color(20, 26, 92);
-            Item.Entropy().tooltipStyle = 4;
-            Item.Entropy().NameColor = new Color(60, 80, 140);
-            Item.Entropy().HasCustomStrokeColor = true;
-            Item.Entropy().HasCustomNameColor = true;
         }
 
         public override void ModifyStatsExtra(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
