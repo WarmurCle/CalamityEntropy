@@ -217,6 +217,7 @@ Items: {
 		CruiserLore: {
 			DisplayName: История - Крейсер
 			// Tooltip: ""
+			// Lore: "{loreCruiser}"
 		}
 
 		NihilityTwinLore: {

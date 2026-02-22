@@ -240,21 +240,25 @@ Items: {
 		CruiserLore: {
 			DisplayName: Cruiser
 			Tooltip: ""
+			Lore: "{$loreCruiser}"
 		}
 
 		NihilityTwinLore: {
 			DisplayName: Nihility Twin
 			Tooltip: ""
+			Lore: "{$loreNihTwin}"
 		}
 
 		ProphetLore: {
 			DisplayName: Prophet
 			Tooltip: ""
+			Lore: "{$loreProphet}"
 		}
 
 		LuminarisLore: {
 			DisplayName: Luminaris
 			Tooltip: ""
+			Lore: "{$loreLuminaris}"
 		}
 	}
 

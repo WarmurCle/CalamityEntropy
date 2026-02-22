@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.Rarities
             spriteBatch.UseBlendState_UI(BlendState.Additive);
 
             UnifiedRandom rand = new UnifiedRandom(Item.Name.GetHashCode());
-            int particleCount = 12;
+            int particleCount = (int)(font.MeasureString(text).X * 0.1);
 
             for (int i = 0; i < particleCount; i++)
             {
@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Rarities
                 vec.Y = Utils.Remap(vec.Y, 0, 1, -0.4f, 1.1f);
                 Color clr = rand.NextBool() ? ParticleClr1 : ParticleClr2;
                 Vector2 adjPos = new Vector2(X, Y) + vec * new Vector2(font.MeasureString(text).X, 20);
-                spriteBatch.Draw(particle, adjPos, null, clr * alpha * 0.9f, rand.NextFloat(MathHelper.TwoPi) + Main.GlobalTimeWrappedHourly * 2f * (rand.NextBool() ? 1 : -1), particle.Size() / 2f, baseScale * new Vector2(0.05f, 0.05f) * rand.NextFloat(0.8f, 1.25f), SpriteEffects.None, 0);
+                spriteBatch.Draw(particle, adjPos, null, clr * alpha * 0.9f, rand.NextFloat(MathHelper.TwoPi) + Main.GlobalTimeWrappedHourly * 5f * (rand.NextBool() ? 1 : -1), particle.Size() / 2f, baseScale * new Vector2(0.05f, 0.05f) * rand.NextFloat(0.8f, 1.25f), SpriteEffects.None, 0);
             }
             spriteBatch.UseBlendState_UI(BlendState.AlphaBlend);
             

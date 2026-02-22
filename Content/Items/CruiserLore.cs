@@ -41,13 +41,13 @@ namespace CalamityEntropy.Content.Items
                 tooltips.Add(tooltipLineE);
             }
 
-            TooltipLine tooltipLine = new TooltipLine(base.Mod, "CalamityMod:Lore", Language.GetTextValue("Mods.CalamityEntropy.loreCruiser"));
+            /*TooltipLine tooltipLine = new TooltipLine(base.Mod, "CalamityMod:Lore", Language.GetTextValue("Mods.CalamityEntropy.loreCruiser"));
             if (ExtensionIndicatorColor.HasValue)
             {
                 tooltipLine.OverrideColor = ExtensionIndicatorColor.Value;
             }
 
-            CEUtils.HoldShiftTooltip(tooltips, new TooltipLine[1] { tooltipLine }, hideNormalTooltip: true);
+            CEUtils.HoldShiftTooltip(tooltips, new TooltipLine[1] { tooltipLine }, hideNormalTooltip: true);*/
         }
         public override void SetDefaults()
         {

@@ -251,21 +251,25 @@ Items: {
 		CruiserLore: {
 			DisplayName: 巡游者
 			Tooltip: ""
+			Lore: "{$loreCruiser}"
 		}
 
 		NihilityTwinLore: {
 			DisplayName: 虚无双子
 			Tooltip: ""
+			Lore: "{$loreNihTwin}"
 		}
 
 		ProphetLore: {
 			DisplayName: 先知
 			Tooltip: ""
+			Lore: "{$loreProphet}"
 		}
 
 		LuminarisLore: {
 			DisplayName: 幻光星蛾
 			Tooltip: ""
+			Lore: "{$loreLuminaris}"
 		}
 	}
 
