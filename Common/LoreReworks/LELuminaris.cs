@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Items;
+﻿using CalamityEntropy.Content.Items.Lores;
 using Terraria;
 using Terraria.ModLoader;
 

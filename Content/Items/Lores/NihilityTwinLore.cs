@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items.LoreItems;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -8,7 +9,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items
+namespace CalamityEntropy.Content.Items.Lores
 {
     public class NihilityTwinLore : LoreItem
     {
@@ -21,37 +22,24 @@ namespace CalamityEntropy.Content.Items
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+                return;
             if (ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)
             {
-                TooltipLine tooltipLineEF = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy.UseToggle"));
-                if (ExtensionIndicatorColor.HasValue)
-                {
-                    tooltipLineEF.OverrideColor = ExtensionIndicatorColor.Value;
-                }
+                TooltipLine tooltipLineEF = new TooltipLine(Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy.UseToggle"));
                 tooltips.Add(tooltipLineEF);
-                TooltipLine tooltipLineA = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy.NihTwinLoreEffect"));
-                if (ExtensionIndicatorColor.HasValue)
-                {
-                    tooltipLineA.OverrideColor = ExtensionIndicatorColor.Value;
-                }
+                TooltipLine tooltipLineA = new TooltipLine(Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy.NihTwinLoreEffect"));
                 tooltipLineA.Text = tooltipLineA.Text.Replace("{1}", VoidRes.ToPercent().ToString());
                 tooltipLineA.Text = tooltipLineA.Text.Replace("{2}", HealPreSec.ToString());
                 tooltipLineA.Text = tooltipLineA.Text.Replace("{3}", MaxFlyTimeAddition.ToPercent().ToString());
 
                 tooltips.Add(tooltipLineA);
 
-                TooltipLine tooltipLineE = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy." + (Main.LocalPlayer.Entropy().NihilityTwinLoreBonus ? "Enabled" : "Disabled")));
+                TooltipLine tooltipLineE = new TooltipLine(Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy." + (Main.LocalPlayer.Entropy().NihilityTwinLoreBonus ? "Enabled" : "Disabled")));
                 tooltipLineE.OverrideColor = Main.LocalPlayer.Entropy().NihilityTwinLoreBonus ? Color.Yellow : Color.Gray;
                 tooltips.Add(tooltipLineE);
             }
 
-            TooltipLine tooltipLine = new TooltipLine(base.Mod, "CalamityMod:Lore", Language.GetTextValue("Mods.CalamityEntropy.loreNihTwin"));
-            if (ExtensionIndicatorColor.HasValue)
-            {
-                tooltipLine.OverrideColor = ExtensionIndicatorColor.Value;
-            }
-
-            CEUtils.HoldShiftTooltip(tooltips, new TooltipLine[1] { tooltipLine }, hideNormalTooltip: true);
         }
         public override bool CanUseItem(Player player)
         {

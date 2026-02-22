@@ -1,4 +1,5 @@
 ﻿using CalamityMod.Items.LoreItems;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -107,25 +108,14 @@ namespace CalamityEntropy.Common
         {
             if (!ModContent.GetInstance<ServerConfig>().LoreSpecialEffect || !LoreReworkSystem.loreEffects.ContainsKey(item.type))
                 return;
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+                return;
 
-            Color? ExtensionIndicatorColor = null;
-            if (item.ModItem != null && item.ModItem is LoreItem li)
-            {
-                ExtensionIndicatorColor = li.ExtensionIndicatorColor;
-            }
             TooltipLine tooltipLineEF = new TooltipLine(base.Mod, "CalamityEntropy:LoreEffectInfo", Language.GetTextValue("Mods.CalamityEntropy.UseToggle"));
-            if (ExtensionIndicatorColor.HasValue)
-            {
-                tooltipLineEF.OverrideColor = ExtensionIndicatorColor.Value;
-            }
             tooltips.Add(tooltipLineEF);
             var dsc = LoreReworkSystem.loreEffects[item.type].Decription;
 
             TooltipLine tooltipLineA = new TooltipLine(base.Mod, "CalamityEntropy:LoreEffectDesc", dsc.Value);
-            if (ExtensionIndicatorColor.HasValue)
-            {
-                tooltipLineA.OverrideColor = ExtensionIndicatorColor.Value;
-            }
             LoreReworkSystem.loreEffects[item.type].ModifyTooltip(tooltipLineA);
             tooltips.Add(tooltipLineA);
 

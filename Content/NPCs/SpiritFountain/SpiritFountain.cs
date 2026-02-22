@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Lores;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.SpiritFountainShoots;
@@ -131,20 +132,20 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<CruiserBag>()));
+            //npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<CruiserBag>()));
 
             npcLoot.DefineConditionalDropSet(() => true).Add(DropHelper.PerPlayer(ModContent.ItemType<OmegaHealingPotion>(), 1, 5, 15), hideLootReport: true);
 
 
             var normalOnly = npcLoot.DefineNormalOnlyDropSet();
             {
-                normalOnly.Add(ModContent.ItemType<VoidRelics>(), new Fraction(3, 5));
+                //normalOnly.Add(ModContent.ItemType<VoidRelics>(), new Fraction(3, 5));
             }
-            npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<CruiserRelic>());
+            //npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<CruiserRelic>());
 
-            npcLoot.Add(ModContent.ItemType<CruiserTrophy>(), 10);
+            //npcLoot.Add(ModContent.ItemType<CruiserTrophy>(), 10);
 
-            npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedCruiser, ModContent.ItemType<CruiserLore>());
+            //npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedCruiser, ModContent.ItemType<CruiserLore>());
         }
         public override void SendExtraAI(BinaryWriter writer)
         {

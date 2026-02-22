@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Biomes;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
+using CalamityEntropy.Content.Items.Lores;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;

@@ -6,24 +6,15 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items
+namespace CalamityEntropy.Content.Items.Lores
 {
     public class LuminarisLore : LoreItem
     {
         public static float wingTimeAddition = 0.05f;
+        
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-        }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine tooltipLine = new TooltipLine(base.Mod, "CalamityMod:Lore", Language.GetTextValue("Mods.CalamityEntropy.loreLuminaris"));
-            if (ExtensionIndicatorColor.HasValue)
-            {
-                tooltipLine.OverrideColor = ExtensionIndicatorColor.Value;
-            }
-
-            CEUtils.HoldShiftTooltip(tooltips, new TooltipLine[1] { tooltipLine }, hideNormalTooltip: true);
         }
         public override void SetDefaults()
         {

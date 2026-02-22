@@ -217,22 +217,25 @@ Items: {
 		CruiserLore: {
 			DisplayName: История - Крейсер
 			// Tooltip: ""
-			// Lore: "{loreCruiser}"
+			// Lore: "{$loreCruiser}"
 		}
 
 		NihilityTwinLore: {
 			DisplayName: История - Близнецов Пустоты
 			// Tooltip: ""
+			// Lore: "{$loreNihTwin}"
 		}
 
 		ProphetLore: {
 			DisplayName: История - Пророк
 			// Tooltip: ""
+			// Lore: "{$loreProphet}"
 		}
 
 		LuminarisLore: {
 			DisplayName: История - Фантомной Моли
 			// Tooltip: ""
+			// Lore: "{$loreLuminaris}"
 		}
 	}
 
