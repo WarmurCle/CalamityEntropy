@@ -254,6 +254,7 @@ namespace CalamityEntropy
                 self.velocity = Collision.TileCollision(self.position, self.velocity + new Vector2(0, self.controlDown ? (self.controlJump ? -self.velocity.Y : 5) : 0), self.width, num, fallThrough, ignorePlats, (int)self.gravDir);
                 Vector2 vector2 = self.velocity;
                 self.position += vector2;
+                self.Calamity().infiniteFlight = true;
                 if (self.wingTime < self.wingTimeMax)
                     self.wingTime = self.wingTimeMax;
             }
