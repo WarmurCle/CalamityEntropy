@@ -76,7 +76,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.timeLeft = 3;
             }
-            if (player.channel && Projectile.ai[1] < maxCharge && player.HeldItem.Calamity().Charge > player.HeldItem.Calamity().ChargePerUse)
+            if (player.channel && Projectile.ai[1] < maxCharge)
             {
                 player.itemAnimation = 3;
                 player.itemTime = 3;
@@ -93,7 +93,6 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (Projectile.ai[1] > 16 && player.HasAmmo(player.HeldItem))
                 {
-                    player.HeldItem.Calamity().Charge -= player.HeldItem.Calamity().ChargePerUse;
                     if (Main.myPlayer == Projectile.owner)
                     {
                         if (player.HeldItem.ModItem is RailPulseBow gw)

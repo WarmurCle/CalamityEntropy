@@ -27,8 +27,6 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.jumpSpeedBoost += 0.5f;
             player.maxRunSpeed *= 1.10f;
             player.Entropy().addEquip(ID, !hideVisual);
-            if (Item.Calamity().Charge < 0)
-                Item.Calamity().Charge = 0;
         }
         public override void UpdateVanity(Player player)
         {
