@@ -116,9 +116,9 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             NPC.boss = true;
             NPC.width = 80;
             NPC.height = 80;
-            NPC.damage = 70;
+            NPC.damage = 64;
             NPC.Calamity().DR = 0.10f;
-            NPC.lifeMax = 50000;
+            NPC.lifeMax = 40000;
             if (BossRushEvent.BossRushActive)
             {
                 NPC.lifeMax += 350000;

@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         }
         public List<HitRecord> hitRecords = new List<HitRecord>();
         public float ProgressDraw = 0;
-        private int length = 27;
+        private int length = 20;
         public float speedMuti = 1;
         public float speed = 18;
         public float targetSpeed = 18;
@@ -140,7 +140,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.boss = true;
             NPC.width = 100;
             NPC.height = 100;
-            NPC.damage = 225;
+            NPC.damage = 220;
             if (Main.expertMode)
             {
                 NPC.damage += 5;
@@ -150,16 +150,16 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 NPC.damage += 5;
             }
             NPC.defense = 90;
-            NPC.lifeMax = 1500000;
+            NPC.lifeMax = 1200000;
             if (CalamityWorld.death)
             {
-                NPC.damage += 5;
-                length += 4;
+                NPC.damage += 4;
+                length += 5;
             }
             else if (CalamityWorld.revenge)
             {
-                NPC.damage += 5;
-                length += 2;
+                NPC.damage += 4;
+                length += 5;
             }
             tdamage = NPC.damage;
             NPC.HitSound = SoundID.NPCHit4;
@@ -474,7 +474,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public AIStyle ai = AIStyle.TryToClosePlayer;
         public void Shoot(int type, Vector2 pos, Vector2 velo, float damageMult = 1, float ai0 = 0, float ai1 = 0, float ai2 = 0)
         {
-            Projectile.NewProjectile(NPC.GetSource_FromAI(), pos, velo, type, (int)(NPC.damage / 6 * damageMult), 3, -1, ai0, ai1, ai2);
+            Projectile.NewProjectile(NPC.GetSource_FromAI(), pos, velo, type, (int)(NPC.damage / 7.4f * damageMult), 3, -1, ai0, ai1, ai2);
         }
         public float whiteLerp = 0;
         public override void HitEffect(NPC.HitInfo hit)
