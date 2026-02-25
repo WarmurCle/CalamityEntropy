@@ -466,9 +466,19 @@ namespace CalamityEntropy.Common
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if (item.ModItem != null && item.ModItem is IAzafureEnhancable && Main.LocalPlayer.AzafureEnhance())
+            if (item.ModItem != null)
             {
-                tooltips.Add(new TooltipLine(Mod, "Azafure Enhance", $"{Mod.GetLocalization("AzafureEnhance").Value}: " + item.ModItem.Mod.GetLocalization($"AzafureEnhances.{item.ModItem.Name}").Value) { OverrideColor = Color.Yellow });
+                if (item.ModItem is IAzafureEnhancable && Main.LocalPlayer.AzafureEnhance())
+                {
+                    tooltips.Add(new TooltipLine(Mod, "Azafure Enhance", $"{Mod.GetLocalization("AzafureEnhance").Value}: " + item.ModItem.Mod.GetLocalization($"AzafureEnhances.{item.ModItem.Name}").Value) { OverrideColor = Color.Yellow });
+                }
+                if(item.ModItem is ExquisiteCrown || item.ModItem is RottenFangs)
+                {
+                    LocalizedText itemName = item.ModItem is ExquisiteCrown ? CalamityUtils.GetItemName<RottenFangs>() : CalamityUtils.GetItemName<ExquisiteCrown>();
+                    TooltipLine lineExtra = new TooltipLine(Mod, "Desc2", Mod.GetLocalization("MinionAccDescCrownFangs").Value.Replace("[ITEM]", itemName.Value));
+                    lineExtra.OverrideColor = (Main.LocalPlayer.Entropy().exquisiteCrown && Main.LocalPlayer.Entropy().rottenFangs) ? Color.Yellow : Color.Gray;
+                    tooltips.Add(lineExtra);
+                }
             }
             if (ModContent.GetInstance<Config>().ItemAdditionalInfo)
             {

@@ -19,7 +19,6 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.maxMinions += 1;
             player.Entropy().rottenFangs = true;
         }
     }
@@ -43,7 +42,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                             if (target != null)
                             {
                                 int dmg = ((int)(projectile.GetOwner().GetTotalDamage(DamageClass.Summon).ApplyTo(10))).ApplyAccArmorDamageBonus(projectile.GetOwner());
-                                for (int i = 0; i < 5; i++)
+                                for (int i = 0; i < 3; i++)
                                 {
                                     Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, (target.Center - projectile.Center).normalize().RotatedByRandom(0.2f) * Main.rand.NextFloat(5, 8), ModContent.ProjectileType<RottenFangsBloodBullet>(), dmg, 5, projectile.owner);
                                 }

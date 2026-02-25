@@ -21,7 +21,6 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.maxMinions += 1;
             player.Entropy().exquisiteCrown = true;
         }
     }

@@ -14,7 +14,6 @@ namespace CalamityEntropy.Content.Menu
         public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white");
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/startmenu");
         public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Logo");
-        public override Asset<Texture2D> LogoGlow => ModContent.Request<Texture2D("CalamityEntropy/Assets/Extra/Logool");
         public override string DisplayName => "Calamity Entropy - The Church";
         public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
         {
@@ -92,7 +91,7 @@ namespace CalamityEntropy.Content.Menu
                 float rot = counter * 0.008f;
                 for (int j = 0; j < 16; j++)
                 {
-                    spriteBatch.Draw(LogoGlow.Value, logoDrawCenter + rot.ToRotationVector2() * ((float)i * 0.5f), null, Color.LightBlue * 0.15f, logoRotation, logo.Size() / 2, logoScale, SpriteEffects.None, 0);
+                    spriteBatch.Draw(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Logool").Value, logoDrawCenter + rot.ToRotationVector2() * ((float)i * 0.5f), null, Color.LightBlue * 0.15f, logoRotation, logo.Size() / 2, logoScale, SpriteEffects.None, 0);
                     rot += MathHelper.ToRadians(22.5f);
                 }
             }
@@ -107,7 +106,7 @@ namespace CalamityEntropy.Content.Menu
                 float rot = 0;
                 for (int j = 0; j < 8; j++)
                 {
-                    spriteBatch.Draw(LogoGlow.Value, logoDrawCenter + rot.ToRotationVector2() * ((float)i), null, Color.LightBlue * 0.15f, logoRotation, logo.Size() / 2, logoScale, SpriteEffects.None, 0);
+                    spriteBatch.Draw(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Logool").Value, logoDrawCenter + rot.ToRotationVector2() * ((float)i), null, Color.LightBlue * 0.15f, logoRotation, logo.Size() / 2, logoScale, SpriteEffects.None, 0);
                     rot += MathHelper.ToRadians(45);
                 }
             }

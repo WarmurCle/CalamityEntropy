@@ -3693,6 +3693,8 @@ namespace CalamityEntropy.Common
         public int WindPressureTime = 0;
         public override void PostUpdateEquips()
         {
+            if (exquisiteCrown && rottenFangs)
+                Player.maxMinions++;
             if (Player.Calamity().chaliceOfTheBloodGod && holyMoonlight)
             {
                 holyMoonlight = false;
