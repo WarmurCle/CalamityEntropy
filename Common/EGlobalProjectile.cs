@@ -731,11 +731,11 @@ namespace CalamityEntropy.Common
             }
             if (GWBow && projectile.arrow)
             {
-                if (Main.rand.NextBool(4 * projectile.MaxUpdates))
+                if (Main.rand.NextBool(4 * projectile.maxPenetrate))
                 {
                     EParticle.spawnNew(new HeavenfallStar2() { drawScale = Vector2.One }, projectile.Center + CEUtils.randomPointInCircle(16), projectile.velocity * 0.3f, Main.hslToRgb(0.85f, 1, 0.8f), 0.3f, 1, true, BlendState.Additive, 0);
                 }
-                if (Main.rand.NextBool(projectile.MaxUpdates))
+                if (Main.rand.NextBool(projectile.maxPenetrate))
                 {
                     EParticle.spawnNew(new HeavenfallStar2() { drawScale = new Vector2(0.4f, 1f) }, projectile.Center + CEUtils.randomPointInCircle(12), projectile.velocity * 0.1f, Main.hslToRgb(0.85f, 1, 0.8f), 1.2f, 1, true, BlendState.Additive, projectile.velocity.ToRotation(), 16);
                 }
