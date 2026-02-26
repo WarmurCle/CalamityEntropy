@@ -137,6 +137,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             player.SetHandRot(Projectile.rotation, (Player.CompositeArmStretchAmount)(Main.rand.Next(0, 3)));
             Projectile.Center = player.GetFrontHandPositionImproved(player.compositeFrontArm);
             Projectile.Center += Projectile.rotation.ToRotationVector2() * (CEUtils.Parabola((float)counter / MaxTime, 22 * player.HeldItem.scale) - 16);
+            Projectile.timeLeft = 4;
             if (counter >= MaxTime)
             {
                 Projectile.timeLeft = 0;

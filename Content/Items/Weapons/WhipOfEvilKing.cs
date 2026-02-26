@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient<AncientBoneDust>()
                 .AddIngredient(ItemID.Silk, 8)
                 .AddRecipeGroup(CERecipeGroups.evilBar, 5)
-                .AddIngredient(ItemID.GoldCoin, 9)
+                .AddIngredient(ItemID.GoldCoin, 99)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
