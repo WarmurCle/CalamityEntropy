@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.shoot = ProjectileID.Bullet;
             Item.shootSpeed = 16f;
             Item.useAmmo = AmmoID.Bullet;
-            Item.crit = 5;
+            Item.crit = 18;
         }
         public int mode = 0;
         public override Vector2? HoldoutOffset()

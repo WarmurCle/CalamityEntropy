@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAnimation = 50;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 14;
-            Item.value = CalamityGlobalItem.RarityRedBuyPrice;
+            Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ModContent.RarityType<DarkOrange>();
             Item.UseSound = null;
             Item.noMelee = true;
