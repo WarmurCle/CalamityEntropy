@@ -644,6 +644,16 @@ namespace CalamityEntropy.Common
 
         public override bool CanUseItem(Item item, Player player)
         {
+            if (ModContent.GetInstance<ServerConfig>().ClearStealthWhenChangeEquipSet)
+            {
+                var mp = player.Entropy();
+                if (mp.StealthMaxLast != player.Calamity().rogueStealthMax)
+                {
+                    player.Calamity().rogueStealth = 0;
+                    mp.RstStealth = true;
+                    return false;
+                }
+            }
             if (player.GetModPlayer<AtbmPlayer>().Active && item.ModItem is not AzafureTBMTerminal)
                 return false;
             if ((player.HasBuff<VoidVirus>() || (CalamityEntropy.EntropyMode && player.Entropy().HitTCounter > 0)) && item.healLife > 0)

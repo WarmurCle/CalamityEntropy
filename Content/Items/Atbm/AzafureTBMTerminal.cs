@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -70,8 +71,30 @@ namespace CalamityEntropy.Content.Items.Atbm
         public int tbmtype = 0;
         public Vector2 opos;
         public bool CanDraw = false;
+        public int EscapeTime = 0;
         public override void PostUpdateMiscEffects()
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                EscapeTime++;
+            }
+            else
+                EscapeTime = 0;
+            if(EscapeTime > 60)
+            {
+                int type = ModContent.ProjectileType<ATBMProjectile>();
+                if (Player.ownedProjectileCounts[type] > 0)
+                {
+                    foreach (Projectile p in Main.ActiveProjectiles)
+                    {
+                        if (p.owner == Player.whoAmI && p.type == type)
+                        {
+                            p.Kill();
+                        }
+                    }
+                }
+                EscapeTime = 0;
+            }
             if (tbmtype == 0)
             {
                 tbmtype = ModContent.ProjectileType<ATBMProjectile>();
