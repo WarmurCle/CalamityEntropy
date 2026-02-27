@@ -506,6 +506,8 @@ namespace CalamityEntropy.Content.Items.Donator
                     Main.projectile[p].Calamity().stealthStrike = true;
                     int ut = 40 - GetLevel();
                     SpeedUpTime += ut + (int)(ut * 0.35f);
+                    if (SpeedUpTime > 120)
+                        SpeedUpTime = 120;
                 }
                 CostStealthForPlr(player);
 
