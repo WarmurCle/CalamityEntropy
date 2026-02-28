@@ -23,6 +23,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace CalamityEntropy.Content.Items.Donator
 {
@@ -992,25 +993,101 @@ namespace CalamityEntropy.Content.Items.Donator
     {
         public bool isToggle = false;
         public bool isPressed = false;
+        public override void LoadData(TagCompound tag)
+        {
+            isPressed = tag.GetBool(nameof(isPressed));
+        }
+        public override void SaveData(TagCompound tag)
+        {
+            tag.Add(nameof(isPressed), isPressed);
+        }
+        //花
+        public void SpawnFlower()
+        {
+            //花蕊的半径。
+            float heartRads = 3.6f;
+            //花蕊的粒子数量。
+            int heartDustCounts = 20;
+            for (int i = 0; i < heartDustCounts; i++)
+            {
+                //花蕊粒子与中心的向量差
+                Vector2 heartPos = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * Main.rand.NextFloat(heartRads);
+                //需要表现出从中心往外扩散的效果
+                Vector2 dir = heartPos.SafeNormalize(Vector2.UnitX) * 1.6f;
+                Dust d = Dust.NewDustPerfect(Player.Center + heartPos, DustID.TheDestroyer);
+                d.scale *= 1.1f;
+                d.velocity = dir;
+                d.noGravity = true;
+            }
+
+            //尝试生成花瓣
+            int petalCount = 5;
+            float outerRadius = 18f;
+            float innerRadius = 3.6f;
+            List<List<Vector2>> petalVertexList = [];
+            float randAngle = Main.rand.NextFloat(MathHelper.TwoPi);
+            for (int k = 0; k < petalCount; k++)
+            {
+                //每次过来的时候都会新建一次顶点数据
+                //然后放入到上面的顶点列表里的顶点列表内
+                List<Vector2> petalVertexs = [];
+                //五个花瓣，总共72°
+                float petalStartAngle = randAngle + MathHelper.ToRadians(k * 72);
+                float petalEndAngle = petalStartAngle + MathHelper.ToRadians(72);
+                //生成花瓣内侧弧线顶点
+                for (int i = 0; i <= 4; i++)
+                {
+                    float t = (float)i / 4;
+                    float angle = MathHelper.Lerp(petalStartAngle, petalEndAngle, t);
+                    Vector2 vertex = angle.ToRotationVector2() * innerRadius;
+                    petalVertexs.Add(vertex);
+                }
+
+                //生成花瓣外侧弧线顶点，需逆向
+                for (int i = 4; i >= 0; i--)
+                {
+                    float t = (float)i / 4;
+                    float angle = MathHelper.Lerp(petalStartAngle, petalEndAngle, t);
+                    //调整了一点弧度。
+                    float dynamicOuterRadius = outerRadius * (1 + 0.1f * (float)Math.Sin(angle * 5));
+                    Vector2 vertex = angle.ToRotationVector2() * dynamicOuterRadius;
+                    petalVertexs.Add(vertex);
+                }
+
+                petalVertexList.Add(petalVertexs);
+            }
+
+            //连线。
+            foreach (var petalVertex in petalVertexList)
+            {
+                for (int i = 0; i < petalVertex.Count - 1; i++)
+                {
+                    Vector2 startVertex = petalVertex[i];
+                    Vector2 endVertex = petalVertex[i + 1];
+                    int connectCounts = 8;
+                    for (int j = 0; j < connectCounts; j++)
+                    {
+                        float t = (float)j / (connectCounts - 1);
+                        Vector2 currentPos = Vector2.Lerp(startVertex, endVertex, t);
+                        float lerpValue = MathHelper.Lerp(MathF.Abs(j % 10 - 5) / 5f, 1, 0.6f);
+                        Vector2 dir2 = currentPos.SafeNormalize(Vector2.UnitX) * lerpValue;
+                        Dust d = Dust.NewDustPerfect(Player.Center + currentPos, DustID.TheDestroyer);
+                        d.scale *= 1.1f;
+                        d.velocity = dir2;
+                        d.noGravity = true;
+                    }
+                }
+            }
+        }
         public override void PostUpdate()
         {
             if (Main.mouseMiddle && Main.HoverItem.type == ModContent.ItemType<TlipocasScythe>() && Main.playerInventory)
             {
                 if (Main.mouseMiddleRelease)
                 {
-                    if (isPressed)
-                    {
-                        isPressed = false;
-                        Player.Center.CirclrDust(36, 1.26f, DustID.GemRuby, 6, 3f);
-                        SoundEngine.PlaySound(SoundID.Item103 with { MaxInstances = 4, Pitch = 0.4f });
-                    }
-                    else
-                    {
-                        isPressed = true;
-                        Player.Center.CirclrDust(36, 1.26f, DustID.GemRuby, -6, 3f);
-                        SoundEngine.PlaySound(SoundID.Item103 with { MaxInstances = 4, Pitch = 0.4f });
-                    }
-
+                    isPressed = !isPressed;
+                    SpawnFlower();
+                    SoundEngine.PlaySound(SoundID.Item103 with { MaxInstances = 4, Pitch = 0.4f });
                 }
             }
         }

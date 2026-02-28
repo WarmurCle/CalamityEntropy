@@ -1,59 +1,67 @@
 Items: {
 	VoidBlade: {
 		DisplayName: Void Blade
-		Tooltip: Quickly perform continuous slashing
+		Tooltip: Perform fast slashes in quick succession
 	}
 
 	Weapons: {
 		Rogue: {
 			Revelation: {
+				DisplayName: Revelation
 				Tooltip:
 					'''
-					Throw out a sickle
-					When Stealth, Chop and fire projectiles
+					Throw a returning sickle that shoots mini meld-sickles
+					Mini meld-sickles have a short lifespan and will home on targets
+					Stealth strike to fire two additional homing sickles
 					'''
-				DisplayName: Revelation
 			}
 
 			Silence: {
 				DisplayName: Silence
-				Tooltip: Toss out a flying disk can pull
+				Tooltip: 
+					'''
+					Hurl a voidforged chakram that chains itself to the nearest enemy and homes in on its prey
+					Inflicts Collapsing Void, dealing increasing damage with each successive hit
+					Stealth strike unleashes a spinning void disk that shreds enemies for 3 seconds
+					Collapsing Void is capped at 312 DPS
+					'''
 			}
 
 			ShadewindLance: {
+				DisplayName: Shadewind Lance
 				Tooltip:
 					'''
-					Throw out a javelin containing void
-					Stealth attacks will deal higher damage and can penetrate infinitely
+					Hurl a void-infused javelin forged from condensed shadow
+					Stealth strikes deal increased damage and pierce endlessly through enemies
+					Collapsing Void is capped at 260 DPS
 					'''
-				DisplayName: Shadewind Lance
 			}
 
 			Aquashard: {
 				DisplayName: Aquashard
 				Tooltip:
 					'''
-					throws a fragile javelin that shatters into small crystals upon hitting an enemy
-					Stealth strikes grant limited pierce and causes the javelin to fracture upon hitting an enemy
+					Throw a fragile javelin that shatters into smaller crystals upon hitting an enemy
+					Stealth strikes grant limited piercing and cause the javelin to fracture on impact
 					'''
 			}
 
 			SpearOfRadiance: {
+				DisplayName: Spear Of Radiance
 				Tooltip:
 					'''
-					Rapidly throws a holy javelin
-					Stealth strikes create a screen-wide cross
+					Rapidly throw a holy javelin
+					Stealth strikes summon a holy light to vanquish your foes
 					'''
-				DisplayName: Spear Of Radiance
 			}
 
 			AbyssalPiercer: {
 				DisplayName: Abyssal Piercer
 				Tooltip:
 					'''
-					throws a drowned javelin that explodes into tracking water bursts
-					Stealth strikes cause the javelin to open an abyssal rift that spews tentacles
-					Additionally, stealth strikes can pierce up to 5 enemies
+					Hurl a drowned javelin that erupts into homing abyssal water on impact
+					Stealth strikes tear open a rift to the depths, unleashing grasping tentacles
+					Stealth strikes can pierce up to 5 enemies
 					'''
 			}
 
@@ -61,8 +69,8 @@ Items: {
 				DisplayName: Azure Of Firmament
 				Tooltip:
 					'''
-					Rapidly throws a light javelin
-					Stealth strikes cause a burst of feathers around you that home into any npcs struck by the javelin.
+					Rapidly throw a light-infused javelin
+					Stealth strikes create a burst of feathers that home in on any NPCs struck
 					'''
 			}
 
@@ -70,47 +78,49 @@ Items: {
 				DisplayName: Arbitrator II
 				Tooltip:
 					'''
-					Throws an exploding javelin
+					Throw an exploding javelin
 					Stealth strikes cause the javelin to lodge into struck targets
-					after a brief delay, they explode, dealing damage to all nearby targets.
+					After a brief delay, the lodged javelins explode, damaging all nearby enemies
 					'''
 			}
 
 			Voidseeker: {
-				Tooltip: Stealth Strike will teleport you to your cursor and deal significant damage
 				DisplayName: Voidseeker
+				Tooltip: Stealth Strike will teleport you to your cursor and deal significant damage
+				
 			}
 
 			TheBeginingAndTheEnd: {
 				DisplayName: The Beginning And The End
 				Tooltip:
 					'''
-					Throw The Beginning or The End using left or right button
-					The End inflicts Stare of Abyss while The Beginning inflicts Eclipsed Imprint
-					Vanish and spawn Echo Soul or Eclipsed Soul based on stacks of debuff once alternative type hit
-					Echo Soul continuously attacking your target for a while
-					Eclipsed soul heals you on return, while temporarily increasing attack speed, attack damage, and crit chance
-					Stealth strikes simulaneously throw a double homing knives, unleashing a large number of souls on hit
+					Left click throws The Beginning, right click throws The End
+					The End inflicts Stare of the Abyss
+					The Beginning inflicts Eclipsed Imprint
+					When both debuffs are present, an Echo Soul or Eclipsed Soul manifests
+					Echo Souls relentlessly assault enemies for a short time
+					Eclipsed Souls return to you, restoring life and briefly empowering damage, attack speed, and critical strike chance
+					Stealth strikes throw two homing knives and unleash a torrent of souls on impact
 					'''
 			}
 
 			AmethystFrisbee: {
+				DisplayName: Amethyst Frisbee
 				Tooltip:
 					'''
-					Toss out a disk returns on hit
-					Reverse and ignore gravity on return
-					Stealth strike creates a shockwave on hit
+					Toss a disk that returns on hit
+					Reverses direction and ignores gravity on return
+					Stealth strikes create a shockwave on impact
 					'''
-				DisplayName: Amethyst Frisbee
 			}
 
 			ProphecyFlyingKnife: {
+				DisplayName: Prophecy Knife
 				Tooltip:
 					'''
-					Fires several homing knives.
-					Stealth strike throws a kinfe that spawn 6 orbiting rune orbs on hit.
+					Fires several homing knives
+					Stealth strikes throw a knife that spawns 6 orbiting rune orbs on hit
 					'''
-				DisplayName: Prophecy Knife
 			}
 
 			TheDeadCut: {
@@ -122,8 +132,8 @@ Items: {
 				DisplayName: Lunar Plank
 				Tooltip:
 					'''
-					Throw a lunar plank to hit enemies
-					Steal strikes will cause a pulse and release some homing lunar arrows
+					Throw a lunar plank to strike enemies
+					Stealth strikes release a pulse and fire homing lunar arrows
 					'''
 			}
 
@@ -131,23 +141,23 @@ Items: {
 				DisplayName: Azafure Surge Rod
 				Tooltip:
 					'''
-					Insert into target on hit.
-					Burst lightning towards targets nearby after a delay
-					Stealth strikes will throw multiple rods, hovering in the air and home in on targets nearby
+					Lodge into targets on hit
+					After a short delay, it bursts with lightning toward nearby enemies
+					Stealth strikes throw multiple rods that hover in the air and home in on nearby targets
 					'''
 			}
 
 			TlipocasScythe: {
 				DisplayName: Tlipoca's Scythe
-				Tooltip: ""
+				Tooltip: "NOT IMPLEMENTED AT THIS STAGE"
 			}
 
 			AzafureLightMachineGun: {
 				DisplayName: Azafure Light Machine Gun
 				Tooltip:
 					'''
-					Fires laser rapidly, minor restores stealth on hit
-					Stealth strike will launch a grenade affected by gravity
+					Rapidly fires lasers, slightly restoring stealth on hit
+					Stealth strikes launch a grenade affected by gravity
 					'''
 			}
 
@@ -155,20 +165,22 @@ Items: {
 				DisplayName: Azafure Air Reaper
 				Tooltip:
 					'''
-					Throw a sickle, hit it and stick it to the target, causing multiple injuries
-					Stealth attack throws a sickle that continues to chase the target and chop back and forth after being hit
+					Throw a sickle that embeds into targets, causing repeated damage
+					Stealth attacks throw a sickle that relentlessly chases its target, slicing back and forth
 					'''
 			}
 		}
 	}
 
 	PrisonOfPermafrost: {
+		DisplayName: Prison Of Permafrost
 		Tooltip:
 			'''
-			Summon a magic array while using
-			Continuously launching ice spikes and ice cones
+			Summon a magical array while using
+			Continuously launch ice spikes and ice cones
+			Occasionally shoot 3 large ice shards
+			Inflicts frostburn and curse
 			'''
-		DisplayName: Prison Of Permafrost
 	}
 
 	Kinanition: {
@@ -193,6 +205,7 @@ Items: {
 	}
 
 	AuricToilet: {
+		DisplayName: Auric Toilet
 		Tooltip:
 			'''
 			This was used by the Yharim
@@ -200,7 +213,6 @@ Items: {
 			At least you can sit on it now
 			"What the heck"
 			'''
-		DisplayName: Auric Toilet
 	}
 
 	LotteryBox: {
@@ -208,6 +220,7 @@ Items: {
 		Tooltip:
 			'''
 			Spawn a Lottery Machine
+			Hold a coin in your inventory and click on it for a chance to win!
 			"Maybe a little agressive"
 			'''
 	}
@@ -345,13 +358,13 @@ Items: {
 	}
 
 	VoidEcho: {
+		DisplayName: Symbol of Theocracy
 		Tooltip:
 			'''
 			Summon a circle of divine cannons
 			Releasing the mouse will simultaneously emit a void laser
 			"Even if it's just a part of the void, it has the power to annihilate all things"
 			'''
-		DisplayName: Symbol of Theocracy
 	}
 
 	FriendBox: {
@@ -361,7 +374,7 @@ Items: {
 			Summon a pair of entangled twins, duplicating your projectile
 			Duplicated projectile deals 100% damage of the original weapon
 			"So, what is the price?"
-			[c/ff0000: your damage becomes 1/5 of the original]
+			[c/ff0000: Your damage becomes 1/5 of the original...]
 			Each pair of entangled twinses 4 summon slots.
 			'''
 	}
@@ -382,13 +395,13 @@ Items: {
 	}
 
 	CruiserTrophy: {
-		Tooltip: ""
 		DisplayName: Cruiser Trophy
+		Tooltip: ""
 	}
 
 	VoidMonolith: {
-		Tooltip: ""
 		DisplayName: Void Monolith
+		Tooltip: ""
 	}
 
 	VoidToy: {
@@ -397,8 +410,8 @@ Items: {
 	}
 
 	WingsOfHush: {
-		Tooltip: Shoot powerful void arrow
 		DisplayName: Wings Of Hush
+		Tooltip: Shoot powerful void arrow
 	}
 
 	SoyMilk: {
@@ -407,12 +420,12 @@ Items: {
 	}
 
 	DarkArts: {
+		DisplayName: Art of the Darkness
 		Tooltip:
 			'''
 			Use to let you stealth for 2 seconds, takes no damage and mark all enemies and hostile projectiles
 			Deals damage to all marked enemies and clear makred projectiles once effect fadeds
 			'''
-		DisplayName: Art of the Darkness
 	}
 
 	VenomPiece: {
@@ -448,6 +461,7 @@ Items: {
 	}
 
 	OracleDeck: {
+		DisplayName: Oracle Deck
 		Tooltip:
 			'''
 			+[CR]% Crit Chance
@@ -463,7 +477,6 @@ Items: {
 			Heal players nearby by 20 per 5 sec
 			You will take at most half of your maximum health in damage
 			'''
-		DisplayName: Oracle Deck
 	}
 
 	MetropolisCard: {
@@ -521,12 +534,12 @@ Items: {
 	}
 
 	ThreadOfFate: {
+		DisplayName: Thread Of Fate
 		Tooltip:
 			'''
 			Can be used to craft Oracle Deck
 			Press Left Alt to check the card list
 			'''
-		DisplayName: Thread Of Fate
 		HoldShiftForDetails:
 			'''
 			[i:CalamityEntropy/AuraCard]Aura Card: Golden Chest，Iron Crate: 10%
@@ -547,12 +560,12 @@ Items: {
 	}
 
 	GalaxyGrapeSoda: {
+		DisplayName: Galaxy Grape Soda
 		Tooltip:
 			'''
 			Combining Grapes, Essences of Gods and...Crimliate Guardians?
 			Turns you into Devourer of Gods
 			'''
-		DisplayName: Galaxy Grape Soda
 	}
 
 	VoidAnnihilate: {
@@ -571,12 +584,12 @@ Items: {
 	}
 
 	DustyStar: {
+		DisplayName: Dusty Star
 		Tooltip:
 			'''
 			Turns you into the main developer
 			Don't forget to leave a like!
 			'''
-		DisplayName: Dusty Star
 	}
 
 	SoulCandle: {
@@ -624,8 +637,8 @@ Items: {
 	}
 
 	VoidScales: {
-		Tooltip: A scale composed of pure void
 		DisplayName: Void Scales
+		Tooltip: A scale composed of pure void
 	}
 
 	HolyMoonlight: {
@@ -663,42 +676,42 @@ Items: {
 	}
 
 	VoidFaquirCuises: {
+		DisplayName: Void Faquir Cuises
 		Tooltip:
 			'''
 			+10% Damage
 			+10% Crit Chance
 			+20% Movement Speed
 			'''
-		DisplayName: Void Faquir Cuises
 	}
 
 	VoidFaquirBodyArmor: {
+		DisplayName: Void Faquir Body Armor
 		Tooltip:
 			'''
 			+10% Damage
 			+5% Crit Chance
 			+5 Armor Penetration
 			'''
-		DisplayName: Void Faquir Body Armor
 	}
 
 	VoidFaquirDevourerHelm: {
+		DisplayName: Void Faquir Devourer Helm
 		Tooltip:
 			'''
 			+20% Melee Damage
 			+15% Melee Crit Chance
 			'''
-		DisplayName: Void Faquir Devourer Helm
 	}
 
 	VoidFaquirCosmosHood: {
+		DisplayName: Void Faquir Cosmos Hood
 		Tooltip:
 			'''
 			+30% Magic Damage
 			+25% Magic Crit Chance
 			+150 Max Mana
 			'''
-		DisplayName: Void Faquir Cosmos Hood
 	}
 
 	VoidFaquirEvokerHelm: {
@@ -725,22 +738,27 @@ Items: {
 	}
 
 	GhostdomWhisper: {
+		DisplayName: Ghostdom Whisper
 		Tooltip:
 			'''
 			Long press the left mouse button to charge and shoot
 			Charge up and shoot an arrow reinforced by the void
 			'''
-		DisplayName: Ghostdom Whisper
 	}
 
 	Interdimensionallens: {
-		Tooltip: Project the appearance behind the world
 		DisplayName: Interdimensional Lens
+		Tooltip:
+		'''
+		View an entirely different plane of existence...
+		
+		Tip: Does not work with animated backgrounds
+		'''
 	}
 
 	PowerBank: {
-		Tooltip: When put it in your inventory, Automatically recharge the items in your inventory
 		DisplayName: Power Bank
+		Tooltip: When put it in your inventory, Automatically recharge the items in your inventory
 	}
 
 	RustyGrenade: {
@@ -749,8 +767,8 @@ Items: {
 	}
 
 	RustExpeditioner: {
-		Tooltip: ""
 		DisplayName: Rust Expeditioner
+		Tooltip: ""
 	}
 
 	VoidDevastator: {
@@ -764,11 +782,12 @@ Items: {
 	}
 
 	RailPulseBow: {
-		Tooltip: Fired arrows gain an arcing electrical burst that triggers upon contact with an enemy or the ground
 		DisplayName: Rail Pulse Bow
+		Tooltip: Fired arrows gain an arcing electrical burst that triggers upon contact with an enemy or the ground
 	}
 
 	JailerWhip: {
+		DisplayName: Jailer Whip
 		Tooltip:
 			'''
 			Minion gain 5% crit chance
@@ -776,7 +795,6 @@ Items: {
 			{$CommonItemTooltip.Whips}
 			Enemies will explode when dead
 			'''
-		DisplayName: Jailer Whip
 	}
 
 	SilvasCrown: {
@@ -795,12 +813,12 @@ Items: {
 	}
 
 	ArchmagesHandmirror: {
+		DisplayName: Archmage's Handmirror
 		Tooltip:
 			'''
 			Gives you 40% extra mana
 			Every 1 extra mana provides 0.15% magic damage bonus
 			'''
-		DisplayName: Archmage's Handmirror
 	}
 
 	SlimeYoyo: {
@@ -809,6 +827,7 @@ Items: {
 	}
 
 	CelestialRing: {
+		DisplayName: Celestial Ring
 		Tooltip:
 			'''
 			+15% damage
@@ -819,7 +838,6 @@ Items: {
 			+5% Move Speed
 			+5% Melee Speed
 			'''
-		DisplayName: Celestial Ring
 	}
 
 	ArmorReforgStation: {
@@ -828,8 +846,8 @@ Items: {
 	}
 
 	OverloadFurnace: {
-		Tooltip: ""
 		DisplayName: Overload Furnace
+		Tooltip: ""
 	}
 
 	RustyDetectionEquipment: {
@@ -848,13 +866,13 @@ Items: {
 	}
 
 	Mercy: {
-		Tooltip: Use Void and Dark Magic to Burn Everything Down
 		DisplayName: Mercy
+		Tooltip: Use Void and Dark Magic to Burn Everything Down
 	}
 
 	CannedCarrion: {
-		Tooltip: ""
 		DisplayName: Canned Carrion
+		Tooltip: ""
 	}
 
 	LostSoul: {
@@ -863,36 +881,36 @@ Items: {
 	}
 
 	ShadowOfVoid: {
-		Tooltip: ""
 		DisplayName: Shadow Of Void
+		Tooltip: ""
 	}
 
 	HorizonssKey: {
+		DisplayName: Horizons' Key
 		Tooltip:
 			'''
 			[c/d9bd1b:The strength of this weapon increases as the game progresses]
 			[c/d9bd1b:Affected by the bonus of all damage classes]
 			'''
-		DisplayName: Horizons' Key
 	}
 
 	SacrificalMask: {
+		DisplayName: Sacrifical Mask
 		Tooltip:
 			'''
 			Summon a circle of sacrificial daggers around you
 			The dagger will stab nearby enemies and heal you
 			'''
-		DisplayName: Sacrifical Mask
 	}
 
 	TargetingWand: {
-		Tooltip: "[c/ff0000:This item is now WIP]"
 		DisplayName: Targeting Wand
+		Tooltip: "[c/ff0000:This item is now a WIP]"
 	}
 
 	DimensionKey: {
 		DisplayName: Dimension Key
-		Tooltip: "[c/ff0000:This item is now WIP]"
+		Tooltip: "[c/ff0000:This item is now a WIP]"
 	}
 
 	DreamCatcher: {
@@ -901,18 +919,18 @@ Items: {
 	}
 
 	AquaticFlute: {
-		Tooltip: ""
 		DisplayName: Aquatic Flute
+		Tooltip: ""
 	}
 
 	HolyMantle: {
+		DisplayName: Holy Mantle
 		Tooltip:
 			'''
 			Provide you with a Holy Shield that can withstand damage once
 			This effect has a 120 second cooldown time
 			Loot from hallow monsters
 			'''
-		DisplayName: Holy Mantle
 	}
 
 	ToyKnife: {
@@ -937,13 +955,13 @@ Items: {
 	}
 
 	AbyssalWraithPlush: {
-		Tooltip: ""
 		DisplayName: Abyssal Wraith Plush
+		Tooltip: ""
 	}
 
 	Voidshade: {
-		Tooltip: ""
 		DisplayName: Voidshade
+		Tooltip: ""
 	}
 
 	GreedCard: {
@@ -1092,23 +1110,23 @@ Items: {
 	}
 
 	CrimsonNight: {
-		Tooltip: ""
 		DisplayName: Crimson Night
+		Tooltip: ""
 	}
 
 	PoopPickup: {
-		Tooltip: ""
 		DisplayName: Poop Pickup
+		Tooltip: ""
 	}
 
 	BrokenAnkh: {
+		DisplayName: Broken Ankh
 		Tooltip:
 			'''
 			Enable you to store some poops
 			Attack has a chance to obtain throwable poops
 			Press [KEY] to throw a poop
 			'''
-		DisplayName: Broken Ankh
 	}
 
 	DustyWhistle: {
@@ -1127,17 +1145,18 @@ Items: {
 	}
 
 	MawOfTheVoid: {
+		DisplayName: Maw Of The Void
 		Tooltip:
 			'''
 			Charging when using weapons,
-			when it is fully charged, release the mouse button to release a black laser ring
-			deals 75 damage every 3 frames
+			When it is fully charged, release the mouse button to surround yourself with a black laser ring
+			Deals 75 damage every 3 frames
 			"Consume thy enemy!"
 			'''
-		DisplayName: Maw Of The Void
 	}
 
 	TheRevelation: {
+		DisplayName: The Revelation
 		Tooltip:
 			'''
 			Charging when using weapons,
@@ -1147,31 +1166,30 @@ Items: {
 			hold [down] when flying to hover
 			"Awaken your faith"
 			'''
-		DisplayName: The Revelation
 	}
 
 	MosHat: {
-		Tooltip: ""
 		DisplayName: Mo's Hat
+		Tooltip: ""
 	}
 
 	AnimaSola: {
+		DisplayName: Anima Sola
 		Tooltip:
 			'''
 			Lock the nearest target for 3 seconds
 			Charging for 25 seconds, when there is a boss, charging for 120 seconds.
 			'''
-		DisplayName: Anima Sola
 	}
 
 	LightWisper: {
-		Tooltip: ""
 		DisplayName: Light Wisper
+		Tooltip: ""	
 	}
 
 	Oblivion: {
-		Tooltip: ""
 		DisplayName: Oblivion
+		Tooltip: ""
 	}
 
 	EyeOfIlmeris: {
@@ -1185,8 +1203,8 @@ Items: {
 	}
 
 	DivineRadience: {
-		Tooltip: ""
 		DisplayName: Divine Radience
+		Tooltip: ""
 	}
 
 	NightProjection: {
@@ -1200,13 +1218,13 @@ Items: {
 	}
 
 	EyeOfOtherside: {
-		Tooltip: ""
 		DisplayName: Eye Of Otherside
+		Tooltip: ""
 	}
 
 	EndlessAbyss: {
-		Tooltip: Launch abyssal death laser and abyssal stars
 		DisplayName: Endless Abyss
+		Tooltip: Launch abyssal death laser and abyssal stars
 	}
 
 	NihilityHorn: {
@@ -1230,6 +1248,7 @@ Items: {
 	}
 
 	NihilityShell: {
+		DisplayName: Nihility Shell
 		Tooltip:
 			'''
 			Critical hits will deal 15% more damage
@@ -1237,17 +1256,16 @@ Items: {
 			The energy shell can reduce the damage you receive by 16% once
 			You can only get a maximum of three shells
 			'''
-		DisplayName: Nihility Shell
 	}
 
 	EventideSniper: {
+		DisplayName: Eventide
 		Tooltip:
 			'''
 			Displays the center of all nearby enemies when held
 			The more accurate the bullet hits, the higher the damage, up to a maximum increase of 200%
 			Hitting a bullseye garentees a critical hit, warping the fabric of space and applying Void Touch and healing you.
 			'''
-		DisplayName: Eventide
 	}
 
 	NihilityBacteriophageWand: {
@@ -1262,27 +1280,27 @@ Items: {
 	}
 
 	AntiVoid: {
+		DisplayName: Antivoid
 		Tooltip:
 			'''
 			Releases multiple Rune Slashes
 			Right-click dashes mid-range toward cursor, placing a Void Sigil on first target hit
 			After a brief delay, the sigil detonates with horizontal slashes
 			'''
-		DisplayName: Antivoid
 	}
 
 	AbyssLantern: {
-		Tooltip: ""
 		DisplayName: Abyss Lantern
+		Tooltip: ""
 	}
 
 	WispLantern: {
+		DisplayName: Wisp Lantern
 		Tooltip:
 			'''
 			Randomly activate 1 to 3 accessories from your inventory
 			"Illuminate your future"
 			'''
-		DisplayName: Wisp Lantern
 	}
 
 	WyrmToothNecklace: {
@@ -1320,13 +1338,13 @@ Items: {
 	}
 
 	HadopelagicEchoII: {
-		Tooltip: Shoot abyss laser and hadopelagic echo
 		DisplayName: Hadopelagic Echo II
+		Tooltip: Shots alternate between abyss laser and hadopelagic echo
 	}
 
 	StarlessNight: {
-		Tooltip: ""
 		DisplayName: Starless Night
+		Tooltip: ""
 	}
 
 	WhipOfService: {
@@ -1364,13 +1382,13 @@ Items: {
 	}
 
 	VoidPathology: {
-		Tooltip: Summon a controllable, continuous electric shock to the enemy's nihility virus
 		DisplayName: Void Pathology
+		Tooltip: Summon a controllable, continuous electric shock to the enemy's nihility virus
 	}
 
 	AnnihilateArrow: {
-		Tooltip: ""
 		DisplayName: Annihilate Arrow
+		Tooltip: ""
 	}
 
 	NegentropyBullet: {
@@ -1379,41 +1397,41 @@ Items: {
 	}
 
 	Zyphros: {
+		DisplayName: Zyphros
 		Tooltip:
 			'''
 			Shoot tracking crystal arrows
 			Probability summoning crystals that can coordinate attacks during attacks
 			'''
-		DisplayName: Zyphros
 	}
 
 	FriendFinder: {
+		DisplayName: Friend Finder
 		Tooltip:
 			'''
 			Summon a friendly monster
 			Cost 1 minion slot
 			Right click to kill all monster
 			'''
-		DisplayName: Friend Finder
 	}
 
 	HeartOfStorm: {
+		DisplayName: Heart Of Storm
 		Tooltip:
 			'''
 			Strike the enemy and unleash a chain of lightning that deals 10% damage
 			- Death -
 			'''
-		DisplayName: Heart Of Storm
 		CWRGanged: Calamity Overhaul synergy effect: Summons the Storm Weaver’s lingering soul to fight alongside you.
 	}
 
 	Nyxolithraken: {
+		DisplayName: Nyxolithraken
 		Tooltip:
 			'''
 			Summon a Nyxolith Dragon
 			Takes 5 minion slot
 			'''
-		DisplayName: Nyxolithraken
 	}
 
 	MariviniumBodyArmor: {
@@ -1470,12 +1488,12 @@ Items: {
 	}
 
 	BookMarkAerialite: {
+		DisplayName: Bookmark - Aerialite
 		Tooltip:
 			'''
 			Falling feathers from the sky after hitting the enemy
 			+50% Shot Speed
 			'''
-		DisplayName: Bookmark - Aerialite
 	}
 
 	BookMarkFlesh: {
@@ -1494,8 +1512,8 @@ Items: {
 	}
 
 	InfiniteBook: {
-		Tooltip: ""
 		DisplayName: Infinite Book
+		Tooltip: ""
 	}
 
 	BookMarkOfLight: {
@@ -1526,18 +1544,18 @@ Items: {
 	}
 
 	BookMarkAstral: {
-		Tooltip: Launch a dazzling star that will shoot projectiles towards the enemy
 		DisplayName: Bookmark - Astral
+		Tooltip: Launch a dazzling star that will shoot projectiles towards the enemy
 	}
 
 	BookMarkTerra: {
+		DisplayName: Bookmark - Terra
 		Tooltip:
 			'''
 			Launching boulders
 			+20% Damage
 			+1 Penetrate 
 			'''
-		DisplayName: Bookmark - Terra
 	}
 
 	BookMarkLunar: {
@@ -1546,8 +1564,8 @@ Items: {
 	}
 
 	BookMarkAbyss: {
-		Tooltip: Probability of deep abyss tearing upon impact
 		DisplayName: Bookmark - Abyss
+		Tooltip: Probability of deep abyss tearing upon impact
 	}
 
 	BookMarkProfaned: {
@@ -1566,17 +1584,17 @@ Items: {
 	}
 
 	BookMarkSilva: {
+		DisplayName: Bookmark - Silva
 		Tooltip:
 			'''
 			Projectiles have a chance to spawn a Soul of Origin upon hitting an enemy
 			The Soul of Origin will fly back to you, healing you and providing a small amount of temporary armor
 			'''
-		DisplayName: Bookmark - Silva
 	}
 
 	BookMarkBee: {
-		Tooltip: Spawns bees upon hitting an enemy
 		DisplayName: Bookmark - Bee
+		Tooltip: Spawns bees upon hitting an enemy
 	}
 
 	BookMarkSunkenSea: {
@@ -1585,12 +1603,12 @@ Items: {
 	}
 
 	BookMarkCorrupt: {
+		DisplayName: Bookmark - Corrupt
 		Tooltip:
 			'''
 			Chance to summon Shadow Tentacles upon hitting an enemy
 			+6 Armor Penetration
 			'''
-		DisplayName: Bookmark - Corrupt
 	}
 
 	BookMarkCrimson: {
@@ -1642,17 +1660,17 @@ Items: {
 	}
 
 	BookMarkCapricorn: {
-		Tooltip: Continuous use increases firing speed, up to +25%
 		DisplayName: Bookmark - Capricorn
+		Tooltip: Continuous use increases firing speed, up to +25%
 	}
 
 	BookMarkLeo: {
+		DisplayName: Bookmark - Leo
 		Tooltip:
 			'''
 			+12% Damage
 			+20% Projectile Size
 			'''
-		DisplayName: Bookmark - Leo
 	}
 
 	BookMarkSagittarius: {
@@ -1720,22 +1738,22 @@ Items: {
 	}
 
 	BookmarkPactOfWar: {
+		DisplayName: Pact of War
 		Tooltip:
 			'''
 			Summon Mini Exo Twins during shooting
 			Projectiles will apply Miracle Blight debuff
 			'''
-		DisplayName: Pact of War
 	}
 
 	UpdraftTome: {
-		Tooltip: ""
 		DisplayName: Updraft Tome
+		Tooltip: ""
 	}
 
 	RedemptionBible: {
-		Tooltip: ""
 		DisplayName: Redemption Bible
+		Tooltip: ""
 	}
 
 	Redemption: {
@@ -1760,8 +1778,8 @@ Items: {
 	}
 
 	VoidOde: {
-		Tooltip: ""
 		DisplayName: Void Ode
+		Tooltip: ""
 	}
 
 	BookMarkNeutron: {
@@ -1791,14 +1809,13 @@ Items: {
 	}
 
 	EntropyModeToggle: {
+		DisplayName: Entropy Mode Toggle
 		Tooltip:
 			'''
 			Active/Deactive Entropy Mode
 			More challenging, Less Health, Less Damage
 			[c/ff0000: Note: This mode is not part of the official recommended process , and the balance adjustments Entropy do not take this mode into account]
 			Right click use to only toggle TDR
-			'''
-		DisplayName: Entropy Mode Toggle
 	}
 
 	BookMarkPerfection: {
@@ -1811,6 +1828,7 @@ Items: {
 	}
 
 	Crystedge: {
+		DisplayName: Crystedge
 		Tooltip:
 			'''
 			Quickly strike and deliver a final blow to your enemy
@@ -1819,12 +1837,11 @@ Items: {
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
 			'''
-		DisplayName: Crystedge
 	}
 
 	VoidToilet: {
-		Tooltip: ""
 		DisplayName: Void Toilet
+		Tooltip: ""
 	}
 
 	Prominence: {
@@ -1837,6 +1854,7 @@ Items: {
 	}
 
 	SinewLash: {
+		DisplayName: Sinew Lash
 		Tooltip:
 			'''
 			Throws forward and then retracts, tearing through enemies in its path.
@@ -1845,7 +1863,6 @@ Items: {
 			{$CommonItemTooltip.Whips}
 			Minions will tear enemies' flesh chunk when attaking
 			'''
-		DisplayName: Sinew Lash
 	}
 
 	AzafureBatteringRam: {
@@ -1868,17 +1885,17 @@ Items: {
 	}
 
 	AzafureChargeShield: {
-		Tooltip: Cost energy to dash through enemies
 		DisplayName: Azafure Charge Shield
+		Tooltip: Cost energy to dash through enemies	
 	}
 
 	ProphecyToken: {
+		DisplayName: Prophecy Token
 		Tooltip:
 			'''
 			Summon The Prophet
 			Can only be used in dungeons
 			'''
-		DisplayName: Prophecy Token
 	}
 
 	ProphetBag: {
@@ -1892,8 +1909,8 @@ Items: {
 	}
 
 	ProphetRelic: {
-		Tooltip: ""
 		DisplayName: Prophet Relic
+		Tooltip: ""
 	}
 
 	UrnOfSouls: {
@@ -1935,6 +1952,7 @@ Items: {
 	}
 
 	RuneWing: {
+		DisplayName: Soar Rune
 		Tooltip:
 			'''
 			Horizontal speed: [A]
@@ -1945,12 +1963,11 @@ Items: {
 			Cooling is determined by the sprint distance, 
 			releasing the button in advance can end the sprint in advance, with a maximum sprint time of [DT] seconds
 			'''
-		DisplayName: Soar Rune
 	}
 
 	BookMarkForesee: {
-		Tooltip: Hit the enemy probability summon a circle of runes to attack the enemy
 		DisplayName: Bookmark - Foresee
+		Tooltip: Hit the enemy probability summon a circle of runes to attack the enemy
 	}
 
 	RuneStoneShining: {
@@ -1959,12 +1976,12 @@ Items: {
 	}
 
 	PrefixClearKnife: {
+		DisplayName: Prefix Clear Knife
 		Tooltip:
 			'''
 			Used to clear armor prefixs
 			Right click on the armor item in the inventory
 			'''
-		DisplayName: Prefix Clear Knife
 	}
 
 	RuneStoneSilence: {
@@ -2078,27 +2095,27 @@ Items: {
 	}
 
 	HiveArrow: {
-		Tooltip: Scattering stinger after hitting the target
 		DisplayName: Hive Arrow
+		Tooltip: Scattering stinger after hitting the target
 	}
 
 	HiveBullet: {
+		Tooltip: Ignore 50% of the target's armor
 		DisplayName:
 			'''
 			Hive Bullet
 			Summon tracking bees after hitting
 			'''
-		Tooltip: Ignore 50% of the target's armor
 	}
 
 	SolarStorm: {
-		Tooltip: ""
 		DisplayName: Solar Storm
+		Tooltip: ""
 	}
 
 	CondensedBullet: {
-		Tooltip: Launch condensed lasers
 		DisplayName: Condensed Bullet
+		Tooltip: Launch condensed lasers
 	}
 
 	ShatteredFractal: {
@@ -2136,13 +2153,13 @@ Items: {
 	}
 
 	BrokenHilt: {
-		Tooltip: "[c/c4ff3b:A fragment of an ancient divine blade]"
 		DisplayName: Broken Hilt
+		Tooltip: "[c/c4ff3b:A fragment of an ancient divine blade]"	
 	}
 
 	ElementalFractal: {
-		Tooltip: "[c/ff00a6:The sword shimmers with elemental light]"
 		DisplayName: Elemental Fractal
+		Tooltip: "[c/ff00a6:The sword shimmers with elemental light]"
 	}
 
 	StarlitFractal: {
@@ -2151,17 +2168,17 @@ Items: {
 	}
 
 	AbyssFractal: {
-		Tooltip: "[c/7045ff:The blade resembles a bottomless abyss]"
 		DisplayName: Abyss Fractal
+		Tooltip: "[c/7045ff:The blade resembles a bottomless abyss]"
 	}
 
 	PlagueInternalCombustionEngine: {
+		DisplayName: Plague Internal Combustion Engine
 		Tooltip:
 			'''
 			Hitting enemies with true melee weapons restores health and grants temporary armor.
 			+{AttackSpeed}% true melee attack speed
 			'''
-		DisplayName: Plague Internal Combustion Engine
 	}
 
 	SpiritFractal: {
@@ -2170,22 +2187,22 @@ Items: {
 	}
 
 	VoidFractal: {
+		DisplayName: Void Fractal
 		Tooltip:
 			'''
 			[c/ba3ade: A thin layer of void adheres to the sword]
 			Right click: Void Slash
 			'''
-		DisplayName: Void Fractal
 	}
 
 	BurntLostClassics: {
-		Tooltip: ""
 		DisplayName: Burnt Lost Classics
+		Tooltip: ""
 	}
 
 	ProphecyMasterpiece: {
-		Tooltip: ""
 		DisplayName: Prophecy Masterpiece
+		Tooltip: ""
 	}
 
 	ForeseeWhip: {
@@ -2205,6 +2222,7 @@ Items: {
 	}
 
 	LashingBramblerod: {
+		DisplayName: Lashing Bramblerod
 		Tooltip:
 			'''
 			{$CommonItemTooltip.SummonTagDamage}
@@ -2214,7 +2232,6 @@ Items: {
 			If thorns are already present, a flower will grow on them, with each flower providing an additional [3]% damage reduction and [4]/s life regeneration per second
 			Can have up to [5] flowers at a time
 			'''
-		DisplayName: Lashing Bramblerod
 	}
 
 	FinalFractal: {
@@ -2227,8 +2244,8 @@ Items: {
 	}
 
 	AzafureMiner: {
-		Tooltip: ""
 		DisplayName: Azafure Miner
+		Tooltip: ""
 	}
 
 	RequiemCard: {
@@ -2386,33 +2403,33 @@ Items: {
 	}
 
 	ProphetMusicBox2: {
-		Tooltip: ""
 		DisplayName: Prophet Music Box2
+		Tooltip: ""
 	}
 
 	StarlitPiercer: {
-		Tooltip: Shoot phantom bullets during sudden spikes
 		DisplayName: Starlit Piercer
+		Tooltip: Shoot phantom bullets during sudden spikes
 	}
 
 	LuminarisMusicBox: {
-		Tooltip: ""
 		DisplayName: Luminaris Music Box
+		Tooltip: ""
 	}
 
 	LuminarisRelic: {
-		Tooltip: ""
 		DisplayName: Luminaris Relic
+		Tooltip: ""
 	}
 
 	LuminarisBag: {
-		Tooltip: ""
 		DisplayName: Luminaris Bag
+		Tooltip: ""	
 	}
 
 	IllusionaryDew: {
-		Tooltip: Summon Luminaris in astral infection
 		DisplayName: Illusionary Dew
+		Tooltip: Summon Luminaris in astral infection
 	}
 
 	LuminarisTrophy: {
@@ -2421,16 +2438,17 @@ Items: {
 	}
 
 	Luminar: {
-		Tooltip: Shoot tracking phantom light arrow
 		DisplayName: Luminar
+		Tooltip: Shoot tracking phantom light arrow
 	}
 
 	StarSootInjector: {
-		Tooltip: ""
 		DisplayName: Star Soot Injector
+		Tooltip: ""
 	}
 
 	PhantomLightWing: {
+		DisplayName: Phantom Light Wings
 		Tooltip:
 			'''
 			Horizontal speed: [A]
@@ -2438,7 +2456,6 @@ Items: {
 			Excellent vertical speed
 			Flight time: [C]
 			'''
-		DisplayName: Phantom Light Wings
 	}
 
 	AzafureAntiaircraftGun: {
@@ -2461,17 +2478,17 @@ Items: {
 	}
 
 	MoonlightSword: {
-		Tooltip: ""
 		DisplayName: Moonlight Sword
+		Tooltip: ""
 	}
 
 	BookMarkBlackKnife: {
+		DisplayName: Bookmark - Black Knife
 		Tooltip:
 			'''
 			There is a chance to spawn a black sword after hitting an enemy
-			"GO TO PLAY DELTARUNE"
+			"GO PLAY DELTARUNE"
 			'''
-		DisplayName: Bookmark - Black Knife
 	}
 
 	AzafureTeslaGun: {
@@ -2489,23 +2506,24 @@ Items: {
 	}
 
 	ShadoidPotion: {
+		DisplayName: Shadoid Potion
 		Tooltip:
 			'''
 			Restores your HP and flight duration
 			Heals for 1/3 of max HP
 			No cost
 			'''
-		DisplayName: Shadoid Potion
+		
 	}
 
 	ShadowMantle: {
+		DisplayName: Shadow Mantle
 		Tooltip:
 			'''
 			Increase stealth regen based on your movement speed
 			Press [K]([KEY]) to consume all rogue stealh, sprint towards the cursor position for a distance, and slash the enemies encountered
 			Damage depends on stealth consumed
 			'''
-		DisplayName: Shadow Mantle
 	}
 
 	MineBox: {
@@ -2532,20 +2550,20 @@ Items: {
 		DisplayName: Thief's Pocketwatch Of Eclipse
 		Tooltip:
 			'''
-			+[A]%Rogue Damage
-			+[B]%Movement Speed
-			+[C]%Rogue Stealth Recovery Speed
+			+[A]% Rogue Damage
+			+[B]% Movement Speed
+			+[C]% Rogue Stealth Recovery Speed
 			Rogue Stealth can be recharged once more
 			'''
 	}
 
 	GaleWristblades: {
+		DisplayName: Gale Wristblades
 		Tooltip:
 			'''
 			Rogue weapons grant 1 stack of Wind Pressure on hit, increasing attack speed and damage
 			At 5 stacks, the next attack consumes all stacks to unleash a small tornado
 			'''
-		DisplayName: Gale Wristblades
 	}
 
 	WorshipRelic: {
@@ -2607,23 +2625,23 @@ Items: {
 	}
 
 	TheReplicaofThePen: {
+		DisplayName: The Replica of The Pen
 		Tooltip:
 			'''
 			Spawn harmful trail when riding
 			Attack enemies when not riding
 			Apply Void Touch debuff on hited
 			'''
-		DisplayName: The Replica of The Pen
 	}
 
 	Typhoon: {
+		DisplayName: Typhoon
 		Tooltip:
 			'''
 			Right click to switch between machine gun and shotgun modes
 			Machine gun mode continuously fires at an unimaginable speed
 			Shot a large number of scattered bullets in shotgun mode
 			'''
-		DisplayName: Typhoon
 	}
 
 	ShadowRune: {
@@ -2649,8 +2667,8 @@ Items: {
 	}
 
 	MysteriousBook: {
-		Tooltip: ""
 		DisplayName: Mysterious Book
+		Tooltip: ""	
 	}
 
 	HellIndustrialComponents: {
@@ -2659,8 +2677,8 @@ Items: {
 	}
 
 	DragEntity: {
-		Tooltip: ""
 		DisplayName: Drag Entity
+		Tooltip: ""
 	}
 
 	OblivionThresher: {
@@ -2688,8 +2706,8 @@ Items: {
 	}
 
 	PineappleDog: {
-		Tooltip: ""
 		DisplayName: Pineapple Dog
+		Tooltip: ""
 	}
 
 	CelestialChronometer: {
@@ -2754,8 +2772,8 @@ Items: {
 	}
 
 	BLUE: {
-		Tooltip: ""
 		DisplayName: B L U E
+		Tooltip: ""
 	}
 
 	Vast: {
@@ -2988,12 +3006,11 @@ Items: {
 		Tooltip:
 			'''
 			Operate a tunnel boring machine‌
-			It will become difficult to control if too far from the player
-			While operating, use movement keys to control its movement, 
-			hold the jump key to dig, and use this item again to stop operating
-			Pickaxe power depends on the highest pickaxe power in your inventory
-			Automatically picks up nearby items into your inventory
-			Hold [ESC] for 1 sec or use item again to cancel
+				It will become difficult to control if too far from the player
+				While operating, use movement keys to control its movement, 
+				hold the jump key to dig, and use this item again to stop operating
+				Pickaxe power depends on the highest pickaxe power in your inventory
+				Automatically picks up nearby items into your inventory
 			'''
 	}
 
@@ -3184,13 +3201,13 @@ Items: {
 	}
 
 	StarBreaker: {
+		DisplayName: Starbreaker
 		Tooltip: ""
-		DisplayName: 星启破军
 	}
 
 	Gungnir: {
+		DisplayName: Gungnir
 		Tooltip: 击中后降下闪电和陨星
-		DisplayName: 永恒神枪 冈格尼尔
 	}
 
 	ChaosCore: {
@@ -3599,7 +3616,11 @@ Items: {
 
 	RottenFangs: {
 		DisplayName: Rotten Fangs
-		Tooltip: Minions will shoot blood bullets to enemies
+		Tooltip:
+			'''
+			Minions will shoot blood bullets to enemies
+			+1 Minion Slot
+			'''
 	}
 
 	CreeperWand: {
@@ -4461,8 +4482,8 @@ Buffs: {
 	}
 
 	VoidTouch: {
-		Description: ""
 		DisplayName: Void Touch
+		Description: ""
 	}
 
 	WyrmChanBuff: {
@@ -4491,13 +4512,13 @@ Buffs: {
 	}
 
 	DivingShieldCooldown: {
-		Description: ""
 		DisplayName: Divine Shield Cooldown
+		Description: ""
 	}
 
 	TwistedTwinBuff: {
-		Description: ""
 		DisplayName: Twisted Twin
+		Description: ""
 	}
 
 	Rainstorm: {
@@ -4506,8 +4527,8 @@ Buffs: {
 	}
 
 	LilBrimstoneBuff: {
-		Description: Evil Friend
 		DisplayName: Lil Brimstone
+		Description: Evil Friend
 	}
 
 	AbyssBuff: {
@@ -4516,23 +4537,23 @@ Buffs: {
 	}
 
 	VoidPal: {
-		Description: ""
 		DisplayName: Void Pal
+		Description: ""
 	}
 
 	SoyMilkBuff: {
-		Description: More attack speed, less damage
 		DisplayName: Soy Milk
+		Description: More attack speed, less damage
 	}
 
 	StealthState: {
-		Description: ""
 		DisplayName: Stealth State
+		Description: ""
 	}
 
 	MelonCatBuff: {
-		Description: ""
 		DisplayName: Melon Cat
+		Description: ""
 	}
 
 	DevourersAssassin: {
@@ -4541,8 +4562,8 @@ Buffs: {
 	}
 
 	DevourerAndTheApostles: {
-		Description: '''"We are four in one"'''
 		DisplayName: Devourer And The Apostles
+		Description: '''"We are four in one"'''
 	}
 
 	PlanetDestroyer: {
@@ -4551,8 +4572,8 @@ Buffs: {
 	}
 
 	JailerWhipDebuff: {
-		Description: ""
 		DisplayName: Jailer Whip Tag
+		Description: ""
 	}
 
 	TeletorBuff: {
@@ -4571,13 +4592,13 @@ Buffs: {
 	}
 
 	AquaticChan: {
-		Description: ""
 		DisplayName: Aquatic Chan
+		Description: ""
 	}
 
 	Deceive: {
-		Description: Speed down
 		DisplayName: Deceive
+		Description: Speed down
 	}
 
 	VoidCandleBuff: {
@@ -4586,13 +4607,13 @@ Buffs: {
 	}
 
 	DustyWhistleBuff: {
-		Description: ""
 		DisplayName: Dusty Whistle
+		Description: ""
 	}
 
 	AquaticAmuletBuff: {
-		Description: ""
 		DisplayName: Aquatic Amulet
+		Description: ""
 	}
 
 	NihilityBacteriophageBuff: {
@@ -4601,8 +4622,8 @@ Buffs: {
 	}
 
 	DragonWhipDebuff: {
-		Description: ""
 		DisplayName: Dragon Whip Tag
+		Description: ""
 	}
 
 	CruiserWhipDebuff: {
@@ -4611,8 +4632,8 @@ Buffs: {
 	}
 
 	ServiceBuff: {
-		Description: increase damage, attack speed and crit chance
 		DisplayName: Service
+		Description: increase damage, attack speed and crit chance
 	}
 
 	EclipsedImprint: {
@@ -4626,8 +4647,8 @@ Buffs: {
 	}
 
 	WyrmWhipDebuff: {
-		Description: ""
 		DisplayName: Wyrm Whip Debuff
+		Description: ""
 	}
 
 	WyrmPhantom: {
@@ -4650,8 +4671,8 @@ Buffs: {
 	}
 
 	AbyssalWrath: {
-		Description: Increace your damage
 		DisplayName: Abyssal Wrath
+		Description: Increace your damage
 	}
 
 	PlanteraChanBuff: {
@@ -4670,13 +4691,13 @@ Buffs: {
 	}
 
 	SpiritGathering: {
-		Description: ""
 		DisplayName: Spirit Gathering
+		Description: ""
 	}
 
 	SoulDisorder: {
-		Description: ""
 		DisplayName: Soul Disorder
+		Description: ""
 	}
 
 	ShatteredOrb: {
@@ -5803,4 +5824,3 @@ PassedBossRush: Passed Boss Rush
 BloodthirstyRequirement: You need at least 200 health points to craft this item
 BloodthirstyKilled: bled out
 Luminariswarm: Luminariswarm
-MinionAccDescCrownFangs: When equip with [ITEM]: +1 max minion
