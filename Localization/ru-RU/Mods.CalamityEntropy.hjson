@@ -3678,8 +3678,8 @@ Items: {
 		/* Tooltip:
 			'''
 			Increase 8% summon damage
-			+4 defence for each minion slot
-			Maximum increase of 24
+			+2 defence for each minion slot
+			Maximum increase of 20
 			''' */
 	}
 

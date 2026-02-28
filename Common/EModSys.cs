@@ -18,6 +18,7 @@ using CalamityMod;
 using CalamityMod.Items.Ammo;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.NPCs.SlimeGod;
+using CalamityMod.Projectiles.Boss;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
@@ -473,7 +474,6 @@ namespace CalamityEntropy.Common
                 CalamityEntropy.cutScreen = 0;
                 CalamityEntropy.cutScreenVel = 0;
             }
-
         }
 
         public override void PostUpdatePlayers()
