@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 1700;
+            Item.damage = 1100;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 36;
             Item.height = 110;
@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.knockBack = 6f;
             Item.UseSound = null;
             Item.shoot = ProjectileID.WoodenArrowFriendly;
-            Item.shootSpeed = 7f;
+            Item.shootSpeed = 12f;
             Item.useAmmo = AmmoID.Arrow;
             Item.autoReuse = true;
             Item.ArmorPenetration = 100;
