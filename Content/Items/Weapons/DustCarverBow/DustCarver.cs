@@ -397,7 +397,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                         if (Main.myPlayer == Projectile.owner)
                         {
                             var vec = new Vector2(0, 900);
-                            player.PickAmmo(player.HeldItem, out int projID, out float shootSpeed, out int damage, out float kb, out var ammoID, true);
+                            player.PickAmmo(player.HeldItem, out int projID, out float shootSpeed, out int damage, out float kb, out var ammoID, false);
                             var shoot = Projectile.Center + vec + CEUtils.randomPointInCircle(400);
                             var targetPos = Main.MouseWorld;
                             int type = ModContent.ProjectileType<CarverSpike>();
