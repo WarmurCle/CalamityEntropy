@@ -118,8 +118,8 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] == 2)
             {
                 Projectile.GetOwner().Heal(5);
-                target.AddBuff(ModContent.BuffType<CrushDepth>(), 300);
-                target.AddBuff(ModContent.BuffType<Nightwither>(), 300);
+                target.AddBuff(ModContent.BuffType<HadopelagicPressure>(), 300);
+                target.AddBuff(ModContent.BuffType<Voidfrost>(), 300);
             }
             if (Projectile.ai[0] == 4)
             {
@@ -128,7 +128,8 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.ai[0] == 5)
             {
-                target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 300);
+                target.AddBuff(ModContent.BuffType<AuricRebuke>(), 300);
+		        target.AddBuff(ModContent.BuffType<BanishingFire>(), 90);
             }
             if (Projectile.ai[0] == 1)
             {

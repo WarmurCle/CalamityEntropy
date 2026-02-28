@@ -24,8 +24,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 1000;
-            Item.crit = 20;
+            Item.damage = 750;
+            Item.crit = 35;
             Item.DamageType = DamageClass.Melee;
             Item.width = 48;
             Item.height = 60;
@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<FinalFractalHeld>();
             Item.shootSpeed = 12f;
-            Item.ArmorPenetration = 50;
+            Item.ArmorPenetration = 100;
         }
         public int atkType = 0;
         public override bool CanUseItem(Player player)
@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 CEUtils.PlaySound("VoidAnticipation", 1, position, volume: CEUtils.WeapSound);
                 player.AddBuff(BuffID.ChaosState, 5 * 60);
-                Projectile.NewProjectile(source, position, velocity * 4, ModContent.ProjectileType<VoidSlash>(), damage * 12, 0, player.whoAmI, 1);
+                Projectile.NewProjectile(source, position, velocity * 4, ModContent.ProjectileType<VoidSlash>(), damage * 15, 0, player.whoAmI, 1);
                 return false;
             }
             int at = 2;

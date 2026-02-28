@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
@@ -23,7 +23,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         public const int MaxPlugged = 6;
         public override void SetDefaults()
         {
-            Item.damage = 2368;
+            Item.damage = 1600;
+	        Item.crit = 50;
             Item.DamageType = ModContent.GetInstance<MeleeDamageClass>();
             Item.width = 48;
             Item.height = 60;
@@ -68,7 +69,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         {
             CreateRecipe().AddIngredient<DevilsDevastation>().
                 AddIngredient<FadingRunestone>(2).
-                AddTile<AbyssalAltarTile>().
+                AddTile<VoidWellTile>().
                 Register();
         }
     }
