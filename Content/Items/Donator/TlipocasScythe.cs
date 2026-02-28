@@ -1005,7 +1005,7 @@ namespace CalamityEntropy.Content.Items.Donator
         public void SpawnFlower()
         {
             //花蕊的半径。
-            float heartRads = 3.6f;
+            float heartRads = 8f;
             //花蕊的粒子数量。
             int heartDustCounts = 20;
             for (int i = 0; i < heartDustCounts; i++)
@@ -1022,7 +1022,7 @@ namespace CalamityEntropy.Content.Items.Donator
 
             //尝试生成花瓣
             int petalCount = 5;
-            float outerRadius = 18f;
+            float outerRadius = 20f;
             float innerRadius = 3.6f;
             List<List<Vector2>> petalVertexList = [];
             float randAngle = Main.rand.NextFloat(MathHelper.TwoPi);
