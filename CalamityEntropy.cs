@@ -646,15 +646,13 @@ namespace CalamityEntropy
             {
                 float charge = 0;
                 float maxCharge = 0;
-                if (Main.LocalPlayer.Entropy().AzafureChargeShieldItem != null)
+                if (Main.LocalPlayer.Entropy().AzafureChargeShieldItem != null && Main.LocalPlayer.Entropy().AzafureChargeShieldItem.ModItem is AzafureChargeShield mi)
                 {
-                    var mi = Main.LocalPlayer.Entropy().AzafureChargeShieldItem.ModItem as AzafureChargeShield;
                     charge = mi.charge;
                     maxCharge = mi.maxCharge;
                 }
-                if (Main.LocalPlayer.Entropy().AzafureDriverShieldItem != null)
+                if (Main.LocalPlayer.Entropy().AzafureDriverShieldItem != null && Main.LocalPlayer.Entropy().AzafureDriverShieldItem.ModItem is AzafureDriverCore mi)
                 {
-                    var mi = Main.LocalPlayer.Entropy().AzafureDriverShieldItem.ModItem as AzafureDriverCore;
                     charge = mi.charge;
                     maxCharge = mi.maxCharge;
                 }
