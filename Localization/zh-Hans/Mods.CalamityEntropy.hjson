@@ -4062,6 +4062,27 @@ Items: {
 		DisplayName: 信号屏蔽器
 		Tooltip: 标记为收藏以诅咒阿萨福勒卫城机甲自然生成
 	}
+
+	Filthless: {
+		DisplayName: 污袪
+		Tooltip:
+			'''
+			发射一些追踪的导弹
+			导弹可黏附在敌怪身上并造成一些减益
+			最多黏附5发
+			右键点击发射一发威力巨大的火箭
+			'''
+	}
+
+	AzafureMissle: {
+		DisplayName: 阿萨福勒导弹
+		Tooltip:
+			'''
+			每个黏附的射弹增加7%目标受到伤害
+			造成更高的黏附伤害
+			-1黏附上限
+			'''
+	}
 }
 
 ChaoticSetBonus:
@@ -4712,6 +4733,9 @@ Projectiles: {
 	MiracleVortex.DisplayName: 神迹涡流
 	AzureShield.DisplayName: 苍溟护盾
 	AzureVortex.DisplayName: 苍溟漩涡
+	FilthlessMissle.DisplayName: 污祛火箭
+	FilthlessShootAlt.DisplayName: 污祛导弹
+	AzafureMissleProj.DisplayName: 阿萨福勒导弹
 }
 
 LegendTooltip: - 传奇物品 -

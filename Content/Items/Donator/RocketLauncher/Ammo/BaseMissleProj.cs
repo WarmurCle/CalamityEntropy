@@ -29,6 +29,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
         public float HomingRange = 500;
         public float MinVel = 0;
         public virtual float StickDamageAddition => 0.05f;
+        public virtual float StickDamageMult => 0.1f;
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(MinVel);
@@ -83,7 +84,6 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.1f, scale * 0.46f, 14));
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.OrangeRed, scale * 0.8f, 1, true, BlendState.Additive, 0, 10);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, scale * 0.5f, 1, true, BlendState.Additive, 0, 10);
-
         }
         public virtual void SetupStats() { }
         public virtual void StickUpdate(NPC target)
@@ -110,7 +110,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             if (StickOnNPC != null)
-                modifiers.SourceDamage /= 9;
+                modifiers.SourceDamage *= StickDamageMult;
         }
         public bool tileCollide = false;
         public override void AI()

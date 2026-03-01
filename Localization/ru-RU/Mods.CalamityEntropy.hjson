@@ -3801,6 +3801,26 @@ Items: {
 		// DisplayName: Signal Blocker
 		// Tooltip: Set to favorite to block Acropolis Machine spawning
 	}
+
+	Filthless: {
+		// DisplayName: Filthless
+		/* Tooltip:
+			'''
+			Launch missiles that can adhere to the enemy and cause sustained damage
+			Up to 5 adhesive threads
+			Missile will cause random debuffs
+			Right click to launch single powerful missle
+			''' */
+	}
+
+	AzafureMissle: {
+		// DisplayName: Azafure Missle
+		/* Tooltip:
+			'''
+			+7% Damage each attached projectile
+			Causing more adhering damage
+			''' */
+	}
 }
 
 /* ChaoticSetBonus:
@@ -4450,6 +4470,9 @@ Projectiles: {
 	// MiracleVortex.DisplayName: Miracle Vortex
 	// AzureShield.DisplayName: Azure Shield
 	// AzureVortex.DisplayName: Azure Vortex
+	// FilthlessMissle.DisplayName: Filthless Missle
+	// FilthlessShootAlt.DisplayName: Filthless Shoot Alt
+	// AzafureMissleProj.DisplayName: Azafure Missle Proj
 }
 
 LegendTooltip: - Легенда -
