@@ -1819,9 +1819,9 @@ namespace CalamityEntropy.Common
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 16, ModContent.ProjectileType<AzureVortex>(), (int)(Player.GetBestClassDamage().ApplyTo(1200.ApplyAccArmorDamageBonus())), 0, Player.whoAmI);
                 }
             }
-            BloodthirstyEffect += (info.Damage / (float)Player.statLifeMax2) * 30;
-            if (BloodthirstyEffect > 36)
-                BloodthirstyEffect = 36;
+            BloodthirstyEffect += (info.Damage / (float)Player.statLifeMax2) * 27;
+            if (BloodthirstyEffect > 26)
+                BloodthirstyEffect = 26;
             if (BookMarkLoader.GetPlayerHeldEntropyBook(Player, out var eb) && info.Damage > 19 && CECooldowns.CheckCD("BloodthirstResetShootDelay", 30))
             {
                 if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BloodthirstBMEffect>(Player))

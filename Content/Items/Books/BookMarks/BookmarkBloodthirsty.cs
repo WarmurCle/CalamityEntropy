@@ -61,7 +61,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             var plr = projectile.GetOwner();
             if (plr.Calamity().RageEnabled && CECooldowns.CheckCD("BloodthirstyRage", 4) && !plr.HasBuff<RageMode>())
             {
-                plr.Calamity().rage += projectile.GetOwner().Calamity().rageMax / 34;
+                plr.Calamity().rage += projectile.GetOwner().Calamity().rageMax / 40;
             }
         }
     }
