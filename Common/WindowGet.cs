@@ -73,7 +73,7 @@ namespace CalamityEntropy.Common
         }
         public override void OnHurt(Player.HurtInfo info)
         {
-            if(accVanity && Player.HeldItem.type != ScytheType())
+            if(accVanity && count > 0)
             {
                 ChargingYuzu.Ciallo(Player.Center);
             }
