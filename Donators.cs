@@ -12,7 +12,7 @@ namespace CalamityEntropy
             "Votum_Stellarum", "Nienie", "Carter", "Reficul", "OVASA", "Shadow Warrior", "ScarletShelf",
             "黯月殇梦", "鹰身吹雪", "Rathyep", "新星之眼", "嘉登糖", "Carter", "繁星与你共游", "Kino", "血清素",
             "D_Addict", "散尘化天心", "紊䒥", "Armonia", "薄良荷影", "九月", "周珛", "凛栖", "五彩斑斓的黑",
-            "鈴夕", "薰依"
+            "鈴夕", "薰依", "脸F"
         };
     }
 }
