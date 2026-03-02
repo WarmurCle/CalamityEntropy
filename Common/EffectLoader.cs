@@ -1054,8 +1054,14 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.End();
         }
         public static int votype = -1;
+        public static int cruiserEnergyBallType = -1;
+        public static int voidRsType = -1;
         private static void DrawFragEffects(GraphicsDevice graphicsDevice)
         {
+            if (voidRsType < 0)
+                voidRsType = ModContent.ProjectileType<VoidResidue>();
+            if (cruiserEnergyBallType < 0)
+                cruiserEnergyBallType = ModContent.ProjectileType<CruiserEnergyBall>();
             if (Screen0 == null || Screen1 == null) return;
             if (!ModContent.GetInstance<Config>().ScreenWarpEffects)
                 return;
@@ -1070,10 +1076,31 @@ namespace CalamityEntropy.Common
             if (votype == -1)
                 votype = ModContent.TileType<VoidOreTile>();
             if (Main.LocalPlayer.Entropy().voidOreNearby > 0)
-                DrawVoidOres(votype); 
-            //Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            //CEUtils.drawLine(new Vector2(-1000, 500), new Vector2(3000, 500), Color.White * 0.5f, 3000, 0, false);
-            //Main.spriteBatch.End();
+                DrawVoidOres(votype);
+            bool startBatch = false;
+            foreach(Projectile p in Main.ActiveProjectiles)
+            {
+                if(p.type == cruiserEnergyBallType && p.ModProjectile is CruiserEnergyBall ceb)
+                {
+                    if (!startBatch)
+                    {
+                        Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                        startBatch = true;
+                    }
+                    CEUtils.DrawGlow(p.Center, Color.White * p.Opacity * 0.72f, 14 * ceb.Scale);
+                }
+                if(p.type == voidRsType)
+                {
+                    if (!startBatch)
+                    {
+                        Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                        startBatch = true;
+                    }
+                    CEUtils.DrawGlow(p.Center, Color.White * p.Opacity * 0.6f, 5);
+                }
+            }    
+            if(startBatch)
+                Main.spriteBatch.End();
 
             graphicsDevice.SetRenderTarget(Main.screenTarget);
             graphicsDevice.Clear(Color.Transparent);
