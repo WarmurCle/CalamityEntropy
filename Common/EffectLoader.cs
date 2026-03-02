@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Books;
+﻿using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Weapons;
@@ -11,6 +12,7 @@ using CalamityEntropy.Content.Projectiles.Chainsaw;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.Pets.Abyss;
 using CalamityEntropy.Content.Projectiles.Prophet;
+using CalamityEntropy.Content.Tiles;
 using InnoVault;
 using InnoVault.PRT;
 using InnoVault.RenderHandles;
@@ -18,7 +20,10 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Terraria;
+using Terraria.GameContent;
+using Terraria.Graphics;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 using static CalamityEntropy.CalamityEntropy;
@@ -54,6 +59,7 @@ namespace CalamityEntropy.Common
         public static Asset<Effect> RTShader;
         public static Asset<Effect> WarpShader;
         public static Effect kscreen;
+        public static Effect fscreen;
         public static Effect kscreen2;
         public static Effect cvoid;
         public static Effect cvoid2;
@@ -125,6 +131,9 @@ namespace CalamityEntropy.Common
 
                 //绘制切片效果
                 DrawSlashEffects(graphicsDevice);
+
+                //绘制区域波动
+                DrawFragEffects(graphicsDevice);
 
                 //应用最终着色器
                 ApplyFinalShader(graphicsDevice);
@@ -1044,7 +1053,123 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.Draw(Screen0, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
         }
+        public static int votype = -1;
+        private static void DrawFragEffects(GraphicsDevice graphicsDevice)
+        {
+            if (Screen0 == null || Screen1 == null) return;
+            if (!ModContent.GetInstance<Config>().ScreenWarpEffects)
+                return;
+            graphicsDevice.SetRenderTarget(Screen0);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
 
+            graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+            graphicsDevice.Clear(Color.Transparent);
+            if (votype == -1)
+                votype = ModContent.TileType<VoidOreTile>();
+            if (Main.LocalPlayer.Entropy().voidOreNearby > 0)
+                DrawVoidOres(votype); 
+            //Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            
+            //Main.spriteBatch.End();
+
+            graphicsDevice.SetRenderTarget(Main.screenTarget);
+            graphicsDevice.Clear(Color.Transparent);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            fscreen.CurrentTechnique = fscreen.Techniques["Technique1"];
+            fscreen.CurrentTechnique.Passes[0].Apply();
+            fscreen.Parameters["strengthMult"].SetValue(0.36f);
+            fscreen.Parameters["iTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.05f);
+            graphicsDevice.Textures[0] = Screen0;
+            graphicsDevice.Textures[1] = Main.screenTargetSwap;
+            graphicsDevice.Textures[2] = CEUtils.getExtraTex("Perlin");
+            Main.spriteBatch.Draw(Screen0, Vector2.Zero, Color.White);
+            Main.spriteBatch.End();
+        }
+        public static void DrawVoidOres(int types)
+        {
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+            float gfxQuality = Main.gfxQuality;
+            int offScreenRange = Main.offScreenRange;
+            bool drawToScreen = Main.drawToScreen;
+            Vector2 screenPosition = Main.screenPosition;
+            int screenWidth = Main.screenWidth;
+            int screenHeight = Main.screenHeight;
+            int maxTilesX = Main.maxTilesX;
+            int maxTilesY = Main.maxTilesY;
+            int[] wallBlend = Main.wallBlend;
+            SpriteBatch spriteBatch = Main.spriteBatch;
+            var _tileArray = Main.tile;
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            int num = (int)(120f * (1f - gfxQuality) + 40f * gfxQuality);
+            int num2 = (int)((float)num * 0.4f);
+            int num3 = (int)((float)num * 0.35f);
+            int num4 = (int)((float)num * 0.3f);
+            Vector2 vector = new Vector2(offScreenRange, offScreenRange);
+            if (true)
+            {
+                vector = Vector2.Zero;
+            }
+            int num5 = (int)((screenPosition.X - vector.X) / 16f - 1f);
+            int num6 = (int)((screenPosition.X + (float)screenWidth + vector.X) / 16f) + 2;
+            int num7 = (int)((screenPosition.Y - vector.Y) / 16f - 1f);
+            int num8 = (int)((screenPosition.Y + (float)screenHeight + vector.Y) / 16f) + 5;
+            int num9 = offScreenRange / 16;
+            int num10 = offScreenRange / 16;
+            if (num5 - num9 < 4)
+            {
+                num5 = num9 + 4;
+            }
+            if (num6 + num9 > maxTilesX - 4)
+            {
+                num6 = maxTilesX - num9 - 4;
+            }
+            if (num7 - num10 < 4)
+            {
+                num7 = num10 + 4;
+            }
+            if (num8 + num10 > maxTilesY - 4)
+            {
+                num8 = maxTilesY - num10 - 4;
+            }
+            VertexColors vertices = default(VertexColors);
+            Rectangle value = new Rectangle(0, 0, 16, 16);
+            int underworldLayer = Main.UnderworldLayer;
+            Point screenOverdrawOffset = Main.GetScreenOverdrawOffset();
+            for (int i = num7 - num10 + screenOverdrawOffset.Y; i < num8 + num10 - screenOverdrawOffset.Y; i++)
+            {
+                for (int j = num5 - num9 + screenOverdrawOffset.X; j < num6 + num9 - screenOverdrawOffset.X; j++)
+                {
+                    Tile tile = _tileArray[j, i];
+                    ushort wall = tile.WallType;
+                    if (tile.HasTile && tile.TileType == types)
+                    {
+                        value.X = tile.TileFrameX;
+                        value.Y = tile.TileFrameY + Main.tileFrame[tile.TileType] * 0;
+
+                        Texture2D GetTileDrawTexture(Tile tile, int tileX, int tileY)
+                        {
+                            Texture2D result = TextureAssets.Tile[tile.TileType].Value;
+                            int wall = tile.TileType;
+                            Texture2D texture2D = Main.instance.TilePaintSystem.TryGetTileAndRequestIfNotReady(wall, 0, tile.TileColor);
+                            if (texture2D != null)
+                            {
+                                result = texture2D;
+                            }
+                            return result;
+                        }
+                        Texture2D tileDrawTexture = GetTileDrawTexture(tile, j, i);
+                        vertices = new VertexColors(Color.LightBlue);
+                        var pos = new Vector2(j * 16, i * 16) + vector;
+                        CEUtils.DrawGlow(pos + new Vector2(8, 8), Color.White * 0.22f, 3.4f);
+                    }
+                }
+            }
+            Main.spriteBatch.End();
+        }
         private static void ApplyFinalShader(GraphicsDevice graphicsDevice)
         {
             if (FlashEffectStrength > 0)

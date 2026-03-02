@@ -80,6 +80,7 @@ namespace CalamityEntropy.Common
                 Player.Heal(1);
             }
         }
+        public int voidOreNearby = 0;
         public bool rottenFangs = false;
         public float alpha = 1f;
         public float CooldownTimeMult = 1;
@@ -2261,6 +2262,7 @@ namespace CalamityEntropy.Common
         public int AzureShield = 0;
         public override void PostUpdate()
         {
+            voidOreNearby--;
             AzureShield--;
             MariviumLight = float.Lerp(MariviumLight, MariviniumSet ? 1 : (accAzureAbyss ? (AzureShield > 0 ? 1f : 0.8f) : 0), 0.05f);
             if (accAzureAbyss)
