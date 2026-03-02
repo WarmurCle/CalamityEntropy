@@ -1072,7 +1072,7 @@ namespace CalamityEntropy.Common
             if (Main.LocalPlayer.Entropy().voidOreNearby > 0)
                 DrawVoidOres(votype); 
             //Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            
+            //CEUtils.drawLine(new Vector2(-1000, 500), new Vector2(3000, 500), Color.White * 0.5f, 3000, 0, false);
             //Main.spriteBatch.End();
 
             graphicsDevice.SetRenderTarget(Main.screenTarget);
@@ -1080,11 +1080,12 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             fscreen.CurrentTechnique = fscreen.Techniques["Technique1"];
             fscreen.CurrentTechnique.Passes[0].Apply();
-            fscreen.Parameters["strengthMult"].SetValue(0.36f);
-            fscreen.Parameters["iTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.05f);
+            fscreen.Parameters["strengthMult"].SetValue(0.1f);
+            fscreen.Parameters["screen"].SetValue(Main.screenPosition / Main.ScreenSize.ToVector2());
+            fscreen.Parameters["iTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.034f);
             graphicsDevice.Textures[0] = Screen0;
             graphicsDevice.Textures[1] = Main.screenTargetSwap;
-            graphicsDevice.Textures[2] = CEUtils.getExtraTex("Perlin");
+            graphicsDevice.Textures[2] = CEUtils.getExtraTex("VoidBack");
             Main.spriteBatch.Draw(Screen0, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
         }
