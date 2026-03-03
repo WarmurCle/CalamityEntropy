@@ -52,6 +52,5 @@ namespace CalamityEntropy.Content.UI
                 holdAnmj = 0;
             }
         }
-
     }
 }
