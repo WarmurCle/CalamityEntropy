@@ -1821,8 +1821,8 @@ namespace CalamityEntropy.Common
                 }
             }
             BloodthirstyEffect += (info.Damage / (float)Player.statLifeMax2) * 27;
-            if (BloodthirstyEffect > 26)
-                BloodthirstyEffect = 26;
+            if (BloodthirstyEffect > 16)
+                BloodthirstyEffect = 16;
             if (BookMarkLoader.GetPlayerHeldEntropyBook(Player, out var eb) && info.Damage > 19 && CECooldowns.CheckCD("BloodthirstResetShootDelay", 30))
             {
                 if (BookMarkLoader.HeldingBookAndHasBookmarkEffect<BloodthirstBMEffect>(Player))

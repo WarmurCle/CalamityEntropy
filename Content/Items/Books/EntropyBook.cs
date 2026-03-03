@@ -782,12 +782,14 @@ namespace CalamityEntropy.Content.Items.Books
             {
                 effect.OnHitNPC(Projectile, target, damageDone);
             }
-            if (lifeSteal > 0)
+            if (lifeSteal > 0 && StealLife)
             {
                 if (mainProj || Main.rand.NextBool(5))
                     Projectile.GetOwner()?.Entropy().HealFloat(lifeSteal);
+                StealLife = false;
             }
         }
+        public bool StealLife = true;
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             foreach (var effect in this.ProjectileEffects)

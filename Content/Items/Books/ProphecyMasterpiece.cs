@@ -168,7 +168,7 @@ namespace CalamityEntropy.Content.Items.Books
                 }
                 Projectile.timeLeft = 5;
             }
-
+            StealLife = true;
         }
         public override void OnKill(int timeLeft)
         {
