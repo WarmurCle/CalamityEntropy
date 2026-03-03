@@ -4736,6 +4736,7 @@ Projectiles: {
 	FilthlessMissle.DisplayName: 污祛火箭
 	FilthlessShootAlt.DisplayName: 污祛导弹
 	AzafureMissleProj.DisplayName: 阿萨福勒导弹
+	// DivineShield.DisplayName: Divine Shield
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5109,6 +5110,11 @@ Buffs: {
 	OblivionSkullBuff: {
 		DisplayName: 诅咒头骨
 		Description: “它憎恶生者”
+	}
+
+	DivineShieldCooldown: {
+		// DisplayName: Divine Shield Cooldown
+		// Description: Mods.CalamityEntropy.Buffs.DivineShieldCooldown.Description
 	}
 }
 

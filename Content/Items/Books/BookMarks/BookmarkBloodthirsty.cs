@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override Color tooltipColor => new Color(255, 6, 6);
         public override void ModifyStat(EBookStatModifer modifer)
         {
-            modifer.attackSpeed += Main.LocalPlayer.Entropy().BloodthirstyEffect;
+            modifer.attackSpeed += Main.LocalPlayer.Entropy().BloodthirstyEffect * 0.5f;
             modifer.lifeSteal += 0.1f;
         }
         public override EBookProjectileEffect getEffect()

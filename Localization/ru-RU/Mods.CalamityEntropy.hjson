@@ -4473,6 +4473,7 @@ Projectiles: {
 	// FilthlessMissle.DisplayName: Filthless Missle
 	// FilthlessShootAlt.DisplayName: Filthless Shoot Alt
 	// AzafureMissleProj.DisplayName: Azafure Missle Proj
+	// DivineShield.DisplayName: Divine Shield
 }
 
 LegendTooltip: - Легенда -
@@ -4846,6 +4847,11 @@ Buffs: {
 	OblivionSkullBuff: {
 		// DisplayName: Oblivion Skull
 		// Description: It hates the living
+	}
+
+	DivineShieldCooldown: {
+		// DisplayName: Divine Shield Cooldown
+		// Description: Mods.CalamityEntropy.Buffs.DivineShieldCooldown.Description
 	}
 }
 
