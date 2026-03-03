@@ -209,7 +209,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             if (Projectile.velocity.Length() < 24)
                 Projectile.velocity *= 1.06f;
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            CEUtils.AddLight(Projectile.Center, Color.LightYellow);
+            CEUtils.AddLight(Projectile.Center, Color.Violet);
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -232,12 +232,12 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             CEUtils.PlaySound("explosionbig", 1.2f, Projectile.Center, 8, 0.5f);
             for (int i = 0; i < 300; i++)
             {
-                int d = Dust.NewDust(Projectile.Center, 0, 0, DustID.YellowTorch);
+                int d = Dust.NewDust(Projectile.Center, 0, 0, DustID.BlueFlare);
                 if (d < 6000)
                 {
-                    Main.dust[d].velocity = CEUtils.randomPointInCircle(32);
+                    Main.dust[d].velocity = CEUtils.randomPointInCircle(36);
                     Main.dust[d].noGravity = true;
-                    Main.dust[d].scale = Main.rand.NextFloat(1, 3);
+                    Main.dust[d].scale = Main.rand.NextFloat(1, 2);
                 }
             }
         }
