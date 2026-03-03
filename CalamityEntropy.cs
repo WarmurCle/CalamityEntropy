@@ -1568,7 +1568,7 @@ namespace CalamityEntropy
 
             }
             CalEnchantsRegistry();
-            cooldownBuffs = new List<int>() { BuffID.PotionSickness, BuffID.ChaosState, ModContent.BuffType<DivingShieldCooldown>(), ModContent.BuffType<ShatteredOrb>() };
+            cooldownBuffs = new List<int>() { BuffID.PotionSickness, BuffID.ChaosState, ModContent.BuffType<DivineShieldCooldown>(), ModContent.BuffType<ShatteredOrb>() };
             RegistryDraedonDialogs();
             foreach (ICELoader setup in ILoaders)
             {

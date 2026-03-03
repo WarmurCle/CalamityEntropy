@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Buffs
 {
-    public class DivingShieldCooldown : ModBuff
+    public class DivineShieldCooldown : ModBuff
     {
         public override void SetStaticDefaults()
         {

@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items
             Item.useAnimation = 20;
             Item.useStyle = -1;
             Item.noMelee = true;
-            Item.shoot = ModContent.ProjectileType<DivingShield>();
+            Item.shoot = ModContent.ProjectileType<DivineShield>();
             Item.value = CalamityGlobalItem.RarityLightRedBuyPrice;
             Item.rare = ItemRarityID.LightRed;
             Item.shootSpeed = 5;
@@ -32,12 +32,12 @@ namespace CalamityEntropy.Content.Items
         }
         public override bool CanUseItem(Player player)
         {
-            return !player.HasBuff(ModContent.BuffType<DivingShieldCooldown>());
+            return !player.HasBuff(ModContent.BuffType<DivineShieldCooldown>());
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            player.AddBuff(ModContent.BuffType<DivingShieldCooldown>(), 18000, true, false);
-            player.AddCooldown(DivingCd.ID, 18000);
+            player.AddBuff(ModContent.BuffType<DivineShieldCooldown>(), 18000, true, false);
+            player.AddCooldown(DivineCd.ID, 18000);
             return true;
         }
 

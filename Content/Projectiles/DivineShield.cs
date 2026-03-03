@@ -1,4 +1,5 @@
-﻿using CalamityMod.Projectiles.Boss;
+﻿using CalamityEntropy.Common;
+using CalamityMod.Projectiles.Boss;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -7,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
-    public class DivingShield : ModProjectile
+    public class DivineShield : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -64,7 +65,7 @@ namespace CalamityEntropy.Content.Projectiles
                         SoundStyle sd = new SoundStyle("CalamityEntropy/Assets/Sounds/shield");
                         sd.Volume = 0.4f;
                         SoundEngine.PlaySound(sd, Projectile.Center);
-                        if (Projectile.timeLeft < 100)
+                        if (Projectile.timeLeft < 100 && CECooldowns.CheckCD("Dvstl", 20))
                         {
                             Projectile.timeLeft += 20;
                         }
@@ -90,7 +91,7 @@ namespace CalamityEntropy.Content.Projectiles
                                 n.rotation += 3.1415f;
                             }
                             SoundEngine.PlaySound(sd, Projectile.Center);
-                            if (Projectile.timeLeft < 100)
+                            if (Projectile.timeLeft < 100 && CECooldowns.CheckCD("Dvstl", 20))
                             {
                                 Projectile.timeLeft += 20;
                             }
