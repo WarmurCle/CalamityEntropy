@@ -168,6 +168,15 @@ Items: {
 					潜伏攻击扔出一把在击中后持续追逐目标并来回斩切的镰刀
 					'''
 			}
+
+			CrystalSpike: {
+				DisplayName: 魔晶刺
+				Tooltip:
+					'''
+					丢出并扎在目标身上，单个目标最多黏附12根
+					潜行攻击会召回所有黏附的魔晶刺并向光标位置释放水晶风暴
+					'''
+			}
 		}
 	}
 
@@ -4205,7 +4214,7 @@ Projectiles: {
 	AstrumDeus.DisplayName: 星神酱
 	AstralShot.DisplayName: 星辉射线
 	DarkFissure.DisplayName: 黑暗裂隙
-	DivingShield.DisplayName: 神圣护盾
+	// DivingShield.DisplayName: Divine Shield
 	VoidEchoProj.DisplayName: 虚空回响
 	TwistedTwin.DisplayName: 纠缠双子
 	StormWeaverPet.DisplayName: 风编
@@ -4736,7 +4745,11 @@ Projectiles: {
 	FilthlessMissle.DisplayName: 污祛火箭
 	FilthlessShootAlt.DisplayName: 污祛导弹
 	AzafureMissleProj.DisplayName: 阿萨福勒导弹
-	// DivineShield.DisplayName: Divine Shield
+	DivineShield.DisplayName: 圣盾
+	CrystalSpikePop.DisplayName: 魔晶刺
+	CrystalSpikeThrow.DisplayName: 魔晶刺
+	CrystalSpikeReturning.DisplayName: 召回的魔晶刺
+	// SwingSmear.DisplayName: Swing Smear
 }
 
 LegendTooltip: - 传奇物品 -
@@ -4779,8 +4792,8 @@ Buffs: {
 	}
 
 	DivingShieldCooldown: {
-		DisplayName: 神圣干预冷却
-		Description: ""
+		// DisplayName: Divine Shield Cooldown
+		// Description: ""
 	}
 
 	TwistedTwinBuff: {
@@ -5113,8 +5126,8 @@ Buffs: {
 	}
 
 	DivineShieldCooldown: {
-		// DisplayName: Divine Shield Cooldown
-		// Description: Mods.CalamityEntropy.Buffs.DivineShieldCooldown.Description
+		DisplayName: 神圣干预冷却
+		Description: ""
 	}
 }
 

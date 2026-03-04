@@ -134,6 +134,17 @@ Items: {
 					Stealth attacks throw a sickle that relentlessly chases its target, slicing back and forth
 					''' */
 			}
+
+			CrystalSpike: {
+				// DisplayName: Crystal Spike
+				/* Tooltip:
+					'''
+					Throw it out and tie it to the target,
+					with a maximum of 12 sticks adhering to a single target
+					Stealth strike will recall all attached crystal spikes,
+					and continuously throw them towards the cursor direction
+					''' */
+			}
 		}
 	}
 
@@ -4474,6 +4485,10 @@ Projectiles: {
 	// FilthlessShootAlt.DisplayName: Filthless Shoot Alt
 	// AzafureMissleProj.DisplayName: Azafure Missle Proj
 	// DivineShield.DisplayName: Divine Shield
+	// CrystalSpikePop.DisplayName: Crystal Spike Pop
+	// CrystalSpikeThrow.DisplayName: Crystal Spike Throw
+	// CrystalSpikeReturning.DisplayName: Crystal Spike Returning
+	// SwingSmear.DisplayName: Swing Smear
 }
 
 LegendTooltip: - Легенда -

@@ -948,7 +948,7 @@ namespace CalamityEntropy
             {
                 tx = texOverride;
             }
-            return new Terraria.DataStructures.DrawData(tx, (overridePos == default ? projectile.Center : overridePos) + projectile.gfxOffY * Vector2.UnitY - Main.screenPosition, Main.projFrames[projectile.type] <= 1 ? null : new Rectangle(0, (tx.Height / Main.projFrames[projectile.type]) * projectile.frame, tx.Width, (tx.Height / Main.projFrames[projectile.type]) - 2), color, projectile.rotation, new Vector2(tx.Width, Main.projFrames[projectile.type] > 1 ? (tx.Height / Main.projFrames[projectile.type]) - 2 : tx.Height) / 2, projectile.scale, SpriteEffects.None);
+            return new Terraria.DataStructures.DrawData(tx, (overridePos == default ? projectile.Center : overridePos) + projectile.gfxOffY * Vector2.UnitY - Main.screenPosition, Main.projFrames[projectile.type] <= 1 ? null : new Rectangle(0, (tx.Height / Main.projFrames[projectile.type]) * projectile.frame, tx.Width, (tx.Height / Main.projFrames[projectile.type]) - 2), color * projectile.Opacity, projectile.rotation, new Vector2(tx.Width, Main.projFrames[projectile.type] > 1 ? (tx.Height / Main.projFrames[projectile.type]) - 2 : tx.Height) / 2, projectile.scale, SpriteEffects.None);
         }
         public static void showItemTooltip(Item item)
         {
