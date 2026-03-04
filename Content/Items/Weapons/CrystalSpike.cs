@@ -31,7 +31,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.width = 30;
             Item.height = 30;
             Item.damage = 10;
-            Item.ArmorPenetration = 8;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 16;
@@ -95,6 +94,10 @@ namespace CalamityEntropy.Content.Items.Weapons
 
     public class CrystalSpikeThrow : ModProjectile
     {
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.ArmorPenetration += 12;
+        }
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/CrystalSpike";
         public override void SetDefaults()
         {

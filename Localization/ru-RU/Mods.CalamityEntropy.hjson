@@ -140,7 +140,7 @@ Items: {
 				/* Tooltip:
 					'''
 					Throw it out and tie it to the target,
-					with a maximum of 12 sticks adhering to a single target
+					with a maximum of [S] sticks adhering to a single target
 					Stealth strike will recall all attached crystal spikes,
 					and continuously throw them towards the cursor direction
 					''' */
