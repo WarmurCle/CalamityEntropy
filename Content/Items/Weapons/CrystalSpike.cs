@@ -175,7 +175,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (Projectile.ai[0] == 1 || sum >= CrystalSpike.MAXSTICK)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * -1, ModContent.ProjectileType<CrystalSpikePop>(), 0, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.6f) * Main.rand.NextFloat(-1, -0.5f), ModContent.ProjectileType<CrystalSpikePop>(), 0, 0, Projectile.owner);
                 Projectile.Kill();
             }
             else
@@ -193,7 +193,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if(Main.myPlayer == Projectile.owner)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, oldVelocity * -1, ModContent.ProjectileType<CrystalSpikePop>(), 0, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, oldVelocity.RotatedByRandom(0.6f) * Main.rand.NextFloat(-1, -0.5f), ModContent.ProjectileType<CrystalSpikePop>(), 0, 0, Projectile.owner);
             }
             return true;
         }
@@ -312,7 +312,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            Main.spriteBatch.Draw(Projectile.GetTexture(), Projectile.Center - Main.screenPosition, null, Color.MediumPurple * 1.5f * (Projectile.timeLeft / 10f), Projectile.rotation * Projectile.GetOwner().direction, Projectile.GetTexture().Size() * 0.5f, Projectile.scale * 0.42f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(Projectile.GetTexture(), Projectile.Center - Main.screenPosition, null, Color.MediumPurple * 1.5f * (Projectile.timeLeft / 10f), Projectile.rotation * Projectile.GetOwner().direction, Projectile.GetTexture().Size() * 0.5f, Projectile.scale * 0.42f, Projectile.GetOwner().direction > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
             Main.spriteBatch.ExitShaderRegion();
             return false;
         }
