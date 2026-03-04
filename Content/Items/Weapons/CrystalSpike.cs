@@ -286,7 +286,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(DamageClass.Default, false, -1);
-            Projectile.timeLeft = 55;
+            Projectile.timeLeft = 10;
         }
         public override bool? CanDamage()
         {
@@ -294,6 +294,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void AI()
         {
+            if (Projectile.GetOwner().ownedProjectileCounts[ModContent.ProjectileType<CrystalSpikeReturning>()] > 0)
+                Projectile.timeLeft = 10;
             Projectile.Center = Projectile.GetOwner().GetDrawCenter();
             Projectile.rotation += 0.66f;
             if (Main.myPlayer == Projectile.owner)
@@ -303,7 +305,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            Main.spriteBatch.Draw(Projectile.GetTexture(), Projectile.Center - Main.screenPosition, null, Color.MediumPurple * 1.5f * (Projectile.timeLeft / 55f), Projectile.rotation * Projectile.GetOwner().direction, Projectile.GetTexture().Size() * 0.5f, Projectile.scale * 0.42f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(Projectile.GetTexture(), Projectile.Center - Main.screenPosition, null, Color.MediumPurple * 1.5f * (Projectile.timeLeft / 10f), Projectile.rotation * Projectile.GetOwner().direction, Projectile.GetTexture().Size() * 0.5f, Projectile.scale * 0.42f, SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
             return false;
         }
