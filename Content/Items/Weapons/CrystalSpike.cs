@@ -21,7 +21,11 @@ namespace CalamityEntropy.Content.Items.Weapons
 {
     public class CrystalSpike : RogueWeapon
     {
-        public const int MAXSTICK = 12;
+        public static int MAXSTICK => 16;
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.Replace("[S]", MAXSTICK.ToString());
+        }
         public override void SetDefaults()
         {
             Item.width = 30;
