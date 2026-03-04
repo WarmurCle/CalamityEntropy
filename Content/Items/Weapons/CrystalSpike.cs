@@ -89,7 +89,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Projectile.FriendlySetDefaults(CEUtils.RogueDC, true, -1);
             Projectile.width = Projectile.height = 14;
-            Projectile.timeLeft = 60 * 4;
+            Projectile.timeLeft = 120 * 4;
             Projectile.MaxUpdates = 3;
         }
         public int StickNPC = -1;
@@ -103,10 +103,11 @@ namespace CalamityEntropy.Content.Items.Weapons
 ;            counter++;
             if (StickNPC == -1)
             {
-                if (counter > 36)
+                if (counter > 46)
                 {
-                    Projectile.velocity.Y += 0.14f;
-                    Projectile.velocity.Y *= 0.998f;
+                    Projectile.velocity.Y += 0.16f;
+                    Projectile.velocity *= 0.998f;
+                    Projectile.velocity.X *= 0.98f;
                 }
                 if (Projectile.ai[0] == 0)
                     EParticle.spawnNew(new CrystalGlow(), Projectile.Center, Vector2.Zero, Color.MediumPurple, 0.6f, 1, true, BlendState.Additive, 0, 20);
@@ -130,6 +131,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool PreDraw(ref Color lightColor)
         {
+            if(counter == 0)
+                Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
             Texture2D tex = Projectile.GetTexture();
             Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
             return false;
@@ -174,7 +177,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 {
                     StickNPC = target.whoAmI;
                     offset = Projectile.Center - target.Center;
-                    Projectile.timeLeft = 30 * 60 * Projectile.MaxUpdates;
+                    Projectile.timeLeft = 36 * 60 * Projectile.MaxUpdates;
                 }
             }
             CEUtils.SyncProj(Projectile.whoAmI);
