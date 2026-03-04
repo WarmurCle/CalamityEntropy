@@ -177,7 +177,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 {
                     StickNPC = target.whoAmI;
                     offset = Projectile.Center - target.Center;
-                    Projectile.timeLeft = 36 * 60 * Projectile.MaxUpdates;
+                    Projectile.timeLeft = 45 * 60 * Projectile.MaxUpdates;
                 }
             }
             CEUtils.SyncProj(Projectile.whoAmI);
