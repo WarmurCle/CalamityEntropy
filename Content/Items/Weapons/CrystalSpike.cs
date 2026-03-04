@@ -26,8 +26,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 30;
             Item.height = 30;
-            Item.damage = 14;
-            Item.ArmorPenetration = 6;
+            Item.damage = 9;
+            Item.ArmorPenetration = 8;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 16;
@@ -42,7 +42,14 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shootSpeed = 12f;
             Item.DamageType = CEUtils.RogueDC;
         }
-
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<UrchinStinger>()
+                .AddIngredient(ItemID.ManaCrystal, 2)
+                .AddTile(TileID.Anvils)
+                .Register();
+        }
         public override float StealthDamageMultiplier => 1;
         public override float StealthVelocityMultiplier => 1;
         public override float StealthKnockbackMultiplier => 1;
