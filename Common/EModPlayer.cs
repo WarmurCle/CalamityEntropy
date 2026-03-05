@@ -1214,6 +1214,8 @@ namespace CalamityEntropy.Common
             {
                 Player.gravity = 0;
             }
+            if (hasAcc("FlowingLightWing") && !Player.controlJump && Player.controlDown)
+                Player.maxFallSpeed *= 2f;
             if (gravAddTime > 0)
             {
                 Player.gravity *= 1.6f;

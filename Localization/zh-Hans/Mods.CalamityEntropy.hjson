@@ -4093,6 +4093,21 @@ Items: {
 			-1黏附上限
 			'''
 	}
+
+	Accessories: {
+		Wings: {
+			FlowingLight: {
+				DisplayName: 仙萤流光
+				Tooltip:
+					'''
+					按住↓以加速下落
+					飞行时按住↓以悬停
+					获得炽天使翼靴的加成
+					$“臻至化境”
+					'''
+			}
+		}
+	}
 }
 
 ChaoticSetBonus:

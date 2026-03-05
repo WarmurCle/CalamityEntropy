@@ -1705,7 +1705,11 @@ namespace CalamityEntropy.Common
             }
             if (item.Is<YharonBag>())
             {
-                itemLoot.Add(ModContent.ItemType<BookMarkAuric>(), new Fraction(1, 2));
+                bool l(DropAttemptInfo info)
+                {
+                    return info.player.name == "仙萤流光" || info.player.name == "五彩斑斓的黑";
+                }
+                itemLoot.AddIf(l, ModContent.ItemType<FlowingLight>(), 1);
             }
             if (item.type == ItemID.QueenBeeBossBag)
             {

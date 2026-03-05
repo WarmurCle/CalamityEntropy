@@ -804,6 +804,8 @@ namespace CalamityEntropy.Common
             {
                 npcLoot.Add(ModContent.ItemType<OsseousRemains>(), 3, 6, 8);
             }
+            if (npc.type == ModContent.NPCType<Yharon>())
+                npcLoot.AddIf(() => (!NPC.downedMoonlord), ModContent.ItemType<FlowingLight>(), 1);
             if (npc.type == NPCID.WallofFlesh)
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<HungryLantern>(), 3, 1, 1);

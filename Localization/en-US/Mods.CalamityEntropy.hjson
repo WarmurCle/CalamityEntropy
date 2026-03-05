@@ -3840,6 +3840,20 @@ Items: {
 			Causing more adhering damage
 			'''
 	}
+
+	Accessories: {
+		Wings: {
+			FlowingLight: {
+				DisplayName: Flowing Light
+				Tooltip:
+					'''
+					Hold ↓ when flying to hover
+					Hold ↓ to accelerate the descent
+					$"Reaching the pinnacle of perfection"
+					'''
+			}
+		}
+	}
 }
 
 ChaoticSetBonus:
