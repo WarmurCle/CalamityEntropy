@@ -60,18 +60,15 @@ namespace CalamityEntropy.Content.Items.Donator
             player.buffImmune[BuffID.OnFire] = true;
             player.noFallDmg = true;
             modPlayer.seraphTracers = true;
+
+            if (player.controlJump && player.controlDown && player.wingTime > 0)
+            {
+                player.velocity.Y = BonusAscentWhileFalling + 0.142f;
+            }
         }
         public override void UpdateVanity(Player player)
         {
             player.Entropy().addEquipVisual("FlowingLightWing");
-        }
-        public override bool WingUpdate(Player player, bool inUse)
-        {
-            if (inUse && player.controlDown)
-            {
-                player.velocity.Y = BonusAscentWhileFalling + 0.142f;
-            }
-            return true;
         }
         public override void AddRecipes()
         {
