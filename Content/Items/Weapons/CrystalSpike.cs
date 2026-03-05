@@ -129,7 +129,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 {
                     var d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.PurpleTorch);
                     d.position = Vector2.Lerp(Projectile.Center - Projectile.velocity, Projectile.Center, i) + CEUtils.randomPointInCircle(5);
-                    d.velocity = Projectile.velocity * Main.rand.NextFloat();
+                    d.velocity = Projectile.velocity * Main.rand.NextFloat(0.4f);
                 }
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
@@ -173,7 +173,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("truemoonlighthit", Main.rand.NextFloat(2f, 2.4f), target.Center, 60, 0.6f);
+            CEUtils.PlaySound("truemoonlighthit", Main.rand.NextFloat(1.4f, 1.8f), target.Center, 60, 0.7f);
             int sum = 0;
             foreach(Projectile p in Main.ActiveProjectiles)
             {
@@ -263,7 +263,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 {
                     var d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.PurpleTorch);
                     d.position = Vector2.Lerp(Projectile.Center, pos, i) + CEUtils.randomPointInCircle(5);
-                    d.velocity = offset * Main.rand.NextFloat();
+                    d.velocity = offset * Main.rand.NextFloat(0.4f);
                 }
                 Projectile.Center = pos;
             }
