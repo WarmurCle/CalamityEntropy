@@ -17,8 +17,8 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetDefaults()
         {
             Projectile.DamageType = CEUtils.RogueDC;
-            Projectile.width = 42;
-            Projectile.height = 42;
+            Projectile.width = 24;
+            Projectile.height = 24;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.light = 0.1f;
@@ -26,6 +26,10 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
             Projectile.ArmorPenetration = 10;
+        }
+        public override void ModifyDamageHitbox(ref Rectangle hitbox)
+        {
+            hitbox = Projectile.Center.getRectCentered(Projectile.scale * 40, Projectile.scale * 40);
         }
         public float counter { get { return Projectile.localAI[0]; } set { Projectile.localAI[0] = value; } }
         public float grav { get { return Projectile.localAI[2]; } set { Projectile.localAI[2] = value; } }
@@ -136,7 +140,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
             odp.Add(Projectile.Center);
-            if (odp.Count > 18)
+            if (odp.Count > 8)
             {
                 odp.RemoveAt(0);
             }
@@ -203,10 +207,52 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            for (int i = 1; i < odp.Count; i++)
+            odp.Add(Projectile.Center);
+            if (odp.Count > 2)
             {
-                CEUtils.drawLine(odp[i - 1], odp[i], Color.Purple * 0.36f, (float)i / odp.Count * 9);
+                List<Vector2> poses = new List<Vector2>();
+                for(int i = 1; i < odp.Count; i++)
+                {
+                    for(float h = 0.1f; h <= 1; h += 0.1f)
+                    {
+                        poses.Add(Vector2.Lerp(odp[i - 1], odp[i], h));
+                    }
+                }
+                Color b = Color.MediumPurple * 1.2f;
+                Color w = Color.White;
+                List<ColoredVertex> vep = new List<ColoredVertex>();
+                List<ColoredVertex> vew = new List<ColoredVertex>();
+                float ds = Main.GlobalTimeWrappedHourly * 4;
+                for (int i = 1; i < poses.Count; i++)
+                {
+                    float p = i / (poses.Count - 1f);
+                    float a = p;
+
+                    vep.Add(new ColoredVertex(poses[i] - Main.screenPosition + (poses[i] - poses[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 24 * p * Projectile.scale,
+                          new Vector3(p + ds, 1, 1),
+                        b * a));
+                    vep.Add(new ColoredVertex(poses[i] - Main.screenPosition + (poses[i] - poses[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 24 * p * Projectile.scale,
+                          new Vector3(p + ds, 0, 1),
+                          b * a));
+                    vew.Add(new ColoredVertex(poses[i] - Main.screenPosition + (poses[i] - poses[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 24 * p * Projectile.scale,
+                          new Vector3(p + ds, 1, 1),
+                        w * a));
+                    vew.Add(new ColoredVertex(poses[i] - Main.screenPosition + (poses[i] - poses[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 24 * p * Projectile.scale,
+                          new Vector3(p + ds, 0, 1),
+                          w * a));
+                }
+                GraphicsDevice gd = Main.graphics.GraphicsDevice;
+                if (vep.Count >= 3)
+                {
+                    Main.spriteBatch.UseBlendState(BlendState.Additive, SamplerState.LinearWrap);
+                    gd.Textures[0] = CEUtils.getExtraTex("Streak2");
+                    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, vep.ToArray(), 0, vep.Count - 2);
+                    gd.Textures[0] = CEUtils.getExtraTex("Streak1");
+                    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, vew.ToArray(), 0, vew.Count - 2);
+                    Main.spriteBatch.ExitShaderRegion();
+                }
             }
+            odp.RemoveAt(odp.Count - 1);
             Texture2D tx = Projectile.GetTexture();
             Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
             return false;

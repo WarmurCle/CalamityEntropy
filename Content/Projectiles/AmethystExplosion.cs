@@ -34,10 +34,12 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.ai[0] == 0)
             {
-                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, new Color(200, 180, 255), new Vector2(2f, 2f), 0, 0.1f, 2 * 0.85f, 46);
-                GeneralParticleHandler.SpawnParticle(pulse);
                 CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, new Color(220, 196, 255), Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 2.2f * 0.65f, 30);
                 GeneralParticleHandler.SpawnParticle(explosion2);
+                float scale = 7f;
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.MediumPurple * 1.6f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 30));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.MediumPurple * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 26));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.MediumPurple * 1.2f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.02f, 22));
             }
             Projectile.ai[0]++;
         }
