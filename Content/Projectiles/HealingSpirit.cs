@@ -39,16 +39,16 @@ namespace CalamityEntropy.Content.Projectiles
             }
             counter++;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if (counter < 32 * Projectile.MaxUpdates)
+            if (counter < 18 * Projectile.MaxUpdates)
             {
-                Projectile.velocity *= 0.996f;
+                Projectile.velocity *= 0.99f;
             }
             else
             {
                 Player target = Projectile.GetOwner();
                 if (l < 9)
                 {
-                    l += 0.007f;
+                    l += 0.002f;
                 }
                 Projectile.velocity = new Vector2(Projectile.velocity.Length() + 0.3f, 0).RotatedBy(CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.5f * l, false));
                 Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 1f.ToRadians() * l, true));
@@ -79,7 +79,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.PostAI();
             odp.Add(Projectile.Center);
             odr.Add(Projectile.rotation);
-            if (odp.Count > 12)
+            if (odp.Count > 20)
             {
                 odp.RemoveAt(0);
                 odr.RemoveAt(0);
