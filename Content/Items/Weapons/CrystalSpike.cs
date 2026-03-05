@@ -324,7 +324,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.rotation += 0.66f;
             if (Main.myPlayer == Projectile.owner)
                 Main.LocalPlayer.direction = Main.MouseWorld.X > Main.LocalPlayer.Center.X ? 1 : -1;
-            Projectile.GetOwner().SetHandRotWithDir(Projectile.rotation * Projectile.GetOwner().direction, Projectile.GetOwner().direction);
+            Projectile.GetOwner().SetHandRotWithDir(Projectile.rotation * Projectile.GetOwner().direction + (Projectile.GetOwner().direction > 0 ? 0 : MathHelper.Pi), Projectile.GetOwner().direction);
         }
         public override bool PreDraw(ref Color lightColor)
         {
