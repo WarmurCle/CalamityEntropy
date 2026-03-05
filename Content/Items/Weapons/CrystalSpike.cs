@@ -178,7 +178,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            EParticle.spawnNew(new CrystalGlow(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 10, Vector2.Zero, Color.MediumPurple * 1.6f, 1.5f, 1, true, BlendState.Additive, 0, 10);
+            EParticle.spawnNew(new CrystalGlow(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 10, Vector2.Zero, Color.MediumPurple * 1.3f, 1.5f, 1, true, BlendState.Additive, 0, 10);
 
             CEUtils.PlaySound("truemoonlighthit", Main.rand.NextFloat(1.4f, 1.8f), target.Center, 60, 0.7f);
             int sum = 0;
@@ -205,7 +205,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            EParticle.spawnNew(new CrystalGlow(), Projectile.Center + oldVelocity + Projectile.rotation.ToRotationVector2() * 4, Vector2.Zero, Color.MediumPurple * 1.6f, 1.5f, 1, true, BlendState.Additive, 0, 10);
+            EParticle.spawnNew(new CrystalGlow(), Projectile.Center + oldVelocity + Projectile.rotation.ToRotationVector2() * 4, Vector2.Zero, Color.MediumPurple * 1.3f, 1.5f, 1, true, BlendState.Additive, 0, 10);
             if (Main.myPlayer == Projectile.owner)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, oldVelocity.RotatedByRandom(0.6f) * Main.rand.NextFloat(-1, -0.5f), ModContent.ProjectileType<CrystalSpikePop>(), 0, 0, Projectile.owner);
