@@ -37,13 +37,15 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.accessory = true;
         }
-        public override void PostDrawTooltipLine(DrawableTooltipLine line)
+        public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
         {
-            if (line.Text.StartsWith("$"))
+            if(line.Text.StartsWith("$"))
             {
                 DrawableTooltipLine nLine = new DrawableTooltipLine(new(Mod, "-", line.Text.Replace("$", "")), line.Index, line.X, line.Y, line.Color);
                 BurnishedAuric.Draw(Item, nLine);
+                return false;
             }
+            return true;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
