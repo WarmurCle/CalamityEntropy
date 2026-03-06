@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 {
     public class CrystalSpike : RogueWeapon
     {
-        public static int MAXSTICK => 16;
+        public static int MAXSTICK => 8;
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             tooltips.Replace("[S]", MAXSTICK.ToString());
@@ -187,7 +187,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if (p.owner == Projectile.owner && p.type == Projectile.type && p.ModProjectile is CrystalSpikeThrow cs && cs.StickNPC == target.whoAmI)
                     sum++;
             }
-            if (Projectile.ai[0] == 1 || sum >= CrystalSpike.MAXSTICK)
+            if (sum >= CrystalSpike.MAXSTICK) //Projectile.ai[0] == 1 || 
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.6f) * Main.rand.NextFloat(-1, -0.5f), ModContent.ProjectileType<CrystalSpikePop>(), 0, 0, Projectile.owner);
                 Projectile.Kill();
@@ -329,7 +329,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            Main.spriteBatch.Draw(Projectile.GetTexture(), Projectile.Center - Main.screenPosition, null, Color.MediumPurple * 1.6f * (Projectile.timeLeft / 10f), Projectile.rotation * Projectile.GetOwner().direction, Projectile.GetTexture().Size() * 0.5f, Projectile.scale * 0.36f, Projectile.GetOwner().direction > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+            Main.spriteBatch.Draw(Projectile.GetTexture(), Projectile.Center - Main.screenPosition, null, Color.MediumPurple * 1.25f * (Projectile.timeLeft / 10f), Projectile.rotation * Projectile.GetOwner().direction, Projectile.GetTexture().Size() * 0.5f, Projectile.scale * 0.36f, Projectile.GetOwner().direction > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
             Main.spriteBatch.ExitShaderRegion();
             return false;
         }
