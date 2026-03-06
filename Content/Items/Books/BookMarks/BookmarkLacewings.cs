@@ -101,13 +101,13 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 if (CEUtils.getDistance(Projectile.Center, target.Center) < 600 && Delay <= 0)
                 {
                     CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), target.Center + target.velocity, (int)(Projectile.damage / 2.4f), 6, Projectile.DamageType).CritChance = Projectile.CritChance;
-                    ;
                     for (float i = 0.04f; i <= 1; i += 0.02f)
                     {
                         Color rgbColor = Main.hslToRgb(i, 0.5f, 0.6f) * 0.25f;
                         GeneralParticleHandler.SpawnParticle(new LineParticle(Vector2.Lerp(Projectile.Center, target.Center, i), (target.Center - Projectile.Center).normalize() * 0.01f, false, 18, (1f - i) * 0.8f + 0.8f, rgbColor));
                     }
-
+                    if (Projectile.penetrate > 0)
+                        Projectile.penetrate--;
                     Delay = (int)(Main.rand.Next(16, 25) / DelayMult);
                 }
                 else
