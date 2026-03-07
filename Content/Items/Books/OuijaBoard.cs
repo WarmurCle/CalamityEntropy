@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Items.Books
             base.SetDefaults();
             Item.damage = 14;
             Item.useTime = Item.useAnimation = 25;
-            Item.shootSpeed = 14;
+            Item.shootSpeed = 22;
         }
         public override int HeldProjectileType => ModContent.ProjectileType<OuijaBoardHeld>();
         public override int SlotCount => 1;

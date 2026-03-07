@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod;
@@ -20,10 +20,11 @@ namespace CalamityEntropy.Content.Items.Books
             base.SetDefaults();
             Item.width = 40;
             Item.height = 52;
-            Item.damage = 56;
+            Item.damage = 48;
             Item.useAnimation = Item.useTime = 18;
-            Item.crit = 16;
+            Item.crit = 5;
             Item.mana = 15;
+	        Item.ArmorPenetration = 25;
             Item.rare = ItemRarityID.Red;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
         }

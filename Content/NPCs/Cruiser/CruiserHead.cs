@@ -136,7 +136,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override void SetDefaults()
         {
             NPC.Calamity().canBreakPlayerDefense = true;
-            NPC.Calamity().DR = 0.40f;
+            NPC.Calamity().DR = 0.50f;
             NPC.boss = true;
             NPC.width = 100;
             NPC.height = 100;
@@ -378,7 +378,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             else
             {
                 NPC.defense = 50;
-                NPC.Calamity().DR = 0.25f;
+                NPC.Calamity().DR = 0.35f;
                 aiRound++;
                 if (aiRound >= 9)
                 {
