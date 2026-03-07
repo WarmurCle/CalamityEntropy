@@ -3618,18 +3618,12 @@ Items: {
 
 	ExquisiteCrown: {
 		DisplayName: Exquisite Crown
-		Tooltip:
-			'''
-			Summon a crown that will shoot ruby beams to enemies
-			'''
+		Tooltip: Summon a crown that will shoot ruby beams to enemies
 	}
 
 	RottenFangs: {
 		DisplayName: Rotten Fangs
-		Tooltip:
-			'''
-			Minions will shoot blood bullets to enemies
-			'''
+		Tooltip: Minions will shoot blood bullets to enemies
 	}
 
 	CreeperWand: {

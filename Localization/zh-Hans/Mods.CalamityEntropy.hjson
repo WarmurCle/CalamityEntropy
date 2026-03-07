@@ -3867,18 +3867,12 @@ Items: {
 
 	ExquisiteCrown: {
 		DisplayName: 精致皇冠
-		Tooltip:
-			'''
-			召唤一顶向附近敌人发射射线的金冠
-			'''
+		Tooltip: 召唤一顶向附近敌人发射射线的金冠
 	}
 
 	RottenFangs: {
 		DisplayName: 腐檀獠牙
-		Tooltip:
-			'''
-			仆从会时不时向附近敌人发射一些血弹
-			'''
+		Tooltip: 仆从会时不时向附近敌人发射一些血弹
 	}
 
 	CreeperWand: {
