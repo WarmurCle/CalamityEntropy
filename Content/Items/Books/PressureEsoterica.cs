@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 50;
+            Item.damage = 60;
             Item.useAnimation = Item.useTime = 24;
             Item.crit = 4;
             Item.mana = 18;
@@ -80,10 +80,10 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.height = 16;
             Projectile.tileCollide = false;
             Projectile.light = 0.4f;
-            Projectile.timeLeft = 400;
+            Projectile.timeLeft = 150;
             Projectile.penetrate = -1;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 5;
+            Projectile.localNPCHitCooldown = 25;
             Projectile.MaxUpdates = 2;
         }
         public override Color baseColor => Color.DarkBlue;
