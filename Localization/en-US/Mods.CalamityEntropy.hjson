@@ -3621,7 +3621,6 @@ Items: {
 		Tooltip:
 			'''
 			Summon a crown that will shoot ruby beams to enemies
-			+1 Minion Slot
 			'''
 	}
 
@@ -3630,7 +3629,6 @@ Items: {
 		Tooltip:
 			'''
 			Minions will shoot blood bullets to enemies
-			+1 Minion Slot
 			'''
 	}
 
@@ -5882,3 +5880,4 @@ PassedBossRush: Passed Boss Rush
 BloodthirstyRequirement: You need at least 200 health points to craft this item
 BloodthirstyKilled: bled out
 Luminariswarm: Luminariswarm
+MinionAccDescCrownFangs: When equip with [ITEM]: +1 Minion slot
