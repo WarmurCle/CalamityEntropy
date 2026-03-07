@@ -83,7 +83,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.timeLeft = 400;
             Projectile.penetrate = -1;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 3;
+            Projectile.localNPCHitCooldown = 5;
             Projectile.MaxUpdates = 2;
         }
         public override Color baseColor => Color.DarkBlue;
