@@ -3867,20 +3867,12 @@ Items: {
 
 	ExquisiteCrown: {
 		DisplayName: 精致皇冠
-		Tooltip:
-			'''
-			增加1个召唤栏
-			召唤一顶向附近敌人发射射线的金冠
-			'''
+		Tooltip: 召唤一顶向附近敌人发射射线的金冠
 	}
 
 	RottenFangs: {
 		DisplayName: 腐檀獠牙
-		Tooltip:
-			'''
-			增加1个召唤栏
-			仆从会时不时向附近敌人发射一些血弹
-			'''
+		Tooltip: 仆从会时不时向附近敌人发射一些血弹
 	}
 
 	CreeperWand: {
@@ -6093,3 +6085,4 @@ PassedBossRush: 通过Boss Rush
 BloodthirstyRequirement: 你至少需要200点生命值才能制作此物品
 BloodthirstyKilled: 放干了血
 Luminariswarm: 幻光蛾群
+MinionAccDescCrownFangs: 当与[ITEM]同时佩戴: +1召唤栏
