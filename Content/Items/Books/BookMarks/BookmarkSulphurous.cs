@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
-            if (projectile.GetOwner().Entropy().SulphurousBubbleRecharge < 3600)
+            if (projectile.GetOwner().Entropy().SulphurousBubbleRecharge < 7200)
             {
                 target.AddBuff<Irradiated>(Time);
             }
