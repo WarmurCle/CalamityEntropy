@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             n.GetGlobalNPC<LunarBMGlobalNPC>().decreaceCd = 40;
             if (n.GetGlobalNPC<LunarBMGlobalNPC>().progress >= 1)
             {
-                int dmg = (int)(projectile.damage * 3f);
+                int dmg = (int)(projectile.damage * 1.5f);
                 n.GetGlobalNPC<LunarBMGlobalNPC>().progress = 0;
                 projectile.GetOwner().ApplyDamageToNPC(n, dmg, 0, 0, false, projectile.DamageType);
                 CEUtils.PlaySound("light_bolt", 1, n.Center);
