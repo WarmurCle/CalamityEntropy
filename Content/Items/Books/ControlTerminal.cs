@@ -25,9 +25,9 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 190;
+            Item.damage = 165;
             Item.useAnimation = Item.useTime = 100;
-            Item.crit = 15;
+            Item.crit = 10;
             Item.mana = 36;
             Item.shootSpeed = 45;
             Item.rare = ModContent.RarityType<BurnishedAuric>();
