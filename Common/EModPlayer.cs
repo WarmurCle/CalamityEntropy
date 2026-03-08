@@ -2287,13 +2287,7 @@ namespace CalamityEntropy.Common
                 EnhancedDarknessSystem.lights.Add(new(center: Player.Center, scale: 36 * MariviumLight));
                 if (MariviniumSet || accAzureAbyss)
                 {
-                    for (float i = 0; i < 360; i += 2.5f)
-                    {
-                        for (float d = 0; d < 1; d += 0.1f)
-                        {
-                            CEUtils.AddLight(Player.Center + Player.velocity + MathHelper.ToRadians(i).ToRotationVector2() * (1 - d) * 450 * MariviumLight, Color.LightBlue * MariviumLight * d * 0.8f, 1.5f);
-                        }
-                    }
+                    CEUtils.AddLight(Player.Center, Color.LightBlue * MariviumLight, 12f);
                 }
             }
             BloodthirstyEffect *= 0.974f;

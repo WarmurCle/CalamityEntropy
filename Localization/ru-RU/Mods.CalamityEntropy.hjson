@@ -3839,6 +3839,11 @@ Items: {
 			}
 		}
 	}
+
+	Nidhogg: {
+		// DisplayName: Nidhogg
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:
@@ -4496,6 +4501,7 @@ Projectiles: {
 	// CrystalSpikeThrow.DisplayName: Crystal Spike Throw
 	// CrystalSpikeReturning.DisplayName: Crystal Spike Returning
 	// SwingSmear.DisplayName: Swing Smear
+	// NidhoggGunHoldout.DisplayName: Nidhogg Gun Holdout
 }
 
 LegendTooltip: - Легенда -

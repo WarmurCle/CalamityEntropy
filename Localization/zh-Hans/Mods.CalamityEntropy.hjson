@@ -4100,6 +4100,11 @@ Items: {
 			}
 		}
 	}
+
+	Neltharion: {
+		DisplayName: 奈萨里奥
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:
@@ -4757,7 +4762,8 @@ Projectiles: {
 	CrystalSpikePop.DisplayName: 魔晶刺
 	CrystalSpikeThrow.DisplayName: 魔晶刺
 	CrystalSpikeReturning.DisplayName: 召回的魔晶刺
-	// SwingSmear.DisplayName: Swing Smear
+	SwingSmear.DisplayName: 水晶旋风
+	NidhoggGunHoldout.DisplayName: 奈萨里奥
 }
 
 LegendTooltip: - 传奇物品 -

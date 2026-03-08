@@ -3846,6 +3846,11 @@ Items: {
 			}
 		}
 	}
+
+	Neltharion: {
+		DisplayName: Neltharion
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:
@@ -4514,7 +4519,8 @@ Projectiles: {
 	CrystalSpikePop.DisplayName: Crystal Spike Pop
 	CrystalSpikeThrow.DisplayName: Crystal Spike Throw
 	CrystalSpikeReturning.DisplayName: Crystal Spike Returning
-	SwingSmear.DisplayName: Swing Smear
+	SwingSmear.DisplayName: Crystal Storm
+	NeltharionHoldout.DisplayName: Neltharion
 }
 
 LegendTooltip: - Legend -

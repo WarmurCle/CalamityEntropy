@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Tiles;
+﻿using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items.Materials;
 using Terraria;
 using Terraria.DataStructures;
@@ -25,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.crit = 5;
             Item.UseSound = SoundID.Item11;
             Item.value = Item.buyPrice(gold: 80);
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ModContent.RarityType<VoidPurple>();
         }
 
         public override Vector2? HoldoutOffset()
