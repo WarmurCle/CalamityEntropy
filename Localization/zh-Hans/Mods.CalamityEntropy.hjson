@@ -4103,14 +4103,14 @@ Items: {
 
 	Neltharion: {
 		DisplayName: 奈萨里奥
-		Tooltip: 
-		'''
-		启动完毕后，迅速发射子弹和虚空水晶
-		当你停止开火时会散射一些虚空水晶
-		虚空水晶会爆炸并造成范围伤害
-		使用时不断消耗弹药
-		{$CommonItemTooltip.PercentChanceToSaveAmmo}
-		'''
+		Tooltip:
+			'''
+			启动完毕后，迅速发射子弹和虚空水晶
+			当你停止开火时会散射一些虚空水晶
+			虚空水晶会爆炸并造成范围伤害
+			使用时不断消耗弹药
+			{$CommonItemTooltip.PercentChanceToSaveAmmo}
+			'''
 	}
 }
 

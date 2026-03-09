@@ -3842,7 +3842,14 @@ Items: {
 
 	Neltharion: {
 		// DisplayName: Neltharion
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			After revving up, rapidly fire bullets and void crystals
+			When you stop firing you will release a barrage of void crystals
+			Void crystals will explode and causing range damage
+			Constantly consumes ammo while in use
+			{$CommonItemTooltip.PercentChanceToSaveAmmo}
+			''' */
 	}
 }
 

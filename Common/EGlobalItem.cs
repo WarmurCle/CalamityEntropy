@@ -1023,7 +1023,7 @@ namespace CalamityEntropy.Common
                     Main.spriteBatch.Draw(glow, new Vector2(line.X, line.Y) + origin, null, Color.AliceBlue * 0.6f, 0, glow.Size() * 0.5f, origin * 0.02f * new Vector2(1, 0.6f), SpriteEffects.None, 0);
                     Main.spriteBatch.UseBlendState_UI(BlendState.AlphaBlend);
                     float xa = 0;
-                    List<float> scales = new List<float>() { 0, 0.3333f, 0.6666f };
+                    List<float> scales = new List<float>() { 0, 0.5f };
                     Vector2 ms = font.MeasureString(line.Text);
                     ms.Y *= 0.7f;
                     for (int i_ = 0; i_ < scales.Count; i_++)
@@ -1042,8 +1042,8 @@ namespace CalamityEntropy.Common
                         Vector2 size = font.MeasureString(text); 
                         float yofs;
                         float lerp = 0.5f + (0.5f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * -6 + i * 3f / line.Text.Length)));
-                        Color color = Color.Lerp(Color.Black, new Color(40, 40, 100), lerp);
-                        Color strokeColord = Color.Lerp(new Color(106, 40, 190), new Color(2350, 180, 255), lerp);
+                        Color color = Color.Lerp(Color.Black, new Color(200, 160, 255), lerp);
+                        Color strokeColord = new Color(160, 100, 255);
                         yofs = 0;
                         
 
