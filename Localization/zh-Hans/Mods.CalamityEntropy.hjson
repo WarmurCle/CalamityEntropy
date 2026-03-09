@@ -4813,11 +4813,6 @@ Buffs: {
 		Description: ""
 	}
 
-	DivingShieldCooldown: {
-		// DisplayName: Divine Shield Cooldown
-		// Description: ""
-	}
-
 	TwistedTwinBuff: {
 		DisplayName: 纠缠双子
 		Description: ""

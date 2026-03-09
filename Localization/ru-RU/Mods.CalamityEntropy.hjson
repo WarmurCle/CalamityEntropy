@@ -3972,7 +3972,6 @@ Projectiles: {
 	AstrumDeus.DisplayName: Аструм Деус
 	AstralShot.DisplayName: Астральный выстрел
 	DarkFissure.DisplayName: Разлом тьмы
-	DivingShield.DisplayName: Божественный щит
 	VoidEchoProj.DisplayName: Проекция пустого эхо
 	TwistedTwin.DisplayName: Искажённый близнец
 	StormWeaverPet.DisplayName: Штормовой ткач
@@ -4548,11 +4547,6 @@ Buffs: {
 
 	WeakGravity: {
 		DisplayName: Слабая гравитация
-		Description: ""
-	}
-
-	DivingShieldCooldown: {
-		DisplayName: Перезарядка божественного щита
 		Description: ""
 	}
 
