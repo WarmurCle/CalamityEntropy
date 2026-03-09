@@ -10,6 +10,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
@@ -40,6 +41,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.ArmorPenetration = 10;
         }
         public static int AmmoSavedPercent = 90;
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(AmmoSavedPercent);
         public override bool RangedPrefix()
         {
             return true;
@@ -67,7 +69,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             CreateRecipe()
                 .AddIngredient<Kingsbane>()
                 .AddIngredient<Onyxia>()
-                .AddIngredient<VoidBar>(8)
+                .AddIngredient<FadingRunestone>()
                 .AddIngredient<RuinousSoul>(2)
                 .AddTile<VoidWellTile>()
                 .Register();
