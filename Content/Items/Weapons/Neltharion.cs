@@ -170,7 +170,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         FireFx = 3;
                         ShootDelay += (Projectile.ai[0] / Owner.GetWeaponAttackSpeed(Owner.HeldItem)) * Projectile.MaxUpdates;
                         offset = -10;
-                        CEUtils.PlaySound("gunshot", Main.rand.NextFloat(1.4f, 1.8f), Projectile.Center, 10, 0.4f);
+                        CEUtils.PlaySound("gunshot", Main.rand.NextFloat(1.6f, 1.8f), Projectile.Center, 10, 0.32f);
                         if(Main.myPlayer == Projectile.owner)
                         {
                             Owner.PickAmmo(Owner.HeldItem, out int type, out float sts, out int dmg, out float kb, out int _, false);
@@ -266,7 +266,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Violet * 1.25f, "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.14f * Projectile.scale, 24));
             CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage, 120, Projectile.DamageType);
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
-            CEUtils.PlaySound("explosion", Main.rand.NextFloat(2.4f, 2.8f), Projectile.Center, 10, 0.8f);
+            CEUtils.PlaySound("explosion", Main.rand.NextFloat(2.4f, 2.8f), Projectile.Center, 10, 0.5f);
         }
         public override bool PreDraw(ref Color lightColor)
         {
