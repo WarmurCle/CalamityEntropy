@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.autoReuse = true;
             Item.ArmorPenetration = 10;
         }
-        public static int AmmoSavedPercent = 95;
+        public static int AmmoSavedPercent = 90;
         public override bool RangedPrefix()
         {
             return true;
@@ -102,7 +102,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             FireFx--;
             Projectile.StickToPlayer();
             Projectile.position += Projectile.velocity.normalize() * (16 + offset);
-            offset *= 0.9f;
+            offset *= 0.84f;
             Owner.SetHandRot(Projectile.rotation);
             if (Owner.channel)
             {
@@ -157,8 +157,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                     if(ShootDelay <= 0)
                     {
                         FireFx = 3;
-                        ShootDelay += (Projectile.ai[0] / Owner.GetWeaponAttackSpeed(Owner.HeldItem));
-                        offset = -8;
+                        ShootDelay += (Projectile.ai[0] / Owner.GetWeaponAttackSpeed(Owner.HeldItem)) * Projectile.MaxUpdates;
+                        offset = -10;
                         CEUtils.PlaySound("gunshot", Main.rand.NextFloat(1.4f, 1.8f), Projectile.Center, 10, 0.4f);
                         if(Main.myPlayer == Projectile.owner)
                         {
@@ -171,6 +171,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), FirePos, Projectile.velocity.normalize().RotatedByRandom(0.05f) * 42, ModContent.ProjectileType<NeltharionCrystal>(), dmg * 5, kb, Projectile.owner);
                             }
                         }
+                        var d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.CorruptTorch);
+                        d.scale = 1.2f;
+                        d.velocity = Owner.velocity * 0.8f + Projectile.velocity.normalize().RotatedBy(-2.5f * (Projectile.velocity.X > 0 ? 1 : -1) + Main.rand.NextFloat(-0.16f, 0.16f)) * 4f;
+                        d.noGravity = false;
                     }
                 }
             }
