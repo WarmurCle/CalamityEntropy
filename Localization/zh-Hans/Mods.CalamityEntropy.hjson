@@ -4234,7 +4234,6 @@ Projectiles: {
 	AstrumDeus.DisplayName: 星神酱
 	AstralShot.DisplayName: 星辉射线
 	DarkFissure.DisplayName: 黑暗裂隙
-	// DivingShield.DisplayName: Divine Shield
 	VoidEchoProj.DisplayName: 虚空回响
 	TwistedTwin.DisplayName: 纠缠双子
 	StormWeaverPet.DisplayName: 风编
@@ -4770,8 +4769,8 @@ Projectiles: {
 	CrystalSpikeThrow.DisplayName: 魔晶刺
 	CrystalSpikeReturning.DisplayName: 召回的魔晶刺
 	SwingSmear.DisplayName: 水晶旋风
-	// NeltharionHoldout.DisplayName: Neltharion
-	// NeltharionCrystal.DisplayName: Neltharion Crystal
+	NeltharionHoldout.DisplayName: 奈萨里奥
+	NeltharionCrystal.DisplayName: 爆炸虚空水晶
 }
 
 LegendTooltip: - 传奇物品 -

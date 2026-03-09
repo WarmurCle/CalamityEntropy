@@ -3991,7 +3991,6 @@ Projectiles: {
 	AstrumDeus.DisplayName: Astrum Deus
 	AstralShot.DisplayName: Astral Shot
 	DarkFissure.DisplayName: Dark Fissure
-	DivingShield.DisplayName: Divine Shield
 	VoidEchoProj.DisplayName: Void Echo Proj
 	TwistedTwin.DisplayName: Twisted Twin
 	StormWeaverPet.DisplayName: Storm Weaver
@@ -4567,11 +4566,6 @@ Buffs: {
 
 	WeakGravity: {
 		DisplayName: Weak Gravity
-		Description: ""
-	}
-
-	DivingShieldCooldown: {
-		DisplayName: Divine Shield Cooldown
 		Description: ""
 	}
 
