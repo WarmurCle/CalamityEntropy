@@ -24,6 +24,7 @@ namespace CalamityEntropy.Content.Particles
             lx *= 0.88f;
             xscale += xadd;
             xadd *= xdec;
+            Velocity *= 0.96f;
         }
         public override void Draw()
         {

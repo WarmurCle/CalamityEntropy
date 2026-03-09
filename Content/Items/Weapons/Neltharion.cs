@@ -246,7 +246,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             for(float i = 0; i <= MathHelper.TwoPi; i += MathHelper.TwoPi / 3f)
             {
                 for(int i_ = 0; i_ < 4; i_ ++)
-                    Main.EntitySpriteDraw(Projectile.getDrawData(Color.White, null, Projectile.Center + (i + Main.GlobalTimeWrappedHourly * 0.6f).ToRotationVector2() * 4f));
+                    Main.EntitySpriteDraw(Projectile.getDrawData(Color.White, null, Projectile.Center + (i + Main.GlobalTimeWrappedHourly * 16f).ToRotationVector2() * 4f));
             }
             Main.spriteBatch.ExitShaderRegion();
             Main.EntitySpriteDraw(Projectile.getDrawData(Color.White));

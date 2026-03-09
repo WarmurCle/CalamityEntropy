@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Particles;
+using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -39,14 +40,36 @@ namespace CalamityEntropy.Content.Projectiles
         {
             lightColor = Color.White;
             Texture2D tex = Projectile.GetTexture();
+            Main.spriteBatch.UseBlendState(BlendState.Additive);
+            for (float i = 0; i <= MathHelper.TwoPi; i += MathHelper.TwoPi / 6f)
+            {
+                Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + (i + Main.GlobalTimeWrappedHourly * 16f).ToRotationVector2() * 2f, null, Color.White * 0.6f, Projectile.rotation, new Vector2(tex.Width, tex.Height / 2), Projectile.scale, SpriteEffects.None, 0);
+            }
+            Main.spriteBatch.ExitShaderRegion();
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, new Vector2(tex.Width, tex.Height / 2), Projectile.scale, SpriteEffects.None, 0);
+            
             return false;
         }
         public void portalParticle(Vector2 pos)
         {
-            for (int i = 0; i < 360; i += 40)
+            float rj = CEUtils.randomRot();
+            for (int i = 0; i < 360; i += 90)
             {
-                EParticle.spawnNew(new AbyssalLine() { lx = 2f, xadd = 0.27f }, pos, Vector2.Zero, Color.AliceBlue, 1, 1, true, BlendState.Additive, MathHelper.ToRadians(i));
+                EParticle.spawnNew(new AbyssalLine() { lx = 1f, xadd = 0.1f }, pos, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, MathHelper.ToRadians(i) + rj);
+            }
+            for (int i = 0; i < 360; i += 90)
+            {
+                float r = MathHelper.ToRadians(i);
+                EParticle.spawnNew(new AbyssalLine() { lx = 3f, xadd = 0.06f }, pos, (r + rj).ToRotationVector2() * 2f, Color.LightBlue, 1, 1, true, BlendState.Additive, r + rj);
+            }
+            for (int i = 0; i < 360; i += 90)
+            {
+                EParticle.spawnNew(new AbyssalLine() { lx = 0.7f, xadd = 0.09f, spawnColor = Color.Black, endColor = Color.Black }, pos, Vector2.Zero, Color.Black, 1, 1, true, BlendState.NonPremultiplied, MathHelper.ToRadians(i) + rj);
+            }
+            for (int i = 0; i < 360; i += 90)
+            {
+                float r = MathHelper.ToRadians(i);
+                EParticle.spawnNew(new AbyssalLine() { lx = 2.5f, xadd = 0.055f, spawnColor = Color.Black, endColor = Color.Black }, pos, (r + rj).ToRotationVector2() * 2f, Color.Black, 1, 1, true, BlendState.NonPremultiplied, r + rj);
             }
         }
 
