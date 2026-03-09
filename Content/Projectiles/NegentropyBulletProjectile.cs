@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -17,8 +18,8 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 12;
-            Projectile.height = 12;
+            Projectile.width = 16;
+            Projectile.height = 16;
             Projectile.aiStyle = 1;
             Projectile.friendly = true; Projectile.hostile = false;
             Projectile.DamageType = DamageClass.Ranged;
@@ -31,7 +32,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.extraUpdates = 5;
             Projectile.ArmorPenetration = 100;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
+            Projectile.localNPCHitCooldown = -1;
             Projectile.light = 0.4f;
             AIType = ProjectileID.Bullet;
         }
@@ -86,6 +87,14 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.Center = target.Center + CEUtils.randomRot().ToRotationVector2() * 400;
                 Projectile.velocity = (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * Projectile.velocity.Length();
                 Projectile.netUpdate = true;
+                Projectile.ResetLocalNPCHitImmunity();
+                Projectile.numHits = 0;
+                if (Projectile.TryGetGlobalProjectile<ScorchingGProj>(out var sgp))
+                {
+                    sgp.NPCHited.Clear();
+                    if (sgp.trail != null && sgp.trail is TrailGunShot t)
+                        t.trailPositions.Clear();
+                }
                 portalParticle(Projectile.Center);
             }
         }

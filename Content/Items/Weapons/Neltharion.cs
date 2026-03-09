@@ -92,11 +92,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         public int WindUpSoundCounter = 0;
         public float ShootDelay = 0;
         public int EndShootC = 62;
-        public int EndShootTime = 3;
+        public int EndShootTime = 4;
         public int EndShootDelay = 0;
         public float offset = 0;
         public bool EndShoot = false;
         public int CrystalCounter = 0;
+        public int frame = 0;
         public override void AI()
         {
             FireFx--;
@@ -119,8 +120,9 @@ namespace CalamityEntropy.Content.Items.Weapons
                 WindUp--;
                 if (WindUpSoundCounter-- <= 0)
                 {
+                    frame++;
                     SoundEngine.PlaySound(SoundID.Item23 with { Pitch = (60 - WindUp) / 60f * 1.4f - 0.2f }, Projectile.Center);
-                    WindUpSoundCounter = (int)Utils.Remap(WindUp, 60, 0, 19, 2);
+                    WindUpSoundCounter = (int)Utils.Remap(WindUp, 60, 0, 19, 4);
                 }
             }
             else
@@ -137,7 +139,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         if (EndShootTime > 0)
                         {
                             EndShootTime--;
-                            EndShootDelay = 20;
+                            EndShootDelay = 16;
                             offset = -16;
                             CEUtils.PlaySound("gunshot", 1, Projectile.Center);
                             if (Main.myPlayer == Projectile.owner)
@@ -147,7 +149,16 @@ namespace CalamityEntropy.Content.Items.Weapons
                                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), FirePos, Projectile.velocity.normalize().RotatedBy(0.054f) * 42, ModContent.ProjectileType<NeltharionCrystal>(), dmg * 5, kb, Projectile.owner);
                                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), FirePos, Projectile.velocity.normalize().RotatedBy(-0.054f) * 42, ModContent.ProjectileType<NeltharionCrystal>(), dmg * 5, kb, Projectile.owner);
                             }
+                            for (int i = 0; i < 80; i++)
+                            {
+                                var ds = Dust.NewDustDirect(FirePos, 0, 0, DustID.CorruptTorch);
+                                ds.position = FirePos + Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * Main.rand.NextFloat(-1, 1);
+                                ds.velocity = Projectile.velocity.normalize().RotatedByRandom(0.1f) * Main.rand.NextFloat(2, 32);
+                                ds.scale = Main.rand.NextFloat(1.8f, 2f);
+                                ds.noGravity = true;
+                            }
                             Owner.velocity += Projectile.velocity * -1f;
+                            frame++;
                         }
                     }
                 }
@@ -169,8 +180,25 @@ namespace CalamityEntropy.Content.Items.Weapons
                             {
                                 CrystalCounter = 4;
                                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), FirePos, Projectile.velocity.normalize().RotatedByRandom(0.05f) * 42, ModContent.ProjectileType<NeltharionCrystal>(), dmg * 5, kb, Projectile.owner);
+                                for (int i = 0; i < 24; i++)
+                                {
+                                    var ds = Dust.NewDustDirect(FirePos, 0, 0, DustID.CorruptTorch);
+                                    ds.position = FirePos + Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * Main.rand.NextFloat(-1, 1);
+                                    ds.velocity = Projectile.velocity.normalize().RotatedByRandom(0.1f) * Main.rand.NextFloat(2, 32);
+                                    ds.scale = Main.rand.NextFloat(1.8f, 2f);
+                                    ds.noGravity = true;
+                                }
                             }
                         }
+                        for(int i = 0; i < 12; i++)
+                        {
+                            var ds = Dust.NewDustDirect(FirePos, 0, 0, DustID.Flare);
+                            ds.position = FirePos + Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * Main.rand.NextFloat(-1, 1) - Owner.velocity;
+                            ds.velocity = Projectile.velocity.normalize().RotatedByRandom(0.1f) * Main.rand.NextFloat(2, 20) + Owner.velocity;
+                            ds.scale = Main.rand.NextFloat(0.9f, 1.1f);
+                            ds.noGravity = true;
+                        }
+                        frame++;
                         var d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.CorruptTorch);
                         d.scale = 1.2f;
                         d.velocity = Owner.velocity * 0.8f + Projectile.velocity.normalize().RotatedBy(-2.5f * (Projectile.velocity.X > 0 ? 1 : -1) + Main.rand.NextFloat(-0.16f, 0.16f)) * 4f;
@@ -187,7 +215,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = Projectile.GetTexture();
+            Texture2D tex = this.getTextureAlt((frame % 4).ToString());
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2f, Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
             if(FireFx > 0)
             {
