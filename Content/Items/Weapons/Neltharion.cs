@@ -158,7 +158,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                                 ds.noGravity = true;
                             }
                             Owner.velocity += Projectile.velocity * -1f;
-                            frame++;
+                            frame+=2;
                         }
                     }
                 }
