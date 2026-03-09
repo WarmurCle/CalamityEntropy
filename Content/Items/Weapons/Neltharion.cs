@@ -150,6 +150,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), FirePos, Projectile.velocity.normalize() * 46, ModContent.ProjectileType<NeltharionCrystal>(), dmg * 5, kb, Projectile.owner);
                                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), FirePos, Projectile.velocity.normalize().RotatedBy(0.054f) * 42, ModContent.ProjectileType<NeltharionCrystal>(), dmg * 5, kb, Projectile.owner);
                                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), FirePos, Projectile.velocity.normalize().RotatedBy(-0.054f) * 42, ModContent.ProjectileType<NeltharionCrystal>(), dmg * 5, kb, Projectile.owner);
+                                ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Projectile.velocity.normalize(), 8));
                             }
                             for (int i = 0; i < 80; i++)
                             {
@@ -176,8 +177,11 @@ namespace CalamityEntropy.Content.Items.Weapons
                         if(Main.myPlayer == Projectile.owner)
                         {
                             Owner.PickAmmo(Owner.HeldItem, out int type, out float sts, out int dmg, out float kb, out int _, false);
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), FirePos, Projectile.velocity.normalize().RotatedByRandom(0.04f) * sts, type, dmg, kb, Projectile.owner);
 
+                            for (int i = 0; i < 3; i++)
+                            {
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), FirePos, Projectile.velocity.normalize().RotatedByRandom(0.05f) * sts, type, dmg, kb, Projectile.owner).ToProj().ArmorPenetration += 60;
+                            }
                             if (CrystalCounter-- < 0)
                             {
                                 CrystalCounter = 4;
@@ -262,10 +266,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnKill(int timeLeft)
         {
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Violet * 1.35f, "CalamityMod/Particles/ShineExplosion2", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.14f * Projectile.scale, 24));
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Violet * 1.35f, "CalamityMod/Particles/ShineExplosion1", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.14f * Projectile.scale, 24));
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Violet * 1.25f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.14f * Projectile.scale, 24));
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Violet * 1.25f, "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.14f * Projectile.scale, 24));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.MediumPurple * 1.5f, "CalamityMod/Particles/ShineExplosion2", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.14f * Projectile.scale, 24));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.MediumPurple * 1.5f, "CalamityMod/Particles/ShineExplosion1", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.14f * Projectile.scale, 24));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.MediumPurple * 1.5f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.14f * Projectile.scale, 24));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.MediumPurple * 1.5f, "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.14f * Projectile.scale, 24));
             CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage, 120, Projectile.DamageType);
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             CEUtils.PlaySound("explosion", Main.rand.NextFloat(2.4f, 2.8f), Projectile.Center, 10, 0.5f);
