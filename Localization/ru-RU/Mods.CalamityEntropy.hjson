@@ -3840,8 +3840,8 @@ Items: {
 		}
 	}
 
-	Nidhogg: {
-		// DisplayName: Nidhogg
+	Neltharion: {
+		// DisplayName: Neltharion
 		// Tooltip: ""
 	}
 }
@@ -4500,8 +4500,9 @@ Projectiles: {
 	// CrystalSpikePop.DisplayName: Crystal Spike Pop
 	// CrystalSpikeThrow.DisplayName: Crystal Spike Throw
 	// CrystalSpikeReturning.DisplayName: Crystal Spike Returning
-	// SwingSmear.DisplayName: Swing Smear
-	// NidhoggGunHoldout.DisplayName: Nidhogg Gun Holdout
+	// SwingSmear.DisplayName: Crystal Storm
+	// NeltharionHoldout.DisplayName: Neltharion
+	// NeltharionCrystal.DisplayName: Neltharion Crystal
 }
 
 LegendTooltip: - Легенда -

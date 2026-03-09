@@ -4521,6 +4521,7 @@ Projectiles: {
 	CrystalSpikeReturning.DisplayName: Crystal Spike Returning
 	SwingSmear.DisplayName: Crystal Storm
 	NeltharionHoldout.DisplayName: Neltharion
+	NeltharionCrystal.DisplayName: Neltharion Crystal
 }
 
 LegendTooltip: - Legend -

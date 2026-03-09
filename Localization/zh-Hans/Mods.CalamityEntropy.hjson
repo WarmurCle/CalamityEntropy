@@ -4763,7 +4763,8 @@ Projectiles: {
 	CrystalSpikeThrow.DisplayName: 魔晶刺
 	CrystalSpikeReturning.DisplayName: 召回的魔晶刺
 	SwingSmear.DisplayName: 水晶旋风
-	NidhoggGunHoldout.DisplayName: 奈萨里奥
+	// NeltharionHoldout.DisplayName: Neltharion
+	// NeltharionCrystal.DisplayName: Neltharion Crystal
 }
 
 LegendTooltip: - 传奇物品 -

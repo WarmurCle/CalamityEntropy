@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items
             Item.useStyle = ItemUseStyleID.Swing;
             Item.consumable = true;
             Item.value = 50000;
-            Item.rare = ModContent.RarityType<VoidPurple>();
+            Item.rare = ModContent.RarityType<NihilityBlue>();
             Item.createTile = ModContent.TileType<NihilityTwinTrophyTile>();
         }
     }
