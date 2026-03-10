@@ -1,9 +1,13 @@
-﻿using CalamityEntropy.Content.Items.Books;
+﻿using CalamityEntropy.Content.Items.Armor.NihTwins;
+using CalamityEntropy.Content.Items.Books;
+using CalamityEntropy.Content.Items.Weapons.Miracle;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Projectiles.Rogue;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -48,6 +52,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.crit = 8;
             Item.scale = 0.5f;
         }
+        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
+        {
+            if (Main.zenithWorld)
+                damage *= 160;
+        }
 
         public override Vector2? HoldoutOffset()
         {
@@ -76,6 +85,14 @@ namespace CalamityEntropy.Content.Items.Weapons
             CreateRecipe()
                 .AddIngredient<EnergyCore>(2)
                 .AddIngredient<WulfrumMetalScrap>(8)
+                .AddCondition(Mod.GetLocalization("NonZenithWorld"), () => !Main.zenithWorld)
+                .AddTile(TileID.Anvils)
+                .Register();
+            CreateRecipe()
+                .AddIngredient<EnergyCore>(2)
+                .AddIngredient<WulfrumMetalScrap>(8)
+                .AddIngredient<AstralBar>(8)
+                .AddCondition(Mod.GetLocalization("ZenithWorld"), () => Main.zenithWorld)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
@@ -160,6 +177,13 @@ namespace CalamityEntropy.Content.Items.Weapons
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), fpos, Projectile.velocity.normalize().RotatedByRandom(0.16f) * Main.rand.NextFloat(36, 42), type, (int)(Projectile.damage * 0.7f), Projectile.knockBack, Projectile.owner);
                     }
+                    if (Main.zenithWorld)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), fpos, Projectile.velocity.normalize() * 12, ModContent.ProjectileType<Blackhole>(), (int)(Projectile.damage * 0.2f), Projectile.knockBack, Projectile.owner, 0, -1);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), fpos, Projectile.velocity.normalize() * 256, ModContent.ProjectileType<AbyssalCrack>(), (int)(Projectile.damage * 0.2f), Projectile.knockBack, Projectile.owner, 0, -1);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), fpos, Projectile.velocity.normalize() * 12, ModContent.ProjectileType<SupernovaStealthBoom>(), (int)(Projectile.damage * 0.2f), Projectile.knockBack, Projectile.owner, 0, -1);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), fpos, Projectile.velocity.normalize() * 16, ModContent.ProjectileType<VENihilityLaser>(), (int)(Projectile.damage * 0.2f), Projectile.knockBack, Projectile.owner, 0, -1);
+                    }
                 }
                 Projectile.GetOwner().velocity -= Projectile.velocity.normalize() * 8;
                 Projectile.velocity = Projectile.velocity.RotatedBy(-2.7f * Projectile.GetOwner().direction).RotatedByRandom(0.32f).normalize() * 12;
@@ -172,6 +196,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Projectile.position += Projectile.rotation.ToRotationVector2() * (offset + 52 * Projectile.scale);
                 Projectile.GetOwner().itemTime = Projectile.GetOwner().itemAnimation = 30;
                 dir = Projectile.GetOwner().direction;
+                if(counter >= 19)
+                    Projectile.position += CEUtils.randomPointInCircle(2);
             }
             else
             {
