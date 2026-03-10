@@ -3861,12 +3861,12 @@ Items: {
 
 	WulfrumSniper: {
 		DisplayName: Wulfrum Sniper
-		Tooltip: 
-		'''
-		Launch bullets at a slower speed
-		After firing 5 rounds, the muzzle will be blocked by melted wulfrum
-		Click LMB to explode the gun barrel and scatter wulfrum scrapers
-		'''
+		Tooltip:
+			'''
+			Launch bullets at a slower speed
+			After firing 5 rounds, the muzzle will be blocked by melted wulfrum
+			Click LMB to explode the gun barrel and scatter wulfrum scrapers
+			'''
 	}
 }
 

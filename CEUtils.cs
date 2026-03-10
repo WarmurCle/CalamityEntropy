@@ -1428,7 +1428,7 @@ namespace CalamityEntropy
             Vector2 origin = rectangle.Size() / 2f;
             Main.spriteBatch.Draw(tex, pos - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(rectangle), color, rotation, origin, scale, eff, 0f);
         }
-        public static bool LineThroughRect(Vector2 start, Vector2 end, Rectangle rect, int lineWidth = 4, int checkDistance = 8)
+        public static bool LineThroughRect(Vector2 start, Vector2 end, Rectangle rect, int lineWidth = 4)
         {
             float point = 0f;
             return rect.Contains((int)start.X, (int)start.Y) || rect.Contains((int)end.X, (int)end.Y) || Collision.CheckAABBvLineCollision(rect.TopLeft(), rect.Size(), start, end, lineWidth, ref point);

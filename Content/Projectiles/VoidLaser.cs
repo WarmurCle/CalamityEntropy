@@ -113,7 +113,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * dmgLength, targetHitbox, (int)(26 * Projectile.scale), 46);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * dmgLength, targetHitbox, (int)(26 * Projectile.scale));
         }
         public override bool PreDraw(ref Color lightColor)
         {

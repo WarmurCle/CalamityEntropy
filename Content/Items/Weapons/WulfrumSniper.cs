@@ -222,7 +222,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.timeLeft = 480;
             Projectile.width = Projectile.height = 16;
         }
-
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return CEUtils.LineThroughRect(Projectile.Center - Projectile.velocity, Projectile.Center, targetHitbox, Projectile.height);        }
         public override void AI()
         {
             if (Projectile.localAI[2]++ > 6)
