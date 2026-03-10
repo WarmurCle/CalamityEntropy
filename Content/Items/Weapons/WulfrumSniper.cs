@@ -89,8 +89,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddTile(TileID.Anvils)
                 .Register();
             CreateRecipe()
-                .AddIngredient<EnergyCore>(2)
-                .AddIngredient<WulfrumMetalScrap>(8)
+                .AddIngredient<MeldConstruct>(4)
+                .AddIngredient(ItemID.LunarBar, 8)
                 .AddIngredient<AstralBar>(8)
                 .AddCondition(Mod.GetLocalization("ZenithWorld"), () => Main.zenithWorld)
                 .AddTile(TileID.Anvils)
