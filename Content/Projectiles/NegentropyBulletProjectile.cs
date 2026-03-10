@@ -102,6 +102,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int portalTime = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            EParticle.NewParticle(new AbyssalLine() { spawnColor = new Color(200, 160, 255), endColor = Color.Black, lx = 0.6f, xadd = 0.5f }, Projectile.Center, Vector2.Zero, Color.Blue, 1, 1, true, BlendState.Additive, Projectile.velocity.ToRotation());
             Projectile.damage = (int)(Projectile.damage * 0.9f);
             CEUtils.PlaySound("ystn_hit", 1.6f, Projectile.Center, 1, 0.24f);
             if (portalcount > 0 && portalTime < 0)
