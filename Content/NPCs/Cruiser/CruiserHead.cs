@@ -290,6 +290,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             {
                 modifiers.FinalDamage *= hr.dmgMult;
                 hr.dmgMult *= CruiserHead.ProjDamageReduce;
+                if (!projectile.minion && (projectile.penetrate == -1 || projectile.penetrate > 4))
+                    hr.dmgMult *= CruiserHead.ProjDamageReduce;
                 if (!projectile.minion)
                 {
                     hr.Timeleft += 20;
@@ -508,7 +510,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         {
             for (int i = hitRecords.Count - 1; i >= 0; i--)
             {
-                hitRecords[i].dmgMult = float.Lerp(hitRecords[i].dmgMult, 1, 0.1f);
+                hitRecords[i].dmgMult = float.Lerp(hitRecords[i].dmgMult, 1, 0.09f);
                 if (hitRecords[i].ProjID < 0 || !hitRecords[i].ProjID.ToProj().active)
                 {
                     hitRecords.RemoveAt(i);

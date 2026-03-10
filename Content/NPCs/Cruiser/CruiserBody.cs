@@ -134,6 +134,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 {
                     modifiers.FinalDamage *= hr.dmgMult;
                     hr.dmgMult *= CruiserHead.ProjDamageReduce;
+                    if (!projectile.minion && (projectile.penetrate == -1 || projectile.penetrate > 4))
+                        hr.dmgMult *= CruiserHead.ProjDamageReduce;
                     if (!projectile.minion)
                     {
                         hr.Timeleft += 20;
