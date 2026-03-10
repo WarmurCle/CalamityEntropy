@@ -173,7 +173,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         FireFx = 3;
                         ShootDelay += (Projectile.ai[0] / Owner.GetWeaponAttackSpeed(Owner.HeldItem)) * Projectile.MaxUpdates;
                         offset = -10;
-                        CEUtils.PlaySound("gunshot", Main.rand.NextFloat(1.6f, 1.8f), Projectile.Center, 10, 0.32f);
+                        CEUtils.PlaySound("gunshot", Main.rand.NextFloat(1.4f, 1.6f), Projectile.Center, 32, 0.32f);
                         if(Main.myPlayer == Projectile.owner)
                         {
                             Owner.PickAmmo(Owner.HeldItem, out int type, out float sts, out int dmg, out float kb, out int _, false);
