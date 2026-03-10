@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.light = 0.4f;
             AIType = ProjectileID.Bullet;
         }
-        public int portalcount = 2;
+        public int portalcount = 3;
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = Color.White;
@@ -80,11 +80,11 @@ namespace CalamityEntropy.Content.Projectiles
             portalTime--;
             if (portalTime == 0)
             {
-                Projectile.damage = ((int)(Projectile.damage * 0.5f));
+                Projectile.damage = ((int)(Projectile.damage * 0.4f));
                 NPC target = ptarget;
                 portalParticle(Projectile.Center);
                 CEUtils.PlaySound("portal_emerge", 1.6f, Projectile.Center, 12, 0.22f);
-                Projectile.Center = target.Center + CEUtils.randomRot().ToRotationVector2() * 400;
+                Projectile.Center = target.Center + Projectile.velocity.normalize() * -250;//CEUtils.randomRot().ToRotationVector2() * 400;
                 Projectile.velocity = (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * Projectile.velocity.Length();
                 Projectile.netUpdate = true;
                 Projectile.ResetLocalNPCHitImmunity();
@@ -108,7 +108,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (portalcount > 0 && portalTime < 0)
             {
                 portalcount--;
-                portalTime = 28;
+                portalTime = 18;
                 ptarget = target;
             }
         }

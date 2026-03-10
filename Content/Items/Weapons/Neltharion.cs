@@ -147,9 +147,9 @@ namespace CalamityEntropy.Content.Items.Weapons
                             if (Main.myPlayer == Projectile.owner)
                             {
                                 Owner.PickAmmo(Owner.HeldItem, out int type, out float sts, out int dmg, out float kb, out int _, true);
-                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), FirePos, Projectile.velocity.normalize() * 46, ModContent.ProjectileType<NeltharionCrystal>(), dmg * 10, kb, Projectile.owner);
-                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), FirePos, Projectile.velocity.normalize().RotatedBy(0.054f) * 42, ModContent.ProjectileType<NeltharionCrystal>(), dmg * 10, kb, Projectile.owner);
-                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), FirePos, Projectile.velocity.normalize().RotatedBy(-0.054f) * 42, ModContent.ProjectileType<NeltharionCrystal>(), dmg * 10, kb, Projectile.owner);
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), FirePos, Projectile.velocity.normalize() * 46, ModContent.ProjectileType<NeltharionCrystal>(), dmg * 8, kb, Projectile.owner);
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), FirePos, Projectile.velocity.normalize().RotatedBy(0.054f) * 42, ModContent.ProjectileType<NeltharionCrystal>(), dmg * 8, kb, Projectile.owner);
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), FirePos, Projectile.velocity.normalize().RotatedBy(-0.054f) * 42, ModContent.ProjectileType<NeltharionCrystal>(), dmg * 8, kb, Projectile.owner);
                                 ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Projectile.velocity.normalize(), 8));
                             }
                             for (int i = 0; i < 80; i++)
