@@ -3858,6 +3858,11 @@ Items: {
 			{$CommonItemTooltip.PercentChanceToSaveAmmo}
 			'''
 	}
+
+	WulfrumSniper: {
+		DisplayName: Wulfrum Sniper
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:
@@ -4528,6 +4533,8 @@ Projectiles: {
 	SwingSmear.DisplayName: Crystal Storm
 	NeltharionHoldout.DisplayName: Neltharion
 	NeltharionCrystal.DisplayName: Neltharion Crystal
+	SniperWulfrumScrap.DisplayName: Sniper Wulfrum Scrap
+	WulfrumSniperSpecialAttack.DisplayName: Wulfrum Sniper Special Attack
 }
 
 LegendTooltip: - Legend -
