@@ -71,6 +71,14 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             return false;
         }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<EnergyCore>(2)
+                .AddIngredient<WulfrumMetalScrap>(8)
+                .AddTile(TileID.Anvils)
+                .Register();
+        }
         #endregion
 
         #region Animations

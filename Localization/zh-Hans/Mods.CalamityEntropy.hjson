@@ -4115,8 +4115,13 @@ Items: {
 	}
 
 	WulfrumSniper: {
-		// DisplayName: Wulfrum Sniper
-		// Tooltip: ""
+		DisplayName: 钨钢狙击枪
+		Tooltip:
+		'''
+		以较慢速度发射子弹
+		发射5发后枪口会被融化的钨钢金属堵塞
+		此时点击鼠标左键使枪管炸开并散射出钨钢金属碎片
+		'''
 	}
 }
 
