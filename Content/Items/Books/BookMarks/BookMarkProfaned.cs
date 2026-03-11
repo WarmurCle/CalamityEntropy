@@ -27,8 +27,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
     {
         public override void UpdateProjectile(Projectile projectile, bool ownerClient)
         {
-            projectile.Entropy().ShootCount += 0.025f;
-            if (projectile.Entropy().ShootCount > 0 && projectile.Entropy().counter % 15 == 0 && ownerClient)
+            projectile.Entropy().ShootCount += 0.02f;
+            if (projectile.Entropy().ShootCount >= 1 && projectile.Entropy().counter % 16 == 0 && ownerClient)
             {
                 projectile.Entropy().ShootCount--;
                 NPC target = projectile.FindTargetWithinRange(700);

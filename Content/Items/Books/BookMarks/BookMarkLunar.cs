@@ -33,11 +33,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             n.GetGlobalNPC<LunarBMGlobalNPC>().decreaceCd = 40;
             if (n.GetGlobalNPC<LunarBMGlobalNPC>().progress >= 1)
             {
-                int dmg = (int)(projectile.damage * 1.5f);
+                int dmg = (int)(projectile.damage * 1.6f);
                 n.GetGlobalNPC<LunarBMGlobalNPC>().progress = 0;
                 projectile.GetOwner().ApplyDamageToNPC(n, dmg, 0, 0, false, projectile.DamageType);
                 CEUtils.PlaySound("light_bolt", 1, n.Center);
-                for (int i = 0; i < 80; i++)
+                for (int i = 0; i < 16; i++)
                 {
                     EParticle.NewParticle(new GlowSpark2(), n.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 12), Color.Lerp(Color.SpringGreen, new Color(200, 230, 255), Main.rand.NextFloat()), Main.rand.NextFloat(0.1f, 0.2f), 1, true, BlendState.Additive, 0);
                 }
@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                             {
                                 if (CEUtils.getDistance(point, n.Center) < BookMarkLunar.distance)
                                 {
-                                    applyEffect(n, 1f / 100f, projectile);
+                                    applyEffect(n, 1f / 120f, projectile);
                                     break;
                                 }
                             }
@@ -69,7 +69,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                         {
                             if (CEUtils.getDistance(projectile.Center, n.Center) < BookMarkLunar.distance)
                             {
-                                applyEffect(n, 1f / 100f, projectile);
+                                applyEffect(n, 1f / 120f, projectile);
                             }
                         }
                     }
