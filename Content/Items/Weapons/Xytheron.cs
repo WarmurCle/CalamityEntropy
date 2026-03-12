@@ -12,7 +12,6 @@ namespace CalamityEntropy.Content.Items.Weapons
 {
     public class Xytheron : ModItem
     {
-
         public override void SetDefaults()
         {
             Item.damage = 11500;
