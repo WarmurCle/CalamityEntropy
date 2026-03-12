@@ -31,8 +31,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.width = 234;
-            Item.height = 70;
+            Item.width = 134;
+            Item.height = 38;
             Item.damage = 56;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 42;
@@ -59,7 +59,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(-24, 0);
+            return new Vector2(0, 0);
         }
 
         public int ShootCount = 0;
@@ -107,7 +107,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
             Vector2 itemPosition = player.MountedCenter + itemRotation.ToRotationVector2() * 76f;
             Vector2 itemSize = new Vector2(Item.width, Item.height);
-            Vector2 itemOrigin = new Vector2(-24, 0);
+            Vector2 itemOrigin = new Vector2(36, 0);
 
 
 
