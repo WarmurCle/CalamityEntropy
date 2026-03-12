@@ -13,6 +13,7 @@ using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Items.Weapons.Whips;
 using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.NPCs.VoidInvasion;

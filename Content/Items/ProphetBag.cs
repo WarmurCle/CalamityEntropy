@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Items.Weapons.Whips;
 using CalamityEntropy.Content.NPCs.Prophet;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;

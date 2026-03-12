@@ -18,6 +18,7 @@ using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun;
 using CalamityEntropy.Content.Items.Weapons.DustCarverBow;
 using CalamityEntropy.Content.Items.Weapons.Fractal;
+using CalamityEntropy.Content.Items.Weapons.Whips;
 using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Prefixes;

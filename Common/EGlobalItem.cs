@@ -20,6 +20,7 @@ using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.CrystalBalls;
 using CalamityEntropy.Content.Items.Weapons.DustCarverBow;
 using CalamityEntropy.Content.Items.Weapons.Torch;
+using CalamityEntropy.Content.Items.Weapons.Whips;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Rarities;

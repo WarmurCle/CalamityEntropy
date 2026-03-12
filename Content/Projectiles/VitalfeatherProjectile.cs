@@ -19,8 +19,8 @@ namespace CalamityEntropy.Content.Projectiles
         {
             base.SetDefaults();
             Projectile.MaxUpdates = 10;
-            this.segments = 19;
-            this.rangeMult = 2f;
+            this.segments = 36;
+            this.rangeMult = 1.8f;
         }
         public Vector2 lastTop = Vector2.Zero;
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
@@ -44,8 +44,6 @@ namespace CalamityEntropy.Content.Projectiles
             if (swingProgress > 0.04f)
             {
                 Lighting.AddLight(lastTop, 1, 0.8f, 0.8f);
-                EParticle.NewParticle(new Smoke() { Lifetime = 40, timeleftmax = 40, TimeLeftMax = 40 }, points[points.Count - 1] + CEUtils.randomVec(2), CEUtils.randomVec(1), Color.OrangeRed * 0.5f, 0.2f, 1, true, BlendState.Additive);
-
                 int pointIndex = Main.rand.Next(points.Count - 10, points.Count);
                 Rectangle spawnArea = Utils.CenteredRectangle(points[pointIndex], new Vector2(30f, 30f));
                 int dustType = DustID.Smoke;
@@ -195,7 +193,7 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
 
             Texture2D light = CEUtils.getExtraTex("lightball");
-            Main.spriteBatch.Draw(light, lastTop - Main.screenPosition, null, Color.Gold * 0.6f, 0, light.Size() / 2, Projectile.scale * 0.4f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(light, lastTop - Main.screenPosition, null, Color.Gold * 0.2f, 0, light.Size() / 2, Projectile.scale * 0.4f, SpriteEffects.None, 0);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 

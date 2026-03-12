@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items.Weapons
+namespace CalamityEntropy.Content.Items.Weapons.Whips
 {
     public class LashingBramblerod : BaseWhipItem
     {

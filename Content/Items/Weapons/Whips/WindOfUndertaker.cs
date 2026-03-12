@@ -9,7 +9,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items.Weapons
+namespace CalamityEntropy.Content.Items.Weapons.Whips
 {
     public class WindOfUndertaker : ModItem
     {

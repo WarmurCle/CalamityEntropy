@@ -1,5 +1,5 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Items.Weapons.Whips;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using Microsoft.Xna.Framework.Graphics;
@@ -170,9 +170,9 @@ namespace CalamityEntropy.Content.Buffs
                     {
                         Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, CEUtils.randomRot().ToRotationVector2() * 24, ModContent.ProjectileType<DragonGoldenFire>(), projectile.damage / 8, 1, projectile.owner);
                     }
-                    if (projectile.TryGetOwner(out var owner))
+                    if (projectile.TryGetOwner(out var owner) && CECooldowns.CheckCD("DragonWhipHeal", 16))
                     {
-                        owner.Heal((int)MathHelper.Max(damageDone / 1200, 0));
+                        owner.Heal((int)MathHelper.Max(damageDone / 1200 + 1, 0));
                     }
                 }
                 foreach (var t in Tags)

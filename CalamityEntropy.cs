@@ -19,6 +19,7 @@ using CalamityEntropy.Content.Items.MusicBoxes;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Items.Weapons.Whips;
 using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.Acropolis;

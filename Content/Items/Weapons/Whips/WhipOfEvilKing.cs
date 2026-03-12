@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items.Weapons
+namespace CalamityEntropy.Content.Items.Weapons.Whips
 {
     public class WhipOfEvilKing : BaseWhipItem, IPriceFromRecipe, IGetFromStarterBag
     {
@@ -49,8 +49,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             base.SetDefaults();
             Projectile.MaxUpdates = 4;
-            this.segments = 30;
-            this.rangeMult = 1;
+            segments = 30;
+            rangeMult = 1;
         }
         public override string getTagEffectName => "EvilKingWhip";
         public override Color StringColor => new Color(24, 24, 24);

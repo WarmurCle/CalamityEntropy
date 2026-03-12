@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Items.Weapons.Whips;
 using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
