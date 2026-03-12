@@ -25,6 +25,8 @@ namespace CalamityEntropy.Content.Particles
             xscale += xadd;
             xadd *= xdec;
             Velocity *= 0.96f;
+            if (Lifetime > 1 && lx <= 0.01f)
+                Lifetime = 1;
         }
         public override void Draw()
         {
