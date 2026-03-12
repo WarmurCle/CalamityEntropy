@@ -789,7 +789,14 @@ namespace CalamityEntropy
                 orig(self, i);
                 return;
             }
-
+            bool rBr = false;
+            bool brA = false;
+            if(self.ModNPC != null && self.ModNPC is CeaselessVoid)
+            {
+                rBr = true;
+                brA = BossRushEvent.BossRushActive;
+                BossRushEvent.BossRushActive = true;
+            }
             if (self.active && self.Entropy().AnimaTrapped > 0)
             {
                 ceNPC.AnimaTrapped--;
@@ -868,6 +875,10 @@ namespace CalamityEntropy
                     }
                 }
                 orig(self, i);
+            }
+            if(rBr)
+            {
+                BossRushEvent.BossRushActive = brA;
             }
         }
 

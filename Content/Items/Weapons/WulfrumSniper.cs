@@ -50,7 +50,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shootSpeed = 6f;
             Item.useAmmo = AmmoID.Bullet;
             Item.crit = 8;
-            Item.scale = 0.5f;
         }
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
@@ -164,7 +163,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 thrown = true;
                 Projectile.GetOwner().HeldItem.noUseGraphic = false;
-                Vector2 fpos = Projectile.Center + Projectile.velocity.normalize() * 36 * Projectile.scale;
+                Vector2 fpos = Projectile.Center + Projectile.velocity.normalize() * 18 * Projectile.scale;
                 for (int i = 0; i < 12; i++)
                 {
                     EParticle.NewParticle(new EMediumSmoke(), fpos, Projectile.velocity.normalize().RotatedByRandom(1) * Main.rand.NextFloat(2, 9), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.7f, 1f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
@@ -193,7 +192,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Projectile.timeLeft = 200;
                 Projectile.StickToPlayer();
                 Projectile.GetOwner().SetHandRot(Projectile.rotation);
-                Projectile.position += Projectile.rotation.ToRotationVector2() * (offset + 52 * Projectile.scale);
+                Projectile.position += Projectile.rotation.ToRotationVector2() * (offset + 26 * Projectile.scale);
                 Projectile.GetOwner().itemTime = Projectile.GetOwner().itemAnimation = 30;
                 dir = Projectile.GetOwner().direction;
                 if(counter >= 19)
@@ -237,7 +236,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.spriteDirection = dir;
             var tx = Projectile.GetTexture();
             Projectile projectile = Projectile;
-            var data = new Terraria.DataStructures.DrawData(tx, projectile.Center - Main.screenPosition, new Rectangle(0, 0, tx.Width + (thrown ? -60 : 0), tx.Height), lightColor * projectile.Opacity, projectile.rotation, new Vector2(tx.Width, Main.projFrames[projectile.type] > 1 ? (tx.Height / Main.projFrames[projectile.type]) - 2 : tx.Height) / 2, projectile.scale, projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+            var data = new Terraria.DataStructures.DrawData(tx, projectile.Center - Main.screenPosition, new Rectangle(0, 0, tx.Width + (thrown ? -30 : 0), tx.Height), lightColor * projectile.Opacity, projectile.rotation, new Vector2(tx.Width, Main.projFrames[projectile.type] > 1 ? (tx.Height / Main.projFrames[projectile.type]) - 2 : tx.Height) / 2, projectile.scale, projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
             Main.EntitySpriteDraw(data);
             return false;
         }

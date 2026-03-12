@@ -27,6 +27,7 @@ namespace CalamityEntropy.Common
     {
         public override bool InstancePerEntity => true;
         PrefEntropyAI perfAI = null;
+        
         public override bool PreAI(NPC npc)
         {
             if (CalamityEntropy.EntropyMode)
@@ -165,6 +166,13 @@ namespace CalamityEntropy.Common
         {
             if (CalamityEntropy.EntropyMode)
             {
+                if (npc.ModNPC != null)
+                {
+                    if(npc.ModNPC is CeaselessVoid)
+                    {
+
+                    }
+                }
                 if (npc.type == NPCID.WallofFleshEye)
                 {
                     if (npc.Entropy().counter % 400 < 60 && npc.Entropy().counter % 6 == 0)
