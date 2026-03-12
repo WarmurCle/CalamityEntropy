@@ -2427,7 +2427,8 @@ Items: {
 			'''
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
-			增加10%召唤物暴击率
+			增加16%召唤物暴击率
+			被标记的敌人额外受到16%的伤害
 			召唤物暴击会将伤害传递给附近最多5个敌人
 			'''
 	}
@@ -4555,7 +4556,7 @@ Projectiles: {
 	BurntLostClassicsHeld.DisplayName: 焦灼遗编
 	ForeseeEye.DisplayName: 预言之眼
 	ProphecyMasterpieceHeld.DisplayName: 预知巨著
-	ForeseeWhipProj.DisplayName: 预知之鞭
+	ForeseeWhipProj.DisplayName: 预言之鞭
 	EndlessChopping.DisplayName: 天罚
 	EndSkillOrbOnSpan.DisplayName: 斩击
 	EXNemesisProj.DisplayName: 天罚

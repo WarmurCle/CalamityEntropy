@@ -10,7 +10,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Whips
     {
         public override int TagDamage => 8;
         public override float TagDamageMult => 1.12f;
-        public override float TagCritChance => 0.1f;
+        public override float TagCritChance => 0.16f;
         public override void SetDefaults()
         {
             Item.DefaultToWhip(ModContent.ProjectileType<ForeseeWhipProj>(), 80, 3, 4, 24);

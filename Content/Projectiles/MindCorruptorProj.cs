@@ -223,13 +223,14 @@ namespace CalamityEntropy.Content.Projectiles
                 Vector2 sparkVelocity2 = Projectile.velocity * 1.26f;
                 int sparkLifetime2 = Main.rand.Next(12, 16);
                 float sparkScale2 = Main.rand.NextFloat(1.6f, 1.8f);
-                Color sparkColor2 = Color.Lerp(Color.DarkBlue, Color.Purple, Main.rand.NextFloat(0, 1));
+                Color sparkColor2 = Color.Lerp(Color.Purple, Color.Black, Main.rand.NextFloat(0.4f, 1));
                 var spark = new AltSparkParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
                 GeneralParticleHandler.SpawnParticle(spark);
 
                 sparkScale2 = Main.rand.NextFloat(1.4f, 1.6f);
-                sparkColor2 = Color.Lerp(Color.Aqua, new Color(200, 200, 255), Main.rand.NextFloat(0, 1));
-                var spark2 = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                sparkColor2 = Color.Lerp(Color.MediumPurple, Color.Blue, Main.rand.NextFloat(0, 1));
+                var spark2 = new GlowSparkParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2 * 0.06f, sparkColor2, new Vector2(0.25f, 1));
+                spark2.Glowing = false;
                 GeneralParticleHandler.SpawnParticle(spark2);
             }
             ++Projectile.ai[0];

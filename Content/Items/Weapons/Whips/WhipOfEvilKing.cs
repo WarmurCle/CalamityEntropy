@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Whips
         {
             base.SetDefaults();
             Projectile.MaxUpdates = 4;
-            segments = 30;
+            segments = 32;
             rangeMult = 1;
         }
         public override string getTagEffectName => "EvilKingWhip";

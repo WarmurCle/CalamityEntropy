@@ -2223,7 +2223,8 @@ Items: {
 			'''
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
-			Increase the critical hit rate of minions by 10%
+			Increase the critical hit rate of minions by 16%
+			Tagged enemies take 16% more damage
 			Minions' critical strike will pass 100% of damage to up to 5 nearby enemies
 			'''
 	}

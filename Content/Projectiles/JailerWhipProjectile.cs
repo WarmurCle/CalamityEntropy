@@ -95,7 +95,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Vector2 diff = list[i + 1] - element;
 
                 float rotation = diff.ToRotation();
-                Color color = Lighting.GetColor(element.ToTileCoordinates(), new Color(64, 54, 54));
+                Color color = Lighting.GetColor(element.ToTileCoordinates()).MultiplyRGBA(new Color(64, 54, 54));
                 Vector2 scale = new Vector2(diff.Length() + 2, 2);
                 if (i == list.Count - 2)
                 {
