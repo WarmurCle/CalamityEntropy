@@ -129,44 +129,48 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (p.active && p.ModProjectile is not PoopProj && p.damage > 0 && p.ModProjectile is not BlueFlies && p.ModProjectile is not Flame && p.type != ProjectileID.SilverCoin && p.type != ProjectileID.GoldCoin && p.type != ProjectileID.PlatinumCoin)
                 {
-                    if (p.Colliding(p.getRect(), Projectile.getRect()))
+                    bool? f = ProjectileLoader.CanDamage(p);
+                    if (f.HasValue && f.Value)
                     {
-                        if (p.ModProjectile is PoopBombProjectile pb)
+                        if (p.Colliding(p.getRect(), Projectile.getRect()))
                         {
-                            if (pb.Exp)
+                            if (p.ModProjectile is PoopBombProjectile pb)
                             {
-                                kill = true;
-                            }
-                        }
-                        else
-                        {
-                            if (p.ModProjectile is FartCloud fc)
-                            {
-                                if (fc.Exp)
+                                if (pb.Exp)
                                 {
                                     kill = true;
                                 }
                             }
                             else
                             {
-                                if (p.hostile)
+                                if (p.ModProjectile is FartCloud fc)
                                 {
-                                    p.Kill();
-                                    DamageMe();
-                                }
-                                if (p.friendly)
-                                {
-                                    if (immute <= 0)
+                                    if (fc.Exp)
                                     {
+                                        kill = true;
+                                    }
+                                }
+                                else
+                                {
+                                    if (p.hostile)
+                                    {
+                                        p.Kill();
                                         DamageMe();
-                                        immute = 10;
+                                    }
+                                    if (p.friendly)
+                                    {
+                                        if (immute <= 0)
+                                        {
+                                            DamageMe();
+                                            immute = 10;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
 
+                }
             }
         }
         public override bool ShouldUpdatePosition()
