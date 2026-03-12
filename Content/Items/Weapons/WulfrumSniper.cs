@@ -134,6 +134,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
 
         }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            position += new Vector2(0, -8 * player.direction).RotatedBy((player.Calamity().mouseWorld - player.Center).ToRotation());
+        }
         #endregion
     }
     public class WulfrumSniperSpecialAttack : ModProjectile
