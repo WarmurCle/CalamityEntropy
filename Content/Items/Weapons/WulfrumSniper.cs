@@ -235,8 +235,14 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Projectile.spriteDirection = dir;
             var tx = Projectile.GetTexture();
+            if (thrown)
+            {
+                tx = this.getTextureAlt("Alt2");
+            }
+            else if (counter > 8)
+                tx = this.getTextureAlt();
             Projectile projectile = Projectile;
-            var data = new Terraria.DataStructures.DrawData(tx, projectile.Center - Main.screenPosition, new Rectangle(0, 0, tx.Width + (thrown ? -30 : 0), tx.Height), lightColor * projectile.Opacity, projectile.rotation, new Vector2(tx.Width, Main.projFrames[projectile.type] > 1 ? (tx.Height / Main.projFrames[projectile.type]) - 2 : tx.Height) / 2, projectile.scale, projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+            var data = new Terraria.DataStructures.DrawData(tx, projectile.Center - Main.screenPosition, new Rectangle(0, 0, tx.Width, tx.Height), lightColor * projectile.Opacity, projectile.rotation, new Vector2(tx.Width, Main.projFrames[projectile.type] > 1 ? (tx.Height / Main.projFrames[projectile.type]) - 2 : tx.Height) / 2, projectile.scale, projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
             Main.EntitySpriteDraw(data);
             return false;
         }
