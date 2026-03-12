@@ -1771,8 +1771,8 @@ Items: {
 		DisplayName: Redemption
 		Tooltip:
 			'''
-			Launch missiles that can adhere to the enemy and cause sustained damage
-			Up to 8 adhesive threads
+			{$MissleLauncherDescTooltip}
+			{$MissleLauncherMaxStickTooltip}
 			Missile will cause random debuffs
 			Right click to launch single powerful missle
 			'''
@@ -3486,9 +3486,8 @@ Items: {
 		DisplayName: Frail
 		Tooltip:
 			'''
-			Launch missiles that can adhere to the enemy and cause sustained damage
-			Up to 3 adhesive threads
-			[c/960e05:Oh, I can do many things for you, my murderer]
+			{$MissleLauncherDescTooltip}
+			{$MissleLauncherMaxStickTooltip}
 			'''
 	}
 
@@ -3496,9 +3495,8 @@ Items: {
 		DisplayName: Hope
 		Tooltip:
 			'''
-			Launch missiles that can adhere to the enemy and cause sustained damage
-			Up to 2 adhesive threads
-			[c/87CEEB:We can be everything you hope for, my savior full of virtues]
+			{$MissleLauncherDescTooltip}
+			{$MissleLauncherMaxStickTooltip}
 			'''
 	}
 
@@ -3506,8 +3504,8 @@ Items: {
 		DisplayName: Crave
 		Tooltip:
 			'''
-			Launch missiles that can adhere to the enemy and cause sustained damage
-			Up to 3 adhesive threads
+			{$MissleLauncherDescTooltip}
+			{$MissleLauncherMaxStickTooltip}
 			Causing sulfur fire to reduce benefits
 			'''
 	}
@@ -3516,8 +3514,8 @@ Items: {
 		DisplayName: Struggle
 		Tooltip:
 			'''
-			Launch missiles that can adhere to the enemy and cause sustained damage
-			Up to 4 adhesive threads
+			{$MissleLauncherDescTooltip}
+			{$MissleLauncherMaxStickTooltip}
 			Causing sulfur fire to reduce benefits
 			Generate brimstone bullet during explosion
 			[c/304fff: Let us become entities, and in return, we will realize your ideas and dreams.]
@@ -3528,8 +3526,8 @@ Items: {
 		DisplayName: Pardon
 		Tooltip:
 			'''
-			Launch missiles that can adhere to the enemy and cause sustained damage
-			Up to 5 adhesive threads
+			{$MissleLauncherDescTooltip}
+			{$MissleLauncherMaxStickTooltip}
 			Generate plague missle during explosion
 			'''
 	}
@@ -3817,8 +3815,8 @@ Items: {
 		DisplayName: Filthless
 		Tooltip:
 			'''
-			Launch missiles that can adhere to the enemy and cause sustained damage
-			Up to 5 adhesive threads
+			{$MissleLauncherDescTooltip}
+			{$MissleLauncherMaxStickTooltip}
 			Missile will cause random debuffs
 			Right click to launch single powerful missle
 			'''
@@ -3866,6 +3864,16 @@ Items: {
 			Launch bullets at a slower speed
 			After firing 5 rounds, the muzzle will be blocked by melted wulfrum
 			Click LMB to explode the gun barrel and scatter wulfrum scrapers
+			'''
+	}
+
+	Zeal: {
+		DisplayName: Zeal
+		Tooltip:
+			'''
+			{$MissleLauncherDescTooltip}
+			{$MissleLauncherMaxStickTooltip}
+			Fire 2 homing projectile when shoot
 			'''
 	}
 }
@@ -3954,6 +3962,8 @@ MariviniumSet:
 	'''
 DeathMode: Death Mode
 CdMantle: Holy Mantle Cooldown
+MissleLauncherDescTooltip: Launch missiles that can adhere to the enemy and cause sustained damage
+MissleLauncherMaxStickTooltip: Up to {0} adhesive threads
 
 Projectiles: {
 	VoidBladeProj.DisplayName: Void Blade
@@ -4540,6 +4550,7 @@ Projectiles: {
 	NeltharionCrystal.DisplayName: Neltharion Crystal
 	SniperWulfrumScrap.DisplayName: Sniper Wulfrum Scrap
 	WulfrumSniperSpecialAttack.DisplayName: Wulfrum Sniper Special Attack
+	ZealShoot.DisplayName: Zeal Shoot
 }
 
 LegendTooltip: - Legend -

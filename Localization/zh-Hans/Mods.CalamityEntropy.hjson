@@ -1913,9 +1913,9 @@ Items: {
 		DisplayName: 救赎
 		Tooltip:
 			'''
-			蓄力发射一些追踪的导弹
+			{$MissleLauncherDescTooltip}
+			{$MissleLauncherMaxStickTooltip}
 			导弹可黏附在敌怪身上并造成一些减益
-			最多黏附8发
 			右键点击发射一发威力巨大的火箭
 			'''
 	}
@@ -3722,9 +3722,8 @@ Items: {
 		DisplayName: 孱弱
 		Tooltip:
 			'''
-			发射可黏附在敌人身上并持续造成伤害的导弹
-			最多黏附3发
-			[c/960e05:哦，我可以为你做许多事，我的谋害者]
+			{$MissleLauncherDescTooltip}
+			{$MissleLauncherMaxStickTooltip}
 			'''
 	}
 
@@ -3732,10 +3731,9 @@ Items: {
 		DisplayName: 霞光
 		Tooltip:
 			'''
-			发射可黏附在敌人身上并持续造成伤害的导弹
-			最多黏附2发
+			{$MissleLauncherDescTooltip}
+			{$MissleLauncherMaxStickTooltip}
 			造成狱炎减益
-			[c/87CEEB:我们可以成为你希望的一切，我充满美德的救世主]
 			'''
 	}
 
@@ -3743,8 +3741,8 @@ Items: {
 		DisplayName: 渴求
 		Tooltip:
 			'''
-			发射可黏附在敌人身上并持续造成伤害的导弹
-			最多黏附3发
+			{$MissleLauncherDescTooltip}
+			{$MissleLauncherMaxStickTooltip}
 			造成硫磺火减益
 			'''
 	}
@@ -3753,11 +3751,10 @@ Items: {
 		DisplayName: 挣脱
 		Tooltip:
 			'''
-			发射可黏附在敌人身上并持续造成伤害的导弹
-			最多黏附4发
+			{$MissleLauncherDescTooltip}
+			{$MissleLauncherMaxStickTooltip}
 			造成硫磺火减益
 			爆炸时生成硫火飞弹
-			[c/304fff:让我们化作实体，作为回报，我们会实现你的思想，你的梦想。]
 			'''
 	}
 
@@ -3765,8 +3762,8 @@ Items: {
 		DisplayName: 赦免
 		Tooltip:
 			'''
-			一次发射两发可黏附在敌人身上并持续造成伤害的追踪导弹
-			最多黏附5发
+			{$MissleLauncherDescTooltip}
+			{$MissleLauncherMaxStickTooltip}
 			爆炸时生成瘟疫导弹
 			'''
 	}
@@ -4069,8 +4066,8 @@ Items: {
 		DisplayName: 污袪
 		Tooltip:
 			'''
-			发射一些追踪的导弹
-			导弹可黏附在敌怪身上并造成一些减益
+			{$MissleLauncherDescTooltip}
+			{$MissleLauncherMaxStickTooltip}
 			最多黏附5发
 			右键点击发射一发威力巨大的火箭
 			'''
@@ -4121,6 +4118,16 @@ Items: {
 			以较慢速度发射子弹
 			发射5发后枪口会被融化的钨钢金属堵塞
 			此时点击鼠标左键使枪管炸开并散射出钨钢金属碎片
+			'''
+	}
+
+	Zeal: {
+		DisplayName: 热忱
+		Tooltip:
+			'''
+			{$MissleLauncherDescTooltip}
+			{$MissleLauncherMaxStickTooltip}
+			开火时附带2束追踪星云能量弹
 			'''
 	}
 }
@@ -4198,6 +4205,8 @@ MariviniumSet:
 	'''
 DeathMode: 死亡模式
 CdMantle: 神圣屏障冷却
+MissleLauncherDescTooltip: 发射可黏附在敌怪身上的导弹
+MissleLauncherMaxStickTooltip: 每个敌怪最多黏附{0}个
 
 Projectiles: {
 	VoidBladeProj.DisplayName: 虚空锋刃
@@ -4784,6 +4793,7 @@ Projectiles: {
 	NeltharionCrystal.DisplayName: 爆炸虚空水晶
 	// SniperWulfrumScrap.DisplayName: Sniper Wulfrum Scrap
 	// WulfrumSniperSpecialAttack.DisplayName: Wulfrum Sniper Special Attack
+	// ZealShoot.DisplayName: Zeal Shoot
 }
 
 LegendTooltip: - 传奇物品 -

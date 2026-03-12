@@ -5,6 +5,7 @@ using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
@@ -12,6 +13,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
     public class Hope : ModItem
     {
         public static int MaxStick => 2;
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(MaxStick);
         public static int ExplodeRadius => 60;
         public override void SetDefaults()
         {

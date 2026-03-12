@@ -13,6 +13,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
@@ -20,6 +21,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
     public class Redemption : ModItem
     {
         public static int MaxStick => 8;
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(MaxStick);
         public static int ExplodeRadius => 120;
         public float Charge = 0;
         public override void SetStaticDefaults()

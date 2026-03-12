@@ -149,7 +149,7 @@ namespace CalamityEntropy.Content.Projectiles
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-            tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/DivingShield").Value;
+            tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/DivineShield").Value;
             Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, new Rectangle(48 * frame, 0, 48, 48), Color.White, Projectile.rotation, new Vector2(tx.Height, tx.Height) / 2, 2, SpriteEffects.None, 0);
 
             return false;
