@@ -4546,7 +4546,7 @@ Projectiles: {
 	// ApsychosFire.DisplayName: Apsychos Fire
 	// ApsychosFireballBig.DisplayName: Apsychos Fireball Big
 	// ApsychosLaser.DisplayName: Apsychos Laser
-	// ZafkielProj.DisplayName: Zafkiel Proj
+	// ZafkielProj.DisplayName: Zafkiel
 }
 
 LegendTooltip: - Легенда -
@@ -4923,8 +4923,8 @@ Buffs: {
 	}
 
 	ZafkielBuff: {
-		// DisplayName: Zafkiel Buff
-		// Description: Mods.CalamityEntropy.Buffs.ZafkielBuff.Description
+		// DisplayName: Zafkiel
+		// Description: ""
 	}
 }
 
