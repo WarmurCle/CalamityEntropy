@@ -1134,6 +1134,10 @@ namespace CalamityEntropy
         {
             return !(i < 0 || j < 0 || i >= Main.tile.Width || j >= Main.tile.Height);
         }
+        public static bool inWorld(Vector2 v)
+        {
+            return inWorld((int)(v.X / 16), (int)(v.Y / 16));
+        }
         public static Projectile ToProj_Identity(this int id)
         {
             return Main.projectile.FirstOrDefault(x => x.identity == id);

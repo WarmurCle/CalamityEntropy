@@ -67,13 +67,13 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                         width += 1f / 20f;
                 }
             }
-            float maxlength = 3600;
+            float maxlength = 3800;
             for(float i = 0; i < maxlength; i += 8)
             {
                 Vector2 v = Projectile.Center + Projectile.rotation.ToRotationVector2() * i;
-                if (!CEUtils.isAir(v))
+                length = (int)i;
+                if (!CEUtils.inWorld(v) || (Main.tile[(int)(v.X / 16), (int)(v.Y / 16)].IsTileSolid()))
                 {
-                    length = (int)i;
                     break;
                 }
             }
