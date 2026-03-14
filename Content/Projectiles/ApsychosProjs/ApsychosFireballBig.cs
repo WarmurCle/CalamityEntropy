@@ -27,20 +27,27 @@ namespace CalamityEntropy.Content.Projectiles.ApsychosProjs
         {
             target.AddBuff(BuffID.OnFire3, 180);
         }
+        public float ft = 2;
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+        {
+            overPlayers.Add(index);
+        }
         public override void AI()
         {
             if (Projectile.ai[2] == 0)
                 Projectile.ai[2] = Main.rand.NextBool() ? 1 : -1;
             if (scale < 1)
                 scale += 0.05f;
-            if(Projectile.timeLeft > 15 && scale > 0.8f)
+            if(Projectile.timeLeft > 6 && scale > 0.8f)
             {
+                if (ft < 9)
+                    ft += 0.5f;
                 for(int i = 0; i < 3; i ++)
                 {
                     float r = i * (MathHelper.TwoPi / 3f) + Main.GameUpdateCount * 0.052f * (Projectile.ai[2] == 1 ? 1 : -1);
                     if(Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, r.ToRotationVector2() * 42 + Projectile.velocity, ModContent.ProjectileType<ApsychosFire>(), (int)(Projectile.damage * 0.8f), 0, -1, 9, Projectile.ai[1]);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, r.ToRotationVector2() * 42 + Projectile.velocity, ModContent.ProjectileType<ApsychosFire>(), (int)(Projectile.damage * 0.8f), 0, -1, (int)ft, Projectile.ai[1]);
                     }
                 }
             }
