@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
         {
             if(Main.netMode != NetmodeID.MultiplayerClient)
             {
-                if(!owner.active)
+                if(!owner.active || owner == null || owner.ModNPC == null || !(owner.ModNPC is Apsychos))
                 {
                     NPC.active = false;
                     if(Main.dedServ)
