@@ -63,10 +63,6 @@ namespace CalamityEntropy.Content.Projectiles
 
             return false;
         }
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            target.AddBuff<LifeOppress>(600);
-        }
         public void draw()
         {
             if (points.Count < 1)
