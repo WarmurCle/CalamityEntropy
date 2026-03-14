@@ -4146,6 +4146,11 @@ Items: {
 		DisplayName: 烬甲秽魔圣物
 		Tooltip: ""
 	}
+
+	ApsychosTrophy: {
+		DisplayName: 烬甲秽魔纪念章
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:

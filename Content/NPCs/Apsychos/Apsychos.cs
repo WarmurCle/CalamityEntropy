@@ -854,7 +854,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<ApsychosRelic>());
 
-            //npcLoot.Add(ModContent.ItemType<LuminarisTrophy>(), 10);
+            npcLoot.Add(ModContent.ItemType<ApsychosTrophy>(), 10);
 
             //npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedLuminaris, ModContent.ItemType<LuminarisLore>());
         }

@@ -3892,6 +3892,11 @@ Items: {
 		DisplayName: Apsychos Relic
 		Tooltip: ""
 	}
+
+	ApsychosTrophy: {
+		DisplayName: Apsychos Trophy
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:
