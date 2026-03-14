@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Projectiles.ApsychosProjs
             if(Projectile.timeLeft > 6 && scale > 0.8f)
             {
                 if (ft < 9)
-                    ft += 0.5f;
+                    ft += 0.33f;
                 for(int i = 0; i < 3; i ++)
                 {
                     float r = i * (MathHelper.TwoPi / 3f) + Main.GameUpdateCount * 0.052f * (Projectile.ai[2] == 1 ? 1 : -1);

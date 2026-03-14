@@ -174,7 +174,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             NPC.height = 156;
             NPC.damage = 46;
             NPC.defense = 6;
-            NPC.lifeMax = 5500;
+            NPC.lifeMax = 9000;
             if (BossRushEvent.BossRushActive)
             {
                 NPC.lifeMax += 300000;
@@ -191,6 +191,10 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             {
                 Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/Placeholder");
             }
+            if(Main.getGoodWorld)
+                NPC.scale = 1.25f;
+            if(Main.zenithWorld)
+                NPC.scale = 0.7f;
         }
         #region AI
         public enum AIStyle
@@ -535,7 +539,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                         num2 = 0;
                     }
                 }
-                if (NPC.ai[2] > 3)
+                if (NPC.ai[2] > ((NPC.life < NPC.lifeMax / 4) ? 5 : 2))
                 {
                     NPC.ai[2] = 0;
                     SetAIStyle();
@@ -545,7 +549,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             if (ai == AIStyle.Laser)
             {
                 tailStyle = TailStyle.TwoPoint;
-                Vector2 tpos = NPC.Center + new Vector2(140, (float)Math.Sin(AIChangeCounter * 0.04f) * 300).RotatedBy(NPC.rotation);
+                Vector2 tpos = NPC.Center + new Vector2(140, (float)Math.Sin(AIChangeCounter * 0.04f) * 200).RotatedBy(NPC.rotation);
                 tail.Center = Vector2.Lerp(tail.Center, tpos, 0.24f);
                 tail.rotation = (NPC.Center + NPC.rotation.ToRotationVector2() * 800 - tail.Center).ToRotation();
                 TailLight += 0.1f;
@@ -559,9 +563,9 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                 else
                 {
                     float targetRot = (player.Center - NPC.Center).ToRotation();
-                    NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, targetRot, 0.034f, false);
+                    NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, targetRot, 0.026f, false);
                     NPC.velocity *= 0.96f;
-                    NPC.velocity -= NPC.rotation.ToRotationVector2() * 0.16f;
+                    NPC.velocity -= NPC.rotation.ToRotationVector2() * 0.04f;
                 }
                 tail.Center = Vector2.Lerp(tail.Center, NPC.Center + NPC.rotation.ToRotationVector2() * 160 * NPC.scale, 0.08f * enrange);
                 if (AIChangeCounter == 0)
@@ -634,38 +638,72 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                 }
                 else
                 {
-                    if (AIRound > 14)
-                        AIRound = 0;
-                    if (AIRound == 0)
-                        ai = AIStyle.MoveToTarget;
-                    if (AIRound == 1)
-                        ai = AIStyle.Dash;
-                    if (AIRound == 2)
-                        ai = AIStyle.MoveToTarget;
-                    if (AIRound == 3)
-                        ai = AIStyle.FireballShooting;
-                    if (AIRound == 4)
-                        ai = AIStyle.Dash;
-                    if (AIRound == 5)
-                        ai = AIStyle.MoveToTarget;
-                    if (AIRound == 6)
-                        ai = AIStyle.FlameThrow;
-                    if (AIRound == 7)
-                        ai = AIStyle.MoveToTarget;
-                    if (AIRound == 8)
-                        ai = AIStyle.FireballBig;
-                    if (AIRound == 9)
-                        ai = AIStyle.MoveToTarget;
-                    if (AIRound == 10)
-                        ai = AIStyle.TailDash;
-                    if (AIRound == 11)
-                        ai = AIStyle.MoveToTarget;
-                    if (AIRound == 12)
-                        ai = AIStyle.Dash;
-                    if (AIRound == 13)
-                        ai = AIStyle.MoveToTarget;
-                    if (AIRound == 14)
-                        ai = AIStyle.Laser;
+                    if(NPC.life > NPC.lifeMax / 4)
+                    {
+                        if (AIRound > 14)
+                            AIRound = 0;
+                        if (AIRound == 0)
+                            ai = AIStyle.MoveToTarget;
+                        if (AIRound == 1)
+                            ai = AIStyle.Dash;
+                        if (AIRound == 2)
+                            ai = AIStyle.MoveToTarget;
+                        if (AIRound == 3)
+                            ai = AIStyle.FireballShooting;
+                        if (AIRound == 4)
+                            ai = AIStyle.Dash;
+                        if (AIRound == 5)
+                            ai = AIStyle.MoveToTarget;
+                        if (AIRound == 6)
+                            ai = AIStyle.FlameThrow;
+                        if (AIRound == 7)
+                            ai = AIStyle.MoveToTarget;
+                        if (AIRound == 8)
+                            ai = AIStyle.FireballBig;
+                        if (AIRound == 9)
+                            ai = AIStyle.MoveToTarget;
+                        if (AIRound == 10)
+                            ai = AIStyle.TailDash;
+                        if (AIRound == 11)
+                            ai = AIStyle.MoveToTarget;
+                        if (AIRound == 12)
+                            ai = AIStyle.Dash;
+                        if (AIRound == 13)
+                            ai = AIStyle.MoveToTarget;
+                        if (AIRound == 14)
+                            ai = AIStyle.Laser;
+                    }
+                    else
+                    {
+                        if (AIRound > 12)
+                            AIRound = 0;
+                        if (AIRound == 0)
+                            ai = AIStyle.MoveToTarget;
+                        if (AIRound == 1)
+                            ai = AIStyle.FireballBig;
+                        if (AIRound == 2)
+                            ai = AIStyle.MoveToTarget;
+                        if (AIRound == 3)
+                            ai = AIStyle.TailDash;
+                        if (AIRound == 4)
+                            ai = AIStyle.MoveToTarget;
+                        if (AIRound == 5)
+                            ai = AIStyle.Dash;
+                        if (AIRound == 6)
+                            ai = AIStyle.MoveToTarget;
+                        if (AIRound == 7)
+                            ai = AIStyle.Laser;
+                        if (AIRound == 8)
+                            ai = AIStyle.Dash;
+                        if (AIRound == 9)
+                            ai = AIStyle.MoveToTarget;
+                        if (AIRound == 10)
+                            ai = AIStyle.Laser;
+                        if (AIRound == 11)
+                            ai = AIStyle.Dash;
+                        if (AIRound == 12)
+                            ai = AIStyle.Dash;
+                    }
                 }
             }
         }

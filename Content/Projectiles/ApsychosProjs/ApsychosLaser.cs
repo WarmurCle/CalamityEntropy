@@ -67,6 +67,16 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                         width += 1f / 20f;
                 }
             }
+            float maxlength = 3600;
+            for(float i = 0; i < maxlength; i += 8)
+            {
+                Vector2 v = Projectile.Center + Projectile.rotation.ToRotationVector2() * i;
+                if (!CEUtils.isAir(v))
+                {
+                    length = (int)i;
+                    break;
+                }
+            }
             aicounter++;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -98,6 +108,11 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             Main.spriteBatch.Draw(star, pos - Main.screenPosition, null, color * Projectile.Opacity, MathHelper.PiOver4, star.Size() / 2f, new Vector2(1 + num, 1 - num) * Projectile.scale * 0.2f * 3 * width, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(star, pos - Main.screenPosition, null, color * Projectile.Opacity, MathHelper.PiOver4, star.Size() / 2f, new Vector2(1 - num2, 1 + num2) * Projectile.scale * 0.2f * 3 * width, SpriteEffects.None, 0);
 
+            float r = Main.GlobalTimeWrappedHourly * 4;
+            Main.spriteBatch.Draw(star, pos + Projectile.rotation.ToRotationVector2() * length - Main.screenPosition, null, color * Projectile.Opacity, r, star.Size() / 2f, new Vector2(1 + num, 1 - num) * Projectile.scale * 0.5f * 3 * width, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(star, pos + Projectile.rotation.ToRotationVector2() * length - Main.screenPosition, null, color * Projectile.Opacity, r, star.Size() / 2f, new Vector2(1 - num2, 1 + num2) * Projectile.scale * 0.5f * 3 * width, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(star, pos + Projectile.rotation.ToRotationVector2() * length - Main.screenPosition, null, color * Projectile.Opacity, r + MathHelper.PiOver4, star.Size() / 2f, new Vector2(1 + num, 1 - num) * Projectile.scale * 0.2f * 3 * width, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(star, pos + Projectile.rotation.ToRotationVector2() * length - Main.screenPosition, null, color * Projectile.Opacity, r + MathHelper.PiOver4, star.Size() / 2f, new Vector2(1 - num2, 1 + num2) * Projectile.scale * 0.2f * 3 * width, SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
 
             return false;
