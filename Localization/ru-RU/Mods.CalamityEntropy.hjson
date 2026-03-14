@@ -3869,6 +3869,16 @@ Items: {
 			Fire 2 homing projectile when shoot
 			''' */
 	}
+
+	Zafkiel: {
+		// DisplayName: Zafkiel
+		// Tooltip: ""
+	}
+
+	Sister: {
+		// DisplayName: Sister
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:
@@ -4536,6 +4546,7 @@ Projectiles: {
 	// ApsychosFire.DisplayName: Apsychos Fire
 	// ApsychosFireballBig.DisplayName: Apsychos Fireball Big
 	// ApsychosLaser.DisplayName: Apsychos Laser
+	// ZafkielProj.DisplayName: Zafkiel Proj
 }
 
 LegendTooltip: - Легенда -
@@ -4909,6 +4920,11 @@ Buffs: {
 	DivineShieldCooldown: {
 		// DisplayName: Divine Shield Cooldown
 		// Description: Mods.CalamityEntropy.Buffs.DivineShieldCooldown.Description
+	}
+
+	ZafkielBuff: {
+		// DisplayName: Zafkiel Buff
+		// Description: Mods.CalamityEntropy.Buffs.ZafkielBuff.Description
 	}
 }
 

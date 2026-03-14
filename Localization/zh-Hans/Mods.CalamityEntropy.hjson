@@ -4131,6 +4131,16 @@ Items: {
 			开火时附带2束追踪星云能量弹
 			'''
 	}
+
+	Zafkiel: {
+		DisplayName: 刻刻帝
+		Tooltip: ""
+	}
+
+	Sister: {
+		DisplayName: 修女
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:
@@ -4799,6 +4809,7 @@ Projectiles: {
 	ApsychosFire.DisplayName: 火焰
 	ApsychosFireballBig.DisplayName: 巨型火球
 	ApsychosLaser.DisplayName: 焰烬激光
+	ZafkielProj.DisplayName: 刻刻帝
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5171,6 +5182,11 @@ Buffs: {
 
 	DivineShieldCooldown: {
 		DisplayName: 神圣干预冷却
+		Description: ""
+	}
+
+	ZafkielBuff: {
+		DisplayName: 刻刻帝
 		Description: ""
 	}
 }
