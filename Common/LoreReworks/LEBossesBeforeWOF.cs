@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items.LoreItems;
+﻿using CalamityEntropy.Content.Items.Lores;
+using CalamityMod.Items.LoreItems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -121,6 +122,15 @@ namespace CalamityEntropy.Common.LoreReworks
         public override void UpdateEffects(Player player)
         {
             player.jumpSpeedBoost += JumpSpeedBoost;
+        }
+    }
+    public class LEApychos : LoreEffect
+    {
+        public override int ItemType => ModContent.ItemType<LoreApsychos>();
+        public override void UpdateEffects(Player player)
+        {
+            player.buffImmune[BuffID.OnFire] = true;
+            player.buffImmune[BuffID.OnFire3] = true;
         }
     }
 }

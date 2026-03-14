@@ -1,19 +1,12 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Lores;
-using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.ApsychosProjs;
-using CalamityEntropy.Content.Projectiles.LuminarisShoots;
-using CalamityEntropy.Utilities;
 using CalamityMod;
-using CalamityMod.BiomeManagers;
 using CalamityMod.Events;
-using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using CalamityMod.World;
-using Humanizer;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -24,7 +17,6 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static CalamityEntropy.Content.Items.Atbm.ATBMProjectile;
 
 namespace CalamityEntropy.Content.NPCs.Apsychos
 {
@@ -845,8 +837,8 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<LuminarisBag>()));
-            //npcLoot.DefineConditionalDropSet(() => true).Add(DropHelper.PerPlayer(ItemID.HealingPotion, 1, 5, 15), hideLootReport: true);
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<ApsychosBag>()));
+            npcLoot.DefineConditionalDropSet(() => true).Add(DropHelper.PerPlayer(ItemID.HealingPotion, 1, 5, 15), hideLootReport: true);
 
             var normalOnly = npcLoot.DefineNormalOnlyDropSet();
             {
@@ -856,7 +848,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
 
             npcLoot.Add(ModContent.ItemType<ApsychosTrophy>(), 10);
 
-            //npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedLuminaris, ModContent.ItemType<LuminarisLore>());
+            npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedApsychos, ModContent.ItemType<LoreApsychos>());
         }
     }
 }

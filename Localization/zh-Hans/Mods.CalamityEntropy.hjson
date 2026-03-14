@@ -281,6 +281,11 @@ Items: {
 			Tooltip: ""
 			Lore: "{$loreLuminaris}"
 		}
+
+		LoreApsychos: {
+			// DisplayName: Lore Apsychos
+			// Tooltip: ""
+		}
 	}
 
 	BrokenChainsaw: {
@@ -4151,6 +4156,11 @@ Items: {
 		DisplayName: 烬甲秽魔纪念章
 		Tooltip: ""
 	}
+
+	ApsychosBag: {
+		DisplayName: 宝藏袋 (烬甲秽魔)
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:
@@ -5859,6 +5869,7 @@ LoreRavagerDesc: 增加2%移动速度
 LorePreludeDesc: +5%光照
 LoreAstralInfectionDesc: +{1}% 飞行时间
 LoreAstrumDeusDesc: +{1}% 飞行速度
+LoreApsychosDesc: 使你免疫着火了和狱火减益
 
 DraedonDialogs: {
 	Void: {

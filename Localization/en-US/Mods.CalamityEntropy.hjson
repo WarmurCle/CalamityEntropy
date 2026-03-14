@@ -284,6 +284,11 @@ Items: {
 			Tooltip: ""
 			Lore: "{$loreLuminaris}"
 		}
+
+		LoreApsychos: {
+			DisplayName: Lore Apsychos
+			Tooltip: ""
+		}
 	}
 
 	BrokenChainsaw: {
@@ -317,7 +322,7 @@ Items: {
 	}
 
 	CruiserBag: {
-		DisplayName: Treasure Bag(Cruiser)
+		DisplayName: Treasure Bag (Cruiser)
 		Tooltip: ""
 	}
 
@@ -1244,7 +1249,7 @@ Items: {
 	}
 
 	NihilityTwinBag: {
-		DisplayName: Treasure Bag(Nihility Twin)
+		DisplayName: Treasure Bag (Nihility Twin)
 		Tooltip: ""
 	}
 
@@ -2436,7 +2441,7 @@ Items: {
 	}
 
 	LuminarisBag: {
-		DisplayName: Luminaris Bag
+		DisplayName: Treasure Bag (Luminaris)
 		Tooltip: ""
 	}
 
@@ -3895,6 +3900,11 @@ Items: {
 
 	ApsychosTrophy: {
 		DisplayName: Apsychos Trophy
+		Tooltip: ""
+	}
+
+	ApsychosBag: {
+		DisplayName: Treasure Bag (Apsychos)
 		Tooltip: ""
 	}
 }
@@ -5602,6 +5612,7 @@ LoreRavagerDesc: Increase movement speed by 2%
 LorePreludeDesc: +5% Light
 LoreAstralInfectionDesc: +{1}% Wing time
 LoreAstrumDeusDesc: +{1}% Wing speed
+LoreApsychosDesc: Immune to On Fire! and Hellfire
 
 DraedonDialogs: {
 	Void: {

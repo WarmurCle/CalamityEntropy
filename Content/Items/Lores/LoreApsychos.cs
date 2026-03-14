@@ -1,22 +1,23 @@
-﻿using CalamityEntropy.Content.Rarities;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items.LoreItems;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Lores
 {
-    public class LuminarisLore : LoreItem
+    public class LoreApsychos : LoreItem
     {
-        public static float wingTimeAddition = 0.05f;
-        
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 20;
-            Item.rare = ModContent.RarityType<Lunarblight>();
+            Item.width = 38;
+            Item.height = 26;
+            Item.rare = ItemRarityID.Pink;
             Item.maxStack = 1;
         }
     }

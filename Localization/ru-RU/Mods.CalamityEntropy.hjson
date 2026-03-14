@@ -249,6 +249,11 @@ Items: {
 			// Tooltip: ""
 			// Lore: "{$loreLuminaris}"
 		}
+
+		LoreApsychos: {
+			// DisplayName: Lore Apsychos
+			// Tooltip: ""
+		}
 	}
 
 	BrokenChainsaw: {
@@ -5583,6 +5588,7 @@ LoreEaterofWorldsDesc: Иммунитет к пролятому огню
 // LorePreludeDesc: +5% Light
 // LoreAstralInfectionDesc: +{1}% Wing time
 // LoreAstrumDeusDesc: +{1}% Wing speed
+// LoreApsychosDesc: Immune to On Fire! and Hellfire
 
 DraedonDialogs: {
 	Void: {
