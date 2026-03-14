@@ -1854,7 +1854,7 @@ namespace CalamityEntropy
             EntropyBossbar.bossbarColor[ModContent.NPCType<TheProphet>()] = new Color(180, 233, 255);
             EntropyBossbar.bossbarColor[ModContent.NPCType<Luminaris>()] = new Color(150, 100, 215);
             EntropyBossbar.bossbarColor[ModContent.NPCType<AcropolisMachine>()] = new Color(255, 93, 13);
-            EntropyBossbar.bossbarColor[ModContent.NPCType<Apsychos>()] = new Color(255, 220, 20);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<Apsychos>()] = new Color(255, 160, 20);
 
             try
             {

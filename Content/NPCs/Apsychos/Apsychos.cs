@@ -477,6 +477,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             }
             if(ai == AIStyle.PhaseTrans)
             {
+                NPC.velocity *= 0.98f;
                 if(AIChangeCounter < 80)
                 {
                     HighLight += 1 / 80f;
@@ -562,8 +563,12 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                 }
                 else
                 {
-                    float targetRot = (player.Center - NPC.Center).ToRotation();
-                    NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, targetRot, 0.026f, false);
+                    if (AIChangeCounter > 80)
+                    {
+                        float targetRot = (player.Center - NPC.Center).ToRotation();
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, targetRot, 0.02f, false);
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, targetRot, 0.008f, true);
+                    }
                     NPC.velocity *= 0.96f;
                     NPC.velocity -= NPC.rotation.ToRotationVector2() * 0.04f;
                 }
