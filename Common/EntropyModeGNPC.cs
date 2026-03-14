@@ -404,11 +404,11 @@ namespace CalamityEntropy.Common
                             if (lifePer < 0.15f && EDogSpawnCVoid)
                             {
                                 EDogSpawnCVoid = false;
-                                int npc_ = SpawnBoss((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<CeaselessVoid>(), Player.FindClosest(npc.Center, 9999, 9999));
-                                npc_.ToNPC().lifeMax /= 6;
-                                npc_.ToNPC().life /= 6;
-                                if (Main.netMode == NetmodeID.Server)
-                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc_);
+                                //int npc_ = SpawnBoss((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<CeaselessVoid>(), Player.FindClosest(npc.Center, 9999, 9999));
+                                //npc_.ToNPC().lifeMax /= 6;
+                                //npc_.ToNPC().life /= 6;
+                                //if (Main.netMode == NetmodeID.Server)
+                                //    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc_);
                             }
                         }
                     }
