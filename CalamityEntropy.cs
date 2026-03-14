@@ -1538,6 +1538,7 @@ namespace CalamityEntropy
                 initializeIntro(ModContent.NPCType<NihilityActeriophage>(), Color.Blue, Color.LightBlue, "NihilityTwin");
                 initializeIntro(ModContent.NPCType<TheProphet>(), Color.LightBlue, Color.SkyBlue, "Prophet", 1);
                 initializeIntro(ModContent.NPCType<Luminaris>(), new Color(190, 180, 220), Color.Purple, "Luminaris", 1);
+                initializeIntro(ModContent.NPCType<Apsychos>(), Color.Yellow, Color.Firebrick, "Apsychos", 1);
             }
             if (ModLoader.TryGetMod("MoreObtainingTooltips", out Mod moreObtainingTooltips))
             {

@@ -172,7 +172,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             NPC.boss = true;
             NPC.width = 156;
             NPC.height = 156;
-            NPC.damage = 36;
+            NPC.damage = 46;
             NPC.defense = 6;
             NPC.lifeMax = 5500;
             if (BossRushEvent.BossRushActive)
