@@ -251,8 +251,18 @@ Items: {
 		}
 
 		LoreApsychos: {
-			// DisplayName: Lore Apsychos
+			// DisplayName: Apsychos
 			// Tooltip: ""
+			/* Lore:
+				'''
+				Someone once attempted to seal the essence of a slain god within it.
+				Obviously, they have failed.
+				This triggered the agitation of a massive creature deep within the lava,
+				which began to attack all living creatures it saw uncontrollably.
+				This is simply blasphemy! What an innocent creature, 
+				treated as a sealed container of filth.
+				The curse wrapped around it finally got rid of.
+				''' */
 		}
 	}
 
@@ -3892,6 +3902,11 @@ Items: {
 
 	ApsychosTrophy: {
 		// DisplayName: Apsychos Trophy
+		// Tooltip: ""
+	}
+
+	ApsychosBag: {
+		// DisplayName: Treasure Bag (Apsychos)
 		// Tooltip: ""
 	}
 }

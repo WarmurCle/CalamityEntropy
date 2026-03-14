@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Lores
         {
             Item.width = 38;
             Item.height = 26;
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ItemRarityID.LightRed;
             Item.maxStack = 1;
         }
     }

@@ -1655,6 +1655,7 @@ namespace CalamityEntropy
                                 ["displayName"] = Language.GetText("Mods.CalamityEntropy.NPCs.Apsychos.BossChecklistIntegration.EntryName"),
                                 ["spawnInfo"] = Language.GetText("Mods.CalamityEntropy.NPCs.Apsychos.BossChecklistIntegration.SpawnInfo"),
                                 ["despawnMessage"] = Language.GetText("Mods.CalamityEntropy.NPCs.Apsychos.BossChecklistIntegration.DespawnMessage"),
+                                ["spawnItems"] = ModContent.ItemType<IllusionaryDew>(),
                                 ["collectibles"] = collection,
                                 ["customPortrait"] = portrait
                             });
