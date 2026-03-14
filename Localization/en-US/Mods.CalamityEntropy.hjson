@@ -4552,6 +4552,10 @@ Projectiles: {
 	SniperWulfrumScrap.DisplayName: Sniper Wulfrum Scrap
 	WulfrumSniperSpecialAttack.DisplayName: Wulfrum Sniper Special Attack
 	ZealShoot.DisplayName: Zeal Shoot
+	ApsychosFireball.DisplayName: Apsychos Fireball
+	ApsychosFire.DisplayName: Apsychos Fire
+	ApsychosFireballBig.DisplayName: Apsychos Fireball Big
+	ApsychosLaser.DisplayName: Apsychos Laser
 }
 
 LegendTooltip: - Legend -
@@ -4940,7 +4944,7 @@ NPCs: {
 		BossChecklistIntegration: {
 			EntryName: Cruiser
 			SpawnInfo: Use [i:CalamityEntropy/VoidBottle] to summon
-			DespawnMessage: Cruiser has been defeated
+			DespawnMessage: ""
 		}
 	}
 
@@ -4949,7 +4953,6 @@ NPCs: {
 	VoidCultistAssassin.DisplayName: Void Cultist Assassin
 	VoidPope.DisplayName: Void Pope
 	VoidPopeHand.DisplayName: Void Pope Hand
-	Delirium.DisplayName: Delirium
 
 	PrimordialWyrmNPC: {
 		TownNPCMood: {
@@ -4973,7 +4976,7 @@ NPCs: {
 		BossChecklistIntegration: {
 			EntryName: Nihility Twin
 			SpawnInfo: Use [i:CalamityEntropy/NihilityHorn] to summon
-			DespawnMessage: Nihility Twin has been defeated
+			DespawnMessage: ""
 		}
 	}
 
@@ -4992,7 +4995,7 @@ NPCs: {
 		BossChecklistIntegration: {
 			EntryName: The Prophet
 			SpawnInfo: Use [i:CalamityEntropy/ProphecyToken] in dungeon to summon.
-			DespawnMessage: The Prophet has been defeated.
+			DespawnMessage: ""
 		}
 	}
 
@@ -5004,7 +5007,7 @@ NPCs: {
 		BossChecklistIntegration: {
 			EntryName: Luminaris
 			SpawnInfo: Use [i:CalamityEntropy/IllusionaryDew] in Astral Infection to summon.
-			DespawnMessage: Luminaris has been defeated.
+			DespawnMessage: ""
 		}
 	}
 
@@ -5014,13 +5017,25 @@ NPCs: {
 		BossChecklistIntegration: {
 			EntryName: Acropolis Machine
 			SpawnInfo: Naturally spawn in brimstone crags
-			DespawnMessage: Acropolis machine is scrapped
+			DespawnMessage: ""
 		}
 	}
 
 	Harpoon.DisplayName: Harpoon
 	SpiritFountain.DisplayName: Spirit Fountain
 	SpiritRing.DisplayName: Spirit Ring
+
+	Apsychos: {
+		DisplayName: Apsychos
+
+		BossChecklistIntegration: {
+			EntryName: Apsychos
+			SpawnInfo: Use [i:CalamityEntropy/IllusionaryDew] in the Underworld
+			DespawnMessage: ""
+		}
+	}
+
+	ApsychosTail.DisplayName: Apsychos Tail
 }
 
 WyrmChatNoHome: Where are we going now?
@@ -5142,6 +5157,11 @@ ProphetBestiary:
 	Bound to ancient texts, it endlessly repeats mindless screams and whispers, desperately—yet futilely—trying to convey what it has witnessed.
 	'''
 LuminarisBestiary: Moths infected by astral exist with the purpose of spreading astral infection
+ApsychosBestiary:
+	'''
+	The creature wandering in the depths of lava has a carapace made of crustal rocks.
+	It may have been regarded as a substitute for wall of flesh, but it has clearly failed.
+	'''
 WorldGen.VoidOreSpawn: Void energy is emanating from the sky
 
 Tiles: {

@@ -15,6 +15,7 @@ namespace CalamityEntropy.Common
         public static bool TDR = false;
         public static bool downedProphet = false;
         public static bool downedLuminaris = false;
+        public static bool downedApsychos = false;
         public static bool downedAcropolis = false;
         public static Point ForbiddenArchiveCenter = new Point(-1, -1);
         public override void ClearWorld()
@@ -26,6 +27,7 @@ namespace CalamityEntropy.Common
             downedProphet = false;
             downedLuminaris = false;
             downedAcropolis = false;
+            downedApsychos = false;
             ForbiddenArchiveCenter = new Point(-1, -1);
             DownedBossSystem.downedPrimordialWyrm = false;
         }
@@ -68,6 +70,10 @@ namespace CalamityEntropy.Common
             {
                 tag["downedPrimordialWyrm"] = true;
             }
+            if(downedApsychos)
+            {
+                tag["downedApsychos"] = true;
+            }
             tag["DungeonArchiveCenterX"] = ForbiddenArchiveCenter.X;
             tag["DungeonArchiveCenterY"] = ForbiddenArchiveCenter.Y;
         }
@@ -85,6 +91,7 @@ namespace CalamityEntropy.Common
             downedProphet = tag.ContainsKey("downedProphet");
             downedLuminaris = tag.ContainsKey("downedLuminaris");
             downedAcropolis = tag.ContainsKey("downedAcropolis");
+            downedApsychos = tag.ContainsKey("downedApsychos");
             DownedBossSystem.downedPrimordialWyrm = tag.ContainsKey("downedPrimordialWyrm");
             TDR = tag.ContainsKey("TDR");
             if (tag.ContainsKey("DungeonArchiveCenterX") && tag.ContainsKey("DungeonArchiveCenterY"))
@@ -110,6 +117,7 @@ namespace CalamityEntropy.Common
             flags[6] = DownedBossSystem.downedPrimordialWyrm;
             flags2[0] = EntropyMode;
             flags2[1] = TDR;
+            flags2[2] = downedApsychos;
 
             writer.Write(flags);
             writer.Write(flags2);
@@ -131,6 +139,7 @@ namespace CalamityEntropy.Common
             DownedBossSystem.downedPrimordialWyrm = flags[6];
             EntropyMode = flags2[0];
             TDR = flags2[1];
+            downedApsychos = flags2[2];
             ForbiddenArchiveCenter = new Point(reader.ReadInt32(), reader.ReadInt32());
         }
     }

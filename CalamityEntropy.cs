@@ -23,6 +23,7 @@ using CalamityEntropy.Content.Items.Weapons.Whips;
 using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.Acropolis;
+using CalamityEntropy.Content.NPCs.Apsychos;
 using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.NPCs.LuminarisMoth;
 using CalamityEntropy.Content.NPCs.NihilityTwin;
@@ -789,14 +790,6 @@ namespace CalamityEntropy
                 orig(self, i);
                 return;
             }
-            bool rBr = false;
-            bool brA = false;
-            if(self.ModNPC != null && self.ModNPC is CeaselessVoid)
-            {
-                rBr = true;
-                brA = BossRushEvent.BossRushActive;
-                BossRushEvent.BossRushActive = true;
-            }
             if (self.active && self.Entropy().AnimaTrapped > 0)
             {
                 ceNPC.AnimaTrapped--;
@@ -875,10 +868,6 @@ namespace CalamityEntropy
                     }
                 }
                 orig(self, i);
-            }
-            if(rBr)
-            {
-                BossRushEvent.BossRushActive = brA;
             }
         }
 
@@ -1652,6 +1641,24 @@ namespace CalamityEntropy
                             }, true);
                         }
                         {
+                            string entryName = "Apsychos";
+                            List<int> collection = new List<int>() { };
+                            Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>
+                            {
+                                Texture2D texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/BCL/Apsychos").Value;
+                                sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 0.6f, SpriteEffects.None, 0);
+                            };
+                            Func<bool> downed = () => EDownedBosses.downedApsychos;
+                            AddBoss(bossChecklist, Instance, entryName, 7f, downed, ModContent.NPCType<Apsychos>(), new Dictionary<string, object>()
+                            {
+                                ["displayName"] = Language.GetText("Mods.CalamityEntropy.NPCs.Apsychos.BossChecklistIntegration.EntryName"),
+                                ["spawnInfo"] = Language.GetText("Mods.CalamityEntropy.NPCs.Apsychos.BossChecklistIntegration.SpawnInfo"),
+                                ["despawnMessage"] = Language.GetText("Mods.CalamityEntropy.NPCs.Apsychos.BossChecklistIntegration.DespawnMessage"),
+                                ["collectibles"] = collection,
+                                ["customPortrait"] = portrait
+                            });
+                        }
+                        {
                             string entryName = "Luminaris";
                             List<int> collection = new List<int>() { };
                             Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>
@@ -1846,6 +1853,8 @@ namespace CalamityEntropy
             EntropyBossbar.bossbarColor[ModContent.NPCType<TheProphet>()] = new Color(180, 233, 255);
             EntropyBossbar.bossbarColor[ModContent.NPCType<Luminaris>()] = new Color(150, 100, 215);
             EntropyBossbar.bossbarColor[ModContent.NPCType<AcropolisMachine>()] = new Color(255, 93, 13);
+            EntropyBossbar.bossbarColor[ModContent.NPCType<Apsychos>()] = new Color(255, 220, 20);
+
             try
             {
                 if (!Main.dedServ)

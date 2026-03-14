@@ -4792,9 +4792,13 @@ Projectiles: {
 	SwingSmear.DisplayName: 水晶旋风
 	NeltharionHoldout.DisplayName: 奈萨里奥
 	NeltharionCrystal.DisplayName: 爆炸虚空水晶
-	// SniperWulfrumScrap.DisplayName: Sniper Wulfrum Scrap
-	// WulfrumSniperSpecialAttack.DisplayName: Wulfrum Sniper Special Attack
-	// ZealShoot.DisplayName: Zeal Shoot
+	SniperWulfrumScrap.DisplayName: 钨钢碎片
+	WulfrumSniperSpecialAttack.DisplayName: 钨钢狙击枪
+	ZealShoot.DisplayName: 星璇追踪弹
+	ApsychosFireball.DisplayName: 烬甲秽魔火球
+	ApsychosFire.DisplayName: 火焰
+	ApsychosFireballBig.DisplayName: 巨型火球
+	ApsychosLaser.DisplayName: 焰烬激光
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5183,7 +5187,7 @@ NPCs: {
 		BossChecklistIntegration: {
 			EntryName: 巡游者
 			SpawnInfo: 使用[i:CalamityEntropy/VoidBottle]召唤
-			DespawnMessage: 巡游者已被击败！
+			DespawnMessage: ""
 		}
 	}
 
@@ -5192,7 +5196,6 @@ NPCs: {
 	VoidCultistAssassin.DisplayName: 虚空邪教徒
 	VoidPope.DisplayName: 虚空教主
 	VoidPopeHand.DisplayName: 虚空教主
-	Delirium.DisplayName: 精神错乱
 
 	PrimordialWyrmNPC: {
 		TownNPCMood: {
@@ -5216,7 +5219,7 @@ NPCs: {
 		BossChecklistIntegration: {
 			EntryName: 虚无双子
 			SpawnInfo: 使用[i:CalamityEntropy/NihilityHorn]召唤
-			DespawnMessage: 虚无双子已被击败！
+			DespawnMessage: ""
 		}
 	}
 
@@ -5235,7 +5238,7 @@ NPCs: {
 		BossChecklistIntegration: {
 			EntryName: 先知
 			SpawnInfo: 在地牢使用[i:CalamityEntropy/ProphecyToken]召唤
-			DespawnMessage: 先知已被击败
+			DespawnMessage: ""
 		}
 	}
 
@@ -5247,7 +5250,7 @@ NPCs: {
 		BossChecklistIntegration: {
 			EntryName: 幻光星蛾
 			SpawnInfo: 在星辉地使用[i:CalamityEntropy/IllusionaryDew]召唤
-			DespawnMessage: 幻光星蛾已被击败
+			DespawnMessage: ""
 		}
 	}
 
@@ -5257,13 +5260,25 @@ NPCs: {
 		BossChecklistIntegration: {
 			EntryName: 阿萨福勒卫城机甲
 			SpawnInfo: 在硫火之崖小概率生成
-			DespawnMessage: 阿萨福勒卫城机甲报废了！
+			DespawnMessage: ""
 		}
 	}
 
 	Harpoon.DisplayName: 叉矛
 	SpiritFountain.DisplayName: 冥魂泉
 	SpiritRing.DisplayName: 冥魂泉
+
+	Apsychos: {
+		DisplayName: 烬甲秽魔
+
+		BossChecklistIntegration: {
+			EntryName: 烬甲秽魔
+			SpawnInfo: 在地狱使用[i:CalamityEntropy/IllusionaryDew]召唤
+			DespawnMessage: ""
+		}
+	}
+
+	ApsychosTail.DisplayName: 烬甲秽魔之尾
 }
 
 WyrmChatNoHome: 我们现在要去哪？
@@ -5382,6 +5397,11 @@ ProphetBestiary:
 	被束缚于典籍的它一遍遍重复着无意义的嘶吼与低语，绝望且徒劳的向它人传达着它所见之物。
 	'''
 LuminarisBestiary: 被星辉所感染的一只巨蛾，它存在的目的即是散播星辉瘟疫
+ApsychosBestiary:
+	'''
+	在岩浆深处游荡的生物，身上的甲壳由地壳岩石构成。
+	它或许曾被当作血肉之墙的替代品，但显然失败了。
+	'''
 WorldGen.VoidOreSpawn: 天空中散发出虚空能量
 
 Tiles: {

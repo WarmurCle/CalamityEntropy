@@ -4532,6 +4532,10 @@ Projectiles: {
 	// SniperWulfrumScrap.DisplayName: Sniper Wulfrum Scrap
 	// WulfrumSniperSpecialAttack.DisplayName: Wulfrum Sniper Special Attack
 	// ZealShoot.DisplayName: Zeal Shoot
+	// ApsychosFireball.DisplayName: Apsychos Fireball
+	// ApsychosFire.DisplayName: Apsychos Fire
+	// ApsychosFireballBig.DisplayName: Apsychos Fireball Big
+	// ApsychosLaser.DisplayName: Apsychos Laser
 }
 
 LegendTooltip: - Легенда -
@@ -4929,7 +4933,6 @@ NPCs: {
 	VoidCultistAssassin.DisplayName: Ассассин культистов Пустоты
 	VoidPope.DisplayName: Патриарх Пустоты
 	VoidPopeHand.DisplayName: Длань Патриарха Пустоты
-	Delirium.DisplayName: Бред
 
 	PrimordialWyrmNPC: {
 		TownNPCMood: {
@@ -5001,6 +5004,18 @@ NPCs: {
 	Harpoon.DisplayName: Гарпун
 	// SpiritFountain.DisplayName: Spirit Fountain
 	// SpiritRing.DisplayName: Spirit Ring
+
+	Apsychos: {
+		// DisplayName: Apsychos
+
+		BossChecklistIntegration: {
+			// EntryName: Apsychos
+			// SpawnInfo: Use [i:CalamityEntropy/IllusionaryDew] in the Underworld
+			// DespawnMessage: ""
+		}
+	}
+
+	// ApsychosTail.DisplayName: Apsychos Tail
 }
 
 WyrmChatNoHome: Куда мы идем теперь?
@@ -5122,6 +5137,11 @@ ProphetBestiary:
 	Связанная древними текстами, она бесконечно повторяет бессмысленные крики и шепоты, отчаянно — но тщетно — пытаясь передать увиденное.
 	'''
 LuminarisBestiary: Моли, заражённые астралом, существуют с целью распространять астральное заражение.
+/* ApsychosBestiary:
+	'''
+	The creature wandering in the depths of lava has a carapace made of crustal rocks.
+	It may have been regarded as a substitute for wall of flesh, but it has clearly failed.
+	''' */
 WorldGen.VoidOreSpawn: Из неба исходит энергия пустоты
 
 Tiles: {

@@ -925,7 +925,7 @@ namespace CalamityEntropy
             return item.type == ModContent.ItemType<T>();
         }
 
-        public static void DrawGlow(Vector2 worldPos, Color color, float scale, bool additive = true, Texture2D tex = null)
+        public static void DrawGlow(Vector2 worldPos, Color color, float scale, bool additive = true, Texture2D tex = null, bool setState = true)
         {
             Texture2D glow = tex == null ? getExtraTex("Glow2") : tex;
             SpriteBatch sb = Main.spriteBatch;
@@ -933,12 +933,17 @@ namespace CalamityEntropy
             var sample = sb.GraphicsDevice.SamplerStates[0];
             var depth = sb.GraphicsDevice.DepthStencilState;
             var rasterizer = sb.GraphicsDevice.RasterizerState;
-            sb.End();
-            sb.Begin(SpriteSortMode.Immediate, additive ? BlendState.Additive : BlendState.NonPremultiplied, sample, depth, rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            if (setState)
+            {
+                sb.End();
+                sb.Begin(SpriteSortMode.Immediate, additive ? BlendState.Additive : BlendState.NonPremultiplied, sample, depth, rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            }
             sb.Draw(glow, worldPos - Main.screenPosition, null, color, 0, glow.Size() * 0.5f, scale * 0.4f, SpriteEffects.None, 0);
-            sb.End();
-            sb.Begin(SpriteSortMode.Deferred, blend, sample, depth, rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
-
+            if (setState)
+            {
+                sb.End();
+                sb.Begin(SpriteSortMode.Deferred, blend, sample, depth, rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            }
         }
 
         public static Terraria.DataStructures.DrawData getDrawData(this Projectile projectile, Color color, Texture2D texOverride = null, Vector2 overridePos = default)

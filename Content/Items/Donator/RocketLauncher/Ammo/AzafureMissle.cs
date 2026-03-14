@@ -11,7 +11,6 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
 {
     public class AzafureMissle : ModItem
     {
-
         public override void SetDefaults()
         {
             Item.width = 24;
