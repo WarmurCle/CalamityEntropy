@@ -4141,6 +4141,11 @@ Items: {
 		DisplayName: 修女
 		Tooltip: ""
 	}
+
+	ApsychosRelic: {
+		DisplayName: 烬甲秽魔圣物
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:

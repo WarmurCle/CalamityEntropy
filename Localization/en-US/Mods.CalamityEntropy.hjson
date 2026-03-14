@@ -3887,6 +3887,11 @@ Items: {
 		DisplayName: Sister
 		Tooltip: ""
 	}
+
+	ApsychosRelic: {
+		DisplayName: Apsychos Relic
+		Tooltip: ""
+	}
 }
 
 ChaoticSetBonus:

@@ -852,7 +852,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             {
                 //normalOnly.Add(ModContent.ItemType<StarblightSoot>(), 1, 42, 64);
             }
-            //npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<LuminarisRelic>());
+            npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<ApsychosRelic>());
 
             //npcLoot.Add(ModContent.ItemType<LuminarisTrophy>(), 10);
 
