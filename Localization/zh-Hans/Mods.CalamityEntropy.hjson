@@ -4169,6 +4169,11 @@ Items: {
 		DisplayName: 宝藏袋 (烬甲秽魔)
 		Tooltip: ""
 	}
+
+	TectonicShard: {
+		DisplayName: 板块碎片
+		Tooltip: "“还残留着余温”"
+	}
 }
 
 ChaoticSetBonus:
