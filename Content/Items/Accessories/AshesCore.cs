@@ -29,6 +29,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
     }
     public class AshesSpirit : ModProjectile
     {
+        public override string Texture => CEUtils.WhiteTexPath;
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 3;
