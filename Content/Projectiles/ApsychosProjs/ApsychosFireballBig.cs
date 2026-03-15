@@ -13,14 +13,19 @@ namespace CalamityEntropy.Content.Projectiles.ApsychosProjs
         public override string Texture => CEUtils.WhiteTexPath;
         public override void SetDefaults()
         {
-            Projectile.width = 64;
-            Projectile.height = 64;
+            Projectile.width = 100;
+            Projectile.height = 100;
             Projectile.friendly = false;
             Projectile.tileCollide = false;
             Projectile.hostile = true;
             Projectile.light = 1f;
             Projectile.timeLeft = 200;
             Projectile.penetrate = -1;
+        }
+        public override void ModifyDamageHitbox(ref Rectangle hitbox)
+        {
+            float l = 128 * scale;
+            hitbox = Projectile.Center.getRectCentered(l, l);
         }
         public float scale = 0;
         public override void OnHitPlayer(Player target, Player.HurtInfo info)

@@ -503,8 +503,8 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                     tail.Center = NPC.Center + NPC.rotation.ToRotationVector2() * num3;
                     if (num1 > 12)
                     {
-                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, targetRot, 0.014f, true);
-                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, targetRot, 0.06f, false);
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, targetRot, 0.02f, true);
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, targetRot, 0.08f, false);
                     }
                     NPC.velocity *= 0.9f;
                     float distance = player.Distance(NPC.Center);
@@ -526,7 +526,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                     if (num3 > 180)
                     {
                         CEUtils.PlaySound("scatter", 1.6f, NPC.Center, volume: 0.9f);
-                        Shoot<ApsychosFireball>(tail.Center, tail.rotation.ToRotationVector2() * 10 * enrange);
+                        Shoot<ApsychosTailShoot>(tail.Center, tail.rotation.ToRotationVector2() * 5 * enrange, 1.2f, NPC.scale);
                         NPC.ai[2]++;
                         num1 = 0;
                         num2 = 0;
@@ -788,12 +788,11 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             Main.spriteBatch.ExitShaderRegion();
             return false;
         }
-        public Effect shader1 = null;
         public void DrawOutLine(float alpha)
         {
-            if (shader1 == null)
-                shader1 = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/WhiteTrans").Value;
-            if (shader1 == null)
+            if (shader == null)
+                shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/WhiteTrans").Value;
+            if (shader == null)
                 return;
             Color drawColor = new Color(255, 80, 40) * alpha;
             if (phase == 2)
@@ -802,9 +801,9 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             Texture2D segTex = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Apsychos/ApsychosSeg");
             Texture2D tailTex = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Apsychos/ApsychosTail");
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, shader1, Main.GameViewMatrix.TransformationMatrix);
-            shader1.CurrentTechnique.Passes[0].Apply();
-            shader1.Parameters["strength"].SetValue(1);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.TransformationMatrix);
+            shader.CurrentTechnique.Passes[0].Apply();
+            shader.Parameters["strength"].SetValue(1);
             for(int ir = 0; ir < 4; ir++)
             {
                 float r = ir * MathHelper.PiOver2 + Main.GlobalTimeWrappedHourly * 10;

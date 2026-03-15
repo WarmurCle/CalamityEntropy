@@ -4597,6 +4597,7 @@ Projectiles: {
 	ApsychosFireballBig.DisplayName: Apsychos Fireball Big
 	ApsychosLaser.DisplayName: Apsychos Laser
 	ZafkielProj.DisplayName: Zafkiel
+	ApsychosTailShoot.DisplayName: Apsychos Tail Shoot
 }
 
 LegendTooltip: - Legend -

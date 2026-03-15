@@ -4838,6 +4838,7 @@ Projectiles: {
 	ApsychosFireballBig.DisplayName: 巨型火球
 	ApsychosLaser.DisplayName: 焰烬激光
 	ZafkielProj.DisplayName: 刻刻帝
+	ApsychosTailShoot.DisplayName: 烬甲秽魔尾弹
 }
 
 LegendTooltip: - 传奇物品 -

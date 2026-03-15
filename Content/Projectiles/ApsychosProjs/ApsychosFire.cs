@@ -12,8 +12,8 @@ namespace CalamityEntropy.Content.Projectiles.ApsychosProjs
     {
         public override void SetDefaults()
         {
-            Projectile.width = 32;
-            Projectile.height = 32;
+            Projectile.width = 46;
+            Projectile.height = 46;
             Projectile.friendly = false;
             Projectile.tileCollide = false;
             Projectile.hostile = true;
