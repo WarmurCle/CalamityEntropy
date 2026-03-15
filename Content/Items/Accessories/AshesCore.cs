@@ -325,6 +325,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             float scale = 60 / 40f;
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Red * 0.8f, scale * 0.8f, 1, true, BlendState.Additive, 0, 10);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White * 0.8f, scale * 0.5f, 1, true, BlendState.Additive, 0, 10);
+            target.AddBuff(BuffID.OnFire3, 180);
         }
 
         public override void SetDefaults()

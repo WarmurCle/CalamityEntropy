@@ -197,6 +197,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (shake)
             {
+                target.AddBuff(BuffID.OnFire3, 150);
                 CEUtils.PlaySound("RockCrumble", Main.rand.NextFloat(2.9f, 3.4f), Projectile.Center, 8, 0.9f);
                 
                 ScreenShaker.AddShake(new ScreenShaker.ScreenShake(-(target.Center - Projectile.Center).normalize(), 8));
@@ -254,11 +255,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 100 * Projectile.scale, targetHitbox, 64);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 106 * Projectile.scale, targetHitbox, 30);
         }
         public override void CutTiles()
         {
-            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (110 * Projectile.scale) * Projectile.scale, 40, DelegateMethods.CutTiles);
+            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (76 * Projectile.scale) * Projectile.scale, 40, DelegateMethods.CutTiles);
         }
     }
     public class TectinicShardHoming : ModProjectile
