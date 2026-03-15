@@ -58,6 +58,7 @@ namespace CalamityEntropy.Content.Items
             itemLoot.Add(ModContent.ItemType<TectonicShard>(), 1, 32, 36);
             itemLoot.Add(ModContent.ItemType<GreatSwordofEmbers>(), new Fraction(3, 5));
             itemLoot.Add(ModContent.ItemType<AshesCore>(), new Fraction(3, 5));
+            itemLoot.Add(ModContent.ItemType<ScorchingChakram>(), new Fraction(3, 5)); 
         }
     }
 }

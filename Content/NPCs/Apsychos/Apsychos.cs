@@ -850,6 +850,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             {
                 normalOnly.Add(ModContent.ItemType<TectonicShard>(), 1, 24, 28);
                 normalOnly.Add(ModContent.ItemType<GreatSwordofEmbers>(), new Fraction(2, 5));
+                normalOnly.Add(ModContent.ItemType<ScorchingChakram>(), new Fraction(2, 5));
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<ApsychosRelic>());
 
