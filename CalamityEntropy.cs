@@ -478,6 +478,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            Apsychos.shader = null;
             CEUtils.BS_ColorInverse = null;
             Typer.activeTypers = null;
             ScreenShaker.Unload();
@@ -1480,6 +1481,7 @@ namespace CalamityEntropy
         }
         public override void PostSetupContent()
         {
+            Apsychos.WhiteTransShader();
             ScreenShaker.Init();
             Typer.activeTypers = new();
             StartBagGItem.items = new List<int>();

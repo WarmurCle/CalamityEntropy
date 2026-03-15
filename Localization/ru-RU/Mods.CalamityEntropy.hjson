@@ -149,7 +149,12 @@ Items: {
 
 			ScorchingChakram: {
 				// DisplayName: Scorching Chakram
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Throw out a chakram that will explode into tracked tectinic shards after flying for a period of time
+					Stealth strike will cause the chakram to launch some fireballs after stopping, 
+					then chase the nearest target and explode into more shards
+					''' */
 			}
 		}
 	}
