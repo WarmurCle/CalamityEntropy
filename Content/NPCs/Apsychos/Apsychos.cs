@@ -791,7 +791,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
         public void DrawOutLine(float alpha)
         {
             if (shader == null)
-                shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/WhiteTrans").Value;
+                shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/WhiteTrans", AssetRequestMode.ImmediateLoad).Value;
             if (shader == null)
                 return;
             Color drawColor = new Color(255, 80, 40) * alpha;
