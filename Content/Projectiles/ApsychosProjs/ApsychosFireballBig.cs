@@ -43,10 +43,10 @@ namespace CalamityEntropy.Content.Projectiles.ApsychosProjs
                 Projectile.ai[2] = Main.rand.NextBool() ? 1 : -1;
             if (scale < 1)
                 scale += 0.05f;
-            if(Projectile.timeLeft > 6 && scale > 0.8f)
+            if(Projectile.timeLeft > 10 && scale > 0.4f)
             {
-                if (ft < 9)
-                    ft += 0.33f;
+                if (ft < 10)
+                    ft += 0.32f;
                 for(int i = 0; i < 3; i ++)
                 {
                     float r = i * (MathHelper.TwoPi / 3f) + Main.GameUpdateCount * 0.052f * (Projectile.ai[2] == 1 ? 1 : -1);

@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.Items
         {
             itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<Apsychos>()));
 
-            //itemLoot.Add(ModContent.ItemType<StarlitPiercer>(), new Fraction(3, 5));
+            itemLoot.Add(ModContent.ItemType<TectonicShard>(), 1, 32, 36);
         }
     }
 }

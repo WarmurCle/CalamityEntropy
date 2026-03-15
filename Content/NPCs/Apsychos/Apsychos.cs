@@ -841,7 +841,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
 
             var normalOnly = npcLoot.DefineNormalOnlyDropSet();
             {
-                //normalOnly.Add(ModContent.ItemType<StarblightSoot>(), 1, 42, 64);
+                normalOnly.Add(ModContent.ItemType<TectonicShard>(), 1, 24, 28);
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<ApsychosRelic>());
 
