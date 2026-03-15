@@ -266,6 +266,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public List<Vector2> odp = new List<Vector2>();
         public List<float> odr = new List<float>();
+        public float alpha = 1;
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
@@ -282,7 +283,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public Color TrailColor(float completionRatio, Vector2 vertex)
         {
-            Color result = new Color(255, 255, 255) * completionRatio;
+            Color result = new Color(255, 255, 255) * completionRatio * alpha;
             return result;
         }
 
@@ -293,7 +294,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("RockCrumble", Main.rand.NextFloat(1.8f, 2.4f), Projectile.Center, 8, 0.4f);
+            CEUtils.PlaySound("RockCrumble", Main.rand.NextFloat(1.8f, 2.4f), Projectile.Center, 8, 0.24f);
 
             float scale = 50 / 40f;
             GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 16));
@@ -310,7 +311,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
             Projectile.light = 0.4f;
-            Projectile.timeLeft = 400;
+            Projectile.timeLeft = 120;
         }
         public override void AI()
         {
@@ -325,6 +326,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     if (Projectile.timeLeft < 60)
                         Projectile.timeLeft = 60;
             }
+            alpha = float.Min(1, Projectile.timeLeft / 20f);
         }
         public override bool? CanDamage()
         {
@@ -335,7 +337,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            Color color = Color.OrangeRed;
+            Color color = Color.OrangeRed * alpha;
             var mp = this;
             if (mp.odp.Count > 1)
             {
@@ -409,7 +411,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Vector2 position = odp[odp.Count - 1] - Main.screenPosition + Vector2.UnitY * base.Projectile.gfxOffY;
                 Vector2 origin = new Vector2(frame.Width / 2f, frame.Height / 2f);
                 CEUtils.DrawGlow(position + Main.screenPosition, color, Projectile.scale * 0.6f);
-                Main.EntitySpriteDraw(texture, position, frame, Projectile.GetAlpha(Color.White), Projectile.rotation, origin, Projectile.scale, SpriteEffects.None);
+                Main.EntitySpriteDraw(texture, position, frame, Projectile.GetAlpha(Color.White) * alpha, Projectile.rotation, origin, Projectile.scale, SpriteEffects.None);
 
             }
             return false;

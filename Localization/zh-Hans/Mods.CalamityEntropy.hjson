@@ -178,6 +178,15 @@ Items: {
 					无视12点护甲
 					'''
 			}
+
+			ScorchingChakram: {
+				DisplayName: 焦灼旋刃
+				Tooltip: 
+				'''
+				丢出一个焦灼旋刃，并在飞行一段时间后炸成追踪的板块碎片
+				潜行攻击会使旋刃在停止后发射一些火球，随后追逐最近的目标，并炸成更多的碎片
+				'''
+			}
 		}
 	}
 
@@ -4864,6 +4873,8 @@ Projectiles: {
 	AshesSpirit.DisplayName: 灰烬之灵
 	AshesSpiritFireball.DisplayName: 灰烬火球
 	TectinicShardAshesCore.DisplayName: 板块碎片
+	ScorchingChakramThrown.DisplayName: 焦灼旋刃
+	ScorchingFireball.DisplayName: 焦灼火球
 }
 
 LegendTooltip: - 传奇物品 -

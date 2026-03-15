@@ -146,6 +146,11 @@ Items: {
 					Ignore 12 defense
 					''' */
 			}
+
+			ScorchingChakram: {
+				// DisplayName: Scorching Chakram
+				// Tooltip: ""
+			}
 		}
 	}
 
@@ -4603,6 +4608,8 @@ Projectiles: {
 	// AshesSpirit.DisplayName: Ashes Spirit
 	// AshesSpiritFireball.DisplayName: Ashes Spirit Fireball
 	// TectinicShardAshesCore.DisplayName: Tectinic Shard Ashes Core
+	// ScorchingChakramThrown.DisplayName: Scorching Chakram Thrown
+	// ScorchingFireball.DisplayName: Scorching Fireball
 }
 
 LegendTooltip: - Легенда -
