@@ -182,7 +182,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 Projectile.Kill();
             }
-            HighLight *= 0.986f;
+            HighLight *= 0.989f;
         }
         public float HighLight = 0;
         public override bool ShouldUpdatePosition()
