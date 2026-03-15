@@ -1590,6 +1590,25 @@ namespace CalamityEntropy.Common
             {
                 Player player = projectile.owner.ToPlayer();
                 sourcePlr = player;
+
+                if (ProjectileID.Sets.IsAWhip[projectile.type])
+                {
+                    if(player.Entropy().ashesCore)
+                    {
+                        foreach(Projectile proj in Main.ActiveProjectiles)
+                        {
+                            if (proj.owner == player.whoAmI && proj.type == AshesCore.ProjType)
+                            {
+                                if (CECooldowns.CheckCD("AshesFireball", 20))
+                                {
+                                    CEUtils.PlaySound("YharonFireball1", 0.9f, npc.Center);
+                                    CEUtils.PlaySound("YharonFireball1", 0.9f, npc.Center);
+                                    Projectile.NewProjectile(proj.GetSource_FromThis(), proj.Center, (npc.Center - proj.Center).normalize() * 36, ModContent.ProjectileType<AshesSpiritFireball>(), AshesCore.BaseDamage, 4, player.whoAmI);
+                                }
+                            }
+                        }
+                    }
+                }
                 if (player.Entropy().deusCoreBloodOut > 0 && player.Entropy().bloodTrCD <= 0)
                 {
                     int btransfer = (int)MathHelper.Min(player.Entropy().deusCoreBloodOut, player.Entropy().deusCoreBloodOut / 15 + 1);

@@ -341,6 +341,7 @@ namespace CalamityEntropy.Common
         public bool FoolCard = false;
         public bool EvilDeck = false;
 
+        public bool ashesCore = false;
         public int lifeRegenPerSec = 0;
         public int lifeRegenCD = 60;
         public float light = 0;
@@ -851,6 +852,7 @@ namespace CalamityEntropy.Common
         public Item goldenRock = null;
         public override void ResetEffects()
         {
+            ashesCore = false;
             accAzureAbyss = false;
             goldenRock = null;
             rottenFangs = false;

@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Lores;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.ApsychosProjs;
 using CalamityMod;
@@ -848,6 +849,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             var normalOnly = npcLoot.DefineNormalOnlyDropSet();
             {
                 normalOnly.Add(ModContent.ItemType<TectonicShard>(), 1, 24, 28);
+                normalOnly.Add(ModContent.ItemType<GreatSwordofEmbers>(), new Fraction(2, 5));
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<ApsychosRelic>());
 

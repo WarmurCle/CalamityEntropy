@@ -3916,8 +3916,18 @@ Items: {
 	}
 
 	GreatSwordofEmbers: {
-		// DisplayName: Great Swordof Embers
-		// Tooltip: ""
+		// DisplayName: Great Sword of Embers
+		// Tooltip: Shattered into tracking tectinic shard on the fourth hit
+	}
+
+	AshesCore: {
+		// DisplayName: Ashes Core
+		/* Tooltip:
+			'''
+			Summons an ashes spirit that fires debris at enemies.
+			Striking with a whip causes the ashes spirit to launch a fireball.
+			+1 minion slot
+			''' */
 	}
 }
 
@@ -4590,6 +4600,9 @@ Projectiles: {
 	// ApsychosTailShoot.DisplayName: Apsychos Tail Shoot
 	// EmberSwordHoldout.DisplayName: Ember Sword Holdout
 	// TectinicShardHoming.DisplayName: Tectinic Shard Homing
+	// AshesSpirit.DisplayName: Ashes Spirit
+	// AshesSpiritFireball.DisplayName: Ashes Spirit Fireball
+	// TectinicShardAshesCore.DisplayName: Tectinic Shard Ashes Core
 }
 
 LegendTooltip: - Легенда -

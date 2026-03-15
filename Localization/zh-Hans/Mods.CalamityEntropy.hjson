@@ -4177,10 +4177,17 @@ Items: {
 
 	GreatSwordofEmbers: {
 		DisplayName: 灼烬巨剑
-		Tooltip: 
-		'''
-		第四次命中时碎裂成追踪板块碎片
-		'''
+		Tooltip: 第四次命中时碎裂成追踪板块碎片
+	}
+
+	AshesCore: {
+		DisplayName: 灰烬灵核
+		Tooltip:
+			'''
+			召唤一个灰烬之灵，朝敌人发射板块碎片
+			鞭击敌人会使灰烬之灵发射一枚火球
+			+1召唤栏
+			'''
 	}
 }
 
@@ -4852,8 +4859,11 @@ Projectiles: {
 	ApsychosLaser.DisplayName: 焰烬激光
 	ZafkielProj.DisplayName: 刻刻帝
 	ApsychosTailShoot.DisplayName: 烬甲秽魔尾弹
-	// EmberSwordHoldout.DisplayName: Ember Sword Holdout
-	// TectinicShardHoming.DisplayName: Tectinic Shard Homing
+	EmberSwordHoldout.DisplayName: 灼烬巨剑
+	TectinicShardHoming.DisplayName: 板块碎片
+	AshesSpirit.DisplayName: 灰烬之灵
+	AshesSpiritFireball.DisplayName: 灰烬火球
+	TectinicShardAshesCore.DisplayName: 板块碎片
 }
 
 LegendTooltip: - 传奇物品 -
