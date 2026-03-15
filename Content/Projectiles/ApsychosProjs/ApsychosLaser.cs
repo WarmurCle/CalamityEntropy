@@ -40,6 +40,11 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
         public override void AI()
         {
             NPC n = ((int)Projectile.ai[0]).ToNPC();
+            if (!n.active)
+            {
+                Projectile.Kill();
+                return;
+            }
             Projectile.rotation = n.rotation;
             Projectile.Center = n.Center + n.rotation.ToRotationVector2() * 100 * n.scale;
             Projectile.velocity = Projectile.rotation.ToRotationVector2() * 16;
