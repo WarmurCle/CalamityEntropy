@@ -29,7 +29,6 @@ namespace CalamityEntropy.Content.Tiles
             base.MinPick = 250;
             base.HitSound = AuricOre.MineSound;
         }
-
         public override bool IsTileBiomeSightable(int i, int j, ref Color sightColor)
         {
             sightColor = Color.Purple;
