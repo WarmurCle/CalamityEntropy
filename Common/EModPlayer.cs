@@ -2265,6 +2265,12 @@ namespace CalamityEntropy.Common
         public int AzureShield = 0;
         public override void PostUpdate()
         {
+            if(Main.myPlayer == Player.whoAmI && Player.HeldItem.ModItem != null && Player.HeldItem.ModItem is IHoldoutItem ih)
+            {
+                int holdoutType = ih.ProjectileType;
+                if (Player.ownedProjectileCounts[holdoutType] < 1)
+                    Projectile.NewProjectile(Player.GetSource_ItemUse(Player.HeldItem), Player.MountedCenter, (Main.MouseWorld - Player.Center).normalize() * Player.HeldItem.shootSpeed, holdoutType, Player.HeldItem.damage, Player.GetWeaponKnockback(Player.HeldItem), Player.whoAmI);
+            }
             voidOreNearby--;
             AzureShield--;
             MariviumLight = float.Lerp(MariviumLight, MariviniumSet ? 1 : (accAzureAbyss ? (AzureShield > 0 ? 1f : 0.8f) : 0), 0.05f);

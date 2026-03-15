@@ -736,6 +736,12 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
         public float p2lerp = 0;
         #region Drawing
         public static Effect shader = null;
+        public static Effect WhiteTransShader()
+        {
+            if(shader == null)
+                shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/WhiteTrans", AssetRequestMode.ImmediateLoad).Value;
+            return shader;
+        }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             if (Outline > 0.01f)

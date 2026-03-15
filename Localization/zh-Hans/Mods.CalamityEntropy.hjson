@@ -4172,7 +4172,15 @@ Items: {
 
 	TectonicShard: {
 		DisplayName: 板块碎片
-		Tooltip: "“还残留着余温”"
+		Tooltip: “还残留着余温”
+	}
+
+	GreatSwordofEmbers: {
+		DisplayName: 灼烬巨剑
+		Tooltip: 
+		'''
+		第四次命中时碎裂成追踪板块碎片
+		'''
 	}
 }
 
@@ -4844,6 +4852,8 @@ Projectiles: {
 	ApsychosLaser.DisplayName: 焰烬激光
 	ZafkielProj.DisplayName: 刻刻帝
 	ApsychosTailShoot.DisplayName: 烬甲秽魔尾弹
+	// EmberSwordHoldout.DisplayName: Ember Sword Holdout
+	// TectinicShardHoming.DisplayName: Tectinic Shard Homing
 }
 
 LegendTooltip: - 传奇物品 -

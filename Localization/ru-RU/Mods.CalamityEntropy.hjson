@@ -3909,6 +3909,16 @@ Items: {
 		// DisplayName: Treasure Bag (Apsychos)
 		// Tooltip: ""
 	}
+
+	TectonicShard: {
+		// DisplayName: Tectonic Shard
+		// Tooltip: '''"There is still residual warmth"'''
+	}
+
+	GreatSwordofEmbers: {
+		// DisplayName: Great Swordof Embers
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:
@@ -4578,6 +4588,8 @@ Projectiles: {
 	// ApsychosLaser.DisplayName: Apsychos Laser
 	// ZafkielProj.DisplayName: Zafkiel
 	// ApsychosTailShoot.DisplayName: Apsychos Tail Shoot
+	// EmberSwordHoldout.DisplayName: Ember Sword Holdout
+	// TectinicShardHoming.DisplayName: Tectinic Shard Homing
 }
 
 LegendTooltip: - Легенда -

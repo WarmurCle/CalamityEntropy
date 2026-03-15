@@ -3920,9 +3920,14 @@ Items: {
 
 	TectonicShard: {
 		DisplayName: Tectonic Shard
+		Tooltip: '''"There is still residual warmth"'''
+	}
+
+	GreatSwordofEmbers: {
+		DisplayName: Great Sword of Embers
 		Tooltip: 
 		'''
-		"There is still residual warmth"
+		Shattered into tracking tectinic shard on the fourth hit
 		'''
 	}
 }
@@ -4606,6 +4611,8 @@ Projectiles: {
 	ApsychosLaser.DisplayName: Apsychos Laser
 	ZafkielProj.DisplayName: Zafkiel
 	ApsychosTailShoot.DisplayName: Apsychos Tail Shoot
+	EmberSwordHoldout.DisplayName: Ember Sword Holdout
+	TectinicShardHoming.DisplayName: Tectinic Shard Homing
 }
 
 LegendTooltip: - Legend -
