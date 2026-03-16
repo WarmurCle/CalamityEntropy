@@ -50,6 +50,7 @@ namespace CalamityEntropy.Content.Items.Donator
             tooltips.Replace("[2]", GetRegen(level).ToString());
             tooltips.Replace("[3]", GetEndurance(level).ToPercent());
             tooltips.Replace("[4]", DoTDmgMult(level).ToPercent());
+            tooltips.Replace("[L]", level);
         }
         public static float DoTDmgMult(int level) => level switch
         {
