@@ -3962,6 +3962,11 @@ Items: {
 		// DisplayName: Wulfrum Missile
 		// Tooltip: ""
 	}
+
+	CursedRunestone: {
+		// DisplayName: Cursed Runestone
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:

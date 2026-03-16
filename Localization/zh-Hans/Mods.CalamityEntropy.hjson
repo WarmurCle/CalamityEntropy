@@ -4220,6 +4220,15 @@ Items: {
 		DisplayName: 钨钢导弹
 		Tooltip: ""
 	}
+
+	CursedRunestone: {
+		DisplayName: 诅咒符石
+		Tooltip: 
+		'''
+		在地狱使用以吸引那狂暴巨兽的注意
+		“为什么要这么做？”
+		'''
+	}
 }
 
 ChaoticSetBonus:
@@ -5378,7 +5387,7 @@ NPCs: {
 
 		BossChecklistIntegration: {
 			EntryName: 烬甲秽魔
-			SpawnInfo: 在地狱使用[i:CalamityEntropy/IllusionaryDew]召唤
+			SpawnInfo: 在地狱使用[i:CalamityEntropy/CursedRunestone]召唤
 			DespawnMessage: ""
 		}
 	}
