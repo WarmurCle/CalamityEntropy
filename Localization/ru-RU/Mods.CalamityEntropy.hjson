@@ -3965,7 +3965,12 @@ Items: {
 
 	CursedRunestone: {
 		// DisplayName: Cursed Runestone
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Use in the Underworld to summon Apsychos
+			"Used to attract the monster's attention"
+			"But why do you want to do this?"
+			''' */
 	}
 }
 
@@ -5124,7 +5129,7 @@ NPCs: {
 
 		BossChecklistIntegration: {
 			// EntryName: Apsychos
-			// SpawnInfo: Use [i:CalamityEntropy/IllusionaryDew] in the Underworld
+			// SpawnInfo: Use [i:CalamityEntropy/CursedRunestone] in the Underworld
 			// DespawnMessage: ""
 		}
 	}

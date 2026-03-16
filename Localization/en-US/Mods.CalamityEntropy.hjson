@@ -3973,11 +3973,11 @@ Items: {
 	CursedRunestone: {
 		DisplayName: Cursed Runestone
 		Tooltip:
-		'''
-		Use in the Underworld to summon Apsychos
-		"Used to attract the monster's attention"
-		"But why do you want to do this?"
-		'''
+			'''
+			Use in the Underworld to summon Apsychos
+			"Used to attract the monster's attention"
+			"But why do you want to do this?"
+			'''
 	}
 }
 
