@@ -1927,6 +1927,46 @@ namespace CalamityEntropy
             {
                 Logger.Warn("CalamityEntropy: Other addons' bossbar color failed to setup");
             }
+
+            //Custom titles
+            if(true)
+            {
+                SetARandomEntropyTitle();
+            }
+        }
+        public static void SetARandomEntropyTitle()
+        {
+            int titleType = Main.rand.Next(6);
+            string text = Instance.GetLocalization("TitleTexts.Title" + titleType.ToString()).Value;
+            if (titleType == 4)
+            {
+                List<string> names = new List<string>();
+                //Pick a random weapon
+                for (int i = 0; i < ItemLoader.ItemCount; i++)
+                {
+                    Item item = ContentSamples.ItemsByType[i];
+                    if (item.damage > 0 && item.ammo == AmmoID.None)
+                    {
+                        names.Add(item.Name);
+                    }
+                }
+                text = text.Replace("[NAME]", names[Main.rand.Next(names.Count)]);
+            }
+            if (titleType == 5)
+            {
+                List<string> names = new List<string>();
+                //Pick a random entropy item
+                for (int i = ItemID.Count; i < ItemLoader.ItemCount; i++)
+                {
+                    Item item = ContentSamples.ItemsByType[i];
+                    if (item.ModItem != null && item.ModItem.Mod is CalamityEntropy)
+                    {
+                        names.Add(item.Name);
+                    }
+                }
+                text = text.Replace("[NAME]", names[Main.rand.Next(names.Count)]);
+            }
+            Main.instance.Window.Title = text;
         }
         public static bool SetupBossbarClrAuto = true;
 
@@ -1947,7 +1987,6 @@ namespace CalamityEntropy
             return Main.ScreenSize.ToVector2() / 2 + (v - Main.ScreenSize.ToVector2() / 2) * z;
         }
         public bool beegameInited = false;
-        private object func;
 
         public static void SpawnHeavenSpark(Vector2 pos, float rot, float length, float scale, Color color = default, int LifeTime = 24)
         {
