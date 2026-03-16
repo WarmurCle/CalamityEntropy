@@ -14,6 +14,7 @@ namespace CalamityEntropy.Content.Particles
         private bool setColor = true;
         public Color endColor = Color.White;
         private Color startColor = Color.White;
+        public bool NoAlphaFade = false;
         public override void AI()
         {
             if (setColor)
@@ -29,13 +30,14 @@ namespace CalamityEntropy.Content.Particles
             {
                 scaleStart = Scale;
             }
-            if (scaleEnd > 0)
+            if (scaleEnd >= 0)
             {
                 Scale = float.Lerp(scaleStart, scaleEnd, 1 - (float)this.Lifetime / this.timeleftmax);
             }
             base.AI();
             this.Velocity *= vc;
-            this.Opacity = (float)this.Lifetime / (float)timeleftmax;
+            if(!NoAlphaFade)
+                this.Opacity = (float)this.Lifetime / (float)timeleftmax;
         }
     }
 }

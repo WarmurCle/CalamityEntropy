@@ -14,8 +14,8 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 8;
-            Item.useAnimation = Item.useTime = 9;
+            Item.damage = 10;
+            Item.useAnimation = Item.useTime = 14;
             Item.crit = 4;
             Item.mana = 3;
             Item.rare = ItemRarityID.Blue;
@@ -74,7 +74,6 @@ namespace CalamityEntropy.Content.Items.Books
             base.SetDefaults();
             Projectile.width = 10;
             Projectile.height = 10;
-            Projectile.MaxUpdates = 2;
             Projectile.tileCollide = true;
             Projectile.light = 0.8f;
             Projectile.timeLeft = 400;
@@ -93,12 +92,8 @@ namespace CalamityEntropy.Content.Items.Books
             base.AI();
             if (Projectile.localAI[2]++ > 10)
                 Projectile.velocity.Y += 0.26f;
-            GeneralParticleHandler.SpawnParticle(new BloodParticle(Projectile.Center + Projectile.velocity + CEUtils.randomPointInCircle(5), Projectile.velocity * Main.rand.NextFloat(1f, 1.4f), 22, Main.rand.NextFloat(0.6f, 1f), baseColor));
-            if (Projectile.localAI[2] % 2 == 0)
-            {
-                for (float i = 0; i < 1; i += 0.1f)
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 30, Lifetime = 30 }, Projectile.Center - Projectile.velocity * i * 2, Projectile.rotation.ToRotationVector2() * 5 * 1f, new Color(255, 30, 30), 0.04f, 1, true, BlendState.Additive, 0);
-            }
+            for(float i = 0; i < 1; i += 0.1f)
+                EParticle.NewParticle(new Smoke() { timeleftmax = 10, Lifetime = 10, scaleStart = 0.04f * (0.9f + i * 0.1f), scaleEnd = 0f }, Projectile.Center + Projectile.velocity * i, Vector2.Zero, new Color(255, 30, 30), 0.04f, 1, true, BlendState.Additive, 0);
         }
         public override Color baseColor => Color.Red;
         public override bool PreDraw(ref Color lightColor)
