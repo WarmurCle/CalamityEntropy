@@ -6018,8 +6018,8 @@ AzafureEnhances: {
 }
 
 Menu: {
-	// Vortex: CalamityEntropy: Vortex
-	// Church: CalamityEntropy: Church
+	// Vortex: Vortex
+	// Church: Church
 }
 
 // DeathExplode: "[PlayerName] exploded"

@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Items.Pets
         public override int texs => 6;
         public override string TextureName => "";
         public override float MS => 0.14f;
-        public override Vector2 posOffset => new Vector2(-20, -30);
+        public override Vector2 posOffset => new Vector2(-45, -30);
 
         public override int Buff => ModContent.BuffType<ProfBuff>();
     }

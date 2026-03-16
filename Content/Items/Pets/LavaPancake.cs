@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -75,7 +76,7 @@ namespace CalamityEntropy.Content.Items.Pets
                 list.Add(ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Pets/Prof/" + TextureName + i.ToString()).Value);
             }
             Texture2D tx = list[(counter / 4) % list.Count];
-
+            Projectile.direction = Math.Sign(Projectile.GetOwner().Center.X - Projectile.Center.X);
             if (Projectile.direction == -1)
             {
                 Main.EntitySpriteDraw(tx, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(tx.Width, tx.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
@@ -92,7 +93,7 @@ namespace CalamityEntropy.Content.Items.Pets
         }
         public virtual int texs => 5;
         public virtual float MS => 0.1f;
-        public virtual Vector2 posOffset => new Vector2(-30, -40);
+        public virtual Vector2 posOffset => new Vector2(-40, -40);
         void MoveToTarget(Vector2 targetPos)
         {
             Projectile.velocity = (targetPos + posOffset * new Vector2(Projectile.GetOwner().direction, 1) - Projectile.Center) * MS;
@@ -125,18 +126,18 @@ namespace CalamityEntropy.Content.Items.Pets
     {
         public override string TextureName => "A";
         public override float MS => 0.1f;
-        public override Vector2 posOffset => new Vector2(-50, -20);
+        public override Vector2 posOffset => new Vector2(-85, -20);
     }
     public class ProfPetG2 : ProfanedGuardianPet
     {
         public override string TextureName => "B";
         public override float MS => 0.08f;
-        public override Vector2 posOffset => new Vector2(-70, -20);
+        public override Vector2 posOffset => new Vector2(-115, -20);
     }
     public class ProfPetG3 : ProfanedGuardianPet
     {
         public override string TextureName => "C";
         public override float MS => 0.06f;
-        public override Vector2 posOffset => new Vector2(-90, -20);
+        public override Vector2 posOffset => new Vector2(-145, -20);
     }
 }
