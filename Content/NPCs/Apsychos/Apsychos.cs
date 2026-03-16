@@ -723,7 +723,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
         {
             if (!Main.dedServ)
                 CEUtils.PlaySound("ApsychosHit", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
-            if(NPC.life <= 0)
+            if(NPC.life <= 0 && !Main.dedServ)
             {
                 float scale = 360 / 40f;
                 EParticle.spawnNew(new ShineParticle(), NPC.Center, Vector2.Zero, Color.Red * 0.8f, scale * 0.8f, 1, true, BlendState.Additive, 0, 10);
@@ -731,9 +731,17 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                 GeneralParticleHandler.SpawnParticle(new CustomPulse(NPC.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 24));
                 GeneralParticleHandler.SpawnParticle(new CustomPulse(NPC.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 18));
                 GeneralParticleHandler.SpawnParticle(new CustomPulse(NPC.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.02f, 15));
+                if (tail != null && segs != null)
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), tail.Center, CEUtils.randomPointInCircle(6), Mod.Find<ModGore>("ApsychosGore1").Type);
+                    foreach (var seg in segs)
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), seg.Center, CEUtils.randomPointInCircle(6), Mod.Find<ModGore>("ApsychosGore2").Type);
+                    }
+                }
             }
         }
-        public float HighLight = 0;
+        public float HighLight = 1;
         public float p2lerp = 0;
         #region Drawing
         public static Effect shader = null;
