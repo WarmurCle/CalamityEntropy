@@ -184,7 +184,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             HighLight *= 0.989f;
         }
-        public float HighLight = 0;
+        public float HighLight = 1;
         public override bool ShouldUpdatePosition()
         {
             return false;
@@ -239,11 +239,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             float rot = dir > 0 ? Projectile.rotation + MathHelper.PiOver4 : Projectile.rotation + MathHelper.Pi * 0.75f;
             
             Effect shader = Apsychos.WhiteTransShader();
-
-            shader.Parameters["strength"].SetValue(HighLight);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.TransformationMatrix);
             shader.CurrentTechnique.Passes[0].Apply();
+            shader.Parameters["strength"].SetValue(HighLight);
+
             Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor, rot, origin, Projectile.scale * scale, effect);
 
             float alphac = vsAlpha * 0.82f;

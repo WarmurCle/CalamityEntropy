@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (player.Calamity().StealthStrikeAvailable())
             {
-                int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0f, 1f);
+                int p = Projectile.NewProjectile(source, position, velocity, type, (int)(damage * 0.5f), knockback, player.whoAmI, 0f, 1f);
                 if (p.WithinBounds(Main.maxProjectiles))
                 {
                     Main.projectile[p].Calamity().stealthStrike = true;
@@ -212,7 +212,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             odp.Add(Projectile.Center);
             odr.Add(Projectile.rotation);
-            if (odp.Count > 7)
+            if (odp.Count > 4)
             {
                 odp.RemoveAt(0);
                 odr.RemoveAt(0);
@@ -309,15 +309,15 @@ namespace CalamityEntropy.Content.Items.Weapons
                     {
                         a += 1f / (float)mp.odp.Count;
 
-                        ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 12 * Projectile.scale,
+                        ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 16 * a * Projectile.scale,
                               new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
                             b * a));
-                        ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 12 * Projectile.scale,
+                        ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 16 * a * Projectile.scale,
                               new Vector3((float)(i + 1) / mp.odp.Count, 0, 1),
                               b * a));
                         lr = (mp.odp[i] - mp.odp[i - 1]).ToRotation();
                     }
-                    tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/wohslash").Value;
+                    tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/MegaStreakBacking2").Value;
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
@@ -336,7 +336,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 Vector2 position = odp[odp.Count - 1] - Main.screenPosition + Vector2.UnitY * base.Projectile.gfxOffY;
                 CEUtils.DrawGlow(position + Main.screenPosition, color, Projectile.scale * 0.75f);
-                CEUtils.DrawGlow(position + Main.screenPosition, color * 4, Projectile.scale * 0.5f);
+                CEUtils.DrawGlow(position + Main.screenPosition, Color.White, Projectile.scale * 0.5f);
             }
             return false;
         }

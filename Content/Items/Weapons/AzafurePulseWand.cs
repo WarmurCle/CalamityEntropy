@@ -19,6 +19,10 @@ namespace CalamityEntropy.Content.Items.Weapons
 {
     public class AzafurePulseWand : ModItem, IAzafureEnhancable
     {
+        public override void SetStaticDefaults()
+        {
+            Item.staff[Item.type] = true;
+        }
         public override void SetDefaults()
         {
             Item.width = 24;
