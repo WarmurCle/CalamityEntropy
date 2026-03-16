@@ -6017,6 +6017,11 @@ AzafureEnhances: {
 		''' */
 }
 
+Menu: {
+	// Vortex: CalamityEntropy: Vortex
+	// Church: CalamityEntropy: Church
+}
+
 // DeathExplode: "[PlayerName] exploded"
 // BlockingCooldown: Blocking Cooldown
 // FetalDreamCooldown: Fetal Dream Cooldown

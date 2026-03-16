@@ -133,47 +133,52 @@ namespace CalamityEntropy.Content.Menu
         public float alpha = 0f;
         public MenuParticle(Vector2 pos, Vector2 center, Vector2 vel, Vector2 size, float time)
         {
-            this.pos = pos;
             this.center = center;
+            this.pos = center + vel.RotatedBy(-MathHelper.PiOver2).normalize() * 660;
+            dist = 660;
             this.velocity = vel;
-            this.size = size;
-            this.timeleft = time;
-
+            this.size = size * Main.rand.NextFloat(0.4f, 1.1f);
+            this.timeleft = 800;
+            rot = vel.ToRotation();
         }
-
+        public Vector2 lastPos = Vector2.Zero;
+        public float dist = 0;
+        public float rot = 0;
         public void update()
         {
             if (alpha < 1)
             {
-                alpha += 0.01f;
+                alpha += 0.005f;
             }
-            this.pos += this.velocity;
-            this.velocity = this.velocity.RotatedBy(MathHelper.ToRadians(-0.7f * (timeleft / 660f)) + MathHelper.ToRadians(1) * (2 / (float)CEUtils.getDistance(pos, center)));
             timeleft--;
-            this.velocity *= 1.002f;
+            dist *= 0.997f;
+            rot += Utils.Remap(dist, 0, 660, 0.012f, 0.003f);
+            pos = center + rot.ToRotationVector2() * dist;
+            velocity = (pos - lastPos);
+            lastPos = pos;
         }
 
         public void draw()
         {
             Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/lightball").Value;
             float op = 1;
-            if (timeleft < 60)
+            if (timeleft < 90)
             {
-                op = (float)timeleft / 60f;
+                op = (float)timeleft / 90f;
             }
             op *= alpha;
-            Main.spriteBatch.Draw(tx, pos, null, Color.AliceBlue * op * 0.8f, this.velocity.ToRotation(), tx.Size() / 2, this.size * 0.1f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tx, pos, null, Color.AliceBlue * op * 0.8f, this.velocity.ToRotation(), tx.Size() / 2, this.size * 0.15f * (dist / 660f), SpriteEffects.None, 0);
         }
         public void draw(float opc)
         {
             Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/lightball").Value;
             float op = 1;
-            if (timeleft < 60)
+            if (timeleft < 90)
             {
-                op = (float)timeleft / 60f;
+                op = (float)timeleft / 90f;
             }
             op *= alpha * opc;
-            Main.spriteBatch.Draw(tx, pos, null, Color.AliceBlue * op * 0.8f, this.velocity.ToRotation(), tx.Size() / 2, this.size * 0.1f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tx, pos, null, Color.AliceBlue * op * 0.8f, this.velocity.ToRotation(), tx.Size() / 2, this.size * 0.15f * (dist / 660f), SpriteEffects.None, 0);
         }
         public static List<MenuParticle> particles = new List<MenuParticle>();
     }

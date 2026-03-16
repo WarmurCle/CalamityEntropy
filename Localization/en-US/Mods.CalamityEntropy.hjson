@@ -6034,10 +6034,10 @@ AzafureEnhances: {
 		Increase shield regen speed
 		'''
 }
-Menu:
-{
-	Vortex: CalamityEntropy: Vortex
-	Church: CalamityEntropy: Church
+
+Menu: {
+	Vortex: Vortex
+	Church: Church
 }
 
 DeathExplode: "[PlayerName] exploded"
