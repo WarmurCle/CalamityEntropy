@@ -6241,7 +6241,11 @@ AzafureEnhances: {
 		增加护盾恢复速度
 		'''
 }
-
+Menu:
+{
+	Vortex: 灾厄熵: 虚空漩涡
+	Church: 灾厄熵: 空冥教堂
+}
 DeathExplode: "[PlayerName]爆炸了"
 BlockingCooldown: 招架冷却
 FetalDreamCooldown: 胎儿之梦冷却
