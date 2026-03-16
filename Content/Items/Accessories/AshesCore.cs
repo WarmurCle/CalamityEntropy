@@ -75,9 +75,9 @@ namespace CalamityEntropy.Content.Items.Accessories
             return false;
         }
         public float vdist = 60;
-        public override bool? CanDamage()
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return false;
+            return Projectile.Center.getRectCentered(vdist, vdist).Intersects(targetHitbox);
         }
         public override void AI()
         {
@@ -106,15 +106,9 @@ namespace CalamityEntropy.Content.Items.Accessories
             {
                 vdist = float.Lerp(vdist, 80, 0.1f);
                 Vector2 targetPos = target.Center + (Projectile.Center - target.Center).normalize() * 320;
-                if (Projectile.Distance(targetPos) > 36)
-                {
-                    Projectile.velocity *= 0.9f;
-                    Projectile.velocity += (targetPos - Projectile.Center).normalize() * 4;
-                }
-                else
-                {
-                    Projectile.velocity *= 0.94f;
-                }
+                Projectile.velocity *= 0.98f;
+                Projectile.velocity += (targetPos - Projectile.Center) * 0.005f;
+                
                 if (Projectile.ai[0]-- <= 0 && Main.myPlayer == player.whoAmI)
                 {
                     Projectile.ai[0] = 30;
