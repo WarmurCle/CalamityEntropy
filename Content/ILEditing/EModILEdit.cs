@@ -160,6 +160,9 @@ namespace CalamityEntropy.Content.ILEditing
             var ApplyDRMethod = typeof(CalamityGlobalNPC).GetMethod("ApplyDR", BindingFlags.Instance | BindingFlags.NonPublic, new Type[] { typeof(NPC), typeof(NPC.HitModifiers).MakeByRefType() });
             EModHooks.Add(ApplyDRMethod, apply_dr_hook);
 
+            var updateLifeRegenMethod = typeof(CalamityGlobalNPC).GetMethod("UpdateLifeRegen", BindingFlags.Instance | BindingFlags.Public, new Type[] { typeof(NPC), typeof(int).MakeByRefType() });
+            EModHooks.Add(updateLifeRegenMethod, updateLiferegenHook);
+
             var update_rogue_stealth_f = typeof(CalamityPlayer).GetMethod("UpdateRogueStealth", BindingFlags.Public | BindingFlags.Instance);
             EModHooks.Add(update_rogue_stealth_f, UpdateRogueStealthHook);
 
@@ -172,7 +175,18 @@ namespace CalamityEntropy.Content.ILEditing
 
             CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");
         }
-
+        public delegate void UpdateLifeRegenDelegate(CalamityGlobalNPC self, NPC npc, ref int damage);
+        public static void updateLiferegenHook(UpdateLifeRegenDelegate orig, CalamityGlobalNPC self, NPC npc, ref int damage)
+        {
+            orig(self, npc, ref damage);
+            if(damage > 0)
+            {
+                float m = npc.Entropy().DebuffDamageMult();
+                damage = int.Max(1, (int)(damage * m));
+                npc.lifeRegen = (int)(Math.Round(npc.lifeRegen * m));
+            }
+        }
+        
         public delegate void ApplyDRDelegate(CalamityGlobalNPC self, NPC npc, ref NPC.HitModifiers modifer);
         public delegate void DrawAdrenalineBarDelegate(SpriteBatch spriteBatch, CalamityPlayer modPlayer, Vector2 screenPos);
         public static void drawAdrBar_hook(DrawAdrenalineBarDelegate orig, SpriteBatch spriteBatch, CalamityPlayer modPlayer, Vector2 screenPos)
@@ -615,7 +629,7 @@ namespace CalamityEntropy.Content.ILEditing
         {
             if (method == null)
             {
-                CalamityEntropy.Instance.Logger.Warn($"CalamityEntropy: Error when add hook to {method.Name}: The MethodBase passed in is Null");
+                CalamityEntropy.Instance.Logger.Warn($"CalamityEntropy: Error when add hook to method: The MethodBase passed in is Null");
                 return null;
                 //throw new ArgumentException("The MethodBase passed in is Null");
             }

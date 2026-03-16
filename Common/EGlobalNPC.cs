@@ -78,6 +78,19 @@ namespace CalamityEntropy.Common
         {
             return true;
         }
+        
+        public float DebuffDamageMult()
+        {
+            float r = 1;
+            foreach (Player player in Main.ActivePlayers)
+            {
+                if (player.Entropy().hasAcc("Leyla"))
+                {
+                    r += Leyla.DoTDmgMult(Leyla.Level());
+                }
+            }
+            return r;
+        }
         public static void RemoveAllTags(NPC npc)
         {
             npc.GetGlobalNPC<WhipDebuffNPC>().Tags.Clear();

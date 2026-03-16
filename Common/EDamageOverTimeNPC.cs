@@ -14,7 +14,7 @@ namespace CalamityEntropy.Common
                     npc.lifeRegen = 0;
             if (npc.HasBuff<LifeOppress>())
             {
-                damageApply += 4500;
+                damageApply += 4501;
             }
             var dict = DotBuff.InstanceByType();
             for (int i = 0; i < npc.buffType.Length; i++)
@@ -27,7 +27,9 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            damage += damageApply * 2;
+            
+            damageApply = (int)(damageApply * npc.Entropy().DebuffDamageMult());
+            damage += damageApply;
             npc.lifeRegen -= damageApply * 2;
         }
     }

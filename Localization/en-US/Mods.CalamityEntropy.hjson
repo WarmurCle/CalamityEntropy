@@ -3947,6 +3947,18 @@ Items: {
 			+1 minion slot
 			'''
 	}
+
+	Leyla: {
+		DisplayName: Leyla
+		Tooltip:
+			'''
+			Follow your progress to provide stronger and stronger gains：
+			+[1] defense
+			+[2]/s life regen
+			+[3]% damage resistance
+			Increase damage from debuffs inflicted by you by [4]%
+			'''
+	}
 }
 
 ChaoticSetBonus:
