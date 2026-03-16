@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                 }
             }
             float maxlength = 3800;
-            for(float i = 0; i < maxlength; i += 8)
+            for(float i = 550; i < maxlength; i += 8)
             {
                 Vector2 v = Projectile.Center + Projectile.rotation.ToRotationVector2() * i;
                 length = (int)i;
@@ -82,6 +82,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                     break;
                 }
             }
+            
             aicounter++;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
