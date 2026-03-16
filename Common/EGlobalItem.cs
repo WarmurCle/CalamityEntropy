@@ -458,9 +458,9 @@ namespace CalamityEntropy.Common
             {
                 return CalamityUtils.GetItemName<WulfrumMetalScrap>().Value;
             }
-            if (type == BaseMissleProj.AmmoType)
+            if (type == BaseMissileProj.AmmoType)
             {
-                return Mod.GetLocalization("AmmoMissle").Value;
+                return Mod.GetLocalization("AmmoMissile").Value;
             }
             return type.ToString();
         }

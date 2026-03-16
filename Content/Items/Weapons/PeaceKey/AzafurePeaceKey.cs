@@ -1,6 +1,6 @@
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
-using CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher;
+using CalamityEntropy.Content.Items.Weapons.AzafureMissileLauncher;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items;

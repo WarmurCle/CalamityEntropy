@@ -12,7 +12,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Items.Weapons.AzafureMissleLauncher
+namespace CalamityEntropy.Content.Items.Weapons.AzafureMissileLauncher
 {
     public class AzafureTacticalRadio : ModItem, IAzafureEnhancable
     {

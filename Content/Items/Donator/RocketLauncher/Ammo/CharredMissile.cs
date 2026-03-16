@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
 {
-    public class CharredMissle : ModItem, IDonatorItem
+    public class CharredMissile : ModItem, IDonatorItem
     {
         public string DonatorName => "Ovasa";
 
@@ -15,9 +15,9 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(silver: 1);
             Item.rare = ItemRarityID.Orange;
-            Item.ammo = BaseMissleProj.AmmoType;
+            Item.ammo = BaseMissileProj.AmmoType;
             Item.damage = 8;
-            Item.shoot = ModContent.ProjectileType<CharredMissleProj>();
+            Item.shoot = ModContent.ProjectileType<CharredMissileProj>();
             Item.consumable = true;
             Item.DamageType = DamageClass.Ranged;
         }
@@ -31,9 +31,9 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
                 .Register();
         }
     }
-    public class CharredMissleProj : BaseMissleProj
+    public class CharredMissileProj : BaseMissileProj
     {
         public override float StickDamageAddition => 0.05f;
-        public override string Texture => "CalamityEntropy/Content/Items/Donator/RocketLauncher/Ammo/CharredMissle";
+        public override string Texture => "CalamityEntropy/Content/Items/Donator/RocketLauncher/Ammo/CharredMissile";
     }
 }

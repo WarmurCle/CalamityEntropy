@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         }
         public override void SetDefaults()
         {
-            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissleProj>(), BaseMissleProj.AmmoType, singleShotTime: 32, shotVelocity: 30f, hasAutoReuse: true);
+            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 32, shotVelocity: 30f, hasAutoReuse: true);
             Item.width = 90;
             Item.height = 42;
             Item.DamageType = DamageClass.Ranged;
@@ -121,7 +121,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         {
             if (Main.myPlayer == Projectile.owner)
             {
-                int type = ModContent.ProjectileType<FilthlessMissle>();
+                int type = ModContent.ProjectileType<FilthlessMissile>();
                 for (float i = 0; i < 8; i += 1)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(10, 20), type, Projectile.damage / 2, 4, Projectile.owner);
@@ -139,7 +139,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             }
         }
     }
-    public class FilthlessMissle : ModProjectile
+    public class FilthlessMissile : ModProjectile
     {
         public override bool? CanHitNPC(NPC target)
         {

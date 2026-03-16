@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public static int ExplodeRadius => 120;
         public override void SetDefaults()
         {
-            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissleProj>(), BaseMissleProj.AmmoType, singleShotTime: 50, shotVelocity: 30f, hasAutoReuse: true);
+            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 50, shotVelocity: 30f, hasAutoReuse: true);
             Item.width = 90;
             Item.height = 42;
             Item.DamageType = DamageClass.Ranged;
@@ -85,7 +85,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         {
             if (Main.myPlayer == Projectile.owner)
             {
-                int type = ModContent.ProjectileType<PlagueMissle>();
+                int type = ModContent.ProjectileType<PlagueMissile>();
                 for (float i = 0; i < 360; i += 120)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, i.ToRadians().ToRotationVector2() * 18, type, Projectile.damage / 2, 4, Projectile.owner);
@@ -109,7 +109,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             {
                 int p = Projectile.NewProjectile(source, position, velocity * 0.3f, type, damage, knockback, player.whoAmI, MaxStick, ExplodeRadius);
                 p.ToProj().Entropy().applyBuffs.Add(ModContent.BuffType<Crumbling>());
-                if (p.ToProj().ModProjectile is BaseMissleProj bmp)
+                if (p.ToProj().ModProjectile is BaseMissileProj bmp)
                 {
                     bmp.winding += 0.6f;
                     bmp.Homing += 3.8f;
@@ -122,7 +122,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             {
                 int p = Projectile.NewProjectile(source, position, velocity * 0.1f, type, damage, knockback, player.whoAmI, MaxStick, ExplodeRadius);
                 p.ToProj().Entropy().applyBuffs.Add(ModContent.BuffType<Crumbling>());
-                if (p.ToProj().ModProjectile is BaseMissleProj bmp)
+                if (p.ToProj().ModProjectile is BaseMissileProj bmp)
                 {
                     bmp.winding += 0.6f;
                     bmp.Homing += 3.8f;
@@ -135,7 +135,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             return false;
         }
     }
-    public class PlagueMissle : ModProjectile
+    public class PlagueMissile : ModProjectile
     {
         public override bool? CanHitNPC(NPC target)
         {

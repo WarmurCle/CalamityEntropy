@@ -1935,8 +1935,8 @@ Items: {
 		DisplayName: 救赎
 		Tooltip:
 			'''
-			{$MissleLauncherDescTooltip}
-			{$MissleLauncherMaxStickTooltip}
+			{$MissileLauncherDescTooltip}
+			{$MissileLauncherMaxStickTooltip}
 			导弹可黏附在敌怪身上并造成一些减益
 			右键点击发射一发威力巨大的火箭
 			'''
@@ -3730,7 +3730,7 @@ Items: {
 		Tooltip: 从背后快速射出死亡激光，造成弑神怒焰减益
 	}
 
-	CharredMissle: {
+	CharredMissile: {
 		DisplayName: 焦黑导弹
 		Tooltip: 每个黏附的射弹增加5%目标受到伤害
 	}
@@ -3740,12 +3740,12 @@ Items: {
 		Tooltip: “有烧焦的味道”
 	}
 
-	FrailMissle: {
+	FrailMissile: {
 		DisplayName: 孱弱
 		Tooltip:
 			'''
-			{$MissleLauncherDescTooltip}
-			{$MissleLauncherMaxStickTooltip}
+			{$MissileLauncherDescTooltip}
+			{$MissileLauncherMaxStickTooltip}
 			'''
 	}
 
@@ -3753,8 +3753,8 @@ Items: {
 		DisplayName: 霞光
 		Tooltip:
 			'''
-			{$MissleLauncherDescTooltip}
-			{$MissleLauncherMaxStickTooltip}
+			{$MissileLauncherDescTooltip}
+			{$MissileLauncherMaxStickTooltip}
 			造成狱炎减益
 			'''
 	}
@@ -3763,8 +3763,8 @@ Items: {
 		DisplayName: 渴求
 		Tooltip:
 			'''
-			{$MissleLauncherDescTooltip}
-			{$MissleLauncherMaxStickTooltip}
+			{$MissileLauncherDescTooltip}
+			{$MissileLauncherMaxStickTooltip}
 			造成硫磺火减益
 			'''
 	}
@@ -3773,8 +3773,8 @@ Items: {
 		DisplayName: 挣脱
 		Tooltip:
 			'''
-			{$MissleLauncherDescTooltip}
-			{$MissleLauncherMaxStickTooltip}
+			{$MissileLauncherDescTooltip}
+			{$MissileLauncherMaxStickTooltip}
 			造成硫磺火减益
 			爆炸时生成硫火飞弹
 			'''
@@ -3784,8 +3784,8 @@ Items: {
 		DisplayName: 赦免
 		Tooltip:
 			'''
-			{$MissleLauncherDescTooltip}
-			{$MissleLauncherMaxStickTooltip}
+			{$MissileLauncherDescTooltip}
+			{$MissileLauncherMaxStickTooltip}
 			爆炸时生成瘟疫导弹
 			'''
 	}
@@ -4088,14 +4088,14 @@ Items: {
 		DisplayName: 污袪
 		Tooltip:
 			'''
-			{$MissleLauncherDescTooltip}
-			{$MissleLauncherMaxStickTooltip}
+			{$MissileLauncherDescTooltip}
+			{$MissileLauncherMaxStickTooltip}
 			最多黏附5发
 			右键点击发射一发威力巨大的火箭
 			'''
 	}
 
-	AzafureMissle: {
+	AzafureMissile: {
 		DisplayName: 阿萨福勒导弹
 		Tooltip:
 			'''
@@ -4147,8 +4147,8 @@ Items: {
 		DisplayName: 热忱
 		Tooltip:
 			'''
-			{$MissleLauncherDescTooltip}
-			{$MissleLauncherMaxStickTooltip}
+			{$MissileLauncherDescTooltip}
+			{$MissileLauncherMaxStickTooltip}
 			开火时附带2束追踪星云能量弹
 			'''
 	}
@@ -4209,6 +4209,16 @@ Items: {
 			你造成的减益伤害增加[4]%
 			等级 - [L]/7
 			'''
+	}
+
+	HellstoneMissile: {
+		DisplayName: 狱炎导弹
+		Tooltip: ""
+	}
+
+	WulfrumMissile: {
+		DisplayName: 钨钢导弹
+		Tooltip: ""
 	}
 }
 
@@ -4285,8 +4295,8 @@ MariviniumSet:
 	'''
 DeathMode: 死亡模式
 CdMantle: 神圣屏障冷却
-MissleLauncherDescTooltip: 发射可黏附在敌怪身上的导弹
-MissleLauncherMaxStickTooltip: 每个敌怪最多黏附{0}个
+MissileLauncherDescTooltip: 发射可黏附在敌怪身上的导弹
+MissileLauncherMaxStickTooltip: 每个敌怪最多黏附{0}个
 
 Projectiles: {
 	VoidBladeProj.DisplayName: 虚空锋刃
@@ -4808,9 +4818,9 @@ Projectiles: {
 	ChaoticCellMinion.DisplayName: 混沌仆从
 	CosmicBlessingHeld.DisplayName: 星宙神赋
 	CosmicDeathRay.DisplayName: 寰宇死光
-	CharredMissleProj.DisplayName: 焦黑导弹
+	CharredMissileProj.DisplayName: 焦黑导弹
 	BrimHomingBullet.DisplayName: 硫火飞弹
-	PlagueMissle.DisplayName: 瘟疫导弹
+	PlagueMissile.DisplayName: 瘟疫导弹
 	RedemptionShootAlt.DisplayName: 救赎导弹
 	BMDirtProj.DisplayName: 物块
 	TrainingSwordProj.DisplayName: 训练竹刀
@@ -4861,9 +4871,9 @@ Projectiles: {
 	MiracleVortex.DisplayName: 神迹涡流
 	AzureShield.DisplayName: 苍溟护盾
 	AzureVortex.DisplayName: 苍溟漩涡
-	FilthlessMissle.DisplayName: 污祛火箭
+	FilthlessMissile.DisplayName: 污祛火箭
 	FilthlessShootAlt.DisplayName: 污祛导弹
-	AzafureMissleProj.DisplayName: 阿萨福勒导弹
+	AzafureMissileProj.DisplayName: 阿萨福勒导弹
 	DivineShield.DisplayName: 圣盾
 	CrystalSpikePop.DisplayName: 魔晶刺
 	CrystalSpikeThrow.DisplayName: 魔晶刺
@@ -4887,6 +4897,8 @@ Projectiles: {
 	TectinicShardAshesCore.DisplayName: 板块碎片
 	ScorchingChakramThrown.DisplayName: 焦灼旋刃
 	ScorchingFireball.DisplayName: 焦灼火球
+	// HellstoneMissileProj.DisplayName: Hellstone Missile Proj
+	// WulfrumMissileProj.DisplayName: Wulfrum Missile Proj
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5873,7 +5885,7 @@ AmmoAle: 麦芽酒
 AmmoBloodrune: 血之符文
 AmmoStarblightSoot: 凋星微尘
 AmmoType: 弹药类型
-AmmoMissle: 导弹
+AmmoMissile: 导弹
 UseAmmo: 使用弹药
 OrbPunishDeath0: 的灵魂破碎了
 OrbPunishDeath1: 试图取下裂开的预知宝珠

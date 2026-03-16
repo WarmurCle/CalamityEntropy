@@ -1796,10 +1796,10 @@ Items: {
 		DisplayName: Redemption
 		Tooltip:
 			'''
-			{$MissleLauncherDescTooltip}
-			{$MissleLauncherMaxStickTooltip}
+			{$MissileLauncherDescTooltip}
+			{$MissileLauncherMaxStickTooltip}
 			Missile will cause random debuffs
-			Right click to launch single powerful missle
+			Right click to launch single powerful missile
 			'''
 	}
 
@@ -3497,8 +3497,8 @@ Items: {
 		Tooltip: Shoot lasers from behind
 	}
 
-	CharredMissle: {
-		DisplayName: Charred Missle
+	CharredMissile: {
+		DisplayName: Charred Missile
 		Tooltip: +5% Damage each attached projectile
 	}
 
@@ -3507,12 +3507,12 @@ Items: {
 		Tooltip: “It has a burnt smell”
 	}
 
-	FrailMissle: {
+	FrailMissile: {
 		DisplayName: Frail
 		Tooltip:
 			'''
-			{$MissleLauncherDescTooltip}
-			{$MissleLauncherMaxStickTooltip}
+			{$MissileLauncherDescTooltip}
+			{$MissileLauncherMaxStickTooltip}
 			'''
 	}
 
@@ -3520,8 +3520,8 @@ Items: {
 		DisplayName: Hope
 		Tooltip:
 			'''
-			{$MissleLauncherDescTooltip}
-			{$MissleLauncherMaxStickTooltip}
+			{$MissileLauncherDescTooltip}
+			{$MissileLauncherMaxStickTooltip}
 			'''
 	}
 
@@ -3529,8 +3529,8 @@ Items: {
 		DisplayName: Crave
 		Tooltip:
 			'''
-			{$MissleLauncherDescTooltip}
-			{$MissleLauncherMaxStickTooltip}
+			{$MissileLauncherDescTooltip}
+			{$MissileLauncherMaxStickTooltip}
 			Causing sulfur fire to reduce benefits
 			'''
 	}
@@ -3539,8 +3539,8 @@ Items: {
 		DisplayName: Struggle
 		Tooltip:
 			'''
-			{$MissleLauncherDescTooltip}
-			{$MissleLauncherMaxStickTooltip}
+			{$MissileLauncherDescTooltip}
+			{$MissileLauncherMaxStickTooltip}
 			Causing sulfur fire to reduce benefits
 			Generate brimstone bullet during explosion
 			[c/304fff: Let us become entities, and in return, we will realize your ideas and dreams.]
@@ -3551,9 +3551,9 @@ Items: {
 		DisplayName: Pardon
 		Tooltip:
 			'''
-			{$MissleLauncherDescTooltip}
-			{$MissleLauncherMaxStickTooltip}
-			Generate plague missle during explosion
+			{$MissileLauncherDescTooltip}
+			{$MissileLauncherMaxStickTooltip}
+			Generate plague missile during explosion
 			'''
 	}
 
@@ -3840,15 +3840,15 @@ Items: {
 		DisplayName: Filthless
 		Tooltip:
 			'''
-			{$MissleLauncherDescTooltip}
-			{$MissleLauncherMaxStickTooltip}
+			{$MissileLauncherDescTooltip}
+			{$MissileLauncherMaxStickTooltip}
 			Missile will cause random debuffs
-			Right click to launch single powerful missle
+			Right click to launch single powerful missile
 			'''
 	}
 
-	AzafureMissle: {
-		DisplayName: Azafure Missle
+	AzafureMissile: {
+		DisplayName: Azafure Missile
 		Tooltip:
 			'''
 			+7% Damage each attached projectile
@@ -3896,8 +3896,8 @@ Items: {
 		DisplayName: Zeal
 		Tooltip:
 			'''
-			{$MissleLauncherDescTooltip}
-			{$MissleLauncherMaxStickTooltip}
+			{$MissileLauncherDescTooltip}
+			{$MissileLauncherMaxStickTooltip}
 			Fire 2 homing projectile when shoot
 			'''
 	}
@@ -3958,6 +3958,16 @@ Items: {
 			Increase damage from debuffs inflicted by you by [4]%
 			Level - [L]/7
 			'''
+	}
+
+	HellstoneMissile: {
+		DisplayName: Hellstone Missile
+		Tooltip: ""
+	}
+
+	WulfrumMissile: {
+		DisplayName: Wulfrum Missile
+		Tooltip: ""
 	}
 }
 
@@ -4045,8 +4055,8 @@ MariviniumSet:
 	'''
 DeathMode: Death Mode
 CdMantle: Holy Mantle Cooldown
-MissleLauncherDescTooltip: Launch missiles that can adhere to the enemy and cause sustained damage
-MissleLauncherMaxStickTooltip: Up to {0} adhesive threads
+MissileLauncherDescTooltip: Launch missiles that can adhere to the enemy and cause sustained damage
+MissileLauncherMaxStickTooltip: Up to {0} adhesive threads
 
 Projectiles: {
 	VoidBladeProj.DisplayName: Void Blade
@@ -4568,9 +4578,9 @@ Projectiles: {
 	ChaoticCellMinion.DisplayName: Chaotic Cell Minion
 	CosmicBlessingHeld.DisplayName: Cosmic Blessing Held
 	CosmicDeathRay.DisplayName: Cosmic Death Ray
-	CharredMissleProj.DisplayName: Charred Missle Proj
+	CharredMissileProj.DisplayName: Charred Missile Proj
 	BrimHomingBullet.DisplayName: Brim Homing Bullet
-	PlagueMissle.DisplayName: Plague Missle
+	PlagueMissile.DisplayName: Plague Missile
 	RedemptionShootAlt.DisplayName: Redemption Shoot Alt
 	BMDirtProj.DisplayName: Tile
 	TrainingSwordProj.DisplayName: Training Sword Proj
@@ -4621,9 +4631,9 @@ Projectiles: {
 	MiracleVortex.DisplayName: Miracle Vortex
 	AzureShield.DisplayName: Azure Shield
 	AzureVortex.DisplayName: Azure Vortex
-	FilthlessMissle.DisplayName: Filthless Missle
+	FilthlessMissile.DisplayName: Filthless Missile
 	FilthlessShootAlt.DisplayName: Filthless Shoot Alt
-	AzafureMissleProj.DisplayName: Azafure Missle Proj
+	AzafureMissileProj.DisplayName: Azafure Missile Proj
 	DivineShield.DisplayName: Divine Shield
 	CrystalSpikePop.DisplayName: Crystal Spike Pop
 	CrystalSpikeThrow.DisplayName: Crystal Spike Throw
@@ -4647,6 +4657,8 @@ Projectiles: {
 	TectinicShardAshesCore.DisplayName: Tectinic Shard Ashes Core
 	ScorchingChakramThrown.DisplayName: Scorching Chakram Thrown
 	ScorchingFireball.DisplayName: Scorching Fireball
+	HellstoneMissileProj.DisplayName: Hellstone Missile Proj
+	WulfrumMissileProj.DisplayName: Wulfrum Missile Proj
 }
 
 LegendTooltip: - Legend -
@@ -5619,7 +5631,7 @@ AmmoAle: Ale
 AmmoBloodrune: Blood Rune
 AmmoStarblightSoot: Starblight Soot
 AmmoType: Ammo type
-AmmoMissle: Missle
+AmmoMissile: Missile
 UseAmmo: Use Ammo
 OrbPunishDeath0: shattered into pieces
 OrbPunishDeath1: try to remove the shattered foresee orb

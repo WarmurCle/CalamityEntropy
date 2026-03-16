@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public static int ExplodeRadius => 120;
         public override void SetDefaults()
         {
-            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissleProj>(), BaseMissleProj.AmmoType, singleShotTime: 22, shotVelocity: 36f, hasAutoReuse: true);
+            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 22, shotVelocity: 36f, hasAutoReuse: true);
             Item.width = 90;
             Item.height = 42;
             Item.DamageType = DamageClass.Ranged;

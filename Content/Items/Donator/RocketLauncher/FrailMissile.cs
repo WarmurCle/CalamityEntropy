@@ -11,14 +11,14 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
 {
-    public class FrailMissle : ModItem
+    public class FrailMissile : ModItem
     {
         public static int MaxStick => 3;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(MaxStick);
         public static int ExplodeRadius => 120;
         public override void SetDefaults()
         {
-            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissleProj>(), BaseMissleProj.AmmoType, singleShotTime: 70, shotVelocity: 25f, hasAutoReuse: true);
+            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 70, shotVelocity: 25f, hasAutoReuse: true);
             Item.width = 90;
             Item.height = 42;
             Item.DamageType = DamageClass.Ranged;

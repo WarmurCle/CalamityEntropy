@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
 {
-    public abstract class BaseMissleProj : ModProjectile
+    public abstract class BaseMissileProj : ModProjectile
     {
         public const int AmmoType = 2035;
         public virtual int MaxStick => (int)Projectile.ai[0];
@@ -140,7 +140,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
                     {
                         StickUpdate(StickOnNPC);
                     }
-                    StickOnNPC.Entropy().StickByMissle = 10;
+                    StickOnNPC.Entropy().StickByMissile = 10;
                     CheckExplode();
                 }
             }

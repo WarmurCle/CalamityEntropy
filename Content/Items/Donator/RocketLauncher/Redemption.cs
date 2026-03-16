@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         }
         public override void SetDefaults()
         {
-            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissleProj>(), BaseMissleProj.AmmoType, singleShotTime: 50, shotVelocity: 30f, hasAutoReuse: true);
+            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 50, shotVelocity: 30f, hasAutoReuse: true);
             Item.width = 90;
             Item.height = 42;
             Item.DamageType = DamageClass.Ranged;
@@ -205,7 +205,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
                 {
                     int p = Projectile.NewProjectile(source, position, velocity * Main.rand.NextFloat(0.2f, 1), type, damage, knockback, player.whoAmI, MaxStick, ExplodeRadius);
                     p.ToProj().Entropy().applyBuffs.Add(buffs[Main.rand.Next(buffs.Count)]);
-                    if (p.ToProj().ModProjectile is BaseMissleProj bmp)
+                    if (p.ToProj().ModProjectile is BaseMissileProj bmp)
                     {
                         bmp.winding += 0.6f;
                         bmp.Homing += 3.8f;

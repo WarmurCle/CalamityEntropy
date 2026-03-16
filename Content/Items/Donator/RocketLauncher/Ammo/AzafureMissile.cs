@@ -9,18 +9,18 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
 {
-    public class AzafureMissle : ModItem
+    public class AzafureMissile : ModItem
     {
         public override void SetDefaults()
         {
             Item.width = 24;
             Item.height = 24;
             Item.maxStack = 9999;
-            Item.value = Item.sellPrice(silver: 1);
+            Item.value = Item.sellPrice(silver: 5);
             Item.rare = ItemRarityID.Orange;
-            Item.ammo = BaseMissleProj.AmmoType;
+            Item.ammo = BaseMissileProj.AmmoType;
             Item.damage = 9;
-            Item.shoot = ModContent.ProjectileType<AzafureMissleProj>();
+            Item.shoot = ModContent.ProjectileType<AzafureMissileProj>();
             Item.consumable = true;
             Item.DamageType = DamageClass.Ranged;
         }
@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
                 .Register();
         }
     }
-    public class AzafureMissleProj : BaseMissleProj
+    public class AzafureMissileProj : BaseMissileProj
     {
         public override float StickDamageAddition => 0.07f;
         public override float StickDamageMult => 0.16f;
@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             Projectile.ai[1] += 50;
             Projectile.ai[0]--;
         }
-        public override string Texture => "CalamityEntropy/Content/Items/Donator/RocketLauncher/Ammo/AzafureMissle";
+        public override string Texture => "CalamityEntropy/Content/Items/Donator/RocketLauncher/Ammo/AzafureMissile";
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);

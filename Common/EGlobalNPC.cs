@@ -270,17 +270,17 @@ namespace CalamityEntropy.Common
             }
         }
         public int LastLife = -1;
-        public int StickByMissle = 0;
-        public float MissleDamageAddition = 0;
+        public int StickByMissile = 0;
+        public float MissileDamageAddition = 0;
         public override void PostAI(NPC npc)
         {
-            if (StickByMissle > 0)
+            if (StickByMissile > 0)
             {
                 foreach (Projectile proj in Main.ActiveProjectiles)
                 {
-                    if (proj.ModProjectile != null && proj.ModProjectile is BaseMissleProj bmp)
+                    if (proj.ModProjectile != null && proj.ModProjectile is BaseMissileProj bmp)
                     {
-                        MissleDamageAddition += bmp.StickDamageAddition;
+                        MissileDamageAddition += bmp.StickDamageAddition;
                     }
                 }
             }
@@ -471,8 +471,8 @@ namespace CalamityEntropy.Common
                 HungryTagged--;
             if (Decrease20DR > 0)
                 Decrease20DR--;
-            StickByMissle--;
-            MissleDamageAddition = 0;
+            StickByMissile--;
+            MissileDamageAddition = 0;
             if (npc.ModNPC != null && npc.ModNPC is FriendFindNPC ff)
             {
                 if (npc.localAI[3] > 0)
@@ -653,7 +653,7 @@ namespace CalamityEntropy.Common
             {
                 modifiers.SourceDamage *= 1f + (HungryLantern.TagDamage);
             }
-            modifiers.SourceDamage += MissleDamageAddition;
+            modifiers.SourceDamage += MissileDamageAddition;
             if (npc.active)
             {
                 if (npc.HasBuff<HeatDeath>())
