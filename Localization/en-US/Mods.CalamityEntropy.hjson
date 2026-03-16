@@ -2687,8 +2687,7 @@ Items: {
 			'''
 			Resets summon damage bonuses to zero and converts them to minion capacity at [0]%:1 ratio
 			Hugely decrease other kinds of damage
-			Increases whip attack speed by [1]% and whip attack speed by 100%
-			Reduces whip mark damage bonus
+			Increases whip attack speed by [1]% and whip attack speed by 100%/
 			Grants significant armor penetration to minion attacks
 			'''
 	}

@@ -3949,6 +3949,7 @@ Items: {
 			+[2]/s life regen
 			+[3]% damage resistance
 			Increase damage from debuffs inflicted by you by [4]%
+			Level - [L]/7
 			''' */
 	}
 }
