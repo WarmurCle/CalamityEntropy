@@ -1929,7 +1929,7 @@ namespace CalamityEntropy
             }
 
             //Custom titles
-            if(true)
+            if(Main.rand.NextBool(5))
             {
                 SetARandomEntropyTitle();
             }
@@ -1937,7 +1937,7 @@ namespace CalamityEntropy
         public static void SetARandomEntropyTitle()
         {
             int titleType = Main.rand.Next(6);
-            string text = Instance.GetLocalization("TitleTexts.Title" + titleType.ToString()).Value;
+            string text = Instance.GetLocalization("TitleTexts.Terraria").Value + Instance.GetLocalization("TitleTexts.Title" + titleType.ToString()).Value;
             if (titleType == 4)
             {
                 List<string> names = new List<string>();
