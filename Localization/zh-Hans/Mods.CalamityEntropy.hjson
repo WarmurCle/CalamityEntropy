@@ -187,6 +187,18 @@ Items: {
 					潜行攻击会使旋刃在停止后发射一些火球，随后追逐最近的目标，并炸成更多的碎片
 					'''
 			}
+
+			EmberSpike: {
+				DisplayName: 余烬石锥
+				Tooltip: 
+				'''
+				丢出并扎在目标身上，单个目标最多黏附[S]根
+				命中后产生爆炸
+				潜行攻击会召回所有黏附的魔晶刺并向光标位置释放水晶风暴
+				潜行命中会生成追踪的板块碎片
+				无视16点护甲
+				'''
+			}
 		}
 	}
 
@@ -4951,6 +4963,10 @@ Projectiles: {
 	// AshesFireBeam.DisplayName: Ashes Fire Beam
 	// SmolderingTail.DisplayName: Smoldering Tail
 	// SmolderingTailShoot.DisplayName: Smoldering Tail Shoot
+	// EmberSpikePop.DisplayName: Ember Spike Pop
+	// EmberSpikeReturning.DisplayName: Ember Spike Returning
+	// EmberSpikeThrow.DisplayName: Ember Spike Throw
+	// SwingSmearEmber.DisplayName: Swing Smear Ember
 }
 
 LegendTooltip: - 传奇物品 -

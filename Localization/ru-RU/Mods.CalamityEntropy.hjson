@@ -156,6 +156,11 @@ Items: {
 					then chase the nearest target and explode into more shards
 					''' */
 			}
+
+			EmberSpike: {
+				// DisplayName: Ember Spike
+				// Tooltip: ""
+			}
 		}
 	}
 
@@ -3994,7 +3999,7 @@ Items: {
 
 	SmolderingGreaves: {
 		// DisplayName: Smoldering Greaves
-		// Tooltip: +6% move speed
+		// Tooltip: Increase move speed
 	}
 
 	SmolderingHelmet: {
@@ -4692,6 +4697,10 @@ Projectiles: {
 	// AshesFireBeam.DisplayName: Ashes Fire Beam
 	// SmolderingTail.DisplayName: Smoldering Tail
 	// SmolderingTailShoot.DisplayName: Smoldering Tail Shoot
+	// EmberSpikePop.DisplayName: Ember Spike Pop
+	// EmberSpikeReturning.DisplayName: Ember Spike Returning
+	// EmberSpikeThrow.DisplayName: Ember Spike Throw
+	// SwingSmearEmber.DisplayName: Swing Smear Ember
 }
 
 LegendTooltip: - Легенда -

@@ -190,6 +190,20 @@ Items: {
 					then chase the nearest target and explode into more shards
 					'''
 			}
+
+			EmberSpike: {
+				DisplayName: Ember Spike
+				Tooltip: 
+				'''
+				Throw it out and tie it to the target,
+				with a maximum of [S] sticks adhering to a single target
+				Explode when hit a target
+				Stealth strike will recall all attached spikes,
+				and continuously throw them towards the cursor direction
+				Stealth strike hit will spawn tracking tectinic shard
+				Ignore 16 defense
+				'''
+			}
 		}
 	}
 
@@ -4711,6 +4725,10 @@ Projectiles: {
 	AshesFireBeam.DisplayName: Ashes Fire Beam
 	SmolderingTail.DisplayName: Smoldering Tail
 	SmolderingTailShoot.DisplayName: Smoldering Tail Shoot
+	EmberSpikePop.DisplayName: Ember Spike Pop
+	EmberSpikeReturning.DisplayName: Ember Spike Returning
+	EmberSpikeThrow.DisplayName: Ember Spike Throw
+	SwingSmearEmber.DisplayName: Swing Smear Ember
 }
 
 LegendTooltip: - Legend -
