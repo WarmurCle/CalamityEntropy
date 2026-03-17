@@ -4285,11 +4285,8 @@ Items: {
 	}
 
 	AshesSword: {
-		DisplayName: 灰烬阔剑
-		Tooltip: 
-		'''
-		抛射出会爆炸并发射火球的灼烬石块
-		'''
+		DisplayName: 灰烬之刃
+		Tooltip: 抛射出会爆炸并发射火球的灼烬石块
 	}
 }
 
@@ -4988,7 +4985,7 @@ Projectiles: {
 	CinderFireball.DisplayName: 狱烬弹
 	CinderEnhancedShoot.DisplayName: 狱烬爆破弹
 	AshesFireballMelee.DisplayName: 灰烬火球
-	AshesSworldHoldout.DisplayName: 灰烬阔剑
+	AshesSworldHoldout.DisplayName: 灰烬之刃
 	SmolderingRock.DisplayName: 灼烬石块
 }
 

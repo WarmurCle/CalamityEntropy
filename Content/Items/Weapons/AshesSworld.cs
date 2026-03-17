@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 46;
+            Item.damage = 42;
             Item.DamageType = DamageClass.Melee;
             Item.width = 70;
             Item.height = 72;
@@ -124,15 +124,19 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, target.Center);
+            SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact, target.Center);
+            for (int i = 0; i < 12; i++)
+            {
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, Projectile.velocity.normalize().RotatedByRandom(0.66f) * Main.rand.NextFloat(4, 30), false, 12, Projectile.scale * 0.04f, Color.OrangeRed, new Vector2(0.3f, 1), false, false));
+            }
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 106 * Projectile.scale, targetHitbox, 30);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 118 * Projectile.scale, targetHitbox, 30);
         }
         public override void CutTiles()
         {
-            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (76 * Projectile.scale) * Projectile.scale, 40, DelegateMethods.CutTiles);
+            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (110 * Projectile.scale) * Projectile.scale, 30, DelegateMethods.CutTiles);
         }
     }
     public class SmolderingRock : ModProjectile
@@ -149,7 +153,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.height = 16;
             Projectile.friendly = true;
             Projectile.penetrate = 1;
-            Projectile.tileCollide = false;
             Projectile.light = 0.3f;
             Projectile.timeLeft = 42;
             Projectile.tileCollide = true;
@@ -159,13 +162,13 @@ namespace CalamityEntropy.Content.Items.Weapons
             Vector2 vel = oldVelocity;
             if(Projectile.velocity.X == 0)
             {
-                vel *= new Vector2(-1, 1);
+                Projectile.velocity.X = -oldVelocity.X;
             }
             if (Projectile.velocity.Y == 0)
             {
-                vel *= new Vector2(1, -1);
+                Projectile.velocity.Y = -oldVelocity.Y;
             }
-            Projectile.velocity = vel;
+            EParticle.spawnNew(new HadCircle2() { scale2 = 0.16f}, Projectile.Center, Vector2.Zero, Color.Firebrick, 0.16f, 1, true, BlendState.Additive);
             return false;
         }
         public override void AI()
