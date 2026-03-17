@@ -190,14 +190,14 @@ Items: {
 
 			EmberSpike: {
 				DisplayName: 余烬石锥
-				Tooltip: 
-				'''
-				丢出并扎在目标身上，单个目标最多黏附[S]根
-				命中后产生爆炸
-				潜行攻击会召回所有黏附的魔晶刺并向光标位置释放水晶风暴
-				潜行命中会生成追踪的板块碎片
-				无视16点护甲
-				'''
+				Tooltip:
+					'''
+					丢出并扎在目标身上，单个目标最多黏附[S]根
+					命中后产生爆炸
+					潜行攻击会召回所有黏附的魔晶刺并向光标位置释放水晶风暴
+					潜行命中会生成追踪的板块碎片
+					无视16点护甲
+					'''
 			}
 		}
 	}
@@ -4274,6 +4274,15 @@ Items: {
 			+5%暴击率
 			'''
 	}
+
+	CinderConvergencer: {
+		DisplayName: 狱烬聚能枪
+		Tooltip: 
+		'''
+		发射一些能量弹并充能
+		当充满能量时变为蓝色，并发射最多3发更为强大的爆炸弹
+		'''
+	}
 }
 
 SmolderingSetBonus:
@@ -4957,16 +4966,19 @@ Projectiles: {
 	TectinicShardAshesCore.DisplayName: 板块碎片
 	ScorchingChakramThrown.DisplayName: 焦灼旋刃
 	ScorchingFireball.DisplayName: 焦灼火球
-	// HellstoneMissileProj.DisplayName: Hellstone Missile Proj
-	// WulfrumMissileProj.DisplayName: Wulfrum Missile Proj
-	// AshesBowHoldout.DisplayName: Ashes Bow Holdout
-	// AshesFireBeam.DisplayName: Ashes Fire Beam
-	// SmolderingTail.DisplayName: Smoldering Tail
-	// SmolderingTailShoot.DisplayName: Smoldering Tail Shoot
-	// EmberSpikePop.DisplayName: Ember Spike Pop
-	// EmberSpikeReturning.DisplayName: Ember Spike Returning
-	// EmberSpikeThrow.DisplayName: Ember Spike Throw
-	// SwingSmearEmber.DisplayName: Swing Smear Ember
+	HellstoneMissileProj.DisplayName: 狱炎导弹
+	WulfrumMissileProj.DisplayName: 钨钢导弹
+	AshesBowHoldout.DisplayName: 灰烬短弓
+	AshesFireBeam.DisplayName: 灰烬射线
+	SmolderingTail.DisplayName: 灼烬之尾
+	SmolderingTailShoot.DisplayName: 灼烬弹
+	EmberSpikePop.DisplayName: 余烬石锥
+	EmberSpikeReturning.DisplayName: 余烬石锥
+	EmberSpikeThrow.DisplayName: 余烬石锥
+	SwingSmearEmber.DisplayName: 余烬风暴
+	// CinderConvergencerHoldout.DisplayName: Cinder Convergencer Holdout
+	// CinderFireball.DisplayName: Cinder Fireball
+	// CinderEnhancedShoot.DisplayName: Cinder Enhanced Shoot
 }
 
 LegendTooltip: - 传奇物品 -

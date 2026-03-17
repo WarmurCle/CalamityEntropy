@@ -50,6 +50,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             CreateRecipe()
                 .AddIngredient<CrystalSpike>()
                 .AddIngredient<TectonicShard>(6)
+                .AddTile(TileID.Hellforge)
                 .Register();
         }
         public override float StealthDamageMultiplier => 1;

@@ -193,16 +193,16 @@ Items: {
 
 			EmberSpike: {
 				DisplayName: Ember Spike
-				Tooltip: 
-				'''
-				Throw it out and tie it to the target,
-				with a maximum of [S] sticks adhering to a single target
-				Explode when hit a target
-				Stealth strike will recall all attached spikes,
-				and continuously throw them towards the cursor direction
-				Stealth strike hit will spawn tracking tectinic shard
-				Ignore 16 defense
-				'''
+				Tooltip:
+					'''
+					Throw it out and tie it to the target,
+					with a maximum of [S] sticks adhering to a single target
+					Explode when hit a target
+					Stealth strike will recall all attached spikes,
+					and continuously throw them towards the cursor direction
+					Stealth strike hit will spawn tracking tectinic shard
+					Ignore 16 defense
+					'''
 			}
 		}
 	}
@@ -4026,6 +4026,15 @@ Items: {
 			+5% crit chance
 			'''
 	}
+
+	CinderConvergencer: {
+		DisplayName: Cinder Convergencer
+		Tooltip: 
+		'''
+		Shoot fireballs and charging
+		Fire 3 stronger bullets when fully charged
+		'''
+	}
 }
 
 SmolderingSetBonus:
@@ -4728,7 +4737,10 @@ Projectiles: {
 	EmberSpikePop.DisplayName: Ember Spike Pop
 	EmberSpikeReturning.DisplayName: Ember Spike Returning
 	EmberSpikeThrow.DisplayName: Ember Spike Throw
-	SwingSmearEmber.DisplayName: Swing Smear Ember
+	SwingSmearEmber.DisplayName: Ember Storm
+	CinderConvergencerHoldout.DisplayName: Cinder Convergencer Holdout
+	CinderFireball.DisplayName: Cinder Fireball
+	CinderEnhancedShoot.DisplayName: Cinder Enhanced Shoot
 }
 
 LegendTooltip: - Legend -
