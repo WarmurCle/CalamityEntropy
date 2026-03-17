@@ -4022,7 +4022,11 @@ Items: {
 
 	CinderConvergencer: {
 		// DisplayName: Cinder Convergencer
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Shoot fireballs and charging
+			Fire 3 stronger bullets when fully charged
+			''' */
 	}
 }
 

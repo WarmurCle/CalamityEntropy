@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.autoReuse = true;
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityBlueBuyPrice;
-            Item.rare = ItemRarityID.Blue;
+            Item.rare = ItemRarityID.LightRed;
             Item.shoot = ModContent.ProjectileType<EmberSpikeThrow>();
             Item.shootSpeed = 12f;
             Item.DamageType = CEUtils.RogueDC;
