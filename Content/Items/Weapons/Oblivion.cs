@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 80;
             Item.height = 80;
-            Item.damage = 58;
+            Item.damage = 64;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 2;
             Item.useAnimation = 2;
@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noMelee = true;
             Item.knockBack = 5f;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
-            Item.rare = ModContent.RarityType<VoidPurple>();
+            Item.rare = ModContent.RarityType<NihilityBlue>();
             Item.shoot = ModContent.ProjectileType<OblivionArrow>();
             Item.UseSound = new Terraria.Audio.SoundStyle("CalamityEntropy/Assets/Sounds/feathershot") { MaxInstances = 10, Volume = 0.4f };
             Item.shootSpeed = 16f;
@@ -53,9 +53,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<Onyxplate>(), 8)
-                .AddIngredient(ModContent.ItemType<Voidstone>(), 4)
-                .AddIngredient(ModContent.ItemType<DivineGeode>(), 6)
+                .AddIngredient(ModContent.ItemType<Kinanition>())
+                .AddIngredient(ModContent.ItemType<Voidstone>(), 6)
+                .AddIngredient(ModContent.ItemType<ChaoticPiece>(), 6)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
