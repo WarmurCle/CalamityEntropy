@@ -3972,6 +3972,11 @@ Items: {
 			"But why do you want to do this?"
 			''' */
 	}
+
+	AshesBow: {
+		// DisplayName: Ashes Bow
+		// Tooltip: ""
+	}
 }
 
 /* ChaoticSetBonus:
@@ -4650,6 +4655,8 @@ Projectiles: {
 	// ScorchingFireball.DisplayName: Scorching Fireball
 	// HellstoneMissileProj.DisplayName: Hellstone Missile Proj
 	// WulfrumMissileProj.DisplayName: Wulfrum Missile Proj
+	// AshesBowHoldout.DisplayName: Ashes Bow Holdout
+	// AshesFireBeam.DisplayName: Ashes Fire Beam
 }
 
 LegendTooltip: - Легенда -

@@ -1919,13 +1919,11 @@ namespace CalamityEntropy
                         AddBossbarColor(fs, "TrojanSquirrel", new Color(147, 108, 85));
 
                     }
-
-                    Logger.Warn("CalamityEntropy: Bossbar Color setup succesfully");
                 }
             }
             catch
             {
-                Logger.Warn("CalamityEntropy: Other addons' bossbar color failed to setup");
+                Logger.Warn("CalamityEntropy: Other mods' bossbar color failed to setup");
             }
 
             //Custom titles

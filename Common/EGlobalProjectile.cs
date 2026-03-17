@@ -127,6 +127,7 @@ namespace CalamityEntropy.Common
         public float dmgUp = 0.05f;
         public bool GWBow = false;
         public int dmgupcount = 10;
+        public bool ashesArrow = false;
         public int vddirection = 1;
         public bool ToFriendly = false;
         public bool BarrenHoming = false;
@@ -140,10 +141,6 @@ namespace CalamityEntropy.Common
         /// 初次生成
         /// </summary>
         public bool FirstFrames = true;
-        /// <summary>
-        /// 其余AI栏位
-        /// </summary>
-        public float[] ExtraProjAI = new float[100];
         /// <summary>
         /// 用于临时存储的额外更新
         /// </summary>
@@ -219,6 +216,7 @@ namespace CalamityEntropy.Common
             binaryWriter.Write(LuminarArrow);
             binaryWriter.Write(SmartArcEffect);
             binaryWriter.Write(FirstFrames);
+            binaryWriter.Write(ashesArrow);
             foreach (var key in DataSynchronous.Keys)
             {
                 DataSynchronous[key].Write(binaryWriter);
@@ -243,6 +241,7 @@ namespace CalamityEntropy.Common
             LuminarArrow = binaryReader.ReadBoolean();
             SmartArcEffect = binaryReader.ReadBoolean();
             FirstFrames = binaryReader.ReadBoolean();
+            ashesArrow = binaryReader.ReadBoolean();
             foreach (var key in DataSynchronous.Keys)
             {
                 DataSynchronous[key].ReadToValue(binaryReader);
@@ -489,6 +488,10 @@ namespace CalamityEntropy.Common
             }
             if (bulletInit)
             {
+                if(ashesArrow)
+                {
+                    projectile.MaxUpdates *= 2;
+                }
                 bulletInit = false;
                 {
                     if (projectile.GetOwner().HeldItem.type == ModContent.ItemType<Typhoon>() && projectile.GetOwner().PickAmmo(projectile.GetOwner().HeldItem, out var pts, out var s, out var d, out var kb, out var ua, true) && pts == projectile.type)
@@ -969,6 +972,14 @@ namespace CalamityEntropy.Common
         {
             if (Losted)
                 Main.spriteBatch.ExitShaderRegion();
+
+            if(ashesArrow)
+            {
+                Texture2D arTex = CEUtils.getExtraTex("SpearArrowGlow2");
+                Main.spriteBatch.UseAdditive();
+                Main.spriteBatch.Draw(arTex, projectile.Center - Main.screenPosition + projectile.velocity.normalize() * 4, null, Color.OrangeRed * projectile.Opacity, projectile.velocity.ToRotation(), arTex.Size() * 0.5f, new Vector2(0.12f, 0.12f), SpriteEffects.None, 0);
+                Main.spriteBatch.ExitShaderRegion();
+            }
             if (rpBow)
             {
                 Main.spriteBatch.End();
@@ -1233,6 +1244,15 @@ namespace CalamityEntropy.Common
         public override void OnKill(Projectile projectile, int timeLeft)
         {
             OnKillActions?.Invoke(projectile);
+            if(ashesArrow)
+            {
+                float scale = 36 / 40f;
+                EParticle.spawnNew(new ShineParticle(), projectile.Center, Vector2.Zero, Color.Red * 0.8f, scale * 0.8f, 1, true, BlendState.Additive, 0, 10);
+                EParticle.spawnNew(new ShineParticle(), projectile.Center, Vector2.Zero, Color.White * 0.8f, scale * 0.5f, 1, true, BlendState.Additive, 0, 10);
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(projectile.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 24));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(projectile.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 18));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(projectile.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.02f, 15));
+            }
             if (projectile.friendly)
             {
                 if (vdtype == 4)
@@ -1255,9 +1275,13 @@ namespace CalamityEntropy.Common
         public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if(ashesArrow)
+            {
+                target.AddBuff(BuffID.OnFire3, 120);
+            }
             if (zypArrow)
             {
-                GeneralParticleHandler.SpawnParticle(new GlowOrbParticle(projectile.Center, Vector2.Zero, false, 20, 6, new Color(Main.rand.Next(140, 220), Main.rand.Next(140, 220), 255)));
+                GeneralParticleHandler.SpawnParticle(new GlowOrbParticle(projectile.Center, Vector2.Zero, false, 20, 4, new Color(Main.rand.Next(140, 220), Main.rand.Next(140, 220), 255)));
 
                 for (int i = 0; i < 8; i++)
                 {

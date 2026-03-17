@@ -4229,6 +4229,15 @@ Items: {
 			“为什么要这么做？”
 			'''
 	}
+
+	AshesBow: {
+		DisplayName: 灰烬短弓
+		Tooltip: 
+		'''
+		射击同时进行充能，完全充能需要3秒
+		充能完毕时松开鼠标左键会释放一道威力巨大的火焰射线
+		'''
+	}
 }
 
 ChaoticSetBonus:
@@ -4908,6 +4917,8 @@ Projectiles: {
 	ScorchingFireball.DisplayName: 焦灼火球
 	// HellstoneMissileProj.DisplayName: Hellstone Missile Proj
 	// WulfrumMissileProj.DisplayName: Wulfrum Missile Proj
+	// AshesBowHoldout.DisplayName: Ashes Bow Holdout
+	// AshesFireBeam.DisplayName: Ashes Fire Beam
 }
 
 LegendTooltip: - 传奇物品 -
