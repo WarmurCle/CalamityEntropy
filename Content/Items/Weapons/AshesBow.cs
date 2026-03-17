@@ -82,7 +82,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     player.velocity -= Projectile.velocity.normalize() * 16;
                     if(Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<AshesFireBeam>(), Projectile.damage * 4, Projectile.knockBack * 4, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<AshesFireBeam>(), Projectile.damage * 5, Projectile.knockBack * 5, Projectile.owner);
                     }
                 }
             }

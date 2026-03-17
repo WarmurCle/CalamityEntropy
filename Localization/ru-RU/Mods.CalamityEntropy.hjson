@@ -3984,20 +3984,34 @@ Items: {
 
 	SmolderingBreastplate: {
 		// DisplayName: Smoldering Breastplate
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			+2/s life regen
+			+8% damage resistance
+			Immune to lava damage and On Fire!
+			''' */
 	}
 
 	SmolderingGreaves: {
 		// DisplayName: Smoldering Greaves
-		// Tooltip: ""
+		// Tooltip: +6% move speed
 	}
 
 	SmolderingHelmet: {
 		// DisplayName: Smoldering Helmet
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			+8% damage
+			+5% crit chance
+			''' */
 	}
 }
 
+/* SmolderingSetBonus:
+	'''
+	Summon a smoldering tail that attack enemies nearby
+	+1 max minion
+	''' */
 /* ChaoticSetBonus:
 	'''
 	+12% Damage reduce

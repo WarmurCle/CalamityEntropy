@@ -4241,35 +4241,35 @@ Items: {
 
 	SmolderingBreastplate: {
 		DisplayName: 灼烬护甲
-		Tooltip: 
-		'''
-		+2/s 生命再生
-		+8% 伤害减免
-		免疫岩浆和着火伤害
-		'''
+		Tooltip:
+			'''
+			+2/s 生命再生
+			+8% 伤害减免
+			免疫岩浆和着火伤害
+			'''
 	}
 
 	SmolderingGreaves: {
 		DisplayName: 灼烬腿甲
-		Tooltip: "+6%移动速度"
+		Tooltip: 显著提升移动速度
 	}
 
 	SmolderingHelmet: {
 		DisplayName: 灼烬头盔
-		Tooltip: 
-		'''
-		+8%伤害
-		+5%暴击率
-		'''
+		Tooltip:
+			'''
+			+8%伤害
+			+5%暴击率
+			'''
 	}
 }
-SmolderingSetBonus:
-'''
-召唤一条灼烬之尾
-灼烬之尾会远程攻击附近的敌人，并受伤害加成最高的职业加成
-仆从数量上限提高1
-'''
 
+SmolderingSetBonus:
+	'''
+	召唤一条灼烬之尾
+	灼烬之尾会远程攻击附近的敌人，并受伤害加成最高的职业加成
+	仆从数量上限提高1
+	'''
 ChaoticSetBonus:
 	'''
 	增加40点最大生命值，12%伤害和12%伤害减免
