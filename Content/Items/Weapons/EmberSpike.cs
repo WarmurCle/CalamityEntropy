@@ -82,7 +82,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 if (p.owner == player.whoAmI && p.type == Item.shoot && p.ModProjectile is EmberSpikeThrow cst && cst.StickNPC >= 0)
                 {
-                    
                     Projectile.NewProjectile(p.GetSource_FromThis(), p.Center, Vector2.Zero, type, p.damage, p.knockBack * 2, player.whoAmI, tm);
                     p.Kill();
                     tm += 2;
@@ -181,7 +180,6 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            
             EParticle.spawnNew(new GlowLightParticle(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 10, Vector2.Zero, Color.OrangeRed * 1.3f, 1.5f, 1, true, BlendState.Additive, 0, 10);
 
             CEUtils.PlaySound("RockCrumble", Main.rand.NextFloat(2.4f, 2.8f), target.Center, 60, 0.4f);
