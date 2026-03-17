@@ -4028,6 +4028,11 @@ Items: {
 			Fire 3 stronger bullets when fully charged
 			''' */
 	}
+
+	AshesSword: {
+		// DisplayName: Ashes Sword
+		// Tooltip: ""
+	}
 }
 
 /* SmolderingSetBonus:
@@ -4722,6 +4727,9 @@ Projectiles: {
 	// CinderConvergencerHoldout.DisplayName: Cinder Convergencer Holdout
 	// CinderFireball.DisplayName: Cinder Fireball
 	// CinderEnhancedShoot.DisplayName: Cinder Enhanced Shoot
+	// AshesFireballMelee.DisplayName: Ashes Fireball Melee
+	// AshesSworldHoldout.DisplayName: Ashes Sworld Holdout
+	// SmolderingRock.DisplayName: Smoldering Rock
 }
 
 LegendTooltip: - Легенда -

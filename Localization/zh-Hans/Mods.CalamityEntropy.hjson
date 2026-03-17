@@ -4283,6 +4283,14 @@ Items: {
 			当充满能量时变为蓝色，并发射最多3发更为强大的爆炸弹
 			'''
 	}
+
+	AshesSword: {
+		DisplayName: 灰烬阔剑
+		Tooltip: 
+		'''
+		抛射出会爆炸并发射火球的灼烬石块
+		'''
+	}
 }
 
 SmolderingSetBonus:
@@ -4976,9 +4984,12 @@ Projectiles: {
 	EmberSpikeReturning.DisplayName: 余烬石锥
 	EmberSpikeThrow.DisplayName: 余烬石锥
 	SwingSmearEmber.DisplayName: 余烬风暴
-	// CinderConvergencerHoldout.DisplayName: Cinder Convergencer Holdout
-	// CinderFireball.DisplayName: Cinder Fireball
-	// CinderEnhancedShoot.DisplayName: Cinder Enhanced Shoot
+	CinderConvergencerHoldout.DisplayName: 狱烬聚能枪
+	CinderFireball.DisplayName: 狱烬弹
+	CinderEnhancedShoot.DisplayName: 狱烬爆破弹
+	AshesFireballMelee.DisplayName: 灰烬火球
+	AshesSworldHoldout.DisplayName: 灰烬阔剑
+	SmolderingRock.DisplayName: 灼烬石块
 }
 
 LegendTooltip: - 传奇物品 -
