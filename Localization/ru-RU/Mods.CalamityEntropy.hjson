@@ -3192,7 +3192,7 @@ Items: {
 	}
 
 	AzafureHeavyLeggings: {
-		// DisplayName: Azafure Heavy Leggings
+		// DisplayName: Azafure Heavy Greaves
 		// Tooltip: ""
 	}
 
@@ -3428,7 +3428,7 @@ Items: {
 	}
 
 	VoidEaterBodyArmor: {
-		// DisplayName: Void Eater Body Armor
+		// DisplayName: Void Eater Breastplate
 		// Tooltip: +12% Damage
 	}
 
@@ -3438,7 +3438,7 @@ Items: {
 	}
 
 	VoidEaterLeggings: {
-		// DisplayName: Void Eater Leggings
+		// DisplayName: Void Eater Greaves
 		// Tooltip: +18% Movement Speed
 	}
 
@@ -3448,7 +3448,7 @@ Items: {
 	}
 
 	ChaoticBodyArmor: {
-		// DisplayName: Chaotic Body Armor
+		// DisplayName: Chaotic Breastplate
 		/* Tooltip:
 			'''
 			+4/s life regen
@@ -3467,7 +3467,7 @@ Items: {
 	}
 
 	ChaoticLeggings: {
-		// DisplayName: Chaotic Leggings
+		// DisplayName: Chaotic Greaves
 		/* Tooltip:
 			'''
 			+8% Movement speed
@@ -3566,7 +3566,7 @@ Items: {
 	}
 
 	AzafureSteamKnightLeggings: {
-		// DisplayName: Azafure Steam Knight Leggings
+		// DisplayName: Azafure Steam Knight Greaves
 		// Tooltip: ""
 	}
 
@@ -3980,6 +3980,21 @@ Items: {
 			Charge when shooting arrows
 			Release at full charge to launch a fire beam
 			''' */
+	}
+
+	SmolderingBreastplate: {
+		// DisplayName: Smoldering Breastplate
+		// Tooltip: ""
+	}
+
+	SmolderingGreaves: {
+		// DisplayName: Smoldering Greaves
+		// Tooltip: ""
+	}
+
+	SmolderingHelmet: {
+		// DisplayName: Smoldering Helmet
+		// Tooltip: ""
 	}
 }
 
@@ -4661,6 +4676,8 @@ Projectiles: {
 	// WulfrumMissileProj.DisplayName: Wulfrum Missile Proj
 	// AshesBowHoldout.DisplayName: Ashes Bow Holdout
 	// AshesFireBeam.DisplayName: Ashes Fire Beam
+	// SmolderingTail.DisplayName: Smoldering Tail
+	// SmolderingTailShoot.DisplayName: Smoldering Tail Shoot
 }
 
 LegendTooltip: - Легенда -

@@ -722,7 +722,7 @@ Items: {
 	}
 
 	VoidFaquirBodyArmor: {
-		DisplayName: Void Faquir Body Armor
+		DisplayName: Void Faquir Breastplate
 		Tooltip:
 			'''
 			+10% Damage
@@ -1471,7 +1471,7 @@ Items: {
 	}
 
 	MariviniumBodyArmor: {
-		DisplayName: Marivinium Body Armor
+		DisplayName: Marivinium Breastplate
 		Tooltip:
 			'''
 			+15% Damage
@@ -1494,7 +1494,7 @@ Items: {
 	}
 
 	MariviniumLeggings: {
-		DisplayName: Marivinium Leggings
+		DisplayName: Marivinium Greaves
 		Tooltip:
 			'''
 			+30% Speed
@@ -3199,7 +3199,7 @@ Items: {
 	}
 
 	AzafureHeavyLeggings: {
-		DisplayName: Azafure Heavy Leggings
+		DisplayName: Azafure Heavy Greaves
 		Tooltip: ""
 	}
 
@@ -3435,7 +3435,7 @@ Items: {
 	}
 
 	VoidEaterBodyArmor: {
-		DisplayName: Void Eater Body Armor
+		DisplayName: Void Eater Breastplate
 		Tooltip: +12% Damage
 	}
 
@@ -3445,7 +3445,7 @@ Items: {
 	}
 
 	VoidEaterLeggings: {
-		DisplayName: Void Eater Leggings
+		DisplayName: Void Eater Greaves
 		Tooltip: +18% Movement Speed
 	}
 
@@ -3455,7 +3455,7 @@ Items: {
 	}
 
 	ChaoticBodyArmor: {
-		DisplayName: Chaotic Body Armor
+		DisplayName: Chaotic Breastplate
 		Tooltip:
 			'''
 			+4/s life regen
@@ -3474,7 +3474,7 @@ Items: {
 	}
 
 	ChaoticLeggings: {
-		DisplayName: Chaotic Leggings
+		DisplayName: Chaotic Greaves
 		Tooltip:
 			'''
 			+8% Movement speed
@@ -3573,7 +3573,7 @@ Items: {
 	}
 
 	AzafureSteamKnightLeggings: {
-		DisplayName: Azafure Steam Knight Leggings
+		DisplayName: Azafure Steam Knight Greaves
 		Tooltip: ""
 	}
 
@@ -3988,7 +3988,36 @@ Items: {
 			Release at full charge to launch a fire beam
 			'''
 	}
+
+	SmolderingBreastplate: {
+		DisplayName: Smoldering Breastplate
+		Tooltip: 
+		'''
+		+2/s life regen
+		+8% damage resistance
+		Immune to lava damage and On Fire!
+		'''
+	}
+
+	SmolderingGreaves: {
+		DisplayName: Smoldering Greaves
+		Tooltip: "+6% move speed"
+	}
+
+	SmolderingHelmet: {
+		DisplayName: Smoldering Helmet
+		Tooltip: 
+		'''
+		+8% damage
+		+5% crit chance
+		'''
+	}
 }
+SmolderingSetBonus:
+'''
+Summon a smoldering tail that attack enemies nearby
++1 max minion
+'''
 
 ChaoticSetBonus:
 	'''
@@ -4680,6 +4709,8 @@ Projectiles: {
 	WulfrumMissileProj.DisplayName: Wulfrum Missile Proj
 	AshesBowHoldout.DisplayName: Ashes Bow Holdout
 	AshesFireBeam.DisplayName: Ashes Fire Beam
+	SmolderingTail.DisplayName: Smoldering Tail
+	SmolderingTailShoot.DisplayName: Smoldering Tail Shoot
 }
 
 LegendTooltip: - Legend -

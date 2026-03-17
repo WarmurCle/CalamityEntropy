@@ -62,6 +62,4 @@ namespace CalamityEntropy.Content.Projectiles.ApsychosProjs
             Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, new Color(34, 34, 180) * alpha, 0, tex.Size() * 0.5f, size * 0.4f, SpriteEffects.None, 0);
         }
     }
-
-
 }

@@ -9,6 +9,7 @@ using CalamityEntropy.Content.Items.Accessories.Hungry;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Armor.Marivinium;
 using CalamityEntropy.Content.Items.Armor.NihTwins;
+using CalamityEntropy.Content.Items.Armor.Smoldering;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
@@ -459,6 +460,7 @@ namespace CalamityEntropy.Common
         public int ManaRegenPer30Tick = 0;
         public int ManaRegenTime = 0;
         public Dictionary<DamageClass, float> CritDamage;
+        public bool smolderingSet = false;
         public bool fruitCake;
         public bool roaringDye = false;
         public float LifeStealP = 0;
@@ -852,6 +854,7 @@ namespace CalamityEntropy.Common
         public Item goldenRock = null;
         public override void ResetEffects()
         {
+            smolderingSet = false;
             ashesCore = false;
             accAzureAbyss = false;
             goldenRock = null;
@@ -2267,6 +2270,9 @@ namespace CalamityEntropy.Common
         public int AzureShield = 0;
         public override void PostUpdate()
         {
+            int sType = ModContent.ProjectileType<SmolderingTail>();
+            if (smolderingSet && Player.ownedProjectileCounts[sType] < 1)
+                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, sType, 30, 4, Player.whoAmI);
             if(Main.myPlayer == Player.whoAmI && Player.HeldItem.ModItem != null && Player.HeldItem.ModItem is IHoldoutItem ih)
             {
                 int holdoutType = ih.ProjectileType;

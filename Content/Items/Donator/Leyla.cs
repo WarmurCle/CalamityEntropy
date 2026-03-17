@@ -54,15 +54,15 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public static float DoTDmgMult(int level) => level switch
         {
-            0 => 0.2f,
-            1 => 0.3f,
-            2 => 0.4f,
-            3 => 0.5f,
-            4 => 0.6f,
-            5 => 0.7f,
-            6 => 0.8f,
+            0 => 0.5f,
+            1 => 0.5f,
+            2 => 0.5f,
+            3 => 0.6f,
+            4 => 0.7f,
+            5 => 0.8f,
+            6 => 0.9f,
             7 => 1f,
-            _ => 0.2f
+            _ => 0.5f
         };
         public static float GetRegen(int level) => level switch
         {
