@@ -79,7 +79,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         d.scale = 1.8f + Main.rand.NextFloat(-0.4f, 0.2f);
                     }
                     FireBeam = false;
-                    player.velocity -= Projectile.velocity.normalize() * 16;
+                    player.velocity -= Projectile.velocity.normalize() * 8;
                     if(Main.myPlayer == Projectile.owner)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<AshesFireBeam>(), Projectile.damage * 5, Projectile.knockBack * 5, Projectile.owner);
