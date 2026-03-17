@@ -101,7 +101,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (ShootDelay-- < 0 && player.channel && Charge < 1)
             {
                 ShootDelay = Projectile.MaxUpdates * player.HeldItem.useTime / player.GetWeaponAttackSpeed(player.HeldItem);
-                if (player.PickAmmo(player.HeldItem, out int type, out float speed, out int damage, out float kb, out int ammoItem, false))
+                if (player.PickAmmo(player.HeldItem, out int type, out float speed, out int damage, out float kb, out int ammoItem, Projectile.ai[1] ++ == 0 ? true : false))
                 {
                     for (int i = 0; i < 10; i++)
                     {

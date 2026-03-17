@@ -3975,7 +3975,11 @@ Items: {
 
 	AshesBow: {
 		// DisplayName: Ashes Bow
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Charge when shooting arrows
+			Release at full charge to launch a fire beam
+			''' */
 	}
 }
 
