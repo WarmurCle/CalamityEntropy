@@ -894,17 +894,6 @@ namespace CalamityEntropy
             }*/
             if (!hit.InstantKill)
             {
-                /*if (self.ModNPC != null && self.ModNPC is AbyssalWraith aw)
-                {
-                    if (aw.getMaxDamageCanTake() > 0)
-                    {
-                        if (hit.Damage > aw.getMaxDamageCanTake())
-                        {
-                            hit.Damage = aw.getMaxDamageCanTake();
-                        }
-                    }
-                    hit.Damage = (int)(hit.Damage * aw.getDR());
-                }*/
                 if (self.boss && (EntropyMode || EDownedBosses.TDR))
                 {
                     if (hit.Damage > self.lifeMax * 0.035f)

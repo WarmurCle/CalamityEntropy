@@ -193,7 +193,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             float scale = 30 / 40f;
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.OrangeRed * 0.95f, scale * 0.8f, 1, true, BlendState.Additive, 0, 6);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White * 0.95f, scale * 0.5f, 1, true, BlendState.Additive, 0, 6);
-            CEUtils.PlaySound("cinderExplosion", Main.rand.NextFloat(1.4f, 1.8f), Projectile.Center);
+            CEUtils.PlaySound("cinderExplosion", Main.rand.NextFloat(1.8f, 2f), Projectile.Center);
             GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 230, 60), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.04f, 12));
             GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 230, 60), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 16));
             GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 230, 60), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.06f, 20));
