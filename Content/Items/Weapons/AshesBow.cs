@@ -123,7 +123,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
-            if(Charge >= 1)
+            if(Charge >= 1 && FireBeam)
             {
                 Main.spriteBatch.UseAdditive();
                 for(int i = 0; i < 4; i++)

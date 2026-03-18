@@ -125,9 +125,9 @@ namespace CalamityEntropy.Content.Items.Weapons
                     Projectile.velocity.X *= 0.98f;
                 }
                 if (Projectile.ai[0] == 0)
-                    EParticle.spawnNew(new GlowLightParticle(), Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.6f, 1, true, BlendState.Additive, 0, 20);
+                    EParticle.spawnNew(new CrystalGlow(), Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.6f, 1, true, BlendState.Additive, 0, 20);
                 else
-                    EParticle.spawnNew(new GlowLightParticle(), Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.36f, 1, true, BlendState.Additive, 0, 8);
+                    EParticle.spawnNew(new CrystalGlow(), Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.36f, 1, true, BlendState.Additive, 0, 8);
 
                 for (float i = 0; i < 1; i += 0.5f)
                     {
@@ -180,7 +180,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            EParticle.spawnNew(new GlowLightParticle(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 10, Vector2.Zero, Color.OrangeRed * 1.3f, 1.5f, 1, true, BlendState.Additive, 0, 10);
+            EParticle.spawnNew(new CrystalGlow(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 10, Vector2.Zero, Color.OrangeRed * 1.3f, 1.5f, 1, true, BlendState.Additive, 0, 10);
 
             CEUtils.PlaySound("RockCrumble", Main.rand.NextFloat(2.4f, 2.8f), target.Center, 60, 0.4f);
             int sum = 0;
@@ -220,7 +220,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            EParticle.spawnNew(new GlowLightParticle(), Projectile.Center + oldVelocity + Projectile.rotation.ToRotationVector2() * 4, Vector2.Zero, Color.OrangeRed * 1.3f, 1.5f, 1, true, BlendState.Additive, 0, 10);
+            EParticle.spawnNew(new CrystalGlow(), Projectile.Center + oldVelocity + Projectile.rotation.ToRotationVector2() * 4, Vector2.Zero, Color.OrangeRed * 1.3f, 1.5f, 1, true, BlendState.Additive, 0, 10);
             if (Main.myPlayer == Projectile.owner)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, oldVelocity.RotatedByRandom(0.6f) * Main.rand.NextFloat(-1, -0.5f), ModContent.ProjectileType<EmberSpikePop>(), 0, 0, Projectile.owner);
@@ -281,7 +281,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Vector2 pos = CEUtils.Bezier(new List<Vector2>() { spawn, mid, target }, counter / 36f);
                 Vector2 offset = pos - Projectile.Center;
                 Projectile.rotation += offset.X * 0.05f;
-                EParticle.spawnNew(new GlowLightParticle(), Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.6f, 1, true, BlendState.Additive, 0, 20);
+                EParticle.spawnNew(new CrystalGlow(), Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.6f, 1, true, BlendState.Additive, 0, 20);
                 for (float i = 0; i < 1; i += 0.5f)
                 {
                     var d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.RedTorch);
