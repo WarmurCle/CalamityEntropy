@@ -114,7 +114,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.timeLeft > 2)
             {
-                CEUtils.PlaySound("soulexplode", 1.2f, Projectile.Center, maxIns: 3, volume: 0.4f);
+                CEUtils.PlaySound("soulexplode", 1.2f, Projectile.Center, maxIns: 3, volume: 0.32f);
                 Projectile.timeLeft = 2;
                 Projectile.Resize(256, 256);
                 Main.LocalPlayer.Calamity().GeneralScreenShakePower += 1.6f;
