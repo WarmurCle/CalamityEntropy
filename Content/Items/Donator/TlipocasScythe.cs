@@ -715,7 +715,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 flagS = false;
                 if (!target.Organic())
                 {
-                    CEUtils.PlaySound("metalhit", Main.rand.NextFloat(1.4f, 1.6f) / Projectile.ai[1], target.Center, 6);
+                    CEUtils.PlaySound("metalhit", Main.rand.NextFloat(1.4f, 1.6f), target.Center, 6);
                 }
             }
             if (EDownedBosses.downedCruiser)
