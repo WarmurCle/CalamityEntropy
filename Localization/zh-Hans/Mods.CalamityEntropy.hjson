@@ -4218,7 +4218,9 @@ Items: {
 			+[1]防御
 			+[2]/s生命再生
 			+[3]%伤害减免
+			+[5]最大生命值
 			你造成的减益伤害增加[4]%
+			有概率造成一个根据时期增强的减益
 			等级 - [L]/7
 			'''
 	}
@@ -4287,6 +4289,16 @@ Items: {
 	AshesSword: {
 		DisplayName: 灰烬之刃
 		Tooltip: 抛射出会爆炸并发射火球的灼烬石块
+	}
+
+	EmberBolt: {
+		DisplayName: 灰烬矢
+		Tooltip: 发射一些追踪的板块碎片
+	}
+
+	RemnantsStaff: {
+		DisplayName: 余烬法杖
+		Tooltip: 发射追踪的火球和激光
 	}
 }
 
@@ -4987,6 +4999,8 @@ Projectiles: {
 	AshesFireballMelee.DisplayName: 灰烬火球
 	AshesSworldHoldout.DisplayName: 灰烬之刃
 	SmolderingRock.DisplayName: 灼烬石块
+	RemnantsLaser.DisplayName: 余烬激光
+	ScorchingFireballMagic.DisplayName: 余烬火球
 }
 
 LegendTooltip: - 传奇物品 -

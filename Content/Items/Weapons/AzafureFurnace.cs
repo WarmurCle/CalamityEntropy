@@ -3,12 +3,17 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using Terraria.ID;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
     public class AzafureFurnace : ModItem, IAzafureEnhancable
     {
+        public override void SetStaticDefaults()
+        {
+            Item.staff[Item.type] = true;
+        }
         public override void SetDefaults()
         {
             Item.width = 24;
@@ -31,7 +36,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             var modItem = Item.Calamity();
             Item.mana = 15;
         }
-
         public override void AddRecipes()
         {
             CreateRecipe().

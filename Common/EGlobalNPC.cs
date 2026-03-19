@@ -1463,6 +1463,11 @@ namespace CalamityEntropy.Common
         public int noelctime = 0;
         public void onHurt(NPC npc, int damage, Player player, Entity source, NPC.HitInfo hit)
         {
+            if(player != null && player.Entropy().hasAcc("Leyla"))
+            {
+                if (Main.rand.NextBool(8))
+                    npc.AddBuff(Leyla.ApplyBuffType(), Main.rand.Next(60, 300));
+            }
             if (npc.life <= 0)
             {
                 if (player != null && player.Entropy().goldenRock != null && player.Entropy().goldenRock.ModItem is GoldenRock gr)

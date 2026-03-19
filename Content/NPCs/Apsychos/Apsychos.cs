@@ -845,10 +845,6 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
         {
             NPC.SetEventFlagCleared(ref EDownedBosses.downedApsychos, -1);
         }
-        public override void BossLoot(ref string name, ref int potionType)
-        {
-            potionType = ItemID.HealingPotion;
-        }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<ApsychosBag>()));
@@ -860,6 +856,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                 normalOnly.Add(ModContent.ItemType<GreatSwordofEmbers>(), new Fraction(2, 5));
                 normalOnly.Add(ModContent.ItemType<ScorchingChakram>(), new Fraction(2, 5));
                 normalOnly.Add(ModContent.ItemType<AshesBow>(), new Fraction(2, 5));
+                normalOnly.Add(ModContent.ItemType<EmberBolt>(), new Fraction(2, 5));
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<ApsychosRelic>());
 

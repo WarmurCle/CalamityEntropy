@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityMod;
+using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Events;
 using CalamityMod.Items;
 using CalamityMod.Particles;
@@ -40,6 +41,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 .AddIngredient(ItemID.FallenStar, 5)
                 .AddIngredient(ItemID.Ruby, 2)
                 .AddTile(TileID.WorkBenches)
+                .AddCondition(Mod.GetLocalization("NearShimmer", () => "Near shimmer"), () => (Main.LocalPlayer.ZoneShimmer))
                 .Register();
         }
 
@@ -50,8 +52,41 @@ namespace CalamityEntropy.Content.Items.Donator
             tooltips.Replace("[2]", GetRegen(level).ToString());
             tooltips.Replace("[3]", GetEndurance(level).ToPercent());
             tooltips.Replace("[4]", DoTDmgMult(level).ToPercent());
+            tooltips.Replace("[5]", MaxHealthAddition(level));
             tooltips.Replace("[L]", level);
         }
+        public static int ApplyBuffType()
+        {
+            if (DownedBossSystem.downedCalamitas)
+                return ModContent.BuffType<TrueVulnerabilityHex>();
+            if (DownedBossSystem.downedYharon)
+                return ModContent.BuffType<Dragonfire>();
+            if (DownedBossSystem.downedDoG)
+                return ModContent.BuffType<GodSlayerInferno>();
+            if (DownedBossSystem.downedProvidence)
+                return ModContent.BuffType<HolyFlames>();
+            if (DownedBossSystem.downedBoomerDuke)
+                return ModContent.BuffType<SulphuricPoisoning>();
+            if (DownedBossSystem.downedPlaguebringer)
+                return ModContent.BuffType<Plague>();
+            if (DownedBossSystem.downedCryogen)
+                return BuffID.Frostburn2;
+            if (NPC.downedBoss2)
+                return BuffID.Venom;
+            return BuffID.Poisoned;
+        }
+        public static int MaxHealthAddition(int level) => level switch
+        {
+            0 => 10,
+            1 => 15,
+            2 => 20,
+            3 => 25,
+            4 => 30,
+            5 => 40,
+            6 => 50,
+            7 => 60,
+            _ => 10
+        };
         public static float DoTDmgMult(int level) => level switch
         {
             0 => 0.5f,

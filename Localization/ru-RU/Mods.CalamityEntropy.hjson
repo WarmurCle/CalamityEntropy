@@ -4033,6 +4033,16 @@ Items: {
 		// DisplayName: Ashes Sword
 		// Tooltip: ""
 	}
+
+	EmberBolt: {
+		// DisplayName: Ember Bolt
+		// Tooltip: ""
+	}
+
+	RemnantsStaff: {
+		// DisplayName: Remnants Staff
+		// Tooltip: ""
+	}
 }
 
 /* SmolderingSetBonus:
@@ -4730,6 +4740,8 @@ Projectiles: {
 	// AshesFireballMelee.DisplayName: Ashes Fireball Melee
 	// AshesSworldHoldout.DisplayName: Ashes Sworld Holdout
 	// SmolderingRock.DisplayName: Smoldering Rock
+	// RemnantsLaser.DisplayName: Remnants Laser
+	// ScorchingFireballMagic.DisplayName: Scorching Fireball Magic
 }
 
 LegendTooltip: - Легенда -
