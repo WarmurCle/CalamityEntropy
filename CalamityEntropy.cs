@@ -93,6 +93,7 @@ using ReLogic.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -163,13 +164,26 @@ namespace CalamityEntropy
 
             ShadowCrystalDeltarune.Load();
 
-            ILoaders = VaultUtils.GetSubInterface<ICELoader>();
+            ILoaders = new List<ICELoader>();
+            string name = typeof(ICELoader).Name;
+            Type[] anyModCodeType = VaultUtils.GetAnyModCodeType();
+            foreach (Type type in anyModCodeType)
+            {
+                if (type.IsClass && !type.IsAbstract && type.GetInterface(name) != null && RuntimeHelpers.GetUninitializedObject(type) is ICELoader item)
+                {
+                    ILoaders.Add(item);
+                }
+            }
             foreach (ICELoader setup in ILoaders)
             {
                 setup.LoadData();
                 setup.DompLoadText();
             }
             LoopSoundManager.init();
+            
+            //Wiki this support
+            if(!Main.dedServ && ModLoader.TryGetMod("Wikithis", out var wikithis))
+                wikithis.Call(0, this, "http://calentropy.miraheze.org/wiki/{}", GameCulture.CultureName.Chinese);
 
             efont1 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/EFont", AssetRequestMode.ImmediateLoad).Value;
             efont2 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/VCRFont", AssetRequestMode.ImmediateLoad).Value;
