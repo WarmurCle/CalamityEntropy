@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 100;
+            Item.damage = 92;
             Item.crit = 7;
             Item.DamageType = DamageClass.Melee;
             Item.width = 48;
@@ -109,7 +109,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 {
                     int dir = (int)(Projectile.ai[0]) * (Projectile.velocity.X > 0 ? -1 : 1);
                     spawnProj = false;
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 49, (Vector2)(CEUtils.normalize(Projectile.velocity.RotatedBy(dir * MathHelper.PiOver2)) * 3 + CEUtils.randomPointInCircle(2)), ModContent.ProjectileType<FractalStarBlade>(), Projectile.damage, Projectile.knockBack * 4, Projectile.owner, Projectile.rotation, dir);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 49, (Vector2)(CEUtils.normalize(Projectile.velocity.RotatedBy(dir * MathHelper.PiOver2)) * 3 + CEUtils.randomPointInCircle(2)), ModContent.ProjectileType<FractalStarBlade>(), (int)(Projectile.damage * 0.82f), Projectile.knockBack * 4, Projectile.owner, Projectile.rotation, dir);
                 }
             }
             if (init)

@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.width = 152;
             Item.height = 48;
             Item.useTime = 7;
-            Item.damage = 38;
+            Item.damage = 32;
             Item.knockBack = 4f;
             Item.crit = 10;
             Item.UseSound = SoundID.Item34;

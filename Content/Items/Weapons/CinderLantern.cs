@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 34;
+            Item.damage = 14;
             Item.DamageType = DamageClass.Summon;
             Item.width = 36;
             Item.height = 64;
@@ -133,7 +133,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 else
                 {
                     Projectile.localAI[1]++;
-                    if (Projectile.localAI[1] > 48)
+                    if (Projectile.localAI[1] >= 46)
                     {
                         Projectile.localAI[1] = 0;
                         Projectile.ai[0] = 3;

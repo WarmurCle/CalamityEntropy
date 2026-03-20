@@ -27,15 +27,15 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().accAzureAbyss = true;
-            player.lifeRegen += 10;
+            player.lifeRegen += 8;
             player.GetDamage(DamageClass.Generic) += 0.15f;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe().
-                AddIngredient<VoidScales>(5).
-                AddIngredient<Lumenyl>(5).
+                AddIngredient<VoidBar>(4).
+                AddIngredient<Lumenyl>(6).
                 AddIngredient<AscendantSpiritEssence>(2).
                 AddTile(ModContent.TileType<VoidWellTile>()).
                 Register();

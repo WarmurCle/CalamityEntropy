@@ -50,11 +50,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<StarlitFractal>()
-                .AddIngredient(ItemID.LunarBar, 8)
+            CreateRecipe()
+                .AddIngredient<StarlitFractal>()
                 .AddIngredient<FlarefrostBlade>()
-                .AddIngredient<LifeAlloy>(6)
-                .AddIngredient<GalacticaSingularity>(6)
+                .AddIngredient(ItemID.LunarBar, 5)
+                .AddIngredient<LifeAlloy>(5)
+                .AddIngredient(ItemID.FragmentSolar, 5)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }

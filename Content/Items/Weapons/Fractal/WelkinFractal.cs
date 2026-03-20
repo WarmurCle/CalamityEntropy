@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 36;
+            Item.damage = 48;
             Item.crit = 4;
             Item.DamageType = DamageClass.Melee;
             Item.width = 48;
@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public int atkType = 0;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, atkType == 0 ? -1 : atkType);
+            Projectile.NewProjectile(source, position, velocity, type, damage / 2, knockback, player.whoAmI, atkType == 0 ? -1 : atkType);
             atkType++;
             if (atkType > 2)
             {

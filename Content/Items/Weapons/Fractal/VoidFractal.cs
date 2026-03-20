@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 480;
+            Item.damage = 600;
             Item.crit = 10;
             Item.DamageType = DamageClass.Melee;
             Item.width = 48;
@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 CEUtils.PlaySound("VoidAnticipation", 1, position, volume: CEUtils.WeapSound);
                 player.AddBuff(BuffID.ChaosState, 10 * 60);
-                Projectile.NewProjectile(source, position, velocity * 4, ModContent.ProjectileType<VoidSlash>(), damage * 40, 0, player.whoAmI);
+                Projectile.NewProjectile(source, position, velocity * 4, ModContent.ProjectileType<VoidSlash>(), damage * 25, 0, player.whoAmI);
                 return false;
             }
             int at = 2;
@@ -223,7 +223,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     if (progress > 0.2f && shoot)
                     {
                         shoot = false;
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, (Vector2)(CEUtils.normalize(Projectile.velocity) * 12 + CEUtils.randomPointInCircle(6)), ModContent.ProjectileType<VoidWave>(), Projectile.damage * 3, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, (Vector2)(CEUtils.normalize(Projectile.velocity) * 12 + CEUtils.randomPointInCircle(6)), ModContent.ProjectileType<VoidWave>(), Projectile.damage * 2, Projectile.knockBack, Projectile.owner);
                     }
                     if (progress < 0.6f)
                     {

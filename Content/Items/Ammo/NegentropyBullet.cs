@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Ammo
 
         public override void SetDefaults()
         {
-            Item.damage = 1;
+            Item.damage = 8;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 8;
             Item.height = 8;

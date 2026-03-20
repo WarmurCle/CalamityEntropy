@@ -1811,7 +1811,7 @@ namespace CalamityEntropy.Common
             {
                 if (accAzureAbyss)
                 {
-                    if (true)
+                    if (CECooldowns.CheckCD("AzureAbyssRingCd", 12 * 60))
                     {
                         Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<AzureShield>(), 0, 0, Player.whoAmI);
                         for (int i = 0; i < 3; i++)
