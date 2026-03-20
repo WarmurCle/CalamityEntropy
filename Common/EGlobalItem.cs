@@ -134,7 +134,11 @@ namespace CalamityEntropy.Common
                 NewName = origName.Replace("|", ArmorPrefix.findByName(pitem.PrefixName).GivenName);
                 return true;
             }
-
+            if(item.Entropy().armorPrefix != null)
+            {
+                NewName = item.Entropy().armorPrefix.getName() + " " + origName;
+                return true;
+            }
             NewName = origName;
             return false;
         }
