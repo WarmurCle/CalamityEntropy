@@ -4055,11 +4055,11 @@ Items: {
 
 	CinderLantern: {
 		DisplayName: Cinder Lantern
-		Tooltip: 
-		'''
-		Summon a cinder core
-		Cinder core will shoot fireballs to enemies nearby
-		'''
+		Tooltip:
+			'''
+			Summon a cinder core
+			Cinder core will shoot fireballs to enemies nearby
+			'''
 	}
 }
 

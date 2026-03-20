@@ -4303,10 +4303,7 @@ Items: {
 
 	CinderLantern: {
 		DisplayName: 狱烬灯笼
-		Tooltip: 
-		'''
-		召唤一个狱烬灵核，向附近敌人发射火球
-		'''
+		Tooltip: 召唤一个狱烬灵核，向附近敌人发射火球
 	}
 }
 
