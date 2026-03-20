@@ -4052,6 +4052,15 @@ Items: {
 		DisplayName: Remnants Staff
 		Tooltip: ""
 	}
+
+	CinderLantern: {
+		DisplayName: Cinder Lantern
+		Tooltip: 
+		'''
+		Summon a cinder core
+		Cinder core will shoot fireballs to enemies nearby
+		'''
+	}
 }
 
 SmolderingSetBonus:
@@ -4757,12 +4766,14 @@ Projectiles: {
 	SwingSmearEmber.DisplayName: Ember Storm
 	CinderConvergencerHoldout.DisplayName: Cinder Convergencer Holdout
 	CinderFireball.DisplayName: Cinder Fireball
-	CinderEnhancedShoot.DisplayName: Cinder Enhanced Shoot
-	AshesFireballMelee.DisplayName: Ashes Fireball Melee
+	CinderEnhancedShoot.DisplayName: Cinder Shoot
+	AshesFireballMelee.DisplayName: Ashes Fireball
 	AshesSworldHoldout.DisplayName: Ashes Sworld Holdout
 	SmolderingRock.DisplayName: Smoldering Rock
 	RemnantsLaser.DisplayName: Remnants Laser
-	ScorchingFireballMagic.DisplayName: Scorching Fireball Magic
+	ScorchingFireballMagic.DisplayName: Scorching Fireball
+	CinderMinion.DisplayName: Cinder Core
+	MinionCinderFireball.DisplayName: Cinder Fireball
 }
 
 LegendTooltip: - Legend -
@@ -5141,6 +5152,11 @@ Buffs: {
 	ZafkielBuff: {
 		DisplayName: Zafkiel
 		Description: ""
+	}
+
+	CinderCore: {
+		DisplayName: Cinder Core
+		Description: Cinder Core will fight for you
 	}
 }
 

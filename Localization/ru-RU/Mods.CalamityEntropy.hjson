@@ -3962,7 +3962,9 @@ Items: {
 			+[1] defense
 			+[2]/s life regen
 			+[3]% damage resistance
+			+[5] Max health
 			Increase damage from debuffs inflicted by you by [4]%
+			Chance to apply a debuff based on progress to enemies after hitted
 			Level - [L]/7
 			''' */
 	}
@@ -4041,6 +4043,11 @@ Items: {
 
 	RemnantsStaff: {
 		// DisplayName: Remnants Staff
+		// Tooltip: ""
+	}
+
+	CinderLantern: {
+		// DisplayName: Cinder Lantern
 		// Tooltip: ""
 	}
 }
@@ -4742,6 +4749,8 @@ Projectiles: {
 	// SmolderingRock.DisplayName: Smoldering Rock
 	// RemnantsLaser.DisplayName: Remnants Laser
 	// ScorchingFireballMagic.DisplayName: Scorching Fireball Magic
+	// CinderMinion.DisplayName: Cinder Minion
+	// MinionCinderFireball.DisplayName: Minion Cinder Fireball
 }
 
 LegendTooltip: - Легенда -
@@ -5120,6 +5129,11 @@ Buffs: {
 	ZafkielBuff: {
 		// DisplayName: Zafkiel
 		// Description: ""
+	}
+
+	CinderCore: {
+		// DisplayName: Cinder Core
+		// Description: Mods.CalamityEntropy.Buffs.CinderCore.Description
 	}
 }
 

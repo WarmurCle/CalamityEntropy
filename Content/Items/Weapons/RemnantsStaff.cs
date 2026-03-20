@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
@@ -31,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.knockBack = 10;
-            Item.UseSound = CEUtils.GetSound("beast_lavaball_rise1");
+            Item.UseSound = null;
             Item.shoot = ModContent.ProjectileType<TectinicShardHoming>();
             Item.shootSpeed = 18f;
             Item.mana = 10;
@@ -62,6 +63,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             else
             {
+                SoundEngine.PlaySound(CEUtils.GetSound("beast_lavaball_rise1"), position);
                 type = ModContent.ProjectileType<ScorchingFireballMagic>();
                 for (int i = 0; i < 4; i++)
                 {

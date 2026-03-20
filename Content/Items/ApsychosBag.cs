@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.Items
         {
             itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<Apsychos>()));
 
-            itemLoot.Add(ModContent.ItemType<TectonicShard>(), 1, 32, 36);
+            itemLoot.Add(ModContent.ItemType<TectonicShard>(), 1, 36, 42);
             itemLoot.Add(ModContent.ItemType<GreatSwordofEmbers>(), new Fraction(3, 5));
             itemLoot.Add(ModContent.ItemType<AshesCore>(), new Fraction(3, 5));
             itemLoot.Add(ModContent.ItemType<ScorchingChakram>(), new Fraction(3, 5));

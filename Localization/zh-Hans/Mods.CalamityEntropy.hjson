@@ -4300,6 +4300,14 @@ Items: {
 		DisplayName: 余烬法杖
 		Tooltip: 发射追踪的火球和激光
 	}
+
+	CinderLantern: {
+		DisplayName: 狱烬灯笼
+		Tooltip: 
+		'''
+		召唤一个狱烬灵核，向附近敌人发射火球
+		'''
+	}
 }
 
 SmolderingSetBonus:
@@ -5001,6 +5009,8 @@ Projectiles: {
 	SmolderingRock.DisplayName: 灼烬石块
 	RemnantsLaser.DisplayName: 余烬激光
 	ScorchingFireballMagic.DisplayName: 余烬火球
+	CinderMinion.DisplayName: 狱烬灵核
+	MinionCinderFireball.DisplayName: 狱烬火球
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5379,6 +5389,11 @@ Buffs: {
 	ZafkielBuff: {
 		DisplayName: 刻刻帝
 		Description: ""
+	}
+
+	CinderCore: {
+		DisplayName: 狱烬灵核
+		Description: 狱烬灵核将为你而战
 	}
 }
 
