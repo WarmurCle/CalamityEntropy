@@ -1,6 +1,8 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Particles;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Particles;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ModLoader;
@@ -56,8 +58,9 @@ namespace CalamityEntropy.Content.Projectiles
 
             if (Main.rand.NextBool(2))
             {
-                CalamityMod.Particles.Particle smokeGlow = new HeavySmokeParticle(projectile.Center + direction * 46f, smokeSpeed + projectile.velocity, Projectile.owner.ToPlayer().Entropy().WeaponBoost > 0 ? Main.hslToRgb(0.85f, 1, 0.8f) : new Color(255, 85, 0), 16, Main.rand.NextFloat(0.4f, 0.7f), 0.8f, 0.01f, true, 0.01f, true);
-                GeneralParticleHandler.SpawnParticle(smokeGlow);
+                EHeavySmoke smokeGlow = new EHeavySmoke();
+                EParticle.spawnNew(smokeGlow, Projectile.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive);
+                smokeGlow.SetValues(projectile.Center + direction * 46f, smokeSpeed + projectile.velocity, Projectile.owner.ToPlayer().Entropy().WeaponBoost > 0 ? Main.hslToRgb(0.85f, 1, 0.8f) : new Color(255, 85, 0), 16, Main.rand.NextFloat(0.4f, 0.7f), 0.8f, 0.01f, false, 0.01f, true);
             }
 
         }
