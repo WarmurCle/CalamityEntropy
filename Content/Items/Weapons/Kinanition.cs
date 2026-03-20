@@ -69,7 +69,6 @@ namespace CalamityEntropy.Content.Items.Weapons
                 SoundStyle usd = new SoundStyle("CalamityMod/Sounds/Item/RealityRuptureStealth", SoundType.Sound);
                 usd.Volume = 0.4f;
                 Item.UseSound = usd;
-
                 Item.shootSpeed = 60f;
                 Item.useAmmo = AmmoID.None;
                 Item.autoReuse = true;
@@ -81,7 +80,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 Item.knockBack = 6f;
                 Item.UseSound = SoundID.Item5;
-                Item.shootSpeed = 42f;
+                Item.shootSpeed = 16f;
                 Item.autoReuse = true;
                 Item.useAmmo = AmmoID.Arrow;
                 Item.useTime = 7;
@@ -128,10 +127,16 @@ namespace CalamityEntropy.Content.Items.Weapons
                         int arrow;
                         arrow = Projectile.NewProjectile(source, position + player.itemRotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * j + player.itemRotation.ToRotationVector2() * Main.rand.Next(4, 16), velocity.RotatedBy(MathHelper.ToRadians((float)Main.rand.Next(0, 7) - 3f)) * 2, type, damage / 2, knockback, player.whoAmI);
                         Main.projectile[arrow].Entropy().Lightning = true;
-                        Main.projectile[arrow].penetrate = 5;
+                        if(arrow.ToProj().penetrate > 0)
+                            Main.projectile[arrow].penetrate += 4;
+                        arrow.ToProj().localNPCHitCooldown = 6;
+                        arrow.ToProj().usesLocalNPCImmunity = true;
                         arrow = Projectile.NewProjectile(source, position + player.itemRotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * j + player.itemRotation.ToRotationVector2() * Main.rand.Next(4, 16), velocity.RotatedBy(MathHelper.ToRadians((float)Main.rand.Next(0, 7) - 3f)) * 2, type, damage / 2, knockback, player.whoAmI);
                         Main.projectile[arrow].Entropy().Lightning = true;
-                        Main.projectile[arrow].penetrate = 5;
+                        if (arrow.ToProj().penetrate > 0)
+                            Main.projectile[arrow].penetrate += 4;
+                        arrow.ToProj().localNPCHitCooldown = 6;
+                        arrow.ToProj().usesLocalNPCImmunity = true;
                     }
                 }
             }
