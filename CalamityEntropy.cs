@@ -1930,7 +1930,7 @@ namespace CalamityEntropy
             }
 
             //Custom titles
-            if(Main.rand.NextBool(5))
+            if(Main.rand.NextBool(6))
             {
                 SetARandomEntropyTitle();
             }
