@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.knockBack = 6f;
             Item.UseSound = SoundID.Item5;
             Item.shoot = ProjectileID.WoodenArrowFriendly;
-            Item.shootSpeed = 46f;
+            Item.shootSpeed = 16f;
             Item.useAmmo = AmmoID.Arrow;
             Item.autoReuse = true;
             Item.ArmorPenetration = 12;

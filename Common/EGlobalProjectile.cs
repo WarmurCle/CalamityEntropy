@@ -479,8 +479,22 @@ namespace CalamityEntropy.Common
         public bool Freeze = true;//For wisper arrows
         public EParticle ParticleOnMe = null;
         public bool slowFlag = true;
+        public bool SetMaxUpdates = true;
         public override bool PreAI(Projectile projectile)
         {
+            if(SetMaxUpdates)
+            {
+                if (ashesArrow)
+                {
+                    SetMaxUpdates = false;
+                    projectile.MaxUpdates *= 2;
+                }
+                if (Lightning)
+                {
+                    SetMaxUpdates = false;
+                    projectile.MaxUpdates *= 2;
+                }
+            }
             if (Losted && slowFlag)
             {
                 projectile.velocity *= 1.5f;
@@ -488,10 +502,6 @@ namespace CalamityEntropy.Common
             }
             if (bulletInit)
             {
-                if(ashesArrow)
-                {
-                    projectile.MaxUpdates *= 2;
-                }
                 bulletInit = false;
                 {
                     if (projectile.GetOwner().HeldItem.type == ModContent.ItemType<Typhoon>() && projectile.GetOwner().PickAmmo(projectile.GetOwner().HeldItem, out var pts, out var s, out var d, out var kb, out var ua, true) && pts == projectile.type)
