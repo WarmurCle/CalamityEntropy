@@ -173,7 +173,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (target == null)
                 return Vector2.Zero;
-            Vector2 vel = (target.Center - Projectile.Center).normalize() * 17;
+            Vector2 vel = (target.Center + target.velocity * 3 - Projectile.Center).normalize() * 17;
             if(Main.myPlayer == Projectile.owner)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, vel, ModContent.ProjectileType<MinionCinderFireball>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
@@ -328,6 +328,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                 CEUtils.DrawGlow(position + Main.screenPosition, Color.White, Projectile.scale * 0.3f);
             }
             return false;
+        }
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+        {
+            overPlayers.Add(index);
         }
         public int tofs;
     }
