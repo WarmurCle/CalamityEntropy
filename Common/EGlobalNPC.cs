@@ -1486,9 +1486,9 @@ namespace CalamityEntropy.Common
                         player.Entropy().ShootLaserTime = 20;
                     }
                 }
-                if (player.Entropy().LifeStealP > 0 && player.statLife < player.statLifeMax2)
+                if (player.Entropy().LifeStealP > 0 && player.statLife < player.statLifeMax2 && CECooldowns.CheckCD("LifeStealHealFloat"))
                 {
-                    player.Entropy().TryHealMeWithCd((int)(player.statLifeMax2 * player.Entropy().LifeStealP), 15);
+                    player.Entropy().HealFloat(player.statLifeMax2 * player.Entropy().LifeStealP);
                 }
                 if (player.Entropy().hasAcc("VastLV5") && hit.Crit)
                 {
