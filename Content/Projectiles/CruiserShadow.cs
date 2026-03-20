@@ -166,6 +166,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.velocity *= 0.996f;
                     }
             }
+            Projectile.rotation = Projectile.velocity.ToRotation();
         }
         public float rt = 0;
         public int noChase = 0;

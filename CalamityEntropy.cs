@@ -242,11 +242,11 @@ namespace CalamityEntropy
             On_SoundPlayer.Play += playSnd;
             
             EModSys.timer = 0;
-            BossRushEvent.Bosses.Insert(35, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>() }));
+            BossRushEvent.Bosses.Insert(34, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>() }));
             BossRushEvent.Bosses.Insert(42, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
             BossRushEvent.Bosses.Insert(28, new BossRushEvent.Boss(ModContent.NPCType<TheProphet>()));
-            BossRushEvent.Bosses.Insert(24, new BossRushEvent.Boss(ModContent.NPCType<Luminaris>()));
-
+            BossRushEvent.Bosses.Insert(22, new BossRushEvent.Boss(ModContent.NPCType<Luminaris>()));
+            BossRushEvent.Bosses.Insert(12, new BossRushEvent.Boss(ModContent.NPCType<Apsychos>()));
             EModILEdit.load();
 
 
