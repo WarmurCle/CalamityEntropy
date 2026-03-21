@@ -104,6 +104,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
         public float RotP = 0;
         public float BaseScale = 0;
         public float num = 0;
+        
         public override bool? CanHitNPC(NPC target)
         {
             return (Projectile.GetOwner().channel) ? null : false;

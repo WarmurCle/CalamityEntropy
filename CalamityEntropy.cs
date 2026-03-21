@@ -1937,6 +1937,8 @@ namespace CalamityEntropy
         }
         public static void SetARandomEntropyTitle()
         {
+            if (Main.dedServ)
+                return;
             int titleType = Main.rand.Next(6);
             string text = Instance.GetLocalization("TitleTexts.Terraria").Value + Instance.GetLocalization("TitleTexts.Title" + titleType.ToString()).Value;
             if (titleType == 4)
