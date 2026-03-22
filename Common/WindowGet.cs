@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Donator;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Items.Donator;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,10 +11,8 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-
-namespace CalamityEntropy.Common
+namespace CalamityEntropy.Content.Items
 {
-    //我脑袋抽了做的这玩意
     public class ChargingYuzu : ModItem
     {
         public override string Texture => "CalamityEntropy/Assets/Extra/ChargingYuzu";
@@ -26,7 +25,7 @@ namespace CalamityEntropy.Common
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<PGetPlayer>().accEquiped = true;
-            if(!hideVisual)
+            if (!hideVisual)
                 player.GetModPlayer<PGetPlayer>().accVnTime = 3;
             player.endurance += 0.05f * player.GetModPlayer<PGetPlayer>().count;
             player.GetDamage(DamageClass.Generic) += player.GetModPlayer<PGetPlayer>().count * 0.1f;
@@ -47,7 +46,7 @@ namespace CalamityEntropy.Common
         public override void Load()
         {
             cialloSnd = new List<SoundStyle>();
-            for(int i = 1; i <= 10; i++)
+            for (int i = 1; i <= 10; i++)
             {
                 cialloSnd.Add(new SoundStyle("CalamityEntropy/Assets/Sounds/yzc/cia" + i));
             }
@@ -57,6 +56,11 @@ namespace CalamityEntropy.Common
             cialloSnd = null;
         }
     }
+}
+
+namespace CalamityEntropy.Common
+{
+    //我脑袋抽了做的这玩意
     public class PGetPlayer : ModPlayer
     {
         public static List<string> yuzuGames = new() { "SenrenBanka", "RiddleJoker", "SabbatOfTheWitch", "CafeStella", "tenshi_sz", "DracuRiot", "PARQUET", "NobleWorks", "夏空カナタ", "夏空彼方", "天使纷扰", "天神乱漫", "NOBLEWORKS", "天色アイルノーツ", "ライムライト・レモネードジャム", "LimelightLemonade" };
