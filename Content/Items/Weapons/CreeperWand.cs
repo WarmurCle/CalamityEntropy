@@ -91,6 +91,17 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Player player = Projectile.GetOwner();
             Projectile.MinionCheck<CreeperBuff>();
+            if (Projectile.localAI[0] == 0)
+            {
+                for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.TwoPi * 0.05f)
+                {
+                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, Main.rand.NextBool() ? DustID.Blood : DustID.GreenBlood);
+                    dust.position = Projectile.Center;
+                    dust.noGravity = true;
+                    dust.velocity = i.ToRotationVector2() * 6;
+                    dust.scale = 1.5f;
+                }
+            }
             if (Projectile.localAI[0]++ < 3)
             {
                 Projectile.timeLeft++;
@@ -121,6 +132,17 @@ namespace CalamityEntropy.Content.Items.Weapons
             NPC target = Projectile.FindMinionTarget();
             if (Active && target != null)
             {
+                if(!flag)
+                {
+                    for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.TwoPi * 0.05f)
+                    {
+                        var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, Main.rand.NextBool() ? DustID.Blood : DustID.GreenBlood);
+                        dust.position = Projectile.Center;
+                        dust.noGravity = true;
+                        dust.velocity = i.ToRotationVector2() * 6;
+                        dust.scale = 1.5f;
+                    }
+                }
                 flag = true;
                 Projectile.velocity *= 0.82f;
                 Projectile.velocity += num2.ToRotationVector2() * 6f;

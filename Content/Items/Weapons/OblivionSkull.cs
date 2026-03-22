@@ -89,6 +89,13 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Player player = Projectile.GetOwner();
             Projectile.MinionCheck<OblivionSkullBuff>();
+            if (Projectile.localAI[0] == 0)
+            {
+                for(float i = 0; i < MathHelper.TwoPi; i += MathHelper.TwoPi * 0.05f)
+                {
+                    GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, i.ToRotationVector2() * 12, Color.MediumPurple, 26, Main.rand.NextFloat(0.5f, 0.7f), 0.8f, Main.rand.NextFloat(-0.1f, 0.1f), true));
+                }
+            }
             if (Projectile.localAI[0]++ < 3)
             {
                 Projectile.timeLeft++;

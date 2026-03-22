@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -88,6 +89,25 @@ namespace CalamityEntropy.Content.Items.Weapons.Torch
         {
             Player player = Projectile.GetOwner();
             Projectile.MinionCheck<CursingFire>();
+
+            if (Projectile.localAI[0] == 0)
+            {
+                for (int i = 0; i < 64; i++)
+                {
+                    GeneralParticleHandler.SpawnParticle(new FlameParticle(base.Projectile.Center, 20, Main.rand.NextFloat(0.3f, 0.6f), 0.05f, Color.Yellow, Color.Firebrick)
+                    {
+                        Velocity = CEUtils.randomPointInCircle(6)
+                    });
+                }
+            }
+            GeneralParticleHandler.SpawnParticle(new FlameParticle(base.Projectile.Center, 18, Main.rand.NextFloat(0.5f, 0.65f), 0.05f, Color.Yellow, Color.Firebrick)
+            {
+                Velocity = new Vector2(Main.rand.NextFloat(-2, 2), -10f).RotatedByRandom(0.004999999888241291) * Main.rand.NextFloat(0.8f, 1f)
+            }); 
+            GeneralParticleHandler.SpawnParticle(new FlameParticle(base.Projectile.Center, 18, Main.rand.NextFloat(0.5f, 0.65f), 0.05f, Color.Yellow, Color.Firebrick)
+            {
+                Velocity = new Vector2(Main.rand.NextFloat(-2, 2), -10f).RotatedByRandom(0.004999999888241291) * Main.rand.NextFloat(0.8f, 1f)
+            });
             if (Projectile.localAI[0]++ < 3)
             {
                 Projectile.timeLeft++;
@@ -118,14 +138,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Torch
                     Projectile.ai[0] = 0;
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + new Vector2(0, -16).RotatedBy(Projectile.rotation), (target.Center + target.velocity * 10 - Projectile.Center).normalize() * 8 + Projectile.velocity * 0.25f, ModContent.ProjectileType<CursingFlame>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + new Vector2(0, -16).RotatedBy(Projectile.rotation), (target.Center + target.velocity * 6 - Projectile.Center - Projectile.velocity * 10).normalize() * 8 + Projectile.velocity * 0.25f, ModContent.ProjectileType<CursingFlame>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                 }
             }
             else
             {
                 if (CEUtils.getDistance(Projectile.Center, player.Center) > 200)
-                    Projectile.velocity += (player.Center - Projectile.Center).normalize() * 0.6f;
+                    Projectile.velocity += (player.Center - Projectile.Center).normalize() * 0.9f;
             }
         }
         public override bool PreDraw(ref Color lightColor)

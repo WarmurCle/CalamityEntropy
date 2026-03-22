@@ -1,4 +1,5 @@
 using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using Microsoft.Xna.Framework.Graphics;
@@ -50,6 +51,18 @@ namespace CalamityEntropy.Content.Projectiles
         public float CrackCd => Projectile.ai[2];
         public override void AI()
         {
+            if (Projectile.localAI[0] == 0)
+            {
+                for(int i = 0; i < 32; i++)
+                {
+                    var p = new Particle();
+                    p.alpha = Main.rand.NextFloat(0.35f, 0.7f);
+                    p.velocity = CEUtils.randomPointInCircle(18);
+                    p.vd = 0.9f;
+                    p.position = Projectile.Center;
+                    AbyssalParticles.particles.Add(p);
+                }
+            }
             Player player = Projectile.GetOwner();
             if (target == null)
             {

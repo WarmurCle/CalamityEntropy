@@ -69,7 +69,20 @@ namespace CalamityEntropy.Content.Projectiles
         public Vector2 weaponPos { get { return new Vector2(Projectile.ai[1], Projectile.ai[2]); } set { Projectile.ai[1] = value.X; Projectile.ai[2] = value.Y; } }
         public override void AI()
         {
-            Main.instance.LoadItem(4);
+            if (Projectile.localAI[0]++ == 0)
+            {
+                for(float i = 0; i < MathHelper.TwoPi; i += MathHelper.TwoPi * 0.05f)
+                {
+                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, Main.rand.NextBool() ? DustID.RedTorch : DustID.BlueTorch);
+                    dust.position = Projectile.Center;
+                    dust.noGravity = true;
+                    dust.velocity = i.ToRotationVector2() * 8;
+                    dust.scale = 1.1f;
+                    
+                }
+            }
+            if(!Main.dedServ)
+                Main.instance.LoadItem(4);
             Player player = Main.player[Projectile.owner];
             if (CEUtils.getDistance(Projectile.Center, player.Center) > 3600)
             {

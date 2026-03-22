@@ -124,7 +124,18 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AI()
         {
             Player player = Projectile.GetOwner();
-            Projectile.MinionCheck<AzafureDrone>();
+            Projectile.MinionCheck<AzafureDrone>(); 
+            if (Projectile.localAI[0] == 0)
+            {
+                for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.TwoPi * 0.05f)
+                {
+                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.RedTorch);
+                    dust.position = Projectile.Center;
+                    dust.velocity = i.ToRotationVector2() * 9;
+                    dust.scale = 1.4f;
+                    dust.noGravity = true;
+                }
+            }
             if (Projectile.localAI[0]++ < 3)
             {
                 Projectile.timeLeft++;

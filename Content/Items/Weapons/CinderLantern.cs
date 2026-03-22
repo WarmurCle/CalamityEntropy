@@ -105,6 +105,13 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Player player = Projectile.GetOwner();
             Projectile.MinionCheck<CinderCore>();
+            if (Projectile.localAI[0] == 0)
+            {
+                for (int i = 0; i < 16; i++)
+                    EParticle.spawnNew(new GlowLightParticle(), Projectile.Center, CEUtils.randomPointInCircle(9), Color.OrangeRed, Main.rand.NextFloat(0.6f, 1f), 1, true, BlendState.Additive, 0, 22);
+                float scale = 1f;
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 230, 60), "CalamityMod/Particles/FlameExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.06f, 8));
+            }
             if (Projectile.localAI[0]++ < 3)
             {
                 Projectile.timeLeft++;

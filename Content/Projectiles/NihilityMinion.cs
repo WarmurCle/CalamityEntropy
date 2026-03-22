@@ -56,6 +56,17 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void AI()
         {
+            if (Projectile.localAI[0] == 0)
+            {
+                for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.TwoPi * 0.05f)
+                {
+                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.PurpleTorch);
+                    dust.position = Projectile.Center;
+                    dust.velocity = i.ToRotationVector2() * 9;
+                    dust.scale = 1.4f;
+                    dust.noGravity = true;
+                }
+            }
             Projectile.localAI[0]++;
             Player player = Main.player[Projectile.owner];
             if (CEUtils.getDistance(Projectile.Center, player.Center) > 2600)
@@ -66,6 +77,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.timeLeft = 3;
             }
+           
 
             if (target == null || !target.active)
             {
@@ -132,6 +144,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     if (Projectile.ai[1]-- > 0)
                     {
+                        Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 16f.ToRadians());
                         Projectile.velocity += Projectile.rotation.ToRotationVector2() * 8f;
                         for (int i = 0; i < 4; i++)
                         {
@@ -140,13 +153,14 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     else
                     {
-                        Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 70f.ToRadians());
+                        Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 16f.ToRadians());
                     }
                     Projectile.velocity *= 0.92f;
                 }
             }
             else
             {
+                Projectile.pushByOther(0.4f);
                 Vector2 standPos = player.Center + new Vector2(0, -140);
                 float dist = CEUtils.getDistance(Projectile.Center, standPos);
                 if (dist > 100)
@@ -159,7 +173,6 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.12f, false);
             }
-            Projectile.pushByOther(0.4f);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
