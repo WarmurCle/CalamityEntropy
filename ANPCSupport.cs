@@ -25,7 +25,7 @@ namespace CalamityEntropy
                 if (NPCShopDatabase.TryGetNPCShop(NPCShopDatabase.GetShopName(ModContent.NPCType<Operator>(), "ModBags1"), out var calBagsShop))
                 {
                     var shop = (NPCShop)calBagsShop; 
-                    shop.AddModItemToShop(CalamityEntropy.Instance, "ApsychosBag", 800000, () => EDownedBosses.downedAcropolis);
+                    shop.AddModItemToShop(CalamityEntropy.Instance, "ApsychosBag", 800000, () => EDownedBosses.downedApsychos);
                     shop.AddModItemToShop(CalamityEntropy.Instance, "LuminarisBag", 4000000, () => EDownedBosses.downedLuminaris);
                     shop.AddModItemToShop(CalamityEntropy.Instance, "ProphetBag", 6000000, () => EDownedBosses.downedProphet);
                     shop.AddModItemToShop(CalamityEntropy.Instance, "NihilityTwinBag", 22000000, () => EDownedBosses.downedNihilityTwin);

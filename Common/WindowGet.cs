@@ -61,7 +61,6 @@ namespace CalamityEntropy.Content.Items
 
 namespace CalamityEntropy.Common
 {
-    //我脑袋抽了做的这玩意
     public class PGetPlayer : ModPlayer
     {
         public static List<string> yuzuGames = new() { "SenrenBanka", "RiddleJoker", "SabbatOfTheWitch", "CafeStella", "tenshi_sz", "DracuRiot", "PARQUET", "NobleWorks", "夏空カナタ", "夏空彼方", "天使纷扰", "天神乱漫", "NOBLEWORKS", "天色アイルノーツ", "ライムライト・レモネードジャム", "LimelightLemonade" };
@@ -119,6 +118,10 @@ namespace CalamityEntropy.Common
         public static int RunningGames()
         {
             int s = 0;
+            if (!OperatingSystem.IsWindows())
+            {
+                return 0;
+            }
             var windows = WindowGet.GetAllVisibleWindows();
             foreach (var win in windows)
             {
