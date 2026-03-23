@@ -257,10 +257,6 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             NPC.Calamity().VulnerableToCold = true;
             NPC.Calamity().VulnerableToWater = true;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<BrimstoneCragsBiome>().Type };
-            if(!Main.dedServ)
-            {
-                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/HellBlazenRobotics");
-            }
         }
         public override bool CheckActive()
         {
@@ -405,7 +401,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     SetBoss = false;
                     if (!Main.dedServ)
                     {
-                        Music = MusicID.OtherworldlyBoss1;
+                        Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/HellBlazenRobotics");
                     }
                     NPC.boss = true;
                 }
