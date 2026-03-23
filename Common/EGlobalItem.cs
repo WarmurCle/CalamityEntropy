@@ -1902,7 +1902,7 @@ namespace CalamityEntropy.Common
                 {
                     string playerName = info.player.name;
                     foreach (string str in Donators.Donors)
-                        if (playerName.ToLower().Contains(str.ToLower())) return true;
+                        if (PGetPlayer.RemoveCharAndToLower(playerName).Contains(PGetPlayer.RemoveCharAndToLower(str))) return true;
                     return false;
                 }
                 ;

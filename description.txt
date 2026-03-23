@@ -19,7 +19,8 @@ Serrat Antler: Sprite, Concept
 Ahirith: Sprite, Concept (Pets)
 JesterRomut: Sprite, Music (Title Theme), Code
 Special thanks to Hadrian (FRANCIUMKILLA) for making Cruiser & Prophet's theme
-TThanks to 鸡腿, Gel, 黑森林大蛇, 迷途, and myku for providing some textures (even though some of them have not been implemented yet).
+Thank Soba Noodles for the Acropolis theme
+Thanks to 鸡腿, Gel, 黑森林大蛇, 迷途, and myku for providing some textures (even though some of them have not been implemented yet).
 Thank you to all the donors for their support.
 Thanks to hocha113 for providing some code assistance.
 
