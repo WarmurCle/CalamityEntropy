@@ -32,6 +32,7 @@ namespace CalamityEntropy.Content.Items.Donator
             player.Entropy().addEquip("Leyla", !hideVisual);
             player.statDefense += GetDefense(level);
             player.endurance += GetEndurance(level);
+            player.statLifeMax2 += MaxHealthAddition(level);
             player.lifeRegen += (int)(Math.Round(GetRegen(level * 2)));
         }
         public override void AddRecipes()
@@ -105,10 +106,10 @@ namespace CalamityEntropy.Content.Items.Donator
             1 => 1f,
             2 => 1.5f,
             3 => 2f,
-            4 => 2.5f,
-            5 => 3f,
-            6 => 4f,
-            7 => 5f,
+            4 => 3f,
+            5 => 4f,
+            6 => 5f,
+            7 => 6f,
             _ => 0.5f
         }; 
         public static float GetEndurance(int level) => level switch

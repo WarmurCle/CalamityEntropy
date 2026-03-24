@@ -104,6 +104,8 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         }
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
+            if (Main.zenithWorld)
+                return zenithAI.aitype != 3f;
             if (AIStyle == 1 || AIStyle == 11)
                 return true;
             return false;
@@ -906,6 +908,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             if (Main.zenithWorld)
             {
                 DrawTail();
+                DrawFins();
                 return zenithAI.PreDraw(NPC, spriteBatch, screenPos, drawColor);
             }
             else

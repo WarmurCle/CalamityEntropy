@@ -359,7 +359,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         {
                             if (this.changeCounter == 40 && Main.netMode != 1)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(null), targetPlayerr.Center, Vector2.Zero, ModContent.ProjectileType<CruiserSlash>(), (int)((float)NPC.damage / 6f), 0f, -1, 0f, 0f, 0f);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(null), targetPlayerr.Center, (targetPlayerr.Center - NPC.Center).normalize() * 2, ModContent.ProjectileType<CruiserSlash>(), (int)((float)NPC.damage / 6f), 0f, -1, 0f, 0f, 0f);
                             }
                             if (this.changeCounter < 60)
                             {
@@ -535,7 +535,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     this.changeCounter++;
                     if ((this.changeCounter == 80 || this.changeCounter == 220) && Main.netMode != 1)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(null), NPC.Center, (targetPlayerr.Center - NPC.Center).SafeNormalize(Vector2.Zero) * 6, ModContent.ProjectileType<CruiserLaser2>(), NPC.damage / 7, 0f, -1, (float)NPC.whoAmI, 0f, 0f);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(null), NPC.Center, NPC.rotation.ToRotationVector2() * 6, ModContent.ProjectileType<CruiserLaser2>(), NPC.damage / 7, 0f, -1, (float)NPC.whoAmI, 0f, 0f);
                     }
                     if (this.changeCounter < 60)
                     {
@@ -638,13 +638,13 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     }
                     if (this.aitype == 1f)
                     {
-                        num /= 3;
-                        speed *= 0.65f;
+                        num /= 2;
+                        speed *= 0.6f;
                     }
                     if (this.aitype == 2f)
                     {
-                        num /= 4;
-                        speed *= 0.5f;
+                        num /= 2;
+                        speed *= 0.6f;
                         counts--;
                     }
                     speed *= 0.3f;
@@ -666,8 +666,8 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         SoundStyle sound;
-                        sound = new("CalamityEntropy/Assets/Sounds/clap", 0);
-                        sound.Pitch = 1.4f;
+                        sound = new("CalamityEntropy/Assets/Sounds/soulshine", 0);
+                        sound.Pitch = 0.6f;
                         SoundEngine.PlaySound(sound, null, null);
                         SoundEngine.PlaySound(SoundID.Item9, null, null);
                     }
