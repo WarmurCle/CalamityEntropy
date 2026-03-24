@@ -20,7 +20,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons
 {
-    public class AzureRapier : ModItem, IDevItem, IGetFromStarterBag
+    public class AzureRapier : ModItem, IDevItem
     {
         public string DevName => "Polaris";
         public override void SetDefaults()
@@ -79,11 +79,6 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient<CalamityMod.Items.Placeables.SunkenSea.PrismShard>(10)
                 .AddTile(TileID.Anvils)
                 .Register();
-        }
-
-        public bool OwnAble(Player player, ref int count)
-        {
-            return StartBagGItem.NameContains(player, "polaris") || StartBagGItem.NameContains(player, "cle");
         }
     }
     public class AzureRapierHeld : ModProjectile

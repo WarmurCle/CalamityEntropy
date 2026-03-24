@@ -20,7 +20,7 @@ using Terraria.ModLoader.IO;
 
 namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
 {
-    public class DustCarver : ModItem, IGetFromStarterBag
+    public class DustCarver : ModItem
     {
         public int LevelNow = 0;
         public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
@@ -230,10 +230,6 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             return ret;
         }
 
-        public bool OwnAble(Player player, ref int count)
-        {
-            return StartBagGItem.NameContains(player, "polaris");
-        }
         public override bool RangedPrefix()
         {
             return true;
