@@ -52,16 +52,16 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             {
                 Projectile.alpha += 255 / 40;
             }
-            for (int i = 0; i < 2; i++)
+            for (float i = 0; i < 1; i += 0.25f)
             {
                 Particle p = new Particle();
                 p.alpha = 0.22f;
-                p.position = Projectile.Center;
+                p.position = Projectile.Center + Projectile.velocity * i;
                 p.velocity = new Vector2(0.3f, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2);
                 VoidParticles.particles.Add(p);
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
-            Projectile.velocity *= 1.007f;
+            Projectile.velocity *= 1.01f;
         }
         public override bool PreDraw(ref Color lightColor)
         {

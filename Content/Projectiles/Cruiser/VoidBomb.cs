@@ -57,9 +57,9 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 Projectile.rotation = Projectile.velocity.ToRotation();
                 Projectile.ai[2]++;
             }
-            Projectile.rotation += (Projectile.whoAmI % 2 == 0 ? 1 : -1) * Projectile.velocity.Length() * 0.007f;
+            Projectile.rotation += (Projectile.whoAmI % 2 == 0 ? 1 : -1) * Projectile.velocity.Length() * 0.01f;
             counter++;
-            Projectile.velocity *= 0.97f;
+            Projectile.velocity *= 0.96f;
             if (Main.dedServ)
                 CEUtils.SyncProj(Projectile.whoAmI);
         }
@@ -68,18 +68,15 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.rotation.ToRotationVector2() * 30, ModContent.ProjectileType<VoidSpike>(), Projectile.damage, 2);
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.rotation.ToRotationVector2() * -30, ModContent.ProjectileType<VoidSpike>(), Projectile.damage, 2);
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), Projectile.damage, 2, -1, -0.4f, -0.4f).ToProj().Resize(100, 100);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.rotation.ToRotationVector2() * 46, ModContent.ProjectileType<VoidSpike>(), Projectile.damage, 2);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.rotation.ToRotationVector2() * -46, ModContent.ProjectileType<VoidSpike>(), Projectile.damage, 2);
             }
-            CEUtils.PlaySound("explosion", 1, Projectile.Center, 4);
-            CalamityMod.Particles.Particle pulse = new PlasmaExplosion(Projectile.Center, Vector2.Zero, new Color(160, 120, 255), new Vector2(2f, 2f), 0, 0f, 0.036f, 46);
-            GeneralParticleHandler.SpawnParticle(pulse);
-            CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, new Color(180, 156, 255), Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.46f, 30);
+            CEUtils.PlaySound("VoidBomb", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center, 16);
+            CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, new Color(180, 156, 255) * 0.5f, Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.46f, 30);
             GeneralParticleHandler.SpawnParticle(explosion2);
-            for (float i = 0; i <= 1; i += 0.05f)
+            for (float i = 0; i <= 1; i += 0.1f)
             {
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Lerp(Color.White, Color.SkyBlue, i) * 0.8f, "CalamityMod/Particles/FlameExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.01f, i * 0.12f, (int)((1.2f - i) * 60)));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Lerp(Color.White, Color.BlueViolet, i), "CalamityMod/Particles/ShatteredExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.01f, i * 0.16f, (int)(i * 30)));
             }
         }
         public override bool PreDraw(ref Color lightColor)
@@ -88,7 +85,10 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             Texture2D t = CEUtils.getExtraTex("a_circle");
-            Main.EntitySpriteDraw(t, Projectile.Center - Main.screenPosition, null, new Color(180, 180, 255) * ((float)counter / 120f) * 0.66f * (1 - ((float)Projectile.timeLeft / 120f)), Projectile.rotation, t.Size() / 2f, new Vector2(32, 0.1f), SpriteEffects.None);
+            float alpha = 0.52f * (counter / 120f);
+            if (Projectile.timeLeft <= 7)
+                alpha = Projectile.timeLeft / 7f;
+            Main.EntitySpriteDraw(t, Projectile.Center - Main.screenPosition, null, new Color(180, 180, 255) * alpha, Projectile.rotation, t.Size() / 2f, new Vector2(36, 0.05f), SpriteEffects.None);
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 

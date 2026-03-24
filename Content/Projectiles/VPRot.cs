@@ -31,6 +31,11 @@ namespace CalamityEntropy.Content.Projectiles
         public List<Vector2> odp = new List<Vector2>();
         public override void AI()
         {
+            if(!((int)(Projectile.ai[2])).ToNPC().active)
+            {
+                Projectile.Kill();
+                return;
+            }
             Projectile.Center = ((int)(Projectile.ai[2])).ToNPC().Center + ((int)(Projectile.ai[2])).ToNPC().rotation.ToRotationVector2() * 47;
             if (((VoidPopeHand)((int)(Projectile.ai[2])).ToNPC().ModNPC).circle)
             {
