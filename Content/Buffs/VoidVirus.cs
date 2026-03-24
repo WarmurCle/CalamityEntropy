@@ -22,14 +22,15 @@ namespace CalamityEntropy.Content.Buffs
         {
             if (Main.GameUpdateCount % 20 == 0)
             {
-                if (npc.life > 80)
+                int dot = (int)(80 * npc.Entropy().DebuffDamageMult());
+                if (npc.life > dot)
                 {
-                    npc.life -= 80;
-                    CombatText.NewText(npc.getRect(), Color.SkyBlue, 80, false, true);
+                    npc.life -= dot;
+                    CombatText.NewText(npc.getRect(), Color.SkyBlue, dot, false, true);
                 }
                 else
                 {
-                    npc.SimpleStrikeNPC(80, 0, false, 0, DamageClass.Default);
+                    npc.SimpleStrikeNPC(dot, 0, false, 0, DamageClass.Default);
                 }
             }
         }

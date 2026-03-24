@@ -3971,7 +3971,7 @@ Items: {
 			+[5] Max health
 			Increase damage from debuffs inflicted by you by [4]%
 			Chance to apply a debuff based on progress to enemies after hitted
-			Level - [L]/7
+			Level - [L]/[ML]
 			'''
 	}
 

@@ -55,11 +55,19 @@ namespace CalamityEntropy.Content.Items.Donator
             tooltips.Replace("[4]", DoTDmgMult(level).ToPercent());
             tooltips.Replace("[5]", MaxHealthAddition(level));
             tooltips.Replace("[L]", level);
+            tooltips.Replace("[ML]", 9);
         }
         public static int ApplyBuffType()
         {
-            if (DownedBossSystem.downedCalamitas)
+            if (DownedBossSystem.downedCalamitas || DownedBossSystem.downedExoMechs)
+            {
+                var l = new List<int>();
+                if (DownedBossSystem.downedCalamitas)
+                    l.Add(ModContent.BuffType<TrueVulnerabilityHex>());
+                if (DownedBossSystem.downedExoMechs)
+                    l.Add(ModContent.BuffType<MiracleBlight>());
                 return ModContent.BuffType<TrueVulnerabilityHex>();
+            }
             if (DownedBossSystem.downedYharon)
                 return ModContent.BuffType<Dragonfire>();
             if (DownedBossSystem.downedDoG)
@@ -86,18 +94,22 @@ namespace CalamityEntropy.Content.Items.Donator
             5 => 40,
             6 => 50,
             7 => 60,
+            8 => 70,
+            9 => 80,
             _ => 10
         };
         public static float DoTDmgMult(int level) => level switch
         {
             0 => 0.5f,
-            1 => 0.5f,
-            2 => 0.5f,
-            3 => 0.6f,
-            4 => 0.7f,
-            5 => 0.8f,
-            6 => 0.9f,
-            7 => 1f,
+            1 => 0.6f,
+            2 => 0.7f,
+            3 => 0.85f,
+            4 => 1f,
+            5 => 1.2f,
+            6 => 1.4f,
+            7 => 1.6f,
+            8 => 1.8f,
+            9 => 2f,
             _ => 0.5f
         };
         public static float GetRegen(int level) => level switch
@@ -106,39 +118,49 @@ namespace CalamityEntropy.Content.Items.Donator
             1 => 1f,
             2 => 1.5f,
             3 => 2f,
-            4 => 3f,
-            5 => 4f,
-            6 => 5f,
-            7 => 6f,
+            4 => 2.5f,
+            5 => 3f,
+            6 => 4f,
+            7 => 5f,
+            8 => 5.5f,
+            9 => 6f,
             _ => 0.5f
         }; 
         public static float GetEndurance(int level) => level switch
         {
             0 => 0.02f,
-            1 => 0.04f,
-            2 => 0.05f,
-            3 => 0.06f,
-            4 => 0.08f,
-            5 => 0.1f,
-            6 => 0.12f,
-            7 => 0.14f,
+            1 => 0.03f,
+            2 => 0.04f,
+            3 => 0.05f,
+            4 => 0.06f,
+            5 => 0.08f,
+            6 => 0.09f,
+            7 => 0.1f,
+            8 => 0.11f,
+            9 => 0.12f,
             _ => 0.02f
         };
         public static int GetDefense(int level) => level switch
         {
             0 => 1,
             1 => 2,
-            2 => 4,
+            2 => 3,
             3 => 5,
             4 => 6,
             5 => 8,
             6 => 10,
-            7 => 15,
+            7 => 12,
+            8 => 15,
+            9 => 18,
             _ => 1
         };
         public static int Level()
         {
+            if (DownedBossSystem.downedCalamitas && DownedBossSystem.downedExoMechs)
+                return 9;
             if (DownedBossSystem.downedDoG)
+                return 8;
+            if (DownedBossSystem.downedProvidence)
                 return 7;
             if (NPC.downedMoonlord)
                 return 6;

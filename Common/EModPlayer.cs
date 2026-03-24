@@ -1514,6 +1514,12 @@ namespace CalamityEntropy.Common
         public int voidslashType = -1;
         public float WingTimeMult = 1;
         public int ffDecSlot = 0;
+        public override void UpdateLifeRegen()
+        {
+            Player.lifeRegenTime = 0;
+            if (UsingItemCounter > 0 && bloodBoiling > 0)
+                Player.lifeRegen = int.Min(0, Player.lifeRegen);
+        }
         public override void PostUpdateMiscEffects()
         {
             ffDecSlot = 0;
@@ -1627,14 +1633,16 @@ namespace CalamityEntropy.Common
             if (bloodBoiling > 0)
             {
                 bloodBoiling--;
-                float AttackSpeedAddition = (float)Math.Sqrt(this.UsingItemCounter) * 0.012f;
-                if (Main.GameUpdateCount % 2 == 0)
+                float AttackSpeedAddition = (float)Math.Sqrt(this.UsingItemCounter) * 0.006f;
+                if (Main.GameUpdateCount % 4 == 0)
                 {
-                    int LifeLossing = (int)(this.UsingItemCounter * 0.002f);
+                    int LifeLossing = (int)Math.Round(this.UsingItemCounter * 0.002f);
                     Player.statLife -= LifeLossing;
                     if (Player.statLife <= 0)
                     {
-                        Player.Hurt(PlayerDeathReason.ByCustomReason(Player.name + Mod.GetLocalization("KilledByBloodBoiling").Value), LifeLossing, 0);
+                        for (int i = 0; i < Player.hurtCooldowns.Length; i++)
+                            Player.hurtCooldowns[i] = 0;
+                        Player.Hurt(PlayerDeathReason.ByCustomReason(Player.name + Mod.GetLocalization("KilledByBloodBoiling").Value), 66666, 0);
                     }
                 }
                 Player.GetAttackSpeed(DamageClass.Generic) += AttackSpeedAddition;
