@@ -48,6 +48,7 @@ namespace CalamityEntropy.Content.Items.Armor.Smoldering
             player.GetCritChance(DamageClass.Generic) += 5;
             player.GetDamage(DamageClass.Generic) += 0.08f;
         }
+        
 
         public override void AddRecipes()
         {
@@ -66,7 +67,7 @@ namespace CalamityEntropy.Content.Items.Armor.Smoldering
         }
 
         public List<TailSeg> segs = null;
-        public void UpdateSegs(Player player)
+        public void UpdateSegs(Player player, bool addVel = true)
         {
             if (segs == null)
             {
@@ -90,17 +91,25 @@ namespace CalamityEntropy.Content.Items.Armor.Smoldering
                 Vector2 fp = i == 0 ? player.GetDrawCenter() : segs[i - 1].Center;
                 segs[i].rotation = (segs[i].Center - fp).ToRotation();
             }
-            Projectile.Center += player.velocity;
+            if(addVel)
+                Projectile.Center += player.velocity;
         }
         public int ShootDelay = 0;
+        public override bool? CanDamage()
+        {
+            return Projectile.damage > 0;
+        }
+        bool t = true;
         public override void AI()
         {
+            if (Projectile.localAI[1]++ == 0)
+                t = Projectile.GetOwner().Entropy().smolderingSet;
             if (ShootDelay > 0)
                 ShootDelay--;
             Player player = Projectile.GetOwner();
-            if (CEUtils.getDistance(Projectile.Center, player.Center) > 400)
+            if (CEUtils.getDistance(Projectile.Center, player.Center) > 900)
                 Projectile.Center = player.Center;
-            if(!player.Entropy().smolderingSet)
+            if((!player.Entropy().smolderingSet && t) || (player.Entropy().smolderingSet && !t) || !(player.Entropy().smolderingSet || player.Entropy().smdVisual))
             {
                 Projectile.Kill();
             }
@@ -111,15 +120,17 @@ namespace CalamityEntropy.Content.Items.Armor.Smoldering
             player.Calamity().mouseWorldListener = true;
             float targetRot = 0;
             int delayMax = (int)(60 - 30 * (1f - (player.statLife / (float)player.statLifeMax2)));
-            NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 1200);
+
+            NPC target = Projectile.damage > 0 ? CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 1200) : null;
             if (target == null)
             {
                 Vector2 targetPos = player.Center + new Vector2(player.direction * -110, (float)(Math.Sin(Main.GameUpdateCount * 0.05f) * 56));
-                Projectile.velocity += (targetPos - Projectile.Center).normalize() * 0.3f;
-                Projectile.velocity *= 0.96f;
+                Projectile.velocity += (targetPos - Projectile.Center) * 0.01f;
+                Projectile.velocity *= 0.94f;
 
                 targetRot = (Projectile.Center - player.Center).ToRotation();
                 ShootDelay = delayMax;
+                UpdateSegs(player, false);
             }
             else
             {
@@ -139,10 +150,10 @@ namespace CalamityEntropy.Content.Items.Armor.Smoldering
                     SoundEngine.PlaySound(snd, Projectile.Center);
 
                 }
+                UpdateSegs(player);
             }
             Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, targetRot, 0.14f, false);
 
-            UpdateSegs(player);
         }
         public override bool PreDraw(ref Color lightColor)
         {

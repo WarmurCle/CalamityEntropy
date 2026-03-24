@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.Skies
             Color ocolor = new Color((int)(12 * pc), (int)(65 * pc), (int)(100 * pc));
             bool drawAWMask = false;
             int AWIndex = -1;
-            if (NPC.AnyNPCs(ModContent.NPCType<AbyssalWraith>()))
+            /*if (NPC.AnyNPCs(ModContent.NPCType<AbyssalWraith>()))
             {
                 awtime = 180;
                 ocolor = new Color((int)(190 * pc), (int)(55 * pc), (int)(205 * pc));
@@ -80,8 +80,9 @@ namespace CalamityEntropy.Content.Skies
 
                     }
                 }
-            }
-            awtime--;
+            }*/
+            if(awtime >= 0)
+                awtime--;
 
             Main.spriteBatch.UseSampleState(SamplerState.LinearWrap);
             Vector2 dp = new Vector2((Main.screenPosition.X * -0.5f + counter * 0.3f) % txd.Width, (Main.screenPosition.Y * -0.5f + counter * -0.1f) % txd.Height);
@@ -89,7 +90,6 @@ namespace CalamityEntropy.Content.Skies
 
             if (awtime > 0)
             {
-
                 spriteBatch.End();
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
                 ocolor = new Color((int)(36 * pc), (int)(36 * pc), (int)(36 * pc));
@@ -124,10 +124,6 @@ namespace CalamityEntropy.Content.Skies
                 ocolor = new Color((int)(12 * pc), (int)(62 * pc), (int)(96 * pc));
             }
             float c = 1f;
-            /*if (SubworldSystem.IsActive<VOIDSubworld>())
-            {
-                c *= 0.2f;
-            }*/
             dp = new Vector2((Main.screenPosition.X * -0.5f * c + counter * -0.3f * c) % txd.Width, (Main.screenPosition.Y * -0.5f * c + counter * 0.1f * c) % txd.Height);
             spriteBatch.Draw(txd, new Vector2(-528, -528), new Rectangle((int)-dp.X, (int)-dp.Y, Main.screenWidth + 2024, Main.screenHeight + 1920), ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
 
@@ -148,7 +144,6 @@ namespace CalamityEntropy.Content.Skies
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
                 Texture2D s = CEUtils.getExtraTex("Perlin");
                 Texture2D s1 = CEUtils.getExtraTex("EternityStreak");
-                Texture2D s2 = CEUtils.getExtraTex("EternityStreak");
                 spriteBatch.Draw(CEUtils.pixelTex, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.1f - Main.screenPosition.X * -0.5f), (int)(counter * 0.1f - Main.screenPosition.Y * -0.5f), Main.screenWidth, Main.screenHeight), Color.White);
 
 
@@ -158,17 +153,12 @@ namespace CalamityEntropy.Content.Skies
                 graphicsDevice.Clear(Color.Black);
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
 
-                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.33f - Main.screenPosition.X * -0.125f), (int)(counter * -0.043f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
-                spriteBatch.Draw(s2, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.37f - Main.screenPosition.X * -0.125f), (int)(counter * -0.046f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
-                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.44f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0373f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
-                spriteBatch.Draw(s2, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.245f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0329f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
-                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.478f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0334f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
-                spriteBatch.Draw(s2, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.45f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0421f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
-                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.26f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0133f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
-                spriteBatch.Draw(s2, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.17f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0431f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
-                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.47f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0243f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
-                spriteBatch.Draw(s2, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.365f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0325f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.38f);
-
+                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.33f - Main.screenPosition.X * -0.125f), (int)(counter * -0.043f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.5f);
+                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.37f - Main.screenPosition.X * -0.125f), (int)(counter * -0.046f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.5f);
+                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.44f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0373f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.5f);
+                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.245f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0329f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.5f);
+                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.478f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0334f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.5f);
+                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.45f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0421f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.5f);
                 spriteBatch.End();
 
                 graphicsDevice.SetRenderTarget(Main.screenTarget);

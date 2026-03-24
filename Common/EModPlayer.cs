@@ -44,6 +44,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -854,6 +855,7 @@ namespace CalamityEntropy.Common
         public Item goldenRock = null;
         public override void ResetEffects()
         {
+            smdVisual = false;
             smolderingSet = false;
             ashesCore = false;
             accAzureAbyss = false;
@@ -2268,11 +2270,30 @@ namespace CalamityEntropy.Common
         public int FallSpeedUP = 0;
         public float MariviumLight = 0;
         public int AzureShield = 0;
+        public List<int> smolderingSets;
+        public bool smdVisual = false;
         public override void PostUpdate()
         {
+            if(smolderingSets == null)
+            {
+                smolderingSets = new List<int>() { ModContent.ItemType<SmolderingHelmet>(), ModContent.ItemType<SmolderingBreastplate>(), ModContent.ItemType<SmolderingGreaves>() };
+            }
+            bool fullSet = smolderingSet;
+            int smdCount = 0;
+            for(int i = 10; i < 13; i++)
+            {
+                if (smolderingSets.Contains(Player.armor[i].type))
+                    smdCount++;
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                if (smolderingSets.Contains(Player.armor[i].type))
+                    smdCount++;
+            }
+            smdVisual = smdCount >= 3;
             int sType = ModContent.ProjectileType<SmolderingTail>();
-            if (smolderingSet && Player.ownedProjectileCounts[sType] < 1)
-                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, sType, 30, 4, Player.whoAmI);
+            if ((smolderingSet || smdVisual)  && Player.ownedProjectileCounts[sType] < 1)
+                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, sType, smolderingSet ? 30.ApplyAccArmorDamageBonus() : 0, 4, Player.whoAmI);
             if(Main.myPlayer == Player.whoAmI && Player.HeldItem.ModItem != null && Player.HeldItem.ModItem is IHoldoutItem ih)
             {
                 int holdoutType = ih.ProjectileType;
