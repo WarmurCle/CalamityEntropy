@@ -100,7 +100,7 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
         {
             player.GetDamage(DamageClass.Generic) += 0.2f;
             player.GetCritChance(DamageClass.Generic) += 20;
-            player.GetAttackSpeed(DamageClass.Melee) += 0.30f;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.10f;
             player.statLifeMax2 += 200;
             player.statManaMax2 += 200;
         }
