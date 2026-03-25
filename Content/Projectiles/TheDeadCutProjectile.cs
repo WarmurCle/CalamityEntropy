@@ -155,7 +155,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                 for (int i = 0; i < oldRots.Count; i++)
                 {
-                    Color b = Color.Lerp(Color.DarkGray, Color.LightBlue, (float)i / (float)oldRots.Count) * 0.8f * ((float)i / (float)oldRots.Count);
+                    Color b = Color.Lerp(Color.DarkGray, Color.LightGreen, (float)i / (float)oldRots.Count) * 0.8f * ((float)i / (float)oldRots.Count);
                     ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(520 * oldScales[i] * Projectile.scale * 0.2f, 0).RotatedBy(oldRots[i])),
                           new Vector3(i / (float)oldRots.Count, 1, 1),
                           b));
