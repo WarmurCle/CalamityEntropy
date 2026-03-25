@@ -117,7 +117,7 @@ namespace CalamityEntropy.Content.Projectiles
                 CEUtils.PlaySound("soulexplode", 1.2f, Projectile.Center, maxIns: 3, volume: 0.32f);
                 Projectile.timeLeft = 2;
                 Projectile.Resize(256, 256);
-                Main.LocalPlayer.Calamity().GeneralScreenShakePower += 1.6f;
+                Main.LocalPlayer.Calamity().GeneralScreenShakePower += Utils.Remap(Projectile.Distance(Projectile.GetOwner().Center), 0, 1600, 1.8f, 0);
                 //CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(target.Center, Vector2.Zero, new Color(90, 150, 150), new Vector2(2f, 2f), 0, 0.1f, 0.65f * 0.8f, 18);
                 //GeneralParticleHandler.SpawnParticle(pulse);
                 //CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(target.Center, Vector2.Zero, new Color(80, 120, 160), Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.6f * 0.65f, 10);
