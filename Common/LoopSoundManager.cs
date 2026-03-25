@@ -11,49 +11,72 @@ namespace CalamityEntropy.Common
         public int timeleft = 2;
         public void setVolume(float v)
         {
+            if (instance == null)
+                return;
             if (!Main.dedServ)
             {
-                instance.Volume = v * Main.soundVolume;
+                try
+                {
+                    instance.Volume = v * Main.soundVolume;
+                }
+                catch { }
             }
         }
         public void setVolume_Dist(Vector2 center, float mindist, float maxdist, float volume = 1)
         {
-            if (!Main.dedServ)
+            if (instance == null)
+                return;
+            try
             {
-                if (CEUtils.getDistance(center, Main.LocalPlayer.Center) > mindist)
+                if (!Main.dedServ)
                 {
-                    if (CEUtils.getDistance(center, Main.LocalPlayer.Center) > maxdist)
+                    if (CEUtils.getDistance(center, Main.LocalPlayer.Center) > mindist)
                     {
-                        setVolume(0);
+                        if (CEUtils.getDistance(center, Main.LocalPlayer.Center) > maxdist)
+                        {
+                            setVolume(0);
+                        }
+                        else
+                        {
+                            setVolume((1 - (float)(CEUtils.getDistance(center, Main.LocalPlayer.Center) - mindist) / (maxdist - mindist)) * volume);
+                        }
                     }
                     else
                     {
-                        setVolume((1 - (float)(CEUtils.getDistance(center, Main.LocalPlayer.Center) - mindist) / (maxdist - mindist)) * volume);
+                        setVolume(volume);
                     }
                 }
-                else
-                {
-                    setVolume(volume);
-                }
             }
+            catch
+            { }
         }
         public LoopSound(SoundEffect sf)
         {
             if (!Main.dedServ)
             {
-                instance = sf.CreateInstance();
-                instance.IsLooped = true;
+                try
+                {
+                    instance = sf.CreateInstance();
+                    instance.IsLooped = true;
+                }
+                catch { }
             }
         }
         public void play()
         {
+            if (instance == null)
+                return;
             if (!Main.dedServ && LoopSoundManager.sounds != null)
             {
                 if (LoopSoundManager.sounds.Count < 5)
                 {
                     if (ModContent.GetInstance<Config>().EnableLoopingSound)
                     {
-                        instance.Play();
+                        try
+                        {
+                            instance.Play();
+                        }
+                        catch { }
                         LoopSoundManager.sounds.Add(this);
                     }
                 }
@@ -61,9 +84,15 @@ namespace CalamityEntropy.Common
         }
         public void stop()
         {
+            if (instance == null)
+                return;
             if (!Main.dedServ)
             {
-                instance.Stop();
+                try
+                {
+                    instance.Stop();
+                }
+                catch { }
             }
         }
     }
