@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Items.Vanity
 {
     public class Fuusen : ModItem, IDonatorItem, IVanitySkin
     {
-        public string DonatorName => "脸f";
+        public string DonatorName => "脸F";
 
         public override void Load()
         {
@@ -61,6 +61,14 @@ namespace CalamityEntropy.Content.Items.Vanity
 
         public override void AddRecipes()
         {
+            CreateRecipe()
+                .AddIngredient(3225)
+                .AddIngredient(1163)
+                .AddIngredient(399)
+                .AddIngredient(1249)
+                .AddIngredient(983)
+                .AddIngredient(159)
+                .Register();
         }
     }
 }

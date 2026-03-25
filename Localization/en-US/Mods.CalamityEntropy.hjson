@@ -4060,6 +4060,11 @@ Items: {
 			Cinder core will shoot fireballs to enemies nearby
 			'''
 	}
+
+	Fuusen: {
+		DisplayName: Fuusen
+		Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
