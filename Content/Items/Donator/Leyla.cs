@@ -91,25 +91,25 @@ namespace CalamityEntropy.Content.Items.Donator
             2 => 20,
             3 => 25,
             4 => 30,
-            5 => 40,
-            6 => 50,
-            7 => 60,
-            8 => 70,
-            9 => 80,
+            5 => 35,
+            6 => 40,
+            7 => 50,
+            8 => 60,
+            9 => 70,
             _ => 10
         };
         public static float DoTDmgMult(int level) => level switch
         {
             0 => 0.5f,
-            1 => 0.6f,
-            2 => 0.7f,
-            3 => 0.85f,
-            4 => 1f,
-            5 => 1.2f,
-            6 => 1.4f,
-            7 => 1.6f,
-            8 => 1.8f,
-            9 => 2f,
+            1 => 0.75f,
+            2 => 1f,
+            3 => 1.2f,
+            4 => 1.4f,
+            5 => 1.5f,
+            6 => 1.6f,
+            7 => 1.8f,
+            8 => 2f,
+            9 => 2.5f,
             _ => 0.5f
         };
         public static float GetRegen(int level) => level switch
@@ -136,8 +136,8 @@ namespace CalamityEntropy.Content.Items.Donator
             5 => 0.08f,
             6 => 0.09f,
             7 => 0.1f,
-            8 => 0.11f,
-            9 => 0.12f,
+            8 => 0.12f,
+            9 => 0.14f,
             _ => 0.02f
         };
         public static int GetDefense(int level) => level switch
@@ -150,8 +150,8 @@ namespace CalamityEntropy.Content.Items.Donator
             5 => 8,
             6 => 10,
             7 => 12,
-            8 => 15,
-            9 => 18,
+            8 => 14,
+            9 => 16,
             _ => 1
         };
         public static int Level()
