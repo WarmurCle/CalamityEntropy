@@ -3,6 +3,8 @@ using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Dusts;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Particles;
+using CalamityMod.Projectiles.Ranged;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework.Graphics;
@@ -118,7 +120,7 @@ namespace CalamityEntropy.Content.Items.Books
             purple = false;
             SoundEngine.PlaySound(SoundID.Item12 with { Pitch = 0.4f, Volume = 0.45f }, Projectile.Center);
             base.Shoot();
-            ProduceWarpCrossDust(Projectile.Center, (int)CalamityDusts.BlueCosmilite);
+            ProduceWarpCrossDust(Projectile.Center);
 
             Projectile.velocity = odv;
             Projectile.Center = oPos;
@@ -130,7 +132,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(Projectile.rotation);
             purple = true;
             base.Shoot();
-            ProduceWarpCrossDust(Projectile.Center, (int)CalamityDusts.BlueCosmilite);
+            ProduceWarpCrossDust(Projectile.Center);
             purple = false;
             Projectile.velocity = odv;
             Projectile.Center = oPos;
@@ -141,17 +143,39 @@ namespace CalamityEntropy.Content.Items.Books
         {
             return new CosmicBlessingEffect();
         }
-        private void ProduceWarpCrossDust(Vector2 dustPos, int dustID)
+        public static void ProduceWarpCrossDust(Vector2 dustPos, float scale = 1)
         {
-            for (int i = 0; i < 4; ++i)
+            float speedMultiplier = 1;
+            int dustID = ModContent.DustType<SquashDust>();
+            Color color = Color.Cyan;
+            if (speedMultiplier > 0.8f)
             {
-                float speed = Main.rand.NextFloat(2.0f, 4.1f);
-                Vector2 dustVel = Vector2.UnitX * speed;
-                Dust d = Dust.NewDustDirect(Projectile.Center, 0, 0, dustID);
+                for (int i = 0; i < 2; ++i)
+                {
+                    var pulse = new CustomPulse(dustPos, Vector2.Zero, Color.Black, "CalamityMod/ExtraTextures/BasicCircle", Vector2.One, 0, 0.4f * speedMultiplier * scale, 0.05f * speedMultiplier * scale, 12, false);
+                    GeneralParticleHandler.SpawnParticle(pulse);
+                    var pulse2 = new CustomPulse(dustPos, Vector2.Zero, color, "CalamityMod/Particles/BloomRing", Vector2.One, 0, 0.15f * (1 + i * 0.2f) * speedMultiplier * scale, 0.025f * (1 + i * 0.2f) * speedMultiplier * scale, 12, true);
+                    GeneralParticleHandler.SpawnParticle(pulse2);
+                }
+            }
+            else
+            {
+                var pulse = new CustomSpark(dustPos, Vector2.Zero, "CalamityMod/Particles/BloomCircle", false, 10, 0.3f * scale * speedMultiplier, color, new Vector2(1f, 1f), true, true, glowOpacity: 1f);
+                GeneralParticleHandler.SpawnParticle(pulse);
+            }
+
+
+            for (int i = 0; i < 5; ++i)
+            {
+                float speed = Main.rand.NextFloat(3f, 6f);
+                Vector2 dustVel = Vector2.UnitX * speed * speedMultiplier * 1.5f;
+                Dust d = Dust.NewDustDirect(dustPos, 0, 0, dustID);
                 d.position = dustPos;
-                d.velocity = dustVel;
+                d.velocity = dustVel * scale;
                 d.noGravity = true;
-                d.scale *= Main.rand.NextFloat(1.1f, 1.4f);
+                d.scale *= Main.rand.NextFloat(1.8f, 2.2f) * (1 - speed / 7) * scale;
+                d.color = color;
+                d.fadeIn = 1;
                 Dust.CloneDust(d).velocity = dustVel.RotatedBy(MathHelper.PiOver2);
                 Dust.CloneDust(d).velocity = dustVel.RotatedBy(MathHelper.Pi);
                 Dust.CloneDust(d).velocity = dustVel.RotatedBy(-MathHelper.PiOver2);
@@ -232,9 +256,15 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override void OnKill(int timeLeft)
         {
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, color, 0.4f, 1, true, BlendState.Additive, 0, 12);
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.3f, 1, true, BlendState.Additive, 0, 12);
-
+            Vector2 dustPos = Projectile.Center;
+            float scale = 2;
+            for (int i = 0; i < 2; ++i)
+            {
+                var pulse = new CustomPulse(dustPos, Vector2.Zero, Color.Black, "CalamityMod/ExtraTextures/BasicCircle", Vector2.One, 0, 0.4f * scale, 0.05f * scale, 16, false);
+                GeneralParticleHandler.SpawnParticle(pulse);
+                var pulse2 = new CustomPulse(dustPos, Vector2.Zero, color, "CalamityMod/Particles/BloomRing", Vector2.One, 0, 0.15f * (1 + i * 0.2f) * scale, 0.025f * (1 + i * 0.2f) * scale, 16, true);
+                GeneralParticleHandler.SpawnParticle(pulse2);
+            }
         }
         public List<Vector2> OldPos = new();
         public List<float> OldRot = new();
@@ -257,13 +287,15 @@ namespace CalamityEntropy.Content.Items.Books
             Texture2D tex = Projectile.GetTexture();
 
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, color, Projectile.rotation, tex.Size() / 2f, Projectile.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.Black, Projectile.rotation, tex.Size() / 2f, new Vector2(0.82f, 0.3f) * Projectile.scale, SpriteEffects.None);
+
             if (OldPos.Count > 2)
             {
                 for (int i = 1; i < OldPos.Count; i++)
                 {
                     for (float j = 0; j < 1; j += 0.5f)
                     {
-                        Main.EntitySpriteDraw(tex, Vector2.Lerp(OldPos[i - 1], OldPos[i], j) - Main.screenPosition, null, color * 0.16f * ((float)i / OldPos.Count), OldRot[i], tex.Size() / 2f, Projectile.scale, SpriteEffects.None);
+                        Main.EntitySpriteDraw(tex, Vector2.Lerp(OldPos[i - 1], OldPos[i], j) - Main.screenPosition, null, color * 0.1f * ((float)i / OldPos.Count), OldRot[i], tex.Size() / 2f, Projectile.scale, SpriteEffects.None);
                     }
                 }
             }
@@ -277,6 +309,7 @@ namespace CalamityEntropy.Content.Items.Books
             if (Projectile.numHits < 2)
                 CEUtils.PlaySound("GrassSwordHit1", Main.rand.NextFloat(2f, 2.4f), target.Center, 60, 0.32f);
             DamageMul = float.Max(0.5f, DamageMul * 0.7f);
+            CosmicBlessingHeld.ProduceWarpCrossDust(Projectile.Center, 0.8f);
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
