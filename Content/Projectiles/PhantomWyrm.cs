@@ -173,7 +173,7 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D tail = CEUtils.getExtraTex("pw_tail");
             Texture2D body1 = CEUtils.getExtraTex("pw_body");
             Texture2D body2 = CEUtils.getExtraTex("pw_bodyalt");
-            Main.spriteBatch.UseBlendState(BlendState.Additive);
+            //Main.spriteBatch.UseBlendState(BlendState.Additive);
             Main.spriteBatch.Draw(head, Projectile.Center - Main.screenPosition, null, Color.White * 0.8f * alpha, Projectile.rotation, head.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
             for (int i = 0; i < segs.Count; i++)
             {
@@ -184,7 +184,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 Main.spriteBatch.Draw(draw, segs[i].Center - Main.screenPosition, null, Color.White * 0.8f * alpha, segs[i].rot, draw.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
             }
-            Main.spriteBatch.ExitShaderRegion();
+            //Main.spriteBatch.ExitShaderRegion();
             return false;
         }
     }
