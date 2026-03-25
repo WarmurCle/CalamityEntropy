@@ -97,7 +97,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 120 * scale * Projectile.scale, targetHitbox, (int)(140 * Projectile.scale));
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * Projectile.scale * LScale * 100 * scale, targetHitbox, (int)(140 * Projectile.scale));
         }
         public int addStealth = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -117,13 +117,12 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
-            Texture2D white = this.getTextureGlow();
             Texture2D stealth = CEUtils.getExtraTex("TheDeadCutRotated");
-            Texture2D stealthW = CEUtils.getExtraTex("TheDeadCutRotatedWhite");
             if (Projectile.Calamity().stealthStrike)
             {
-                tex = stealth; white = stealthW;
+                tex = stealth;
             }
+            var white = tex;
             int dir = (int)(Projectile.ai[0]);
             Vector2 origin = dir > 0 ? new Vector2(0, tex.Height) : new Vector2(tex.Width, tex.Height);
             SpriteEffects effect = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
@@ -140,7 +139,7 @@ namespace CalamityEntropy.Content.Projectiles
                 for (int i = 0; i < oldRots.Count; i++)
                 {
                     float prog = (float)i / oldRots.Count;
-                    Color c = Color.Lerp(Color.Black, Color.White, prog) * prog * prog * 0.05f;
+                    Color c = Color.White * prog * prog * 0.032f;
                     float oRot = Projectile.Calamity().stealthStrike ? oldRots[i] : (dir > 0 ? oldRots[i] + MathHelper.PiOver4 : oldRots[i] + MathHelper.Pi * 0.75f);
                     Main.EntitySpriteDraw(white, Projectile.GetOwner().MountedCenter + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, c, oRot, origin, Projectile.Calamity().stealthStrike ? new Vector2(Projectile.scale * oldScales[i] * (0.8f + 0.2f * prog), 1 / 5f * scale) : (Vector2.One * Projectile.scale * oldScales[i] * (0.8f + 0.2f * prog)), effect);
                 }
