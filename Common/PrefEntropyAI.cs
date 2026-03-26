@@ -48,7 +48,7 @@ namespace CalamityEntropy.Common
 
             Player player = Main.player[NPC.target];
             playerOldPos.Add(player.Center);
-            if (playerOldPos.Count > 32)
+            if (playerOldPos.Count > 56)
             {
                 playerOldPos.RemoveAt(0);
             }
