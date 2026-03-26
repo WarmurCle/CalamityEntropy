@@ -1,7 +1,7 @@
 ﻿[h1]This mod is an addon for CalamityMod[/h1]
 
 [h2]-What we added-[/h2]
-4 new boss
+5 new boss
 weapons
 Accessories
 new bossbar style
