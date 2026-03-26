@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
             Item.rare = ItemRarityID.LightRed;
         }
         public static string ID => "HungryLantern";
-        public static float TagDamage = 0.09f;
+        public static float TagDamage = 0.08f;
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().addEquip(ID);
