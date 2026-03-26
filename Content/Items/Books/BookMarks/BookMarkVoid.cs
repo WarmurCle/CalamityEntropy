@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidBurst>(), (int)projectile.GetOwner().GetTotalDamage(projectile.DamageType).ApplyTo(1250), 1, projectile.owner);
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidExplode>(), 0, 1, projectile.owner);
 
-                for (int i = 0; i < 74; i++)
+                for (int i = 0; i < 24; i++)
                 {
                     EParticle.NewParticle(new Smoke() { Lifetime = 26, timeleftmax = 26 }, target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16), new Color(140, 140, 255), 0.3f, 1, true, BlendState.Additive);
                     EParticle.NewParticle(new Smoke() { Lifetime = 26, timeleftmax = 26 }, target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16), Color.LightGoldenrodYellow, 0.3f, 1, true, BlendState.Additive);
