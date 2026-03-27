@@ -1516,9 +1516,11 @@ namespace CalamityEntropy.Common
         public int ffDecSlot = 0;
         public override void UpdateLifeRegen()
         {
-            Player.lifeRegenTime = 0;
-            if (UsingItemCounter > 0 && bloodBoiling > 0)
+            if (UsingItemCounter > 0 && bloodBoiling > 1)
+            {
+                Player.lifeRegenTime = 0;
                 Player.lifeRegen = int.Min(0, Player.lifeRegen);
+            }
         }
         public override void PostUpdateMiscEffects()
         {

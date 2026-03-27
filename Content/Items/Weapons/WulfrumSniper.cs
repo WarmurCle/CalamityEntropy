@@ -157,6 +157,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         public bool thrown = false;
         public override void AI()
         {
+            if(Projectile.GetOwner().dead)
+            {
+                Projectile.Kill();
+                return;
+            }
             Projectile.scale = Projectile.ai[1];
             if(counter == 0 || counter == 16)
             {
