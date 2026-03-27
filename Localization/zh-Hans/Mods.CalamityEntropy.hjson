@@ -3051,7 +3051,7 @@ Items: {
 
 	FadingRoseateReverie: {
 		DisplayName: 残绯幻梦
-		Tooltip: ""
+		Tooltip: ^昨日的离别终成未来的重逢
 	}
 
 	BloodstainedShirt: {

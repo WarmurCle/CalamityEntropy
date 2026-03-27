@@ -2838,7 +2838,7 @@ Items: {
 
 	FadingRoseateReverie: {
 		DisplayName: Fading Roseate Reverie
-		Tooltip: ""
+		Tooltip: ^Yesterday's parting has turned into a future reunion
 	}
 
 	BloodstainedShirt: {

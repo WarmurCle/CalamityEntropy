@@ -3,12 +3,14 @@ using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using System;
+using System.Runtime.ConstrainedExecution;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
 using Terraria.Utilities;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CalamityEntropy.Content.Rarities
 {
@@ -19,6 +21,11 @@ namespace CalamityEntropy.Content.Rarities
         public override int GetPrefixedRarity(int offset, float valueMult) => Type;
         public static void Draw(Item Item, SpriteBatch spriteBatch, string text, int X, int Y, Color textColor, Color lightColor, float rotation,
             Vector2 origin, Vector2 baseScale, float time, bool renderTextSparkles, DynamicSpriteFont font)
+        {
+            Draw(Item, spriteBatch, text, X, Y, textColor, lightColor, rotation, origin, baseScale, time, renderTextSparkles, font, textColor, lightColor);
+        }
+        public static void Draw(Item Item, SpriteBatch spriteBatch, string text, int X, int Y, Color textColor, Color lightColor, float rotation,
+            Vector2 origin, Vector2 baseScale, float time, bool renderTextSparkles, DynamicSpriteFont font, Color cLinarR, Color cParticle)
         {
             var crystalTextGlow = ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/UI/CrystalTextGlow").Value;
             var sparkle = ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/UI/CrystalTextSparkle").Value;
@@ -32,24 +39,32 @@ namespace CalamityEntropy.Content.Rarities
             */
 
             var glowPosition = new Vector2(X + center.X, Y + center.Y / 1.5f);
-            textColor.A = 0;
             float pulsing = 2.5f + (float)Math.Sin(time * 5f);
             for (float f = 0f; f < MathHelper.TwoPi; f += 0.79f)
             {
                 ChatManager.DrawColorCodedString(spriteBatch, font, text, new Vector2(X, Y) + new Vector2(pulsing, 0f).RotatedBy(f + time * 2f % MathHelper.TwoPi), textColor * 0.5f, rotation, origin, baseScale);
             }
 
-            textColor.A = 255;
-
-            ChatManager.DrawColorCodedStringShadow(spriteBatch, font, text, new Vector2(X, Y), textColor * 2f, rotation, origin, baseScale);
-
-            var bloomColor = ColorTool.Rainbowing(time * 4 - 0.9f);
-
             spriteBatch.Draw(crystalTextGlow, glowPosition, null, lightColor, rotation + MathHelper.PiOver2, new Vector2(6f, 33f),
                new Vector2(1.6f, fontSize.X / crystalTextGlow.Height * 1.2f), SpriteEffects.None, 0f);
 
-            ChatManager.DrawColorCodedString(spriteBatch, font, text, new Vector2(X, Y), Color.Black, rotation, origin, baseScale);
-
+            float adX = 0;
+            for (int i = 0; i < text.Length; i++)
+            {
+                Color clr = Color.Lerp(textColor, cLinarR, i / (text.Length - 1f));
+                string chr = text[i].ToString();
+                ChatManager.DrawColorCodedStringShadow(spriteBatch, font, chr, new Vector2(X + adX, Y), clr * 2f, rotation, origin, baseScale);
+                adX += font.MeasureString(chr).X;
+            }
+            adX = 0;
+            for (int i = 0; i < text.Length; i++)
+            {
+                string chr = text[i].ToString();
+                ChatManager.DrawColorCodedString(spriteBatch, font, chr, new Vector2(X + adX, Y), Color.Black, rotation, origin, baseScale);
+                adX += font.MeasureString(chr).X;
+            }
+            
+            var bloomColor = ColorTool.Rainbowing(time * 4 - 0.9f);
             if (!renderTextSparkles)
                 return;
 
@@ -105,7 +120,7 @@ namespace CalamityEntropy.Content.Rarities
         }
         public static float MaxY = 4.5f;
 
-        public static Color TextClr = Color.Violet;
+        public static Color TextClr = Color.Violet * 0.6f;
         public static void Draw(Item Item, string text, int X, int Y, float rotation, Vector2 origin, Vector2 baseScale, Color? textColor = null, Color? lightColor = null, bool? renderTextSparkles = null)
         {
             Draw(Item, Main.spriteBatch, text, X, Y, Colors.AlphaDarken(textColor ?? TextClr), lightColor ?? Color.Purple, rotation, origin, baseScale, Main.GlobalTimeWrappedHourly,
@@ -115,6 +130,13 @@ namespace CalamityEntropy.Content.Rarities
         public static void Draw(Item Item, DrawableTooltipLine line)
         {
             Draw(Item, line.Text, line.X, line.Y, line.Rotation, line.Origin, line.BaseScale);
+        }
+        public static void Draw(Item Item, DrawableTooltipLine line, Color cText, Color cLinarR, Color cParticle, bool particle = true)
+        {
+            Draw(Item, Main.spriteBatch, line.Text, line.X, line.Y,
+            cText, cText * 0.6f, line.Rotation,
+            line.Origin, line.BaseScale, Main.GlobalTimeWrappedHourly,
+             particle, FontAssets.MouseText.Value, cLinarR, cParticle);
         }
     }
 }

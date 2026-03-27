@@ -1,12 +1,15 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Rarities;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class FadingRoseateReverie : ModItem, IDonatorItem, IVanitySkin
+    public class FadingRoseateReverie : ModItem, IDonatorItem, IVanitySkin, IGetFromStarterBag
     {
         public string DonatorName => "Rathyep";
 
@@ -49,9 +52,45 @@ namespace CalamityEntropy.Content.Items.Vanity
             Item.rare = ItemRarityID.Green;
         }
 
+        public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
+        {
+            if (line.Mod == "Terraria")
+            {
+                if (line.Name == "ItemName")
+                {
+                    ShiningViolet.Draw(Item, line, Color.DeepPink, Color.LightPink, Color.LightPink);
+                    return false;
+                }
+                if (line.Text.StartsWith("^"))
+                {
+                    TooltipLine parent = new TooltipLine(Mod, line.Name, line.Text.Substring(1));
+                    var newLine = new DrawableTooltipLine(parent, line.Index, line.X, line.Y, line.Color);
+                    ShiningViolet.Draw(Item, newLine, new Color(255, 42, 54), new Color(90, 84, 255), Color.LightPink, false);
+                    return false;
+                }
+            }
+            return true;
+        }
+        public void SpawnParticles(Vector2 playerPos)
+        {
+            if (Main.rand.NextBool(8))
+            {
+                Vector2 pos = playerPos + new Vector2(Main.rand.NextFloat(-1600, 1600), -650);
+                Vector2 vel = new Vector2(Main.rand.NextFloat(-2.4f, 2.4f), Main.rand.NextFloat(1.8f, 2.45f));
+                int t = Main.rand.Next(1, Main.rand.NextBool(12) ? 6 : 2);
+                for (int i = 0; i < t; i++)
+                {
+                    EParticle.spawnNew(new SakuraPetalsParticle(), pos, vel, Color.Pink, Main.rand.NextFloat(0.5f, 0.74f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
+                    pos += CEUtils.randomPointInCircle(100);
+                    vel += CEUtils.randomPointInCircle(0.4f);
+                } 
+            }
+        }
         public override void UpdateVanity(Player player)
         {
             player.GetModPlayer<VanityModPlayer>().vanityEquipped = Name;
+            player.Entropy().light += 0.5f;
+            SpawnParticles(player.Center);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -59,6 +98,8 @@ namespace CalamityEntropy.Content.Items.Vanity
             if (!hideVisual)
             {
                 player.GetModPlayer<VanityModPlayer>().vanityEquipped = Name;
+                player.Entropy().light += 0.5f;
+                SpawnParticles(player.Center);
             }
         }
 
@@ -70,6 +111,11 @@ namespace CalamityEntropy.Content.Items.Vanity
                 .AddIngredient(ItemID.LifeCrystal)
                 .AddTile(TileID.WorkBenches)
                 .Register();
+        }
+
+        public bool OwnAble(Player player, ref int count)
+        {
+            return StartBagGItem.NameContains(player, "rathyep") || StartBagGItem.NameContains(player, "hikari");
         }
     }
 }
