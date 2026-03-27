@@ -2492,9 +2492,7 @@ Items: {
 
 	PhantomLightWing: {
 		DisplayName: Phantom Light Wings
-		Tooltip:
-			'''
-			'''
+		Tooltip:""
 	}
 
 	AzafureAntiaircraftGun: {
@@ -3123,9 +3121,7 @@ Items: {
 
 	IceShardWing: {
 		DisplayName: Ice Shard Wings
-		Tooltip:
-			'''
-			'''
+		Tooltip:""
 	}
 
 	BookmarkSulphurous: {
