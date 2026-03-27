@@ -1,4 +1,5 @@
 ﻿using CalamityMod;
+using CalamityMod.Items.Accessories.Wings;
 using CalamityMod.Items.Materials;
 using System.Collections.Generic;
 using Terraria;
@@ -9,7 +10,7 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Accessories
 {
     [AutoloadEquip(EquipType.Wings)]
-    public class IceShardWing : ModItem
+    public class IceShardWing : BaseWings
     {
         public static float HorSpeed = 7.6f;
         public static float AccMul = 1;
@@ -21,6 +22,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void SetDefaults()
         {
+            base.SetDefaults();
             Item.width = 28;
             Item.height = 28;
             Item.value = Item.buyPrice(0, 12, 25);
@@ -28,22 +30,11 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.accessory = true;
             Item.Calamity().donorItem = true;
         }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            tooltips.Replace("[A]", HorSpeed);
-            tooltips.Replace("[B]", AccMul);
-            tooltips.Replace("[C]", wTime);
-        }
-        public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
-            ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
-        {
-            ascentWhenFalling = 0.8f;
-            ascentWhenRising = 0.1f;
-            maxCanAscendMultiplier = 0.5f;
-            maxAscentMultiplier = 1.8f;
-            constantAscend = 0.1f;
-        }
-
+        public override float BonusAscentWhileFalling => 0.8f;
+        public override float BonusAscentWhileRising => 0.1f;
+        public override float RisingSpeedThreshold => 0.5f;
+        public override float MaxAscentSpeed => 1.8f;
+        public override float BaseAscent => 0.1f;
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ItemID.SoulofFlight, 20).

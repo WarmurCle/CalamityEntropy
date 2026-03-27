@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityMod.Items;
+using CalamityMod.Items.Accessories.Wings;
 using CalamityMod.Rarities;
 using System.Collections.Generic;
 using Terraria;
@@ -12,7 +13,7 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Accessories
 {
     [AutoloadEquip(EquipType.Wings)]
-    public class VoidElytra : ModItem
+    public class VoidElytra : BaseWings
     {
         public static float HorSpeed = 12;
         public static float AccMul = 3;
@@ -24,6 +25,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void SetDefaults()
         {
+            base.SetDefaults();
             Item.width = 22;
             Item.height = 20;
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
@@ -31,27 +33,11 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.accessory = true;
 
         }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            tooltips.Replace("[A]", HorSpeed);
-            tooltips.Replace("[B]", AccMul);
-            tooltips.Replace("[C]", wTime);
-        }
-        public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
-            ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
-        {
-            ascentWhenRising = 0.15f; maxCanAscendMultiplier = 1f;
-            maxAscentMultiplier = 3f;
-            constantAscend = 0.135f;
-            if (!(player.GetModPlayer<EPlayerDash>().DashTimer > 0))
-            {
-                ascentWhenFalling = 0.97f;
-            }
-            else
-            {
-                ascentWhenFalling = 1f;
-            }
-        }
+        public override float BonusAscentWhileFalling => 1f;
+        public override float BonusAscentWhileRising => 0.2f;
+        public override float RisingSpeedThreshold => 1f;
+        public override float MaxAscentSpeed => 3f;
+        public override float BaseAscent => 0.135f;
         public override bool WingUpdate(Player player, bool inUse)
         {
             if (inUse && player.GetModPlayer<EPlayerDash>().DashTimer <= 0)

@@ -374,10 +374,6 @@ Items: {
 		DisplayName: Void Elytra
 		Tooltip:
 			'''
-			Horizontal speed: [A]
-			Acceleration multiplier: [B]
-			Excellent vertical speed
-			Flight time: [C]
 			Allow you to dash in four directions
 			[c/356498:Dedicate life to the void and achieve breakthroughs in the limits]
 			'''
@@ -2005,10 +2001,6 @@ Items: {
 		DisplayName: Soar Rune
 		Tooltip:
 			'''
-			Horizontal speed: [A]
-			Acceleration multiplier: [B]
-			Excellent vertical speed
-			Flight time: [C]
 			Press [KEY] to advance towards the mouse direction, during which immune damage occurs
 			Cooling is determined by the sprint distance, 
 			releasing the button in advance can end the sprint in advance, with a maximum sprint time of [DT] seconds
@@ -2502,10 +2494,6 @@ Items: {
 		DisplayName: Phantom Light Wings
 		Tooltip:
 			'''
-			Horizontal speed: [A]
-			Acceleration multiplier: [B]
-			Excellent vertical speed
-			Flight time: [C]
 			'''
 	}
 
@@ -3128,10 +3116,6 @@ Items: {
 		DisplayName: Big Shot's Wings
 		Tooltip:
 			'''
-			Horizontal speed: [A]
-			Acceleration multiplier: [B]
-			Disappointing vertical speed
-			Flight time: [C]
 			-90% flight time if there're any boss
 			"Now's your chance to be a..."
 			'''
@@ -3141,10 +3125,6 @@ Items: {
 		DisplayName: Ice Shard Wings
 		Tooltip:
 			'''
-			Horizontal speed: [A]
-			Acceleration multiplier: [B]
-			Excellent vertical speed
-			Flight time: [C]
 			'''
 	}
 

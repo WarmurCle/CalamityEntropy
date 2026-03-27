@@ -63,6 +63,10 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public Rope rope = null;
         public List<Vector2> odp = new List<Vector2>();
+        public override bool? CanDamage()
+        {
+            return false;
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             var gdv = Main.graphics.GraphicsDevice;

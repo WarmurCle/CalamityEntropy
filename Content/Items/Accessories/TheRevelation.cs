@@ -1,4 +1,5 @@
 ﻿using CalamityMod.Items;
+using CalamityMod.Items.Accessories.Wings;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -7,15 +8,16 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Accessories
 {
     [AutoloadEquip(EquipType.Wings)]
-    public class TheRevelation : ModItem
+    public class TheRevelation : BaseWings
     {
         public static int Damage = 40;
         public override void SetStaticDefaults()
         {
-            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(120, 6f, 1.6f);
+            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(110, 6.1f, 1.4f);
         }
         public override void SetDefaults()
         {
+            base.SetDefaults();
             Item.width = 52;
             Item.height = 52;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
@@ -41,10 +43,6 @@ namespace CalamityEntropy.Content.Items.Accessories
                 }
             }
             player.noFallDmg = true;
-        }
-
-        public override void AddRecipes()
-        {
         }
     }
 }

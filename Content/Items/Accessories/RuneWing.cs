@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Items.Accessories.Wings;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -11,7 +12,7 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Accessories
 {
     [AutoloadEquip(EquipType.Wings)]
-    public class RuneWing : ModItem, ISpecialDrawingWing
+    public class RuneWing : BaseWings, ISpecialDrawingWing
     {
         public static float HorSpeed = 7.5f;
         public static float AccMul = 1.2f;
@@ -19,7 +20,11 @@ namespace CalamityEntropy.Content.Items.Accessories
         public static int MAXDASHTIME = 30;//最大冲刺时间（帧）
         public static int DashVelo = 56; //冲刺速度（像素）
         public static int MaxCooldownTick = 40 * 60; //最大冲刺时间时的冷却（帧）
-
+        public override float BonusAscentWhileFalling => 1f;
+        public override float BonusAscentWhileRising => 0.12f;
+        public override float RisingSpeedThreshold => 1f;
+        public override float MaxAscentSpeed => 2.8f;
+        public override float BaseAscent => 0.13f;
         public int AnimationTick => 4;
         public int FallingFrame => 0;
         public int MaxFrame => 5;
@@ -31,6 +36,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void SetDefaults()
         {
+            base.SetDefaults();
             Item.width = 22;
             Item.height = 20;
             Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
@@ -40,9 +46,6 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Replace("[A]", HorSpeed);
-            tooltips.Replace("[B]", AccMul);
-            tooltips.Replace("[C]", wTime);
             tooltips.Replace("[DT]", (float)Math.Round(MAXDASHTIME / 60f, 1));
             tooltips.IntegrateHotkey(CEKeybinds.RuneDashHotKey);
         }
@@ -53,14 +56,6 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void UpdateVanity(Player player)
         {
             player.Entropy().addEquipVisual("RuneWing");
-        }
-        public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
-            ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
-        {
-            ascentWhenRising = 0.12f;
-            maxCanAscendMultiplier = 1f;
-            maxAscentMultiplier = 2.8f;
-            constantAscend = 0.13f;
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
+using CalamityMod.Items.Accessories.Wings;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -9,7 +10,7 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Accessories
 {
     [AutoloadEquip(EquipType.Wings)]
-    public class PhantomLightWing : ModItem, ISpecialDrawingWing
+    public class PhantomLightWing : BaseWings, ISpecialDrawingWing
     {
         public static float HorSpeed = 6.4f;
         public static float AccMul = 1.1f;
@@ -25,18 +26,12 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void SetDefaults()
         {
+            base.SetDefaults();
             Item.width = 22;
             Item.height = 20;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
             Item.rare = ModContent.RarityType<Lunarblight>();
             Item.accessory = true;
-
-        }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            tooltips.Replace("[A]", HorSpeed);
-            tooltips.Replace("[B]", AccMul);
-            tooltips.Replace("[C]", wTime);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -50,14 +45,12 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             player.Entropy().addEquipVisual("PLWing");
         }
-        public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
-            ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
-        {
-            ascentWhenRising = 0.12f;
-            maxCanAscendMultiplier = 1.2f;
-            maxAscentMultiplier = 2.8f;
-            constantAscend = 0.13f;
-        }
+        public override float BonusAscentWhileFalling => 0.4f;
+        public override float BonusAscentWhileRising => 0.12f;
+        public override float RisingSpeedThreshold => 1.2f;
+        public override float MaxAscentSpeed => 2.8f;
+        public override float BaseAscent => 0.125f;
+
 
     }
 }

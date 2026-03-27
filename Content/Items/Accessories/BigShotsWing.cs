@@ -1,4 +1,5 @@
 ﻿using CalamityMod;
+using CalamityMod.Items.Accessories.Wings;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -8,9 +9,9 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Accessories
 {
     [AutoloadEquip(EquipType.Wings)]
-    public class BigShotsWing : ModItem, ISpecialDrawingWing, IGetFromStarterBag
+    public class BigShotsWing : BaseWings, ISpecialDrawingWing, IGetFromStarterBag
     {
-        public static float HorSpeed = 2.5f;
+        public static float HorSpeed = 2.6f;
         public static float AccMul = 0.3f;
         public static int wTime = 700;
         public int AnimationTick => 4;
@@ -24,18 +25,13 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void SetDefaults()
         {
+            base.SetDefaults();
             Item.width = 22;
             Item.height = 20;
             Item.value = Item.buyPrice(0, 12, 25);
             Item.rare = ItemRarityID.Pink;
             Item.accessory = true;
 
-        }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            tooltips.Replace("[A]", HorSpeed);
-            tooltips.Replace("[B]", AccMul);
-            tooltips.Replace("[C]", wTime);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -62,15 +58,10 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             player.Entropy().addEquipVisual("BSWing");
         }
-        public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
-            ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
-        {
-            ascentWhenRising = 0.1f;
-            maxCanAscendMultiplier = 0.5f;
-            maxAscentMultiplier = 0.5f;
-            constantAscend = 0.06f;
-        }
-
+        public override float BonusAscentWhileRising => 0.1f;
+        public override float RisingSpeedThreshold => 0.5f;
+        public override float MaxAscentSpeed => 0.5f;
+        public override float BaseAscent => 0.06f;
         public bool OwnAble(Player player, ref int count)
         {
             if (player.Entropy().drCrystals == null) return false;
