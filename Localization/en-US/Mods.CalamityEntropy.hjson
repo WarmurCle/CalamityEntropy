@@ -370,15 +370,6 @@ Items: {
 		Tooltip: ""
 	}
 
-	VoidElytra: {
-		DisplayName: Void Elytra
-		Tooltip:
-			'''
-			Allow you to dash in four directions
-			[c/356498:Dedicate life to the void and achieve breakthroughs in the limits]
-			'''
-	}
-
 	BottleDarkMatter: {
 		DisplayName: Bottled Dark Matter
 		Tooltip: Summon Ceaseless-Void...Chan?
@@ -1201,18 +1192,7 @@ Items: {
 			'''
 	}
 
-	TheRevelation: {
-		DisplayName: The Revelation
-		Tooltip:
-			'''
-			Charging when using weapons,
-			when it is fully charged, release the mouse button to release a holy beam
-			deals 50 damage every 3 frames
-			Regarded as wing
-			hold [down] when flying to hover
-			"Awaken your faith"
-			'''
-	}
+	
 
 	MosHat: {
 		DisplayName: Mo's Hat
@@ -1997,16 +1977,6 @@ Items: {
 			'''
 	}
 
-	RuneWing: {
-		DisplayName: Soar Rune
-		Tooltip:
-			'''
-			Press [KEY] to advance towards the mouse direction, during which immune damage occurs
-			Cooling is determined by the sprint distance, 
-			releasing the button in advance can end the sprint in advance, with a maximum sprint time of [DT] seconds
-			'''
-	}
-
 	BookMarkForesee: {
 		DisplayName: Bookmark - Foresee
 		Tooltip: Hit the enemy probability summon a circle of runes to attack the enemy
@@ -2487,11 +2457,6 @@ Items: {
 
 	StarSootInjector: {
 		DisplayName: Star Soot Injector
-		Tooltip: ""
-	}
-
-	PhantomLightWing: {
-		DisplayName: Phantom Light Wings
 		Tooltip: ""
 	}
 
@@ -3108,20 +3073,6 @@ Items: {
 			Snowgrave will causing sustained damage
 			"[Proceed]"
 			'''
-	}
-
-	BigShotsWing: {
-		DisplayName: Big Shot's Wings
-		Tooltip:
-			'''
-			-90% flight time if there're any boss
-			"Now's your chance to be a..."
-			'''
-	}
-
-	IceShardWing: {
-		DisplayName: Ice Shard Wings
-		Tooltip: ""
 	}
 
 	BookmarkSulphurous: {
@@ -3843,50 +3794,6 @@ Items: {
 			+7% Damage each attached projectile
 			Causing more adhering damage
 			'''
-	}
-
-	Accessories: {
-		Wings: {
-			FlowingLight: {
-				DisplayName: Flowing Light
-				Tooltip:
-					'''
-					Hold ↓ when flying to hover
-					Hold ↓ to accelerate the descent
-					$"Reaching the pinnacle of perfection"
-					'''
-			}
-
-			BigShotsWing: {
-				DisplayName: Big Shots Wing
-				Tooltip: ""
-			}
-
-			IceShardWing: {
-				DisplayName: Ice Shard Wing
-				Tooltip: ""
-			}
-
-			PhantomLightWing: {
-				DisplayName: Phantom Light Wing
-				Tooltip: ""
-			}
-
-			RuneWing: {
-				DisplayName: Rune Wing
-				Tooltip: ""
-			}
-
-			TheRevelation: {
-				DisplayName: The Revelation
-				Tooltip: ""
-			}
-
-			VoidElytra: {
-				DisplayName: Void Elytra
-				Tooltip: ""
-			}
-		}
 	}
 
 	Neltharion: {

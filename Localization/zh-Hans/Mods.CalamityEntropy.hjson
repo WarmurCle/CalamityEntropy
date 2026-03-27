@@ -4088,51 +4088,6 @@ Items: {
 			'''
 	}
 
-	Accessories: {
-		Wings: {
-			FlowingLight: {
-				DisplayName: 仙萤流光
-				Tooltip:
-					'''
-					按住↓以加速下落
-					飞行时按住↓以悬停
-					获得炽天使翼靴的加成
-					$“臻至化境”
-					'''
-			}
-
-			BigShotsWing: {
-				// DisplayName: Big Shots Wing
-				// Tooltip: ""
-			}
-
-			IceShardWing: {
-				// DisplayName: Ice Shard Wing
-				// Tooltip: ""
-			}
-
-			PhantomLightWing: {
-				// DisplayName: Phantom Light Wing
-				// Tooltip: ""
-			}
-
-			RuneWing: {
-				// DisplayName: Rune Wing
-				// Tooltip: ""
-			}
-
-			TheRevelation: {
-				// DisplayName: The Revelation
-				// Tooltip: ""
-			}
-
-			VoidElytra: {
-				// DisplayName: Void Elytra
-				// Tooltip: ""
-			}
-		}
-	}
-
 	Neltharion: {
 		DisplayName: 奈萨里奥
 		Tooltip:
