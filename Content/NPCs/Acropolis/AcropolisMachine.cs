@@ -231,9 +231,9 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         {
             NPC.width = 142;
             NPC.height = 132;
-            NPC.damage = 25;
+            NPC.damage = 26;
             NPC.defense = 8;
-            NPC.lifeMax = 3000;
+            NPC.lifeMax = 2900;
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = CEUtils.GetSound("chainsaw_break");
             NPC.value = 1600f;
