@@ -11,7 +11,7 @@ FlowingLight: {
 
 PhantomLightWing: {
 	DisplayName: 幻光星翼
-	Tooltip: "飞行时留下星光尾迹"
+	Tooltip: 飞行时留下星光尾迹
 }
 
 RuneWing: {
@@ -35,7 +35,7 @@ BigShotsWing: {
 
 IceShardWing: {
 	DisplayName: 冰晶之翼
-	Tooltip: "它实际上使用魔法飞行"
+	Tooltip: 它实际上使用魔法飞行
 }
 
 TheRevelation: {
