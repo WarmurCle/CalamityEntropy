@@ -3122,10 +3122,6 @@ Items: {
 		// DisplayName: Big Shot's Wings
 		/* Tooltip:
 			'''
-			Horizontal speed: [A]
-			Acceleration multiplier: [B]
-			Disappointing vertical speed
-			Flight time: [C]
 			-90% flight time if there're any boss
 			"Now's your chance to be a..."
 			''' */
@@ -3133,13 +3129,7 @@ Items: {
 
 	IceShardWing: {
 		// DisplayName: Ice Shard Wings
-		/* Tooltip:
-			'''
-			Horizontal speed: [A]
-			Acceleration multiplier: [B]
-			Excellent vertical speed
-			Flight time: [C]
-			''' */
+		// Tooltip: ""
 	}
 
 	BookmarkSulphurous: {
@@ -3873,6 +3863,36 @@ Items: {
 					Hold ↓ to accelerate the descent
 					$"Reaching the pinnacle of perfection"
 					''' */
+			}
+
+			BigShotsWing: {
+				// DisplayName: Big Shots Wing
+				// Tooltip: ""
+			}
+
+			IceShardWing: {
+				// DisplayName: Ice Shard Wing
+				// Tooltip: ""
+			}
+
+			PhantomLightWing: {
+				// DisplayName: Phantom Light Wing
+				// Tooltip: ""
+			}
+
+			RuneWing: {
+				// DisplayName: Rune Wing
+				// Tooltip: ""
+			}
+
+			TheRevelation: {
+				// DisplayName: The Revelation
+				// Tooltip: ""
+			}
+
+			VoidElytra: {
+				// DisplayName: Void Elytra
+				// Tooltip: ""
 			}
 		}
 	}

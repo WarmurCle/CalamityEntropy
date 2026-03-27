@@ -2704,7 +2704,7 @@ Items: {
 
 	PhantomLightWing: {
 		DisplayName: 幻光星翼
-		Tooltip:""
+		Tooltip: ""
 	}
 
 	AzafureAntiaircraftGun: {
@@ -3351,7 +3351,7 @@ Items: {
 
 	IceShardWing: {
 		DisplayName: 冰晶之翼
-		Tooltip:""
+		Tooltip: ""
 	}
 
 	BookmarkSulphurous: {
@@ -4099,6 +4099,36 @@ Items: {
 					获得炽天使翼靴的加成
 					$“臻至化境”
 					'''
+			}
+
+			BigShotsWing: {
+				// DisplayName: Big Shots Wing
+				// Tooltip: ""
+			}
+
+			IceShardWing: {
+				// DisplayName: Ice Shard Wing
+				// Tooltip: ""
+			}
+
+			PhantomLightWing: {
+				// DisplayName: Phantom Light Wing
+				// Tooltip: ""
+			}
+
+			RuneWing: {
+				// DisplayName: Rune Wing
+				// Tooltip: ""
+			}
+
+			TheRevelation: {
+				// DisplayName: The Revelation
+				// Tooltip: ""
+			}
+
+			VoidElytra: {
+				// DisplayName: Void Elytra
+				// Tooltip: ""
 			}
 		}
 	}

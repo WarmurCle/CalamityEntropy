@@ -2492,7 +2492,7 @@ Items: {
 
 	PhantomLightWing: {
 		DisplayName: Phantom Light Wings
-		Tooltip:""
+		Tooltip: ""
 	}
 
 	AzafureAntiaircraftGun: {
@@ -3121,7 +3121,7 @@ Items: {
 
 	IceShardWing: {
 		DisplayName: Ice Shard Wings
-		Tooltip:""
+		Tooltip: ""
 	}
 
 	BookmarkSulphurous: {
@@ -3855,6 +3855,36 @@ Items: {
 					Hold ↓ to accelerate the descent
 					$"Reaching the pinnacle of perfection"
 					'''
+			}
+
+			BigShotsWing: {
+				DisplayName: Big Shots Wing
+				Tooltip: ""
+			}
+
+			IceShardWing: {
+				DisplayName: Ice Shard Wing
+				Tooltip: ""
+			}
+
+			PhantomLightWing: {
+				DisplayName: Phantom Light Wing
+				Tooltip: ""
+			}
+
+			RuneWing: {
+				DisplayName: Rune Wing
+				Tooltip: ""
+			}
+
+			TheRevelation: {
+				DisplayName: The Revelation
+				Tooltip: ""
+			}
+
+			VoidElytra: {
+				DisplayName: Void Elytra
+				Tooltip: ""
 			}
 		}
 	}
