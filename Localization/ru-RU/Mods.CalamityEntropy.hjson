@@ -335,19 +335,6 @@ Items: {
 		Tooltip: ""
 	}
 
-	VoidElytra: {
-		DisplayName: Элитры пустоты
-		Tooltip:
-			'''
-			Горизонтальная скорость: [A]
-			Множитель ускорения: [B]
-			Отличная вертикальная скорость
-			Время полета: [C]
-			Позволяет вам совершать рывок в четырёх направлениях
-			[c/356498:Посвятите жизнь пустоте и достигните прорывов за пределами]
-			'''
-	}
-
 	BottleDarkMatter: {
 		DisplayName: Бутылка тёмной материи
 		Tooltip: Призывает очаровательную Пустоту
@@ -1174,21 +1161,6 @@ Items: {
 			когда он полностью зарядится, отпустите, чтобы появилось черное лазерное кольцо
 			наносит 75 единиц урона каждые 3 кадра
 			"Поглоти своего врага!"
-			'''
-	}
-
-	TheRevelation: {
-		DisplayName: Откровение
-		Tooltip:
-			'''
-			При удерживании кнопки мыши происходит зарядка оружия, при полном заряде отпустите кнопку — выпустится луч святого света, наносящий 50 урона каждые 3 кадра
-			Считается крыльями
-			Горизонтальная скорость полёта: 7
-			Коэффициент ускорения: 1.2
-			Хорошая вертикальная скорость полёта
-			Время полёта: 150
-			При полёте удерживайте вниз для зависания
-			«Пробуди свою веру»
 			'''
 	}
 
@@ -2028,20 +2000,6 @@ Items: {
 			'''
 	}
 
-	RuneWing: {
-		DisplayName: Крылья предвидения
-		Tooltip:
-			'''
-			Горизонтальная скорость: [A]
-			Множитель ускрения: [B]
-			Отличная вертикальная скорость
-			Время полёта: [C]
-			Нажмите [KEY] персонаж перемещается в сторону курсора, становясь невосприимчивым к урону во время движения
-			Перезарядка определяется дистанцией рывка, 
-			отпустив кнопку заранее, можно заранее завершить рывок, максимальное время рывка составляет [DT] секунд
-			'''
-	}
-
 	BookMarkForesee: {
 		DisplayName: Закладка - Предвидение
 		Tooltip: Вероятность попадания во врага вызывает круг рун для атаки врага
@@ -2487,17 +2445,6 @@ Items: {
 	StarSootInjector: {
 		DisplayName: Инъектор звёздной сажи
 		Tooltip: Выпускает пыль Фантомной Моли
-	}
-
-	PhantomLightWing: {
-		DisplayName: Фантомные крылья света
-		Tooltip:
-			'''
-			Горизонтальная скорость: [A]
-			Множитель ускоренияr: [B]
-			Отличная вертикальная скорость
-			Время полёта: [C]
-			'''
 	}
 
 	AzafureAntiaircraftGun: {
@@ -3116,20 +3063,6 @@ Items: {
 			Snowgrave will causing sustained damage
 			"[Proceed]"
 			''' */
-	}
-
-	BigShotsWing: {
-		// DisplayName: Big Shot's Wings
-		/* Tooltip:
-			'''
-			-90% flight time if there're any boss
-			"Now's your chance to be a..."
-			''' */
-	}
-
-	IceShardWing: {
-		// DisplayName: Ice Shard Wings
-		// Tooltip: ""
 	}
 
 	BookmarkSulphurous: {
@@ -3853,50 +3786,6 @@ Items: {
 			''' */
 	}
 
-	Accessories: {
-		Wings: {
-			FlowingLight: {
-				// DisplayName: Flowing Light
-				/* Tooltip:
-					'''
-					Hold ↓ when flying to hover
-					Hold ↓ to accelerate the descent
-					$"Reaching the pinnacle of perfection"
-					''' */
-			}
-
-			BigShotsWing: {
-				// DisplayName: Big Shots Wing
-				// Tooltip: ""
-			}
-
-			IceShardWing: {
-				// DisplayName: Ice Shard Wing
-				// Tooltip: ""
-			}
-
-			PhantomLightWing: {
-				// DisplayName: Phantom Light Wing
-				// Tooltip: ""
-			}
-
-			RuneWing: {
-				// DisplayName: Rune Wing
-				// Tooltip: ""
-			}
-
-			TheRevelation: {
-				// DisplayName: The Revelation
-				// Tooltip: ""
-			}
-
-			VoidElytra: {
-				// DisplayName: Void Elytra
-				// Tooltip: ""
-			}
-		}
-	}
-
 	Neltharion: {
 		// DisplayName: Neltharion
 		/* Tooltip:
@@ -4078,6 +3967,45 @@ Items: {
 	Fuusen: {
 		// DisplayName: Fuusen
 		// Tooltip: ""
+	}
+
+	Accessories: {
+		Wings: {
+			BigShotsWing: {
+				// DisplayName: Big Shots Wing
+				// Tooltip: ""
+			}
+
+			IceShardWing: {
+				// DisplayName: Ice Shard Wing
+				// Tooltip: ""
+			}
+
+			PhantomLightWing: {
+				// DisplayName: Phantom Light Wing
+				// Tooltip: ""
+			}
+
+			RuneWing: {
+				// DisplayName: Rune Wing
+				// Tooltip: ""
+			}
+
+			TheRevelation: {
+				// DisplayName: The Revelation
+				// Tooltip: ""
+			}
+
+			VoidElytra: {
+				// DisplayName: Void Elytra
+				// Tooltip: ""
+			}
+
+			FlowingLight: {
+				// DisplayName: Flowing Light
+				// Tooltip: ""
+			}
+		}
 	}
 }
 

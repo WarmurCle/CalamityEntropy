@@ -362,16 +362,6 @@ Items: {
 		Tooltip: 召唤星神少女
 	}
 
-	VoidElytra: {
-		DisplayName: 虚空推进鞘翅
-		Tooltip:
-			'''
-			允许你向四个方向冲刺，冲刺消耗飞行时间
-			飞行时间为0时，可以消耗生命值进行冲刺
-			[c/356498:将生命献给虚空，得到对极限的突破]
-			'''
-	}
-
 	BottleDarkMatter: {
 		DisplayName: 瓶装暗物质
 		Tooltip: 召唤无尽虚空（更可爱一点）
@@ -1286,17 +1276,6 @@ Items: {
 			'''
 	}
 
-	TheRevelation: {
-		DisplayName: 终末天启
-		Tooltip:
-			'''
-			长按鼠标使用武器时蓄力，蓄力满时松开鼠标释放一道圣光，每3帧造成50点伤害
-			视为翅膀
-			飞行时按住下以悬停
-			“唤醒你的信仰”
-			'''
-	}
-
 	MosHat: {
 		DisplayName: Mo的帽子
 		Tooltip: 让你变成一个白毛美少女
@@ -2154,15 +2133,6 @@ Items: {
 			'''
 	}
 
-	RuneWing: {
-		DisplayName: 翱翔符文
-		Tooltip:
-			'''
-			按住[KEY]向鼠标方向突进，期间免疫伤害
-			冷却由冲刺距离决定，提前松开按键可以提前结束冲刺，最多冲刺[DT]秒
-			'''
-	}
-
 	BookMarkForesee: {
 		DisplayName: 预知书签
 		Tooltip: 击中敌人概率召唤一圈符文攻击敌人
@@ -2700,11 +2670,6 @@ Items: {
 	StarSootInjector: {
 		DisplayName: 星光喷射器
 		Tooltip: 喷射出幻光蛾尘
-	}
-
-	PhantomLightWing: {
-		DisplayName: 幻光星翼
-		Tooltip: ""
 	}
 
 	AzafureAntiaircraftGun: {
@@ -3337,21 +3302,6 @@ Items: {
 			充能为满时你的下一次攻击将会释放雪葬，造成持续的伤害并施加冰河时代减益
 			“[前进]”
 			'''
-	}
-
-	BigShotsWing: {
-		DisplayName: 大人物翅膀
-		Tooltip:
-			'''
-			有Boss存在时-90%飞行时间
-			因为被提线操纵，飞行速度较慢
-			“是时候成为...”
-			'''
-	}
-
-	IceShardWing: {
-		DisplayName: 冰晶之翼
-		Tooltip: ""
 	}
 
 	BookmarkSulphurous: {
@@ -4265,6 +4215,45 @@ Items: {
 	Fuusen: {
 		DisplayName: 風船
 		Tooltip: ""
+	}
+
+	Accessories: {
+		Wings: {
+			BigShotsWing: {
+				// DisplayName: Big Shots Wing
+				// Tooltip: ""
+			}
+
+			IceShardWing: {
+				// DisplayName: Ice Shard Wing
+				// Tooltip: ""
+			}
+
+			PhantomLightWing: {
+				// DisplayName: Phantom Light Wing
+				// Tooltip: ""
+			}
+
+			RuneWing: {
+				// DisplayName: Rune Wing
+				// Tooltip: ""
+			}
+
+			TheRevelation: {
+				// DisplayName: The Revelation
+				// Tooltip: ""
+			}
+
+			VoidElytra: {
+				// DisplayName: Void Elytra
+				// Tooltip: ""
+			}
+
+			FlowingLight: {
+				// DisplayName: Flowing Light
+				// Tooltip: ""
+			}
+		}
 	}
 }
 

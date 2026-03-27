@@ -1751,7 +1751,7 @@ namespace CalamityEntropy
                             Action<SpriteBatch, Rectangle, Color> portrait2 = (SpriteBatch sb, Rectangle rect, Color color) =>
                             {
                                 Texture2D texture = ModContent.Request<Texture2D>("CalamityMod/NPCs/PrimordialWyrm/PrimordialWyrm_BossChecklist").Value;
-                                sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 1.3f, SpriteEffects.None, 0);
+                                sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 0.8f, SpriteEffects.None, 0);
                             };
                             string entryName = "PrimordialWyrm";
                             AddBoss(bossChecklist, ModContent.GetInstance<CalamityMod.CalamityMod>(), entryName, 24.5f, wyd, segments2, new Dictionary<string, object>()
