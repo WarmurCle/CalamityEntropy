@@ -4216,45 +4216,6 @@ Items: {
 		DisplayName: 風船
 		Tooltip: ""
 	}
-
-	Accessories: {
-		Wings: {
-			BigShotsWing: {
-				// DisplayName: Big Shots Wing
-				// Tooltip: ""
-			}
-
-			IceShardWing: {
-				// DisplayName: Ice Shard Wing
-				// Tooltip: ""
-			}
-
-			PhantomLightWing: {
-				// DisplayName: Phantom Light Wing
-				// Tooltip: ""
-			}
-
-			RuneWing: {
-				// DisplayName: Rune Wing
-				// Tooltip: ""
-			}
-
-			TheRevelation: {
-				// DisplayName: The Revelation
-				// Tooltip: ""
-			}
-
-			VoidElytra: {
-				// DisplayName: Void Elytra
-				// Tooltip: ""
-			}
-
-			FlowingLight: {
-				// DisplayName: Flowing Light
-				// Tooltip: ""
-			}
-		}
-	}
 }
 
 SmolderingSetBonus:

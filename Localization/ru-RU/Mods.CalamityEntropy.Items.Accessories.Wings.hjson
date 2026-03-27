@@ -1,0 +1,60 @@
+FlowingLight: {
+	// DisplayName: Flowing Light
+	/* Tooltip:
+		'''
+		Hold ↓ when flying to hover
+		Hold ↓ to accelerate the descent
+		$"Reaching the pinnacle of perfection"
+		''' */
+}
+
+PhantomLightWing: {
+	// DisplayName: Phantom Light Wings
+	// Tooltip: ""
+}
+
+RuneWing: {
+	// DisplayName: Soar Rune
+	/* Tooltip:
+		'''
+		Press [KEY] to advance towards the mouse direction, during which immune damage occurs
+		Cooling is determined by the sprint distance, 
+		releasing the button in advance can end the sprint in advance, with a maximum sprint time of [DT] seconds
+		''' */
+}
+
+BigShotsWing: {
+	// DisplayName: Big Shot's Wings
+	/* Tooltip:
+		'''
+		-90% flight time if there're any boss
+		"Now's your chance to be a..."
+		''' */
+}
+
+IceShardWing: {
+	// DisplayName: Ice Shard Wings
+	// Tooltip: ""
+}
+
+TheRevelation: {
+	// DisplayName: The Revelation
+	/* Tooltip:
+		'''
+		Charging when using weapons,
+		when it is fully charged, release the mouse button to release a holy beam
+		deals 50 damage every 3 frames
+		Regarded as wing
+		hold [down] when flying to hover
+		"Awaken your faith"
+		''' */
+}
+
+VoidElytra: {
+	// DisplayName: Void Elytra
+	/* Tooltip:
+		'''
+		Allow you to dash in four directions
+		[c/356498:Dedicate life to the void and achieve breakthroughs in the limits]
+		''' */
+}

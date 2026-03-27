@@ -10,7 +10,7 @@ FlowingLight: {
 
 PhantomLightWing: {
 	DisplayName: Phantom Light Wings
-	Tooltip: ""
+	Tooltip: "Leaving starlight trails during flight"
 }
 
 RuneWing: {
@@ -34,7 +34,7 @@ BigShotsWing: {
 
 IceShardWing: {
 	DisplayName: Ice Shard Wings
-	Tooltip: ""
+	Tooltip: "It actually uses magic to fly"
 }
 
 TheRevelation: {
