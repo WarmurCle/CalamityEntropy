@@ -20,6 +20,12 @@ namespace CalamityEntropy.Content.Particles
             {
                 FallThrough = Main.rand.NextBool(5);
             }
+            if(Lifetime % 40 == 0 && Velocity.X != 0)
+            {
+                tex++;
+                if (tex > 3)
+                    tex = 0;
+            }
             if (Lifetime < 60)
                 Opacity -= 1 / 60f;
             if(check)
