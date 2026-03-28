@@ -180,11 +180,15 @@ namespace CalamityEntropy
                 setup.DompLoadText();
             }
             LoopSoundManager.init();
-            
-            //Wiki this support
-            if(!Main.dedServ && ModLoader.TryGetMod("Wikithis", out var wikithis))
-                wikithis.Call(0, this, "http://calentropy.miraheze.org/wiki/{}", GameCulture.CultureName.Chinese);
 
+            //Wiki this support
+            if (!Main.dedServ && ModLoader.TryGetMod("Wikithis", out var wikithis))
+            {
+                wikithis.Call(0, this, "http://calentropy.miraheze.org/wiki/{}", GameCulture.CultureName.Chinese);
+                var ic = CEUtils.getExtraTexAsset("UI/icon_s");
+                wikithis.Call("AddWikiTexture", this, ic);
+                wikithis.Call(3, this, ic);
+            }
             efont1 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/EFont", AssetRequestMode.ImmediateLoad).Value;
             efont2 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/VCRFont", AssetRequestMode.ImmediateLoad).Value;
             efont3 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/MaruMonica", AssetRequestMode.ImmediateLoad).Value;

@@ -5689,9 +5689,11 @@ LoreEaterofWorldsDesc: Иммунитет к пролятому огню
 // LoreAzafureDesc: +{1}% Crit chance
 // LoreCalamitasCloneDesc: +{1}% Melee speed
 // LorePlanteraDesc: +0.5/s Life regen
-// LoreAbyssDesc: Increase breath holding time
+// LoreAquaticScourge: Increase breath holding time
+// LoreAbyssDesc: Increase visibility in the abyss
 // LoreLeviathanAnahitaDesc: Increase 1/s life regen in water
 // LoreAstrumAureusDesc: Increase the speed of astral infection debuff decay
+// LoreBrimstoneElemental: +1% Damage reduce
 // LoreGolemDesc: +{1}% Damage reduce
 // LorePlaguebringerGoliathDesc: Increase the speed of plague debuff decay
 // LoreEmpressofLightDesc: +{1} Defense in day time
@@ -6064,3 +6066,5 @@ Menu: {
 // MinionAccDescCrownFangs: When equip with [ITEM]: +1 Minion slot
 // NonZenithWorld: Not in zenith world
 // ZenithWorld: In zenith world
+// LoreAquaticScourgeDesc: Mods.CalamityEntropy.LoreAquaticScourgeDesc
+// LoreBrimstoneElementalDesc: Mods.CalamityEntropy.LoreBrimstoneElementalDesc
