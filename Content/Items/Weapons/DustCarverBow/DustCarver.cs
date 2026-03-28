@@ -204,7 +204,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
 
         }
         public bool RecheckStats = true;
-        public int GetUseTime()
+        public int GetUseTime(Player player)
         {
             int ret = 14;
             switch (LevelNow)
@@ -227,6 +227,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                 case 15: ret = 15; break;
                 case 16: ret = 14; break;
             }
+            ret = (int)((Item.useTime / 30f) * ret);
             return ret;
         }
 
@@ -369,7 +370,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             if (ShootEffect > 0)
                 ShootEffect--;
             var dc = ((DustCarver)player.HeldItem.ModItem);
-            int useTime = dc.GetUseTime();
+            int useTime = dc.GetUseTime(player);
             float chargeAdd = 1f / useTime;
             if (Charging > 0)
             {
