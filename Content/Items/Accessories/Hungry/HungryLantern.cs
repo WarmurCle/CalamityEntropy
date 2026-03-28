@@ -82,10 +82,10 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
             if (Projectile.OwnerEntropy().hasAcc(HungryLantern.ID))
                 Projectile.timeLeft = 5;
 
-            var t = Projectile.FindMinionTarget(1000);
+            var t = Projectile.FindMinionTarget(650);
             if (target == null || (t != null && target.whoAmI != t.whoAmI))
                 target = t;
-            if (target != null && (!target.active || target.Distance(Projectile.GetOwner().Center) > 760))
+            if (target != null && (!target.active || target.Distance(Projectile.GetOwner().Center) > 680))
                 target = null;
             if (target != null)
             {

@@ -121,7 +121,7 @@ namespace CalamityEntropy.Content.Items.Armor.Smoldering
             float targetRot = 0;
             int delayMax = (int)(60 - 30 * (1f - (player.statLife / (float)player.statLifeMax2)));
 
-            NPC target = Projectile.damage > 0 ? CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 1200) : null;
+            NPC target = Projectile.damage > 0 ? CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 1600) : null;
             if (target == null)
             {
                 Vector2 targetPos = player.Center + new Vector2(player.direction * -110, (float)(Math.Sin(Main.GameUpdateCount * 0.05f) * 56));
