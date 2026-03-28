@@ -185,9 +185,8 @@ namespace CalamityEntropy
             if (!Main.dedServ && ModLoader.TryGetMod("Wikithis", out var wikithis))
             {
                 wikithis.Call(0, this, "http://calentropy.miraheze.org/wiki/{}", GameCulture.CultureName.Chinese);
-                var ic = CEUtils.RequestTex("CalamityEntropy/Assets/UI/icon_s");
-                wikithis.Call("AddWikiTexture", this, ic);
-                wikithis.Call(3, this, ic);
+                wikithis.Call("AddWikiTexture", this, ModContent.Request<Texture2D>("CalamityEntropy/Assets/UI/icon_s"));
+                wikithis.Call(3, this, ModContent.Request<Texture2D>("CalamityEntropy/Assets/UI/icon_s"));
             }
             efont1 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/EFont", AssetRequestMode.ImmediateLoad).Value;
             efont2 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/VCRFont", AssetRequestMode.ImmediateLoad).Value;
