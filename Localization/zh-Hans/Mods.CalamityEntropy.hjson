@@ -6174,9 +6174,11 @@ LMDialog16: 你难道没看到那个[NAME]吗？可真是不知死活
 LMDialog17: 我不收垃圾，谢谢
 LMDialog18: 你塞的是什么东西？
 NowLV: 当前等级
-AnyOrichalcumBar: 任何山铜锭
-AnyEvilBar: 任何邪恶锭
-AnyFairy: 任何仙灵
+AnyOrichalcumBar: 秘银锭或山铜锭
+AnyEvilBar: 猩红锭或魔矿锭
+AnyFairy: 任意仙灵
+Gems: 任意宝石
+Butterflies: 任意蝴蝶
 BCBarInfo: 苍郁充能
 HallowedEnemiesDrop: 掉落自神圣之地地下敌怪
 EvilEnemiesDrop: 掉落自邪恶地形地下敌怪

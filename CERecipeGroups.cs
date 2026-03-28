@@ -25,8 +25,8 @@ namespace CalamityEntropy
             fairys = $"{Mod.Name}:" + fairys;
 
             AnyOrichalcumBar_ = new RecipeGroup(() => CalamityEntropy.Instance.GetLocalization("AnyOrichalcumBar").Value, ItemID.OrichalcumBar, ItemID.MythrilBar);
-            gems_ = new RecipeGroup(() => "Gems", ItemID.Ruby, ItemID.Sapphire, ItemID.Diamond, ItemID.Emerald, ItemID.Topaz, ItemID.Amethyst);
-            butterflies_ = new RecipeGroup(() => "Butterflies", ItemID.EmpressButterfly, ItemID.GoldButterfly, ItemID.HellButterfly, ItemID.JuliaButterfly, ItemID.MonarchButterfly, ItemID.PurpleEmperorButterfly, ItemID.RedAdmiralButterfly, ItemID.SulphurButterfly, ItemID.TreeNymphButterfly, ItemID.UlyssesButterfly, ItemID.ZebraSwallowtailButterfly);
+            gems_ = new RecipeGroup(() => CalamityEntropy.Instance.GetLocalization("Gems").Value, ItemID.Ruby, ItemID.Sapphire, ItemID.Diamond, ItemID.Emerald, ItemID.Topaz, ItemID.Amethyst);
+            butterflies_ = new RecipeGroup(() => CalamityEntropy.Instance.GetLocalization("Butterflies").Value, ItemID.EmpressButterfly, ItemID.GoldButterfly, ItemID.HellButterfly, ItemID.JuliaButterfly, ItemID.MonarchButterfly, ItemID.PurpleEmperorButterfly, ItemID.RedAdmiralButterfly, ItemID.SulphurButterfly, ItemID.TreeNymphButterfly, ItemID.UlyssesButterfly, ItemID.ZebraSwallowtailButterfly);
             evilBar_ = new RecipeGroup(() => CalamityEntropy.Instance.GetLocalization("AnyEvilBar").Value, ItemID.CrimtaneBar, ItemID.DemoniteBar);
             fairys_ = new RecipeGroup(() => CalamityEntropy.Instance.GetLocalization("AnyFairy").Value, 4068, 4069, 4070);
 
