@@ -34,7 +34,16 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 book.ShootSingleProjectile(ModContent.ProjectileType<JewelSapphire>(), book.Projectile.Center, Vector2.Zero);
             }
         }
-
+        public override void OnStandaloneAttack(Player player, Vector2 position, Vector2 direction, int damage, float knockback)
+        {
+            if (player.whoAmI == Main.myPlayer)
+            {
+                var src = player.GetSource_FromThis();
+                Projectile.NewProjectile(src, position, Vector2.Zero, ModContent.ProjectileType<JewelRuby>(), damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(src, position, Vector2.Zero, ModContent.ProjectileType<JewelEmerald>(), damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(src, position, Vector2.Zero, ModContent.ProjectileType<JewelSapphire>(), damage, knockback, player.whoAmI);
+            }
+        }
     }
 
     public abstract class RoyalJewel : EBookBaseProjectile

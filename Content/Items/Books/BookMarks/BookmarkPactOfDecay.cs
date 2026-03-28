@@ -39,6 +39,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             target.AddBuff(ModContent.BuffType<VulnerabilityHex>(), 460);
         }
+        public override void OnStandaloneAttack(Player player, Vector2 position, Vector2 direction, int damage, float knockback)
+        {
+            int projtype = ModContent.ProjectileType<DecayPactMaelstrom>();
+            Projectile.NewProjectile(player.GetSource_FromThis(), position, direction, projtype, (int)(damage * 0.5f), knockback, player.whoAmI);
+        }
     }
 
     public class DecayPactMaelstrom : BaseBookMinion
