@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CalamityEntropy.Common;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace CalamityEntropy
 {
@@ -37,9 +41,16 @@ namespace CalamityEntropy
             RegisterHandler("GetBossList", GetBossList);
 
             //===== 书签系统 =====
-            RegisterHandler("RegisterBookMark", RegisterBookMark);
-            RegisterHandler("RegisterBookMarkEffect", RegisterBookMarkEffect);
+            //RegisterBookMark和RegisterBookMarkEffect由CalamityEntropy.Call旧入口处理，此处不注册以避免递归
             RegisterHandler("IsBookMark", IsBookMark);
+            RegisterHandler("PerformBookmarkAttack", PerformBookmarkAttack);
+            RegisterHandler("GetBookmarkInfo", GetBookmarkInfo_Call);
+            RegisterHandler("GetBookmarkAttackCooldown", GetBookmarkAttackCooldown);
+            RegisterHandler("GetBookMarkSlots", GetBookMarkSlots);
+            RegisterHandler("AddBookMarkSlot", AddBookMarkSlot);
+            RegisterHandler("GetPlayerBookmarks", GetPlayerBookmarks);
+            RegisterHandler("CanEquipBookmarkWith", CanEquipBookmarkWith);
+            RegisterHandler("GetBookmarkUITexture", GetBookmarkUITexture);
 
             //===== UI 相关 =====
             RegisterHandler("SetBarColor", SetBarColor);
@@ -81,9 +92,9 @@ namespace CalamityEntropy
                 if (!(args[0] is string callName))
                     return ErrorResponse("First argument must be a string (call name)");
 
-                //查找处理器
+                //查找处理器，未注册的Call返回null交给旧系统处理
                 if (!Handlers.TryGetValue(callName, out CallHandler handler))
-                    return ErrorResponse($"Unknown call: '{callName}'. Use 'GetAvailableCalls' to see all available calls.");
+                    return null;
 
                 //提取参数（去除第一个调用名）
                 object[] callArgs = args.Skip(1).ToArray();
@@ -199,30 +210,255 @@ namespace CalamityEntropy
 
         #region Call Handlers 书签系统
 
-        private static object RegisterBookMark(object[] args)
-        {
-            if (args.Length < 1 || !(args[0] is Dictionary<string, object> data))
-                throw new ArgumentException("RegisterBookMark requires Dictionary<string, object>");
-
-            //调用原有的书签注册逻辑
-            //这里保持与原有系统的兼容性
-            return CalamityEntropy.Instance.Call("RegisterBookMark", data);
-        }
-
-        private static object RegisterBookMarkEffect(object[] args)
-        {
-            if (args.Length < 1 || !(args[0] is Dictionary<string, object> data))
-                throw new ArgumentException("RegisterBookMarkEffect requires Dictionary<string, object>");
-
-            return CalamityEntropy.Instance.Call("RegisterBookMarkEffect", data);
-        }
-
+        /// <summary>
+        /// 判断一个物品是否是书签
+        /// 参数: Item 或 int(物品类型ID)
+        /// 返回bool
+        /// </summary>
         private static object IsBookMark(object[] args)
         {
             if (args.Length < 1)
-                throw new ArgumentException("IsBookMark requires an Item");
+                throw new ArgumentException("IsBookMark需要1个参数: Item或int");
 
-            return CalamityEntropy.Instance.Call("IsBookMark", args[0]);
+            if (args[0] is Item item)
+                return BookMarkLoader.IsABookMark(item);
+
+            if (args[0] is int typeId)
+            {
+                //先查自定义注册表，再检查ModContent原生书签
+                if (BookMarkLoader.CustomBMByID.ContainsKey(typeId))
+                    return true;
+                Item sample = Terraria.ID.ContentSamples.ItemsByType.TryGetValue(typeId, out var s) ? s : null;
+                return sample != null && sample.ModItem is Content.Items.Books.BookMarks.BookMark;
+            }
+
+            throw new ArgumentException("第1个参数必须是Item或int(物品类型ID)");
+        }
+
+        /// <summary>
+        /// 独立触发一个书签的攻击
+        /// 参数: Item bookmarkItem, Player player, Vector2 position, Vector2 direction
+        /// 可选: int baseDamage, float baseKnockback, int baseProjectileType, float baseShootSpeed, int baseCooldown, string damageClassName
+        /// 返回Dictionary包含success, cooldownTicks, projectileIndex, projectileType
+        /// </summary>
+        private static object PerformBookmarkAttack(object[] args)
+        {
+            if (args.Length < 4)
+                throw new ArgumentException("PerformBookmarkAttack至少需要4个参数: Item, Player, Vector2 position, Vector2 direction");
+
+            if (!(args[0] is Item bookmarkItem))
+                throw new ArgumentException("第1个参数必须是Item(书签物品)");
+            if (!(args[1] is Player player))
+                throw new ArgumentException("第2个参数必须是Player");
+            if (!(args[2] is Vector2 position))
+                throw new ArgumentException("第3个参数必须是Vector2(发射位置)");
+            if (!(args[3] is Vector2 direction))
+                throw new ArgumentException("第4个参数必须是Vector2(方向)");
+
+            //可选参数
+            int baseDamage = args.Length > 4 && args[4] is int d ? d : 50;
+            float baseKnockback = args.Length > 5 && args[5] is float kb ? kb : 2f;
+            int baseProjectileType = args.Length > 6 && args[6] is int pt ? pt : -1;
+            float baseShootSpeed = args.Length > 7 && args[7] is float ss ? ss : 12f;
+            int baseCooldown = args.Length > 8 && args[8] is int cd ? cd : 20;
+
+            //伤害类型可以传字符串名
+            DamageClass damageClass = DamageClass.Magic;
+            if (args.Length > 9)
+            {
+                if (args[9] is DamageClass dc)
+                    damageClass = dc;
+                else if (args[9] is string dcName)
+                    damageClass = ResolveDamageClass(dcName);
+            }
+
+            var result = BookMarkLoader.PerformBookmarkAttack(
+                bookmarkItem, player, position, direction,
+                baseDamage, baseKnockback, baseProjectileType, baseShootSpeed, baseCooldown, damageClass);
+
+            //返回Dictionary方便弱引用调用
+            return new Dictionary<string, object>
+            {
+                ["success"] = result.Success,
+                ["cooldownTicks"] = result.CooldownTicks,
+                ["projectileIndex"] = result.ProjectileIndex,
+                ["projectileType"] = result.ProjectileType
+            };
+        }
+
+        /// <summary>
+        /// 查询书签的能力信息，不触发攻击
+        /// 参数: Item bookmarkItem
+        /// 返回Dictionary包含isBookmark, hasEffect, hasStatModifiers等
+        /// </summary>
+        private static object GetBookmarkInfo_Call(object[] args)
+        {
+            if (args.Length < 1)
+                throw new ArgumentException("GetBookmarkInfo需要1个参数: Item");
+
+            if (!(args[0] is Item bookmarkItem))
+                throw new ArgumentException("第1个参数必须是Item");
+
+            var info = BookMarkLoader.GetBookmarkInfo(bookmarkItem);
+            if (info == null)
+                return new Dictionary<string, object> { ["isBookmark"] = false };
+
+            var dict = new Dictionary<string, object>
+            {
+                ["isBookmark"] = info.IsBookmark,
+                ["hasEffect"] = info.HasEffect,
+                ["hasStatModifiers"] = info.HasStatModifiers,
+                ["replacesBaseProjectile"] = info.ReplacesBaseProjectile,
+                ["replacesProjectile"] = info.ReplacesProjectile,
+                ["modifiesCooldown"] = info.ModifiesCooldown
+            };
+
+            //属性快照
+            if (info.StatSnapshot != null)
+            {
+                dict["statDamage"] = info.StatSnapshot.Damage;
+                dict["statKnockback"] = info.StatSnapshot.Knockback;
+                dict["statShotSpeed"] = info.StatSnapshot.shotSpeed;
+                dict["statHoming"] = info.StatSnapshot.Homing;
+                dict["statSize"] = info.StatSnapshot.Size;
+                dict["statCrit"] = info.StatSnapshot.Crit;
+                dict["statHomingRange"] = info.StatSnapshot.HomingRange;
+                dict["statPenetrateAddition"] = info.StatSnapshot.PenetrateAddition;
+                dict["statAttackSpeed"] = info.StatSnapshot.attackSpeed;
+                dict["statArmorPenetration"] = info.StatSnapshot.armorPenetration;
+                dict["statLifeSteal"] = info.StatSnapshot.lifeSteal;
+            }
+
+            return dict;
+        }
+
+        /// <summary>
+        /// 预计算书签攻击的冷却时间，不实际发射
+        /// 参数: Item bookmarkItem, int baseCooldown(可选,默认20)
+        /// 返回int冷却Tick数
+        /// </summary>
+        private static object GetBookmarkAttackCooldown(object[] args)
+        {
+            if (args.Length < 1)
+                throw new ArgumentException("GetBookmarkAttackCooldown需要至少1个参数: Item");
+
+            if (!(args[0] is Item bookmarkItem))
+                throw new ArgumentException("第1个参数必须是Item");
+
+            if (!BookMarkLoader.IsABookMark(bookmarkItem))
+                return 0;
+
+            int baseCooldown = args.Length > 1 && args[1] is int cd ? cd : 20;
+            BookMarkLoader.modifyShootCooldown(bookmarkItem, ref baseCooldown);
+
+            //应用攻速修正
+            var modifer = new Content.Items.Books.EBookStatModifer();
+            BookMarkLoader.ModifyStat(bookmarkItem, modifer);
+            if (modifer.attackSpeed > 0)
+                baseCooldown = (int)(baseCooldown / modifer.attackSpeed);
+
+            return Math.Max(1, baseCooldown);
+        }
+
+        /// <summary>
+        /// 获取玩家当前可用的书签栏位数
+        /// 参数: Player player, Item book(可选，不传则用玩家手持物品)
+        /// 返回int
+        /// </summary>
+        private static object GetBookMarkSlots(object[] args)
+        {
+            if (args.Length < 1 || !(args[0] is Player player))
+                throw new ArgumentException("GetBookMarkSlots需要Player参数");
+
+            Item book = args.Length > 1 && args[1] is Item b ? b : player.HeldItem;
+            return player.GetMyMaxActiveBookMarks(book);
+        }
+
+        /// <summary>
+        /// 为玩家增加额外书签栏位
+        /// 参数: Player player, int count
+        /// 每帧重置，需在UpdateEquips等钩子中持续调用
+        /// </summary>
+        private static object AddBookMarkSlot(object[] args)
+        {
+            if (args.Length < 2)
+                throw new ArgumentException("AddBookMarkSlot需要2个参数: Player, int");
+
+            if (!(args[0] is Player player))
+                throw new ArgumentException("第1个参数必须是Player");
+            if (!(args[1] is int count))
+                throw new ArgumentException("第2个参数必须是int");
+
+            player.Entropy().AdditionalBookmarkSlot += count;
+            return true;
+        }
+
+        /// <summary>
+        /// 获取玩家当前装备的所有书签
+        /// 参数: Player player
+        /// 返回Item[]书签数组(可能包含空Item)
+        /// </summary>
+        private static object GetPlayerBookmarks(object[] args)
+        {
+            if (args.Length < 1 || !(args[0] is Player player))
+                throw new ArgumentException("GetPlayerBookmarks需要Player参数");
+
+            var items = player.Entropy().EBookStackItems;
+            if (items == null)
+                return Array.Empty<Item>();
+
+            int max = player.GetMyMaxActiveBookMarks(player.HeldItem);
+            var result = new Item[max];
+            for (int i = 0; i < max; i++)
+            {
+                result[i] = i < items.Count ? items[i] : new Item();
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 判断两个书签是否可以同时装备
+        /// 参数: Item bookmarkA, Item bookmarkB
+        /// 返回bool
+        /// </summary>
+        private static object CanEquipBookmarkWith(object[] args)
+        {
+            if (args.Length < 2)
+                throw new ArgumentException("CanEquipBookmarkWith需要2个参数: Item, Item");
+
+            if (!(args[0] is Item a) || !(args[1] is Item b))
+                throw new ArgumentException("参数必须是Item");
+
+            if (!BookMarkLoader.IsABookMark(a))
+                return false;
+
+            return BookMarkLoader.CanBeEquipWith(a, b);
+        }
+
+        /// <summary>
+        /// 获取书签的UI纹理
+        /// 参数: Item bookmarkItem
+        /// 返回Texture2D或null
+        /// </summary>
+        private static object GetBookmarkUITexture(object[] args)
+        {
+            if (args.Length < 1 || !(args[0] is Item item))
+                throw new ArgumentException("GetBookmarkUITexture需要1个参数: Item");
+
+            return BookMarkLoader.GetUITexture(item);
+        }
+
+        private static DamageClass ResolveDamageClass(string name)
+        {
+            switch (name.ToLower())
+            {
+                case "melee": return DamageClass.Melee;
+                case "ranged": return DamageClass.Ranged;
+                case "magic": return DamageClass.Magic;
+                case "summon": return DamageClass.Summon;
+                case "generic": return DamageClass.Generic;
+                default: return DamageClass.Magic;
+            }
         }
 
         #endregion

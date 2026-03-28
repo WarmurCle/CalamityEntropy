@@ -1012,5 +1012,14 @@ namespace CalamityEntropy.Content.Items.Books
         {
 
         }
+
+        /// <summary>
+        /// 独立攻击钩子，当书签被外部系统触发时调用
+        /// 仅当OnShoot/OnActive中有需要在独立模式下复现的逻辑时才需重写
+        /// </summary>
+        public virtual void OnStandaloneAttack(Player player, Vector2 position, Vector2 direction, int damage, float knockback)
+        {
+
+        }
     }
 }
