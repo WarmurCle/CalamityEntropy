@@ -185,7 +185,7 @@ namespace CalamityEntropy
             if (!Main.dedServ && ModLoader.TryGetMod("Wikithis", out var wikithis))
             {
                 wikithis.Call(0, this, "http://calentropy.miraheze.org/wiki/{}", GameCulture.CultureName.Chinese);
-                var ic = CEUtils.getExtraTexAsset("UI/icon_s");
+                var ic = CEUtils.RequestTex("CalamityEntropy/Assets/UI/icon_s");
                 wikithis.Call("AddWikiTexture", this, ic);
                 wikithis.Call(3, this, ic);
             }
