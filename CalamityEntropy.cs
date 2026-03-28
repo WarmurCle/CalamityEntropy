@@ -1622,6 +1622,7 @@ namespace CalamityEntropy
             string Isaac2 = Path.Combine(MyGameFolder, "Binding of Isaac Repentance+").Replace("/", "\\");
             BrokenAnkh.isaac = Directory.Exists(Isaac1) || Directory.Exists(Isaac2);
 
+            #region RegisterBoss
             Mod bossChecklist;
             if (ModLoader.TryGetMod("BossChecklist", out bossChecklist))
             {
@@ -1637,7 +1638,7 @@ namespace CalamityEntropy
                                 sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 0.8f, SpriteEffects.None, 0);
                             };
                             Func<bool> AcropDowned = () => EDownedBosses.downedAcropolis;
-                            AddBoss(bossChecklist, Instance, entryName, 2f, AcropDowned, ModContent.NPCType<AcropolisMachine>(), new Dictionary<string, object>()
+                            AddBoss(bossChecklist, Instance, entryName, 2.8f, AcropDowned, ModContent.NPCType<AcropolisMachine>(), new Dictionary<string, object>()
                             {
                                 ["displayName"] = Language.GetText("Mods.CalamityEntropy.NPCs.AcropolisMachine.BossChecklistIntegration.EntryName"),
                                 ["spawnInfo"] = Language.GetText("Mods.CalamityEntropy.NPCs.AcropolisMachine.BossChecklistIntegration.SpawnInfo"),
@@ -1766,6 +1767,7 @@ namespace CalamityEntropy
 
                 }
             }
+            #endregion
             if (!Main.dedServ)
             {
                 ealaserSound = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/VoidLaserLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
