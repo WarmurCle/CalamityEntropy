@@ -1976,7 +1976,7 @@ Items: {
 			增加挑战性，更少的生命，伤害和生存能力。
 			Boss获得动态减伤和单次受伤最大伤害限制，百分比减少生命、护甲，暴击率最高只能达到50%，伤害增幅削减，降低部分机动
 			部分boss获得AI改动
-			暂时没有其他额外内容
+			传颂之物获得一个可开启的特殊加成
 			[c/ff0000:注：该模式不处于灾熵官方的推荐流程内，灾熵的流程和平衡性调整从来不考虑该模式]
 			[c/ff0000:如果你认为本模组破坏了原版灾厄流程优秀的平衡，那么开启这个模式或许能带来你所认为的平衡]
 			右键使用以只启用boss动态减伤功能
@@ -5626,7 +5626,7 @@ Configs: {
 
 		LoreSpecialEffect: {
 			Label: 传颂之物特殊效果
-			Tooltip: 为灾厄的传颂之物添加特殊效果
+			Tooltip: 在未开启熵变难度的时候允许使用传颂之物的加成
 		}
 
 		BramblecleaveAlwaysUnlockAllSkill: {
@@ -5925,7 +5925,7 @@ PrefixVigorousDescr: +15% 潜行值回复速度
 WikiURL: ""
 GameTips.VoidOreTip: 虚渺矿会在击败巡游者后在太空生成
 LoreAwakeningDesc: 小幅增加移动速度和跳跃高度
-LoreKingSlimeDesc: 提升跳跃高度，但会减少移动速度
+LoreKingSlimeDesc: 提升跳跃高度
 LoreDesertScourgeDesc: 增加憋气时间
 LoreCrimsonDesc: +{1}最大生命值
 LoreCrabulonDesc: 受伤后获得{1}秒的与菇共生增益
@@ -5952,9 +5952,11 @@ LoreSulphurSeaDesc: 对酸性毒液免疫
 LoreAzafureDesc: +{1}% 暴击率
 LoreCalamitasCloneDesc: +{1}% 近战攻速
 LorePlanteraDesc: +0.5/s 生命再生
-LoreAbyssDesc: 增加憋气时间
+LoreAquaticScourge: 增加憋气时间
+LoreAbyssDesc: 增加在深渊中的可见性
 LoreLeviathanAnahitaDesc: 在水中增加1/s生命再生
 LoreAstrumAureusDesc: 增加幻星感染减益的流逝速度
+LoreBrimstoneElemental: +1% 伤害减免
 LoreGolemDesc: +{1}% 伤害减免
 LorePlaguebringerGoliathDesc: 增加瘟疫减益的流逝速度
 LoreEmpressofLightDesc: 在白天增加{1}点防御

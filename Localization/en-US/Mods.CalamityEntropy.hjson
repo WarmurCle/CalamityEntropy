@@ -1837,6 +1837,7 @@ Items: {
 			'''
 			Active/Deactive Entropy Mode
 			More challenging, Less Health, Less Damage
+			Lore items gains a special bonus that can be activated
 			[c/ff0000: Note: This mode is not part of the official recommended process , and the balance adjustments Entropy do not take this mode into account]
 			Right click use to only toggle TDR
 			'''
@@ -5394,7 +5395,7 @@ Configs: {
 
 		LoreSpecialEffect: {
 			Label: Lore Special Effect
-			Tooltip: ""
+			Tooltip: Enable lore special effect when entropy mode isn't enable
 		}
 
 		BramblecleaveAlwaysUnlockAllSkill: {
@@ -5681,7 +5682,7 @@ PrefixVigorousDescr: +15% Stealth Regen
 WikiURL: https://terrariamods.wiki.gg/wiki/Calamity_Entropy/
 GameTips.VoidOreTip: Void ore will spawn high in the sky after defeated Cruiser
 LoreAwakeningDesc: Slightly increase movement speed and jumping height
-LoreKingSlimeDesc: Increase jumping height, but reduce movement speed
+LoreKingSlimeDesc: Increase jumping height
 LoreDesertScourgeDesc: Increase breath holding time
 LoreCrimsonDesc: +{1}max health
 LoreCrabulonDesc: Obtain mushy for {1} seconds after injury
@@ -5708,9 +5709,11 @@ LoreSulphurSeaDesc: Immune to acid venom
 LoreAzafureDesc: +{1}% Crit chance
 LoreCalamitasCloneDesc: +{1}% Melee speed
 LorePlanteraDesc: +0.5/s Life regen
-LoreAbyssDesc: Increase breath holding time
+LoreAquaticScourge: Increase breath holding time
+LoreAbyssDesc: Increase visibility in the abyss
 LoreLeviathanAnahitaDesc: Increase 1/s life regen in water
 LoreAstrumAureusDesc: Increase the speed of astral infection debuff decay
+LoreBrimstoneElemental: +1% Damage reduce
 LoreGolemDesc: +{1}% Damage reduce
 LorePlaguebringerGoliathDesc: Increase the speed of plague debuff decay
 LoreEmpressofLightDesc: +{1} Defense in day time

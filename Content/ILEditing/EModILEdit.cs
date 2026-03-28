@@ -511,7 +511,7 @@ namespace CalamityEntropy.Content.ILEditing
         }
         private static bool canuseitem_hook(Func<ModItem, Player, bool> orig, ModItem self, Player player)
         {
-            if (ModContent.GetInstance<ServerConfig>().LoreSpecialEffect && LoreReworkSystem.loreEffects.ContainsKey(self.Type))
+            if (LoreEffect.Enabled && LoreReworkSystem.loreEffects.ContainsKey(self.Type))
             {
                 return true;
             }

@@ -12,7 +12,6 @@ namespace CalamityEntropy.Common.LoreReworks
         public override void UpdateEffects(Player player)
         {
             player.jumpSpeedBoost += 1f;
-            player.Entropy().moveSpeed -= 0.2f;
         }
     }
     public class LEDesertScourge : LoreEffect

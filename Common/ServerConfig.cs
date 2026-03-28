@@ -17,7 +17,7 @@ namespace CalamityEntropy.Common
         [DefaultValue(true)]
         public bool ExtraItemsInStarterBag { get; set; }
 
-        [DefaultValue(true)]
+        [DefaultValue(false)]
         public bool LoreSpecialEffect { get; set; }
 
         [Range(0f, 100f)]

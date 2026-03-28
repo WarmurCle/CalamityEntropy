@@ -11,6 +11,7 @@ namespace CalamityEntropy.Common
 {
     public abstract class LoreEffect
     {
+        public static bool Enabled => ModContent.GetInstance<ServerConfig>().LoreSpecialEffect || CalamityEntropy.EntropyMode;
         public virtual LocalizedText Decription
         {
             get
@@ -48,7 +49,7 @@ namespace CalamityEntropy.Common
         }
         public static void ToggleLore(Item item)
         {
-            if (!ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)
+            if (!LoreEffect.Enabled)
                 return;
 
             if (loreEffects.ContainsKey(item.type))
@@ -77,7 +78,7 @@ namespace CalamityEntropy.Common
     {
         public override void SetDefaults(Item entity)
         {
-            if (!ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)
+            if (!LoreEffect.Enabled)
                 return;
             if (LoreReworkSystem.loreEffects.ContainsKey(entity.type))
             {
@@ -88,7 +89,7 @@ namespace CalamityEntropy.Common
         }
         public override bool? UseItem(Item item, Player player)
         {
-            if (!LoreReworkSystem.loreEffects.ContainsKey(item.type) || !ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)
+            if (!LoreReworkSystem.loreEffects.ContainsKey(item.type) || !LoreEffect.Enabled)
             {
                 return null;
             }
@@ -106,7 +107,7 @@ namespace CalamityEntropy.Common
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if (!ModContent.GetInstance<ServerConfig>().LoreSpecialEffect || !LoreReworkSystem.loreEffects.ContainsKey(item.type))
+            if (!LoreEffect.Enabled || !LoreReworkSystem.loreEffects.ContainsKey(item.type))
                 return;
             if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
                 return;

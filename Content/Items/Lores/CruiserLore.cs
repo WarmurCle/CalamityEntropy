@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Lores
         {
             if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
                 return;
-            if (ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)
+            if (LoreEffect.Enabled)
             {
                 TooltipLine tooltipLineEF = new TooltipLine(base.Mod, "Entropy:Effect", Language.GetTextValue("Mods.CalamityEntropy.UseToggle"));
                 tooltips.Add(tooltipLineEF);
@@ -59,7 +59,7 @@ namespace CalamityEntropy.Content.Items.Lores
         }
         public override bool CanUseItem(Player player)
         {
-            return ModContent.GetInstance<ServerConfig>().LoreSpecialEffect;
+            return LoreEffect.Enabled;
         }
         public override bool? UseItem(Player player)
         {

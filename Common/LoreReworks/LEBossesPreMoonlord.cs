@@ -1,4 +1,5 @@
-﻿using CalamityMod.Buffs.DamageOverTime;
+﻿using CalamityMod;
+using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.Potions;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items.LoreItems;
@@ -144,12 +145,20 @@ namespace CalamityEntropy.Common.LoreReworks
             player.lifeRegen += Regen;
         }
     }
+    public class LEAquaticScourge : LoreEffect
+    {
+        public override int ItemType => ModContent.ItemType<LoreAquaticScourge>();
+        public override void UpdateEffects(Player player)
+        {
+            player.breathMax += 60;
+        }
+    }
     public class LEAbyss : LoreEffect
     {
         public override int ItemType => ModContent.ItemType<LoreAbyss>();
         public override void UpdateEffects(Player player)
         {
-            player.breathMax += 60;
+            player.Entropy().AbyssalLight += 0.18f;
         }
     }
     public class LELeviathan : LoreEffect
@@ -177,6 +186,14 @@ namespace CalamityEntropy.Common.LoreReworks
                     }
                 }
             }
+        }
+    }
+    public class LEBrimElemental : LoreEffect
+    {
+        public override int ItemType => ModContent.ItemType<LoreBrimstoneElemental>();
+        public override void UpdateEffects(Player player)
+        {
+            player.endurance += 0.01f;
         }
     }
     public class LEGolem : LoreEffect

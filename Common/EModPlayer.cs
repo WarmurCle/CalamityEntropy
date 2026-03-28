@@ -852,9 +852,11 @@ namespace CalamityEntropy.Common
             Player.height = oHeight;
             Player.position = c - new Vector2(Player.width / 2, Player.height);
         }
+        public float AbyssalLight = 0;
         public Item goldenRock = null;
         public override void ResetEffects()
         {
+            AbyssalLight = 0;
             smdVisual = false;
             smolderingSet = false;
             ashesCore = false;
@@ -1576,7 +1578,7 @@ namespace CalamityEntropy.Common
                     lifeRegenPerSec += 4;
                 }
             }
-            if (ModContent.GetInstance<ServerConfig>().LoreSpecialEffect)
+            if (LoreEffect.Enabled)
             {
                 foreach (var lore in enabledLoreItems)
                 {
@@ -2328,9 +2330,9 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            if (MariviumLight > 0.02f)
+            if (AbyssalLight + MariviumLight > 0.02f)
             {
-                EnhancedDarknessSystem.lights.Add(new(center: Player.Center, scale: 36 * MariviumLight));
+                EnhancedDarknessSystem.lights.Add(new(center: Player.Center, scale: 36 * (AbyssalLight + MariviumLight)));
                 if (MariviniumSet || accAzureAbyss)
                 {
                     CEUtils.AddLight(Player.Center, Color.LightBlue * MariviumLight, 12f);

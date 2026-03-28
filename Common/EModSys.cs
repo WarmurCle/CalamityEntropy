@@ -16,6 +16,7 @@ using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod;
 using CalamityMod.Items.Ammo;
+using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.NPCs.SlimeGod;
 using CalamityMod.Projectiles.Boss;
@@ -455,6 +456,35 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdateDusts()
         {
+            //Debug
+            /*{
+                if (CEKeybinds.CommandMinions.JustPressed)
+                {
+                    List<int> loreItems = new List<int>();
+                    List<int> loresHasEffect = new List<int>();
+                    for (int i = ItemID.Count; i < ItemLoader.ItemCount; i++)
+                    {
+                        Item item = ContentSamples.ItemsByType[i];
+                        if (item.ModItem != null && item.ModItem is LoreItem)
+                        {
+                            loreItems.Add(i);
+                        }
+                    }
+                    foreach (var kv in LoreReworkSystem.loreEffects)
+                    {
+                        loresHasEffect.Add(kv.Key);
+                    }
+
+                    for (int i = 0; i < loreItems.Count; i++)
+                    {
+                        if (!loresHasEffect.Contains(loreItems[i]))
+                        {
+                            Main.NewText(ContentSamples.ItemsByType[loreItems[i]].Name);
+                        }
+                    }
+                }
+            }*/
+
             ScreenShaker.Update();
             if (CalamityEntropy.FlashEffectStrength > 0)
             {
