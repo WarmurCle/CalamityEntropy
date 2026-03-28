@@ -42,7 +42,7 @@ namespace CalamityEntropy.Common
                                 org = hp.SeaDomainLayers;
                                 hp.SeaDomainLayers = player.GetMyMaxActiveBookMarks(item);
                             }
-                            int AdjustedDamage = eb.CauculateProjectileDamage(0.25f);
+                            int AdjustedDamage = eb.CauculateProjectileDamage(0.2f);
                             bool f = true;
                             if (f)
                             {
