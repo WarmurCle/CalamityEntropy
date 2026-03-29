@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.AzafureMiners
             CreateRecipe().AddIngredient<EnergyCore>()
                 .AddIngredient<HellIndustrialComponents>(6)
                 .AddIngredient<DubiousPlating>(6)
-                .AddRecipeGroup(RecipeGroupID.IronBar, 2)
+                .AddRecipeGroup(CERecipeGroups.IronBar, 2)
                 .AddTile(TileID.HeavyWorkBench)
                 .Register();
         }
