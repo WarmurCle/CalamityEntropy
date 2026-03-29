@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe().
-                AddRecipeGroup(RecipeGroupID.IronBar, 8).
+                AddRecipeGroup(CERecipeGroups.IronBar, 8).
                 AddTile(TileID.WorkBenches).
                 Register();
         }

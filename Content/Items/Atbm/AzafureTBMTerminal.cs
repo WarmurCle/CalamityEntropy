@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Items.Atbm
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient<HellIndustrialComponents>(12)
-                .AddRecipeGroup(RecipeGroupID.IronBar, 40)
+                .AddRecipeGroup(CERecipeGroups.IronBar, 40)
                 .AddTile(TileID.HeavyWorkBench)
                 .Register();
         }

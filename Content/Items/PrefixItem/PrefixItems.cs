@@ -102,7 +102,7 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "Hard";
         public override void AddRecipes()
         {
-            CreateRecipe().AddRecipeGroup(RecipeGroupID.IronBar, 20)
+            CreateRecipe().AddRecipeGroup(CERecipeGroups.IronBar, 20)
                 .AddIngredient(ItemID.Diamond, 2)
                 .Register();
         }
@@ -143,7 +143,7 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ItemID.StoneBlock, 10).
-                AddRecipeGroup(RecipeGroupID.IronBar, 5)
+                AddRecipeGroup(CERecipeGroups.IronBar, 5)
                 .AddIngredient(ItemID.TurtleShell)
                 .Register();
         }

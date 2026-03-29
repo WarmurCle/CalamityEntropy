@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Tools
             CreateRecipe().
                 AddIngredient<HellIndustrialComponents>(4).
                 AddIngredient<DubiousPlating>(6).
-                AddRecipeGroup(RecipeGroupID.IronBar, 6).
+                AddRecipeGroup(CERecipeGroups.IronBar, 6).
                 AddTile(TileID.Anvils).
                 Register();
         }

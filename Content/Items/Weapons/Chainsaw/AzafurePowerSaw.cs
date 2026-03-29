@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
         {
             CreateRecipe().
                 AddIngredient<HellIndustrialComponents>(5).
-                AddRecipeGroup(RecipeGroupID.IronBar, 6).
+                AddRecipeGroup(CERecipeGroups.IronBar, 6).
                 AddIngredient(ItemID.Chain, 2).
                 AddTile(TileID.Anvils).
                 Register();

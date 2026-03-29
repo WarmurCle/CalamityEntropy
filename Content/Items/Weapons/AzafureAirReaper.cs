@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             CreateRecipe()
                 .AddIngredient<HellIndustrialComponents>(5)
                 .AddIngredient<MysteriousCircuitry>(4)
-                .AddRecipeGroup(RecipeGroupID.IronBar, 8)
+                .AddRecipeGroup(CERecipeGroups.IronBar, 8)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

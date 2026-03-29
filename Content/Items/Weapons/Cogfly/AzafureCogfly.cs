@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
         {
             CreateRecipe().AddIngredient<HellIndustrialComponents>(4)
                 .AddIngredient<MysteriousCircuitry>()
-                .AddRecipeGroup(RecipeGroupID.IronBar, 4)
+                .AddRecipeGroup(CERecipeGroups.IronBar, 4)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

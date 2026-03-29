@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient<HellIndustrialComponents>(4)
                 .AddIngredient<MysteriousCircuitry>()
                 .AddIngredient(ItemID.HallowedBar, 6)
-                .AddRecipeGroup(RecipeGroupID.IronBar, 6)
+                .AddRecipeGroup(CERecipeGroups.IronBar, 6)
                 .AddIngredient(ItemID.Wire, 12)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
