@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.AzafureMiners
         internal static float uiAlpha = 0f;
         private static bool IsActive;
         private bool isDragging = false;
-        private Vector2 dragOffset = Vector2.Zero;
+        private Vector2 dragOffset = new Vector2(710, 400);
         internal int dontDragTime;
         private float hoverProgress = 0f;
 
