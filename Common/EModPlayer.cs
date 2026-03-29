@@ -244,7 +244,7 @@ namespace CalamityEntropy.Common
         {
             if (Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
             {
-                var rs = PlayerDeathReason.ByCustomReason(Player.name + Mod.GetLocalization("LilyDeath" + Main.rand.Next(2).ToString()).Value);
+                var rs = PlayerDeathReason.ByCustomReason(Mod.GetLocalization("LilyDeath" + Main.rand.Next(2).ToString()).ToNetworkText(Player.name));
                 damageSource = rs;
             }
 
@@ -911,7 +911,7 @@ namespace CalamityEntropy.Common
                 if (foreseeOrbLast && foreseeOrbItem == null && Player.HasBuff<ShatteredOrb>())
                 {
                     CEUtils.PlaySound("amethyst_break", 1, Player.Center);
-                    Player.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(Player.name + " " + Mod.GetLocalization("OrbPunishDeath" + Main.rand.Next(0, 2).ToString()).Value)), (int)(Player.statLifeMax2 * 0.9f), 0);
+                    Player.Hurt(PlayerDeathReason.ByCustomReason(Mod.GetLocalization("OrbPunishDeath" + Main.rand.Next(0, 2).ToString()).ToNetworkText(Player.name)), (int)(Player.statLifeMax2 * 0.9f), 0);
                 }
                 foreseeOrbLast = foreseeOrbItem != null;
             }
@@ -1646,7 +1646,7 @@ namespace CalamityEntropy.Common
                     {
                         for (int i = 0; i < Player.hurtCooldowns.Length; i++)
                             Player.hurtCooldowns[i] = 0;
-                        Player.Hurt(PlayerDeathReason.ByCustomReason(Player.name + Mod.GetLocalization("KilledByBloodBoiling").Value), 66666, 0);
+                        Player.Hurt(PlayerDeathReason.ByCustomReason(Mod.GetLocalization("KilledByBloodBoiling").ToNetworkText(Player.name)), 66666, 0);
                     }
                 }
                 Player.GetAttackSpeed(DamageClass.Generic) += AttackSpeedAddition;
@@ -3073,7 +3073,7 @@ namespace CalamityEntropy.Common
                 Player.statLife -= dmgApply;
                 if (Player.statLife < 1)
                 {
-                    Player.Hurt(PlayerDeathReason.ByCustomReason(Player.name + Mod.GetLocalization("KilledByAstral").Value), dmgApply, 0, false, true, 0, false, 0);
+                    Player.Hurt(PlayerDeathReason.ByCustomReason(Mod.GetLocalization("KilledByAstral").ToNetworkText(Player.name)), dmgApply, 0, false, true, 0, false, 0);
                 }
                 deusCoreBloodOut -= dmgApply;
             }
@@ -3545,7 +3545,7 @@ namespace CalamityEntropy.Common
 
                     var yeetVec = Vector2.Normalize(Player.Center - touchedTile.ToWorldCoordinates());
                     Player.velocity += yeetVec * auricRejectionKB;
-                    Player.Hurt(PlayerDeathReason.ByCustomReason(CalamityUtils.GetText("Status.Death.AuricRejection").Format(Player.name)), 460, 0);
+                    Player.Hurt(PlayerDeathReason.ByCustomReason(CalamityUtils.GetText("Status.Death.AuricRejection").ToNetworkText(Player.name)), 460, 0);
                     Player.AddBuff(BuffID.Electrified, 300);
 
                     SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Custom/ExoMechs/TeslaShoot1"));

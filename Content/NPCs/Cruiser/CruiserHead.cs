@@ -196,11 +196,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             }
             SpawnModBiomes = new int[] { ModContent.GetInstance<VoidDummyBoime>().Type };
         }
-
-        public override void BossLoot(ref string name, ref int potionType)
-        {
-            potionType = ModContent.ItemType<OmegaHealingPotion>();
-        }
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(Main.zenithWorld ? ModContent.BuffType<MaliciousCode>() : ModContent.BuffType<VoidTouch>(), 150);

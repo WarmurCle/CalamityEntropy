@@ -1057,10 +1057,6 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         {
             NPC.SetEventFlagCleared(ref EDownedBosses.downedLuminaris, -1);
         }
-        public override void BossLoot(ref string name, ref int potionType)
-        {
-            potionType = ItemID.GreaterHealingPotion;
-        }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<LuminarisBag>()));

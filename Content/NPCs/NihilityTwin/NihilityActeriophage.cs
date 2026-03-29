@@ -102,11 +102,6 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             NPC.netAlways = true;
             SpawnModBiomes = new int[] { ModContent.GetInstance<VoidDummyBoime>().Type };
         }
-
-        public override void BossLoot(ref string name, ref int potionType)
-        {
-            potionType = ModContent.ItemType<SupremeHealingPotion>();
-        }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<NihilityTwinBag>()));

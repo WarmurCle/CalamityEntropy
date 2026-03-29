@@ -1072,9 +1072,5 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         {
             NPC.SetEventFlagCleared(ref EDownedBosses.downedProphet, -1);
         }
-        public override void BossLoot(ref string name, ref int potionType)
-        {
-            potionType = ItemID.GreaterHealingPotion;
-        }
     }
 }

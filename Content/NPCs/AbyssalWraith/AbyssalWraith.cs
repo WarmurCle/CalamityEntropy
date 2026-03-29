@@ -1139,11 +1139,6 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
             //}
         }
         public bool deathAnm = false;
-
-        public override void BossLoot(ref string name, ref int potionType)
-        {
-            potionType = ModContent.ItemType<OmegaHealingPotion>();
-        }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
 

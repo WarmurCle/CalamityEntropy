@@ -439,19 +439,7 @@ namespace CalamityEntropy
 
         private void drawPlayerHeadHook(On_MapHeadRenderer.orig_DrawPlayerHead orig, MapHeadRenderer self, Camera camera, Player drawPlayer, Vector2 position, float alpha, float scale, Color borderColor)
         {
-            if (true)
-            {
-                int origHead = drawPlayer.head;
-                drawPlayer.head = EquipLoader.GetEquipSlot(CalamityEntropy.Instance, "AbyssLantern", EquipType.Head);
-
-                orig(self, camera, drawPlayer, position, alpha, scale, borderColor);
-
-                drawPlayer.head = origHead;
-            }
-            else
-            {
-                orig(self, camera, drawPlayer, position, alpha, scale, borderColor);
-            }
+            orig(self, camera, drawPlayer, position, alpha, scale, borderColor);
         }
 
         private void draw_cursor_hook(On_Main.orig_DrawCursor orig, Vector2 bonus, bool smart)

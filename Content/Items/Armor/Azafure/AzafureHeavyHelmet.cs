@@ -84,7 +84,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                 return false;
             if (ArmorSetBonus && !ExplosionFlag && DeathExplosionCD <= 0)
             {
-                damageSource = PlayerDeathReason.ByCustomReason("");
+                damageSource = PlayerDeathReason.ByCustomReason(Mod.GetLocalization("Death").ToNetworkText(Player.name));
             }
             return true;
         }
@@ -158,7 +158,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                 {
                     DeathExplosion = -1;
                     ExplosionFlag = false;
-                    Player.KillMe(PlayerDeathReason.ByCustomReason(Mod.GetLocalization("DeathExplode").Value.Replace("[PlayerName]", Player.name)), 10000, 0);
+                    Player.KillMe(PlayerDeathReason.ByCustomReason(Mod.GetLocalization("DeathExplode").ToNetworkText(Player.name)), 10000, 0);
                     if (Main.myPlayer == Player.whoAmI && Main.netMode == NetmodeID.MultiplayerClient)
                     {
                         var mp = Mod.GetPacket();

@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Buffs
                 player.statLife -= dmg;
                 if (player.statLife <= dmg)
                 {
-                    player.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral($"{player.name}" + Language.GetTextValue("Mods.CalamityEntropy.KilledByVoidTouch"))), dmg, 0);
+                    player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetText("Mods.CalamityEntropy.KilledByVoidTouch").ToNetworkText(player.name)), dmg, 0);
                 }
             }
             var r = Main.rand;

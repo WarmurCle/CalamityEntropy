@@ -24,7 +24,7 @@ namespace CalamityEntropy.Core
         }
         void ICELoader.SetupData()
         {
-            Swings = VaultUtils.GetSubclassInstances<BaseSwing>();
+            Swings = VaultUtils.GetDerivedInstances<BaseSwing>();
             foreach (var swing in Swings)
             {
                 string pathValue = swing.GetType().Name;

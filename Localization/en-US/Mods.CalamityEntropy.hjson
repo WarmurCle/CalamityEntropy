@@ -4693,7 +4693,7 @@ Projectiles: {
 }
 
 LegendTooltip: - Legend -
-KilledByVoidTouch: was killed by the void
+KilledByVoidTouch: {0} missed in the void
 
 Buffs: {
 	VoidStorm: {
@@ -5624,9 +5624,9 @@ IsaacLock: You can't equip this before you played The Binding of Isaac Repentanc
 PWSpawnInfo: Enter the Abyss with Chaos State debuff
 CdAS: Amima Sola Cooldown
 XythCharge: Xytheron Charge
-KilledByVoidVirus1: "Only Nihility remains in "
-KilledByVoidVirus2: "'s blood"
-KilledByAstral: " completely eroded by starlight"
+KilledByVoidVirus: "Only Nihility remains in {0}'s blood"
+KilledByAstral: "{0} completely eroded by starlight"
+Death: {0} was killed
 CdFF: Friend Finder Cooldown
 TooltipBookMark: Can insert in Entropy Books weapons
 TooltipBookMark2: Use RMB to quick insert/take out
@@ -5669,8 +5669,8 @@ AmmoStarblightSoot: Starblight Soot
 AmmoType: Ammo type
 AmmoMissile: Missile
 UseAmmo: Use Ammo
-OrbPunishDeath0: shattered into pieces
-OrbPunishDeath1: try to remove the shattered foresee orb
+OrbPunishDeath0: {0} shattered into pieces
+OrbPunishDeath1: {0} try to remove the shattered foresee orb
 RuneDashCD: Rune Dash Cooldown
 ArmorPenetrationItemTooltip: Armor Penetration
 AmmoLifeTime: Life Time
@@ -5709,11 +5709,11 @@ LoreSulphurSeaDesc: Immune to acid venom
 LoreAzafureDesc: +{1}% Crit chance
 LoreCalamitasCloneDesc: +{1}% Melee speed
 LorePlanteraDesc: +0.5/s Life regen
-LoreAquaticScourge: Increase breath holding time
+LoreAquaticScourgeDesc: Increase breath holding time
 LoreAbyssDesc: Increase visibility in the abyss
 LoreLeviathanAnahitaDesc: Increase 1/s life regen in water
 LoreAstrumAureusDesc: Increase the speed of astral infection debuff decay
-LoreBrimstoneElemental: +1% Damage reduce
+LoreBrimstoneElementalDesc: +1% Damage reduce
 LoreGolemDesc: +{1}% Damage reduce
 LorePlaguebringerGoliathDesc: Increase the speed of plague debuff decay
 LoreEmpressofLightDesc: +{1} Defense in day time
@@ -5744,7 +5744,7 @@ DraedonDialogs: {
 
 SlotInfo2: InsertItem
 LightModeTip: Warning: Other lighting modes will cause some projectiles and NPCs of Calamity Entropy to become invisible. Best to use color mode.
-KilledByBloodBoiling: "'s blood is boiling"
+KilledByBloodBoiling: "{0}'s blood is boiling"
 BloodBoiling: Boiling Blood
 BloodBoilingDescr: Continuously using items increases attack speed, but it will cause sustained damage to yourself
 PrefixHeavyDesc: +10% Fall Speed
@@ -5797,8 +5797,8 @@ SolarBarInfo:
 RPDonorName: 冷级
 Acropolis: ""
 OblivionThretherCooldown: Oblivion Threther Dash Cooldown
-LilyDeath0: " was devoured by filth"
-LilyDeath1: "'s protective treasure is broken"
+LilyDeath0: "{0} was devoured by filth"
+LilyDeath1: "{0}'s protective treasure is broken"
 TheVoid: The Void
 
 Biomes: {
@@ -6071,7 +6071,7 @@ Menu: {
 	Church: Church
 }
 
-DeathExplode: "[PlayerName] exploded"
+DeathExplode: {0} exploded
 BlockingCooldown: Blocking Cooldown
 FetalDreamCooldown: Fetal Dream Cooldown
 DriverCoreCooldown: Driver Core Shield
@@ -6089,5 +6089,4 @@ Luminariswarm: Luminariswarm
 MinionAccDescCrownFangs: When equip with [ITEM]: +1 Minion slot
 NonZenithWorld: Not in zenith world
 ZenithWorld: In zenith world
-LoreAquaticScourgeDesc: Mods.CalamityEntropy.LoreAquaticScourgeDesc
-LoreBrimstoneElementalDesc: Mods.CalamityEntropy.LoreBrimstoneElementalDesc
+
