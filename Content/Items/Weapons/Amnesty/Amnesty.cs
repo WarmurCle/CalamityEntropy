@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
         {
             Item.width = 62;
             Item.height = 62;
-            Item.damage = 130;
+            Item.damage = 115;
             Item.noMelee = true;
             Item.useAnimation = Item.useTime = 4;
             Item.useStyle = ItemUseStyleID.Shoot;
@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
             Item.rare = ModContent.RarityType<CosmicPurple>();
             Item.shoot = ModContent.ProjectileType<AmnestyHeld>();
             Item.shootSpeed = 16f;
-            Item.mana = 7;
+            Item.mana = 4;
             Item.DamageType = DamageClass.Magic;
             Item.channel = true;
             Item.useTurn = true;

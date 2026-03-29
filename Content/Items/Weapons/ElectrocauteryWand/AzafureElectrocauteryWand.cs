@@ -18,8 +18,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
         {
             Item.width = 24;
             Item.height = 24;
-            Item.damage = 120;
-            Item.crit = 12;
+            Item.damage = 80;
             Item.DamageType = DamageClass.Magic;
             Item.useTime = 36;
             Item.useAnimation = 36;

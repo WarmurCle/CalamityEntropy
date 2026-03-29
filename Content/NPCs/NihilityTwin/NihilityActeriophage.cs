@@ -67,8 +67,8 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             NPC.boss = true;
             NPC.width = 140;
             NPC.height = 140;
-            NPC.damage = 115;
-            NPC.Calamity().DR = 0.10f;
+            NPC.damage = 120;
+            NPC.Calamity().DR = 0.15f;
             if (Main.expertMode)
             {
                 NPC.damage += 2;
@@ -77,7 +77,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             {
                 NPC.damage += 2;
             }
-            NPC.defense = 60;
+            NPC.defense = 75;
             NPC.lifeMax = 360000;
             if (BossRushEvent.BossRushActive)
             {

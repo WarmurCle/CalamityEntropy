@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
             Item.rare = ModContent.RarityType<Turquoise>();
             Item.accessory = true;
-            Item.defense = 40;
+            Item.defense = 28;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                     }
                 }
             }
-            player.Entropy().lifeRegenPerSec += 5;
+            player.Entropy().lifeRegenPerSec += 4;
             if (CEUtils.inWorld((int)c.X, (int)c.Y) && Main.tile[(int)c.X, (int)c.Y].HasTile)
             {
                 int type = Main.tile[(int)c.X, (int)c.Y].TileType;
