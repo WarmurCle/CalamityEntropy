@@ -104,7 +104,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AI()
         {
             Player player = Projectile.GetOwner();
-            if(player.HeldItem.ModItem is GreatSwordofEmbers)
+            if (player.dead)
+            {
+                Projectile.Kill();
+                return;
+            }
+            if (player.HeldItem.ModItem is GreatSwordofEmbers)
             {
                 Projectile.timeLeft = 5;
                 float speed = player.GetWeaponAttackSpeed(player.HeldItem);

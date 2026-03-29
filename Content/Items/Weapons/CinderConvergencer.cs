@@ -77,6 +77,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             HighLight *= 0.92f;
             Player player = Projectile.GetOwner();
+            if(player.dead)
+            {
+                Projectile.Kill();
+                return;
+            }
             Projectile.StickToPlayer();
             Projectile.rotation += player.direction * rotAdd;
             player.SetHandRot(Projectile.rotation);

@@ -107,6 +107,11 @@ namespace CalamityEntropy.Content.Items.Armor.Smoldering
             if (ShootDelay > 0)
                 ShootDelay--;
             Player player = Projectile.GetOwner();
+            if(player.dead)
+            {
+                Projectile.Kill();
+                return;
+            }    
             if (CEUtils.getDistance(Projectile.Center, player.Center) > 900)
                 Projectile.Center = player.Center;
             if((!player.Entropy().smolderingSet && t) || (player.Entropy().smolderingSet && !t) || !(player.Entropy().smolderingSet || player.Entropy().smdVisual))
