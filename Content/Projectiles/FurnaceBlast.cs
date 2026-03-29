@@ -217,7 +217,6 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         }
         public void Draw()
         {
-            return;
             float a = 1;
             if (a > 1)
             {
