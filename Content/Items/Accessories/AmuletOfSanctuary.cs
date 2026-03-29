@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public static int GetDefence(int slots)
         {
-            return int.Min(2 * slots, 20);
+            return int.Min(2 * slots, 12);
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
