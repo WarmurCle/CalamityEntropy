@@ -1,4 +1,4 @@
-﻿/*using CalamityEntropy.Utilities;
+﻿using CalamityEntropy.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ReLogic.Graphics;
@@ -30,9 +30,9 @@ namespace CalamityEntropy.Common
                 Main.graphics.GraphicsDevice.Clear(Color.Transparent);
                 for (float i = 0; i < 360; i += 60)
                 {
-                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, text, new Vector2(2, 2) + MathHelper.ToRadians(i).ToRotationVector2() * 1, new Color(100, 80, 200), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
+                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, text, new Vector2(2, 2) + MathHelper.ToRadians(i).ToRotationVector2() * 1, new Color(0, 0, 255), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
                 }
-                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, text, new Vector2(2, 2), new Color(20, 16, 50), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, text, new Vector2(2, 2), new Color(220, 220, 255), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
                 Main.spriteBatch.End();
                 Main.graphics.GraphicsDevice.SetRenderTarget(null);
             });
@@ -56,11 +56,11 @@ namespace CalamityEntropy.Common
             {
                 return;
             }
-            if (!modName.Text.Contains(base.Mod.DisplayName))
+            if (!modName.Text.Contains(Mod.DisplayName))
             {
                 return;
             }
-            var texture = Util.getExtraTex("NameMask");
+            var texture = CEUtils.getExtraTex("NameMask");
             Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/NameEffect", AssetRequestMode.ImmediateLoad).Value;
             shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly);
             Vector2 position = modName.GetDimensions().Position() - new Vector2(0f, 2f) - Vector2.One * 2;
@@ -81,4 +81,3 @@ namespace CalamityEntropy.Common
         public delegate void DrawDelegate(object uiModItem, SpriteBatch sb);
     }
 }
-*/
