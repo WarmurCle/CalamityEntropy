@@ -4693,7 +4693,7 @@ Projectiles: {
 }
 
 LegendTooltip: - Legend -
-KilledByVoidTouch: {0} missed in the void
+KilledByVoidTouch: "{0} missed in the void"
 
 Buffs: {
 	VoidStorm: {
@@ -5624,9 +5624,9 @@ IsaacLock: You can't equip this before you played The Binding of Isaac Repentanc
 PWSpawnInfo: Enter the Abyss with Chaos State debuff
 CdAS: Amima Sola Cooldown
 XythCharge: Xytheron Charge
-KilledByVoidVirus: "Only Nihility remains in {0}'s blood"
+KilledByVoidVirus: Only Nihility remains in {0}'s blood
 KilledByAstral: "{0} completely eroded by starlight"
-Death: {0} was killed
+Death: "{0} was killed"
 CdFF: Friend Finder Cooldown
 TooltipBookMark: Can insert in Entropy Books weapons
 TooltipBookMark2: Use RMB to quick insert/take out
@@ -5669,8 +5669,8 @@ AmmoStarblightSoot: Starblight Soot
 AmmoType: Ammo type
 AmmoMissile: Missile
 UseAmmo: Use Ammo
-OrbPunishDeath0: {0} shattered into pieces
-OrbPunishDeath1: {0} try to remove the shattered foresee orb
+OrbPunishDeath0: "{0} shattered into pieces"
+OrbPunishDeath1: "{0} try to remove the shattered foresee orb"
 RuneDashCD: Rune Dash Cooldown
 ArmorPenetrationItemTooltip: Armor Penetration
 AmmoLifeTime: Life Time
@@ -6071,7 +6071,7 @@ Menu: {
 	Church: Church
 }
 
-DeathExplode: {0} exploded
+DeathExplode: "{0} exploded"
 BlockingCooldown: Blocking Cooldown
 FetalDreamCooldown: Fetal Dream Cooldown
 DriverCoreCooldown: Driver Core Shield
@@ -6084,9 +6084,8 @@ CdAcr: Acropolis Mech Cooldown
 SpecialThanks: Special Thanks
 PassedBossRush: Passed Boss Rush
 BloodthirstyRequirement: You need at least 200 health points to craft this item
-BloodthirstyKilled: bled out
+BloodthirstyKilled: "{0} bled out"
 Luminariswarm: Luminariswarm
 MinionAccDescCrownFangs: When equip with [ITEM]: +1 Minion slot
 NonZenithWorld: Not in zenith world
 ZenithWorld: In zenith world
-

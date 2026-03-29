@@ -5604,9 +5604,9 @@ IsaacLock: You can't equip this before you played The Binding of Isaac Repentanc
 PWSpawnInfo: Войдите в Бездну с эффектом ослабления 'Состояние Хаоса'
 CdAS: Перезарядка 'Анима Сола'
 XythCharge: Заряд Кситерона
-KilledByVoidVirus1: "Лишь Небытие остаётся внутри "
-KilledByVoidVirus2: " кровь"
+// KilledByVoidVirus: Only Nihility remains in {0}'s blood
 KilledByAstral: " полностью испепелён звездным светом"
+// Death: "{0} was killed"
 CdFF: Время восстановления для поиска друзей
 TooltipBookMark: Можно вставлять в Энтропийные Книги для усиления атаки
 // TooltipBookMark2: Use RMB to quick insert/take out
@@ -5689,11 +5689,11 @@ LoreEaterofWorldsDesc: Иммунитет к пролятому огню
 // LoreAzafureDesc: +{1}% Crit chance
 // LoreCalamitasCloneDesc: +{1}% Melee speed
 // LorePlanteraDesc: +0.5/s Life regen
-// LoreAquaticScourge: Increase breath holding time
+// LoreAquaticScourgeDesc: Increase breath holding time
 // LoreAbyssDesc: Increase visibility in the abyss
 // LoreLeviathanAnahitaDesc: Increase 1/s life regen in water
 // LoreAstrumAureusDesc: Increase the speed of astral infection debuff decay
-// LoreBrimstoneElemental: +1% Damage reduce
+// LoreBrimstoneElementalDesc: +1% Damage reduce
 // LoreGolemDesc: +{1}% Damage reduce
 // LorePlaguebringerGoliathDesc: Increase the speed of plague debuff decay
 // LoreEmpressofLightDesc: +{1} Defense in day time
@@ -5955,6 +5955,7 @@ Biomes: {
 // NowLV: Level
 // AnyOrichalcumBar: Any Orichalcum Bar
 // AnyEvilBar: Any Evil Bar
+// IronBar: Iron Bar
 // AnyFairy: Any Fairy
 // Gems: Gems
 // Butterflies: Butterflies
@@ -6050,7 +6051,7 @@ Menu: {
 	// Church: Church
 }
 
-// DeathExplode: "[PlayerName] exploded"
+// DeathExplode: "{0} exploded"
 // BlockingCooldown: Blocking Cooldown
 // FetalDreamCooldown: Fetal Dream Cooldown
 // DriverCoreCooldown: Driver Core Shield
@@ -6063,10 +6064,8 @@ Menu: {
 // SpecialThanks: Special Thanks
 // PassedBossRush: Passed Boss Rush
 // BloodthirstyRequirement: You need at least 200 health points to craft this item
-// BloodthirstyKilled: bled out
+// BloodthirstyKilled: "{0} bled out"
 // Luminariswarm: Luminariswarm
 // MinionAccDescCrownFangs: When equip with [ITEM]: +1 Minion slot
 // NonZenithWorld: Not in zenith world
 // ZenithWorld: In zenith world
-// LoreAquaticScourgeDesc: Mods.CalamityEntropy.LoreAquaticScourgeDesc
-// LoreBrimstoneElementalDesc: Mods.CalamityEntropy.LoreBrimstoneElementalDesc

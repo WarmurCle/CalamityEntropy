@@ -4922,7 +4922,7 @@ Projectiles: {
 }
 
 LegendTooltip: - 传奇物品 -
-KilledByVoidTouch: {0}消散在了时间与空间的各处
+KilledByVoidTouch: "{0}消散在了时间与空间的各处"
 
 Buffs: {
 	VoidStorm: {
@@ -5859,9 +5859,9 @@ IsaacLock: 你不能在没有玩过《以撒的结合：忏悔》的情况下佩
 PWSpawnInfo: 带有混沌减益时进入深渊
 CdAS: 孤魂铁索冷却
 XythCharge: 始源遗歌充能
-KilledByVoidVirus: {0}的血液里只剩下虚无
-KilledByAstral: {0}被星辉残蚀殆尽
-Death: {0}死掉了
+KilledByVoidVirus: "{0}的血液里只剩下虚无"
+KilledByAstral: "{0}被星辉残蚀殆尽"
+Death: "{0}死掉了"
 CdFF: 寻友护符冷却
 TooltipBookMark: 需放入熵语之书系列武器以生效
 TooltipBookMark2: 按下右键可放入/取出
@@ -5912,8 +5912,8 @@ AmmoStarblightSoot: 凋星微尘
 AmmoType: 弹药类型
 AmmoMissile: 导弹
 UseAmmo: 使用弹药
-OrbPunishDeath0: {0}的灵魂破碎了
-OrbPunishDeath1: {0}试图取下裂开的预知宝珠
+OrbPunishDeath0: "{0}的灵魂破碎了"
+OrbPunishDeath1: "{0}试图取下裂开的预知宝珠"
 RuneDashCD: 符文突进冷却
 ArmorPenetrationItemTooltip: 护甲穿透
 AmmoLifeTime: 射弹最大存在时间
@@ -5956,11 +5956,9 @@ LoreAquaticScourgeDesc: 增加憋气时间
 LoreAbyssDesc: 增加在深渊中的可见性
 LoreLeviathanAnahitaDesc: 在水中增加1/s生命再生
 LoreAstrumAureusDesc: 增加幻星感染减益的流逝速度
-LoreBrimstoneElementalDesc: +1% 伤害减免
+LoreBrimstoneElementalDesc: LorePlaguebringerGoliathDesc: 增加瘟疫减益的流逝速度
 LoreGolemDesc: +{1}% 伤害减免
-LoreAquaticScourgeDesc: 增加憋气时间
-LoreBrimstoneElementalDesc: 
-LorePlaguebringerGoliathDesc: 增加瘟疫减益的流逝速度
+// LorePlaguebringerGoliathDesc: Increase the speed of plague debuff decay
 LoreEmpressofLightDesc: 在白天增加{1}点防御
 LoreDukeFishronDesc: 移动无视水阻力
 LoreRavagerDesc: 增加2%移动速度
@@ -5989,7 +5987,7 @@ DraedonDialogs: {
 
 SlotInfo2: 存放原矿
 LightModeTip: 警告：颜色以外的照明模式会导致灾熵的部分射弹和敌怪不显示，最好使用颜色照明
-KilledByBloodBoiling: {0}的血液沸腾了
+KilledByBloodBoiling: "{0}的血液沸腾了"
 BloodBoiling: 血沸
 BloodBoilingDescr: 持续使用物品时增加攻速，但会对自身产生持续的伤害，该效果会随着使用时间增加
 PrefixHeavyDesc: +10% 下落速度
@@ -6042,8 +6040,8 @@ SolarBarInfo:
 RPDonorName: 冷级
 Acropolis: 阿萨福勒量产的攻击型机甲，曾被用于大规模战争
 OblivionThretherCooldown: 虚漩巡锯突进冷却
-LilyDeath0: {0}被污秽所吞噬
-LilyDeath1: {0}的守护宝具破碎了
+LilyDeath0: "{0}被污秽所吞噬"
+LilyDeath1: "{0}的守护宝具破碎了"
 TheVoid: 虚空
 
 Biomes: {
@@ -6178,8 +6176,8 @@ LMDialog18: 你塞的是什么东西？
 NowLV: 当前等级
 AnyOrichalcumBar: 秘银锭或山铜锭
 AnyEvilBar: 猩红锭或魔矿锭
-AnyFairy: 任意仙灵
 IronBar: 铁定或铅锭
+AnyFairy: 任意仙灵
 Gems: 任意宝石
 Butterflies: 任意蝴蝶
 BCBarInfo: 苍郁充能
@@ -6270,7 +6268,7 @@ Menu: {
 	Church: 空冥教堂
 }
 
-DeathExplode: {0}爆炸了
+DeathExplode: "{0}爆炸了"
 BlockingCooldown: 招架冷却
 FetalDreamCooldown: 胎儿之梦冷却
 DriverCoreCooldown: 驱动核心护盾
@@ -6283,9 +6281,8 @@ CdAcr: 卫城机甲冷却
 SpecialThanks: 特别鸣谢
 PassedBossRush: 通过Boss Rush
 BloodthirstyRequirement: 你至少需要200点生命值才能制作此物品
-BloodthirstyKilled: 放干了血
+BloodthirstyKilled: "{0}放干了血"
 Luminariswarm: 幻光蛾群
 MinionAccDescCrownFangs: 当同时佩戴[ITEM]时，获得+1召唤栏
 NonZenithWorld: 不在天顶世界
 ZenithWorld: 在天顶世界时
-

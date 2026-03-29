@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (context is RecipeItemCreationContext)
             {
-                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(Main.LocalPlayer.name + " " + Mod.GetLocalization("BloodthirstyKilled").Value)), 199, 0, false, false, -1, false, 99999);
+                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Mod.GetLocalization("BloodthirstyKilled").ToNetworkText(Main.LocalPlayer.name)), 199, 0, false, false, -1, false, 99999);
                 if (Main.LocalPlayer.statLife <= 0 || Main.LocalPlayer.dead)
                     Item.TurnToAir();
             }
