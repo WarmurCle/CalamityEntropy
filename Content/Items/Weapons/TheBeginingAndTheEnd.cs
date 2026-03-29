@@ -21,11 +21,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 50;
             Item.height = 38;
-            Item.damage = 2500;
-            Item.ArmorPenetration = 100;
+            Item.damage = 2000;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.useAnimation = Item.useTime = 18;
+            Item.useAnimation = Item.useTime = 9;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.ArmorPenetration = 100;
             Item.knockBack = 1f;
@@ -80,7 +79,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CEUtils.PlaySound("bne" + Main.rand.Next(0, 3).ToString(), 1, c);
         }
-        public override float StealthDamageMultiplier => 1f;
+        public override float StealthDamageMultiplier => 0.75f;
         public override float StealthVelocityMultiplier => 0.8f;
         public override float StealthKnockbackMultiplier => 3f;
 
