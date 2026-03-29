@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Rarities;
+﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
@@ -89,6 +90,14 @@ namespace CalamityEntropy.Content.Items.Weapons
             player.itemTime = player.itemAnimation = 3;
             if (Charge < 1)
             {
+                if (Main.rand.NextBool(2))
+                {
+                    var d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Smoke);
+                    d.position = Projectile.Center + Projectile.rotation.ToRotationVector2() * 20 + CEUtils.randomPointInCircle(16);
+                    d.noGravity = true;
+                    d.scale = Main.rand.NextFloat(1.5f, 1.6f);
+                    d.velocity = CEUtils.randomPointInCircle(3) + new Vector2(0, -4);
+                }
                 Charge += 1 / (172f * Projectile.MaxUpdates);
                 if (Charge >= 1)
                 {
@@ -96,8 +105,13 @@ namespace CalamityEntropy.Content.Items.Weapons
                     SoundStyle s = SoundID.DD2_BetsyFireballShot with { MaxInstances = 12};
                     SoundEngine.PlaySound(s, Projectile.Center);
                     SoundEngine.PlaySound(s, Projectile.Center);
+                    EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 12, player.velocity, Color.OrangeRed * 0.85f, 0.8f, 1, true, BlendState.Additive, 0, 12);
+                    EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 12, player.velocity, Color.OrangeRed, 0.5f, 1, true, BlendState.Additive, 0, 12);
                 }
             }
+            Projectile.localAI[1] = float.Lerp(Projectile.localAI[1], Charge >= 1 ? 1 : (Charge * 0.85f), 0.12f);
+            if (!FireBeam)
+                Projectile.localAI[1] = 0;
             if (ShootDelay-- < 0 && player.channel && Charge < 1)
             {
                 ShootDelay = Projectile.MaxUpdates * player.HeldItem.useTime / player.GetWeaponAttackSpeed(player.HeldItem);
@@ -136,6 +150,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             CEUtils.DrawGlow(Projectile.Center + Projectile.rotation.ToRotationVector2() * 4, Color.OrangeRed, Charge * 0.4f);
 
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+            Main.spriteBatch.UseAdditive();
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, new Color(255, 196, 50) * Projectile.localAI[1], Projectile.rotation, tex.Size() * 0.5f, Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, new Color(255, 196, 50) * Projectile.localAI[1], Projectile.rotation, tex.Size() * 0.5f, Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+            Main.spriteBatch.ExitShaderRegion();
             return false;
         }
     }
