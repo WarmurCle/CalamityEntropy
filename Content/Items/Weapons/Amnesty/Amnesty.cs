@@ -110,14 +110,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
                     MousePressed = !player.mouseInterface && Main.mouseLeft;
                     if (MousePressed && ActiveProgress > 0.95f)
                     {
+                        int cMana = int.Max(1, (int)(player.HeldItem.mana * player.manaCost));
                         player.channel = true;
-                        if (player.manaRegenDelay < 16 && player.CheckMana(player.HeldItem.mana, false))
+                        if (player.manaRegenDelay < 16 && player.CheckMana(cMana, false))
                             player.manaRegenDelay = 16;
                         if (Projectile.ai[1] <= 0)
                         {
                             Projectile.ai[1] = player.HeldItem.useTime;
-                            if (player.CheckMana(player.HeldItem.mana, true))
+                            if (player.CheckMana(cMana, true))
                             {
+                                PlayerLoader.OnConsumeMana(player, player.HeldItem, cMana);
                                 Vector2 vel = Projectile.velocity.RotatedByRandom(0.6f) * 2;
                                 Vector2 pos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 160;
                                 for (int i = 0; i < 16; i++)

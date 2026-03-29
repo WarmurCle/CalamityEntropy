@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
+using CalamityMod.CalPlayer;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Ranged;
 using System;
@@ -52,6 +53,8 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override bool? UseItem(Player player)
         {
+            Item.Calamity().DischargeEnchantExhaustion = MathHelper.Clamp(Item.Calamity().DischargeEnchantExhaustion - 13, 0.001f, CalamityGlobalItem.DischargeEnchantExhaustionCap);
+
             CEUtils.PlaySound("zypshot" + Main.rand.Next(1, 3).ToString(), Main.rand.NextFloat(1f, 1.6f), player.Center, 3, 0.3f);
             return true;
         }

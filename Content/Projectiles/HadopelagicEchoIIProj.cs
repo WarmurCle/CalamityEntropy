@@ -76,8 +76,10 @@ namespace CalamityEntropy.Content.Projectiles
                 owner.manaRegenDelay = 16;
                 if (shootCd <= 0)
                 {
-                    if (owner.CheckMana(owner.HeldItem.mana, true))
+                    int cMana = int.Max(1, (int)(owner.HeldItem.mana * owner.manaCost));
+                    if (owner.CheckMana(cMana, true))
                     {
+                        PlayerLoader.OnConsumeMana(owner, owner.HeldItem, cMana);
                         if (altShoot)
                         {
                             gfxXAdd = 4f;
