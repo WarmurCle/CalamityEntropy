@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Donator
 
             int level = (int)MathHelper.Clamp(Level(), 0, 5);
             player.Entropy().addEquip("Vast", !hideVisual);
-            float ManaCostDecrease = 0f;
+            float ManaCostDecrease = 0.08f;
             player.manaFlower = true;
             if (player.HasBuff(BuffID.ManaRegeneration))
             {
