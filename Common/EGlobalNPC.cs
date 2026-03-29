@@ -1189,17 +1189,17 @@ namespace CalamityEntropy.Common
             if (npc.HasBuff<FlamingBlood>())
             {
                 bool spawnExp = true;
-                int dmg = (int)(npc.lifeMax * 0.32f);
-                if (dmg > 800)
-                    dmg = 800;
-                if (dmg < 70)
-                    dmg = 70;
+                int dmg = (int)(npc.lifeMax * 0.15f);
+                if (dmg > 100)
+                    dmg = 100;
+                if (dmg < 20)
+                    dmg = 20;
                 if (npc.lifeMax < 40)
                     dmg = 10;
                 if (npc.realLife >= 0 || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
                 {
-                    spawnExp = Main.rand.NextBool(5);
-                    dmg = 5;
+                    spawnExp = Main.rand.NextBool(20);
+                    dmg = 2;
                 }
                 var plr = Main.player[Player.FindClosest(npc.Center, 99999, 99999)];
                 if (spawnExp)
