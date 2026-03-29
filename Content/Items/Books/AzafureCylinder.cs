@@ -161,6 +161,24 @@ namespace CalamityEntropy.Content.Items.Books
             trail.Lifetime = 26;
             trail.AddPoint(Projectile.Center + Projectile.velocity);
             CEUtils.AddLight(Projectile.Center, new Color(150, 10, 30));
+            int max = 6 + (Projectile.GetOwner().AzafureEnhance() ? 4 : 0);
+            Projectile toKill = null;
+            int timeleft = 99999;
+            int sum = 0;
+            foreach (var proj in Main.ActiveProjectiles)
+            {
+                if (proj.type == Projectile.type && proj.owner == Projectile.owner)
+                {
+                    sum++;
+                    if(proj.timeLeft < timeleft)
+                    {
+                        timeleft = proj.timeLeft;
+                        toKill = proj;
+                    }
+                }
+            }
+            if(toKill != null && sum > max)
+                toKill.Kill();
         }
         public override void OnKill(int timeLeft)
         {
