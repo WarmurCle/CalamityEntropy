@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Armor.Smoldering
             Item.width = 44;
             Item.height = 40;
             Item.value = CalamityGlobalItem.RarityLightRedBuyPrice;
-            Item.defense = 12;
+            Item.defense = 10;
             Item.rare = ItemRarityID.LightRed;
         }
 
