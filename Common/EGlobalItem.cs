@@ -1193,7 +1193,8 @@ namespace CalamityEntropy.Common
                     sb.End();
                     sb.Begin(0, BlendState.Additive, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
                     Texture2D glow = CEUtils.getExtraTex("Glow");
-                    sb.Draw(glow, new Vector2(line.X + xa / 2, line.Y + h / 4), null, new Color(255, 0, 0), 0, glow.Size() / 2, new Vector2((32 + xa * 2.4f) / glow.Width, 0.34f), SpriteEffects.None, 0);
+                    float ey = CELists.tooltipNameUpList.Contains(Language.ActiveCulture.Name) ? 0 : 3;
+                    sb.Draw(glow, new Vector2(line.X + xa / 2, line.Y + h / 4 + ey), null, new Color(255, 0, 0), 0, glow.Size() / 2, new Vector2((32 + xa * 2.4f) / glow.Width, 0.26f), SpriteEffects.None, 0);
                     sb.End();
                     sb.Begin(0, BlendState.AlphaBlend, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
                     xa = 0;
@@ -1250,8 +1251,9 @@ namespace CalamityEntropy.Common
                     sb.End();
                     sb.Begin(0, BlendState.Additive, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
                     float ssz = 1f + (float)(Math.Cos(Main.GlobalTimeWrappedHourly * 36) * 0.14f);
-                    sb.Draw(star, new Vector2(line.X + xa / 2, line.Y + h / 4), null, new Color(140, 150, 255), 0, star.Size() / 2, ssz * new Vector2((12 + xa * 2f) / glow.Width, 0.1f), SpriteEffects.None, 0);
-                    sb.Draw(star, new Vector2(line.X + xa / 2, line.Y + h / 4), null, new Color(140, 150, 255), 0, star.Size() / 2, ssz * new Vector2((12 + xa * 2f) / glow.Width * 0.2f, 0.16f), SpriteEffects.None, 0);
+                    float ey = CELists.tooltipNameUpList.Contains(Language.ActiveCulture.Name) ? 0 : 4;
+                    sb.Draw(star, new Vector2(line.X + xa / 2, line.Y + h / 4 + ey), null, new Color(140, 150, 255), 0, star.Size() / 2, ssz * new Vector2((12 + xa * 2f) / glow.Width, 0.1f), SpriteEffects.None, 0);
+                    sb.Draw(star, new Vector2(line.X + xa / 2, line.Y + h / 4 + ey), null, new Color(140, 150, 255), 0, star.Size() / 2, ssz * new Vector2((12 + xa * 2f) / glow.Width * 0.2f, 0.16f), SpriteEffects.None, 0);
                     sb.End();
                     sb.Begin(0, BlendState.AlphaBlend, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
                     xa = h = 0;
@@ -1389,7 +1391,8 @@ namespace CalamityEntropy.Common
                     sb.End();
                     sb.Begin(0, BlendState.Additive, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
                     Texture2D glow = CEUtils.getExtraTex("Glow");
-                    sb.Draw(glow, new Vector2(line.X + xa / 2, line.Y + h / 4), null, new Color(210, 180, 120) * 0.8f, 0, glow.Size() / 2, new Vector2((32 + xa * 2.4f) / glow.Width, 0.34f), SpriteEffects.None, 0);
+                    float ey = CELists.tooltipNameUpList.Contains(Language.ActiveCulture.Name) ? 0 : 4;
+                    sb.Draw(glow, new Vector2(line.X + xa / 2, line.Y + h / 4 + ey), null, new Color(210, 180, 120) * 0.8f, 0, glow.Size() / 2, new Vector2((32 + xa * 2.4f) / glow.Width, 0.34f), SpriteEffects.None, 0);
                     sb.End();
                     sb.Begin(0, BlendState.AlphaBlend, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
 

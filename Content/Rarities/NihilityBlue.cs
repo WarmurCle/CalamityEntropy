@@ -6,6 +6,7 @@ using System;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
 using Terraria.Utilities;
@@ -24,7 +25,8 @@ namespace CalamityEntropy.Content.Rarities
             Texture2D particle = CEUtils.getExtraTex("Ray");
             spriteBatch.UseBlendState_UI(BlendState.Additive);
             Vector2 origin = font.MeasureString(text) * new Vector2(1, 0.6f) * 0.5f;
-            spriteBatch.Draw(glow, new Vector2(X, Y) + origin, null, Color.AliceBlue * 1f, 0, glow.Size() * 0.5f, origin * 0.02f * new Vector2(1, 0.6f), SpriteEffects.None, 0);
+            float ey = 0;
+            spriteBatch.Draw(glow, new Vector2(X, Y + ey) + origin, null, Color.AliceBlue * 0.8f, 0, glow.Size() * 0.5f, origin * 0.02f * new Vector2(1, 0.6f), SpriteEffects.None, 0);
             UnifiedRandom rand = new UnifiedRandom(745367);
             int particleCount = 32;
             for (int i = 0; i < particleCount; i++)
