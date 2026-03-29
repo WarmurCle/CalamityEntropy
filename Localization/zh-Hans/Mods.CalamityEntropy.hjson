@@ -6252,7 +6252,7 @@ AzafureEnhances: {
 	AzafureCogfly: 增加攻击频率
 	AzafureTacticalRadio: 增加发射的导弹数量
 	AzafureAirReaper: 增加镰刀追逐目标的时间
-	AzafureCylinder: 延长金属球存在时间
+	AzafureCylinder: 增加金属球的数量上限和存在时间
 	AzafurePeaceKey: 每次发射两发核弹
 	AzafureDriverCore:
 		'''
