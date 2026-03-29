@@ -3756,7 +3756,7 @@ namespace CalamityEntropy.Common
                 {
                     if (p.ai[1] == 1)
                     {
-                        Player.lifeRegen += 8;
+                        Player.lifeRegen += 5;
                     }
                 }
                 if (p.owner == Player.whoAmI && p.ModProjectile != null && p.ModProjectile is CarverSpirit cs && cs.mode == CarverSpirit.Mode.Defending)
