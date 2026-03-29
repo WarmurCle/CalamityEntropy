@@ -1395,7 +1395,7 @@ namespace CalamityEntropy.Common
             }
             if (npc.type == NPCID.Harpy || npc.type == NPCID.WyvernHead)
             {
-                if (Main.rand.NextDouble() < 0.03f)
+                if (Main.rand.NextDouble() < 0.012f)
                 {
                     Item.NewItem(npc.GetSource_Death(), npc.getRect(), new Item(ModContent.ItemType<LightningPendant>(), 1));
                 }
