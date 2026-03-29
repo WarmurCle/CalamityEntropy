@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Items.Vanity.Luminar;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.LuminarisMoth;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items.Materials;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,7 +28,7 @@ namespace CalamityEntropy.Content.Items
             Item.width = 24;
             Item.height = 24;
             Item.expert = true;
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ModContent.RarityType<Lunarblight>();
         }
 
         public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)

@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items
             Item.width = 24;
             Item.height = 24;
             Item.expert = true;
-            Item.rare = ItemRarityID.Blue;
+            Item.rare = ItemRarityID.Yellow;
         }
 
         public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)

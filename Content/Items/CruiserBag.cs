@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.Whips;
 using CalamityEntropy.Content.NPCs.Cruiser;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.ItemDropRules;
@@ -27,7 +28,7 @@ namespace CalamityEntropy.Content.Items
             Item.width = 24;
             Item.height = 24;
             Item.expert = true;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ModContent.RarityType<VoidPurple>();
         }
 
         public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)

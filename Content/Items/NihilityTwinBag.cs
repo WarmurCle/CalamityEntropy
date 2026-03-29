@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.NihilityTwin;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.ItemDropRules;
@@ -24,7 +25,7 @@ namespace CalamityEntropy.Content.Items
             Item.width = 24;
             Item.height = 24;
             Item.expert = true;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ModContent.RarityType<NihilityBlue>();
         }
 
         public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)

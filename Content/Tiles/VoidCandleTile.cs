@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Tiles
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.Width = 2;
             TileObjectData.newTile.Height = 4;
-            TileObjectData.newTile.Origin = new Terraria.DataStructures.Point16(1, 3);
+            TileObjectData.newTile.Origin = new Terraria.DataStructures.Point16(1, 4);
             TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16 };
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.addTile(Type);
