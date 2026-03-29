@@ -1,7 +1,9 @@
-﻿using CalamityMod.Items;
+﻿using CalamityEntropy.Content.Projectiles;
+using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Books.BookMarks
 {
@@ -38,14 +40,10 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void OnStandaloneAttack(Player player, Vector2 position, Vector2 direction, int damage, float knockback)
         {
             Vector2 scatterDir = direction.SafeNormalize(Vector2.UnitX).RotatedByRandom(0.8f);
-            int projType = ModContent.ProjectileType<Projectiles.RuneBullet>();
+            int projType = ModContent.ProjectileType<RuneBullet>();
             int proj = Projectile.NewProjectile(player.GetSource_FromThis(), position, scatterDir * 12f, projType, (int)(damage * 0.22f), knockback, player.whoAmI);
             Projectile p = Main.projectile[proj];
             p.scale *= 0.42f;
-            if (p.ModProjectile is EBookBaseLaser ebbl)
-            {
-                ebbl.quickTime = 30;
-            }
         }
     }
 }
