@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             if (price <= 2000)
                 return 0;
-            return float.Min(0.2f, (float)Math.Pow((price - 2000) * 0.000018f, 0.25f) * 0.1f);
+            return float.Min(0.1f, (float)Math.Pow((price - 2000) * 0.000015f, 0.25f) * 0.1f);
         }
 
         public override void AddRecipes()
