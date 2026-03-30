@@ -554,7 +554,7 @@ namespace CalamityEntropy
             {
                 for (int j = value3; j < value4; j++)
                 {
-                    if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && (Main.tileSolid[Main.tile[i, j].TileType] || Main.tileSolidTop[Main.tile[i, j].TileType]))
+                    if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && (Main.tileSolid[Main.tile[i, j].TileType] || Main.tileSolidTop[Main.tile[i, j].TileType]) && !Main.tile[i, j].IsActuated)
                     {
                         vector.X = i * 16;
                         vector.Y = j * 16;
@@ -1174,6 +1174,8 @@ namespace CalamityEntropy
             {
                 if (tile != null && tile.HasTile)
                 {
+                    if (tile.IsActuated)
+                        return false;
                     if (Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType])
                     {
                         return false;
