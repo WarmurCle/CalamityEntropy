@@ -1463,10 +1463,15 @@ namespace CalamityEntropy.Common
         public int noelctime = 0;
         public void onHurt(NPC npc, int damage, Player player, Entity source, NPC.HitInfo hit)
         {
-            if(player != null && player.Entropy().hasAcc("Leyla"))
+            if (player != null && player.Entropy().hasAcc("Leyla"))
             {
-                if (Main.rand.NextBool(8))
-                    npc.AddBuff(Leyla.ApplyBuffType(), Main.rand.Next(60, 300));
+                var l = Leyla.ApplyBuffType();
+                foreach (int i in l)
+                {
+                    if (Main.rand.NextBool(10))
+                        npc.AddBuff(i, Main.rand.Next(60, 300));
+                }
+
             }
             if (npc.life <= 0)
             {

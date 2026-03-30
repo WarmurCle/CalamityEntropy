@@ -57,32 +57,29 @@ namespace CalamityEntropy.Content.Items.Donator
             tooltips.Replace("[L]", level);
             tooltips.Replace("[ML]", 9);
         }
-        public static int ApplyBuffType()
+        public static List<int> ApplyBuffType()
         {
-            if (DownedBossSystem.downedCalamitas || DownedBossSystem.downedExoMechs)
-            {
-                var l = new List<int>();
-                if (DownedBossSystem.downedCalamitas)
-                    l.Add(ModContent.BuffType<TrueVulnerabilityHex>());
-                if (DownedBossSystem.downedExoMechs)
-                    l.Add(ModContent.BuffType<MiracleBlight>());
-                return ModContent.BuffType<TrueVulnerabilityHex>();
-            }
+            var l = new List<int>();
+            if (DownedBossSystem.downedCalamitas)
+                l.Add(ModContent.BuffType<TrueVulnerabilityHex>());
+            if (DownedBossSystem.downedExoMechs)
+                l.Add(ModContent.BuffType<MiracleBlight>());
             if (DownedBossSystem.downedYharon)
-                return ModContent.BuffType<Dragonfire>();
+                l.Add(ModContent.BuffType<Dragonfire>());
             if (DownedBossSystem.downedDoG)
-                return ModContent.BuffType<GodSlayerInferno>();
+                l.Add(ModContent.BuffType<GodSlayerInferno>());
             if (DownedBossSystem.downedProvidence)
-                return ModContent.BuffType<HolyFlames>();
+                l.Add(ModContent.BuffType<HolyFlames>());
             if (DownedBossSystem.downedBoomerDuke)
-                return ModContent.BuffType<SulphuricPoisoning>();
+                l.Add(ModContent.BuffType<SulphuricPoisoning>());
             if (DownedBossSystem.downedPlaguebringer)
-                return ModContent.BuffType<Plague>();
+                l.Add(ModContent.BuffType<Plague>());
             if (DownedBossSystem.downedCryogen)
-                return BuffID.Frostburn2;
+                l.Add(BuffID.Frostburn2);
             if (NPC.downedBoss2)
-                return BuffID.Venom;
-            return BuffID.Poisoned;
+                l.Add(BuffID.Venom);
+            l.Add(BuffID.Poisoned);
+            return l;
         }
         public static int MaxHealthAddition(int level) => level switch
         {

@@ -11,7 +11,7 @@ namespace CalamityEntropy.Content.Particles
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/StarTrail").Value;
         public override void OnSpawn()
         {
-            this.Lifetime = 30;
+            this.Lifetime = this.TimeLeftMax = 30;
         }
         public int maxLength = 8;
         public bool addPoint = true;
@@ -44,25 +44,26 @@ namespace CalamityEntropy.Content.Particles
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, this.useAdditive ? BlendState.Additive : BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
             Main.spriteBatch.Draw(Texture, this.Position - Main.screenPosition, null, this.Color * ((float)this.Lifetime / this.TimeLeftMax), this.Rotation, Texture.Size() / 2f, new Vector2(1.4f, 0.8f) * 0.22f * Scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(Texture, this.Position - Main.screenPosition, null, this.Color * ((float)this.Lifetime / this.TimeLeftMax) * 1.2f, this.Rotation, Texture.Size() / 2f, new Vector2(1.4f, 0.8f) * 0.22f * Scale * 0.4f, SpriteEffects.None, 0);
             if (odp.Count < 3)
             {
                 return;
             }
             List<ColoredVertex> ve = new List<ColoredVertex>();
             Color b = this.Color * ((float)this.Lifetime / this.TimeLeftMax);
-            ve.Add(new ColoredVertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 6 * this.Scale,
+            ve.Add(new ColoredVertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 8 * this.Scale,
                       new Vector3((((float)0) / odp.Count), 1, 1),
                       b));
-            ve.Add(new ColoredVertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 6 * this.Scale,
+            ve.Add(new ColoredVertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 8 * this.Scale,
                   new Vector3((((float)0) / odp.Count), 0, 1),
                   b));
             for (int i = 1; i < odp.Count; i++)
             {
-                ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 6 * this.Scale,
-                      new Vector3((((float)i) / odp.Count), 1, 1),
+                ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 8 * this.Scale,
+                      new Vector3((((float)i) / odp.Count) + Main.GlobalTimeWrappedHourly * 2, 1, 1),
                       b * ((odp.Count - i) / (float)odp.Count)));
-                ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 6 * this.Scale,
-                      new Vector3((((float)i) / odp.Count), 0, 1),
+                ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 8 * this.Scale,
+                      new Vector3((((float)i) / odp.Count) + Main.GlobalTimeWrappedHourly * 2, 0, 1),
                       b * ((odp.Count - i) / (float)odp.Count)));
             }
             SpriteBatch sb = Main.spriteBatch;
