@@ -1160,6 +1160,8 @@ namespace CalamityEntropy
             if ((int)(dp.X / 16) >= Main.tile.Width || (int)(dp.Y / 16) >= Main.tile.Height)
                 return false;
             Tile tile = Main.tile[(int)(dp.X / 16), (int)(dp.Y / 16)];
+            if (tile.IsActuated)
+                return true;
             if (plat)
             {
                 if (tile != null && tile.HasTile)
@@ -1174,8 +1176,6 @@ namespace CalamityEntropy
             {
                 if (tile != null && tile.HasTile)
                 {
-                    if (tile.IsActuated)
-                        return false;
                     if (Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType])
                     {
                         return false;
