@@ -589,13 +589,22 @@ namespace CalamityEntropy.Common
                 {
                     starTrailPt = new StarTrailParticle();
                     starTrailPt.addPoint = false;
-                    starTrailPt.maxLength = projectile.MaxUpdates * 22;
+                    starTrailPt.maxLength = projectile.MaxUpdates * 16;
                     EParticle.NewParticle(starTrailPt, projectile.Center, Vector2.Zero, Color.LightBlue, 1.6f, 1, true, BlendState.Additive, 0);
+                    starTrailPt2 = new StarTrailParticle();
+                    starTrailPt2.addPoint = false;
+                    starTrailPt2.maxLength = projectile.MaxUpdates * 16;
+                    EParticle.NewParticle(starTrailPt2, projectile.Center, Vector2.Zero, Color.White, 0.64f, 1, true, BlendState.Additive, 0);
+
                 }
                 starTrailPt.Velocity = projectile.velocity * 0.8f * projectile.MaxUpdates;
                 starTrailPt.Lifetime = 30;
                 starTrailPt.Position = projectile.Center;
-                starTrailPt.AddPoint(starTrailPt.Position);
+                starTrailPt.AddPoint(starTrailPt.Position + projectile.velocity * projectile.MaxUpdates - starTrailPt.Velocity * 0.3f);
+                starTrailPt2.Velocity = projectile.velocity * 0.8f * projectile.MaxUpdates;
+                starTrailPt2.Lifetime = 30;
+                starTrailPt2.Position = projectile.Center;
+                starTrailPt2.AddPoint(starTrailPt2.Position + projectile.velocity * projectile.MaxUpdates - starTrailPt2.Velocity * 0.3f);
                 NPC homing = CEUtils.FindTarget_HomingProj(projectile, projectile.Center, 1000, (npc) => !luminarHited.Contains(npc));
                 if (counter > 10 && homing != null)
                 {
@@ -1112,6 +1121,7 @@ namespace CalamityEntropy.Common
             }
         }
         public StarTrailParticle starTrailPt = null;
+        public StarTrailParticle starTrailPt2 = null;
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
             if (Losted)
