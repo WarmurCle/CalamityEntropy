@@ -3777,7 +3777,7 @@ namespace CalamityEntropy.Common
             }
             if (soulDisorder)
             {
-                Player.statDefense -= 14;
+                Player.statDefense -= 16;
             }
             if (Player.HeldItem.prefix == ModContent.PrefixType<Echo>())
             {
