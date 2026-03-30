@@ -1596,7 +1596,7 @@ namespace CalamityEntropy.Common
             }
             if (soulDisorder)
             {
-                HitCooldown -= 0.7f;
+                HitCooldown -= 0.5f;
             }
             if (ProphetLoreBonus)
             {
