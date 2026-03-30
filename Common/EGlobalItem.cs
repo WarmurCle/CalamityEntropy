@@ -1653,6 +1653,10 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<IndigoCard>(), 5);
             }
+            if (item.type == ItemID.FloatingIslandFishingCrateHard)
+            {
+                itemLoot.Add(ModContent.ItemType<IndigoCard>(), 5);
+            }
             if (item.type == ItemID.GolemBossBag)
             {
                 itemLoot.Add(ModContent.ItemType<MourningCard>(), 1);
