@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 return;
             if (CECooldowns.BMTaurus <= 0)
             {
-                CECooldowns.BMTaurus = 20;
+                CECooldowns.BMTaurus = 10;
                 if (projectile.ModProjectile is EBookBaseLaser laser)
                 {
                     float r = CEUtils.randomRot();
