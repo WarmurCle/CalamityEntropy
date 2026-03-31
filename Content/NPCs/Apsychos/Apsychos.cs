@@ -845,6 +845,10 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
         {
             NPC.SetEventFlagCleared(ref EDownedBosses.downedApsychos, -1);
         }
+        public override void BossLoot(ref int potionType)
+        {
+            potionType = ItemID.HealingPotion;
+        }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<ApsychosBag>()));

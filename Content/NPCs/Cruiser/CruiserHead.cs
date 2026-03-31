@@ -200,6 +200,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         {
             target.AddBuff(Main.zenithWorld ? ModContent.BuffType<MaliciousCode>() : ModContent.BuffType<VoidTouch>(), 150);
         }
+        public override void BossLoot(ref int potionType)
+        {
+            potionType = ModContent.ItemType<OmegaHealingPotion>();
+        }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<CruiserBag>()));

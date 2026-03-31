@@ -1047,6 +1047,10 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             if (Main.netMode != NetmodeID.MultiplayerClient)
                 CEUtils.SpawnExplotionHostile(NPC.GetSource_FromAI(), NPC.Center, dmg, 500 * NPC.scale, true);
         }
+        public override void BossLoot(ref int potionType)
+        {
+            potionType = ItemID.HealingPotion;
+        }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<HellIndustrialComponents>(), 1, 24, 30));

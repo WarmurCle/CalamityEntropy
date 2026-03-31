@@ -51,6 +51,10 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         }
         public List<TailPoint> tail = new();
         public OlderCruiserAIGNPC zenithAI = new OlderCruiserAIGNPC();
+        public override void BossLoot(ref int potionType)
+        {
+            potionType = ItemID.GreaterHealingPotion;
+        }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<ProphetBag>()));
