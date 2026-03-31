@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Books;
+using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Particles;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Magic;
@@ -49,12 +50,12 @@ namespace CalamityEntropy.Content.Projectiles
         {
             base.OnKill(timeLeft);
             float r = CEUtils.randomRot();
-            EParticle.spawnNew(new AbyssalLine() { lx = 0.4f, xadd = 0.4f }, Projectile.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, r);
-            EParticle.spawnNew(new AbyssalLine() { lx = 0.4f, xadd = 0.4f }, Projectile.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, r + MathHelper.PiOver2);
-            for (int i = 0; i < Main.rand.Next(2); i++)
+            EParticle.spawnNew(new AbyssalLine() { lx = 1.4f, xadd = 0.6f }, Projectile.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, r);
+            EParticle.spawnNew(new AbyssalLine() { lx = 1.4f, xadd = 0.6f }, Projectile.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, r + MathHelper.PiOver2);
+            for (int i = 0; i < Main.rand.Next(1, 3); i++)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, CEUtils.randomVec(24), ModContent.ProjectileType<RainbowRocket>(), Projectile.damage / 6, Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, CEUtils.randomVec(24), ModContent.ProjectileType<PartySparkle>(), Projectile.damage / 16, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, CEUtils.randomVec(24), ModContent.ProjectileType<GRainbowRocket>(), Projectile.damage / 3, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, CEUtils.randomVec(24), ModContent.ProjectileType<PartySparkle>(), Projectile.damage / 8, Projectile.knockBack, Projectile.owner);
             }
         }
         public override bool PreDraw(ref Color lightColor)

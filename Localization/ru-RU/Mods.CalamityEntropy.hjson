@@ -4669,6 +4669,7 @@ Projectiles: {
 	// ScorchingFireballMagic.DisplayName: Scorching Fireball
 	// CinderMinion.DisplayName: Cinder Core
 	// MinionCinderFireball.DisplayName: Cinder Fireball
+	// GRainbowRocket.DisplayName: G Rainbow Rocket
 }
 
 LegendTooltip: - Легенда -

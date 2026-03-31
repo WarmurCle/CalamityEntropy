@@ -4920,6 +4920,7 @@ Projectiles: {
 	ScorchingFireballMagic.DisplayName: 余烬火球
 	CinderMinion.DisplayName: 狱烬灵核
 	MinionCinderFireball.DisplayName: 狱烬火球
+	GRainbowRocket.DisplayName: 虹彩弹
 }
 
 LegendTooltip: - 传奇物品 -
