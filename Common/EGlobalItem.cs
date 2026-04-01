@@ -1047,7 +1047,7 @@ namespace CalamityEntropy.Common
                         Vector2 size = font.MeasureString(text); 
                         float yofs;
                         float lerp = 0.5f + (0.5f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * -6 + i * 3f / line.Text.Length)));
-                        Color color = Color.Lerp(Color.Black, new Color(200, 160, 255), lerp);
+                        Color color = Color.Lerp(Color.Black, new Color(20, 16, 25), lerp);
                         Color strokeColord = new Color(160, 100, 255);
                         yofs = 0;
                         

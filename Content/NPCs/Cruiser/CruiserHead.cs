@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
     public class CruiserHead : ModNPC
     {
-        public static float ProjDamageReduce = 0.3f;
+        public static float ProjDamageReduce = 0.5f;
         public class HitRecord
         {
             public int Timeleft = 200;
@@ -144,23 +144,23 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.damage = 220;
             if (Main.expertMode)
             {
-                NPC.damage += 5;
+                NPC.damage += 4;
             }
             if (Main.masterMode)
             {
-                NPC.damage += 5;
+                NPC.damage += 4;
             }
             NPC.defense = 90;
             NPC.lifeMax = 1200000;
             if (CalamityWorld.death)
             {
-                NPC.damage += 10;
-                length += 5;
+                NPC.damage += 6;
+                length += 4;
             }
             else if (CalamityWorld.revenge)
             {
-                NPC.damage += 10;
-                length += 5;
+                NPC.damage += 4;
+                length += 3;
             }
             tdamage = NPC.damage;
             NPC.HitSound = SoundID.NPCHit4;
@@ -1196,18 +1196,18 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
                         int num = 10;
                         int counts = 3;
-                        float speed = 14;
+                        float speed = 8;
                         if (CalamityWorld.revenge)
                         {
                             num = 11;
                             counts = 4;
-                            speed = 18;
+                            speed = 10;
                         }
                         if (CalamityWorld.death)
                         {
                             num = 11;
                             counts = 5;
-                            speed = 22;
+                            speed = 16;
                         }
                         if (Main.expertMode)
                         {
@@ -1218,7 +1218,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         {
                             num += 2;
                             counts += 1;
-                            speed *= 1.40f;
+                            speed *= 1.4f;
                         }
                         if (ai == AIStyle.AroundPlayerAndShootVoidStar)
                         {
@@ -1474,14 +1474,15 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             {
                 if (ai == AIStyle.TryToClosePlayer && CEUtils.getDistance(NPC.Center, NPC.target.ToPlayer().Center) > 1200)
                 {
-                    WarningAlpha = float.Lerp(WarningAlpha, 1, 0.05f);
+                    WarningAlpha = float.Lerp(WarningAlpha, 1, 0.1f);
                 }
-                else { WarningAlpha = float.Lerp(WarningAlpha, 0, 0.05f); }
+                else { WarningAlpha = float.Lerp(WarningAlpha, 0, 0.1f); }
                 if (WarningAlpha > 0.002f)
                 {
                     Main.spriteBatch.UseBlendState(BlendState.Additive);
-                    Texture2D w = CEUtils.getExtraTex("clinghth");
-                    Main.spriteBatch.Draw(w, NPC.Center - Main.screenPosition, null, Color.AliceBlue * 0.6f * WarningAlpha, NPC.velocity.ToRotation(), new Vector2(0, w.Height / 2f), new Vector2(6, 0.6f), SpriteEffects.None, 0);
+                    Texture2D w = CEUtils.getExtraTex("T3");
+                    Main.spriteBatch.Draw(w, NPC.Center - Main.screenPosition, null, Color.AliceBlue * 0.7f * WarningAlpha, NPC.velocity.ToRotation(), new Vector2(0, w.Height / 2f), new Vector2(20, 0.6f * WarningAlpha), SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(w, NPC.Center - Main.screenPosition, null, Color.AliceBlue * 0.7f * WarningAlpha, NPC.velocity.ToRotation(), new Vector2(0, w.Height / 2f), new Vector2(20, 0.5f * WarningAlpha * WarningAlpha * WarningAlpha), SpriteEffects.None, 0);
                     Main.spriteBatch.ExitShaderRegion();
                 }
             }

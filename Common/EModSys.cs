@@ -214,6 +214,8 @@ namespace CalamityEntropy.Common
         {
             foreach (Player player in Main.ActivePlayers)
             {
+                if (player.dead)
+                    continue;
                 EModPlayer mp = player.Entropy();
                 {
 

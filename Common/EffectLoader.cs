@@ -262,7 +262,7 @@ namespace CalamityEntropy.Common
                             Color cl = new Color(200, 235, 255);
                             for (int i = mp.odp.Count - 1; i >= 1; i--)
                             {
-                                CEUtils.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((255 - p.alpha) / 255f), size * 0.7f);
+                                CEUtils.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((255 - p.alpha) / 255f), size * 0.25f);
                                 size -= sizej;
                             }
                         }
@@ -285,7 +285,7 @@ namespace CalamityEntropy.Common
                         }
                         for (int i = mp.odp.Count - 1; i >= 1; i--)
                         {
-                            CEUtils.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((255 - p.alpha) / 255f), size * 0.7f);
+                            CEUtils.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, mp.odp[i], mp.odp[i - 1], cl * ((255 - p.alpha) / 255f), size * 0.25f);
                             size -= sizej;
                         }
                     }
@@ -960,7 +960,9 @@ namespace CalamityEntropy.Common
                 else if (p.type == voidStarType || p.type == voidStarFType)
                 {
                     Color c = p.type == voidStarFType && p.ai[2] > 0 ? new Color(255, 100, 100) : Color.White;
-                    Main.spriteBatch.Draw(voidStar.Value, p.Center - Main.screenPosition, null, c * ((255 - p.alpha) / 255f), p.rotation, voidStar.Value.Size() / 2, p.scale, SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(voidStar.Value, p.Center - Main.screenPosition, null, c * ((255 - p.alpha) / 255f), p.rotation, voidStar.Value.Size() / 2, new Vector2(1.45f, 0.25f) * p.scale, SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(voidStar.Value, p.Center - Main.screenPosition, null, c * ((255 - p.alpha) / 255f), p.rotation, voidStar.Value.Size() / 2, new Vector2(0.25f, 1.45f) * p.scale, SpriteEffects.None, 0);
+                    CEUtils.DrawGlow(p.Center, Color.LightBlue * 0.8f, 1f);
                 }
             }
             Main.spriteBatch.End();
