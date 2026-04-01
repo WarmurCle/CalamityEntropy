@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     CEUtils.PlaySound("soulshine", 1f, Projectile.Center, maxIns: 6, volume: 0.3f);
                     Projectile.Kill();
-                    Projectile.GetOwner().Heal(Projectile.GetOwner().statLifeMax2 / 120 + 2);
+                    Projectile.GetOwner().Entropy().HealFloat(Projectile.GetOwner().statLifeMax2 / 300 + 2);
                     Projectile.GetOwner().Entropy().temporaryArmor += GrudgeCard.TempDefense;
 
                     return;
