@@ -141,10 +141,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.boss = true;
             NPC.width = 100;
             NPC.height = 100;
-            NPC.damage = 220;
+            NPC.damage = 200;
             if (Main.expertMode)
             {
-                NPC.damage += 4;
+                NPC.damage += 3;
             }
             if (Main.masterMode)
             {
@@ -159,7 +159,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             }
             else if (CalamityWorld.revenge)
             {
-                NPC.damage += 4;
+                NPC.damage += 3;
                 length += 3;
             }
             tdamage = NPC.damage;
