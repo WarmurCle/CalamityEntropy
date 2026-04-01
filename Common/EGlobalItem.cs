@@ -1722,6 +1722,7 @@ namespace CalamityEntropy.Common
                     return info.player.name == "仙萤流光" || info.player.name == "五彩斑斓的黑";
                 }
                 itemLoot.AddIf(l, ModContent.ItemType<FlowingLight>(), 1);
+                itemLoot.Add(ModContent.ItemType<BookMarkAuric>(), 4);
             }
             if (item.type == ItemID.QueenBeeBossBag)
             {
