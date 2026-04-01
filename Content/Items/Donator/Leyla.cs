@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Donator
             player.statDefense += GetDefense(level);
             player.endurance += GetEndurance(level);
             player.statLifeMax2 += MaxHealthAddition(level);
-            player.lifeRegen += (int)(Math.Round(GetRegen(level * 2)));
+            player.lifeRegen += (int)(Math.Round(GetRegen(level) * 2));
         }
         public override void AddRecipes()
         {
