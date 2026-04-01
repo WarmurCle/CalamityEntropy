@@ -1474,9 +1474,9 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             {
                 if (ai == AIStyle.TryToClosePlayer && CEUtils.getDistance(NPC.Center, NPC.target.ToPlayer().Center) > 1200)
                 {
-                    WarningAlpha = float.Lerp(WarningAlpha, 1, 0.1f);
+                    WarningAlpha = float.Lerp(WarningAlpha, 1, 0.064f);
                 }
-                else { WarningAlpha = float.Lerp(WarningAlpha, 0, 0.1f); }
+                else { WarningAlpha = float.Lerp(WarningAlpha, 0, 0.064f); }
                 if (WarningAlpha > 0.002f)
                 {
                     Main.spriteBatch.UseBlendState(BlendState.Additive);
