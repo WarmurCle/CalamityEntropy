@@ -1,10 +1,15 @@
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
+using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Rarities;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace CalamityEntropy.Content.Items.Accessories
 {
@@ -28,8 +33,49 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.Entropy().holyMantle = true;
             ModContent.GetInstance<AsgardianAegis>().UpdateAccessory(player, hideVisual);
             ModContent.GetInstance<RampartofDeities>().UpdateAccessory(player, hideVisual);
+
+            //Panic Necklace effect if enabled
+            player.panic = panicNecklaceEnabled;
+        }
+        #region Toggleable Panic Necklace
+
+        bool panicNecklaceEnabled = true;
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.FindAndReplace("[TOGGLE]", panicNecklaceEnabled ? this.GetLocalizedValue("ToggleEffect") : "");
+        }
+        public override bool CanRightClick() => Main.keyState.PressingShift();
+        public override void RightClick(Player player)
+        {
+            panicNecklaceEnabled = !panicNecklaceEnabled;
+            Item.NetStateChanged();
+        }
+        public override bool ConsumeItem(Player player) => false;
+        public override void SaveData(TagCompound tag)
+        {
+            tag.Add("panic", panicNecklaceEnabled);
         }
 
+        public override void LoadData(TagCompound tag)
+        {
+            panicNecklaceEnabled = tag.GetBool("panic");
+        }
+
+        public override void NetSend(BinaryWriter writer)
+        {
+            writer.Write(panicNecklaceEnabled);
+        }
+
+        public override void NetReceive(BinaryReader reader)
+        {
+            panicNecklaceEnabled = reader.ReadBoolean();
+        }
+
+        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        {
+            CalamityUtils.DrawInventoryDot(spriteBatch, position, new Vector2(16, 16) * Main.inventoryScale, panicNecklaceEnabled);
+        }
+        #endregion
         public override void AddRecipes()
         {
             CreateRecipe().

@@ -83,6 +83,7 @@ namespace CalamityEntropy.Common
                 Player.Heal(1);
             }
         }
+        
         public int voidOreNearby = 0;
         public bool rottenFangs = false;
         public float alpha = 1f;

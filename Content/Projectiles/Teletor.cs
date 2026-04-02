@@ -103,25 +103,8 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.timeLeft = 3;
             }
-            NPC target = null;
-            if (player.HasMinionAttackTargetNPC)
-            {
-                target = Main.npc[player.MinionAttackTargetNPC];
-                float betw = Vector2.Distance(target.Center, Projectile.Center);
-                if (betw > 2000f)
-                {
-                    target = null;
-                }
-
-            }
-            if (target == null || !target.active)
-            {
-                NPC t = Projectile.FindTargetWithinRange(1000, false);
-                if (t != null)
-                {
-                    target = t;
-                }
-            }
+            NPC target = Projectile.FindMinionTarget(850, true);
+            
             Projectile.ai[0]--;
             Vector2 targetPos = player.Center - new Vector2(0, 120);
             if (CEUtils.getDistance(Projectile.Center, targetPos) > 60)

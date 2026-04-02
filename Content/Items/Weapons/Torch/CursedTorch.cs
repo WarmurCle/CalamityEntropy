@@ -128,7 +128,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Torch
                 if (Projectile.frame > 4)
                     Projectile.frame = 0;
             }
-            NPC target = Projectile.FindMinionTarget(1800);
+            NPC target = Projectile.FindMinionTarget(1400, true);
             if (target != null)
             {
                 if (CEUtils.getDistance(target.Center + new Vector2(0, -60), Projectile.Center) > 240)

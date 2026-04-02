@@ -153,7 +153,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 dir = -1;
             }
-            NPC target = Projectile.FindMinionTarget(1000);
+            NPC target = Projectile.FindMinionTarget(1500, true);
             if (target != null)
                 dir = -Math.Sign(Projectile.Center.X - target.Center.X);
             if (FireCooldown > 0)

@@ -129,7 +129,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 }
             }
             Projectile.ai[1] = self * 60;
-            NPC target = Projectile.FindMinionTarget();
+            NPC target = Projectile.FindMinionTarget(1400, true);
             if (Active && target != null)
             {
                 if(!flag)

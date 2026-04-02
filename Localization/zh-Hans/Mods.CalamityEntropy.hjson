@@ -5960,7 +5960,7 @@ LoreLeviathanAnahitaDesc: 在水中增加1/s生命再生
 LoreAstrumAureusDesc: 增加幻星感染减益的流逝速度
 LoreBrimstoneElementalDesc: LorePlaguebringerGoliathDesc: 增加瘟疫减益的流逝速度
 LoreGolemDesc: +{1}% 伤害减免
-// LorePlaguebringerGoliathDesc: Increase the speed of plague debuff decay
+LorePlaguebringerGoliathDesc: 瘟疫减益流逝速度更快
 LoreEmpressofLightDesc: 在白天增加{1}点防御
 LoreDukeFishronDesc: 移动无视水阻力
 LoreRavagerDesc: 增加2%移动速度

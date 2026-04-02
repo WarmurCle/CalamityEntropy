@@ -343,14 +343,14 @@ namespace CalamityEntropy
                 proj.Kill();
             }
         }
-        public static NPC FindMinionTarget(this Projectile projectile, int radians = 3000)
+        public static NPC FindMinionTarget(this Projectile projectile, int radians = 3000, bool CheckTile = false)
         {
             Player player = projectile.GetOwner();
             if (player.MinionAttackTargetNPC >= 0 && player.MinionAttackTargetNPC.ToNPC().active)
             {
                 return player.MinionAttackTargetNPC.ToNPC();
             }
-            NPC npc = FindTarget_HomingProj(projectile, projectile.Center, radians);
+            NPC npc = FindTarget_HomingProj(projectile, projectile.Center, radians, CheckTile ? CEUtils.HomingWithTileBlockingFilter : null);
             return npc;
         }
         public static float WeapSound => ModContent.GetInstance<Config>().EntropyMeleeWeaponSoundVolume;
@@ -723,6 +723,36 @@ namespace CalamityEntropy
         public static float Parabola(float t, float height)
         {
             return 4 * height * t * (1 - t);
+        }
+        public static bool CheckAirLine(Vector2 v1, Vector2 v2)
+        {
+            for(float i = 0; i < 1; 1 += getDistance(v1, v2) / 8)
+            {
+                if (!isAir(Vector2.Lerp(v1, v2, i)))
+                    return false;
+            }
+            return true;
+        }
+        public static bool HomingWithTileBlockingFilter(Projectile proj, int npc)
+        {
+            return CheckAirLine(npc.ToNPC().Center, proj.Center);
+        }
+        public static NPC FindTarget_HomingProj(Projectile proj, Vector2 center, float radians, Func<Projectile, int, bool> filter = null)
+        {
+            NPC npc = null;
+            float dist = radians;
+            foreach (NPC n in Main.ActiveNPCs)
+            {
+                if (n.CanBeChasedBy(proj) && !n.friendly)
+                {
+                    if (getDistance(n.Center, center) <= dist && (filter == null || filter.Invoke(proj, n.whoAmI)))
+                    {
+                        dist = getDistance(n.Center, center);
+                        npc = n;
+                    }
+                }
+            }
+            return npc;
         }
         public static NPC FindTarget_HomingProj(object atker, Vector2 center, float radians, Func<int, bool> filter = null)
         {
@@ -1151,7 +1181,7 @@ namespace CalamityEntropy
         {
             return isAir(new Vector2(i * 16, j * 16), plat);
         }
-        public static bool isAir(Vector2 dp, bool plat = false)
+        public static bool isAir(Vector2 dp, bool platBlock = false)
         {
             if (dp.X < 0 || dp.Y < 0)
             {
@@ -1162,7 +1192,7 @@ namespace CalamityEntropy
             Tile tile = Main.tile[(int)(dp.X / 16), (int)(dp.Y / 16)];
             if (tile.IsActuated)
                 return true;
-            if (plat)
+            if (platBlock)
             {
                 if (tile != null && tile.HasTile)
                 {

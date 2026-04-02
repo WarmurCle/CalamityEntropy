@@ -25,9 +25,9 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
 
         public enum Mode
         {
+            Defending,
             Penetrate,
-            Shooting,
-            Defending
+            Shooting
         }
         public override bool? CanHitNPC(NPC target)
         {
