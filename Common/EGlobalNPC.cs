@@ -78,7 +78,11 @@ namespace CalamityEntropy.Common
         {
             return true;
         }
-        
+        public override void SetDefaults(NPC entity)
+        {
+            if (entity.type == ModContent.NPCType<PrimordialWyrmHead>())
+                entity.lifeMax = (int)(entity.lifeMax * 1.5f);
+        }
         public float DebuffDamageMult()
         {
             float r = 1;
