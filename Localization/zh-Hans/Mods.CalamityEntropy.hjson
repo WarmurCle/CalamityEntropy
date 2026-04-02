@@ -651,9 +651,13 @@ Items: {
 		Tooltip:
 			'''
 			获得被宇宙狱火加强的撞击冲刺能力
-			提供神之壁垒和阿斯加德之庇护的效果
+			提供[i:CalamityMod/RampartofDeities]神之壁垒和[i:CalamityMod/AsgardianAegis]阿斯加德之庇护的效果
 			给予能抵挡一次高伤害的圣盾，该技能有120秒冷却时间
+			右键切换[i:PanicNecklace]恐慌项链是否生效
+			[TOGGLE]
 			'''
+		ToggleEffectOn: "[c/00ff00:已启用恐慌项链]"
+		ToggleEffectOff: "[c/808080:已禁用恐慌项链]"
 	}
 
 	VoidBar: {
@@ -4217,6 +4221,19 @@ Items: {
 		DisplayName: 風船
 		Tooltip: ""
 	}
+
+	Ratziel: {
+		DisplayName: 嗫告篇帙
+		Tooltip:
+			'''
+			召唤一个哨兵，攻击范围内的敌人
+			为你投射出一个可抵挡伤害的护盾
+			随着时期增加伤害，范围，护盾量
+			攻击必定暴击，但只有50%的暴击伤害
+			每拥有一个召唤栏，增加10%暴击伤害，1.5%防御和1%伤害减免
+			同时，根据召唤栏数量为你增加防御和百分比减伤
+			'''
+	}
 }
 
 SmolderingSetBonus:
@@ -4921,6 +4938,7 @@ Projectiles: {
 	CinderMinion.DisplayName: 狱烬灵核
 	MinionCinderFireball.DisplayName: 狱烬火球
 	GRainbowRocket.DisplayName: 虹彩弹
+	RatzielSentry.DisplayName: 嗫告篇帙
 }
 
 LegendTooltip: - 传奇物品 -
@@ -6288,3 +6306,4 @@ Luminariswarm: 幻光蛾群
 MinionAccDescCrownFangs: 当同时佩戴[ITEM]时，获得+1召唤栏
 NonZenithWorld: 不在天顶世界
 ZenithWorld: 在天顶世界时
+RatizelShield: 嗫告篇帙护盾

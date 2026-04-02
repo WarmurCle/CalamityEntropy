@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         bool panicNecklaceEnabled = true;
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.FindAndReplace("[TOGGLE]", panicNecklaceEnabled ? this.GetLocalizedValue("ToggleEffect") : "");
+            tooltips.FindAndReplace("[TOGGLE]", this.GetLocalizedValue("ToggleEffect" + (panicNecklaceEnabled ? "On" : "Off")));
         }
         public override bool CanRightClick() => Main.keyState.PressingShift();
         public override void RightClick(Player player)

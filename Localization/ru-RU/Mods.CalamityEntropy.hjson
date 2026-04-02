@@ -587,6 +587,8 @@ Items: {
 			Обеспечьте себя святым щитом, способным выдержать однократный урон.
 			Время действия этого эффекта составляет 120 секунд.
 			'''
+		// ToggleEffectOn: "[c/00ff00:Panic enabled]"
+		// ToggleEffectOff: "[c/808080:Panic disabled]"
 	}
 
 	VoidBar: {
@@ -3968,6 +3970,21 @@ Items: {
 		// DisplayName: Fuusen
 		// Tooltip: ""
 	}
+
+	Ratziel: {
+		// DisplayName: Ratziel
+		/* Tooltip:
+			'''
+			Summon a sentry to attack enemies within range.
+			It will cast a shield for you that can absorb damage.
+			As the level increases, so does the damage, range, and shield strength.
+			The attack will definitely deal a critical hit,
+			but only 50% of the critical damage will be applied
+			For every minion slot you have, the critical damage will increase by 10%.
+			Additionally, based on the number of minion slots,
+			your defense and percentage damage reduction will be increased.
+			''' */
+	}
 }
 
 /* SmolderingSetBonus:
@@ -4670,6 +4687,7 @@ Projectiles: {
 	// CinderMinion.DisplayName: Cinder Core
 	// MinionCinderFireball.DisplayName: Cinder Fireball
 	// GRainbowRocket.DisplayName: G Rainbow Rocket
+	// RatzielSentry.DisplayName: Ratziel Sentry
 }
 
 LegendTooltip: - Легенда -
@@ -6070,3 +6088,4 @@ Menu: {
 // MinionAccDescCrownFangs: When equip with [ITEM]: +1 Minion slot
 // NonZenithWorld: Not in zenith world
 // ZenithWorld: In zenith world
+// RatizelShield: Ratizel Shield

@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Items.Donator.Ratziel;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
@@ -1080,7 +1081,9 @@ namespace CalamityEntropy.Common
             if (Main.LocalPlayer.Entropy().voidOreNearby > 0)
                 DrawVoidOres(votype);
             bool startBatch = false;
-            foreach(Projectile p in Main.ActiveProjectiles)
+            int ratzielStype = ModContent.ProjectileType<RatzielSentry>();
+            Texture2D rGlowTex = CEUtils.getExtraTex("Circle");
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
                 if(p.type == cruiserEnergyBallType && p.ModProjectile is CruiserEnergyBall ceb)
                 {
@@ -1099,6 +1102,15 @@ namespace CalamityEntropy.Common
                         startBatch = true;
                     }
                     CEUtils.DrawGlow(p.Center, Color.White * p.Opacity * 0.6f, 5);
+                }
+                if(p.type == ratzielStype)
+                {
+                    if (!startBatch)
+                    {
+                        Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                        startBatch = true;
+                    }
+                    CEUtils.DrawGlow(p.Center, Color.White * p.Opacity * 0.42f, 6, true, rGlowTex);
                 }
             }    
             if(startBatch)

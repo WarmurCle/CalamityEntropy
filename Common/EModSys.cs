@@ -4,6 +4,7 @@ using CalamityEntropy.Content.Items.Armor.AzafureT3;
 using CalamityEntropy.Content.Items.Armor.NihTwins;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
+using CalamityEntropy.Content.Items.Donator.Ratziel;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.GrassSword;
@@ -28,9 +29,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.ResourceSets;
 using Terraria.Graphics;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -242,6 +245,12 @@ namespace CalamityEntropy.Common
                     mp.DrawNihRope();
                     Main.spriteBatch.End();
                 }
+                if(mp.RatzielShieldTime > 0 && mp.RatzielShield > 0)
+                {
+                    Main.spriteBatch.begin_();
+                    DrawForce(player, (player.Entropy().RatzielShield / (float)Ratziel.MaxShield(Ratziel.Level())) * 0.6f + 0.4f);
+                    Main.spriteBatch.End();
+                }
                 if (mp.VoidShieldVisual)
                 {
                     float p = 1;
@@ -329,6 +338,20 @@ namespace CalamityEntropy.Common
             typer.sound = new Terraria.Audio.SoundStyle($"CalamityMod/Sounds/Custom/Codebreaker/DraedonTalk{Main.rand.Next(1, 4)}");
             typer.update();*/
 
+        }
+        public void DrawForce(Player player, float alpha)
+        {
+            string key = "Nebula";
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
+            Terraria.Graphics.Effects.Filters.Scene[key].GetShader().UseIntensity(2f).UseProgress(0f);
+            DrawData value61 = new DrawData(Main.Assets.Request<Texture2D>("Images/Misc/Perlin", (AssetRequestMode)1).Value, player.Center - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle(0, 0, 600, 600), Microsoft.Xna.Framework.Color.White * alpha, 0, new Vector2(300f, 300f), new Vector2(1.05f, 0.7f) * 0.32f, SpriteEffects.None);
+            GameShaders.Misc["ForceField"].UseColor(Color.LightSkyBlue.ToVector3());
+            GameShaders.Misc["ForceField"].Apply(value61);
+            value61.Draw(Main.spriteBatch);
+            value61.Draw(Main.spriteBatch);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
         }
         public int ptype = -1;
         public int sftype = -1;

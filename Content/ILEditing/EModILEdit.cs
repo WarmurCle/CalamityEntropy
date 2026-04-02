@@ -31,6 +31,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.WorldBuilding;
 using static InnoVault.GameSystem.ItemRebuildLoader;
 
 namespace CalamityEntropy.Content.ILEditing
@@ -56,10 +57,18 @@ namespace CalamityEntropy.Content.ILEditing
         private delegate float CALEOCAI_Delegate(Func<NPC, Mod, bool> orig, NPC npc, Mod mod);
         private delegate void CalNPCModifyDelegate(CalamityGlobalNPC self, NPC npc, Projectile proj, ref NPC.HitModifiers modifuer);
         private delegate void CalNPCModifyHitByProj(CalNPCModifyDelegate orig, CalamityPlayer self, NPC npc, Projectile proj, ref NPC.HitModifiers modifier);
-        private static void HookModifyHitByProj(CalNPCModifyDelegate orig, CalamityGlobalNPC self, NPC npc, Projectile proj, ref NPC.HitModifiers modifier)
+        private static void HookModifyHitByProj(CalNPCModifyDelegate orig, CalamityGlobalNPC self, NPC npc, Projectile proj, ref NPC.HitModifiers modifiers)
         {
-            orig.Invoke(self, npc, proj, ref modifier);
-            npc.GetGlobalNPC<WhipDebuffNPC>().ModifyHitByProj(npc, proj, ref modifier);
+            orig.Invoke(self, npc, proj, ref modifiers);
+            npc.GetGlobalNPC<WhipDebuffNPC>().ModifyHitByProj(npc, proj, ref modifiers);
+            if(npc.Entropy().nextHitCrit)
+            {
+                npc.Entropy().nextHitCrit = false;
+                var fInfo = modifiers.GetType().GetField("_critOverride", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                object boxed = modifiers;
+                fInfo.SetValue(boxed, (bool?)true);
+                modifiers = (NPC.HitModifiers)boxed;
+            }
         }
         public static void load()
         {
