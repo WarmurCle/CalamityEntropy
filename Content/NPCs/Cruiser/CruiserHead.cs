@@ -141,25 +141,25 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.boss = true;
             NPC.width = 100;
             NPC.height = 100;
-            NPC.damage = 200;
+            NPC.damage = 220;
             if (Main.expertMode)
             {
-                NPC.damage += 3;
+                NPC.damage += 4;
             }
             if (Main.masterMode)
             {
-                NPC.damage += 4;
+                NPC.damage += 5;
             }
             NPC.defense = 90;
             NPC.lifeMax = 1200000;
             if (CalamityWorld.death)
             {
-                NPC.damage += 6;
+                NPC.damage += 8;
                 length += 4;
             }
             else if (CalamityWorld.revenge)
             {
-                NPC.damage += 3;
+                NPC.damage += 4;
                 length += 3;
             }
             tdamage = NPC.damage;
@@ -476,7 +476,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public AIStyle ai = AIStyle.TryToClosePlayer;
         public void Shoot(int type, Vector2 pos, Vector2 velo, float damageMult = 1, float ai0 = 0, float ai1 = 0, float ai2 = 0)
         {
-            Projectile.NewProjectile(NPC.GetSource_FromAI(), pos, velo, type, (int)(NPC.damage / 6.4f * damageMult), 3, -1, ai0, ai1, ai2);
+            Projectile.NewProjectile(NPC.GetSource_FromAI(), pos, velo, type, (int)(NPC.damage / 6.85f * damageMult), 3, -1, ai0, ai1, ai2);
         }
         public float whiteLerp = 0;
         public override void HitEffect(NPC.HitInfo hit)
@@ -1091,28 +1091,39 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         }
                         if (ai == AIStyle.VoidLaser)
                         {
-                            if (changeCounter % 46 == 0)
+                            if (NPC.localAI[2]++ < 60)
                             {
-                                NPC.rotation = (target.Center + target.velocity * Main.rand.NextFloat(10, 36) - NPC.Center).ToRotation();
-                                NPC.velocity = NPC.rotation.ToRotationVector2();
-                                EParticle.NewParticle(new CruiserWarn(), NPC.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, NPC.rotation);
+                                NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, (target.Center - NPC.Center).ToRotation(), 0.08f, false);
+                                NPC.velocity *= 0.97f;
+                                NPC.velocity -= NPC.rotation.ToRotationVector2() * 6;
                             }
-                            if (changeCounter % 46 == 24)
+                            if (NPC.localAI[2] > 60)
                             {
-                                if (canShoot)
+                                if (changeCounter % 46 == 0)
                                 {
-                                    Shoot(ModContent.ProjectileType<CruiserLaser2>(), NPC.Center, NPC.rotation.ToRotationVector2() * 10, ai0: NPC.whoAmI);
+                                    NPC.rotation = (target.Center + target.velocity * Main.rand.NextFloat(10, 36) - NPC.Center).ToRotation();
+                                    NPC.velocity = NPC.rotation.ToRotationVector2();
+                                    EParticle.NewParticle(new CruiserWarn(), NPC.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, NPC.rotation);
                                 }
-                                NPC.velocity = NPC.rotation.ToRotationVector2() * ((CEUtils.getDistance(NPC.Center, target.Center) + 1400f) / 22f);
-                            }
-                            if (changeCounter % 46 == 45)
-                            {
-                                NPC.velocity = NPC.velocity.normalize();
-                            }
-                            changeCounter++;
-                            if (changeCounter >= 6 * 46)
-                            {
-                                changeAi();
+                                int u = (int)Utils.Remap(changeCounter, 0, 6 * 46, 36, 16);
+                                if (changeCounter % 46 == u)
+                                {
+                                    if (canShoot)
+                                    {
+                                        Shoot(ModContent.ProjectileType<CruiserLaser2>(), NPC.Center, NPC.rotation.ToRotationVector2() * 10, ai0: NPC.whoAmI);
+                                    }
+                                    NPC.velocity = NPC.rotation.ToRotationVector2() * ((CEUtils.getDistance(NPC.Center, target.Center) + 1400f) / (45f - u));
+                                }
+                                if (changeCounter % 46 == 45)
+                                {
+                                    NPC.velocity = NPC.velocity.normalize() * 4;
+                                }
+                                changeCounter++;
+                                if (changeCounter >= 6 * 46)
+                                {
+                                    NPC.localAI[2] = 0;
+                                    changeAi();
+                                }
                             }
                         }
                         if (ai != AIStyle.VoidLaser)
