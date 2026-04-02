@@ -951,6 +951,7 @@ namespace CalamityEntropy.Common
         public float AbyssalLight = 0;
         public Item goldenRock = null;
         public int RatzielShieldTime = 0;
+        public int BigShotWingVisual = 0;
         public override void ResetEffects()
         {
             if (RatzielShieldTime > 0)

@@ -29,7 +29,12 @@ BigShotsWing: {
 		'''
 		-90% flight time if there're any boss
 		"Now's your chance to be a..."
+		Hold shift and right click to toggle strings' transparency
+		[TOGGLE]
 		''' */
+	// Visual0: Opaque
+	// Visual1: Translucent
+	// Visual2: Invisible
 }
 
 IceShardWing: {

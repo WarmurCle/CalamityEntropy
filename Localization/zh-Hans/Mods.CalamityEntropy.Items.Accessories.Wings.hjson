@@ -30,7 +30,12 @@ BigShotsWing: {
 		有Boss存在时-90%飞行时间
 		因为被提线操纵，飞行速度较慢
 		“是时候成为...”
+		按住Shift并点击右键切换提线可见度
+		提线[TOGGLE]
 		'''
+	Visual0: 可见
+	Visual1: 半透明
+	Visual2: 隐藏
 }
 
 IceShardWing: {

@@ -41,20 +41,24 @@ namespace CalamityEntropy.Common.DrawLayers
             float lRot = (player.GetModPlayer<BigShotWingPlayer>().lpoint - origin).ToRotation() - rotj;
             float scale = player.GetModPlayer<BigShotWingPlayer>().scale * 1.15f;
             var _drawInfo = drawInfo;
+            int visual = player.Entropy().BigShotWingVisual;
             void drawLine(Vector2 start)
             {
                 Vector2 end = start + new Vector2((start.X - origin.X) + player.GetModPlayer<BigShotWingPlayer>().StringsOffset, -1000);
-                _drawInfo.DrawDataCache.Add(new DrawData(CEUtils.getExtraTex("jl"), start - Main.screenPosition, null, new Color(60, 255, 60) * 0.6f, (end - start).ToRotation(), new Vector2(0, 0.5f), new Vector2(CEUtils.getDistance(start, end) / 1024f, 2), SpriteEffects.None));
+                _drawInfo.DrawDataCache.Add(new DrawData(CEUtils.getExtraTex("jl"), start - Main.screenPosition, null, new Color(60, 255, 60) * (visual == 0 ? 0.6f : 0.2f), (end - start).ToRotation(), new Vector2(0, 0.5f), new Vector2(CEUtils.getDistance(start, end) / 1024f, 2), SpriteEffects.None));
             }
-            drawLine(origin + new Vector2(50, -22).RotatedBy(rRot) * scale);
-            drawLine(origin + new Vector2(50, 22).RotatedBy(lRot) * scale);
-            drawLine(origin + new Vector2(28, -8).RotatedBy(rRot) * scale);
-            drawLine(origin + new Vector2(28, 8).RotatedBy(lRot) * scale);
-            drawLine(origin + new Vector2(0, -14).RotatedBy(player.fullRotation));
-            drawLine(player.GetFrontHandPositionImproved(player.compositeFrontArm));
-            drawLine(player.GetBackHandPositionImproved(player.compositeBackArm));
-            drawLine(origin + new Vector2(player.velocity.Y == 0 ? 5 : 8, 10).RotatedBy(player.fullRotation));
-            drawLine(origin + new Vector2(player.velocity.Y == 0 ? -5 : -8, 10).RotatedBy(player.fullRotation));
+            if (visual != 2)
+            {
+                drawLine(origin + new Vector2(50, -22).RotatedBy(rRot) * scale);
+                drawLine(origin + new Vector2(50, 22).RotatedBy(lRot) * scale);
+                drawLine(origin + new Vector2(28, -8).RotatedBy(rRot) * scale);
+                drawLine(origin + new Vector2(28, 8).RotatedBy(lRot) * scale);
+                drawLine(origin + new Vector2(0, -14).RotatedBy(player.fullRotation));
+                drawLine(player.GetFrontHandPositionImproved(player.compositeFrontArm));
+                drawLine(player.GetBackHandPositionImproved(player.compositeBackArm));
+                drawLine(origin + new Vector2(player.velocity.Y == 0 ? 5 : 8, 10).RotatedBy(player.fullRotation));
+                drawLine(origin + new Vector2(player.velocity.Y == 0 ? -5 : -8, 10).RotatedBy(player.fullRotation));
+            }
             drawInfo.DrawDataCache.Add(new DrawData(texture, origin - Main.screenPosition, null, GC(new Color(200, 200, 0)), rRot, new Vector2(0, 15), new Vector2(1f, 1.8f) * scale, SpriteEffects.None) { shader = drawInfo.drawPlayer.cWings });
             drawInfo.DrawDataCache.Add(new DrawData(texture, origin - Main.screenPosition, null, GC(new Color(0, 80, 0)), lRot, new Vector2(0, texture.Height - 15), new Vector2(1f, 1.8f) * scale, SpriteEffects.FlipVertically) { shader = drawInfo.drawPlayer.cWings });
 

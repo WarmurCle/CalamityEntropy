@@ -1,10 +1,13 @@
 ﻿using CalamityMod;
 using CalamityMod.Items.Accessories.Wings;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace CalamityEntropy.Content.Items.Accessories
 {
@@ -53,11 +56,50 @@ namespace CalamityEntropy.Content.Items.Accessories
             {
                 player.Entropy().WingTimeMult *= 0.1f;
             }
+            player.Entropy().BigShotWingVisual = visual;
         }
         public override void UpdateVanity(Player player)
         {
             player.Entropy().addEquipVisual("BSWing");
+            player.Entropy().BigShotWingVisual = visual;
         }
+        #region ToggleVisual
+
+        int visual = 0;
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.FindAndReplace("[TOGGLE]", this.GetLocalizedValue("Visual" + visual));
+        }
+        public override bool CanRightClick() => Main.keyState.PressingShift();
+        public override void RightClick(Player player)
+        {
+            visual++;
+            if (visual > 2)
+                visual = 0;
+            Item.NetStateChanged();
+        }
+        public override bool ConsumeItem(Player player) => false;
+        public override void SaveData(TagCompound tag)
+        {
+            tag.Add("visual", visual);
+        }
+
+        public override void LoadData(TagCompound tag)
+        {
+            if(tag.ContainsKey("visual"))
+                visual = tag.GetInt("visual");
+        }
+
+        public override void NetSend(BinaryWriter writer)
+        {
+            writer.Write((byte)visual);
+        }
+
+        public override void NetReceive(BinaryReader reader)
+        {
+            visual = (int)reader.ReadByte();
+        }
+        #endregion
         public override float BonusAscentWhileRising => 0.1f;
         public override float RisingSpeedThreshold => 0.5f;
         public override float MaxAscentSpeed => 0.5f;
