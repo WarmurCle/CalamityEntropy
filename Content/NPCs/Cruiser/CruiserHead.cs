@@ -422,6 +422,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 {
                     ai = AIStyle.Cruise;
                 }
+                ai = AIStyle.VoidLaser;
             }
         }
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
@@ -922,6 +923,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         {
                             if (changeCounter == 0)
                             {
+                                var pLt = new List<int>() { ModContent.ProjectileType<VoidStar>(), ModContent.ProjectileType<VoidResidue>(), ModContent.ProjectileType<VoidSpike>() };
+                                foreach(Projectile p in Main.ActiveProjectiles)
+                                {
+                                    if (pLt.Contains(p.type))
+                                        p.Kill();
+                                }
                                 NPC.velocity *= 0.9f;
                                 NPC.velocity += (target.Center - NPC.Center).normalize() * 6;
                                 if (CEUtils.getDistance(NPC.Center + NPC.rotation.ToRotationVector2() * 160, target.Center) < 160)
@@ -1091,21 +1098,23 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         }
                         if (ai == AIStyle.VoidLaser)
                         {
-                            if (NPC.localAI[2]++ < 60)
+                            if (NPC.localAI[2]++ < 35)
                             {
-                                NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, (target.Center - NPC.Center).ToRotation(), 0.08f, false);
-                                NPC.velocity *= 0.97f;
-                                NPC.velocity -= NPC.rotation.ToRotationVector2() * 6;
+                                NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, (target.Center + target.velocity * 46 * 0.8f - NPC.Center).ToRotation(), 0.16f, false);
+                                NPC.velocity *= 0.96f;
+                                NPC.velocity += NPC.rotation.ToRotationVector2() * -0.4f;
                             }
-                            if (NPC.localAI[2] > 60)
+                            if (NPC.localAI[2] > 36)
                             {
+                                int u = (int)Utils.Remap(changeCounter, 0, 6 * 46, 42, 8);
                                 if (changeCounter % 46 == 0)
                                 {
-                                    NPC.rotation = (target.Center + target.velocity * Main.rand.NextFloat(10, 36) - NPC.Center).ToRotation();
+                                    if(changeCounter > 1)
+                                        NPC.rotation = (target.Center + target.velocity * u * 0.8f - NPC.Center).ToRotation();
                                     NPC.velocity = NPC.rotation.ToRotationVector2();
-                                    EParticle.NewParticle(new CruiserWarn(), NPC.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, NPC.rotation);
+                                    EParticle.NewParticle(new CruiserWarn(), NPC.Center, Vector2.Zero, Color.White, 1.8f, 1, true, BlendState.Additive, NPC.rotation);
+                                    EParticle.NewParticle(new CruiserWarn(), NPC.Center, Vector2.Zero, Color.White, 0.8f, 1, true, BlendState.Additive, NPC.rotation);
                                 }
-                                int u = (int)Utils.Remap(changeCounter, 0, 6 * 46, 36, 16);
                                 if (changeCounter % 46 == u)
                                 {
                                     if (canShoot)
@@ -1481,22 +1490,21 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 spriteBatch.Draw(txd, vtodraw - screenPosition, null, Color.White * alpha, NPC.rotation, new Vector2(txd.Width, txd.Height) / 2, NPC.scale, SpriteEffects.None, 0f);
 
             }
-            if (NPC.HasValidTarget)
+            float lerp = phase == 2 ? 0.2f : 0.064f;
+            if ((ai == AIStyle.VoidLaser && NPC.localAI[2] < 31) || (ai == AIStyle.TryToClosePlayer && CEUtils.getDistance(NPC.Center, NPC.target.ToPlayer().Center) > 1200))
             {
-                if (ai == AIStyle.TryToClosePlayer && CEUtils.getDistance(NPC.Center, NPC.target.ToPlayer().Center) > 1200)
-                {
-                    WarningAlpha = float.Lerp(WarningAlpha, 1, 0.064f);
-                }
-                else { WarningAlpha = float.Lerp(WarningAlpha, 0, 0.064f); }
-                if (WarningAlpha > 0.002f)
-                {
-                    Main.spriteBatch.UseBlendState(BlendState.Additive);
-                    Texture2D w = CEUtils.getExtraTex("T3");
-                    Main.spriteBatch.Draw(w, NPC.Center - Main.screenPosition, null, Color.AliceBlue * 0.7f * WarningAlpha, NPC.velocity.ToRotation(), new Vector2(0, w.Height / 2f), new Vector2(20, 0.6f * WarningAlpha), SpriteEffects.None, 0);
-                    Main.spriteBatch.Draw(w, NPC.Center - Main.screenPosition, null, Color.AliceBlue * 0.7f * WarningAlpha, NPC.velocity.ToRotation(), new Vector2(0, w.Height / 2f), new Vector2(20, 0.5f * WarningAlpha * WarningAlpha * WarningAlpha), SpriteEffects.None, 0);
-                    Main.spriteBatch.ExitShaderRegion();
-                }
+                WarningAlpha = float.Lerp(WarningAlpha, 1, lerp);
             }
+            else { WarningAlpha = float.Lerp(WarningAlpha, 0, lerp); }
+            if (WarningAlpha > 0.002f)
+            {
+                Main.spriteBatch.UseBlendState(BlendState.Additive);
+                Texture2D w = CEUtils.getExtraTex("T3");
+                Main.spriteBatch.Draw(w, NPC.Center - Main.screenPosition, null, Color.AliceBlue * 0.7f * WarningAlpha, NPC.rotation, new Vector2(0, w.Height / 2f), new Vector2(20, (phase == 1 ? 0.6f : 0.8f) * WarningAlpha), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(w, NPC.Center - Main.screenPosition, null, Color.AliceBlue * 0.7f * WarningAlpha, NPC.rotation, new Vector2(0, w.Height / 2f), new Vector2(20, (phase == 1 ? 0.5f : 0.65f) * WarningAlpha * WarningAlpha * WarningAlpha), SpriteEffects.None, 0);
+                Main.spriteBatch.ExitShaderRegion();
+            }
+
             return false;
         }
         public float WarningAlpha = 0;
