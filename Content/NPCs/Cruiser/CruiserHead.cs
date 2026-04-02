@@ -422,7 +422,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 {
                     ai = AIStyle.Cruise;
                 }
-                ai = AIStyle.VoidLaser;
             }
         }
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
