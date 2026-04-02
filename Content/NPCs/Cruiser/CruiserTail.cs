@@ -52,6 +52,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/CruiserBoss");
             }
         }
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        {
+            if(Main.npc[(int)NPC.ai[3]].active)
+                return Main.npc[(int)NPC.ai[3]].ModNPC.CanHitPlayer(target, ref cooldownSlot);
+            return true;
+        }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             if (Main.npc[(int)NPC.ai[3]].ModNPC is CruiserHead ch)

@@ -426,6 +426,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         }
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
+            if (ai == AIStyle.PhaseTransing)
+                return false;
             return noaitime <= 0 && ai != AIStyle.BiteAndDash;
         }
         public override bool CanHitNPC(NPC target)
