@@ -115,7 +115,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (counter == 0)
                 CEUtils.PlaySound("flamethrower end", Main.rand.NextFloat(4f, 4.2f), Projectile.Center, 6, 0.3f)
-;            counter++;
+; counter++;
             if (StickNPC == -1)
             {
                 if (counter > 46)
@@ -130,21 +130,21 @@ namespace CalamityEntropy.Content.Items.Weapons
                     EParticle.spawnNew(new CrystalGlow(), Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.36f, 1, true, BlendState.Additive, 0, 8);
 
                 for (float i = 0; i < 1; i += 0.5f)
-                    {
-                        var d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.RedTorch);
-                        d.position = Vector2.Lerp(Projectile.Center - Projectile.velocity, Projectile.Center, i) + CEUtils.randomPointInCircle(5);
-                        d.velocity = Projectile.velocity * Main.rand.NextFloat(0.4f);
-                        d.noGravity = true;
-                        d.scale = Main.rand.NextFloat(1, 1.2f);
-                    }
+                {
+                    var d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.RedTorch);
+                    d.position = Vector2.Lerp(Projectile.Center - Projectile.velocity, Projectile.Center, i) + CEUtils.randomPointInCircle(5);
+                    d.velocity = Projectile.velocity * Main.rand.NextFloat(0.4f);
+                    d.noGravity = true;
+                    d.scale = Main.rand.NextFloat(1, 1.2f);
+                }
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
-            if(vel == Vector2.Zero)
+            if (vel == Vector2.Zero)
                 vel = Projectile.velocity;
             if (StickNPC >= 0)
                 if (!StickNPC.ToNPC().active || StickNPC.ToNPC().dontTakeDamage)
                     StickNPC = -1;
-            if(StickNPC >= 0)
+            if (StickNPC >= 0)
             {
                 Projectile.Center = StickNPC.ToNPC().Center + offset;
                 StickNPC.ToNPC().AddBuff(BuffID.OnFire3, 180);
@@ -152,7 +152,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            if(counter == 0)
+            if (counter == 0)
                 Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
             Texture2D tex = Projectile.GetTexture();
             Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
@@ -180,18 +180,19 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            BounceTime = 0;
             EParticle.spawnNew(new CrystalGlow(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 10, Vector2.Zero, Color.OrangeRed * 1.3f, 1.5f, 1, true, BlendState.Additive, 0, 10);
 
             CEUtils.PlaySound("RockCrumble", Main.rand.NextFloat(2.4f, 2.8f), target.Center, 60, 0.4f);
             int sum = 0;
-            foreach(Projectile pj in Main.ActiveProjectiles)
+            foreach (Projectile pj in Main.ActiveProjectiles)
             {
                 if (pj.owner == Projectile.owner && pj.type == Projectile.type && pj.ModProjectile is EmberSpikeThrow cs && cs.StickNPC == target.whoAmI)
                     sum++;
             }
             if (sum >= EmberSpike.MAXSTICK || Projectile.ai[0] == 1)
             {
-                if(Projectile.Calamity().stealthStrike)
+                if (Projectile.Calamity().stealthStrike)
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.4f) * Main.rand.NextFloat(0.6f, 1f), ModContent.ProjectileType<TectinicShardHoming>(), Projectile.damage, 4, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.6f) * Main.rand.NextFloat(-1, -0.5f), ModContent.ProjectileType<EmberSpikePop>(), 0, 0, Projectile.owner);
                 Projectile.Kill();
@@ -218,14 +219,31 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             CEUtils.SyncProj(Projectile.whoAmI);
         }
+        public int BounceTime = 2;
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (StickNPC >= 0)
                 return false;
             EParticle.spawnNew(new CrystalGlow(), Projectile.Center + oldVelocity + Projectile.rotation.ToRotationVector2() * 4, Vector2.Zero, Color.OrangeRed * 1.3f, 1.5f, 1, true, BlendState.Additive, 0, 10);
-            if (Main.myPlayer == Projectile.owner)
+            if (BounceTime > 0)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, oldVelocity.RotatedByRandom(0.6f) * Main.rand.NextFloat(-1, -0.5f), ModContent.ProjectileType<EmberSpikePop>(), 0, 0, Projectile.owner);
+                BounceTime--;
+                Vector2 nv = oldVelocity;
+                if (Projectile.velocity.X == 0)
+                    nv.X *= -1;
+                if (Projectile.velocity.Y == 0)
+                    nv.Y *= -1;
+                Projectile.Center += nv * 0.5f;
+                Projectile.velocity = nv;
+                CEUtils.PlaySound("RockCrumble", Main.rand.NextFloat(1.8f, 2.4f), Projectile.Center, 16);
+                return false;
+            }
+            else
+            {
+                if (Main.myPlayer == Projectile.owner)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, oldVelocity.RotatedByRandom(0.6f) * Main.rand.NextFloat(-1, -0.5f), ModContent.ProjectileType<EmberSpikePop>(), 0, 0, Projectile.owner);
+                }
             }
             return true;
         }
