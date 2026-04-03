@@ -25,14 +25,14 @@ namespace CalamityEntropy.Content.Buffs
             npc.velocity *= npc.boss ? 0.99f : 0.986f;
             if (!npc.dontTakeDamage)
             {
-                int del = (int)(npc.lifeMax / (15f * 60 * 60) + 1);
+                int del = ((int)(npc.lifeMax / (6f * 60 * 60) + 1));
                 if (npc.life > del)
                 {
-                    if (Main.GameUpdateCount % 2 == 0)
+                    if (Main.GameUpdateCount % 5 == 0)
                         npc.life -= del;
-                    if (Main.GameUpdateCount % 16 == 0)
+                    if (Main.GameUpdateCount % 20 == 0)
                     {
-                        CombatText.NewText(npc.getRect(), Color.DarkRed, del * 16, false, true);
+                        CombatText.NewText(npc.getRect(), Color.DarkRed, del * 4, false, true);
                     }
                 }
             }
