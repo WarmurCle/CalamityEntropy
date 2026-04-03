@@ -103,7 +103,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(CEUtils.RogueDC, true, -1);
-            Projectile.width = Projectile.height = 14;
+            Projectile.width = Projectile.height = 12;
             Projectile.timeLeft = 120 * 4;
             Projectile.MaxUpdates = 3;
         }
@@ -114,8 +114,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AI()
         {
             if (counter == 0)
-                CEUtils.PlaySound("flamethrower end", Main.rand.NextFloat(4f, 4.2f), Projectile.Center, 6, 0.3f)
-; counter++;
+            {
+                if (Projectile.Calamity().stealthStrike)
+                    BounceTime = 5;
+                CEUtils.PlaySound("flamethrower end", Main.rand.NextFloat(4f, 4.2f), Projectile.Center, 6, 0.3f);
+            }
+            counter++;
             if (StickNPC == -1)
             {
                 if (counter > 46)
@@ -227,19 +231,36 @@ namespace CalamityEntropy.Content.Items.Weapons
             EParticle.spawnNew(new CrystalGlow(), Projectile.Center + oldVelocity + Projectile.rotation.ToRotationVector2() * 4, Vector2.Zero, Color.OrangeRed * 1.3f, 1.5f, 1, true, BlendState.Additive, 0, 10);
             if (BounceTime > 0)
             {
-                BounceTime--;
-                Vector2 nv = oldVelocity;
-                if (Projectile.velocity.X == 0)
-                    nv.X *= -1;
-                if (Projectile.velocity.Y == 0)
-                    nv.Y *= -1;
-                Projectile.Center += nv * 0.5f;
-                Projectile.velocity = nv;
-                CEUtils.PlaySound("RockCrumble", Main.rand.NextFloat(1.8f, 2.4f), Projectile.Center, 16);
+                BounceTime--; 
+                if (Projectile.velocity.X != oldVelocity.X)
+                {
+                    Projectile.velocity.X = -oldVelocity.X * 0.84f;
+                }
+                if (Projectile.velocity.Y != oldVelocity.Y)
+                {
+                    Projectile.velocity.Y = -oldVelocity.Y * 0.84f;
+                }
+                counter = 28;
+                CEUtils.PlaySound("RockCrumble", Main.rand.NextFloat(2.8f, 3.4f), Projectile.Center, 16, 0.4f);
+
+                float scale = 0.42f;
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.OrangeRed * 0.95f, scale * 0.8f, 1, true, BlendState.Additive, 0, 6);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White * 0.95f, scale * 0.5f, 1, true, BlendState.Additive, 0, 6);
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 230, 60), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.04f, 12));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 230, 60), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 16));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 230, 60), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.06f, 20));
+
                 return false;
             }
             else
             {
+                float scale = 0.6f;
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.OrangeRed * 0.95f, scale * 0.8f, 1, true, BlendState.Additive, 0, 6);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White * 0.95f, scale * 0.5f, 1, true, BlendState.Additive, 0, 6);
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 230, 60), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.04f, 12));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 230, 60), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 16));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 230, 60), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.06f, 20));
+
                 if (Main.myPlayer == Projectile.owner)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, oldVelocity.RotatedByRandom(0.6f) * Main.rand.NextFloat(-1, -0.5f), ModContent.ProjectileType<EmberSpikePop>(), 0, 0, Projectile.owner);
