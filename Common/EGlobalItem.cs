@@ -26,6 +26,7 @@ using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod;
+using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Fishing.SulphurCatches;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Materials;
@@ -142,9 +143,57 @@ namespace CalamityEntropy.Common
             NewName = origName;
             return false;
         }
-
+        public List<int> RogueAccs = null;
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
+            if(RogueAccs == null)
+            {
+                int IT<T>() where T : ModItem
+                {
+                    return ModContent.ItemType<T>();
+                }
+                RogueAccs = new List<int>()
+                {
+                    IT<ScuttlersJewel>(),
+                    IT<CoinofDeceit>(),
+                    IT<RaidersTalisman>(),
+                    IT<RottenDogtooth>(),
+                    IT<InkBomb>(),
+                    IT<SandCloak>(),
+                    IT<SilencingSheath>(),
+                    IT<BloodstainedGlove>(),
+                    IT<FilthyGlove>(),
+                    IT<FeatherCrown>(),
+                    IT<MirageMirror>(),
+                    IT<RogueEmblem>(),
+                    IT<CorrosiveSpine>(),
+                    IT<ElectriciansGlove>(),
+                    IT<RuinMedallion>(),
+                    IT<VampiricTalisman>(),
+                    IT<GloveOfPrecision>(),
+                    IT<GloveOfRecklessness>(),
+                    IT<AbyssalMirror>(),
+                    IT<EtherealExtorter>(),
+                    IT<PlaguedFuelPack>(),
+                    IT<DarkMatterSheath>(),
+                    IT<MoonstoneCrown>(),
+                    IT<BlunderBooster>(),
+                    IT<SpectralVeil>(),
+                    IT<VeneratedLocket>(),
+                    IT<EclipseMirror>(),
+                    IT<Nanotech>(),
+                    IT<DragonScales>(),
+                    IT<MineBox>(),
+                    IT<GaleWristblades>(),
+                    IT<ShadowPact>(),
+                    IT<ShadowMantle>(),
+                    IT<LurkersCharm>(),
+                    IT<WorshipRelic>(),
+                    IT<ThiefsPocketwatchOfEclipse>()
+                };
+            }
+            if (RogueAccs.Contains(item.type))
+                player.Entropy().EquipedAnyRogueAcc = true;
             if (item.wingSlot != -1)
             {
                 player.Entropy().wing = item;

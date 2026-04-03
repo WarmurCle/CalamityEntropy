@@ -5668,6 +5668,11 @@ Configs: {
 			Label: 新手礼包额外物品
 			Tooltip: 新手礼包将提供一些额外的有用物品（如魔法存储，更好的体验魔杖等）
 		}
+
+		RogueAccessoriesProvide40Stealth: {
+			Label: 盗贼配饰提供最少40点潜行值
+			Tooltip: "如果你穿戴了任何盗贼饰品，则会至少拥有40点潜行值"
+		}
 	}
 }
 

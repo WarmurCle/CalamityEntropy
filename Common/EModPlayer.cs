@@ -954,6 +954,7 @@ namespace CalamityEntropy.Common
         public int BigShotWingVisual = 0;
         public override void ResetEffects()
         {
+            EquipedAnyRogueAcc = false;
             if (RatzielShieldTime > 0)
                 RatzielShieldTime--;
             AbyssalLight = 0;
@@ -1891,7 +1892,7 @@ namespace CalamityEntropy.Common
             Player.maxFallSpeed *= float.Lerp(Scale, 1, 0.4f);
         }
 
-
+        public bool EquipedAnyRogueAcc = false;
         public int manaNorm = 0;
         public int deusCoreAdd = 0;
         public float ShieldAlphaAdd = 0;
@@ -4011,6 +4012,15 @@ namespace CalamityEntropy.Common
             {
                 int regen = AmuletOfHealing.GetRegen(Player.maxMinions);
                 Player.lifeRegen += regen;
+            }
+            if (ServerConfig.Instance.RogueAccessoriesProvide40Stealth)
+            {
+                if (EquipedAnyRogueAcc)
+                {
+                    if (Player.Calamity().rogueStealthMax < 0.4f)
+                        Player.Calamity().rogueStealthMax = 0.4f;
+                    Player.Calamity().wearingRogueArmor = true;
+                }
             }
         }
         public override void ModifyScreenPosition()
