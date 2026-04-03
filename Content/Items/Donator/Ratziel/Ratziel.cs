@@ -41,8 +41,9 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
             Item.shootSpeed = 10f;
             Item.DamageType = DamageClass.Summon;
             Item.sentry = true;
+            Item.Entropy().Legend = true;
         }
-        public static int MaxShield(int lv) => 10 + lv * 5;
+        public static int MaxShield(int lv) => 5 + lv * 5;
         public static int Level()
         {
             if (DownedBossSystem.downedYharon)
@@ -67,8 +68,8 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
                 return 1;
             return 0;
         }
-        public static int GetMaxTarget(int lv) => lv + 2;
-        public static float TargetDist(int lv) => 600 + lv * 200;
+        public static int GetMaxTarget(int lv) => lv + 1;
+        public static float TargetDist(int lv) => 600 + lv * 125;
         public override void UpdateInventory(Player player)
         {
             int level = Level();
@@ -76,18 +77,18 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
         }
         public static int GetDamage(int level) => level switch
         {
-            0 => 8,
-            1 => 12,
-            2 => 16,
-            3 => 24,
-            4 => 30,
-            5 => 54,
-            6 => 86,
-            7 => 150,
-            8 => 200,
-            9 => 250,
-            10 => 300,
-            _ => 300
+            0 => 4,
+            1 => 8,
+            2 => 12,
+            3 => 18,
+            4 => 26,
+            5 => 36,
+            6 => 48,
+            7 => 70,
+            8 => 120,
+            9 => 160,
+            10 => 200,
+            _ => 200
         };
         public override bool AllowPrefix(int pre)
         {
