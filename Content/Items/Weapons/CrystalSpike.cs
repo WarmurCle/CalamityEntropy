@@ -205,6 +205,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
+            if (StickNPC >= 0)
+                return false;
             EParticle.spawnNew(new CrystalGlow(), Projectile.Center + oldVelocity + Projectile.rotation.ToRotationVector2() * 4, Vector2.Zero, Color.MediumPurple * 1.3f, 1.5f, 1, true, BlendState.Additive, 0, 10);
             if (Main.myPlayer == Projectile.owner)
             {
