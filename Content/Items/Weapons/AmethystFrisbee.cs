@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 34;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.ArmorPenetration = 86;
+            Item.ArmorPenetration = 4;
             Item.knockBack = 1f;
             Item.UseSound = null;
             Item.maxStack = 1;

@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 16;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.knockBack = 4f;
+            Item.knockBack = 3.4f;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.maxStack = 1;
@@ -97,7 +97,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.ArmorPenetration += 16;
+            modifiers.ArmorPenetration += 6;
         }
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/EmberSpike";
         public override void SetDefaults()
