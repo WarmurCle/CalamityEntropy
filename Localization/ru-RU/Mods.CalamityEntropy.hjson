@@ -3985,6 +3985,11 @@ Items: {
 			your defense and percentage damage reduction will be increased.
 			''' */
 	}
+
+	AzafureSupportRemote: {
+		// DisplayName: Azafure Support Remote
+		// Tooltip: Summon a combat drone, shooting armor-piercing shell to enemies
+	}
 }
 
 /* SmolderingSetBonus:
@@ -4688,6 +4693,8 @@ Projectiles: {
 	// MinionCinderFireball.DisplayName: Cinder Fireball
 	// GRainbowRocket.DisplayName: G Rainbow Rocket
 	// RatzielSentry.DisplayName: Ratziel Sentry
+	// AzafureCombatDrone.DisplayName: Azafure Combat Drone
+	// CombatDroneBullet.DisplayName: Combat Drone Bullet
 }
 
 LegendTooltip: - Легенда -
@@ -5071,6 +5078,11 @@ Buffs: {
 	CinderCore: {
 		// DisplayName: Cinder Core
 		// Description: Cinder Core will fight for you
+	}
+
+	CombatDrone: {
+		// DisplayName: Combat Drone
+		// Description: It was once used in large-scale wars
 	}
 }
 

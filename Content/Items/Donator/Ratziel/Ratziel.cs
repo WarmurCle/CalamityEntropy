@@ -85,9 +85,9 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
             6 => 86,
             7 => 150,
             8 => 200,
-            9 => 240,
-            10 => 500,
-            _ => 400
+            9 => 250,
+            10 => 300,
+            _ => 300
         };
         public override bool AllowPrefix(int pre)
         {

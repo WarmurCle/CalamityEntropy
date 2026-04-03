@@ -4234,6 +4234,11 @@ Items: {
 			同时，根据召唤栏数量为你增加防御和百分比减伤
 			'''
 	}
+
+	AzafureSupportRemote: {
+		DisplayName: 阿萨福勒支援遥控
+		Tooltip: 召唤一架阿萨福勒战斗无人机，向敌人发射穿甲弹
+	}
 }
 
 SmolderingSetBonus:
@@ -4939,6 +4944,8 @@ Projectiles: {
 	MinionCinderFireball.DisplayName: 狱烬火球
 	GRainbowRocket.DisplayName: 虹彩弹
 	RatzielSentry.DisplayName: 嗫告篇帙
+	AzafureCombatDrone.DisplayName: 战斗无人机
+	CombatDroneBullet.DisplayName: 无人机穿甲弹
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5322,6 +5329,11 @@ Buffs: {
 	CinderCore: {
 		DisplayName: 狱烬灵核
 		Description: 狱烬灵核将为你而战
+	}
+
+	CombatDrone: {
+		DisplayName: 战斗无人机
+		Description: “曾被用于大规模战争”
 	}
 }
 

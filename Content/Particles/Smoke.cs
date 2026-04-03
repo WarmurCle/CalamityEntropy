@@ -5,7 +5,7 @@ namespace CalamityEntropy.Content.Particles
 {
     public class Smoke : EParticle
     {
-        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Smoke").Value;
+        public override Texture2D Texture => textureType == 0 ? ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Smoke").Value : ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Circle").Value;
         public int timeleftmax = 200;
         public float scaleEnd = -1;
         public float scaleStart = -1;
@@ -15,6 +15,7 @@ namespace CalamityEntropy.Content.Particles
         public Color endColor = Color.White;
         private Color startColor = Color.White;
         public bool NoAlphaFade = false;
+        public int textureType = 0;
         public override void AI()
         {
             if (setColor)

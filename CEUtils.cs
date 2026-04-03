@@ -4,6 +4,7 @@ using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Items.Armor.AzafureT3;
 using CalamityEntropy.Content.Items.Books;
+using CalamityEntropy.Content.Items.Donator.Ratziel;
 using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
@@ -31,6 +32,39 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static List<NPC> FindSomeNearEnemies(Vector2 center, int maxCount, float distance = 1600, Func<int, bool> filter = null)
+        {
+            if (maxCount <= 0)
+                return new List<NPC>();
+            var list = new List<NPC>();
+            foreach (var npC in Main.ActiveNPCs)
+                list.Add(npC);
+            bool filterCheck(NPC npc)
+            {
+                if (filter != null)
+                    return filter.Invoke(npc.whoAmI);
+                return true;
+            }
+            var result = list
+                .Where(npc => npc.active
+                           && !npc.friendly
+                           && !npc.dontTakeDamage
+                           && npc.life > 0
+                           && npc.Distance(center) < distance
+                           && filterCheck(npc))
+
+                .Select(npc => new
+                {
+                    NPC = npc,
+                    DistanceSq = Vector2.DistanceSquared(center, npc.Center)
+                })
+                .OrderBy(x => x.DistanceSq)
+                .Take(maxCount)
+                .Select(x => x.NPC)
+                .ToList();
+
+            return result;
+        }
         public static float Frac(float x)
         {
             if (float.IsInfinity(x) || float.IsNaN(x))
