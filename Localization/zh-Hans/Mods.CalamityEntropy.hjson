@@ -5671,7 +5671,7 @@ Configs: {
 
 		RogueAccessoriesProvide40Stealth: {
 			Label: 盗贼配饰提供最少40点潜行值
-			Tooltip: "如果你穿戴了任何盗贼饰品，则会至少拥有40点潜行值"
+			Tooltip: 如果你穿戴了任何盗贼饰品，则会至少拥有40点潜行值
 		}
 	}
 }

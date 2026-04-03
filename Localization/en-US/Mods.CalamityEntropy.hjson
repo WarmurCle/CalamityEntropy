@@ -5441,7 +5441,7 @@ Configs: {
 
 		RogueAccessoriesProvide40Stealth: {
 			Label: Rogue Accessories Provide 40 Stealth
-			Tooltip: "If you hasn't wearing rogue armors and you equiped any rogue accessories, you will have at least 40 stealth"
+			Tooltip: If you hasn't wearing rogue armors and you equiped any rogue accessories, you will have at least 40 stealth
 		}
 	}
 }
