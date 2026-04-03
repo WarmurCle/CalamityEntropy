@@ -4237,7 +4237,7 @@ Items: {
 
 	AzafureSupportRemote: {
 		DisplayName: 阿萨福勒支援遥控
-		Tooltip: 召唤一架阿萨福勒战斗无人机，向敌人发射穿甲弹
+		Tooltip: 召唤一架阿萨福勒迷你战斗机，向敌人发射穿甲弹
 	}
 }
 
@@ -4944,7 +4944,7 @@ Projectiles: {
 	MinionCinderFireball.DisplayName: 狱烬火球
 	GRainbowRocket.DisplayName: 虹彩弹
 	RatzielSentry.DisplayName: 嗫告篇帙
-	AzafureCombatDrone.DisplayName: 战斗无人机
+	AzafureCombatDrone.DisplayName: 迷你战斗机
 	CombatDroneBullet.DisplayName: 无人机穿甲弹
 }
 
@@ -5332,8 +5332,8 @@ Buffs: {
 	}
 
 	CombatDrone: {
-		DisplayName: 战斗无人机
-		Description: “曾被用于大规模战争”
+		DisplayName: 迷你战斗机
+		Description: “曾被量产用于大规模战争”
 	}
 }
 
