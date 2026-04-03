@@ -97,7 +97,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.ArmorPenetration += 6;
+            modifiers.ArmorPenetration += 8;
         }
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/EmberSpike";
         public override void SetDefaults()

@@ -177,7 +177,7 @@ Items: {
 					with a maximum of [S] sticks adhering to a single target
 					Stealth strike will recall all attached crystal spikes,
 					and continuously throw them towards the cursor direction
-					Ignore 12 defense
+					Ignore 4 defense
 					'''
 			}
 
@@ -201,7 +201,7 @@ Items: {
 					Stealth strike will recall all attached spikes,
 					and continuously throw them towards the cursor direction
 					Stealth strike hit will spawn tracking tectinic shard
-					Ignore 16 defense
+					Ignore 8 defense
 					'''
 			}
 		}
