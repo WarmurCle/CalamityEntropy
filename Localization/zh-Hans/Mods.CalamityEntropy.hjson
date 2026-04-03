@@ -5835,10 +5835,9 @@ ArmorPrefixLastStandDescription:
 ArmorPrefixHeatDeathName: 热寂
 ArmorPrefixHeatDeathDescription:
 	'''
-	+20% 防御
-	你将造成1.2倍的伤害
-	周围敌怪将受到虚空的侵蚀
-	[c/ff0000:攻击附带热寂，但你的血量会持续流失]
+	+15% 防御
+	你将造成1.15倍的伤害
+	[c/ff0000:攻击附带热寂，持续造成百分比伤害，但你的血量会持续流失]
 	'''
 ArmorPrefixArmorPrefixEchoName: 回响
 ArmorPrefixArmorPrefixEchoDescription: +4% 潜行值回复速度

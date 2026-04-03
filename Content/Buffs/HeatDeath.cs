@@ -23,9 +23,9 @@ namespace CalamityEntropy.Content.Buffs
         public override void Update(NPC npc, ref int buffIndex)
         {
             npc.velocity *= npc.boss ? 0.99f : 0.986f;
-            if (npc.dontTakeDamage)
+            if (!npc.dontTakeDamage)
             {
-                int del = (int)(npc.lifeMax / (16f * 60 * 60) + 1) + 2;
+                int del = (int)(npc.lifeMax / (15f * 60 * 60) + 1);
                 if (npc.life > del)
                 {
                     if (Main.GameUpdateCount % 2 == 0)
@@ -34,22 +34,6 @@ namespace CalamityEntropy.Content.Buffs
                     {
                         CombatText.NewText(npc.getRect(), Color.DarkRed, del * 16, false, true);
                     }
-                }
-            }
-            else
-            {
-                int del = (int)(npc.lifeMax / (10f * 60 * 60) + 1) + 2;
-                if (npc.life > del)
-                {
-                    npc.life -= del;
-                    if (Main.GameUpdateCount % 16 == 0)
-                    {
-                        CombatText.NewText(npc.getRect(), Color.DarkRed, del * 16, false, true);
-                    }
-                }
-                else
-                {
-                    npc.StrikeInstantKill();
                 }
             }
         }
