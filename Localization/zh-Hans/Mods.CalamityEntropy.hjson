@@ -2001,7 +2001,7 @@ Items: {
 		Tooltip:
 			'''
 			快速抽击并在最后猛击你的敌人
-			召唤物获得6%的暴击概率
+			召唤物获得3%的暴击概率
 			暴击时生成会分裂的浮空滞留水晶
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
