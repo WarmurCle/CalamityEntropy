@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Buffs
 {
     public class JailerWhipDebuff : ModBuff
     {
-        public static readonly int TagDamage = 7;
+        public static readonly int TagDamage = 2;
         public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
         public override void SetStaticDefaults()
         {
@@ -85,7 +85,7 @@ namespace CalamityEntropy.Content.Buffs
             if (npc.HasBuff<JailerWhipDebuff>())
             {
                 modifiers.FlatBonusDamage += JailerWhipDebuff.TagDamage * projTagMultiplier;
-                if (Main.rand.NextBool(25))
+                if (Main.rand.NextBool(50))
                 {
                     crit = true;
                 }
@@ -252,11 +252,11 @@ namespace CalamityEntropy.Content.Buffs
                     }
                     if (t.EffectName == "EvilKingWhip")
                     {
-                        if (CECooldowns.CheckCD("EvilKingWhip", 35))
+                        if (CECooldowns.CheckCD("EvilKingWhip", 60))
                         {
                             int spade = ModContent.ProjectileType<Spade>();
                             if (projectile.GetOwner().ownedProjectileCounts[spade] < 3)
-                                Projectile.NewProjectile(projectile.GetSource_FromAI(), CEUtils.randomPoint(npc.Hitbox), Vector2.Zero, spade, (int)(projectile.GetOwner().GetTotalDamage(DamageClass.Summon).ApplyTo(6)), 0);
+                                Projectile.NewProjectile(projectile.GetSource_FromAI(), CEUtils.randomPoint(npc.Hitbox), Vector2.Zero, spade, (int)(projectile.GetOwner().GetTotalDamage(DamageClass.Summon).ApplyTo(5)), 0);
                         }
                     }
                 }
