@@ -122,6 +122,11 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
                 .Register();
 
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.Replace("[LV]", Level());
+            tooltips.Replace("[MAXLV]", 10);
+        }
 
         public bool OwnAble(Player player, ref int count)
         {

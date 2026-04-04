@@ -3992,6 +3992,7 @@ Items: {
 			For every minion slot you have, the critical damage will increase by 5%.
 			Additionally, based on the number of minion slots,
 			your defense and percentage damage reduction will be increased.
+			Level: [LV] / [LVMAX]
 			'''
 	}
 
