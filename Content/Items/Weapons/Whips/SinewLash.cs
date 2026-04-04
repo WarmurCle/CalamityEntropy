@@ -9,11 +9,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Whips
 {
     public class SinewLash : BaseWhipItem
     {
-        public override int TagDamage => 10;
-        public override float TagCritChance => 0.06f;
+        public override int TagDamage => 3;
         public override void SetDefaults()
         {
-            Item.DefaultToWhip(ModContent.ProjectileType<SinewLashProj>(), 30, 3, 4, 42);
+            Item.DefaultToWhip(ModContent.ProjectileType<SinewLashProj>(), 32, 3, 4, 42);
             Item.rare = ItemRarityID.Blue;
             Item.value = CalamityGlobalItem.RarityBlueBuyPrice;
             Item.autoReuse = true;
