@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons.SupportRemote
         }
         public override void SetDefaults()
         {
-            Item.damage = 68;
+            Item.damage = 55;
             Item.DamageType = DamageClass.Summon;
             Item.width = 22;
             Item.height = 30;

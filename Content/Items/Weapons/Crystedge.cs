@@ -8,8 +8,8 @@ namespace CalamityEntropy.Content.Items.Weapons
 {
     public class Crystedge : BaseWhipItem
     {
-        public override int TagDamage => 12;
-        public override float TagCritChance => 0.06f;
+        public override int TagDamage => 6;
+        public override float TagCritChance => 0.03f;
 
         public override void SetDefaults()
         {

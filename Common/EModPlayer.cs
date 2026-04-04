@@ -1883,8 +1883,8 @@ namespace CalamityEntropy.Common
             }
             if (RatzielShieldTime > 0)
             {
-                Player.statDefense += (int)(Player.statDefense * Player.maxMinions * 0.01f);
-                Player.endurance += Player.maxMinions * 0.01f;
+                Player.statDefense += Player.maxMinions * 1;
+                Player.endurance += Player.maxMinions * 0.004f;
             }
             //基于尺寸更改机动性
             Player.jumpSpeed *= float.Lerp(Scale, 1, 0.55f);

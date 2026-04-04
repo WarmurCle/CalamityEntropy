@@ -851,7 +851,7 @@ Items: {
 		DisplayName: 冥界之刑
 		Tooltip:
 			'''
-			召唤物获得4%暴击率
+			召唤物获得2%暴击率
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
 			敌怪死亡后产生血爆
@@ -2001,7 +2001,7 @@ Items: {
 		Tooltip:
 			'''
 			快速抽击并在最后猛击你的敌人
-			召唤物获得6%的暴击概率
+			召唤物获得3%的暴击概率
 			暴击时生成会分裂的浮空滞留水晶
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
@@ -2027,7 +2027,6 @@ Items: {
 		Tooltip:
 			'''
 			向前方抛出，然后收回，同时撕扯沿途的敌人
-			召唤物获得6%的暴击率
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
 			仆从攻击会从敌人身上撕扯出肉块
@@ -2422,8 +2421,8 @@ Items: {
 			'''
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
-			增加16%召唤物暴击率
-			被标记的敌人额外受到16%的伤害
+			增加10%召唤物暴击率
+			被标记的敌人额外受到5%的伤害
 			召唤物暴击会将伤害传递给附近最多5个敌人
 			'''
 	}
@@ -3977,7 +3976,6 @@ Items: {
 			'''
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
-			召唤物命中被标记的目标有5%概率暴击
 			同时召唤一个滞留的黑桃弹幕，对接触的敌人持续造成伤害
 			'''
 	}
@@ -4228,10 +4226,9 @@ Items: {
 			'''
 			召唤一个哨兵，攻击范围内的敌人
 			为你投射出一个可抵挡伤害的护盾
-			随着时期增加伤害，范围，护盾量
+			随着时期增加伤害，攻击范围和护盾量
 			攻击必定暴击，但只有50%的暴击伤害
-			每拥有一个召唤栏，增加10%暴击伤害，1.5%防御和1%伤害减免
-			同时，根据召唤栏数量为你增加防御和百分比减伤
+			每拥有一个召唤栏，增加该哨兵5%暴击伤害，并为你提供1防御和0.4%伤害减免
 			'''
 	}
 

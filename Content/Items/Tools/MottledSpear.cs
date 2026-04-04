@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Tools
     }
     public class MottledSpearHook : ModProjectile
     {
-        public const float PullSpeed = 20f;
+        public const float PullSpeed = 12f;
 
         public const float ReelbackSpeed = 18f;
 

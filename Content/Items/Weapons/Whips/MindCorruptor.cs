@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Whips
 {
     public class MindCorruptor : BaseWhipItem
     {
-        public override int TagDamage => 4;
+        public override int TagDamage => 3;
         public override void SetDefaults()
         {
             Item.DefaultToWhip(ModContent.ProjectileType<MindCorruptorProj>(), 32, 3, 4, 42);

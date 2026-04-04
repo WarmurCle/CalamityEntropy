@@ -21,7 +21,7 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
 {
     public class Ratziel : ModItem, IGetFromStarterBag, IDonatorItem
     {
-        public string DonatorName => "ŒÕ¸≤›”Î”¿‘∂";
+        public string DonatorName => "ÂãøÂøòËçâ‰∏éÊ∞∏Ëøú";
 
         public override void SetDefaults()
         {
@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
             Item.height = 70;
             Item.damage = 7;
             Item.mana = 10;
-            Item.useTime = Item.useAnimation = 25;
+            Item.useTime = Item.useAnimation = 45;
             Item.useStyle = ItemUseStyleID.RaiseLamp;
             Item.noMelee = true;
             Item.knockBack = 4f;
@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
             Item.sentry = true;
             Item.Entropy().Legend = true;
         }
-        public static int MaxShield(int lv) => 5 + lv * 5;
+        public static int MaxShield(int lv) => 10 + lv * 4;
         public static int Level()
         {
             if (DownedBossSystem.downedYharon)
@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
                 return 8;
             if (NPC.downedMoonlord)
                 return 7;
-            if (NPC.downedPlantBoss || DownedBossSystem.downedCalamitasClone)
+            if (NPC.downedPlantBoss && DownedBossSystem.downedCalamitasClone)
                 return 6;
             if (NPC.downedMechBoss1 && NPC.downedBoss2 && NPC.downedBoss3)
                 return 5;
@@ -68,8 +68,8 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
                 return 1;
             return 0;
         }
-        public static int GetMaxTarget(int lv) => lv + 1;
-        public static float TargetDist(int lv) => 600 + lv * 125;
+        public static int GetMaxTarget(int lv) => lv/2 + 1;
+        public static float TargetDist(int lv) => 600 + lv * 200;
         public override void UpdateInventory(Player player)
         {
             int level = Level();
@@ -77,18 +77,18 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
         }
         public static int GetDamage(int level) => level switch
         {
-            0 => 4,
-            1 => 8,
-            2 => 12,
-            3 => 18,
-            4 => 26,
-            5 => 36,
-            6 => 48,
-            7 => 70,
-            8 => 120,
-            9 => 160,
-            10 => 200,
-            _ => 200
+            0 => 5,
+            1 => 7,
+            2 => 9,
+            3 => 12,
+            4 => 24,
+            5 => 30,
+            6 => 45,
+            7 => 80,
+            8 => 100,
+            9 => 140,
+            10 => 180,
+            _ => 180
         };
         public override bool AllowPrefix(int pre)
         {
@@ -97,6 +97,14 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            foreach (Projectile proj in Main.ActiveProjectiles)
+            {
+                if (proj.type == type && proj.owner == player.whoAmI)
+                {
+                    proj.timeLeft = 1;
+                    proj.netUpdate = true;
+                }
+            }
             position = Main.MouseWorld;
             int p = Projectile.NewProjectile(source, position, Vector2.Zero, type, damage, knockback, player.whoAmI, 20f);
             if (Main.projectile.IndexInRange(p))
@@ -117,7 +125,7 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
 
         public bool OwnAble(Player player, ref int count)
         {
-            return player.name == "±æÃı∂˛—«";
+            return player.name == "Êú¨Êù°‰∫å‰∫ö";
         }
     }
     public class RatzielSentry : ModProjectile
@@ -138,7 +146,7 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
             Projectile.penetrate = -1;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 5;
+            Projectile.localNPCHitCooldown = 20;
             Projectile.Opacity = 0;
             Projectile.scale = Ratziel.Level() * 0.1f + 1;
         }
@@ -153,7 +161,7 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             target.Entropy().nextHitCrit = true;
-            modifiers.CritDamage += -0.5f + Projectile.GetOwner().maxMinions * 0.1f;
+            modifiers.CritDamage += -0.5f + Projectile.GetOwner().maxMinions * 0.05f;
         }
         public override void AI()
         {
