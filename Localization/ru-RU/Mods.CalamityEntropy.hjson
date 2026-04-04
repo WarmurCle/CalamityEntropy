@@ -3725,7 +3725,6 @@ Items: {
 			'''
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
-			Provide 5% crit chance to minions
 			Minion hit enemies will spawn a spade, dealing damage to colliding enemies
 			''' */
 	}
@@ -3980,9 +3979,10 @@ Items: {
 			As the level increases, so does the damage, range, and shield strength.
 			The attack will definitely deal a critical hit,
 			but only 50% of the critical damage will be applied
-			For every minion slot you have, the critical damage will increase by 10%.
+			For every minion slot you have, the critical damage will increase by 5%.
 			Additionally, based on the number of minion slots,
 			your defense and percentage damage reduction will be increased.
+			Level: [LV] / [LVMAX]
 			''' */
 	}
 
@@ -3996,6 +3996,7 @@ Items: {
 	'''
 	Summon a smoldering tail that attack enemies nearby
 	+1 max minion
+	+80 Rogue Stealth
 	''' */
 /* ChaoticSetBonus:
 	'''
