@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override float BonusAscentWhileFalling => 0.4f;
         public override float BonusAscentWhileRising => 0.12f;
         public override float RisingSpeedThreshold => 1.2f;
-        public override float MaxAscentSpeed => 2.8f;
+        public override float MaxAscentSpeed => 2.0f;
         public override float BaseAscent => 0.125f;
 
 
