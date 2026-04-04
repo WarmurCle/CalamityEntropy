@@ -831,7 +831,7 @@ Items: {
 		DisplayName: Jailer Whip
 		Tooltip:
 			'''
-			Minion gain 5% crit chance
+			Minion gain 2% crit chance
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
 			Enemies will explode when dead
@@ -1861,7 +1861,7 @@ Items: {
 		Tooltip:
 			'''
 			Quickly strike and deliver a final blow to your enemy
-			Minions have a 6% critical hit probability
+			Minions have a 3% critical hit probability
 			Generate split floating retention crystals during critical strikes
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
@@ -1887,7 +1887,6 @@ Items: {
 		Tooltip:
 			'''
 			Throws forward and then retracts, tearing through enemies in its path.
-			Minions gain 6% increased critical strike chance
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
 			Minions will tear enemies' flesh chunk when attaking
@@ -2226,8 +2225,8 @@ Items: {
 			'''
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
-			Increase the critical hit rate of minions by 16%
-			Tagged enemies take 16% more damage
+			Increase the critical hit rate of minions by 10%
+			Tagged enemies take 5% more damage
 			Minions' critical strike will pass 100% of damage to up to 5 nearby enemies
 			'''
 	}
@@ -3736,7 +3735,6 @@ Items: {
 			'''
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
-			Provide 5% crit chance to minions
 			Minion hit enemies will spawn a spade, dealing damage to colliding enemies
 			'''
 	}
@@ -3991,7 +3989,7 @@ Items: {
 			As the level increases, so does the damage, range, and shield strength.
 			The attack will definitely deal a critical hit,
 			but only 50% of the critical damage will be applied
-			For every minion slot you have, the critical damage will increase by 10%.
+			For every minion slot you have, the critical damage will increase by 5%.
 			Additionally, based on the number of minion slots,
 			your defense and percentage damage reduction will be increased.
 			'''
