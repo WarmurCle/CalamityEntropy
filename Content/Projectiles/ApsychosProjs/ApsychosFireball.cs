@@ -35,6 +35,7 @@ namespace CalamityEntropy.Content.Projectiles.ApsychosProjs
             {
                 oldPos.RemoveAt(0);
             }
+            GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomPointInCircle(4), CEUtils.randomPointInCircle(3), Projectile.ai[0] == 1 ? Color.Firebrick : Color.MediumPurple, 18, 0.4f, 1f, Main.rand.NextFloat(-0.1f, 0.1f), true));
         }
         public override bool PreDraw(ref Color lightColor)
         {

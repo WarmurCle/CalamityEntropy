@@ -436,9 +436,11 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                     float v = 1;
                     if (AIChangeCounter < 100)
                         v = (AIChangeCounter - 60) / 40f;
+                    if (AIChangeCounter > 150)
+                        v = 1 - (AIChangeCounter - 150) / 40f;
                     Shoot<ApsychosFire>(tail.Center + tail.rotation.ToRotationVector2() * 60, tail.rotation.ToRotationVector2() * 52 * v, 1.2f, 40 + (phase - 1) * 24, phase);
                 }
-                if (AIChangeCounter > 150)
+                if (AIChangeCounter > 190)
                     SetAIStyle();
             }
             if (ai == AIStyle.FireballBig)
@@ -794,9 +796,9 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                     Main.spriteBatch.Draw(ray, tail.Center + tail.rotation.ToRotationVector2() * p * NPC.scale - Main.screenPosition, null, (phase == 1 ? new Color(255, 200, 160) : new Color(160, 160, 255)) * TailLight, Main.GlobalTimeWrappedHourly * 3, ray.Size() * 0.5f, new Vector2(1, 0.3f) * NPC.scale, SpriteEffects.None, 0);
                     Main.spriteBatch.Draw(ray, tail.Center + tail.rotation.ToRotationVector2() * p * NPC.scale - Main.screenPosition, null, (phase == 1 ? new Color(255, 200, 160) : new Color(160, 160, 255)) * TailLight, Main.GlobalTimeWrappedHourly * 3, ray.Size() * 0.5f, new Vector2(0.3f, 1) * NPC.scale, SpriteEffects.None, 0);
                     Color c1 = phase == 1 ? Color.OrangeRed : Color.Blue;
-                    CEUtils.DrawGlow(tail.Center + tail.rotation.ToRotationVector2() * p * NPC.scale, Color.White * TailLight, 0.6f * NPC.scale, setState:false);
-                    CEUtils.DrawGlow(tail.Center + tail.rotation.ToRotationVector2() * p * NPC.scale, c1 * TailLight, 1f * NPC.scale, setState: false);
-                    CEUtils.DrawGlow(tail.Center + tail.rotation.ToRotationVector2() * p * NPC.scale, c1 * TailLight, 1.4f * NPC.scale, setState: false);
+                    CEUtils.DrawGlow(tail.Center + tail.rotation.ToRotationVector2() * p * NPC.scale, Color.White, 0.6f * NPC.scale * TailLight, setState:false);
+                    CEUtils.DrawGlow(tail.Center + tail.rotation.ToRotationVector2() * p * NPC.scale, c1, 1f * NPC.scale * TailLight, setState: false);
+                    CEUtils.DrawGlow(tail.Center + tail.rotation.ToRotationVector2() * p * NPC.scale, c1, 1.4f * NPC.scale * TailLight, setState: false);
                     Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
                 }
             }

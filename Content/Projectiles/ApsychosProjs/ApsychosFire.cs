@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs;
+using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -33,9 +34,9 @@ namespace CalamityEntropy.Content.Projectiles.ApsychosProjs
             p += 1 / Projectile.ai[0];
             if (p > 1)
                 Projectile.Kill();
-            scale = 1 + p * 0.2f;
+            scale = float.Min(1, p * 4) + p * 0.2f;
             if (p > 0.65f)
-                scale += (p - 0.65f) * 3;
+                scale += (p - 0.65f) * 1.2f;
             Projectile.velocity *= 0.96f;
         }
         public override bool? CanDamage()
@@ -45,17 +46,37 @@ namespace CalamityEntropy.Content.Projectiles.ApsychosProjs
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
-            float d = 0.5f;
-            Color clr = new Color(240, 194, 20);
+            float d = 0.2f;
+            Color clr = new Color(255, 220, 30);
+            Color clr2 = new Color(255, 220, 30);
             float alpha = 1;
+            Color color1 = Projectile.ai[1] == 1 ? Color.Yellow : Color.DeepSkyBlue;
+            Color color2 = Projectile.ai[1] == 1 ? Color.OrangeRed : Color.MediumPurple;
             if (p > 1 - d)
             {
                 alpha = Utils.Remap(p, 1 - d, 1, 1, 0);
-                clr = Color.Lerp(clr, Color.Black, Utils.Remap(p, 1 - d, 1, 0, 1)) * alpha;
+                clr = Color.Lerp(clr, color1, Utils.Remap(p, 1 - d, 1, 0, 1)) * alpha;
             }
+            for (float i = 0.2f; i < 1; i += 0.2f)
+            {
+                clr = Color.Lerp(color1, Color.Black, i) * alpha;
+                clr2 = Color.Lerp(color2, Color.Black, i) * alpha;
+                Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition - Projectile.velocity * i, null, clr * 0.6f * (1 - i), Main.GlobalTimeWrappedHourly * 16, tex.Size() * 0.5f, scale * Projectile.scale * 1.1f * (1 - i), SpriteEffects.None, 0);
+                Main.spriteBatch.UseAdditive();
+                Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition - Projectile.velocity * i, null, clr2 * (1 - i), Main.GlobalTimeWrappedHourly * 16, tex.Size() * 0.5f, scale * Projectile.scale * 0.8f * (1 - i), SpriteEffects.None, 0);
+                Main.spriteBatch.ExitShaderRegion();
+            }
+            clr = color1 * alpha;
+            clr2 = color2 * alpha;
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, clr * 0.6f, Main.GlobalTimeWrappedHourly * 16, tex.Size() * 0.5f, scale * Projectile.scale * 1.1f, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, clr, Main.GlobalTimeWrappedHourly * 16, tex.Size() * 0.5f, scale * Projectile.scale * 0.8f, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.White * alpha, Main.GlobalTimeWrappedHourly * 16, tex.Size() * 0.5f, scale * Projectile.scale * 0.65f, SpriteEffects.None, 0);
+            Main.spriteBatch.UseAdditive();
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, clr2, Main.GlobalTimeWrappedHourly * 16, tex.Size() * 0.5f, scale * Projectile.scale * 0.8f, SpriteEffects.None, 0);
+            for (float i = 0.2f; i < 1; i += 0.2f)
+            {
+                Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition - Projectile.velocity * i, null, Color.White * alpha * (1 - i), Main.GlobalTimeWrappedHourly * 16, tex.Size() * 0.5f, scale * Projectile.scale * 0.45f * (1 - i), SpriteEffects.None, 0);
+            }
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.White * alpha, Main.GlobalTimeWrappedHourly * 16, tex.Size() * 0.5f, scale * Projectile.scale * 0.45f, SpriteEffects.None, 0);
+            Main.spriteBatch.ExitShaderRegion();
             return false;
         }
     }
