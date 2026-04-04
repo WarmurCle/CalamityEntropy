@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 54;
             Item.height = 58;
-            Item.damage = 23;
+            Item.damage = 21;
             Item.ArmorPenetration = 8;
             Item.noMelee = true;
             Item.noUseGraphic = true;
