@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles.ApsychosProjs
             Color clr = new Color(255, 220, 30);
             Color clr2 = new Color(255, 220, 30);
             float alpha = 1;
-            Color color1 = Projectile.ai[1] == 1 ? Color.Yellow : Color.DeepSkyBlue;
+            Color color1 = Projectile.ai[1] == 1 ? new Color(255, 160, 0) : Color.DeepSkyBlue;
             Color color2 = Projectile.ai[1] == 1 ? Color.OrangeRed : Color.MediumPurple;
             if (p > 1 - d)
             {
