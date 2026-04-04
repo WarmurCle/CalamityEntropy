@@ -4006,6 +4006,7 @@ SmolderingSetBonus:
 	'''
 	Summon a smoldering tail that attack enemies nearby
 	+1 max minion
+	+80 Rogue Stealth
 	'''
 ChaoticSetBonus:
 	'''

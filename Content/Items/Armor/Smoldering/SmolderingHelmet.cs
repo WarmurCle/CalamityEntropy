@@ -42,6 +42,11 @@ namespace CalamityEntropy.Content.Items.Armor.Smoldering
             player.setBonus = Mod.GetLocalization("SmolderingSetBonus").Value;
             player.Entropy().smolderingSet = true;
             player.maxMinions += 1;
+            if (!ModContent.GetInstance<Config>().MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons || player.HeldItem.DamageType.CountsAsClass(CEUtils.RogueDC))
+            {
+                player.Calamity().wearingRogueArmor = true;
+                player.Calamity().rogueStealthMax += 0.8f;
+            }
         }
         public override void UpdateEquip(Player player)
         {
