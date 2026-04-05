@@ -28,6 +28,7 @@ namespace CalamityEntropy.Content.Items.Armor.Smoldering
             player.lavaImmune = true;
             player.buffImmune[BuffID.OnFire] = true;
             player.buffImmune[BuffID.OnFire3] = true;
+            player.buffImmune[BuffID.Burning] = true;
         }
 
         public override void AddRecipes()
