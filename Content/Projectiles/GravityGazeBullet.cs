@@ -21,8 +21,8 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.width = 40;
-            Projectile.height = 40;
+            Projectile.width = 24;
+            Projectile.height = 24;
             Projectile.friendly = true;
             Projectile.penetrate = 6;
             Projectile.tileCollide = false;
@@ -32,6 +32,10 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.localNPCHitCooldown = 20;
         }
         float alpha = 1f;
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center - Projectile.velocity, targetHitbox, Projectile.height);
+        }
         public override void AI()
         {
             if (s)
