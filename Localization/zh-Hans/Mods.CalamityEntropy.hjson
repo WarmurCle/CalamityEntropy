@@ -1320,7 +1320,11 @@ Items: {
 
 	GravityGaze: {
 		DisplayName: 重力凝视
-		Tooltip: 发射天蓝射线
+		Tooltip: 
+		'''
+		发射天蓝射线
+		近距离造成1.5倍伤害
+		'''
 	}
 
 	DivineRadience: {

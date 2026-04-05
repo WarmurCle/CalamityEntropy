@@ -62,11 +62,11 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.06f) * 3.4f, ModContent.ProjectileType<GravityGazeBullet>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.04f) * 9f, ModContent.ProjectileType<GravityGazeBullet>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                     if (!Main.dedServ)
                     {
-                        CEUtils.PlaySound("soulshine", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, 8, 0.4f);
+                        CEUtils.PlaySound("soulshine", Main.rand.NextFloat(1.5f, 1.8f), Projectile.Center, 8, 0.55f);
                     }
                     particles.Add(new SparkleParticle());
                 }

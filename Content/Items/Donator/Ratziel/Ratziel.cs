@@ -56,7 +56,7 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
                 return 7;
             if (NPC.downedPlantBoss && DownedBossSystem.downedCalamitasClone)
                 return 6;
-            if (NPC.downedMechBoss1 && NPC.downedBoss2 && NPC.downedBoss3)
+            if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
                 return 5;
             if (Main.hardMode)
                 return 4;

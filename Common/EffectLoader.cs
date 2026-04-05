@@ -588,10 +588,14 @@ namespace CalamityEntropy.Common
             }
         }
 
-        public static void ApplyPixelShader(GraphicsDevice graphicsDevice, int dye = 0, Entity dyeEnt = null, bool GameZoom = false)
+        public static void ApplyPixelShader(GraphicsDevice graphicsDevice, int dye = 0, Entity dyeEnt = null, bool GameZoom = false, BlendState state = null)
         {
             if (ModContent.GetInstance<Config>().EnablePixelEffect)
             {
+                if(state == null)
+                {
+                    state = BlendState.AlphaBlend;
+                }
                 graphicsDevice.SetRenderTarget(Screen1);
                 graphicsDevice.Clear(Color.Transparent);
                 Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/Pixel", AssetRequestMode.ImmediateLoad).Value;
@@ -619,9 +623,9 @@ namespace CalamityEntropy.Common
                 }
                 Matrix m = Main.GameViewMatrix.ZoomMatrix;
                 if (GameZoom)
-                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, m);
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, state, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, m);
                 else
-                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null);
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, state, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null);
 
                 if (dye != 0)
                 {
@@ -630,7 +634,6 @@ namespace CalamityEntropy.Common
                 Main.spriteBatch.Draw(Screen1, Vector2.Zero, Color.White);
                 Main.spriteBatch.End();
             }
-
         }
         public static Texture2D ScaleTexture(Texture2D originalTexture, float scale, GraphicsDevice graphicsDevice)
         {

@@ -1227,7 +1227,11 @@ Items: {
 
 	GravityGaze: {
 		DisplayName: Gravity Gaze
-		Tooltip: ""
+		Tooltip: 
+		'''
+		Shoot aeria beams
+		Deal 1.5x damage at close range
+		'''
 	}
 
 	DivineRadience: {
