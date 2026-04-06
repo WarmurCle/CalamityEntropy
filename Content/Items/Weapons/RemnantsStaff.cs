@@ -64,7 +64,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.knockBack = 10;
             Item.UseSound = null;
             Item.shoot = ModContent.ProjectileType<ScorchingFireballMagic>();
-            Item.shootSpeed = 4f;
+            Item.shootSpeed = 2f;
             Item.mana = 24;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public float rt = 0;
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         { 
-            rt = Main.rand.NextFloat(-0.3f, 0.3f);
+            rt = Main.rand.NextFloat(-0.2f, 0.2f);
             velocity = velocity.RotatedBy(player.direction * 0.16f);
         }
         public override bool MagicPrefix()
@@ -146,8 +146,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.width = 30;
-            Projectile.height = 30;
+            Projectile.width = 42;
+            Projectile.height = 42;
             Projectile.friendly = true;
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
@@ -163,8 +163,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                 scale += 0.05f;
             if (Projectile.localAI[2] == 0)
                 CEUtils.PlaySound("feathershot", Main.rand.NextFloat(1.2f, 1.4f), Projectile.Center, 8, 0.6f);
-            if (Projectile.localAI[2] < 32 && Projectile.localAI[2] > 8)
-                Projectile.velocity *= 1.06f;
+            if (Projectile.localAI[2] < 36 && Projectile.localAI[2] > 9)
+                Projectile.velocity *= 1.07f;
             if (Projectile.localAI[2]++ > 32)
                 Projectile.HomingToNPCNearby(1.2f, 0.96f, 640);
             Projectile.rotation += Projectile.velocity.X * 0.014f;
