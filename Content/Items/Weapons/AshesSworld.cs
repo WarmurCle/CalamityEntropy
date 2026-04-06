@@ -87,7 +87,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Player player = Projectile.GetOwner();
             Projectile.localAI[0]++;
-            float p = Projectile.localAI[0] / (player.HeldItem.useTime * Projectile.MaxUpdates);
+            
+            float p = Projectile.localAI[0] / (player.itemTimeMax * Projectile.MaxUpdates);
             if (p >= 1)
             {
                 Projectile.Kill();
