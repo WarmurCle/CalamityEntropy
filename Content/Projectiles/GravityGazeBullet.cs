@@ -64,6 +64,7 @@ namespace CalamityEntropy.Content.Projectiles
                     odp.RemoveAt(0);
                 }
             }
+            Projectile.light = alpha * 0.6f;
         }
 
         Vector2 tail;
@@ -84,6 +85,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.velocity.Length() >= 14f)
                 modifiers.SourceDamage *= 1.5f;
+            modifiers.SourceDamage *= alpha;
         }
         public override bool PreDraw(ref Color lightColor)
         {

@@ -56,26 +56,25 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             Player owner = Projectile.owner.ToPlayer();
-            if (Projectile.ai[0]++ > 16 && Projectile.ai[0] % 17 == 0)
+            if (Projectile.ai[0]++ > 16)
             {
-                if (owner.CheckMana(16, true))
+                if (Projectile.ai[0] % 17 == 0 || Projectile.ai[0] % 17 == 4 || Projectile.ai[0] % 17 == 8)
                 {
-                    if (Main.myPlayer == Projectile.owner)
+                    if (owner.CheckMana(6, true))
                     {
-                        for (int i = 0; i < 3; i++)
+                        if (Main.myPlayer == Projectile.owner)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.6f) * 2f, ModContent.ProjectileType<Starblight>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.2f) * 3f, ModContent.ProjectileType<Starblight>(), Projectile.damage, Projectile.knockBack, Projectile.owner);                        }
+                        if (!Main.dedServ)
+                        {
+                            CEUtils.PlaySound("soulshine", Main.rand.NextFloat(1.6f, 2f), Projectile.Center, 8, 0.8f);
                         }
+                        particles.Add(new SparkleParticle());
                     }
-                    if (!Main.dedServ)
+                    else
                     {
-                        CEUtils.PlaySound("soulshine", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, 8, 0.4f);
+                        Projectile.Kill();
                     }
-                    particles.Add(new SparkleParticle());
-                }
-                else
-                {
-                    Projectile.Kill();
                 }
             }
             if (!owner.channel)

@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 7;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 14;
         }
         public override void SetDefaults()
         {
@@ -27,32 +27,26 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.timeLeft = 120;
+            Projectile.extraUpdates = 2;
         }
 
         public override void AI()
         {
-            Projectile.rotation += 0.16f;
-            NPC target = Projectile.FindTargetWithinRange(1600, false);
-            if (target != null && drawcount > 8)
-            {
-                Projectile.velocity *= 0.94f;
-                Vector2 v = target.Center - Projectile.Center;
-                v.Normalize();
-
-                Projectile.velocity += v * 3.2f;
-            }
             drawcount++;
+            Projectile.velocity *= 0.98f;
+            if (Projectile.ai[2]++ >= 12)
+            {
+                Projectile.HomingToNPCNearby(3, 0.86f, 160);
+            }
         }
         float drawcount = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, new Color(255, 60, 60), new Vector2(2f, 2f), 0, 0.1f, 0.5f, 20);
-            GeneralParticleHandler.SpawnParticle(pulse);
+            CEUtils.PlaySound("CrystalBreak", 1.2f, target.Center, 8, 0.7f);
+            float s = 1f;
+            for (int i = 0; i < 12; i++)
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 12 * s, false, 9, 0.042f * Main.rand.NextFloat(0.65f, 1f) * s, Main.rand.NextBool() ? Color.Firebrick : Color.Red, new Vector2(2f, 1), true));
 
-            CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, new Color(255, 60, 60), Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.36f, 16);
-            GeneralParticleHandler.SpawnParticle(explosion2);
-
-            CEUtils.PlaySound("CrystalBallActive", 1, Projectile.Center, 4, 0.4f);
         }
         private float PrimitiveWidthFunction(float completionRatio, Vector2 vertex)
         {
@@ -64,13 +58,9 @@ namespace CalamityEntropy.Content.Projectiles
                 width = MathHelper.Lerp(minHeadWidth, maxHeadWidth, Utils.GetLerpValue(0f, arrowheadCutoff, completionRatio, true));
             return width;
         }
-        private static Color ShaderColorOne = new Color(237, 66, 66);
-        private static Color ShaderColorTwo = new Color(235, 110, 110);
-        private static Color ShaderEndColor = new Color(199, 36, 36);
         private Color PrimitiveColorFunction(float completionRatio, Vector2 vertex)
         {
             float endFadeRatio = 0.41f;
-
             float completionRatioFactor = 2.7f;
             float globalTimeFactor = 5.3f;
             float endFadeFactor = 3.2f;
@@ -83,13 +73,43 @@ namespace CalamityEntropy.Content.Projectiles
 
             return Color.Lerp(startingColor, ShaderEndColor, MathHelper.SmoothStep(0f, 1f, Utils.GetLerpValue(0f, endFadeRatio, completionRatio, true)));
         }
+        private float PrimitiveWidthFunction2(float completionRatio, Vector2 vertex)
+        {
+            float arrowheadCutoff = 0.36f;
+            float width = 18;
+            float minHeadWidth = 0.02f;
+            float maxHeadWidth = width;
+            if (completionRatio <= arrowheadCutoff)
+                width = MathHelper.Lerp(minHeadWidth, maxHeadWidth, Utils.GetLerpValue(0f, arrowheadCutoff, completionRatio, true));
+            return width;
+        }
+        private Color PrimitiveColorFunction2(float completionRatio, Vector2 vertex)
+        {
+            float endFadeRatio = 0.41f;
+            float completionRatioFactor = 2.7f;
+            float globalTimeFactor = 5.3f;
+            float endFadeFactor = 3.2f;
+            float endFadeTerm = Utils.GetLerpValue(0f, endFadeRatio * 0.5f, completionRatio, true) * endFadeFactor;
+            float cosArgument = completionRatio * completionRatioFactor - Main.GlobalTimeWrappedHourly * globalTimeFactor + endFadeTerm;
+            float startingInterpolant = (float)Math.Cos(cosArgument) * 0.5f + 0.5f;
+
+            float colorLerpFactor = 0.6f;
+            Color startingColor = Color.Lerp(ShaderColorOne, ShaderColorTwo, startingInterpolant * colorLerpFactor);
+
+            return Color.Lerp(startingColor, ShaderEndColor, MathHelper.SmoothStep(0f, 1f, Utils.GetLerpValue(0f, endFadeRatio, completionRatio, true))) * 4;
+        }
+        private static Color ShaderColorOne = new Color(237, 66, 66);
+        private static Color ShaderColorTwo = new Color(235, 110, 110);
+        private static Color ShaderEndColor = new Color(199, 36, 36);
+        
         public override bool PreDraw(ref Color lightColor)
         {
             GameShaders.Misc["CalamityMod:TrailStreak"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/SylvestaffStreak"));
             Vector2 overallOffset = Projectile.Size * 0.5f;
             overallOffset += Projectile.velocity * 1.4f;
-            int numPoints = 92;
-            PrimitiveRenderer.RenderTrail(Projectile.oldPos, new(PrimitiveWidthFunction, PrimitiveColorFunction, (_, _) => overallOffset, shader: GameShaders.Misc["CalamityMod:TrailStreak"]), numPoints);
+            PrimitiveRenderer.RenderTrail(Projectile.oldPos, new(PrimitiveWidthFunction, PrimitiveColorFunction, (_, _) => overallOffset, shader: GameShaders.Misc["CalamityMod:TrailStreak"]));
+            PrimitiveRenderer.RenderTrail(Projectile.oldPos, new(PrimitiveWidthFunction2, PrimitiveColorFunction2, (_, _) => overallOffset, shader: GameShaders.Misc["CalamityMod:TrailStreak"]));
+            Main.spriteBatch.ExitShaderRegion();
             return false;
         }
     }

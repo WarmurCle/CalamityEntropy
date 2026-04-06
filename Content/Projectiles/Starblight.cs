@@ -36,22 +36,21 @@ namespace CalamityEntropy.Content.Projectiles
             if (spt == null)
             {
                 spt = new StarTrailParticle();
-                EParticle.NewParticle(spt, Projectile.Center, Vector2.Zero, Color.LightBlue, 1.6f, 1, true, BlendState.Additive, 0);
+                EParticle.NewParticle(spt, Projectile.Center, Vector2.Zero, Color.LightBlue * 1.5f, 1.2f, 1, true, BlendState.Additive, 0);
             }
-            spt.Velocity = Projectile.velocity;
+            spt.maxLength = 16;
             spt.Lifetime = 30;
             counter++;
             Projectile.ai[0]++;
 
-            NPC target = Projectile.FindTargetWithinRange(1600, false);
-            if (target != null && CEUtils.getDistance(target.Center, Projectile.Center) < 200 && counter > 16)
+            NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 1400);
+            if (target != null && CEUtils.getDistance(target.Center, Projectile.Center) < 200 && counter > 6)
             {
                 homingTime = 0;
                 Projectile.velocity *= 0.9f;
                 Vector2 v = target.Center - Projectile.Center;
                 v.Normalize();
-
-                Projectile.velocity += v * 1.5f;
+                Projectile.velocity += v * 3f;
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
 
@@ -64,7 +63,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (homing < 4)
                 {
-                    homing += 0.015f;
+                    homing += 0.04f;
                 }
                 NPC targett = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 1200);
 
@@ -77,6 +76,8 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.velocity += (targett.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * homing * 2;
                 }
             }
+            spt.Position = Projectile.Center;
+            spt.Velocity = Projectile.velocity;
         }
         float homing = 0;
 
@@ -95,6 +96,8 @@ namespace CalamityEntropy.Content.Projectiles
         float alpha_ = 1;
         public override bool PreDraw(ref Color lightColor)
         {
+            CEUtils.DrawGlow(Projectile.Center, Color.LightBlue * 0.5f, 1.8f);
+            CEUtils.DrawGlow(Projectile.Center, Color.LightBlue, 0.2f);
             return false;
         }
 

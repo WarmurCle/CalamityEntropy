@@ -56,25 +56,29 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             Player owner = Projectile.owner.ToPlayer();
-            if (Projectile.ai[0]++ > 16 && (Projectile.ai[0] % 30 == 4 || Projectile.ai[0] % 30 == 8))
+            if (Projectile.ai[0]++ > 16)
             {
-                if (owner.CheckMana(6, true))
+                int mo = (int)(Projectile.ai[0] % 26);
+                if (mo == 0 || mo == 3 || mo == 6 || mo == 9)
                 {
-                    if (Main.myPlayer == Projectile.owner)
+                    float d = (mo * 0.02f - 4.5f * 0.02f) * Projectile.GetOwner().direction * ((Projectile.ai[0] % 52 < 26) ? 1 : -1);
+                    if (owner.CheckMana(5, true))
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center - Projectile.velocity.RotatedBy((Projectile.ai[0] % 30 == 8 ? 0.15f : 0.3f)) * 1.4f * 5, Projectile.velocity.RotatedBy((Projectile.ai[0] % 30 == 8 ? 0.15f : 0.3f)) * 1.4f, ModContent.ProjectileType<DivineRadienceBullet>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center - Projectile.velocity.RotatedBy((Projectile.ai[0] % 30 == 8 ? -0.15f : -0.3f)) * 1.4f * 5, Projectile.velocity.RotatedBy((Projectile.ai[0] % 30 == 8 ? -0.15f : -0.3f)) * 1.4f, ModContent.ProjectileType<DivineRadienceBullet>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-
+                        if (Main.myPlayer == Projectile.owner)
+                        {
+                            Vector2 vel = Projectile.velocity.RotatedBy(d) * 2f;
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center - vel * 2, vel, ModContent.ProjectileType<DivineRadienceBullet>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        }
+                        if (!Main.dedServ)
+                        {
+                            CEUtils.PlaySound("soulshine", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, 8, 0.4f);
+                        }
+                        particles.Add(new SparkleParticle());
                     }
-                    if (!Main.dedServ)
+                    else
                     {
-                        CEUtils.PlaySound("soulshine", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, 8, 0.4f);
+                        Projectile.Kill();
                     }
-                    particles.Add(new SparkleParticle());
-                }
-                else
-                {
-                    Projectile.Kill();
                 }
             }
             if (!owner.channel)
