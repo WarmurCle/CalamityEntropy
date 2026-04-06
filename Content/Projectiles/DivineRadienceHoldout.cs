@@ -58,10 +58,10 @@ namespace CalamityEntropy.Content.Projectiles
             Player owner = Projectile.owner.ToPlayer();
             if (Projectile.ai[0]++ > 16)
             {
-                int mo = (int)(Projectile.ai[0] % 26);
+                int mo = (int)(Projectile.ai[0] % 25);
                 if (mo == 0 || mo == 3 || mo == 6 || mo == 9)
                 {
-                    float d = (mo * 0.02f - 4.5f * 0.02f) * Projectile.GetOwner().direction * ((Projectile.ai[0] % 52 < 26) ? 1 : -1);
+                    float d = (mo * 0.024f - 4.5f * 0.024f) * Projectile.GetOwner().direction * ((Projectile.ai[0] % 50 < 25) ? 1 : -1);
                     if (owner.CheckMana(5, true))
                     {
                         if (Main.myPlayer == Projectile.owner)

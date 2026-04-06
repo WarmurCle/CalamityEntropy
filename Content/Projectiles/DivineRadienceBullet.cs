@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             drawcount++;
-            Projectile.velocity *= 0.98f;
+            Projectile.velocity *= 0.985f;
             if (Projectile.ai[2]++ >= 12)
             {
                 Projectile.HomingToNPCNearby(3, 0.86f, 210);
