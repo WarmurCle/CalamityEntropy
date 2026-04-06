@@ -6081,6 +6081,7 @@ AzafureEnhances: {
 		-20% damage taken by shield
 		Increase shield regen speed
 		''' */
+	// AzafureSupportRemote: Increase attack speed
 }
 
 Menu: {

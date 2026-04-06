@@ -206,7 +206,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             GeneralParticleHandler.SpawnParticle(new CustomPulse(p.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 24));
             GeneralParticleHandler.SpawnParticle(new CustomPulse(p.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 18));
             GeneralParticleHandler.SpawnParticle(new CustomPulse(p.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.02f, 15));
-            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromThis(), Projectile.GetOwner(), target.Center, Projectile.damage, 120, DamageClass.Melee);
+            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromThis(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 120, DamageClass.Melee);
         }
         public override bool PreDraw(ref Color lightColor)
         {
