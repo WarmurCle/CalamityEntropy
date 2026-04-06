@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.velocity *= 0.98f;
             if (Projectile.ai[2]++ >= 12)
             {
-                Projectile.HomingToNPCNearby(3, 0.86f, 160);
+                Projectile.HomingToNPCNearby(3, 0.86f, 210);
             }
         }
         float drawcount = 0;
@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Projectiles
             CEUtils.PlaySound("CrystalBreak", 1.2f, target.Center, 8, 0.7f);
             float s = 1f;
             for (int i = 0; i < 12; i++)
-                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 12 * s, false, 9, 0.042f * Main.rand.NextFloat(0.65f, 1f) * s, Main.rand.NextBool() ? Color.Firebrick : Color.Red, new Vector2(2f, 1), true));
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 24 * s, false, 9, 0.024f * Main.rand.NextFloat(0.65f, 1f) * s, Main.rand.NextBool() ? Color.Firebrick : Color.Red, new Vector2(2.4f, 1), true));
 
         }
         private float PrimitiveWidthFunction(float completionRatio, Vector2 vertex)
