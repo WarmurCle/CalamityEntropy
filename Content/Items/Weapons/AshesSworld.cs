@@ -94,7 +94,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 return;
             }
             player.itemTime = player.itemAnimation = 2;
-            float r = -2f + 4f * CEUtils.Parabola(p * 0.5f, 1);
+            float r = -1.8f + 3.6f * CEUtils.CustomLerp1(p);
             Projectile.localAI[1] = CEUtils.Parabola(p, 1);
             Vector2 ov = Projectile.velocity;
             float or = Projectile.rotation;
@@ -112,7 +112,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Texture2D c = CEUtils.RequestTex("CalamityMod/Particles/SemiCircularSmearVerticalBlank");
             Main.spriteBatch.UseAdditive();
-            Main.spriteBatch.Draw(c, Projectile.Center - Main.screenPosition, null, Color.OrangeRed * 0.8f * Projectile.localAI[1], Projectile.GetOwner().direction * 0.4f + Projectile.rotation, c.Size() * 0.5f, Projectile.scale * 1.82f, Projectile.GetOwner().direction > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
+            Main.spriteBatch.Draw(c, Projectile.Center - Main.screenPosition, null, Color.OrangeRed * 0.8f * Projectile.localAI[1], Projectile.GetOwner().direction * 0.4f + Projectile.rotation, c.Size() * 0.5f, Projectile.scale * 1.94f, Projectile.GetOwner().direction > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
             Main.spriteBatch.ExitShaderRegion();
             int dir = -Projectile.GetOwner().direction;
             Texture2D tex = Projectile.GetTexture();
@@ -124,7 +124,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact, target.Center);
+            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromThis(), Projectile.GetOwner(), target.Center, Projectile.damage / 2, 180, DamageClass.Melee);
+            for (int i = 0; i < 24; i++)
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 14, false, 11, 0.06f * Main.rand.NextFloat(0.65f, 1f), Main.rand.NextBool() ? Color.Firebrick : Color.Red, new Vector2(3f, 0.4f), true));
+            SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact with { Pitch = 1.4f }, target.Center);
+            SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact with { Pitch = 1.4f }, target.Center);
             for (int i = 0; i < 12; i++)
             {
                 GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, Projectile.velocity.normalize().RotatedByRandom(0.66f) * Main.rand.NextFloat(4, 30), false, 12, Projectile.scale * 0.04f, Color.OrangeRed, new Vector2(0.3f, 1), false, false));
@@ -132,11 +136,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 118 * Projectile.scale, targetHitbox, 30);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 142 * Projectile.scale, targetHitbox, 30);
         }
         public override void CutTiles()
         {
-            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (110 * Projectile.scale) * Projectile.scale, 30, DelegateMethods.CutTiles);
+            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (142 * Projectile.scale) * Projectile.scale, 30, DelegateMethods.CutTiles);
         }
     }
     public class SmolderingRock : ModProjectile
@@ -201,7 +205,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             GeneralParticleHandler.SpawnParticle(new CustomPulse(p.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 24));
             GeneralParticleHandler.SpawnParticle(new CustomPulse(p.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 18));
             GeneralParticleHandler.SpawnParticle(new CustomPulse(p.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.02f, 15));
-            
+            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromThis(), Projectile.GetOwner(), target.Center, Projectile.damage, 120, DamageClass.Melee);
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -280,8 +284,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                 {
                     GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, Projectile.velocity.normalize().RotatedByRandom(1f) * -Main.rand.NextFloat(2, 8), false, 16, Projectile.scale * 0.025f, Color.OrangeRed, new Vector2(0.3f, 1), false, false));
                 }
-        }
+            GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomPointInCircle(4), CEUtils.randomPointInCircle(3), Color.Firebrick, 6, 0.4f, 1f, Main.rand.NextFloat(-0.1f, 0.1f), true));
 
+        }
+    
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.End();
