@@ -189,20 +189,15 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             {
                 CEUtils.PlaySound("energyImpact", Main.rand.NextFloat(0.9f, 1.2f), Projectile.Center, 8, 0.6f);
 
-                for (float i = 0; i < 1; i += 0.2f)
-                    GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Lerp(Color.Red, Color.Orange, i) * i, 0.02f, i + 1.2f, 16));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.OrangeRed, "CalamityMod/Particles/ShineExplosion1", Vector2.One, CEUtils.randomRot(), 0.02f, 0.16f, 16));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.OrangeRed, "CalamityMod/Particles/ShineExplosion2", Vector2.One, CEUtils.randomRot(), 0.02f, 0.16f, 16));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.OrangeRed, "CalamityMod/Particles/FlameExplosion", Vector2.One, CEUtils.randomRot(), 0.02f, 0.14f, 16));
+
             }
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.spriteBatch.End();
-            GraphicsDevice gd = Main.graphics.GraphicsDevice;
-            EffectLoader.PreparePixelShader(gd);
-            Draw();
-            Main.spriteBatch.End();
-            EffectLoader.ApplyPixelShader(gd);
-            Main.spriteBatch.begin_();
             return false;
         }
         public List<Vector2> GP(float distAdd = 0, float c = 1)
