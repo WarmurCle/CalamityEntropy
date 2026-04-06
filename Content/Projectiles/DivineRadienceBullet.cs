@@ -38,6 +38,8 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.HomingToNPCNearby(3, 0.86f, 210);
             }
+            if (Projectile.timeLeft < 25f)
+                Projectile.Opacity -= 1 / 25f;
         }
         float drawcount = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -71,7 +73,7 @@ namespace CalamityEntropy.Content.Projectiles
             float colorLerpFactor = 0.6f;
             Color startingColor = Color.Lerp(ShaderColorOne, ShaderColorTwo, startingInterpolant * colorLerpFactor);
 
-            return Color.Lerp(startingColor, ShaderEndColor, MathHelper.SmoothStep(0f, 1f, Utils.GetLerpValue(0f, endFadeRatio, completionRatio, true)));
+            return Color.Lerp(startingColor, ShaderEndColor, MathHelper.SmoothStep(0f, 1f, Utils.GetLerpValue(0f, endFadeRatio, completionRatio, true))) * Projectile.Opacity;
         }
         private float PrimitiveWidthFunction2(float completionRatio, Vector2 vertex)
         {
@@ -96,7 +98,7 @@ namespace CalamityEntropy.Content.Projectiles
             float colorLerpFactor = 0.6f;
             Color startingColor = Color.Lerp(ShaderColorOne, ShaderColorTwo, startingInterpolant * colorLerpFactor);
 
-            return Color.Lerp(startingColor, ShaderEndColor, MathHelper.SmoothStep(0f, 1f, Utils.GetLerpValue(0f, endFadeRatio, completionRatio, true))) * 4;
+            return Color.Lerp(startingColor, ShaderEndColor, MathHelper.SmoothStep(0f, 1f, Utils.GetLerpValue(0f, endFadeRatio, completionRatio, true))) * 4 * Projectile.Opacity;
         }
         private static Color ShaderColorOne = new Color(237, 66, 66);
         private static Color ShaderColorTwo = new Color(235, 110, 110);
