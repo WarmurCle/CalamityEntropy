@@ -7,6 +7,10 @@ namespace CalamityEntropy.Content.Items
 {
     public class ArmorReforgStation : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetDefaults()
         {
             Item.width = 56;

@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.damage = 165;
             Item.useAnimation = Item.useTime = 100;
             Item.crit = 10;
-            Item.mana = 36;
+            Item.mana = 30;
             Item.shootSpeed = 45;
             Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;

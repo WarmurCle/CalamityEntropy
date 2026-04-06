@@ -13,9 +13,9 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 34;
-            Item.useAnimation = Item.useTime = 22;
-            Item.mana = 7;
+            Item.damage = 38;
+            Item.useAnimation = Item.useTime = 24;
+            Item.mana = 13;
             Item.rare = ItemRarityID.Red;
         }
         public override Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/DS").Value;

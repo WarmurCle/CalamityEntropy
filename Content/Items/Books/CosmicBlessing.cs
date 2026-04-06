@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.damage = 110;
             Item.useAnimation = Item.useTime = 8;
             Item.crit = 10;
-            Item.mana = 5;
+            Item.mana = 12;
             Item.ArmorPenetration = 32;
             Item.rare = ModContent.RarityType<CosmicPurple>();
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;

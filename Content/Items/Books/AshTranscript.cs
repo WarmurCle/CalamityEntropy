@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.damage = 162;
             Item.useAnimation = Item.useTime = 25;
             Item.crit = 10;
-            Item.mana = 12;
+            Item.mana = 20;
             Item.rare = ModContent.RarityType<Turquoise>();
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
         }

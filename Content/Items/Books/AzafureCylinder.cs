@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             base.SetDefaults();
             Item.damage = 17;
-            Item.mana = 5;
+            Item.mana = 7;
         }
         public override int HeldProjectileType => ModContent.ProjectileType<AzafureCylinderHeld>();
         public override int SlotCount => 3;

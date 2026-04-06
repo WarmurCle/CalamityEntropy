@@ -13,6 +13,10 @@ namespace CalamityEntropy.Content.Tiles
 {
     public class ArmorReforgStationTile : ModTile
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetStaticDefaults()
         {
             RegisterItemDrop(ModContent.ItemType<ArmorReforgStation>());

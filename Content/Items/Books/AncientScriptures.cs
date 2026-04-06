@@ -11,6 +11,8 @@ namespace CalamityEntropy.Content.Items.Books
         {
             base.SetDefaults();
             Item.damage = 20;
+            Item.crit = 4;
+            Item.mana = 5;
         }
         public override int HeldProjectileType => ModContent.ProjectileType<AncientScripturesHeld>();
         public override int SlotCount => 2;

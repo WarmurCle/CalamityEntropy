@@ -17,6 +17,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.damage = 10;
             Item.shootSpeed = 24;
             Item.ArmorPenetration = 10;
+            Item.mana = 8;
         }
         public override int HeldProjectileType => ModContent.ProjectileType<LushGrassclassicsHeld>();
         public override int SlotCount => 1;

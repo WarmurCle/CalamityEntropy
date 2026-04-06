@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.damage = 37;
             Item.useAnimation = Item.useTime = 22;
             Item.crit = 5;
-            Item.mana = 6;
+            Item.mana = 9;
             Item.shootSpeed = 15;
             Item.ArmorPenetration = 20;
         }

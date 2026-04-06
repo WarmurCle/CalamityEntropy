@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.damage = 10;
             Item.useAnimation = Item.useTime = 14;
             Item.crit = 4;
-            Item.mana = 3;
+            Item.mana = 4;
             Item.rare = ItemRarityID.Blue;
             Item.value = CalamityGlobalItem.RarityBlueBuyPrice;
             Item.width = 40;

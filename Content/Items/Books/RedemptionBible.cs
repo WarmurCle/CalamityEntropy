@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.damage = 68;
             Item.useAnimation = Item.useTime = 29;
             Item.crit = 10;
-            Item.mana = 15;
+            Item.mana = 18;
         }
         public override Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/BookMark3").Value;
         public override int HeldProjectileType => ModContent.ProjectileType<RedemptionBibleHeld>();

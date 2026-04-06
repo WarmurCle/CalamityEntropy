@@ -16,6 +16,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.damage = 14;
             Item.useTime = Item.useAnimation = 25;
             Item.shootSpeed = 22;
+            Item.mana = 5;
         }
         public override int HeldProjectileType => ModContent.ProjectileType<OuijaBoardHeld>();
         public override int SlotCount => 1;
