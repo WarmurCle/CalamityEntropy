@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if (Main.rand.NextBool(2))
                 {
                     var d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Smoke);
-                    d.position = Projectile.Center + Projectile.rotation.ToRotationVector2() * 20 + CEUtils.randomPointInCircle(16);
+                    d.position = Projectile.Center + Projectile.rotation.ToRotationVector2() * 16 + CEUtils.randomPointInCircle(16);
                     d.noGravity = true;
                     d.scale = Main.rand.NextFloat(1.5f, 1.6f);
                     d.velocity = CEUtils.randomPointInCircle(3) + new Vector2(0, -4);

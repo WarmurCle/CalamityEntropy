@@ -996,7 +996,8 @@ namespace CalamityEntropy.Common
             {
                 Texture2D arTex = CEUtils.getExtraTex("SpearArrowGlow2");
                 Main.spriteBatch.UseAdditive();
-                Main.spriteBatch.Draw(arTex, projectile.Center - Main.screenPosition + projectile.velocity.normalize() * 4, null, Color.OrangeRed * projectile.Opacity, projectile.velocity.ToRotation(), arTex.Size() * 0.5f, new Vector2(0.12f, 0.12f), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(arTex, projectile.Center - Main.screenPosition + projectile.velocity.normalize() * 4, null, Color.OrangeRed * projectile.Opacity, projectile.velocity.ToRotation(), arTex.Size() * 0.5f, new Vector2(0.16f, 0.12f), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(arTex, projectile.Center - Main.screenPosition + projectile.velocity.normalize() * 4, null, Color.White * projectile.Opacity, projectile.velocity.ToRotation(), arTex.Size() * 0.5f, new Vector2(0.08f, 0.06f), SpriteEffects.None, 0);
                 Main.spriteBatch.ExitShaderRegion();
             }
             if (rpBow)

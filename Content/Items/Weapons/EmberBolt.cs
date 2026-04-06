@@ -222,8 +222,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (odp.Count > 1)
             {
                 Vector2 position = odp[odp.Count - 1] - Main.screenPosition + Vector2.UnitY * base.Projectile.gfxOffY;
-                CEUtils.DrawGlow(position + Main.screenPosition, color, Projectile.scale * 1.5f);
-                CEUtils.DrawGlow(position + Main.screenPosition, Color.White, Projectile.scale * 1f);
+                CEUtils.DrawGlow(position + Main.screenPosition, color, Projectile.scale * 1.8f);
+                CEUtils.DrawGlow(position + Main.screenPosition, Color.White, Projectile.scale * 1.5f);
             }
             return false;
         }
