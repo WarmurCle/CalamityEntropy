@@ -258,7 +258,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void AI()
         {
-            GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomPointInCircle(4), CEUtils.randomPointInCircle(3), Color.Firebrick, 12, 0.4f, 1f, Main.rand.NextFloat(-0.1f, 0.1f), true));
+            for (int i = 0; i < 6; i++)
+                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomPointInCircle(2) - Projectile.velocity * Main.rand.NextFloat(), CEUtils.randomPointInCircle(2), Color.Firebrick, 8, 0.4f, 1f, Main.rand.NextFloat(-0.1f, 0.1f), true));
         }
 
         public override bool PreDraw(ref Color lightColor)
