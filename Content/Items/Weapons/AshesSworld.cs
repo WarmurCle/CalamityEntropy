@@ -129,7 +129,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             for (int i = 0; i < 24; i++)
                 GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 14, false, 11, 0.06f * Main.rand.NextFloat(0.65f, 1f), Main.rand.NextBool() ? Color.Firebrick : Color.Red, new Vector2(3f, 0.4f), true));
             SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact with { Pitch = 1.4f }, target.Center);
-            SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact with { Pitch = 1.4f }, target.Center);
             for (int i = 0; i < 12; i++)
             {
                 GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, Projectile.velocity.normalize().RotatedByRandom(0.66f) * Main.rand.NextFloat(4, 30), false, 12, Projectile.scale * 0.04f, Color.OrangeRed, new Vector2(0.3f, 1), false, false));

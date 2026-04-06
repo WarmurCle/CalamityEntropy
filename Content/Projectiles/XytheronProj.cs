@@ -212,6 +212,8 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public void drawSlash()
         {
+            if (odr.Count < 2)
+                return;
             SpriteBatch sb = Main.spriteBatch;
             GraphicsDevice gd = Main.graphics.GraphicsDevice;
             Player player = Main.player[Projectile.owner];
@@ -220,17 +222,27 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D tail2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/B1").Value;
             Texture2D tail3 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Noise_10").Value;
             var r = Main.rand;
+            List<float> odr_ = new List<float>();
+            List<float> ods_ = new List<float>();
+            for(int i = 1; i < odr.Count; i++)
+            {
+                for(float j = 0.1f; j <= 1; j += 0.1f)
+                {
+                    odr_.Add(CEUtils.RotateTowardsAngle(odr[i - 1], odr[i], j, false));
+                    ods_.Add(float.Lerp(ods[i - 1], ods[i], j));
+                }
+            }
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             List<ColoredVertex> ve = new List<ColoredVertex>();
-            for (int i = 0; i < odr.Count; i++)
+            for (int i = 0; i < odr_.Count; i++)
             {
                 Color b = new Color(100, 100, 100) * alpha;
-                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(708 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
-                      new Vector3((float)i / (float)odr.Count, 1, 1),
+                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(708 * ods_[i] * Projectile.scale, 0).RotatedBy(odr_[i])),
+                      new Vector3((float)i / (float)odr_.Count, 1, 1),
                       b));
-                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(0 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
-                      new Vector3((float)i / (float)odr.Count, 0, 1),
+                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(0 * ods_[i] * Projectile.scale, 0).RotatedBy(odr_[i])),
+                      new Vector3((float)i / (float)odr_.Count, 0, 1),
                       b));
             }
 
@@ -239,14 +251,14 @@ namespace CalamityEntropy.Content.Projectiles
                 gd.Textures[0] = tail;
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 ve.Clear();
-                for (int i = 0; i < odr.Count; i++)
+                for (int i = 0; i < odr_.Count; i++)
                 {
                     Color b = new Color(255, 255, 255) * alpha;
-                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(708 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
-                          new Vector3((float)i / (float)odr.Count, 1, 1),
+                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(708 * ods_[i] * Projectile.scale, 0).RotatedBy(odr_[i])),
+                          new Vector3((float)i / (float)odr_.Count, 1, 1),
                           b));
-                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(0 * ods[i] * Projectile.scale, 0).RotatedBy(odr[i])),
-                          new Vector3((float)i / (float)odr.Count, 0, 1),
+                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(0 * ods_[i] * Projectile.scale, 0).RotatedBy(odr_[i])),
+                          new Vector3((float)i / (float)odr_.Count, 0, 1),
                           b));
                 }
                 Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SlashTrans2", AssetRequestMode.ImmediateLoad).Value;
