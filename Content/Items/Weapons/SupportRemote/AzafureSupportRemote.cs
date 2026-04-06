@@ -162,7 +162,7 @@ namespace CalamityEntropy.Content.Items.Weapons.SupportRemote
                     FireCooldown = 10;
                     return;
                 }
-                FireCooldown = 60 + Main.rand.Next(20);
+                FireCooldown = (Projectile.GetOwner().AzafureEnhance() ? 60 : 48) + Main.rand.Next(20);
                 Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 0.16f, false);
                 Projectile.velocity *= 0;
                 Projectile.ai[1] = 1;
