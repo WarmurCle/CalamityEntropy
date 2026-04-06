@@ -106,6 +106,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override string Texture => CEUtils.WhiteTexPath;
         public List<Vector2> odp = new List<Vector2>();
         public List<float> odr = new List<float>();
+        public float scale = 0f;
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
@@ -128,7 +129,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public float TrailWidth(float completionRatio, Vector2 vertex)
         {
-            return MathHelper.Lerp(0, 14 * Projectile.scale, completionRatio);
+            return MathHelper.Lerp(0, 14 * Projectile.scale * scale, completionRatio);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -158,6 +159,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void AI()
         {
+            if (scale < 1)
+                scale += 0.05f;
             if (Projectile.localAI[2] == 0)
                 CEUtils.PlaySound("feathershot", Main.rand.NextFloat(1.2f, 1.4f), Projectile.Center, 8, 0.6f);
             if (Projectile.localAI[2] < 32 && Projectile.localAI[2] > 8)
@@ -190,20 +193,20 @@ namespace CalamityEntropy.Content.Items.Weapons
                 b.A = 255;
                 float a = 0;
                 float lr = 0;
-                ve.Add(new ColoredVertex(mp.odp[0] - Main.screenPosition + (mp.odp[1] - mp.odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 18 * Projectile.scale,
+                ve.Add(new ColoredVertex(mp.odp[0] - Main.screenPosition + (mp.odp[1] - mp.odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 18 * Projectile.scale * scale,
                           new Vector3(0, 1, 1),
                         b * (1f / (float)mp.odp.Count)));
-                ve.Add(new ColoredVertex(mp.odp[0] - Main.screenPosition + (mp.odp[1] - mp.odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 18 * Projectile.scale,
+                ve.Add(new ColoredVertex(mp.odp[0] - Main.screenPosition + (mp.odp[1] - mp.odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 18 * Projectile.scale * scale,
                       new Vector3(0, 0, 1),
                       b * (1f / (float)mp.odp.Count)));
                 for (int i = 1; i < mp.odp.Count; i++)
                 {
                     a += 1f / (float)mp.odp.Count;
 
-                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 18 * Projectile.scale,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 18 * Projectile.scale * scale,
                           new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
                         b * a));
-                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 18 * Projectile.scale,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 18 * Projectile.scale * scale,
                           new Vector3((float)(i + 1) / mp.odp.Count, 0, 1),
                           b * a));
                     lr = (mp.odp[i] - mp.odp[i - 1]).ToRotation();
@@ -225,10 +228,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                     {
                         a += 1f / (float)mp.odp.Count;
 
-                        ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 16 * a * Projectile.scale,
+                        ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 16 * a * Projectile.scale * scale,
                               new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
                             b * a));
-                        ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 16 * a * Projectile.scale,
+                        ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 16 * a * Projectile.scale * scale,
                               new Vector3((float)(i + 1) / mp.odp.Count, 0, 1),
                               b * a));
                         lr = (mp.odp[i] - mp.odp[i - 1]).ToRotation();
@@ -253,11 +256,11 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Vector2 position = odp[odp.Count - 1] - Main.screenPosition + Vector2.UnitY * base.Projectile.gfxOffY;
                 Main.spriteBatch.UseAdditive();
                 Texture2D r = CEUtils.getExtraTex("Ray");
-                Main.spriteBatch.Draw(r, position, null, Color.OrangeRed, Projectile.rotation, r.Size() * 0.5f, Projectile.scale * 0.64f, SpriteEffects.None, 0);
-                Main.spriteBatch.Draw(r, position, null, Color.White, Projectile.rotation, r.Size() * 0.5f, Projectile.scale * 0.3f, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(r, position, null, Color.OrangeRed, Projectile.rotation, r.Size() * 0.5f, Projectile.scale * 0.64f * scale, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(r, position, null, Color.White, Projectile.rotation, r.Size() * 0.5f, Projectile.scale * 0.3f * scale, SpriteEffects.None, 0);
                 Main.spriteBatch.ExitShaderRegion();
-                CEUtils.DrawGlow(position + Main.screenPosition, color, Projectile.scale * 0.75f);
-                CEUtils.DrawGlow(position + Main.screenPosition, Color.White, Projectile.scale * 0.5f);
+                CEUtils.DrawGlow(position + Main.screenPosition, color, Projectile.scale * 0.75f * scale);
+                CEUtils.DrawGlow(position + Main.screenPosition, Color.White, Projectile.scale * 0.5f * scale);
             }
             return false;
         }
