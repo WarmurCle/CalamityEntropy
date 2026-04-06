@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.UseSound = null;
             Item.shoot = ModContent.ProjectileType<ScorchingFireballMagic>();
             Item.shootSpeed = 4f;
-            Item.mana = 10;
+            Item.mana = 24;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.autoReuse = true;
