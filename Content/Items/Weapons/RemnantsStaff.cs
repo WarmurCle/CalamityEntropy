@@ -23,18 +23,48 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.staff[Item.type] = true;
         }
+        #region Animations
+        public override void HoldItem(Player player) => player.Calamity().mouseWorldListener = true;
+
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
+        {
+            player.ChangeDir(Math.Sign((player.Calamity().mouseWorld - player.Center).X));
+            float itemRotation = rt + player.compositeFrontArm.rotation + MathHelper.PiOver2 * player.gravDir;
+
+            float animProgress = 1 - player.itemTime / (float)player.itemTimeMax;
+            float d = (float)(Math.Cos(Utils.Remap(animProgress, 0, 1, -MathHelper.Pi, MathHelper.Pi))) * 14;
+            if (player.reuseDelay <= 0)
+                d = 0;
+            Vector2 itemPosition = player.MountedCenter + new Vector2(0, 46) + itemRotation.ToRotationVector2() * (26 + d);
+            Vector2 itemSize = new Vector2(Item.width, Item.height);
+            Vector2 itemOrigin = Vector2.Zero;
+
+            CalamityUtils.CleanHoldStyle(player, itemRotation, itemPosition, itemSize, itemOrigin);
+            base.UseStyle(player, heldItemFrame);
+        }
+
+        public override void UseItemFrame(Player player)
+        {
+            player.ChangeDir(Math.Sign((player.Calamity().mouseWorld - player.Center).X));
+
+            float animProgress = 1 - player.itemTime / (float)player.itemTimeMax;
+            float rotation = rt + (player.Center - player.Calamity().mouseWorld).ToRotation() * player.gravDir + MathHelper.PiOver2;
+            player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation);
+        }
+        #endregion
         public override void SetDefaults()
         {
-            Item.damage = 60;
+            Item.damage = 36;
             Item.DamageType = DamageClass.Magic;
             Item.width = 60;
             Item.height = 78;
-            Item.useTime = 20;
-            Item.useAnimation = 20;
+            Item.useTime = 6;
+            Item.useAnimation = 18;
+            Item.reuseDelay = 16;
             Item.knockBack = 10;
             Item.UseSound = null;
-            Item.shoot = ModContent.ProjectileType<TectinicShardHoming>();
-            Item.shootSpeed = 18f;
+            Item.shoot = ModContent.ProjectileType<ScorchingFireballMagic>();
+            Item.shootSpeed = 4f;
             Item.mana = 10;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
@@ -54,27 +84,16 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            velocity = velocity.RotatedBy(player.direction * -0.16f);
-            position = position + velocity.normalize() * 80;
-            if (attackCount % 2 == 0)
-            {
-                type = ModContent.ProjectileType<RemnantsLaser>();
-                Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI).ToProj();
-            }
-            else
-            {
-                SoundEngine.PlaySound(CEUtils.GetSound("beast_lavaball_rise1"), position);
-                type = ModContent.ProjectileType<ScorchingFireballMagic>();
-                for (int i = 0; i < 4; i++)
-                {
-                    Projectile.NewProjectile(source, position, velocity.RotatedByRandom(0.1f) * Main.rand.NextFloat(0.75f, 1f), type, damage / 4, knockback / 4, player.whoAmI);
-                }
-            }
-            attackCount++;
+            velocity = velocity.RotatedBy(player.direction * -0.16f).RotatedBy(rt);
+            position = position + velocity.normalize() * 64;
+            Projectile.NewProjectile(source, position, velocity * Main.rand.NextFloat(0.75f, 1f), type, damage, knockback, player.whoAmI);
+
             return false;
         }
+        public float rt = 0;
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-        {
+        { 
+            rt = Main.rand.NextFloat(-0.3f, 0.3f);
             velocity = velocity.RotatedBy(player.direction * 0.16f);
         }
         public override bool MagicPrefix()
@@ -95,7 +114,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             odp.Add(Projectile.Center);
             odr.Add(Projectile.rotation);
-            if (odp.Count > 8)
+            if (odp.Count > 16)
             {
                 odp.RemoveAt(0);
                 odr.RemoveAt(0);
@@ -114,9 +133,6 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            float scale = 30 / 40f;
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.OrangeRed, scale * 0.8f, 1, true, BlendState.Additive, 0, 10);
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, scale * 0.5f, 1, true, BlendState.Additive, 0, 10);
             target.AddBuff(BuffID.OnFire3, 180);
             if (Projectile.timeLeft > 2)
                 Projectile.timeLeft = 2;
@@ -132,20 +148,35 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.width = 30;
             Projectile.height = 30;
             Projectile.friendly = true;
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 1;
             Projectile.tileCollide = false;
-            Projectile.light = 0.4f;
+            Projectile.light = 0.8f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
-            Projectile.timeLeft = 400;
+            Projectile.timeLeft = 300;
             Projectile.MaxUpdates = 2;
         }
         public override void AI()
         {
-            if (Projectile.localAI[2]++ > 12)
-                Projectile.HomingToNPCNearby(3f, 0.92f);
+            if (Projectile.localAI[2] == 0)
+                CEUtils.PlaySound("feathershot", Main.rand.NextFloat(1.2f, 1.4f), Projectile.Center, 8, 0.6f);
+            if (Projectile.localAI[2] < 32 && Projectile.localAI[2] > 8)
+                Projectile.velocity *= 1.06f;
+            if (Projectile.localAI[2]++ > 32)
+                Projectile.HomingToNPCNearby(1.2f, 0.96f, 640);
+            Projectile.rotation += Projectile.velocity.X * 0.014f;
         }
-
+        public override void OnKill(int timeLeft)
+        {
+            CEUtils.PlaySound("cinderExplosion", 0.7f, Projectile.Center, 12, 0.6f);
+            float scale = 2.8f;
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Red * 0.8f, scale * 0.8f, 1, true, BlendState.Additive, 0, 10);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White * 0.8f, scale * 0.5f, 1, true, BlendState.Additive, 0, 10);
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 26));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 24));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.02f, 22));
+            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromThis(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 150, Projectile.DamageType);
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.End();
@@ -220,6 +251,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (odp.Count > 1)
             {
                 Vector2 position = odp[odp.Count - 1] - Main.screenPosition + Vector2.UnitY * base.Projectile.gfxOffY;
+                Main.spriteBatch.UseAdditive();
+                Texture2D r = CEUtils.getExtraTex("Ray");
+                Main.spriteBatch.Draw(r, position, null, Color.OrangeRed, Projectile.rotation, r.Size() * 0.5f, Projectile.scale * 0.64f, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(r, position, null, Color.White, Projectile.rotation, r.Size() * 0.5f, Projectile.scale * 0.3f, SpriteEffects.None, 0);
+                Main.spriteBatch.ExitShaderRegion();
                 CEUtils.DrawGlow(position + Main.screenPosition, color, Projectile.scale * 0.75f);
                 CEUtils.DrawGlow(position + Main.screenPosition, Color.White, Projectile.scale * 0.5f);
             }

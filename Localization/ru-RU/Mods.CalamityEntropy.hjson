@@ -4696,6 +4696,7 @@ Projectiles: {
 	// RatzielSentry.DisplayName: Ratziel Sentry
 	// AzafureCombatDrone.DisplayName: Azafure Combat Drone
 	// CombatDroneBullet.DisplayName: Combat Drone Bullet
+	// EmberFireball.DisplayName: Ember Fireball
 }
 
 LegendTooltip: - Легенда -

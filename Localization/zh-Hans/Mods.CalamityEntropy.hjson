@@ -194,7 +194,7 @@ Items: {
 					'''
 					丢出会在物块上反弹最多2次的余烬石锥
 					命中敌怪后产生爆炸并扎在其身上，单个目标最多黏附[S]根
-					潜行攻击会召回所有黏附的魔晶刺并向光标位置释放余烬风暴，能够在物块上反弹最多5次
+					潜行攻击会召回所有黏附的余烬石锥并向光标位置释放余烬风暴，能够在物块上反弹最多5次
 					潜行命中会生成追踪的板块碎片
 					无视8点护甲
 					'''
@@ -4206,12 +4206,12 @@ Items: {
 
 	EmberBolt: {
 		DisplayName: 灰烬矢
-		Tooltip: 发射一些追踪的板块碎片
+		Tooltip: 发射爆炸火球，飞行一段距离或命中敌怪爆炸并产生追踪的板块碎片
 	}
 
 	RemnantsStaff: {
-		DisplayName: 余烬法杖
-		Tooltip: 发射追踪的火球和激光
+		DisplayName: 遗殇法杖
+		Tooltip: 发射追踪的遗殇之星，命中后爆炸
 	}
 
 	CinderLantern: {
@@ -4949,6 +4949,7 @@ Projectiles: {
 	RatzielSentry.DisplayName: 嗫告篇帙
 	AzafureCombatDrone.DisplayName: 迷你战斗机
 	CombatDroneBullet.DisplayName: 无人机穿甲弹
+	// EmberFireball.DisplayName: Ember Fireball
 }
 
 LegendTooltip: - 传奇物品 -
