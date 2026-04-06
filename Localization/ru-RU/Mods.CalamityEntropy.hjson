@@ -3948,12 +3948,12 @@ Items: {
 
 	EmberBolt: {
 		// DisplayName: Ember Bolt
-		// Tooltip: ""
+		// Tooltip: Shoot explosive fireballs that will generate homing tectinic shards
 	}
 
 	RemnantsStaff: {
 		// DisplayName: Remnants Staff
-		// Tooltip: ""
+		// Tooltip: Shoot homing remnants stars
 	}
 
 	CinderLantern: {
