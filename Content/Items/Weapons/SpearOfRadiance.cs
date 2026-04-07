@@ -27,11 +27,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.value = CalamityGlobalItem.RarityLightPurpleBuyPrice;
             Item.rare = ItemRarityID.LightPurple;
             Item.shoot = ModContent.ProjectileType<RadianceSpearThrow>();
-            Item.shootSpeed = 50f;
+            Item.shootSpeed = 68f;
             Item.DamageType = CEUtils.RogueDC;
         }
-
-
 
         public override float StealthDamageMultiplier => 1.2f;
         public override float StealthVelocityMultiplier => 1.5f;

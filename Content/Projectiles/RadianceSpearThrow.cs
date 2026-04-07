@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void PostAI()
         {
-            if (Projectile.ai[0] > 10)
+            if (Projectile.ai[0] > 8)
             {
                 odp.Add(Projectile.Center + Projectile.rotation.ToRotationVector2() * 76);
                 odr.Add(Projectile.rotation);
@@ -231,7 +231,7 @@ namespace CalamityEntropy.Content.Projectiles
         public bool eff = true;
         public Color TrailColor(float completionRatio, Vector2 vertex)
         {
-            Color result = Color.Lerp(new Color(100, 150, 255), Color.Gold, completionRatio);
+            Color result = Color.Lerp(new Color(255, 255, 255), Color.Gold, (1 - completionRatio) * 0.6f);
             return result * completionRatio;
         }
 
@@ -249,7 +249,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (mp.odp.Count > 1)
             {
                 List<ColoredVertex> ve = new List<ColoredVertex>();
-                Color b = Color.LightBlue;
+                Color b = Color.Gold;
 
                 float a = 0;
                 float lr = 0;
@@ -257,10 +257,10 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     a += 1f / (float)mp.odp.Count;
 
-                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 22,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 18,
                           new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
                         b * a));
-                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 22,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 18,
                           new Vector3((float)(i + 1) / mp.odp.Count, 0, 1),
                           b * a));
                     lr = (mp.odp[i] - mp.odp[i - 1]).ToRotation();
