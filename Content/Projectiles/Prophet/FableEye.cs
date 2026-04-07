@@ -92,7 +92,10 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                     foreach (var player in Main.ActivePlayers)
                     {
                         float d = Utils.Remap(player.Distance(Projectile.Center), 0, 600, 6, 0);
+
                         Vector2 vel = (player.Center - Projectile.Center).normalize() * d;
+                        if (player.velocity.Y == 0)
+                            vel.Y = 0;
                         player.position += vel;
                         if (CEUtils.CheckSolidTile(player.getRect()))
                         {
