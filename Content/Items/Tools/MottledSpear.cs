@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Items.Tools
 
         public override float GrappleRange()
         {
-            return GrappleRangInTiles * 16;
+            return GrappleRangInTiles * 16 * (Projectile.GetOwner().AzafureEnhance() ? 1.5f : 1);
         }
 
         public override void NumGrappleHooks(Player player, ref int numHooks)
