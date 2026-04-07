@@ -292,6 +292,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AI()
         {
             Player player = Projectile.GetOwner();
+            if(player.dead)
+            {
+                Projectile.Kill();
+                return;
+            }
             if (player.HeldItem.ModItem is AzafureSurgeRod)
             {
                 Projectile.timeLeft = 4;

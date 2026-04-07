@@ -1,4 +1,5 @@
-﻿using CalamityMod;
+﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -7,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Tools
 {
-    public class MottledSpear : ModItem
+    public class MottledSpear : ModItem, IAzafureEnhancable
     {
         public override void SetDefaults()
         {
@@ -70,7 +71,7 @@ namespace CalamityEntropy.Content.Items.Tools
         public override void GrappleRetreatSpeed(Player player, ref float speed)
         {
             hitsnd = false;
-            speed = ReelbackSpeed;
+            speed = ReelbackSpeed * (Projectile.GetOwner().AzafureEnhance() ? 1.5f : 1);
         }
 
         public override void GrapplePullSpeed(Player player, ref float speed)
@@ -80,10 +81,10 @@ namespace CalamityEntropy.Content.Items.Tools
                 CEUtils.PlaySound("ExoHit1", 1.6f, Projectile.Center, volume: 0.45f);
                 hitsnd = false;
             }
-            speed = PullSpeed;
+            speed = PullSpeed * (Projectile.GetOwner().AzafureEnhance() ? 1.5f : 1);
             if (Projectile.Distance(player.MountedCenter) < PullSpeed * 2.2f)
             {
-                player.velocity = player.velocity.normalize() * PullSpeed;
+                player.velocity = player.velocity.normalize() * PullSpeed * (Projectile.GetOwner().AzafureEnhance() ? 1.5f : 1);
                 Projectile.Kill();
             }
         }
@@ -103,6 +104,8 @@ namespace CalamityEntropy.Content.Items.Tools
         {
             if (Projectile.localAI[2]++ == 0)
             {
+                if (Projectile.GetOwner().AzafureEnhance())
+                    Projectile.velocity *= 1.5f;
                 Projectile.velocity += Projectile.GetOwner().velocity;
                 CEUtils.PlaySound("chains_break", 1f, Projectile.Center, volume: 0.18f);
             }

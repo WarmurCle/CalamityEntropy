@@ -6108,6 +6108,7 @@ AzafureEnhances: {
 		Increase shield regen speed
 		'''
 	AzafureSupportRemote: Increase attack speed
+	MottledSpear: Increase hook speed
 }
 
 Menu: {

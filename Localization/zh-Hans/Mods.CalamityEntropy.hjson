@@ -6302,6 +6302,7 @@ AzafureEnhances: {
 		增加护盾恢复速度
 		'''
 	AzafureSupportRemote: 增加攻击速度
+	MottledSpear: 提升钩爪性能
 }
 
 Menu: {
