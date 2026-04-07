@@ -1456,25 +1456,28 @@ namespace CalamityEntropy.Common
                         var font = FontAssets.MouseText.Value;
                         Vector2 size = font.MeasureString(text);
                         float yofs;
-                        Color color = new Color(60, 255, 60);
+                        Color color = new Color(80, 255, 80);
                         if (item.rare == ModContent.RarityType<GlowPurple>())
                         {
-                            color = new Color(120, 0, 180);
+                            color = new Color(160, 80, 230);
                         }
                         if (item.rare == ModContent.RarityType<SkyBlue>())
                         {
-                            color = new Color(24, 24, 255);
+                            color = new Color(84, 84, 255);
                         }
                         yofs = 0;
                         Color strokeColord = new Color(210, 255, 210);
-                        if (item.rare == ModContent.RarityType<GlowPurple>())
+                        /*if (item.rare == ModContent.RarityType<GlowPurple>())
                         {
                             strokeColord = new Color(146, 86, 240);
                         }
                         if (item.rare == ModContent.RarityType<SkyBlue>())
                         {
                             strokeColord = new Color(180, 180, 255);
-                        }
+                        }*/
+                        strokeColord = color;
+                        color *= 0.3f;
+                        color.A = 255;
                         Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
                         Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 0), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
                         Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
