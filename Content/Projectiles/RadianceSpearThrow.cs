@@ -67,11 +67,11 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void PostAI()
         {
-            if (Projectile.ai[0] > 8)
+            if (Projectile.ai[0] > 10)
             {
                 odp.Add(Projectile.Center + Projectile.rotation.ToRotationVector2() * 76);
                 odr.Add(Projectile.rotation);
-                if (odp.Count > 16)
+                if (odp.Count > 10)
                 {
                     odp.RemoveAt(0);
                     odr.RemoveAt(0);
@@ -257,10 +257,10 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     a += 1f / (float)mp.odp.Count;
 
-                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 18,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 14,
                           new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
                         b * a));
-                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 18,
+                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 14,
                           new Vector3((float)(i + 1) / mp.odp.Count, 0, 1),
                           b * a));
                     lr = (mp.odp[i] - mp.odp[i - 1]).ToRotation();
