@@ -84,7 +84,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                 return false;
             if (ArmorSetBonus && !ExplosionFlag && DeathExplosionCD <= 0)
             {
-                damageSource = PlayerDeathReason.ByCustomReason(Mod.GetLocalization("Death").ToNetworkText(Player.name));
+                //damageSource = PlayerDeathReason.ByCustomReason(Mod.GetLocalization("Death").ToNetworkText(Player.name));
             }
             return true;
         }
