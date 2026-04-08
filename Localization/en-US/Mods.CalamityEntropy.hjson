@@ -5667,7 +5667,7 @@ IsaacLock: You can't equip this before you played The Binding of Isaac Repentanc
 PWSpawnInfo: Enter the Abyss with Chaos State debuff
 CdAS: Amima Sola Cooldown
 XythCharge: Xytheron Charge
-KilledByVoidVirus: "Only Nihility remains in {0}'s blood"
+KilledByVoidVirus: Only Nihility remains in {0}'s blood
 KilledByAstral0: "{0} completely eroded by starlight."
 KilledByAstral1: "{0} gazed up at the myriad stars, his eyes gradually becoming misty."
 KilledByAstral2: "{0} pray to the sky, as flesh and blood gradually turn into nothingness."
@@ -5675,7 +5675,7 @@ KilledByAstral3: "{0} came back to his senses and found himself in the starry sk
 KilledByAstral4: "{0} prayed for forgiveness, yet he could not move."
 KilledByAstral5: "{0} ought to die."
 KilledByAstral6: "{0} became the successor."
-KilledByAstral7: "When did {0} start being himself？"
+KilledByAstral7: When did {0} start being himself？
 KilledByAstral8: "{0}'s remains floated upwards, greeting their end"
 KilledByAstral9: "{0} transformed into wisps of starlight"
 Death: "{0} was killed"

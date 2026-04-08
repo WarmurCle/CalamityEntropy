@@ -5643,11 +5643,16 @@ PWSpawnInfo: Войдите в Бездну с эффектом ослаблен
 CdAS: Перезарядка 'Анима Сола'
 XythCharge: Заряд Кситерона
 // KilledByVoidVirus: Only Nihility remains in {0}'s blood
-// KilledByAstral0: "{0} completely eroded by starlight"
-// KilledByAstral1: "{0} gazed up at the myriad stars, his eyes gradually becoming misty"
-// KilledByAstral2: "{0} pray to the sky, as flesh and blood gradually turn into nothingness"
-// KilledByAstral3: "{0} came back to his senses and found himself in the starry sky"
-// KilledByAstral4: "{0} prayed for forgiveness, yet he could not move"
+// KilledByAstral0: "{0} completely eroded by starlight."
+// KilledByAstral1: "{0} gazed up at the myriad stars, his eyes gradually becoming misty."
+// KilledByAstral2: "{0} pray to the sky, as flesh and blood gradually turn into nothingness."
+// KilledByAstral3: "{0} came back to his senses and found himself in the starry sky."
+// KilledByAstral4: "{0} prayed for forgiveness, yet he could not move."
+// KilledByAstral5: "{0} ought to die."
+// KilledByAstral6: "{0} became the successor."
+// KilledByAstral7: When did {0} start being himself？
+// KilledByAstral8: "{0}'s remains floated upwards, greeting their end"
+// KilledByAstral9: "{0} transformed into wisps of starlight"
 // Death: "{0} was killed"
 CdFF: Время восстановления для поиска друзей
 TooltipBookMark: Можно вставлять в Энтропийные Книги для усиления атаки
