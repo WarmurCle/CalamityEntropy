@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.NPCs.LuminarisMoth;
+using CalamityEntropy.Content.UI;
 using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
@@ -12,6 +13,7 @@ using CalamityMod.Particles;
 using CalamityMod.Projectiles.Melee;
 using CalamityMod.Schematics;
 using CalamityMod.UI;
+using CalamityMod.UI.ResourceSets;
 using CalamityMod.UI.Rippers;
 using CalamityMod.World;
 using InnoVault;
@@ -164,6 +166,12 @@ namespace CalamityEntropy.Content.ILEditing
             if (RipperUIDrawMethod != null)
             {
                 EModHooks.Add(RipperUIDrawMethod, RipperUIDraw);
+            }
+
+            var postdrawResMethod = typeof(CalamityResourceOverlay).GetMethod("PostDrawResource", BindingFlags.Public | BindingFlags.Instance, null, new Type[] { typeof(ResourceOverlayDrawContext) }, null);
+            if (postdrawResMethod != null)
+            {
+                EModHooks.Add(postdrawResMethod, EResourceOverlay.PostDrawResourceHook);
             }
 
             var ApplyDRMethod = typeof(CalamityGlobalNPC).GetMethod("ApplyDR", BindingFlags.Instance | BindingFlags.NonPublic, new Type[] { typeof(NPC), typeof(NPC.HitModifiers).MakeByRefType() });

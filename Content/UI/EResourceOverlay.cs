@@ -1,6 +1,8 @@
 ﻿using CalamityEntropy.Content.Items.Vanity;
+using CalamityMod.UI.ResourceSets;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
@@ -11,15 +13,15 @@ namespace CalamityEntropy.Content.UI
 {
     public class EResourceOverlay : ModResourceOverlay
     {
-        private Dictionary<string, Asset<Texture2D>> vanillaAssetCache = new();
-        public string baseFolder = "CalamityEntropy/Content/UI/";
+        private static Dictionary<string, Asset<Texture2D>> vanillaAssetCache = new();
+        public static string baseFolder = "CalamityEntropy/Content/UI/";
 
-        public string LifeTexturePath()
+        public static string LifeTexturePath()
         {
             string folder = $"{baseFolder}MoonShield";
             return folder;
         }
-        public string ManaTexturePath()
+        public static string ManaTexturePath()
         {
             if (Main.LocalPlayer.Entropy().enhancedMana > 0)
             {
@@ -30,8 +32,9 @@ namespace CalamityEntropy.Content.UI
             else { return string.Empty; }
         }
 
-        public override void PostDrawResource(ResourceOverlayDrawContext context)
+        public static void PostDrawResourceHook(Action<CalamityResourceOverlay, ResourceOverlayDrawContext> orig, CalamityResourceOverlay self, ResourceOverlayDrawContext context)
         {
+            orig.Invoke(self, context);
             Asset<Texture2D> asset = context.texture;
             string fancyFolder = "Images/UI/PlayerResourceSets/FancyClassic/";
             string barsFolder = "Images/UI/PlayerResourceSets/HorizontalBars/";
@@ -167,7 +170,7 @@ namespace CalamityEntropy.Content.UI
             return true;
         }
 
-        private bool CompareAssets(Asset<Texture2D> currentAsset, string compareAssetPath)
+        private static bool CompareAssets(Asset<Texture2D> currentAsset, string compareAssetPath)
         {
             if (!vanillaAssetCache.TryGetValue(compareAssetPath, out var asset))
                 asset = vanillaAssetCache[compareAssetPath] = Main.Assets.Request<Texture2D>(compareAssetPath);
