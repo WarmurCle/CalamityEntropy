@@ -244,13 +244,13 @@ namespace CalamityEntropy.Common
         public int HammerStrikeTimes = 0;
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
         {
+            deusCoreBloodOut = 0;
             if (Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
             {
                 var rs = PlayerDeathReason.ByCustomReason(Mod.GetLocalization("LilyDeath" + Main.rand.Next(2).ToString()).ToNetworkText(Player.name));
                 damageSource = rs;
             }
 
-            deusCoreBloodOut = 0;
             if (immune > 0)
             {
                 if (Player.statLife < 6)
@@ -3185,6 +3185,8 @@ namespace CalamityEntropy.Common
                     dmgApply = deusCoreBloodOut;
                 }
                 Player.statLife -= dmgApply;
+                if (Player.statLife < 0)
+                    Player.statLife = 0;
                 if (Player.statLife < 1)
                 {
                     Player.Hurt(PlayerDeathReason.ByCustomReason(Mod.GetLocalization("KilledByAstral").ToNetworkText(Player.name)), dmgApply, 0, false, true, 0, false, 0);
