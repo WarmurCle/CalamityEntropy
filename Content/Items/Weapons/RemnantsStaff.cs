@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         #endregion
         public override void SetDefaults()
         {
-            Item.damage = 36;
+            Item.damage = 12;
             Item.DamageType = DamageClass.Magic;
             Item.width = 60;
             Item.height = 78;
@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.UseSound = null;
             Item.shoot = ModContent.ProjectileType<ScorchingFireballMagic>();
             Item.shootSpeed = 2f;
-            Item.mana = 24;
+            Item.mana = 12;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.autoReuse = true;

@@ -1,13 +1,162 @@
-﻿using CalamityMod.Projectiles.Summon;
+﻿using CalamityMod;
+using CalamityMod.Projectiles.Summon;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
+    #region proj
+
+    public class GhostFireMagic : ModProjectile
+    {
+        public bool ableToHit = true;
+
+        public NPC target;
+
+        public override string Texture => "CalamityMod/Projectiles/InvisibleProj";
+
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.CultistIsResistantTo[Type] = true;
+            ProjectileID.Sets.TrailingMode[Type] = 0;
+            ProjectileID.Sets.TrailCacheLength[Type] = 20;
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.width = Projectile.height = 16;
+            Projectile.friendly = true;
+            Projectile.tileCollide = false;
+            Projectile.penetrate = 200;
+            Projectile.extraUpdates = 3;
+            Projectile.timeLeft = 600;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 50;
+            Projectile.DamageType = DamageClass.Magic;
+        }
+
+        public override bool? CanDamage()
+        {
+            return ableToHit ? null : false;
+        }
+
+        public override bool? CanHitNPC(NPC target)
+        {
+            return target.CanBeChasedBy() ? null : false;
+        }
+
+        public override void AI()
+        {
+            Player player = Main.player[Projectile.owner];
+            Projectile.localAI[0] += 1f / (float)(Projectile.extraUpdates + 1);
+            if (Projectile.penetrate < 200)
+            {
+                if (Projectile.timeLeft > 60)
+                {
+                    Projectile.timeLeft = 60;
+                }
+                Projectile.velocity *= 0.88f;
+            }
+            else if (Projectile.localAI[0] < 60f)
+            {
+                Projectile.velocity *= 0.93f;
+            }
+            else
+            {
+                FindTarget(player);
+            }
+            if (Projectile.timeLeft <= 20)
+            {
+                ableToHit = false;
+            }
+        }
+        public void FindTarget(Player player)
+        {
+            float num = 3000f;
+            bool flag = false;
+            if (player.HasMinionAttackTargetNPC)
+            {
+                NPC nPC = Main.npc[player.MinionAttackTargetNPC];
+                if (nPC.CanBeChasedBy(Projectile))
+                {
+                    float num2 = Vector2.Distance(nPC.Center, Projectile.Center);
+                    if (num2 < num)
+                    {
+                        num = num2;
+                        flag = true;
+                        target = nPC;
+                    }
+                }
+            }
+
+            if (!flag)
+            {
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    NPC nPC2 = Main.npc[i];
+                    if (nPC2.CanBeChasedBy(Projectile))
+                    {
+                        float num3 = Vector2.Distance(nPC2.Center, Projectile.Center);
+                        if (num3 < num)
+                        {
+                            num = num3;
+                            flag = true;
+                            target = nPC2;
+                        }
+                    }
+                }
+            }
+
+            if (!flag)
+            {
+                Projectile.velocity *= 0.98f;
+            }
+            else
+            {
+                KillTheThing(target);
+            }
+        }
+
+        public void KillTheThing(NPC npc)
+        {
+            Projectile.velocity = Projectile.SuperhomeTowardsTarget(npc, 50f / (float)(Projectile.extraUpdates + 1), 60f / (float)(Projectile.extraUpdates + 1), 1f / (float)(Projectile.extraUpdates + 1));
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D value = ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/SmallGreyscaleCircle").Value;
+            for (int i = 0; i < Projectile.oldPos.Length; i++)
+            {
+                float amount = (float)Math.Cos((float)Projectile.timeLeft / 32f + Main.GlobalTimeWrappedHourly / 20f + (float)i / (float)Projectile.oldPos.Length * MathF.PI) * 0.5f + 0.5f;
+                Color color = Color.Lerp(Color.Cyan, Color.LightBlue, amount) * 0.4f;
+                color.A = 0;
+                Vector2 position = Projectile.oldPos[i] + value.Size() * 0.5f - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY) + new Vector2(-28f, -28f);
+                Color color2 = color;
+                Color color3 = color * 0.5f;
+                float num = 0.9f + 0.15f * (float)Math.Cos(Main.GlobalTimeWrappedHourly % 60f * (MathF.PI * 2f));
+                num *= MathHelper.Lerp(0.15f, 1f, 1f - (float)i / (float)Projectile.oldPos.Length);
+                if (Projectile.timeLeft <= 60)
+                {
+                    num *= (float)Projectile.timeLeft / 60f;
+                }
+
+                Vector2 vector = new Vector2(1f) * num;
+                Vector2 vector2 = new Vector2(1f) * num * 0.7f;
+                color2 *= num;
+                color3 *= num;
+                Main.EntitySpriteDraw(value, position, null, color2, 0f, value.Size() * 0.5f, vector * 0.6f, SpriteEffects.None);
+                Main.EntitySpriteDraw(value, position, null, color3, 0f, value.Size() * 0.5f, vector2 * 0.6f, SpriteEffects.None);
+            }
+
+            return false;
+        }
+    }
+    #endregion
     public class EyeOfOthersideHoldout : ModProjectile
     {
         public class SparkleParticle
@@ -63,7 +212,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.35f) * 0.6f, ModContent.ProjectileType<GhostFire>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.35f) * 0.6f, ModContent.ProjectileType<GhostFireMagic>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         Main.projectile[p].DamageType = Projectile.DamageType;
                     }
                     if (!Main.dedServ)
