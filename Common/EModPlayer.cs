@@ -3189,7 +3189,7 @@ namespace CalamityEntropy.Common
                     Player.statLife = 0;
                 if (Player.statLife < 1)
                 {
-                    Player.Hurt(PlayerDeathReason.ByCustomReason(Mod.GetLocalization("KilledByAstral").ToNetworkText(Player.name)), dmgApply, 0, false, true, 0, false, 0);
+                    Player.Hurt(PlayerDeathReason.ByCustomReason(Mod.GetLocalization("KilledByAstral" + Main.rand.Next(0, 10)).ToNetworkText(Player.name)), dmgApply, 0, false, true, 0, false, 0);
                 }
                 deusCoreBloodOut -= dmgApply;
             }

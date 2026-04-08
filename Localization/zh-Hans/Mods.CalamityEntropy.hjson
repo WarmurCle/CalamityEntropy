@@ -4949,7 +4949,7 @@ Projectiles: {
 	RatzielSentry.DisplayName: 嗫告篇帙
 	AzafureCombatDrone.DisplayName: 迷你战斗机
 	CombatDroneBullet.DisplayName: 无人机穿甲弹
-	// EmberFireball.DisplayName: Ember Fireball
+	EmberFireball.DisplayName: 余烬火球
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5899,8 +5899,17 @@ IsaacLock: 你不能在没有玩过《以撒的结合：忏悔》的情况下佩
 PWSpawnInfo: 带有混沌减益时进入深渊
 CdAS: 孤魂铁索冷却
 XythCharge: 始源遗歌充能
-KilledByVoidVirus: "{0}的血液里只剩下虚无"
-KilledByAstral: "{0}被星辉残蚀殆尽"
+KilledByVoidVirus: "{0}的血液里只剩下虚无。"
+KilledByAstral0: "{0}化作一颗明星。"
+KilledByAstral1: "{0}仰望满天繁星，眼神逐渐迷离。"
+KilledByAstral2: "{0}向天空祈祷，血肉逐渐化为虚无。"
+KilledByAstral3: "{0}回过神来，自己已身处星空。"
+KilledByAstral4: "{0}祈求宽恕，却动弹不得。"
+KilledByAstral5: "{0}终有一死。"
+KilledByAstral6: "{0}成为了继承者。"
+KilledByAstral7: "{0}是什么时候成为自己的？"
+KilledByAstral8: "{0}的残骸向上飘去，迎来了终结"
+KilledByAstral9: "{0}化作缕缕星光"
 Death: "{0}死掉了"
 CdFF: 寻友护符冷却
 TooltipBookMark: 需放入熵语之书系列武器以生效
