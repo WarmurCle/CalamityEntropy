@@ -4950,6 +4950,7 @@ Projectiles: {
 	AzafureCombatDrone.DisplayName: 迷你战斗机
 	CombatDroneBullet.DisplayName: 无人机穿甲弹
 	EmberFireball.DisplayName: 余烬火球
+	// GhostFireMagic.DisplayName: Ghost Fire Magic
 }
 
 LegendTooltip: - 传奇物品 -

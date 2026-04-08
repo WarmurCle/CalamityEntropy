@@ -4697,6 +4697,7 @@ Projectiles: {
 	// AzafureCombatDrone.DisplayName: Azafure Combat Drone
 	// CombatDroneBullet.DisplayName: Combat Drone Bullet
 	// EmberFireball.DisplayName: Ember Fireball
+	// GhostFireMagic.DisplayName: Ghost Fire Magic
 }
 
 LegendTooltip: - Легенда -
