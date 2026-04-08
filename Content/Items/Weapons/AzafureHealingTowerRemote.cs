@@ -85,10 +85,13 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 foreach (Player plr in Main.ActivePlayers)
                 {
-                    if (CEUtils.getDistance(plr.Center, Projectile.Center) < dist)
+                    if (!plr.dead)
                     {
-                        dist = CEUtils.getDistance(plr.Center, Projectile.Center);
-                        p = plr.whoAmI;
+                        if (CEUtils.getDistance(plr.Center, Projectile.Center) < dist)
+                        {
+                            dist = CEUtils.getDistance(plr.Center, Projectile.Center);
+                            p = plr.whoAmI;
+                        }
                     }
                 }
                 if (p >= 0 && Main.player[p].active)
@@ -117,10 +120,13 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 foreach (Player plr in Main.ActivePlayers)
                 {
-                    if (CEUtils.getDistance(plr.Center, Projectile.Center) < dist && plr.statLife < plr.statLifeMax2)
+                    if (!plr.dead)
                     {
-                        dist = CEUtils.getDistance(plr.Center, Projectile.Center);
-                        p = plr.whoAmI;
+                        if (CEUtils.getDistance(plr.Center, Projectile.Center) < dist && plr.statLife < plr.statLifeMax2)
+                        {
+                            dist = CEUtils.getDistance(plr.Center, Projectile.Center);
+                            p = plr.whoAmI;
+                        }
                     }
                 }
                 if (p >= 0 && Main.player[p].active)
