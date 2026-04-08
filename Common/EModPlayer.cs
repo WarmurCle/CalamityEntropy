@@ -1619,6 +1619,10 @@ namespace CalamityEntropy.Common
         public int ffDecSlot = 0;
         public override void UpdateLifeRegen()
         {
+            if(deusCore && Player.lifeRegen > 0)
+            {
+                Player.lifeRegen /= 2;
+            }
             if (UsingItemCounter > 0 && bloodBoiling > 1)
             {
                 Player.lifeRegenTime = 0;

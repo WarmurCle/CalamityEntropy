@@ -985,6 +985,7 @@ Items: {
 			'''
 			Transform the damage received into astral erosion, reducing the corresponding health for a period of time
 			The attack can erode and transfer astral erosion to the target, dealing more damage
+			-50% Life regen
 			- Death -
 			'''
 	}
