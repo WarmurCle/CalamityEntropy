@@ -25,12 +25,12 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 23;
+            Item.damage = 24;
             Item.DamageType = DamageClass.Melee;
             Item.width = 70;
             Item.height = 72;
-            Item.useTime = 18;
-            Item.useAnimation = 18;
+            Item.useTime = 27;
+            Item.useAnimation = 27;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 8;
             Item.value = CalamityGlobalItem.RarityLightRedBuyPrice;
