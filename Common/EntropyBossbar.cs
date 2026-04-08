@@ -55,7 +55,7 @@ namespace CalamityEntropy.Common
             }*/
             if (npc.ModNPC is Providence || npc.ModNPC is ProfanedGuardianCommander || npc.ModNPC is ProfanedGuardianHealer || npc.ModNPC is ProfanedGuardianDefender)
             {
-                if (!Main.dayTime)
+                if (npc.Calamity().CurrentlyEnraged)
                 {
                     return new Color(102, 255, 255);
                 }
