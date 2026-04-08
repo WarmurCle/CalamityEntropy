@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.UseSound = CEUtils.GetSound("beast_lavaball_rise1", 1.2f);
             Item.shoot = ModContent.ProjectileType<EmberFireball>();
             Item.shootSpeed = 18f;
-            Item.mana = 20;
+            Item.mana = 14;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.autoReuse = true;
