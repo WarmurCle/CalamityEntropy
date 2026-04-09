@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             NPC.boss = true;
             NPC.width = 140;
             NPC.height = 140;
-            NPC.damage = 115;
+            NPC.damage = 106;
             NPC.Calamity().DR = 0.15f;
             if (Main.expertMode)
             {
@@ -89,7 +89,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             }
             else if (CalamityWorld.revenge)
             {
-                NPC.damage += 5;
+                NPC.damage += 4;
             }
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCHit4;
