@@ -1064,7 +1064,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                 {
                                     for (int i = 0; i < 80; i++)
                                     {
-                                        Shoot(ModContent.ProjectileType<VoidStar>(), NPC.Center, NPC.velocity.normalize().RotatedByRandom(2f) * 24 * Main.rand.NextFloat(0.2f, 1f), 0.8f);
+                                        Shoot(ModContent.ProjectileType<VoidStar>(), NPC.Center, NPC.velocity.normalize().RotatedByRandom(2f) * 24 * Main.rand.NextFloat(0.2f, 1f), 0.75f);
                                     }
                                 }
                                 CEUtils.PlaySound("brimstonevortexshoot", 1, NPC.Center);
@@ -1256,7 +1256,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
                                     for (int j = 0; j < num; j++)
                                     {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[bodies.Count - 1] - (bodies[bodies.Count - 2] - bodies[bodies.Count - 1]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, angle.ToRotationVector2() * speed, ModContent.ProjectileType<VoidStar>(), (int)(NPC.damage / 6f), 1);
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[bodies.Count - 1] - (bodies[bodies.Count - 2] - bodies[bodies.Count - 1]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, angle.ToRotationVector2() * speed, ModContent.ProjectileType<VoidStar>(), (int)(NPC.damage / 6.4f), 1);
                                         angle += ((float)Math.PI * 2 / (float)num);
                                     }
                                     angle += ((float)Math.PI * 2 / (float)num) / (float)counts;

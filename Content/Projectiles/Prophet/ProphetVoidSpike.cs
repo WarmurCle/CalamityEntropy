@@ -10,7 +10,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
     public class ProphetVoidSpike : ModProjectile
     {
         public float length = 0;
-        public float lengthAdd = 17f;
+        public float lengthAdd = 25f;
         public override void SetDefaults()
         {
             Projectile.hostile = true;
@@ -29,21 +29,21 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             Projectile.Center = ((int)Projectile.ai[1]).ToNPC().Center;
             length += lengthAdd;
             lengthAdd *= 0.977f;
-            if (Projectile.ai[0] == 70)
+            if (Projectile.ai[0] == 55)
             {
                 lengthAdd = 160;
             }
-            if (Projectile.ai[0] < 70)
+            if (Projectile.ai[0] < 55)
             {
-                lengthAdd -= 0.14f;
+                lengthAdd -= 0.6f;
             }
-            if (Projectile.ai[0] > 82)
+            if (Projectile.ai[0] > 82 - 15)
             {
                 length *= 0.75f;
                 length -= 1;
                 Projectile.Opacity *= 0.9f;
             }
-            if (Projectile.ai[0] == 122)
+            if (Projectile.ai[0] == 108)
             {
                 Projectile.Kill();
             }
@@ -72,9 +72,10 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             List<ColoredVertex> ve = new List<ColoredVertex>();
             Color b = Color.White * Projectile.Opacity;
             List<Vector2> points = new List<Vector2>();
+            points.Add(Projectile.Center);
             for (int i = 0; i < 24; i++)
             {
-                points.Add(Vector2.Lerp(Projectile.Center, Projectile.Center + Projectile.velocity.normalize() * length, (float)i / 31f) + Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * (float)Math.Sin(Main.GlobalTimeWrappedHourly * 12 + i * 0.26f) * (i / 31f) * length * 0.065f * (Projectile.ai[0] < 70 ? 0.5f : 1));
+                points.Add(Vector2.Lerp(Projectile.Center, Projectile.Center + Projectile.velocity.normalize() * length, (float)i / 31f) + Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * (float)Math.Sin(Main.GlobalTimeWrappedHourly * 12 + i * 0.26f) * (i / 31f) * length * 0.032f * (Projectile.ai[0] < 70 ? 0.5f : 1));
             }
             float lc = 1;
             float jn = 0;

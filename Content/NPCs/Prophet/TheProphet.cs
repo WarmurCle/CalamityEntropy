@@ -747,6 +747,14 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     NPC.rotation = (target.Center - NPC.Center).ToRotation();
                     if (AIChangeDelay == 556)
                     {
+                        int type = ModContent.ProjectileType<RuneCrystalTop>();
+                        foreach(Projectile p in Main.ActiveProjectiles)
+                        {
+                            if(p.type == type)
+                            {
+                                p.Kill();
+                            }
+                        }
                         NPC.velocity *= 0;
                         TeleportTo(EDownedBosses.GetDungeonArchiveCenterPos() + new Vector2(0, 80));
                         if (CEUtils.getDistance(NPC.Center, NPC.target.ToPlayer().Center) > 1600)
@@ -821,7 +829,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         {
                             for (float i = 0; i < 360; i += (phase == 1 ? 36 : 30))
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (r + MathHelper.ToRadians(i)).ToRotationVector2() * 8, ModContent.ProjectileType<ProphetVoidSpike>(), NPC.damage / 6, 4, -1, 0, NPC.whoAmI);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (r + MathHelper.ToRadians(i)).ToRotationVector2().RotatedByRandom(0.4f) * 8, ModContent.ProjectileType<ProphetVoidSpike>(), NPC.damage / 6, 4, -1, 0, NPC.whoAmI);
                             }
                         }
                     }
