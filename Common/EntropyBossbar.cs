@@ -116,11 +116,15 @@ namespace CalamityEntropy.Common
             {
                 barColor = Color.Lerp(barColor, getNpcBarColor(npc), 0.1f);
                 drawOfs -= 9;
+                if (drawOfs < -4500)
+                    drawOfs += 4500;
             }
 
             Vector2 center = new Vector2(Main.screenWidth / 2, Main.screenHeight - 70);
 
             float prog = (float)npc.life / (float)npc.lifeMax;
+            if (prog < 0)
+                prog = 0;
             if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
             {
                 int eowLifes = 0;
@@ -220,36 +224,40 @@ namespace CalamityEntropy.Common
                 bar1 = bar1_;
             }
 
-            spriteBatch.Draw(barWhite, center, new Rectangle(0, 0, 18 + (int)(500 * comboProg), bar1.Height), Color.White, 0, bar1.Size() / 2, 1, SpriteEffects.None, 0);
+            spriteBatch.Draw(barWhite, center, new Rectangle(0, 0, 18 + (int)(500 * comboProg), bar1.Height), Color.White, 0, bar1.Size() * 0.5f, 1, SpriteEffects.None, 0);
             if (npc.dontTakeDamage && !(npc.ModNPC is SlimeGodCore))
             {
-                spriteBatch.Draw(barWhite2, center, new Rectangle(0, 0, 18 + (int)(500 * prog) + 2, bar1.Height), Color.Lerp(barColor, Color.White, 0.5f), 0, bar1.Size() / 2, 1, SpriteEffects.None, 0);
+                spriteBatch.Draw(barWhite2, center, new Rectangle(0, 0, 18 + (int)(500 * prog) + 2, bar1.Height), Color.Lerp(barColor, Color.White, 0.5f), 0, bar1.Size() * 0.5f, 1, SpriteEffects.None, 0);
             }
 
             spriteBatch.UseSampleState_UI(SamplerState.LinearWrap);
-            if (abyssalWraith)
+            try
             {
-                spriteBatch.Draw(awBar, center + new Vector2(0, 8), new Rectangle(0, (int)(1.4f * -drawOfs), (int)(500 * prog), bar2.Height), barColor, 0, bar2.Size() / 2, 1, SpriteEffects.None, 0);
+                if (abyssalWraith)
+                {
+                    spriteBatch.Draw(awBar, center + new Vector2(0, 8), new Rectangle(0, (int)(1.4f * -drawOfs), (int)(500 * prog), bar2.Height), barColor, 0, bar2.Size() * 0.5f, 1, SpriteEffects.None, 0);
+                }
+                else
+                {
+                    spriteBatch.Draw(bar2, center + new Vector2(0, 8), new Rectangle(drawOfs, 0, (int)(500 * prog), bar2.Height), barColor, 0, bar2.Size() * 0.5f, 1, SpriteEffects.None, 0);
+                }
+                if (goozma)
+                {
+                    CEUtils.UseState_UI(spriteBatch, BlendState.Additive, SamplerState.LinearWrap);
+                    spriteBatch.Draw(gzmBar, center + new Vector2(0, 8), new Rectangle((int)(drawOfs * 5.6f), 0, (int)(500 * prog), bar2.Height), Color.White, 0, bar2.Size() * 0.5f, 1, SpriteEffects.None, 0);
+                }
+                if (namelessDeity)
+                {
+                    spriteBatch.Draw(noise, center + new Vector2(0, 8), new Rectangle((int)(drawOfs * 1.6f), (int)(drawOfs * 0.4f), (int)(500 * prog), bar2.Height), Color.White, 0, bar2.Size() * 0.5f, 1, SpriteEffects.None, 0);
+                }
             }
-            else
-            {
-                spriteBatch.Draw(bar2, center + new Vector2(0, 8), new Rectangle(drawOfs, 0, (int)(500 * prog), bar2.Height), barColor, 0, bar2.Size() / 2, 1, SpriteEffects.None, 0);
-            }
-            if (goozma)
-            {
-                CEUtils.UseState_UI(spriteBatch, BlendState.Additive, SamplerState.LinearWrap);
-                spriteBatch.Draw(gzmBar, center + new Vector2(0, 8), new Rectangle((int)(drawOfs * 5.6f), 0, (int)(500 * prog), bar2.Height), Color.White, 0, bar2.Size() / 2, 1, SpriteEffects.None, 0);
-            }
-            if (namelessDeity)
-            {
-                spriteBatch.Draw(noise, center + new Vector2(0, 8), new Rectangle((int)(drawOfs * 1.6f), (int)(drawOfs * 0.4f), (int)(500 * prog), bar2.Height), Color.White, 0, bar2.Size() / 2, 1, SpriteEffects.None, 0);
-            }
+            catch { }
             spriteBatch.UseSampleState_UI(SamplerState.AnisotropicClamp);
 
 
             if (immune && !namelessDeity)
             {
-                spriteBatch.Draw(barLocked, center, new Rectangle(0, 0, 18 + (int)(500 * prog), bar1.Height), Color.Lerp(barColor, Color.White, 0.36f), 0, bar1.Size() / 2, 1, SpriteEffects.None, 0);
+                spriteBatch.Draw(barLocked, center, new Rectangle(0, 0, 18 + (int)(500 * prog), bar1.Height), Color.Lerp(barColor, Color.White, 0.36f), 0, bar1.Size() * 0.5f, 1, SpriteEffects.None, 0);
 
             }
             spriteBatch.Draw(bar3, center, null, buttomColor, 0, bar1.Size() / 2, 1, SpriteEffects.None, 0);

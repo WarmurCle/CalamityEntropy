@@ -170,7 +170,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             NPC.lifeMax = 10000;
             if (BossRushEvent.BossRushActive)
             {
-                NPC.lifeMax += 300000;
+                NPC.lifeMax += 360000;
             }
             NPC.HitSound = null;
             NPC.DeathSound = SoundID.NPCDeath25;
@@ -221,17 +221,21 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                     NPC.netSpam = 0;
                 }
             }
-            if (tail == null)
-            {
-                if(TailNPCIndex >= 0)
-                    tail = TailNPCIndex.ToNPC();
-            }
+            if(TailNPCIndex >= 0)
+                tail = TailNPCIndex.ToNPC();
             UpdateTail();
             if (tail == null)
+            {
+                SpawnFlag = true;
                 return;
+            }
+            if(!tail.active)
+            {
+                SpawnFlag = true;
+            }
             NPC.netUpdate = true;
             NPC.TargetClosest(false);
-            if(NPC.HasValidTarget && NPC.target.ToPlayer().Distance(NPC.Center) < 5000)
+            if(NPC.HasValidTarget && (NPC.target.ToPlayer().Distance(NPC.Center) < 5000 || BossRushEvent.BossRushActive))
             {
                 deactiveCount = 160;
                 AttackPlayer(NPC.target.ToPlayer());
@@ -284,6 +288,8 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             {
                 enrange *= 0.85f;
             }
+            if (BossRushEvent.BossRushActive)
+                enrange *= 1.4f;
             bool OutlineFlag = true;
             bool TailSpeedMultFlag = true;
             bool TailLightFlag = true;
@@ -296,7 +302,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                 NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, targetRot, 0.06f, false);
                 NPC.velocity *= 0.9f;
                 float distance = player.Distance(NPC.Center);
-                float spd = Utils.Remap(distance, 200, 900, 0.4f, 1f);
+                float spd = BossRushEvent.BossRushActive ? Utils.Remap(distance, 200, 14000, 0.4f, 10f) : Utils.Remap(distance, 200, 900, 0.4f, 1f);
                 NPC.velocity += NPC.rotation.ToRotationVector2() * spd * enrange;
                 if (NPC.Distance(player.Center) < 400)
                     AIChangeCounter++;
@@ -426,7 +432,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                 tail.rotation = CEUtils.RotateTowardsAngle(tail.rotation, (player.Center - tail.Center).ToRotation(), 0.08f, false);
                 TailLight += 0.08f;
                 float targetRot = (player.Center - NPC.Center).ToRotation();
-                NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, targetRot, 0.1f, false);
+                NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, targetRot, 0.1f * enrange, false);
                 NPC.velocity *= 0.96f;
                 NPC.velocity += NPC.rotation.ToRotationVector2() * 0.16f;
                 tail.Center = Vector2.Lerp(tail.Center, NPC.Center + NPC.rotation.ToRotationVector2() * 160 * NPC.scale, 0.08f * enrange);
