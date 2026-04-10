@@ -156,12 +156,6 @@ namespace CalamityEntropy.Content.ILEditing
                 EModHooks.Add(NPC_Get_Name, On_NPC_Get_Hook);
             }
 
-            /*var drawAdrBar = typeof(RipperUI).GetMethod("DrawAdrenalineBar", BindingFlags.NonPublic | BindingFlags.Static);
-            if (drawAdrBar != null)
-            {
-                EModHooks.Add(drawAdrBar, drawAdrBar_hook);
-            }*/
-
             var RipperUIDrawMethod = typeof(RipperUI).GetMethod("Draw", BindingFlags.Static | BindingFlags.Public);
             if (RipperUIDrawMethod != null)
             {
