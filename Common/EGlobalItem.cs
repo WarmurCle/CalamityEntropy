@@ -515,6 +515,10 @@ namespace CalamityEntropy.Common
             {
                 return Mod.GetLocalization("AmmoMissile").Value;
             }
+            if (type == 520)
+            {
+                return Mod.GetLocalization("AmmoSouls").Value;
+            }
             return type.ToString();
         }
 

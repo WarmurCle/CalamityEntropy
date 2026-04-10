@@ -5721,6 +5721,7 @@ AmmoBloodrune: Blood Rune
 AmmoStarblightSoot: Starblight Soot
 AmmoType: Ammo type
 AmmoMissile: Missile
+AmmoSouls: Souls
 UseAmmo: Use Ammo
 OrbPunishDeath0: "{0} shattered into pieces"
 OrbPunishDeath1: "{0} try to remove the shattered foresee orb"

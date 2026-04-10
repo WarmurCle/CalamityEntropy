@@ -5962,6 +5962,7 @@ AmmoBloodrune: 血之符文
 AmmoStarblightSoot: 凋星微尘
 AmmoType: 弹药类型
 AmmoMissile: 导弹
+AmmoSouls: 魂
 UseAmmo: 使用弹药
 OrbPunishDeath0: "{0}的灵魂破碎了"
 OrbPunishDeath1: "{0}试图取下裂开的预知宝珠"
