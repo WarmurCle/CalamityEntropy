@@ -5696,6 +5696,7 @@ AmmoBoulders: Валун
 AmmoStarblightSoot: Звёздная сажа
 AmmoType: Тип боеприпасов
 // AmmoMissile: Missile
+// AmmoSouls: Souls
 UseAmmo: Использует боеприпасы
 OrbPunishDeath0: Разлетелся на куски
 OrbPunishDeath1: Попробуйте удалить расколотую сферу предвидения

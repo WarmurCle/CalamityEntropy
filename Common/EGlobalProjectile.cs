@@ -21,6 +21,7 @@ using CalamityMod.Particles;
 using CalamityMod.Projectiles.BaseProjectiles;
 using CalamityMod.Projectiles.Boss;
 using CalamityMod.Projectiles.Melee;
+using CalamityMod.Projectiles.Summon;
 using CalamityMod.Projectiles.Typeless;
 using InnoVault;
 using Microsoft.Xna.Framework.Graphics;
@@ -260,6 +261,12 @@ namespace CalamityEntropy.Common
         public bool dmgUpFrd = true;
         public override void AI(Projectile projectile)
         {
+            if(projectile.ModProjectile != null && projectile.ModProjectile is DazzlingStabber ds)
+            {
+                var ff = typeof(DazzlingStabber).GetField("justHit", BindingFlags.NonPublic | BindingFlags.Instance);
+                if (ff != null)
+                    ff.SetValue(ds, false);
+            }
             if (FirstFrames)
                 FirstFrames = false;
         }
