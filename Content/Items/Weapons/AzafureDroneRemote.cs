@@ -230,6 +230,10 @@ namespace CalamityEntropy.Content.Items.Weapons
     }
     public class AzafureDroneBullet : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.MinionShot[Type] = true;
+        }
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(DamageClass.Summon, true, 1);
