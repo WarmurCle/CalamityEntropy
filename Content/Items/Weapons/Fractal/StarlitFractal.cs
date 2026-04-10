@@ -6,6 +6,7 @@ using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Potions;
 using CalamityMod.Items.Weapons.Melee;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -127,10 +128,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             }
             odr.Add(Projectile.rotation);
             Projectile.timeLeft = 3;
-            float RotF = 4f;
+            float RotF = 5.2f;
             alpha = 1;
             scale = 1.6f;
-            Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * CEUtils.GetRepeatedCosFromZeroToOne(progress, 3)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
+            Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * CEUtils.CustomLerp2(progress)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
             Projectile.Center = Projectile.GetOwner().MountedCenter;
 
 
@@ -183,6 +184,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 PositionInWorld = target.Center,
                 MovementVector = Vector2.Zero
             });
+            for (int i = 0; i < 24; i++)
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, Projectile.velocity.normalize().RotatedByRandom(1.4f) * Main.rand.NextFloat(8f, 42f), false, 14, Main.rand.NextFloat(0.02f, 0.08f), Color.BlueViolet, new Vector2(0.4f, 1)));
         }
         public bool spawnProj = true;
         public override bool PreDraw(ref Color lightColor)
@@ -204,8 +207,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Texture2D bs = CEUtils.getExtraTex("SemiCircularSmear");
 
-            Main.spriteBatch.Draw(bs, (Vector2)(Projectile.Center + CEUtils.GetOwner(Projectile).gfxOffY * Vector2.UnitY - Main.screenPosition), null, new Color(100, 50, 200) * (float)(Math.Cos(CEUtils.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2)), Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.74f * scale, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(bs, (Vector2)(Projectile.Center + CEUtils.GetOwner(Projectile).gfxOffY * Vector2.UnitY - Main.screenPosition), null, Color.Lerp(Color.White, Color.Blue, counter / MaxUpdateTime) * (float)(Math.Cos(CEUtils.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2)), Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.56f * scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(bs, (Vector2)(Projectile.Center + CEUtils.GetOwner(Projectile).gfxOffY * Vector2.UnitY - Main.screenPosition), null, new Color(100, 50, 200) * (1 - (counter / MaxUpdateTime) * (counter / MaxUpdateTime)) * 0.7f, CEUtils.RotateTowardsAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.64f, false) + MathHelper.ToRadians(36) * -dir, bs.Size() / 2f, Projectile.scale * 1.74f * scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(bs, (Vector2)(Projectile.Center + CEUtils.GetOwner(Projectile).gfxOffY * Vector2.UnitY - Main.screenPosition), null, Color.Lerp(Color.White, Color.Blue, counter / MaxUpdateTime) * (1 - (counter / MaxUpdateTime) * (counter / MaxUpdateTime)) * 0.7f, CEUtils.RotateTowardsAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.24f, false) + MathHelper.ToRadians(36) * -dir, bs.Size() / 2f, Projectile.scale * 1.56f * scale, SpriteEffects.None, 0);
 
             Main.spriteBatch.ExitShaderRegion();
 

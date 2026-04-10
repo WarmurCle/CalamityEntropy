@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items;
@@ -128,10 +129,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             }
             odr.Add(Projectile.rotation);
             Projectile.timeLeft = 3;
-            float RotF = 4f;
+            float RotF = 5.2f;
             alpha = 1;
             scale = 1.6f;
-            Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * CEUtils.GetRepeatedCosFromZeroToOne(progress, 3)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
+            Projectile.rotation = Projectile.velocity.ToRotation() + (RotF * -0.5f + RotF * CEUtils.CustomLerp2(progress)) * Projectile.ai[0] * (Projectile.velocity.X > 0 ? -1 : 1);
             Projectile.Center = Projectile.GetOwner().MountedCenter;
 
 
@@ -180,6 +181,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 PositionInWorld = target.Center,
                 MovementVector = Vector2.Zero
             });
+            for(int i = 0; i < 64; i++)
+            {
+                Particle p = new Particle();
+                p.vd = 0.92f;
+                p.ad = 0.03f;
+                p.alpha = 0.38f * Main.rand.NextFloat(1.2f, 1.6f);
+                p.position = CEUtils.randomPoint(target.Hitbox);
+                p.velocity = Projectile.velocity.RotatedByRandom(0.16f).normalize() * Main.rand.NextFloat(8, 48);
+                AbyssalParticles.particles.Add(p);
+            }
         }
         public bool spawnProj = true;
         public override bool PreDraw(ref Color lightColor)
@@ -201,7 +212,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Texture2D bs = CEUtils.getExtraTex("SemiCircularSmear");
 
-            Main.spriteBatch.Draw(bs, (Vector2)(Projectile.Center + CEUtils.GetOwner(Projectile).gfxOffY * Vector2.UnitY - Main.screenPosition), null, new Color(100, 50, 200) * (float)(Math.Cos(CEUtils.GetRepeatedCosFromZeroToOne(counter / MaxUpdateTime, 3) * MathHelper.Pi - MathHelper.PiOver2)), Projectile.rotation + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.74f * scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(bs, (Vector2)(Projectile.Center + CEUtils.GetOwner(Projectile).gfxOffY * Vector2.UnitY - Main.screenPosition), null, new Color(100, 50, 200) * (1 - ((counter / MaxUpdateTime) * (counter / MaxUpdateTime))) * 0.8f, CEUtils.RotateTowardsAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.4f, false) + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 1.74f * scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(bs, (Vector2)(Projectile.Center + CEUtils.GetOwner(Projectile).gfxOffY * Vector2.UnitY - Main.screenPosition), null, new Color(100, 50, 200) * 0.6f * (1 - ((counter / MaxUpdateTime) * (counter / MaxUpdateTime))) * 0.8f, CEUtils.RotateTowardsAngle(Projectile.rotation, Projectile.velocity.ToRotation(), 0.1f, false) + MathHelper.ToRadians(32) * -dir, bs.Size() / 2f, Projectile.scale * 2f * scale, SpriteEffects.None, 0);
 
             Main.spriteBatch.ExitShaderRegion();
 
@@ -209,11 +221,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (126) * Projectile.scale * scale, targetHitbox, 64);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (160) * Projectile.scale * scale, targetHitbox, 64);
         }
         public override void CutTiles()
         {
-            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (132) * Projectile.scale * scale, 84, DelegateMethods.CutTiles);
+            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (156) * Projectile.scale * scale, 84, DelegateMethods.CutTiles);
         }
     }
 

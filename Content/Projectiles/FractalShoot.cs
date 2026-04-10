@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using CalamityMod;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -20,23 +22,43 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.penetrate = 4;
             Projectile.tileCollide = true;
             Projectile.light = 1f;
-            Projectile.timeLeft = 80;
+            Projectile.timeLeft = 120;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
         }
+        public List<Vector2> oldPos = new List<Vector2>();
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
-            Projectile.Opacity = Projectile.timeLeft / 80f;
+            if(Projectile.timeLeft < 32)
+                Projectile.Opacity -= 1 / 32f;
+            oldPos.Add(Projectile.Center);
+            if (oldPos.Count > 26)
+                oldPos.RemoveAt(0);
+            if (Projectile.localAI[0]++ > 10 && Projectile.numHits == 0)
+            {
+                Projectile.HomingToNPCNearby(1f, 0.93f);
+                Projectile.HomingToNPCNearby(1f, 0.93f);
+            }
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.SourceDamage *= Projectile.timeLeft / 80f;
+            modifiers.SourceDamage *= 0.5f * (Projectile.timeLeft / 120f) + 0.5f;
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
+            Main.spriteBatch.UseAdditive();
+            if (oldPos.Count > 1)
+            {
+                for (int i = 0; i < oldPos.Count; i++)
+                {
+                    float alpha = i / (oldPos.Count - 1f);
+                    Main.EntitySpriteDraw(Projectile.GetTexture(), oldPos[i] - Main.screenPosition, null, lightColor * Projectile.Opacity * alpha, Projectile.rotation, Projectile.GetTexture().Size() * 0.5f, alpha, SpriteEffects.None);
+                }
+            }
             Main.EntitySpriteDraw(Projectile.GetTexture(), Projectile.Center - Main.screenPosition, null, lightColor * Projectile.Opacity, Projectile.rotation, Projectile.GetTexture().Size() * 0.5f, 1, SpriteEffects.None);
+            Main.spriteBatch.ExitShaderRegion();
             return false;
         }
     }
