@@ -180,12 +180,19 @@ namespace CalamityEntropy.Common
 
                 graphicsDevice.SetRenderTarget(Main.screenTarget);
                 graphicsDevice.Clear(Color.Transparent);
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-                Main.spriteBatch.Draw(Screen0, Main.ScreenSize.ToVector2() / 2, null, Color.White, rotation * (ScreenRotAmp < 0.45f ? 0 : ((ScreenRotAmp - 0.45f) / 0.55f)), Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer);
+
+                Vector2 v = Main.ScreenSize.ToVector2();
+                Main.spriteBatch.Draw(Screen0, Main.ScreenSize.ToVector2() / 2 + (v * new Vector2(1, 0)).RotatedBy(rotation), null, Color.White, rotation * (ScreenRotAmp < 0.45f ? 0 : ((ScreenRotAmp - 0.45f) / 0.55f)), (Main.ScreenSize.ToVector2()) * 0.5f, 1, SpriteEffects.FlipHorizontally, 0);
+                Main.spriteBatch.Draw(Screen0, Main.ScreenSize.ToVector2() / 2 + (v * new Vector2(-1, 0)).RotatedBy(rotation), null, Color.White, rotation * (ScreenRotAmp < 0.45f ? 0 : ((ScreenRotAmp - 0.45f) / 0.55f)), (Main.ScreenSize.ToVector2()) * 0.5f, 1, SpriteEffects.FlipHorizontally, 0);
+                Main.spriteBatch.Draw(Screen0, Main.ScreenSize.ToVector2() / 2 + (v * new Vector2(0, 1)).RotatedBy(rotation), null, Color.White, rotation * (ScreenRotAmp < 0.45f ? 0 : ((ScreenRotAmp - 0.45f) / 0.55f)), (Main.ScreenSize.ToVector2()) * 0.5f, 1, SpriteEffects.FlipVertically, 0);
+                Main.spriteBatch.Draw(Screen0, Main.ScreenSize.ToVector2() / 2 + (v * new Vector2(0, -1)).RotatedBy(rotation), null, Color.White, rotation * (ScreenRotAmp < 0.45f ? 0 : ((ScreenRotAmp - 0.45f) / 0.55f)), (Main.ScreenSize.ToVector2()) * 0.5f, 1, SpriteEffects.FlipVertically, 0);
+
+                Main.spriteBatch.Draw(Screen0, Main.ScreenSize.ToVector2() / 2, null, Color.White, rotation * (ScreenRotAmp < 0.45f ? 0 : ((ScreenRotAmp - 0.45f) / 0.55f)), (Main.ScreenSize.ToVector2()) * 0.5f, 1, SpriteEffects.None, 0);
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer);
                 float a = (ScreenRotAmp < 0.5f) ? (ScreenRotAmp * 2) : 1;
-                Main.spriteBatch.Draw(mask, Main.ScreenSize.ToVector2() / 2, null, new Color(210, 255, 255, (int)(255 * a)), 0, mask.Size() / 2f, Main.GameViewMatrix.Zoom.X * 1.6f + (1 - a) * 2, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(mask, Main.ScreenSize.ToVector2() / 2, null, new Color(210, 255, 255, (int)(255 * a)), 0, mask.Size() / 2f, (Main.GameViewMatrix.Zoom.X * 1.6f + (1 - a) * 2) * 0.75f, SpriteEffects.None, 0);
                 Main.spriteBatch.End();
             }
         }
