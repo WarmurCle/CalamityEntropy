@@ -193,6 +193,10 @@ namespace CalamityEntropy.Content.Items.Weapons.SupportRemote
     }
     public class CombatDroneBullet : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.MinionShot[Type] = true;
+        }
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(DamageClass.Summon, false, 5);

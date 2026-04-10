@@ -163,7 +163,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Torch
     public class CursingFlame : ModProjectile
     {
         public override string Texture => "CalamityMod/Projectiles/FireProj";
-
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.MinionShot[Type] = true;
+        }
         public static int Lifetime => 100;
         public static int Fadetime => 30;
         public ref float Time => ref Projectile.ai[0];
