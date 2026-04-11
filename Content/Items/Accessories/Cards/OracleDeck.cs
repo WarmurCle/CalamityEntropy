@@ -22,12 +22,12 @@ namespace CalamityEntropy.Content.Items.Accessories.Cards
             Item.accessory = true;
 
         }
-        public static int CRIT = 10;
-        public static float STEALTH = 0.05f;
+        public static int CRIT = 15;
+        public static float STEALTH = 0.1f;
         public static int MINIONADD = 1;
-        public static int ArmorPenet = 10;
-        public static float MELEEAS = 0.05f;
-        public static int MaxLife = 60;
+        public static int ArmorPenet = 15;
+        public static float MELEEAS = 0.1f;
+        public static int MaxLife = 80;
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().oracleDeckInInv = true;
