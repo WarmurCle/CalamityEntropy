@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Books
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<UpdraftTome>()
+            CreateRecipe().AddIngredient<DarkScripture>()
                 .AddIngredient<AshesofCalamity>(6)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
