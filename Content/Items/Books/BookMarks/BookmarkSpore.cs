@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             return new BookmarkSporeEffect();
         }
 
-        public override Color tooltipColor => Color.Blue;
+        public override Color tooltipColor => new Color(80, 80, 255);
         private static int projType = -1;
         public static int ProjType { get { if (projType == -1) { projType = ModContent.ProjectileType<ExplosiveSpore>(); } return projType; } }
     }
