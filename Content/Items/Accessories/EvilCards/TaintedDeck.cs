@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
             player.Entropy().ManaCost += 0.16f;
 
             player.Entropy().FrailCard = true;
-            player.Entropy().damageReduce -= 0.3f;
+            player.Entropy().damageReduce -= 0.5f;
 
             player.GetModPlayer<EModPlayer>().GreedCard = true;
 
@@ -43,7 +43,6 @@ namespace CalamityEntropy.Content.Items.Accessories.EvilCards
             player.Entropy().AttackVoidTouch += 0.06f;
 
             player.GetModPlayer<EModPlayer>().PerplexedCard = true;
-            player.GetCritChance(DamageClass.Generic) -= 12;
 
             player.GetModPlayer<EModPlayer>().SacrificeCard = true;
 
