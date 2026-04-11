@@ -829,7 +829,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         {
                             for (float i = 0; i < 360; i += (phase == 1 ? 36 : 30))
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (r + MathHelper.ToRadians(i)).ToRotationVector2().RotatedByRandom(0.4f) * 8, ModContent.ProjectileType<ProphetVoidSpike>(), NPC.damage / 6, 4, -1, 0, NPC.whoAmI);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (r + MathHelper.ToRadians(i)).ToRotationVector2().RotatedByRandom(0.2f) * 8, ModContent.ProjectileType<ProphetVoidSpike>(), NPC.damage / 6, 4, -1, 0, NPC.whoAmI);
                             }
                         }
                     }
