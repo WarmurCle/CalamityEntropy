@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.Kill();
                     Projectile.GetOwner().Entropy().HealFloat(Projectile.GetOwner().statLifeMax2 / 160 + 2);
                     Projectile.GetOwner().Entropy().temporaryArmor += GrudgeCard.TempDefense;
-
+                    Projectile.GetOwner().HealMana(10);
                     return;
                 }
 

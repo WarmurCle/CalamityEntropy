@@ -2384,7 +2384,7 @@ Items: {
 			Increases immune time by [IM]%
 			Shortens debuff durations by [DB]%
 			Restores flight time upon touching enemy hitboxes and inflicts Soul Disruption debuff
-			Occasionally releases Soul Fragments on hit, which fly toward you to heal and grant temporary armor
+			Occasionally releases Soul Fragments on hit, which fly toward you to heal, grant temporary armor and recovery mana
 			Increases flight speed by [FL]% and duration by [FT]%
 			Slows the decay rate of stats (Armor, Damage, Crit Chance, Damage Reduction, Life Regeneration, Attributes) when they decrease
 			The lower your health, the higher your damage reduction (up to [BE]%)
