@@ -1,9 +1,10 @@
-﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items.Materials;
+using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Particles;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework.Graphics;
@@ -30,20 +31,21 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         }
         public override void SetDefaults()
         {
-            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 50, shotVelocity: 30f, hasAutoReuse: true);
+            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 50, shotVelocity: 35f, hasAutoReuse: true);
             Item.width = 90;
             Item.height = 42;
             Item.DamageType = DamageClass.Ranged;
-            Item.damage = 460;
+            Item.damage = 400;
             Item.knockBack = 4f;
             Item.UseSound = null;
-            Item.value = Item.buyPrice(gold: 3);
+            Item.value = Item.buyPrice(gold: 48);
             Item.rare = ItemRarityID.Pink;
             Item.Entropy().tooltipStyle = 8;
             Item.Entropy().strokeColor = Color.DarkGreen;
             Item.Entropy().NameColor = Color.Orange;
             Item.Entropy().NameLightColor = Color.Orange * 0.4f;
             Item.channel = true;
+	        Item.ArmorPenetration = 80;
         }
 
         #region Animations
@@ -147,9 +149,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<AuricBar>(5)
-                .AddIngredient<CosmiliteBar>(10)
-                .AddIngredient<AscendantSpiritEssence>(15)
+		        .AddIngredient<Filthless>()
+                .AddIngredient<TheHive>()
+                .AddIngredient<OsseousRemains>(20)
+		        .AddIngredient<AuricBar>(5)
                 .AddTile<CosmicAnvil>()
                 .Register();
         }
@@ -193,7 +196,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             if (player.altFunctionUse == 2)
             {
                 CEUtils.PlaySound("shotgun", Main.rand.NextFloat(2.2f, 2.4f), position, 6, 0.6f);
-                Projectile.NewProjectile(source, position, velocity * 0.12f, ModContent.ProjectileType<RedemptionShootAlt>(), damage * 2, knockback * 4, player.whoAmI);
+                Projectile.NewProjectile(source, position, velocity * 0.12f, ModContent.ProjectileType<RedemptionShootAlt>(), damage * 3, knockback * 4, player.whoAmI);
                 return false;
             }
             if (!player.channel && Charge >= 1)
@@ -260,7 +263,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         }
         public override void OnKill(int timeLeft)
         {
-            Projectile.GetOwner().Heal(16);
+            Projectile.GetOwner().Heal(6);
             GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Yellow, 0.1f, 3f, 26));
             GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Yellow * 0.6f, 0.1f, 2.6f, 26));
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Yellow, 4f, 1, true, BlendState.Additive, 0, 24);

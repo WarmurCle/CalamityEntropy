@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
+using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items.Materials;
@@ -18,21 +18,22 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public static int ExplodeRadius => 120;
         public override void SetDefaults()
         {
-            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 22, shotVelocity: 36f, hasAutoReuse: true);
+            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 50, shotVelocity: 40f, hasAutoReuse: true);
             Item.width = 90;
             Item.height = 42;
             Item.DamageType = DamageClass.Ranged;
-            Item.damage = 60;
+            Item.damage = 80;
             Item.knockBack = 4f;
             var snd = CEUtils.GetSound("break");
             snd.PitchRange = (-0.4f, 0.1f);
             Item.UseSound = snd;
-            Item.value = Item.buyPrice(gold: 3);
+            Item.value = Item.buyPrice(gold: 7);
             Item.rare = ItemRarityID.Pink;
             Item.Entropy().tooltipStyle = 8;
             Item.Entropy().strokeColor = new Color(180, 20, 180);
             Item.Entropy().NameColor = Color.DarkBlue;
             Item.Entropy().NameLightColor = Color.Purple * 0.4f;
+	        Item.ArmorPenetration = 10;
         }
 
         #region Animations
@@ -73,11 +74,13 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.Bone, 20)
-                .AddIngredient(ItemID.SoulofFright, 10)
-                .AddIngredient<BloodOrb>(10)
-                .AddIngredient<AshesofCalamity>(15)
-                .AddTile(TileID.Anvils)
+                .AddIngredient<FrailMissile>()
+		        .AddIngredient<OsseousRemains>(20)
+		        .AddIngredient(ItemID.HallowedBar, 12)
+                .AddIngredient(ItemID.SoulofFright, 3)
+                .AddIngredient(ItemID.SoulofMight, 3)
+		        .AddIngredient(ItemID.SoulofSight, 3)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 

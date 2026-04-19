@@ -81,7 +81,7 @@ namespace CalamityEntropy.Common
         public override void SetDefaults(NPC entity)
         {
             if (entity.type == ModContent.NPCType<PrimordialWyrmHead>())
-                entity.lifeMax = (int)(entity.lifeMax * 1.5f);
+                entity.lifeMax = (int)(entity.lifeMax * 2.0f);
         }
         public float DebuffDamageMult()
         {
@@ -927,8 +927,8 @@ namespace CalamityEntropy.Common
             }
             if (npc.type == ModContent.NPCType<PrimordialWyrmHead>())
             {
-                npcLoot.Add(ModContent.ItemType<WyrmTooth>(), 1, 28, 32);
-                npcLoot.Add(ModContent.ItemType<BookmarkMarivium>(), 2);
+                npcLoot.Add(ModContent.ItemType<WyrmTooth>(), 1, 65, 80);
+                npcLoot.Add(ModContent.ItemType<BookmarkMarivium>(), 1);
             }
             if (npc.type == ModContent.NPCType<EidolonWyrmHead>())
             {

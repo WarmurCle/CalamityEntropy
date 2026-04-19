@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
         {
             Item.width = 44;
             Item.height = 44;
-            Item.damage = 80;
+            Item.damage = 70;
             Item.crit = 10;
             Item.noMelee = true;
             Item.noUseGraphic = true;

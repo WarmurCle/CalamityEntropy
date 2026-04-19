@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
@@ -150,8 +150,8 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             Check(DownedBossSystem.downedProvidence);
             Check(DownedBossSystem.downedDoG);
             Check(DownedBossSystem.downedYharon);
-            Check(DownedBossSystem.downedExoMechs);
-            Check(DownedBossSystem.downedCalamitas);
+            Check(DownedBossSystem.downedExoMechs || DownedBossSystem.downedCalamitas);
+            Check(DownedBossSystem.downedCalamitas && DownedBossSystem.downedExoMechs);
 
             return Level;
 
@@ -165,22 +165,22 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 int dmg = Item.damage;
                 switch (level)
                 {
-                    case 0: dmg = 24; break;
-                    case 1: dmg = 32; break;
-                    case 2: dmg = 44; break;
-                    case 3: dmg = 48; break;
-                    case 4: dmg = 65; break;
+                    case 0: dmg = 20; break;
+                    case 1: dmg = 30; break;
+                    case 2: dmg = 36; break;
+                    case 3: dmg = 50; break;
+                    case 4: dmg = 60; break;
                     case 5: dmg = 100; break;
-                    case 6: dmg = 130; break;
+                    case 6: dmg = 110; break;
                     case 7: dmg = 150; break;
-                    case 8: dmg = 190; break;
-                    case 9: dmg = 250; break;
-                    case 10: dmg = 620; break;
-                    case 11: dmg = 840; break;
-                    case 12: dmg = 1350; break;
-                    case 13: dmg = 1900; break;
-                    case 14: dmg = 2400; break;
-                    case 15: dmg = 3200; break;
+                    case 8: dmg = 180; break;
+                    case 9: dmg = 225; break;
+                    case 10: dmg = 480; break;
+                    case 11: dmg = 720; break;
+                    case 12: dmg = 1400; break;
+                    case 13: dmg = 1800; break;
+                    case 14: dmg = 2000; break;
+                    case 15: dmg = 3600; break;
                 }
                 Item.damage = dmg;
                 Item.useTime = Item.useAnimation = int.Max(10, 16 - GetLevel() / 4);
@@ -471,7 +471,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
 
                             if (Spin)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<BramblecleaveAlt>(), Projectile.damage, 0, Projectile.owner);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<BramblecleaveAlt>(), (int)(Projectile.damage * 0.5f) , 0, Projectile.owner);
                             }
                             else
                             {
@@ -487,7 +487,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                                 if (VineType == 1)
                                 {
                                 }
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<BrambleVine>(), Projectile.damage * 2, 0, Projectile.owner, VineType);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<BrambleVine>(), Projectile.damage, 0, Projectile.owner, VineType);
                             }
                         }
                     }

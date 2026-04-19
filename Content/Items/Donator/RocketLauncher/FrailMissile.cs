@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
+using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
 using CalamityMod;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Ranged;
@@ -18,19 +18,20 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public static int ExplodeRadius => 120;
         public override void SetDefaults()
         {
-            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 70, shotVelocity: 25f, hasAutoReuse: true);
+            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 70, shotVelocity: 45f, hasAutoReuse: true);
             Item.width = 90;
             Item.height = 42;
             Item.DamageType = DamageClass.Ranged;
-            Item.damage = 40;
+            Item.damage = 72;
             Item.knockBack = 4f;
             Item.UseSound = CEUtils.GetSound("aprclaunch", 1.3f);
-            Item.value = Item.buyPrice(silver: 30);
+            Item.value = Item.buyPrice(gold: 4);
             Item.rare = ItemRarityID.Green;
             Item.Entropy().tooltipStyle = 8;
             Item.Entropy().strokeColor = new Color(40, 0, 0);
             Item.Entropy().NameColor = new Color(160, 0, 0);
             Item.Entropy().NameLightColor = Color.Black;
+	        Item.ArmorPenetration = 10;
         }
 
         #region Animations
@@ -77,13 +78,12 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<PurifiedGel>(10)
-                .AddIngredient<BloodOrb>(6)
-                .AddIngredient<SparkSpreader>()
+                .AddIngredient<Hope>()
+		        .AddIngredient<OsseousRemains>(20)
+                .AddIngredient(ItemID.SoulofLight, 10)
+		        .AddIngredient(ItemID.LightShard, 2)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
-
-
     }
 }

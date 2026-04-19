@@ -1,5 +1,7 @@
-﻿using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
+using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityMod;
+using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Items.Materials;
 using System;
 using Terraria;
@@ -17,19 +19,20 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public static int ExplodeRadius => 60;
         public override void SetDefaults()
         {
-            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 52, shotVelocity: 20f, hasAutoReuse: true);
+            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 52, shotVelocity: 30f, hasAutoReuse: true);
             Item.width = 90;
             Item.height = 42;
             Item.DamageType = DamageClass.Ranged;
-            Item.damage = 16;
+            Item.damage = 28;
             Item.knockBack = 4f;
             Item.UseSound = SoundID.Item61;
-            Item.value = Item.buyPrice(silver: 30);
+            Item.value = Item.buyPrice(gold: 1);
             Item.rare = ItemRarityID.Orange;
             Item.Entropy().tooltipStyle = 8;
             Item.Entropy().strokeColor = Color.DarkBlue;
             Item.Entropy().NameColor = new Color(80, 220, 255);
             Item.Entropy().NameLightColor = Color.Black;
+	        Item.ArmorPenetration = 8;
         }
 
         #region Animations
@@ -70,9 +73,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<AerialiteBar>(15)
-                .AddIngredient<OsseousRemains>(5)
-                .AddIngredient(ItemID.Vertebrae, 10)
+		        .AddIngredient<RustExpeditioner>()
+                .AddIngredient<OsseousRemains>(20)
+		        .AddIngredient<AerialiteBar>(10)
+                .AddIngredient(ItemID.SunplateBlock, 4)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

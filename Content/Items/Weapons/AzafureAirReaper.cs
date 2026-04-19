@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 {
     public class AzafureAirReaper : RogueWeapon, IAzafureEnhancable
     {
-        public override float StealthDamageMultiplier => 1f;
+        public override float StealthDamageMultiplier => 0.8f;
         public override float StealthVelocityMultiplier => 1.2f;
         public override float StealthKnockbackMultiplier => 2f;
 
@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 78;
             Item.height = 78;
-            Item.damage = 12;
+            Item.damage = 9;
             Item.DamageType = CEUtils.RogueDC;
             Item.useTime = 32;
             Item.useAnimation = 32;
