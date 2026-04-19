@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override Color tooltipColor => new Color(255, 6, 6);
         public override void ModifyStat(EBookStatModifer modifer)
         {
-            modifer.attackSpeed += Main.LocalPlayer.Entropy().BloodthirstyEffect * 0.5f;
+            modifer.attackSpeed += Main.LocalPlayer.Entropy().BloodthirstyEffect * 0.3f;
             modifer.lifeSteal += 0.1f;
         }
         public override EBookProjectileEffect getEffect()
@@ -59,9 +59,9 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone)
         {
             var plr = projectile.GetOwner();
-            if (plr.Calamity().RageEnabled && CECooldowns.CheckCD("BloodthirstyRage", 4) && !plr.HasBuff<RageMode>())
+            if (plr.Calamity().RageEnabled && CECooldowns.CheckCD("BloodthirstyRage", 30) && !plr.HasBuff<RageMode>())
             {
-                plr.Calamity().rage += projectile.GetOwner().Calamity().rageMax / 40;
+                plr.Calamity().rage += projectile.GetOwner().Calamity().rageMax / 100;
             }
         }
     }
