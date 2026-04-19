@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
@@ -29,9 +29,9 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
 
         public override void AddRecipes()
         {
-            CreateRecipe(20)
-                .AddIngredient<WulfrumMetalScrap>(1)
-                .AddIngredient(ItemID.Bomb, 2)
+            CreateRecipe(100)
+                .AddIngredient(ModContent.ItemType<OsseousRemains>())
+		        .AddIngredient<WulfrumMetalScrap>(1)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
