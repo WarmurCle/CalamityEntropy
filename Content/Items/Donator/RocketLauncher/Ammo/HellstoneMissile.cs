@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             Item.value = Item.sellPrice(silver: 5);
             Item.rare = ItemRarityID.Orange;
             Item.ammo = BaseMissileProj.AmmoType;
-            Item.damage = 13;
+            Item.damage = 10;
             Item.shoot = ModContent.ProjectileType<HellstoneMissileProj>();
             Item.consumable = true;
             Item.DamageType = DamageClass.Ranged;
@@ -28,9 +28,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
 
         public override void AddRecipes()
         {
-            CreateRecipe(25)
-                .AddIngredient(ItemID.HellstoneBar, 5)
-                .AddIngredient(ItemID.Bomb, 5)
+            CreateRecipe(100)
+		.AddIngredient(ModContent.ItemType<OsseousRemains>())
+                .AddIngredient(ItemID.HellstoneBar, 1)
+                .AddIngredient(ItemID.Bomb, 1)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
