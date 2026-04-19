@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.CalPlayer;
@@ -20,14 +20,14 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class VoidCore : ModItem
     {
-        public const int ShieldSlamDamage = 1200;
+        public const int ShieldSlamDamage = 800;
         public const float ShieldSlamKnockback = 8f;
         public const int ShieldSlamIFrames = 18;
         public static int DashDelay = 20;
         public float charge = 0;
-        public static int MaxShield = 100;
+        public static int MaxShield = 60;
         public static int ShieldRecharge = 20 * 60;
-        public static float CritDamage = 0.16f;
+        public static float CritDamage = 0.05f;
         public override void SetDefaults()
         {
             Item.width = 60;
@@ -60,8 +60,8 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<NihilityShell>()
                 .AddIngredient<AzafureDriverCore>()
+                .AddIngredient<NihilityFragments>(10)
                 .AddIngredient<RuinousSoul>(6)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
