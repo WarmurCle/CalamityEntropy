@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,9 +27,9 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
 
         public override void AddRecipes()
         {
-            CreateRecipe(5)
+            CreateRecipe(100)
                 .AddIngredient(ModContent.ItemType<HellIndustrialComponents>())
-                .AddIngredient(ItemID.IronBar, 5)
+                .AddIngredient(ModContent.ItemType<OsseousRemains>())
                 .AddTile(TileID.Anvils)
                 .Register();
         }

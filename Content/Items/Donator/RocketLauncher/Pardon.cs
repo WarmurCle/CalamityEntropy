@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
+using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
@@ -20,21 +20,22 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public static int ExplodeRadius => 120;
         public override void SetDefaults()
         {
-            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 50, shotVelocity: 30f, hasAutoReuse: true);
+            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 60, shotVelocity: 40f, hasAutoReuse: true);
             Item.width = 90;
             Item.height = 42;
             Item.DamageType = DamageClass.Ranged;
-            Item.damage = 60;
+            Item.damage = 48;
             Item.knockBack = 4f;
             var snd = CEUtils.GetSound("cannon");
             snd.PitchRange = (0.6f, 0.8f);
             Item.UseSound = snd;
-            Item.value = Item.buyPrice(gold: 3);
+            Item.value = Item.buyPrice(gold: 18);
             Item.rare = ItemRarityID.Pink;
             Item.Entropy().tooltipStyle = 8;
             Item.Entropy().strokeColor = Color.DarkGreen;
             Item.Entropy().NameColor = Color.Yellow;
             Item.Entropy().NameLightColor = Color.Yellow * 0.4f;
+	        Item.ArmorPenetration = 25;
         }
 
         #region Animations
@@ -75,10 +76,11 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<InfectedArmorPlating>(10)
-                .AddIngredient<ScoriaBar>(15)
-                .AddIngredient<AshesofCalamity>(5)
-                .AddTile(TileID.Anvils)
+                .AddIngredient<Struggle>()
+                .AddIngredient<OsseousRemains>(20)
+                .AddIngredient<LifeAlloy>(5)
+		        .AddIngredient<InfectedArmorPlating>(10)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
         public static void OnKillAction(Projectile Projectile)

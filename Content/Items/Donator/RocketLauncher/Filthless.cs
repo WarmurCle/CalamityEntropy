@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
@@ -29,22 +29,23 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         }
         public override void SetDefaults()
         {
-            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 32, shotVelocity: 30f, hasAutoReuse: true);
+            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 32, shotVelocity: 45f, hasAutoReuse: true);
             Item.width = 90;
             Item.height = 42;
             Item.DamageType = DamageClass.Ranged;
-            Item.damage = 360;
+            Item.damage = 325;
             Item.knockBack = 4f;
             var snd = CEUtils.GetSound("howlingShoot");
             snd.PitchRange = (-0.5f, -0.4f);
             snd.Volume = 0.6f;
             Item.UseSound = snd;
-            Item.value = Item.buyPrice(gold: 3);
+            Item.value = Item.buyPrice(gold: 35);
             Item.rare = ItemRarityID.Pink;
             Item.Entropy().tooltipStyle = 8;
             Item.Entropy().strokeColor = Color.BlueViolet;
             Item.Entropy().NameColor = Color.Violet * 5;
             Item.Entropy().NameLightColor = Color.MediumVioletRed * 0.4f;
+	        Item.ArmorPenetration = 50;
         }
         #region Animations
         public override void HoldItem(Player player) => player.Calamity().mouseWorldListener = true;
@@ -84,10 +85,11 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<Necroplasm>(10)
-                .AddIngredient<RuinousSoul>(5)
-                .AddIngredient<DivineGeode>(2)
-                .AddTile(TileID.Anvils)
+                .AddIngredient<Zeal>()
+                .AddIngredient<OsseousRemains>(20)
+                .AddIngredient<DivineGeode>(20)
+		        .AddIngredient<RuinousSoul>(10)
+                .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
         public override bool AltFunctionUse(Player player)
@@ -104,7 +106,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
                 player.itemTimeMax *= m;
                 player.itemAnimation *= m;
                 player.itemAnimationMax *= m;
-                damage = (int)(damage * 1.6f);
+                damage = (int)(damage * 1.2f);
                 velocity *= 0.5f;
             }
             position += (new Vector2(54, -16) * new Vector2(1, player.direction)).RotatedBy(velocity.ToRotation());
@@ -222,7 +224,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         }
         public override void OnKill(int timeLeft)
         {
-            Projectile.GetOwner().Heal(16);
+            Projectile.GetOwner().Heal(5);
             GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Violet * 1.2f, "CalamityMod/Particles/ShineExplosion2", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.12f * Projectile.scale, 24));
             GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Violet * 1.2f, "CalamityMod/Particles/ShineExplosion1", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.12f * Projectile.scale, 24));
             GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Violet * 1.2f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.12f * Projectile.scale, 24));

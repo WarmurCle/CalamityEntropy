@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
+using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
 using CalamityEntropy.Content.Items.Weapons.GrassSword;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
@@ -26,15 +26,16 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public static int ExplodeRadius => 60;
         public override void SetDefaults()
         {
-            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 18, shotVelocity: 36f, hasAutoReuse: true);
+            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 18, shotVelocity: 40f, hasAutoReuse: true);
             Item.width = 90;
             Item.height = 42;
             Item.DamageType = DamageClass.Ranged;
-            Item.damage = 160;
+            Item.damage = 130;
             Item.knockBack = 4f;
             Item.UseSound = CEUtils.GetSound("ProminenceShoot", 1.6f, 2, 0.5f);
             Item.value = Item.buyPrice(gold: 20);
             Item.rare = ItemRarityID.Red;
+	        Item.ArmorPenetration = 40;
         }
 
         #region Animations
@@ -75,8 +76,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.FragmentVortex, 8)
-                .AddIngredient(ItemID.LunarBar, 8)
+                .AddIngredient<Pardon>()
+                .AddIngredient<OsseousRemains>(20)
+                .AddIngredient(ItemID.LunarBar, 5)
+		        .AddIngredient(ItemID.FragmentVortex, 5)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }

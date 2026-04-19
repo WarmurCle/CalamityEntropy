@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Items
         public override void AddRecipes()
         {
             CreateRecipe(5).
-                AddIngredient<VoidOre>(60).
+                AddIngredient<VoidOre>(50).
                 AddIngredient<VoidScales>().
                 AddTile<VoidWellTile>().
                 Register();
