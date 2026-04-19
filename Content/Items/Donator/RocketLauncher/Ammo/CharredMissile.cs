@@ -1,4 +1,4 @@
-﻿using Terraria;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -24,9 +24,9 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
 
         public override void AddRecipes()
         {
-            CreateRecipe(10)
+            CreateRecipe(100)
                 .AddIngredient(ModContent.ItemType<OsseousRemains>())
-                .AddIngredient(ItemID.IronBar, 4)
+                .AddIngredient(ItemID.IronBar, 1)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
