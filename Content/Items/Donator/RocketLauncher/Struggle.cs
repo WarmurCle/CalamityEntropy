@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
+using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
@@ -20,19 +20,20 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public static int ExplodeRadius => 120;
         public override void SetDefaults()
         {
-            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 40, shotVelocity: 30f, hasAutoReuse: true);
+            Item.DefaultToRangedWeapon(ModContent.ProjectileType<CharredMissileProj>(), BaseMissileProj.AmmoType, singleShotTime: 50, shotVelocity: 40f, hasAutoReuse: true);
             Item.width = 90;
             Item.height = 42;
             Item.DamageType = DamageClass.Ranged;
-            Item.damage = 306;
+            Item.damage = 88;
             Item.knockBack = 4f;
             Item.UseSound = CEUtils.GetSound("cannon", 1.3f);
-            Item.value = Item.buyPrice(gold: 3);
+            Item.value = Item.buyPrice(gold: 16);
             Item.rare = ItemRarityID.Pink;
             Item.Entropy().tooltipStyle = 8;
             Item.Entropy().strokeColor = new Color(180, 20, 180);
             Item.Entropy().NameColor = Color.DarkBlue;
             Item.Entropy().NameLightColor = Color.Purple * 0.4f;
+	        Item.ArmorPenetration = 20;
         }
 
         #region Animations
@@ -73,11 +74,11 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.SoulofNight, 15)
-                .AddIngredient<UnholyCore>(10)
-                .AddIngredient<EssenceofHavoc>(5)
-                .AddIngredient(ItemID.HallowedBar, 10)
-                .AddTile(TileID.Anvils)
+                .AddIngredient<Crave>()
+		        .AddIngredient<OsseousRemains>(20)
+                .AddIngredient<CoreofCalamity>(3)
+		        .AddIngredient<UnholyCore>(10)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 
