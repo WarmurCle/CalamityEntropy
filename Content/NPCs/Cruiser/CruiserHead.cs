@@ -1217,18 +1217,18 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
                         int num = 10;
                         int counts = 3;
-                        float speed = 8;
+                        float speed = 10;
                         if (CalamityWorld.revenge)
                         {
                             num = 11;
                             counts = 4;
-                            speed = 10;
+                            speed = 12;
                         }
                         if (CalamityWorld.death)
                         {
                             num = 11;
                             counts = 5;
-                            speed = 16;
+                            speed = 18;
                         }
                         if (Main.expertMode)
                         {
@@ -1256,7 +1256,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
                                     for (int j = 0; j < num; j++)
                                     {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[bodies.Count - 1] - (bodies[bodies.Count - 2] - bodies[bodies.Count - 1]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, angle.ToRotationVector2() * speed, ModContent.ProjectileType<VoidStar>(), (int)(NPC.damage / 6.4f), 1);
+                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), bodies[bodies.Count - 1] - (bodies[bodies.Count - 2] - bodies[bodies.Count - 1]).SafeNormalize(Vector2.Zero) * 172 * NPC.scale, angle.ToRotationVector2() * speed, ModContent.ProjectileType<VoidStar>(), (int)(NPC.damage / 6.0f), 1);
                                         angle += ((float)Math.PI * 2 / (float)num);
                                     }
                                     angle += ((float)Math.PI * 2 / (float)num) / (float)counts;
