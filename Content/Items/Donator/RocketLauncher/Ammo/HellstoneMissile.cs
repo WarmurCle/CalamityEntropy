@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
         public override void AddRecipes()
         {
             CreateRecipe(100)
-		.AddIngredient(ModContent.ItemType<OsseousRemains>())
+		        .AddIngredient(ModContent.ItemType<OsseousRemains>())
                 .AddIngredient(ItemID.HellstoneBar, 1)
                 .AddIngredient(ItemID.Bomb, 1)
                 .AddTile(TileID.Anvils)
