@@ -1291,7 +1291,7 @@ namespace CalamityEntropy.Common
             }
             if (!Main.dedServ && vetrasylsEye && vShieldCD <= 0 && CEKeybinds.VetrasylsEyeBlockHotKey.JustReleased)
             {
-                vShieldCD = 40.ApplyCdDec(Player);
+                vShieldCD = 180.ApplyCdDec(Player);
                 Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).normalize() * 6, ModContent.ProjectileType<WelkingShield>(), 0, 0, Player.whoAmI);
             }
             vShieldCD -= 1;
