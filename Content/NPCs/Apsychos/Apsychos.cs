@@ -182,7 +182,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             NPC.timeLeft *= 4;
             if (!Main.dedServ)
             {
-                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/Placeholder");
+                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/Apsychos");
             }
             if(Main.getGoodWorld)
                 NPC.scale = 1.25f;
