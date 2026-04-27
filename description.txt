@@ -1,5 +1,7 @@
 ﻿[h1]This mod is an addon for CalamityMod[/h1]
 
+-Fully Multiplay Support-
+
 [h2]-What we added-[/h2]
 5 new boss
 weapons
