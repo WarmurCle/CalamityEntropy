@@ -358,9 +358,19 @@ namespace CalamityEntropy.Content.ILEditing
             if (Main.gameMenu)
                 return orig(item);
             string orgName = orig.Invoke(item);
-            if (item.TryGetGlobalItem<EGlobalItem>(out var ei) && ei.GetOverrideName(item, orgName, out string NameNew))
+            if (item.active)
             {
-                return NameNew;
+                string name = orgName;
+                try
+                {
+                    if (item.TryGetGlobalItem<EGlobalItem>(out var ei) && ei.GetOverrideName(item, orgName, out string NameNew))
+                    {
+                        name = NameNew;
+                    }
+                }
+                catch { }
+
+                return name;
             }
             return orgName;
         }
