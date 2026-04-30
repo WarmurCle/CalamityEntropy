@@ -659,7 +659,7 @@ Items: {
 			Puts a shell around the owner when below 50% life that reduces damage taken
 			Absorbs 25% of damage done to players on your team when above 25% life
 			Provide you with a Holy Shield that can withstand damage once
-			This effect has a 120 second cooldown time
+			This effect has a 150 second cooldown time
 			Hold shift and right click to toggle [i:PanicNecklace] [c/aaaaaa:Panic Necklace's effect]
 			[TOGGLE]
 			'''
@@ -693,7 +693,6 @@ Items: {
 			When the magic shield is broken, it eliminates its own magic sickness and benefits, and returns to its full magic value,
 			When there is no shield, magic barrage can suck blood
 			The higher your current magic value, the higher your blood sucking ability
-			The shield can not be affected by your defence and dr
 			You can not get magic shield when equip the Chalice of the Blood God
 			'''
 	}
@@ -857,7 +856,7 @@ Items: {
 		DisplayName: Archmage's Handmirror
 		Tooltip:
 			'''
-			Gives you 40% extra mana
+			Gives you 25% extra mana
 			Every 1 extra mana provides 0.15% magic damage bonus
 			'''
 	}
@@ -969,7 +968,7 @@ Items: {
 		Tooltip:
 			'''
 			Provide you with a Holy Shield that can withstand damage once
-			This effect has a 120 second cooldown time
+			This effect has a 150 second cooldown time
 			Loot from hallow monsters
 			'''
 	}
@@ -1480,7 +1479,7 @@ Items: {
 		Tooltip:
 			'''
 			+20% Damage
-			+20% Crit Chance
+			+10% Crit Chance
 			+10% Melee Speed
 			+200 Max Life
 			+200 Max Mana
@@ -1491,9 +1490,9 @@ Items: {
 		DisplayName: Marivinium Greaves
 		Tooltip:
 			'''
-			+30% Speed
+			+36% Speed
 			-20% Mana Cost
-			+15% Damage
+			+5% Damage
 			+5 Crit Chance
 			'''
 	}
@@ -2814,7 +2813,7 @@ Items: {
 		Level4:
 			'''
 			Effects of Mana Sickness and Mana Burn are halved.
-			Every 2 stacks of Empowered Mania grant 0.05% damage reduction.
+			Every 2 stacks of Empowered Mania grant 0.03% damage reduction.
 			Enhances health regeneration when hit while restoring mana.
 			'''
 		Level5:
@@ -3087,7 +3086,7 @@ Items: {
 			Creat a bubble to protect your
 			Bubble will pop after taken damage
 			Bubble need 60 sec to respawn
-			When there isn't a bubble, your damage will causing sulphurous poitioning
+			When there isn't a bubble, your damage will causing Irradiated
 			'''
 	}
 
@@ -3309,7 +3308,7 @@ Items: {
 		DisplayName: Exquisite Bookmark Holder
 		Tooltip:
 			'''
-			+[S]% Magic Weapons' Attack Speed
+			+[S]% Magic Crit
 			Gives an additional bookmark slot for entropy books
 			"Exquisite bookmark holder with a magic hat on top"
 			   Sold by Traveling Merchant
@@ -3321,7 +3320,7 @@ Items: {
 		Tooltip:
 			'''
 			+[D]% Magic Damage
-			+[S]% Magic Weapons' Attack Speed
+			+[S]% Magic Crit
 			Gives 2 additional bookmark slot for entropy books
 			"A bookmark holder with divine radiance,
 			making it easy to tightly clip bookmarks into books"
@@ -3757,9 +3756,9 @@ Items: {
 		DisplayName: Talisman of the Azure Abyss
 		Tooltip:
 			'''
-			You can now breath in abyss
-			Increase 15% damage
-			Increase 4/s life regen
+			You can now breath in abyss , immune HadopelagicPressure and CrushDepth
+			Increase 15% damage and speed
+			Increase 2.5HP/s life regen
 			When receiving damage greater than 35% of maximum health, spawn an Azure Shield
 			Azure Shield will reduce 25% damage you take
 			Spawn some Azure Vortexs that will chase enemies simultaneously
@@ -4081,16 +4080,13 @@ MariviniumSet:
 	'''
 	+20% Melee Damage Reduce
 	+10 Minion Slot
-	+100% Summon Damage
-	+5% Summon Crit
-	+10% Damage Reduce
+	+75% Summon Damage
 	+135 Rogue Stealth
 	When standing, increase life regen
 	Immunity to most debuffs
 	When using true melee weapons, +10% Damage reduce and 15 defense
-	When using a whip, enhance summoner attributes
 	Stealth strike has a probability of causing an water explosion
-	Obtain 2 layers of shields, which will take 30 seconds to recover after being shattered
+	Obtain 2 layers of shields, which will take 36 seconds to recover after being shattered
 	After shield shattered, treat 100 health points and +50% damage for 10 seconds
 	'''
 DeathMode: Death Mode
