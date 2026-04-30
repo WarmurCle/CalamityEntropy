@@ -1940,7 +1940,7 @@ namespace CalamityEntropy.Common
                         Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<AzureShield>(), 0, 0, Player.whoAmI);
                         for (int i = 0; i < 3; i++)
                         {
-                            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 16, ModContent.ProjectileType<AzureVortex>(), (int)(Player.GetBestClassDamage().ApplyTo(1200.ApplyAccArmorDamageBonus())), 0, Player.whoAmI);
+                            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, CEUtils.randomRot().ToRotationVector2() * 16, ModContent.ProjectileType<AzureVortex>(), (int)(Player.GetBestClassDamage().ApplyTo(1300.ApplyAccArmorDamageBonus())), 0, Player.whoAmI);
                         }
                     }
                 }
@@ -2034,7 +2034,7 @@ namespace CalamityEntropy.Common
             }
             if (info.Damage > Player.statLifeMax2 / 20 && MariviniumShieldCount > 0)
             {
-                immune = 45;
+                immune = 30;
                 MariviniumShieldCount--;
                 Player.Heal(100);
                 CEUtils.PlaySound("crystalShieldBreak", 1, Player.Center, 1, 0.7f);
@@ -2045,7 +2045,7 @@ namespace CalamityEntropy.Common
                 }
                 return true;
             }
-            if (HolyShield && info.Damage > 120)
+            if (HolyShield && info.Damage > 100)
             {
                 immune = 120;
                 HolyShield = false;
@@ -3994,7 +3994,7 @@ namespace CalamityEntropy.Common
             }
             if (ArchmagesMirror)
             {
-                enhancedMana += 0.4f;
+                enhancedMana += 0.25f;
             }
             enhancedMana += Player.GetModPlayer<VastMPlayer>().GetEnhancedMana;
             if (EvilDeck)
