@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
     [AutoloadEquip(EquipType.Head)]
     public class MariviniumHelmet : ModItem
     {
-        public static int ShieldCd = 30 * 60;
+        public static int ShieldCd = 36 * 60;
         public static int MaxShield = 2;
         public override void SetDefaults()
         {
@@ -36,13 +36,9 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = Mod.GetLocalization("MariviniumSet").Value;
-            player.Entropy().meleeDamageReduce += 0.2f;
+            player.Entropy().meleeDamageReduce += 0.20f;
             player.maxMinions += 10;
-            player.Entropy().damageReduce += 0.10f;
-            player.GetDamage(DamageClass.Summon) += 1;
-            player.whipRangeMultiplier += 0.2f;
-            player.GetAttackSpeed(DamageClass.Summon) += 0.2f;
-            player.Entropy().summonCrit += 5;
+            player.GetDamage(DamageClass.Summon) += 0.75f;
             player.Entropy().MariviniumSet = true;
             if (!ModContent.GetInstance<Config>().MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons || player.HeldItem.DamageType.CountsAsClass(CEUtils.RogueDC))
             {
@@ -51,7 +47,7 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             }
             if (player.velocity.Length() < 1)
             {
-                player.lifeRegen += 15;
+                player.lifeRegen += 20;
                 player.Entropy().lifeRegenPerSec += 1;
             }
             ApplyBuffImmune(player);
@@ -91,6 +87,7 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             player.buffImmune[ModContent.BuffType<Shadowflame>()] = true;
             player.buffImmune[ModContent.BuffType<MaliciousCode>()] = true;
             player.buffImmune[ModContent.BuffType<CrushDepth>()] = true;
+	        player.buffImmune[ModContent.BuffType<HadopelagicPressure>()] = true;
             if (Main.zenithWorld)
             {
                 player.buffImmune[ModContent.BuffType<NOU>()] = true;
@@ -99,8 +96,8 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
         public override void UpdateEquip(Player player)
         {
             player.GetDamage(DamageClass.Generic) += 0.2f;
-            player.GetCritChance(DamageClass.Generic) += 20;
-            player.GetAttackSpeed(DamageClass.Melee) += 0.10f;
+            player.GetCritChance(DamageClass.Generic) += 10;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.20f;
             player.statLifeMax2 += 200;
             player.statManaMax2 += 200;
         }

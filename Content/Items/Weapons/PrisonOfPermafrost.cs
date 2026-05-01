@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Summon;
@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 200;
+            Item.damage = 150;
             Item.DamageType = DamageClass.Magic;
             Item.width = 96;
             Item.noUseGraphic = true;
@@ -28,10 +28,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.UseSound = null;
             Item.shoot = ModContent.ProjectileType<PrisonOfPermafrostCircle>();
             Item.shootSpeed = 1f;
-            Item.mana = 14;
+            Item.mana = 20;
             Item.useStyle = -1;
             Item.noMelee = true;
-            Item.crit = 7;
+            Item.crit = 5;
             Item.Entropy().tooltipStyle = 1;
             Item.Entropy().stroke = true;
             Item.Entropy().strokeColor = new Color(70, 210, 250);
@@ -56,10 +56,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<GlacialEmbrace>(), 1);
-            recipe.AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 5);
             recipe.AddIngredient(ModContent.ItemType<IceBarrage>(), 1);
-            recipe.AddIngredient(ModContent.ItemType<AuricBar>(), 10);
+            recipe.AddIngredient(ModContent.ItemType<GlacialEmbrace>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<AuricBar>(), 5);
+	        recipe.AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 2);
             recipe.AddTile(ModContent.TileType<CosmicAnvil>());
             recipe.Register();
         }

@@ -1,6 +1,8 @@
-﻿using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
+using CalamityMod.Buffs.DamageOverTime;
+using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
@@ -21,22 +23,29 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.accessory = true;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.rare = ModContent.RarityType<VoidPurple>();
-            Item.defense = 15;
+            Item.defense = 10;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().accAzureAbyss = true;
-            player.lifeRegen += 8;
+            player.lifeRegen += 5;
             player.GetDamage(DamageClass.Generic) += 0.15f;
+	        player.Entropy().moveSpeed += 0.15f;
         }
+
+        public static void ApplyBuffImmune(Player player)
+        {
+            player.buffImmune[ModContent.BuffType<CrushDepth>()] = true;
+	        player.buffImmune[ModContent.BuffType<HadopelagicPressure>()] = true;
+	    }
 
         public override void AddRecipes()
         {
             CreateRecipe().
-                AddIngredient<VoidBar>(4).
+                AddIngredient<VoidBar>(5).
                 AddIngredient<Lumenyl>(6).
-                AddIngredient<AscendantSpiritEssence>(2).
+                AddIngredient<AscendantSpiritEssence>(4).
                 AddTile(ModContent.TileType<VoidWellTile>()).
                 Register();
         }

@@ -1,4 +1,4 @@
-﻿using CalamityMod.Items;
+using CalamityMod.Items;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class ExquisiteBookmarkHolder : ModItem
     {
-        public static float MAGESPEED = 0.08f;
+        public static float MAGESPEED = 5;
         public override void SetDefaults()
         {
             Item.width = 18;
@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().AdditionalBookmarkSlot += 1;
-            player.GetAttackSpeed(DamageClass.Magic) += MAGESPEED;
+            player.GetCritChance(DamageClass.Magic) += MAGESPEED;
             if (!Main.dedServ)
                 player.Entropy().BookmarkHolderSpecialTextures.Add(CEUtils.RequestTex("CalamityEntropy/Content/UI/EntropyBookUI/Extra2"));
         }

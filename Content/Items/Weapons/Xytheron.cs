@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 player.RemoveAllGrapplingHooks();
                 if (player.mount.Active)
                     player.mount.Dismount(player);
-                Projectile.NewProjectile(source, position, velocity.SafeNormalize(Vector2.UnitX) * (42 + charge * 1.9f), type, (int)(damage / 2.8f * (charge + 1)), knockback, player.whoAmI, charge);
+                Projectile.NewProjectile(source, position, velocity.SafeNormalize(Vector2.UnitX) * (42 + charge * 1.9f), type, (int)(damage / 4.0f * (charge + 1)), knockback, player.whoAmI, charge);
                 charge = 0;
             }
             else

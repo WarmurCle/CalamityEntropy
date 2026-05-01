@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
         public List<Vector2> OldPos = new List<Vector2>();
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.ArmorPenetration += 64;
+            modifiers.ArmorPenetration += 80;
 
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -165,7 +165,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                                 CEUtils.PlaySound("lasershoot", Main.rand.NextFloat(1f, 1.2f), Projectile.Center, 64);
                                 CEUtils.PlaySound("lasershoot", Main.rand.NextFloat(1f, 1.2f), Projectile.Center, 64);
 
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 36, ModContent.ProjectileType<CarverBolt>(), (int)(Projectile.damage * 3.5f), 4, Projectile.owner).ToProj().scale *= 0.7f;
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 36, ModContent.ProjectileType<CarverBolt>(), (int)(Projectile.damage * 2.0f), 4, Projectile.owner).ToProj().scale *= 0.7f;
                                 Projectile.velocity -= Projectile.rotation.ToRotationVector2() * 12;
                             }
                         }
@@ -186,7 +186,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                                     if (Delay <= 0 && p.Colliding(p.getRect(), Projectile.getRect()))
                                     {
                                         p.Kill();
-                                        Delay = (int)(180 / DelayMult);
+                                        Delay = (int)(420 / DelayMult);
                                         CEUtils.PlaySound("LightHit", 1, Projectile.Center);
                                     }
                                     else
@@ -198,7 +198,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                                 }
                             }
                         }
-                        if (hasproj && Delay <= 12)
+                        if (hasproj && Delay <= 20)
                         {
                             for (int i = 0; i < 4; i++)
                             {

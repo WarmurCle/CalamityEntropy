@@ -114,7 +114,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
         {
             Item.width = 80;
             Item.height = 150;
-            Item.damage = 30;
+            Item.damage = 25;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 30;
             Item.useAnimation = 30;
@@ -172,30 +172,30 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             {
                 RecheckStats = false;
                 LevelNow = lv;
-                int dmg = 30;
+                int dmg = 25;
                 switch (lv)
                 {
-                    case 0: dmg = 30; break;
-                    case 1: dmg = 45; break;
-                    case 2: dmg = 50; break;
-                    case 3: dmg = 55; break;
-                    case 4: dmg = 60; break;
-                    case 5: dmg = 70; break;
-                    case 6: dmg = 75; break;
-                    case 7: dmg = 90; break;
-                    case 8: dmg = 115; break;
-                    case 9: dmg = 125; break;
-                    case 10: dmg = 175; break;
-                    case 11: dmg = 225; break;
-                    case 12: dmg = 300; break;
-                    case 13: dmg = 425; break;
-                    case 14: dmg = 500; break;
+                    case 0: dmg = 25; break;
+                    case 1: dmg = 32; break;
+                    case 2: dmg = 42; break;
+                    case 3: dmg = 52; break;
+                    case 4: dmg = 70; break;
+                    case 5: dmg = 75; break;
+                    case 6: dmg = 80; break;
+                    case 7: dmg = 95; break;
+                    case 8: dmg = 120; break;
+                    case 9: dmg = 130; break;
+                    case 10: dmg = 180; break;
+                    case 11: dmg = 215; break;
+                    case 12: dmg = 280; break;
+                    case 13: dmg = 375; break;
+                    case 14: dmg = 480; break;
                     case 15: dmg = 900; break;
-                    case 16: dmg = 1200; break;
+                    case 16: dmg = 1250; break;
                 }
 
                 Item.damage = dmg;
-                Item.crit = lv * 3;
+                Item.crit = lv ;
                 Item.knockBack = lv / 2;
                 Item.scale = 1;
                 Item.useTime = Item.useAnimation = 30;
@@ -398,9 +398,9 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                             var shoot = Projectile.Center + vec + CEUtils.randomPointInCircle(400);
                             var targetPos = Main.MouseWorld;
                             int type = ModContent.ProjectileType<CarverSpike>();
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), shoot, (targetPos - shoot).normalize() * 16, type, damage / 8, kb / 10, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), shoot, (targetPos - shoot).normalize() * 16, type, damage / 14, kb / 10, Projectile.owner);
                             shoot = Projectile.Center - vec + CEUtils.randomPointInCircle(400);
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), shoot, (targetPos - shoot).normalize() * 16, type, damage / 8, kb / 10, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), shoot, (targetPos - shoot).normalize() * 16, type, damage / 14, kb / 10, Projectile.owner);
                         }
                     }
                     if (SpikeTimer <= 0)
@@ -417,7 +417,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                             int type = ModContent.ProjectileType<CarverBolt>();
 
                             player.PickAmmo(player.HeldItem, out int projID, out float shootSpeed, out int damage, out float kb, out var ammoID, true);
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 18, CEUtils.randomPointInCircle(16), type, damage, kb, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 18, CEUtils.randomPointInCircle(16), type, damage / 2, kb, Projectile.owner);
                         }
                     }
                     if (BoltTimer <= 0)
