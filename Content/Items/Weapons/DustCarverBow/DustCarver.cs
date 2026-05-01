@@ -177,20 +177,20 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                 {
                     case 0: dmg = 25; break;
                     case 1: dmg = 32; break;
-                    case 2: dmg = 40; break;
-                    case 3: dmg = 50; break;
+                    case 2: dmg = 42; break;
+                    case 3: dmg = 52; break;
                     case 4: dmg = 70; break;
                     case 5: dmg = 75; break;
                     case 6: dmg = 80; break;
-                    case 7: dmg = 90; break;
-                    case 8: dmg = 115; break;
-                    case 9: dmg = 125; break;
+                    case 7: dmg = 95; break;
+                    case 8: dmg = 120; break;
+                    case 9: dmg = 130; break;
                     case 10: dmg = 180; break;
                     case 11: dmg = 215; break;
-                    case 12: dmg = 270; break;
-                    case 13: dmg = 370; break;
-                    case 14: dmg = 470; break;
-                    case 15: dmg = 800; break;
+                    case 12: dmg = 280; break;
+                    case 13: dmg = 375; break;
+                    case 14: dmg = 480; break;
+                    case 15: dmg = 900; break;
                     case 16: dmg = 1250; break;
                 }
 
