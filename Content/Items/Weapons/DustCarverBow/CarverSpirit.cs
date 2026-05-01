@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
         {
             if (HealingCooldown <= 0)
             {
-                HealingCooldown = 40.ApplyCdDec(Projectile.GetOwner());
+                HealingCooldown = 30.ApplyCdDec(Projectile.GetOwner());
                 Projectile.GetOwner().Heal(1);
             }
         }
@@ -186,7 +186,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                                     if (Delay <= 0 && p.Colliding(p.getRect(), Projectile.getRect()))
                                     {
                                         p.Kill();
-                                        Delay = (int)(450 / DelayMult);
+                                        Delay = (int)(420 / DelayMult);
                                         CEUtils.PlaySound("LightHit", 1, Projectile.Center);
                                     }
                                     else
