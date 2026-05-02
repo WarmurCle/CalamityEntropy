@@ -121,7 +121,7 @@ namespace CalamityEntropy.Content.Projectiles
                             Projectile.velocity *= 0;
                             Projectile.Center = stickNPCIndex.ToNPC().Center + offset;
                             Projectile.ai[0]++;
-                            if (Projectile.ai[0] % 14 == 0)
+                            if (Projectile.ai[0] % 36 == 0)
                             {
                                 player.Heal(1);
                             }
@@ -202,7 +202,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (stickOnNPC)
             {
-                modifiers.SourceDamage /= 6;
+                modifiers.SourceDamage /= 2;
             }
         }
     }

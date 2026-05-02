@@ -13,9 +13,9 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 72;
+            Item.damage = 56;
             Item.useAnimation = Item.useTime = 18;
-            Item.crit = 10;
+            Item.crit = 5;
             Item.mana = 16;
             Item.rare = Item.rare = ItemRarityID.Red;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
