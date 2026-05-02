@@ -4240,6 +4240,11 @@ Items: {
 		DisplayName: 阿萨福勒支援遥控
 		Tooltip: 召唤一架阿萨福勒迷你战斗机，向敌人发射穿甲弹
 	}
+
+	AerialiteMissile: {
+		DisplayName: 天蓝导弹
+		Tooltip: 爆炸时生成羽毛
+	}
 }
 
 SmolderingSetBonus:
@@ -4946,6 +4951,8 @@ Projectiles: {
 	CombatDroneBullet.DisplayName: 无人机穿甲弹
 	EmberFireball.DisplayName: 余烬火球
 	GhostFireMagic.DisplayName: 鬼火
+	AerialiteMissileFeather.DisplayName: 天蓝羽毛
+	AerialiteMissileProj.DisplayName: 天蓝导弹
 }
 
 LegendTooltip: - 传奇物品 -

@@ -4002,6 +4002,11 @@ Items: {
 		DisplayName: Azafure Support Remote
 		Tooltip: Summon a combat drone, shooting armor-piercing shell to enemies
 	}
+
+	AerialiteMissile: {
+		DisplayName: Aerialite Missile
+		Tooltip: Spawn feathers when explode
+	}
 }
 
 SmolderingSetBonus:
@@ -4719,6 +4724,8 @@ Projectiles: {
 	CombatDroneBullet.DisplayName: Combat Drone Bullet
 	EmberFireball.DisplayName: Ember Fireball
 	GhostFireMagic.DisplayName: Ghost Fire Magic
+	AerialiteMissileFeather.DisplayName: Aerialite Missile Feather
+	AerialiteMissileProj.DisplayName: Aerialite Missile Proj
 }
 
 LegendTooltip: - Legend -
