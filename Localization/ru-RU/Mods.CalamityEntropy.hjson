@@ -2801,7 +2801,7 @@ Items: {
 		/* Level4:
 			'''
 			Effects of Mana Sickness and Mana Burn are halved.
-			Every 2 stacks of Empowered Mania grant 0.05% damage reduction.
+			Every 2 stacks of Empowered Mania grant 0.03% damage reduction.
 			Enhances health regeneration when hit while restoring mana.
 			''' */
 		/* Level5:
@@ -3074,7 +3074,7 @@ Items: {
 			Creat a bubble to protect your
 			Bubble will pop after taken damage
 			Bubble need 60 sec to respawn
-			When there isn't a bubble, your damage will causing sulphurous poitioning
+			When there isn't a bubble, your damage will causing Irradiated
 			''' */
 	}
 
@@ -3296,7 +3296,7 @@ Items: {
 		// DisplayName: Exquisite Bookmark Holder
 		/* Tooltip:
 			'''
-			+[S]% Magic Weapons' Attack Speed
+			+[S]% Magic Crit
 			Gives an additional bookmark slot for entropy books
 			"Exquisite bookmark holder with a magic hat on top"
 			   Sold by Traveling Merchant
@@ -3308,7 +3308,7 @@ Items: {
 		/* Tooltip:
 			'''
 			+[D]% Magic Damage
-			+[S]% Magic Weapons' Attack Speed
+			+[S]% Magic Crit
 			Gives 2 additional bookmark slot for entropy books
 			"A bookmark holder with divine radiance,
 			making it easy to tightly clip bookmarks into books"
@@ -3744,9 +3744,9 @@ Items: {
 		// DisplayName: Talisman of the Azure Abyss
 		/* Tooltip:
 			'''
-			You can now breath in abyss
-			Increase 15% damage
-			Increase 4/s life regen
+			You can now breath in abyss , immune HadopelagicPressure and CrushDepth
+			Increase 15% damage and speed
+			Increase 2.5HP/s life regen
 			When receiving damage greater than 35% of maximum health, spawn an Azure Shield
 			Azure Shield will reduce 25% damage you take
 			Spawn some Azure Vortexs that will chase enemies simultaneously
