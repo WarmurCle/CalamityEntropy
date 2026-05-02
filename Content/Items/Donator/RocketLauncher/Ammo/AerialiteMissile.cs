@@ -132,7 +132,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             for (int i = 0; i < 6; i++)
             {
                 Vector2 velocity = ((MathHelper.TwoPi * i / 6) - (MathHelper.Pi / 16f) + r).ToRotationVector2() * 10f;
-                var sparkle = new CritSpark(target.Center, velocity, Color.White, Color.SkyBlue, 0.6f, 20, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
+                var sparkle = new CritSpark(target.Center, velocity, Color.White, Color.LightSkyBlue, 0.6f, 20, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
                 GeneralParticleHandler.SpawnParticle(sparkle);
             }
         }
