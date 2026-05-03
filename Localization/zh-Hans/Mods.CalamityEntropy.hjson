@@ -4139,12 +4139,12 @@ Items: {
 
 	HellstoneMissile: {
 		DisplayName: 狱炎导弹
-		Tooltip: ""
+		Tooltip: 每个黏附的射弹增加5%目标受到伤害
 	}
 
 	WulfrumMissile: {
 		DisplayName: 钨钢导弹
-		Tooltip: ""
+		Tooltip: 每个黏附的射弹增加5%目标受到伤害
 	}
 
 	CursedRunestone: {
@@ -4243,7 +4243,22 @@ Items: {
 
 	AerialiteMissile: {
 		DisplayName: 天蓝导弹
-		Tooltip: 爆炸时生成羽毛
+		Tooltip:
+			'''
+			爆炸时生成羽毛
+			每个黏附的射弹增加5%目标受到伤害
+			'''
+	}
+
+	ClusterMissile: {
+		DisplayName: 集束导弹
+		Tooltip:
+			'''
+			飞行一段时间或命中后爆炸
+			爆炸时分裂出5发追踪小型导弹
+			小型导弹可黏附在目标身上，并拥有两倍的黏附上限
+			每个黏附的小型导弹增加3%目标受到伤害
+			'''
 	}
 }
 
@@ -4953,6 +4968,8 @@ Projectiles: {
 	GhostFireMagic.DisplayName: 鬼火
 	AerialiteMissileFeather.DisplayName: 天蓝羽毛
 	AerialiteMissileProj.DisplayName: 天蓝导弹
+	ClusterMissileProj.DisplayName: 集束导弹
+	ClusterMissileSmall.DisplayName: 小型导弹
 }
 
 LegendTooltip: - 传奇物品 -

@@ -193,7 +193,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override bool? CanHitNPC(NPC target)
         {
-            return ShouldUpdatePosition();
+            return ShouldUpdatePosition() ? null : false;
         }
         public override bool ShouldUpdatePosition()
         {

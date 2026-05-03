@@ -142,7 +142,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override bool? CanHitNPC(NPC target)
         {
-            return Projectile.localAI[0] > 16;
+            return Projectile.localAI[0] > 16 ? null : false;
         }
         public override void AI()
         {

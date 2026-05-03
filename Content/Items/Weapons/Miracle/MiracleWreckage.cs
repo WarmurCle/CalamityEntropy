@@ -860,7 +860,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         {
             if (Projectile.timeLeft < 16)
                 return false;
-            return CanHitNPC(target);
+            return null;
         }
         public override void AI()
         {

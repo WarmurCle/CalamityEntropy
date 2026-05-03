@@ -217,7 +217,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 return false;
             }
-            return base.CanHitNPC(target);
+            return null;
         }
         public bool playHitSound = true;
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)

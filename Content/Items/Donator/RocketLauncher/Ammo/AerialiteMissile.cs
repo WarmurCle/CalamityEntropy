@@ -123,7 +123,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
         }
         public override bool? CanHitNPC(NPC target)
         {
-            return Projectile.ai[0] >= 70;
+            return Projectile.ai[0] >= 70 ? null : false;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

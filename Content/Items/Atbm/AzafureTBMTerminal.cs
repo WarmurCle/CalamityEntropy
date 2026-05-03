@@ -219,7 +219,7 @@ namespace CalamityEntropy.Content.Items.Atbm
         }
         public override bool? CanHitNPC(NPC target)
         {
-            return Active;
+            return Active ? null : false;
         }
         public bool InGround = false;
         public bool Active => mplayer.ControlJump;

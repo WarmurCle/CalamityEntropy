@@ -381,7 +381,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 Projectile.localNPCHitCooldown = 2 * 10;
             }
-            return base.CanHitNPC(target);
+            return null;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

@@ -3881,12 +3881,12 @@ Items: {
 
 	HellstoneMissile: {
 		// DisplayName: Hellstone Missile
-		// Tooltip: ""
+		// Tooltip: +5% Damage each attached projectile
 	}
 
 	WulfrumMissile: {
 		// DisplayName: Wulfrum Missile
-		// Tooltip: ""
+		// Tooltip: +5% Damage each attached projectile
 	}
 
 	CursedRunestone: {
@@ -3993,7 +3993,22 @@ Items: {
 
 	AerialiteMissile: {
 		// DisplayName: Aerialite Missile
-		// Tooltip: Spawn feathers when explode
+		/* Tooltip:
+			'''
+			Spawn feathers when explode
+			+5% Damage each attached projectile
+			''' */
+	}
+
+	ClusterMissile: {
+		// DisplayName: Cluster Missile
+		/* Tooltip:
+			'''
+			Explosion after a period of time or on-hit
+			Split to 5 small missile that chasing enemies when explode
+			+100% max adhered missile
+			+3% Damage each attached projectile
+			''' */
 	}
 }
 
@@ -4076,7 +4091,7 @@ MariviniumSet:
 DeathMode: Смерть
 CdMantle: Перезарядка Святой Мантии
 // MissileLauncherDescTooltip: Launch missiles that can adhere to the enemy and cause sustained damage
-// MissileLauncherMaxStickTooltip: Up to {0} adhesive threads
+// MissileLauncherMaxStickTooltip: Up to {0} can be adhered
 
 Projectiles: {
 	VoidBladeProj.DisplayName: Клинок пустоты
@@ -4705,6 +4720,8 @@ Projectiles: {
 	// GhostFireMagic.DisplayName: Ghost Fire Magic
 	// AerialiteMissileFeather.DisplayName: Aerialite Missile Feather
 	// AerialiteMissileProj.DisplayName: Aerialite Missile Proj
+	// ClusterMissileProj.DisplayName: Cluster Missile Proj
+	// ClusterMissileSmall.DisplayName: Cluster Missile Small
 }
 
 LegendTooltip: - Легенда -
