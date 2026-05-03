@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.rare = ModContent.RarityType<NihilityBlue>();
             Item.shoot = ModContent.ProjectileType<OblivionArrow>();
-            Item.UseSound = new Terraria.Audio.SoundStyle("CalamityEntropy/Assets/Sounds/feathershot") { MaxInstances = 10, Volume = 0.4f };
+            Item.UseSound = new Terraria.Audio.SoundStyle("CalamityEntropy/Assets/Sounds/feathershot") { MaxInstances = 60, Volume = 0.3f, PitchRange = (0.8f, 1f) };
             Item.shootSpeed = 16f;
             Item.useAmmo = AmmoID.Arrow;
             Item.autoReuse = true;
@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             type = ModContent.ProjectileType<OblivionArrow>();
-            Projectile.NewProjectile(source, position, velocity.RotatedByRandom(1), type, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, position, velocity.RotatedByRandom(0.32f), type, damage, knockback, player.whoAmI);
             return false;
         }
 

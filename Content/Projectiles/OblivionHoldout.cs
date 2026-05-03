@@ -59,14 +59,16 @@ namespace CalamityEntropy.Content.Projectiles
                     uposu = v1[i - 1].pos;
                     uposd = v2[i - 1].pos;
                 }
+                v1[i].pos -= Projectile.rotation.ToRotationVector2() * 8;
+                v2[i].pos -= Projectile.rotation.ToRotationVector2() * 8;
                 v1[i].pos = uposu - (uposu - v1[i].pos).SafeNormalize(-Vector2.UnitX) * 12;
                 v1[i].rot = (uposu - v1[i].pos).ToRotation();
                 v2[i].pos = uposd - (uposd - v2[i].pos).SafeNormalize(-Vector2.UnitX) * 12;
                 v2[i].rot = (uposd - v2[i].pos).ToRotation();
 
-                v1[i].rot = CEUtils.RotateTowardsAngle(v1[i].rot, urotu, 0.67f, false);
+                v1[i].rot = CEUtils.RotateTowardsAngle(v1[i].rot, urotu, 0.5f, false);
                 v1[i].pos = uposu - v1[i].rot.ToRotationVector2() * 12;
-                v2[i].rot = CEUtils.RotateTowardsAngle(v2[i].rot, urotd, 0.67f, false);
+                v2[i].rot = CEUtils.RotateTowardsAngle(v2[i].rot, urotd, 0.5f, false);
                 v2[i].pos = uposd - v2[i].rot.ToRotationVector2() * 12;
 
             }
@@ -136,7 +138,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public Color TrailColor(float completionRatio, Vector2 vertex)
         {
-            Color result = new Color(30, 60, 160);
+            Color result = new Color(230, 200, 255);
             return result * completionRatio;
         }
 
@@ -184,7 +186,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (mp.Count > 1)
             {
                 List<ColoredVertex> ve = new List<ColoredVertex>();
-                Color b = new Color(16, 35, 85);
+                Color b = new Color(30, 30, 150);
 
                 float a = 0;
                 float lr = 0;
