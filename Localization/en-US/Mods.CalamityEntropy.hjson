@@ -4022,6 +4022,11 @@ Items: {
 			+3% Damage each attached projectile
 			'''
 	}
+
+	GiantBoulder: {
+		DisplayName: Giant Boulder
+		Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
@@ -4743,6 +4748,7 @@ Projectiles: {
 	AerialiteMissileProj.DisplayName: Aerialite Missile Proj
 	ClusterMissileProj.DisplayName: Cluster Missile Proj
 	ClusterMissileSmall.DisplayName: Cluster Missile Small
+	GiantBoulderProj.DisplayName: Giant Boulder Proj
 }
 
 LegendTooltip: - Legend -
@@ -5372,6 +5378,7 @@ Tiles: {
 	VoidOre.MapEntry: Void Ore
 	VoidOreTile.MapEntry: Void Ore Tile
 	VoidBarTile.MapEntry: Void Bar Tile
+	GiantBoulderTile.MapEntry: Giant Boulder Tile
 }
 
 VoidChargeBar: Void Charging Bar

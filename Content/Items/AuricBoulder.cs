@@ -12,13 +12,11 @@ namespace CalamityEntropy.Content.Items
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 100;
-            ItemID.Sets.SortingPriorityMaterials[Type] = 119;
+            Item.ResearchUnlockCount = 10;
         }
 
         public override void SetDefaults()
         {
-
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTurn = true;
             Item.useAnimation = 15;

@@ -4260,6 +4260,11 @@ Items: {
 			每个黏附的小型导弹增加3%目标受到伤害
 			'''
 	}
+
+	GiantBoulder: {
+		DisplayName: 超大巨石
+		Tooltip: “残缺陷阱聚合而成的完美造物”
+	}
 }
 
 SmolderingSetBonus:
@@ -4970,6 +4975,7 @@ Projectiles: {
 	AerialiteMissileProj.DisplayName: 天蓝导弹
 	ClusterMissileProj.DisplayName: 集束导弹
 	ClusterMissileSmall.DisplayName: 小型导弹
+	GiantBoulderProj.DisplayName: 超大巨石
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5596,6 +5602,7 @@ Tiles: {
 	VoidOre.MapEntry: Void Ore
 	VoidOreTile.MapEntry: 虚渺矿
 	VoidBarTile.MapEntry: 虚渺锭
+	// GiantBoulderTile.MapEntry: Giant Boulder Tile
 }
 
 VoidChargeBar: 虚空充能条
