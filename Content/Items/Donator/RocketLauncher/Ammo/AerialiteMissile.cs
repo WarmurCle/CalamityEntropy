@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
         }
         public override void SpawnParticle(Vector2 vel)
         {
-            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, Projectile.velocity * 0.4f, false, 12, Main.rand.NextFloat(0.02f, 0.03f), Color.LightSkyBlue, new Vector2(1.2f, 1f), true, false));
+            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, vel * 0.4f, false, 12, Main.rand.NextFloat(0.02f, 0.03f), Color.LightSkyBlue, new Vector2(1.2f, 1f), true, false));
         }
         public override void OnKill(int timeLeft)
         {

@@ -55,8 +55,8 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             {
                 var d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Smoke);
                 d.noGravity = true;
-                d.position += Projectile.velocity * (i / 4f) + CEUtils.randomPointInCircle(6);
-                d.velocity = Projectile.velocity * 0.2f;
+                d.position += vel * (i / 4f) + CEUtils.randomPointInCircle(6);
+                d.velocity = vel * 0.2f;
                 d.scale = 1f;
             }
         }

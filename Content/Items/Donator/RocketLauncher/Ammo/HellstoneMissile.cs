@@ -79,8 +79,8 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             {
                 var d = Dust.NewDustDirect(Projectile.position, 0, 0, DustID.Flare);
                 d.noGravity = true;
-                d.position = Projectile.Center + CEUtils.randomPointInCircle(6) + Projectile.velocity * (i / 8f);
-                d.velocity = Projectile.velocity * 0.4f;
+                d.position = Projectile.Center + CEUtils.randomPointInCircle(6) + vel * (i / 8f);
+                d.velocity = vel * 0.4f;
                 d.scale = 1.15f;
             }
         }
