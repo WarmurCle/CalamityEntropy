@@ -36,13 +36,13 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.velocity.X != oldVelocity.X)
             {
-                ScreenShaker.AddShake(new ScreenShaker.ScreenShake(oldVelocity.normalize() * Vector2.UnitX * -6, oldVelocity.Length() * 0.3f));
+                ScreenShaker.AddShake(new ScreenShaker.ScreenShake(oldVelocity.normalize() * Vector2.UnitX * -6, oldVelocity.Length() * 0.4f));
                 CEUtils.PlaySound("RockCrumble", Main.rand.NextFloat(0.6f, 0.75f), Projectile.Center, 16, 0.4f);
                 Projectile.velocity.X = -oldVelocity.X * 1f;
             }
             if (Projectile.velocity.Y != oldVelocity.Y)
             {
-                ScreenShaker.AddShake(new ScreenShaker.ScreenShake(oldVelocity.normalize() * Vector2.UnitY * -6, oldVelocity.Length() * 0.3f));
+                ScreenShaker.AddShake(new ScreenShaker.ScreenShake(oldVelocity.normalize() * Vector2.UnitY * -6, oldVelocity.Length() * 0.4f));
                 for (int i = 0; i < 8; i++)
                     Dust.NewDustDirect(Projectile.Center + new Vector2(Main.rand.NextFloat(-1, 1) * 80 * Projectile.scale, 80 * Projectile.scale), 0, 0, DustID.Stone).scale = 2;
                 if (Math.Abs(Projectile.velocity.Y) > 1 || Main.rand.NextBool(32))

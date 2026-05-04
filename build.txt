@@ -7,6 +7,6 @@ weakReferences = InfernumMode, AlchemistNPCLite, CalamityOverhaul
 homepage = discord.gg/eAXVkq66
 buildIgnore = .vs\*, Properties\*, *.csproj, *.user, obj\*, bin\*, *.config, .git\*, .github\*, LICENSE, README.md, .editorconfig, .gitignore, .gitattributes, Effects\Compiler\*
 hideCode = false
-hideResources = true
+hideResources = false
 includeSource = false
 includePDB = true
