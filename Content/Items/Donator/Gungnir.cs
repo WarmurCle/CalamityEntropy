@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 36;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.knockBack = 1f;
+            Item.knockBack = 8f;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.maxStack = 1;

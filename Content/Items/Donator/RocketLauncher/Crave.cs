@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             Item.height = 42;
             Item.DamageType = DamageClass.Ranged;
             Item.damage = 80;
-            Item.knockBack = 4f;
+            Item.knockBack = 3f;
             var snd = CEUtils.GetSound("break");
             snd.PitchRange = (-0.4f, 0.1f);
             Item.UseSound = snd;

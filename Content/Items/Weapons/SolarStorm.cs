@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAnimation = 25;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
-            Item.knockBack = 3f;
+            Item.knockBack = 5f;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.shoot = ProjectileID.WoodenArrowFriendly;

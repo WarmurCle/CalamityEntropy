@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.height = 26;
             Item.useTime = 16;
             Item.useAnimation = 16;
-            Item.knockBack = 2;
+            Item.knockBack = 4;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.shoot = ModContent.ProjectileType<StarlightMothMinion>();
             Item.shootSpeed = 2f;

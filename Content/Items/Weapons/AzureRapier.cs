@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.scale = 2f;
             Item.DamageType = DamageClass.Melee;
             Item.damage = 10;
-            Item.knockBack = 4;
+            Item.knockBack = 5;
             Item.crit = 6;
             Item.shoot = ModContent.ProjectileType<AzureRapierHeld>();
             Item.shootSpeed = 16;

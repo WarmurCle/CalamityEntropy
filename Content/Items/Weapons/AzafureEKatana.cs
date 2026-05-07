@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.autoReuse = true;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.damage = 120;
-            Item.knockBack = 4;
+            Item.knockBack = 6;
             Item.crit = 15;
             Item.channel = true;
             Item.shoot = ModContent.ProjectileType<AzafureEKatanaSlash>();

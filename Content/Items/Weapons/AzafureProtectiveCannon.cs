@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.height = 38;
             Item.useTime = 40;
             Item.useAnimation = 40;
-            Item.knockBack = 2;
+            Item.knockBack = 6;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.shoot = ModContent.ProjectileType<AzafureProtectiveCannonShot>();
             Item.shootSpeed = 2f;

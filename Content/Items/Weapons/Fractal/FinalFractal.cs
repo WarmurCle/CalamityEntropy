@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Item.height = 60;
             Item.useTime = Item.useAnimation = 22;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 2;
+            Item.knockBack = 7;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.rare = ModContent.RarityType<AbyssalBlue>();
             Item.UseSound = null;

@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Item.height = 60;
             Item.useTime = Item.useAnimation = 50;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 2;
+            Item.knockBack = 6;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
             Item.rare = ItemRarityID.Red;
             Item.UseSound = null;

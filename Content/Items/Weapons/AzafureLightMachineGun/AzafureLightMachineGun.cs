@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
             Item.useTime = 8;
             Item.useAnimation = 8;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 3;
+            Item.knockBack = 4;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
             Item.rare = ModContent.RarityType<DarkOrange>();
             Item.UseSound = null;

@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAnimation = Item.useTime = 34;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.ArmorPenetration = 4;
-            Item.knockBack = 1f;
+            Item.knockBack = 4f;
             Item.UseSound = null;
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;

@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 20;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 1f;
+            Item.knockBack = 8f;
             Item.UseSound = SoundID.Item1;
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;

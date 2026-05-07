@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.knockBack = 2f;
+            Item.knockBack = 5f;
             Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
             Item.rare = ModContent.RarityType<CalamityRed>();
             Item.shootSpeed = 16f;

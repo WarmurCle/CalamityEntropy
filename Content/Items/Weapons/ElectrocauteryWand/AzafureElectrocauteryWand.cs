@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<AzafureElectrocauteryWandHeld>();
-            Item.knockBack = 5f;
+            Item.knockBack = 6f;
             Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.UseSound = null;

@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.useAnimation = 46;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
-            Item.knockBack = 2f;
+            Item.knockBack = 6f;
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.UseSound = CEUtils.GetSound("gunshot_large");

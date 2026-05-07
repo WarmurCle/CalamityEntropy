@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useTime = 10;
             Item.useAnimation = 10;
             Item.channel = true;
-            Item.knockBack = 4;
+            Item.knockBack = 5;
             Item.value = 145000;
             Item.rare = ModContent.RarityType<HotPink>();
             Item.UseSound = null;

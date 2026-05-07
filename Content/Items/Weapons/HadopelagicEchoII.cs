@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAnimation = Item.useTime = 30;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.channel = true;
-            Item.knockBack = 1f;
+            Item.knockBack = 9f;
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityHotPinkBuyPrice;
             Item.rare = ModContent.RarityType<AbyssalBlue>();

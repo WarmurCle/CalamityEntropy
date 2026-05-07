@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
             Item.useAnimation = Item.useTime = 20;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.channel = true;
-            Item.knockBack = 1f;
+            Item.knockBack = 6f;
             Item.UseSound = CEUtils.GetSound("soulshine");
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityPureGreenBuyPrice;

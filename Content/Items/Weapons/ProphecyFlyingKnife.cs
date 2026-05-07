@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 20;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 1.6f;
+            Item.knockBack = 2.8f;
             Item.UseSound = SoundID.Item1;
             Item.maxStack = 1;
             Item.value = CalamityGlobalItem.RarityYellowBuyPrice;

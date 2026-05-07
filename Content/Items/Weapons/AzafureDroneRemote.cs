@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.height = 30;
             Item.useTime = 16;
             Item.useAnimation = 16;
-            Item.knockBack = 2;
+            Item.knockBack = 4;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.shoot = ModContent.ProjectileType<AzafureDroneMinion>();
             Item.shootSpeed = 2f;

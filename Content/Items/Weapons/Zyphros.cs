@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.reuseDelay = 6;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
-            Item.knockBack = 6f;
+            Item.knockBack = 6;
             Item.UseSound = null;
             Item.shoot = ProjectileID.WoodenArrowFriendly;
             Item.shootSpeed = 12f;

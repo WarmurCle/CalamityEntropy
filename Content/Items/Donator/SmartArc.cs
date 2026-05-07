@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.useAnimation = 40;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
-            Item.knockBack = 2f;
+            Item.knockBack = 4f;
             Item.value = CalamityGlobalItem.RarityBlueBuyPrice;
             Item.rare = ItemRarityID.Blue;
             Item.UseSound = null;

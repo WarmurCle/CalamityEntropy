@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAnimation = 25;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
-            Item.knockBack = 3f;
+            Item.knockBack = 6f;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
             Item.rare = ItemRarityID.Red;
             Item.UseSound = CEUtils.GetSound("ProminenceShoot");

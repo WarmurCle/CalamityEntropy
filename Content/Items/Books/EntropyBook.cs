@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.useTime = Item.useAnimation = 20;
             Item.shootSpeed = 26;
             Item.width = Item.height = 40;
-            Item.knockBack = 1.4f;
+            Item.knockBack = 4f;
             Item.useStyle = -1;
             Item.channel = true;
             Item.noMelee = true;

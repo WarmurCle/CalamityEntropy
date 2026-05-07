@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<AzafureFurnaceHoldout>();
-            Item.knockBack = 5f;
+            Item.knockBack = 8f;
             Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Pink;
             Item.UseSound = null;

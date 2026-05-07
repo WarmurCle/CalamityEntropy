@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.channel = true;
-            Item.knockBack = 1.75f;
+            Item.knockBack = 4f;
             Item.value = CalamityGlobalItem.RarityPurpleBuyPrice;
             Item.rare = ModContent.RarityType<VoidPurple>();
             Item.autoReuse = true;

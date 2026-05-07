@@ -61,7 +61,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useTime = 6;
             Item.useAnimation = 18;
             Item.reuseDelay = 16;
-            Item.knockBack = 10;
+            Item.knockBack = 4.4f;
             Item.UseSound = null;
             Item.shoot = ModContent.ProjectileType<ScorchingFireballMagic>();
             Item.shootSpeed = 2f;

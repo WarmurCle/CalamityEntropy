@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useTime = Item.useAnimation = 25;
             Item.useStyle = ItemUseStyleID.RaiseLamp;
             Item.noMelee = true;
-            Item.knockBack = 4f;
+            Item.knockBack = 1f;
             Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Green;
             Item.UseSound = SoundID.DD2_DefenseTowerSpawn;

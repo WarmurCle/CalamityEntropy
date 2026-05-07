@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.height = 46;
             Item.useTime = 42;
             Item.useAnimation = 42;
-            Item.knockBack = 4;
+            Item.knockBack = 8;
             Item.UseSound = CEUtils.GetSound("beast_lavaball_rise1", 1.2f);
             Item.shoot = ModContent.ProjectileType<EmberFireball>();
             Item.shootSpeed = 18f;

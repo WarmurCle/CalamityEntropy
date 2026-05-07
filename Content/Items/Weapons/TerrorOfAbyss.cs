@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.height = 48;
             Item.useTime = Item.useAnimation = 18;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.knockBack = 3;
+            Item.knockBack = 4;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.UseSound = null;

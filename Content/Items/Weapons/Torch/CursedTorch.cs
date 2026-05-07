@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Torch
             Item.height = 46;
             Item.useTime = 16;
             Item.useAnimation = 16;
-            Item.knockBack = 2;
+            Item.knockBack = 1;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.shoot = ModContent.ProjectileType<CursedTorchMinion>();
             Item.shootSpeed = 2f;

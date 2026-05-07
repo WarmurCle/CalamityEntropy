@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.ArmorPenetration = 15;
             Item.noMelee = true;
-            Item.knockBack = 2f;
+            Item.knockBack = 8f;
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
             Item.rare = ModContent.RarityType<NihilityBlue>();
             Item.UseSound = null;

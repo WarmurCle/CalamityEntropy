@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             Item.useTime = 46;
             Item.useAnimation = 46;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 4;
+            Item.knockBack = 7;
             Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
             Item.rare = ModContent.RarityType<ShiningViolet>();
             Item.UseSound = null;

@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAnimation = 13;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
-            Item.knockBack = 1f;
+            Item.knockBack = 4f;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
             Item.rare = ModContent.RarityType<Lunarblight>();
             Item.shoot = ProjectileID.WoodenArrowFriendly;
