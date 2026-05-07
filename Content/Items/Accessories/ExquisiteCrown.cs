@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             {
                 if (Main.myPlayer == Projectile.owner)
                 {
-                    NPC target = Projectile.FindMinionTarget(1400);
+                    NPC target = Projectile.FindMinionTarget(1400, true);
                     if (target != null)
                     {
                         Projectile.ai[0] = 0;

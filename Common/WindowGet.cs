@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Donator;
+using Steamworks;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -63,7 +64,7 @@ namespace CalamityEntropy.Common
 {
     public class PGetPlayer : ModPlayer
     {
-        public static List<string> yuzuGames = new() { "SenrenBanka", "RiddleJoker", "SabbatOfTheWitch", "CafeStella", "tenshi_sz", "DracuRiot", "PARQUET", "NobleWorks", "夏空カナタ", "夏空彼方", "天使纷扰", "天神乱漫", "NOBLEWORKS", "天色アイルノーツ", "ライムライト・レモネードジャム", "LimelightLemonade" };
+        public static List<string> yuzuGames = new() { "SenrenBanka", "RiddleJoker", "SabbatOfTheWitch", "CafeStella", "tenshi_sz", "DracuRiot", "PARQUET", "NobleWorks", "夏空カナタ", "夏空彼方", "天使纷扰", "天神乱漫", "tenshin". "NOBLEWORKS", "天色アイルノーツ", "ライムライト・レモネードジャム", "LimelightLemonade" };
         public int count = 0;
         public bool accEquiped = false;
         public bool accVanity = false;
