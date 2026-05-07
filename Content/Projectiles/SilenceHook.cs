@@ -11,10 +11,6 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Main.projFrames[Projectile.type] = 1;
         }
-        public override void OnSpawn(IEntitySource source)
-        {
-            CalamityEntropy.CheckProjs.Add(Projectile);
-        }
         public override void SetDefaults()
         {
             Projectile.DamageType = CEUtils.RogueDC;

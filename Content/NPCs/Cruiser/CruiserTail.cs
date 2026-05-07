@@ -26,7 +26,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public Vector2 lastPos;
         public override void SetDefaults()
         {
-
             NPC.width = 45;
             NPC.height = 45;
             NPC.damage = 120;
@@ -54,7 +53,9 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         }
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
-            if(Main.npc[(int)NPC.ai[3]].active)
+            if (Main.npc[(int)NPC.ai[3]].ModNPC == null)
+                return true;
+            if (Main.npc[(int)NPC.ai[3]].active)
                 return Main.npc[(int)NPC.ai[3]].ModNPC.CanHitPlayer(target, ref cooldownSlot);
             return true;
         }

@@ -66,6 +66,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         }
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
+            if (Main.npc[(int)NPC.ai[3]].ModNPC == null)
+                return true;
             if (Main.npc[(int)NPC.ai[3]].active)
                 return Main.npc[(int)NPC.ai[3]].ModNPC.CanHitPlayer(target, ref cooldownSlot);
             return true;

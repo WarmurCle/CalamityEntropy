@@ -10,11 +10,6 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
-
-        }
-        public override void OnSpawn(IEntitySource source)
-        {
-            CalamityEntropy.CheckProjs.Add(Projectile);
         }
         public override void SetDefaults()
         {

@@ -132,8 +132,6 @@ namespace CalamityEntropy
         public bool ChristmasEvent = false;
         public static float FlashEffectStrength = 0;
         public static Dictionary<int, Projectile> Proj_ID_To_Instance { get; set; } = null;
-        public static List<Projectile> CheckProjs { get; set; } = [];
-        public static List<NPC> CheckNPCs { get; set; } = [];
         public Rope Rope { get; set; }
         public static SoundEffect ealaserSound = null;
         public static SoundEffect ealaserSound2 = null;
@@ -519,8 +517,6 @@ namespace CalamityEntropy
             efont1 = null;
             efont2 = null;
             efont3 = null;
-            CheckProjs = null;
-            CheckNPCs = null;
             Instance = null;
             pixel = null;
 

@@ -8,14 +8,6 @@ namespace CalamityEntropy.Content.Projectiles
 {
     public class WohLaser : ModProjectile
     {
-        public override void OnSpawn(IEntitySource source)
-        {
-            CalamityEntropy.CheckProjs.Add(Projectile);
-        }
-        public override void SetStaticDefaults()
-        {
-            Main.projFrames[Projectile.type] = 1;
-        }
         public int length = 2400;
         public override void SetDefaults()
         {

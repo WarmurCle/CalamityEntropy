@@ -1375,7 +1375,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             if (NPC.IsABestiaryIconDummy)
                 return false;
 
-            if (!candraw && !(phase == 1))
+            if (!candraw && !(phase == 1) && ModContent.GetInstance<Config>().EnablePixelEffect)
             {
                 return false;
             }

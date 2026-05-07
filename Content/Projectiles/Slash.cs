@@ -24,10 +24,6 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 30;
             Projectile.penetrate = -1;
         }
-        public override void OnSpawn(IEntitySource source)
-        {
-            CalamityEntropy.CheckProjs.Add(Projectile);
-        }
         public override void AI()
         {
             if (!sPlayerd)

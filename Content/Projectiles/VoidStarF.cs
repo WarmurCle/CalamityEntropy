@@ -18,11 +18,6 @@ namespace CalamityEntropy.Content.Projectiles
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
-
-        }
-        public override void OnSpawn(IEntitySource source)
-        {
-            CalamityEntropy.CheckProjs.Add(Projectile);
         }
         public override void SetDefaults()
         {
@@ -58,7 +53,6 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.DamageType = DamageClass.Magic;
                 EParticle.NewParticle(new HeavenfallStar() { xScale = 0.14f }, Projectile.Center, Projectile.velocity.normalize(), new Color(255, 120, 120), Main.rand.NextFloat(0.6f, 1.3f) * 1.6f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 14);
                 EParticle.NewParticle(new HeavenfallStar() { xScale = 0.14f }, Projectile.Center - Projectile.velocity / 2f, Projectile.velocity.normalize(), new Color(255, 120, 120), Main.rand.NextFloat(0.6f, 1.3f) * 1.6f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 14);
-
             }
             else
             {

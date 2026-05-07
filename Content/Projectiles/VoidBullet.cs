@@ -14,11 +14,6 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Main.projFrames[Projectile.type] = 1;
             ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 5000;
-
-        }
-        public override void OnSpawn(IEntitySource source)
-        {
-            CalamityEntropy.CheckProjs.Add(Projectile);
         }
         public override void SetDefaults()
         {

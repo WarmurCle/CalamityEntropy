@@ -495,16 +495,6 @@ namespace CalamityEntropy.Common
         private static void InitializeEffectHandler()
         {
             Instance.screenShakeAmp *= 0.9f;
-            CheckProjs.Clear();
-            CheckNPCs.Clear();
-            foreach (Projectile p in Main.ActiveProjectiles)
-            {
-                CheckProjs.Add(p);
-            }
-            foreach (NPC n in Main.ActiveNPCs)
-            {
-                CheckNPCs.Add(n);
-            }
         }
 
         private static void DrawInitialScreen(GraphicsDevice graphicsDevice)
@@ -706,7 +696,7 @@ namespace CalamityEntropy.Common
             int voidBulletType = ModContent.ProjectileType<VoidBullet>();
             int voidMonsterType = ModContent.ProjectileType<VoidMonster>();
 
-            foreach (Projectile p in CheckProjs)
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
                 if (p.type == cruiserSlashType)
                 {
@@ -739,7 +729,7 @@ namespace CalamityEntropy.Common
 
             int cruiserHeadType = ModContent.NPCType<CruiserHead>();
 
-            foreach (NPC n in CheckNPCs)
+            foreach (NPC n in Main.ActiveNPCs)
             {
                 if (n.type != cruiserHeadType)
                 {
@@ -933,7 +923,7 @@ namespace CalamityEntropy.Common
             int voidStarFType = ModContent.ProjectileType<VoidStarF>();
 
             //遍历投射物，使用类型 ID 判断
-            foreach (Projectile p in CheckProjs)
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
                 if (p.ModProjectile == null)
                 {
@@ -1009,7 +999,7 @@ namespace CalamityEntropy.Common
             int starlessNightProjType = ModContent.ProjectileType<StarlessNightProj>();
 
             //遍历投射物，使用类型 ID 判断
-            foreach (Projectile p in CheckProjs)
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
                 if (p.ModProjectile == null)
                 {

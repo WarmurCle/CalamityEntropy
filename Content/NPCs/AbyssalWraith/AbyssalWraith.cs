@@ -16,6 +16,7 @@ using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 
 namespace CalamityEntropy.Content.NPCs.AbyssalWraith
 {
@@ -55,7 +56,6 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         public List<Texture2D> wingflying = new List<Texture2D>();
         public override void OnSpawn(IEntitySource source)
         {
-            CalamityEntropy.CheckNPCs.Add(NPC);
             seed = Main.rand.Next(0, 10000);
             if (Main.netMode == NetmodeID.Server)
             {
@@ -163,7 +163,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
         public long counter = 0;
         public float gatherWing = 0;
         public int spawnAnm = 180;
-        public Random random;
+        public UnifiedRandom random;
         public int deathCount = -60;
         public float alphaPor = 1;
         public float portalAlpha = 0;
@@ -233,7 +233,7 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
                 if (spawnAnm <= 0)
                 {
                     NPC.dontTakeDamage = false;
-                    random = new Random(seed);
+                    random = new UnifiedRandom(seed);
                 }
                 return;
             }

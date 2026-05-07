@@ -12,15 +12,6 @@ namespace CalamityEntropy.Content.Projectiles
     public class VoidWraith : ModProjectile
     {
         public List<Vector2> odp = new List<Vector2>();
-        public override void SetStaticDefaults()
-        {
-            Main.projFrames[Projectile.type] = 1;
-
-        }
-        public override void OnSpawn(IEntitySource source)
-        {
-            CalamityEntropy.CheckProjs.Add(Projectile);
-        }
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Ranged;

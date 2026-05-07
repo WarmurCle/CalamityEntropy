@@ -23,10 +23,6 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         {
             target.AddBuff(ModContent.BuffType<VoidTouch>(), 160);
         }
-        public override void OnSpawn(IEntitySource source)
-        {
-            CalamityEntropy.CheckProjs.Add(Projectile);
-        }
         public override void SetDefaults()
         {
             Projectile.width = 16;
