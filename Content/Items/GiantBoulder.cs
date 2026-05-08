@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items
             Item.autoReuse = false;
             Item.consumable = true;
             Item.maxStack = 9999;
-            Item.value = Item.sellPrice(gold: 4);
+            Item.value = Item.sellPrice(silver: 2);
             Item.rare = ItemRarityID.Yellow;
             Item.DefaultToPlaceableTile(ModContent.TileType<GiantBoulderTile>(), 0);
             Item.width = 160;
