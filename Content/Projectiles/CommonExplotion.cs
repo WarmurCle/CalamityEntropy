@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.hostile = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 3;
+            Projectile.timeLeft = 10;
         }
         public override bool PreDraw(ref Color lightColor)
         {

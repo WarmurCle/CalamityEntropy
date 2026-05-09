@@ -1037,13 +1037,12 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public override void OnKill()
         {
             NPC.SetEventFlagCleared(ref EDownedBosses.downedAcropolis, -1);
-            int dmg = 64;
+            int dmg = 40;
             if (Main.expertMode)
                 dmg *= 2;
             if (Main.masterMode || CalamityWorld.death)
                 dmg *= 2;
             dmg = (int)(dmg * NPC.scale);
-
             if (Main.netMode != NetmodeID.MultiplayerClient)
                 CEUtils.SpawnExplotionHostile(NPC.GetSource_FromAI(), NPC.Center, dmg, 500 * NPC.scale, true);
         }
