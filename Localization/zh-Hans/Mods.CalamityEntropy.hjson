@@ -4265,6 +4265,11 @@ Items: {
 		DisplayName: 超大巨石
 		Tooltip: “残缺陷阱聚合而成的完美造物”
 	}
+
+	BeewaxWall: {
+		DisplayName: 蜂蜡墙
+		Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:

@@ -4027,6 +4027,11 @@ Items: {
 		DisplayName: Giant Boulder
 		Tooltip: ""
 	}
+
+	BeewaxWall: {
+		DisplayName: Beewax Wall
+		Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
