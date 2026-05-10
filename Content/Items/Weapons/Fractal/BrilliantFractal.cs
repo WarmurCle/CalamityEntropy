@@ -105,7 +105,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 float scale_ = owner.HeldItem.scale;
                 owner.ApplyMeleeScale(ref scale_);
-                Main.NewText(scale_);
                 Projectile.scale *= scale_;
                 if (Projectile.ai[0] == 2)
                 {

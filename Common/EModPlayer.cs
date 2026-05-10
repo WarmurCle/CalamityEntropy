@@ -952,8 +952,10 @@ namespace CalamityEntropy.Common
         public Item goldenRock = null;
         public int RatzielShieldTime = 0;
         public int BigShotWingVisual = 0;
+        public float MeleeScale = 1;
         public override void ResetEffects()
         {
+            MeleeScale = 1;
             EquipedAnyRogueAcc = false;
             if (RatzielShieldTime > 0)
                 RatzielShieldTime--;

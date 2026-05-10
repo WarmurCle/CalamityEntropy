@@ -241,7 +241,9 @@ namespace CalamityEntropy
             On_Player.Update_NPCCollision += update_npc_collision;
             On_Player.WaterCollision += waterCollisionHook;
             On_SoundPlayer.Play += playSnd;
-            
+            On_Player.ApplyEquipFunctional += apply_equip_func;
+            On_Player.ApplyMeleeScale += apply_melee_scale;
+
             EModSys.timer = 0;
             BossRushEvent.Bosses.Insert(34, new BossRushEvent.Boss(ModContent.NPCType<NihilityActeriophage>(), permittedNPCs: new int[] { ModContent.NPCType<ChaoticCell>() }));
             BossRushEvent.Bosses.Insert(42, new BossRushEvent.Boss(ModContent.NPCType<CruiserHead>(), permittedNPCs: new int[] { ModContent.NPCType<CruiserBody>(), ModContent.NPCType<CruiserTail>() }));
@@ -251,6 +253,38 @@ namespace CalamityEntropy
             EModILEdit.load();
 
 
+        }
+
+        private void apply_melee_scale(On_Player.orig_ApplyMeleeScale orig, Player self, ref float scale)
+        {
+            orig(self, ref scale);
+            scale += (self.Entropy().MeleeScale - 1);
+        }
+
+        private void apply_equip_func(On_Player.orig_ApplyEquipFunctional orig, Player self, Item currentItem, bool hideVisual)
+        {
+            bool gloveScale = self.meleeScaleGlove;
+            orig(self, currentItem, hideVisual);
+            if(currentItem.type == ItemID.BerserkerGlove)
+            {
+                self.meleeScaleGlove = gloveScale;
+                self.Entropy().MeleeScale += 0.1f;
+            }
+            if (currentItem.type == ItemID.PowerGlove)
+            {
+                self.meleeScaleGlove = gloveScale;
+                self.Entropy().MeleeScale += 0.1f;
+            }
+            if (currentItem.type == ItemID.MechanicalGlove)
+            {
+                self.meleeScaleGlove = gloveScale;
+                self.Entropy().MeleeScale += 0.1f;
+            }
+            if (currentItem.type == ItemID.FireGauntlet)
+            {
+                self.meleeScaleGlove = gloveScale;
+                self.Entropy().MeleeScale += 0.1f;
+            }
         }
 
         private SlotId playSnd(On_SoundPlayer.orig_Play orig, SoundPlayer self, ref SoundStyle style, Vector2? position, SoundUpdateCallback updateCallback)
@@ -552,6 +586,8 @@ namespace CalamityEntropy
             On_LegacyPlayerRenderer.DrawPlayer -= render_player;
             On_Player.Hurt_HurtInfo_bool -= on_player_hurt;
             On_Player.Update_NPCCollision -= update_npc_collision;
+            On_Player.ApplyEquipFunctional -= apply_equip_func;
+            On_Player.ApplyMeleeScale -= apply_melee_scale;
         }
 
         private Vector2 draw_thick_cursor_hook(On_Main.orig_DrawThickCursor orig, bool smart)

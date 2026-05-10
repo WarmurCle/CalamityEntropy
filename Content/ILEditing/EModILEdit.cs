@@ -5,6 +5,7 @@ using CalamityEntropy.Content.UI;
 using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
+using CalamityMod.Items.Accessories;
 using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Items.Weapons.Rogue;
@@ -171,6 +172,9 @@ namespace CalamityEntropy.Content.ILEditing
             var ApplyDRMethod = typeof(CalamityGlobalNPC).GetMethod("ApplyDR", BindingFlags.Instance | BindingFlags.NonPublic, new Type[] { typeof(NPC), typeof(NPC.HitModifiers).MakeByRefType() });
             EModHooks.Add(ApplyDRMethod, apply_dr_hook);
 
+            var elmentalGloveUpdateAccessory = typeof(ElementalGauntlet).GetMethod("UpdateAccessory", BindingFlags.Instance | BindingFlags.Public);
+            EModHooks.Add(elmentalGloveUpdateAccessory, elmentalGloveUpdateAccessoryHook);
+
             var updateLifeRegenMethod = typeof(CalamityGlobalNPC).GetMethod("UpdateLifeRegen", BindingFlags.Instance | BindingFlags.Public, new Type[] { typeof(NPC), typeof(int).MakeByRefType() });
             EModHooks.Add(updateLifeRegenMethod, updateLiferegenHook);
 
@@ -185,6 +189,13 @@ namespace CalamityEntropy.Content.ILEditing
             }
 
             CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");
+        }
+        public static void elmentalGloveUpdateAccessoryHook(Action<ElementalGauntlet, Player, bool> orig, ElementalGauntlet self, Player player, bool hv)
+        {
+            bool msg = player.meleeScaleGlove;
+            orig(self, player, hv);
+            player.meleeScaleGlove = msg;
+            player.Entropy().MeleeScale += 0.1f;
         }
         public delegate void UpdateLifeRegenDelegate(CalamityGlobalNPC self, NPC npc, ref int damage);
         public static void updateLiferegenHook(UpdateLifeRegenDelegate orig, CalamityGlobalNPC self, NPC npc, ref int damage)

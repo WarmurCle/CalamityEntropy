@@ -268,10 +268,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                 for (int i = 0; i < p1.Count; i++)
                 {
                     Color b = new Color(230, 220, 255) * a;
-                    ve.Add(new ColoredVertex(Projectile.Center + rot.ToRotationVector2() * -10 - Main.screenPosition + p1[i],
+                    ve.Add(new ColoredVertex(Projectile.Center + rot.ToRotationVector2() * -10 * Projectile.scale - Main.screenPosition + p1[i] * Projectile.scale,
                           new Vector3((i) / ((float)p1.Count - 1), 1, 1),
                           b));
-                    ve.Add(new ColoredVertex(Projectile.Center + rot.ToRotationVector2() * -10 - Main.screenPosition + p2[i],
+                    ve.Add(new ColoredVertex(Projectile.Center + rot.ToRotationVector2() * -10 * Projectile.scale - Main.screenPosition + p2[i] * Projectile.scale,
                           new Vector3((i) / ((float)p1.Count - 1), 0, 1),
                           b));
                 }
@@ -299,11 +299,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (244 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, targetHitbox, 64);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (252 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, targetHitbox, 64);
         }
         public override void CutTiles()
         {
-            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (244 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, 54, DelegateMethods.CutTiles);
+            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (252 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, 54, DelegateMethods.CutTiles);
         }
     }
     public class TrueMoonlightShoot : ModProjectile
