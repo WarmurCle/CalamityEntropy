@@ -53,7 +53,6 @@ namespace CalamityEntropy.Content.Items.Books
             mdf.HomingRange += 0.8f;
             return mdf;
         }
-
         public override float randomShootRotMax => 0.5f;
         public override int baseProjectileType => ModContent.ProjectileType<NightStar>();
 

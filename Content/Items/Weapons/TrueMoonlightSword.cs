@@ -1,5 +1,7 @@
-﻿using CalamityMod;
+﻿using CalamityEntropy.Content.Particles;
+using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -15,12 +17,12 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 52;
+            Item.damage = 160;
             Item.DamageType = ModContent.GetInstance<MeleeDamageClass>();
             Item.width = 48;
             Item.height = 60;
-            Item.useTime = 11;
-            Item.useAnimation = 11;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 6;
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
@@ -75,7 +77,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
             Projectile.timeLeft = 100000;
-            Projectile.MaxUpdates = 14;
+            Projectile.MaxUpdates = 16;
             Projectile.light = 1;
         }
         public float counter = 0;
@@ -83,9 +85,22 @@ namespace CalamityEntropy.Content.Items.Weapons
         public float alpha = 0;
         public bool init = true;
         public bool shoot = true;
+        public int stopTime = -1;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("truemoonlighthit", Main.rand.NextFloat(0.7f, 1.3f), target.Center, 4, 0.6f * CEUtils.WeapSound);
+            if (stopTime < 0)
+            {
+                stopTime = 6 * Projectile.MaxUpdates;
+                ScreenShaker.AddShake(new ScreenShaker.NoDirQuickShake(8));
+            }
+            for (int i = 0; i < 16; i++)
+            {
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, Projectile.velocity.normalize().RotatedByRandom(0.46f) * Main.rand.NextFloat(16, 30), false, 14, Projectile.scale * 0.06f, Color.LightSeaGreen * 1.6f, new Vector2(0.3f, 1), false, false));
+            }
+            for (int i = 0; i < 24; i++)
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 14, false, 11, 0.06f * Main.rand.NextFloat(0.65f, 1f), Main.rand.NextBool() ? Color.BlueViolet : Color.LightGreen, new Vector2(3f, 0.4f), true));
+
+            CEUtils.PlaySound("truemoonlighthit", Main.rand.NextFloat(1.3f, 1.5f), target.Center, 4, 0.6f * CEUtils.WeapSound);
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
@@ -96,7 +111,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             Player owner = Projectile.GetOwner();
             float MaxUpdateTimes = owner.itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
-            counter++;
+            if (stopTime <= 0)
+            {
+                counter++;
+            }
             if (init)
             {
                 CEUtils.PlaySound("moonlightswordattack" + Main.rand.Next(2), 1.2f + Projectile.ai[0] * 0.08f, Projectile.Center);
@@ -147,10 +165,17 @@ namespace CalamityEntropy.Content.Items.Weapons
                 owner.itemAnimation = 1;
                 Projectile.Kill();
             }
-            odr.Add(Projectile.rotation);
-            if (odr.Count > 32)
+            if (stopTime > 0)
             {
-                odr.RemoveAt(0);
+                stopTime--;
+            }
+            else
+            {
+                odr.Add(Projectile.rotation);
+                if (odr.Count > 16)
+                {
+                    odr.RemoveAt(0);
+                }
             }
         }
         public override bool ShouldUpdatePosition()
@@ -160,70 +185,123 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = Projectile.GetTexture();
-            Texture2D trail = CEUtils.getExtraTex("MotionTrail2");
-            List<ColoredVertex> ve = new List<ColoredVertex>();
-            float MaxUpdateTimes = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
-            float progress = (counter / MaxUpdateTimes);
-
-            for (int i = 0; i < odr.Count; i++)
             {
-                Color b = new Color(220, 200, 255);
-                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(190 * Projectile.scale, 0).RotatedBy(odr[i])),
-                      new Vector3((i) / ((float)odr.Count - 1), 1, 1),
-                      b));
-                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition,
-                      new Vector3((i) / ((float)odr.Count - 1), 0, 1),
-                      b));
+                Texture2D tex = Projectile.GetTexture();
+                Texture2D trail = CEUtils.getExtraTex("MotionTrail2");
+                List<ColoredVertex> ve = new List<ColoredVertex>();
+                float MaxUpdateTimes = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
+                float progress = (counter / MaxUpdateTimes);
+
+                for (int i = 0; i < odr.Count; i++)
+                {
+                    Color b = new Color(220, 200, 255);
+                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(202 * Projectile.scale, 0).RotatedBy(odr[i])),
+                          new Vector3((i) / ((float)odr.Count - 1), 1, 1),
+                          b));
+                    ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition,
+                          new Vector3((i) / ((float)odr.Count - 1), 0, 1),
+                          b));
+                }
+                if (ve.Count >= 3)
+                {
+                    var gd = Main.graphics.GraphicsDevice;
+                    SpriteBatch sb = Main.spriteBatch;
+                    Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SwordTrail2", AssetRequestMode.ImmediateLoad).Value;
+                    sb.End();
+                    sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                    shader.Parameters["color2"].SetValue((new Color(200, 255, 200)).ToVector4());
+                    shader.Parameters["color1"].SetValue((new Color(100, 160, 100)).ToVector4());
+                    shader.Parameters["alpha"].SetValue(float.Max(0, (0.5f - progress) / 0.5f));
+                    shader.CurrentTechnique.Passes["EffectPass"].Apply();
+                    shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 16 * Projectile.ai[0]);
+                    gd.Textures[1] = CEUtils.getExtraTex("B1");
+                    gd.Textures[0] = trail;
+                    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+
+                    sb.End();
+                    sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                    shader.Parameters["color2"].SetValue((new Color(100, 155, 255)).ToVector4());
+                    shader.Parameters["color1"].SetValue((new Color(100, 220, 255)).ToVector4());
+                    shader.Parameters["alpha"].SetValue(float.Max(0, (0.5f - progress) / 0.5f));
+                    shader.CurrentTechnique.Passes["EffectPass"].Apply();
+                    gd.Textures[0] = CEUtils.RequestTex("CalamityEntropy/Assets/MotionTrail2");
+                    shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 16 * Projectile.ai[0]);
+                    gd.Textures[1] = CEUtils.getExtraTex("B1");
+                    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                    Main.spriteBatch.ExitShaderRegion();
+                }
+
+
+                int dir = (int)(Projectile.ai[0]);
+                Vector2 origin = dir > 0 ? new Vector2(0, tex.Height) : new Vector2(tex.Width, tex.Height);
+                SpriteEffects effect = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+                float rot = dir > 0 ? Projectile.rotation + MathHelper.PiOver4 : Projectile.rotation + MathHelper.Pi * 0.75f;
+
+                float MaxUpdateTime = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
+
+                Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * scale, effect);
             }
-            if (ve.Count >= 3)
             {
-                var gd = Main.graphics.GraphicsDevice;
-                SpriteBatch sb = Main.spriteBatch;
-                Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SwordTrail2", AssetRequestMode.ImmediateLoad).Value;
-                sb.End();
-                sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                shader.Parameters["color2"].SetValue((new Color(200, 255, 200)).ToVector4());
-                shader.Parameters["color1"].SetValue((new Color(100, 160, 100)).ToVector4());
-                shader.Parameters["alpha"].SetValue(1 - progress);
-                shader.CurrentTechnique.Passes["EffectPass"].Apply();
-                shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 16);
-                gd.Textures[1] = CEUtils.getExtraTex("B2");
-                gd.Textures[0] = trail;
-                gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                Texture2D trail = CEUtils.getExtraTex("MotionTrail5");
+                List<ColoredVertex> ve = new List<ColoredVertex>();
+                List<Vector2> p1 = new List<Vector2>();
+                List<Vector2> p2 = new List<Vector2>();
 
-                sb.End();
-                sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                shader.Parameters["color2"].SetValue((new Color(100, 155, 255)).ToVector4());
-                shader.Parameters["color1"].SetValue((new Color(100, 220, 255)).ToVector4());
-                shader.Parameters["alpha"].SetValue(1 - progress);
-                shader.CurrentTechnique.Passes["EffectPass"].Apply();
-                gd.Textures[0] = CEUtils.getExtraTex("SplitTrail");
-                shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 16);
-                gd.Textures[1] = CEUtils.getExtraTex("B2");
-                gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
-                Main.spriteBatch.ExitShaderRegion();
+                float MaxUpdateTimes = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
+                float progress = (counter / MaxUpdateTimes);
+                float rot = Projectile.rotation - Projectile.ai[0] * (0.8f - progress * 1.6f);
+
+                for (float i = -1; i <= 1; i += 0.01f)
+                {
+                    p2.Add(((i * 1f).ToRotationVector2() * new Vector2(1.2f, 1)).RotatedBy(rot) * 10);
+                    p1.Add(((i * 1.4f).ToRotationVector2() * new Vector2(1.2f, 1)).RotatedBy(rot) * 240);
+                }
+                float a = 1f;
+
+                if (progress > 0.4f)
+                    a = 1 - (progress - 0.4f) / 0.2f;
+                if (a < 0)
+                    a = 0;
+                a *= 0.32f;
+                for (int i = 0; i < p1.Count; i++)
+                {
+                    Color b = new Color(230, 220, 255) * a;
+                    ve.Add(new ColoredVertex(Projectile.Center + rot.ToRotationVector2() * -10 - Main.screenPosition + p1[i],
+                          new Vector3((i) / ((float)p1.Count - 1), 1, 1),
+                          b));
+                    ve.Add(new ColoredVertex(Projectile.Center + rot.ToRotationVector2() * -10 - Main.screenPosition + p2[i],
+                          new Vector3((i) / ((float)p1.Count - 1), 0, 1),
+                          b));
+                }
+                if (ve.Count >= 3)
+                {
+                    var gd = Main.graphics.GraphicsDevice;
+                    SpriteBatch sb = Main.spriteBatch;
+                    Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SwordTrail2", AssetRequestMode.ImmediateLoad).Value;
+                    sb.End();
+                    sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                    shader.Parameters["color2"].SetValue((new Color(60, 155, 255)).ToVector4());
+                    shader.Parameters["color1"].SetValue((new Color(40, 220, 255)).ToVector4());
+                    shader.Parameters["alpha"].SetValue(a);
+                    shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 16 * Projectile.ai[0]);
+                    gd.Textures[1] = CEUtils.getExtraTex("B1");
+                    shader.CurrentTechnique.Passes["EffectPass"].Apply();
+
+                    gd.Textures[0] = trail;
+
+                    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+
+                }
             }
-
-
-            int dir = (int)(Projectile.ai[0]);
-            Vector2 origin = dir > 0 ? new Vector2(0, tex.Height) : new Vector2(tex.Width, tex.Height);
-            SpriteEffects effect = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            float rot = dir > 0 ? Projectile.rotation + MathHelper.PiOver4 : Projectile.rotation + MathHelper.Pi * 0.75f;
-
-            float MaxUpdateTime = Projectile.GetOwner().itemTimeMax * Projectile.MaxUpdates;
-
-            Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.GetOwner().gfxOffY * Vector2.UnitY - Main.screenPosition, null, lightColor * alpha, rot, origin, Projectile.scale * scale, effect);
-
             return false;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (190 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, targetHitbox, 64);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (250 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, targetHitbox, 64);
         }
         public override void CutTiles()
         {
-            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (190 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, 54, DelegateMethods.CutTiles);
+            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (250 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, 54, DelegateMethods.CutTiles);
         }
     }
     public class TrueMoonlightShoot : ModProjectile
@@ -269,8 +347,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             List<Vector2> p2 = new List<Vector2>();
             for (float i = -1; i <= 1; i += 0.01f)
             {
-                p2.Add(((i * 1f).ToRotationVector2() * new Vector2(1.2f, 1)).RotatedBy(Projectile.rotation) * 10);
-                p1.Add(((i * 1.6f).ToRotationVector2() * new Vector2(1.2f, 1)).RotatedBy(Projectile.rotation) * 256);
+                p2.Add(((i * 1f).ToRotationVector2() * new Vector2(1.2f, 0.7f * Projectile.Opacity)).RotatedBy(Projectile.rotation) * 10);
+                p1.Add(((i * 1.6f).ToRotationVector2() * new Vector2(1.2f, 0.7f * Projectile.Opacity)).RotatedBy(Projectile.rotation) * 256);
             }
             for (int i = 0; i < p1.Count; i++)
             {
@@ -288,20 +366,30 @@ namespace CalamityEntropy.Content.Items.Weapons
                 SpriteBatch sb = Main.spriteBatch;
                 Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SwordTrail2", AssetRequestMode.ImmediateLoad).Value;
                 sb.End();
-                sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 shader.Parameters["color2"].SetValue((new Color(60, 155, 255)).ToVector4());
                 shader.Parameters["color1"].SetValue((new Color(40, 220, 255)).ToVector4());
                 shader.Parameters["alpha"].SetValue(Projectile.Opacity);
                 shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 16);
-                gd.Textures[1] = CEUtils.getExtraTex("B2");
+                gd.Textures[1] = CEUtils.getExtraTex("B1");
                 shader.CurrentTechnique.Passes["EffectPass"].Apply();
-
                 gd.Textures[0] = trail;
-
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
-
+                gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+                Main.spriteBatch.ExitShaderRegion();
             }
             return false;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            EParticle.spawnNew(new AbyssalLine() { xadd = 0.8f, lx = 1.4f, spawnColor = new Color(212, 255, 212), endColor = Color.DarkSeaGreen }, target.Center, Vector2.Zero, new Color(220, 220, 255), 1, 1, true, BlendState.Additive, CEUtils.randomRot());
+            EParticle.spawnNew(new AbyssalLine() { xadd = 0.8f, lx = 1.4f, spawnColor = new Color(212, 255, 212), endColor = Color.DarkBlue }, target.Center, Vector2.Zero, new Color(220, 255, 255), 1, 1, true, BlendState.Additive, CEUtils.randomRot());
+            EParticle.spawnNew(new AbyssalLine() { xadd = 0.8f, lx = 1.4f, spawnColor = new Color(212, 255, 212), endColor = Color.DarkBlue }, target.Center, Vector2.Zero, new Color(220, 255, 220), 1, 1, true, BlendState.Additive, CEUtils.randomRot());
+            for (int i = 0; i < 26; i++)
+            {
+                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(target.Center, Projectile.velocity * 0.7f + CEUtils.randomVec(12), new Color(140, 150, 255), 40, 0.8f, 1, 0.04f, true, 0, true));
+            }
+            CEUtils.PlaySound("HammerShoot" + Main.rand.Next(1, 4), Main.rand.NextFloat(1f, 1.4f), Projectile.Center);
         }
     }
 

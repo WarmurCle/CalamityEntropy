@@ -2698,7 +2698,7 @@ Items: {
 	}
 
 	MoonlightSword: {
-		DisplayName: 皎月之刃
+		DisplayName: 月光大剑
 		Tooltip: ""
 	}
 
@@ -3081,7 +3081,7 @@ Items: {
 	}
 
 	TrueMoonlightSword: {
-		DisplayName: 真·皎月刃
+		DisplayName: 真·月光大剑
 		Tooltip: ""
 	}
 

@@ -32,6 +32,24 @@ namespace CalamityEntropy
                 return Direction * (0.2f + ((float)(Math.Cos(Counter * 0.04f)) * 0.5f + 0.5f)) * amplitude + Direction.RotatedBy(MathHelper.PiOver2) * Main.rand.NextFloat(-1, 1) * amplitude * 0.32f + new Vector2((float)(Math.Cos(Counter * 0.67f)) * Main.rand.NextFloat(), (float)(Math.Cos(Counter * -0.73f + MathHelper.PiOver4)) * Main.rand.NextFloat()) * (1 - float.Min(1, Direction.Length())) * amplitude;
             }
         }
+        public class NoDirQuickShake : ScreenShake
+        {
+            public NoDirQuickShake(float amplitude) : base(Vector2.Zero, amplitude)
+            {
+            }
+            public override void Update()
+            {
+                amplitude -= 0.01f;
+                amplitude *= 0.94f;
+                if (amplitude < 0)
+                    amplitude = 0;
+                Counter += Direction.Length() == 0 ? 1 : amplitude;
+            }
+            public override Vector2 GetShiftVec()
+            {
+                return new Vector2((float)(Math.Cos(Counter * 0.83f)) * Main.rand.NextFloat(), (float)(Math.Cos(Counter * -0.777f + MathHelper.PiOver4)) * Main.rand.NextFloat()) * amplitude;
+            }
+        }
         public static List<ScreenShake> shakes;
         public static void Init()
         {

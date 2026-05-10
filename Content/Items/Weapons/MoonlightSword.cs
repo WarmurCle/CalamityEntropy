@@ -17,12 +17,12 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 35;
+            Item.damage = 62;
             Item.DamageType = ModContent.GetInstance<MeleeDamageClass>();
             Item.width = 48;
             Item.height = 60;
-            Item.useTime = 18;
-            Item.useAnimation = 18;
+            Item.useTime = 32;
+            Item.useAnimation = 32;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 5;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
@@ -85,8 +85,14 @@ namespace CalamityEntropy.Content.Items.Weapons
         public float alpha = 0;
         public bool init = true;
         public bool shoot = true;
+        public int stopTime = -1;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if (stopTime < 0)
+            {
+                stopTime = 6 * Projectile.MaxUpdates;
+                ScreenShaker.AddShake(new ScreenShaker.NoDirQuickShake(8));
+            }
             CEUtils.PlaySound("truemoonlighthit", Main.rand.NextFloat(0.7f, 1.3f), target.Center);
         }
         public override void AI()
@@ -94,7 +100,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             Player owner = Projectile.GetOwner();
             float MaxUpdateTimes = owner.itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
-            counter++;
+            if (stopTime <= 0)
+            {
+                counter++;
+            }
             if (init)
             {
                 CEUtils.PlaySound("moonlightswordattack" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.08f, Projectile.Center);
@@ -145,10 +154,18 @@ namespace CalamityEntropy.Content.Items.Weapons
                 owner.itemAnimation = 1;
                 Projectile.Kill();
             }
-            odr.Add(Projectile.rotation);
-            if (odr.Count > 32)
+
+            if (stopTime > 0)
             {
-                odr.RemoveAt(0);
+                stopTime--;
+            }
+            else
+            {
+                odr.Add(Projectile.rotation);
+                if (odr.Count > 16)
+                {
+                    odr.RemoveAt(0);
+                }
             }
         }
         public override bool ShouldUpdatePosition()
@@ -167,7 +184,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             for (int i = 0; i < odr.Count; i++)
             {
                 Color b = new Color(220, 200, 255);
-                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(170 * Projectile.scale, 0).RotatedBy(odr[i])),
+                ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(175 * Projectile.scale, 0).RotatedBy(odr[i])),
                       new Vector3((i) / ((float)odr.Count - 1), 1, 1),
                       b));
                 ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition,
@@ -183,7 +200,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 shader.Parameters["color2"].SetValue((new Color(200, 255, 200)).ToVector4());
                 shader.Parameters["color1"].SetValue((new Color(100, 160, 100)).ToVector4());
-                shader.Parameters["alpha"].SetValue(1 - progress);
+                shader.Parameters["alpha"].SetValue(float.Max(0, (0.5f - progress) / 0.5f));
                 shader.CurrentTechnique.Passes["EffectPass"].Apply();
 
                 gd.Textures[0] = trail;
@@ -205,7 +222,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (160 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, targetHitbox, 64);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (160 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, targetHitbox, 20);
         }
         public override void CutTiles()
         {
@@ -221,8 +238,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            EParticle.spawnNew(new AbyssalLine() { xadd = 0.8f, lx = 0.8f, spawnColor = new Color(212, 255, 212), endColor = Color.DarkSeaGreen }, target.Center, Vector2.Zero, new Color(220, 255, 220), 1, 1, true, BlendState.Additive, CEUtils.randomRot());
-
+            CEUtils.PlaySound("HammerShoot" + Main.rand.Next(1, 4), Main.rand.NextFloat(1f, 1.4f), Projectile.Center);
+            EParticle.spawnNew(new AbyssalLine() { xadd = 0.8f, lx = 1.4f, spawnColor = new Color(212, 255, 212), endColor = Color.DarkSeaGreen }, target.Center, Vector2.Zero, new Color(220, 255, 220), 1, 1, true, BlendState.Additive, CEUtils.randomRot());
+            EParticle.spawnNew(new AbyssalLine() { xadd = 0.8f, lx = 1.4f, spawnColor = new Color(212, 255, 212), endColor = Color.DarkSeaGreen }, target.Center, Vector2.Zero, new Color(220, 255, 220), 1, 1, true, BlendState.Additive, CEUtils.randomRot());
         }
         public override void SetDefaults()
         {
@@ -247,7 +265,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
-            Projectile.Opacity = Projectile.timeLeft / 80f;
+            Projectile.Opacity = float.Min(1, Projectile.timeLeft / 16f);
             Projectile.velocity *= 0.95f;
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
@@ -257,11 +275,13 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override bool PreDraw(ref Color lightColor)
         {
+            Color clr = Color.Lerp(Color.LightSeaGreen, new Color(230, 255, 230), Projectile.timeLeft / 80f);
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            Texture2D tex = CEUtils.getExtraTex("swordslash");
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, new Color(150, 190, 150) * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f + new Vector2(200, 0), Projectile.scale * 0.6f * new Vector2(0.6f, Projectile.timeLeft / 80f), SpriteEffects.None);
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, new Color(190, 210, 190) * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f + new Vector2(200, 0), Projectile.scale * 0.5f * new Vector2(0.8f, Projectile.timeLeft / 80f * 0.9f), SpriteEffects.None);
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, new Color(255, 255, 255) * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f + new Vector2(200, 0), Projectile.scale * 0.4f * new Vector2(0.1f, Projectile.timeLeft / 80f * 0.76f), SpriteEffects.None);
+            Texture2D tex = CEUtils.getExtraTex("GSlash");
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, clr * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f + new Vector2(70, 0), Projectile.scale * 0.9f * new Vector2(1f, Projectile.timeLeft / 80f * 1.2f), SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, clr * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f + new Vector2(80, 0), Projectile.scale * 0.9f * new Vector2(1.8f, Projectile.timeLeft / 80f * 1.2f), SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, clr * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f + new Vector2(80, 0), Projectile.scale * 0.9f * new Vector2(1.8f, Projectile.timeLeft / 80f * 1.2f), SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, clr * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f + new Vector2(70, 0), Projectile.scale * 0.9f * new Vector2(0.8f, Projectile.timeLeft / 80f * 1.1f), SpriteEffects.None);
             Main.spriteBatch.ExitShaderRegion();
             return false;
         }
