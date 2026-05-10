@@ -128,7 +128,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (init)
             {
                 CEUtils.PlaySound("darkbladespawn", 1, Projectile.Center);
-                Projectile.scale *= owner.HeldItem.scale;
+                float scale_ = owner.HeldItem.scale;
+                owner.ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
                 init = false;
                 if (Main.myPlayer == Projectile.owner)
                 {

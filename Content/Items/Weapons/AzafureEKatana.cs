@@ -76,7 +76,12 @@ namespace CalamityEntropy.Content.Items.Weapons
             var player = Projectile.GetOwner();
             player.Calamity().mouseWorldListener = true;
             if (Projectile.ai[0]++ == 0)
+            {
+                float scale_ = Projectile.GetOwner().HeldItem.scale;
+                Projectile.GetOwner().ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
                 Projectile.rotation = Projectile.velocity.ToRotation();
+            }
             if (Projectile.ai[1] == 0)
             {
 

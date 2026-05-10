@@ -100,7 +100,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             counter++;
             if (init)
             {
-                Projectile.scale *= owner.HeldItem.scale;
+                float scale_ = owner.HeldItem.scale;
+                owner.ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
                 if (Projectile.ai[0] == 2)
                 {
                     CEUtils.PlaySound("powerwhip", 1, Projectile.Center, volume: 0.6f * CEUtils.WeapSound);

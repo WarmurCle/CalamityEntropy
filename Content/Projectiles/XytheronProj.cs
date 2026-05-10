@@ -83,6 +83,12 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             float updates = Projectile.MaxUpdates;
+            if (Projectile.localAI[2]++ == 0)
+            {
+                float scale_ = Projectile.GetOwner().HeldItem.scale;
+                Projectile.GetOwner().ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
+            }
             if (Projectile.ai[0] == 0)
             {
                 Projectile.direction = Projectile.velocity.X > 0 ? 1 : -1;
@@ -190,6 +196,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             drawSlash();
+            drawSword();
             return false;
         }
         public void drawSword()
@@ -283,7 +290,6 @@ namespace CalamityEntropy.Content.Projectiles
 
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            drawSword();
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

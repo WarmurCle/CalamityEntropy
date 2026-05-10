@@ -177,7 +177,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (init)
             {
                 CEUtils.PlaySound("antivoiduse", Main.rand.NextFloat(0.7f, 1.4f), Projectile.Center, 36);
-                Projectile.scale *= owner.HeldItem.scale;
+                float scale_ = owner.HeldItem.scale;
+                owner.ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
                 init = false;
             }
             Projectile.timeLeft = 3;

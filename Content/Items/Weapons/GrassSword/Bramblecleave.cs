@@ -365,7 +365,9 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             {
                 CEUtils.PlaySound("powerwhip", Projectile.ai[2] == 0 ? 1.75f / Projectile.ai[1] : 0.6f, Projectile.Center);
                 Projectile.scale = 1.6f + 0.1f * Bramblecleave.GetLevel();
-                Projectile.scale *= owner.HeldItem.scale;
+                float scale_ = owner.HeldItem.scale;
+                owner.ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
                 init = false;
                 if (Main.myPlayer == Projectile.owner)
                 {

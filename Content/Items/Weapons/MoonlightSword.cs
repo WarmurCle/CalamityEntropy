@@ -107,7 +107,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (init)
             {
                 CEUtils.PlaySound("moonlightswordattack" + Main.rand.Next(2), 1 + Projectile.ai[0] * 0.08f, Projectile.Center);
-                Projectile.scale *= owner.HeldItem.scale;
+                float scale_ = owner.HeldItem.scale;
+                owner.ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
                 init = false;
                 if (Main.myPlayer == Projectile.owner)
                 {

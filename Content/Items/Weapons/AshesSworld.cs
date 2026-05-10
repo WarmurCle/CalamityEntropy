@@ -86,6 +86,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AI()
         {
             Player player = Projectile.GetOwner();
+            if (Projectile.localAI[0] == 0)
+            {
+                float scale_ = Projectile.GetOwner().HeldItem.scale;
+                Projectile.GetOwner().ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
+            }
             Projectile.localAI[0]++;
             
             float p = Projectile.localAI[0] / (player.itemTimeMax * Projectile.MaxUpdates);

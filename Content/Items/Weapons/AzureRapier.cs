@@ -119,6 +119,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (Projectile.localAI[0]++ == 0)
             {
+                float scale_ = Projectile.GetOwner().HeldItem.scale;
+                Projectile.GetOwner().ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
                 Projectile.velocity = Projectile.velocity.RotatedByRandom(0.24f);
                 CEUtils.PlaySound("powerwhip", Main.rand.NextFloat(2.4f, 2.8f), Projectile.Center, 12, 0.6f * CEUtils.WeapSound);
             }
@@ -141,11 +144,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + 210 * Projectile.rotation.ToRotationVector2(), targetHitbox, 24);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 210 * Projectile.scale, targetHitbox, 24);
         }
         public override void CutTiles()
         {
-            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 216, 16, DelegateMethods.CutTiles);
+            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 212 * Projectile.scale, 16, DelegateMethods.CutTiles);
         }
         public override bool PreDraw(ref Color lightColor)
         {

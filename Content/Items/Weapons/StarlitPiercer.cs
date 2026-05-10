@@ -76,6 +76,12 @@ namespace CalamityEntropy.Content.Items.Weapons
             player.Calamity().mouseWorldListener = true;
             float cMax = player.itemTimeMax * Projectile.MaxUpdates;
             float zMax = cMax * (Main.zenithWorld ? 0.06f : 0.22f);
+            if(counter == 0)
+            {
+                float scale_ = Projectile.GetOwner().HeldItem.scale;
+                Projectile.GetOwner().ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
+            }
             counter++;
             if (counter <= zMax * (Main.zenithWorld ? 10 : 3))
             {

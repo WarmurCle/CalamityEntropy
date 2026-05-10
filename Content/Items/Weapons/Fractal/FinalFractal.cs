@@ -258,7 +258,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
 
             if (init)
             {
-                Projectile.scale *= owner.HeldItem.scale;
+                float scale_ = owner.HeldItem.scale;
+                owner.ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
                 if (Projectile.ai[0] == 2)
                 {
                     CEUtils.PlaySound("sf_use", 0.6f, Projectile.Center, volume: 0.8f * CEUtils.WeapSound);

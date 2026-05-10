@@ -86,7 +86,12 @@ namespace CalamityEntropy.Content.Projectiles
         public bool spawnProj = true;
         public override void AI()
         {
-
+            if (Projectile.localAI[1]++ == 0)
+            {
+                float scale_ = Projectile.GetOwner().HeldItem.scale;
+                Projectile.GetOwner().ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
+            }
             Player player = Projectile.owner.ToPlayer();
             if (counter < 60)
             {
@@ -284,7 +289,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 return 2;
             }
-            return 1.2f + (float)Math.Sqrt(Math.Abs(rotSpeed / Projectile.owner.ToPlayer().GetTotalAttackSpeed(Projectile.DamageType) * 6 * (vsboost ? 1.5f : 1)));
+            return 1.2f + (float)Math.Sqrt(Math.Abs(rotSpeed / Projectile.owner.ToPlayer().GetTotalAttackSpeed(Projectile.DamageType) * 6 * (vsboost ? 1.6f : 1)));
         }
         public bool sb = true;
         public override bool ShouldUpdatePosition()

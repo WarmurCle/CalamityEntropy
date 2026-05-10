@@ -104,6 +104,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AI()
         {
             Player player = Projectile.GetOwner();
+            if(init)
+            {
+                float scale_ = Projectile.GetOwner().HeldItem.scale;
+                Projectile.GetOwner().ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
+            }
             if (player.dead)
             {
                 Projectile.Kill();

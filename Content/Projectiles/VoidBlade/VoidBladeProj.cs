@@ -35,6 +35,12 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
         public int damageo = -1;
         public override void AI()
         {
+            if (Projectile.localAI[0] ++ == 0)
+            {
+                float scale_ = Projectile.GetOwner().HeldItem.scale;
+                Projectile.GetOwner().ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
+            }
             hs.Volume = 0.6f * CEUtils.WeapSound;
             hitSound.Volume = 0.2f * CEUtils.WeapSound;
             if (damageo == -1)
