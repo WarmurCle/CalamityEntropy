@@ -105,6 +105,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 float scale_ = owner.HeldItem.scale;
                 owner.ApplyMeleeScale(ref scale_);
+                Main.NewText(scale_);
                 Projectile.scale *= scale_;
                 if (Projectile.ai[0] == 2)
                 {
@@ -213,11 +214,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 95 * Projectile.scale * scale, targetHitbox, 64);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 110 * Projectile.scale * scale, targetHitbox, 64);
         }
         public override void CutTiles()
         {
-            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 95 * Projectile.scale * scale, 84, DelegateMethods.CutTiles);
+            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 110 * Projectile.scale * scale, 84, DelegateMethods.CutTiles);
         }
     }
 
