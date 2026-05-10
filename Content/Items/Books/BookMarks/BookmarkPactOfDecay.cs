@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            Item.rare = ModContent.RarityType<CalamityRed>();
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
         }
         public override Texture2D UITexture => BookMark.GetUITexture("PactOfDecay");
@@ -75,7 +75,6 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public override float DamageMult => 0.5f;
         public override void AI()
         {
-            Projectile.penetrate = -1;
             base.AI();
             if (target == null || !target.active || target.dontTakeDamage)
             {
@@ -112,7 +111,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 Projectile.Opacity -= 0.05f;
             }
-            Projectile.pushByOther(0.6f);
+            Projectile.pushByOther(0.5f);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

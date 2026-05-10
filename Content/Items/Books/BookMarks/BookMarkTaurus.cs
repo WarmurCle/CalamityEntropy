@@ -109,7 +109,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                             if (BookMarkTaurus.DontSetHitcd(eb))
                             {
                                 p.ToProj().ResetLocalNPCHitImmunity();
-                                p.ToProj().localNPCImmunity[target.whoAmI] = 16;
+                                p.ToProj().localNPCImmunity[target.whoAmI] = 14;
                             }
                             m.ShooterModProjectile = esb.ShooterModProjectile;
                             m.homing = esb.homing;
