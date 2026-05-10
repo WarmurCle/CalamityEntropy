@@ -306,18 +306,28 @@ namespace CalamityEntropy.Common
             Vector2 statDrawPos = center + new Vector2(-170, -30);
             Main.spriteBatch.Draw(hl, statDrawPos, null, Color.White, 0, hl.Size() / 2, 1, SpriteEffects.None, 0);
             string dstring = life.ToString() + "/" + lifeMax.ToString() + "(" + ((int)(((float)life / (float)lifeMax) * 100)).ToString() + "%)";
-            Main.spriteBatch.DrawString(CalamityEntropy.efont2, dstring, statDrawPos + new Vector2(6, 0), Color.Yellow, 0, CalamityEntropy.efont2.MeasureString(dstring) / 2, 0.42f, SpriteEffects.None, 0);
+            
+            Main.spriteBatch.DrawString(CalamityEntropy.efont2, dstring, statDrawPos + new Vector2(6, 0), Color.Yellow, 0, CalamityEntropy.efont2.MeasureString(dstring) / 2, 0.45f, SpriteEffects.None, 0); 
+            
             statDrawPos.X += 105 + 45 + 4 + 146;
 
             Main.spriteBatch.Draw(df, statDrawPos, null, Color.White, 0, df.Size() / 2, 1, SpriteEffects.None, 0);
             dstring = npc.defense.ToString() + "(-" + (int)(npc.Calamity().DR * EModILEdit.GetNPCDRMultiply(npc) * 100f) + "%)";
-            Main.spriteBatch.DrawString(CalamityEntropy.efont2, dstring, statDrawPos + new Vector2(6, 0), Color.Yellow, 0, CalamityEntropy.efont2.MeasureString(dstring) / 2, 0.44f, SpriteEffects.None, 0);
 
+            if (drawShield)
+            {
+                dstring = ((int)Shield).ToString() + "(" + ((int)(shieldPerc * 100)).ToString() + "%)";
+                Main.spriteBatch.DrawString(CalamityEntropy.efont2, dstring, statDrawPos + new Vector2(10, 0), new Color(190, 160, 255), 0, CalamityEntropy.efont2.MeasureString(dstring) / 2, 0.5f, SpriteEffects.None, 0);
+            }
+            else
+            {
+                Main.spriteBatch.DrawString(CalamityEntropy.efont2, dstring, statDrawPos + new Vector2(8, 0), Color.Yellow, 0, CalamityEntropy.efont2.MeasureString(dstring) / 2, 0.44f, SpriteEffects.None, 0);
+            }
             statDrawPos.X += 70 + 33;
 
             Main.spriteBatch.Draw(atk, statDrawPos, null, Color.White, 0, atk.Size() / 2, 1, SpriteEffects.None, 0);
             dstring = npc.damage.ToString();
-            Main.spriteBatch.DrawString(CalamityEntropy.efont2, dstring, statDrawPos + new Vector2(6, 0), Color.Yellow, 0, CalamityEntropy.efont2.MeasureString(dstring) / 2, 0.44f, SpriteEffects.None, 0);
+            Main.spriteBatch.DrawString(CalamityEntropy.efont2, dstring, statDrawPos + new Vector2(8, 0), Color.Yellow, 0, CalamityEntropy.efont2.MeasureString(dstring) / 2, 0.5f, SpriteEffects.None, 0);
 
             string name = npc.FullName;
             Color tColor = getNpcBarColor(npc);
