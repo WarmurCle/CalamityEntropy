@@ -2328,6 +2328,11 @@ Items: {
 		Tooltip: ""
 	}
 
+	ApsychosMusicBox: {
+		DisplayName: 音乐盒(烬甲秽魔)
+		Tooltip: ""
+	}
+
 	WelkinFractal: {
 		DisplayName: 苍穹分形
 		Tooltip:

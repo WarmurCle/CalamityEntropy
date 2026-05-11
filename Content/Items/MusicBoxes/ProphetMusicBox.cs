@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Tiles;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.MusicBoxes
@@ -7,6 +8,11 @@ namespace CalamityEntropy.Content.Items.MusicBoxes
     {
         public override string MusicFile => "Assets/Sounds/Music/SpectralForesight";
         public override int MusicBoxTile => ModContent.TileType<ProphetMusicBoxTile>();
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Item.rare = ItemRarityID.Yellow;
+        }
     }
     public class ProphetMusicBoxTile : MusicBoxTile
     {

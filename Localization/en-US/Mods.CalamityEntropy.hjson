@@ -2160,6 +2160,11 @@ Items: {
 		Tooltip: ""
 	}
 
+	ApsychosMusicBox: {
+		DisplayName: Apsychos Music Box
+		Tooltip: ""
+	}
+
 	WelkinFractal: {
 		DisplayName: Welkin Fractal
 		Tooltip: "[c/d4fff8:Blessed by the heavens]"
