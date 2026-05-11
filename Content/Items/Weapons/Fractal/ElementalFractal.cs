@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 560;
+            Item.damage = 520;
             Item.crit = 10;
             Item.DamageType = DamageClass.Melee;
             Item.width = 60;
@@ -141,7 +141,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     Vector2 spawnPos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 98 * scale * Projectile.scale;
                     if (Main.myPlayer == Projectile.owner && !noProj)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, CEUtils.randomPointInCircle(0.1f) + Projectile.rotation.ToRotationVector2() * 6, ModContent.ProjectileType<FractalBlight>(), Projectile.damage / 8, Projectile.knockBack, Projectile.owner, Main.rand.NextFloat() * 6.28f, 1);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, CEUtils.randomPointInCircle(0.1f) + Projectile.rotation.ToRotationVector2() * 6, ModContent.ProjectileType<FractalBlight>(), Projectile.damage / 5, Projectile.knockBack, Projectile.owner, Main.rand.NextFloat() * 6.28f, 1);
                     }
                 }
                 alpha = 1;
