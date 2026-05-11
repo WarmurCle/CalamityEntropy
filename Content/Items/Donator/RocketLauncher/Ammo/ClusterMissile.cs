@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             Item.value = Item.sellPrice(silver: 5);
             Item.rare = ItemRarityID.Orange;
             Item.ammo = BaseMissileProj.AmmoType;
-            Item.damage = 12;
+            Item.damage = 10;
             Item.shoot = ModContent.ProjectileType<ClusterMissileProj>();
             Item.consumable = true;
             Item.DamageType = DamageClass.Ranged;
@@ -27,8 +27,8 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
 
         public override void AddRecipes()
         {
-            CreateRecipe(15)
-                .AddIngredient(ModContent.ItemType<AzafureMissile>(), 15)
+            CreateRecipe(100)
+                .AddIngredient(ModContent.ItemType<AzafureMissile>(), 100)
                 .AddRecipeGroup(CERecipeGroups.AnyOrichalcumBar)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
