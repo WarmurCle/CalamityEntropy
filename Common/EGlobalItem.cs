@@ -613,7 +613,8 @@ namespace CalamityEntropy.Common
                         }
                         if (tooltip.Name == "Defense" && armorPrefix.AddDefense() != 0)
                         {
-                            tooltip.Text += (armorPrefix.AddDefense() > 0 ? "(+" : "(") + ((int)Math.Round(armorPrefix.AddDefense() * item.defense)).ToString() + ")";
+                            int df = (int)(Math.Ceiling(item.defense * armorPrefix.AddDefense()));
+                            tooltip.Text += (armorPrefix.AddDefense() > 0 ? "(+" : "(") + df.ToString() + ")";
                         }
                     }
                 }
