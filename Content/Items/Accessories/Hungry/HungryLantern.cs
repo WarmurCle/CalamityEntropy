@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Hungry
             Projectile.width = Projectile.height = 32;
             Projectile.timeLeft = 5;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 8;
+            Projectile.localNPCHitCooldown = 14;
             Projectile.minion = true;
             Projectile.minionSlots = 0;
         }

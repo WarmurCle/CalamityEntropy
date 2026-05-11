@@ -369,7 +369,7 @@ namespace CalamityEntropy.Common
                 {
                     if (projectile.owner.ToPlayer().Entropy().VFHelmRanged)
                     {
-                        maxDmgUps = 10;
+                        maxDmgUps = 6;
                         dmgupcount = 16 * projectile.extraUpdates;
                     }
                 }
