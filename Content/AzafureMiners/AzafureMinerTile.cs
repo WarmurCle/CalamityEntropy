@@ -1,4 +1,6 @@
-﻿using InnoVault;
+﻿using CalamityEntropy.Common;
+using CalamityMod;
+using InnoVault;
 using InnoVault.TileProcessors;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -7,9 +9,13 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.GameContent;
+using Terraria.GameContent.ObjectInteractions;
+using Terraria.GameInput;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using static SDL2.SDL;
 
 namespace CalamityEntropy.Content.AzafureMiners
 {
@@ -64,6 +70,13 @@ namespace CalamityEntropy.Content.AzafureMiners
             TileObjectData.newTile.LavaDeath = false;
 
             TileObjectData.addTile(Type);
+
+            TileID.Sets.DisableSmartCursor[Type] = true;
+            TileID.Sets.HasOutlines[Type] = true;
+        }
+        public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
+        {
+            return true;
         }
 
         public override void MouseOver(int i, int j)
@@ -91,7 +104,6 @@ namespace CalamityEntropy.Content.AzafureMiners
             }
             return false;
         }
-
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
             if (!VaultUtils.SafeGetTopLeft(i, j, out var point))
@@ -117,7 +129,30 @@ namespace CalamityEntropy.Content.AzafureMiners
                 drawColor.B /= 2;
                 drawColor.A = 255;
             }
+            bool inArea = Main.InSmartCursorHighlightArea(azMinerTP.Position.X, azMinerTP.Position.Y, out bool slc);
+            azMinerTP.SmartCursorHover = slc;
+            if (inArea)
+            {
+                Color outlineColor = slc ? Color.Yellow : Color.Gray;
+                Main.spriteBatch.End();
+                EffectLoader.OutlineShader.CurrentTechnique.Passes[0].Apply();
+                EffectLoader.OutlineShader.Parameters["texSize"].SetValue(tex.Size());
+                EffectLoader.OutlineShader.Parameters["color"].SetValue(outlineColor.ToVector4());
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, EffectLoader.OutlineShader, Main.GameViewMatrix.ZoomMatrix);
 
+                if (!t.IsHalfBlock && t.Slope == 0)
+                {
+                    spriteBatch.Draw(tex, drawOffset, new Rectangle(frameXPos, frameYPos, 16, 16)
+                        , outlineColor, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
+                }
+                else if (t.IsHalfBlock)
+                {
+                    spriteBatch.Draw(tex, drawOffset + Vector2.UnitY * 8f, new Rectangle(frameXPos, frameYPos, 16, 16)
+                        , outlineColor, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
+                }
+
+                Main.spriteBatch.ExitShaderRegion();
+            }
             if (!t.IsHalfBlock && t.Slope == 0)
             {
                 spriteBatch.Draw(tex, drawOffset, new Rectangle(frameXPos, frameYPos, 16, 16)

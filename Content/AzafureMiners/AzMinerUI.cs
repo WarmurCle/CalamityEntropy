@@ -78,9 +78,9 @@ namespace CalamityEntropy.Content.AzafureMiners
 
             //更新UI透明度
             float targetAlpha = IsActive ? 1f : 0f;
-            uiAlpha = MathHelper.Lerp(uiAlpha, targetAlpha, 0.12f);
+            uiAlpha = MathHelper.Lerp(uiAlpha, targetAlpha, 0.4f);
 
-            if (uiAlpha < 0.01f && !IsActive)
+            if (uiAlpha < 0.1f && !IsActive)
             {
                 return;
             }

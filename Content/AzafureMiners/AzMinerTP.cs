@@ -13,6 +13,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.ObjectData;
 
 namespace CalamityEntropy.Content.AzafureMiners
 {
@@ -31,6 +32,7 @@ namespace CalamityEntropy.Content.AzafureMiners
         public static readonly Dictionary<int, bool> ItemIsOre = [];
         public static bool init = true;
 
+        public bool SmartCursorHover = false;
         public static void SetUpList()
         {
             try

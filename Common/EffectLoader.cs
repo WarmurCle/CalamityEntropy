@@ -14,6 +14,7 @@ using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.Pets.Abyss;
 using CalamityEntropy.Content.Projectiles.Prophet;
 using CalamityEntropy.Content.Tiles;
+using CalamityEntropy.Content.UI.EntropyBookUI;
 using InnoVault;
 using InnoVault.PRT;
 using InnoVault.RenderHandles;
@@ -71,6 +72,13 @@ namespace CalamityEntropy.Common
         public const string AssetPath = "CalamityEntropy/Assets/";
         public const string AssetPath2 = "Assets/";
         public const int MaxScreenSlot = 4;
+        public static Effect OutlineShader
+        {
+            get
+            {
+                return EBookUI.shader;
+            }
+        }
         public override int ScreenSlot => MaxScreenSlot;
         public static EffectLoader This { get; private set; }
         public static RenderTarget2D Screen0 => This.ScreenTargets[0];
