@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
+using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -73,6 +74,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (Projectile.ai[0] == 0 || Projectile.ai[0] == 40)
                 {
+                    Projectile.Entropy().Lifetime = 0;
                     odr.Clear();
 
                     ods.Clear();
@@ -90,6 +92,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 if (Projectile.ai[0] == 20 || Projectile.ai[0] == 60)
                 {
+                    Projectile.Entropy().Lifetime = 0;
                     odr.Clear();
                     ods.Clear();
                     rotSpeed = 0;
@@ -106,7 +109,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 if (Projectile.ai[0] == 80)
                 {
-
+                    Projectile.Entropy().Lifetime = 0;
                     odr.Clear();
                     ods.Clear();
                     rotSpeed = 0;
@@ -139,7 +142,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     rotSpeed = -0.74f;
                 }
-                if (Projectile.owner == Main.myPlayer)
+                if (!Projectile.GetOwner().Calamity().bladeArmEnchant && Projectile.owner == Main.myPlayer)
                 {
                     float angle = 0;
                     for (int i = 0; i < 6 + Projectile.owner.ToPlayer().Entropy().WeaponBoost * 2; i++)
@@ -163,7 +166,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     rotSpeed = -0.54f;
                 }
-                if (Projectile.owner == Main.myPlayer)
+                if (!Projectile.GetOwner().Calamity().bladeArmEnchant && Projectile.owner == Main.myPlayer)
                 {
                     for (int i = 0; i < 2 + Projectile.owner.ToPlayer().Entropy().WeaponBoost; i++)
                     {
@@ -185,7 +188,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     rotSpeed = -0.54f;
                 }
-                if (Projectile.owner == Main.myPlayer)
+                if (!Projectile.GetOwner().Calamity().bladeArmEnchant && Projectile.owner == Main.myPlayer)
                 {
                     for (int i = 0; i < 2 + Projectile.owner.ToPlayer().Entropy().WeaponBoost; i++)
                     {
@@ -219,6 +222,10 @@ namespace CalamityEntropy.Content.Projectiles
             owner.itemAnimation = 2;
             owner.itemTime = 2;
             owner.heldProj = Projectile.whoAmI;
+            if (Projectile.GetOwner().Calamity().bladeArmEnchant && owner.channel)
+            {
+                owner.itemAnimation = int.Max(1, owner.itemAnimationMax - Projectile.Entropy().Lifetime);
+            }
             Projectile.ai[0]++;
             Projectile.Center = owner.MountedCenter + owner.gfxOffY * Vector2.UnitY;
             if (Projectile.velocity.X > 0)

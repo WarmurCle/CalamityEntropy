@@ -97,7 +97,12 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 player.itemTime = 2;
                 player.itemAnimation = 2;
+                if (Projectile.GetOwner().Calamity().bladeArmEnchant)
+                {
+                    player.itemAnimation = int.Max(1, player.itemAnimationMax - Projectile.Entropy().Lifetime);
+                }
             }
+
             float speed = player.GetTotalAttackSpeed(Projectile.DamageType);
             if (attackType == 3)
             {
@@ -120,7 +125,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (counter >= 20 && spawnProj)
                 {
                     spawnProj = false;
-                    if (Main.myPlayer == Projectile.owner)
+                    if (!Projectile.GetOwner().Calamity().bladeArmEnchant && Main.myPlayer == Projectile.owner)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Projectile.velocity, ModContent.ProjectileType<WohLaser>(), (int)(Projectile.damage * 0.5f), Projectile.knockBack, Projectile.owner, 0, 0, 2).ToProj().DamageType = Projectile.DamageType;
                     }
@@ -147,6 +152,8 @@ namespace CalamityEntropy.Content.Projectiles
                 if (counter > 60)
                 {
                     Projectile.Kill();
+                    player.itemTime = 1;
+                    player.itemAnimation = 1;
                 }
                 if (counter < 44)
                 {
@@ -168,7 +175,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (counter >= 16 && st)
                 {
                     st = false;
-                    if (Main.myPlayer == Projectile.owner)
+                    if (!Projectile.GetOwner().Calamity().bladeArmEnchant && Main.myPlayer == Projectile.owner)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Projectile.velocity * 0.52f, ModContent.ProjectileType<VoidImpact>(), (int)(Projectile.damage), Projectile.knockBack, Projectile.owner);
                     }
@@ -220,6 +227,8 @@ namespace CalamityEntropy.Content.Projectiles
                 if (counter > 60)
                 {
                     Projectile.Kill();
+                    player.itemTime = 1;
+                    player.itemAnimation = 1;
                 }
                 Projectile.rotation += rotSpeed * Projectile.direction;
                 Player owner = player;

@@ -21,6 +21,7 @@ using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.NPCs.SlimeGod;
 using CalamityMod.Projectiles.Boss;
+using CalamityMod.UI.CalamitasEnchants;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
@@ -222,6 +223,22 @@ namespace CalamityEntropy.Common
                 Main.spriteBatch.Draw(tex, center - Main.screenPosition, null, new Color(200, 200, 255) * alpha * player.Entropy().ShieldAlphaAdd, 0 + rot, tex.Size() / 2f, scale, SpriteEffects.None, 0);
             }
             Main.spriteBatch.End();
+        }
+        public override void OnModLoad()
+        {
+            for(int index = 0; index < EnchantmentManager.EnchantmentList.Count; index++)
+            {
+                Enchantment enc = EnchantmentManager.EnchantmentList[index];
+                if (enc.IconTexturePath == "CalamityMod/UI/CalamitasEnchantments/CurseIcon_Tainted")
+                {
+                    var method = typeof(Enchantment).GetField("ApplyRequirement", BindingFlags.Instance | BindingFlags.NonPublic);
+                    Predicate<Item> pd = (Predicate<Item>)(item => item.IsEnchantable() && item.damage > 0 && item.CountsAsClass<MeleeDamageClass>() && ((!item.noUseGraphic && item.shoot > ProjectileID.None) || CELists.SpecialTaintedEnchantmentList.Contains(item.type)));
+                    object boxed = enc;
+                    method.SetValue(boxed, pd);
+                    EnchantmentManager.EnchantmentList[index] = (Enchantment)boxed;
+                    break;
+                }
+            }
         }
         public override void PostDrawTiles()
         {
@@ -495,31 +512,16 @@ namespace CalamityEntropy.Common
             /*{
                 if (CEKeybinds.CommandMinions.JustPressed)
                 {
-                    List<int> loreItems = new List<int>();
-                    List<int> loresHasEffect = new List<int>();
-                    for (int i = ItemID.Count; i < ItemLoader.ItemCount; i++)
+                    OnModLoad();
+                    foreach (Enchantment enc in EnchantmentManager.EnchantmentList)
                     {
-                        Item item = ContentSamples.ItemsByType[i];
-                        if (item.ModItem != null && item.ModItem is LoreItem)
+                        if (enc.IconTexturePath == "CalamityMod/UI/CalamitasEnchantments/CurseIcon_Tainted")
                         {
-                            loreItems.Add(i);
-                        }
-                    }
-                    foreach (var kv in LoreReworkSystem.loreEffects)
-                    {
-                        loresHasEffect.Add(kv.Key);
-                    }
-
-                    for (int i = 0; i < loreItems.Count; i++)
-                    {
-                        if (!loresHasEffect.Contains(loreItems[i]))
-                        {
-                            Main.NewText(ContentSamples.ItemsByType[loreItems[i]].Name);
+                            var method = typeof(Enchantment).GetField("ApplyRequirement", BindingFlags.Instance | BindingFlags.NonPublic);
                         }
                     }
                 }
             }*/
-
             ScreenShaker.Update();
             if (CalamityEntropy.FlashEffectStrength > 0)
             {

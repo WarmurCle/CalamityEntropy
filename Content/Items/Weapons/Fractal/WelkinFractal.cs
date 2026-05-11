@@ -94,6 +94,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public float spawnFeatherCounter = 0;
         public override void AI()
         {
+            bool noProj = Projectile.GetOwner().Calamity().bladeArmEnchant;
+            if (noProj)
+                shoot = false;
             Player owner = Projectile.GetOwner();
             float MaxUpdateTimes = owner.itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
@@ -141,7 +144,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 {
                     spawnFeatherCounter -= 16f;
                     Vector2 spawnPos = Projectile.Center + new Vector2(0, 600) * Projectile.ai[0] + CEUtils.randomPointInCircle(34);
-                    if (Main.myPlayer == Projectile.owner)
+                    if (Main.myPlayer == Projectile.owner && !noProj)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, (Main.MouseWorld - spawnPos).normalize() * 28, ModContent.ProjectileType<FractalFeather>(), Projectile.damage / 3, Projectile.knockBack, Projectile.owner, Main.rand.NextFloat() * 6.28f);
                     }
@@ -169,6 +172,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             owner.heldProj = Projectile.whoAmI;
             owner.itemTime = 2;
             owner.itemAnimation = 2;
+            if (Projectile.GetOwner().Calamity().bladeArmEnchant)
+            {
+                owner.itemAnimation = int.Max(1, owner.itemAnimationMax - Projectile.Entropy().Lifetime);
+            }
             if (counter > MaxUpdateTimes)
             {
                 owner.itemTime = 1;

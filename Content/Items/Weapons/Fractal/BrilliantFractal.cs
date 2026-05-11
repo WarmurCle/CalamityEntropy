@@ -88,13 +88,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public float spawnProjCounter = 0;
         public override void AI()
         {
+            bool noProj = Projectile.GetOwner().Calamity().bladeArmEnchant;
+            if (noProj)
+                shoot = false;
             Player owner = Projectile.GetOwner();
             float MaxUpdateTimes = owner.itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
             counter++;
             if (Main.myPlayer == Projectile.owner)
             {
-                if (spawnProj && progress > 0.4f)
+                if (spawnProj && progress > 0.4f && !noProj)
                 {
                     int dir = (int)(Projectile.ai[0]) * (Projectile.velocity.X > 0 ? -1 : 1);
                     spawnProj = false;
@@ -125,7 +128,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             {
                 spawnProjCounter -= 6f;
                 Vector2 spawnPos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 98 * scale * Projectile.scale;
-                if (Main.myPlayer == Projectile.owner)
+                if (Main.myPlayer == Projectile.owner && !noProj)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, CEUtils.randomPointInCircle(0.1f), ModContent.ProjectileType<FractalBlight>(), Projectile.damage / 6, Projectile.knockBack, Projectile.owner, Main.rand.NextFloat() * 6.28f);
                 }
@@ -153,6 +156,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             owner.heldProj = Projectile.whoAmI;
             owner.itemTime = 2;
             owner.itemAnimation = 2;
+            if (Projectile.GetOwner().Calamity().bladeArmEnchant)
+            {
+                owner.itemAnimation = int.Max(1, owner.itemAnimationMax - Projectile.Entropy().Lifetime);
+            }
             if (counter > MaxUpdateTimes)
             {
                 owner.itemTime = 1;

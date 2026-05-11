@@ -1,5 +1,6 @@
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Tiles;
+using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Melee;
 using Terraria;
@@ -51,7 +52,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
             {
                 newLevel = 2;
             }
-            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, newLevel);
+            if(!player.Calamity().bladeArmEnchant)
+                Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, newLevel);
             return false;
         }
 

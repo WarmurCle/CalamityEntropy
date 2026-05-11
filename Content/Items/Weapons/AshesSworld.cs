@@ -45,9 +45,13 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int t = ModContent.ProjectileType<SmolderingRock>();
-            for(int i = 0; i < 4; i++)
+
+            if (!player.Calamity().bladeArmEnchant)
             {
-                Projectile.NewProjectile(source, position, velocity.RotatedByRandom(0.6f), t, damage / 2, knockback, player.whoAmI);
+                for (int i = 0; i < 4; i++)
+                {
+                    Projectile.NewProjectile(source, position, velocity.RotatedByRandom(0.6f), t, damage / 2, knockback, player.whoAmI);
+                }
             }
             return true;
         }
@@ -98,9 +102,15 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (p >= 1)
             {
                 Projectile.Kill();
+                player.itemTime = 1;
+                player.itemAnimation = 1;
                 return;
             }
             player.itemTime = player.itemAnimation = 2;
+            if (Projectile.GetOwner().Calamity().bladeArmEnchant)
+            {
+                player.itemAnimation = int.Max(1, player.itemAnimationMax - Projectile.Entropy().Lifetime);
+            }
             float r = -1.8f + 3.6f * CEUtils.CustomLerp1(p);
             Projectile.localAI[1] = CEUtils.Parabola(p, 1);
             Vector2 ov = Projectile.velocity;

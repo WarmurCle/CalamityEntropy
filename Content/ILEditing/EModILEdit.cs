@@ -14,6 +14,7 @@ using CalamityMod.Particles;
 using CalamityMod.Projectiles.Melee;
 using CalamityMod.Schematics;
 using CalamityMod.UI;
+using CalamityMod.UI.CalamitasEnchants;
 using CalamityMod.UI.ResourceSets;
 using CalamityMod.UI.Rippers;
 using CalamityMod.World;
@@ -31,6 +32,7 @@ using System.Linq;
 using System.Reflection;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -169,6 +171,9 @@ namespace CalamityEntropy.Content.ILEditing
                 EModHooks.Add(postdrawResMethod, EResourceOverlay.PostDrawResourceHook);
             }
 
+            var calPlrShoot = typeof(CalamityPlayer).GetMethod("Shoot", BindingFlags.Instance | BindingFlags.Public);
+            EModHooks.Add(calPlrShoot, calPlrShootHook);
+
             var ApplyDRMethod = typeof(CalamityGlobalNPC).GetMethod("ApplyDR", BindingFlags.Instance | BindingFlags.NonPublic, new Type[] { typeof(NPC), typeof(NPC.HitModifiers).MakeByRefType() });
             EModHooks.Add(ApplyDRMethod, apply_dr_hook);
 
@@ -189,6 +194,15 @@ namespace CalamityEntropy.Content.ILEditing
             }
 
             CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");
+        }
+        public static bool calPlrShootHook(Func<CalamityPlayer, Item, EntitySource_ItemUse_WithAmmo, Vector2, Vector2, int, int, float, bool> orig, CalamityPlayer self, Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+        {
+            bool org = orig.Invoke(self, item, source, position, velocity, type, damage, knockBack);
+            if(self.bladeArmEnchant && CELists.SpecialTaintedEnchantmentList.Contains(self.Player.HeldItem.type))
+            {
+                return true;
+            }
+            return org;
         }
         public static void elmentalGloveUpdateAccessoryHook(Action<ElementalGauntlet, Player, bool> orig, ElementalGauntlet self, Player player, bool hv)
         {

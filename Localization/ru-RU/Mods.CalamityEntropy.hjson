@@ -2181,6 +2181,11 @@ Items: {
 		Tooltip: ""
 	}
 
+	ApsychosMusicBox: {
+		// DisplayName: Apsychos Music Box
+		// Tooltip: ""
+	}
+
 	WelkinFractal: {
 		DisplayName: Небесный фрактал
 		Tooltip: "[c/d4fff8:Благословенный небесами]"

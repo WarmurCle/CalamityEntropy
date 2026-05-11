@@ -19,8 +19,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 86;
             Item.height = 86;
-            Item.useTime = 15;
-            Item.useAnimation = 15;
+            Item.useTime = 22;
+            Item.useAnimation = 22;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 7;
             Item.rare = ModContent.RarityType<AbyssalBlue>();

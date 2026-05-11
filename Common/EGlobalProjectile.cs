@@ -259,8 +259,14 @@ namespace CalamityEntropy.Common
         public bool netsnc = true;
         public static bool checkHoldOut = true;
         public bool dmgUpFrd = true;
+        public int Lifetime = 0;
+        public int updateTimes = 0;
         public override void AI(Projectile projectile)
         {
+            updateTimes++;
+            if (updateTimes % projectile.MaxUpdates == 0)
+                Lifetime++;
+
             if(projectile.ModProjectile != null && projectile.ModProjectile is DazzlingStabber ds)
             {
                 var ff = typeof(DazzlingStabber).GetField("justHit", BindingFlags.NonPublic | BindingFlags.Instance);

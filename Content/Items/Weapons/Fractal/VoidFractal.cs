@@ -128,6 +128,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public float spawnProjCounter = 0;
         public override void AI()
         {
+            bool noProj = Projectile.GetOwner().Calamity().bladeArmEnchant;
+            if (noProj)
+            {
+                spawnProj = false;
+                shoot = false;
+            }
             Player owner = Projectile.GetOwner();
             float MaxUpdateTimes = owner.itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
@@ -173,7 +179,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 {
                     spawnProjCounter -= 6f;
                     Vector2 spawnPos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 48 * scale * Projectile.scale;
-                    if (Main.myPlayer == Projectile.owner)
+                    if (Main.myPlayer == Projectile.owner && !noProj)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, CEUtils.randomPointInCircle(0.1f) + Projectile.rotation.ToRotationVector2() * 8, ModContent.ProjectileType<VoidStarF>(), Projectile.damage / 8, Projectile.knockBack, Projectile.owner).ToProj().DamageType = DamageClass.Melee;
                     }
@@ -252,10 +258,17 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 owner.heldProj = Projectile.whoAmI;
                 owner.itemTime = 2;
                 owner.itemAnimation = 2;
+
+                if (Projectile.GetOwner().Calamity().bladeArmEnchant)
+                {
+                    owner.itemAnimation = int.Max(1, (int)(owner.itemAnimationMax * 0.6f) - Projectile.Entropy().Lifetime);
+                }
             }
             if (counter > MaxUpdateTimes)
             {
                 Projectile.Kill();
+                owner.itemTime = 1;
+                owner.itemAnimation = 1;
             }
         }
 
@@ -467,7 +480,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             }
             else
             {
-                if (Projectile.ai[0] == 1)
+                bool noProj = Projectile.GetOwner().Calamity().bladeArmEnchant;
+                if (Projectile.ai[0] == 1 && !noProj)
                 {
                     int type = ModContent.ProjectileType<FinalFractalBlade>();
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.PiOver2) * 0.1f, type, Projectile.damage, Projectile.knockBack, Projectile.owner);

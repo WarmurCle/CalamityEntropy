@@ -120,6 +120,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public bool shoot = true;
         public override void AI()
         {
+            if (Projectile.GetOwner().Calamity().bladeArmEnchant)
+                shoot = false;
             Player owner = Projectile.GetOwner();
             float MaxUpdateTimes = owner.itemTimeMax * Projectile.MaxUpdates;
             float progress = (counter / MaxUpdateTimes);
@@ -184,11 +186,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             owner.heldProj = Projectile.whoAmI;
             owner.itemTime = 2;
             owner.itemAnimation = 2;
+            if (Projectile.GetOwner().Calamity().bladeArmEnchant)
+            {
+                owner.itemAnimation = int.Max(1, owner.itemAnimationMax - Projectile.Entropy().Lifetime);
+            }
             if (counter > MaxUpdateTimes)
             {
+                Projectile.Kill();
                 owner.itemTime = 1;
                 owner.itemAnimation = 1;
-                Projectile.Kill();
             }
         }
         public override bool ShouldUpdatePosition()

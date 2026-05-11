@@ -15,8 +15,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.width = 56;
             Item.noUseGraphic = true;
             Item.height = 56;
-            Item.useTime = 1;
-            Item.useAnimation = 1;
+            Item.useTime = 40;
+            Item.useAnimation = 40;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 6;
             Item.value = CalamityGlobalItem.RarityYellowBuyPrice;

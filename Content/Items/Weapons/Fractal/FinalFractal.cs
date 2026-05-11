@@ -148,8 +148,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             }
             if (owner.whoAmI == Main.myPlayer)
             {
+                bool noProj = Projectile.GetOwner().Calamity().bladeArmEnchant;
                 Projectile.ai[1]++;
-                if (Projectile.ai[1] > Projectile.MaxUpdates * 0.8f && s < 3)
+                if (!noProj && Projectile.ai[1] > Projectile.MaxUpdates * 0.8f && s < 3)
                 {
                     Projectile.ai[1] = 0;
                     s++;
@@ -243,6 +244,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public float spawnProjCounter = 0;
         public override void AI()
         {
+            bool noProj = Projectile.GetOwner().Calamity().bladeArmEnchant;
+            if (noProj)
+            {
+                spawnProj = false;
+                shoot = false;
+            }
             Player owner = Projectile.GetOwner();
 
             float MaxUpdateTimes = owner.itemTimeMax * Projectile.MaxUpdates;
@@ -363,10 +370,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             owner.heldProj = Projectile.whoAmI;
             owner.itemTime = 2;
             owner.itemAnimation = 2;
-
+            if (Projectile.GetOwner().Calamity().bladeArmEnchant)
+            {
+                owner.itemAnimation = int.Max(1, (int)(owner.itemAnimationMax * 0.6f) - Projectile.Entropy().Lifetime);
+            }
             if (counter > MaxUpdateTimes)
             {
                 Projectile.Kill();
+                owner.itemTime = 1;
+                owner.itemAnimation = 1;
             }
         }
         public NPC OnNPC = null;

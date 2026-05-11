@@ -93,6 +93,7 @@ using ReLogic.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using Terraria;
 using Terraria.Audio;
@@ -515,6 +516,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            CELists.Unload();
             Apsychos.shader = null;
             CEUtils.BS_ColorInverse = null;
             Typer.activeTypers = null;
@@ -1505,6 +1507,7 @@ namespace CalamityEntropy
         }
         public override void PostSetupContent()
         {
+            CELists.Load();
             Apsychos.WhiteTransShader();
             ScreenShaker.Init();
             Typer.activeTypers = new();

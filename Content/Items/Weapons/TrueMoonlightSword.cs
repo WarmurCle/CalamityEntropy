@@ -122,7 +122,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 owner.ApplyMeleeScale(ref scale_);
                 Projectile.scale *= scale_;
                 init = false;
-                if (Main.myPlayer == Projectile.owner)
+                if (!Projectile.GetOwner().Calamity().bladeArmEnchant && Main.myPlayer == Projectile.owner)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity * 2, ModContent.ProjectileType<TrueMoonlightShoot>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner);
                 }
@@ -161,6 +161,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             owner.heldProj = Projectile.whoAmI;
             owner.itemTime = 2;
             owner.itemAnimation = 2;
+            if (Projectile.GetOwner().Calamity().bladeArmEnchant)
+            {
+                owner.itemAnimation = int.Max(1, owner.itemAnimationMax - Projectile.Entropy().Lifetime);
+            }
             if (counter > MaxUpdateTimes)
             {
                 owner.itemTime = 1;

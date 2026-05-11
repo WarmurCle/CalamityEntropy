@@ -149,8 +149,8 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                     if (Projectile.ai[0] > 94 * updates)
                     {
-                        owner.itemTime = 0;
-                        owner.itemAnimation = 0;
+                        owner.itemTime = 1;
+                        owner.itemAnimation = 1;
                         Projectile.Kill();
                         return;
                     }
@@ -183,6 +183,10 @@ namespace CalamityEntropy.Content.Projectiles
             owner.heldProj = Projectile.whoAmI;
             owner.itemTime = 2;
             owner.itemAnimation = 2;
+            if (Projectile.GetOwner().Calamity().bladeArmEnchant)
+            {
+                owner.itemAnimation = int.Max(1, owner.itemAnimationMax - Projectile.Entropy().Lifetime);
+            }
         }
         public float alpha = 1;
         public override bool ShouldUpdatePosition()

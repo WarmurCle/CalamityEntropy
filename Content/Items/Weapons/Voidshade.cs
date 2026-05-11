@@ -12,7 +12,8 @@ namespace CalamityEntropy.Content.Items.Weapons
 {
     public class Voidshade : ModItem
     {
-        public int attackType = 0; public int comboExpireTimer = 0; public override void SetStaticDefaults()
+        public int attackType = 0; public int comboExpireTimer = 0; 
+        public override void SetStaticDefaults()
         {
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
         }
@@ -23,10 +24,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+            Item.useTime = 32;
+            Item.useAnimation = 32;
             Item.autoReuse = true;
-            Item.scale = 2f;
+            Item.scale = 1f;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.damage = 100;
             Item.knockBack = 6;
