@@ -345,7 +345,7 @@ namespace CalamityEntropy.Common
             if (armorPrefix != null)
             {
                 armorPrefix.UpdateEquip(player, item);
-                player.statDefense += (int)(Math.Round(item.defense * armorPrefix.AddDefense()));
+                player.statDefense += (int)(Math.Ceiling(item.defense * armorPrefix.AddDefense()));
             }
         }
         public override void UpdateVanity(Item item, Player player)

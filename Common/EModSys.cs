@@ -28,6 +28,7 @@ using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -58,6 +59,15 @@ namespace CalamityEntropy.Common
         public Vector2 LastPlayerPos;
         public Vector2 LastPlayerVel;
         public static int AcropolisDontSpawn = 0;
+
+        public override void OnLocalizationsLoaded()
+        {
+            string n = Language.GetTextValue($"Mods.CalamityEntropy.ModNameOverride");
+            var ff = typeof(Mod).GetProperty("DisplayName", BindingFlags.Public |
+        BindingFlags.Instance |
+        BindingFlags.NonPublic);
+            ff?.SetValue(Mod, n);
+        }
         public static Color GetColorForNPCBossbarFromTexture(Color[] data)
         {
             int pixelCount = 0;
