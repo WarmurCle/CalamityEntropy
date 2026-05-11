@@ -1,4 +1,3 @@
-
 using CalamityEntropy.Common.LoreReworks;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
