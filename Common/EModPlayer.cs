@@ -4024,8 +4024,8 @@ namespace CalamityEntropy.Common
             {
                 if (EquipedAnyRogueAcc)
                 {
-                    if (Player.Calamity().rogueStealthMax < 0.2f)
-                        Player.Calamity().rogueStealthMax = 0.2f;
+                    if (Player.Calamity().rogueStealthMax < 0.4f)
+                        Player.Calamity().rogueStealthMax = 0.4f;
                     Player.Calamity().wearingRogueArmor = true;
                 }
             }
