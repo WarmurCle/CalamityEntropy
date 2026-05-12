@@ -29,8 +29,8 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
 
         public override void AddRecipes()
         {
-            CreateRecipe(20)
-                .AddIngredient(ModContent.ItemType<AerialiteBar>(), 2)
+            CreateRecipe(100)
+                .AddIngredient(ModContent.ItemType<AerialiteBar>(), 1)
                 .AddIngredient(ModContent.ItemType<OsseousRemains>())
                 .AddTile(TileID.Anvils)
                 .Register();
