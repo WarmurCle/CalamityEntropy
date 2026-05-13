@@ -36,7 +36,9 @@ namespace CalamityEntropy.Common
                             }
                             if (line.StartsWith(header))
                             {
-                                if (line.Contains("1.000000"))
+                                if (line[2] == '3')
+                                    continue;
+                                if (line.Contains("1.000000") || line.Contains("2.000000"))
                                 {
                                     return true;
                                 }
@@ -53,7 +55,6 @@ namespace CalamityEntropy.Common
             }
             catch
             {
-                CalamityEntropy.Instance.Logger.Warn("Failed to load deltarune save file(dr.ini)");
             }
         }
         public static void Reset()
