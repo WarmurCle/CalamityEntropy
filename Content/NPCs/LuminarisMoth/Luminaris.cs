@@ -97,12 +97,13 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             NPC.width = 96;
             NPC.height = 96;
             NPC.damage = 68;
+            NPC.defense = 10;
             NPC.Calamity().DR = 0.1f;
-            NPC.defense = 18;
             NPC.lifeMax = 28000;
             if (BossRushEvent.BossRushActive)
             {
-                NPC.lifeMax += 250000;
+                NPC.Calamity().DR = 0.2f;
+                NPC.lifeMax += 200000;
             }
             NPC.HitSound = SoundID.NPCHit32;
             NPC.DeathSound = SoundID.NPCDeath22;
@@ -681,7 +682,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             if (ai == AIStyle.ShootTriangle)
             {
                 NPC.velocity *= 0;
-                NPC.rotation = 0;
+                vec2 = NPC.Center;
                 AfterImageTime = 16;
                 if (AIChangeCounter == 200)
                 {
@@ -691,6 +692,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 if (AIChangeCounter > 160)
                 {
                     NPC.Center = Vector2.Lerp(vec1, player.Center + new Vector2(440 * Math.Sign(NPC.Center.X - player.Center.X), -440), CEUtils.GetRepeatedCosFromZeroToOne(1 - (AIChangeCounter - 160) / 40f, 1));
+                    NPC.rotation = (NPC.Center - vec2).ToRotation() + MathHelper.PiOver2;
                 }
                 if (AIChangeCounter == 160)
                 {
@@ -711,15 +713,15 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                         {
                             Shoot<LuminarisTriangleShootRed>(NPC.Center, (player.Center - NPC.Center).normalize().RotatedBy(MathHelper.ToRadians(36) * (Main.rand.NextBool() ? 1 : -1)) * 10 * Main.rand.NextFloat(0.8f, 1.2f) * enrange);
                         }
-                        NPC.rotation = (NPC.Center - oldPos).ToRotation() + MathHelper.PiOver2;
+                        NPC.rotation = (NPC.Center - vec2).ToRotation() + MathHelper.PiOver2;
                         vec1 = player.Center;
                     }
                     else
                     {
-                        NPC.rotation = 0;
                         NPC.velocity *= 0.9f;
                         num2 += MathHelper.ToRadians(10);
                         NPC.Center = vec1 + num2.ToRotationVector2() * num1;
+                        NPC.rotation = (NPC.Center - vec2).ToRotation() + MathHelper.PiOver2;
                     }
                 }
             }

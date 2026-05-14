@@ -40,14 +40,19 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
         }
         public override void OnKill(int timeLeft)
         {
-            List<int> rots = new List<int>() { 0, 120, 240 };
-            foreach (int i in rots)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                float r = MathHelper.ToRadians(i);
-                float a = r + Projectile.rotation;
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, a.ToRotationVector2() * 12, ModContent.ProjectileType<LuminarisSpikeBlue>(), Projectile.damage, Projectile.knockBack, -1, 1);
-
+                List<int> rots = new List<int>() { 0, 120, 240 };
+                foreach (int i in rots)
+                {
+                    float r = MathHelper.ToRadians(i);
+                    float a = r + Projectile.rotation;
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, a.ToRotationVector2() * 12, ModContent.ProjectileType<LuminarisSpikeBlue>(), Projectile.damage, Projectile.knockBack, -1, 1);
+                }
             }
+            CEUtils.PlaySound("FractalHit", 1, Projectile.Center, 16, 0.6f);
+            CEUtils.PlaySound("HammerShoot2", 1, Projectile.Center, 16);
+            
         }
         public override bool PreDraw(ref Color lightColor)
         {
