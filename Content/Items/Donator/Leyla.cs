@@ -1,15 +1,10 @@
-﻿using CalamityEntropy.Common;
-using CalamityMod;
+﻿using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Events;
 using CalamityMod.Items;
-using CalamityMod.Particles;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator
@@ -122,7 +117,7 @@ namespace CalamityEntropy.Content.Items.Donator
             8 => 5.5f,
             9 => 6f,
             _ => 0.5f
-        }; 
+        };
         public static float GetEndurance(int level) => level switch
         {
             0 => 0.02f,

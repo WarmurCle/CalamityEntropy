@@ -80,7 +80,7 @@ namespace CalamityEntropy.Content.Items.Atbm
             }
             else
                 EscapeTime = 0;
-            if(EscapeTime > 60)
+            if (EscapeTime > 60)
             {
                 int type = ModContent.ProjectileType<ATBMProjectile>();
                 if (Player.ownedProjectileCounts[type] > 0)

@@ -1,8 +1,5 @@
-﻿using CalamityEntropy.Content.Buffs;
-using CalamityMod;
-using CalamityMod.Particles;
+﻿using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -28,7 +25,7 @@ namespace CalamityEntropy.Content.Projectiles.ApsychosProjs
         }
         public float scale = 0;
         public float p = 0;
-        
+
         public override void AI()
         {
             p += 1 / Projectile.ai[0];

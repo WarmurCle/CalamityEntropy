@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Buffs;
-using CalamityMod;
+﻿using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -43,12 +42,12 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
         }
         public override void AI()
         {
-            if(Main.netMode != NetmodeID.MultiplayerClient)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                if(!owner.active || owner == null || owner.ModNPC == null || !(owner.ModNPC is Apsychos))
+                if (!owner.active || owner == null || owner.ModNPC == null || !(owner.ModNPC is Apsychos))
                 {
                     NPC.active = false;
-                    if(Main.dedServ)
+                    if (Main.dedServ)
                     {
                         NPC.netUpdate = true;
                         NPC.netSpam = 0;

@@ -27,7 +27,7 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
-            
+
             damageApply = (int)(damageApply * npc.Entropy().DebuffDamageMult());
             damage += damageApply;
             npc.lifeRegen -= damageApply * 2;

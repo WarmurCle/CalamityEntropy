@@ -195,7 +195,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                 }
 
                 Item.damage = dmg;
-                Item.crit = lv ;
+                Item.crit = lv;
                 Item.knockBack = lv / 2;
                 Item.scale = 1;
                 Item.useTime = Item.useAnimation = 30;

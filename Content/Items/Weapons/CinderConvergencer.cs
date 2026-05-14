@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.NPCs.Apsychos;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
@@ -8,7 +7,6 @@ using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
@@ -37,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<CinderConvergencerHoldout>();
             Item.UseSound = null;
             Item.shootSpeed = 12f;
-            Item.channel = true; 
+            Item.channel = true;
             Item.noUseGraphic = true;
         }
         public override bool RangedPrefix()
@@ -77,7 +75,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             HighLight *= 0.92f;
             Player player = Projectile.GetOwner();
-            if(player.dead)
+            if (player.dead)
             {
                 Projectile.Kill();
                 return;
@@ -362,7 +360,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             Main.spriteBatch.Draw(Projectile.GetTexture(), Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, Projectile.GetTexture().Size() * 0.5f, 1, SpriteEffects.None, 0);
 
-            Main.spriteBatch.ExitShaderRegion(); 
+            Main.spriteBatch.ExitShaderRegion();
             return false;
         }
         public void DrawEnergyBall(Vector2 pos, float size, float alpha)

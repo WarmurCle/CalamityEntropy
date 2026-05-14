@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         public override void SetDefaults()
         {
             Item.damage = 1600;
-	        Item.crit = 50;
+            Item.crit = 50;
             Item.DamageType = ModContent.GetInstance<MeleeDamageClass>();
             Item.width = 48;
             Item.height = 60;

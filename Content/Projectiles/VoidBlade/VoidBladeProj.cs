@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
         public int damageo = -1;
         public override void AI()
         {
-            if (Projectile.localAI[0] ++ == 0)
+            if (Projectile.localAI[0]++ == 0)
             {
                 float scale_ = Projectile.GetOwner().HeldItem.scale;
                 Projectile.GetOwner().ApplyMeleeScale(ref scale_);

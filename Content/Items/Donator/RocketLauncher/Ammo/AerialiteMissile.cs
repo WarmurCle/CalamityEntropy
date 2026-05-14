@@ -1,13 +1,10 @@
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles;
-using CalamityMod.Particles;
 using CalamityMod.Items.Materials;
-using Microsoft.Xna.Framework.Graphics;
+using CalamityMod.Particles;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
 
 namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
 {
@@ -59,10 +56,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
         public override void OnKill(int timeLeft)
         {
             base.OnKill(timeLeft);
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
                 int ptype = ModContent.ProjectileType<AerialiteMissileFeather>();
-                for(int i = 0; i < 3; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * 8, ptype, Projectile.damage / 6, Projectile.knockBack / 4, Projectile.owner, Main.rand.Next(0, i * 16));
                 }
@@ -77,8 +74,11 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             Projectile.width = Projectile.height = 32;
             Projectile.MaxUpdates = 2;
         }
-        public Vector2 targetPos { get { return new Vector2(Projectile.ai[1], Projectile.ai[2]); }
-            set { Projectile.ai[1] = value.X; Projectile.ai[2] = value.Y; } }
+        public Vector2 targetPos
+        {
+            get { return new Vector2(Projectile.ai[1], Projectile.ai[2]); }
+            set { Projectile.ai[1] = value.X; Projectile.ai[2] = value.Y; }
+        }
         public override void AI()
         {
             if (Projectile.localAI[0]++ == 0)
@@ -90,7 +90,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             if (Projectile.ai[0] == 50)
             {
                 NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 1200);
-                if(target != null)
+                if (target != null)
                     targetPos = target.Center;
                 Projectile.netUpdate = true;
             }
@@ -107,7 +107,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
                 }
                 if (Projectile.ai[0] < 68)
                 {
-                    Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (targetPos -Projectile.Center).ToRotation(), 0.1f, false);
+                    Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (targetPos - Projectile.Center).ToRotation(), 0.1f, false);
                     Projectile.velocity *= 0.96f;
                 }
                 if (Projectile.ai[0] == 68)

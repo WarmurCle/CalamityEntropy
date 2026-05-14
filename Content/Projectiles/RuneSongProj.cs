@@ -63,7 +63,7 @@ namespace CalamityEntropy.Content.Projectiles
         public float rotSpeed = 0f;
         public override void AI()
         {
-            if (Projectile.localAI[1] ++ == 0)
+            if (Projectile.localAI[1]++ == 0)
             {
                 float scale_ = Projectile.GetOwner().HeldItem.scale;
                 Projectile.GetOwner().ApplyMeleeScale(ref scale_);

@@ -31,11 +31,11 @@ namespace CalamityEntropy.Content.Items
         }
         public override bool CanUseItem(Player player)
         {
-            if(player.altFunctionUse == 2)
+            if (player.altFunctionUse == 2)
                 return true;
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 return !player.HasCooldown("FriendfinderCd");
-            
+
             return !(player.Entropy().ffinderCd > 0);
         }
         public override bool AltFunctionUse(Player player)
@@ -45,13 +45,13 @@ namespace CalamityEntropy.Content.Items
 
         public override bool? UseItem(Player player)
         {
-            if(player.altFunctionUse == 2)
+            if (player.altFunctionUse == 2)
             {
-                if(Main.netMode != NetmodeID.MultiplayerClient)
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    foreach(NPC npc in Main.ActiveNPCs)
+                    foreach (NPC npc in Main.ActiveNPCs)
                     {
-                        if(npc.ModNPC is FriendFindNPC && npc.Entropy().friendFinderOwner == player.whoAmI)
+                        if (npc.ModNPC is FriendFindNPC && npc.Entropy().friendFinderOwner == player.whoAmI)
                         {
                             npc.active = false;
                             if (Main.dedServ)
@@ -63,7 +63,7 @@ namespace CalamityEntropy.Content.Items
                 }
                 return true;
             }
-            if(!Main.dedServ)
+            if (!Main.dedServ)
                 player.AddCooldown("FriendfinderCd", CooldownSec);
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
@@ -77,7 +77,7 @@ namespace CalamityEntropy.Content.Items
                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
             }
             player.Entropy().ffinderCd = (int)(CooldownSec * player.Entropy().CooldownTimeMult);
-            
+
             return true;
         }
 

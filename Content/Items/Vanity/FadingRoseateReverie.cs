@@ -83,7 +83,7 @@ namespace CalamityEntropy.Content.Items.Vanity
                     EParticle.spawnNew(new SakuraPetalsParticle(), pos, vel, Color.Pink, Main.rand.NextFloat(0.35f, 0.68f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
                     pos += CEUtils.randomPointInCircle(100);
                     vel += CEUtils.randomPointInCircle(0.4f);
-                } 
+                }
             }
         }
         public override void UpdateVanity(Player player)

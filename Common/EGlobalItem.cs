@@ -49,7 +49,6 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CalamityEntropy.Common
 {
@@ -135,7 +134,7 @@ namespace CalamityEntropy.Common
                 NewName = origName.Replace("|", ArmorPrefix.findByName(pitem.PrefixName).GivenName);
                 return true;
             }
-            if(item.Entropy().armorPrefix != null)
+            if (item.Entropy().armorPrefix != null)
             {
                 NewName = item.Entropy().armorPrefix.getName() + " " + origName;
                 return true;
@@ -146,7 +145,7 @@ namespace CalamityEntropy.Common
         public List<int> RogueAccs = null;
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
-            if(RogueAccs == null)
+            if (RogueAccs == null)
             {
                 int IT<T>() where T : ModItem
                 {
@@ -530,7 +529,7 @@ namespace CalamityEntropy.Common
                 {
                     tooltips.Add(new TooltipLine(Mod, "Azafure Enhance", $"{Mod.GetLocalization("AzafureEnhance").Value}: " + item.ModItem.Mod.GetLocalization($"AzafureEnhances.{item.ModItem.Name}").Value) { OverrideColor = Color.Yellow });
                 }
-                if(item.ModItem is ExquisiteCrown || item.ModItem is RottenFangs)
+                if (item.ModItem is ExquisiteCrown || item.ModItem is RottenFangs)
                 {
                     LocalizedText itemName = item.ModItem is ExquisiteCrown ? CalamityUtils.GetItemName<RottenFangs>() : CalamityUtils.GetItemName<ExquisiteCrown>();
                     TooltipLine lineExtra = new TooltipLine(Mod, "Desc2", Mod.GetLocalization("MinionAccDescCrownFangs").Value.Replace("[ITEM]", itemName.Value));
@@ -1098,13 +1097,13 @@ namespace CalamityEntropy.Common
                     for (int i = 0; i < line.Text.Length; i++)
                     {
                         string text = line.Text[i].ToString();
-                        Vector2 size = font.MeasureString(text); 
+                        Vector2 size = font.MeasureString(text);
                         float yofs;
                         float lerp = 0.5f + (0.5f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * -6 + i * 3f / line.Text.Length)));
                         Color color = Color.Lerp(Color.Black, new Color(20, 16, 25), lerp);
                         Color strokeColord = new Color(160, 100, 255);
                         yofs = 0;
-                        
+
 
                         Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, -1), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
                         Main.spriteBatch.DrawString(font, text, new Vector2(line.X + xa, line.Y + yofs) + new Vector2(-1, 0), strokeColord, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);

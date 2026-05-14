@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             Item.Entropy().strokeColor = Color.DarkGreen;
             Item.Entropy().NameColor = Color.Yellow;
             Item.Entropy().NameLightColor = Color.Yellow * 0.4f;
-	        Item.ArmorPenetration = 25;
+            Item.ArmorPenetration = 25;
         }
 
         #region Animations
@@ -79,7 +79,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
                 .AddIngredient<Struggle>()
                 .AddIngredient<OsseousRemains>(20)
                 .AddIngredient<LifeAlloy>(5)
-		        .AddIngredient<InfectedArmorPlating>(10)
+                .AddIngredient<InfectedArmorPlating>(10)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

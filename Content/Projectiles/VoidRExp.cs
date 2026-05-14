@@ -1,5 +1,4 @@
 ﻿using Terraria;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -29,9 +28,9 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Projectile.extraUpdates = (int)Projectile.ai[1];
             int n = (int)Projectile.ai[1] - 1;
-            if(n >= 0)
+            if (n >= 0)
             {
-                if(n.ToNPC().active)
+                if (n.ToNPC().active)
                 {
                     Projectile.Center = n.ToNPC().Center;
                 }

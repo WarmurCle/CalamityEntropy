@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Particles
             }
             base.AI();
             this.Velocity *= vc;
-            if(!NoAlphaFade)
+            if (!NoAlphaFade)
                 this.Opacity = (float)this.Lifetime / (float)timeleftmax;
         }
     }

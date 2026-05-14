@@ -124,7 +124,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AI()
         {
             Player player = Projectile.GetOwner();
-            Projectile.MinionCheck<AzafureDrone>(); 
+            Projectile.MinionCheck<AzafureDrone>();
             if (Projectile.localAI[0] == 0)
             {
                 for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.TwoPi * 0.05f)

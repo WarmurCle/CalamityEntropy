@@ -2,7 +2,6 @@
 using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Vanity.Luminar

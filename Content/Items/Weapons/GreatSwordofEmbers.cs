@@ -3,11 +3,8 @@ using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -104,7 +101,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AI()
         {
             Player player = Projectile.GetOwner();
-            if(init)
+            if (init)
             {
                 init = false;
                 float scale_ = Projectile.GetOwner().HeldItem.scale;
@@ -181,11 +178,11 @@ namespace CalamityEntropy.Content.Items.Weapons
                 {
                     swing = -1;
                     Breaked--;
-                    if(Breaked == 0)
+                    if (Breaked == 0)
                     {
                         rotVel = 0;
                         HighLight = 1;
-                        Dir = -player.direction; 
+                        Dir = -player.direction;
                         Projectile.rotation = rot + Dir * 2.4f;
                     }
                 }
@@ -211,7 +208,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 target.AddBuff(BuffID.OnFire3, 150);
                 CEUtils.PlaySound("RockCrumble", Main.rand.NextFloat(2.9f, 3.4f), Projectile.Center, 8, 0.9f);
-                
+
                 ScreenShaker.AddShake(new ScreenShaker.ScreenShake(-(target.Center - Projectile.Center).normalize(), 8));
                 shake = false;
                 float scale = 90 / 40f;
@@ -221,13 +218,13 @@ namespace CalamityEntropy.Content.Items.Weapons
                 GeneralParticleHandler.SpawnParticle(new CustomPulse(target.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 18));
                 GeneralParticleHandler.SpawnParticle(new CustomPulse(target.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.02f, 15));
                 NumHits++;
-                if(NumHits > 3)
+                if (NumHits > 3)
                 {
                     NumHits = 0;
                     Breaked = 80 * Projectile.MaxUpdates;
                     swing = -1;
                     int pt = ModContent.ProjectileType<TectinicShardHoming>();
-                    for(int i = 0; i < 6; i++)
+                    for (int i = 0; i < 6; i++)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(0, 100) * Projectile.scale, Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(16, 26) + CEUtils.randomPointInCircle(4), pt, Projectile.damage / 2, 4, Projectile.owner);
                     }
@@ -249,7 +246,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Vector2 origin = dir > 0 ? new Vector2(0, tex.Height) : new Vector2(tex.Width, tex.Height);
             SpriteEffects effect = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             float rot = dir > 0 ? Projectile.rotation + MathHelper.PiOver4 : Projectile.rotation + MathHelper.Pi * 0.75f;
-            
+
             Effect shader = Apsychos.WhiteTransShader();
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.TransformationMatrix);

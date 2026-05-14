@@ -1,7 +1,6 @@
 ﻿using CalamityMod;
 using CalamityMod.Items.Accessories.Wings;
 using CalamityMod.Items.Materials;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

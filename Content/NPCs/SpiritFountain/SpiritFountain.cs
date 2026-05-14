@@ -1,8 +1,5 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Lores;
-using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.SpiritFountainShoots;
 using CalamityMod;
@@ -15,7 +12,6 @@ using System;
 using System.IO;
 using Terraria;
 using Terraria.GameContent.Bestiary;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 

@@ -59,7 +59,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             recipe.AddIngredient(ModContent.ItemType<IceBarrage>(), 1);
             recipe.AddIngredient(ModContent.ItemType<GlacialEmbrace>(), 1);
             recipe.AddIngredient(ModContent.ItemType<AuricBar>(), 5);
-	        recipe.AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 2);
+            recipe.AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 2);
             recipe.AddTile(ModContent.TileType<CosmicAnvil>());
             recipe.Register();
         }

@@ -8,7 +8,6 @@ using CalamityEntropy.Content.Items.Donator.Ratziel;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.GrassSword;
-using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.NPCs.Prophet;
 using CalamityEntropy.Content.NPCs.SpiritFountain;
 using CalamityEntropy.Content.Particles;
@@ -17,10 +16,8 @@ using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod;
 using CalamityMod.Items.Ammo;
-using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.NPCs.SlimeGod;
-using CalamityMod.Projectiles.Boss;
 using CalamityMod.UI.CalamitasEnchants;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -226,7 +223,7 @@ namespace CalamityEntropy.Common
         }
         public override void OnModLoad()
         {
-            for(int index = 0; index < EnchantmentManager.EnchantmentList.Count; index++)
+            for (int index = 0; index < EnchantmentManager.EnchantmentList.Count; index++)
             {
                 Enchantment enc = EnchantmentManager.EnchantmentList[index];
                 if (enc.IconTexturePath == "CalamityMod/UI/CalamitasEnchantments/CurseIcon_Tainted")
@@ -272,7 +269,7 @@ namespace CalamityEntropy.Common
                     mp.DrawNihRope();
                     Main.spriteBatch.End();
                 }
-                if(mp.RatzielShieldTime > 0 && mp.RatzielShield > 0)
+                if (mp.RatzielShieldTime > 0 && mp.RatzielShield > 0)
                 {
                     Main.spriteBatch.begin_();
                     DrawForce(player, (player.Entropy().RatzielShield / (float)Ratziel.MaxShield(Ratziel.Level())) * 0.6f + 0.4f);
@@ -545,7 +542,7 @@ namespace CalamityEntropy.Common
 
         public override void PostUpdatePlayers()
         {
-            if(AcropolisDontSpawn > 0)
+            if (AcropolisDontSpawn > 0)
                 AcropolisDontSpawn--;
             CECooldowns.Update();
             EBookUI.update();
@@ -938,7 +935,7 @@ namespace CalamityEntropy.Common
             {
                 EGlobalProjectile.SSCD++;
             }
-            
+
             if (!Main.dedServ)
             {
             }

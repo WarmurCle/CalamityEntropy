@@ -1,10 +1,7 @@
 ﻿using CalamityEntropy.Content.Items.Accessories;
-using CalamityEntropy.Content.Items.Vanity.Luminar;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.NPCs.Apsychos;
-using CalamityEntropy.Content.NPCs.LuminarisMoth;
 using CalamityMod;
-using CalamityMod.Items.Materials;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
@@ -17,7 +14,7 @@ namespace CalamityEntropy.Content.Items
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 3; 
+            Item.ResearchUnlockCount = 3;
             ItemID.Sets.BossBag[Type] = true;
             ItemID.Sets.PreHardmodeLikeBossBag[Type] = true;
         }

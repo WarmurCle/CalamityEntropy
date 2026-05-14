@@ -267,7 +267,7 @@ namespace CalamityEntropy.Common
             if (updateTimes % projectile.MaxUpdates == 0)
                 Lifetime++;
 
-            if(projectile.ModProjectile != null && projectile.ModProjectile is DazzlingStabber ds)
+            if (projectile.ModProjectile != null && projectile.ModProjectile is DazzlingStabber ds)
             {
                 var ff = typeof(DazzlingStabber).GetField("justHit", BindingFlags.NonPublic | BindingFlags.Instance);
                 if (ff != null)
@@ -495,7 +495,7 @@ namespace CalamityEntropy.Common
         public bool SetMaxUpdates = true;
         public override bool PreAI(Projectile projectile)
         {
-            if(SetMaxUpdates)
+            if (SetMaxUpdates)
             {
                 if (ashesArrow)
                 {
@@ -1005,7 +1005,7 @@ namespace CalamityEntropy.Common
             if (Losted)
                 Main.spriteBatch.ExitShaderRegion();
 
-            if(ashesArrow)
+            if (ashesArrow)
             {
                 Texture2D arTex = CEUtils.getExtraTex("SpearArrowGlow2");
                 Main.spriteBatch.UseAdditive();
@@ -1278,7 +1278,7 @@ namespace CalamityEntropy.Common
         public override void OnKill(Projectile projectile, int timeLeft)
         {
             OnKillActions?.Invoke(projectile);
-            if(ashesArrow)
+            if (ashesArrow)
             {
                 float scale = 36 / 40f;
                 EParticle.spawnNew(new ShineParticle(), projectile.Center, Vector2.Zero, Color.Red * 0.8f, scale * 0.8f, 1, true, BlendState.Additive, 0, 10);
@@ -1309,7 +1309,7 @@ namespace CalamityEntropy.Common
         public bool MariExplode = true;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(ashesArrow)
+            if (ashesArrow)
             {
                 target.AddBuff(BuffID.OnFire3, 120);
             }

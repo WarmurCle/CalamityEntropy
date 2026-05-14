@@ -1,8 +1,6 @@
-﻿using CalamityMod.Items.Placeables.FurnitureAcidwood;
-using CalamityMod.Walls;
+﻿using CalamityMod.Walls;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WallTiles = CalamityMod.Walls;
 
 namespace CalamityEntropy.Content.Items.Walls
 {

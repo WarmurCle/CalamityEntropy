@@ -473,7 +473,7 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
 
                             if (Spin)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<BramblecleaveAlt>(), (int)(Projectile.damage * 0.5f) , 0, Projectile.owner);
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<BramblecleaveAlt>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
                             }
                             else
                             {

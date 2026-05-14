@@ -1,7 +1,6 @@
 using CalamityEntropy.Content.Buffs;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
@@ -129,7 +128,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] == 5)
             {
                 target.AddBuff(ModContent.BuffType<AuricRebuke>(), 300);
-		        target.AddBuff(ModContent.BuffType<BanishingFire>(), 90);
+                target.AddBuff(ModContent.BuffType<BanishingFire>(), 90);
             }
             if (Projectile.ai[0] == 1)
             {

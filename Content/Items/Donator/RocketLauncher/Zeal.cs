@@ -1,13 +1,8 @@
 using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
 using CalamityEntropy.Content.Items.Weapons.GrassSword;
-using CalamityEntropy.Content.Particles;
 using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
-using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
-using CalamityMod.Rarities;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -35,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             Item.UseSound = CEUtils.GetSound("ProminenceShoot", 1.6f, 2, 0.5f);
             Item.value = Item.buyPrice(gold: 20);
             Item.rare = ItemRarityID.Red;
-	        Item.ArmorPenetration = 40;
+            Item.ArmorPenetration = 40;
         }
 
         #region Animations
@@ -79,14 +74,14 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
                 .AddIngredient<Pardon>()
                 .AddIngredient<OsseousRemains>(20)
                 .AddIngredient(ItemID.LunarBar, 5)
-		        .AddIngredient(ItemID.FragmentVortex, 5)
+                .AddIngredient(ItemID.FragmentVortex, 5)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
 
         public static void struggleProjKilled(Projectile proj)
         {
-        
+
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -178,7 +173,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
             PrimitiveRenderer.RenderTrail(base.Projectile.oldPos, new PrimitiveSettings(WidthFunction, ColorFunction, (_, _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
             Main.spriteBatch.ExitShaderRegion();
-            
+
             return false;
         }
     }

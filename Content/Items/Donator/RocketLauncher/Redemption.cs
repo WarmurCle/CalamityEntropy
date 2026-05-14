@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             Item.Entropy().NameColor = Color.Orange;
             Item.Entropy().NameLightColor = Color.Orange * 0.4f;
             Item.channel = true;
-	        Item.ArmorPenetration = 80;
+            Item.ArmorPenetration = 80;
         }
 
         #region Animations
@@ -149,10 +149,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public override void AddRecipes()
         {
             CreateRecipe()
-		        .AddIngredient<Filthless>()
+                .AddIngredient<Filthless>()
                 .AddIngredient<TheHive>()
                 .AddIngredient<OsseousRemains>(20)
-		        .AddIngredient<AuricBar>(5)
+                .AddIngredient<AuricBar>(5)
                 .AddTile<CosmicAnvil>()
                 .Register();
         }

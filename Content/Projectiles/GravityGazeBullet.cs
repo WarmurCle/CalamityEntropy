@@ -1,10 +1,8 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items.Vanity;
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
@@ -78,7 +76,7 @@ namespace CalamityEntropy.Content.Projectiles
             float s = Projectile.velocity.Length() >= 14 ? 1 : 0.5f;
             for (int i = 0; i < 12; i++)
                 GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 9 * s, false, 18, 0.03f * Main.rand.NextFloat(0.5f, 1f) * s, Main.rand.NextBool() ? Color.DeepSkyBlue : Color.LightGoldenrodYellow, new Vector2(0.6f, 1)), true);
-            for(int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
                 GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, (i * MathHelper.PiOver2).ToRotationVector2() * 10 * s, false, 12, 0.05f * s, Main.rand.NextBool() ? Color.DeepSkyBlue : Color.LightGoldenrodYellow, new Vector2(1.5f, 1), true), true);
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
@@ -127,7 +125,7 @@ namespace CalamityEntropy.Content.Projectiles
                             ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + rots[i].ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 12 * Projectile.scale * w,
                                   new Vector3(p, 0, 1),
                                   b));
-                            if(i > 0)
+                            if (i > 0)
                                 p += (CEUtils.getDistance(odp[i], odp[i - 1]) / tx.Width) * 0.36f;
                         }
 
@@ -148,7 +146,7 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.Draw(gx, Projectile.Center - Main.screenPosition, null, Color.AliceBlue * alpha, Projectile.rotation + MathHelper.PiOver2, gx.Size() * 0.5f, 2f * Projectile.scale, SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
             Main.spriteBatch.End();
-            EffectLoader.ApplyPixelShader(gdv, state:BlendState.Additive);
+            EffectLoader.ApplyPixelShader(gdv, state: BlendState.Additive);
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
             CEUtils.DrawGlow(Projectile.Center, Color.SkyBlue * 0.5f * alpha, 1.6f);
             CEUtils.DrawGlow(Projectile.Center, Color.SkyBlue * 0.8f * alpha, 0.7f);

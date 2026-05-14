@@ -1,13 +1,6 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Rarities;
-using CalamityMod.Items.LoreItems;
-using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
+﻿using CalamityMod.Items.LoreItems;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Lores
 {

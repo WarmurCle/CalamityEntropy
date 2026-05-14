@@ -4,7 +4,6 @@ using CalamityEntropy.Content.Particles;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories.Wings;
 using CalamityMod.Rarities;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

@@ -126,7 +126,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     shoot = false;
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        for(int i = 0;i < 3; i++)
+                        for (int i = 0; i < 3; i++)
                             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.normalize() * 26 + CEUtils.randomPointInCircle(10), ModContent.ProjectileType<FractalBeam>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                     CEUtils.PlaySound("sf_shoot", 1, Projectile.Center, volume: CEUtils.WeapSound);

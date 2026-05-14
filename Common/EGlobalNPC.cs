@@ -1623,9 +1623,9 @@ namespace CalamityEntropy.Common
 
                 if (ProjectileID.Sets.IsAWhip[projectile.type])
                 {
-                    if(player.Entropy().ashesCore)
+                    if (player.Entropy().ashesCore)
                     {
-                        foreach(Projectile proj in Main.ActiveProjectiles)
+                        foreach (Projectile proj in Main.ActiveProjectiles)
                         {
                             if (proj.owner == player.whoAmI && proj.type == AshesCore.ProjType)
                             {

@@ -235,9 +235,9 @@ namespace CalamityEntropy.Content.Projectiles
             var r = Main.rand;
             List<float> odr_ = new List<float>();
             List<float> ods_ = new List<float>();
-            for(int i = 1; i < odr.Count; i++)
+            for (int i = 1; i < odr.Count; i++)
             {
-                for(float j = 0.1f; j <= 1; j += 0.1f)
+                for (float j = 0.1f; j <= 1; j += 0.1f)
                 {
                     odr_.Add(CEUtils.RotateTowardsAngle(odr[i - 1], odr[i], j, false));
                     ods_.Add(float.Lerp(ods[i - 1], ods[i], j));

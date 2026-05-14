@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.useAnimation = Item.useTime = 18;
             Item.crit = 5;
             Item.mana = 15;
-	        Item.ArmorPenetration = 25;
+            Item.ArmorPenetration = 25;
             Item.rare = ItemRarityID.Red;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
         }
@@ -119,7 +119,7 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile.Opacity -= 1 / 25f;
             else
                 if (Projectile.Opacity < 1)
-                    Projectile.Opacity += 1 / 24f;
+                Projectile.Opacity += 1 / 24f;
             Projectile.velocity *= 0.97f;
         }
         public override Color baseColor => Color.YellowGreen;

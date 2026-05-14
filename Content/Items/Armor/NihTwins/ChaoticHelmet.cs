@@ -3,7 +3,6 @@ using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Placeables.Ores;
-using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Terraria;

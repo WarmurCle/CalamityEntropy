@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.AzafureMiners
 
         public override void Update()
         {
-            if(InitDragPos)
+            if (InitDragPos)
             {
                 InitDragPos = false;
                 DrawPosition = new Vector2(800, 440);

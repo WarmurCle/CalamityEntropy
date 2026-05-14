@@ -4,7 +4,6 @@ using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Items.Armor.AzafureT3;
 using CalamityEntropy.Content.Items.Books;
-using CalamityEntropy.Content.Items.Donator.Ratziel;
 using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
@@ -632,7 +631,7 @@ namespace CalamityEntropy
         public static void SpawnExplotionHostile(IEntitySource source, Vector2 position, int damage, float r, bool alsoFriendly = false)
         {
             int p = Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<CommonExplotion>(), damage, 0, 0, r, alsoFriendly ? 1 : 0);
-            if(Main.dedServ)
+            if (Main.dedServ)
                 CEUtils.SyncProj(p);
         }
         public static Projectile SpawnExplotionFriendly(IEntitySource source, Player player, Vector2 position, int damage, float r, DamageClass damageClass)
@@ -762,7 +761,7 @@ namespace CalamityEntropy
         }
         public static bool CheckAirLine(Vector2 v1, Vector2 v2)
         {
-            for(float i = 0; i < 1; i += getDistance(v1, v2) / 8)
+            for (float i = 0; i < 1; i += getDistance(v1, v2) / 8)
             {
                 if (!isAir(Vector2.Lerp(v1, v2, i)))
                     return false;

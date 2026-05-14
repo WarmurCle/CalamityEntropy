@@ -16,11 +16,11 @@ namespace CalamityEntropy.Content.Particles
         public bool check = true;
         public override void AI()
         {
-            if(Lifetime % 22 == 0 && Velocity.X != 0)
+            if (Lifetime % 22 == 0 && Velocity.X != 0)
             {
                 FallThrough = Main.rand.NextBool(5);
             }
-            if(Lifetime % 40 == 0 && Velocity.X != 0)
+            if (Lifetime % 40 == 0 && Velocity.X != 0)
             {
                 tex++;
                 if (tex > 3)
@@ -28,19 +28,19 @@ namespace CalamityEntropy.Content.Particles
             }
             if (Lifetime < 60)
                 Opacity -= 1 / 60f;
-            if(check)
+            if (check)
             {
                 check = false;
                 if (CEUtils.CheckSolidTile(Position.getRectCentered(10, 10)))
                     Lifetime = 0;
             }
             Lifetime--;
-            int w = 6; 
+            int w = 6;
             if (FallThrough ? CEUtils.CheckSolidTileOrPlatform(Position.getRectCentered(w + 2, w + 2)) : CEUtils.CheckSolidTile(Position.getRectCentered(w + 2, w + 2)))
             {
                 Velocity.X = 0;
             }
-            if(Velocity.X == 0 && Lifetime > 60)
+            if (Velocity.X == 0 && Lifetime > 60)
             {
                 Lifetime -= 2;
             }

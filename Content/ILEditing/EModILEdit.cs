@@ -14,7 +14,6 @@ using CalamityMod.Particles;
 using CalamityMod.Projectiles.Melee;
 using CalamityMod.Schematics;
 using CalamityMod.UI;
-using CalamityMod.UI.CalamitasEnchants;
 using CalamityMod.UI.ResourceSets;
 using CalamityMod.UI.Rippers;
 using CalamityMod.World;
@@ -36,7 +35,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.WorldBuilding;
 using static InnoVault.GameSystem.ItemRebuildLoader;
 
 namespace CalamityEntropy.Content.ILEditing
@@ -66,7 +64,7 @@ namespace CalamityEntropy.Content.ILEditing
         {
             orig.Invoke(self, npc, proj, ref modifiers);
             npc.GetGlobalNPC<WhipDebuffNPC>().ModifyHitByProj(npc, proj, ref modifiers);
-            if(npc.Entropy().nextHitCrit)
+            if (npc.Entropy().nextHitCrit)
             {
                 npc.Entropy().nextHitCrit = false;
                 var fInfo = modifiers.GetType().GetField("_critOverride", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
@@ -198,7 +196,7 @@ namespace CalamityEntropy.Content.ILEditing
         public static bool calPlrShootHook(Func<CalamityPlayer, Item, EntitySource_ItemUse_WithAmmo, Vector2, Vector2, int, int, float, bool> orig, CalamityPlayer self, Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {
             bool org = orig.Invoke(self, item, source, position, velocity, type, damage, knockBack);
-            if(self.bladeArmEnchant && CELists.SpecialTaintedEnchantmentList.Contains(self.Player.HeldItem.type))
+            if (self.bladeArmEnchant && CELists.SpecialTaintedEnchantmentList.Contains(self.Player.HeldItem.type))
             {
                 return true;
             }
@@ -215,14 +213,14 @@ namespace CalamityEntropy.Content.ILEditing
         public static void updateLiferegenHook(UpdateLifeRegenDelegate orig, CalamityGlobalNPC self, NPC npc, ref int damage)
         {
             orig(self, npc, ref damage);
-            if(damage > 0)
+            if (damage > 0)
             {
                 float m = npc.Entropy().DebuffDamageMult();
                 damage = int.Max(1, (int)(damage * m));
                 npc.lifeRegen = (int)(Math.Round(npc.lifeRegen * m));
             }
         }
-        
+
         public delegate void ApplyDRDelegate(CalamityGlobalNPC self, NPC npc, ref NPC.HitModifiers modifer);
         public delegate void DrawAdrenalineBarDelegate(SpriteBatch spriteBatch, CalamityPlayer modPlayer, Vector2 screenPos);
         public static void drawAdrBar_hook(DrawAdrenalineBarDelegate orig, SpriteBatch spriteBatch, CalamityPlayer modPlayer, Vector2 screenPos)

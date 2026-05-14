@@ -77,7 +77,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.timeLeft = 3;
             }
-           
+
 
             if (target == null || !target.active)
             {

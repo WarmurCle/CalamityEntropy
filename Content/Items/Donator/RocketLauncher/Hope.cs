@@ -1,7 +1,6 @@
 using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityMod;
-using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Items.Materials;
 using System;
 using Terraria;
@@ -32,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             Item.Entropy().strokeColor = Color.DarkBlue;
             Item.Entropy().NameColor = new Color(80, 220, 255);
             Item.Entropy().NameLightColor = Color.Black;
-	        Item.ArmorPenetration = 8;
+            Item.ArmorPenetration = 8;
         }
 
         #region Animations
@@ -73,9 +72,9 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public override void AddRecipes()
         {
             CreateRecipe()
-		        .AddIngredient<RustExpeditioner>()
+                .AddIngredient<RustExpeditioner>()
                 .AddIngredient<OsseousRemains>(20)
-		        .AddIngredient<AerialiteBar>(10)
+                .AddIngredient<AerialiteBar>(10)
                 .AddIngredient(ItemID.SunplateBlock, 4)
                 .AddTile(TileID.Anvils)
                 .Register();

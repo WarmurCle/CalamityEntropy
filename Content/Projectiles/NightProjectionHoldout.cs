@@ -64,7 +64,8 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         if (Main.myPlayer == Projectile.owner)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.2f) * 3f, ModContent.ProjectileType<Starblight>(), Projectile.damage, Projectile.knockBack, Projectile.owner);                        }
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.2f) * 3f, ModContent.ProjectileType<Starblight>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        }
                         if (!Main.dedServ)
                         {
                             CEUtils.PlaySound("soulshine", Main.rand.NextFloat(1.6f, 2f), Projectile.Center, 8, 0.8f);

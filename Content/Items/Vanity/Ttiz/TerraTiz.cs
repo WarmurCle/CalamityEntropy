@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Items.Vanity.Ttiz
         public bool OwnAble(Player player, ref int count)
         {
             string s = PGetPlayer.RemoveCharAndToLower(player.name);
-            return s == "yumekibou" || s == "ilta";   
+            return s == "yumekibou" || s == "ilta";
         }
     }
 }

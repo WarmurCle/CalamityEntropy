@@ -170,14 +170,14 @@ namespace CalamityEntropy.Content.Items.Books
                 if (proj.type == Projectile.type && proj.owner == Projectile.owner)
                 {
                     sum++;
-                    if(proj.timeLeft < timeleft)
+                    if (proj.timeLeft < timeleft)
                     {
                         timeleft = proj.timeLeft;
                         toKill = proj;
                     }
                 }
             }
-            if(toKill != null && sum > max)
+            if (toKill != null && sum > max)
                 toKill.Kill();
         }
         public override void OnKill(int timeLeft)

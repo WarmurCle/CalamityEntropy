@@ -71,17 +71,17 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.localAI[0]++ == 0)
             {
-                for(float i = 0; i < MathHelper.TwoPi; i += MathHelper.TwoPi * 0.05f)
+                for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.TwoPi * 0.05f)
                 {
                     var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, Main.rand.NextBool() ? DustID.RedTorch : DustID.BlueTorch);
                     dust.position = Projectile.Center;
                     dust.noGravity = true;
                     dust.velocity = i.ToRotationVector2() * 8;
                     dust.scale = 1.1f;
-                    
+
                 }
             }
-            if(!Main.dedServ)
+            if (!Main.dedServ)
                 Main.instance.LoadItem(4);
             Player player = Main.player[Projectile.owner];
             if (CEUtils.getDistance(Projectile.Center, player.Center) > 3600)
@@ -104,7 +104,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.timeLeft = 3;
             }
             NPC target = Projectile.FindMinionTarget(850, true);
-            
+
             Projectile.ai[0]--;
             Vector2 targetPos = player.Center - new Vector2(0, 120);
             if (CEUtils.getDistance(Projectile.Center, targetPos) > 60)

@@ -3,14 +3,12 @@ using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using System;
-using System.Runtime.ConstrainedExecution;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
 using Terraria.Utilities;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CalamityEntropy.Content.Rarities
 {
@@ -63,7 +61,7 @@ namespace CalamityEntropy.Content.Rarities
                 ChatManager.DrawColorCodedString(spriteBatch, font, chr, new Vector2(X + adX, Y), Color.Black, rotation, origin, baseScale);
                 adX += font.MeasureString(chr).X;
             }
-            
+
             var bloomColor = ColorTool.Rainbowing(time * 4 - 0.9f);
             if (!renderTextSparkles)
                 return;

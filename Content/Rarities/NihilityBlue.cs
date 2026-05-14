@@ -1,14 +1,9 @@
-﻿using CalamityMod;
-using CalamityMod.Rarities;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using System;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.UI.Chat;
 using Terraria.Utilities;
 
 namespace CalamityEntropy.Content.Rarities
@@ -36,7 +31,7 @@ namespace CalamityEntropy.Content.Rarities
                 float alpha = 1;
                 if (vec.X < 0.2f)
                     alpha = vec.X / 0.2f;
-                if(vec.X > 0.8f)
+                if (vec.X > 0.8f)
                     alpha = (1 - vec.X) / 0.2f;
                 vec.X = 0.5f + (vec.X - 0.5f) * 1.4f;
                 Color clr = Color.Lerp(TextColor1, TextColor2, CEUtils.Parabola(vec.X, 1));

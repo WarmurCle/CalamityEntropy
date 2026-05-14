@@ -27,7 +27,7 @@ namespace CalamityEntropy.Common
     {
         public override bool InstancePerEntity => true;
         PrefEntropyAI perfAI = null;
-        
+
         public override bool PreAI(NPC npc)
         {
             if (CalamityEntropy.EntropyMode)
@@ -168,7 +168,7 @@ namespace CalamityEntropy.Common
             {
                 if (npc.ModNPC != null)
                 {
-                    if(npc.ModNPC is CeaselessVoid)
+                    if (npc.ModNPC is CeaselessVoid)
                     {
 
                     }

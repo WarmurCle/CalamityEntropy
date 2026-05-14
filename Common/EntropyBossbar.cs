@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.ILEditing;
-using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityEntropy.Content.NPCs.SpiritFountain;
 using CalamityMod;
@@ -123,7 +122,7 @@ namespace CalamityEntropy.Common
                     lifeMax = (int)lifeMax_;
                 }
             }
-            
+
             float shieldPerc = drawShield ? (Shield / ShieldMax) : 0;
             float prog = (float)life / (float)lifeMax;
             if (prog < 0)
@@ -210,7 +209,7 @@ namespace CalamityEntropy.Common
             Texture2D barWhite = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/EBarWhite").Value;
             Texture2D barWhite2 = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/EBarWhite2").Value;
             Texture2D barc = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/Ebarc").Value;
-            Texture2D crack = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/CrackedNoiseB").Value; 
+            Texture2D crack = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Bossbar/CrackedNoiseB").Value;
             Texture2D bar1 = bar1Norm;
             Texture2D gzmBar = CEUtils.getExtraTex("ColorMapGoozma");
             Texture2D noise = CEUtils.getExtraTex("noise");
@@ -272,7 +271,8 @@ namespace CalamityEntropy.Common
             spriteBatch.UseSampleState_UI(SamplerState.AnisotropicClamp);
             if (!namelessDeity)
             {
-                if (drawShield) {
+                if (drawShield)
+                {
                     Main.spriteBatch.UseBlendState_UI(BlendState.Additive, SamplerState.LinearWrap);
                     spriteBatch.Draw(barLocked, center, new Rectangle(0, 0, 18 + (int)(500 * shieldPerc), bar1.Height), Color.Lerp(barColor, Color.White, 0.6f), 0, bar1.Size() * 0.5f, 1, SpriteEffects.None, 0);
                     for (float h = 1; h > 0; h -= 0.2f)
@@ -284,12 +284,12 @@ namespace CalamityEntropy.Common
                     }
                     Main.spriteBatch.UseBlendState_UI(BlendState.AlphaBlend);
                 }
-                else if(immune)
+                else if (immune)
                 {
                     spriteBatch.Draw(barLocked, center, new Rectangle(0, 0, 18 + (int)(500 * prog), bar1.Height), Color.Lerp(barColor, Color.White, 0.36f), 0, bar1.Size() * 0.5f, 1, SpriteEffects.None, 0);
                 }
             }
-            
+
 
             spriteBatch.Draw(bar3, center, null, buttomColor, 0, bar1.Size() / 2, 1, SpriteEffects.None, 0);
             spriteBatch.Draw(bar1, center, null, Color.White, 0, bar1.Size() / 2, 1, SpriteEffects.None, 0);
@@ -306,9 +306,9 @@ namespace CalamityEntropy.Common
             Vector2 statDrawPos = center + new Vector2(-170, -30);
             Main.spriteBatch.Draw(hl, statDrawPos, null, Color.White, 0, hl.Size() / 2, 1, SpriteEffects.None, 0);
             string dstring = life.ToString() + "/" + lifeMax.ToString() + "(" + ((int)(((float)life / (float)lifeMax) * 100)).ToString() + "%)";
-            
-            Main.spriteBatch.DrawString(CalamityEntropy.efont2, dstring, statDrawPos + new Vector2(6, 0), Color.Yellow, 0, CalamityEntropy.efont2.MeasureString(dstring) / 2, 0.45f, SpriteEffects.None, 0); 
-            
+
+            Main.spriteBatch.DrawString(CalamityEntropy.efont2, dstring, statDrawPos + new Vector2(6, 0), Color.Yellow, 0, CalamityEntropy.efont2.MeasureString(dstring) / 2, 0.45f, SpriteEffects.None, 0);
+
             statDrawPos.X += 105 + 45 + 4 + 146;
 
             Main.spriteBatch.Draw(df, statDrawPos, null, Color.White, 0, df.Size() / 2, 1, SpriteEffects.None, 0);

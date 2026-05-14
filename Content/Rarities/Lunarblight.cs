@@ -1,16 +1,10 @@
-﻿using CalamityMod;
-using CalamityMod.Rarities;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
+﻿using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
-using SteelSeries.GameSense;
 using System;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.UI.Chat;
 using Terraria.Utilities;
 
 namespace CalamityEntropy.Content.Rarities
@@ -31,7 +25,7 @@ namespace CalamityEntropy.Content.Rarities
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
             float vx = 0;
-            for(int i = 0; i < text.Length; i++)
+            for (int i = 0; i < text.Length; i++)
             {
                 string t = text[i].ToString();
                 float p = i / (text.Length - 1f);
@@ -75,7 +69,7 @@ namespace CalamityEntropy.Content.Rarities
                 spriteBatch.Draw(particle, adjPos, null, clr * alpha * 0.9f, rand.NextFloat(MathHelper.TwoPi) + Main.GlobalTimeWrappedHourly * 5f * (rand.NextBool() ? 1 : -1), particle.Size() / 2f, baseScale * new Vector2(0.05f, 0.05f) * rand.NextFloat(0.8f, 1.25f), SpriteEffects.None, 0);
             }
             spriteBatch.UseBlendState_UI(BlendState.AlphaBlend);
-            
+
         }
         public static float MaxY = 0;
         public static Color TextColor = new Color(160, 106, 150);

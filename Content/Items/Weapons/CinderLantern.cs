@@ -1,8 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles.LuminarisShoots;
-using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
@@ -10,7 +8,6 @@ using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
@@ -146,7 +143,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         Projectile.ai[0] = 3;
                     }
                 }
-                Vector2 tpos = target.Center + new Vector2(Math.Sign(Projectile.Center.X - target.Center.X) * 180, - 90);
+                Vector2 tpos = target.Center + new Vector2(Math.Sign(Projectile.Center.X - target.Center.X) * 180, -90);
                 if (CEUtils.getDistance(tpos, Projectile.Center) > 36)
                 {
                     Projectile.velocity += (tpos - Projectile.Center) * 0.0048f;
@@ -165,7 +162,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     Projectile.velocity += (tpos - Projectile.Center) * 0.0048f;
                 }
             }
-            
+
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -181,7 +178,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (target == null)
                 return Vector2.Zero;
             Vector2 vel = (target.Center + target.velocity * 3 - Projectile.Center).normalize() * 17;
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, vel, ModContent.ProjectileType<MinionCinderFireball>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
@@ -254,7 +251,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void AI()
         {
-                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center - Projectile.velocity + CEUtils.randomPointInCircle(3), CEUtils.randomPointInCircle(3), Color.Firebrick, 8, 0.4f, 1f, Main.rand.NextFloat(-0.1f, 0.1f), true));
+            GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center - Projectile.velocity + CEUtils.randomPointInCircle(3), CEUtils.randomPointInCircle(3), Color.Firebrick, 8, 0.4f, 1f, Main.rand.NextFloat(-0.1f, 0.1f), true));
         }
 
         public override bool PreDraw(ref Color lightColor)

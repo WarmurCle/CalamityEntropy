@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Cruiser

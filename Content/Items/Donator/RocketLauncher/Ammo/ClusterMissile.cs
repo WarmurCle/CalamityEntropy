@@ -77,11 +77,11 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
         public override void OnKill(int timeLeft)
         {
             base.OnKill(timeLeft);
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
                 int mtype = ModContent.ProjectileType<ClusterMissileSmall>()
                     ;
-                for(int i = 0; i < 5; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(18, 26), mtype, Projectile.damage / 8, Projectile.knockBack / 3, Projectile.owner, Projectile.ai[0] * 2, Projectile.ai[1] - 90);
                     if (p.ToProj().ModProjectile is BaseMissileProj bmp)
@@ -104,7 +104,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
         public override string Texture => "CalamityEntropy/Content/Items/Donator/RocketLauncher/Ammo/ClusterMissileSmall";
         public override bool? CanHitNPC(NPC target)
         {
-            if(Projectile.Entropy().counter < 4)
+            if (Projectile.Entropy().counter < 4)
                 return false;
             return null;
         }

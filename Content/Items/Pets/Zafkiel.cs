@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Buffs.Pets;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -176,7 +175,7 @@ namespace CalamityEntropy.Content.Items.Pets
                 Projectile.velocity.Y += 0.5f;
                 Projectile.velocity *= 0.98f;
                 if (Projectile.velocity.Y > 14)
-                    Projectile.velocity.Y = 14;    
+                    Projectile.velocity.Y = 14;
                 if (CEUtils.getDistance(targetPos, Projectile.Center) > 250 || (Math.Abs(targetPos.Y - Projectile.Center.Y) > 60 && Projectile.owner.ToPlayer().velocity.Y == 0))
                 {
                     Projectile.ai[1] = 1;

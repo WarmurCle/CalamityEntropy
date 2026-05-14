@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
@@ -31,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.UseSound = null;
             Item.shootSpeed = 12f;
             Item.useAmmo = AmmoID.Arrow;
-            Item.channel = true; 
+            Item.channel = true;
             Item.noUseGraphic = true;
         }
         public override bool RangedPrefix()
@@ -55,7 +54,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool? CanDamage() => false;
         public float ShootDelay = 0;
         public bool FireBeam = true;
-        
+
         public override void AI()
         {
             Player player = Projectile.GetOwner();
@@ -67,9 +66,9 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if (Charge >= 1)
                     Projectile.timeLeft = 36;
             }
-            if(!player.channel)
+            if (!player.channel)
             {
-                if(FireBeam && Charge >= 1)
+                if (FireBeam && Charge >= 1)
                 {
                     ShootDelay = 10;
                     for (int i = 0; i < 64; i++)
@@ -81,7 +80,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     }
                     FireBeam = false;
                     player.velocity -= Projectile.velocity.normalize() * 8;
-                    if(Main.myPlayer == Projectile.owner)
+                    if (Main.myPlayer == Projectile.owner)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<AshesFireBeam>(), Projectile.damage * 5, Projectile.knockBack * 5, Projectile.owner);
                     }
@@ -102,7 +101,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if (Charge >= 1)
                 {
                     Charge = 1;
-                    SoundStyle s = SoundID.DD2_BetsyFireballShot with { MaxInstances = 12};
+                    SoundStyle s = SoundID.DD2_BetsyFireballShot with { MaxInstances = 12 };
                     SoundEngine.PlaySound(s, Projectile.Center);
                     SoundEngine.PlaySound(s, Projectile.Center);
                     EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 12, player.velocity, Color.OrangeRed * 0.85f, 0.8f, 1, true, BlendState.Additive, 0, 12);
@@ -115,7 +114,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (ShootDelay-- < 0 && player.channel && Charge < 1)
             {
                 ShootDelay = Projectile.MaxUpdates * player.HeldItem.useTime / player.GetWeaponAttackSpeed(player.HeldItem);
-                if (player.PickAmmo(player.HeldItem, out int type, out float speed, out int damage, out float kb, out int ammoItem, Projectile.ai[1] ++ == 0 ? true : false))
+                if (player.PickAmmo(player.HeldItem, out int type, out float speed, out int damage, out float kb, out int ammoItem, Projectile.ai[1]++ == 0 ? true : false))
                 {
                     for (int i = 0; i < 10; i++)
                     {
@@ -137,10 +136,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
-            if(Charge >= 1 && FireBeam)
+            if (Charge >= 1 && FireBeam)
             {
                 Main.spriteBatch.UseAdditive();
-                for(int i = 0; i < 4; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     float r = (MathHelper.TwoPi / 4f) * i + Main.GlobalTimeWrappedHourly * 8;
                     Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + r.ToRotationVector2() * 4, null, Color.White, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
@@ -196,7 +195,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Main.spriteBatch.UseAdditive();
             Texture2D tex = CEUtils.getExtraTex("Glow2");
-            for(float i = 0.2f; i <= 1; i += 0.2f)
+            for (float i = 0.2f; i <= 1; i += 0.2f)
             {
                 Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.Lerp(Color.White, Color.OrangeRed, i) * 1f, Projectile.velocity.ToRotation(), new Vector2(0, tex.Height * 0.5f), new Vector2(length / tex.Width, 200f / tex.Height * width) * i, SpriteEffects.None, 0);
             }

@@ -1,8 +1,7 @@
-﻿using System;
+﻿using CalamityEntropy.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using CalamityEntropy.Common;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 

@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.NPCs.Apsychos;
-using CalamityEntropy.Content.NPCs.Prophet;
 using CalamityMod.Events;
 using CalamityMod.Items.Materials;
 using Terraria;

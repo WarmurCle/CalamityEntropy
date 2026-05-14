@@ -1,15 +1,11 @@
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Particles;
-using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -53,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Armor.Smoldering
             player.GetCritChance(DamageClass.Generic) += 5;
             player.GetDamage(DamageClass.Generic) += 0.08f;
         }
-        
+
 
         public override void AddRecipes()
         {
@@ -64,7 +60,7 @@ namespace CalamityEntropy.Content.Items.Armor.Smoldering
                 .Register();
         }
     }
-    public class SmolderingTail: ModProjectile
+    public class SmolderingTail : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -96,7 +92,7 @@ namespace CalamityEntropy.Content.Items.Armor.Smoldering
                 Vector2 fp = i == 0 ? player.GetDrawCenter() : segs[i - 1].Center;
                 segs[i].rotation = (segs[i].Center - fp).ToRotation();
             }
-            if(addVel)
+            if (addVel)
                 Projectile.Center += player.velocity;
         }
         public int ShootDelay = 0;
@@ -112,14 +108,14 @@ namespace CalamityEntropy.Content.Items.Armor.Smoldering
             if (ShootDelay > 0)
                 ShootDelay--;
             Player player = Projectile.GetOwner();
-            if(player.dead)
+            if (player.dead)
             {
                 Projectile.Kill();
                 return;
-            }    
+            }
             if (CEUtils.getDistance(Projectile.Center, player.Center) > 900)
                 Projectile.Center = player.Center;
-            if((!player.Entropy().smolderingSet && t) || (player.Entropy().smolderingSet && !t) || !(player.Entropy().smolderingSet || player.Entropy().smdVisual))
+            if ((!player.Entropy().smolderingSet && t) || (player.Entropy().smolderingSet && !t) || !(player.Entropy().smolderingSet || player.Entropy().smdVisual))
             {
                 Projectile.Kill();
             }
@@ -154,7 +150,7 @@ namespace CalamityEntropy.Content.Items.Armor.Smoldering
                     ShootDelay = delayMax;
                     Vector2 shootVel = (target.Center - Projectile.Center).normalize() * 5;
                     Projectile.velocity -= shootVel * 2;
-                    if(Main.myPlayer == Projectile.owner)
+                    if (Main.myPlayer == Projectile.owner)
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, shootVel, ModContent.ProjectileType<SmolderingTailShoot>(), (int)player.GetTotalDamage(player.GetBestClass()).ApplyTo(60), 6, Projectile.owner);
                     var snd = SoundID.DD2_BetsyFireballShot with { Pitch = 0.4f };
                     SoundEngine.PlaySound(snd, Projectile.Center);
@@ -169,7 +165,7 @@ namespace CalamityEntropy.Content.Items.Armor.Smoldering
         {
             lightColor = Color.White;
             Texture2D seg = CEUtils.RequestTex("CalamityEntropy/Content/Items/Armor/Smoldering/SmolderingSeg");
-            foreach(var s in segs)
+            foreach (var s in segs)
             {
                 Main.EntitySpriteDraw(seg, s.Center - Main.screenPosition, null, lightColor, s.rotation, seg.Size() * 0.5f, Projectile.scale, SpriteEffects.None);
             }

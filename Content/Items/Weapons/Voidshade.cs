@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 {
     public class Voidshade : ModItem
     {
-        public int attackType = 0; public int comboExpireTimer = 0; 
+        public int attackType = 0; public int comboExpireTimer = 0;
         public override void SetStaticDefaults()
         {
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;

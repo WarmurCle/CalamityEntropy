@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
             {
                 newLevel = 2;
             }
-            if(!player.Calamity().bladeArmEnchant)
+            if (!player.Calamity().bladeArmEnchant)
                 Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, newLevel);
             return false;
         }

@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Projectiles
         public List<Vector2> odp = new List<Vector2>();
         public override void AI()
         {
-            if(!((int)(Projectile.ai[2])).ToNPC().active)
+            if (!((int)(Projectile.ai[2])).ToNPC().active)
             {
                 Projectile.Kill();
                 return;

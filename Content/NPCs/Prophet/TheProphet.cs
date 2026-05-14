@@ -748,9 +748,9 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     if (AIChangeDelay == 556)
                     {
                         int type = ModContent.ProjectileType<RuneCrystalTop>();
-                        foreach(Projectile p in Main.ActiveProjectiles)
+                        foreach (Projectile p in Main.ActiveProjectiles)
                         {
-                            if(p.type == type)
+                            if (p.type == type)
                             {
                                 p.Kill();
                             }

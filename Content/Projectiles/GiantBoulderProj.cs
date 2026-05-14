@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 30;
         }
-        
+
         public override void AI()
         {
             Projectile.rotation += Projectile.velocity.X * -0.045f;
@@ -64,9 +64,9 @@ namespace CalamityEntropy.Content.Projectiles
             CEUtils.PlaySound("RockCrumble", Main.rand.NextFloat(0.4f, 0.5f), Projectile.Center, 160, 0.4f);
             for (int i = 0; i < 64; i++)
                 Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Stone).scale = 2;
-            if(Main.netMode != NetmodeID.MultiplayerClient)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                for(int i = 0; i < 16; i++)
+                for (int i = 0; i < 16; i++)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + CEUtils.randomPointInCircle(140), CEUtils.randomPointInCircle(36), ProjectileID.Boulder, 80, 6);
                 }
@@ -76,7 +76,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             target.velocity += Projectile.velocity * 2;
         }
-        
+
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.velocity += Projectile.velocity * 2 * target.knockBackResist;

@@ -193,7 +193,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 PositionInWorld = target.Center,
                 MovementVector = Vector2.Zero
             });
-            for(int i = 0; i < 64; i++)
+            for (int i = 0; i < 64; i++)
             {
                 Particle p = new Particle();
                 p.vd = 0.92f;

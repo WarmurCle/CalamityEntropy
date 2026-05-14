@@ -114,7 +114,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             else
             {
-                if(WindUp == 0)
+                if (WindUp == 0)
                     EndShoot = true;
             }
             if (WindUp > 0)
@@ -131,12 +131,12 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 if (EndShoot)
                 {
-                    if(EndShootC-- > 0)
+                    if (EndShootC-- > 0)
                     {
                         Projectile.timeLeft = 3;
                         Owner.itemTime = Owner.itemAnimation = 2;
                     }
-                    if(EndShootDelay-- < 0)
+                    if (EndShootDelay-- < 0)
                     {
                         if (EndShootTime > 0)
                         {
@@ -161,20 +161,20 @@ namespace CalamityEntropy.Content.Items.Weapons
                                 ds.noGravity = true;
                             }
                             Owner.velocity += Projectile.velocity * -1f;
-                            frame+=2;
+                            frame += 2;
                         }
                     }
                 }
                 else
                 {
                     ShootDelay--;
-                    if(ShootDelay <= 0)
+                    if (ShootDelay <= 0)
                     {
                         FireFx = 3;
                         ShootDelay += (Projectile.ai[0] / Owner.GetWeaponAttackSpeed(Owner.HeldItem)) * Projectile.MaxUpdates;
                         offset = -10;
                         CEUtils.PlaySound("gunshot", Main.rand.NextFloat(1.4f, 1.6f), Projectile.Center, 32, 0.32f);
-                        if(Main.myPlayer == Projectile.owner)
+                        if (Main.myPlayer == Projectile.owner)
                         {
                             Owner.PickAmmo(Owner.HeldItem, out int type, out float sts, out int dmg, out float kb, out int _, false);
 
@@ -196,7 +196,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                                 }
                             }
                         }
-                        for(int i = 0; i < 12; i++)
+                        for (int i = 0; i < 12; i++)
                         {
                             var ds = Dust.NewDustDirect(FirePos, 0, 0, DustID.Flare);
                             ds.position = FirePos + Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * Main.rand.NextFloat(-1, 1) - Owner.velocity;
@@ -223,7 +223,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Texture2D tex = this.getTextureAlt((frame % 4).ToString());
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2f, Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
-            if(FireFx > 0)
+            if (FireFx > 0)
             {
                 Texture2D tf = this.getTextureAlt("Fire");
                 int Frame = 3 - FireFx;
@@ -277,9 +277,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            for(float i = 0; i <= MathHelper.TwoPi; i += MathHelper.TwoPi / 3f)
+            for (float i = 0; i <= MathHelper.TwoPi; i += MathHelper.TwoPi / 3f)
             {
-                for(int i_ = 0; i_ < 4; i_ ++)
+                for (int i_ = 0; i_ < 4; i_++)
                     Main.EntitySpriteDraw(Projectile.getDrawData(Color.White, null, Projectile.Center + (i + Main.GlobalTimeWrappedHourly * 16f).ToRotationVector2() * 4f));
             }
             Main.spriteBatch.ExitShaderRegion();

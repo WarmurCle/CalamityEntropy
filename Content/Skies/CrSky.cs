@@ -81,7 +81,7 @@ namespace CalamityEntropy.Content.Skies
                     }
                 }
             }*/
-            if(awtime >= 0)
+            if (awtime >= 0)
                 awtime--;
 
             Main.spriteBatch.UseSampleState(SamplerState.LinearWrap);

@@ -1,14 +1,9 @@
-using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
-using CalamityMod.Items;
-using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -68,7 +63,7 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
                 return 1;
             return 0;
         }
-        public static int GetMaxTarget(int lv) => lv/2 + 1;
+        public static int GetMaxTarget(int lv) => lv / 2 + 1;
         public static float TargetDist(int lv) => 600 + lv * 200;
         public override void UpdateInventory(Player player)
         {
@@ -171,7 +166,7 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
         public override void AI()
         {
             Projectile.GetOwner().Entropy().RatzielShieldTime = 3;
-            if(Projectile.Opacity == 0)
+            if (Projectile.Opacity == 0)
             {
                 EParticle.spawnNew(new HadCircle2() { CScale = 0.7f * Projectile.scale }, Projectile.Center, Vector2.Zero, Color.Yellow, 1, 1, true, BlendState.Additive);
                 EParticle.spawnNew(new HadCircle2() { CScale = 1f * Projectile.scale }, Projectile.Center, Vector2.Zero, Color.Yellow, 1, 1, true, BlendState.Additive);
@@ -214,7 +209,7 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
             if (maxCount <= 0)
                 return new List<NPC>();
             var list = new List<NPC>();
-            foreach(var npC in Main.ActiveNPCs)
+            foreach (var npC in Main.ActiveNPCs)
                 list.Add(npC);
             var result = list
                 .Where(npc => npc.active

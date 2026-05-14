@@ -70,7 +70,7 @@ namespace CalamityEntropy.Common
             {
                 tag["downedPrimordialWyrm"] = true;
             }
-            if(downedApsychos)
+            if (downedApsychos)
             {
                 tag["downedApsychos"] = true;
             }

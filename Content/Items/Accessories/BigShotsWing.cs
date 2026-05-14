@@ -1,6 +1,5 @@
 ﻿using CalamityMod;
 using CalamityMod.Items.Accessories.Wings;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -86,7 +85,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
         public override void LoadData(TagCompound tag)
         {
-            if(tag.ContainsKey("visual"))
+            if (tag.ContainsKey("visual"))
                 visual = tag.GetInt("visual");
         }
 

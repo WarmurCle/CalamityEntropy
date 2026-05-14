@@ -1,7 +1,5 @@
 using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
 using CalamityMod;
-using CalamityMod.Items.Materials;
-using CalamityMod.Items.Weapons.Ranged;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -31,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             Item.Entropy().strokeColor = new Color(40, 0, 0);
             Item.Entropy().NameColor = new Color(160, 0, 0);
             Item.Entropy().NameLightColor = Color.Black;
-	        Item.ArmorPenetration = 10;
+            Item.ArmorPenetration = 10;
         }
 
         #region Animations
@@ -79,9 +77,9 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         {
             CreateRecipe()
                 .AddIngredient<Hope>()
-		        .AddIngredient<OsseousRemains>(20)
+                .AddIngredient<OsseousRemains>(20)
                 .AddIngredient(ItemID.SoulofLight, 10)
-		        .AddIngredient(ItemID.LightShard, 2)
+                .AddIngredient(ItemID.LightShard, 2)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

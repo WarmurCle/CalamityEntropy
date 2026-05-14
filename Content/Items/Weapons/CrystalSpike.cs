@@ -1,18 +1,11 @@
-﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Items.Armor.Azafure;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Rogue;
-using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -78,7 +71,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             int type = ModContent.ProjectileType<CrystalSpikeReturning>();
             int tm = 0;
-            foreach(Projectile p in Main.ActiveProjectiles)
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
                 if (p.owner == player.whoAmI && p.type == Item.shoot && p.ModProjectile is CrystalSpikeThrow cst && cst.StickNPC >= 0)
                 {
@@ -114,7 +107,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (counter == 0)
                 CEUtils.PlaySound((Projectile.ai[0] == 1 ? "crystalsound" : "bne") + (Main.rand.NextBool() ? "2" : "3"), Main.rand.NextFloat(1.4f, 1.6f), Projectile.Center, 6, 0.7f)
-;            counter++;
+; counter++;
             if (StickNPC == -1)
             {
                 if (counter > 46)
@@ -129,28 +122,28 @@ namespace CalamityEntropy.Content.Items.Weapons
                     EParticle.spawnNew(new CrystalGlow(), Projectile.Center, Vector2.Zero, Color.MediumPurple, 0.36f, 1, true, BlendState.Additive, 0, 8);
 
                 for (float i = 0; i < 1; i += 0.5f)
-                    {
-                        var d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.PurpleTorch);
-                        d.position = Vector2.Lerp(Projectile.Center - Projectile.velocity, Projectile.Center, i) + CEUtils.randomPointInCircle(5);
-                        d.velocity = Projectile.velocity * Main.rand.NextFloat(0.4f);
-                        d.noGravity = true;
-                        d.scale = Main.rand.NextFloat(1, 1.2f);
-                    }
+                {
+                    var d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.PurpleTorch);
+                    d.position = Vector2.Lerp(Projectile.Center - Projectile.velocity, Projectile.Center, i) + CEUtils.randomPointInCircle(5);
+                    d.velocity = Projectile.velocity * Main.rand.NextFloat(0.4f);
+                    d.noGravity = true;
+                    d.scale = Main.rand.NextFloat(1, 1.2f);
+                }
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
-            if(vel == Vector2.Zero)
+            if (vel == Vector2.Zero)
                 vel = Projectile.velocity;
             if (StickNPC >= 0)
                 if (!StickNPC.ToNPC().active || StickNPC.ToNPC().dontTakeDamage)
                     StickNPC = -1;
-            if(StickNPC >= 0)
+            if (StickNPC >= 0)
             {
                 Projectile.Center = StickNPC.ToNPC().Center + offset;
             }
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            if(counter == 0)
+            if (counter == 0)
                 Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
             Texture2D tex = Projectile.GetTexture();
             Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
@@ -182,7 +175,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
             CEUtils.PlaySound("truemoonlighthit", Main.rand.NextFloat(1.4f, 1.8f), target.Center, 60, 0.7f);
             int sum = 0;
-            foreach(Projectile p in Main.ActiveProjectiles)
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
                 if (p.owner == Projectile.owner && p.type == Projectile.type && p.ModProjectile is CrystalSpikeThrow cs && cs.StickNPC == target.whoAmI)
                     sum++;
@@ -307,7 +300,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             return false;
         }
     }
-    public class SwingSmear: ModProjectile
+    public class SwingSmear : ModProjectile
     {
         public override void SetDefaults()
         {

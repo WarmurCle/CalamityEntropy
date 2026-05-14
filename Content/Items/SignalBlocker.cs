@@ -1,6 +1,4 @@
 using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityMod;
 using CalamityMod.Items.Materials;
 using Terraria;
 using Terraria.ID;
@@ -20,7 +18,7 @@ public class SignalBlocker : ModItem
 
     public override void UpdateInventory(Player player)
     {
-        if(Item.favorited)
+        if (Item.favorited)
         {
             EModSys.AcropolisDontSpawn = 5;
         }

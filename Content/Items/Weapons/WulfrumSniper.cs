@@ -1,14 +1,11 @@
 ﻿using CalamityEntropy.Content.Items.Armor.NihTwins;
-using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Weapons.Miracle;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Projectiles.Rogue;
-using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -157,18 +154,18 @@ namespace CalamityEntropy.Content.Items.Weapons
         public bool thrown = false;
         public override void AI()
         {
-            if(Projectile.GetOwner().dead)
+            if (Projectile.GetOwner().dead)
             {
                 Projectile.Kill();
                 return;
             }
             Projectile.scale = Projectile.ai[1];
-            if(counter == 0 || counter == 16)
+            if (counter == 0 || counter == 16)
             {
                 offset = -12;
                 CEUtils.PlaySound("gunshot_small" + Main.rand.Next(1, 4).ToString(), 1, Projectile.Center);
             }
-            if(counter == 20)
+            if (counter == 20)
             {
                 thrown = true;
                 Projectile.GetOwner().HeldItem.noUseGraphic = false;
@@ -178,10 +175,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                     EParticle.NewParticle(new EMediumSmoke(), fpos, Projectile.velocity.normalize().RotatedByRandom(1) * Main.rand.NextFloat(2, 9), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.7f, 1f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
                 }
                 CEUtils.PlaySound("chainsaw_break", 1.4f, Projectile.Center);
-                if(Main.myPlayer == Projectile.owner)
+                if (Main.myPlayer == Projectile.owner)
                 {
                     int type = ModContent.ProjectileType<SniperWulfrumScrap>();
-                    for(int i = 0; i < 4; i++)
+                    for (int i = 0; i < 4; i++)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), fpos, Projectile.velocity.normalize().RotatedByRandom(0.16f) * Main.rand.NextFloat(36, 42), type, (int)(Projectile.damage * 0.7f), Projectile.knockBack, Projectile.owner);
                     }
@@ -204,7 +201,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Projectile.position += Projectile.rotation.ToRotationVector2() * (offset + 26 * Projectile.scale);
                 Projectile.GetOwner().itemTime = Projectile.GetOwner().itemAnimation = 30;
                 dir = Projectile.GetOwner().direction;
-                if(counter >= 19)
+                if (counter >= 19)
                     Projectile.position += CEUtils.randomPointInCircle(2);
             }
             else
@@ -216,7 +213,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             counter++;
             if (Main.myPlayer == Projectile.owner && !Main.mouseLeft)
                 flag = false;
-            if(counter == 20)
+            if (counter == 20)
             {
                 if (Main.myPlayer != Projectile.owner || !Main.mouseLeft || flag)
                     counter--;
@@ -267,7 +264,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center - Projectile.velocity, Projectile.Center, targetHitbox, Projectile.height);        }
+            return CEUtils.LineThroughRect(Projectile.Center - Projectile.velocity, Projectile.Center, targetHitbox, Projectile.height);
+        }
         public override void AI()
         {
             if (Projectile.localAI[2]++ > 6)

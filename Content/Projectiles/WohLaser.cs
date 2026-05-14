@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityMod.Particles;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles

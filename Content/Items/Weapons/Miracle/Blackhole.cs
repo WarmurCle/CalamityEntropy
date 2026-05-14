@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
@@ -195,7 +194,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             */
             if (CanDamage().Value)
             {
-                
+
                 foreach (NPC n in Main.ActiveNPCs)
                 {
                     if (!n.friendly && !n.boss && !(n.realLife >= 0) && n.Distance(Projectile.Center) < 3000)

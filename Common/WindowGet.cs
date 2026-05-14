@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Donator;
-using Steamworks;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -78,7 +77,7 @@ namespace CalamityEntropy.Common
         }
         public override void OnHurt(Player.HurtInfo info)
         {
-            if(accVanity && count > 0)
+            if (accVanity && count > 0)
             {
                 ChargingYuzu.Ciallo(Player.Center);
             }

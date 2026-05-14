@@ -98,7 +98,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                 segs = new List<TailSeg>();
                 for (int i = 0; i < 12; i++)
                 {
-                    segs.Add(new TailSeg() { Center = NPC.Center, rotation = NPC.rotation + MathHelper.Pi});
+                    segs.Add(new TailSeg() { Center = NPC.Center, rotation = NPC.rotation + MathHelper.Pi });
                 }
             }
             if (tailStyle == TailStyle.Follow)
@@ -111,7 +111,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                     segs[i].rotation = CEUtils.RotateTowardsAngle((segs[i].Center - fPos).ToRotation(), fRot, 0.12f, false);
                     segs[i].Center = fPos + segs[i].rotation.ToRotationVector2() * spacing;
                 }
-                if(tail != null)
+                if (tail != null)
                 {
                     int c = segs.Count;
                     float fRot = segs[c - 1].rotation;
@@ -124,7 +124,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             }
             else
             {
-                for(int i = 0; i < segs.Count; i++)
+                for (int i = 0; i < segs.Count; i++)
                 {
                     segs[i].Center += NPC.velocity;
                 }
@@ -132,7 +132,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             if (tailStyle == TailStyle.OnePoint)
             {
                 Vector2 p1 = NPC.Center - NPC.rotation.ToRotationVector2() * 300 * NPC.scale;
-                for(int i = 0; i < segs.Count; i++)
+                for (int i = 0; i < segs.Count; i++)
                 {
                     float pg = i / (segs.Count - 1f);
                     List<Vector2> lt = new List<Vector2> { NPC.Center - NPC.rotation.ToRotationVector2() * 70 * NPC.scale, p1, tail.Center };
@@ -184,9 +184,9 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             {
                 Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/Apsychos");
             }
-            if(Main.getGoodWorld)
+            if (Main.getGoodWorld)
                 NPC.scale = 1.25f;
-            if(Main.zenithWorld)
+            if (Main.zenithWorld)
                 NPC.scale = 0.7f;
         }
         #region AI
@@ -212,7 +212,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             if (SpawnFlag)
             {
                 SpawnFlag = false;
-                if(Main.netMode != NetmodeID.MultiplayerClient)
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     int index = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<ApsychosTail>(), 0, NPC.whoAmI);
                     TailNPCIndex = index;
@@ -221,7 +221,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                     NPC.netSpam = 0;
                 }
             }
-            if(TailNPCIndex >= 0)
+            if (TailNPCIndex >= 0)
                 tail = TailNPCIndex.ToNPC();
             UpdateTail();
             if (tail == null)
@@ -229,13 +229,13 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                 SpawnFlag = true;
                 return;
             }
-            if(!tail.active)
+            if (!tail.active)
             {
                 SpawnFlag = true;
             }
             NPC.netUpdate = true;
             NPC.TargetClosest(false);
-            if(NPC.HasValidTarget && (NPC.target.ToPlayer().Distance(NPC.Center) < 5000 || BossRushEvent.BossRushActive))
+            if (NPC.HasValidTarget && (NPC.target.ToPlayer().Distance(NPC.Center) < 5000 || BossRushEvent.BossRushActive))
             {
                 deactiveCount = 160;
                 AttackPlayer(NPC.target.ToPlayer());
@@ -306,7 +306,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                 NPC.velocity += NPC.rotation.ToRotationVector2() * spd * enrange;
                 if (NPC.Distance(player.Center) < 400)
                     AIChangeCounter++;
-                if(AIChangeCounter > 280 / enrange)
+                if (AIChangeCounter > 280 / enrange)
                 {
                     SetAIStyle();
                 }
@@ -324,19 +324,19 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                     if (Outline > 1)
                         Outline = 1;
                 }
-                if(AIChangeCounter > 60 / enrange)
+                if (AIChangeCounter > 60 / enrange)
                 {
-                    if(AIChangeCounter < 60 / enrange + 20)
+                    if (AIChangeCounter < 60 / enrange + 20)
                     {
-                        if(num1 <= 16)
+                        if (num1 <= 16)
                         {
                             num1 += 1;
                             if (!Main.dedServ)
                             {
-                                if(num1 == 1)
+                                if (num1 == 1)
                                     CEUtils.PlaySound("flamethrower end", 1, NPC.Center);
                                 CalamityEntropy.FlashEffectStrength = 0.32f;
-                                if(Main.LocalPlayer.ZoneUnderworldHeight)
+                                if (Main.LocalPlayer.ZoneUnderworldHeight)
                                 {
                                     CalamityEntropy.FlashEffectStrength = 0.55f;
                                 }
@@ -375,7 +375,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                     SetAIStyle();
                 }
             }
-            if(ai == AIStyle.FireballShooting)
+            if (ai == AIStyle.FireballShooting)
             {
                 TailSpeedMultFlag = false;
                 NPC.velocity *= 0.94f;
@@ -396,13 +396,13 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                             num1++;
                             CEUtils.PlaySound("YharonFireball1", 0.9f, NPC.Center);
                             CEUtils.PlaySound("YharonFireball1", 0.9f, NPC.Center);
-                            if(phase == 1)
+                            if (phase == 1)
                             {
                                 Shoot<ApsychosFireball>(tail.Center + tail.rotation.ToRotationVector2() * 32 * NPC.scale, tail.rotation.ToRotationVector2() * 3.8f * enrange, 1, phase);
                                 Shoot<ApsychosFireball>(tail.Center + tail.rotation.ToRotationVector2() * 32 * NPC.scale, tail.rotation.ToRotationVector2().RotatedBy(0.44f) * 3 * enrange, 1, phase);
                                 Shoot<ApsychosFireball>(tail.Center + tail.rotation.ToRotationVector2() * 32 * NPC.scale, tail.rotation.ToRotationVector2().RotatedBy(-0.44f) * 3 * enrange, 1, phase);
                             }
-                            else 
+                            else
                             {
                                 Shoot<ApsychosFireball>(tail.Center + tail.rotation.ToRotationVector2() * 32 * NPC.scale, tail.rotation.ToRotationVector2() * 4f * enrange, 1, phase);
                                 Shoot<ApsychosFireball>(tail.Center + tail.rotation.ToRotationVector2() * 32 * NPC.scale, tail.rotation.ToRotationVector2().RotatedBy(0.3f) * 4 * enrange, 1, phase);
@@ -412,7 +412,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                         }
                     }
                 }
-                if(num1 > total)
+                if (num1 > total)
                 {
                     num3++;
                     if (num3 > 60 / enrange)
@@ -458,12 +458,12 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                 NPC.velocity += NPC.rotation.ToRotationVector2() * 0.16f;
 
                 num1++;
-                if(num1 < 65 - phase * 15)
+                if (num1 < 65 - phase * 15)
                 {
                     tail.Center = Vector2.Lerp(tail.Center, NPC.Center + NPC.rotation.ToRotationVector2() * 180 * NPC.scale, 0.08f * enrange);
                     TailLight += 0.08f;
                 }
-                if(num1 >= 65 - phase * 15)
+                if (num1 >= 65 - phase * 15)
                 {
                     num1 = 0;
                     TailLight = 0;
@@ -476,10 +476,10 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                 if (num2 > 3)
                     SetAIStyle();
             }
-            if(ai == AIStyle.PhaseTrans)
+            if (ai == AIStyle.PhaseTrans)
             {
                 NPC.velocity *= 0.98f;
-                if(AIChangeCounter < 80)
+                if (AIChangeCounter < 80)
                 {
                     HighLight += 1 / 80f;
                     p2lerp += 1 / 80f;
@@ -489,7 +489,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                     HighLight *= 0.94f;
                     p2lerp = 1;
                 }
-                if(AIChangeCounter > 80)
+                if (AIChangeCounter > 80)
                     phase = 2;
                 if (AIChangeCounter > 120)
                     SetAIStyle();
@@ -498,11 +498,11 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             {
                 HighLight *= 0.94f;
             }
-            if(ai == AIStyle.TailDash)
+            if (ai == AIStyle.TailDash)
             {
                 tailStyle = TailStyle.OnePoint;
                 num1++;
-                if(num1 < 60)
+                if (num1 < 60)
                 {
                     float targetRot = (player.Center - NPC.Center).ToRotation();
                     if (num1 > 4)
@@ -521,11 +521,11 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                     NPC.velocity += NPC.rotation.ToRotationVector2() * spd * enrange;
 
                 }
-                if(num1 == 60)
+                if (num1 == 60)
                 {
                     NPC.velocity = NPC.rotation.ToRotationVector2() * 32 * enrange;
                 }
-                if(num1 >= 60)
+                if (num1 >= 60)
                 {
                     NPC.velocity *= 0.9f;
                     num2 *= 0.997f;
@@ -546,7 +546,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                     NPC.ai[2] = 0;
                     SetAIStyle();
                 }
-                
+
             }
             if (ai == AIStyle.Laser)
             {
@@ -587,11 +587,11 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             {
                 tail.velocity *= 0.96f;
             }
-            if(OutlineFlag)
+            if (OutlineFlag)
             {
                 Outline *= 0.9f;
             }
-            if(TailLightFlag)
+            if (TailLightFlag)
             {
                 TailLight *= 0.96f;
             }
@@ -609,7 +609,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             {
                 ai = AIStyle.MoveToTarget;
             }
-            else if(phase == 1 && (NPC.life < NPC.lifeMax * p2life))
+            else if (phase == 1 && (NPC.life < NPC.lifeMax * p2life))
             {
                 ai = AIStyle.PhaseTrans;
                 AIRound = 0;
@@ -644,7 +644,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                 }
                 else
                 {
-                    if(NPC.life > NPC.lifeMax / 4)
+                    if (NPC.life > NPC.lifeMax / 4)
                     {
                         if (AIRound > 14)
                             AIRound = 0;
@@ -731,7 +731,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
         {
             if (!Main.dedServ)
                 CEUtils.PlaySound("ApsychosHit", Main.rand.NextFloat(0.8f, 1.2f), NPC.Center);
-            if(NPC.life <= 0 && !Main.dedServ)
+            if (NPC.life <= 0 && !Main.dedServ)
             {
                 float scale = 360 / 40f;
                 EParticle.spawnNew(new ShineParticle(), NPC.Center, Vector2.Zero, Color.Red * 0.8f, scale * 0.8f, 1, true, BlendState.Additive, 0, 10);
@@ -755,7 +755,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
         public static Effect shader = null;
         public static Effect WhiteTransShader()
         {
-            if(shader == null)
+            if (shader == null)
                 shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/WhiteTrans", AssetRequestMode.ImmediateLoad).Value;
             return shader;
         }
@@ -774,14 +774,14 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             Texture2D bodyTex = NPC.getTexture();
             Texture2D segTex = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Apsychos/ApsychosSeg");
             Texture2D tailTex = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Apsychos/ApsychosTail");
-            if(phase == 2)
+            if (phase == 2)
             {
                 bodyTex = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Apsychos/Apsychos2");
                 segTex = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Apsychos/ApsychosSeg2");
                 tailTex = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Apsychos/ApsychosTail2");
             }
             Main.EntitySpriteDraw(bodyTex, NPC.Center - Main.screenPosition, null, drawColor, NPC.rotation, bodyTex.Size() * 0.5f, NPC.scale, SpriteEffects.None);
-            
+
             if (tail != null)
             {
                 Main.EntitySpriteDraw(tailTex, tail.Center - Main.screenPosition, null, drawColor, tail.rotation, new Vector2(20, tailTex.Height * 0.5f), NPC.scale, SpriteEffects.None);
@@ -797,12 +797,12 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                 if (TailLight > 0.01f)
                 {
                     float p = 110;
-                    Main.spriteBatch.UseBlendState(BlendState.Additive); 
+                    Main.spriteBatch.UseBlendState(BlendState.Additive);
                     Texture2D ray = CEUtils.getExtraTex("Ray");
                     Main.spriteBatch.Draw(ray, tail.Center + tail.rotation.ToRotationVector2() * p * NPC.scale - Main.screenPosition, null, (phase == 1 ? new Color(255, 200, 160) : new Color(160, 160, 255)) * TailLight, Main.GlobalTimeWrappedHourly * 3, ray.Size() * 0.5f, new Vector2(1, 0.3f) * NPC.scale, SpriteEffects.None, 0);
                     Main.spriteBatch.Draw(ray, tail.Center + tail.rotation.ToRotationVector2() * p * NPC.scale - Main.screenPosition, null, (phase == 1 ? new Color(255, 200, 160) : new Color(160, 160, 255)) * TailLight, Main.GlobalTimeWrappedHourly * 3, ray.Size() * 0.5f, new Vector2(0.3f, 1) * NPC.scale, SpriteEffects.None, 0);
                     Color c1 = phase == 1 ? Color.OrangeRed : Color.Blue;
-                    CEUtils.DrawGlow(tail.Center + tail.rotation.ToRotationVector2() * p * NPC.scale, Color.White, 0.6f * NPC.scale * TailLight, setState:false);
+                    CEUtils.DrawGlow(tail.Center + tail.rotation.ToRotationVector2() * p * NPC.scale, Color.White, 0.6f * NPC.scale * TailLight, setState: false);
                     CEUtils.DrawGlow(tail.Center + tail.rotation.ToRotationVector2() * p * NPC.scale, c1, 1f * NPC.scale * TailLight, setState: false);
                     CEUtils.DrawGlow(tail.Center + tail.rotation.ToRotationVector2() * p * NPC.scale, c1, 1.4f * NPC.scale * TailLight, setState: false);
                     Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
@@ -827,10 +827,10 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.TransformationMatrix);
             shader.CurrentTechnique.Passes[0].Apply();
             shader.Parameters["strength"].SetValue(1);
-            for(int ir = 0; ir < 4; ir++)
+            for (int ir = 0; ir < 4; ir++)
             {
                 float r = ir * MathHelper.PiOver2 + Main.GlobalTimeWrappedHourly * 10;
-                Vector2 ofs = r.ToRotationVector2() * 8 * NPC.scale; 
+                Vector2 ofs = r.ToRotationVector2() * 8 * NPC.scale;
                 Main.spriteBatch.Draw(bodyTex, NPC.Center + ofs - Main.screenPosition, null, drawColor, NPC.rotation, bodyTex.Size() * 0.5f, NPC.scale, SpriteEffects.None, 0);
                 if (tail != null)
                 {

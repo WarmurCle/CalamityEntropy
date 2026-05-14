@@ -161,10 +161,10 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 else
                     if (CEUtils.getDistance(Projectile.Center, targetPos) > 100)
-                    {
-                        Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.9f;
-                        Projectile.velocity *= 0.996f;
-                    }
+                {
+                    Projectile.velocity += (targetPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.9f;
+                    Projectile.velocity *= 0.996f;
+                }
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
         }

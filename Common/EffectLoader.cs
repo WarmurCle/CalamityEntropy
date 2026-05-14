@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Items;
-using CalamityEntropy.Content.Items.Books;
+﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Donator.Ratziel;
 using CalamityEntropy.Content.Items.Pets;
@@ -597,7 +596,7 @@ namespace CalamityEntropy.Common
         {
             if (ModContent.GetInstance<Config>().EnablePixelEffect)
             {
-                if(state == null)
+                if (state == null)
                 {
                     state = BlendState.AlphaBlend;
                 }
@@ -1093,7 +1092,7 @@ namespace CalamityEntropy.Common
             Texture2D rGlowTex = CEUtils.getExtraTex("Circle");
             foreach (Projectile p in Main.ActiveProjectiles)
             {
-                if(p.type == cruiserEnergyBallType && p.ModProjectile is CruiserEnergyBall ceb)
+                if (p.type == cruiserEnergyBallType && p.ModProjectile is CruiserEnergyBall ceb)
                 {
                     if (!startBatch)
                     {
@@ -1102,7 +1101,7 @@ namespace CalamityEntropy.Common
                     }
                     CEUtils.DrawGlow(p.Center, Color.White * p.Opacity * 0.72f, 14 * ceb.Scale);
                 }
-                if(p.type == voidRsType)
+                if (p.type == voidRsType)
                 {
                     if (!startBatch)
                     {
@@ -1111,7 +1110,7 @@ namespace CalamityEntropy.Common
                     }
                     CEUtils.DrawGlow(p.Center, Color.White * p.Opacity * 0.6f, 5);
                 }
-                if(p.type == ratzielStype)
+                if (p.type == ratzielStype)
                 {
                     if (!startBatch)
                     {
@@ -1120,8 +1119,8 @@ namespace CalamityEntropy.Common
                     }
                     CEUtils.DrawGlow(p.Center, Color.White * p.Opacity * 0.42f, 6, true, rGlowTex);
                 }
-            }    
-            if(startBatch)
+            }
+            if (startBatch)
                 Main.spriteBatch.End();
 
             graphicsDevice.SetRenderTarget(Main.screenTarget);

@@ -211,9 +211,9 @@ namespace CalamityEntropy.Content.Projectiles
             if (odp.Count > 2)
             {
                 List<Vector2> poses = new List<Vector2>();
-                for(int i = 1; i < odp.Count; i++)
+                for (int i = 1; i < odp.Count; i++)
                 {
-                    for(float h = 0.1f; h <= 1; h += 0.1f)
+                    for (float h = 0.1f; h <= 1; h += 0.1f)
                     {
                         poses.Add(Vector2.Lerp(odp[i - 1], odp[i], h));
                     }

@@ -87,7 +87,7 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             player.buffImmune[ModContent.BuffType<Shadowflame>()] = true;
             player.buffImmune[ModContent.BuffType<MaliciousCode>()] = true;
             player.buffImmune[ModContent.BuffType<CrushDepth>()] = true;
-	        player.buffImmune[ModContent.BuffType<HadopelagicPressure>()] = true;
+            player.buffImmune[ModContent.BuffType<HadopelagicPressure>()] = true;
             if (Main.zenithWorld)
             {
                 player.buffImmune[ModContent.BuffType<NOU>()] = true;

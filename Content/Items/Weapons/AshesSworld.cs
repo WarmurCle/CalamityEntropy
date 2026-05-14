@@ -1,17 +1,11 @@
-﻿using CalamityEntropy.Content.NPCs.Apsychos;
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables.Plates;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using ReLogic.Content;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -97,7 +91,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Projectile.scale *= scale_;
             }
             Projectile.localAI[0]++;
-            
+
             float p = Projectile.localAI[0] / (player.itemTimeMax * Projectile.MaxUpdates);
             if (p >= 1)
             {
@@ -165,7 +159,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Main.projFrames[Projectile.type] = 1;
         }
-        
+
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Melee;
@@ -180,7 +174,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Vector2 vel = oldVelocity;
-            if(Projectile.velocity.X == 0)
+            if (Projectile.velocity.X == 0)
             {
                 Projectile.velocity.X = -oldVelocity.X;
             }
@@ -188,7 +182,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 Projectile.velocity.Y = -oldVelocity.Y;
             }
-            EParticle.spawnNew(new HadCircle2() { scale2 = 0.16f}, Projectile.Center, Vector2.Zero, Color.Firebrick, 0.16f, 1, true, BlendState.Additive);
+            EParticle.spawnNew(new HadCircle2() { scale2 = 0.16f }, Projectile.Center, Vector2.Zero, Color.Firebrick, 0.16f, 1, true, BlendState.Additive);
             return false;
         }
         public override void AI()
@@ -204,7 +198,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void OnKill(int timeLeft)
         {
             NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 1200);
-            if(target != null)
+            if (target != null)
             {
                 for (int i = 0; i < 8; i++)
                 {
@@ -303,7 +297,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomPointInCircle(4), CEUtils.randomPointInCircle(3), Color.Firebrick, 6, 0.4f, 1f, Main.rand.NextFloat(-0.1f, 0.1f), true));
 
         }
-    
+
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.End();

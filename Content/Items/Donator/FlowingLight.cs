@@ -1,12 +1,9 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Tiles;
+﻿using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories.Wings;
 using CalamityMod.Rarities;
-using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -39,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
         {
-            if(line.Text.StartsWith("$"))
+            if (line.Text.StartsWith("$"))
             {
                 DrawableTooltipLine nLine = new DrawableTooltipLine(new(Mod, "-", line.Text.Replace("$", "")), line.Index, line.X, line.Y, line.Color);
                 BurnishedAuric.Draw(Item, nLine);

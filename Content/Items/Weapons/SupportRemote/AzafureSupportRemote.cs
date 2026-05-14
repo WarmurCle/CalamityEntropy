@@ -1,8 +1,6 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
-using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
@@ -10,7 +8,6 @@ using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -103,7 +100,7 @@ namespace CalamityEntropy.Content.Items.Weapons.SupportRemote
             if (Projectile.ai[1] < 0)
                 Projectile.ai[1] = 0;
             Player player = Projectile.GetOwner();
-            Projectile.MinionCheck<CombatDrone>(); 
+            Projectile.MinionCheck<CombatDrone>();
             if (Projectile.Distance(player.Center) > 3200)
             {
                 Projectile.Center = player.Center + CEUtils.randomPointInCircle(128);
@@ -128,18 +125,18 @@ namespace CalamityEntropy.Content.Items.Weapons.SupportRemote
                 {
                     FireCooldown--;
                 }
-                if(target == null)
+                if (target == null)
                 {
-                    if(FireCooldown < 10)
+                    if (FireCooldown < 10)
                         FireCooldown = 10;
                 }
                 Vector2 targetPos = target == null ? (player.Center + new Vector2(-(140 + id * 70) * player.direction, -60)) : (target.Center + new Vector2((target.width + (120 + id * 56) * (id % 2 == 0 ? 1 : -1)), -90 - target.height));
                 var nearby = target == null ? new List<NPC>() : CEUtils.FindSomeNearEnemies(target.Center, 2, 1600, (npC) => npC.ToNPC().velocity.Length() > 0 || npC.ToNPC().realLife < 0);
-                if(nearby.Count >= 2)
+                if (nearby.Count >= 2)
                 {
                     targetPos = nearby[0].Center + (nearby[0].Center - nearby[1].Center).SafeNormalize(Vector2.UnitX) * (320 + 78 * id);
                 }
-                if(target == null)
+                if (target == null)
                 {
                     Projectile.velocity *= 0.94f;
                     Projectile.velocity += (targetPos - Projectile.Center) * 0.004f;
@@ -150,7 +147,7 @@ namespace CalamityEntropy.Content.Items.Weapons.SupportRemote
                     Projectile.velocity += (targetPos - Projectile.Center) * Utils.Remap(target.velocity.Length(), 0, 12, 0.005f, 0.06f);
                 }
                 Projectile.pushByOther(0.1f);
-                if(target != null)
+                if (target != null)
                     Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, (target.Center - Projectile.Center).ToRotation(), 0.16f, false);
                 else
                     Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, dir > 0 ? 0 : MathHelper.Pi, 0.1f, false);
@@ -167,7 +164,7 @@ namespace CalamityEntropy.Content.Items.Weapons.SupportRemote
                 Projectile.velocity *= 0;
                 Projectile.ai[1] = 1;
                 Vector2 shootVel = (target.Center + target.velocity * 4 - Projectile.Center).normalize() * 16;
-                if(Projectile.owner == Main.myPlayer)
+                if (Projectile.owner == Main.myPlayer)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, shootVel, ModContent.ProjectileType<CombatDroneBullet>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
@@ -244,9 +241,9 @@ namespace CalamityEntropy.Content.Items.Weapons.SupportRemote
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
-            for(int i = 0; i < 6; i++)
+            for (int i = 0; i < 6; i++)
                 EParticle.spawnNew(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleStart = 0.03f, scaleEnd = 0f }, Projectile.Center - Projectile.velocity * Main.rand.NextFloat(), Projectile.velocity * 0.6f, Color.OrangeRed, 0.02f, 1, true, BlendState.Additive, CEUtils.randomRot());
-            
+
         }
     }
 }

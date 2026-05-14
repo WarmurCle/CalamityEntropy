@@ -4,7 +4,6 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Rarities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;

@@ -1,18 +1,12 @@
-﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Items.Armor.Azafure;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -78,7 +72,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             int type = ModContent.ProjectileType<EmberSpikeReturning>();
             int tm = 0;
-            foreach(Projectile p in Main.ActiveProjectiles)
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
                 if (p.owner == player.whoAmI && p.type == Item.shoot && p.ModProjectile is EmberSpikeThrow cst && cst.StickNPC >= 0)
                 {
@@ -87,7 +81,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     tm += 2;
                 }
             }
-            if (tm > 0) 
+            if (tm > 0)
                 CEUtils.PlaySound("RockCrumble", Main.rand.NextFloat(2.5f, 2.8f), player.Center, 60, 0.5f);
 
         }
@@ -231,7 +225,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             EParticle.spawnNew(new CrystalGlow(), Projectile.Center + oldVelocity + Projectile.rotation.ToRotationVector2() * 4, Vector2.Zero, Color.OrangeRed * 1.3f, 1.5f, 1, true, BlendState.Additive, 0, 10);
             if (BounceTime > 0)
             {
-                BounceTime--; 
+                BounceTime--;
                 if (Projectile.velocity.X != oldVelocity.X)
                 {
                     Projectile.velocity.X = -oldVelocity.X * 0.84f;
@@ -361,7 +355,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             return false;
         }
     }
-    public class SwingSmearEmber: ModProjectile
+    public class SwingSmearEmber : ModProjectile
     {
         public override void SetDefaults()
         {

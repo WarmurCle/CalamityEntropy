@@ -103,7 +103,7 @@ namespace CalamityEntropy.Content.Projectiles
         private static Color ShaderColorOne = new Color(237, 66, 66);
         private static Color ShaderColorTwo = new Color(235, 110, 110);
         private static Color ShaderEndColor = new Color(199, 36, 36);
-        
+
         public override bool PreDraw(ref Color lightColor)
         {
             GameShaders.Misc["CalamityMod:TrailStreak"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/Trails/SylvestaffStreak"));

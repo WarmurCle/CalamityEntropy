@@ -44,12 +44,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -83,7 +81,7 @@ namespace CalamityEntropy.Common
                 Player.Heal(1);
             }
         }
-        
+
         public int voidOreNearby = 0;
         public bool rottenFangs = false;
         public float alpha = 1f;
@@ -1342,7 +1340,7 @@ namespace CalamityEntropy.Common
                 }
                 else
                     if (Math.Abs(Player.velocity.Y) < 6 && Player.velocity.Y < 0)
-                        Player.velocity.Y *= 1.3f;
+                    Player.velocity.Y *= 1.3f;
                 Player.maxFallSpeed *= Player.controlDown ? 3f : 1.8f;
             }
             if (FallSpeedUP > 0)
@@ -1620,7 +1618,7 @@ namespace CalamityEntropy.Common
         public int ffDecSlot = 0;
         public override void UpdateLifeRegen()
         {
-            if(deusCore && Player.lifeRegen > 0)
+            if (deusCore && Player.lifeRegen > 0)
             {
                 Player.lifeRegen /= 2;
             }
@@ -2157,7 +2155,7 @@ namespace CalamityEntropy.Common
                 if (info.Cancelled)
                     return;
             }
-            if(RatzielShieldTime > 0)
+            if (RatzielShieldTime > 0)
             {
                 RatzielShieldHit(ref info, ref RatzielShield, ref RatzielRegenDelay);
                 if (info.Cancelled)
@@ -2403,13 +2401,13 @@ namespace CalamityEntropy.Common
         public bool smdVisual = false;
         public override void PostUpdate()
         {
-            if(smolderingSets == null)
+            if (smolderingSets == null)
             {
                 smolderingSets = new List<int>() { ModContent.ItemType<SmolderingHelmet>(), ModContent.ItemType<SmolderingBreastplate>(), ModContent.ItemType<SmolderingGreaves>() };
             }
             bool fullSet = smolderingSet;
             int smdCount = 0;
-            for(int i = 10; i < 13; i++)
+            for (int i = 10; i < 13; i++)
             {
                 if (smolderingSets.Contains(Player.armor[i].type))
                     smdCount++;
@@ -2421,9 +2419,9 @@ namespace CalamityEntropy.Common
             }
             smdVisual = smdCount >= 3;
             int sType = ModContent.ProjectileType<SmolderingTail>();
-            if ((smolderingSet || smdVisual)  && Player.ownedProjectileCounts[sType] < 1)
+            if ((smolderingSet || smdVisual) && Player.ownedProjectileCounts[sType] < 1)
                 Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, sType, smolderingSet ? 30.ApplyAccArmorDamageBonus() : 0, 4, Player.whoAmI);
-            if(Main.myPlayer == Player.whoAmI && Player.HeldItem.ModItem != null && Player.HeldItem.ModItem is IHoldoutItem ih)
+            if (Main.myPlayer == Player.whoAmI && Player.HeldItem.ModItem != null && Player.HeldItem.ModItem is IHoldoutItem ih)
             {
                 int holdoutType = ih.ProjectileType;
                 if (Player.ownedProjectileCounts[holdoutType] < 1)

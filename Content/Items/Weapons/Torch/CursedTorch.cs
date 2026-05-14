@@ -103,7 +103,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Torch
             GeneralParticleHandler.SpawnParticle(new FlameParticle(base.Projectile.Center, 18, Main.rand.NextFloat(0.5f, 0.65f), 0.05f, Color.Yellow, Color.Firebrick)
             {
                 Velocity = new Vector2(Main.rand.NextFloat(-2, 2), -10f).RotatedByRandom(0.004999999888241291) * Main.rand.NextFloat(0.8f, 1f)
-            }); 
+            });
             GeneralParticleHandler.SpawnParticle(new FlameParticle(base.Projectile.Center, 18, Main.rand.NextFloat(0.5f, 0.65f), 0.05f, Color.Yellow, Color.Firebrick)
             {
                 Velocity = new Vector2(Main.rand.NextFloat(-2, 2), -10f).RotatedByRandom(0.004999999888241291) * Main.rand.NextFloat(0.8f, 1f)

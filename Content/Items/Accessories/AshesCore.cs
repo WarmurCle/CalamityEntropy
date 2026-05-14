@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Weapons;
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
@@ -60,7 +59,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             Texture2D tex = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/TectinicShardHoming");
             UnifiedRandom rand = new UnifiedRandom(Projectile.Name.GetHashCode());
-            for(int i = 0; i < 9; i++)
+            for (int i = 0; i < 9; i++)
             {
                 float tr = rand.NextFloat() * MathHelper.TwoPi + (rand.NextBool() ? 1 : -1) * Main.GlobalTimeWrappedHourly * 1;
                 SpriteEffects effect = rand.NextBool() ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
@@ -98,17 +97,17 @@ namespace CalamityEntropy.Content.Items.Accessories
                 if (!target.active || target.dontTakeDamage || target.Distance(Projectile.Center) > distance)
                     target = null;
             }
-            if(target == null)
+            if (target == null)
             {
                 target = CEUtils.FindMinionTarget(Projectile, distance);
             }
-            if(target != null)
+            if (target != null)
             {
                 vdist = float.Lerp(vdist, 80, 0.1f);
                 Vector2 targetPos = target.Center + (Projectile.Center - target.Center).normalize() * 320;
                 Projectile.velocity *= 0.98f;
                 Projectile.velocity += (targetPos - Projectile.Center) * 0.005f;
-                
+
                 if (Projectile.ai[0]-- <= 0 && Main.myPlayer == player.whoAmI)
                 {
                     Projectile.ai[0] = 30;
@@ -119,14 +118,14 @@ namespace CalamityEntropy.Content.Items.Accessories
             else
             {
                 Vector2 targetPos = player.Center + new Vector2(-player.direction * 80, -100);
-                if(Projectile.Distance(targetPos) > 20)
+                if (Projectile.Distance(targetPos) > 20)
                 {
                     Projectile.velocity *= 0.96f;
                     Projectile.velocity += (targetPos - Projectile.Center).normalize() * 1;
                 }
                 vdist = float.Lerp(vdist, Projectile.Distance(targetPos) > 160 ? 60 : 40, 0.1f);
             }
-            for(float i = 0; i < 1; i += 0.25f)
+            for (float i = 0; i < 1; i += 0.25f)
             {
                 var d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.FlameBurst);
                 d.position = Projectile.Center + Projectile.velocity * i + CEUtils.randomPointInCircle(14); ;

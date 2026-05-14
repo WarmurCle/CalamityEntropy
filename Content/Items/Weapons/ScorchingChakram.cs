@@ -1,15 +1,11 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
-using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.Particles;
-using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -88,7 +84,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 odp.RemoveAt(0);
             }
-            if(NoPosUpdate <= 0)
+            if (NoPosUpdate <= 0)
             {
                 Projectile.rotation += 0.016f * Projectile.velocity.Length() * (Projectile.velocity.X > 0 ? 1 : -1);
                 Projectile.velocity *= 0.94f;
@@ -105,9 +101,9 @@ namespace CalamityEntropy.Content.Items.Weapons
                         if (Projectile.ai[0] >= 50)
                         {
                             NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 1800);
-                            if(target != null && Projectile.ai[0] > 100)
+                            if (target != null && Projectile.ai[0] > 100)
                             {
-                                if(CEUtils.getDistance(Projectile.Center, target.Center) > 120)
+                                if (CEUtils.getDistance(Projectile.Center, target.Center) > 120)
                                     Projectile.velocity += (target.Center - Projectile.Center).normalize() * 3f;
                                 else
                                 {
@@ -138,14 +134,14 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(Projectile.localAI[0]++ == 0 || (Projectile.Calamity().stealthStrike && NoPosUpdate <= 0))
+            if (Projectile.localAI[0]++ == 0 || (Projectile.Calamity().stealthStrike && NoPosUpdate <= 0))
             {
                 target.AddBuff(BuffID.OnFire3, 100);
                 CEUtils.PlaySound("slice", 1, target.Center);
                 CEUtils.PlaySound("slice", 1, target.Center);
                 CEUtils.PlaySound("slice", 1, target.Center);
                 NoPosUpdate = 4;
-                for(int i = 0; i < 6; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     float rot = 2;
                     GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(rot).RotatedByRandom(0.3f) * Main.rand.NextFloat(4, 16), false, 16, Projectile.scale * 0.04f, Color.OrangeRed, new Vector2(0.3f, 1), false, false));
@@ -187,7 +183,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         poses.Add(Vector2.Lerp(odp[i - 1], odp[i], j));
                 }
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
-                for (int i = 0; i < poses.Count; i ++)
+                for (int i = 0; i < poses.Count; i++)
                 {
                     float p = ((float)(1 + i) / poses.Count);
                     Color clr = Color.Yellow * 0.8f * p;

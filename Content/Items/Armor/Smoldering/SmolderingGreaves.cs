@@ -1,7 +1,4 @@
-using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
-using CalamityMod.Items.Placeables.Ores;
-using CalamityMod.Rarities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

@@ -1,10 +1,5 @@
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles;
 using CalamityMod.Items.Materials;
-using CalamityMod.Particles;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -31,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
         {
             CreateRecipe(100)
                 .AddIngredient(ModContent.ItemType<OsseousRemains>())
-		        .AddIngredient<WulfrumMetalScrap>(1)
+                .AddIngredient<WulfrumMetalScrap>(1)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

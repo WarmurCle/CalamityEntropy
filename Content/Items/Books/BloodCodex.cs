@@ -92,7 +92,7 @@ namespace CalamityEntropy.Content.Items.Books
             base.AI();
             if (Projectile.localAI[2]++ > 10)
                 Projectile.velocity.Y += 0.26f;
-            for(float i = 0; i < 1; i += 0.1f)
+            for (float i = 0; i < 1; i += 0.1f)
                 EParticle.NewParticle(new Smoke() { timeleftmax = 10, Lifetime = 10, scaleStart = 0.04f * (0.9f + i * 0.1f), scaleEnd = 0f }, Projectile.Center + Projectile.velocity * i, Vector2.Zero, new Color(255, 30, 30), 0.04f, 1, true, BlendState.Additive, 0);
         }
         public override Color baseColor => Color.Red;

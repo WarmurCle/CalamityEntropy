@@ -1,8 +1,5 @@
 ﻿using CalamityEntropy.Content.Tiles;
 using CalamityMod;
-using CalamityMod.Items.Materials;
-using CalamityMod.Rarities;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;

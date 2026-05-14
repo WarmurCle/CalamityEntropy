@@ -2,7 +2,6 @@ using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
@@ -31,14 +30,14 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.Entropy().accAzureAbyss = true;
             player.lifeRegen += 5;
             player.GetDamage(DamageClass.Generic) += 0.15f;
-	        player.Entropy().moveSpeed += 0.15f;
+            player.Entropy().moveSpeed += 0.15f;
         }
 
         public static void ApplyBuffImmune(Player player)
         {
             player.buffImmune[ModContent.BuffType<CrushDepth>()] = true;
-	        player.buffImmune[ModContent.BuffType<HadopelagicPressure>()] = true;
-	    }
+            player.buffImmune[ModContent.BuffType<HadopelagicPressure>()] = true;
+        }
 
         public override void AddRecipes()
         {

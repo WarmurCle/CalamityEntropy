@@ -127,7 +127,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         int arrow;
                         arrow = Projectile.NewProjectile(source, position + player.itemRotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * j + player.itemRotation.ToRotationVector2() * Main.rand.Next(4, 16), velocity.RotatedBy(MathHelper.ToRadians((float)Main.rand.Next(0, 7) - 3f)) * 2, type, damage / 2, knockback, player.whoAmI);
                         Main.projectile[arrow].Entropy().Lightning = true;
-                        if(arrow.ToProj().penetrate > 0)
+                        if (arrow.ToProj().penetrate > 0)
                             Main.projectile[arrow].penetrate += 4;
                         arrow.ToProj().localNPCHitCooldown = 6;
                         arrow.ToProj().usesLocalNPCImmunity = true;

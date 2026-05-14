@@ -49,7 +49,6 @@ using CalamityMod.Items.Materials;
 using CalamityMod.Items.Pets;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Melee;
-using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.NPCs.AquaticScourge;
 using CalamityMod.NPCs.AstrumAureus;
 using CalamityMod.NPCs.AstrumDeus;
@@ -93,11 +92,9 @@ using ReLogic.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.Graphics;
 using Terraria.Graphics.Renderers;
 using Terraria.ID;
@@ -266,7 +263,7 @@ namespace CalamityEntropy
         {
             bool gloveScale = self.meleeScaleGlove;
             orig(self, currentItem, hideVisual);
-            if(currentItem.type == ItemID.BerserkerGlove)
+            if (currentItem.type == ItemID.BerserkerGlove)
             {
                 self.meleeScaleGlove = gloveScale;
                 self.Entropy().MeleeScale += 0.1f;
@@ -1956,7 +1953,7 @@ namespace CalamityEntropy
             }
 
             //Custom titles
-            if(!Main.dedServ && Main.rand.NextBool(6))
+            if (!Main.dedServ && Main.rand.NextBool(6))
             {
                 SetARandomEntropyTitle();
             }

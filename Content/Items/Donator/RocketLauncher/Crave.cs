@@ -1,7 +1,6 @@
 using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Items.Materials;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -33,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             Item.Entropy().strokeColor = new Color(180, 20, 180);
             Item.Entropy().NameColor = Color.DarkBlue;
             Item.Entropy().NameLightColor = Color.Purple * 0.4f;
-	        Item.ArmorPenetration = 10;
+            Item.ArmorPenetration = 10;
         }
 
         #region Animations
@@ -75,11 +74,11 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         {
             CreateRecipe()
                 .AddIngredient<FrailMissile>()
-		        .AddIngredient<OsseousRemains>(20)
-		        .AddIngredient(ItemID.HallowedBar, 12)
+                .AddIngredient<OsseousRemains>(20)
+                .AddIngredient(ItemID.HallowedBar, 12)
                 .AddIngredient(ItemID.SoulofFright, 3)
                 .AddIngredient(ItemID.SoulofMight, 3)
-		        .AddIngredient(ItemID.SoulofSight, 3)
+                .AddIngredient(ItemID.SoulofSight, 3)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

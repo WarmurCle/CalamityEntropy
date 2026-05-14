@@ -132,7 +132,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             NPC target = Projectile.FindMinionTarget(1400, true);
             if (Active && target != null)
             {
-                if(!flag)
+                if (!flag)
                 {
                     for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.TwoPi * 0.05f)
                     {

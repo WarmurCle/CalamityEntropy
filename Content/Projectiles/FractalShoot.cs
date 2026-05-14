@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if(Projectile.timeLeft < 32)
+            if (Projectile.timeLeft < 32)
                 Projectile.Opacity -= 1 / 32f;
             oldPos.Add(Projectile.Center);
             if (oldPos.Count > 26)

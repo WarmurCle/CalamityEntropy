@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             {
                 segs.Add(Projectile.Center);
                 Projectile.Center += Projectile.velocity.SafeNormalize(Vector2.One) * 16;
-                if(Main.rand.NextBool(3))
+                if (Main.rand.NextBool(3))
                     CEUtils.PlaySound("crystalsound" + Main.rand.Next(1, 4), 2.5f + Main.rand.NextFloat(-0.3f, 0.3f), Projectile.Center, 64, 0.6f);
             }
         }
@@ -103,7 +103,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                 c++;
             }
             Main.EntitySpriteDraw(t2, Projectile.Center - Main.screenPosition + offset_, null, lightColor, Projectile.velocity.ToRotation(), t2.Size() * 0.5f, Projectile.scale, SpriteEffects.None);
-            
+
             return false;
         }
     }

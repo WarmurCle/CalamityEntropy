@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             Item.Entropy().strokeColor = Color.BlueViolet;
             Item.Entropy().NameColor = Color.Violet * 5;
             Item.Entropy().NameLightColor = Color.MediumVioletRed * 0.4f;
-	        Item.ArmorPenetration = 50;
+            Item.ArmorPenetration = 50;
         }
         #region Animations
         public override void HoldItem(Player player) => player.Calamity().mouseWorldListener = true;
@@ -88,7 +88,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
                 .AddIngredient<Zeal>()
                 .AddIngredient<OsseousRemains>(20)
                 .AddIngredient<DivineGeode>(20)
-		        .AddIngredient<RuinousSoul>(10)
+                .AddIngredient<RuinousSoul>(10)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
@@ -111,9 +111,9 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             }
             position += (new Vector2(54, -16) * new Vector2(1, player.direction)).RotatedBy(velocity.ToRotation());
             int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, MaxStick, ExplodeRadius);
-            List<int> buffs = new List<int>() { ModContent.BuffType<HolyFlames>(), ModContent.BuffType<BrimstoneFlames>(), BuffID.Daybreak, ModContent.BuffType<SoulDisorder>()};
+            List<int> buffs = new List<int>() { ModContent.BuffType<HolyFlames>(), ModContent.BuffType<BrimstoneFlames>(), BuffID.Daybreak, ModContent.BuffType<SoulDisorder>() };
             p.ToProj().Entropy().applyBuffs.Add(buffs[Main.rand.Next(buffs.Count)]);
-            if(player.altFunctionUse == 2)
+            if (player.altFunctionUse == 2)
             {
                 p.ToProj().Entropy().OnKillActions += OnKillAction;
             }

@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.localAI[0] == 0)
             {
-                for(int i = 0; i < 32; i++)
+                for (int i = 0; i < 32; i++)
                 {
                     var p = new Particle();
                     p.alpha = Main.rand.NextFloat(0.35f, 0.7f);

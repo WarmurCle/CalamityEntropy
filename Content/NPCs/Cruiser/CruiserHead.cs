@@ -925,7 +925,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             if (changeCounter == 0)
                             {
                                 var pLt = new List<int>() { ModContent.ProjectileType<VoidStar>(), ModContent.ProjectileType<VoidResidue>(), ModContent.ProjectileType<VoidSpike>() };
-                                foreach(Projectile p in Main.ActiveProjectiles)
+                                foreach (Projectile p in Main.ActiveProjectiles)
                                 {
                                     if (pLt.Contains(p.type))
                                         p.Kill();
@@ -1110,7 +1110,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                 int u = (int)Utils.Remap(changeCounter, 0, 6 * 46, 42, 8);
                                 if (changeCounter % 46 == 0)
                                 {
-                                    if(changeCounter > 1)
+                                    if (changeCounter > 1)
                                         NPC.rotation = (target.Center + target.velocity * u * 0.8f - NPC.Center).ToRotation();
                                     NPC.velocity = NPC.rotation.ToRotationVector2();
                                     EParticle.NewParticle(new CruiserWarn(), NPC.Center, Vector2.Zero, Color.White, 1.8f, 1, true, BlendState.Additive, NPC.rotation);

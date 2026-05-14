@@ -1,11 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.Fractal;
-using CalamityEntropy.Content.Items.Weapons.Nemesis;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy
@@ -16,7 +11,7 @@ namespace CalamityEntropy
         public static List<int> SpecialTaintedEnchantmentList;
         public static void Load()
         {
-            int I<T>()where T : ModItem
+            int I<T>() where T : ModItem
             {
                 return ModContent.ItemType<T>();
             }

@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Main.spriteBatch.ExitShaderRegion();
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, new Vector2(tex.Width, tex.Height / 2), Projectile.scale, SpriteEffects.None, 0);
-            
+
             return false;
         }
         public void portalParticle(Vector2 pos)

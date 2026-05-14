@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
-using CalamityMod.DataStructures;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
 using CalamityMod.Particles;
@@ -195,7 +194,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             base.Projectile.ExpandHitboxBy(350);
             base.Projectile.Damage();
             SoundEngine.PlaySound(in SoundID.Item14, base.Projectile.Center);
-            if(!Main.dedServ)
+            if (!Main.dedServ)
             {
                 for (int i = 0; i < 32; i++)
                     EParticle.spawnNew(new GlowLightParticle(), Projectile.Center, CEUtils.randomPointInCircle(16), Color.LightBlue, Main.rand.NextFloat(0.6f, 1f), 1, true, BlendState.Additive, 0, 22);

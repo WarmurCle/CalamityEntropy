@@ -81,7 +81,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
         {
             Projectile.GetOwner().Calamity().mouseWorldListener = true;
             Player player = Projectile.GetOwner();
-            if(player.dead)
+            if (player.dead)
             {
                 Projectile.Kill();
                 return;

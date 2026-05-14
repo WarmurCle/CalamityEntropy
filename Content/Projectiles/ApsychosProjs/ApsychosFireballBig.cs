@@ -1,7 +1,4 @@
-﻿using CalamityEntropy.Content.Buffs;
-using CalamityMod.Particles;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -43,14 +40,14 @@ namespace CalamityEntropy.Content.Projectiles.ApsychosProjs
                 Projectile.ai[2] = Main.rand.NextBool() ? 1 : -1;
             if (scale < 1)
                 scale += 0.05f;
-            if(Projectile.timeLeft > 10 && scale > 0.4f)
+            if (Projectile.timeLeft > 10 && scale > 0.4f)
             {
                 if (ft < 10)
                     ft += 0.32f;
-                for(int i = 0; i < 3; i ++)
+                for (int i = 0; i < 3; i++)
                 {
                     float r = i * (MathHelper.TwoPi / 3f) + Main.GameUpdateCount * 0.052f * (Projectile.ai[2] == 1 ? 1 : -1);
-                    if(Main.netMode != NetmodeID.MultiplayerClient)
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, r.ToRotationVector2() * 42 + Projectile.velocity, ModContent.ProjectileType<ApsychosFire>(), (int)(Projectile.damage * 0.8f), 0, -1, (int)ft, Projectile.ai[1]);
                     }
