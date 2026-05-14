@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.Projectiles
                 thrownHook = true;
                 if (pls)
                 {
-                    SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/chain1"), Projectile.Center);
+                    SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/chain1") with { Volume = 0.6f}, Projectile.Center);
                     pls = false;
                 }
                 if (Projectile.owner == Main.myPlayer)

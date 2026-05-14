@@ -106,6 +106,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Player player = Projectile.GetOwner();
             if(init)
             {
+                init = false;
                 float scale_ = Projectile.GetOwner().HeldItem.scale;
                 Projectile.GetOwner().ApplyMeleeScale(ref scale_);
                 Projectile.scale *= scale_;

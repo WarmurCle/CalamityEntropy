@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
@@ -268,6 +269,10 @@ namespace CalamityEntropy.Content.Items.Books
             if (Projectile.ai[0] < 6)
             {
                 Projectile.ai[0] = 6;
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                EParticle.NewParticle(new GlowSpark(), target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(5, 10), Color.LightGreen, Main.rand.NextFloat(0.04f, 0.08f), 1, true, BlendState.Additive, 0);
             }
         }
         public override bool PreDraw(ref Color lightColor)

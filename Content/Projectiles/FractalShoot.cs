@@ -1,4 +1,5 @@
-﻿using CalamityMod;
+﻿using CalamityEntropy.Content.Particles;
+using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -46,6 +47,13 @@ namespace CalamityEntropy.Content.Projectiles
             modifiers.SourceDamage *= 0.5f * (Projectile.timeLeft / 120f) + 0.5f;
         }
 
+        public override void OnKill(int timeLeft)
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                EParticle.NewParticle(new GlowSpark(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightGoldenrodYellow, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
+            }
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.UseAdditive();

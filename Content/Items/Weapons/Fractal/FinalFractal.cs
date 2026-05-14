@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 750;
+            Item.damage = 760;
             Item.crit = 35;
             Item.DamageType = DamageClass.Melee;
             Item.width = 48;
@@ -135,7 +135,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             rotSpeed *= 0.99f;
             Projectile.rotation += rotSpeed;
             odr.Add(Projectile.rotation);
-            if (odr.Count > 60)
+            if (odr.Count > 42)
             {
                 odr.RemoveAt(0);
             }
