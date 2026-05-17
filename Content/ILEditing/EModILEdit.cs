@@ -381,7 +381,7 @@ namespace CalamityEntropy.Content.ILEditing
             if (Main.gameMenu)
                 return orig(item);
             string orgName = orig.Invoke(item);
-            if (item.active)
+            if (item.active && item.EntityGlobals.Length > 1)
             {
                 string name = orgName;
                 try

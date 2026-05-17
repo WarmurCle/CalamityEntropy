@@ -267,8 +267,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             if (counter > MaxUpdateTimes)
             {
                 Projectile.Kill();
-                owner.itemTime = 1;
-                owner.itemAnimation = 1;
+                if (Projectile.ai[0] <= 1)
+                {
+                    owner.itemTime = 2;
+                    owner.itemAnimation = 2;
+                }
             }
         }
 
