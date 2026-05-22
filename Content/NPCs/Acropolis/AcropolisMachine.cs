@@ -941,7 +941,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                         GeneralParticleHandler.SpawnParticle(new PulseRing(NPC.Center, Vector2.Zero, Color.Firebrick, 0.1f, 7f, 8));
                         EParticle.spawnNew(new ShineParticle(), NPC.Center, Vector2.Zero, Color.Firebrick, 14f, 1, true, BlendState.Additive, 0, 16);
                         EParticle.spawnNew(new ShineParticle(), NPC.Center, Vector2.Zero, Color.White, 10f, 1, true, BlendState.Additive, 0, 16);
-                        ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 100), 1200);
+                        ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 100), CEUtils.getDistance(NPC.Center, Main.LocalPlayer.Center), 1200);
 
                         for (int i = 0; i < 40; i++)
                         {
