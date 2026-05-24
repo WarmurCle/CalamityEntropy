@@ -6049,7 +6049,7 @@ LoreAquaticScourgeDesc: 增加憋气时间
 LoreAbyssDesc: 增加在深渊中的可见性
 LoreLeviathanAnahitaDesc: 在水中增加1/s生命再生
 LoreAstrumAureusDesc: 增加幻星感染减益的流逝速度
-LoreBrimstoneElementalDesc: LorePlaguebringerGoliathDesc: 增加瘟疫减益的流逝速度
+LoreBrimstoneElementalDesc: +1% 伤害减免
 LoreGolemDesc: +{1}% 伤害减免
 LorePlaguebringerGoliathDesc: 瘟疫减益流逝速度更快
 LoreEmpressofLightDesc: 在白天增加{1}点防御
