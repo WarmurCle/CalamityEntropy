@@ -4042,11 +4042,11 @@ Items: {
 
 	HallowedMissile: {
 		DisplayName: Hallowed Missile
-		Tooltip: 
-		'''
-		Has more explode radius
-		+7% Damage each attached projectile
-		'''
+		Tooltip:
+			'''
+			Has more explode radius
+			+7% Damage each attached projectile
+			'''
 	}
 }
 
