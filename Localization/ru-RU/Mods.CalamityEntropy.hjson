@@ -3989,7 +3989,7 @@ Items: {
 			For every minion slot you have, the critical damage will increase by 5%.
 			Additionally, based on the number of minion slots,
 			your defense and percentage damage reduction will be increased.
-			Level: [LV] / [LVMAX]
+			Level: [LV] / [MAXLV]
 			''' */
 	}
 
@@ -4025,6 +4025,11 @@ Items: {
 
 	BeewaxWall: {
 		// DisplayName: Beewax Wall
+		// Tooltip: ""
+	}
+
+	HallowedMissile: {
+		// DisplayName: Hallowed Missile
 		// Tooltip: ""
 	}
 }
@@ -4740,6 +4745,7 @@ Projectiles: {
 	// ClusterMissileProj.DisplayName: Cluster Missile Proj
 	// ClusterMissileSmall.DisplayName: Cluster Missile Small
 	// GiantBoulderProj.DisplayName: Giant Boulder Proj
+	// HallowedMissileProj.DisplayName: Hallowed Missile Proj
 }
 
 LegendTooltip: - Легенда -

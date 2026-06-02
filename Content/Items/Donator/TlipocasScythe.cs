@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public static bool AltType(Player player)
         {
-            return ((player.TryGetModPlayer<PGetPlayer>(out var mp) && mp.accVanity) || StartBagGItem.NameContains(player, "kanna"));
+            return ((player.TryGetModPlayer<PGetPlayer>(out var mp) && mp.accVanity) || (player.name.ToLower() == "kanna" || StartBagGItem.NameContains(player, "akizukikanna")));
         }
         public static Color TrailColor(Projectile Projectile)
         {
@@ -395,7 +395,7 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 Item.ClearNameOverride();
 
-                if (player != null && (player.name.ToLower() == "kanna" || player.name.ToLower() == "akizukikanna" || player.GetModPlayer<PGetPlayer>().accVanity))
+                if (player != null && (player.name.ToLower() == "kanna" || StartBagGItem.NameContains(player, "akizukikanna") || player.GetModPlayer<PGetPlayer>().accVanity))
                 {
                     Item.SetNameOverride(Mod.GetLocalization("TScytheSpecialName2").Value);
                 }

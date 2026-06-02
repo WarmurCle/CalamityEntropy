@@ -4277,6 +4277,15 @@ Items: {
 		DisplayName: 蜂蜡墙
 		Tooltip: ""
 	}
+
+	HallowedMissile: {
+		DisplayName: 圣化导弹
+		Tooltip: 
+		'''
+		具有更大的爆炸半径
+		每个黏附的射弹增加7%目标受到伤害
+		'''
+	}
 }
 
 SmolderingSetBonus:
@@ -4988,6 +4997,7 @@ Projectiles: {
 	ClusterMissileProj.DisplayName: 集束导弹
 	ClusterMissileSmall.DisplayName: 小型导弹
 	GiantBoulderProj.DisplayName: 超大巨石
+	// HallowedMissileProj.DisplayName: Hallowed Missile Proj
 }
 
 LegendTooltip: - 传奇物品 -
