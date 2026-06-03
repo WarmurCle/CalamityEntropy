@@ -3637,7 +3637,7 @@ Items: {
 	}
 
 	AmuletOfHealing: {
-		// DisplayName: Amulet Of Healing
+		// DisplayName: Amulet of Healing
 		/* Tooltip:
 			'''
 			Increase 8% summon damage
@@ -3647,7 +3647,7 @@ Items: {
 	}
 
 	AmuletOfSanctuary: {
-		// DisplayName: Amulet Of Sanctuary
+		// DisplayName: Amulet of Sanctuary
 		/* Tooltip:
 			'''
 			Increase 8% summon damage
@@ -3727,7 +3727,7 @@ Items: {
 	}
 
 	WhipOfEvilKing: {
-		// DisplayName: Whip Of Evil King
+		// DisplayName: Whip of the Evil King
 		/* Tooltip:
 			'''
 			{$CommonItemTooltip.SummonTagDamage}
@@ -5101,7 +5101,7 @@ Buffs: {
 	}
 
 	PhantomOfCruiser: {
-		// DisplayName: Phantom Of Cruiser
+		// DisplayName: Phantom of Cruiser
 		// Description: ""
 	}
 
@@ -5407,16 +5407,6 @@ Configs: {
 		ChainsawShakeScreen: {
 			Label: Тряска камеры от бензопилы
 			Tooltip: ""
-		}
-
-		BindingOfIsaac_Rep_BossMusic: {
-			Label: Реплика музыки босса из Binding of Isaac
-			Tooltip: ""
-		}
-
-		RepBossMusicReplaceCalamityMusic: {
-			Tooltip: ""
-			Label: Музыка босса-реплики заменяет музыку Calamity
 		}
 
 		ItemAdditionalInfo: {
