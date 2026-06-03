@@ -1765,6 +1765,7 @@ namespace CalamityEntropy
                                 ["customPortrait"] = portrait
                             });
                         }
+                        if(!ModLoader.TryGetMod("InfernumMode", out _))
                         {
                             List<int> segments2 = new List<int>() { ModContent.NPCType<PrimordialWyrmHead>(), ModContent.NPCType<PrimordialWyrmBody>(), ModContent.NPCType<PrimordialWyrmBodyAlt>(), ModContent.NPCType<PrimordialWyrmTail>() };
 

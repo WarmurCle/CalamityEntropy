@@ -378,21 +378,16 @@ namespace CalamityEntropy.Content.ILEditing
         }
         public static string On_Name_Get_Hook(On_GetItemName_get_Delegate orig, Item item)
         {
-            if (Main.gameMenu)
+            if (Main.gameMenu || item.ModItem == null)
                 return orig(item);
             string orgName = orig.Invoke(item);
-            if (item.active && item.EntityGlobals.Length > 1)
+            if (item.active)
             {
                 string name = orgName;
-                try
+                if (EGlobalItem.GetOverrideName(item, orgName, out string NameNew))
                 {
-                    if (item.TryGetGlobalItem<EGlobalItem>(out var ei) && ei.GetOverrideName(item, orgName, out string NameNew))
-                    {
-                        name = NameNew;
-                    }
+                    name = NameNew;
                 }
-                catch { }
-
                 return name;
             }
             return orgName;

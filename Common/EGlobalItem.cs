@@ -127,14 +127,14 @@ namespace CalamityEntropy.Common
                 entity.shootSpeed *= 1.25f;
             }
         }
-        public bool GetOverrideName(Item item, string origName, out string NewName)
+        public static bool GetOverrideName(Item item, string origName, out string NewName)
         {
             if (item.ModItem != null && item.ModItem is BasePrefixItem pitem)
             {
                 NewName = origName.Replace("|", ArmorPrefix.findByName(pitem.PrefixName).GivenName);
                 return true;
             }
-            if (item.Entropy().armorPrefix != null)
+            if (CEUtils.IsArmor(item) && item.Entropy().armorPrefix != null)
             {
                 NewName = item.Entropy().armorPrefix.getName() + " " + origName;
                 return true;
