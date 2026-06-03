@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 stopTime = 6 * Projectile.MaxUpdates;
                 ScreenShaker.AddShake(new ScreenShaker.NoDirQuickShake(8));
             }
-            CEUtils.PlaySound("truemoonlighthit", Main.rand.NextFloat(0.7f, 1.3f), target.Center);
+            CEUtils.PlaySound("truemoonlighthit", Main.rand.NextFloat(0.7f, 1.3f), target.Center, volume:CEUtils.WeapSound);
         }
         public override void AI()
         {
