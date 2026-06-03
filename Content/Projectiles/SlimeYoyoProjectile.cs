@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Utilities;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -30,7 +31,39 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.timeLeft = 3;
         }
         Vector2 lmp = Vector2.Zero;
-        public int dmgandkbUp = 30;
+        public int dmgandkbUp = 22;
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if(dmgandkbUp > 1)
+            {
+                dmgandkbUp = 1;
+                ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.NoDirQuickShake(8), CEUtils.getDistance(Projectile.GetOwner().Center, Projectile.Center));
+                
+                CEUtils.PlaySound("ksLand", Main.rand.NextFloat(1.2f, 1.4f), Projectile.Center, volume: CEUtils.WeapSound);
+                float sparkCount = 16;
+                for (int i = 0; i < sparkCount; i++)
+                {
+                    Vector2 sparkVelocity2 = Projectile.velocity.normalize().RotatedByRandom(0.4f) * Main.rand.NextFloat(8, 32);
+                    int sparkLifetime2 = 18;
+                    float sparkScale2 = 1.4f;
+                    AltSparkParticle spark = new AltSparkParticle(Projectile.Center, sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1f), Color.LightBlue);
+                    GeneralParticleHandler.SpawnParticle(spark);
+                }
+            }
+            else
+            {
+                CEUtils.PlaySound("GrassSwordHit1", Main.rand.NextFloat(0.4f, 0.5f), Projectile.Center, volume: CEUtils.WeapSound * 0.2f);
+                float sparkCount = 12;
+                for (int i = 0; i < sparkCount; i++)
+                {
+                    Vector2 sparkVelocity2 = CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 12);
+                    int sparkLifetime2 = 18;
+                    float sparkScale2 = 0.7f;
+                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1f), Color.LightBlue);
+                    GeneralParticleHandler.SpawnParticle(spark);
+                }
+            }
+        }
         public override void AI()
         {
             if (dmgandkbUp == 30)
@@ -46,7 +79,7 @@ namespace CalamityEntropy.Content.Projectiles
             dmgandkbUp--;
             if (rope == null)
             {
-                rope = new Rope(Projectile.owner.ToPlayer().Center, Projectile.Center, 25, 0, new Vector2(0, 0.6f), 0.06f, 15, true);
+                rope = new Rope(Projectile.owner.ToPlayer().Center, Projectile.Center, 25, 0, new Vector2(0, 0.6f), 0.06f, 35, false);
             }
             rope.segmentLength = CEUtils.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) / 25f;
             rope.Start = Projectile.owner.ToPlayer().Center;

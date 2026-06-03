@@ -241,7 +241,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             float ofs = 0;
             for (int i = 0; i < odr.Count; i++)
             {
-                Color b = new Color(220, 200, 255);
+                Color b = new Color(255, 255, 255);
                 ve.Add(new ColoredVertex(Projectile.Center - Main.screenPosition + (new Vector2(170 * Projectile.scale * odl[i], 0).RotatedBy(odr[i])),
                       new Vector3(ofs, 1, 1),
                       b));
