@@ -386,7 +386,7 @@ Items: {
 	}
 
 	Godhead: {
-		DisplayName: Divine
+		DisplayName: Godhead
 		Tooltip:
 			'''
 			Projectiles carry an aura, unleashing sustained damage upon your target
