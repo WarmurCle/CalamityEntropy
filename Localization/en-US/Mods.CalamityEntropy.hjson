@@ -25,7 +25,6 @@ Items: {
 					Hurl a voidforged chakram that chains itself to the nearest enemy and homes in on its prey
 					Inflicts Collapsing Void, dealing increasing damage with each successive hit
 					Stealth strike unleashes a spinning void disk that shreds enemies for 3 seconds
-					Collapsing Void is capped at 312 DPS
 					'''
 			}
 
@@ -35,7 +34,6 @@ Items: {
 					'''
 					Hurl a void-infused javelin forged from condensed shadow
 					Stealth strikes deal increased damage and pierce endlessly through enemies
-					Collapsing Void is capped at 260 DPS
 					'''
 			}
 
@@ -49,7 +47,7 @@ Items: {
 			}
 
 			SpearOfRadiance: {
-				DisplayName: Spear Of Radiance
+				DisplayName: Spear of Radiance
 				Tooltip:
 					'''
 					Rapidly throw a holy javelin
@@ -68,7 +66,7 @@ Items: {
 			}
 
 			AzureOfFirmament: {
-				DisplayName: Azure Of Firmament
+				DisplayName: Azure of Firmament
 				Tooltip:
 					'''
 					Rapidly throw a light-infused javelin
@@ -210,7 +208,7 @@ Items: {
 	}
 
 	PrisonOfPermafrost: {
-		DisplayName: Prison Of Permafrost
+		DisplayName: Prison of Permafrost
 		Tooltip:
 			'''
 			Summon a magical array while using
@@ -449,7 +447,7 @@ Items: {
 	}
 
 	WingsOfHush: {
-		DisplayName: Wings Of Hush
+		DisplayName: Wings of Hush
 		Tooltip: Shoot powerful void arrow
 	}
 
@@ -573,7 +571,7 @@ Items: {
 	}
 
 	ThreadOfFate: {
-		DisplayName: Thread Of Fate
+		DisplayName: Thread of Fate
 		Tooltip:
 			'''
 			Can be used to craft Oracle Deck
@@ -713,7 +711,7 @@ Items: {
 	}
 
 	PowerOfTyrant: {
-		DisplayName: Power Of Tyrant
+		DisplayName: Power of Tyrant
 		Tooltip: ""
 	}
 
@@ -923,7 +921,7 @@ Items: {
 	}
 
 	ShadowOfVoid: {
-		DisplayName: Shadow Of Void
+		DisplayName: Shadow of Void
 		Tooltip: ""
 	}
 
@@ -1109,7 +1107,7 @@ Items: {
 	}
 
 	ThreadOfAbyss: {
-		DisplayName: Thread Of Abyss
+		DisplayName: Thread of Abyss
 		Tooltip:
 			'''
 			Used for making Tainted Deck
@@ -1186,7 +1184,7 @@ Items: {
 	}
 
 	MawOfTheVoid: {
-		DisplayName: Maw Of The Void
+		DisplayName: Maw of The Void
 		Tooltip:
 			'''
 			Charging when using weapons,
@@ -1221,7 +1219,7 @@ Items: {
 	}
 
 	EyeOfIlmeris: {
-		DisplayName: Eye Of Ilmeris
+		DisplayName: Eye of Ilmeris
 		Tooltip: ""
 	}
 
@@ -1250,7 +1248,7 @@ Items: {
 	}
 
 	EyeOfOtherside: {
-		DisplayName: Eye Of Otherside
+		DisplayName: Eye of Otherside
 		Tooltip: ""
 	}
 
@@ -1360,7 +1358,7 @@ Items: {
 	}
 
 	WindOfUndertaker: {
-		DisplayName: Wind Of Undertaker
+		DisplayName: Wind of Undertaker
 		Tooltip:
 			'''
 			{$CommonItemTooltip.SummonTagDamage}
@@ -1379,7 +1377,7 @@ Items: {
 	}
 
 	WhipOfService: {
-		DisplayName: Whip Of Service
+		DisplayName: Whip of Service
 		Tooltip:
 			'''
 			Attacking other players temporarily increases their damage and crit chance.
@@ -1447,7 +1445,7 @@ Items: {
 	}
 
 	HeartOfStorm: {
-		DisplayName: Heart Of Storm
+		DisplayName: Heart of Storm
 		Tooltip:
 			'''
 			Strike the enemy and unleash a chain of lightning that deals 10% damage
@@ -1548,7 +1546,7 @@ Items: {
 	}
 
 	BookMarkOfLight: {
-		DisplayName: Bookmark Of Light
+		DisplayName: Bookmark of Light
 		Tooltip:
 			'''
 			Hit probability summons the Soul of Light
@@ -1557,7 +1555,7 @@ Items: {
 	}
 
 	BookMarkOfNight: {
-		DisplayName: Bookmark Of Night
+		DisplayName: Bookmark of Night
 		Tooltip:
 			'''
 			Summon Dark Souls that will chase and explode the enemy after hitting the enemy
@@ -1946,7 +1944,7 @@ Items: {
 	}
 
 	UrnOfSouls: {
-		DisplayName: Urn Of Souls
+		DisplayName: Urn of Souls
 		Tooltip: ""
 	}
 
@@ -2559,7 +2557,7 @@ Items: {
 	}
 
 	ThiefsPocketwatchOfEclipse: {
-		DisplayName: Pocketwatch Of Eclipse
+		DisplayName: Pocketwatch of Eclipse
 		Tooltip:
 			'''
 			+[A]% Rogue Damage
@@ -2733,7 +2731,7 @@ Items: {
 	}
 
 	TerrorOfAbyss: {
-		DisplayName: Terror Of Abyss
+		DisplayName: Terror of Abyss
 		Tooltip: ""
 	}
 
@@ -3649,7 +3647,7 @@ Items: {
 	}
 
 	AmuletOfHealing: {
-		DisplayName: Amulet Of Healing
+		DisplayName: Amulet of Healing
 		Tooltip:
 			'''
 			Increase 8% summon damage
@@ -3659,7 +3657,7 @@ Items: {
 	}
 
 	AmuletOfSanctuary: {
-		DisplayName: Amulet Of Sanctuary
+		DisplayName: Amulet of Sanctuary
 		Tooltip:
 			'''
 			Increase 8% summon damage
@@ -3739,7 +3737,7 @@ Items: {
 	}
 
 	WhipOfEvilKing: {
-		DisplayName: Whip Of Evil King
+		DisplayName: Whip of the Evil King
 		Tooltip:
 			'''
 			{$CommonItemTooltip.SummonTagDamage}
@@ -4146,7 +4144,7 @@ Projectiles: {
 	RevelationThrow.DisplayName: Revelation Throw
 	RevelationMelee.DisplayName: Revelation Melee
 	Rvshoot.DisplayName: Rvshoot
-	PrisonOfPermafrostCircle.DisplayName: Prison Of Permafrost
+	PrisonOfPermafrostCircle.DisplayName: Prison of Permafrost
 	IceSpike.DisplayName: Ice Spike
 	IceSpikeSmall.DisplayName: Ice Spike Small
 	Icicle.DisplayName: Icicle
@@ -4286,7 +4284,7 @@ Projectiles: {
 	AbyssalPiercerThrow.DisplayName: Abyssal Piercer Throw
 	AbyssalVortex.DisplayName: Abyssal Vortex
 	AbyssTentacle.DisplayName: Abyss Tentacle
-	AzureOfFirmamentThrow.DisplayName: Azure Of Firmament Throw
+	AzureOfFirmamentThrow.DisplayName: Azure of Firmament Throw
 	WelkinFeather.DisplayName: Welkin Feather
 	ArbitratorIIThrow.DisplayName: Arbitrator I I Throw
 	PoopNormalProjectile.DisplayName: Poop Normal Projectile
@@ -4316,7 +4314,7 @@ Projectiles: {
 	LightWisperFlame.DisplayName: Light Wisper Flame
 	OblivionArrow.DisplayName: Oblivion Arrow
 	OblivionHoldout.DisplayName: Oblivion
-	EyeOfIlmerisHoldout.DisplayName: Eye Of Ilmeris
+	EyeOfIlmerisHoldout.DisplayName: Eye of Ilmeris
 	IlmerisWaterBullet.DisplayName: Ilmeris Water
 	GravityGazeBullet.DisplayName: Gravity Gaze
 	GravityGazeHoldout.DisplayName: Gravity Gaze
@@ -4328,7 +4326,7 @@ Projectiles: {
 	ProjectionStarSplitAlt.DisplayName: Projection Star Split
 	LunarLightball.DisplayName: Lunar Lightball
 	OverloadLunarHoldout.DisplayName: Overload Lunar
-	EyeOfOthersideHoldout.DisplayName: Eye Of Otherside
+	EyeOfOthersideHoldout.DisplayName: Eye of Otherside
 	EndlessAbyssHoldout.DisplayName: Endless Abyss
 	EndlessAbyssLaser.DisplayName: Endless Abyss Laser
 	Tail.DisplayName: Tail
@@ -4341,20 +4339,20 @@ Projectiles: {
 	WispLanternProj.DisplayName: Wisp Lantern
 	VitalfeatherProjectile.DisplayName: Vitalfeather Projectile
 	DragonGoldenFire.DisplayName: Dragon Golden Fire
-	WindOfUndertakerProjectile.DisplayName: Wind Of Undertaker Projectile
+	WindOfUndertakerProjectile.DisplayName: Wind of Undertaker Projectile
 	HadopelagicEchoIIProj.DisplayName: Hadopelagic Echo II
 	HadopelagicLaser.DisplayName: Hadopelagic Laser
 	HadopelagicWail.DisplayName: Hadopelagic Wail
 	StarlessNightProj.DisplayName: Starless Night
-	WhipOfServiceProjectile.DisplayName: Whip Of Service Projectile
+	WhipOfServiceProjectile.DisplayName: Whip of Service Projectile
 	XytheronProj.DisplayName: Xytheron
 	WyrmDash.DisplayName: Wyrm Dash
 	AbyssalCrack.DisplayName: Abyssal Crack
 	TheEnd.DisplayName: The End
 	TheBeginning.DisplayName: The Beginning
-	SoulOfEcho.DisplayName: Soul Of Echo
+	SoulOfEcho.DisplayName: Soul of Echo
 	Echo.DisplayName: Echo
-	SoulOfEclipse.DisplayName: Soul Of Eclipse
+	SoulOfEclipse.DisplayName: Soul of Eclipse
 	YstralynProj.DisplayName: Ystralyn Proj
 	PhantomWyrm.DisplayName: Phantom Wyrm
 	NihilityVirus.DisplayName: Nihility Virus
@@ -4437,7 +4435,7 @@ Projectiles: {
 	FableEye.DisplayName: Foresee Eye
 	RuneSword.DisplayName: Rune Sword
 	ProphetVoidSpike.DisplayName: Prophet Void Spike
-	UrnOfSoulsHoldout.DisplayName: Urn Of Souls Holdout
+	UrnOfSoulsHoldout.DisplayName: Urn of Souls Holdout
 	UrnSoulFire.DisplayName: Urn Soul Fire
 	WelkingShield.DisplayName: Welking Shield
 	SpiritBannerMinion.DisplayName: Spirit Banner
@@ -4554,7 +4552,7 @@ Projectiles: {
 	OblivionThresherShoot.DisplayName: Oblivion Thresher Shoot
 	OblivionCruiserDash.DisplayName: Oblivion Cruiser Dash
 	OblivionThresherShootAlt.DisplayName: Oblivion Thresher Shoot Alt
-	TerrorOfAbyssHeld.DisplayName: Terror Of Abyss Held
+	TerrorOfAbyssHeld.DisplayName: Terror of Abyss Held
 	ScorchingShell.DisplayName: Scorching Shell
 	PFKnifeHeld.DisplayName: Propechey Knife Held
 	FilthyCircle.DisplayName: Filthy Circle
@@ -4938,7 +4936,7 @@ Buffs: {
 	}
 
 	StareOfTheAbyss: {
-		DisplayName: Stare Of The Abyss
+		DisplayName: Stare of The Abyss
 		Description: ""
 	}
 
@@ -5122,7 +5120,7 @@ Buffs: {
 	}
 
 	PhantomOfCruiser: {
-		DisplayName: Phantom Of Cruiser
+		DisplayName: Phantom of Cruiser
 		Description: ""
 	}
 
@@ -5428,16 +5426,6 @@ Configs: {
 		ChainsawShakeScreen: {
 			Label: Chainsaw Shake Screen
 			Tooltip: ""
-		}
-
-		BindingOfIsaac_Rep_BossMusic: {
-			Label: Binding Of Isaac Rep Boss Music
-			Tooltip: ""
-		}
-
-		RepBossMusicReplaceCalamityMusic: {
-			Tooltip: ""
-			Label: Rep Boss Music Replace Calamity Music
 		}
 
 		ItemAdditionalInfo: {

@@ -5654,16 +5654,6 @@ Configs: {
 			Tooltip: ""
 		}
 
-		BindingOfIsaac_Rep_BossMusic: {
-			Label: 使用以撒的结合：忏悔的Boss战音乐
-			Tooltip: ""
-		}
-
-		RepBossMusicReplaceCalamityMusic: {
-			Tooltip: ""
-			Label: 忏悔音乐是否替换灾厄Boss音乐
-		}
-
 		ItemAdditionalInfo: {
 			Label: 物品额外信息
 			Tooltip: " 展示某些物品额外的信息，如护甲穿透、弹药类型等"

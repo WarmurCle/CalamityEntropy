@@ -36,14 +36,6 @@ namespace CalamityEntropy.Common
         [DefaultValue(true)]
         public bool MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons { get; set; }
 
-        [Header("Other")]
-
-        [DefaultValue(false)]
-        public bool BindingOfIsaac_Rep_BossMusic { get; set; }
-
-        [DefaultValue(false)]
-        public bool RepBossMusicReplaceCalamityMusic { get; set; }
-
         [Header("Compatibility")]
         [DefaultValue(true)]
         public bool EnablePixelEffect { get; set; }

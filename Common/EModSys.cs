@@ -546,10 +546,6 @@ namespace CalamityEntropy.Common
                 AcropolisDontSpawn--;
             CECooldowns.Update();
             EBookUI.update();
-            if (ModContent.GetInstance<RepMusicScene>().IsSceneEffectActive(Main.LocalPlayer))
-            {
-                Main.musicFade[MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/RepBossTrack")] = 1;
-            }
             if (CalamityEntropy.noMusTime > 0)
             {
                 CalamityEntropy.noMusTime--;

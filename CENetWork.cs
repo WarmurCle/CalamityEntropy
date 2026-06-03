@@ -87,11 +87,6 @@ namespace CalamityEntropy
             else if (messageType == CEMessageType.BossKilled)
             {
                 bool flag = reader.ReadBoolean();
-                if (ModContent.GetInstance<Config>().BindingOfIsaac_Rep_BossMusic && !Main.dedServ && noMusTime <= 0 && !BossRushEvent.BossRushActive && (ModContent.GetInstance<Config>().RepBossMusicReplaceCalamityMusic || flag))
-                {
-                    noMusTime = 300;
-                    SoundEngine.PlaySound(new("CalamityEntropy/Assets/Sounds/Music/RepTrackJingle"));
-                }
             }
             else if (messageType == CEMessageType.PlayerSetRB)
             {

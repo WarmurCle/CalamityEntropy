@@ -1326,11 +1326,7 @@ namespace CalamityEntropy.Common
                 }
                 else
                 {
-                    if (ModContent.GetInstance<Config>().BindingOfIsaac_Rep_BossMusic && !Main.dedServ && CalamityEntropy.noMusTime <= 0 && !BossRushEvent.BossRushActive && (ModContent.GetInstance<Config>().RepBossMusicReplaceCalamityMusic || npc.ModNPC == null || npc.ModNPC.Mod is not CalamityMod.CalamityMod))
-                    {
-                        CalamityEntropy.noMusTime = 300;
-                        SoundEngine.PlaySound(new("CalamityEntropy/Assets/Sounds/Music/RepTrackJingle"));
-                    }
+
                 }
                 if (lostSoulDrop)
                 {
