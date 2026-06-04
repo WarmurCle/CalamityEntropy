@@ -5195,7 +5195,7 @@ NPCs: {
 		}
 
 		DisplayName: Primordial Wyrm
-		Census.SpawnCondition: Conditions unknown
+		Census.SpawnCondition: Defeated the Primordial Wyrm
 	}
 
 	NihilityActeriophage: {
