@@ -36,7 +36,6 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
         }
     }
     [AutoloadBossHead]
-    [StaticImmunity(staticImmunityCooldown: 6)]
     public class SpiritFountain : ModNPC
     {
         public FountainColumn column1 = new FountainColumn(0) { id = 0 };
@@ -95,7 +94,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             }
             NPC.buffImmune[ModContent.BuffType<SoulDisorder>()] = true;
             NPC.defense = 0;
-            NPC.lifeMax = 6000000;
+            NPC.lifeMax = 9000000;
             NPC.HitSound = SoundID.NPCHit11;
             NPC.DeathSound = SoundID.NPCDeath11;
             NPC.value = 100000f;
@@ -302,6 +301,42 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             column2.trailDrawOffset += FountainSpeed;
             float EyeAlphaT = 0.6f;
             NPC.TargetClosest();
+            //Smoke Particle
+            for(int i = 0; i < 90; i++)
+            {
+                Vector2 pos;
+                if (column1.alpha > 0)
+                {
+                    pos = NPC.Center + column1.offset + column1.rotation.ToRotationVector2() * Main.rand.NextFloat(-1600, 1600) + column1.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * Main.rand.NextFloat(-40, 40) * column1.scale;
+                    if (Vector2.Distance(pos, Main.screenPosition + new Vector2(Main.screenWidth, Main.screenHeight).Half()) < 3200)
+                    {
+                        if (Main.rand.NextBool())
+                        {
+                            EParticle.NewParticle(new Smoke(), pos, Vector2.Zero, Color.AliceBlue * column1.alpha * 3, Main.rand.NextFloat(0.1f, 0.2f), 1, true, BlendState.Additive, CEUtils.randomRot(), 50);
+                        }
+                        else
+                        {
+                            EParticle.NewParticle(new GlowLightParticle(), pos, CEUtils.randomPointInCircle(6), Color.AliceBlue * column1.alpha * 2f, Main.rand.NextFloat(0.6f, 0.8f), 1, true, BlendState.Additive, CEUtils.randomRot(), 28);
+                        }
+                    }
+                }
+                if (column2.alpha > 0)
+                {
+                    pos = NPC.Center + column2.offset + column2.rotation.ToRotationVector2() * Main.rand.NextFloat(-1600, 1600) + column2.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * Main.rand.NextFloat(-100, 100) * column2.scale;
+                    if (Vector2.Distance(pos, Main.screenPosition + new Vector2(Main.screenWidth, Main.screenHeight).Half()) < 3200)
+                    {
+                        if (Main.rand.NextBool())
+                        {
+                            EParticle.NewParticle(new Smoke(), pos, Vector2.Zero, Color.AliceBlue * column2.alpha * 3, Main.rand.NextFloat(0.1f, 0.2f), 1, true, BlendState.Additive, CEUtils.randomRot(), 50);
+                        }
+                        else
+                        {
+                            EParticle.NewParticle(new GlowLightParticle(), pos, CEUtils.randomPointInCircle(6), Color.AliceBlue * column2.alpha * 2f, Main.rand.NextFloat(0.6f, 0.8f), 1, true, BlendState.Additive, CEUtils.randomRot(), 28);
+                        }
+                    }
+                }
+            }
+
             if (ai == AIStyle.SpawnAnimation)
             {
                 if (!SetPos)

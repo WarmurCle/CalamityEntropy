@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Projectiles.SpiritFountainShoots
         public override string Texture => "CalamityEntropy/Assets/Extra/white";
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + new Vector2(0, -4000), targetHitbox, 80);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + new Vector2(0, -6000), targetHitbox, (int)(60 * Projectile.Opacity));
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Projectiles.SpiritFountainShoots
             List<Vector2> points = new();
             for (float i = 0; i <= 1; i += 0.002f)
             {
-                points.Add(Vector2.Lerp(Projectile.Center, Projectile.Center + new Vector2(0, -4000), i));
+                points.Add(Vector2.Lerp(Projectile.Center, Projectile.Center + new Vector2(0, -6000), i));
             }
             Texture2D tx = CEUtils.getExtraTex("KingGrandDeathRay2");
 
@@ -51,17 +51,17 @@ namespace CalamityEntropy.Content.Projectiles.SpiritFountainShoots
             {
                 List<ColoredVertex> ve = new List<ColoredVertex>();
 
-                float w = 120;
-                float p = -Main.GlobalTimeWrappedHourly * 2;
+                float w = 70;
+                float p = -Main.GlobalTimeWrappedHourly * 12;
                 for (int i = 1; i < points.Count; i++)
                 {
                     float wd = (1f + 0.08f * (float)Math.Cos(i * 0.06f + Main.GlobalTimeWrappedHourly * -16)) * Projectile.Opacity;
                     Color b = new Color(220, 220, 255) * wd;
                     ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * Projectile.scale * w * wd,
-                          new Vector3(i * 0.04f + Main.GlobalTimeWrappedHourly * -6, 1, 1),
+                          new Vector3(i * 0.04f + Main.GlobalTimeWrappedHourly * -12, 1, 1),
                           b));
                     ve.Add(new ColoredVertex(points[i] - Main.screenPosition + (points[i] - points[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * Projectile.scale * w * wd,
-                          new Vector3(i * 0.04f + Main.GlobalTimeWrappedHourly * -6, 0, 1),
+                          new Vector3(i * 0.04f + Main.GlobalTimeWrappedHourly * -12, 0, 1),
                           b));
                 }
 

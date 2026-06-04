@@ -4046,6 +4046,11 @@ Items: {
 			+7% Damage each attached projectile
 			'''
 	}
+
+	AzafurePhonograph: {
+		DisplayName: Azafure Phonograph
+		Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:

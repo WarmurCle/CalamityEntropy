@@ -44,10 +44,8 @@ namespace CalamityEntropy.Content.Projectiles.SpiritFountainShoots
                     int p = Player.FindClosest(Projectile.Center, 99999, 99999);
                     Projectile.velocity = ((Projectile.ai[2] != 0 ? (((int)Projectile.ai[0]).ToNPC().Center) : (Projectile.Center + Projectile.velocity * 16)) - Projectile.Center).normalize() * 10 * (1f / (1 + Projectile.ai[1] * 0.5f));
                 }
-                if (Main.rand.NextBool())
-                {
-                    GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomVec(1), CEUtils.randomVec(1), new Color(160, 160, 255), 40, 0.1f, 1, 0.1f, true, 0, true));
-                }
+                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomVec(1) + Projectile.velocity * Main.rand.NextFloat(), CEUtils.randomVec(1), new Color(160, 160, 255), 28, 0.24f, 1, 0.1f, true, 0, true));
+
             }
             else
             {

@@ -31,6 +31,7 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static Vector2 Half(this Vector2 v) => v * 0.5f;
         public static List<NPC> FindSomeNearEnemies(Vector2 center, int maxCount, float distance = 1600, Func<int, bool> filter = null)
         {
             if (maxCount <= 0)

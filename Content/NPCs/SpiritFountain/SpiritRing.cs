@@ -12,7 +12,6 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.SpiritFountain
 {
-    [StaticImmunity(typeof(SpiritFountain))]
     public class SpiritRing : ModNPC
     {
         public override void SetStaticDefaults()
@@ -96,7 +95,9 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             NPC.lifeMax = owner.lifeMax;
             NPC.life = owner.life;
             NPC.damage = owner.damage;
-            NPC.width = (int)float.Lerp(46, 160, CEUtils.GetRepeatedCosFromZeroToOne(Math.Abs(NPC.rotation.ToRotationVector2().X), 1));
+            NPC.width = (int)float.Lerp(60, 160, CEUtils.GetRepeatedCosFromZeroToOne(Math.Abs(NPC.rotation.ToRotationVector2().X), 1));
+            NPC.height = (int)float.Lerp(60, 160, CEUtils.GetRepeatedCosFromZeroToOne(Math.Abs(NPC.rotation.ToRotationVector2().Y), 1));
+
             bool DontSetPos = false;
             bool DontSetRot = false;
             if (fountain.aiTimer == 1)
@@ -118,8 +119,6 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                     columnOffset = LTo;
                 }
             }
-            NPC.height = (int)float.Lerp(46, 160, CEUtils.GetRepeatedCosFromZeroToOne(Math.Abs(NPC.rotation.ToRotationVector2().Y), 1));
-
             if (SRHandle-- < 0)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -293,19 +292,38 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 if (fountain.aiTimer == 1)
                 {
                     NPC.rotation = 0;
-                    NPC.velocity = new Vector2(Main.rand.NextFloat(-30, 30), -12);
+                    NPC.velocity = new Vector2(Main.rand.NextFloat(-45, 45), -6);
                 }
                 if (fountain.aiTimer > 1)
                 {
                     if (NPC.velocity.Y == 0)
                     {
-                        NPC.velocity *= 0;
+                        NPC.velocity.Y *= 0;
                         NPC.rotation = 0;
-                        if (fountain.aiTimer > 100)
+
+                        if (fountain.aiTimer < 130)
+                        {
+                            NPC.velocity *= 0.84f;
+                            foreach (NPC n in Main.ActiveNPCs)
+                            {
+                                if (n.type == NPC.type && n.whoAmI != NPC.whoAmI)
+                                {
+                                    if (CEUtils.getDistance(NPC.Center, n.Center) < 340)
+                                    {
+                                        NPC.velocity.X += (NPC.Center - n.Center).normalize().X * 1f;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            NPC.velocity *= 0;
+                        }
+                        if (fountain.aiTimer > 40)
                         {
                             if (fountain.aiTimer < 150)
                             {
-                                AlphaWaveWarning = float.Lerp(AlphaWaveWarning, 0.5f, 0.06f);
+                                AlphaWaveWarning = float.Lerp(AlphaWaveWarning, 0.8f, 0.02f);
                             }
                             else
                             {
@@ -313,16 +331,10 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                                 {
                                     fountain.Shoot(ModContent.ProjectileType<SpiritWave>(), NPC.Center, Vector2.Zero);
                                 }
-                                if (fountain.aiTimer > 150)
+                                if (fountain.aiTimer > 140)
                                 {
-                                    if (fountain.aiTimer > 170)
-                                    {
-                                        AlphaWaveWarning = float.Lerp(AlphaWaveWarning, 0, 0.1f);
-                                    }
-                                    else
-                                    {
-                                        AlphaWaveWarning = float.Lerp(AlphaWaveWarning, 1, 0.1f);
-                                    }
+                                    AlphaWaveWarning = float.Lerp(AlphaWaveWarning, 0, 0.1f);
+                                    NPC.velocity.X *= 0;
                                 }
                                 if (fountain.aiTimer > 220)
                                 {
@@ -334,10 +346,10 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                     }
                     else
                     {
-                        NPC.width = NPC.height = 20;
+                        NPC.width = NPC.height = 60;
                         NPC.rotation += NPC.velocity.X * 0.004f;
-                        NPC.velocity.X *= 0.98f;
-                        NPC.velocity.Y += 0.6f;
+                        NPC.velocity.X *= 0.96f;
+                        NPC.velocity.Y += 0.9f;
                         NPC.noTileCollide = false;
                         NPC.damage = 0;
                     }
@@ -423,11 +435,12 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             if (AlphaWaveWarning > 0.01f)
             {
                 Texture2D glow = CEUtils.getExtraTex("a_circle");
-                Texture2D tex = CEUtils.getExtraTex("LTLine");
+                Texture2D tex = CEUtils.getExtraTex("MegaStreakBacking2");
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 Main.spriteBatch.Draw(glow, NPC.Center - Main.screenPosition, null, Color.White * AlphaWaveWarning, NPC.rotation, glow.Size() / 2f, new Vector2(3, 1.2f), SpriteEffects.None, 0);
-                Main.spriteBatch.Draw(tex, NPC.Center - Main.screenPosition, null, Color.White * AlphaWaveWarning * 0.8f, NPC.rotation - MathHelper.PiOver2, new Vector2(0, tex.Height / 2f), new Vector2(2f, 6.5f), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(tex, NPC.Center - Main.screenPosition, null, Color.White * AlphaWaveWarning * 0.8f, NPC.rotation - MathHelper.PiOver2, new Vector2(0, tex.Height / 2f), new Vector2(12f, 0.6f), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(tex, NPC.Center - Main.screenPosition, null, Color.White * AlphaWaveWarning * 0.8f, NPC.rotation - MathHelper.PiOver2, new Vector2(0, tex.Height / 2f), new Vector2(12f, 0.6f), SpriteEffects.None, 0);
             }
             if (AlphaLaserWarning > 0.01f)
             {

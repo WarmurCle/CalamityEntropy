@@ -4286,6 +4286,11 @@ Items: {
 			每个黏附的射弹增加7%目标受到伤害
 			'''
 	}
+
+	AzafurePhonograph: {
+		// DisplayName: Azafure Phonograph
+		// Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
