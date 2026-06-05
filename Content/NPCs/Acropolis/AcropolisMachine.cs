@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.MusicBoxes;
 using CalamityEntropy.Content.Items.Tools;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
@@ -1057,6 +1058,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             npcLoot.Add(ModContent.ItemType<MottledSpear>(), new Fraction(2, 5));
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<AcropolisRelic>());
             npcLoot.Add(ModContent.ItemType<AcropolisTrophy>(), 10);
+            npcLoot.Add(ModContent.ItemType<AzafurePhonograph>(), 8);
         }
     }
 }
