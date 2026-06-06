@@ -15,10 +15,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             Item.width = 24;
             Item.height = 24;
             Item.maxStack = 9999;
-            Item.value = Item.sellPrice(silver: 5);
+            Item.value = Item.sellPrice(copper: 6);
             Item.rare = ItemRarityID.Orange;
             Item.ammo = BaseMissileProj.AmmoType;
-            Item.damage = 6;
+            Item.damage = 7;
             Item.shoot = ModContent.ProjectileType<AerialiteMissileProj>();
             Item.consumable = true;
             Item.DamageType = DamageClass.Ranged;
@@ -35,6 +35,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
     }
     public class AerialiteMissileProj : BaseMissileProj
     {
+	    public override float StickDamageAddition => 0.02f;
         public override string Texture => "CalamityEntropy/Content/Items/Donator/RocketLauncher/Ammo/AerialiteMissile";
         public override void SetupStats()
         {
