@@ -12,10 +12,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             Item.width = 24;
             Item.height = 24;
             Item.maxStack = 9999;
-            Item.value = Item.sellPrice(silver: 5);
+            Item.value = Item.sellPrice(copper: 1);
             Item.rare = ItemRarityID.Orange;
             Item.ammo = BaseMissileProj.AmmoType;
-            Item.damage = 4;
+            Item.damage = 6;
             Item.shoot = ModContent.ProjectileType<WulfrumMissileProj>();
             Item.consumable = true;
             Item.DamageType = DamageClass.Ranged;
@@ -33,6 +33,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
     }
     public class WulfrumMissileProj : BaseMissileProj
     {
+	    public override float StickDamageAddition => 0.01f;
         public override string Texture => "CalamityEntropy/Content/Items/Donator/RocketLauncher/Ammo/WulfrumMissile";
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
