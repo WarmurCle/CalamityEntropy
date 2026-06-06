@@ -131,6 +131,9 @@ namespace CalamityEntropy.Content.Items.Books
             return false;
         }
 
+        /// <summary>
+        /// 基础属性修改
+        /// </summary>
         public virtual EBookStatModifer getBaseModifer()
         {
             EBookStatModifer modifer = new EBookStatModifer();
@@ -142,6 +145,9 @@ namespace CalamityEntropy.Content.Items.Books
             return modifer;
         }
 
+        /// <summary>
+        /// 基础射弹特效
+        /// </summary>
         public virtual EBookProjectileEffect getEffect()
         {
             return null;
@@ -227,11 +233,17 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile.netUpdate = true;
             }
         }
+        /// <summary>
+        /// 手持坐标位移
+        /// </summary>
         public virtual Vector2 heldOffset => new Vector2(14, 6);
         public override bool ShouldUpdatePosition()
         {
             return false;
         }
+        /// <summary>
+        /// 射弹类型
+        /// </summary>
         public virtual int baseProjectileType => ModContent.ProjectileType<RuneBullet>();
         public virtual int getShootProjectileType()
         {
@@ -250,6 +262,9 @@ namespace CalamityEntropy.Content.Items.Books
             }
             return r;
         }
+        /// <summary>
+        /// 射击
+        /// </summary>
         public virtual bool Shoot()
         {
             int type = getShootProjectileType();
@@ -272,20 +287,32 @@ namespace CalamityEntropy.Content.Items.Books
         public Item bookItem;
         public virtual float randomShootRotMax => 0.1f;
         public virtual bool canApplyShootCDModifer => true;
+        /// <summary>
+        /// 根据武器面板，玩家属性，指定的属性修改计算最后的射弹伤害
+        /// </summary>
         public int CauculateProjectileDamage(EBookStatModifer modifer, float mult = 1)
         {
             return (int)(Projectile.GetOwner().GetTotalDamage(Projectile.DamageType).ApplyTo(bookItem.damage * modifer.Damage * mult * (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj < 0 ? 1 : TwistedTwinMinion.damageMul)));
         }
+        /// <summary>
+        /// 根据武器面板，玩家属性，装备书签计算最后的射弹伤害
+        /// </summary>
         public int CauculateProjectileDamage(float mult = 1)
         {
             var modifer = GetProjectileModifer();
             return (int)(Projectile.GetOwner().GetTotalDamage(Projectile.DamageType).ApplyTo(bookItem.damage * modifer.Damage * mult * (Projectile.Entropy().IndexOfTwistedTwinShootedThisProj < 0 ? 1 : TwistedTwinMinion.damageMul)));
         }
+        /// <summary>
+        /// 计算射速倍率
+        /// </summary>
         public float CauculateAttackSpeed()
         {
             var modifer = GetProjectileModifer();
             return Projectile.GetOwner().GetTotalAttackSpeed(Projectile.DamageType) * modifer.attackSpeed;
         }
+        /// <summary>
+        /// 获取最终的属性修改
+        /// </summary>
         public EBookStatModifer GetProjectileModifer()
         {
             EBookStatModifer modifer = getBaseModifer();
@@ -299,6 +326,9 @@ namespace CalamityEntropy.Content.Items.Books
             }
             return modifer;
         }
+        /// <summary>
+        /// 发射一个带有特效的单个射弹
+        /// </summary>
         public virtual void ShootSingleProjectile(int type, Vector2 pos, Vector2 velocity, float damageMul = 1, float scaleMul = 1, float shotSpeedMul = 1, Action<Projectile> initAction = null, float randomRotMult = 1, bool MainProjectile = false, Color colorMult = default)
         {
             if (!Projectile.active)
@@ -356,6 +386,9 @@ namespace CalamityEntropy.Content.Items.Books
         {
             return true;
         }
+        /// <summary>
+         /// 根据武器useTime，射速倍率，书签计算射击冷却（帧）
+         /// </summary>
         public virtual int GetShootCd()
         {
             int _shotCooldown = bookItem.useTime;

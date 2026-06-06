@@ -37,6 +37,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
     }
     public class HellstoneMissileProj : BaseMissileProj
     {
+        public override float StickDamageAddition => 0.02f;
         public override void SetupStats()
         {
             Projectile.ai[1] += 60;

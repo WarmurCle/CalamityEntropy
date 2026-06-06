@@ -14,21 +14,48 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
     public abstract class BaseMissileProj : ModProjectile
     {
         public const int AmmoType = 2035;
-        public virtual int MaxStick => (int)Projectile.ai[0];
-        public virtual float ExplodeRadius => Projectile.ai[1];
+        /// <summary>
+        /// 同一个目标身上的最大黏附数量
+        /// </summary>
+        public virtual int MaxStick { get { return (int)Projectile.ai[0]; }
+            set { Projectile.ai[0] = value; } }
+        /// <summary>
+        /// 爆炸半径
+        /// </summary>
+        public virtual float ExplodeRadius { get { return (int) Projectile.ai[1]; } 
+            set { Projectile.ai[1] = value; } }
         public virtual NPC StickOnNPC => Projectile.ai[2] < 0 ? null : Main.npc[(int)Projectile.ai[2]];
         public virtual float adjustRotation => MathHelper.PiOver2;
         public virtual int Lifetime { get { return (int)Projectile.localAI[0]; } set { Projectile.localAI[0] = value; } }
         public Vector2 StickOffset = Vector2.Zero;
+        /// <summary>、
+        /// 最大黏附时间（目标没死亡或到达黏附上限时就会一直粘着）
+        /// </summary>
         public virtual int MaxStickTime => 8 * 60;
+        /// <summary>
+        /// 射弹下坠加速度（必须要NoGrav为True）
+        /// </summary>
         public virtual float Gravity => 0;
+        /// <summary>
+        /// 射弹多少帧后下坠（必须要NoGrav为True）
+        /// </summary>
         public virtual int FallingTime => 16;
+        /// <summary>
+        /// 是否会下坠
+        /// </summary>
         public bool NoGrav = false;
         public float winding = 0;
         public float Homing = 0;
         public float HomingRange = 500;
         public float MinVel = 0;
-        public virtual float StickDamageAddition => 0.05f;
+
+        /// <summary>
+        /// 射弹黏附时使得目标受到更多的伤害，可累加
+        /// </summary>
+        public virtual float StickDamageAddition => 0.02f;
+        /// <summary>
+        /// 射弹黏附时每次对目标造成伤害的倍率（100%为射弹本身伤害，默认10%）
+        /// </summary>
         public virtual float StickDamageMult => 0.1f;
         public override void SendExtraAI(BinaryWriter writer)
         {
