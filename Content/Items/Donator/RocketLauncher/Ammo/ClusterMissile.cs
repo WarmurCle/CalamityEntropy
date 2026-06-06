@@ -16,10 +16,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             Item.width = 24;
             Item.height = 24;
             Item.maxStack = 9999;
-            Item.value = Item.sellPrice(silver: 5);
+            Item.value = Item.sellPrice(copper: 12);
             Item.rare = ItemRarityID.Orange;
             Item.ammo = BaseMissileProj.AmmoType;
-            Item.damage = 10;
+            Item.damage = 11;
             Item.shoot = ModContent.ProjectileType<ClusterMissileProj>();
             Item.consumable = true;
             Item.DamageType = DamageClass.Ranged;
@@ -96,7 +96,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
     }
     public class ClusterMissileSmall : BaseMissileProj
     {
-        public override float StickDamageAddition => 0.03f;
+        public override float StickDamageAddition => 0.01f;
         public override void SetupStats()
         {
             Projectile.ai[1] += 20;
@@ -111,7 +111,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             base.ModifyHitNPC(target, ref modifiers);
-            modifiers.ArmorPenetration += 32;
+            modifiers.ArmorPenetration += 15;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
