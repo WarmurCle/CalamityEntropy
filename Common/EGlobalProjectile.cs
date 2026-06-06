@@ -1463,7 +1463,7 @@ namespace CalamityEntropy.Common
                     if (plr.MagiShield <= 0)
                     {
                         plr.HMRegenCd = 40;
-                        projectile.owner.ToPlayer().Heal(projectile.owner.ToPlayer().statManaMax2 / 100);
+                        projectile.owner.ToPlayer().Heal(projectile.owner.ToPlayer().statManaMax2 / 350 + 5);
                     }
                 }
                 if (plr.VFHelmMagic && projectile.owner >= 0)
