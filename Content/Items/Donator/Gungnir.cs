@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             Item.width = 120;
             Item.height = 120;
-            Item.damage = 1000;
+            Item.damage = 800;
             Item.crit = 10;
             Item.noMelee = true;
             Item.noUseGraphic = true;

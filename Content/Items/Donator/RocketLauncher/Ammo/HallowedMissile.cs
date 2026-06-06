@@ -17,10 +17,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             Item.width = 24;
             Item.height = 24;
             Item.maxStack = 9999;
-            Item.value = Item.sellPrice(silver: 5);
+            Item.value = Item.sellPrice(copper: 14);
             Item.rare = ItemRarityID.Orange;
             Item.ammo = BaseMissileProj.AmmoType;
-            Item.damage = 9;
+            Item.damage = 17;
             Item.shoot = ModContent.ProjectileType<HallowedMissileProj>();
             Item.consumable = true;
             Item.DamageType = DamageClass.Ranged;
@@ -28,25 +28,30 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
 
         public override void AddRecipes()
         {
-            CreateRecipe(25)
+            CreateRecipe(250)
                 .AddIngredient(ItemID.HallowedBar)
-                .AddIngredient(ModContent.ItemType<CharredMissile>(), 25)
-                .AddTile(TileID.Anvils)
+                .AddIngredient(ModContent.ItemType<CharredMissile>(), 250)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
     }
     public class HallowedMissileProj : BaseMissileProj
     {
-        public override float StickDamageAddition => 0.07f;
+        public override float StickDamageAddition => 0.03f;
         public override void SetupStats()
         {
             Projectile.ai[1] += 100;
         }
         public override string Texture => "CalamityEntropy/Content/Items/Donator/RocketLauncher/Ammo/HallowedMissile";
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            base.ModifyHitNPC(target, ref modifiers);
+            modifiers.ArmorPenetration += 20;
+        }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            target.AddBuff<MechanicalTrauma>(5 * 60);
+            target.AddBuff(BuffID.OnFire3, 10 * 60);
         }
         public override void ExplodeVisual()
         {

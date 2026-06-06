@@ -3448,7 +3448,7 @@ Items: {
 
 	CharredMissile: {
 		DisplayName: Charred Missile
-		Tooltip: +5% Damage each attached projectile
+		Tooltip: +2% Damage each attached projectile
 	}
 
 	OsseousRemains: {
@@ -3799,7 +3799,7 @@ Items: {
 		DisplayName: Azafure Missile
 		Tooltip:
 			'''
-			+7% Damage each attached projectile
+			+2% Damage each attached projectile
 			Causing more adhering damage
 			'''
 	}
@@ -3898,12 +3898,12 @@ Items: {
 
 	HellstoneMissile: {
 		DisplayName: Hellstone Missile
-		Tooltip: +5% Damage each attached projectile
+		Tooltip: +2% Damage each attached projectile
 	}
 
 	WulfrumMissile: {
 		DisplayName: Wulfrum Missile
-		Tooltip: +5% Damage each attached projectile
+		Tooltip: +1% Damage each attached projectile
 	}
 
 	CursedRunestone: {
@@ -4013,7 +4013,7 @@ Items: {
 		Tooltip:
 			'''
 			Spawn feathers when explode
-			+5% Damage each attached projectile
+			+2% Damage each attached projectile
 			'''
 	}
 
@@ -4024,7 +4024,7 @@ Items: {
 			Explosion after a period of time or on-hit
 			Split to 5 small missile that chasing enemies when explode
 			+100% max adhered missile
-			+3% Damage each attached projectile
+			+1% Damage each attached projectile
 			'''
 	}
 
@@ -4043,7 +4043,7 @@ Items: {
 		Tooltip:
 			'''
 			Has more explode radius
-			+7% Damage each attached projectile
+			+3% Damage each attached projectile
 			'''
 	}
 

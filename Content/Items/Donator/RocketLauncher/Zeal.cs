@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             Item.width = 90;
             Item.height = 42;
             Item.DamageType = DamageClass.Ranged;
-            Item.damage = 130;
+            Item.damage = 85;
             Item.knockBack = 4f;
             Item.UseSound = CEUtils.GetSound("ProminenceShoot", 1.6f, 2, 0.5f);
             Item.value = Item.buyPrice(gold: 20);
