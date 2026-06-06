@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             Item.width = 136;
             Item.height = 52;
-            Item.damage = 22;
+            Item.damage = 13;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 1;
             Item.useAnimation = 1;
@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.shoot = ProjectileID.Bullet;
             Item.shootSpeed = 16f;
             Item.useAmmo = AmmoID.Bullet;
-            Item.crit = 2;
+            Item.crit = 5;
             Item.ArmorPenetration = 10000;
         }
         public int mode = 0;
