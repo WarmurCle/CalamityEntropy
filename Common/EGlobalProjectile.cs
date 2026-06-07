@@ -1358,24 +1358,22 @@ namespace CalamityEntropy.Common
             }
             if (typhoonBullet)
             {
+                Vector2 top = projectile.Center;
+                Vector2 sparkVelocity2 = projectile.velocity.normalize().RotateRandom(0.3f) * Main.rand.NextFloat(16f, 36f);
+                int sparkLifetime2 = Main.rand.Next(16, 26);
+                float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
+                var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
+
+                LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
+
                 if (target.Organic())
                 {
-                    CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 3, volume: 0.36f);
+                    CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 3, volume: 0.3f);
                 }
                 else
                 {
-                    for (int i = 0; i < 4; i++)
-                    {
-                        Vector2 top = projectile.Center;
-                        Vector2 sparkVelocity2 = projectile.velocity.normalize().RotateRandom(0.3f) * Main.rand.NextFloat(16f, 36f);
-                        int sparkLifetime2 = Main.rand.Next(16, 26);
-                        float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
-                        var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
-
-                        LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-                        GeneralParticleHandler.SpawnParticle(spark);
-                    }
-                    CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 3, volume: 0.26f);
+                    CEUtils.PlaySound("metalhit", Main.rand.NextFloat(0.6f, 1f), target.Center, 3, volume: 0.22f);
                 }
             }
             if (LuminarArrow)

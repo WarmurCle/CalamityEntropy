@@ -7,9 +7,11 @@ using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Items.LoreItems;
+using CalamityMod.Items.Tools;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.NPCs;
+using CalamityMod.NPCs.NormalNPCs;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Melee;
 using CalamityMod.Schematics;
@@ -184,6 +186,9 @@ namespace CalamityEntropy.Content.ILEditing
             var update_rogue_stealth_f = typeof(CalamityPlayer).GetMethod("UpdateRogueStealth", BindingFlags.Public | BindingFlags.Instance);
             EModHooks.Add(update_rogue_stealth_f, UpdateRogueStealthHook);
 
+            var organic_m = typeof(CalamityUtils).GetMethod("Organic", BindingFlags.Static | BindingFlags.Public);
+            EModHooks.Add(organic_m, organic_hook);
+
             StoreForbiddenArchivePositionHook.LoadHook();
 
             if (MaliciousCode.CALAMITY__OVERHAUL)
@@ -192,6 +197,12 @@ namespace CalamityEntropy.Content.ILEditing
             }
 
             CalamityEntropy.Instance.Logger.Info("CalamityEntropy's Hook Loaded");
+        }
+        public static bool organic_hook(Func<NPC, bool> orig, NPC target)
+        {
+            if (target.type == ModContent.NPCType<SuperDummyNPC>())
+                return true;
+            return orig(target);
         }
         public static bool calPlrShootHook(Func<CalamityPlayer, Item, EntitySource_ItemUse_WithAmmo, Vector2, Vector2, int, int, float, bool> orig, CalamityPlayer self, Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {
