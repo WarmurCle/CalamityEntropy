@@ -4289,7 +4289,7 @@ Items: {
 
 	AzafurePhonograph: {
 		DisplayName: 阿萨福勒留声机
-		Tooltip: "播放阿萨福勒卫城机甲的主题曲"
+		Tooltip: 播放阿萨福勒卫城机甲的主题曲
 	}
 }
 

@@ -1,4 +1,5 @@
-﻿using CalamityMod;
+﻿using CalamityEntropy.Content.Particles;
+using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.damage = 6;
+            Item.damage = 7;
             Item.useAnimation = Item.useTime = 38;
             Item.crit = 4;
             Item.mana = 12;
@@ -24,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.value = CalamityGlobalItem.RarityBlueBuyPrice;
             Item.width = 40;
             Item.height = 52;
-            Item.shootSpeed = 32;
+            Item.shootSpeed = 40;
         }
         public override Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/SW").Value;
         public override int HeldProjectileType => ModContent.ProjectileType<SpectralWhispersHeld>();
@@ -73,8 +74,8 @@ namespace CalamityEntropy.Content.Items.Books
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.width = 12;
-            Projectile.height = 12;
+            Projectile.width = 14;
+            Projectile.height = 14;
             Projectile.MaxUpdates = 2;
             Projectile.tileCollide = true;
             Projectile.light = 0.35f;
@@ -83,7 +84,7 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 9 * Projectile.scale, Projectile.Center - Projectile.rotation.ToRotationVector2() * 9 * Projectile.scale, targetHitbox, (int)(Projectile.scale * 12));
+            return CEUtils.LineThroughRect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 14 * Projectile.scale, Projectile.Center - Projectile.rotation.ToRotationVector2() * 14 * Projectile.scale, targetHitbox, (int)(Projectile.scale * 16));
         }
         public int Penetrate = -1;
         public override bool PreAI()
@@ -135,6 +136,13 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile.position += Projectile.GetOwner().velocity / 2;
                 Projectile.velocity = (Projectile.GetOwner().Calamity().mouseWorld - Projectile.Center).normalize() * Projectile.velocity.Length();
             }
+            if (Projectile.localAI[0] > 24 && stick == -1)
+            {
+                for (float i = 0; i < 1; i += 0.1f)
+                {
+                    EParticle.spawnNew(new GlowLightParticle() { lightColor = color * 0.1f, AlphaShrink = false }, Projectile.Center - Projectile.velocity * Main.rand.NextFloat(), Vector2.Zero, color * 3f, 0.9f, 1, true, BlendState.Additive, 0, 16);
+                }
+            }
             Projectile.rotation = Projectile.velocity.ToRotation();
         }
         public int HideTime = Main.rand.Next(1, 16);
@@ -147,11 +155,16 @@ namespace CalamityEntropy.Content.Items.Books
                 return false;
             Texture2D tex1 = Projectile.GetTexture();
             Texture2D tex2 = this.getTextureAlt();
+            Texture2D tex3 = CEUtils.getExtraTex("Diamond");
             float scale = size * Projectile.scale;
             CEUtils.DrawGlow(Projectile.Center, color, scale * 1.4f);
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Main.spriteBatch.Draw(tex1, Projectile.Center + offset - Main.screenPosition, null, color * 4f, Projectile.rotation + MathHelper.PiOver2, tex1.Size() / 2, scale * 2f, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(tex1, Projectile.Center + offset - Main.screenPosition, null, Color.White, Projectile.rotation + MathHelper.PiOver2, tex1.Size() / 2, scale * 0.8f, SpriteEffects.None, 0);
+
+            Main.spriteBatch.Draw(tex3, Projectile.Center + offset - Main.screenPosition, null, color * 2f, Projectile.rotation, tex3.Size() / 2, new Vector2(6, 0.5f) * scale * 0.06f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex3, Projectile.Center + offset - Main.screenPosition, null, Color.Lerp(color, Color.White, 0.6f), Projectile.rotation, tex3.Size() / 2, new Vector2(6, 0.5f) * scale * 0.04f, SpriteEffects.None, 0);
+
             Main.spriteBatch.Draw(tex2, Projectile.Center + offset - Main.screenPosition, null, color, Projectile.rotation, tex2.Size() / 2, Projectile.scale * (size - 1) * 5f, SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
             return false;

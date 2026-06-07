@@ -66,18 +66,29 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.penetrate = 1;
             Projectile.MaxUpdates = 2;
         }
-        public override void OnKill(int timeLeft)
+        public void Explode()
         {
-            base.OnKill(timeLeft);
-            CEUtils.PlaySound("blackholeEnd", Main.rand.NextFloat(2f, 2.4f), Projectile.Center, volume: 0.8f);
-            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Red, 0.1f, 0.8f, 8));
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Red * 0.8f, 1.5f, 1, true, BlendState.Additive, 0, 16);
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.2f, 1, true, BlendState.Additive, 0, 16);
+            CEUtils.PlaySound("blackholeEnd", Main.rand.NextFloat(1.2f, 1.6f), Projectile.Center, volume: 0.4f);
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 80, 80), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, 0, 0.02f, 0.1f, 16));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 80, 80), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, 0, 0.02f, 0.09f, 16));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 80, 80), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, 0, 0.02f, 0.08f, 16));
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Red * 0.8f, 1.7f, 1, true, BlendState.Additive, 0, 16);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.8f, 1, true, BlendState.Additive, 0, 16);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.8f, 1, true, BlendState.Additive, 0, 16);
             if (Projectile.owner == Main.myPlayer)
             {
                 CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage, 120, Projectile.DamageType);
             }
             CEUtils.SetShake(Projectile.Center, 6);
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            Explode();
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            Explode();
+            return base.OnTileCollide(oldVelocity);
         }
         public TrailParticle t1;
         public TrailParticle t2;
@@ -86,10 +97,10 @@ namespace CalamityEntropy.Content.Items.Books
             base.AI();
             if (t1 == null || t2 == null)
             {
-                t1 = new TrailParticle() { maxLength = 16, TimeLeftMax = 10 };
-                t2 = new TrailParticle() { maxLength = 16, TimeLeftMax = 10 };
-                EParticle.spawnNew(t1, Projectile.Center, Vector2.Zero, new Color(255, 60, 60), 0.8f, 1, true, BlendState.Additive);
-                EParticle.spawnNew(t2, Projectile.Center, Vector2.Zero, new Color(255, 60, 60), 0.8f, 1, true, BlendState.Additive);
+                t1 = new TrailParticle() { maxLength = 20, TimeLeftMax = 12 };
+                t2 = new TrailParticle() { maxLength = 20, TimeLeftMax = 12 };
+                EParticle.spawnNew(t1, Projectile.Center, Vector2.Zero, new Color(255, 16, 16), 1f, 1, true, BlendState.Additive);
+                EParticle.spawnNew(t2, Projectile.Center, Vector2.Zero, new Color(255, 16, 16), 1f, 1, true, BlendState.Additive);
 
             }
             t1.AddPoint(Projectile.Center + Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * 12 * Projectile.scale);
@@ -101,9 +112,9 @@ namespace CalamityEntropy.Content.Items.Books
             {
                 oldPos.RemoveAt(0);
             }
-            if (Projectile.timeLeft % 4 == 0)
+            if (Projectile.timeLeft % 3 == 0)
             {
-                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Projectile.velocity * 0.2f, new Color(255, 42, 42), new Vector2(0.38f, 1f), Projectile.velocity.ToRotation(), 0.42f * Projectile.scale, 0.05f, 38);
+                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Projectile.velocity * 0.1f, new Color(255, 42, 42), new Vector2(0.38f, 1f), Projectile.velocity.ToRotation(), 0.46f * Projectile.scale, 0.1f * Projectile.scale, 38);
                 GeneralParticleHandler.SpawnParticle(pulse);
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
@@ -113,7 +124,7 @@ namespace CalamityEntropy.Content.Items.Books
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-            float scale = 2 * Projectile.scale;
+            float scale = 2.2f * Projectile.scale;
             List<Vector2> points = new();
             for (int i = 1; i < oldPos.Count; i++)
             {
@@ -141,8 +152,8 @@ namespace CalamityEntropy.Content.Items.Books
         {
             Texture2D tex = CEUtils.getExtraTex("a_circle");
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, new Color(80, 50, 50) * alpha, Projectile.rotation, tex.Size() * 0.5f, new Vector2(1 + (Projectile.velocity.Length() * 0.01f), 1) * size * 0.25f, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, new Color(36, 2, 2) * alpha, Projectile.rotation, tex.Size() * 0.5f, new Vector2(1 + (Projectile.velocity.Length() * 0.01f), 1) * size * 0.4f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, new Color(160, 90, 90) * alpha, Projectile.rotation, tex.Size() * 0.5f, new Vector2(1 + (Projectile.velocity.Length() * 0.01f), 1) * size * 0.25f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, new Color(60, 2, 2) * alpha, Projectile.rotation, tex.Size() * 0.5f, new Vector2(1 + (Projectile.velocity.Length() * 0.01f), 1) * size * 0.4f, SpriteEffects.None, 0);
             Main.spriteBatch.End();
             Main.spriteBatch.begin_();
         }

@@ -1,6 +1,8 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.UI.EntropyBookUI;
+using CalamityMod.Dusts;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -199,7 +201,7 @@ namespace CalamityEntropy.Content.Items.Books
                             if (Main.myPlayer == Projectile.owner)
                             {
                                 Delay = 8;
-                                CEUtils.PlaySound("portal_emerge", Main.rand.NextFloat(2.6f, 3), Projectile.Center, volume: 0.5f);
+                                CEUtils.PlaySound("portal_emerge", Main.rand.NextFloat(2.2f, 2.4f), Projectile.Center, volume: 0.4f);
                                 eb.ShootSingleProjectile(ModContent.ProjectileType<RedemptionArrow>(), Projectile.Center, Projectile.rotation.ToRotationVector2(), 0.24f, 1, 1.6f, MainProjectile: true);
                             }
                         }
@@ -231,6 +233,7 @@ namespace CalamityEntropy.Content.Items.Books
     }
     public class RedemptionArrow : EBookBaseProjectile
     {
+        public override Color baseColor => Color.Goldenrod;
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -239,15 +242,31 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override void AI()
         {
-            CEUtils.AddLight(Projectile.Center, Color.LightGoldenrodYellow);
+            CEUtils.AddLight(Projectile.Center, color);
             base.AI();
             Projectile.rotation = Projectile.velocity.ToRotation();
+            for (float i = 0; i < 1; i += 0.05f)
+            {
+                EParticle.spawnNew(new GlowLightParticle() { lightColor = color * 0.12f, AlphaShrink = false }, Projectile.Center + Projectile.velocity * Main.rand.NextFloat(), Vector2.Zero, color * 1f, 0.6f, 1, true, BlendState.Additive, 0, 8);
+            }
         }
         public override bool PreDraw(ref Color lightColor)
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
             Main.EntitySpriteDraw(Projectile.getDrawData(Color.White));
             return false;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                Dust dust = Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<SquashDust>(), -Projectile.velocity);
+                dust.scale = Main.rand.NextFloat(1.4f, 1.8f);
+                dust.velocity = (new Vector2(25, 25).RotatedByRandom(100) * Main.rand.NextFloat(0.1f, 0.7f)) * Main.rand.NextFloat(0.6f, 1f);
+                dust.noGravity = false;
+                dust.color = Color.Goldenrod;
+                dust.fadeIn = 2f;
+            }
         }
     }
 }
