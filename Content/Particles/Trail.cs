@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Particles
             SpriteBatch sb = Main.spriteBatch;
             GraphicsDevice gd = Main.graphics.GraphicsDevice;
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
             {
                 List<ColoredVertex> ve = new List<ColoredVertex>();
@@ -57,10 +57,10 @@ namespace CalamityEntropy.Content.Particles
                 for (int i = 1; i < odp.Count; i++)
                 {
                     ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 12 * this.Scale,
-                          new Vector3((i / (odp.Count - 1f)), 1, 1),
+                          new Vector3((i / (odp.Count - 1f)) * 0.998f, 1, 1),
                           b * (SameAlpha ? 1 : ((odp.Count - i - 1) / (float)odp.Count))));
                     ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 12 * this.Scale,
-                          new Vector3((i / (odp.Count - 1f)), 0, 1),
+                          new Vector3((i / (odp.Count - 1f)) * 0.998f, 0, 1),
                           b * (SameAlpha ? 1 : ((odp.Count - i - 1) / (float)odp.Count))));
                 }
                 if (ve.Count >= 3)
