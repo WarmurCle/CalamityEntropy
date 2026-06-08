@@ -24,24 +24,15 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         {
             if (Projectile.ai[1] > 0)
             {
-                NPC targeth = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 600);
+                NPC targeth = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 800, (i) => (i != target.whoAmI && Projectile.localNPCImmunity[i] == 0));
                 if (targeth != null)
                 {
-                    Projectile.localAI[2] = 3;
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((target.Center - Projectile.Center).ToRotation());
+                    Projectile.localAI[2] = 1;
+                    Projectile.velocity = new Vector2(Projectile.velocity.Length() * 1f, 0).RotatedBy((targeth.Center - Projectile.Center).ToRotation());
                 }
                 else
                 {
-                    float cw = Math.Abs(Projectile.Center.X - target.Center.X);
-                    float ch = Math.Abs(Projectile.Center.Y - target.Center.Y);
-                    if (cw < ch)
-                    {
-                        Projectile.velocity.Y *= -1;
-                    }
-                    else
-                    {
-                        Projectile.velocity.X *= -1;
-                    }
+                    Projectile.velocity = Projectile.velocity.RotatedByRandom(0.6f) * 1.2f;
                 }
                 SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
             }
@@ -59,7 +50,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 Projectile.velocity.Y += 0.4f;
                 Projectile.velocity *= 0.998f;
             }
-            Projectile.rotation += Projectile.velocity.X * 0.01f;
+            Projectile.rotation += Projectile.velocity.X * 0.02f;
         }
         public override void OnKill(int timeLeft)
         {

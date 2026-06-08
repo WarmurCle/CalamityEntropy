@@ -1528,7 +1528,7 @@ namespace CalamityEntropy
                 if (ownerClient && CECooldowns.CheckCD("Dirt", 60))
                 {
                     if (projectile.ModProjectile is EntropyBookHeldProjectile eb)
-                        eb.ShootSingleProjectile(ModContent.ProjectileType<BMDirtProj>(), projectile.Center, projectile.rotation.ToRotationVector2(), 0.25f, 1, 0.8f, (proj) => { proj.ai[1] = -1; proj.ai[0] = ItemID.DirtBlock; });
+                        eb.ShootSingleProjectile(ModContent.ProjectileType<BMDirtProj>(), projectile.Center, projectile.rotation.ToRotationVector2(), 0.3f, 1, 0.8f, (proj) => { proj.ai[1] = -1; proj.ai[0] = ItemID.DirtBlock; });
                 }
             }
             BookMarkLoader.RegisterBookmarkEffect("DirtEffect", bookUpdate: bookUpdateDirt);
@@ -1536,7 +1536,7 @@ namespace CalamityEntropy
 
             void bookUpdateStone(Projectile projectile, bool ownerClient)
             {
-                if (ownerClient && CECooldowns.CheckCD("Dirt", 60))
+                if (ownerClient && CECooldowns.CheckCD("Stone", 60))
                 {
                     if (projectile.ModProjectile is EntropyBookHeldProjectile eb)
                         eb.ShootSingleProjectile(ModContent.ProjectileType<BMDirtProj>(), projectile.Center, projectile.rotation.ToRotationVector2(), 0.25f, 1, 0.8f, (proj) => { proj.ai[1] = 1; proj.ai[0] = ItemID.StoneBlock; });
