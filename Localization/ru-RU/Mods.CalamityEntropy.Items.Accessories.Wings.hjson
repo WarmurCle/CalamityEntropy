@@ -1,65 +1,65 @@
 FlowingLight: {
-	// DisplayName: Flowing Light
-	/* Tooltip:
+	DisplayName: Свет бессмертных
+	Tooltip:
 		'''
-		Hold ↓ when flying to hover
-		Hold ↓ to accelerate the descent
-		$"Reaching the pinnacle of perfection"
-		''' */
+		Держитесь, чтобы ускорить падение.
+		Во время полёта удерживать
+		Добавьте туфли с крыльями ангела накаливания.
+		$« До границ»
+		'''
 }
 
 PhantomLightWing: {
-	// DisplayName: Phantom Light Wings
-	// Tooltip: Leaving starlight trails during flight
+	DisplayName: Фантомное крыло
+	Tooltip: Звездный след во время полёта.
 }
 
 RuneWing: {
-	// DisplayName: Soar Rune
-	/* Tooltip:
+	DisplayName: Летающие талисманы
+	Tooltip:
 		'''
-		Press [KEY] to advance towards the mouse direction, during which immune damage occurs
-		Cooling is determined by the sprint distance, 
-		releasing the button in advance can end the sprint in advance, with a maximum sprint time of [DT] seconds
-		''' */
+		Нажмите [KEY] для прорыва в направлении мыши, во время которого иммунный вред
+		Охлаждение определяется расстоянием спринта, и заблаговременное ослабление клавиш может привести к досрочному завершению спринта, максимум [DT] секунд
+		'''
 }
 
 BigShotsWing: {
-	// DisplayName: Big Shot's Wings
-	/* Tooltip:
+	DisplayName: Большие крылья
+	Tooltip:
 		'''
-		-90% flight time if there're any boss
-		"Now's your chance to be a..."
-		Hold shift and right click to toggle strings' transparency
-		[TOGGLE]
-		''' */
-	// Visual0: Opaque
-	// Visual1: Translucent
-	// Visual2: Invisible
+		При наличии Boss - 90% летного времени
+		Из - за подтяжки, полёт медленнее.
+		"Пора стать..."
+		Нажмите Shift и нажмите правой кнопкой мыши, чтобы переключить видимость провода
+		Подключение [Toggle]
+		'''
+	Visual0: видимый
+	Visual1: Полупрозрачность
+	Visual2: Скрыть
 }
 
 IceShardWing: {
-	// DisplayName: Ice Shard Wings
-	// Tooltip: It actually uses magic to fly
+	DisplayName: Ледяное крыло
+	Tooltip: На самом деле он летает с помощью магии.
 }
 
 TheRevelation: {
-	// DisplayName: The Revelation
-	/* Tooltip:
+	DisplayName: Конечное апокалипсис
+	Tooltip:
 		'''
-		Charging when using weapons,
-		when it is fully charged, release the mouse button to release a holy beam
-		deals 50 damage every 3 frames
-		Regarded as wing
-		hold [down] when flying to hover
-		"Awaken your faith"
-		''' */
+		Длинные щелчки мыши при использовании оружия накапливают силы, освобождают мышь, когда она заполнена, освобождая священный свет, нанося 50 повреждений каждые 3 кадра
+		Как крылья
+		Во время полёта удерживать
+		« Пробуди свою веру»
+		'''
 }
 
 VoidElytra: {
-	// DisplayName: Void Elytra
-	/* Tooltip:
+	DisplayName: Пустые крылья
+	Tooltip:
 		'''
-		Allow you to dash in four directions
-		[c/356498:Dedicate life to the void and achieve breakthroughs in the limits]
-		''' */
+		Позволяет спринт в четырех направлениях, который отнимает время полёта.
+		Когда время полета 0, можно использовать жизненные ценности для спринта.
+		[c/356498: Посвятите свою жизнь пустоте и получите прорыв в пределах]
+		'''
 }

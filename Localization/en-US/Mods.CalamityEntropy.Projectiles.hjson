@@ -1,9 +1,0 @@
-Ranged: {
-	$parentVal: ""
-	GrandSlamBall.DisplayName: Grand Slam Ball
-}
-
-StarBreakerHeld.DisplayName: Star Breaker Held
-AzureRapierHeld.DisplayName: Azure Rapier Held
-AzureRapierBlock.DisplayName: Azure Rapier Block
-AzureRapierBlockSlash.DisplayName: Azure Rapier Block Slash

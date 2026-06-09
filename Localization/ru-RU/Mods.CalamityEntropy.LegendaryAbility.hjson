@@ -1,303 +1,250 @@
-TlipocasScytheLegend: {
-	Conditions: {
-		// DashTitle: Ability: Slash Dash
-		// StatTitle: Ability: Basic Stat
-		// TeleportTitle: Ability: Teleport Slash
-		// ThrowTitle: Ability: Throw
-	}
-
-	Ability: {
-		// TScytheA1: Hold Up and attack will push a certain distance towards the mouse direction
-		// TScytheA1B: Gain invincible time and deal damage to the targets you come into contact with
-		// TScytheA2: Press LMB to throw the scythe and causing multiple injuries
-		/* TScytheA2B:
-			'''
-			Press LMB when throwing to teleport to the mouse and launch a larger slash
-			This skill has a 30 second cooldown time.
-			''' */
-		/* TScytheA3:
-			'''
-			When throw out, press RMB to let the scythe follow your curser.
-			Stealth strikes will heal you with 7
-			''' */
-		/* TScytheA4:
-			'''
-			Teleport slash will empowerment your weapon with void in 8 seconds.
-			20% increased damage while empowering
-			''' */
-		/* TScytheA5:
-			'''
-			Leave a shadow when teleport strike, the shadow will strike with you.
-			Slash dash will generate an additional slash perpendicular to the original sprint
-			Increase the healing value when steal strike.
-			''' */
-		// TScytheA6: Leave rift when slash dash. The rift will continuously causing harm
-		// TScytheA7: Resist a fatal injury and restore your health to half of your maximum health.Need 5 min to cooling
-		// TScytheA8: Attacks inflict void touch
-		// TScytheA9: The closer the distance to the target, the higher the damage dealt, with a maximum additional damage of 25%
-	}
-
-	Downed: {
-		// TScytheU1: Take down Eye of Cthulhu
-		// TScytheU1B: Take down Slimg God
-		// TScytheU2: Take down any evil boss
-		// TScytheU2B: Take down Brimstone Elemental
-		// TScytheU3: Take down Prophet
-		// TScytheU4: Take down Void Twins
-		// TScytheU5: Take down Polterghast
-		// TScytheU6: Take down Devourer of Gods
-		// TScytheU7: Take down Yharon
-		// TScytheU8: Take down Cruiser
-		// TScytheU9: Take down Supreme Witch
-		// TWOF: Take down Wall of Flesh
-		// TALLMECHBOSS: Take down all mech bosses
-		// TLevel2: Need reach level 2
-	}
-
-	Dialog: {
-		/* TScytheDia1:
-			'''
-			The evil big eyes seem to have ill intentions towards we...
-			Let's go kill him!
-			''' */
-		/* TScytheDia2:
-			'''
-			Strange spirits resembling brains and worms?
-			Can I take it home to make a specimen？
-			''' */
-		/* TScytheDia3:
-			'''
-			Slime God? It looks sticky, dirty, and bubbling...
-			Shall we give it a bath？
-			''' */
-		/* TScytheDia4:
-			'''
-			A flesh and blood creation sealed with the spirit of the gods?
-			It seems that completing this task can bring a lot of souls...
-			''' */
-		/* TScytheDia5:
-			'''
-			Many souls are floating in the brimstone crag, howling in sorrow...
-			Continuously talking about a catastrophe from a hundred years ago...
-			Let's end their pain!
-			''' */
-		/* TScytheDia6:
-			'''
-			There is a terrifying red monster hovering in the night sky,
-			I can only feel madness from his soul. Or...Is that really a soul?
-			''' */
-		/* TScytheDia7:
-			'''
-			There're so much spirits in the dungeon...
-			Hey，there's a sealed spirit with strange scent.
-			I can't help but want to communicate with them!
-			''' */
-		/* TScytheDia8:
-			'''
-			How many strands of soul are attached to twisted flesh and blood? 
-			Some Disgusting, drive them back to their dreams!
-			''' */
-		/* TScytheDia9:
-			'''
-			These crazy cultists emit an aura similar to that prophet...
-			What are they worshiping? 
-			It feels like sending them to worship the Grim Reaper is a good idea.
-			''' */
-		// TScytheDia10: A huge, multi eyed octopus? Is this a monster that came out of a dream?
-		/* TScytheDia11:
-			'''
-			The faceless man wearing a purple cloak carried a lantern with a prophetic aura ..
-			I'm a little curious, I want to grab the lantern!
-			''' */
-		/* TScytheDia12:
-			'''
-			In the enchanted dungeon, these souls can never rest in peace.
-			It's so pitiful, let's take it away!
-			''' */
-		/* TScytheDia13:
-			'''
-			There is a purple serpent.
-			It want to devour the soul of we!
-			Don't even try this!
-			''' */
-		/* TScytheDia14:
-			'''
-			The strange lantern pointed towards this spatial fissure.
-			What will it bring?
-			''' */
-		/* TScytheDia15:
-			'''
-			A witch and a robot came to here，
-			Snatch their souls and my goal might be achieved！
-			''' */
-		/* TScytheDia16:
-			'''
-			The cultist asked us to use the discord wand in the abyss...
-			What will happen?
-			''' */
-		// TScytheDia17: Finally paid off the debt, the task was perfectly completed!
-	}
-
-	// General.CurLevel: ""
-	// TlipocazKilledNPC: Press Middle Mouse to allow you slain friendly target
-	// TlipocazKilledNPCNot: Press Middle Mouse again to prevent you from killing friendly target
-}
-
-/* DCarverDia0:
-	'''
-	Was it you who awakened me?
-	Indeed, as you can see, I have lost most of my power.
-	If you wish to prove yourself worthy of my service, first slay the Evil Eye!
-	''' */
-/* DCarverDia1:
-	'''
-	Good, I can sense both you and I growing stronger.
-	Slay the spawn of the defiled land, and prove your might to me.
-	''' */
-/* DCarverDia2:
-	'''
-	You have proven your strength, but there is still a long road ahead.
-	I can now awaken my slumbering servants. If you defeat more powerful beings, you can awaken more of my followers.
-	Next, defeat the incomplete deity composed of feeble beings!
-	''' */
-// DCarverDia3: The time for reckoning has come. Go to the Foundation of the World, slay the twisted creation, and release the long-sealed soul.
-// DCarverDia4: Slay the defiled primal spirit deep underground and reclaim the power that was stolen from me!
-/* DCarverDia5:
-	'''
-	I have seen that witch before.
-	But now, she seems... different.
-	In any case, her power is far less than before, or perhaps this is just a failed imitation.
-	''' */
-// DCarverDia6: There is a restless stirring beneath the jungle. If we can eradicate its source, we might find a fragment of myself.
-/* DCarverDia7:
-	'''
-	I can sense a frenzied construct of flesh approaching.
-	It is composed of thousands of entities craving vengeance. Perhaps we can gain something from it.
-	''' */
-/* DCarverDia8:
-	'''
-	It is time to reclaim a sealed part of me from those cultists.
-	They once sacrificed me to summon their evil god.
-	''' */
-// DCarverDia9: To protect this land and continue our journey, eradicate those outsiders completely!
-/* DCarverDia10:
-	'''
-	Profane flames burn. The fall of the outer god has awakened something unpleasant.
-	We must stop her before the situation spirals out of control.
-	''' */
-/* DCarverDia11:
-	'''
-	A great number of vengeful spirits remain deep within the dungeon, even amalgamating into a powerful entity.
-	It seems we have no choice but to cleanse them.
-	''' */
-// DCarverDia12: That hypocritical worm has come for us. It seems we must act.
-/* DCarverDia13:
-	'''
-	I know him.
-	He was once under the Seeker of Gods, but he left in the end.
-	It seems necessary to settle this with him.
-	''' */
-/* DCarverDia14:
-	'''
-	Our journey nears its end, and I have regained most of my lost power.
-	Now, face the witch and the Destroyer Mech in a final battle!
-	''' */
-// DCarverDia15: Slay the ancient leviathan in the deepest part of the abyssal ocean, and bring this journey to an end!
-// DCarverDia16: Our journey together has reached its conclusion, but many powerful enemies still await. Press on, my master!
-
-General: {
-	// Locked: LOCKED
-	// PagesTips: Hold Left Alt to directly read the ability, press LMB to switch
-}
-
-SusiesBracelet: {
-	Lores: {
-		/* l0:
-			'''
-			Chapter 1 - The March of the Dark King
-			The heroes defeat the king and stop the dragon.
-			''' */
-		/* l1:
-			'''
-			Chapter 2 - The City of the Shining
-			The heroes do battle in chariots to save the Queen
-			''' */
-		/* l2:
-			'''
-			Chapter 3 - The Isles of Northernlight
-			The heroes travel among the islands
-			and catch a glimpse of a lost land
-			''' */
-		/* l3:
-			'''
-			Chapter 4 - The Trials of the Holy Hammer
-			A great smith gives the heroes a terrible weapon.
-			''' */
-		/* l4:
-			'''
-			Chapter 5 - The Field of Pink and Gold
-			The vast garden is charred in an inferno of jealousy.
-			''' */
-		/* l5:
-			'''
-			There was only one more chapter...
-			After that, It all stopped.
-			''' */
-		/* l6:
-			'''
-			That next book, it never did get written.
-			The story, it became so grand, so overwhelming,
-			Some say it swallowed up the author himself.
-			''' */
-		/* l7:
-			'''
-			The ones who could write the next, the youth,
-			the pen was lying there for them to pick up.
-			To make the next page.
-			...they never did.
-			''' */
-		/* l8:
-			'''
-			But you, my dear?
-			I see a story lit up in your eyes.
-			Burnin' bright...
-			Burnin' black.
-			Burnin' up everything.
-			''' */
-		/* l9:
-			'''
-			The bell's ringin' now.
-			Seems we've reached the final rounds.
-			So... how do you think it all ends?
-			No, how do you want it to end?
-			''' */
-		/* l10:
-			'''
-			At this late hour,
-			with the bells ringing out their justice.
-			You choose eternity.
-			''' */
-		/* l11:
-			'''
-			But... there is one thing that can overwrite the dark.
-			A white pen, known as hope.
-			I believe... this is what you hold.
-			''' */
-	}
-
-	Trials: {
-		// Trial: Trial
-		// t0: Slime King / Eye of Cthulhu
-		// t1: Any evil boss
-		// t2: Skeletron / Queen Bee
-		// t3: Wall of Flesh
-		// t4: All mech boss
-		// t5: Plantera / Calamitas Clone
-		// t6: Moonlord
-		// t7: Providence
-		// t8: Polterghast / Storm Weaver / Signus / Ceaseless Void
-		// t9: Devourer of Gods
-		// t10: Yharon
-		// t11: Trials - Done
-	}
+{
+  TlipocasScytheLegend:
+  {
+    Conditions:
+    {
+      DashTitle: Способность: резкие шипы
+      StatTitle: Потенциал: прочие
+      TeleportTitle: Способность: передача рубок
+      ThrowTitle: Способность: бросание
+    }
+    Ability:
+    {
+      TScytheA1: Нажмите верхнюю клавишу при атаке и ударите в направлении указателя.
+      TScytheA1B: Непобедимы во время удара и наносят урон пораженному врагу.
+      TScytheA2: Удар серпом правой кнопкой
+      TScytheA2B: Когда серп был брошен, нажмите левую кнопку, чтобы передать его на указатель и начать рубку. Время охлаждения 30 секунд.
+      TScytheA3: Щелчок правой кнопкой мыши при бросании серпа позволит серпу следовать за мышью
+      TScytheA4: Передача после попадания рубки дает возможность оружию быть пустым в течение 8 секунд и наносить дополнительные 20% ущерба
+      TScytheA5: При передаче удара на исходном месте остается тень, имитирующая домашний удар, а при ударе появляется дополнительный удар.
+      TScytheA6: Трещины, которые продолжают причинять вред
+      TScytheA7: Когда вы получаете смертельную травму, вы умираете от иммунитета и восстанавливаетесь до половины максимальной стоимости жизни. Время охлаждения 5 минут.
+      TScytheA8: Нападение привело к пустоте.
+      TScytheA9: Чем ближе к цели, тем выше нанесенный ущерб, до 25% дополнительных повреждений
+    }
+    Downed:
+    {
+      TScytheU1: Победить глаз Ксавье
+      TScytheU1B: Победить Бога Слейма
+      TScytheU2: Преодоление произвольного зла Boss
+      TScytheU2B: Преодоление серных огненных элементов.
+      TScytheU3: Победить пророка
+      TScytheU4: Победить нигде Близнецов
+      TScytheU5: Победить фантомов
+      TScytheU6: Победить богобоязненных
+      TScytheU7: Поражение игрунки
+      TScytheU8: Победить патруля
+      TScytheU9: Преодолеть высшую беду
+      TWOF: Нужно победить плоть и кровь.
+      TALLMECHBOSS: Уничтожить все машины Boss
+      TLevel2: Требуется уровень 2
+    }
+    Dialog:
+    {
+      TScytheDia1: Злые глаза, кажется, злые. Мы его убьем!
+      TScytheDia2: Странная злобная душа в виде мозга и червей? Могу я взять домой образец? А...?
+      TScytheDia3: Бог Слейма, похоже, липкая грязь все еще пузырится. Может, помоешься с ним?
+      TScytheDia4: Кровь и плоть, запечатанные божественным духом, похоже, что после этого можно получить много душ. Это...
+      TScytheDia5:
+        '''
+        В серных скалах плывут души. Мы постоянно говорим о катастрофе столетней давности. Это...
+        Давайте покончим с их страданиями!
+        '''
+      TScytheDia6:
+        '''
+        В ночном небе бродит страшный красный монстр.
+        Я чувствую безумие только в его душе. Действительно ли это душа?
+        '''
+      TScytheDia7:
+        '''
+        Концентрация души в подземелье очень высока. Это...
+        Ах, есть запечатанное, немного странное тело, которое не может не хотеть с ним общаться!
+        '''
+      TScytheDia8: Сколько нитей души прикреплено к искаженной плоти и крови? Некоторые. Отвратительно, возвращайте их в свои сны!
+      TScytheDia9:
+        '''
+        От этих сумасшедших злодеев пахло так же, как и от пророков. Это...
+        Чем они поклоняются? Это хорошая идея - отправлять их поклоняться смерти.
+        '''
+      TScytheDia10: Огромный, многоглазый осьминог? Это монстр из сновидений?
+      TScytheDia11:
+        '''
+        Фонарь, который носил безликий человек в фиолетовом плаще, пах как пророк. Это...
+        Немного любопытно, хочется украсть фонарь!
+        '''
+      TScytheDia12:
+        '''
+        В темнице, в которой была применена магия, эти души никогда не смогут покоиться с миром.
+        Жаль. Давайте заберем это с собой.
+        '''
+      TScytheDia13: Это фиолетовый питон. Хочу поглотить душу! Не причиняйте вреда.
+      TScytheDia14: Странный фонарь указывает на эту пространственную трещину. ...Что это принесет?
+      TScytheDia15:
+        '''
+        Милая девушка и странный робот пришли,
+        Забирайте их души, и рабочая нагрузка скоро достигнет стандарта!
+        '''
+      TScytheDia16:
+        '''
+        Пытал злодея, сказал он. Просто используйте жезл хаоса в бездне,
+        И там будет бесконечная душа на всю жизнь. Дай - ка я попробую. ...?
+        '''
+      TScytheDia17: Наконец - то погасить долг души, задача выполнена идеально.
+    }
+    General.CurLevel: ""
+    TlipocazKilledNPC: Нажмите среднюю кнопку мыши, чтобы вы могли нажать NPC города
+    TlipocazKilledNPCNot: Нажмите среднюю кнопку мыши еще раз, чтобы предотвратить убийство NPC города
+  }
+  DCarverDia0:
+    '''
+    Вы разбудили это место?
+    Да, как вы видите, я потерял большую часть своей силы
+    Если ты хочешь доказать, что заслуживаешь того, чему я служу, убей злой глаз!
+    '''
+  DCarverDia1:
+    '''
+    Хорошо. Я чувствую, что ты и я становимся сильнее.
+    Убей продукт этой грязной земли и докажи мне свою силу.
+    '''
+  DCarverDia2:
+    '''
+    Вы доказали свою силу, но вам предстоит пройти долгий путь.
+    Я могу разбудить спящих слуг, и если вы можете победить более могущественных существ, вы можете разбудить больше моих слуг.
+    Затем, пожалуйста, победьте этого обездоленного бога!
+    '''
+  DCarverDia3: Пришло время покончить с собой, отправиться на дно света, убить это извращенное творение и освободить пыльную душу.
+  DCarverDia4: Убейте грязного духа на дне земли и верните мне силы, которые я отнял!
+  DCarverDia5:
+    '''
+    Я видел ведьму.
+    Но теперь она кажется. ...становится другим.
+    Короче говоря, ее сила намного меньше, чем раньше, или это просто неудачная имитация
+    '''
+  DCarverDia6: Из - под джунглей доносится волнение, и если мы сможем искоренить его источник, мы сможем найти часть моих обломков.
+  DCarverDia7:
+    '''
+    Я чувствую, как приближается какая - то плоть и кровь.
+    Он состоит из тысяч сущностей, жаждущих мести, и, возможно, что - то из этого мы можем получить.
+    '''
+  DCarverDia8:
+    '''
+    Пришло время отвоевать у этих злодеев часть меня.
+    Они принесли меня в жертву, чтобы вызвать злых богов.
+    '''
+  DCarverDia9: Чтобы защитить эту землю и продолжить наше путешествие, уничтожьте пришельцев!
+  DCarverDia10:
+    '''
+    Пламя богохульства горит, и падение богов пробуждает что - то плохое.
+    Нужно остановить ее, пока все не вышло из - под контроля.
+    '''
+  DCarverDia11:
+    '''
+    В глубине подземелья осталось огромное количество врагов, которые даже объединились в могущественную личность.
+    Похоже, нам придется прибраться.
+    '''
+  DCarverDia12: Ложный червь нашёл его и, похоже, должен был выстрелить.
+  DCarverDia13:
+    '''
+    Я знаю его.
+    Он был одним из тех, кто искал Бога, но в конце концов ушел.
+    Похоже, нужно покончить с ним.
+    '''
+  DCarverDia14:
+    '''
+    Наше путешествие подошло к концу, и я получил большую часть потерянной силы.
+    А теперь сражайтесь с ведьмой и разрушительным оружием!
+    '''
+  DCarverDia15: Убить самого глубокого зверя в океане и закончить путешествие!
+  DCarverDia16: Вы и мое путешествие подошло к концу, но все еще есть много могущественных врагов, которые ждут, вперед, мой господин!
+  General:
+  {
+    Locked: Невозможно использовать -
+    PagesTips: При нажатии левого Alt сортируйте оружие, чтобы увидеть эффект, нажмите правую кнопку, чтобы перевернуть страницу
+  }
+  SusiesBracelet:
+  {
+    Lores:
+    {
+      l0:
+        '''
+        Глава 1: Марш короля тьмы.
+        Герои победили короля и остановили дракона.
+        '''
+      l1:
+        '''
+        Глава 2: Светящийся город
+        Герои управляют колесницей, чтобы спасти королеву
+        '''
+      l2:
+        '''
+        Глава III. Острова Авроры
+        Герои путешествуют по островам и начинают искать потерянные места.
+        '''
+      l3:
+        '''
+        Глава 4: Испытание Святого Молота
+        Герои сражаются с кузнецами и получают страшное оружие.
+        '''
+      l4:
+        '''
+        Глава 5: Золотые поля
+        Огромный сад сгорел от ревности.
+        '''
+      l5: Дальше останется только одна глава, и история придет к концу.
+      l6:
+        '''
+        Последующие главы никогда не были написаны, и они были слишком амбициозными. Слишком преувеличено,
+        Некоторые даже говорят, что он поглотил автора.
+        '''
+      l7:
+        '''
+        Молодые люди могут продолжать писать истории.
+        Все, что нужно сделать, это взять ручку.
+        Можно написать следующую главу.
+        ...Однако никто не пытался.
+        '''
+      l8:
+        '''
+        А ты? Дорогой,
+        В твоих глазах горит история. Это...
+        Огонь ослепил. Это...
+        Горит темно.
+        Сжечь все до пепла.
+        '''
+      l9:
+        '''
+        Колокола уже звонят.
+        Финальный раунд подошел.
+        Так что... Как вы думаете, чем закончилась история?
+        Нет, как бы вы хотели, чтобы история закончилась?
+        '''
+      l10:
+        '''
+        В эту полночь вот - вот зазвонит колокол справедливости.
+        Вы выбрали вечность.
+        '''
+      l11:
+        '''
+        Но есть одна вещь, которая может переписать тьму.
+        Это белая ручка, также известная как Надежда.
+        Я верю. Это то, что вы держите в руках.
+        '''
+    }
+    Trials:
+    {
+      Trial: Испытания
+      t0: Король Слэм / Глаз Ксуру
+      t1: Любое зло Boss
+      t2: Король черепов / Пчелиный король
+      t3: Кровавая стена
+      t4: Все машины Boss
+      t5: Цветы века / Тень бедствия
+      t6: Лорд Луны
+      t7: богохульство
+      t8: Страшные цветы / Штормовой ткач / Signas / Бесконечная пустота
+      t9: Боги пожирают
+      t10: Йоджун
+      t11: Испытание - завершение
+    }
+  }
 }
