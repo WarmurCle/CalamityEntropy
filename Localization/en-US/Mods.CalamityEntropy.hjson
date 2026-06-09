@@ -4646,8 +4646,18 @@ Projectiles: {
 	Stinger.DisplayName: Stinger
 	ExplosiveSpore.DisplayName: Explosive Spore
 	SporeGas.DisplayName: Spore Gas
-	AzureRapierHeld: Azure Rapier
-	AzureRapierBlockSlash: Azure Rapier Slash
+
+	AzureRapierHeld: {
+		$parentVal: Azure Rapier
+		DisplayName: Azure Rapier Held
+	}
+
+	AzureRapierBlockSlash: {
+		$parentVal: Azure Rapier Slash
+		DisplayName: Azure Rapier Block Slash
+	}
+
+	AzureRapierBlock.DisplayName: Azure Rapier Block
 	DarkScriptureHeld.DisplayName: Dark Scripture Held
 	DarkBullet.DisplayName: Dark Bullet
 	SelenbiteStar.DisplayName: Selenbite Star
@@ -4774,6 +4784,7 @@ Projectiles: {
 	ClusterMissileSmall.DisplayName: Cluster Missile Small
 	GiantBoulderProj.DisplayName: Giant Boulder Proj
 	HallowedMissileProj.DisplayName: Hallowed Missile Proj
+	StarBreakerHeld.DisplayName: Star Breaker Held
 }
 
 LegendTooltip: - Legend -

@@ -4875,8 +4875,18 @@ Projectiles: {
 	Stinger.DisplayName: 毒刺
 	ExplosiveSpore.DisplayName: 爆炸孢子
 	SporeGas.DisplayName: 孢子云
-	AzureRapierHeld: 苍蓝刺剑
-	AzureRapierBlockSlash: 苍蓝刺剑防反
+
+	AzureRapierHeld: {
+		$parentVal: 苍蓝刺剑
+		// DisplayName: Azure Rapier Held
+	}
+
+	AzureRapierBlockSlash: {
+		$parentVal: 苍蓝刺剑防反
+		// DisplayName: Azure Rapier Block Slash
+	}
+
+	// AzureRapierBlock.DisplayName: Azure Rapier Block
 	DarkScriptureHeld.DisplayName: 黑暗秘典
 	DarkBullet.DisplayName: 黑暗弹
 	SelenbiteStar.DisplayName: 月蚀星
@@ -5003,6 +5013,7 @@ Projectiles: {
 	ClusterMissileSmall.DisplayName: 小型导弹
 	GiantBoulderProj.DisplayName: 超大巨石
 	// HallowedMissileProj.DisplayName: Hallowed Missile Proj
+	// StarBreakerHeld.DisplayName: Star Breaker Held
 }
 
 LegendTooltip: - 传奇物品 -

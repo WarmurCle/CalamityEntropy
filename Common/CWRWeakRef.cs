@@ -21,10 +21,6 @@ namespace CalamityEntropy.Common
         [JITWhenModsEnabled("CalamityOverhaul")]
         internal static class CWRRef
         {
-            public static float GetPlayersPressure(Player plr)
-            {
-                return plr.GetModPlayer<CWRPlayer>().PressureIncrease;
-            }
             public static void ActiveFS(int type, Item item, Projectile proj, int style)
             {
                 if (FishSkill.IDToInstance.TryGetValue(type, out var value) && proj.ModProjectile is EntropyBookHeldProjectile eb)

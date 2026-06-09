@@ -58,11 +58,6 @@ namespace CalamityEntropy.Common
         public float GetPressure()
         {
             float p = 1;
-            if (ModLoader.TryGetMod("CalamityOverhaul", out Mod cwr))
-            {
-                p = CWRWeakRef.CWRRef.GetPlayersPressure(Player);
-            }
-
             return p;
         }
         public float healPoints = 0;

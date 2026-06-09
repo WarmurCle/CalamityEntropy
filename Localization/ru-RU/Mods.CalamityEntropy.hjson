@@ -4874,8 +4874,18 @@ Projectiles: {
 	Stinger.DisplayName: Наркотики
 	ExplosiveSpore.DisplayName: Споры взрыва
 	SporeGas.DisplayName: Облако спор
-	AzureRapierHeld: Голубой меч.
-	AzureRapierBlockSlash: Синий меч против
+
+	AzureRapierHeld: {
+		$parentVal: Голубой меч.
+		// DisplayName: Azure Rapier Held
+	}
+
+	AzureRapierBlockSlash: {
+		$parentVal: Синий меч против
+		// DisplayName: Azure Rapier Block Slash
+	}
+
+	// AzureRapierBlock.DisplayName: Azure Rapier Block
 	DarkScriptureHeld.DisplayName: Тайны тьмы
 	DarkBullet.DisplayName: Тёмная бомба
 	SelenbiteStar.DisplayName: Лунные затмения
@@ -5002,6 +5012,7 @@ Projectiles: {
 	ClusterMissileSmall.DisplayName: Малые ракеты
 	GiantBoulderProj.DisplayName: Гигантский камень
 	// HallowedMissileProj.DisplayName: Hallowed Missile Proj
+	// StarBreakerHeld.DisplayName: Star Breaker Held
 }
 
 LegendTooltip: - Легендарные предметы -
