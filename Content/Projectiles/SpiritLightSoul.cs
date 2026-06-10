@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Books;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
@@ -112,6 +113,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff<SoulDisorder>(180);
             if (Projectile.timeLeft > 2)
             {
                 CEUtils.PlaySound("soulexplode", 1.2f, Projectile.Center, maxIns: 3, volume: 0.32f);
@@ -122,10 +124,10 @@ namespace CalamityEntropy.Content.Projectiles
                 //GeneralParticleHandler.SpawnParticle(pulse);
                 //CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(target.Center, Vector2.Zero, new Color(80, 120, 160), Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.6f * 0.65f, 10);
                 //GeneralParticleHandler.SpawnParticle(explosion2);
-                for (int i = 0; i < 42; i++)
+                for (int i = 0; i < 70; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { Lifetime = 20, timeleftmax = 20 }, target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 24) * 0.3f, Color.DarkGreen, 0.09f, 1, true, BlendState.Additive);
-                    EParticle.NewParticle(new Smoke() { Lifetime = 20, timeleftmax = 20 }, target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 24) * 0.3f, Color.DarkGray, 0.09f, 1, true, BlendState.Additive);
+                    EParticle.NewParticle(new Smoke() { Lifetime = 40, timeleftmax = 40, vc = 0.85f }, target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 70) * 0.3f, Color.DarkGreen, 0.12f, 1, true, BlendState.Additive);
+                    EParticle.NewParticle(new Smoke() { Lifetime = 40, timeleftmax = 40, vc = 0.85f }, target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 70) * 0.3f, Color.DarkGray, 0.12f, 1, true, BlendState.Additive);
                 }
                 //CEUtils.ExplotionParticleLOL(Projectile.Center);
             }

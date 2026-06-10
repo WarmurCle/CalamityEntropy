@@ -64,7 +64,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Vector2 v = target.Center - Projectile.Center;
                     v.Normalize();
 
-                    Projectile.velocity += v * 2f;
+                    Projectile.velocity += v * 3f;
                 }
             }
             EParticle.NewParticle(new Particles.RuneParticle(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);

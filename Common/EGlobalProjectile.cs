@@ -755,7 +755,7 @@ namespace CalamityEntropy.Common
             }
             if (withGrav)
             {
-                projectile.velocity.Y += 0.3f;
+                projectile.velocity.Y += 0.3f / projectile.MaxUpdates;
             }
             dmgupcount--;
             if (maxDmgUps > 0 && dmgupcount <= 0 && projectile.DamageType == DamageClass.Ranged)
