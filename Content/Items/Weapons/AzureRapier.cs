@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useTime = 6;
             Item.useAnimation = 6;
             Item.autoReuse = true;
-            Item.scale = 2f;
+            Item.scale = 1f;
             Item.DamageType = DamageClass.Melee;
             Item.damage = 10;
             Item.knockBack = 5;
