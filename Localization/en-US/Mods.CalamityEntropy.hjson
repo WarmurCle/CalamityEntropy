@@ -1459,7 +1459,6 @@ Items: {
 		Tooltip:
 			'''
 			Summon a Nyxolith Dragon
-			Takes 5 minion slot
 			'''
 	}
 
@@ -2956,7 +2955,6 @@ Items: {
 			Summon the starlight moth to fight for you
 			When there is no target, it will surround you and provide you with life recovery
 			Hold Command Servant ([KEY]) key to manually enter this mode
-			Consume 3 summoning bars
 			'''
 	}
 
@@ -3336,8 +3334,7 @@ Items: {
 		DisplayName: Knightmare
 		Tooltip:
 			'''
-			Summon an knightmare blade fight for you.
-			Need 2 minion slots.
+			Summon an knightmare blade fight for you
 			'''
 	}
 
@@ -3608,7 +3605,6 @@ Items: {
 		Tooltip:
 			'''
 			Summon a cursed torch that throw fire to enemies
-			Consume 2 minion slot
 			'''
 	}
 
@@ -3692,7 +3688,6 @@ Items: {
 		Tooltip:
 			'''
 			Summon a cursed skull that shoots tiny skull to enemies
-			Cost 2 minion slots
 			'''
 	}
 
