@@ -98,7 +98,7 @@ namespace CalamityEntropy.Common
         public static void RemoveAllTags(NPC npc)
         {
             npc.GetGlobalNPC<WhipDebuffNPC>().Tags.Clear();
-            for (int i = 0; i < npc.buffTime.Length; i++)
+            for (int i = 0; i < NPC.maxBuffs; i++)
             {
                 if (npc.buffTime[i] <= 0)
                     continue;
@@ -107,7 +107,7 @@ namespace CalamityEntropy.Common
                 if (npc.buffTime[i] >= 1)
                 {
                     int type = npc.buffType[i];
-                    if (CalamityBuffSets.SummonTagDebuff.TryGetValue(type, out SummonTag tag))
+                    if (CalamityBuffSets.SummonTagDebuff[type] is not null)
                         npc.buffTime[i] = 0;
                 }
             }

@@ -89,7 +89,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<GlacialState>(), 600);
+            target.AddBuff(ModContent.BuffType<FrozenLungs>(), 600);
             target.AddBuff(BuffID.Frostburn, 1080);
             Main.player[Projectile.owner].AddBuff(ModContent.BuffType<CosmicFreeze>(), 600);
             SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode);

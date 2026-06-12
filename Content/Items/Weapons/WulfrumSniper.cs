@@ -85,7 +85,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddTile(TileID.Anvils)
                 .Register();
             CreateRecipe()
-                .AddIngredient<MeldConstruct>(4)
+                .AddIngredient<MeldBlob>(4)
                 .AddIngredient(ItemID.LunarBar, 8)
                 .AddIngredient<AstralBar>(8)
                 .AddCondition(Mod.GetLocalization("ZenithWorld"), () => Main.zenithWorld)

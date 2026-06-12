@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient<MeldConstruct>(9)
+                .AddIngredient<MeldBlob>(9)
                 .AddIngredient<SolarVeil>(8)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();

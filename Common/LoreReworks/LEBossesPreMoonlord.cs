@@ -39,7 +39,7 @@ namespace CalamityEntropy.Common.LoreReworks
         {
             for (int b = 0; b < Player.MaxBuffs; b++)
             {
-                if (player.buffType[b] == BuffID.Chilled || player.buffType[b] == BuffID.Frozen || player.buffType[b] == ModContent.BuffType<GlacialState>())
+                if (player.buffType[b] == BuffID.Chilled || player.buffType[b] == BuffID.Frozen)
                 {
                     if (player.buffTime[b] > 2 && Main.GameUpdateCount % 2 == 0)
                     {

@@ -267,12 +267,6 @@ namespace CalamityEntropy.Common
             if (updateTimes % projectile.MaxUpdates == 0)
                 Lifetime++;
 
-            if (projectile.ModProjectile != null && projectile.ModProjectile is DazzlingStabber ds)
-            {
-                var ff = typeof(DazzlingStabber).GetField("justHit", BindingFlags.NonPublic | BindingFlags.Instance);
-                if (ff != null)
-                    ff.SetValue(ds, false);
-            }
             if (FirstFrames)
                 FirstFrames = false;
         }
@@ -624,13 +618,6 @@ namespace CalamityEntropy.Common
                     projectile.velocity *= (float)Math.Pow(0.97f * Utils.Remap(CEUtils.getDistance(projectile.Center, homing.Center), 0, 600, 0.8f, 1), 1f / projectile.MaxUpdates);
 
                     projectile.velocity += (homing.Center - projectile.Center).normalize() * Utils.Remap(CEUtils.getDistance(projectile.Center, homing.Center), 600, 0, 0.6f, 3) / ((float)projectile.MaxUpdates);
-                }
-            }
-            if (counter == 35)
-            {
-                if (projectile.type == ModContent.ProjectileType<DoGDeath>() && CalamityEntropy.EntropyMode)
-                {
-                    projectile.MaxUpdates *= 3;
                 }
             }
             if (init_)

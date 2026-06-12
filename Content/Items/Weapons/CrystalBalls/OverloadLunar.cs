@@ -34,7 +34,10 @@ namespace CalamityEntropy.Content.Items.Weapons.CrystalBalls
             CreateRecipe()
                 .AddIngredient(ItemID.LunarBar, 5)
                 .AddIngredient(ItemID.CrystalBall, 1)
-                .AddIngredient(ModContent.ItemType<GalacticaSingularity>(), 5)
+                .AddIngredient(ItemID.FragmentNebula, 4)
+                .AddIngredient(ItemID.FragmentSolar, 4)
+                .AddIngredient(ItemID.FragmentStardust, 4)
+                .AddIngredient(ItemID.FragmentVortex, 4)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }

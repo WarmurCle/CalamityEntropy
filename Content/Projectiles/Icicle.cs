@@ -152,7 +152,6 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Dust.NewDust(Projectile.Center, 12, 12, ModContent.DustType<IcePiece1>());
             }
-            target.AddBuff(ModContent.BuffType<GlacialState>(), 600);
             target.AddBuff(BuffID.Frostburn, 1080);
             Main.player[Projectile.owner].AddBuff(ModContent.BuffType<CosmicFreeze>(), 600);
             var r = Main.rand;

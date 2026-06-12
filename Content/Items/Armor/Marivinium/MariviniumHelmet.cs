@@ -74,7 +74,8 @@ namespace CalamityEntropy.Content.Items.Armor.Marivinium
             player.buffImmune[ModContent.BuffType<BonePiercingToxin>()] = true;
             player.buffImmune[ModContent.BuffType<Nightwither>()] = true;
             player.buffImmune[ModContent.BuffType<HolyFlames>()] = true;
-            player.buffImmune[ModContent.BuffType<GlacialState>()] = true;
+            player.buffImmune[ModContent.BuffType<GalvanicCorrosion>()] = true;
+            player.buffImmune[ModContent.BuffType<FrozenLungs>()] = true;
             player.buffImmune[BuffID.Frostburn] = true;
             player.buffImmune[ModContent.BuffType<ArmorCrunch>()] = true;
             player.buffImmune[BuffID.Electrified] = true;

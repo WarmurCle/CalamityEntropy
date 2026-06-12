@@ -37,7 +37,10 @@ namespace CalamityEntropy.Content.Items.Donator
                 .AddIngredient(ItemID.Gungnir)
                 .AddIngredient<CosmiliteBar>(12)
                 .AddIngredient<DivineGeode>(12)
-                .AddIngredient<GalacticaSingularity>(6)
+                .AddIngredient(ItemID.FragmentNebula, 4)
+                .AddIngredient(ItemID.FragmentSolar, 4)
+                .AddIngredient(ItemID.FragmentStardust, 4)
+                .AddIngredient(ItemID.FragmentVortex, 4)
                 .AddIngredient<AscendantSpiritEssence>(2)
                 .AddTile<CosmicAnvil>()
                 .Register();

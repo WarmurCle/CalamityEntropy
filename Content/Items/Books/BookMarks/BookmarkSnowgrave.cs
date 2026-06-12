@@ -140,7 +140,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff<GlacialState>(250);
+            target.AddBuff<FrozenLungs>(250);
         }
 
         public override bool PreDraw(ref Color lightColor)

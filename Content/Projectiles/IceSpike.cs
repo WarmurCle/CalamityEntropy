@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Projectiles
             SoundStyle sd = new SoundStyle("CalamityMod/Sounds/NPCHit/CryogenHit", 3);
             sd.Volume = 0.5f;
             SoundEngine.PlaySound(sd, Projectile.Center);
-            target.AddBuff(ModContent.BuffType<GlacialState>(), 600);
+            target.AddBuff(ModContent.BuffType<FrozenLungs>(), 600);
             target.AddBuff(BuffID.Frostburn, 1080);
             Main.player[Projectile.owner].AddBuff(ModContent.BuffType<CosmicFreeze>(), 600);
         }
