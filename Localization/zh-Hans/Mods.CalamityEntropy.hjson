@@ -3570,10 +3570,7 @@ Items: {
 
 	Knightmare: {
 		DisplayName: 梦幻崩影
-		Tooltip:
-			'''
-			召唤一把能够干净利落的切碎任何敌人的梦魇神锋
-			'''
+		Tooltip: 召唤一把能够干净利落的切碎任何敌人的梦魇神锋
 	}
 
 	BookmarkStarwreckage: {
@@ -3844,10 +3841,7 @@ Items: {
 
 	CursedTorch: {
 		DisplayName: 诅咒火炬
-		Tooltip:
-			'''
-			召唤诅咒火炬，向敌人喷射诅咒焰
-			'''
+		Tooltip: 召唤诅咒火炬，向敌人喷射诅咒焰
 	}
 
 	PhantomBottle: {
@@ -3928,10 +3922,7 @@ Items: {
 
 	OblivionSkull: {
 		DisplayName: 冥骸头骨
-		Tooltip:
-			'''
-			召唤一只诅咒头骨，向敌人发射骷髅头
-			'''
+		Tooltip: 召唤一只诅咒头骨，向敌人发射骷髅头
 	}
 
 	BloodCodex: {

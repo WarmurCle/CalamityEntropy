@@ -146,13 +146,10 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
                     frame = 1;
                 }
             }
-            if (!owner.active)
+            if (owner != null && (!owner.active || owner.life <= 0))
             {
+                NPC.realLife = -1;
                 NPC.StrikeInstantKill();
-            }
-            else
-            {
-
             }
         }
         public NPC owner { get { return NPC.realLife.ToNPC(); } }
@@ -176,7 +173,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             public void Update(NPC npc)
             {
                 pointRots[0] = npc.rotation + rot + (float)(Math.Cos(npc.localAI[2]++ * 0.008f) * 0.6f);
-                points[0] = npc.Center + (npc.rotation + rot).ToRotationVector2() * 30 * (npc.IsABestiaryIconDummy ? 0.5f : 1);
+                points[0] = npc.Center + npc.velocity + (npc.rotation + rot).ToRotationVector2() * 30 * (npc.IsABestiaryIconDummy ? 0.5f : 1);
 
                 for (int i = 1; i < points.Count; i++)
                 {

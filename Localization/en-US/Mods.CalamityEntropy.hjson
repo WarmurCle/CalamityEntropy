@@ -1456,10 +1456,7 @@ Items: {
 
 	Nyxolithraken: {
 		DisplayName: Nyxolithraken
-		Tooltip:
-			'''
-			Summon a Nyxolith Dragon
-			'''
+		Tooltip: Summon a Nyxolith Dragon
 	}
 
 	MariviniumBodyArmor: {
@@ -3332,10 +3329,7 @@ Items: {
 
 	Knightmare: {
 		DisplayName: Knightmare
-		Tooltip:
-			'''
-			Summon an knightmare blade fight for you
-			'''
+		Tooltip: Summon an knightmare blade fight for you
 	}
 
 	BookmarkStarwreckage: {
@@ -3602,10 +3596,7 @@ Items: {
 
 	CursedTorch: {
 		DisplayName: Cursed Torch
-		Tooltip:
-			'''
-			Summon a cursed torch that throw fire to enemies
-			'''
+		Tooltip: Summon a cursed torch that throw fire to enemies
 	}
 
 	PhantomBottle: {
@@ -3685,10 +3676,7 @@ Items: {
 
 	OblivionSkull: {
 		DisplayName: Oblivion Skull
-		Tooltip:
-			'''
-			Summon a cursed skull that shoots tiny skull to enemies
-			'''
+		Tooltip: Summon a cursed skull that shoots tiny skull to enemies
 	}
 
 	BloodCodex: {
