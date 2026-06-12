@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Books
             Item.crit = 10;
             Item.mana = 30;
             Item.shootSpeed = 45;
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            Item.rare = ModContent.RarityType<ExoticRainbow>();
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
         }
         public override Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/BookMark7").Value;
