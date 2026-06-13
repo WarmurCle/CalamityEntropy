@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using CalamityEntropy.Content.Items.Donator;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -7,8 +8,10 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Pets
 {
-    public class Zafkiel : ModItem
+    public class Zafkiel : ModItem, IDonatorItem
     {
+        public string DonatorName => "Dannon";
+
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.ZephyrFish);
