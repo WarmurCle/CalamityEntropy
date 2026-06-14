@@ -623,10 +623,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 flag2 = false;
                 Dir = Projectile.velocity.X > 0 ? -1 : 1;
             }
+            Player owner = Projectile.GetOwner();
             if (!flag)
                 if (Projectile.localAI[0]++ > 300)
-                    length = float.Lerp(length, Main.zenithWorld ? 2.5f : 1, 0.01f);
-            Player owner = Projectile.GetOwner();
+                    length = float.Lerp(length, Main.zenithWorld ? 2.5f : 1, 0.01f) * owner.HeldItem.scale;
             if (!owner.dead)
                 Projectile.timeLeft = 3;
             owner.Calamity().mouseWorldListener = true;
