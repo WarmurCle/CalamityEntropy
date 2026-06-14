@@ -4277,6 +4277,15 @@ Items: {
 		DisplayName: 阿萨福勒留声机
 		Tooltip: 播放阿萨福勒卫城机甲的主题曲
 	}
+
+	BuriedSun: {
+		DisplayName: 埋葬之阳
+		Tooltip:
+			'''
+			连发[c/f0ffe6:日陨激光]，在消失时生成[c/f0ffe6:噬阳光点]
+			临近的3个光点会朝附近的目标发射[c/f0ffe6:葬日裂弹]并汇聚在一起并发射不穿透的[c/f0ffe6:日陨激光]
+			'''
+	}
 }
 
 SmolderingSetBonus:
@@ -4864,15 +4873,15 @@ Projectiles: {
 
 	AzureRapierHeld: {
 		$parentVal: 苍蓝刺剑
-		// DisplayName: Azure Rapier Held
+		DisplayName: 苍蓝刺剑
 	}
 
 	AzureRapierBlockSlash: {
 		$parentVal: 苍蓝刺剑防反
-		// DisplayName: Azure Rapier Block Slash
+		DisplayName: 苍蓝刺剑防反
 	}
 
-	// AzureRapierBlock.DisplayName: Azure Rapier Block
+	AzureRapierBlock.DisplayName: 苍蓝刺剑格挡
 	DarkScriptureHeld.DisplayName: 黑暗秘典
 	DarkBullet.DisplayName: 黑暗弹
 	SelenbiteStar.DisplayName: 月蚀星
@@ -4998,8 +5007,12 @@ Projectiles: {
 	ClusterMissileProj.DisplayName: 集束导弹
 	ClusterMissileSmall.DisplayName: 小型导弹
 	GiantBoulderProj.DisplayName: 超大巨石
-	// HallowedMissileProj.DisplayName: Hallowed Missile Proj
-	// StarBreakerHeld.DisplayName: Star Breaker Held
+	HallowedMissileProj.DisplayName: 圣化导弹
+	StarBreakerHeld.DisplayName: 星启破军
+	BuriedSunHoldout.DisplayName: 埋葬之阳
+	BuriedShoot.DisplayName: 日陨激光
+	BuriedDot.DisplayName: 噬阳光点
+	BuriedShoot2.DisplayName: 日陨激光
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5626,7 +5639,7 @@ Tiles: {
 	VoidOre.MapEntry: Void Ore
 	VoidOreTile.MapEntry: 虚渺矿
 	VoidBarTile.MapEntry: 虚渺锭
-	// GiantBoulderTile.MapEntry: Giant Boulder Tile
+	GiantBoulderTile.MapEntry: 超大巨石
 }
 
 VoidChargeBar: 虚空充能条

@@ -15,7 +15,6 @@ namespace CalamityEntropy.Content.Items.Weapons
         public float SniperDmgMult = 8f;
         public float SniperCritMult = Main.zenithWorld ? 7f : 1.35f;
         public float SniperVelocityMult = 2f;
-        public new string LocalizationCategory => "Items.Weapons.Ranged";
 
         public override bool RangedPrefix()
         {

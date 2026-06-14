@@ -4034,6 +4034,17 @@ Items: {
 		DisplayName: Azafure Phonograph
 		Tooltip: ""
 	}
+
+	BuriedSun: {
+		DisplayName: Buried Sun
+		Tooltip:
+			'''
+			Burst-fire [c/f0ffe6:Sunfall Laser],
+			upon disappearing, generates [c/f0ffe6:Eclipse Spots]
+			Three adjacent spots will fire [c/f0ffe6:Sun Splinter] at nearby targets,
+			and converge together to fire a non-penetrating [c/f0ffe6:Sunfall Laser]
+			'''
+	}
 }
 
 SmolderingSetBonus:
@@ -4768,6 +4779,10 @@ Projectiles: {
 	GiantBoulderProj.DisplayName: Giant Boulder Proj
 	HallowedMissileProj.DisplayName: Hallowed Missile Proj
 	StarBreakerHeld.DisplayName: Star Breaker Held
+	BuriedSunHoldout.DisplayName: Buried Sun Holdout
+	BuriedShoot.DisplayName: Buried Shoot
+	BuriedDot.DisplayName: Buried Dot
+	BuriedShoot2.DisplayName: Buried Shoot2
 }
 
 LegendTooltip: - Legend -

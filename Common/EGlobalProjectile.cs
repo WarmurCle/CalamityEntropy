@@ -13,6 +13,7 @@ using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Projectiles.VoidEchoProj;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
+using CalamityMod.Enums;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.NPCs.Signus;
@@ -129,6 +130,7 @@ namespace CalamityEntropy.Common
         public bool GWBow = false;
         public int dmgupcount = 10;
         public bool ashesArrow = false;
+        public bool buriedShoot = false;
         public int vddirection = 1;
         public bool ToFriendly = false;
         public bool BarrenHoming = false;
@@ -218,6 +220,7 @@ namespace CalamityEntropy.Common
             binaryWriter.Write(SmartArcEffect);
             binaryWriter.Write(FirstFrames);
             binaryWriter.Write(ashesArrow);
+            binaryWriter.Write(buriedShoot);
             foreach (var key in DataSynchronous.Keys)
             {
                 DataSynchronous[key].Write(binaryWriter);
@@ -243,6 +246,7 @@ namespace CalamityEntropy.Common
             SmartArcEffect = binaryReader.ReadBoolean();
             FirstFrames = binaryReader.ReadBoolean();
             ashesArrow = binaryReader.ReadBoolean();
+            buriedShoot = binaryReader.ReadBoolean();
             foreach (var key in DataSynchronous.Keys)
             {
                 DataSynchronous[key].ReadToValue(binaryReader);
@@ -266,9 +270,11 @@ namespace CalamityEntropy.Common
             updateTimes++;
             if (updateTimes % projectile.MaxUpdates == 0)
                 Lifetime++;
-
-            if (FirstFrames)
-                FirstFrames = false;
+            if(buriedShoot)
+            {
+                GeneralParticleHandler.SpawnParticle(new CustomSpark(projectile.Center + projectile.velocity.normalize() * 40, -projectile.velocity * 0.05f, "CalamityMod/Particles/GlowSpark2", affectedByGravity: false, 9, 0.03f, Color.Black, new Vector2(0.6f, 1.3f), useAddativeBlend: false));
+                GeneralParticleHandler.SpawnParticle(new CustomSpark(projectile.Center + projectile.velocity.normalize() * 40, -projectile.velocity * 0.05f, "CalamityMod/Particles/GlowSpark", affectedByGravity: false, 7, 0.012f, Color.LightGreen, new Vector2(0.6f, 1.9f)), pixelate: false, GeneralDrawLayer.AfterEverything);
+            }
         }
         public bool Losted = false;
         public int Shooter = -1;
@@ -965,6 +971,9 @@ namespace CalamityEntropy.Common
                 }
             }
 
+
+            if (FirstFrames)
+                FirstFrames = false;
         }
         public static bool CircleIntersectsRectangle(Vector2 circleCenter, float radius, Rectangle rectangle)
         {
