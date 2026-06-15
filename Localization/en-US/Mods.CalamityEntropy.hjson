@@ -1396,7 +1396,11 @@ Items: {
 
 	AbyssalAltar: {
 		DisplayName: Abyssal Altar
-		Tooltip: ""
+		Tooltip: 
+		'''
+		Used to craft some weapons and equipments
+		Right click with a wyrm tooth to summon the Primordial Wyrm
+		'''
 	}
 
 	Ystralyn: {
