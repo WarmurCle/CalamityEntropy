@@ -1643,6 +1643,17 @@ namespace CalamityEntropy
             string Isaac2 = Path.Combine(MyGameFolder, "Binding of Isaac Repentance+").Replace("/", "\\");
             BrokenAnkh.isaac = Directory.Exists(Isaac1) || Directory.Exists(Isaac2);
 
+            //Load special sounds
+            if (!Main.dedServ)
+            {
+                ealaserSound = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/VoidLaserLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                ealaserSound2 = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/portal_loop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                ofCharge = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/ElectricLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                FableEye.sound = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/prophetlaserloop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                UrnOfSoulsHoldout.loopSnd = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/flamethrower loop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                otLoop = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/ThretherLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            }
+
             #region RegisterBoss
             Mod bossChecklist;
             if (ModLoader.TryGetMod("BossChecklist", out bossChecklist))
@@ -1790,15 +1801,7 @@ namespace CalamityEntropy
                 }
             }
             #endregion
-            if (!Main.dedServ)
-            {
-                ealaserSound = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/VoidLaserLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                ealaserSound2 = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/portal_loop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                ofCharge = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/ElectricLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                FableEye.sound = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/prophetlaserloop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                UrnOfSoulsHoldout.loopSnd = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/flamethrower loop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                otLoop = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/ThretherLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            }
+            #region Bossbar Colors
             EntropyBossbar.bossbarColor[NPCID.KingSlime] = new Color(90, 160, 255);
             EntropyBossbar.bossbarColor[ModContent.NPCType<DesertScourgeHead>()] = new Color(216, 210, 175);
             EntropyBossbar.bossbarColor[ModContent.NPCType<GiantClam>()] = new Color(128, 255, 255);
@@ -1944,7 +1947,6 @@ namespace CalamityEntropy
                         AddBossbarColor(fs, "Magmaw", Color.Gray);
                         AddBossbarColor(fs, "MutantBoss", AprilFool ? new Color(217, 142, 67) : new Color(100, 200, 255));
                         AddBossbarColor(fs, "TrojanSquirrel", new Color(147, 108, 85));
-
                     }
                 }
             }
@@ -1952,9 +1954,10 @@ namespace CalamityEntropy
             {
                 Logger.Warn("CalamityEntropy: Other mods' bossbar color failed to setup");
             }
+            #endregion
 
             //Custom titles
-            if (!Main.dedServ && Main.rand.NextBool(6))
+            if (!Main.dedServ && Main.rand.NextBool(9))
             {
                 SetARandomEntropyTitle();
             }
