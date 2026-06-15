@@ -53,11 +53,11 @@ namespace CalamityEntropy.Common.DrawLayers
                 drawLine(origin + new Vector2(50, 22).RotatedBy(lRot) * scale);
                 drawLine(origin + new Vector2(28, -8).RotatedBy(rRot) * scale);
                 drawLine(origin + new Vector2(28, 8).RotatedBy(lRot) * scale);
-                drawLine(origin + new Vector2(0, -14).RotatedBy(player.fullRotation));
+                drawLine(origin + new Vector2(0, -14));
                 drawLine(player.GetFrontHandPositionImproved(player.compositeFrontArm));
                 drawLine(player.GetBackHandPositionImproved(player.compositeBackArm));
-                drawLine(origin + new Vector2(player.velocity.Y == 0 ? 5 : 8, 10).RotatedBy(player.fullRotation));
-                drawLine(origin + new Vector2(player.velocity.Y == 0 ? -5 : -8, 10).RotatedBy(player.fullRotation));
+                drawLine(origin + new Vector2(player.velocity.Y == 0 ? 5 : 8, 10));
+                drawLine(origin + new Vector2(player.velocity.Y == 0 ? -5 : -8, 10));
             }
             drawInfo.DrawDataCache.Add(new DrawData(texture, origin - Main.screenPosition, null, GC(new Color(200, 200, 0)), rRot, new Vector2(0, 15), new Vector2(1f, 1.8f) * scale, SpriteEffects.None) { shader = drawInfo.drawPlayer.cWings });
             drawInfo.DrawDataCache.Add(new DrawData(texture, origin - Main.screenPosition, null, GC(new Color(0, 80, 0)), lRot, new Vector2(0, texture.Height - 15), new Vector2(1f, 1.8f) * scale, SpriteEffects.FlipVertically) { shader = drawInfo.drawPlayer.cWings });
@@ -87,7 +87,7 @@ namespace CalamityEntropy.Common.DrawLayers
             float dist = 50;
             Vector2 origin = Player.MountedCenter + new Vector2(0, -8);
             bool flying = Player.wingTime > 0 && Player.controlJump;
-            float rot = Player.fullRotation + (Player.velocity.X * 0.036f);
+            float rot = (Player.velocity.X * 0.036f);
             Vector2 ltarget = origin + float.Lerp((rot + MathHelper.Pi + 0.6f), (rot + MathHelper.Pi - 0.3f), Num).ToRotationVector2() * dist;
             Vector2 rtarget = origin + float.Lerp((rot - 0.6f), (rot + 0.3f), Num).ToRotationVector2() * dist;
             Num = float.Lerp(Num, flying ? 0 : 1, 0.09f);
