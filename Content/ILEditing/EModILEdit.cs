@@ -183,8 +183,8 @@ namespace CalamityEntropy.Content.ILEditing
             var updateLifeRegenMethod = typeof(CalamityGlobalNPC).GetMethod("UpdateLifeRegen", BindingFlags.Instance | BindingFlags.Public, new Type[] { typeof(NPC), typeof(int).MakeByRefType() });
             EModHooks.Add(updateLifeRegenMethod, updateLiferegenHook);
 
-            var update_rogue_stealth_f = typeof(CalamityPlayer).GetMethod("UpdateRogueStealth", BindingFlags.Public | BindingFlags.Instance);
-            EModHooks.Add(update_rogue_stealth_f, UpdateRogueStealthHook);
+            /*var update_rogue_stealth_f = typeof(CalamityPlayer).GetMethod("UpdateRogueStealth", BindingFlags.Public | BindingFlags.Instance);
+            EModHooks.Add(update_rogue_stealth_f, UpdateRogueStealthHook);*/
 
             var organic_m = typeof(CalamityUtils).GetMethod("Organic", BindingFlags.Static | BindingFlags.Public);
             EModHooks.Add(organic_m, organic_hook);
@@ -301,7 +301,7 @@ namespace CalamityEntropy.Content.ILEditing
             player.Calamity().draedonsHeart = dHeart;
             CalamityWorld.revenge = revenge;
         }
-        private static void UpdateRogueStealthHook(CalamityPlayer self)
+        /*private static void UpdateRogueStealthHook(CalamityPlayer self)
         {
             Player Player = self.Player;
             if (self.temporaryStealthTimer > 0)
@@ -386,7 +386,7 @@ namespace CalamityEntropy.Content.ILEditing
                 else
                     self.rogueStealth = 0f;
             }
-        }
+        }*/
         public static string On_Name_Get_Hook(On_GetItemName_get_Delegate orig, Item item)
         {
             if (Main.gameMenu || item.ModItem == null)
