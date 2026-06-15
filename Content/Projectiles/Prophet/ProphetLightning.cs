@@ -104,6 +104,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             float lw = 0.7f * ((36f - Projectile.ai[0]) / 36f);
             Color color = Color.White;
 
+            Main.spriteBatch.UseBlendState(BlendState.Additive, SamplerState.LinearWrap);
             if (Projectile.ai[0] > 80)
             {
 
@@ -123,7 +124,6 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                     lr = (points[i] - points[i - 1]).ToRotation();
                 }
                 a = 1;
-                Main.spriteBatch.UseBlendState(BlendState.Additive, SamplerState.LinearWrap);
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
                 if (ve.Count >= 3)
                 {
@@ -131,7 +131,6 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                     gd.Textures[0] = tx;
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
-                Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
             }
             else
             {
@@ -159,6 +158,7 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 }
             }
+            Main.spriteBatch.ExitShaderRegion();
             return false;
         }
     }
