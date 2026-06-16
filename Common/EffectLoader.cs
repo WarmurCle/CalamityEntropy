@@ -1109,7 +1109,7 @@ namespace CalamityEntropy.Common
                         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                         startBatch = true;
                     }
-                    CEUtils.DrawGlow(p.Center, Color.White * p.Opacity * 0.6f, 5);
+                    CEUtils.DrawGlow(p.Center, Color.White * p.Opacity * 0.4f, 3);
                 }
                 if (p.type == ratzielStype)
                 {
