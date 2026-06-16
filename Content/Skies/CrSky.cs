@@ -159,7 +159,7 @@ namespace CalamityEntropy.Content.Skies
                 fscreen.CurrentTechnique = fscreen.Techniques["Technique1"];
                 fscreen.CurrentTechnique.Passes[0].Apply();
                 fscreen.Parameters["strengthMult"].SetValue(0.26f * opacity);
-                fscreen.Parameters["screen"].SetValue(Main.screenPosition / Main.ScreenSize.ToVector2());
+                fscreen.Parameters["screen"].SetValue(Main.screenPosition * 0.5f / Main.ScreenSize.ToVector2());
                 fscreen.Parameters["iTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.02f);
                 graphicsDevice.Textures[0] = EffectLoader.Screen0;
                 graphicsDevice.Textures[1] = Main.screenTargetSwap;
