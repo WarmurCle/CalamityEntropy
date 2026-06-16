@@ -63,7 +63,7 @@ namespace CalamityEntropy.Content.Skies
             {
                 pc *= 0.2f;
             }*/
-            Color ocolor = new Color((int)(12 * pc), (int)(65 * pc), (int)(100 * pc));
+            Color ocolor = new Color((int)(60 * pc), (int)(65 * pc), (int)(126 * pc));
             bool drawAWMask = false;
             int AWIndex = -1;
             /*if (NPC.AnyNPCs(ModContent.NPCType<AbyssalWraith>()))
@@ -87,7 +87,7 @@ namespace CalamityEntropy.Content.Skies
             Main.spriteBatch.UseSampleState(SamplerState.LinearWrap);
             Vector2 dp = new Vector2((Main.screenPosition.X * -0.5f + counter * 0.3f) % txd.Width, (Main.screenPosition.Y * -0.5f + counter * -0.1f) % txd.Height);
             spriteBatch.Draw(txd, new Vector2(-528, -528), new Rectangle((int)-dp.X, (int)-dp.Y, (int)(Main.screenWidth + 2024), (int)(Main.screenHeight + 1920)), ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-
+            Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/ColorLerp2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             if (awtime > 0)
             {
                 spriteBatch.End();
@@ -120,79 +120,55 @@ namespace CalamityEntropy.Content.Skies
             else
             {
                 spriteBatch.End();
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
+                shader.CurrentTechnique.Passes[0].Apply();
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, shader);
                 ocolor = new Color((int)(12 * pc), (int)(62 * pc), (int)(96 * pc));
             }
             float c = 1f;
-            dp = new Vector2((Main.screenPosition.X * -0.5f * c + counter * -0.3f * c) % txd.Width, (Main.screenPosition.Y * -0.5f * c + counter * 0.1f * c) % txd.Height);
-            spriteBatch.Draw(txd, new Vector2(-528, -528), new Rectangle((int)-dp.X, (int)-dp.Y, Main.screenWidth + 2024, Main.screenHeight + 1920), ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-
-            if (drawAWMask && EffectLoader.Screen0 != null && EffectLoader.Screen1 != null && !EffectLoader.Screen0.IsDisposed && !EffectLoader.Screen1.IsDisposed)
+            txd = CEUtils.getExtraTex("CrSky");
+            shader.Parameters["alpha"].SetValue(0.6f * opacity);
+            for (int i = 1; i <= 2; i++)
             {
-                spriteBatch.End();
-                GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
-                RenderTarget2D screen = EffectLoader.Screen0;
-                RenderTarget2D screen2 = EffectLoader.Screen1;
-                graphicsDevice.SetRenderTarget(screen2);
-                graphicsDevice.Clear(Color.Transparent);
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-                spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
-                spriteBatch.End();
-
-                graphicsDevice.SetRenderTarget(screen);
-                graphicsDevice.Clear(Color.Transparent);
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
-                Texture2D s = CEUtils.getExtraTex("Perlin");
-                Texture2D s1 = CEUtils.getExtraTex("EternityStreak");
-                spriteBatch.Draw(CEUtils.pixelTex, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.1f - Main.screenPosition.X * -0.5f), (int)(counter * 0.1f - Main.screenPosition.Y * -0.5f), Main.screenWidth, Main.screenHeight), Color.White);
-
-
-                spriteBatch.End();
-
-                graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
-                graphicsDevice.Clear(Color.Black);
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
-
-                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.33f - Main.screenPosition.X * -0.125f), (int)(counter * -0.043f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.5f);
-                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.37f - Main.screenPosition.X * -0.125f), (int)(counter * -0.046f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.5f);
-                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.44f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0373f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.5f);
-                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.245f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0329f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.5f);
-                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.478f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0334f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.5f);
-                spriteBatch.Draw(s1, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle((int)(counter * 0.45f - Main.screenPosition.X * -0.125f), (int)(counter * -0.0421f - Main.screenPosition.Y * -0.125f), Main.screenWidth / 4, Main.screenHeight / 4), Color.White * 0.5f);
-                spriteBatch.End();
-
-                graphicsDevice.SetRenderTarget(Main.screenTarget);
-                graphicsDevice.Clear(Color.Black);
-                skyEffect2.CurrentTechnique = skyEffect2.Techniques["Technique1"];
-                skyEffect2.Parameters["time"].SetValue(Main.GlobalTimeWrappedHourly * 4);
-
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
-
-                skyEffect2.CurrentTechnique.Passes[0].Apply();
-                spriteBatch.Draw(screen2, Vector2.Zero, Color.White);
-
-                skyEffect.CurrentTechnique = skyEffect.Techniques["Technique1"];
-                skyEffect.CurrentTechnique.Passes[0].Apply();
-                skyEffect.Parameters["tex0"].SetValue(screen);
-                skyEffect.Parameters["minAlpha"].SetValue(0f);
-                skyEffect.Parameters["a"].SetValue(opacity);
-                skyEffect.Parameters["r"].SetValue(0.16f);
-                skyEffect.Parameters["g"].SetValue(0.2f);
-                skyEffect.Parameters["b"].SetValue(0.36f);
-                spriteBatch.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White * opacity);
-
-                spriteBatch.End();
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
-
-                Texture2D m = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/lightball").Value;
-                float size = ((AbyssalWraith)AWIndex.ToNPC().ModNPC).anmlerp;
-
-                spriteBatch.Draw(m, AWIndex.ToNPC().Center - Main.screenPosition, null, Color.Purple, 0, m.Size() / 2, 16 * size, SpriteEffects.None, 0);
+                dp = new Vector2((Main.screenPosition.X * -0.5f * c + counter * (i * -0.13f - 0.2f) * c + i * 333) % txd.Width, (Main.screenPosition.Y * -0.5f * c + counter * (i * 0.1f + 0.2f) * c + i * -333) % txd.Height);
+                spriteBatch.Draw(txd, new Vector2(-528, -528), new Rectangle((int)-dp.X, (int)-dp.Y, Main.screenWidth + 2024, Main.screenHeight + 1920), ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             }
+            Main.spriteBatch.ExitShaderRegion();
             spriteBatch.End();
 
+            if(ModContent.GetInstance<Config>().ScreenWarpEffects)
+            {
+                var graphicsDevice = Main.graphics.GraphicsDevice;
+                graphicsDevice.SetRenderTarget(EffectLoader.Screen0);
+                graphicsDevice.Clear(Color.Transparent);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+                Main.spriteBatch.End();
 
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null);
+                graphicsDevice.SetRenderTarget(Main.screenTargetSwap);
+                graphicsDevice.Clear(Color.Transparent);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+                CEUtils.drawLine(new Vector2(-600, Main.screenHeight / 2 / 2), new Vector2(Main.ScreenSize.X + 1200, Main.screenHeight / 2), Color.White * 1f, 3000, 0, false);
+
+                Main.spriteBatch.End();
+
+                graphicsDevice.SetRenderTarget(Main.screenTarget);
+                graphicsDevice.Clear(Color.Transparent);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                var fscreen = EffectLoader.fscreen;
+                fscreen.CurrentTechnique = fscreen.Techniques["Technique1"];
+                fscreen.CurrentTechnique.Passes[0].Apply();
+                fscreen.Parameters["strengthMult"].SetValue(0.26f * opacity);
+                fscreen.Parameters["screen"].SetValue(Main.screenPosition / Main.ScreenSize.ToVector2());
+                fscreen.Parameters["iTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.02f);
+                graphicsDevice.Textures[0] = EffectLoader.Screen0;
+                graphicsDevice.Textures[1] = Main.screenTargetSwap;
+                graphicsDevice.Textures[2] = CEUtils.getExtraTex("VoidBack");
+                Main.spriteBatch.Draw(EffectLoader.Screen0, Vector2.Zero, Color.White);
+                Main.spriteBatch.End();
+            }
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null);
 
             /*if (SubworldSystem.IsActive<VOIDSubworld>())
             {

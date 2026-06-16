@@ -12,6 +12,7 @@ using CalamityEntropy.Content.Projectiles.Chainsaw;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.Pets.Abyss;
 using CalamityEntropy.Content.Projectiles.Prophet;
+using CalamityEntropy.Content.Skies;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using InnoVault;

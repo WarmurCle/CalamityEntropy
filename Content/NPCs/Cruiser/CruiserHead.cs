@@ -1001,7 +1001,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                         if (ai == AIStyle.AroundSpawnVoidBomb)
                         {
                             NPC.velocity = NPC.velocity.normalize() * (NPC.velocity.Length() + (32 - NPC.velocity.Length()) * 0.08f);
-                            NPC.velocity = CEUtils.RotateTowardsAngle(NPC.velocity.ToRotation(), (target.Center - NPC.Center).ToRotation(), 0.028f, false).ToRotationVector2() * NPC.velocity.Length();
+                            NPC.velocity = CEUtils.RotateTowardsAngle(NPC.velocity.ToRotation(), (target.Center - NPC.Center).ToRotation(), 0.022f, false).ToRotationVector2() * NPC.velocity.Length();
 
                             changeCounter++;
                             if (changeCounter < 180)
@@ -1009,7 +1009,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                 if (changeCounter % 7 == 0)
                                 {
                                     if (canShoot)
-                                        Shoot(ModContent.ProjectileType<VoidBomb>(), NPC.Center, CEUtils.randomPointInCircle(8) + (target.Center - NPC.Center).normalize() * 22);
+                                        Shoot(ModContent.ProjectileType<VoidBomb>(), NPC.Center, CEUtils.randomPointInCircle(8) + (target.Center - NPC.Center).normalize() * 20);
                                 }
                             }
                             if (changeCounter > 340)
