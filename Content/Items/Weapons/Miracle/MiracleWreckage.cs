@@ -88,6 +88,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         public float rotVel = 0;
         public override void AI()
         {
+            if(Projectile.Entropy().FirstFrames)
+            {
+                float scale_ = Projectile.GetOwner().HeldItem.scale;
+                Projectile.GetOwner().ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
+            }
             Projectile.timeLeft = 4;
             Player player = Projectile.GetOwner();
             float speed = player.GetTotalAttackSpeed(DamageClass.Melee);
@@ -286,6 +292,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         {
             if (Projectile.localAI[0] == 0)
             {
+                float scale_ = Projectile.GetOwner().HeldItem.scale;
+                Projectile.GetOwner().ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
                 CEUtils.PlaySound("DemonSwordSwing1", Main.rand.NextFloat(1.5f, 1.9f), Projectile.Center);
             }
             Projectile.localAI[0]++;
@@ -402,6 +411,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
 
         public override void AI()
         {
+            if (Projectile.Entropy().FirstFrames)
+            {
+                float scale_ = Projectile.GetOwner().HeldItem.scale;
+                Projectile.GetOwner().ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
+            }
             Player player = Main.player[Projectile.owner];
             bool VisualsOrange = false;
             Color FXColor = Main.rand.NextBool() ? Color.MediumVioletRed : Color.Violet;
@@ -621,12 +636,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             if (flag2)
             {
                 flag2 = false;
+                float scale_ = Projectile.GetOwner().HeldItem.scale;
+                Projectile.GetOwner().ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
                 Dir = Projectile.velocity.X > 0 ? -1 : 1;
             }
             Player owner = Projectile.GetOwner();
             if (!flag)
                 if (Projectile.localAI[0]++ > 300)
-                    length = float.Lerp(length, Main.zenithWorld ? 2.5f : 1, 0.01f) * owner.HeldItem.scale;
+                    length = float.Lerp(length, (Main.zenithWorld ? 2f : 1), 0.01f);
             if (!owner.dead)
                 Projectile.timeLeft = 3;
             owner.Calamity().mouseWorldListener = true;
@@ -708,9 +726,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             }
             for (int i = 0; i < 1; i++)
             {
-                particles.Add(new MWParticle(new Vector2(Main.rand.NextFloat(15, 17) * length, 0).RotatedByRandom(0.025f)) { offset = CEUtils.randomPointInCircle(10) });
-                particles[particles.Count - 1].scale *= 2.4f * length;
-                particles[particles.Count - 1].offset -= (Main.zenithWorld ? new Vector2(length * 85, 0) : Vector2.Zero);
+                particles.Add(new MWParticle(new Vector2(Main.rand.NextFloat(15, 17) * length * Projectile.scale, 0).RotatedByRandom(0.025f)) { offset = CEUtils.randomPointInCircle(10) });
+                particles[particles.Count - 1].scale *= 2.4f * length * Projectile.scale;
+                particles[particles.Count - 1].offset -= (Main.zenithWorld ? new Vector2(length * Projectile.scale * 85, 0) : Vector2.Zero);
             }
             if (Projectile.velocity.X > 0)
             {
@@ -818,9 +836,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             Texture2D c = CEUtils.getExtraTex("SemiCircularSmear");
             float alphac = vsAlpha * 0.82f;
             float crot = Projectile.rotation + Dir * -1.2f;
-            Main.spriteBatch.Draw(c, Projectile.Center - Main.screenPosition, null, Color.MediumPurple * alphac, crot, c.Size() / 2f, 13f * 0.5f * length, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(c, Projectile.Center - Main.screenPosition, null, Color.Red * alphac * 0.5f, crot, c.Size() / 2f, 5f * (Projectile.ai[1] + 0.5f) * length, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(c, Projectile.Center - Main.screenPosition, null, Color.Pink * alphac * 0.6f, crot, c.Size() / 2f, 10 * (Projectile.ai[1] + 0.5f) * length, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(c, Projectile.Center - Main.screenPosition, null, Color.MediumPurple * alphac, crot, c.Size() / 2f, 13f * 0.5f * length * Projectile.scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(c, Projectile.Center - Main.screenPosition, null, Color.Red * alphac * 0.5f, crot, c.Size() / 2f, 5f * (Projectile.ai[1] + 0.5f) * length * Projectile.scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(c, Projectile.Center - Main.screenPosition, null, Color.Pink * alphac * 0.6f, crot, c.Size() / 2f, 10 * (Projectile.ai[1] + 0.5f) * length * Projectile.scale, SpriteEffects.None, 0);
             foreach (var p in particles)
             {
                 Main.spriteBatch.Draw(g, Projectile.Center + p.offset.RotatedBy(Projectile.rotation) - Main.screenPosition, null, p.color, Projectile.rotation + p.velocity.ToRotation(), new Vector2(40, 128), new Vector2(1f, 0.25f) * 0.6f * p.scale, SpriteEffects.None, 0);
@@ -864,6 +882,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         }
         public override void AI()
         {
+            if (Projectile.Entropy().FirstFrames)
+            {
+                float scale_ = Projectile.GetOwner().HeldItem.scale;
+                Projectile.GetOwner().ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
+            }
             Projectile.rotation = Projectile.velocity.ToRotation();
             Projectile.Opacity = Projectile.timeLeft / 30f;
 
