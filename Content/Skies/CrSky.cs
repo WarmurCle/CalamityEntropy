@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Skies
         {
             skyActive = true;
         }
-
+        public static Effect shader;
         public override Color OnTileColor(Color inColor)
         {
             return Color.Lerp(inColor, new Color(255, 255, 255, inColor.A), opacity);
@@ -48,12 +48,10 @@ namespace CalamityEntropy.Content.Skies
         public Effect skyEffect = null; public Effect skyEffect2 = null;
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
-
             if (this.skyEffect == null)
             {
                 this.skyEffect = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/AWSkyEffect", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 this.skyEffect2 = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/awsky2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-
             }
             counter++;
             Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/CrSky").Value;
@@ -64,8 +62,6 @@ namespace CalamityEntropy.Content.Skies
                 pc *= 0.2f;
             }*/
             Color ocolor = new Color((int)(60 * pc), (int)(65 * pc), (int)(126 * pc));
-            bool drawAWMask = false;
-            int AWIndex = -1;
             /*if (NPC.AnyNPCs(ModContent.NPCType<AbyssalWraith>()))
             {
                 awtime = 180;
@@ -87,7 +83,9 @@ namespace CalamityEntropy.Content.Skies
             Main.spriteBatch.UseSampleState(SamplerState.LinearWrap);
             Vector2 dp = new Vector2((Main.screenPosition.X * -0.5f + counter * 0.3f) % txd.Width, (Main.screenPosition.Y * -0.5f + counter * -0.1f) % txd.Height);
             spriteBatch.Draw(txd, new Vector2(-528, -528), new Rectangle((int)-dp.X, (int)-dp.Y, (int)(Main.screenWidth + 2024), (int)(Main.screenHeight + 1920)), ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/ColorLerp2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            
+            if(shader == null)
+                shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/ColorLerp2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             if (awtime > 0)
             {
                 spriteBatch.End();
@@ -126,7 +124,7 @@ namespace CalamityEntropy.Content.Skies
             }
             float c = 1f;
             txd = CEUtils.getExtraTex("CrSky");
-            shader.Parameters["alpha"].SetValue(0.6f * opacity);
+            shader.Parameters["alpha"].SetValue(0.6f * opacity + 0.01f);
             for (int i = 1; i <= 2; i++)
             {
                 dp = new Vector2((Main.screenPosition.X * -0.5f * c + counter * (i * -0.13f - 0.2f) * c + i * 333) % txd.Width, (Main.screenPosition.Y * -0.5f * c + counter * (i * 0.1f + 0.2f) * c + i * -333) % txd.Height);
@@ -158,7 +156,7 @@ namespace CalamityEntropy.Content.Skies
                 var fscreen = EffectLoader.fscreen;
                 fscreen.CurrentTechnique = fscreen.Techniques["Technique1"];
                 fscreen.CurrentTechnique.Passes[0].Apply();
-                fscreen.Parameters["strengthMult"].SetValue(0.26f * opacity);
+                fscreen.Parameters["strengthMult"].SetValue(0.26f * opacity + 0.01f);
                 fscreen.Parameters["screen"].SetValue(Main.screenPosition * 0.5f / Main.ScreenSize.ToVector2());
                 fscreen.Parameters["iTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.02f);
                 graphicsDevice.Textures[0] = EffectLoader.Screen0;
