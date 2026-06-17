@@ -3329,7 +3329,7 @@ namespace CalamityEntropy.Common
             {
                 if (Player.inventory[i].type == shadoidType)
                 {
-                    Player.inventory[i].healLife = Player.statLifeMax2 / 3;
+                    Player.inventory[i].healLife = 1 + (int)(Player.statLifeMax2 * 0.3f);
                 }
             }
             foreach (Projectile p in Main.ActiveProjectiles)
