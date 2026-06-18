@@ -1,8 +1,10 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using CalamityEntropy.Content.Buffs;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -56,6 +58,7 @@ namespace CalamityEntropy.Content.Projectiles
                 CEUtils.PlaySound("ProphetWhipHitShine", 1, target.Center, volume: 0.3f);
                 CEUtils.PlaySound("runesonghit", 2, target.Center, volume: 0.3f);
             }
+            target.AddBuff(ModContent.BuffType<ForeseeWhipDebuff>(), 240);
         }
         public override bool PreDraw(ref Color lightColor)
         {

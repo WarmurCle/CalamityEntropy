@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
@@ -76,6 +77,7 @@ namespace CalamityEntropy.Content.Projectiles
                 CEUtils.PlaySound("beast_lavaball_rise1", Main.rand.NextFloat(1.2f, 1.4f), target.Center, 8, 0.9f);
             }
             base.OnHitNPC(target, hit, damageDone);
+            target.AddBuff(ModContent.BuffType<DaylightWhipDebuff>(), 240);
         }
         public override bool PreAI()
         {

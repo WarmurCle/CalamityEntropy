@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items.Materials;
 using Microsoft.Xna.Framework.Graphics;
@@ -56,6 +57,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Whips
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
+            target.AddBuff(ModContent.BuffType<WhipOfEvilKingWhipDebuff>(), 240);
         }
         public override int handleHeight => 18;
         public override int segHeight => 16;
