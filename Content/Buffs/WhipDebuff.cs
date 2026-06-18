@@ -47,6 +47,62 @@ namespace CalamityEntropy.Content.Buffs
             BuffID.Sets.IsATagBuff[Type] = true;
         }
     }
+    public class CrystedgeWhipDebuff : ModBuff
+    {
+        public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.IsATagBuff[Type] = true;
+        }
+    }
+    public class DaylightWhipDebuff : ModBuff
+    {
+        public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.IsATagBuff[Type] = true;
+        }
+    }
+    public class ForeseeWhipDebuff : ModBuff
+    {
+        public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.IsATagBuff[Type] = true;
+        }
+    }
+    public class LashingBramblerodWhipDebuff : ModBuff
+    {
+        public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.IsATagBuff[Type] = true;
+        }
+    }
+    public class MindCorruptorWhipDebuff : ModBuff
+    {
+        public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.IsATagBuff[Type] = true;
+        }
+    }
+    public class SinewLashWhipDebuff : ModBuff
+    {
+        public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.IsATagBuff[Type] = true;
+        }
+    }
+    public class WhipOfEvilKingWhipDebuff : ModBuff
+    {
+        public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.IsATagBuff[Type] = true;
+        }
+    }
     public class WhipTag
     {
         public int TagDamage;

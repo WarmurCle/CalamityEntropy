@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Utilities;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Particles;
@@ -70,6 +71,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnHitNPC(target, hit, damageDone);
             CEUtils.PlaySound("FleshWhipHit", Main.rand.NextFloat(0.8f, 1.2f), EndPoint);
             target.AddBuff(ModContent.BuffType<BurningBlood>(), 600);
+            target.AddBuff(ModContent.BuffType<SinewLashWhipDebuff>(), 240);
             for (int i = 0; i < 3; i++)
             {
                 Color impactColor = Main.rand.NextBool(3) ? Color.LightCoral : Color.Crimson;
