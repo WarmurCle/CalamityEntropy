@@ -102,6 +102,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
 using Terraria.UI;
+using static CalamityEntropy.Common.EGlobalNPC;
 namespace CalamityEntropy
 {
     public partial class CalamityEntropy : Mod
@@ -1380,6 +1381,17 @@ namespace CalamityEntropy
                                 }
                             }
                             EGlobalProjectile.checkHoldOut = true;
+                        }
+                        if (str.Equals("RegisterDebuff"))
+                        {
+                            ExternalDebuffs.Add(
+                                new DebuffDisplayEntry(
+                                    (Func<NPC, bool>)args[1],
+                                    (Func<Texture2D>)args[2]
+                                )
+                            );
+
+                            return null;
                         }
                     }
                 }
