@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 62;
+            Item.damage = 40;
             Item.DamageType = ModContent.GetInstance<MeleeDamageClass>();
             Item.width = 48;
             Item.height = 60;
@@ -114,7 +114,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
                 if (!Projectile.GetOwner().Calamity().bladeArmEnchant && Main.myPlayer == Projectile.owner)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity * 2, ModContent.ProjectileType<MoonlightShoot>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity * 2, ModContent.ProjectileType<MoonlightShoot>(), (int)(Projectile.damage * 1.3f), Projectile.knockBack / 2, Projectile.owner);
                 }
             }
             odr.Add(Projectile.rotation);
