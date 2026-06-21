@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
@@ -63,9 +63,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<MeldBlob>(), 5);
-            recipe.AddIngredient(ModContent.ItemType<ShardofAntumbra>(), 1);
-            recipe.AddIngredient(ItemID.DeathSickle, 1);
+            recipe.AddIngredient(ModContent.ItemType<SubductionSlicer>(), 1);
+	        recipe.AddIngredient(ModContent.ItemType<MeldBlob>(), 12);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.Register();
         }

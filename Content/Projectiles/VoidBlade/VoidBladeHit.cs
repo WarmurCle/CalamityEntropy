@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
-            Projectile.scale = 1.6f;
+            Projectile.scale = 1.2f;
             Projectile.damage = 0;
             Projectile.timeLeft = 20;
             var r = Main.rand;

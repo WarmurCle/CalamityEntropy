@@ -79,7 +79,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             EGlobalNPC.RemoveAllTags(target);
             target.AddBuff(ModContent.BuffType<CruiserWhipDebuff>(), 240);
-            target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 150);
+            target.AddBuff(ModContent.BuffType<ArmorCrunch>(), 150);
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
             Projectile.damage = (int)(Projectile.damage * 0.9f);
 

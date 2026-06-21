@@ -1,6 +1,7 @@
-﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items.Weapons.Melee;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -17,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 42;
+            Item.damage = 36;
             Item.crit = 4;
             Item.DamageType = DamageClass.Melee;
             Item.width = 48;
@@ -52,10 +53,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<ShatteredFractal>()
-                .AddIngredient<CalamityMod.Items.Materials.AerialiteBar>(6)
-                .AddIngredient(ItemID.Feather, 2)
-                .AddIngredient(ItemID.SunplateBlock, 4)
+            CreateRecipe()
+		        .AddIngredient<ShatteredFractal>()
                 .AddIngredient(ItemID.Starfury)
                 .AddIngredient<WindBlade>()
                 .AddTile(TileID.Anvils)
@@ -191,6 +190,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public bool playHitSound = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+	        target.AddBuff(ModContent.BuffType<WindChilled>(), 300);
             if (playHitSound)
             {
                 playHitSound = false;
