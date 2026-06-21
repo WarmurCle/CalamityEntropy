@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Dusts;
 using CalamityMod.Enums;
@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 134;
             Item.height = 38;
-            Item.damage = 105;
+            Item.damage = 120;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 9;
             Item.useAnimation = 9;
@@ -61,8 +61,8 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ModContent.ItemType<MeldBlob>(), 20)
-                .AddIngredient(ItemID.FragmentVortex, 6)
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<MeldBlob>(), 18)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }

@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Projectiles
             var player = Projectile.GetOwner();
             player.AddBuff(ModContent.BuffType<WyrmPhantom>(), 480);
             target.AddBuff(ModContent.BuffType<WyrmWhipDebuff>(), 380);
-            target.AddBuff(ModContent.BuffType<MarkedforDeath>(), 600);
+            target.AddBuff(ModContent.BuffType<ArmorCrunch>(), 600);
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
             CEUtils.PlaySound("ystn_hit", Main.rand.NextFloat(0.86f, 1.2f), target.Center, 3, 0.76f);
             for (int ii = 0; ii < 4; ii++)
