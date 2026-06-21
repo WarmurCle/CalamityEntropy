@@ -1,6 +1,7 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         {
             Item.width = 62;
             Item.height = 62;
-            Item.damage = 45;
+            Item.damage = 35;
             Item.noMelee = true;
             Item.useAnimation = Item.useTime = 4;
             Item.useStyle = ItemUseStyleID.Shoot;
@@ -355,6 +356,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
             modifiers.ArmorPenetration += 60;
             target.Entropy().Decrease20DR = 80;
         }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<VermillionFlux>(), 150);
+            target.AddBuff(ModContent.BuffType<HolyFlames>(), 150);
+        }
         public override void OnKill(int timeLeft)
         {
             CEUtils.PlaySound("light_bolt", Main.rand.NextFloat(2.4f, 2.8f), Projectile.Center, 50, 0.4f);
@@ -380,5 +386,4 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
             }
         }
     }
-
 }

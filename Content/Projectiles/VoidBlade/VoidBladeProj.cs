@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.light = 0f;
-            Projectile.scale = 1.6f;
+            Projectile.scale = 1.2f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 0;
         }
