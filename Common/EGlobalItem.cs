@@ -525,9 +525,10 @@ namespace CalamityEntropy.Common
         {
             if (item.ModItem != null)
             {
+                Mod mod = item.ModItem.Mod;
                 if (item.ModItem is IAzafureEnhancable && Main.LocalPlayer.AzafureEnhance())
                 {
-                    tooltips.Add(new TooltipLine(Mod, "Azafure Enhance", $"{Mod.GetLocalization("AzafureEnhance").Value}: " + item.ModItem.Mod.GetLocalization($"AzafureEnhances.{item.ModItem.Name}").Value) { OverrideColor = Color.Yellow });
+                    tooltips.Add(new TooltipLine(Mod, "Azafure Enhance", $"{Mod.GetLocalization("AzafureEnhance").Value}: " + mod.GetLocalization($"AzafureEnhances.{item.ModItem.Name}").Value) { OverrideColor = Color.Yellow });
                 }
                 if (item.ModItem is ExquisiteCrown || item.ModItem is RottenFangs)
                 {

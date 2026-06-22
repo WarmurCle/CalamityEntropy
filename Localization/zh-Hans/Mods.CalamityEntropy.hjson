@@ -6350,7 +6350,7 @@ AzafureEnhances: {
 	AzafurePioneerCannon: 增加装弹上限
 	AzafureProtectiveCannon: 减少冷却时间
 	AzafurePulseWand: 增加标记上限与搜索范围
-	AzafureRailgun: 增加小型追踪弹的数量
+	AzafureRailgun: 根据耐力值增加小型追踪弹的数量
 	AzafureSurgeRod: 射弹可额外电击一个目标
 	AzafureTeslaGun: 增加电弧伤害
 	AzafureElectrocauteryWand: 增加充能速度

@@ -177,6 +177,8 @@ namespace CalamityEntropy
         {
             if (!player.AzafureEnhance())
                 return 0;
+            if (player.GetModPlayer<AcropolisArmorPlayer>().ArmorSetBonus)
+                return player.GetModPlayer<AcropolisArmorPlayer>().durability;
             if (player.GetModPlayer<AzafureSteamKnightArmorPlayer>().ArmorSetBonus)
                 return player.GetModPlayer<AzafureSteamKnightArmorPlayer>().durability;
             return player.GetModPlayer<AzafureHeavyArmorPlayer>().durability;

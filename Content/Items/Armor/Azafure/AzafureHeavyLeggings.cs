@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
             Item.width = 34;
             Item.height = 18;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
-            Item.defense = 4;
+            Item.defense = 5;
             Item.rare = ModContent.RarityType<DarkOrange>();
         }
 
