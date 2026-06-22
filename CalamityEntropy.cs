@@ -1344,7 +1344,6 @@ namespace CalamityEntropy
                                 modifyShootCooldown,
                                 func
                             );
-
                         }
                         if (str.Equals("IsBookMark"))
                         {
