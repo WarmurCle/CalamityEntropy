@@ -10,6 +10,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Buffs
 {
+    #region TagDebuffs
     public class JailerWhipDebuff : ModBuff
     {
         public static readonly int TagDamage = 2;
@@ -47,6 +48,64 @@ namespace CalamityEntropy.Content.Buffs
             BuffID.Sets.IsATagBuff[Type] = true;
         }
     }
+    public class CrystedgeWhipDebuff : ModBuff
+    {
+        public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.IsATagBuff[Type] = true;
+        }
+    }
+    public class DaylightWhipDebuff : ModBuff
+    {
+        public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.IsATagBuff[Type] = true;
+        }
+    }
+    public class ForeseeWhipDebuff : ModBuff
+    {
+        public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.IsATagBuff[Type] = true;
+        }
+    }
+    public class LashingBramblerodWhipDebuff : ModBuff
+    {
+        public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.IsATagBuff[Type] = true;
+        }
+    }
+    public class MindCorruptorWhipDebuff : ModBuff
+    {
+        public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.IsATagBuff[Type] = true;
+        }
+    }
+    public class SinewLashWhipDebuff : ModBuff
+    {
+        public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.IsATagBuff[Type] = true;
+        }
+    }
+    public class WhipOfEvilKingWhipDebuff : ModBuff
+    {
+        public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.IsATagBuff[Type] = true;
+        }
+    }
+    #endregion
+    //Entropy Whip Tag System
     public class WhipTag
     {
         public int TagDamage;
@@ -69,6 +128,8 @@ namespace CalamityEntropy.Content.Buffs
     {
         public override bool InstancePerEntity => true;
         public List<WhipTag> Tags = new List<WhipTag>();
+
+        //Hooked to CalamityGlobalNPC.ModifyHitByProjectile in EModILEdit:107
         public void ModifyHitByProj(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             if (projectile.npcProj || projectile.trap || !(projectile.DamageType == DamageClass.Summon) || ProjectileID.Sets.IsAWhip[projectile.type])

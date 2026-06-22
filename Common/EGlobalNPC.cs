@@ -942,6 +942,10 @@ namespace CalamityEntropy.Common
         }
         public float WhiteLerp = 0;
 
+        public record DebuffDisplayEntry(Func<NPC, bool> Condition, Func<Texture2D> TextureGetter);
+
+        public static readonly List<DebuffDisplayEntry> ExternalDebuffs = [];
+
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             if (npc.type != NPCID.BrainofCthulhu && (npc.type != NPCID.DukeFishron || npc.ai[0] <= 9f) && npc.active)
@@ -950,6 +954,7 @@ namespace CalamityEntropy.Common
                 {
                     List<Texture2D> currentDebuffs = new List<Texture2D>() { };
                     CalamityGlobalNPC cnpc = npc.Calamity();
+
                     for (int b = 0; b < CalamityGlobalNPC.moddedDebuffTextureList.Count(); b++)
                     {
                         if (CalamityGlobalNPC.moddedDebuffTextureList[b].Item2.Invoke(npc))
@@ -1033,6 +1038,12 @@ namespace CalamityEntropy.Common
                     AddBuffDraw<HeatDeath>();
                     AddBuffDraw<Koishi>();
                     AddBuffDraw<LifeOppress>();
+
+                    foreach (var entry in ExternalDebuffs)
+                    {
+                        if (entry.Condition(npc))
+                            currentDebuffs.Add(entry.TextureGetter());
+                    }
 
                     if (npc.GetGlobalNPC<ScorpioEffectNPC>().effectLevel > 0)
                     {

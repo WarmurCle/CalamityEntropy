@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
@@ -26,6 +27,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             base.OnHitNPC(target, hit, damageDone);
             CEUtils.PlaySound("beeSting", 1, target.Center);
+            target.AddBuff(ModContent.BuffType<LashingBramblerodWhipDebuff>(), 240);
         }
         public override bool PreAI()
         {

@@ -102,6 +102,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
 using Terraria.UI;
+using static CalamityEntropy.Common.EGlobalNPC;
 namespace CalamityEntropy
 {
     public partial class CalamityEntropy : Mod
@@ -1200,223 +1201,231 @@ namespace CalamityEntropy
             return null;
         }
         public override object Call(params object[] args)
+{
+    var obj = ModCall.Call(args);
+    if (obj != null)
+    {
+        return obj;
+    }
+    try
+    {
+        if (args.Length > 0)
         {
-            var obj = ModCall.Call(args);
-            if (obj != null)
+            if (args[0] is string str)
             {
-                return obj;
-            }
-            try
-            {
-                if (args.Length > 0)
+                //Usage: bool flag = (bool)Mod.Call("CheckFlag", "cruiser(or any name below)");
+                if (str.ToLower().Equals("checkflag"))
                 {
-                    if (args[0] is string str)
+                    if (args.Length == 2 && args[1] is string name)
                     {
-                        //Usage: bool flag = (bool)Mod.Call("CheckFlag", "cruiser(or any name below)");
-                        if (str.ToLower().Equals("checkflag"))
-                        {
-                            if (args.Length == 2 && args[1] is string name)
-                            {
-                                name = name.ToLower();
-                                if (name == "acropolis")
-                                    return EDownedBosses.downedAcropolis;
-                                if (name == "apsychos")
-                                    return EDownedBosses.downedApsychos;
-                                if (name == "luminaris")
-                                    return EDownedBosses.downedLuminaris;
-                                if (name == "prophet")
-                                    return EDownedBosses.downedProphet;
-                                if (name == "nihility_twins")
-                                    return EDownedBosses.downedNihilityTwin;
-                                if (name == "cruiser")
-                                    return EDownedBosses.downedCruiser;
-                            }
-                            return false;
-                        }
-                        if (str.ToLower().Equals("RegisterBookMarkEffect".ToLower()))
-                        {
-                            if (!(args[1] is Dictionary<string, object>))
-                            {
-                                this.Logger.Warn("Args[1] Must be a Dictionary<string, object>");
-                                return null;
-                            }
-                            Dictionary<string, object> objects = (Dictionary<string, object>)args[1];
-                            if (!objects.TryGetValue("Name", out object nameObj) || !(nameObj is string))
-                            {
-                                this.Logger.Warn("Name is required and must be a string");
-                                return null;
-                            }
-                            string name = (string)nameObj;
-
-                            Action<ModProjectile> onShoot = GetAction<ModProjectile>(objects, "OnShoot");
-                            Action<ModProjectile> onActive = GetAction<ModProjectile>(objects, "OnActive");
-                            Action<Projectile, bool> onProjectileSpawn = GetAction<Projectile, bool>(objects, "OnProjectileSpawn");
-                            Action<Projectile, bool> updateProjectile = GetAction<Projectile, bool>(objects, "UpdateProjectile");
-                            Action<Projectile, NPC, int> onHitNPC = GetAction<Projectile, NPC, int>(objects, "OnHitNPC");
-                            Action<Projectile, NPC, NPC.HitModifiers> modifyHitNPC = GetAction<Projectile, NPC, NPC.HitModifiers>(objects, "ModifyHitNPC");
-                            Action<Projectile, bool> BookUpdate = GetAction<Projectile, bool>(objects, "BookUpdate");
-
-                            BookMarkLoader.RegisterBookmarkEffect(
-                                name,
-                                onShoot,
-                                onActive,
-                                onProjectileSpawn,
-                                updateProjectile,
-                                onHitNPC,
-                                modifyHitNPC,
-                                BookUpdate
-                            );
-                        }
-                        if (str.ToLower().Equals("RegisterBookMark".ToLower()))
-                        {
-                            Func<TInput, TOutput> GetModifierFunc<TInput, TOutput>(Dictionary<string, object> objects, string key)
-                            {
-                                if (objects.TryGetValue(key, out object funcObj) && funcObj is Func<TInput, TOutput>)
-                                {
-                                    return (Func<TInput, TOutput>)funcObj;
-                                }
-                                return null;
-                            }
-                            if (!(args[1] is Dictionary<string, object>))
-                            {
-                                this.Logger.Warn("Args[1] Must be a Dictionary<string, object>");
-                                return null;
-                            }
-                            Dictionary<string, object> objects = (Dictionary<string, object>)args[1];
-                            if (!objects.TryGetValue("ItemType", out object itemTypeObj) || !(itemTypeObj is int))
-                            {
-                                this.Logger.Warn("ItemType is required and must be an integer");
-                                return null;
-                            }
-                            int itemType = (int)itemTypeObj;
-
-                            if (!objects.TryGetValue("Texture", out object textureObj) || !(textureObj is Asset<Texture2D>))
-                            {
-                                this.Logger.Warn("Texture is required and must be an Asset<Texture2D>");
-                                return null;
-                            }
-                            Func<Item, Item, bool> func = null;
-                            if (objects.TryGetValue("CanBeEquipWithFunc", out var cbew_func))
-                            {
-                                if (cbew_func is Func<Item, Item, bool> fc)
-                                {
-                                    func = fc;
-                                }
-                            }
-                            Asset<Texture2D> texture = (Asset<Texture2D>)textureObj;
-
-                            string effectName = objects.TryGetValue("EffectName", out object effectNameObj) && effectNameObj is string
-                                ? (string)effectNameObj : "";
-
-                            Func<float, float> modifyStat_Damage = GetModifierFunc<float, float>(objects, "ModifyStat_Damage");
-                            Func<float, float> modifyStat_Knockback = GetModifierFunc<float, float>(objects, "ModifyStat_Knockback");
-                            Func<float, float> modifyStat_ShootSpeed = GetModifierFunc<float, float>(objects, "ModifyStat_ShootSpeed");
-                            Func<float, float> modifyStat_Homing = GetModifierFunc<float, float>(objects, "ModifyStat_Homing");
-                            Func<float, float> modifyStat_Size = GetModifierFunc<float, float>(objects, "ModifyStat_Size");
-                            Func<float, float> modifyStat_Crit = GetModifierFunc<float, float>(objects, "ModifyStat_Crit");
-                            Func<float, float> modifyStat_HomingRange = GetModifierFunc<float, float>(objects, "ModifyStat_HomingRange");
-                            Func<int, int> modifyStat_PenetrateAddition = GetModifierFunc<int, int>(objects, "ModifyStat_PenetrateAddition");
-                            Func<float, float> modifyStat_AttackSpeed = GetModifierFunc<float, float>(objects, "ModifyStat_AttackSpeed");
-                            Func<int, int> modifyStat_ArmorPenetration = GetModifierFunc<int, int>(objects, "ModifyStat_ArmorPenetration");
-                            Func<float, float> modifyStat_LifeSteal = GetModifierFunc<float, float>(objects, "ModifyStat_LifeSteal");
-                            Func<int, int> modifyProjectileType = GetModifierFunc<int, int>(objects, "ModifyProjectileType");
-                            Func<int> modifyBaseProjectileType = objects.TryGetValue("ModifyBaseProjectileType", out object mbptObj) && mbptObj is Func<int>
-                                ? (Func<int>)mbptObj : null;
-                            Func<int, int> modifyShootCooldown = GetModifierFunc<int, int>(objects, "ModifyShootCooldown");
-
-                            BookMarkLoader.RegisterBookmark(
-                                itemType,
-                                texture,
-                                effectName,
-                                modifyStat_Damage,
-                                modifyStat_Knockback,
-                                modifyStat_ShootSpeed,
-                                modifyStat_Homing,
-                                modifyStat_Size,
-                                modifyStat_Crit,
-                                modifyStat_HomingRange,
-                                modifyStat_PenetrateAddition,
-                                modifyStat_AttackSpeed,
-                                modifyStat_ArmorPenetration,
-                                modifyStat_LifeSteal,
-                                modifyProjectileType,
-                                modifyBaseProjectileType,
-                                modifyShootCooldown,
-                                func
-                            );
-                        }
-                        if (str.Equals("IsBookMark"))
-                        {
-                            Item item = (Item)args[1];
-                            return BookMarkLoader.IsABookMark(item);
-                        }
-                        #region TwistedTwinsStuff
-                        if (str.Equals("SetTTHoldoutCheck"))
-                        {
-                            EGlobalProjectile.checkHoldOut = (bool)args[1];
-                        }
-                        if (str.Equals("GetTTHoldoutCheck"))
-                        {
-                            return EGlobalProjectile.checkHoldOut;
-                        }
-                        if (str.Equals("CopyProjForTTwin"))
-                        {
-                            Projectile projectile = ((int)args[1]).ToProj();
-                            EGlobalProjectile.checkHoldOut = false;
-                            foreach (Projectile p in Main.projectile)
-                            {
-                                if (p.active && p.type == ModContent.ProjectileType<TwistedTwinMinion>() && p.owner == Main.myPlayer)
-                                {
-
-                                    int phd = Projectile.NewProjectile(Main.LocalPlayer.GetSource_ItemUse(Main.LocalPlayer.HeldItem), p.Center, Vector2.Zero, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
-                                    Projectile ph = phd.ToProj();
-                                    ph.scale *= 0.8f;
-                                    ph.Entropy().IndexOfTwistedTwinShootedThisProj = p.identity;
-                                    ph.netUpdate = true;
-                                    Projectile projts = ph;
-                                    ph.damage = (int)(ph.damage * TwistedTwinMinion.damageMul);
-                                    if (!projts.usesLocalNPCImmunity)
-                                    {
-                                        projts.usesLocalNPCImmunity = true;
-                                        projts.localNPCHitCooldown = 12;
-                                    }
-                                }
-                            }
-                            EGlobalProjectile.checkHoldOut = true;
-                        }
-                        #endregion
-                        //Set a specific color for NPC
-                        //Usage: Mod.Call("SetBarColor", ModContent.NPCType<T>(), color);
-                        if (str.Equals("SetBarColor"))
-                        {
-                            int type = (int)args[1];
-                            Color color = (Color)args[2];
-                            EntropyBossbar.bossbarColor[type] = color;
-                        }
-                        if (str.Equals("GetBookMarkSlots"))
-                        {
-                            return ((Player)args[1]).GetMyMaxActiveBookMarks(((Player)args[1]).HeldItem);
-                        }
-                        if (str.Equals("AddBookMarkSlot")) //Set this every update just like minion slots
-                        {
-                            ((Player)args[1]).Entropy().AdditionalBookmarkSlot += (int)args[2];
-                        }
-                        if (str.Equals("AddBookMarkSlotSpecialTexture")) //Set this every update just like minion slots, client only
-                        {
-                            ((Player)args[1]).Entropy().BookmarkHolderSpecialTextures.Add((Texture2D)args[2]);
-                        }
-                        
+                        name = name.ToLower();
+                        if (name == "acropolis")
+                            return EDownedBosses.downedAcropolis;
+                        if (name == "apsychos")
+                            return EDownedBosses.downedApsychos;
+                        if (name == "luminaris")
+                            return EDownedBosses.downedLuminaris;
+                        if (name == "prophet")
+                            return EDownedBosses.downedProphet;
+                        if (name == "nihility_twins")
+                            return EDownedBosses.downedNihilityTwin;
+                        if (name == "cruiser")
+                            return EDownedBosses.downedCruiser;
                     }
+                    return false;
+                }
+                if (str.ToLower().Equals("RegisterBookMarkEffect".ToLower()))
+                {
+                    if (!(args[1] is Dictionary<string, object>))
+                    {
+                        this.Logger.Warn("Args[1] Must be a Dictionary<string, object>");
+                        return null;
+                    }
+                    Dictionary<string, object> objects = (Dictionary<string, object>)args[1];
+                    if (!objects.TryGetValue("Name", out object nameObj) || !(nameObj is string))
+                    {
+                        this.Logger.Warn("Name is required and must be a string");
+                        return null;
+                    }
+                    string name = (string)nameObj;
+
+                    Action<ModProjectile> onShoot = GetAction<ModProjectile>(objects, "OnShoot");
+                    Action<ModProjectile> onActive = GetAction<ModProjectile>(objects, "OnActive");
+                    Action<Projectile, bool> onProjectileSpawn = GetAction<Projectile, bool>(objects, "OnProjectileSpawn");
+                    Action<Projectile, bool> updateProjectile = GetAction<Projectile, bool>(objects, "UpdateProjectile");
+                    Action<Projectile, NPC, int> onHitNPC = GetAction<Projectile, NPC, int>(objects, "OnHitNPC");
+                    Action<Projectile, NPC, NPC.HitModifiers> modifyHitNPC = GetAction<Projectile, NPC, NPC.HitModifiers>(objects, "ModifyHitNPC");
+                    Action<Projectile, bool> BookUpdate = GetAction<Projectile, bool>(objects, "BookUpdate");
+
+                    BookMarkLoader.RegisterBookmarkEffect(
+                        name,
+                        onShoot,
+                        onActive,
+                        onProjectileSpawn,
+                        updateProjectile,
+                        onHitNPC,
+                        modifyHitNPC,
+                        BookUpdate
+                    );
+                }
+                if (str.ToLower().Equals("RegisterBookMark".ToLower()))
+                {
+                    Func<TInput, TOutput> GetModifierFunc<TInput, TOutput>(Dictionary<string, object> objects, string key)
+                    {
+                        if (objects.TryGetValue(key, out object funcObj) && funcObj is Func<TInput, TOutput>)
+                        {
+                            return (Func<TInput, TOutput>)funcObj;
+                        }
+                        return null;
+                    }
+                    if (!(args[1] is Dictionary<string, object>))
+                    {
+                        this.Logger.Warn("Args[1] Must be a Dictionary<string, object>");
+                        return null;
+                    }
+                    Dictionary<string, object> objects = (Dictionary<string, object>)args[1];
+                    if (!objects.TryGetValue("ItemType", out object itemTypeObj) || !(itemTypeObj is int))
+                    {
+                        this.Logger.Warn("ItemType is required and must be an integer");
+                        return null;
+                    }
+                    int itemType = (int)itemTypeObj;
+
+                    if (!objects.TryGetValue("Texture", out object textureObj) || !(textureObj is Asset<Texture2D>))
+                    {
+                        this.Logger.Warn("Texture is required and must be an Asset<Texture2D>");
+                        return null;
+                    }
+                    Func<Item, Item, bool> func = null;
+                    if (objects.TryGetValue("CanBeEquipWithFunc", out var cbew_func))
+                    {
+                        if (cbew_func is Func<Item, Item, bool> fc)
+                        {
+                            func = fc;
+                        }
+                    }
+                    Asset<Texture2D> texture = (Asset<Texture2D>)textureObj;
+
+                    string effectName = objects.TryGetValue("EffectName", out object effectNameObj) && effectNameObj is string
+                        ? (string)effectNameObj : "";
+
+                    Func<float, float> modifyStat_Damage = GetModifierFunc<float, float>(objects, "ModifyStat_Damage");
+                    Func<float, float> modifyStat_Knockback = GetModifierFunc<float, float>(objects, "ModifyStat_Knockback");
+                    Func<float, float> modifyStat_ShootSpeed = GetModifierFunc<float, float>(objects, "ModifyStat_ShootSpeed");
+                    Func<float, float> modifyStat_Homing = GetModifierFunc<float, float>(objects, "ModifyStat_Homing");
+                    Func<float, float> modifyStat_Size = GetModifierFunc<float, float>(objects, "ModifyStat_Size");
+                    Func<float, float> modifyStat_Crit = GetModifierFunc<float, float>(objects, "ModifyStat_Crit");
+                    Func<float, float> modifyStat_HomingRange = GetModifierFunc<float, float>(objects, "ModifyStat_HomingRange");
+                    Func<int, int> modifyStat_PenetrateAddition = GetModifierFunc<int, int>(objects, "ModifyStat_PenetrateAddition");
+                    Func<float, float> modifyStat_AttackSpeed = GetModifierFunc<float, float>(objects, "ModifyStat_AttackSpeed");
+                    Func<int, int> modifyStat_ArmorPenetration = GetModifierFunc<int, int>(objects, "ModifyStat_ArmorPenetration");
+                    Func<float, float> modifyStat_LifeSteal = GetModifierFunc<float, float>(objects, "ModifyStat_LifeSteal");
+                    Func<int, int> modifyProjectileType = GetModifierFunc<int, int>(objects, "ModifyProjectileType");
+                    Func<int> modifyBaseProjectileType = objects.TryGetValue("ModifyBaseProjectileType", out object mbptObj) && mbptObj is Func<int>
+                        ? (Func<int>)mbptObj : null;
+                    Func<int, int> modifyShootCooldown = GetModifierFunc<int, int>(objects, "ModifyShootCooldown");
+
+                    BookMarkLoader.RegisterBookmark(
+                        itemType,
+                        texture,
+                        effectName,
+                        modifyStat_Damage,
+                        modifyStat_Knockback,
+                        modifyStat_ShootSpeed,
+                        modifyStat_Homing,
+                        modifyStat_Size,
+                        modifyStat_Crit,
+                        modifyStat_HomingRange,
+                        modifyStat_PenetrateAddition,
+                        modifyStat_AttackSpeed,
+                        modifyStat_ArmorPenetration,
+                        modifyStat_LifeSteal,
+                        modifyProjectileType,
+                        modifyBaseProjectileType,
+                        modifyShootCooldown,
+                        func
+                    );
+                }
+                if (str.Equals("IsBookMark"))
+                {
+                    Item item = (Item)args[1];
+                    return BookMarkLoader.IsABookMark(item);
+                }
+                #region TwistedTwinsStuff
+                if (str.Equals("SetTTHoldoutCheck"))
+                {
+                    EGlobalProjectile.checkHoldOut = (bool)args[1];
+                }
+                if (str.Equals("GetTTHoldoutCheck"))
+                {
+                    return EGlobalProjectile.checkHoldOut;
+                }
+                if (str.Equals("CopyProjForTTwin"))
+                {
+                    Projectile projectile = ((int)args[1]).ToProj();
+                    EGlobalProjectile.checkHoldOut = false;
+                    foreach (Projectile p in Main.projectile)
+                    {
+                        if (p.active && p.type == ModContent.ProjectileType<TwistedTwinMinion>() && p.owner == Main.myPlayer)
+                        {
+
+                            int phd = Projectile.NewProjectile(Main.LocalPlayer.GetSource_ItemUse(Main.LocalPlayer.HeldItem), p.Center, Vector2.Zero, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
+                            Projectile ph = phd.ToProj();
+                            ph.scale *= 0.8f;
+                            ph.Entropy().IndexOfTwistedTwinShootedThisProj = p.identity;
+                            ph.netUpdate = true;
+                            Projectile projts = ph;
+                            ph.damage = (int)(ph.damage * TwistedTwinMinion.damageMul);
+                            if (!projts.usesLocalNPCImmunity)
+                            {
+                                projts.usesLocalNPCImmunity = true;
+                                projts.localNPCHitCooldown = 12;
+                            }
+                        }
+                    }
+                    EGlobalProjectile.checkHoldOut = true;
+                }
+                #endregion
+                //Set a specific color for NPC
+                //Usage: Mod.Call("SetBarColor", ModContent.NPCType<T>(), color);
+                if (str.Equals("SetBarColor"))
+                {
+                    int type = (int)args[1];
+                    Color color = (Color)args[2];
+                    EntropyBossbar.bossbarColor[type] = color;
+                }
+                if (str.Equals("GetBookMarkSlots"))
+                {
+                    return ((Player)args[1]).GetMyMaxActiveBookMarks(((Player)args[1]).HeldItem);
+                }
+                if (str.Equals("AddBookMarkSlot")) //Set this every update just like minion slots
+                {
+                    ((Player)args[1]).Entropy().AdditionalBookmarkSlot += (int)args[2];
+                }
+                if (str.Equals("AddBookMarkSlotSpecialTexture")) //Set this every update just like minion slots, client only
+                {
+                    ((Player)args[1]).Entropy().BookmarkHolderSpecialTextures.Add((Texture2D)args[2]);
+                }
+                if (str.Equals("RegisterDebuff"))
+                {
+                    ExternalDebuffs.Add(
+                        new DebuffDisplayEntry(
+                            (Func<NPC, bool>)args[1],
+                            (Func<Texture2D>)args[2]
+                        )
+                    );
+                    return null;
                 }
             }
-            catch
-            {
-                string e = (args[0] is string str) ? $"({str})" : "";
-                Logger.Warn($"CalamityEntropy: ModCall's parameter is Error!{e}");
-            }
-            return null;
         }
-
+    }
+    catch
+    {
+        string e = (args[0] is string str) ? $"({str})" : "";
+        Logger.Warn($"CalamityEntropy: ModCall's parameter is Error!{e}");
+    }
+    return null;
+        }
         private static void AddBoss(Mod bossChecklist, Mod hostMod, string name, float difficulty, Func<bool> downed, object npcTypes, Dictionary<string, object> extraInfo, bool miniBoss = false)
             => bossChecklist.Call(miniBoss ? "LogMiniBoss" : "LogBoss", hostMod, name, difficulty, downed, npcTypes, extraInfo);
         public static List<MusicBox> mbRegs = null;

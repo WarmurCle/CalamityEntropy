@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
+using CalamityMod.Buffs.DamageOverTime;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -46,6 +49,10 @@ namespace CalamityEntropy.Content.Projectiles
                 dust7.fadeIn = Main.rand.NextFloat() * 0.9f;
             }
             LastEnd = EndPoint;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<CrystedgeWhipDebuff>(), 240);
         }
         public override void ModifyWhipSettings(ref float ttfo, ref int segs, ref float rangeMul)
         {
@@ -125,6 +132,7 @@ namespace CalamityEntropy.Content.Projectiles
             Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
             return false;
         }
+
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
@@ -179,6 +187,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Dust.NewDust(Projectile.Center, 1, 1, DustID.PinkCrystalShard, Main.rand.NextFloat(-4, 4), Main.rand.NextFloat(-4, 4));
             }
         }
+
         public override bool? CanHitNPC(NPC target)
         {
             if (Projectile.timeLeft > 90)
@@ -209,6 +218,7 @@ namespace CalamityEntropy.Content.Projectiles
             Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
             return false;
         }
+
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
