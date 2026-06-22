@@ -1219,7 +1219,7 @@ namespace CalamityEntropy.Common
                     spawnExp = Main.rand.NextBool(20);
                     dmg = 2;
                 }
-                var plr = Main.player[Player.FindClosest(npc.Center, 99999, 99999)];
+                var plr = Main.player[Player.FindClosest(npc.Center, 100000, 100000)];
                 if (spawnExp)
                 {
                     var p = CEUtils.SpawnExplotionFriendly(npc.GetSource_Death(), plr, npc.Center, dmg, 200, DamageClass.Summon);

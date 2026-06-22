@@ -356,7 +356,7 @@ namespace CalamityEntropy.Common
         public int deusCoreBloodOut = 0;
         public int summonCrit = 0;
         public float meleeDamageReduce = 0;
-        public int hitTimeCount = 999999;
+        public int hitTimeCount = 10000000;
 
         public bool isUsingItem()
         {
@@ -1369,7 +1369,7 @@ namespace CalamityEntropy.Common
                 if (ps != -1)
                 {
                     Player.gravity = 0;
-                    Player.maxFallSpeed = 9999;
+                    Player.maxFallSpeed = 1000;
                 }
             }
             if (RuneDash > 0)
@@ -1533,7 +1533,7 @@ namespace CalamityEntropy.Common
         {
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<WyrmDash>()] > 0)
             {
-                Player.maxFallSpeed = 9999;
+                Player.maxFallSpeed = 1000;
             }
             if (Player.Entropy().inspirationCard)
             {
@@ -1709,11 +1709,11 @@ namespace CalamityEntropy.Common
             }
             if (mariviniumBody)
             {
-                Player.breath = Player.breathMax + 99999;
+                Player.breath = Player.breathMax + 20000;
             }
             if (accAzureAbyss)
             {
-                Player.breath = Player.breathMax + 99999;
+                Player.breath = Player.breathMax + 20000;
             }
             if (Player.ownedProjectileCounts[voidslashType] > 0)
             {
