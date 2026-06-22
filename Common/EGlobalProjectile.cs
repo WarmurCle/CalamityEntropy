@@ -140,6 +140,7 @@ namespace CalamityEntropy.Common
         public int hittingTarget = -1;
         public bool IlmeranEnhanced = false;
         public bool LuminarArrow = false;
+        public bool flameTrail = false;
         /// <summary>
         /// 初次生成
         /// </summary>
@@ -221,6 +222,7 @@ namespace CalamityEntropy.Common
             binaryWriter.Write(FirstFrames);
             binaryWriter.Write(ashesArrow);
             binaryWriter.Write(buriedShoot);
+            binaryWriter.Write(flameTrail);
             foreach (var key in DataSynchronous.Keys)
             {
                 DataSynchronous[key].Write(binaryWriter);
@@ -247,6 +249,7 @@ namespace CalamityEntropy.Common
             FirstFrames = binaryReader.ReadBoolean();
             ashesArrow = binaryReader.ReadBoolean();
             buriedShoot = binaryReader.ReadBoolean();
+            flameTrail = binaryReader.ReadBoolean();
             foreach (var key in DataSynchronous.Keys)
             {
                 DataSynchronous[key].ReadToValue(binaryReader);
@@ -795,6 +798,19 @@ namespace CalamityEntropy.Common
                 {
                     gwHoming += (6 - gwHoming) * 0.0004f;
                     projectile.velocity = new Vector2(projectile.velocity.Length(), 0).RotatedBy(CEUtils.RotateTowardsAngle(projectile.velocity.ToRotation(), (target.Center - projectile.Center).ToRotation(), gwHoming.ToRadians() * projectile.velocity.Length(), true));
+                }
+            }
+            if (flameTrail)
+            {
+                for (float i = 0; i < 1; i += 0.5f)
+                {
+                    Vector2 smokeSpeed = CEUtils.randomPointInCircle(2);
+
+                    Vector2 p = projectile.Center - projectile.velocity * Main.rand.NextFloat();
+                    CalamityMod.Particles.Particle smokeGlow = new HeavySmokeParticle(p, smokeSpeed - projectile.velocity * 0.3f, Main.rand.NextBool() ? Color.OrangeRed : Color.Firebrick, 16, Main.rand.NextFloat(0.3f, 0.36f), 1f, Main.rand.NextFloat(-0.01f, 0.01f), true, 0.002f, true);
+                    smokeGlow.Rotation = CEUtils.randomRot();
+                    GeneralParticleHandler.SpawnParticle(smokeGlow);
+
                 }
             }
             if (projectile.Entropy().daTarget)
