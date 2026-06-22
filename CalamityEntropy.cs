@@ -1212,6 +1212,27 @@ namespace CalamityEntropy
                 {
                     if (args[0] is string str)
                     {
+                        //Usage: bool flag = (bool)Mod.Call("CheckFlag", "cruiser(or any name below)");
+                        if (str.ToLower().Equals("checkflag"))
+                        {
+                            if (args.Length == 2 && args[1] is string name)
+                            {
+                                name = name.ToLower();
+                                if (name == "acropolis")
+                                    return EDownedBosses.downedAcropolis;
+                                if (name == "apsychos")
+                                    return EDownedBosses.downedApsychos;
+                                if (name == "luminaris")
+                                    return EDownedBosses.downedLuminaris;
+                                if (name == "prophet")
+                                    return EDownedBosses.downedProphet;
+                                if (name == "nihility_twins")
+                                    return EDownedBosses.downedNihilityTwin;
+                                if (name == "cruiser")
+                                    return EDownedBosses.downedCruiser;
+                            }
+                            return false;
+                        }
                         if (str.ToLower().Equals("RegisterBookMarkEffect".ToLower()))
                         {
                             if (!(args[1] is Dictionary<string, object>))
@@ -1330,12 +1351,7 @@ namespace CalamityEntropy
                             Item item = (Item)args[1];
                             return BookMarkLoader.IsABookMark(item);
                         }
-                        if (str.Equals("SetBarColor"))
-                        {
-                            int type = (int)args[1];
-                            Color color = (Color)args[2];
-                            EntropyBossbar.bossbarColor[type] = color;
-                        }
+                        #region TwistedTwinsStuff
                         if (str.Equals("SetTTHoldoutCheck"))
                         {
                             EGlobalProjectile.checkHoldOut = (bool)args[1];
@@ -1343,18 +1359,6 @@ namespace CalamityEntropy
                         if (str.Equals("GetTTHoldoutCheck"))
                         {
                             return EGlobalProjectile.checkHoldOut;
-                        }
-                        if (str.Equals("GetBookMarkSlots"))
-                        {
-                            return ((Player)args[1]).GetMyMaxActiveBookMarks(((Player)args[1]).HeldItem);
-                        }
-                        if (str.Equals("AddBookMarkSlot"))
-                        {
-                            ((Player)args[1]).Entropy().AdditionalBookmarkSlot += (int)args[2];
-                        }
-                        if (str.Equals("AddBookMarkSlotSpecialTexture"))
-                        {
-                            ((Player)args[1]).Entropy().BookmarkHolderSpecialTextures.Add((Texture2D)args[2]);
                         }
                         if (str.Equals("CopyProjForTTwin"))
                         {
@@ -1381,6 +1385,28 @@ namespace CalamityEntropy
                             }
                             EGlobalProjectile.checkHoldOut = true;
                         }
+                        #endregion
+                        //Set a specific color for NPC
+                        //Usage: Mod.Call("SetBarColor", ModContent.NPCType<T>(), color);
+                        if (str.Equals("SetBarColor"))
+                        {
+                            int type = (int)args[1];
+                            Color color = (Color)args[2];
+                            EntropyBossbar.bossbarColor[type] = color;
+                        }
+                        if (str.Equals("GetBookMarkSlots"))
+                        {
+                            return ((Player)args[1]).GetMyMaxActiveBookMarks(((Player)args[1]).HeldItem);
+                        }
+                        if (str.Equals("AddBookMarkSlot")) //Set this every update just like minion slots
+                        {
+                            ((Player)args[1]).Entropy().AdditionalBookmarkSlot += (int)args[2];
+                        }
+                        if (str.Equals("AddBookMarkSlotSpecialTexture")) //Set this every update just like minion slots, client only
+                        {
+                            ((Player)args[1]).Entropy().BookmarkHolderSpecialTextures.Add((Texture2D)args[2]);
+                        }
+                        
                     }
                 }
             }
