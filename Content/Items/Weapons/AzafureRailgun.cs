@@ -113,7 +113,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     else
                     {
                         CEUtils.PlaySound("shockBlast", 1.5f - 0.5f * Charge, FirePos, volume: Charge);
-                        int bulletCounts = 1 + (int)((Charge + player.AzafureDurability() * 0.5f) * 9);
+                        int bulletCounts = 1 + (int)((Charge + player.AzafureDurability() * 0.4f) * 9);
                         for (int i = 0; i < bulletCounts; i++)
                         {
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), FirePos, Projectile.velocity.RotatedByRandom((1 - Charge)) * Main.rand.NextFloat(0.6f, 1) * 2.6f * (0.3f + 0.7f * Charge), ModContent.ProjectileType<RailgunSmallShot>(), (int)(Charge * Projectile.damage / bulletCounts), Projectile.knockBack / 10, Projectile.owner);
@@ -177,7 +177,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.hostile = false;
             Projectile.tileCollide = true;
             Projectile.light = 0.4f;
-            Projectile.timeLeft = 1200;
+            Projectile.timeLeft = 700;
             Projectile.penetrate = 6;
             Projectile.friendly = true;
             Projectile.MaxUpdates = 32;
@@ -187,7 +187,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if (Projectile.ai[1]++ % (int)((1 - Projectile.GetOwner().AzafureDurability()) * 14 + 10) == 0)
+            if (Projectile.ai[1]++ % (int)((1 - Projectile.GetOwner().AzafureDurability()) * 8 + 16) == 0)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(MathHelper.PiOver2) * 0.6f, ModContent.ProjectileType<RailgunSmallShot>(), Projectile.damage / 8, Projectile.knockBack / 10, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.RotatedBy(-MathHelper.PiOver2) * 0.6f, ModContent.ProjectileType<RailgunSmallShot>(), Projectile.damage / 8, Projectile.knockBack / 10, Projectile.owner);
@@ -266,7 +266,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.DamageType = DamageClass.Ranged;
         }
         public TrailParticle trail = null;
-        public TrailParticle trail2 = null;
 
         public override void AI()
         {
@@ -285,26 +284,17 @@ namespace CalamityEntropy.Content.Items.Weapons
                 trail = new TrailParticle();
                 trail.maxLength = 32;
                 trail.TimeLeftMax = 12;
+                trail.ShouldDraw = false;
                 EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.Firebrick, 0.8f, 1f, true, BlendState.Additive);
             }
             trail.Lifetime = 12;
             trail.AddPoint(Projectile.Center + Projectile.velocity);
-
-            if (trail2 == null)
-            {
-                trail2 = new TrailParticle();
-                trail2.maxLength = 32;
-                trail2.TimeLeftMax = 12;
-                EParticle.spawnNew(trail2, Projectile.Center, Vector2.Zero, Color.White * 0.8f, 0.4f, 1, true, BlendState.Additive);
-            }
-            trail2.Lifetime = 12;
-            trail2.AddPoint(Projectile.Center + Projectile.velocity);
         }
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
+            trail?.Draw();
             float scale = 0.4f * Projectile.scale;
             DrawEnergyBall(Projectile.Center, scale, Projectile.Opacity);
             Main.spriteBatch.End();
