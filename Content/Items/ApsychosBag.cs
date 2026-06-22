@@ -59,6 +59,7 @@ namespace CalamityEntropy.Content.Items
             itemLoot.Add(ModContent.ItemType<ScorchingChakram>(), new Fraction(3, 5));
             itemLoot.Add(ModContent.ItemType<AshesBow>(), new Fraction(3, 5));
             itemLoot.Add(ModContent.ItemType<EmberBolt>(), new Fraction(3, 5));
+            itemLoot.Add(ItemID.Hellstone, 1, 52, 64);
         }
     }
 }
