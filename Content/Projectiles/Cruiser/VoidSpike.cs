@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
+using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         public bool setv = true;
         public override void AI()
         {
+            Projectile.localAI[1] = float.Lerp(Projectile.localAI[1], 1, 0.1f);
             if (setv)
             {
                 setv = false;
@@ -67,7 +69,11 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         {
             Texture2D t = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Cruiser/VoidSpike").Value;
             Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, t.Size() / 2, 2, SpriteEffects.None, 0);
-
+            Main.spriteBatch.UseAdditive();
+            Texture2D tex = CEUtils.getExtraTex("Glow2");
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, new Rectangle(tex.Width / 2, 0, tex.Width / 2, tex.Height), Color.LightBlue, Projectile.rotation, new Vector2(0, tex.Height / 2), Projectile.scale * new Vector2(0.5f * Projectile.localAI[1] * Projectile.velocity.Length(), 0.012f) * Projectile.localAI[1], SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, new Rectangle(tex.Width / 2, 0, tex.Width / 2, tex.Height), Color.Blue, Projectile.rotation, new Vector2(0, tex.Height / 2), Projectile.scale * new Vector2(0.5f * Projectile.localAI[1] * Projectile.velocity.Length(), 0.025f) * Projectile.localAI[1], SpriteEffects.None, 0);
+            Main.spriteBatch.ExitShaderRegion();
             return false;
         }
     }
