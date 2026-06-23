@@ -382,7 +382,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 NPC.defense = 50;
                 NPC.Calamity().DR = 0.42f;
                 aiRound++;
-                if (aiRound >= 9)
+                if (aiRound >= 10)
                 {
                     aiRound = 0;
                 }
@@ -392,7 +392,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 }
                 if (aiRound == 1)
                 {
-                    ai = Main.rand.NextBool() ? AIStyle.BiteAndDash : AIStyle.AroundSpawnVoidBomb;
+                    ai = AIStyle.AroundSpawnVoidBomb;
                 }
                 if (aiRound == 3)
                 {
@@ -404,11 +404,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 }
                 if (aiRound == 5)
                 {
-                    ai = AIStyle.Cruise;
-                    if (Main.rand.NextBool())
-                    {
-                        ai = AIStyle.VoidSpike;
-                    }
+                    ai = AIStyle.VoidSpike;
                 }
                 if (aiRound == 6)
                 {
@@ -416,11 +412,15 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 }
                 if (aiRound == 7)
                 {
-                    ai = Main.rand.NextBool() ? AIStyle.VoidResidue : AIStyle.SplittingVoidStar;
+                    ai = AIStyle.VoidResidue;
                 }
                 if (aiRound == 8)
                 {
                     ai = AIStyle.Cruise;
+                }
+                if (aiRound == 9)
+                {
+                    ai = AIStyle.BiteAndDash;
                 }
             }
         }
