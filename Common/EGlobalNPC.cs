@@ -114,6 +114,7 @@ namespace CalamityEntropy.Common
         }
         public bool nextHitCrit = false;
         public StatModifier critDamage = new StatModifier(2, 1);
+        public int Lifetime = 0;
         public override bool InstancePerEntity => true;
         public int dscd = 0;
         public bool daTarget = false;
@@ -278,6 +279,11 @@ namespace CalamityEntropy.Common
         public float MissileDamageAddition = 0;
         public override void PostAI(NPC npc)
         {
+            Lifetime++;
+            if (Lifetime > 3 * 60 * 60 && npc.ModNPC != null && npc.ModNPC is FriendFindNPC)
+            {
+                npc.active = false;
+            }
             if (StickByMissile > 0)
             {
                 foreach (Projectile proj in Main.ActiveProjectiles)

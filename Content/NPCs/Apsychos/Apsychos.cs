@@ -869,6 +869,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                 normalOnly.Add(ModContent.ItemType<ScorchingChakram>(), new Fraction(2, 5));
                 normalOnly.Add(ModContent.ItemType<AshesBow>(), new Fraction(2, 5));
                 normalOnly.Add(ModContent.ItemType<EmberBolt>(), new Fraction(2, 5));
+                normalOnly.Add(ItemID.Hellstone, 1, 32, 40);
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<ApsychosRelic>());
 

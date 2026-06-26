@@ -121,7 +121,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 6f;
-            Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
+            Item.value = CalamityGlobalItem.RarityRedBuyPrice;
             Item.rare = ItemRarityID.Red;
             Item.UseSound = null;
             Item.autoReuse = false;
