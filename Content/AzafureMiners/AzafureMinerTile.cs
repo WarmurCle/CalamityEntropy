@@ -130,7 +130,9 @@ namespace CalamityEntropy.Content.AzafureMiners
             azMinerTP.SmartCursorHover = slc;
             if (inArea)
             {
-                Color outlineColor = slc ? Color.Yellow : Color.Gray;
+                Color outlineColor = slc ? Color.Yellow : new Color(94, 94, 94);
+                var matrix = (Matrix)Main.spriteBatch.GetType().GetField("transformMatrix", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(Main.spriteBatch);
+                var rasterizer = (RasterizerState)Main.spriteBatch.GetType().GetField("rasterizerState", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(Main.spriteBatch); 
                 Main.spriteBatch.End();
                 EffectLoader.OutlineShader.CurrentTechnique.Passes[0].Apply();
                 EffectLoader.OutlineShader.Parameters["texSize"].SetValue(tex.Size());
@@ -148,7 +150,8 @@ namespace CalamityEntropy.Content.AzafureMiners
                         , outlineColor, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
                 }
 
-                Main.spriteBatch.ExitShaderRegion();
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicWrap, DepthStencilState.None, rasterizer, null, matrix);
             }
             if (!t.IsHalfBlock && t.Slope == 0)
             {
