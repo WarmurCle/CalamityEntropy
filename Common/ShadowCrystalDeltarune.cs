@@ -10,6 +10,7 @@ namespace CalamityEntropy.Common
         public static bool Ch2Crystal = false;
         public static bool Ch3Crystal = false;
         public static bool Ch4Crystal = false;
+        public static bool Ch5Crystal = false;
         public static bool SaveFileExist = false;
         public static void Load()
         {
@@ -50,6 +51,7 @@ namespace CalamityEntropy.Common
                     Ch2Crystal = CheckFile(content, "2_");
                     Ch3Crystal = CheckFile(content, "3_");
                     Ch4Crystal = CheckFile(content, "4_");
+                    Ch5Crystal = CheckFile(content, "5_");
 
                 }
             }
@@ -64,6 +66,7 @@ namespace CalamityEntropy.Common
             Ch2Crystal = false;
             Ch3Crystal = false;
             Ch4Crystal = false;
+            Ch5Crystal = false;
         }
     }
 }

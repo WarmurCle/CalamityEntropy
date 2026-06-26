@@ -1145,13 +1145,19 @@ namespace CalamityEntropy.Common
         {
             if (drCrystals == null && Main.myPlayer == Player.whoAmI && !Main.dedServ)
             {
-                drCrystals = new List<bool>() { ShadowCrystalDeltarune.Ch1Crystal, ShadowCrystalDeltarune.Ch2Crystal, ShadowCrystalDeltarune.Ch3Crystal, ShadowCrystalDeltarune.Ch4Crystal };
+                drCrystals = new List<bool>() { 
+                    ShadowCrystalDeltarune.Ch1Crystal,
+                    ShadowCrystalDeltarune.Ch2Crystal,
+                    ShadowCrystalDeltarune.Ch3Crystal,
+                    ShadowCrystalDeltarune.Ch4Crystal,
+                    ShadowCrystalDeltarune.Ch5Crystal
+                };
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     var mp = Mod.GetPacket();
                     mp.Write((byte)CEMessageType.SyncDRShadowCrystal);
                     mp.Write(Player.whoAmI);
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 5; i++)
                         mp.Write(drCrystals[i]);
                 }
             }

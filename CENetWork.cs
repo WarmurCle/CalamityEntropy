@@ -398,7 +398,8 @@ namespace CalamityEntropy
                 bool ch2 = reader.ReadBoolean();
                 bool ch3 = reader.ReadBoolean();
                 bool ch4 = reader.ReadBoolean();
-                plr.ToPlayer().Entropy().drCrystals = new List<bool>() { ch1, ch2, ch3, ch4 };
+                bool ch5 = reader.ReadBoolean();
+                plr.ToPlayer().Entropy().drCrystals = new List<bool>() { ch1, ch2, ch3, ch4, ch5 };
                 if (Main.dedServ)
                 {
                     var mp = Instance.GetPacket();
@@ -408,6 +409,7 @@ namespace CalamityEntropy
                     mp.Write(ch2);
                     mp.Write(ch3);
                     mp.Write(ch4);
+                    mp.Write(ch5);
                     mp.Send(-1, plr);
                 }
             }
