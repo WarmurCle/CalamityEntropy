@@ -185,7 +185,7 @@ Items: {
 				DisplayName: Scorching Chakram
 				Tooltip:
 					'''
-					Throw out a chakram that will explode into tracked tectinic shards after flying for a period of time
+					Throw out a chakram that will explode into tracked tectonic shards after flying for a period of time
 					Stealth strike will cause the chakram to launch some fireballs after stopping, 
 					then chase the nearest target and explode into more shards
 					'''
@@ -200,7 +200,7 @@ Items: {
 					Explode when hit a target
 					Stealth strike will recall all attached spikes,
 					and continuously throw them towards the cursor direction
-					Stealth strike hit will spawn tracking tectinic shard
+					Stealth strike hit will spawn tracking tectonic shard
 					Ignore 8 defense
 					'''
 			}
@@ -3855,7 +3855,7 @@ Items: {
 
 	GreatSwordofEmbers: {
 		DisplayName: Great Sword of Embers
-		Tooltip: Shattered into tracking tectinic shard on the fourth hit
+		Tooltip: Shattered into tracking tectonic shard on the fourth hit
 	}
 
 	AshesCore: {
@@ -3952,7 +3952,7 @@ Items: {
 
 	EmberBolt: {
 		DisplayName: Ember Bolt
-		Tooltip: Shoot explosive fireballs that will generate homing tectinic shards
+		Tooltip: Shoot explosive fireballs that will generate homing tectonic shards
 	}
 
 	RemnantsStaff: {
@@ -4753,10 +4753,10 @@ Projectiles: {
 	ZafkielProj.DisplayName: Zafkiel
 	ApsychosTailShoot.DisplayName: Apsychos Tail Shoot
 	EmberSwordHoldout.DisplayName: Ember Sword Holdout
-	TectinicShardHoming.DisplayName: Tectinic Shard Homing
+	tectonicShardHoming.DisplayName: tectonic Shard Homing
 	AshesSpirit.DisplayName: Ashes Spirit
 	AshesSpiritFireball.DisplayName: Ashes Spirit Fireball
-	TectinicShardAshesCore.DisplayName: Tectinic Shard Ashes Core
+	tectonicShardAshesCore.DisplayName: tectonic Shard Ashes Core
 	ScorchingChakramThrown.DisplayName: Scorching Chakram Thrown
 	ScorchingFireball.DisplayName: Scorching Fireball
 	HellstoneMissileProj.DisplayName: Hellstone Missile Proj
