@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 40;
             Item.height = 72;
-            Item.damage = 21;
+            Item.damage = 20;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 16;
             Item.useAnimation = 16;
@@ -340,7 +340,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CEUtils.PlaySound("RockCrumble", Main.rand.NextFloat(2.6f, 3f), Projectile.Center, 8, 0.4f);
             float scale = 120 / 40f;
-            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromThis(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 130, Projectile.DamageType);
+            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromThis(), Projectile.GetOwner(), Projectile.Center, (int)(Projectile.damage * 0.58f), 130, Projectile.DamageType);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Blue * 0.8f, scale * 0.8f, 1, true, BlendState.Additive, 0, 10);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White * 0.8f, scale * 0.5f, 1, true, BlendState.Additive, 0, 10);
             GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(80, 80, 255), "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 24));
