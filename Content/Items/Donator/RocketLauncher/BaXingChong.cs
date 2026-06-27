@@ -1,15 +1,14 @@
 using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
-using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Rarities;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 using System;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -76,11 +75,11 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public override void AddRecipes()
         {
             CreateRecipe()
+                .AddIngredient<Spyker>()
+                .AddIngredient<UniversalGenesis>()
+                .AddIngredient<MiracleMatter>()
                 .AddIngredient<FadingRunestone>()
-                .AddIngredient<ShadowspecBar>(4)
-                .AddIngredient<VoidBar>(12)
-                .AddIngredient<AuricBar>(12)
-                .AddTile(ModContent.TileType<DraedonsForge>())
+                .AddTile(ModContent.TileType<VoidWellTile>())
                 .Register();
         }
 
