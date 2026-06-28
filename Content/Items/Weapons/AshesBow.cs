@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 40;
             Item.height = 72;
-            Item.damage = 29;
+            Item.damage = 34;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 18;
             Item.useAnimation = 18;

@@ -4796,6 +4796,8 @@ Projectiles: {
 	BuriedShoot.DisplayName: Buried Shoot
 	BuriedDot.DisplayName: Buried Dot
 	BuriedShoot2.DisplayName: Buried Shoot2
+	TectinicShardAshesCore.DisplayName: Tectinic Shard Ashes Core
+	TectinicShardHoming.DisplayName: Tectinic Shard Homing
 }
 
 LegendTooltip: - Legend -
