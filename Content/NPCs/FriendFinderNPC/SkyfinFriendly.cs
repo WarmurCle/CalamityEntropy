@@ -30,9 +30,9 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
             NPC.height = 22;
             NPC.aiStyle = AIType = -1;
 
-            NPC.damage = 80;
+            NPC.damage = 60;
             NPC.lifeMax = 500;
-            NPC.defense = 8;
+            NPC.defense = 15;
             NPC.knockBackResist = 0.3f;
 
 

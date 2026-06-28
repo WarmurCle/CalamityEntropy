@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
             NPC.aiStyle = -1;
             AIType = -1;
             NPC.npcSlots = 1f;
-            NPC.damage = 60;
+            NPC.damage = 35;
             NPC.width = 40;
             NPC.height = 40;
             NPC.defense = 30;
