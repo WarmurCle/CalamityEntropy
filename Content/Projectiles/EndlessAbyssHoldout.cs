@@ -57,6 +57,8 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Projectile.frameCounter++;
             Player owner = Projectile.owner.ToPlayer();
+            if (owner.channel)
+                Projectile.damage = owner.GetWeaponDamage(owner.HeldItem);
             if (Projectile.ai[0] == 0)
             {
                 if (Main.myPlayer == Projectile.owner)
