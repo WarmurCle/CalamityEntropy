@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.Items.Armor.Smoldering
         {
             Projectile.FriendlySetDefaults(DamageClass.Generic, false, -1);
         }
-
+        public override bool? CanCutTiles() => false;
         public List<TailSeg> segs = null;
         public void UpdateSegs(Player player, bool addVel = true)
         {
