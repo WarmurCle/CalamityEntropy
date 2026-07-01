@@ -12,11 +12,11 @@ FlowingLight: {
 
 PhantomLightWing: {
 	DisplayName: Фантомное крыло
-	Tooltip: 
-	'''
-	{$CommonItemTooltip.FlightAndSlowfall}
-	Звездный след во время полёта.
-	'''
+	Tooltip:
+		'''
+		{$CommonItemTooltip.FlightAndSlowfall}
+		Звездный след во время полёта.
+		'''
 }
 
 RuneWing: {
@@ -47,11 +47,11 @@ BigShotsWing: {
 
 IceShardWing: {
 	DisplayName: Ледяное крыло
-	Tooltip: 
-	'''
-	{$CommonItemTooltip.FlightAndSlowfall}
-	На самом деле он летает с помощью магии.
-	'''
+	Tooltip:
+		'''
+		{$CommonItemTooltip.FlightAndSlowfall}
+		На самом деле он летает с помощью магии.
+		'''
 }
 
 TheRevelation: {
