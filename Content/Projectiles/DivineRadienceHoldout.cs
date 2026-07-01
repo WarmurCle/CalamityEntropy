@@ -56,6 +56,8 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             Player owner = Projectile.owner.ToPlayer();
+            if(owner.channel)
+                Projectile.damage = owner.GetWeaponDamage(owner.HeldItem);
             if (Projectile.ai[0]++ > 16)
             {
                 int mo = (int)(Projectile.ai[0] % 25);

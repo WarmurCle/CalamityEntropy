@@ -2766,7 +2766,8 @@ namespace CalamityEntropy.Common
                     }
                     if (Player.GetModPlayer<SCDashMP>().flag)
                     {
-                        Player.GetModPlayer<SCDashMP>().Cooldown = 180.ApplyCdDec(Player);
+                        int cd = ShadeCloak.CooldownTicks.ApplyCdDec(Player);
+                        Player.GetModPlayer<SCDashMP>().Cooldown = cd;
                         Player.GetModPlayer<SCDashMP>().flag = false;
                         if (hasAccVisual(ShadeCloak.ID))
                         {
@@ -2774,7 +2775,7 @@ namespace CalamityEntropy.Common
 
                             for (int i = 0; i < 12; i++)
                             {
-                                EParticle.NewParticle(new ShadeCloakOrb() { PlayerIndex = Player.whoAmI }, Vector2.Zero, CEUtils.randomPointInCircle(4), Color.Black, 1, 1, true, BlendState.NonPremultiplied, -1, 160.ApplyCdDec(Player));
+                                EParticle.NewParticle(new ShadeCloakOrb() { PlayerIndex = Player.whoAmI }, Vector2.Zero, CEUtils.randomPointInCircle(4), Color.Black, 1, 1, true, BlendState.NonPremultiplied, -1, cd);
                             }
                         }
                         NDFlag = true;

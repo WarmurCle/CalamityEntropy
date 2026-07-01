@@ -18,10 +18,10 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
         public override void SetDefaults()
         {
             NPC.noTileCollide = true;
-            NPC.damage = 48;
+            NPC.damage = 25;
             NPC.width = 40;
             NPC.height = 30;
-            NPC.defense = 6;
+            NPC.defense = 15;
             NPC.lifeMax = 500;
             NPC.knockBackResist = 0.8f;
             AnimationType = NPCID.Slimer;

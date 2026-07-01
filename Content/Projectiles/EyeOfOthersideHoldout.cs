@@ -205,6 +205,8 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             Player owner = Projectile.owner.ToPlayer();
+            if (owner.channel)
+                Projectile.damage = owner.GetWeaponDamage(owner.HeldItem);
             if (Projectile.ai[0]++ > 5 && Projectile.ai[0] % 5 == 0)
             {
                 if (owner.CheckMana(12, true))

@@ -4979,10 +4979,10 @@ Projectiles: {
 	ZafkielProj.DisplayName: 刻刻帝
 	ApsychosTailShoot.DisplayName: 烬甲秽魔尾弹
 	EmberSwordHoldout.DisplayName: 灼烬巨剑
-	TectinicShardHoming.DisplayName: 板块碎片
+	// tectonicShardHoming.DisplayName: tectonic Shard Homing
 	AshesSpirit.DisplayName: 灰烬之灵
 	AshesSpiritFireball.DisplayName: 灰烬火球
-	TectinicShardAshesCore.DisplayName: 板块碎片
+	// tectonicShardAshesCore.DisplayName: tectonic Shard Ashes Core
 	ScorchingChakramThrown.DisplayName: 焦灼旋刃
 	ScorchingFireball.DisplayName: 焦灼火球
 	HellstoneMissileProj.DisplayName: 狱炎导弹
@@ -5022,6 +5022,8 @@ Projectiles: {
 	BuriedShoot.DisplayName: 日陨激光
 	BuriedDot.DisplayName: 噬阳光点
 	BuriedShoot2.DisplayName: 日陨激光
+	TectinicShardAshesCore.DisplayName: 板块碎片
+	TectinicShardHoming.DisplayName: 板块碎片
 }
 
 LegendTooltip: - 传奇物品 -

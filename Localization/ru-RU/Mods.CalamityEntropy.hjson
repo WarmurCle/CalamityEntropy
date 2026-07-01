@@ -4637,10 +4637,10 @@ Projectiles: {
 	ZafkielProj.DisplayName: Император
 	ApsychosTailShoot.DisplayName: Оранжевый хвост.
 	EmberSwordHoldout.DisplayName: Огненный меч.
-	TectinicShardHoming.DisplayName: Фрагмент плиты
+	// tectonicShardHoming.DisplayName: tectonic Shard Homing
 	AshesSpirit.DisplayName: Дух пепла
 	AshesSpiritFireball.DisplayName: Огненный шар пепла
-	TectinicShardAshesCore.DisplayName: Фрагмент плиты
+	// tectonicShardAshesCore.DisplayName: tectonic Shard Ashes Core
 	ScorchingChakramThrown.DisplayName: Зажженный клинок
 	ScorchingFireball.DisplayName: Огненный шар
 	HellstoneMissileProj.DisplayName: Ракеты - ловушки
@@ -4680,6 +4680,8 @@ Projectiles: {
 	// BuriedShoot.DisplayName: Buried Shoot
 	// BuriedDot.DisplayName: Buried Dot
 	// BuriedShoot2.DisplayName: Buried Shoot2
+	TectinicShardAshesCore.DisplayName: Фрагмент плиты
+	TectinicShardHoming.DisplayName: Фрагмент плиты
 }
 
 LegendTooltip: - Легенда -

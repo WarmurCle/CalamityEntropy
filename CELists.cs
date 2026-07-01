@@ -1,5 +1,7 @@
 ﻿using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.Fractal;
+using CalamityEntropy.Content.Projectiles;
+using CalamityMod.Projectiles.Melee;
 using System.Collections.Generic;
 using Terraria.ModLoader;
 
@@ -14,6 +16,10 @@ namespace CalamityEntropy
             int I<T>() where T : ModItem
             {
                 return ModContent.ItemType<T>();
+            }
+            int P<T>() where T : ModProjectile
+            {
+                return ModContent.ProjectileType<T>();
             }
             SpecialTaintedEnchantmentList = new()
             {
@@ -32,10 +38,26 @@ namespace CalamityEntropy
                 I<Voidshade>(),
                 I<RuneSong>()
             };
+            SoyMilkProjectileBlacklist = new()
+            {
+                P<RailPulseBowProjectile>(),
+                P<GhostdomWhisperHoldout>(),
+                P<HadopelagicEchoIIProj>(),
+                P<SolarStormHeld>(),
+                P<HellkiteHoldout>(),
+                P<GrandGuardianHoldout>(),
+                P<MajesticGuardHoldout>(),
+                P<GrandDadHoldout>(),
+                P<EarthHoldout>(),
+                P<BatteringRamProj>(),
+                P<CinderConvergencerHoldout>()
+            };
         }
+        public static List<int> SoyMilkProjectileBlacklist;
         public static void Unload()
         {
             SpecialTaintedEnchantmentList = null;
+            SoyMilkProjectileBlacklist = null;
         }
     }
 }
