@@ -41,7 +41,6 @@ namespace CalamityEntropy.Content.Items.Accessories
             {
                 player.Entropy().light += 0.8f;
             }
-            Main.NewText(Item.wingSlot);
         }
         public override void UpdateVanity(Player player)
         {

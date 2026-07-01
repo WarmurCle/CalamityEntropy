@@ -11,11 +11,11 @@ FlowingLight: {
 
 PhantomLightWing: {
 	DisplayName: Phantom Light Wings
-	Tooltip: 
-	'''
-	Leaving starlight trails during flight
-	{$CommonItemTooltip.FlightAndSlowfall}
-	'''
+	Tooltip:
+		'''
+		{$CommonItemTooltip.FlightAndSlowfall}
+		Leaving starlight trails during flight
+		'''
 }
 
 RuneWing: {
@@ -46,11 +46,11 @@ BigShotsWing: {
 
 IceShardWing: {
 	DisplayName: Ice Shard Wings
-	Tooltip: 
-	'''
-	{$CommonItemTooltip.FlightAndSlowfall}
-	It actually uses magic to fly
-	'''
+	Tooltip:
+		'''
+		{$CommonItemTooltip.FlightAndSlowfall}
+		It actually uses magic to fly
+		'''
 }
 
 TheRevelation: {
