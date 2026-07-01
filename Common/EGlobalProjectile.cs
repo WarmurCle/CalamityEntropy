@@ -447,8 +447,8 @@ namespace CalamityEntropy.Common
 
                         if (plr.HasBuff(ModContent.BuffType<SoyMilkBuff>()))
                         {
-                            if (!(projectile.ModProjectile is EntropyBookHeldProjectile))
-                                projectile.extraUpdates = (projectile.extraUpdates + 1) * 3 - 1;
+                            if (!CELists.SoyMilkProjectileBlacklist.Contains(projectile.type) && !(projectile.ModProjectile is EntropyBookHeldProjectile))
+                                projectile.MaxUpdates = projectile.MaxUpdates * 3;
                         }
                     }
 
