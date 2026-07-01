@@ -205,6 +205,8 @@ namespace CalamityEntropy.Content.Particles
         }
         public static void NewParticle(EParticle particle, Vector2 pos, Vector2 vel, Color col, float scale, float a, bool glow, BlendState bs, float rotation = 0, int lifeTime = -1)
         {
+            if (Main.dedServ)
+                return;
             particle.Position = pos;
             particle.Velocity = vel;
             particle.Color = col;
