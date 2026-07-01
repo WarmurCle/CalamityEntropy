@@ -4798,6 +4798,7 @@ Projectiles: {
 	BuriedShoot2.DisplayName: Buried Shoot2
 	TectinicShardAshesCore.DisplayName: Tectinic Shard Ashes Core
 	TectinicShardHoming.DisplayName: Tectinic Shard Homing
+	AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
 }
 
 LegendTooltip: - Legend -

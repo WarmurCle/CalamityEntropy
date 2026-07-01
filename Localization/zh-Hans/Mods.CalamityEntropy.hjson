@@ -5024,6 +5024,7 @@ Projectiles: {
 	BuriedShoot2.DisplayName: 日陨激光
 	TectinicShardAshesCore.DisplayName: 板块碎片
 	TectinicShardHoming.DisplayName: 板块碎片
+	// AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
 }
 
 LegendTooltip: - 传奇物品 -

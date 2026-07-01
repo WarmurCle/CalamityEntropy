@@ -4682,6 +4682,7 @@ Projectiles: {
 	// BuriedShoot2.DisplayName: Buried Shoot2
 	TectinicShardAshesCore.DisplayName: Фрагмент плиты
 	TectinicShardHoming.DisplayName: Фрагмент плиты
+	// AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
 }
 
 LegendTooltip: - Легенда -
