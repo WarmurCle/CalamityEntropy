@@ -2,6 +2,7 @@ FlowingLight: {
 	DisplayName: Flowing Light
 	Tooltip:
 		'''
+		{$CommonItemTooltip.FlightAndSlowfall}
 		Hold ↓ when flying to hover
 		Hold ↓ to accelerate the descent
 		$"Reaching the pinnacle of perfection"
@@ -10,13 +11,18 @@ FlowingLight: {
 
 PhantomLightWing: {
 	DisplayName: Phantom Light Wings
-	Tooltip: Leaving starlight trails during flight
+	Tooltip: 
+	'''
+	Leaving starlight trails during flight
+	{$CommonItemTooltip.FlightAndSlowfall}
+	'''
 }
 
 RuneWing: {
 	DisplayName: Soar Rune
 	Tooltip:
 		'''
+		{$CommonItemTooltip.FlightAndSlowfall}
 		Press [KEY] to advance towards the mouse direction, during which immune damage occurs
 		Cooling is determined by the sprint distance, 
 		releasing the button in advance can end the sprint in advance, with a maximum sprint time of [DT] seconds
@@ -27,6 +33,7 @@ BigShotsWing: {
 	DisplayName: Big Shot's Wings
 	Tooltip:
 		'''
+		{$CommonItemTooltip.FlightAndSlowfall}
 		-90% flight time if there're any boss
 		"Now's your chance to be a..."
 		Hold shift and right click to toggle strings' transparency
@@ -39,13 +46,18 @@ BigShotsWing: {
 
 IceShardWing: {
 	DisplayName: Ice Shard Wings
-	Tooltip: It actually uses magic to fly
+	Tooltip: 
+	'''
+	{$CommonItemTooltip.FlightAndSlowfall}
+	It actually uses magic to fly
+	'''
 }
 
 TheRevelation: {
 	DisplayName: The Revelation
 	Tooltip:
 		'''
+		{$CommonItemTooltip.FlightAndSlowfall}
 		Charging when using weapons,
 		when it is fully charged, release the mouse button to release a holy beam
 		deals 50 damage every 3 frames
@@ -59,6 +71,7 @@ VoidElytra: {
 	DisplayName: Void Elytra
 	Tooltip:
 		'''
+		{$CommonItemTooltip.FlightAndSlowfall}
 		Allow you to dash in four directions
 		[c/356498:Dedicate life to the void and achieve breakthroughs in the limits]
 		'''

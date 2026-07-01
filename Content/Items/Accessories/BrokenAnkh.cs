@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityMod;
+using CalamityMod.Items;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -24,10 +25,9 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             Item.width = 50;
             Item.height = 50;
-            Item.value = 1000;
+            Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Blue;
             Item.accessory = true;
-
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
