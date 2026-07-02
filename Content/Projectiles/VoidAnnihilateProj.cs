@@ -78,7 +78,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 900;
+            Projectile.timeLeft = 160;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 16;
         }
@@ -155,7 +155,7 @@ namespace CalamityEntropy.Content.Projectiles
             if (!Hitted)
             {
                 Hitted = true;
-                Projectile.timeLeft = 600;
+                Projectile.timeLeft = 900;
                 CEUtils.SyncProj(Projectile.whoAmI);
                 GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(230, 230, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 1f, 14));
                 for (int i = 0; i < 16; i++)
@@ -169,7 +169,13 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 CEUtils.PlaySound("DemonSwordImpact2", Main.rand.NextFloat(1.6f, 2f), Projectile.Center, 8, 0.8f);
                 Projectile.velocity = CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(17, 24);
-                if (Projectile.GetOwner().ownedProjectileCounts[Projectile.type] > 15)
+                int s = 0;
+                foreach(Projectile p in Main.ActiveProjectiles)
+                {
+                    if (p.type == Projectile.type && p.owner == Projectile.owner && p.ai[0] > 0)
+                        s++;
+                }
+                if (s > 15)
                     Projectile.Kill();
             }
             if(ForceStrike)
