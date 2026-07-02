@@ -331,7 +331,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 180;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 16;
         }
@@ -346,6 +346,7 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.Kill();
                     return;
                 }
+                Projectile.timeLeft = 180;
                 float speed = player.GetWeaponAttackSpeed(player.HeldItem);
                 player.itemTime = player.itemAnimation = 2;
                 Projectile.StickToPlayer();
