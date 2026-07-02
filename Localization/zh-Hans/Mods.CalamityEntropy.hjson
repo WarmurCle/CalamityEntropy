@@ -5730,7 +5730,7 @@ Configs: {
 			Label: 灾熵近战武器音效大小
 			Tooltip: ""
 		}
-		
+
 		TileEffect: {
 			Label: 物块特效
 			Tooltip: ""
