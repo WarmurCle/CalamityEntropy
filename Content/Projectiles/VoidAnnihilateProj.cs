@@ -350,9 +350,9 @@ namespace CalamityEntropy.Content.Projectiles
                 player.itemTime = player.itemAnimation = 2;
                 Projectile.StickToPlayer();
                 int dir = (player.Calamity().mouseWorld.X - player.Center.X) > 0 ? 1 : -1;
-                Projectile.rotation += dir * -1.2f * (1 - CEUtils.Parabola(Projectile.ai[0] * 0.5f + 0.5f, 1));
+                Projectile.rotation += dir * -2.2f * (1 - CEUtils.Parabola(Projectile.ai[0] * 0.5f + 0.5f, 1));
                 player.SetHandRotWithDir(Projectile.rotation, dir);
-                Projectile.Center += Projectile.rotation.ToRotationVector2() * 32 * Projectile.scale;
+                Projectile.Center += Projectile.rotation.ToRotationVector2() * 26 * Projectile.scale;
                 if (Projectile.ai[0] < 1)
                 {
                     Projectile.ai[0] += 0.025f * speed;
