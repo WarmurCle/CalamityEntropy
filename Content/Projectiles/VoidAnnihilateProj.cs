@@ -86,6 +86,7 @@ namespace CalamityEntropy.Content.Projectiles
         public List<Vector2> oldPos = new List<Vector2>();
         public override void AI()
         {
+            CEUtils.AddLight(Projectile.Center, new Color(90, 90, 255));
             if (Projectile.Entropy().FirstFrames)
                 CEUtils.PlaySound("HammerShoot" + Main.rand.Next(1, 4), Main.rand.NextFloat(2.2f, 2.5f), Projectile.Center, 12, 0.6f);
             if (Hitted)
@@ -339,6 +340,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             Player player = Projectile.GetOwner();
+            CEUtils.AddLight(Projectile.Center, new Color(90, 90, 255));
             if (Projectile.ai[1] <= 0)
             {
                 if (!player.active || player.dead)
