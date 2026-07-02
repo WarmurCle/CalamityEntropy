@@ -124,7 +124,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 oldPos.RemoveAt(0);
             }
-            Projectile.localAI[1] = float.Lerp(Projectile.localAI[1], ForceStrike ? 1 : 0, 0.12f);
+            Projectile.localAI[1] = float.Lerp(Projectile.localAI[1], ForceStrike ? 1 : 0, 0.2f);
         }
         public bool ForceStrike { get { return Projectile.ai[1] > 0; } set { Projectile.ai[1] = 1; } }
         public NPC targetNPC
@@ -232,17 +232,17 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         Vector2 m = Vector2.Lerp(Projectile.Center, pos, i);
                         Vector2 l = (Projectile.Center - pos).normalize().RotatedBy(MathHelper.PiOver2);
-                        ve.Add(new ColoredVertex(m - l * alpha * 20 - Main.screenPosition,
+                        ve.Add(new ColoredVertex(m - l * alpha * 14 - Main.screenPosition,
                               new Vector3(i * 2 + trailOffset, 1, 1),
                               new Color(60, 60, 255) * alpha));
-                        ve.Add(new ColoredVertex(m + l * alpha * 20 - Main.screenPosition,
+                        ve.Add(new ColoredVertex(m + l * alpha * 14 - Main.screenPosition,
                               new Vector3(i * 2 + trailOffset, 0, 1),
                               new Color(60, 60, 255) * alpha));
 
-                        ve2.Add(new ColoredVertex(m - l * alpha * 20 - Main.screenPosition,
+                        ve2.Add(new ColoredVertex(m - l * alpha * 14 - Main.screenPosition,
                               new Vector3(i * 2 + trailOffset, 1, 1),
                               new Color(255, 255, 255) * alpha));
-                        ve2.Add(new ColoredVertex(m + l * alpha * 20 - Main.screenPosition,
+                        ve2.Add(new ColoredVertex(m + l * alpha * 14 - Main.screenPosition,
                               new Vector3(i * 2 + trailOffset, 0, 1),
                               new Color(255, 255, 255) * alpha));
                     }
