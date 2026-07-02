@@ -374,6 +374,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.MaxUpdates *= 2;
                         Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy((player.Calamity().mouseWorld - Projectile.Center).ToRotation());
                         CEUtils.PlaySound("runesong3", Main.rand.NextFloat(0.8f, 1f), Projectile.Center, 10);
+                        Projectile.rotation = Projectile.velocity.ToRotation();
                     }
                     else
                     {
