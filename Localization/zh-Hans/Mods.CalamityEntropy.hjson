@@ -612,11 +612,9 @@ Items: {
 		DisplayName: 虚湮黯天
 		Tooltip:
 			'''
-			扔出一把飞刀
-			按下[KEY]收回所有飞刀
-			右键飞刀位移到该位置
-			传送后获得混沌debuff
-			最多存在4把
+			点击左键或按住右键丢出一些飞刀，击中后弹开并漂浮在周围
+			长按左键蓄力，完全蓄力时松开会丢出一把强化的飞刀，造成3倍伤害
+			强化飞刀命中会使所有漂浮的飞刀砸向目标
 			'''
 	}
 
@@ -5025,6 +5023,8 @@ Projectiles: {
 	TectinicShardAshesCore.DisplayName: 板块碎片
 	TectinicShardHoming.DisplayName: 板块碎片
 	// AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
+	// VoidAnnihilateSpawner.DisplayName: Void Annihilate Spawner
+	// VoidAnnihilateCharge.DisplayName: Void Annihilate Charge
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5635,7 +5635,6 @@ loreProphet:
 	'''
 
 Keybinds: {
-	RetrieveVoidAnnihilate.DisplayName: 收回所有飞刀
 	ThrowPoop.DisplayName: 丢出大便
 	KeepPoop.DisplayName: 保留大便
 	VetrasylsEyeBlock.DisplayName: 维塔希尔之瞳格挡

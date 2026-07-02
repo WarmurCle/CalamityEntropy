@@ -4683,6 +4683,8 @@ Projectiles: {
 	TectinicShardAshesCore.DisplayName: Фрагмент плиты
 	TectinicShardHoming.DisplayName: Фрагмент плиты
 	// AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
+	// VoidAnnihilateSpawner.DisplayName: Void Annihilate Spawner
+	// VoidAnnihilateCharge.DisplayName: Void Annihilate Charge
 }
 
 LegendTooltip: - Легенда -
@@ -5296,7 +5298,6 @@ loreProphet:
 	'''
 
 Keybinds: {
-	RetrieveVoidAnnihilate.DisplayName: Вернуть Уничтожение Пустоты
 	ThrowPoop.DisplayName: Бросить какашку
 	KeepPoop.DisplayName: Подобрать какашку
 	VetrasylsEyeBlock.DisplayName: Щит Ока Ветрасиля
