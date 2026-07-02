@@ -180,7 +180,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if(ForceStrike)
             {
-                CEUtils.PlaySound("ExoHit1", Main.rand.NextFloat(1.2f, 1.6f), Projectile.Center, 6, 1);
+                CEUtils.PlaySound("moonlighthit" + Main.rand.Next(2), Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, 6, 1);
                 for (int i = 0; i < 5; i++)
                 {
                     Dust dust = Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<SquashDust>(), -Projectile.velocity);
