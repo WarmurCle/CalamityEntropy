@@ -5795,6 +5795,11 @@ Configs: {
 			Label: 盗贼配饰提供最少40点潜行值
 			Tooltip: 如果你穿戴了任何盗贼饰品，则会至少拥有20点潜行值
 		}
+
+		EnableArmorPrefix: {
+			Label: 启用护甲词条
+			Tooltip: "关闭此项将禁用所有词条物品的合成配方和自然世界生成"
+		}
 	}
 }
 

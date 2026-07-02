@@ -290,7 +290,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            return (spawnInfo.Player.Calamity().ZoneCalamity && !NPC.AnyNPCs(Type) && EModSys.AcropolisDontSpawn <= 0) ? 0.2f : 0f;
+            return (spawnInfo.Player.Calamity().ZoneCalamity && !NPC.AnyNPCs(Type) && EModSys.AcropolisDontSpawn <= 0) ? (NPC.downedMoonlord ? 0.04f : (Main.hardMode ? 0.07f : 0.18f)) : 0f;
         }
         public static bool CanStandOn(Vector2 pos)
         {

@@ -29,5 +29,9 @@ namespace CalamityEntropy.Common
 
         [DefaultValue(true)]
         public bool RogueAccessoriesProvide40Stealth { get; set; }
+
+        [DefaultValue(true)]
+        [ReloadRequired]
+        public bool EnableArmorPrefix { get; set; }
     }
 }

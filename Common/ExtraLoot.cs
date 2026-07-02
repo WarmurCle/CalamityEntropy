@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Items.Accessories;
+﻿using CalamityEntropy.Content.ArmorPrefixes;
+using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.Cards;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Donator.RocketLauncher;
@@ -25,17 +26,20 @@ namespace CalamityEntropy.Common
                     ancientPrefixItem.Add(i);
                 }
             }
-            for (int i = 0; i < 3; i++)
+            if (ArmorPrefix.Enabled)
             {
-                int bc = 0;
-                while (bc++ < 4096)
+                for (int i = 0; i < 3; i++)
                 {
-                    int px = Main.rand.Next(Main.tile.Width);
-                    int py = Main.rand.Next(Main.tile.Height);
-                    if (Main.tile[px, py].HasTile && Main.tileBrick[Main.tile[px, py].TileType])
+                    int bc = 0;
+                    while (bc++ < 4096)
                     {
-                        Main.tile[px, py].ResetToType((ushort)ModContent.TileType<TheHeatDeath>());
-                        break;
+                        int px = Main.rand.Next(Main.tile.Width);
+                        int py = Main.rand.Next(Main.tile.Height);
+                        if (Main.tile[px, py].HasTile && Main.tileBrick[Main.tile[px, py].TileType])
+                        {
+                            Main.tile[px, py].ResetToType((ushort)ModContent.TileType<TheHeatDeath>());
+                            break;
+                        }
                     }
                 }
             }
@@ -48,15 +52,19 @@ namespace CalamityEntropy.Common
                     continue;
                 }
                 Tile chestTile = Main.tile[chest.x, chest.y];
-                if (WorldGen.genRand.NextBool(16))
+
+                if (ArmorPrefix.Enabled)
                 {
-                    for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
+                    if (WorldGen.genRand.NextBool(20))
                     {
-                        if (chest.item[inventoryIndex].type == ItemID.None)
+                        for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
                         {
-                            chest.item[inventoryIndex].SetDefaults(ancientPrefixItem[WorldGen.genRand.Next(ancientPrefixItem.Count)]);
-                            itemsPlaced++;
-                            break;
+                            if (chest.item[inventoryIndex].type == ItemID.None)
+                            {
+                                chest.item[inventoryIndex].SetDefaults(ancientPrefixItem[WorldGen.genRand.Next(ancientPrefixItem.Count)]);
+                                itemsPlaced++;
+                                break;
+                            }
                         }
                     }
                 }
