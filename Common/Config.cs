@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
+using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 
 namespace CalamityEntropy.Common
 {
     public class Config : ModConfig
     {
+        public static Config Instance => ModContent.GetInstance<Config>();
         public override ConfigScope Mode => ConfigScope.ClientSide;
         [Header("Misc")]
         [SliderColor(224, 165, 56, 128)]
@@ -37,6 +39,8 @@ namespace CalamityEntropy.Common
         public bool MariviumArmorSetOnlyProvideStealthBarWhenHoldingRogueWeapons { get; set; }
 
         [Header("Compatibility")]
+        [DefaultValue(true)]
+        public bool TileEffect { get; set; }
         [DefaultValue(true)]
         public bool EnablePixelEffect { get; set; }
 

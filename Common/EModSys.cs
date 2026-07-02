@@ -318,7 +318,7 @@ namespace CalamityEntropy.Common
 
             List<int> HighLightWallTypes = new List<int>() { 94, 98, 96, 95, 99, 97 };
             DWAlpha = float.Lerp(DWAlpha, NPC.AnyNPCs(sftype) ? 0.2f : (NPC.AnyNPCs(ptype) ? 1 : 0), 0.1f);
-            if (DWAlpha > 0.02f)
+            if (DWAlpha > 0.02f && Config.Instance.TileEffect)
             {
                 DrawWallsHL(HighLightWallTypes);
             }
@@ -429,7 +429,7 @@ namespace CalamityEntropy.Common
                 {
                     Tile tile = _tileArray[j, i];
                     ushort wall = tile.WallType;
-                    if (types.Contains(wall) && tile.WallType > 0 && NeedTiles.Contains(tile.TileType) && !tile.HasUnactuatedTile)
+                    if (!tile.HasUnactuatedTile && tile.WallType > 0 && types.Contains(wall) && NeedTiles.Contains(tile.TileType))
                     {
                         value.X = tile.TileFrameX;
                         value.Y = tile.TileFrameY + Main.tileFrame[tile.TileType] * 0;
