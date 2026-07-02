@@ -5512,6 +5512,11 @@ Configs: {
 			Tooltip: ""
 		}
 
+		TileEffect: {
+			Label: Tile Effect
+			Tooltip: ""
+		}
+
 		ScreenWarpEffects: {
 			Label: Screen Effects
 			Tooltip: Do or do not draw the screen wrap and cut screen effect
