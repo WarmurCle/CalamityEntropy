@@ -1,8 +1,9 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
+using CalamityMod.Items;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -19,8 +20,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 2400;
-            Item.crit = 8;
+            Item.damage = 1200;
+            Item.crit = 10;
             Item.DamageType = DamageClass.Melee;
             Item.width = 64;
             Item.noUseGraphic = true;
@@ -29,12 +30,12 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useAnimation = 16;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 6;
-            Item.value = 12000;
+            Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.rare = ModContent.RarityType<VoidPurple>();
             Item.UseSound = null;
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<VoidAnnihilateCharge>();
-            Item.shootSpeed = 42f;
+            Item.shootSpeed = 75f;
             Item.ArmorPenetration = 50;
         }
         public override bool CanUseItem(Player player)
