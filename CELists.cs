@@ -50,7 +50,9 @@ namespace CalamityEntropy
                 P<GrandDadHoldout>(),
                 P<EarthHoldout>(),
                 P<BatteringRamProj>(),
-                P<CinderConvergencerHoldout>()
+                P<CinderConvergencerHoldout>(),
+                P<VoidAnnihilateCharge>(),
+                P<VoidAnnihilateSpawner>()
             };
         }
         public static List<int> SoyMilkProjectileBlacklist;
