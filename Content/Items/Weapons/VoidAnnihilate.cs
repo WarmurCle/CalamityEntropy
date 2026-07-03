@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<VoidAnnihilateCharge>();
             Item.shootSpeed = 56f;
-            Item.ArmorPenetration = 50;
+            Item.ArmorPenetration = 18;
         }
         public override bool CanUseItem(Player player)
         {

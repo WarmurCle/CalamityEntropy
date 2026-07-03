@@ -609,12 +609,12 @@ Items: {
 		DisplayName: Void Annihilate
 		Tooltip:
 			'''
-			Click LMB or hold RMB to throw some knives
-			After hitting a target, they will bounce off and float around
-			Long press the left button to build up momentum
-			When fully charged,
-			releasing it will throw an enhanced knife that causing triple damage
-			Enhancing knives will cause all floating knives to hit the target
+			[c/9387ff:Click LMB or hold RMB to throw some knives]
+			[c/9387ff:After hitting a target, they will bounce off and float around]
+			[c/9387ff:Long press the left button to build up momentum]
+			[c/9387ff:When fully charged,]
+			[c/9387ff:releasing it will throw an enhanced knife that causing triple damage]
+			[c/9387ff:Enhancing knives will cause all floating knives to hit the target]
 			'''
 	}
 
@@ -5841,7 +5841,7 @@ UseAmmo: Use Ammo
 OrbPunishDeath0: "{0} shattered into pieces"
 OrbPunishDeath1: "{0} try to remove the shattered foresee orb"
 RuneDashCD: Rune Dash Cooldown
-ArmorPenetrationItemTooltip: Armor Penetration
+ArmorPenetrationItemTooltip: "{0} Armor Penetration"
 AmmoLifeTime: Life Time
 AmmoShootSpeed: Shoot Speed
 AmmoPenetrate: Penetrate times

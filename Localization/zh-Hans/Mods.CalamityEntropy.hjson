@@ -612,10 +612,10 @@ Items: {
 		DisplayName: 虚湮黯天
 		Tooltip:
 			'''
-			点击左键或按住右键丢出一些飞刀，击中后弹开并漂浮在周围
-			长按左键蓄力，完全蓄力时松开会丢出一把强化的飞刀，造成3倍伤害
-			强化飞刀命中会爆炸，如果存在漂浮会产生更大的爆炸并使所有飞刀砸向目标
-			同时最多存在15把漂浮飞刀
+			[c/9387ff:点击左键或按住右键丢出一些飞刀，击中后弹开并漂浮在周围]
+			[c/9387ff:长按左键蓄力，完全蓄力时松开会丢出一把强化的飞刀，造成3倍伤害]
+			[c/9387ff:强化飞刀命中会爆炸，如果存在漂浮会产生更大的爆炸并激活所有漂浮的飞刀，使其砸向目标]
+			[c/9387ff:同时最多存在15把漂浮飞刀]
 			'''
 	}
 
@@ -6080,7 +6080,7 @@ UseAmmo: 使用弹药
 OrbPunishDeath0: "{0}的灵魂破碎了"
 OrbPunishDeath1: "{0}试图取下裂开的预知宝珠"
 RuneDashCD: 符文突进冷却
-ArmorPenetrationItemTooltip: 护甲穿透
+ArmorPenetrationItemTooltip: "{0}点护甲穿透"
 AmmoLifeTime: 射弹最大存在时间
 AmmoShootSpeed: 射弹速度
 AmmoPenetrate: 穿透次数
