@@ -5798,7 +5798,7 @@ Configs: {
 
 		EnableArmorPrefix: {
 			Label: 启用护甲词条
-			Tooltip: "关闭此项将禁用所有词条物品的合成配方和自然世界生成"
+			Tooltip: 关闭此项将禁用所有词条物品的合成配方和自然世界生成
 		}
 	}
 }

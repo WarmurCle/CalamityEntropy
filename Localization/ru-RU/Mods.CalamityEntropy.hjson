@@ -5460,7 +5460,7 @@ Configs: {
 
 		EnableArmorPrefix: {
 			// Label: Enable Armor Prefix
-			// Tooltip: ""
+			// Tooltip: Close this will disable all prefix items' recipes and generation in world
 		}
 	}
 }
