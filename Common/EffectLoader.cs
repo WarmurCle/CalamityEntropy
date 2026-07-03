@@ -60,6 +60,7 @@ namespace CalamityEntropy.Common
         public static Asset<Effect> StarsTrail;
         public static Asset<Effect> RTShader;
         public static Asset<Effect> WarpShader;
+        public static Asset<Effect> Cylinder;
         public static Effect kscreen;
         public static Effect fscreen;
         public static Effect kscreen2;
@@ -147,6 +148,11 @@ namespace CalamityEntropy.Common
                 //应用最终着色器
                 ApplyFinalShader(graphicsDevice);
 
+                /*PreparePixelShader(Main.graphics.GraphicsDevice);
+                Vector2 v = new Vector2(67278, 5867) - Main.screenPosition;
+                DrawCylinder(CEUtils.getExtraTex("vine/spr_towery_vines_0"), v, Color.White, 6, 3, 0.5f, Main.GlobalTimeWrappedHourly * 1.4f, startBatch: false);
+                ApplyPixelShader(Main.graphics.GraphicsDevice);*/
+
                 //处理屏幕切割效果
                 HandleCutScreenEffect(graphicsDevice);
 
@@ -156,6 +162,25 @@ namespace CalamityEntropy.Common
                 //旋转屏幕
                 DrawScreenRotation(graphicsDevice);
             }
+        }
+        public static void DrawCylinder(Texture2D tex, Vector2 pos, Color color, BlendState blend, float Height = 1, float scale = 1, float rad = 0.5f, float rot = 0, int tiles = 2, float FullRot = 0, bool inner = false, bool startBatch = true)
+        {
+            Effect shader = Cylinder.Value;
+            if (shader == null)
+                return;
+            if (!startBatch)
+                Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, blend, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.ZoomMatrix);
+            shader.CurrentTechnique.Passes[0].Apply();
+            shader.Parameters["radius"].SetValue(rad);
+            shader.Parameters["rotation"].SetValue(rot);
+            shader.Parameters["tileCount"].SetValue(tiles);
+            shader.Parameters["innerWall"].SetValue(inner ? 1 : 0);
+            Main.spriteBatch.Draw(tex, pos, new Rectangle(0, 0, tex.Width, (int)(tex.Height * Height)), color, FullRot, new Vector2(tex.Width * 0.5f, tex.Height * Height * 0.5f), scale, SpriteEffects.None, 0);
+            Main.spriteBatch.End();
+            if (!startBatch)
+                Main.spriteBatch.begin_();
+
         }
         public static float ScreenRotAmp = 0;
         private static void DrawScreenRotation(GraphicsDevice graphicsDevice)

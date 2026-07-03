@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.NPCs.NihilityTwin;
+using CalamityMod.Events;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -8,10 +9,12 @@ namespace CalamityEntropy.Content.Skies
     public class OtherMusScene : ModSceneEffect
     {
 
-        public override SceneEffectPriority Priority => SceneEffectPriority.BossHigh;
+        public override SceneEffectPriority Priority => (SceneEffectPriority)12;
 
         public override bool IsSceneEffectActive(Player player)
         {
+            if (BossRushEvent.BossRushActive)
+                return false;
             if (NPC.FindFirstNPC(ModContent.NPCType<NihilityActeriophage>()) != -1)
             {
                 return true;

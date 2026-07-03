@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items.Materials;
+﻿using CalamityEntropy.Content.ArmorPrefixes;
+using CalamityMod.Items.Materials;
 using CalamityMod.Items.Placeables.Ores;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,10 +12,12 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "Void";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().
-                AddIngredient<VoidScales>(1).
-                AddIngredient<NightmareFuel>(2)
-                .Register();
+            AddIngredient<VoidScales>(1).
+            AddIngredient<NightmareFuel>(2)
+            .Register();
         }
     }
     public class BlessingVoidTouched : BasePrefixItem
@@ -22,6 +25,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "VoidTouched";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().
                 AddIngredient<VoidScales>(2).
                 AddIngredient<AscendantSpiritEssence>(1)
@@ -33,6 +38,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "LastStand";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().
                 AddIngredient<YharonSoulFragment>(10).
                 AddIngredient<EffulgentFeather>(10).
@@ -46,6 +53,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "End";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().
                 AddIngredient<YharonSoulFragment>(1)
                 .AddIngredient<AshesofAnnihilation>(1)
@@ -60,6 +69,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         {
             if (ModLoader.TryGetMod("CalamityOverhaul", out var overhaul))
             {
+                if (!ArmorPrefix.Enabled)
+                    return;
                 CreateRecipe().
                     AddIngredient(overhaul.Find<ModItem>("InfinityCatalyst").Type, 16)
                     .AddIngredient<VoidScales>(99)
@@ -76,6 +87,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "Shining";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().AddIngredient(ItemID.Torch, 5)
                 .AddIngredient(ItemID.CopperBar, 3)
                 .AddIngredient(ItemID.StoneBlock, 10)
@@ -87,6 +100,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "Silence";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().AddIngredient(ItemID.DemoniteBar, 1)
                 .AddIngredient<BloodOrb>(5)
                 .AddIngredient(ItemID.StoneBlock, 10)
@@ -102,6 +117,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "Hard";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().AddRecipeGroup(CERecipeGroups.IronBar, 20)
                 .AddIngredient(ItemID.Diamond, 2)
                 .Register();
@@ -112,6 +129,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "Thorny";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().AddIngredient(ItemID.Cactus, 8)
                 .AddIngredient(ItemID.StoneBlock, 10)
                 .Register();
@@ -122,6 +141,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "Light";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().AddIngredient(ItemID.Feather, 4)
                 .AddIngredient(ItemID.Cloud, 10)
                 .Register();
@@ -132,6 +153,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "Biochemistry";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().AddIngredient(ItemID.StoneBlock, 10).
                 AddIngredient<CorrodedFossil>(5)
                 .Register();
@@ -142,6 +165,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "Guarded";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().AddIngredient(ItemID.StoneBlock, 10).
                 AddRecipeGroup(CERecipeGroups.IronBar, 5)
                 .AddIngredient(ItemID.TurtleShell)
@@ -153,6 +178,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "Regen";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().AddIngredient(ItemID.StoneBlock, 10).
                    AddIngredient(ItemID.LifeCrystal, 1)
                    .AddIngredient(ItemID.CopperBar, 5)
@@ -166,6 +193,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "Massive";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().AddIngredient(ItemID.Silk, 5)
                 .AddIngredient(ItemID.Ectoplasm)
                 .AddIngredient(ItemID.LunarTabletFragment)
@@ -177,6 +206,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "Evoker";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().AddIngredient(ItemID.Silk, 5)
                 .AddIngredient(ItemID.Ectoplasm)
                 .AddIngredient<LivingShard>(10)
@@ -188,6 +219,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "Reckless";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().AddIngredient(ItemID.Silk, 5)
                 .AddIngredient(ItemID.Ectoplasm)
                 .AddIngredient<EssenceofHavoc>(2)
@@ -199,6 +232,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "Miracle";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().AddIngredient(ItemID.Silk, 5)
                 .AddIngredient(ItemID.Ectoplasm)
                 .AddIngredient(ItemID.HallowedBar, 5)
@@ -210,6 +245,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "Magical";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().AddIngredient(ItemID.Silk, 5)
                 .AddIngredient(ItemID.Ectoplasm)
                 .AddIngredient(ItemID.FallenStar, 10)
@@ -223,6 +260,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "Great";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().AddIngredient<ExodiumCluster>(5)
                 .AddIngredient(ItemID.Glass, 5)
                 .AddIngredient<UnholyEssence>(4)
@@ -234,6 +273,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "GodForged";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().AddIngredient<ExodiumCluster>(5)
                 .AddIngredient(ItemID.Glass, 5)
                 .AddIngredient<CosmiliteBar>(1)
@@ -245,6 +286,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "Wizard";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().AddIngredient<ExodiumCluster>(5)
                 .AddIngredient(ItemID.Glass, 5)
                 .AddIngredient<RuinousSoul>()
@@ -256,6 +299,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "Sacrifical";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().AddIngredient<ExodiumCluster>(5)
                 .AddIngredient(ItemID.Glass, 5)
                 .AddIngredient<DivineGeode>(4)
@@ -267,6 +312,8 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         public override string PrefixName => "DestinedGreatness";
         public override void AddRecipes()
         {
+            if (!ArmorPrefix.Enabled)
+                return;
             CreateRecipe().AddIngredient<ExodiumCluster>(5)
                 .AddIngredient(ItemID.Glass, 5)
                 .AddIngredient<Necroplasm>()

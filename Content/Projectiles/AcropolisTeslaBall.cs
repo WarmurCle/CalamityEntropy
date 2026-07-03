@@ -1,8 +1,10 @@
 ﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Particles;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -26,6 +28,13 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void AI()
         {
+            if (Projectile.ai[0] != 0 && Projectile.Entropy().FirstFrames)
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<AcropolisTeslaBallWarn>(), 0, 0, -1, Projectile.ai[0] == 1 ? 0 : 1);
+                if (Projectile.ai[0] == -1)
+                    Projectile.MaxUpdates *= 2;
+            }
             Projectile.tileCollide = Projectile.velocity.Length() > 4;
             oldPos.Add(Projectile.Center);
             if (oldPos.Count > 16)
@@ -40,16 +49,22 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(ModContent.BuffType<MechanicalTrauma>(), 180);
+            Projectile.timeLeft = 4;
+            Projectile.Kill();
         }
         public override void OnKill(int timeLeft)
         {
             if (timeLeft > 0)
             {
-                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, new Color(255, 180, 180), new Vector2(2f, 2f), 0, 0.1f, 0.6f, 16);
+                float v = Projectile.ai[0];
+                if (v < 0)
+                    v = 0;
+                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, new Color(255, 180, 180), new Vector2(2f, 2f), 0, 0.1f, 0.6f - v * 0.3f, 16);
                 GeneralParticleHandler.SpawnParticle(pulse);
-                CEUtils.SetShake(Projectile.Center, 4);
+                CEUtils.SetShake(Projectile.Center, 4 - v * 1.2f);
                 CEUtils.PlaySound("energyImpact", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
-                CEUtils.SpawnExplotionHostile(((int)Projectile.ai[1]).ToNPC().GetSource_FromAI(), Projectile.Center, Projectile.damage, 100);
+                if (v != 1)
+                    CEUtils.SpawnExplotionHostile(((int)Projectile.ai[1]).ToNPC().GetSource_FromAI(), Projectile.Center, Projectile.damage, 100);
             }
         }
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
@@ -85,5 +100,42 @@ namespace CalamityEntropy.Content.Projectiles
         }
     }
 
+    public class AcropolisTeslaBallWarn : ModProjectile
+    {
+        public override string Texture => CEUtils.WhiteTexPath;
+        public override void SetDefaults()
+        {
+            Projectile.width = 8;
+            Projectile.height = 8;
+            Projectile.hostile = true;
+            Projectile.friendly = false;
+            Projectile.tileCollide = false;
+            Projectile.light = 1f;
+            Projectile.timeLeft = 800;
+            Projectile.penetrate = 1;
+            Projectile.MaxUpdates = 52;
+        }
+        public override void AI()
+        {
+            Projectile.tileCollide = Projectile.velocity.Length() > 4;
+            if (Projectile.ai[2]++ > 60)
+            {
+                Projectile.velocity.Y += 0.02f;
+            }
+            EParticle.spawnNew(new GlowSpark() { grav = false}, Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.05f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), (int)(Projectile.ai[2] * (Projectile.ai[0] == 0 ? 0.26f : 0.13f)) + 2);
+        }
 
+        public override bool PreDraw(ref Color lightColor)
+        {
+            return false;
+        }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return false;
+        }
+        public override bool? CanDamage()
+        {
+            return false;
+        }
+    }
 }

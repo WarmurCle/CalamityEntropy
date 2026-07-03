@@ -1,4 +1,5 @@
 
+using CalamityEntropy.Content.ArmorPrefixes;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,13 +19,16 @@ namespace CalamityEntropy.Content.Items.PrefixItem
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ItemID.GoldBar, 2)
-                .AddIngredient(ItemID.Ruby)
-                .Register();
+            if (ArmorPrefix.Enabled)
+            {
+                CreateRecipe().AddIngredient(ItemID.GoldBar, 2)
+                    .AddIngredient(ItemID.Ruby)
+                    .Register();
 
-            CreateRecipe().AddIngredient(ItemID.PlatinumBar, 2)
-                .AddIngredient(ItemID.Ruby)
-                .Register();
+                CreateRecipe().AddIngredient(ItemID.PlatinumBar, 2)
+                    .AddIngredient(ItemID.Ruby)
+                    .Register();
+            }
         }
     }
 }

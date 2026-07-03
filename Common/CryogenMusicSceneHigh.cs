@@ -1,4 +1,5 @@
-﻿using CalamityMod.NPCs.Cryogen;
+﻿using CalamityMod.Events;
+using CalamityMod.NPCs.Cryogen;
 using CalamityMod.Systems;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,5 +14,11 @@ namespace CalamityEntropy.Common
         public override int? MusicModMusic => ModContent.GetInstance<CalamityMod.CalamityMod>().GetMusicFromMusicMod("Cryogen");
         public override int VanillaMusic => MusicID.FrostMoon;
         public override int OtherworldMusic => MusicID.OtherworldlyIce;
+        public override bool AdditionalCheck()
+        {
+            if (BossRushEvent.BossRushActive)
+                return false;
+            return true;
+        }
     }
 }

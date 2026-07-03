@@ -609,9 +609,12 @@ Items: {
 		DisplayName: Void Annihilate
 		Tooltip:
 			'''
-			Throw a Void Annihilate
-			Press [KEY] To Retrieve all
-			Right click a void annihilate to teleport to it.
+			Click LMB or hold RMB to throw some knives
+			After hitting a target, they will bounce off and float around
+			Long press the left button to build up momentum
+			When fully charged,
+			releasing it will throw an enhanced knife that causing triple damage
+			Enhancing knives will cause all floating knives to hit the target
 			'''
 	}
 
@@ -4798,6 +4801,9 @@ Projectiles: {
 	BuriedShoot2.DisplayName: Buried Shoot2
 	TectinicShardAshesCore.DisplayName: Tectinic Shard Ashes Core
 	TectinicShardHoming.DisplayName: Tectinic Shard Homing
+	AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
+	VoidAnnihilateSpawner.DisplayName: Void Annihilate Spawner
+	VoidAnnihilateCharge.DisplayName: Void Annihilate Charge
 }
 
 LegendTooltip: - Legend -
@@ -5411,7 +5417,6 @@ loreProphet:
 	'''
 
 Keybinds: {
-	RetrieveVoidAnnihilate.DisplayName: Retrieve Void Annihilate
 	ThrowPoop.DisplayName: Throw Poop
 	KeepPoop.DisplayName: Hold Poop
 	VetrasylsEyeBlock.DisplayName: Vetrasyls Eye Block
@@ -5507,6 +5512,11 @@ Configs: {
 			Tooltip: ""
 		}
 
+		TileEffect: {
+			Label: Tile Effect
+			Tooltip: ""
+		}
+
 		ScreenWarpEffects: {
 			Label: Screen Effects
 			Tooltip: Do or do not draw the screen wrap and cut screen effect
@@ -5529,7 +5539,7 @@ Configs: {
 	}
 
 	ServerConfig: {
-		DisplayName: Server Config
+		DisplayName: Mod Config
 		Headers.Misc: Misc Header
 
 		LoreSpecialEffect: {
@@ -5560,6 +5570,11 @@ Configs: {
 		RogueAccessoriesProvide40Stealth: {
 			Label: Rogue Accessories Provide 40 Stealth
 			Tooltip: If you hasn't wearing rogue armors and you equiped any rogue accessories, you will have at least 40 stealth
+		}
+
+		EnableArmorPrefix: {
+			Label: Enable Armor Prefix
+			Tooltip: Close this will disable all prefix items' recipes and generation in world
 		}
 	}
 }

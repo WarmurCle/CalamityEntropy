@@ -6,7 +6,6 @@ namespace CalamityEntropy.Common
 {
     public class CEKeybinds : ModSystem
     {
-        public static ModKeybind RetrieveVoidAnnihilateHotKey { get; private set; }
         public static ModKeybind VetrasylsEyeBlockHotKey { get; private set; }
         public static ModKeybind RuneDashHotKey { get; private set; }
         public static ModKeybind NihilityAndChaoticArmorConnectKey { get; private set; }
@@ -16,7 +15,6 @@ namespace CalamityEntropy.Common
         public static ModKeybind AcropolisMechTransformation { get; set; }
         public override void Load()
         {
-            RetrieveVoidAnnihilateHotKey = KeybindLoader.RegisterKeybind(Mod, "RetrieveVoidAnnihilate", "J");
             VetrasylsEyeBlockHotKey = KeybindLoader.RegisterKeybind(Mod, "VetrasylsEyeBlock", "C");
             RuneDashHotKey = KeybindLoader.RegisterKeybind(Mod, "RuneDash", "K");
             CommandMinions = KeybindLoader.RegisterKeybind(Mod, "CommandMinions", "N");
@@ -36,7 +34,6 @@ namespace CalamityEntropy.Common
         }
         public override void Unload()
         {
-            RetrieveVoidAnnihilateHotKey = null;
             ThrowPoopHotKey = null;
             PoopHoldHotKey = null;
         }

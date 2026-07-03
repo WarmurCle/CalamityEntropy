@@ -11,12 +11,16 @@ namespace CalamityEntropy.Content.Particles
         {
             this.Lifetime = 26;
         }
+        public bool grav = true;
         public override void AI()
         {
             base.AI();
             this.Opacity = this.Lifetime / 26f;
-            this.Velocity = this.Velocity + Vector2.UnitY * 0.2f;
-            this.Rotation = this.Velocity.ToRotation();
+            if (grav)
+            {
+                this.Velocity = this.Velocity + Vector2.UnitY * 0.2f;
+                this.Rotation = this.Velocity.ToRotation();
+            }
         }
     }
     public class GlowSpark2 : EParticle

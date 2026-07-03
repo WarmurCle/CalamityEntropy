@@ -4,6 +4,7 @@ using CalamityMod.CalPlayer;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories.Wings;
 using CalamityMod.Rarities;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -34,10 +35,21 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.rare = ModContent.RarityType<BurnishedAuric>();
             Item.accessory = true;
         }
+        public override void ModifyTooltips(List<TooltipLine> list)
+        {
+            if (!ModContent.GetInstance<CalamityClientConfig>().TextEffects)
+            {
+                list.Replace("$", "");
+            }
+        }
         public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
         {
             if (line.Text.StartsWith("$"))
             {
+                if(!ModContent.GetInstance<CalamityClientConfig>().TextEffects)
+                {
+                    return true;
+                }
                 DrawableTooltipLine nLine = new DrawableTooltipLine(new(Mod, "-", line.Text.Replace("$", "")), line.Index, line.X, line.Y, line.Color);
                 BurnishedAuric.Draw(Item, nLine);
                 return false;

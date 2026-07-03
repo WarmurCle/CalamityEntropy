@@ -4682,6 +4682,9 @@ Projectiles: {
 	// BuriedShoot2.DisplayName: Buried Shoot2
 	TectinicShardAshesCore.DisplayName: Фрагмент плиты
 	TectinicShardHoming.DisplayName: Фрагмент плиты
+	// AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
+	// VoidAnnihilateSpawner.DisplayName: Void Annihilate Spawner
+	// VoidAnnihilateCharge.DisplayName: Void Annihilate Charge
 }
 
 LegendTooltip: - Легенда -
@@ -5295,7 +5298,6 @@ loreProphet:
 	'''
 
 Keybinds: {
-	RetrieveVoidAnnihilate.DisplayName: Вернуть Уничтожение Пустоты
 	ThrowPoop.DisplayName: Бросить какашку
 	KeepPoop.DisplayName: Подобрать какашку
 	VetrasylsEyeBlock.DisplayName: Щит Ока Ветрасиля
@@ -5391,6 +5393,11 @@ Configs: {
 			Tooltip: ""
 		}
 
+		TileEffect: {
+			// Label: Tile Effect
+			// Tooltip: ""
+		}
+
 		ScreenWarpEffects: {
 			Label: Экран спецэффектов
 			Tooltip: Нарисовать ли деформированный экран и другие эффекты
@@ -5449,6 +5456,11 @@ Configs: {
 		RogueAccessoriesProvide40Stealth: {
 			Label: Грабители предлагают минимум 40 скрытых значений.
 			Tooltip: Если вы носите какие - либо воровские украшения, у вас будет по крайней мере 20 скрытых значений.
+		}
+
+		EnableArmorPrefix: {
+			// Label: Enable Armor Prefix
+			// Tooltip: Close this will disable all prefix items' recipes and generation in world
 		}
 	}
 }

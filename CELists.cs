@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.Fractal;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Projectiles.Melee;
@@ -50,7 +50,10 @@ namespace CalamityEntropy
                 P<GrandDadHoldout>(),
                 P<EarthHoldout>(),
                 P<BatteringRamProj>(),
-                P<CinderConvergencerHoldout>()
+                P<CinderConvergencerHoldout>(),
+                P<VoidAnnihilateCharge>(),
+                P<VoidAnnihilateSpawner>(),
+		        P<AzafureEKatanaSlash>()
             };
         }
         public static List<int> SoyMilkProjectileBlacklist;

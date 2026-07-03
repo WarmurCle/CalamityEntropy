@@ -553,7 +553,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             {
                 DontTakeDmg = true;
                 column1.offset *= 0;
-                column2.alpha = float.Lerp(column2.alpha, 0.6f, 0.04f);
+                column2.alpha = float.Lerp(column2.alpha, 0.45f, 0.04f);
                 column2.id = 1;
                 aiTimer++;
                 if (aiTimer > 140)
@@ -561,7 +561,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                     DontTakeDmg = false;
                     aiTimer = 0;
                     ai = AIStyle.SpiritSlicing;
-                    column2.alpha = 0.6f;
+                    column2.alpha = 0.45f;
                 }
             }
             if (ai == AIStyle.SpiritSlicing)
@@ -610,14 +610,14 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
 
         public void DrawColumn(FountainColumn column, Texture2D TrailTex)
         {
+            Main.spriteBatch.Draw(CEUtils.getExtraTex("MegaStreakBacking2"), NPC.Center + column.offset - Main.screenPosition, new Rectangle(-(int)column.trailDrawOffset, 0, 3600, 256), Color.White * column.alpha * 1.4f, column.rotation, new Vector2(1800, 128), NPC.scale * 1.4f * column.scale, SpriteEffects.None, 0);
+            EffectLoader.DrawCylinder(CEUtils.getExtraTex("B1"), NPC.Center + column.offset - Main.screenPosition, Color.White * column.alpha, BlendState.AlphaBlend, 30, 0.26f * column.scale, 0.5f, Main.GlobalTimeWrappedHourly * 3f, 5, column.rotation - MathHelper.PiOver2, false, false);
+            EffectLoader.DrawCylinder(CEUtils.getExtraTex("B1"), NPC.Center + column.offset - Main.screenPosition, Color.White * column.alpha * 0.9f, BlendState.Additive, 30, 0.26f * column.scale, 0.5f, Main.GlobalTimeWrappedHourly * -3f, 5, column.rotation - MathHelper.PiOver2, false, false);
+            Main.spriteBatch.UseBlendState(BlendState.Additive, SamplerState.PointWrap);
             Main.spriteBatch.Draw(TrailTex, NPC.Center + column.offset - Main.screenPosition, new Rectangle(-(int)column.trailDrawOffset, 0, 3600, TrailTex.Height), Color.AliceBlue * column.alpha * 0.9f, column.rotation, new Vector2(1800, TrailTex.Height / 2), NPC.scale * 1.5f * column.scale, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(TrailTex, NPC.Center + column.offset - Main.screenPosition, new Rectangle(-(int)(column.trailDrawOffset * 0.9f), 0, 3600, TrailTex.Height), Color.AliceBlue * column.alpha * 0.7f, column.rotation, new Vector2(1800, TrailTex.Height / 2), NPC.scale * 1.4f * column.scale, SpriteEffects.FlipVertically, 0);
+            Main.spriteBatch.Draw(TrailTex, NPC.Center + column.offset - Main.screenPosition, new Rectangle(-(int)(column.trailDrawOffset * 0.9f), 0, 3600, TrailTex.Height), Color.AliceBlue * column.alpha, column.rotation, new Vector2(1800, TrailTex.Height / 2), NPC.scale * 1.4f * column.scale, SpriteEffects.FlipVertically, 0);
             Main.spriteBatch.Draw(CEUtils.getExtraTex("TrailInk"), NPC.Center + column.offset - Main.screenPosition, new Rectangle((int)(column.trailDrawOffset * 0.85f), 0, 3600, TrailTex.Height), Color.AliceBlue * column.alpha * 0.5f, column.rotation, new Vector2(1800, 128), NPC.scale * 1.6f * column.scale, SpriteEffects.FlipHorizontally, 0);
-            Main.spriteBatch.Draw(TrailTex, NPC.Center + column.offset - Main.screenPosition, new Rectangle(-(int)(column.trailDrawOffset * 0.8f), 0, 3600, TrailTex.Height), Color.AliceBlue * column.alpha * 0.9f, column.rotation, new Vector2(1800, TrailTex.Height / 2), NPC.scale * 1.2f * column.scale, SpriteEffects.FlipVertically, 0);
-            Main.spriteBatch.Draw(TrailTex, NPC.Center + column.offset - Main.screenPosition, new Rectangle((int)(column.trailDrawOffset * 0.75f), 0, 3600, TrailTex.Height), Color.AliceBlue * column.alpha, column.rotation, new Vector2(1800, TrailTex.Height / 2), NPC.scale * 1.1f * column.scale, SpriteEffects.FlipHorizontally, 0);
             Main.spriteBatch.Draw(CEUtils.getExtraTex("BasicTrail"), NPC.Center + column.offset - Main.screenPosition, new Rectangle(-(int)column.trailDrawOffset, 0, 3600, 200), new Color(140, 140, 255) * column.alpha, column.rotation, new Vector2(1800, 100), NPC.scale * 3f * column.scale, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(CEUtils.getExtraTex("BasicTrail"), NPC.Center + column.offset - Main.screenPosition, new Rectangle(-(int)column.trailDrawOffset, 0, 3600, 200), Color.White * column.alpha * 0.6f, column.rotation, new Vector2(1800, 100), NPC.scale * 2.2f * column.scale, SpriteEffects.None, 0);
-
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPosition, Color drawColor)

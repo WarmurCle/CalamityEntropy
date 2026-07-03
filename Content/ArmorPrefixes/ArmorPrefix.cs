@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CalamityEntropy.Common;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -8,6 +9,7 @@ namespace CalamityEntropy.Content.ArmorPrefixes
 
     public abstract class ArmorPrefix : ModType
     {
+        public static bool Enabled => ServerConfig.Instance.EnableArmorPrefix;
         public static List<ArmorPrefix> instances;
         protected sealed override void Register()
         {
