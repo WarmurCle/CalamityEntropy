@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
 
 
-        public override float StealthDamageMultiplier => 0.35f;
+        public override float StealthDamageMultiplier => 0.5f;
         public override float StealthVelocityMultiplier => 1.2f;
         public override float StealthKnockbackMultiplier => 0f;
 
@@ -141,7 +141,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     }
                     Projectile.velocity *= 0.95f;
                     Projectile.localAI[0]++;
-                    if (Projectile.localAI[1]++ >= 80)
+                    if (Projectile.localAI[1]++ >= 70)
                     {
                         if (Projectile.localAI[1] > 110)
                         {
@@ -156,15 +156,15 @@ namespace CalamityEntropy.Content.Items.Weapons
                         {
                             Projectile.ai[2] += nv;
                             nv += 0.003f;
-                            nv *= 1.05f;
+                            nv *= 1.03f;
                             Vector2 lp1 = Vector2.Zero;
                             Vector2 lp2 = Vector2.Zero;
                             for(float i = 0; i <= 1; i += 0.05f)
                             {
-                                if (Projectile.ai[2] + i * nv >= 1f)
+                                if (Projectile.ai[2] + i * 0.1f >= 1f)
                                     break;
-                                Vector2 p1 = GetChainPoint(Projectile.Center, target.ToNPC().Center, Projectile.ai[2] + i * nv, 14, FLEX, 1f);
-                                Vector2 p2 = GetChainPoint(Projectile.Center, target.ToNPC().Center, Projectile.ai[2] + i * nv, 14, FLEX, -1f);
+                                Vector2 p1 = GetChainPoint(Projectile.Center + Projectile.velocity, target.ToNPC().Center, Projectile.ai[2] + i * 0.1f, 14, FLEX, 1f);
+                                Vector2 p2 = GetChainPoint(Projectile.Center + Projectile.velocity, target.ToNPC().Center, Projectile.ai[2] + i * 0.1f, 14, FLEX, -1f);
                                 if (i == 0)
                                     continue;
                                 Vector2 v1 = (p1 - lp1).normalize() * -2;
@@ -338,7 +338,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.width = Projectile.height = 82;
             Projectile.MaxUpdates = 2;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 6;
+            Projectile.localNPCHitCooldown = 5;
         }
         public override void SendExtraAI(BinaryWriter writer)
         {
@@ -408,13 +408,13 @@ namespace CalamityEntropy.Content.Items.Weapons
                     }
                     Projectile.velocity *= 0.95f;
                     Projectile.localAI[0]++;
-                    if (Projectile.localAI[1]++ >= 80)
+                    if (Projectile.localAI[1]++ >= 70)
                     {
                         if (Projectile.localAI[1] == 110)
                             CEUtils.PlaySound("VortexSpawn", 1, Projectile.Center);
                         if (Projectile.localAI[1] > 110)
                         {
-                            Projectile.velocity = (target.ToNPC().Center - Projectile.Center) * 0.1f;
+                            Projectile.velocity = (target.ToNPC().Center - Projectile.Center) * 0.08f;
                             if (Projectile.timeLeft > 14)
                             {
                                 areaSize = float.Lerp(areaSize, 100 * Projectile.scale, 0.023f);
@@ -429,15 +429,16 @@ namespace CalamityEntropy.Content.Items.Weapons
                         if (Projectile.ai[2] < 1)
                         {
                             Projectile.ai[2] += nv;
-                            nv += 0.005f;
+                            nv += 0.003f;
+                            nv *= 1.03f;
                             Vector2 lp1 = Vector2.Zero;
                             Vector2 lp2 = Vector2.Zero;
-                            for (float i = 0; i <= 1; i += 0.1f)
+                            for (float i = 0; i <= 1; i += 0.05f)
                             {
                                 if (Projectile.ai[2] + i * 0.1f >= 1f)
                                     break;
-                                Vector2 p1 = GetChainPoint(Projectile.Center, target.ToNPC().Center, Projectile.ai[2] + i * 0.1f, 14, FLEX, 1f);
-                                Vector2 p2 = GetChainPoint(Projectile.Center, target.ToNPC().Center, Projectile.ai[2] + i * 0.1f, 14, FLEX, -1f);
+                                Vector2 p1 = GetChainPoint(Projectile.Center + Projectile.velocity, target.ToNPC().Center, Projectile.ai[2] + i * 0.1f, 14, FLEX, 1f);
+                                Vector2 p2 = GetChainPoint(Projectile.Center + Projectile.velocity, target.ToNPC().Center, Projectile.ai[2] + i * 0.1f, 14, FLEX, -1f);
                                 if (i == 0)
                                     continue;
                                 Vector2 v1 = (p1 - lp1).normalize() * -2;
