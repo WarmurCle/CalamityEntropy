@@ -563,7 +563,15 @@ namespace CalamityEntropy.Common
                     {
                         if (item.damage > 0 && item.ArmorPenetration > 0)
                         {
-                            tooltips.Insert(i + 1, new TooltipLine(Mod, "Armor Penetration", item.ArmorPenetration.ToString() + " " + Mod.GetLocalization("ArmorPenetrationItemTooltip").Value));
+                            if (Language.ActiveCulture.Name == "en-US")
+                            {
+                                tooltips.Insert(i + 1, new TooltipLine(Mod, "Armor Penetration", "Ignores " + item.ArmorPenetration.ToString() + " " + Mod.GetLocalization("ArmorPenetrationItemTooltip").Value));
+                            }
+                            else
+                            {
+                                tooltips.Insert(i + 1, new TooltipLine(Mod, "Armor Penetration", item.ArmorPenetration.ToString() + " " + Mod.GetLocalization("ArmorPenetrationItemTooltip").Value));
+                            }
+
                         }
                     }
                 }

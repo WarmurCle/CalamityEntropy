@@ -10,16 +10,16 @@ FlowingLight: {
 
 PhantomLightWing: {
 	DisplayName: Phantom Light Wings
-	Tooltip: Leaving starlight trails during flight
+	Tooltip: Leaves starlight trails during flight
 }
 
 RuneWing: {
 	DisplayName: Soar Rune
 	Tooltip:
 		'''
-		Press [KEY] to advance towards the mouse direction, during which immune damage occurs
-		Cooling is determined by the sprint distance, 
-		releasing the button in advance can end the sprint in advance, with a maximum sprint time of [DT] seconds
+		Press [KEY] to dash towards the cursor, gaining brief damage immunity
+		The cooldown length is determined by the dash distance
+		Releasing the dash key during the dash can end it early, with a maximum dash time of [DT] seconds
 		'''
 }
 
@@ -27,9 +27,9 @@ BigShotsWing: {
 	DisplayName: Big Shot's Wings
 	Tooltip:
 		'''
-		-90% flight time if there're any boss
+		90% reduced flight time if a boss is alive
 		"Now's your chance to be a..."
-		Hold shift and right click to toggle strings' transparency
+		Hold Shift and Right Click to toggle strings' transparency
 		[TOGGLE]
 		'''
 	Visual0: Opaque
@@ -46,12 +46,12 @@ TheRevelation: {
 	DisplayName: The Revelation
 	Tooltip:
 		'''
-		Charging when using weapons,
-		when it is fully charged, release the mouse button to release a holy beam
-		deals 50 damage every 3 frames
-		Regarded as wing
+		Charges when using weapons
+		When fully charged, release Left Click to fire a holy beam
+		The holy beam deals 50 damage every 3 frames
+		Counts as wings
 		hold [down] when flying to hover
-		"Awaken your faith"
+		'Awaken your faith'
 		'''
 }
 
@@ -59,7 +59,7 @@ VoidElytra: {
 	DisplayName: Void Elytra
 	Tooltip:
 		'''
-		Allow you to dash in four directions
+		Grants a far reaching void dash
 		[c/356498:Dedicate life to the void and achieve breakthroughs in the limits]
 		'''
 }
