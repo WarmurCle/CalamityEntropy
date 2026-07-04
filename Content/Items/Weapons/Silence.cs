@@ -73,6 +73,10 @@ namespace CalamityEntropy.Content.Items.Weapons
     }
     public class SilenceProj : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 100000;
+        }
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(CEUtils.RogueDC, false, -1);
@@ -321,6 +325,10 @@ namespace CalamityEntropy.Content.Items.Weapons
     }
     public class SilenceStealth : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 100000;
+        }
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/SilenceProj";
         public override void SetDefaults()
         {
