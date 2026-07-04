@@ -36,10 +36,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public bool flag = false;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            CEUtils.PlaySound("WingOfHushShoot", Main.rand.NextFloat(1f, 1.3f), position);
-            float pitch = Main.rand.NextFloat(0f, 0.4f);
-            SoundEngine.PlaySound(SoundID.Item5 with { Pitch = pitch }, position);
-            SoundEngine.PlaySound(SoundID.Item5 with { Pitch = pitch }, position);
+            CEUtils.PlaySound("WingOfHushShoot", Main.rand.NextFloat(0.7f, 1.1f), position, 8, 0.7f);
             flag = true;
             int p = Projectile.NewProjectile(source, position + velocity.normalize() * 32, velocity, ModContent.ProjectileType<WohLaser>(), damage, knockback, player.whoAmI);
 
