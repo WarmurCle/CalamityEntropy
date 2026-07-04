@@ -4954,6 +4954,7 @@ Projectiles: {
 	VoidAnnihilateCharge.DisplayName: Void Annihilate Charge
 	SilenceProj.DisplayName: Silence Proj
 	SilenceStealth.DisplayName: Silence Stealth
+	BuriedSunHoldout.DisplayName: Buried Sun Holdout
 }
 
 LegendTooltip: - Legend -
@@ -5996,7 +5997,7 @@ UseAmmo: Use Ammo
 OrbPunishDeath0: "{0} shattered into pieces"
 OrbPunishDeath1: "{0} tried to remove the shattered foresee orb"
 RuneDashCD: Rune Dash Cooldown
-ArmorPenetrationItemTooltip: "Ignores {0} defense"
+ArmorPenetrationItemTooltip: Ignores {0} defense
 AmmoLifeTime: Life Time
 AmmoShootSpeed: Shoot Speed
 AmmoPenetrate: Penetrate times

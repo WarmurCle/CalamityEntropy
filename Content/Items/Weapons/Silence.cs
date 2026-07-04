@@ -155,15 +155,16 @@ namespace CalamityEntropy.Content.Items.Weapons
                         if (Projectile.ai[2] < 1)
                         {
                             Projectile.ai[2] += nv;
-                            nv += 0.005f;
+                            nv += 0.003f;
+                            nv *= 1.05f;
                             Vector2 lp1 = Vector2.Zero;
                             Vector2 lp2 = Vector2.Zero;
-                            for(float i = 0; i <= 1; i += 0.1f)
+                            for(float i = 0; i <= 1; i += 0.05f)
                             {
-                                if (Projectile.ai[2] + i * 0.1f >= 1f)
+                                if (Projectile.ai[2] + i * nv >= 1f)
                                     break;
-                                Vector2 p1 = GetChainPoint(Projectile.Center, target.ToNPC().Center, Projectile.ai[2] + i * 0.1f, 14, FLEX, 1f);
-                                Vector2 p2 = GetChainPoint(Projectile.Center, target.ToNPC().Center, Projectile.ai[2] + i * 0.1f, 14, FLEX, -1f);
+                                Vector2 p1 = GetChainPoint(Projectile.Center, target.ToNPC().Center, Projectile.ai[2] + i * nv, 14, FLEX, 1f);
+                                Vector2 p2 = GetChainPoint(Projectile.Center, target.ToNPC().Center, Projectile.ai[2] + i * nv, 14, FLEX, -1f);
                                 if (i == 0)
                                     continue;
                                 Vector2 v1 = (p1 - lp1).normalize() * -2;
@@ -173,14 +174,14 @@ namespace CalamityEntropy.Content.Items.Weapons
                                 dust.scale = Main.rand.NextFloat(1.2f, 1.6f);
                                 dust.velocity = v1;
                                 dust.noGravity = true;
-                                dust.color = Color.LightBlue;
+                                dust.color = new Color(20, 20, 255);
                                 dust.fadeIn = 2f;
 
                                 dust = Dust.NewDustPerfect(p2, ModContent.DustType<SquashDust>(), -Projectile.velocity);
                                 dust.scale = Main.rand.NextFloat(1.2f, 1.6f);
                                 dust.velocity = v2;
                                 dust.noGravity = true;
-                                dust.color = Color.LightBlue;
+                                dust.color = new Color(20, 20, 255);
                                 dust.fadeIn = 2f;
                                 lp1 = p1;
                                 lp2 = p2;
