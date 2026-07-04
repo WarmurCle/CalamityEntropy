@@ -21,8 +21,8 @@ Items: {
 				DisplayName: 沉默
 				Tooltip:
 					'''
-					丢出一个能用虚空锁链将自己拉向敌人的飞盘
-					潜伏攻击会挂在敌人身上持续造成伤害
+					[c/9387ff:丢出一个飞盘，击中敌人后一段时间会使用虚空锁链将自身拉向该敌人，并在与其接触时爆炸]
+					[c/9387ff:潜伏攻击会使飞盘被固定在击中的敌人身上并展开一个大范围漩涡，持续对范围内的目标造成伤害]
 					'''
 			}
 
@@ -443,7 +443,7 @@ Items: {
 
 	WingsOfHush: {
 		DisplayName: 虚寂之翼
-		Tooltip: 射出强力的虚空镭射和2发虚空矢
+		Tooltip: "[c/9387ff:射出强力的虚空镭射和4发虚空矢]"
 	}
 
 	SoyMilk: {
@@ -4441,7 +4441,7 @@ Projectiles: {
 	RuneSongProj.DisplayName: 符文之歌
 	RuneArrow.DisplayName: 符文之矢
 	Rune.DisplayName: 符文
-	VoidAnnihilateProj.DisplayName: 湮灭飞刀
+	VoidAnnihilateProj.DisplayName: 黯天飞刀
 	VaProj.DisplayName: 湮灭弹
 	AuricBoulderProj.DisplayName: 圣金源巨石
 	SigPetProj.DisplayName: 使徒
@@ -5023,11 +5023,11 @@ Projectiles: {
 	BuriedShoot2.DisplayName: 日陨激光
 	TectinicShardAshesCore.DisplayName: 板块碎片
 	TectinicShardHoming.DisplayName: 板块碎片
-	// AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
-	// VoidAnnihilateSpawner.DisplayName: Void Annihilate Spawner
-	// VoidAnnihilateCharge.DisplayName: Void Annihilate Charge
-	// SilenceProj.DisplayName: Silence Proj
-	// SilenceStealth.DisplayName: Silence Stealth
+	AcropolisTeslaBallWarn.DisplayName: 卫城机甲预警
+	VoidAnnihilateSpawner.DisplayName: 黯天飞刀
+	VoidAnnihilateCharge.DisplayName: 黯天飞刀蓄能
+	SilenceProj.DisplayName: 沉默
+	SilenceStealth.DisplayName: 赋能沉默
 }
 
 LegendTooltip: - 传奇物品 -

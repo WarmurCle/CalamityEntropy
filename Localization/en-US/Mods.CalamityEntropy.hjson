@@ -22,9 +22,12 @@ Items: {
 				DisplayName: Silence
 				Tooltip:
 					'''
-					Hurl a voidforged chakram that chains itself to the nearest enemy and homes in on its prey
-					Inflicts Collapsing Void, dealing increasing damage with each successive hit
-					Stealth strike unleashes a spinning void disk that shreds enemies for 3 seconds
+					[c/9387ff:Throw a frisbee]
+					[c/9387ff:After hitting an enemy,]
+					[c/9387ff:it will use a Void Chain to pull you toward that enemy after a short delay,]
+					[c/9387ff:and explode upon contact with it.]
+					[c/9387ff:Stealth strikes cause the frisbee to stick to the hit enemy]
+					[c/9387ff:and unfold a large-area vortex, continuously damaging targets within its range.]
 					'''
 			}
 
@@ -448,7 +451,7 @@ Items: {
 
 	WingsOfHush: {
 		DisplayName: Wings of Hush
-		Tooltip: Shoot powerful void arrow
+		Tooltip: "[c/9387ff:Shoot powerful void laser and 4 voidbeams]"
 	}
 
 	SoyMilk: {
