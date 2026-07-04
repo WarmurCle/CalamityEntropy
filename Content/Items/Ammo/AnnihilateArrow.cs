@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Ammo
 
         public override void AddRecipes()
         {
-            CreateRecipe(999)
+            CreateRecipe(50)
                 .AddIngredient(ModContent.ItemType<VoidBar>())
                 .AddTile(ModContent.TileType<VoidWellTile>())
                 .Register();

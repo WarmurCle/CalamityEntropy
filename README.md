@@ -1,4 +1,6 @@
-**灾厄：熵**，又名**灾熵**，是泰拉瑞亚灾厄模组的附属模组。加入了额外的武器、盔甲、饰品、敌怪、Boss、音乐等。
+**Calamity Entropy** is an addon mod for Terraria CalamityMod that adds new weapons, armors, accessories, bosses and musics.
+
+**灾厄：熵**，又名**灾熵**，是泰拉瑞亚灾厄模组的附属模组。加入了额外的武器、盔甲、饰品、Boss、音乐等。
 
 Wiki: [https://calentropy.miraheze.org/](https://calentropy.miraheze.org/)
 

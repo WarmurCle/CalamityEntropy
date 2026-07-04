@@ -15,7 +15,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.width = 42;
             Item.height = 42;
             Item.defense = 5;
-            Item.value = CalamityGlobalItem.RarityLightRedBuyPrice;
+            Item.value = CalamityGlobalItem.RarityLimeBuyPrice;
             Item.rare = ModContent.RarityType<GlowGreen>();
             Item.accessory = true;
 

@@ -30,11 +30,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 6;
-            Item.useAnimation = 6;
+            Item.useTime = 7;
+            Item.useAnimation = 7;
             Item.autoReuse = true;
             Item.scale = 1f;
-            Item.DamageType = DamageClass.Melee;
+            Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.damage = 10;
             Item.knockBack = 5;
             Item.crit = 6;

@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     public class HolyBookmarkHolder : ModItem
     {
-        public static float MAGESPEED = 5;
+        public static float MAGECRIT = 5;
         public static float MAGEDAMAGE = 0.1f;
         public override void SetDefaults()
         {
@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Entropy().AdditionalBookmarkSlot += 2;
-            player.GetCritChance(DamageClass.Magic) += MAGESPEED;
+            player.GetCritChance(DamageClass.Magic) += MAGECRIT;
             player.GetDamage(DamageClass.Magic) += MAGEDAMAGE;
             if (!Main.dedServ)
                 for (int i = 0; i < 2; i++)
@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             tooltips.Replace("[D]", MAGEDAMAGE.ToPercent().ToString());
-            tooltips.Replace("[S]", MAGESPEED.ToPercent().ToString());
+            tooltips.Replace("[S]", MAGECRIT.ToString());
         }
         public override void AddRecipes()
         {

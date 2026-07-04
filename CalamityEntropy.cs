@@ -1213,6 +1213,27 @@ namespace CalamityEntropy
                 {
                     if (args[0] is string str)
                     {
+                        //Usage: bool flag = (bool)Mod.Call("CheckFlag", "cruiser(or any name below)");
+                        if (str.ToLower().Equals("checkflag"))
+                        {
+                            if (args.Length == 2 && args[1] is string name)
+                            {
+                                name = name.ToLower();
+                                if (name == "acropolis")
+                                    return EDownedBosses.downedAcropolis;
+                                if (name == "apsychos")
+                                    return EDownedBosses.downedApsychos;
+                                if (name == "luminaris")
+                                    return EDownedBosses.downedLuminaris;
+                                if (name == "prophet")
+                                    return EDownedBosses.downedProphet;
+                                if (name == "nihility_twins")
+                                    return EDownedBosses.downedNihilityTwin;
+                                if (name == "cruiser")
+                                    return EDownedBosses.downedCruiser;
+                            }
+                            return false;
+                        }
                         if (str.ToLower().Equals("RegisterBookMarkEffect".ToLower()))
                         {
                             if (!(args[1] is Dictionary<string, object>))
@@ -1324,19 +1345,13 @@ namespace CalamityEntropy
                                 modifyShootCooldown,
                                 func
                             );
-
                         }
                         if (str.Equals("IsBookMark"))
                         {
                             Item item = (Item)args[1];
                             return BookMarkLoader.IsABookMark(item);
                         }
-                        if (str.Equals("SetBarColor"))
-                        {
-                            int type = (int)args[1];
-                            Color color = (Color)args[2];
-                            EntropyBossbar.bossbarColor[type] = color;
-                        }
+                        #region TwistedTwinsStuff
                         if (str.Equals("SetTTHoldoutCheck"))
                         {
                             EGlobalProjectile.checkHoldOut = (bool)args[1];
@@ -1344,18 +1359,6 @@ namespace CalamityEntropy
                         if (str.Equals("GetTTHoldoutCheck"))
                         {
                             return EGlobalProjectile.checkHoldOut;
-                        }
-                        if (str.Equals("GetBookMarkSlots"))
-                        {
-                            return ((Player)args[1]).GetMyMaxActiveBookMarks(((Player)args[1]).HeldItem);
-                        }
-                        if (str.Equals("AddBookMarkSlot"))
-                        {
-                            ((Player)args[1]).Entropy().AdditionalBookmarkSlot += (int)args[2];
-                        }
-                        if (str.Equals("AddBookMarkSlotSpecialTexture"))
-                        {
-                            ((Player)args[1]).Entropy().BookmarkHolderSpecialTextures.Add((Texture2D)args[2]);
                         }
                         if (str.Equals("CopyProjForTTwin"))
                         {
@@ -1382,6 +1385,27 @@ namespace CalamityEntropy
                             }
                             EGlobalProjectile.checkHoldOut = true;
                         }
+                        #endregion
+                        //Set a specific color for NPC
+                        //Usage: Mod.Call("SetBarColor", ModContent.NPCType<T>(), color);
+                        if (str.Equals("SetBarColor"))
+                        {
+                            int type = (int)args[1];
+                            Color color = (Color)args[2];
+                            EntropyBossbar.bossbarColor[type] = color;
+                        }
+                        if (str.Equals("GetBookMarkSlots"))
+                        {
+                            return ((Player)args[1]).GetMyMaxActiveBookMarks(((Player)args[1]).HeldItem);
+                        }
+                        if (str.Equals("AddBookMarkSlot")) //Set this every update just like minion slots
+                        {
+                            ((Player)args[1]).Entropy().AdditionalBookmarkSlot += (int)args[2];
+                        }
+                        if (str.Equals("AddBookMarkSlotSpecialTexture")) //Set this every update just like minion slots, client only
+                        {
+                            ((Player)args[1]).Entropy().BookmarkHolderSpecialTextures.Add((Texture2D)args[2]);
+                        }
                         if (str.Equals("RegisterDebuff"))
                         {
                             ExternalDebuffs.Add(
@@ -1390,7 +1414,6 @@ namespace CalamityEntropy
                                     (Func<Texture2D>)args[2]
                                 )
                             );
-
                             return null;
                         }
                     }
@@ -1403,7 +1426,6 @@ namespace CalamityEntropy
             }
             return null;
         }
-
         private static void AddBoss(Mod bossChecklist, Mod hostMod, string name, float difficulty, Func<bool> downed, object npcTypes, Dictionary<string, object> extraInfo, bool miniBoss = false)
             => bossChecklist.Call(miniBoss ? "LogMiniBoss" : "LogBoss", hostMod, name, difficulty, downed, npcTypes, extraInfo);
         public static List<MusicBox> mbRegs = null;
@@ -1701,7 +1723,7 @@ namespace CalamityEntropy
                                 sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 0.6f, SpriteEffects.None, 0);
                             };
                             Func<bool> downed = () => EDownedBosses.downedApsychos;
-                            AddBoss(bossChecklist, Instance, entryName, 6.9f, downed, ModContent.NPCType<Apsychos>(), new Dictionary<string, object>()
+                            AddBoss(bossChecklist, Instance, entryName, 6.4f, downed, ModContent.NPCType<Apsychos>(), new Dictionary<string, object>()
                             {
                                 ["displayName"] = Language.GetText("Mods.CalamityEntropy.NPCs.Apsychos.BossChecklistIntegration.EntryName"),
                                 ["spawnInfo"] = Language.GetText("Mods.CalamityEntropy.NPCs.Apsychos.BossChecklistIntegration.SpawnInfo"),

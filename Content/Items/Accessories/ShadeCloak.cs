@@ -8,12 +8,12 @@ namespace CalamityEntropy.Content.Items.Accessories
     public class ShadeCloak : ModItem
     {
         public static float BaseDamage = 25;
-        public static int CooldownTicks = 30 * 60;
+        public static int CooldownTicks = 3 * 60;
         public override void SetDefaults()
         {
             Item.width = 42;
             Item.height = 42;
-            Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
+            Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.accessory = true;
             Item.expert = true;

@@ -612,11 +612,10 @@ Items: {
 		DisplayName: 虚湮黯天
 		Tooltip:
 			'''
-			扔出一把飞刀
-			按下[KEY]收回所有飞刀
-			右键飞刀位移到该位置
-			传送后获得混沌debuff
-			最多存在4把
+			点击左键或按住右键丢出一些飞刀，击中后弹开并漂浮在周围
+			长按左键蓄力，完全蓄力时松开会丢出一把强化的飞刀，造成3倍伤害
+			强化飞刀命中会使所有漂浮的飞刀砸向目标
+			同时最多存在15把悬浮飞刀
 			'''
 	}
 
@@ -3550,7 +3549,7 @@ Items: {
 		DisplayName: 精致书签夹
 		Tooltip:
 			'''
-			+5% 魔法暴击率
+			+[S]% 魔法暴击率
 			为所有熵语之书增加一个额外的书签栏位
 			"上面有顶魔术礼帽的精致书签夹"
 			由旅商售卖
@@ -3561,7 +3560,7 @@ Items: {
 		DisplayName: 神圣书签夹
 		Tooltip:
 			'''
-			+5% 魔法暴击率
+			+[S]% 魔法暴击率
 			+[D]% 魔法伤害
 			为所有熵语之书增加2个额外的书签栏位
 			"带有神圣光辉的书签，可以轻而易举的将书签紧紧夹在书中"
@@ -4286,6 +4285,15 @@ Items: {
 			临近的3个光点会朝附近的目标发射[c/f0ffe6:葬日裂弹]并汇聚在一起并发射不穿透的[c/f0ffe6:日陨激光]
 			'''
 	}
+
+	BaXingChong: {
+		DisplayName: 八星铳
+		Tooltip:
+			'''
+			发射大量追踪的导弹
+			[c/ff7f50:“这把枪的前主人？你说那个全身凑不出二两肉的家伙？”]
+			'''
+	}
 }
 
 SmolderingSetBonus:
@@ -4970,10 +4978,10 @@ Projectiles: {
 	ZafkielProj.DisplayName: 刻刻帝
 	ApsychosTailShoot.DisplayName: 烬甲秽魔尾弹
 	EmberSwordHoldout.DisplayName: 灼烬巨剑
-	TectinicShardHoming.DisplayName: 板块碎片
+	// tectonicShardHoming.DisplayName: tectonic Shard Homing
 	AshesSpirit.DisplayName: 灰烬之灵
 	AshesSpiritFireball.DisplayName: 灰烬火球
-	TectinicShardAshesCore.DisplayName: 板块碎片
+	// tectonicShardAshesCore.DisplayName: tectonic Shard Ashes Core
 	ScorchingChakramThrown.DisplayName: 焦灼旋刃
 	ScorchingFireball.DisplayName: 焦灼火球
 	HellstoneMissileProj.DisplayName: 狱炎导弹
@@ -5013,6 +5021,11 @@ Projectiles: {
 	BuriedShoot.DisplayName: 日陨激光
 	BuriedDot.DisplayName: 噬阳光点
 	BuriedShoot2.DisplayName: 日陨激光
+	TectinicShardAshesCore.DisplayName: 板块碎片
+	TectinicShardHoming.DisplayName: 板块碎片
+	// AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
+	// VoidAnnihilateSpawner.DisplayName: Void Annihilate Spawner
+	// VoidAnnihilateCharge.DisplayName: Void Annihilate Charge
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5402,6 +5415,41 @@ Buffs: {
 		DisplayName: 迷你战斗机
 		Description: “曾被量产用于大规模战争”
 	}
+
+	CrystedgeWhipDebuff: {
+		// DisplayName: Crystedge Whip Debuff
+		// Description: Mods.CalamityEntropy.Buffs.CrystedgeWhipDebuff.Description
+	}
+
+	DaylightWhipDebuff: {
+		// DisplayName: Daylight Whip Debuff
+		// Description: Mods.CalamityEntropy.Buffs.DaylightWhipDebuff.Description
+	}
+
+	ForeseeWhipDebuff: {
+		// DisplayName: Foresee Whip Debuff
+		// Description: Mods.CalamityEntropy.Buffs.ForeseeWhipDebuff.Description
+	}
+
+	LashingBramblerodWhipDebuff: {
+		// DisplayName: Lashing Bramblerod Whip Debuff
+		// Description: Mods.CalamityEntropy.Buffs.LashingBramblerodWhipDebuff.Description
+	}
+
+	MindCorruptorWhipDebuff: {
+		// DisplayName: Mind Corruptor Whip Debuff
+		// Description: Mods.CalamityEntropy.Buffs.MindCorruptorWhipDebuff.Description
+	}
+
+	SinewLashWhipDebuff: {
+		// DisplayName: Sinew Lash Whip Debuff
+		// Description: Mods.CalamityEntropy.Buffs.SinewLashWhipDebuff.Description
+	}
+
+	WhipOfEvilKingWhipDebuff: {
+		// DisplayName: Whip Of Evil King Whip Debuff
+		// Description: Mods.CalamityEntropy.Buffs.WhipOfEvilKingWhipDebuff.Description
+	}
 }
 
 Uh: 呃啊~
@@ -5588,7 +5636,6 @@ loreProphet:
 	'''
 
 Keybinds: {
-	RetrieveVoidAnnihilate.DisplayName: 收回所有飞刀
 	ThrowPoop.DisplayName: 丢出大便
 	KeepPoop.DisplayName: 保留大便
 	VetrasylsEyeBlock.DisplayName: 维塔希尔之瞳格挡
@@ -5684,6 +5731,11 @@ Configs: {
 			Tooltip: ""
 		}
 
+		TileEffect: {
+			Label: 物块特效
+			Tooltip: ""
+		}
+
 		ScreenWarpEffects: {
 			Label: 屏幕特效
 			Tooltip: 是否绘制扭曲切屏等特效
@@ -5742,6 +5794,11 @@ Configs: {
 		RogueAccessoriesProvide40Stealth: {
 			Label: 盗贼配饰提供最少40点潜行值
 			Tooltip: 如果你穿戴了任何盗贼饰品，则会至少拥有20点潜行值
+		}
+
+		EnableArmorPrefix: {
+			Label: 启用护甲词条
+			Tooltip: 关闭此项将禁用所有词条物品的合成配方和自然世界生成
 		}
 	}
 }
@@ -6350,7 +6407,7 @@ AzafureEnhances: {
 	AzafurePioneerCannon: 增加装弹上限
 	AzafureProtectiveCannon: 减少冷却时间
 	AzafurePulseWand: 增加标记上限与搜索范围
-	AzafureRailgun: 增加小型追踪弹的数量
+	AzafureRailgun: 根据耐力值增加小型追踪弹的数量
 	AzafureSurgeRod: 射弹可额外电击一个目标
 	AzafureTeslaGun: 增加电弧伤害
 	AzafureElectrocauteryWand: 增加充能速度

@@ -202,7 +202,7 @@ namespace CalamityEntropy.Common
 
         public override bool CanRightClick(Item item)
         {
-            return (CEUtils.IsArmor(item) && Main.mouseItem.IsArmorReforgeItem(out var _)) || (BookMarkLoader.IsABookMark(item) && EBookUI.active && BookMarkLoader.HasEmptyBookMarkSlot(EBookUI.bookItem, Main.LocalPlayer));
+            return (CEUtils.IsArmor(item) && Main.mouseItem.IsArmorReforgeItem(out var _) && ServerConfig.Instance.EnableArmorPrefix) || (BookMarkLoader.IsABookMark(item) && EBookUI.active && BookMarkLoader.HasEmptyBookMarkSlot(EBookUI.bookItem, Main.LocalPlayer));
         }
         public override void RightClick(Item item, Player player)
         {
@@ -239,7 +239,7 @@ namespace CalamityEntropy.Common
                 }
             }
             Item held = Main.mouseItem;
-            if (CEUtils.IsArmor(item))
+            if (CEUtils.IsArmor(item) && ServerConfig.Instance.EnableArmorPrefix)
             {
                 if (held.IsArmorReforgeItem(out var p))
                 {
@@ -525,9 +525,10 @@ namespace CalamityEntropy.Common
         {
             if (item.ModItem != null)
             {
+                Mod mod = item.ModItem.Mod;
                 if (item.ModItem is IAzafureEnhancable && Main.LocalPlayer.AzafureEnhance())
                 {
-                    tooltips.Add(new TooltipLine(Mod, "Azafure Enhance", $"{Mod.GetLocalization("AzafureEnhance").Value}: " + item.ModItem.Mod.GetLocalization($"AzafureEnhances.{item.ModItem.Name}").Value) { OverrideColor = Color.Yellow });
+                    tooltips.Add(new TooltipLine(Mod, "Azafure Enhance", $"{Mod.GetLocalization("AzafureEnhance").Value}: " + mod.GetLocalization($"AzafureEnhances.{item.ModItem.Name}").Value) { OverrideColor = Color.Yellow });
                 }
                 if (item.ModItem is ExquisiteCrown || item.ModItem is RottenFangs)
                 {

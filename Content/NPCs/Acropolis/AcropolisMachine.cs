@@ -56,6 +56,16 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             public bool OnTile => !CEUtils.isAir(StandPoint, true) && o;
             public bool Update()
             {
+                if (NPC.ModNPC is AcropolisMachine am)
+                {
+                    if (am.Dummy || targetPos == Vector2.Zero)
+                    {
+                        StandPoint = Vector2.Lerp(StandPoint, NPC.Center + ((offset * new Vector2(0.36f, 2.2f)).RotatedBy(am.Dummy ? NPC.rotation : 0) * NPC.scale), 0.2f);
+                        targetPos = StandPoint;
+                        return false;
+                    }
+                }
+                
                 if (CEUtils.getDistance(StandPoint, targetPos) < ms * (NPC.velocity.Y > 1f ? 3 : 1))
                 {
                     StandPoint = targetPos;
@@ -73,8 +83,10 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     ms = CEUtils.getDistance(targetPos, StandPoint) * 0.2f;
                     return false;
                 }
-                if (!OnTile || (NoMoveTime <= 0 && CEUtils.getDistance(StandPoint, NPC.Center + NPC.velocity * 16 + (offset * NPC.scale).RotatedBy(((AcropolisMachine)NPC.ModNPC).dir > 0 ? NPC.rotation : (NPC.rotation + MathHelper.Pi))) > distToMove) || CEUtils.getDistance(StandPoint, NPC.Center + NPC.velocity * 16 + (offset * NPC.scale).RotatedBy(((AcropolisMachine)NPC.ModNPC).dir > 0 ? NPC.rotation : (NPC.rotation + MathHelper.Pi))) > distToMove * 1.4f)
+                if (!OnTile || (NPC.boss && NoMoveTime <= 0 && CEUtils.getDistance(StandPoint, NPC.Center + NPC.velocity * 16 + (offset * NPC.scale).RotatedBy(((AcropolisMachine)NPC.ModNPC).dir > 0 ? NPC.rotation : (NPC.rotation + MathHelper.Pi))) > distToMove) || ((NoMoveTime <= 0 || NPC.boss) && CEUtils.getDistance(StandPoint, NPC.Center + NPC.velocity * 16 + (offset * NPC.scale).RotatedBy(((AcropolisMachine)NPC.ModNPC).dir > 0 ? NPC.rotation : (NPC.rotation + MathHelper.Pi))) > distToMove * 1.4f))
                 {
+                    if (!NPC.boss)
+                        NoMoveTime = 8;
                     targetPos = FindStandPoint(NPC.Center + NPC.velocity * 16 + (offset * NPC.scale).RotatedBy(((AcropolisMachine)NPC.ModNPC).dir > 0 ? NPC.rotation : (NPC.rotation + MathHelper.Pi)) + new Vector2(Math.Sign(NPC.velocity.X) == Math.Sign(offset.X) ? (Math.Sign(NPC.velocity.X) * 12) : 0, 0), 60 * Scale * NPC.scale, 128);
                     ms = CEUtils.getDistance(targetPos, StandPoint) * 0.2f;
                     if (NoMoveTime < 4)
@@ -88,6 +100,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             public Vector2 FindStandPoint(Vector2 center, float MaxOffset, float MaxTry = 64)
             {
                 o = false;
+                if (!NPC.boss)
+                    center.Y -= 10;
                 for (int i = 0; i < MaxTry; i++)
                 {
                     Vector2 pos = CEUtils.randomPointInCircle(MaxTry) * new Vector2(1f, 1f) + center;
@@ -109,6 +123,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                         return pos;
                     }
                 }
+                if (!NPC.boss)
+                    return Vector2.Zero;
                 return NPC.Center + new Vector2(offset.X, 200).RotatedBy(((AcropolisMachine)NPC.ModNPC).dir > 0 ? NPC.rotation : (NPC.rotation + MathHelper.Pi));
             }
         }
@@ -121,6 +137,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             public float Seg1MaxRadians = MathHelper.ToRadians(50);
             public Vector2 offset;
             public NPC npc;
+            public Vector2 DummyPos = Vector2.Zero;
             public Hand(NPC n, Vector2 offset, float seg1Length, float seg1Rot, float seg2Rot)
             {
                 npc = n;
@@ -128,6 +145,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 Seg1Rot = seg1Rot;
                 Seg2Rot = seg2Rot;
                 this.offset = offset;
+                DummyPos = n.Center;
             }
             public Vector2 TopPos => seg1end + Seg2Rot.ToRotationVector2() * 60 * npc.scale;
             public void PointAPos(Vector2 pos)
@@ -161,6 +179,11 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
             public void Update()
             {
+                if (!npc.boss)
+                {
+                    PointAPos(DummyPos);
+                    DummyPos = Vector2.Lerp(DummyPos, npc.Center + offset + new Vector2(0, Seg1Length * npc.scale * 2), 0.3f);
+                }
                 Seg1Rot += Seg1RotV;
                 Seg1RotV *= 0.96f;
             }
@@ -182,6 +205,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             };
             NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
@@ -265,7 +290,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            return (spawnInfo.Player.Calamity().ZoneCalamity && !NPC.AnyNPCs(Type) && EModSys.AcropolisDontSpawn <= 0) ? 0.2f : 0f;
+            return (spawnInfo.Player.Calamity().ZoneCalamity && !NPC.AnyNPCs(Type) && EModSys.AcropolisDontSpawn <= 0) ? (NPC.downedMoonlord ? 0.04f : (Main.hardMode ? 0.07f : 0.18f)) : 0f;
         }
         public static bool CanStandOn(Vector2 pos)
         {
@@ -302,6 +327,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
         public LoopSound chargeSnd = null;
         public int dcounter = 0;
+        public bool Dummy = false;
         public override void AI()
         {
             NPC.chaseable = NPC.boss;
@@ -407,7 +433,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     NPC.boss = true;
                 }
                 NPC.noTileCollide = true;
-                if (NPC.HasValidTarget && NPC.target.ToPlayer().Distance(NPC.Center) < 3000)
+                if (NPC.HasValidTarget && NPC.target.ToPlayer().Distance(NPC.Center) < 6000)
                 {
                     AttackPlayer(Main.player[NPC.target]);
                     if (Main.netMode == NetmodeID.Server)
@@ -428,7 +454,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     {
                         NPC.velocity.Y += 0.7f;
                     }
-                    if (dcounter > 290)
+                    if (dcounter > 295)
                     {
                         NPC.active = false;
                     }
@@ -450,18 +476,37 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             {
                 NPC.velocity *= 0.97f;
             }
+            Dummy = false;
+            bool ff = CEUtils.CheckSolidTileOrPlatform(new Rectangle((int)NPC.position.X, (int)NPC.position.Y, NPC.width, (int)(NPC.height * 1.4f)));
+            if (!NPC.boss)
+            {
+                if (ff)
+                    NPC.velocity.X *= 0.96f;
+                else
+                {
+                    Dummy = true;
+                    NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, NPC.velocity.X * 0.04f, 0.16f, false);
+                }
+            }
             if (Jumping)
             {
                 NPC.rotation = (Math.Abs(NPC.velocity.X * 0.04f).ToRotationVector2() * new Vector2(dir, 1)).ToRotation();
             }
-            else
+            else if (NPC.boss || ff)
             {
                 Vector2 lr = Vector2.Zero;
                 Vector2 rr = Vector2.Zero;
                 int lc = 0;
                 int rc = 0;
+                int ontile = 0;
                 foreach (var leg in legs)
                 {
+                    if (leg.OnTile)
+                        ontile++;
+                    else
+                    {
+                        continue;
+                    }
                     if (leg.offset.X < 0 && leg.OnTile)
                     {
                         lr += leg.StandPoint;
@@ -473,35 +518,42 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                         rc++;
                     }
                 }
-
-                if (lc > 0 && rc > 0)
+                if (ontile > 2)
                 {
-                    float r = ((rr / rc) - (lr / lc)).ToRotation();
-                    float maxr = MathHelper.ToRadians(60);
-                    if (r > maxr)
-                        r = maxr;
-                    if (r < -maxr)
+                    if (lc > 0 && rc > 0)
                     {
-                        r = -maxr;
+                        float r = ((rr / rc) - (lr / lc)).ToRotation();
+                        float maxr = MathHelper.ToRadians(60);
+                        if (r > maxr)
+                            r = maxr;
+                        if (r < -maxr)
+                        {
+                            r = -maxr;
+                        }
+                        if (dir < 0)
+                        {
+                            r += MathHelper.Pi;
+                        }
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, r, 0.12f, false);
                     }
-                    if (dir < 0)
+                    else if (lc > rc)
                     {
-                        r += MathHelper.Pi;
+                        NPC.rotation += 0.16f;
                     }
-                    NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, r, 0.1f, false);
-                }
-                else if (lc > rc)
-                {
-                    NPC.rotation += 0.1f;
-                }
-                else if (lc < rc)
-                {
-                    NPC.rotation -= 0.1f;
+                    else if (lc < rc)
+                    {
+                        NPC.rotation -= 0.16f;
+                    }
+                    else
+                    {
+                        float r = dir == 1 ? 0 : MathHelper.Pi;
+                        NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, r, 0.3f, false);
+                    }
                 }
                 else
                 {
                     float r = dir == 1 ? 0 : MathHelper.Pi;
-                    NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, r, 0.3f, false);
+                    NPC.rotation = CEUtils.RotateTowardsAngle(NPC.rotation, r, 0.12f, false);
                 }
             }
         }
@@ -588,15 +640,16 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             }
             if (CalamityEntropy.EntropyMode)
             {
-                enrange *= 1.2f;
+                enrange += 0.4f;
+                enrange *= 1.15f;
             }
             if (Main.getGoodWorld)
             {
-                enrange *= 1.1f;
+                enrange *= 1.3f;
             }
             if (Main.zenithWorld)
             {
-                enrange *= 1.15f;
+                enrange *= 0.88f;
             }
             float d = CEUtils.getDistance(player.Center, NPC.Center);
             if (CannonUpAtk-- > 0)
@@ -608,7 +661,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     if (TeslaUpCD <= 0)
                     {
                         TeslaUpCD = 12;
-                        Shoot<AcropolisTeslaBall>(cannon.TopPos, cannon.Seg2Rot.ToRotationVector2().RotatedByRandom(0.6f) * 5, 1, 0, NPC.whoAmI);
+                        Shoot<AcropolisTeslaBall>(cannon.TopPos, cannon.Seg2Rot.ToRotationVector2().RotatedByRandom(0.6f) * 5, 1, -1, NPC.whoAmI);
                         CEUtils.PlaySound("ofshoot", 1, cannon.TopPos);
                         cannon.Seg1RotV = 0.06f * dir;
                     }
@@ -616,12 +669,13 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             }
             else if (JumpAndShoot-- > 0)
             {
-                cannon.PointAPos(player.Center + new Vector2(0, -30));
+                for(int i = 0; i < 2; i++)
+                    cannon.PointAPos(NPC.Center + cannon.offset * NPC.scale + new Vector2(0, 220)); //(player.Center + new Vector2(NPC.velocity.normalize().X * 400, -160));
                 TeslaUpCD -= enrange;
                 if (TeslaUpCD <= 0)
                 {
-                    TeslaUpCD = 12;
-                    Shoot<AcropolisTeslaBall>(cannon.TopPos, cannon.Seg2Rot.ToRotationVector2().RotatedByRandom(0.12f) * 5, 1, 0, NPC.whoAmI);
+                    TeslaUpCD = 23;
+                    Shoot<AcropolisTeslaBall>(cannon.TopPos, cannon.Seg2Rot.ToRotationVector2().RotatedByRandom(0.03f) * 3, 1, 1, NPC.whoAmI);
                     CEUtils.PlaySound("ofshoot", 1, cannon.TopPos);
                 }
             }
@@ -644,18 +698,19 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             TeslaCD -= enrange;
             if (TeslaCD <= 0)
             {
-                if (Main.rand.NextBool(8))
+                if (Main.rand.NextBool(6))
                 {
                     TeslaCD = 360;
                     CannonUpAtk = 200;
                 }
-                else if (Main.rand.NextBool(8) && !Jumping && HarpoonOnLauncher)
+                else if (Main.rand.NextBool(6) && !Jumping && HarpoonOnLauncher)
                 {
                     Jumping = true;
                     NPC.velocity = new Vector2(12f * Math.Sign(player.Center.X - NPC.Center.X) / NPC.scale, -24) * NPC.scale;
                     JumpCD = 200;
                     JumpAndShoot = 200;
                     TeslaCD = 360;
+                    TeslaUpCD = 30;
                 }
                 else
                 {
@@ -794,14 +849,14 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 {
                     flag = true;
                 }
-                if (JumpAndShoot <= 96 && NPC.ai[2] <= 0)
+                if (JumpAndShoot <= 150 && NPC.ai[2] <= 0)
                 {
                     if (((NPC.velocity.Y > 0 && !(JumpAndShoot > 0)) || NPC.Center.Y < player.Center.Y) && flag)
                     {
-                        Jumping = false;
-                        NPC.velocity *= 0;
+                        //Jumping = false;
+                        //NPC.velocity *= 0;
                     }
-                    if (JumpCD < 20 || (NPC.velocity.Y > 0 && CEUtils.CheckSolidTile(NPC.getRect()) && !(JumpAndShoot > 0)) || NPC.velocity.Y > 2)
+                    if (JumpCD < 20 || (NPC.velocity.Y > 0 && CEUtils.CheckSolidTileOrPlatform(new Rectangle((int)NPC.position.X, (int)NPC.position.Y, NPC.width, (int)(NPC.height * 1.4f)))) && NPC.velocity.Y > 8)
                     {
                         Jumping = false;
                         NPC.velocity *= 0;

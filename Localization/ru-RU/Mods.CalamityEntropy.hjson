@@ -3937,6 +3937,15 @@ Items: {
 			and converge together to fire a non-penetrating [c/f0ffe6:Sunfall Laser]
 			''' */
 	}
+
+	BaXingChong: {
+		// DisplayName: Ba Xing Chong
+		/* Tooltip:
+			'''
+			Launch lot of homing missile
+			[c/ff7f50:"Former owner of this gun? You mean that guy covered by cyberware except his brain?"]
+			''' */
+	}
 }
 
 SmolderingSetBonus:
@@ -4628,10 +4637,10 @@ Projectiles: {
 	ZafkielProj.DisplayName: Император
 	ApsychosTailShoot.DisplayName: Оранжевый хвост.
 	EmberSwordHoldout.DisplayName: Огненный меч.
-	TectinicShardHoming.DisplayName: Фрагмент плиты
+	// tectonicShardHoming.DisplayName: tectonic Shard Homing
 	AshesSpirit.DisplayName: Дух пепла
 	AshesSpiritFireball.DisplayName: Огненный шар пепла
-	TectinicShardAshesCore.DisplayName: Фрагмент плиты
+	// tectonicShardAshesCore.DisplayName: tectonic Shard Ashes Core
 	ScorchingChakramThrown.DisplayName: Зажженный клинок
 	ScorchingFireball.DisplayName: Огненный шар
 	HellstoneMissileProj.DisplayName: Ракеты - ловушки
@@ -4671,6 +4680,11 @@ Projectiles: {
 	// BuriedShoot.DisplayName: Buried Shoot
 	// BuriedDot.DisplayName: Buried Dot
 	// BuriedShoot2.DisplayName: Buried Shoot2
+	TectinicShardAshesCore.DisplayName: Фрагмент плиты
+	TectinicShardHoming.DisplayName: Фрагмент плиты
+	// AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
+	// VoidAnnihilateSpawner.DisplayName: Void Annihilate Spawner
+	// VoidAnnihilateCharge.DisplayName: Void Annihilate Charge
 }
 
 LegendTooltip: - Легенда -
@@ -5060,6 +5074,41 @@ Buffs: {
 		DisplayName: Мини - истребитель
 		Description: « Массовое производство использовалось в крупномасштабных войнах»
 	}
+
+	CrystedgeWhipDebuff: {
+		// DisplayName: Crystedge Whip Debuff
+		// Description: Mods.CalamityEntropy.Buffs.CrystedgeWhipDebuff.Description
+	}
+
+	DaylightWhipDebuff: {
+		// DisplayName: Daylight Whip Debuff
+		// Description: Mods.CalamityEntropy.Buffs.DaylightWhipDebuff.Description
+	}
+
+	ForeseeWhipDebuff: {
+		// DisplayName: Foresee Whip Debuff
+		// Description: Mods.CalamityEntropy.Buffs.ForeseeWhipDebuff.Description
+	}
+
+	LashingBramblerodWhipDebuff: {
+		// DisplayName: Lashing Bramblerod Whip Debuff
+		// Description: Mods.CalamityEntropy.Buffs.LashingBramblerodWhipDebuff.Description
+	}
+
+	MindCorruptorWhipDebuff: {
+		// DisplayName: Mind Corruptor Whip Debuff
+		// Description: Mods.CalamityEntropy.Buffs.MindCorruptorWhipDebuff.Description
+	}
+
+	SinewLashWhipDebuff: {
+		// DisplayName: Sinew Lash Whip Debuff
+		// Description: Mods.CalamityEntropy.Buffs.SinewLashWhipDebuff.Description
+	}
+
+	WhipOfEvilKingWhipDebuff: {
+		// DisplayName: Whip Of Evil King Whip Debuff
+		// Description: Mods.CalamityEntropy.Buffs.WhipOfEvilKingWhipDebuff.Description
+	}
 }
 
 Uh: ""
@@ -5249,7 +5298,6 @@ loreProphet:
 	'''
 
 Keybinds: {
-	RetrieveVoidAnnihilate.DisplayName: Вернуть Уничтожение Пустоты
 	ThrowPoop.DisplayName: Бросить какашку
 	KeepPoop.DisplayName: Подобрать какашку
 	VetrasylsEyeBlock.DisplayName: Щит Ока Ветрасиля
@@ -5345,6 +5393,11 @@ Configs: {
 			Tooltip: ""
 		}
 
+		TileEffect: {
+			// Label: Tile Effect
+			// Tooltip: ""
+		}
+
 		ScreenWarpEffects: {
 			Label: Экран спецэффектов
 			Tooltip: Нарисовать ли деформированный экран и другие эффекты
@@ -5403,6 +5456,11 @@ Configs: {
 		RogueAccessoriesProvide40Stealth: {
 			Label: Грабители предлагают минимум 40 скрытых значений.
 			Tooltip: Если вы носите какие - либо воровские украшения, у вас будет по крайней мере 20 скрытых значений.
+		}
+
+		EnableArmorPrefix: {
+			// Label: Enable Armor Prefix
+			// Tooltip: Close this will disable all prefix items' recipes and generation in world
 		}
 	}
 }

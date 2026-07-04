@@ -4207,6 +4207,15 @@ Items: {
 			Sunspots merge before releasing an additional sunset laser
 			'''
 	}
+
+	BaXingChong: {
+		DisplayName: Ba Xing Chong
+		Tooltip:
+			'''
+			Launch lot of homing missile
+			[c/ff7f50:"Former owner of this gun? You mean that guy covered by cyberware except his brain?"]
+			'''
+	}
 }
 
 SmolderingSetBonus:
@@ -4894,10 +4903,10 @@ Projectiles: {
 	ZafkielProj.DisplayName: Zafkiel
 	ApsychosTailShoot.DisplayName: Apsychos Tail Shoot
 	EmberSwordHoldout.DisplayName: Ember Sword Holdout
-	TectinicShardHoming.DisplayName: Tectinic Shard Homing
+	tectonicShardHoming.DisplayName: tectonic Shard Homing
 	AshesSpirit.DisplayName: Ashes Spirit
 	AshesSpiritFireball.DisplayName: Ashes Spirit Fireball
-	TectinicShardAshesCore.DisplayName: Tectinic Shard Ashes Core
+	tectonicShardAshesCore.DisplayName: tectonic Shard Ashes Core
 	ScorchingChakramThrown.DisplayName: Scorching Chakram Thrown
 	ScorchingFireball.DisplayName: Scorching Fireball
 	HellstoneMissileProj.DisplayName: Hellstone Missile Proj
@@ -4936,7 +4945,11 @@ Projectiles: {
 	BuriedDot.DisplayName: Buried Dot
 	BuriedShoot.DisplayName: Buried Shoot
 	BuriedShoot2.DisplayName: Buried Shoot2
-	BuriedSunHoldout.DisplayName: Buried Sun Holdout
+	TectinicShardAshesCore.DisplayName: Tectinic Shard Ashes Core
+	TectinicShardHoming.DisplayName: Tectinic Shard Homing
+	AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
+	VoidAnnihilateSpawner.DisplayName: Void Annihilate Spawner
+	VoidAnnihilateCharge.DisplayName: Void Annihilate Charge
 }
 
 LegendTooltip: - Legend -
@@ -5368,7 +5381,7 @@ Buffs: {
 
 	CrystedgeWhipDebuff: {
 		DisplayName: Crystedge Whip Debuff
-		Description: ""
+		Description: Mods.CalamityEntropy.Buffs.CrystedgeWhipDebuff.Description
 	}
 
 	DaylightWhipDebuff: {
@@ -5545,7 +5558,6 @@ NihTwinLoreEffect:
 loreProphet: No army, kingdom, or soverign can endure for long without practitioners of temporal magicks-- those who pluck the feathers of tomorrow from the golden goose of prediction, weaving the future via present calculus. These powers can be practiced carefully and prove invaluable... or be pushed beyond the limits set by those before us. Those who gaze into realms we were never meant to comprehend, looking not just through time, but through space. We found one willing locked in the Dungeon. It took some convincing, but eventually Draedon and I gave him the last push to truly see past our tiny land. What can be described then was something willing to repel even my curiosity. The man warped, changed, took on the spiritual energy around it, the runes in every forbidden book in the Dungeon. It bled all the same, its spirit sealing itself in a tome, almost aware of what it had become. I am surprised to see you decided to call it forth again, however I believe leaving the void's fate in your hands was the right decision. Thank you, for letting him finally rest.
 
 Keybinds: {
-	RetrieveVoidAnnihilate.DisplayName: Retrieve Void Annihilate
 	ThrowPoop.DisplayName: Throw Poop
 	KeepPoop.DisplayName: Hold Poop
 	VetrasylsEyeBlock.DisplayName: Vetrasyls Eye Block
@@ -5651,6 +5663,11 @@ Configs: {
 			Tooltip: ""
 		}
 
+		TileEffect: {
+			Label: Tile Effect
+			Tooltip: ""
+		}
+
 		ScreenWarpEffects: {
 			Label: Screen Effects
 			Tooltip: Do or do not draw the screen wrap and cut screen effect
@@ -5673,7 +5690,7 @@ Configs: {
 	}
 
 	ServerConfig: {
-		DisplayName: Server Config
+		DisplayName: Mod Config
 		Headers.Misc: Misc Header
 
 		LoreSpecialEffect: {
@@ -5704,6 +5721,11 @@ Configs: {
 		RogueAccessoriesProvide40Stealth: {
 			Label: Rogue Accessories Provide 40 Stealth
 			Tooltip: If you hasn't wearing rogue armors and you equiped any rogue accessories, you will have at least 40 stealth
+		}
+
+		EnableArmorPrefix: {
+			Label: Enable Armor Prefix
+			Tooltip: Close this will disable all prefix items' recipes and generation in world
 		}
 	}
 }

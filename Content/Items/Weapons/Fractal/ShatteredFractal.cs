@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Melee;
@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
     {
         public override void SetDefaults()
         {
-            Item.damage = 35;
+            Item.damage = 25;
             Item.DamageType = DamageClass.Melee;
             Item.width = 48;
             Item.height = 60;
@@ -151,7 +151,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     shoot = false;
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.velocity.normalize() * 100 * Projectile.scale, Projectile.velocity.normalize() * 10, ModContent.ProjectileType<FractalShoot>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.velocity.normalize() * 100 * Projectile.scale, Projectile.velocity.normalize() * 10, ModContent.ProjectileType<FractalShoot>(), (int)(Projectile.damage * 1.5f), Projectile.knockBack, Projectile.owner);
                     }
                     CEUtils.PlaySound("sf_shoot", 1, Projectile.Center, volume: CEUtils.WeapSound);
                 }
@@ -259,5 +259,4 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (86 * (Projectile.ai[0] == 2 ? 1.24f : 1)) * Projectile.scale * scale, 84, DelegateMethods.CutTiles);
         }
     }
-
 }

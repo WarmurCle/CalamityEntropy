@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
+using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         public bool setv = true;
         public override void AI()
         {
+            Projectile.localAI[1] = float.Lerp(Projectile.localAI[1], 1, 0.1f);
             if (setv)
             {
                 setv = false;
@@ -55,9 +57,9 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             for (float i = 0; i < 1; i += 0.25f)
             {
                 Particle p = new Particle();
-                p.alpha = 0.22f;
-                p.position = Projectile.Center + Projectile.velocity * i;
-                p.velocity = new Vector2(0.3f, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2);
+                p.alpha = 0.14f;
+                p.position = Projectile.Center - Projectile.velocity * (i + 0.42f);
+                p.velocity = new Vector2(0.2f, 0).RotatedBy(CEUtils.randomRot());
                 VoidParticles.particles.Add(p);
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
@@ -66,8 +68,16 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D t = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Cruiser/VoidSpike").Value;
-            Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, t.Size() / 2, 2, SpriteEffects.None, 0);
-
+            Main.spriteBatch.UseAdditive();
+            Texture2D tex = CEUtils.getExtraTex("Glow2");
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, new Rectangle(tex.Width / 2, 0, tex.Width / 2, tex.Height), Color.LightBlue, Projectile.rotation, new Vector2(0, tex.Height / 2), Projectile.scale * new Vector2(0.65f * Projectile.localAI[1] * Projectile.velocity.Length(), 0.012f) * Projectile.localAI[1], SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, new Rectangle(tex.Width / 2, 0, tex.Width / 2, tex.Height), Color.Blue, Projectile.rotation, new Vector2(0, tex.Height / 2), Projectile.scale * new Vector2(0.65f * Projectile.localAI[1] * Projectile.velocity.Length(), 0.025f) * Projectile.localAI[1], SpriteEffects.None, 0);
+            for(float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver4)
+            {
+                Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition + (i + Main.GlobalTimeWrappedHourly * 16).ToRotationVector2() * 2, null, Color.White, Projectile.rotation, t.Size() / 2, 1, SpriteEffects.None, 0);
+            }
+            Main.spriteBatch.ExitShaderRegion();
+            Main.spriteBatch.Draw(t, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, t.Size() / 2, 1, SpriteEffects.None, 0);
             return false;
         }
     }

@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Particles;
@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             Item.width = 52;
             Item.height = 52;
-            Item.damage = 300;
+            Item.damage = 225;
             Item.DamageType = DamageClass.Magic;
             Item.useTime = 16;
             Item.useAnimation = 16;
@@ -35,6 +35,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.knockBack = 5f;
+            Item.mana = 500;
             Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
             Item.rare = ModContent.RarityType<CalamityRed>();
             Item.shootSpeed = 16f;

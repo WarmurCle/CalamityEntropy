@@ -23,7 +23,6 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
             Item.rare = ItemRarityID.Yellow;
             Item.accessory = true;
-
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

@@ -2,6 +2,7 @@ FlowingLight: {
 	DisplayName: Свет бессмертных
 	Tooltip:
 		'''
+		{$CommonItemTooltip.FlightAndSlowfall}
 		Держитесь, чтобы ускорить падение.
 		Во время полёта удерживать
 		Добавьте туфли с крыльями ангела накаливания.
@@ -11,13 +12,18 @@ FlowingLight: {
 
 PhantomLightWing: {
 	DisplayName: Фантомное крыло
-	Tooltip: Звездный след во время полёта.
+	Tooltip:
+		'''
+		{$CommonItemTooltip.FlightAndSlowfall}
+		Звездный след во время полёта.
+		'''
 }
 
 RuneWing: {
 	DisplayName: Летающие талисманы
 	Tooltip:
 		'''
+		{$CommonItemTooltip.FlightAndSlowfall}
 		Нажмите [KEY] для прорыва в направлении мыши, во время которого иммунный вред
 		Охлаждение определяется расстоянием спринта, и заблаговременное ослабление клавиш может привести к досрочному завершению спринта, максимум [DT] секунд
 		'''
@@ -27,6 +33,7 @@ BigShotsWing: {
 	DisplayName: Большие крылья
 	Tooltip:
 		'''
+		{$CommonItemTooltip.FlightAndSlowfall}
 		При наличии Boss - 90% летного времени
 		Из - за подтяжки, полёт медленнее.
 		"Пора стать..."
@@ -40,13 +47,18 @@ BigShotsWing: {
 
 IceShardWing: {
 	DisplayName: Ледяное крыло
-	Tooltip: На самом деле он летает с помощью магии.
+	Tooltip:
+		'''
+		{$CommonItemTooltip.FlightAndSlowfall}
+		На самом деле он летает с помощью магии.
+		'''
 }
 
 TheRevelation: {
 	DisplayName: Конечное апокалипсис
 	Tooltip:
 		'''
+		{$CommonItemTooltip.FlightAndSlowfall}
 		Длинные щелчки мыши при использовании оружия накапливают силы, освобождают мышь, когда она заполнена, освобождая священный свет, нанося 50 повреждений каждые 3 кадра
 		Как крылья
 		Во время полёта удерживать
@@ -58,6 +70,7 @@ VoidElytra: {
 	DisplayName: Пустые крылья
 	Tooltip:
 		'''
+		{$CommonItemTooltip.FlightAndSlowfall}
 		Позволяет спринт в четырех направлениях, который отнимает время полёта.
 		Когда время полета 0, можно использовать жизненные ценности для спринта.
 		[c/356498: Посвятите свою жизнь пустоте и получите прорыв в пределах]

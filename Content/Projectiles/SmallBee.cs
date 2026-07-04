@@ -50,6 +50,12 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
         }
+
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (Projectile.GetOwner().strongBees)
+                modifiers.FinalDamage *= 1.4f;
+        }
         public override bool? CanHitNPC(NPC target)
         {
             return Projectile.ai[0] > 12 ? null : false;
@@ -61,7 +67,7 @@ namespace CalamityEntropy.Content.Projectiles
         public float homingSpeed = 0;
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.EntitySpriteDraw(Projectile.GetTexture(), Projectile.Center - Main.screenPosition, new Rectangle(0, 14 * Projectile.frame, 14, 14), lightColor, Projectile.rotation, new Vector2(7, 6), Projectile.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(Projectile.GetTexture(), Projectile.Center - Main.screenPosition, new Rectangle(0, 14 * Projectile.frame, 14, 14), lightColor, Projectile.rotation, new Vector2(7, 6), Projectile.scale * (Projectile.GetOwner().strongBees ? 1.5f : 1), SpriteEffects.None);
             return false;
         }
     }

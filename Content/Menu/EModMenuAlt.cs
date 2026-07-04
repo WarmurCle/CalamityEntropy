@@ -70,15 +70,23 @@ namespace CalamityEntropy.Content.Menu
             Texture2D logo = Logo.Value;
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 6; i++)
             {
-                particles.Add(new() { pos = new Vector2(Main.rand.NextFloat(-400, Main.screenWidth), -20), vel = new Vector2(Main.rand.NextFloat(-4, 4), Main.rand.NextFloat(0, 5)) });
+                var prt = new EMenuAltParticle() { pos = new Vector2(Main.rand.NextFloat(-400, Main.screenWidth), -20), vel = new Vector2(Main.rand.NextFloat(-4, 4), Main.rand.NextFloat(0, 5)) };
+                prt.vel = new Vector2(Main.rand.NextFloat(-0.6f, 0.6f) + 7, 28);
+                particles.Add(prt);
             }
+            Texture2D ptex = CEUtils.getExtraTex("Circle");
             foreach (var p in particles)
             {
                 p.Update();
-                Main.spriteBatch.Draw(CEUtils.pixelTex, p.pos, null, new Color(30, 30, 120) * p.alpha, 0, CEUtils.pixelTex.Size() / 2f, 8 * p.scale * p.alpha, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(ptex, p.pos, new Rectangle(0, 0, ptex.Width / 2, ptex.Height), new Color(30, 30, 120) * p.alpha, p.vel.ToRotation(), ptex.Size() / 2f, new Vector2(100, 2) * p.scale * p.alpha * 0.004f, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(ptex, p.pos, new Rectangle(ptex.Width / 2, 0, ptex.Width / 2, ptex.Height), new Color(30, 30, 120) * p.alpha, p.vel.ToRotation(), new Vector2(0, ptex.Height / 2), new Vector2(8, 2) * p.scale * p.alpha * 0.004f, SpriteEffects.None, 0);
             }
+            Texture2D noise = CEUtils.getExtraTex("TransverseTwill");
+            float rotn = 1.3258f;
+            Main.spriteBatch.Draw(noise, new Vector2(Main.screenWidth / 2, -500), new Rectangle((int)(Main.GlobalTimeWrappedHourly * -400), (int)(Main.GlobalTimeWrappedHourly * 32), Main.screenWidth, Main.screenHeight * 2), new Color(3, 3, 7), rotn, new Vector2(0, Main.screenHeight), 2, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(noise, new Vector2(Main.screenWidth / 2, -500), new Rectangle((int)(Main.GlobalTimeWrappedHourly * -230), (int)(Main.GlobalTimeWrappedHourly * -32), Main.screenWidth, Main.screenHeight * 2), new Color(3, 3, 7), rotn, new Vector2(0, Main.screenHeight), 2, SpriteEffects.None, 0);
             for (int i = particles.Count - 1; i >= 0; i--)
             {
                 if (particles[i].alpha <= 0 || particles[i].pos.X > Main.screenWidth + 20)
@@ -127,8 +135,8 @@ namespace CalamityEntropy.Content.Menu
             public float scale = Main.rand.NextFloat(0.4f, 1.4f);
             public void Update()
             {
-                vel += new Vector2(0.2f, 0.2f);
-                vel *= new Vector2(0.99f, 0.98f);
+                //vel += new Vector2(0.2f, 0.2f);
+                //vel *= new Vector2(0.99f, 0.98f);
                 alpha -= 0.005f;
                 pos += vel * scale;
             }

@@ -356,7 +356,7 @@ namespace CalamityEntropy.Common
         public int deusCoreBloodOut = 0;
         public int summonCrit = 0;
         public float meleeDamageReduce = 0;
-        public int hitTimeCount = 999999;
+        public int hitTimeCount = 10000000;
 
         public bool isUsingItem()
         {
@@ -1145,13 +1145,19 @@ namespace CalamityEntropy.Common
         {
             if (drCrystals == null && Main.myPlayer == Player.whoAmI && !Main.dedServ)
             {
-                drCrystals = new List<bool>() { ShadowCrystalDeltarune.Ch1Crystal, ShadowCrystalDeltarune.Ch2Crystal, ShadowCrystalDeltarune.Ch3Crystal, ShadowCrystalDeltarune.Ch4Crystal };
+                drCrystals = new List<bool>() { 
+                    ShadowCrystalDeltarune.Ch1Crystal,
+                    ShadowCrystalDeltarune.Ch2Crystal,
+                    ShadowCrystalDeltarune.Ch3Crystal,
+                    ShadowCrystalDeltarune.Ch4Crystal,
+                    ShadowCrystalDeltarune.Ch5Crystal
+                };
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     var mp = Mod.GetPacket();
                     mp.Write((byte)CEMessageType.SyncDRShadowCrystal);
                     mp.Write(Player.whoAmI);
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 5; i++)
                         mp.Write(drCrystals[i]);
                 }
             }
@@ -1369,7 +1375,7 @@ namespace CalamityEntropy.Common
                 if (ps != -1)
                 {
                     Player.gravity = 0;
-                    Player.maxFallSpeed = 9999;
+                    Player.maxFallSpeed = 1000;
                 }
             }
             if (RuneDash > 0)
@@ -1533,7 +1539,7 @@ namespace CalamityEntropy.Common
         {
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<WyrmDash>()] > 0)
             {
-                Player.maxFallSpeed = 9999;
+                Player.maxFallSpeed = 1000;
             }
             if (Player.Entropy().inspirationCard)
             {
@@ -1709,11 +1715,11 @@ namespace CalamityEntropy.Common
             }
             if (mariviniumBody)
             {
-                Player.breath = Player.breathMax + 99999;
+                Player.breath = Player.breathMax + 20000;
             }
             if (accAzureAbyss)
             {
-                Player.breath = Player.breathMax + 99999;
+                Player.breath = Player.breathMax + 20000;
             }
             if (Player.ownedProjectileCounts[voidslashType] > 0)
             {
@@ -1761,9 +1767,9 @@ namespace CalamityEntropy.Common
                 {
                     if (p.Distance(Player.Center) <= 300)
                     {
-                        Player.lifeRegen += 8;
-                        Player.endurance += 0.05f;
-                        Player.GetDamage(DamageClass.Generic) += 0.15f;
+                        Player.lifeRegen += 2;
+                        Player.endurance += 0.04f;
+                        Player.GetDamage(DamageClass.Generic) += 0.08f;
                     }
                 }
             }
@@ -2760,7 +2766,8 @@ namespace CalamityEntropy.Common
                     }
                     if (Player.GetModPlayer<SCDashMP>().flag)
                     {
-                        Player.GetModPlayer<SCDashMP>().Cooldown = 180.ApplyCdDec(Player);
+                        int cd = ShadeCloak.CooldownTicks.ApplyCdDec(Player);
+                        Player.GetModPlayer<SCDashMP>().Cooldown = cd;
                         Player.GetModPlayer<SCDashMP>().flag = false;
                         if (hasAccVisual(ShadeCloak.ID))
                         {
@@ -2768,7 +2775,7 @@ namespace CalamityEntropy.Common
 
                             for (int i = 0; i < 12; i++)
                             {
-                                EParticle.NewParticle(new ShadeCloakOrb() { PlayerIndex = Player.whoAmI }, Vector2.Zero, CEUtils.randomPointInCircle(4), Color.Black, 1, 1, true, BlendState.NonPremultiplied, -1, 160.ApplyCdDec(Player));
+                                EParticle.NewParticle(new ShadeCloakOrb() { PlayerIndex = Player.whoAmI }, Vector2.Zero, CEUtils.randomPointInCircle(4), Color.Black, 1, 1, true, BlendState.NonPremultiplied, -1, cd);
                             }
                         }
                         NDFlag = true;

@@ -1,9 +1,11 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
+using CalamityMod.Items.Weapons.Melee;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -89,7 +91,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         {
             CreateRecipe()
                 .AddIngredient<SpiritFractal>()
-                .AddIngredient<VoidAnnihilate>()
+                .AddIngredient<MawOfInfinity>()
                 .AddIngredient<VoidBar>(5)
                 .AddTile<VoidWellTile>()
                 .Register();
@@ -181,7 +183,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     Vector2 spawnPos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 48 * scale * Projectile.scale;
                     if (Main.myPlayer == Projectile.owner && !noProj)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, CEUtils.randomPointInCircle(0.1f) + Projectile.rotation.ToRotationVector2() * 8, ModContent.ProjectileType<VoidStarF>(), Projectile.damage / 8, Projectile.knockBack, Projectile.owner).ToProj().DamageType = DamageClass.Melee;
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, CEUtils.randomPointInCircle(0.1f) + Projectile.rotation.ToRotationVector2() * 8, ModContent.ProjectileType<VoidStarF>(), Projectile.damage / 3, Projectile.knockBack, Projectile.owner).ToProj().DamageType = DamageClass.Melee;
                     }
                 }
                 alpha = 1;
@@ -231,7 +233,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     if (progress > 0.2f && shoot)
                     {
                         shoot = false;
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, (Vector2)(CEUtils.normalize(Projectile.velocity) * 12 + CEUtils.randomPointInCircle(6)), ModContent.ProjectileType<VoidWave>(), Projectile.damage * 2, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, (Vector2)(CEUtils.normalize(Projectile.velocity) * 12 + CEUtils.randomPointInCircle(6)), ModContent.ProjectileType<VoidWave>(), Projectile.damage * 1, Projectile.knockBack, Projectile.owner);
                     }
                     if (progress < 0.6f)
                     {

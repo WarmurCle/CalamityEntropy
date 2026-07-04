@@ -114,6 +114,7 @@ namespace CalamityEntropy.Common
         }
         public bool nextHitCrit = false;
         public StatModifier critDamage = new StatModifier(2, 1);
+        public int Lifetime = 0;
         public override bool InstancePerEntity => true;
         public int dscd = 0;
         public bool daTarget = false;
@@ -278,6 +279,11 @@ namespace CalamityEntropy.Common
         public float MissileDamageAddition = 0;
         public override void PostAI(NPC npc)
         {
+            Lifetime++;
+            if (Lifetime > 3 * 60 * 60 && npc.ModNPC != null && npc.ModNPC is FriendFindNPC)
+            {
+                npc.active = false;
+            }
             if (StickByMissile > 0)
             {
                 foreach (Projectile proj in Main.ActiveProjectiles)
@@ -1219,7 +1225,7 @@ namespace CalamityEntropy.Common
                     spawnExp = Main.rand.NextBool(20);
                     dmg = 2;
                 }
-                var plr = Main.player[Player.FindClosest(npc.Center, 99999, 99999)];
+                var plr = Main.player[Player.FindClosest(npc.Center, 100000, 100000)];
                 if (spawnExp)
                 {
                     var p = CEUtils.SpawnExplotionFriendly(npc.GetSource_Death(), plr, npc.Center, dmg, 200, DamageClass.Summon);

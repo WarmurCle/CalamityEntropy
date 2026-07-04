@@ -723,7 +723,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                int baseDamage = (int)(NPC.damage / 6f);
+                int baseDamage = phase == 1 ? (int)(NPC.damage / 6.5f) : (int)(NPC.damage / 5.4f);
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), pos, velocity, ModContent.ProjectileType<T>(), (int)(baseDamage * damageMult), 4, -1, ai0, ai1, ai2);
             }
         }
@@ -869,6 +869,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                 normalOnly.Add(ModContent.ItemType<ScorchingChakram>(), new Fraction(2, 5));
                 normalOnly.Add(ModContent.ItemType<AshesBow>(), new Fraction(2, 5));
                 normalOnly.Add(ModContent.ItemType<EmberBolt>(), new Fraction(2, 5));
+                normalOnly.Add(ItemID.Hellstone, 1, 32, 40);
             }
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<ApsychosRelic>());
 

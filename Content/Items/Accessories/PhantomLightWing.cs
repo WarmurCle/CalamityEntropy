@@ -20,6 +20,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public int SlowFallingFrame => 1;
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(wTime, HorSpeed, AccMul, false, 20, 2.8f);
         }
 
@@ -34,6 +35,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            base.UpdateAccessory(player, hideVisual);
             player.Entropy().addEquip("PLWing", !hideVisual);
             if (!hideVisual)
             {
@@ -42,6 +44,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void UpdateVanity(Player player)
         {
+            base.UpdateVanity(player);
             player.Entropy().addEquipVisual("PLWing");
         }
         public override float BonusAscentWhileFalling => 0.4f;

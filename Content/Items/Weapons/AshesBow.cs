@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 40;
             Item.height = 72;
-            Item.damage = 38;
+            Item.damage = 34;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 18;
             Item.useAnimation = 18;
@@ -82,7 +82,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     player.velocity -= Projectile.velocity.normalize() * 8;
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<AshesFireBeam>(), Projectile.damage * 5, Projectile.knockBack * 5, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<AshesFireBeam>(), Projectile.damage * 6, Projectile.knockBack * 5, Projectile.owner);
                     }
                 }
             }
