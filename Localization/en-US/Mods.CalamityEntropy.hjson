@@ -22,9 +22,12 @@ Items: {
 				DisplayName: Silence
 				Tooltip:
 					'''
-					Throws a voidforged chakram that pulls itself toward the nearest enemy
-					Stealth strikes unleash a spinning void disk that shreds enemies for 3 seconds
-					Inflicts [cebuff:CalamityEntropy/VoidTouch]
+					[c/9387ff:Throw a frisbee]
+					[c/9387ff:After hitting an enemy,]
+					[c/9387ff:it will use a Void Chain to pull you toward that enemy after a short delay,]
+					[c/9387ff:and explode upon contact with it.]
+					[c/9387ff:Stealth strikes cause the frisbee to stick to the hit enemy]
+					[c/9387ff:and unfold a large-area vortex, continuously damaging targets within its range.]
 					'''
 			}
 
@@ -445,12 +448,8 @@ Items: {
 	}
 
 	WingsOfHush: {
-		DisplayName: Hush
-		Tooltip:
-			'''
-			Shoots a piercing void arrow with two homing void clouds
-			Inflicts [cebuff:CalamityEntropy/VoidTouch]
-			'''
+		DisplayName: Wings of Hush
+		Tooltip: "[c/9387ff:Shoot powerful void laser and 4 voidbeams]"
 	}
 
 	SoyMilk: {
@@ -620,9 +619,12 @@ Items: {
 		DisplayName: Nihil Orbit
 		Tooltip:
 			'''
-			Throws out up to 3 Nihil Runes that fire at enemies for a short time and inflict [cebuff:CalamityEntropy/VoidTouch]
-			These runes can be teleported to by right clicking them
-			Press [KEY] to retrieve all active runes
+			[c/9387ff:Click LMB or hold RMB to throw some knives]
+			[c/9387ff:After hitting a target, they will bounce off and float around]
+			[c/9387ff:Long press the left button to build up momentum]
+			[c/9387ff:When fully charged,]
+			[c/9387ff:releasing it will throw an enhanced knife that causing triple damage]
+			[c/9387ff:Enhancing knives will cause all floating knives to hit the target]
 			'''
 	}
 
@@ -4950,6 +4952,8 @@ Projectiles: {
 	AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
 	VoidAnnihilateSpawner.DisplayName: Void Annihilate Spawner
 	VoidAnnihilateCharge.DisplayName: Void Annihilate Charge
+	SilenceProj.DisplayName: Silence Proj
+	SilenceStealth.DisplayName: Silence Stealth
 }
 
 LegendTooltip: - Legend -
@@ -5992,7 +5996,7 @@ UseAmmo: Use Ammo
 OrbPunishDeath0: "{0} shattered into pieces"
 OrbPunishDeath1: "{0} tried to remove the shattered foresee orb"
 RuneDashCD: Rune Dash Cooldown
-ArmorPenetrationItemTooltip: points of defense
+ArmorPenetrationItemTooltip: "Ignore {0} defense"
 AmmoLifeTime: Life Time
 AmmoShootSpeed: Shoot Speed
 AmmoPenetrate: Penetrate times

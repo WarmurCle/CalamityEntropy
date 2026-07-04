@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.hostile = false;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 3;
+            Projectile.timeLeft = 5;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
             Projectile.ignoreWater = true;
@@ -66,6 +66,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
+            Projectile.width = Projectile.height = (int)(Projectile.ai[2] * 2);
             return false;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

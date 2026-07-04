@@ -1,8 +1,9 @@
-﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,19 +16,19 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 30;
             Item.height = 44;
-            Item.damage = 920;
+            Item.damage = 800;
             Item.DamageType = DamageClass.Ranged;
-            Item.useTime = 18;
-            Item.useAnimation = 18;
+            Item.useTime = 16;
+            Item.useAnimation = 16;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 5f;
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
             Item.rare = ModContent.RarityType<VoidPurple>();
-            Item.UseSound = SoundID.Item5;
+            Item.UseSound = null;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<WohLaser>();
-            Item.shootSpeed = 16f;
+            Item.shootSpeed = 26f;
             Item.useAmmo = AmmoID.Arrow;
             Item.noUseGraphic = true;
         }
@@ -35,16 +36,14 @@ namespace CalamityEntropy.Content.Items.Weapons
         public bool flag = false;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            CEUtils.PlaySound("WingOfHushShoot", Main.rand.NextFloat(0.7f, 1.1f), position, 8, 0.7f);
             flag = true;
             int p = Projectile.NewProjectile(source, position + velocity.normalize() * 32, velocity, ModContent.ProjectileType<WohLaser>(), damage, knockback, player.whoAmI);
 
-            Projectile.NewProjectile(source, position + velocity.normalize() * 24 + velocity.normalize().RotatedBy(MathHelper.PiOver2) * 16, velocity.RotatedBy(MathHelper.ToRadians(16)), ModContent.ProjectileType<WohShot>(), (int)(damage * 0.6f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
-            Projectile.NewProjectile(source, position + velocity.normalize() * 24 + velocity.normalize().RotatedBy(MathHelper.PiOver2) * -16, velocity.RotatedBy(MathHelper.ToRadians(-16)), ModContent.ProjectileType<WohShot>(), (int)(damage * 0.6f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
-            for (int i = 0; i < player.Entropy().WeaponBoost; i++)
-            {
-                Projectile.NewProjectile(source, position, velocity.RotatedByRandom(MathHelper.ToRadians(-9)), ModContent.ProjectileType<WohShot>(), (int)(damage * 0.6f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
-
-            }
+            Projectile.NewProjectile(source, position + velocity.normalize() * Item.shootSpeed + velocity.normalize().RotatedBy(MathHelper.PiOver2) * 18, velocity.RotatedBy(MathHelper.ToRadians(3)) + player.velocity * 0.2f, ModContent.ProjectileType<WohShot>(), (int)(damage * 0.3f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
+            Projectile.NewProjectile(source, position + velocity.normalize() * Item.shootSpeed + velocity.normalize().RotatedBy(MathHelper.PiOver2) * -18, velocity.RotatedBy(MathHelper.ToRadians(-3)) + player.velocity * 0.2f, ModContent.ProjectileType<WohShot>(), (int)(damage * 0.3f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
+            Projectile.NewProjectile(source, position + velocity.normalize() * Item.shootSpeed + velocity.normalize().RotatedBy(MathHelper.PiOver2) * 18, velocity.RotatedBy(MathHelper.ToRadians(6)) + player.velocity * 0.2f, ModContent.ProjectileType<WohShot>(), (int)(damage * 0.3f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
+            Projectile.NewProjectile(source, position + velocity.normalize() * Item.shootSpeed + velocity.normalize().RotatedBy(MathHelper.PiOver2) * -18, velocity.RotatedBy(MathHelper.ToRadians(-6)) + player.velocity * 0.2f, ModContent.ProjectileType<WohShot>(), (int)(damage * 0.3f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
             return false;
         }
         public override void HoldItem(Player player)
@@ -89,7 +88,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if (wh.flag)
                 {
                     wh.flag = false;
-                    ofs = -8;
+                    ofs = -16;
                 }
                 Projectile.timeLeft = 2;
             }

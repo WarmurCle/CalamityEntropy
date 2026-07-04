@@ -103,7 +103,10 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.velocity += (Projectile.Center - targetNPC.Center).normalize() * 32;
                     }
                     Projectile.velocity *= 0.9f;
-                    Projectile.velocity += (targetNPC.Center - Projectile.Center).normalize() * float.Min(Projectile.localAI[0] * 0.4f, 12);
+                    if (Projectile.localAI[2]++ > 16)
+                        Projectile.velocity += (targetNPC.Center - Projectile.Center).normalize() * float.Min(Projectile.localAI[0] * 0.44f, 12);
+                    else
+                        Projectile.velocity *= 0.9f;
                     Projectile.localAI[0]++;
                 }
                 else
@@ -116,12 +119,12 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.rotation = Projectile.velocity.ToRotation();
             }
             oldPos.Add(Projectile.Center - Projectile.velocity * 0.5f);
-            if (oldPos.Count > 18)
+            if (oldPos.Count > 10)
             {
                 oldPos.RemoveAt(0);
             }
             oldPos.Add(Projectile.Center);
-            if (oldPos.Count > 18)
+            if (oldPos.Count > 10)
             {
                 oldPos.RemoveAt(0);
             }
@@ -158,7 +161,8 @@ namespace CalamityEntropy.Content.Projectiles
                 Hitted = true;
                 Projectile.timeLeft = 900;
                 CEUtils.SyncProj(Projectile.whoAmI);
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(230, 230, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 1f, 14));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(140, 140, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 1.8f, 15));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(80, 80, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 1.4f, 18));
                 for (int i = 0; i < 16; i++)
                 {
                     Dust dust = Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<SquashDust>(), -Projectile.velocity);
@@ -233,27 +237,26 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         Vector2 m = Vector2.Lerp(Projectile.Center, pos, i);
                         Vector2 l = (Projectile.Center - pos).normalize().RotatedBy(MathHelper.PiOver2);
-                        ve.Add(new ColoredVertex(m - l * alpha * 14 - Main.screenPosition,
-                              new Vector3(i * 2 + trailOffset, 1, 1),
+                        ve.Add(new ColoredVertex(m - l * alpha * 24 - Main.screenPosition,
+                              new Vector3(i * 4 - trailOffset, 1, 1),
                               new Color(60, 60, 255) * alpha));
-                        ve.Add(new ColoredVertex(m + l * alpha * 14 - Main.screenPosition,
-                              new Vector3(i * 2 + trailOffset, 0, 1),
+                        ve.Add(new ColoredVertex(m + l * alpha * 24 - Main.screenPosition,
+                              new Vector3(i * 4 - trailOffset, 0, 1),
                               new Color(60, 60, 255) * alpha));
 
-                        ve2.Add(new ColoredVertex(m - l * alpha * 14 - Main.screenPosition,
-                              new Vector3(i * 2 + trailOffset, 1, 1),
+                        ve2.Add(new ColoredVertex(m - l * alpha * 6 - Main.screenPosition,
+                              new Vector3(i * 4 - trailOffset, 1, 1),
                               new Color(255, 255, 255) * alpha));
-                        ve2.Add(new ColoredVertex(m + l * alpha * 14 - Main.screenPosition,
-                              new Vector3(i * 2 + trailOffset, 0, 1),
+                        ve2.Add(new ColoredVertex(m + l * alpha * 6 - Main.screenPosition,
+                              new Vector3(i * 4 - trailOffset, 0, 1),
                               new Color(255, 255, 255) * alpha));
                     }
                     if (ve.Count >= 3)
                     {
-                        Texture2D tx = CEUtils.getExtraTex("Streak2");
+                        Texture2D tx = CEUtils.getExtraTex("Streak1");
                         gd.Textures[0] = tx;
                         gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
-                        Texture2D tx2 = CEUtils.getExtraTex("Streak1");
-                        gd.Textures[0] = tx2;
+                        gd.Textures[0] = tx;
                         gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve2.ToArray(), 0, ve2.Count - 2);
                     }
                     CEUtils.DrawGlow(pos, new Color(20, 20, 255), 1f * Projectile.localAI[1], true, null, false);
@@ -276,17 +279,17 @@ namespace CalamityEntropy.Content.Projectiles
                     alpha = i / (oldPos.Count - 1f);
                     Vector2 m = oldPos[i];
                     Vector2 l = i == 0 ? Vector2.Zero : (oldPos[i] - oldPos[i - 1]).normalize().RotatedBy(MathHelper.PiOver2);
-                    ve.Add(new ColoredVertex(m + l * alpha * 20 - Main.screenPosition,
+                    ve.Add(new ColoredVertex(m + l * alpha * 15 - Main.screenPosition,
                           new Vector3(alpha * 2 + trailOffset, 1, 1),
                           new Color(60, 60, 255) * alpha));
-                    ve.Add(new ColoredVertex(m - l * alpha * 20 - Main.screenPosition,
+                    ve.Add(new ColoredVertex(m - l * alpha * 15 - Main.screenPosition,
                           new Vector3(alpha * 2 + trailOffset, 0, 1),
                           new Color(60, 60, 255) * alpha));
 
-                    ve2.Add(new ColoredVertex(m + l * alpha * 20 - Main.screenPosition,
+                    ve2.Add(new ColoredVertex(m + l * alpha * 12 - Main.screenPosition,
                           new Vector3(alpha * 2 + trailOffset, 1, 1),
                           new Color(255, 255, 255) * alpha));
-                    ve2.Add(new ColoredVertex(m - l * alpha * 20 - Main.screenPosition,
+                    ve2.Add(new ColoredVertex(m - l * alpha * 12 - Main.screenPosition,
                           new Vector3(alpha * 2 + trailOffset, 0, 1),
                           new Color(255, 255, 255) * alpha));
                 }
@@ -339,6 +342,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void AI()
         {
+            Projectile.ai[2] *= 0.7f;
             Player player = Projectile.GetOwner();
             CEUtils.AddLight(Projectile.Center, new Color(90, 90, 255));
             if (Projectile.ai[1] <= 0)
@@ -353,7 +357,7 @@ namespace CalamityEntropy.Content.Projectiles
                 player.itemTime = player.itemAnimation = 2;
                 Projectile.StickToPlayer();
                 int dir = (player.Calamity().mouseWorld.X - player.Center.X) > 0 ? 1 : -1;
-                Projectile.rotation += dir * -2.2f * (1 - CEUtils.Parabola(Projectile.ai[0] * 0.5f + 0.5f, 1));
+                Projectile.rotation += dir * -2.2f * CEUtils.CustomLerp1(Projectile.ai[0]);
                 player.SetHandRotWithDir(Projectile.rotation, dir);
                 Projectile.Center += Projectile.rotation.ToRotationVector2() * 26 * Projectile.scale;
                 if (Projectile.ai[0] < 1)
@@ -364,7 +368,10 @@ namespace CalamityEntropy.Content.Projectiles
                         if (Projectile.localAI[1]++ == 0)
                         {
                             CEUtils.PlaySound("bne_hit2", Main.rand.NextFloat(0.4f, 0.6f), Projectile.Center);
+                            Projectile.ai[2] = 8;
                             Projectile.ai[0] = 1;
+
+                            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center + (Projectile.rotation + dir * 0.9f).ToRotationVector2() * 13, Vector2.Zero, new Color(120, 120, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 0.8f, 10) { Velocity = player.velocity});
                         }
                     }
                 }
@@ -390,7 +397,7 @@ namespace CalamityEntropy.Content.Projectiles
             else
             {
                 oldPos.Add(Projectile.Center);
-                if (oldPos.Count > 20)
+                if (oldPos.Count > 15)
                 {
                     oldPos.RemoveAt(0);
                 }
@@ -405,24 +412,30 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             int t = ModContent.ProjectileType<VoidAnnihilateProj>();
-            foreach(Projectile p in Main.ActiveProjectiles)
+            int count = 0;
+            foreach (Projectile p in Main.ActiveProjectiles)
             {
-                if(p.owner == Projectile.owner && p.type == t)
-                    if(p.ModProjectile is VoidAnnihilateProj va)
+                if (p.owner == Projectile.owner && p.type == t)
+                    if (p.ModProjectile is VoidAnnihilateProj va)
                     {
-                        if(!va.ForceStrike && va.Hitted)
+                        if (!va.ForceStrike && va.Hitted)
                         {
+                            count++;
                             va.ForceStrike = true;
                             va.targetNPC = target;
                             CEUtils.SyncProj(p.whoAmI);
                         }
                     }
             }
+            CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, (count > 0 ? 13f : 4f) * 62, Projectile.DamageType);
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(160, 160, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, count > 0 ? 10f : 4f, 24));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(90, 90, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, count > 0 ? 5f : 3.2f, 28));
+
             Projectile.Kill();
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.SourceDamage *= 3;
+            modifiers.SourceDamage *= 2;
         }
         public override bool ShouldUpdatePosition()
         {
@@ -432,7 +445,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.ai[1] == 0)
                 return;
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(230, 230, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 2f, 19));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(90, 90, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 2f, 19));
             CEUtils.PlaySound("DemonSwordInsaneImpact", Main.rand.NextFloat(1.8f, 2f), Projectile.Center, 8, 0.16f);
             CEUtils.PlaySound("Smash" + Main.rand.Next(1, 3), Main.rand.NextFloat(1.2f, 1.5f), Projectile.Center);
             CEUtils.PlaySound("Smash" + Main.rand.Next(1, 3), Main.rand.NextFloat(1.2f, 1.5f), Projectile.Center);
@@ -453,7 +466,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            float trailOffset = Main.GlobalTimeWrappedHourly * 9;
+            float trailOffset = Main.GlobalTimeWrappedHourly * 4;
             if (Projectile.ai[1] >= 1 && oldPos.Count > 1)
             {
                 Main.spriteBatch.UseBlendState(BlendState.Additive, SamplerState.LinearWrap);
@@ -469,15 +482,15 @@ namespace CalamityEntropy.Content.Projectiles
                     Vector2 l = i == 0 ? Vector2.Zero : (oldPos[i] - oldPos[i - 1]).normalize().RotatedBy(MathHelper.PiOver2);
                     ve.Add(new ColoredVertex(m + l * alpha * 20 * Projectile.scale - Main.screenPosition,
                           new Vector3(alpha * 2 + trailOffset, 1, 1),
-                          new Color(120, 120, 255) * alpha));
+                          new Color(80, 80, 255) * alpha));
                     ve.Add(new ColoredVertex(m - l * alpha * 20 * Projectile.scale - Main.screenPosition,
                           new Vector3(alpha * 2 + trailOffset, 0, 1),
-                          new Color(120, 120, 255) * alpha));
+                          new Color(80, 80, 255) * alpha));
 
-                    ve2.Add(new ColoredVertex(m + l * alpha * 20 * Projectile.scale - Main.screenPosition,
+                    ve2.Add(new ColoredVertex(m + l * alpha * 12 * Projectile.scale - Main.screenPosition,
                           new Vector3(alpha * 2 + trailOffset, 1, 1),
                           new Color(255, 255, 255) * alpha));
-                    ve2.Add(new ColoredVertex(m - l * alpha * 20 * Projectile.scale - Main.screenPosition,
+                    ve2.Add(new ColoredVertex(m - l * alpha * 12 * Projectile.scale - Main.screenPosition,
                           new Vector3(alpha * 2 + trailOffset, 0, 1),
                           new Color(255, 255, 255) * alpha));
                 }
@@ -497,7 +510,7 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.UseAdditive();
             for(float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver4)
             {
-                Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition + (i + Main.GlobalTimeWrappedHourly * 12).ToRotationVector2() * Projectile.ai[0] * 6, null, Color.White, Projectile.rotation - MathHelper.ToRadians(30), tex.Size().Half(), Projectile.scale, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition + (i + Main.GlobalTimeWrappedHourly * 12).ToRotationVector2() * (Projectile.ai[0] * 6 + Projectile.ai[2]), null, Color.White * (Projectile.ai[0] >= 1 ? 0.66f : 0.5f), Projectile.rotation - MathHelper.ToRadians(30), tex.Size().Half(), Projectile.scale, SpriteEffects.None, 0);
             }
             Main.spriteBatch.ExitShaderRegion();
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation - MathHelper.ToRadians(30), tex.Size().Half(), Projectile.scale, SpriteEffects.None, 0);

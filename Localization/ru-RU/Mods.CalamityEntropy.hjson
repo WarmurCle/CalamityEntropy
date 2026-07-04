@@ -19,7 +19,14 @@ Items: {
 
 			Silence: {
 				DisplayName: Тишина
-				Tooltip: ""
+				Tooltip:
+					'''
+					[c/9387ff:Бросьте диск]
+					[c/9387ff:После попадания во врага через некоторое время он использует цепь пустоты, чтобы притянуть вас к этому врагу, ]
+					[c/9387ff:и взорвётся при контакте с ним]
+					[c/9387ff:Скрытые атаки заставляют диск закрепиться на поражённом враге и развернуть обширный вихрь, ]
+					[c/9387ff:который наносит постоянный урон целям в радиусе его действия]
+					'''
 			}
 
 			ShadewindLance: {
@@ -389,7 +396,7 @@ Items: {
 
 	WingsOfHush: {
 		DisplayName: Крылья тишины
-		Tooltip: Стреляет мощной стрелой пустоты
+		Tooltip: "[c/9387ff:Выстрелите мощный вакуумный лазер и 4 вакуумных луча]"
 	}
 
 	SoyMilk: {
@@ -522,9 +529,12 @@ Items: {
 		DisplayName: Аннигилятор пустоты
 		Tooltip:
 			'''
-			Бросает Аннигилятор пустоты
-			Нажмите [KEY] чтобы вернуть пустоту
-			ПКМ по пустоте, чтобы телепортироваться к ней.
+			[c/9387ff:Нажмите ЛКМ или удерживайте ПКМ, чтобы бросить несколько ножей]
+			[c/9387ff:Попав в цель, они отскакивают и парят вокруг]
+			[c/9387ff:Зажмите ЛКМ для зарядки]
+			[c/9387ff:При полной зарядке отпускание бросит усиленный нож, наносящий тройной урон]
+			[c/9387ff:Попадание усиленного ножа вызывает взрыв; если рядом есть парящие ножи, взрыв будет больше и активирует все парящие ножи, направив их в цель]
+			[c/9387ff:Одновременно может существовать не более 15 парящих ножей]
 			'''
 	}
 
@@ -4685,6 +4695,8 @@ Projectiles: {
 	// AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
 	// VoidAnnihilateSpawner.DisplayName: Void Annihilate Spawner
 	// VoidAnnihilateCharge.DisplayName: Void Annihilate Charge
+	// SilenceProj.DisplayName: Silence Proj
+	// SilenceStealth.DisplayName: Silence Stealth
 }
 
 LegendTooltip: - Легенда -
@@ -5728,7 +5740,7 @@ UseAmmo: Использует боеприпасы
 OrbPunishDeath0: Разлетелся на куски
 OrbPunishDeath1: Попробуйте удалить расколотую сферу предвидения
 RuneDashCD: Время перезарядки Рывка Руны
-ArmorPenetrationItemTooltip: Пробитие защиты
+ArmorPenetrationItemTooltip: "{0}Пробитие защиты"
 AmmoLifeTime: Время жизни снаряда
 AmmoShootSpeed: Скорость стрельбы
 AmmoPenetrate: Число пробитий

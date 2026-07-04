@@ -21,8 +21,8 @@ Items: {
 				DisplayName: 沉默
 				Tooltip:
 					'''
-					丢出一个能用虚空锁链将自己拉向敌人的飞盘
-					潜伏攻击会挂在敌人身上持续造成伤害
+					[c/9387ff:丢出一个飞盘，击中敌人后一段时间会使用虚空锁链将自身拉向该敌人，并在与其接触时爆炸]
+					[c/9387ff:潜伏攻击会使飞盘被固定在击中的敌人身上并展开一个大范围漩涡，持续对范围内的目标造成伤害]
 					'''
 			}
 
@@ -443,7 +443,7 @@ Items: {
 
 	WingsOfHush: {
 		DisplayName: 虚寂之翼
-		Tooltip: 射出强力的虚空镭射和2发虚空矢
+		Tooltip: "[c/9387ff:射出强力的虚空镭射和4发虚空矢]"
 	}
 
 	SoyMilk: {
@@ -612,10 +612,10 @@ Items: {
 		DisplayName: 虚湮黯天
 		Tooltip:
 			'''
-			点击左键或按住右键丢出一些飞刀，击中后弹开并漂浮在周围
-			长按左键蓄力，完全蓄力时松开会丢出一把强化的飞刀，造成3倍伤害
-			强化飞刀命中会使所有漂浮的飞刀砸向目标
-			同时最多存在15把悬浮飞刀
+			[c/9387ff:点击左键或按住右键丢出一些飞刀，击中后弹开并漂浮在周围]
+			[c/9387ff:长按左键蓄力，完全蓄力时松开会丢出一把强化的飞刀，造成3倍伤害]
+			[c/9387ff:强化飞刀命中会爆炸，如果存在漂浮飞刀会产生更大的爆炸并激活所有漂浮的飞刀，使其砸向目标]
+			[c/9387ff:同时最多存在15把漂浮飞刀]
 			'''
 	}
 
@@ -4441,7 +4441,7 @@ Projectiles: {
 	RuneSongProj.DisplayName: 符文之歌
 	RuneArrow.DisplayName: 符文之矢
 	Rune.DisplayName: 符文
-	VoidAnnihilateProj.DisplayName: 湮灭飞刀
+	VoidAnnihilateProj.DisplayName: 黯天飞刀
 	VaProj.DisplayName: 湮灭弹
 	AuricBoulderProj.DisplayName: 圣金源巨石
 	SigPetProj.DisplayName: 使徒
@@ -5023,9 +5023,11 @@ Projectiles: {
 	BuriedShoot2.DisplayName: 日陨激光
 	TectinicShardAshesCore.DisplayName: 板块碎片
 	TectinicShardHoming.DisplayName: 板块碎片
-	// AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
-	// VoidAnnihilateSpawner.DisplayName: Void Annihilate Spawner
-	// VoidAnnihilateCharge.DisplayName: Void Annihilate Charge
+	AcropolisTeslaBallWarn.DisplayName: 卫城机甲预警
+	VoidAnnihilateSpawner.DisplayName: 黯天飞刀
+	VoidAnnihilateCharge.DisplayName: 黯天飞刀蓄能
+	SilenceProj.DisplayName: 沉默
+	SilenceStealth.DisplayName: 赋能沉默
 }
 
 LegendTooltip: - 传奇物品 -
@@ -6080,7 +6082,7 @@ UseAmmo: 使用弹药
 OrbPunishDeath0: "{0}的灵魂破碎了"
 OrbPunishDeath1: "{0}试图取下裂开的预知宝珠"
 RuneDashCD: 符文突进冷却
-ArmorPenetrationItemTooltip: 护甲穿透
+ArmorPenetrationItemTooltip: "{0}点护甲穿透"
 AmmoLifeTime: 射弹最大存在时间
 AmmoShootSpeed: 射弹速度
 AmmoPenetrate: 穿透次数
