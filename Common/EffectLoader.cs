@@ -253,43 +253,6 @@ namespace CalamityEntropy.Common
                 {
                     al.drawLaser();
                 }
-                if (p.ModProjectile is WohLaser)
-                {
-                    float alp = p.ai[1];
-                    float w = p.scale;
-                    if (p.ai[0] == 0)
-                    {
-                        w = 0f;
-                    }
-                    if (p.ai[0] == 1)
-                    {
-                        w = 0.1f;
-                    }
-                    if (p.ai[0] == 2)
-                    {
-                        w = 0.16f;
-                    }
-                    if (p.ai[0] == 3)
-                    {
-                        w = 0.3f;
-                    }
-                    if (p.ai[0] == 4)
-                    {
-                        w = 0.5f;
-                    }
-                    if (p.ai[0] == 5)
-                    {
-                        w = 0.85f;
-                    }
-                    Vector2 opos = p.Center;
-                    Texture2D tx = CEUtils.getExtraTex("wohlaser");
-                    int drawCount = (int)(2400f * p.scale / tx.Width) + 1;
-                    for (int i = 0; i < drawCount; i++)
-                    {
-                        Main.spriteBatch.Draw(tx, opos - Main.screenPosition, null, new Color(55, 100, 255) * alp, p.velocity.ToRotation(), new Vector2(0, tx.Height / 2), new Vector2(1, w * 1f), SpriteEffects.None, 0);
-                        opos += p.velocity.SafeNormalize(Vector2.One) * tx.Width;
-                    }
-                }
                 if (p.ModProjectile is VoidStar)
                 {
                     if (p.ai[0] >= 60 || p.ai[2] == 0)
@@ -724,7 +687,6 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null);
 
             int cruiserSlashType = ModContent.ProjectileType<CruiserSlash>();
-            int silenceHookType = ModContent.ProjectileType<SilenceHook>();
             int cruiserBlackholeBulletType = ModContent.ProjectileType<CruiserBlackholeBullet>();
             int voidBulletType = ModContent.ProjectileType<VoidBullet>();
             int voidMonsterType = ModContent.ProjectileType<VoidMonster>();
@@ -737,11 +699,6 @@ namespace CalamityEntropy.Common
                     {
                         Main.spriteBatch.Draw(cruiserSlash.Value, p.Center - Main.screenPosition + new Vector2((p.ai[0] + p.ai[1]) / 2 - 300, 0).RotatedBy(p.rotation), null, Color.White, p.rotation, new Vector2(cruiserSlash.Value.Width, cruiserSlash.Value.Height) / 2, new Vector2((p.ai[0] - p.ai[1]) / cruiserSlash.Value.Width, 1.2f), SpriteEffects.None, 0);
                     }
-                }
-                else if (p.type == silenceHookType)
-                {
-                    Vector2 c = ((int)p.ai[1]).ToProj().Center;
-                    CEUtils.drawChain(p.Center, c, 20, CEUtils.getExtraTex("VoidChain"));
                 }
                 else if (p.type == cruiserBlackholeBulletType)
                 {

@@ -4804,6 +4804,8 @@ Projectiles: {
 	AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
 	VoidAnnihilateSpawner.DisplayName: Void Annihilate Spawner
 	VoidAnnihilateCharge.DisplayName: Void Annihilate Charge
+	SilenceProj.DisplayName: Silence Proj
+	SilenceStealth.DisplayName: Silence Stealth
 }
 
 LegendTooltip: - Legend -

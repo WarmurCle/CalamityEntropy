@@ -41,42 +41,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int homingTime = 60;
         public override void AI()
         {
-            /*if (!std)
-            {
-                std = true;
-                if (Main.myPlayer == Projectile.owner)
-                {
-                    for (int i = 4; i < 11; i++)
-                    {
-                        if (i % 2 == 0) 
-                        {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - Projectile.velocity, Projectile.velocity * (float)i * 0.13f, ModContent.ProjectileType<VoidStarF>(), (int)(Projectile.damage * 0.6f), 6, Projectile.owner);
-                        }
-                    }
-                }
-            }*/
             counter++;
-            if (Projectile.ai[0] == 0)
-            {
-                angle = Projectile.velocity.ToRotation();
-            }
-            if (speed < 0)
-            {
-                angle = (Projectile.Center - Main.player[Projectile.owner].Center).ToRotation();
-                if (CEUtils.getDistance(Projectile.Center, Main.player[Projectile.owner].Center) < Projectile.velocity.Length() * 1.12f)
-                {
-                    Projectile.Kill();
-                }
-            }
-
-            if (!htd)
-            {
-                Dust.NewDust(Projectile.Center, 16, 16, DustID.MagicMirror, Projectile.velocity.X * -0.1f, Projectile.velocity.Y * -0.1f);
-                Dust.NewDust(Projectile.Center, 16, 16, DustID.MagicMirror, Projectile.velocity.X * -0.1f, Projectile.velocity.Y * -0.1f);
-                if (counter % 14 == 0)
-                {
-                }
-            }
 
             Projectile.ai[0]++;
             if (htd)
@@ -98,45 +63,14 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 odp.Add(Projectile.Center);
                 odr.Add(Projectile.rotation);
-                if (odp.Count > 34)
+                if (odp.Count > 18)
                 {
                     odp.RemoveAt(0);
                     odr.RemoveAt(0);
                 }
-
-                NPC target = Projectile.FindTargetWithinRange(1600, false);
-                if (target != null && CEUtils.getDistance(target.Center, Projectile.Center) < 200 && counter > 16)
-                {
-                    homingTime = 0;
-                    Projectile.velocity *= 0.9f;
-                    Vector2 v = target.Center - Projectile.Center;
-                    v.Normalize();
-
-                    Projectile.velocity += v * 1.5f;
-                }
             }
             exps *= 0.9f;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if (homingTime > 0)
-            {
-                Vector2 targetPos = new Vector2(Projectile.ai[1], Projectile.ai[2]);
-                if (CEUtils.getDistance(Projectile.Center, Projectile.owner.ToPlayer().Center) > CEUtils.getDistance(targetPos, Projectile.owner.ToPlayer().Center))
-                {
-                    homingTime = 0;
-                }
-            }
-            if (homingTime > 0 && counter > 10)
-            {
-                homingTime--;
-                Vector2 targetPos = new Vector2(Projectile.ai[1], Projectile.ai[2]);
-
-                float nr = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (targetPos - Projectile.Center).ToRotation(), 1.5f.ToRadians(), true);
-                Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0).RotatedBy(nr);
-                if (nr == Projectile.velocity.ToRotation())
-                {
-                }
-
-            }
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
@@ -153,14 +87,14 @@ namespace CalamityEntropy.Content.Projectiles
                 float sparkCount = 12;
                 for (int i = 0; i < sparkCount; i++)
                 {
-                    Vector2 sparkVelocity2 = new Vector2(16, 0).RotatedByRandom(3.14159f) * Main.rand.NextFloat(0.5f, 1.8f);
+                    Vector2 sparkVelocity2 = new Vector2(32, 0).RotatedBy(Projectile.velocity.ToRotation()).RotatedByRandom(0.2f) * Main.rand.NextFloat(0.5f, 1.8f);
                     int sparkLifetime2 = Main.rand.Next(20, 24);
                     float sparkScale2 = Main.rand.NextFloat(0.95f, 1.8f);
                     Color sparkColor2 = Color.Purple;
 
                     float velc = 0.6f;
 
-                    LineParticle spark = new LineParticle(target.Center + Projectile.velocity * 1.2f, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.Purple : Color.Purple);
+                    LineParticle spark = new LineParticle(Projectile.Center + Projectile.velocity * 1.2f, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.AliceBlue : Color.Purple);
                     GeneralParticleHandler.SpawnParticle(spark);
 
                 }
@@ -175,7 +109,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int tofs;
         public Color TrailColor(float completionRatio, Vector2 vertex)
         {
-            Color result = new Color(80, 20, 100);
+            Color result = new Color(80, 60, 255);
             return result;
         }
 
@@ -183,9 +117,23 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (completionRatio > 0.92f)
             {
-                return 18 * Projectile.scale * MathHelper.SmoothStep(0, 1, (1 - (completionRatio - 0.92f) / 0.08f));
+                return 22 * Projectile.scale * 1.4f * MathHelper.SmoothStep(0, 1, (1 - (completionRatio - 0.92f) / 0.08f));
             }
-            return MathHelper.Lerp(0, 36 * Projectile.scale, completionRatio);
+            return MathHelper.Lerp(0, 26 * Projectile.scale * 1.4f, completionRatio);
+        }
+        public Color TrailColor2(float completionRatio, Vector2 vertex)
+        {
+            Color result = new Color(255, 255, 255);
+            return result;
+        }
+
+        public float TrailWidth2(float completionRatio, Vector2 vertex)
+        {
+            if (completionRatio > 0.92f)
+            {
+                return 14 * Projectile.scale * 1.4f * MathHelper.SmoothStep(0, 1, (1 - (completionRatio - 0.92f) / 0.08f));
+            }
+            return MathHelper.Lerp(0, 14 * Projectile.scale * 1.4f, completionRatio);
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -199,37 +147,6 @@ namespace CalamityEntropy.Content.Projectiles
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-            var mp = this;
-            if (mp.odp.Count > 1)
-            {
-                List<ColoredVertex> ve = new List<ColoredVertex>();
-                Color b = new Color(60, 30, 100);
-
-                float a = 0;
-                float lr = 0;
-                for (int i = 1; i < mp.odp.Count; i++)
-                {
-                    a += 1f / (float)mp.odp.Count;
-
-                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 14,
-                          new Vector3((float)(i + 1) / mp.odp.Count, 1, 1),
-                        b * a));
-                    ve.Add(new ColoredVertex(mp.odp[i] - Main.screenPosition + (mp.odp[i] - mp.odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 14,
-                          new Vector3((float)(i + 1) / mp.odp.Count, 0, 1),
-                          b * a));
-                    lr = (mp.odp[i] - mp.odp[i - 1]).ToRotation();
-                }
-                a = 1;
-                GraphicsDevice gd = Main.graphics.GraphicsDevice;
-                if (ve.Count >= 3)
-                {
-                    Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/wohslash").Value;
-                    gd.Textures[0] = tx;
-                    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
-                }
-
-
-            }
 
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -243,6 +160,7 @@ namespace CalamityEntropy.Content.Projectiles
             GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Streak1"));
             GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
             PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth, TrailColor, (_, _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
+            PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth2, TrailColor2, (_, _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
             Main.spriteBatch.ExitShaderRegion();
             Main.EntitySpriteDraw(value, position, null, base.Projectile.GetAlpha(Color.White), base.Projectile.rotation, origin, base.Projectile.scale, SpriteEffects.None);
 

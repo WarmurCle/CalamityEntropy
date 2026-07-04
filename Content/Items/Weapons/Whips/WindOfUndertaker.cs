@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Whips
 
         public override void SetDefaults()
         {
-            Item.DefaultToWhip(ModContent.ProjectileType<WindOfUndertakerProjectile>(), 220, 2, 8, 28);
+            Item.DefaultToWhip(ModContent.ProjectileType<WindOfUndertakerProjectile>(), 235, 2, 8, 36);
             Item.rare = ModContent.RarityType<VoidPurple>();
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.useStyle = ItemUseStyleID.Shoot;
