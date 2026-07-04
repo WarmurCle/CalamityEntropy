@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 30;
             Item.height = 44;
-            Item.damage = 920;
+            Item.damage = 800;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 16;
             Item.useAnimation = 16;
@@ -40,10 +40,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             flag = true;
             int p = Projectile.NewProjectile(source, position + velocity.normalize() * 32, velocity, ModContent.ProjectileType<WohLaser>(), damage, knockback, player.whoAmI);
 
-            Projectile.NewProjectile(source, position + velocity.normalize() * Item.shootSpeed + velocity.normalize().RotatedBy(MathHelper.PiOver2) * 18, velocity.RotatedBy(MathHelper.ToRadians(3)) + player.velocity * 0.2f, ModContent.ProjectileType<WohShot>(), (int)(damage * 0.6f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
-            Projectile.NewProjectile(source, position + velocity.normalize() * Item.shootSpeed + velocity.normalize().RotatedBy(MathHelper.PiOver2) * -18, velocity.RotatedBy(MathHelper.ToRadians(-3)) + player.velocity * 0.2f, ModContent.ProjectileType<WohShot>(), (int)(damage * 0.6f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
-            Projectile.NewProjectile(source, position + velocity.normalize() * Item.shootSpeed + velocity.normalize().RotatedBy(MathHelper.PiOver2) * 18, velocity.RotatedBy(MathHelper.ToRadians(6)) + player.velocity * 0.2f, ModContent.ProjectileType<WohShot>(), (int)(damage * 0.6f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
-            Projectile.NewProjectile(source, position + velocity.normalize() * Item.shootSpeed + velocity.normalize().RotatedBy(MathHelper.PiOver2) * -18, velocity.RotatedBy(MathHelper.ToRadians(-6)) + player.velocity * 0.2f, ModContent.ProjectileType<WohShot>(), (int)(damage * 0.6f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
+            Projectile.NewProjectile(source, position + velocity.normalize() * Item.shootSpeed + velocity.normalize().RotatedBy(MathHelper.PiOver2) * 18, velocity.RotatedBy(MathHelper.ToRadians(3)) + player.velocity * 0.2f, ModContent.ProjectileType<WohShot>(), (int)(damage * 0.3f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
+            Projectile.NewProjectile(source, position + velocity.normalize() * Item.shootSpeed + velocity.normalize().RotatedBy(MathHelper.PiOver2) * -18, velocity.RotatedBy(MathHelper.ToRadians(-3)) + player.velocity * 0.2f, ModContent.ProjectileType<WohShot>(), (int)(damage * 0.3f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
+            Projectile.NewProjectile(source, position + velocity.normalize() * Item.shootSpeed + velocity.normalize().RotatedBy(MathHelper.PiOver2) * 18, velocity.RotatedBy(MathHelper.ToRadians(6)) + player.velocity * 0.2f, ModContent.ProjectileType<WohShot>(), (int)(damage * 0.3f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
+            Projectile.NewProjectile(source, position + velocity.normalize() * Item.shootSpeed + velocity.normalize().RotatedBy(MathHelper.PiOver2) * -18, velocity.RotatedBy(MathHelper.ToRadians(-6)) + player.velocity * 0.2f, ModContent.ProjectileType<WohShot>(), (int)(damage * 0.3f), knockback, player.whoAmI, 0, Main.MouseWorld.X, Main.MouseWorld.Y);
             return false;
         }
         public override void HoldItem(Player player)
