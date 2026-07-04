@@ -557,15 +557,16 @@ namespace CalamityEntropy.Content.Items.Weapons
             effect.Parameters["enhanceLightAlpha"].SetValue(0.8f);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
             effect.CurrentTechnique.Passes[0].Apply();
-            Main.spriteBatch.Draw(CEUtils.getExtraTex("VoronoiShapes"), Projectile.Center - Main.screenPosition, null, new Color(233, 225, 255) * areaAlpha, Main.GlobalTimeWrappedHourly * 15, CEUtils.getExtraTex("VoronoiShapes").Size() / 2f, 0.17f * Projectile.scale * areaSize * aScale, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(CEUtils.getExtraTex("VoronoiShapes"), Projectile.Center - Main.screenPosition, null, new Color(233, 225, 255) * areaAlpha, Main.GlobalTimeWrappedHourly * 12, CEUtils.getExtraTex("VoronoiShapes").Size() / 2f, 0.17f * Projectile.scale * areaSize * aScale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(CEUtils.getExtraTex("VoronoiShapes"), Projectile.Center - Main.screenPosition, null, new Color(126, 126, 255) * areaAlpha, Main.GlobalTimeWrappedHourly * 15, CEUtils.getExtraTex("VoronoiShapes").Size() / 2f, 0.17f * Projectile.scale * areaSize * aScale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(CEUtils.getExtraTex("VoronoiShapes"), Projectile.Center - Main.screenPosition, null, new Color(126, 126, 255) * areaAlpha, Main.GlobalTimeWrappedHourly * 12, CEUtils.getExtraTex("VoronoiShapes").Size() / 2f, 0.17f * Projectile.scale * areaSize * aScale, SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
             Texture2D gt = CEUtils.getExtraTex("lightball");
             CEUtils.DrawGlow(Projectile.Center, Color.Black * areaAlpha, 0.5f * areaSize * aScale, false, gt);
             CEUtils.DrawGlow(Projectile.Center, Color.Black * areaAlpha, 0.5f * areaSize * aScale, false, gt);
-            DrawRing(Projectile.Center - Main.screenPosition, CEUtils.getExtraTex("StreakGoop"), new Vector2(72, 72) * areaSize * aScale, new Vector2(12, 12) * areaSize * aScale, new Color(180, 160, 255) * areaAlpha, BlendState.Additive);
+            DrawRing(Projectile.Center - Main.screenPosition, CEUtils.getExtraTex("StreakGoop"), new Vector2(68, 68) * areaSize * aScale, new Vector2(20, 20) * areaSize * aScale, new Color(140, 120, 200) * areaAlpha, BlendState.Additive, Main.GlobalTimeWrappedHourly * -5);
+            DrawRing(Projectile.Center - Main.screenPosition, CEUtils.getExtraTex("StreakGoop"), new Vector2(74, 74) * areaSize * aScale, new Vector2(14, 14) * areaSize * aScale, new Color(140, 120, 200) * areaAlpha, BlendState.Additive, Main.GlobalTimeWrappedHourly * -3);
         }
-        public void DrawRing(Vector2 position, Texture2D trail, Vector2 scaleOutside, Vector2 scaleInside, Color color, BlendState blend, bool? drawUpside = null)
+        public void DrawRing(Vector2 position, Texture2D trail, Vector2 scaleOutside, Vector2 scaleInside, Color color, BlendState blend, float r = 0, bool? drawUpside = null)
         {
             List<ColoredVertex> ve = new List<ColoredVertex>();
             List<Vector2> points1 = new List<Vector2>();
@@ -594,8 +595,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             for (int i = 0; i < points1.Count; i++)
             {
-                ve.Add(new ColoredVertex(position + points1[i], color, new Vector3(i / 50f + Main.GlobalTimeWrappedHourly * -7, 0, 1)));
-                ve.Add(new ColoredVertex(position + points2[i], color, new Vector3(i / 50f + Main.GlobalTimeWrappedHourly * -7, 1, 1)));
+                ve.Add(new ColoredVertex(position + points1[i], color, new Vector3(i / 50f + r, 0, 1)));
+                ve.Add(new ColoredVertex(position + points2[i], color, new Vector3(i / 50f + r, 1, 1)));
             }
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, blend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
