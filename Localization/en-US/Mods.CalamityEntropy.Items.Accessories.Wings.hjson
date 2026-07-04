@@ -11,6 +11,7 @@ FlowingLight: {
 
 PhantomLightWing: {
 	DisplayName: Phantom Light Wings
+	Tooltip: Leaves starlight trails during flight
 	Tooltip:
 		'''
 		{$CommonItemTooltip.FlightAndSlowfall}
@@ -36,7 +37,7 @@ BigShotsWing: {
 		{$CommonItemTooltip.FlightAndSlowfall}
 		-90% flight time if there're any boss
 		"Now's your chance to be a..."
-		Hold shift and right click to toggle strings' transparency
+		Hold Shift and Right Click to toggle strings' transparency
 		[TOGGLE]
 		'''
 	Visual0: Opaque
@@ -63,7 +64,7 @@ TheRevelation: {
 		deals 50 damage every 3 frames
 		Regarded as wing
 		hold [down] when flying to hover
-		"Awaken your faith"
+		'Awaken your faith'
 		'''
 }
 
