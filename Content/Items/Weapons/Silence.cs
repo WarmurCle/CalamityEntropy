@@ -117,11 +117,15 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 if (!Hitted)
                 {
-                    Color clr = new Color(180, 60, 255);
+                    Color clr = new Color(120, 120, 255);
                     Vector2 vel = Projectile.velocity.RotatedBy(MathHelper.PiOver2).normalize();
-                    VelChangingSpark spark = new VelChangingSpark(Projectile.Center + Projectile.velocity.normalize() * 22 + vel * 20, vel * 1, -Projectile.velocity.normalize() * 16, "CalamityMod/Particles/BloomCircle", 10, 0.2f, clr * 0.95f, new Vector2(1.2f, 1f), true, false, 0, false, 1.0f, 0.34f);
+                    VelChangingSpark spark = new VelChangingSpark(Projectile.Center + Projectile.velocity.normalize() * 22 + vel * 20, vel * 1, -Projectile.velocity.normalize() * 16, "CalamityMod/Particles/BloomCircle", 7, 0.2f, clr * 0.95f, new Vector2(1.2f, 1f), true, false, 0, false, 1.0f, 0.34f);
                     GeneralParticleHandler.SpawnParticle(spark);
-                    VelChangingSpark spark2 = new VelChangingSpark(Projectile.Center + Projectile.velocity.normalize() * 22 - vel * 20, -vel * 1, -Projectile.velocity.normalize() * 16, "CalamityMod/Particles/BloomCircle", 10, 0.2f, clr * 0.95f, new Vector2(1.2f, 1f), true, false, 0, false, 1.0f, 0.34f);
+                    VelChangingSpark spark2 = new VelChangingSpark(Projectile.Center + Projectile.velocity.normalize() * 22 - vel * 20, -vel * 1, -Projectile.velocity.normalize() * 16, "CalamityMod/Particles/BloomCircle", 7, 0.2f, clr * 0.95f, new Vector2(1.2f, 1f), true, false, 0, false, 1.0f, 0.34f);
+                    GeneralParticleHandler.SpawnParticle(spark2);
+                    spark = new VelChangingSpark(Projectile.Center + Projectile.velocity.normalize() * 22 + vel * 20, vel * 1, -Projectile.velocity.normalize() * 8, "CalamityMod/Particles/BloomCircle", 7, 0.2f, clr * 0.95f, new Vector2(1.2f, 1f), true, false, 0, false, 1.0f, 0.34f);
+                    GeneralParticleHandler.SpawnParticle(spark);
+                    spark2 = new VelChangingSpark(Projectile.Center + Projectile.velocity.normalize() * 22 - vel * 20, -vel * 1, -Projectile.velocity.normalize() * 8, "CalamityMod/Particles/BloomCircle", 7, 0.2f, clr * 0.95f, new Vector2(1.2f, 1f), true, false, 0, false, 1.0f, 0.34f);
                     GeneralParticleHandler.SpawnParticle(spark2);
                 }
                 else
