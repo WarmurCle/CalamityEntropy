@@ -248,9 +248,19 @@ namespace CalamityEntropy.Content.Items.Weapons
                 for (int i = 0; i < 6; i++)
                 {
                     float rot = 2;
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 24), false, 16, Projectile.scale * 0.04f, Color.SkyBlue, new Vector2(0.3f, 1), false, false));
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(-rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 24), false, 16, Projectile.scale * 0.04f, Color.SkyBlue, new Vector2(0.3f, 1), false, false));
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 16), false, 16, Projectile.scale * 0.04f, Color.SkyBlue, new Vector2(0.3f, 1), false, false));
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(-rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 16), false, 16, Projectile.scale * 0.04f, Color.SkyBlue, new Vector2(0.3f, 1), false, false));
                 }
+                for (int i = 0; i < 16; i++)
+                {
+                    Dust dust = Dust.NewDustPerfect(target.Center, ModContent.DustType<SquashDust>(), Projectile.velocity);
+                    dust.scale = Main.rand.NextFloat(2.2f, 3.2f);
+                    dust.velocity = Projectile.velocity.RotatedByRandom(0.6f) * Main.rand.NextFloat(0.4f, 1f);
+                    dust.noGravity = true;
+                    dust.color = Color.LightBlue;
+                    dust.fadeIn = 2f;
+                }
+
             }
         }
         public static float FLEX = 120;
@@ -522,8 +532,17 @@ namespace CalamityEntropy.Content.Items.Weapons
                 for (int i = 0; i < 7; i++)
                 {
                     float rot = 2;
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 24), false, 16, Projectile.scale * 0.04f, Color.SkyBlue, new Vector2(0.3f, 1), false, false));
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(-rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 24), false, 16, Projectile.scale * 0.04f, Color.SkyBlue, new Vector2(0.3f, 1), false, false));
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 16), false, 16, Projectile.scale * 0.04f, Color.SkyBlue, new Vector2(0.3f, 1), false, false));
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(-rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 16), false, 16, Projectile.scale * 0.04f, Color.SkyBlue, new Vector2(0.3f, 1), false, false));
+                }
+                for (int i = 0; i < 16; i++)
+                {
+                    Dust dust = Dust.NewDustPerfect(target.Center, ModContent.DustType<SquashDust>(), Projectile.velocity);
+                    dust.scale = Main.rand.NextFloat(2.2f, 3.2f);
+                    dust.velocity = Projectile.velocity.RotatedByRandom(0.6f) * Main.rand.NextFloat(0.4f, 1f);
+                    dust.noGravity = true;
+                    dust.color = Color.LightBlue;
+                    dust.fadeIn = 2f;
                 }
             }
             else
