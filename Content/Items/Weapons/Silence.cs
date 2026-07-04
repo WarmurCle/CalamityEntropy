@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 36;
             Item.height = 34;
-            Item.damage = 2600;
+            Item.damage = 1750;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 32;
@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
 
 
-        public override float StealthDamageMultiplier => 1.4f;
+        public override float StealthDamageMultiplier => 0.35f;
         public override float StealthVelocityMultiplier => 1.2f;
         public override float StealthKnockbackMultiplier => 0f;
 
