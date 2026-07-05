@@ -1,27 +1,18 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
-using CalamityEntropy.Content.Items.Weapons.GrassSword;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Dusts;
-using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
-using CalamityMod.Particles;
-using CalamityOverhaul.Content;
-using Humanizer;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -169,9 +160,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (Projectile.Entropy().FirstFrames)
             {
                 float scale = 2;
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center + new Vector2(0, -236), Vector2.Zero, new Color(80, 40, 200), scale * 1f, 1, true, BlendState.Additive, 0, 10);
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center + new Vector2(0, -236), Vector2.Zero, Color.White, scale * 0.5f, 1, true, BlendState.Additive, 0, 10);
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center + new Vector2(0, -236), Vector2.Zero, Color.White, scale * 0.3f, 1, true, BlendState.Additive, 0, 10);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center + new Vector2(0, -236), player.velocity, new Color(80, 40, 200), scale * 1f, 1, true, BlendState.Additive, 0, 10);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center + new Vector2(0, -236), player.velocity, Color.White, scale * 0.5f, 1, true, BlendState.Additive, 0, 10);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center + new Vector2(0, -236), player.velocity, Color.White, scale * 0.3f, 1, true, BlendState.Additive, 0, 10);
             }
             if (player.HasBuff(ModContent.BuffType<VoidStorm>()))
             {
