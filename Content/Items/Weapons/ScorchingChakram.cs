@@ -161,7 +161,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             int num = Projectile.Calamity().stealthStrike ? 10 : 4;
             if (Main.myPlayer == Projectile.owner)
             {
-                int type = ModContent.ProjectileType<TectinicShardHoming>();
+                int type = ModContent.ProjectileType<TectonicShardHoming>();
                 float rt = CEUtils.randomRot();
                 for (int i = 0; i < num; i++)
                 {

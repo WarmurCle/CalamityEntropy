@@ -97,8 +97,8 @@ Items: {
 			}
 
 			TheDeadCut: {
-				DisplayName: Мёртвая доля
 				Tooltip: Восстанавливает немного скрытности после удара
+				DisplayName: Мёртвая доля
 			}
 
 			LunarPlank: {
@@ -197,9 +197,14 @@ Items: {
 		DisplayName: Пустотные реликвии
 		Tooltip:
 			'''
-			Создает метку пустоты, которая следует за вашим курсором
-			Использовать все слоты миньонов
-			Чем больше слотов занято, тем выше урон
+			[c/9387ff:Призовите до одного Ока Пустоты и создайте вокруг себя рунный массив]
+			[c/9387ff:Руны автоматически стреляют самонаводящимися Болтами Пустоты по ближайшим врагам]
+			[c/9387ff:и наносят урон при касании]
+			[c/9387ff:Удерживайте оружие, чтобы собрать руны перед собой]
+			[c/9387ff:и быстро выпустить много Болтов Пустоты в направлении курсора]
+			[c/9387ff:Прекратите использование или используйте более 6 секунд, чтобы сбросить руны]
+			[c/9387ff:и получить до 36 секунд перезарядки в зависимости от времени использования]
+			[c/9387ff:Во время перезарядки скорость атаки рун увеличивается на 15%]
 			'''
 	}
 
@@ -2000,12 +2005,12 @@ Items: {
 	}
 
 	HiveBullet: {
-		Tooltip: Игнорируют 50% защиты цели
 		DisplayName:
 			'''
 			Пуля роя
 			После попадания призываются пчёлы-следопыты, преследующие врага
 			'''
+		Tooltip: Игнорируют 50% защиты цели
 	}
 
 	SolarStorm: {
@@ -3941,10 +3946,9 @@ Items: {
 		// DisplayName: Buried Sun
 		/* Tooltip:
 			'''
-			Burst-fire [c/f0ffe6:Sunfall Laser],
-			upon disappearing, generates [c/f0ffe6:Eclipse Spots]
-			Three adjacent spots will fire [c/f0ffe6:Sun Splinter] at nearby targets,
-			and converge together to fire a non-penetrating [c/f0ffe6:Sunfall Laser]
+			Fires three piercing sunset lasers
+			After a short distance, the projectiles create sunspots
+			Sunspots merge before releasing an additional sunset laser
 			''' */
 	}
 
@@ -4647,10 +4651,8 @@ Projectiles: {
 	ZafkielProj.DisplayName: Император
 	ApsychosTailShoot.DisplayName: Оранжевый хвост.
 	EmberSwordHoldout.DisplayName: Огненный меч.
-	// tectonicShardHoming.DisplayName: tectonic Shard Homing
 	AshesSpirit.DisplayName: Дух пепла
 	AshesSpiritFireball.DisplayName: Огненный шар пепла
-	// tectonicShardAshesCore.DisplayName: tectonic Shard Ashes Core
 	ScorchingChakramThrown.DisplayName: Зажженный клинок
 	ScorchingFireball.DisplayName: Огненный шар
 	HellstoneMissileProj.DisplayName: Ракеты - ловушки
@@ -4686,17 +4688,18 @@ Projectiles: {
 	GiantBoulderProj.DisplayName: Гигантский камень
 	// HallowedMissileProj.DisplayName: Hallowed Missile Proj
 	// StarBreakerHeld.DisplayName: Star Breaker Held
-	// BuriedSunHoldout.DisplayName: Buried Sun Holdout
-	// BuriedShoot.DisplayName: Buried Shoot
 	// BuriedDot.DisplayName: Buried Dot
+	// BuriedShoot.DisplayName: Buried Shoot
 	// BuriedShoot2.DisplayName: Buried Shoot2
-	TectinicShardAshesCore.DisplayName: Фрагмент плиты
-	TectinicShardHoming.DisplayName: Фрагмент плиты
+	// TectonicShardAshesCore.DisplayName: Tectonic Shard Ashes Core
+	// TectonicShardHoming.DisplayName: Tectonic Shard Homing
 	// AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
 	// VoidAnnihilateSpawner.DisplayName: Void Annihilate Spawner
 	// VoidAnnihilateCharge.DisplayName: Void Annihilate Charge
 	// SilenceProj.DisplayName: Silence Proj
 	// SilenceStealth.DisplayName: Silence Stealth
+	// BuriedSunHoldout.DisplayName: Buried Sun Holdout
+	// VoisenBullet.DisplayName: Voisen Bullet
 }
 
 LegendTooltip: - Легенда -
@@ -4711,6 +4714,12 @@ Buffs: {
 	VoidTouch: {
 		DisplayName: Касание бездны
 		Description: ""
+		/* ItemTooltip:
+			'''
+			Void - ??? DPS
+			The more times this debuff stacks, the more damage it does
+			The rate and extent to void stacking depends on the source
+			''' */
 	}
 
 	WyrmChanBuff: {
@@ -4741,6 +4750,7 @@ Buffs: {
 	TwistedTwinBuff: {
 		DisplayName: Искажённый близнец
 		Description: ""
+		// ItemTooltip: 20% increased damage
 	}
 
 	Rainstorm: {
@@ -4856,6 +4866,11 @@ Buffs: {
 	ServiceBuff: {
 		DisplayName: Услуга
 		Description: Увеличивает урон, скорость атаки и шанс критического удара
+		/* ItemTooltip:
+			'''
+			Increases damage, attack speed and crit chance
+			The amount increased scales with the buffs remaining time
+			''' */
 	}
 
 	EclipsedImprint: {
@@ -4881,6 +4896,7 @@ Buffs: {
 	VoidVirus: {
 		DisplayName: Вирус пустоты
 		Description: Mods.CalamityEntropy.Buffs.VoidVirus.Description
+		// ItemTooltip: Typeless - 240 DPS
 	}
 
 	NyxolithrakenBuff: {
@@ -4910,6 +4926,13 @@ Buffs: {
 	MaliciousCode: {
 		DisplayName: Вредоносный код
 		Description: Это специально
+		/* ItemTooltip:
+			'''
+			Attacks against the target pierce 25 more defence
+			Contact damage reduced
+			Projectiles fired will be slower
+			Projectiles deal reduced damage
+			''' */
 	}
 
 	SpiritGathering: {
@@ -4920,6 +4943,11 @@ Buffs: {
 	SoulDisorder: {
 		DisplayName: Душевный хаос
 		Description: Mods.CalamityEntropy.Buffs.SoulDisorder.Description
+		/* ItemTooltip:
+			'''
+			Damage taken increased by 5%
+			Attacks against the target ignore 15 more defense
+			''' */
 	}
 
 	ShatteredOrb: {
@@ -4930,6 +4958,11 @@ Buffs: {
 	HeatDeath: {
 		DisplayName: Тепловая смерть
 		Description: ???
+		/* ItemTooltip:
+			'''
+			~0.06% max life DPS - Typeless
+			Slows enemies
+			''' */
 	}
 
 	GuardiansBuff: {
@@ -4950,6 +4983,7 @@ Buffs: {
 	WindPressure: {
 		DisplayName: давление ветра
 		Description: На твоем оружии вихрь.
+		// ItemTooltip: 3% increased damage and rogue attack speed
 	}
 
 	PenMountBuff: {
@@ -5020,16 +5054,23 @@ Buffs: {
 	Koishi: {
 		DisplayName: Бен, мое освобождение.
 		Description: ""
+		/* ItemTooltip:
+			'''
+			5% increased damage for players
+			Slows enemies
+			''' */
 	}
 
 	LifeOppress: {
 		DisplayName: Подавление жизни
 		Description: Ты видел свою смерть.
+		// ItemTooltip: Typeless - 4500 DPS
 	}
 
 	MechanicalTrauma: {
 		DisplayName: Механические травмы
 		Description: Ты весь в боли.
+		// ItemTooltip: Typeless - 20 DPS
 	}
 
 	IllusoryBlade: {
@@ -5055,6 +5096,7 @@ Buffs: {
 	BonePiercingToxin: {
 		DisplayName: Остеотоксины
 		Description: Вы чувствуете боль в сердце.
+		// ItemTooltip: Typeless - 24 DPS
 	}
 
 	FlamingBlood: {
@@ -5118,7 +5160,7 @@ Buffs: {
 	}
 
 	WhipOfEvilKingWhipDebuff: {
-		// DisplayName: Whip Of Evil King Whip Debuff
+		// DisplayName: Whip of Evil King Whip Debuff
 		// Description: Mods.CalamityEntropy.Buffs.WhipOfEvilKingWhipDebuff.Description
 	}
 }
@@ -5329,6 +5371,7 @@ Disabled: Выключенный
 CdMoonlight: Лунный Щит
 CdDS: Перезарядка Божественного Щита
 CdAntivoid: охлаждение с обратным спринтом
+AbyssalStorm: Буря в бездне
 CruiserBestiary:
 	'''
 	Верховный хищник, рожденный из пустоты, напоминающий того Пожирателя Богов, с которым ты когда-то сталкивался.
@@ -5647,7 +5690,6 @@ ArmorPrefixTheMindDescription: + 20% Величайшая магия
 ArmorPrefixTheSoulName: душа
 ArmorPrefixTheSoulDescription: + 0,2% Вывлечение жизни
 PrefixEnchanted: Зачарованный
-PrefixEnchantedDesc: +4% к увеличению маны
 AncientPrefixDesc:
 	'''
 	Древние предметы
@@ -6114,3 +6156,4 @@ MinionAccDescCrownFangs: При одновременном ношении [ITEM]
 NonZenithWorld: Не в зенитном мире.
 ZenithWorld: В зенитном мире
 RatizelShield: Щит.
+PrefixEnchantedDesc: +4% к увеличению маны

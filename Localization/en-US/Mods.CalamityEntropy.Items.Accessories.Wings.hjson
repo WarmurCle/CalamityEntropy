@@ -11,7 +11,6 @@ FlowingLight: {
 
 PhantomLightWing: {
 	DisplayName: Phantom Light Wings
-	Tooltip: Leaves starlight trails during flight
 	Tooltip:
 		'''
 		{$CommonItemTooltip.FlightAndSlowfall}

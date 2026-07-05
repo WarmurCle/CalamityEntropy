@@ -191,7 +191,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (sum >= EmberSpike.MAXSTICK || Projectile.ai[0] == 1)
             {
                 if (Projectile.Calamity().stealthStrike)
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.4f) * Main.rand.NextFloat(0.6f, 1f), ModContent.ProjectileType<TectinicShardHoming>(), Projectile.damage, 4, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.4f) * Main.rand.NextFloat(0.6f, 1f), ModContent.ProjectileType<TectonicShardHoming>(), Projectile.damage, 4, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity.RotatedByRandom(0.6f) * Main.rand.NextFloat(-1, -0.5f), ModContent.ProjectileType<EmberSpikePop>(), 0, 0, Projectile.owner);
                 Projectile.Kill();
             }

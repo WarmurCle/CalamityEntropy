@@ -235,10 +235,14 @@ Items: {
 		DisplayName: Void Relics
 		Tooltip:
 			'''
-			Spawns a Void Mark that follows your cursor and inflicts [cebuff:CalamityEntropy/VoidTouch]
-			The mark uses all of your summon slots, scaling with each one used
-			Using the item with a Void Mark present will cause it to realease a bigger slash on any enemies inside
-			The bigger slash deals double damage and inflicts [cebuff:CalamityMod/MarkedforDeath]
+			[c/9387ff:Summon up to one Voidgaze Eye and create a rune array around yourself]
+			[c/9387ff:Runes automatically fire homing Voisen Bolts at nearby enemies]
+			[c/9387ff:and also damage enemies they touch]
+			[c/9387ff:Holding the weapon gathers runes in front of you]
+			[c/9387ff:and rapidly fires a large number of Voisen Bolts toward the cursor]
+			[c/9387ff:Stopping use or using for over 6 seconds reverts runes]
+			[c/9387ff:and grants up to 36 seconds of cooldown based on use time]
+			[c/9387ff:During cooldown, runes gain 15% increased attack speed]
 			'''
 	}
 
@@ -4905,10 +4909,8 @@ Projectiles: {
 	ZafkielProj.DisplayName: Zafkiel
 	ApsychosTailShoot.DisplayName: Apsychos Tail Shoot
 	EmberSwordHoldout.DisplayName: Ember Sword Holdout
-	tectonicShardHoming.DisplayName: tectonic Shard Homing
 	AshesSpirit.DisplayName: Ashes Spirit
 	AshesSpiritFireball.DisplayName: Ashes Spirit Fireball
-	tectonicShardAshesCore.DisplayName: tectonic Shard Ashes Core
 	ScorchingChakramThrown.DisplayName: Scorching Chakram Thrown
 	ScorchingFireball.DisplayName: Scorching Fireball
 	HellstoneMissileProj.DisplayName: Hellstone Missile Proj
@@ -4947,13 +4949,15 @@ Projectiles: {
 	BuriedDot.DisplayName: Buried Dot
 	BuriedShoot.DisplayName: Buried Shoot
 	BuriedShoot2.DisplayName: Buried Shoot2
-	TectinicShardAshesCore.DisplayName: Tectinic Shard Ashes Core
-	TectinicShardHoming.DisplayName: Tectinic Shard Homing
+	TectonicShardAshesCore.DisplayName: Tectonic Shard Ashes Core
+	TectonicShardHoming.DisplayName: Tectonic Shard Homing
 	AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
 	VoidAnnihilateSpawner.DisplayName: Void Annihilate Spawner
 	VoidAnnihilateCharge.DisplayName: Void Annihilate Charge
 	SilenceProj.DisplayName: Silence Proj
 	SilenceStealth.DisplayName: Silence Stealth
+	BuriedSunHoldout.DisplayName: Buried Sun Holdout
+	VoisenBullet.DisplayName: Voisen Bullet
 }
 
 LegendTooltip: - Legend -
@@ -5581,6 +5585,7 @@ Disabled: Disabled
 CdMoonlight: Moonlight Shield
 CdDS: Divine Shield Cooldown
 CdAntivoid: Antivoid Dash Cooldown
+AbyssalStorm: Abyssal Storm Cooldoawn
 CruiserBestiary:
 	'''
 	A supreme predator born from the void, bearing a resemblance to that Devourer of Gods you once encountered.
@@ -5640,16 +5645,6 @@ Configs: {
 		ChainsawShakeScreen: {
 			Label: Chainsaw Shake Screen
 			Tooltip: ""
-		}
-
-		BindingOfIsaac_Rep_BossMusic: {
-			Label: Binding of Isaac Rep Boss Music
-			Tooltip: ""
-		}
-
-		RepBossMusicReplaceCalamityMusic: {
-			Tooltip: ""
-			Label: Rep Boss Music Replace Calamity Music
 		}
 
 		ItemAdditionalInfo: {
@@ -5996,7 +5991,7 @@ UseAmmo: Use Ammo
 OrbPunishDeath0: "{0} shattered into pieces"
 OrbPunishDeath1: "{0} tried to remove the shattered foresee orb"
 RuneDashCD: Rune Dash Cooldown
-ArmorPenetrationItemTooltip: "Ignores {0} defense"
+ArmorPenetrationItemTooltip: Ignores {0} defense
 AmmoLifeTime: Life Time
 AmmoShootSpeed: Shoot Speed
 AmmoPenetrate: Penetrate times

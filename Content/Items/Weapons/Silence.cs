@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
 
 
-        public override float StealthDamageMultiplier => 0.35f;
+        public override float StealthDamageMultiplier => 0.5f;
         public override float StealthVelocityMultiplier => 1.2f;
         public override float StealthKnockbackMultiplier => 0f;
 
@@ -141,7 +141,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     }
                     Projectile.velocity *= 0.95f;
                     Projectile.localAI[0]++;
-                    if (Projectile.localAI[1]++ >= 80)
+                    if (Projectile.localAI[1]++ >= 70)
                     {
                         if (Projectile.localAI[1] > 110)
                         {
@@ -155,15 +155,16 @@ namespace CalamityEntropy.Content.Items.Weapons
                         if (Projectile.ai[2] < 1)
                         {
                             Projectile.ai[2] += nv;
-                            nv += 0.005f;
+                            nv += 0.003f;
+                            nv *= 1.03f;
                             Vector2 lp1 = Vector2.Zero;
                             Vector2 lp2 = Vector2.Zero;
-                            for(float i = 0; i <= 1; i += 0.1f)
+                            for(float i = 0; i <= 1; i += 0.05f)
                             {
                                 if (Projectile.ai[2] + i * 0.1f >= 1f)
                                     break;
-                                Vector2 p1 = GetChainPoint(Projectile.Center, target.ToNPC().Center, Projectile.ai[2] + i * 0.1f, 14, FLEX, 1f);
-                                Vector2 p2 = GetChainPoint(Projectile.Center, target.ToNPC().Center, Projectile.ai[2] + i * 0.1f, 14, FLEX, -1f);
+                                Vector2 p1 = GetChainPoint(Projectile.Center + Projectile.velocity, target.ToNPC().Center, Projectile.ai[2] + i * 0.1f, 14, FLEX, 1f);
+                                Vector2 p2 = GetChainPoint(Projectile.Center + Projectile.velocity, target.ToNPC().Center, Projectile.ai[2] + i * 0.1f, 14, FLEX, -1f);
                                 if (i == 0)
                                     continue;
                                 Vector2 v1 = (p1 - lp1).normalize() * -2;
@@ -173,14 +174,14 @@ namespace CalamityEntropy.Content.Items.Weapons
                                 dust.scale = Main.rand.NextFloat(1.2f, 1.6f);
                                 dust.velocity = v1;
                                 dust.noGravity = true;
-                                dust.color = Color.LightBlue;
+                                dust.color = new Color(20, 20, 255);
                                 dust.fadeIn = 2f;
 
                                 dust = Dust.NewDustPerfect(p2, ModContent.DustType<SquashDust>(), -Projectile.velocity);
                                 dust.scale = Main.rand.NextFloat(1.2f, 1.6f);
                                 dust.velocity = v2;
                                 dust.noGravity = true;
-                                dust.color = Color.LightBlue;
+                                dust.color = new Color(20, 20, 255);
                                 dust.fadeIn = 2f;
                                 lp1 = p1;
                                 lp2 = p2;
@@ -247,9 +248,19 @@ namespace CalamityEntropy.Content.Items.Weapons
                 for (int i = 0; i < 6; i++)
                 {
                     float rot = 2;
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 24), false, 16, Projectile.scale * 0.04f, Color.SkyBlue, new Vector2(0.3f, 1), false, false));
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(-rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 24), false, 16, Projectile.scale * 0.04f, Color.SkyBlue, new Vector2(0.3f, 1), false, false));
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 16), false, 16, Projectile.scale * 0.04f, Color.SkyBlue, new Vector2(0.3f, 1), false, false));
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(-rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 16), false, 16, Projectile.scale * 0.04f, Color.SkyBlue, new Vector2(0.3f, 1), false, false));
                 }
+                for (int i = 0; i < 16; i++)
+                {
+                    Dust dust = Dust.NewDustPerfect(target.Center, ModContent.DustType<SquashDust>(), Projectile.velocity);
+                    dust.scale = Main.rand.NextFloat(2.2f, 3.2f);
+                    dust.velocity = Projectile.velocity.RotatedByRandom(0.6f) * Main.rand.NextFloat(0.4f, 1f);
+                    dust.noGravity = true;
+                    dust.color = Color.LightBlue;
+                    dust.fadeIn = 2f;
+                }
+
             }
         }
         public static float FLEX = 120;
@@ -337,7 +348,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.width = Projectile.height = 82;
             Projectile.MaxUpdates = 2;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 6;
+            Projectile.localNPCHitCooldown = 5;
         }
         public override void SendExtraAI(BinaryWriter writer)
         {
@@ -360,8 +371,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (Hitted)
             {
-                modifiers.SourceDamage *= 0.1f;
-                modifiers.ArmorPenetration += 200;
+                modifiers.SourceDamage *= 0.05f;
+                modifiers.ArmorPenetration += 500;
             }
         }
         public int target { get { return (int)Projectile.ai[1]; } set { Projectile.ai[1] = value; } }
@@ -407,13 +418,13 @@ namespace CalamityEntropy.Content.Items.Weapons
                     }
                     Projectile.velocity *= 0.95f;
                     Projectile.localAI[0]++;
-                    if (Projectile.localAI[1]++ >= 80)
+                    if (Projectile.localAI[1]++ >= 70)
                     {
                         if (Projectile.localAI[1] == 110)
                             CEUtils.PlaySound("VortexSpawn", 1, Projectile.Center);
                         if (Projectile.localAI[1] > 110)
                         {
-                            Projectile.velocity = (target.ToNPC().Center - Projectile.Center) * 0.1f;
+                            Projectile.velocity = (target.ToNPC().Center - Projectile.Center) * 0.08f;
                             if (Projectile.timeLeft > 14)
                             {
                                 areaSize = float.Lerp(areaSize, 100 * Projectile.scale, 0.023f);
@@ -428,15 +439,16 @@ namespace CalamityEntropy.Content.Items.Weapons
                         if (Projectile.ai[2] < 1)
                         {
                             Projectile.ai[2] += nv;
-                            nv += 0.005f;
+                            nv += 0.003f;
+                            nv *= 1.03f;
                             Vector2 lp1 = Vector2.Zero;
                             Vector2 lp2 = Vector2.Zero;
-                            for (float i = 0; i <= 1; i += 0.1f)
+                            for (float i = 0; i <= 1; i += 0.05f)
                             {
                                 if (Projectile.ai[2] + i * 0.1f >= 1f)
                                     break;
-                                Vector2 p1 = GetChainPoint(Projectile.Center, target.ToNPC().Center, Projectile.ai[2] + i * 0.1f, 14, FLEX, 1f);
-                                Vector2 p2 = GetChainPoint(Projectile.Center, target.ToNPC().Center, Projectile.ai[2] + i * 0.1f, 14, FLEX, -1f);
+                                Vector2 p1 = GetChainPoint(Projectile.Center + Projectile.velocity, target.ToNPC().Center, Projectile.ai[2] + i * 0.1f, 14, FLEX, 1f);
+                                Vector2 p2 = GetChainPoint(Projectile.Center + Projectile.velocity, target.ToNPC().Center, Projectile.ai[2] + i * 0.1f, 14, FLEX, -1f);
                                 if (i == 0)
                                     continue;
                                 Vector2 v1 = (p1 - lp1).normalize() * -2;
@@ -520,8 +532,17 @@ namespace CalamityEntropy.Content.Items.Weapons
                 for (int i = 0; i < 7; i++)
                 {
                     float rot = 2;
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 24), false, 16, Projectile.scale * 0.04f, Color.SkyBlue, new Vector2(0.3f, 1), false, false));
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(-rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 24), false, 16, Projectile.scale * 0.04f, Color.SkyBlue, new Vector2(0.3f, 1), false, false));
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 16), false, 16, Projectile.scale * 0.04f, Color.SkyBlue, new Vector2(0.3f, 1), false, false));
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 20 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(-rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 16), false, 16, Projectile.scale * 0.04f, Color.SkyBlue, new Vector2(0.3f, 1), false, false));
+                }
+                for (int i = 0; i < 16; i++)
+                {
+                    Dust dust = Dust.NewDustPerfect(target.Center, ModContent.DustType<SquashDust>(), Projectile.velocity);
+                    dust.scale = Main.rand.NextFloat(2.2f, 3.2f);
+                    dust.velocity = Projectile.velocity.RotatedByRandom(0.6f) * Main.rand.NextFloat(0.4f, 1f);
+                    dust.noGravity = true;
+                    dust.color = Color.LightBlue;
+                    dust.fadeIn = 2f;
                 }
             }
             else

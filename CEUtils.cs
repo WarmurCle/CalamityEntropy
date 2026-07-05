@@ -31,6 +31,20 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static float GetDistanceToEllipseEdge(float semiMajorAxis, float semiMinorAxis, float angleRadians)
+        {
+            float cos = (float)Math.Cos(angleRadians);
+            float sin = (float)Math.Sin(angleRadians);
+
+            float denominator = (cos * cos) / (semiMajorAxis * semiMajorAxis) +
+                                 (sin * sin) / (semiMinorAxis * semiMinorAxis);
+
+            if (denominator <= 0)
+                return 0;
+
+            return (float)(1.0 / Math.Sqrt(denominator));
+        }
+        public static Vector2 xy(this Vector3 v) => new Vector2(v.X, v.Y);
         public static Vector2 Half(this Vector2 v) => v * 0.5f;
         public static List<NPC> FindSomeNearEnemies(Vector2 center, int maxCount, float distance = 1600, Func<int, bool> filter = null)
         {
@@ -1014,6 +1028,15 @@ namespace CalamityEntropy
             }
         }
 
+        public static Terraria.DataStructures.DrawData getDrawData(this Projectile projectile, Color color, float overrideRotation, Texture2D texOverride = null, Vector2 overridePos = default)
+        {
+            Texture2D tx = projectile.GetTexture();
+            if (texOverride != null)
+            {
+                tx = texOverride;
+            }
+            return new Terraria.DataStructures.DrawData(tx, (overridePos == default ? projectile.Center : overridePos) - Main.screenPosition, Main.projFrames[projectile.type] <= 1 ? null : new Rectangle(0, (tx.Height / Main.projFrames[projectile.type]) * projectile.frame, tx.Width, (tx.Height / Main.projFrames[projectile.type]) - 2), color * projectile.Opacity, overrideRotation, new Vector2(tx.Width, Main.projFrames[projectile.type] > 1 ? (tx.Height / Main.projFrames[projectile.type]) - 2 : tx.Height) / 2, projectile.scale, projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+        }
         public static Terraria.DataStructures.DrawData getDrawData(this Projectile projectile, Color color, Texture2D texOverride = null, Vector2 overridePos = default)
         {
             Texture2D tx = projectile.GetTexture();
