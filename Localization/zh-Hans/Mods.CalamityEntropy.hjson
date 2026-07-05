@@ -4978,10 +4978,8 @@ Projectiles: {
 	ZafkielProj.DisplayName: 刻刻帝
 	ApsychosTailShoot.DisplayName: 烬甲秽魔尾弹
 	EmberSwordHoldout.DisplayName: 灼烬巨剑
-	tectonicShardHoming.DisplayName: 地壳碎片
 	AshesSpirit.DisplayName: 灰烬之灵
 	AshesSpiritFireball.DisplayName: 灰烬火球
-	tectonicShardAshesCore.DisplayName: 地壳碎片
 	ScorchingChakramThrown.DisplayName: 焦灼旋刃
 	ScorchingFireball.DisplayName: 焦灼火球
 	HellstoneMissileProj.DisplayName: 狱炎导弹
@@ -5020,6 +5018,8 @@ Projectiles: {
 	BuriedDot.DisplayName: 噬阳光点
 	BuriedShoot.DisplayName: 日陨激光
 	BuriedShoot2.DisplayName: 日陨激光
+	// TectonicShardAshesCore.DisplayName: Tectonic Shard Ashes Core
+	// TectonicShardHoming.DisplayName: Tectonic Shard Homing
 	AcropolisTeslaBallWarn.DisplayName: 卫城机甲预警
 	VoidAnnihilateSpawner.DisplayName: 黯天飞刀
 	VoidAnnihilateCharge.DisplayName: 黯天飞刀蓄能

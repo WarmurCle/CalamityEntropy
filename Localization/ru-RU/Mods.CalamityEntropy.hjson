@@ -4646,10 +4646,8 @@ Projectiles: {
 	ZafkielProj.DisplayName: Император
 	ApsychosTailShoot.DisplayName: Оранжевый хвост.
 	EmberSwordHoldout.DisplayName: Огненный меч.
-	// tectonicShardHoming.DisplayName: tectonic Shard Homing
 	AshesSpirit.DisplayName: Дух пепла
 	AshesSpiritFireball.DisplayName: Огненный шар пепла
-	// tectonicShardAshesCore.DisplayName: tectonic Shard Ashes Core
 	ScorchingChakramThrown.DisplayName: Зажженный клинок
 	ScorchingFireball.DisplayName: Огненный шар
 	HellstoneMissileProj.DisplayName: Ракеты - ловушки
@@ -4688,8 +4686,8 @@ Projectiles: {
 	// BuriedDot.DisplayName: Buried Dot
 	// BuriedShoot.DisplayName: Buried Shoot
 	// BuriedShoot2.DisplayName: Buried Shoot2
-	TectinicShardAshesCore.DisplayName: Фрагмент плиты
-	TectinicShardHoming.DisplayName: Фрагмент плиты
+	// TectonicShardAshesCore.DisplayName: Tectonic Shard Ashes Core
+	// TectonicShardHoming.DisplayName: Tectonic Shard Homing
 	// AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
 	// VoidAnnihilateSpawner.DisplayName: Void Annihilate Spawner
 	// VoidAnnihilateCharge.DisplayName: Void Annihilate Charge
