@@ -167,6 +167,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 return;
             }
+            if(player.channel)
+            {
+                player.itemTime = player.itemAnimation = 3;
+            }
             translating = false;
 
             if(player.channel && !player.HasCooldown(AbyssalStorm.ID))
@@ -178,9 +182,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             if ((StormTime > 6 * 60 || !player.channel) && StormTime > 0)
             {
                 translating = false;
-                StormTime = 0;
                 player.channel = false;
                 player.AddCooldown(AbyssalStorm.ID, StormTime * 6);
+                StormTime = 0;
             }
             player.Calamity().mouseWorldListener = true;
             float targetRot = (player.Calamity().mouseWorld - player.MountedCenter).ToRotation();
