@@ -11,6 +11,7 @@ using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
 using CalamityMod.Particles;
 using CalamityOverhaul.Content;
+using Humanizer;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 using System;
@@ -499,7 +500,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < 6; i++)
             {
                 Dust dust = Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<SquashDust>(), -Projectile.velocity);
                 dust.scale = Main.rand.NextFloat(2f, 3f);
@@ -508,6 +509,9 @@ namespace CalamityEntropy.Content.Items.Weapons
                 dust.color = new Color(160, 160, 255);
                 dust.fadeIn = 2f;
             }
+            float r = CEUtils.randomRot();
+            EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White, widthMult = 1.2f }, target.Center - r.ToRotationVector2() * 120, Vector2.Zero, new Color(140, 100, 255), Main.rand.NextFloat(250, 280), 0.24f, true, BlendState.NonPremultiplied, r, 11);
+            CEUtils.PlaySound("slice", Main.rand.NextFloat(1f, 1.3f), target.Center);
         }
         public override string Texture => CEUtils.WhiteTexPath;
         public override bool PreDraw(ref Color lightColor)
