@@ -371,8 +371,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (Hitted)
             {
-                modifiers.SourceDamage *= 0.1f;
-                modifiers.ArmorPenetration += 200;
+                modifiers.SourceDamage *= 0.05f;
+                modifiers.ArmorPenetration += 500;
             }
         }
         public int target { get { return (int)Projectile.ai[1]; } set { Projectile.ai[1] = value; } }
