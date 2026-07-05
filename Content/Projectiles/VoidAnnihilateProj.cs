@@ -180,6 +180,7 @@ namespace CalamityEntropy.Content.Projectiles
                     if (p.type == Projectile.type && p.owner == Projectile.owner && p.ai[0] > 0)
                         s++;
                 }
+                CEUtils.SyncProj(Projectile.whoAmI);
                 if (s > 15)
                     Projectile.Kill();
             }
@@ -198,6 +199,16 @@ namespace CalamityEntropy.Content.Projectiles
                 GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(180, 180, 255), "CalamityMod/Particles/GlowSquareParticleThick", Vector2.One, CEUtils.randomRot(), 0.005f, 1f, 16));
                 Projectile.Kill();
             }
+        }
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(Projectile.timeLeft);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            int t = reader.ReadInt32();
+            if (t > 10)
+                Projectile.timeLeft = t;
         }
         public override void OnKill(int timeLeft)
         {

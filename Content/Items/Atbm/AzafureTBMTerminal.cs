@@ -412,7 +412,9 @@ namespace CalamityEntropy.Content.Items.Atbm
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            Projectile.timeLeft = reader.ReadInt32();
+            int t = reader.ReadInt32();
+            if (t > 2)
+                Projectile.timeLeft = t;
         }
         public override bool PreDraw(ref Color lightColor)
         {

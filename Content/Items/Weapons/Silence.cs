@@ -94,7 +94,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             NoPosUpdate = reader.ReadUInt16();
-            Projectile.timeLeft = reader.ReadInt32();
+            int t = reader.ReadInt32();
+            if (t > 10)
+                Projectile.timeLeft = t;
         }
         public int NoPosUpdate = 0;
         public override bool? CanDamage()
@@ -358,7 +360,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             NoPosUpdate = reader.ReadUInt16();
-            Projectile.timeLeft = reader.ReadInt32();
+            int t = reader.ReadInt32();
+            if(t > 10)
+                Projectile.timeLeft = t;
         }
         public int NoPosUpdate = 0;
         public override bool? CanDamage()
