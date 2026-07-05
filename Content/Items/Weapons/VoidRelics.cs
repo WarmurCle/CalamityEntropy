@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Items.Weapons.GrassSword;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
@@ -148,6 +149,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public bool translating = false;
         public override void AI()
         {
+            Projectile.localAI[1] = float.Lerp(Projectile.localAI[1], 1, 0.05f);
             if (runes == null)
                 SetupRunes();
             runes[0].Rotation += 0.02f * (1 + translateFlex * 9);
@@ -162,6 +164,14 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             Player player = Main.player[Projectile.owner];
             Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY;
+
+            if (Projectile.Entropy().FirstFrames)
+            {
+                float scale = 2;
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center + new Vector2(0, -236), Vector2.Zero, new Color(80, 40, 200), scale * 1f, 1, true, BlendState.Additive, 0, 10);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center + new Vector2(0, -236), Vector2.Zero, Color.White, scale * 0.5f, 1, true, BlendState.Additive, 0, 10);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center + new Vector2(0, -236), Vector2.Zero, Color.White, scale * 0.3f, 1, true, BlendState.Additive, 0, 10);
+            }
             if (player.HasBuff(ModContent.BuffType<VoidStorm>()))
             {
                 Projectile.timeLeft = 3;
@@ -272,7 +282,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
         }
         public float rotation => Projectile.rotation;
-        public float Radius => float.Lerp(160, 60, translateFlex) * Projectile.scale;
+        public float Radius => float.Lerp(160, 60, translateFlex) * Projectile.scale * Projectile.localAI[1];
         public Vector2 circleScaling => Vector2.Lerp(Vector2.One, new Vector2(0.4f, 1f), translateFlex);
         public Vector2 circleOffset => Vector2.Lerp(Vector2.Zero, new Vector2(100, 0), translateFlex);
 
