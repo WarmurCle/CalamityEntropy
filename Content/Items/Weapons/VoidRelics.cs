@@ -170,19 +170,20 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 return;
             }
-            if(player.channel)
+            bool channel = player.channel && player.HeldItem.type == ModContent.ItemType<VoidRelics>();
+            if(channel)
             {
                 player.itemTime = player.itemAnimation = 3;
             }
             translating = false;
 
-            if(player.channel && !player.HasCooldown(AbyssalStorm.ID))
+            if(channel && !player.HasCooldown(AbyssalStorm.ID))
             {
                 translating = true;
                 if (translateFlex >= 0.9f)
                     StormTime++;
             }
-            if ((StormTime > 6 * 60 || !player.channel) && StormTime > 0)
+            if ((StormTime > 6 * 60 || !channel) && StormTime > 0)
             {
                 translating = false;
                 player.channel = false;
