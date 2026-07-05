@@ -468,7 +468,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (Projectile.Entropy().FirstFrames)
                 Projectile.ai[0] = Main.rand.NextFloat(100);
-            NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.position, 1600);
+            NPC target = Projectile.FindMinionTarget(3600);
             if (Projectile.localAI[0]++ > 40 && target != null)
             {
                 Projectile.velocity *= 0.97f;
