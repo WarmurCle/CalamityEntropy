@@ -311,14 +311,14 @@ namespace CalamityEntropy.Content.Items.Weapons
                 for (float i = 0; i <= 1; i += 0.005f)
                 {
                     float rot = i * MathHelper.TwoPi;
-                    float m = (1f + 0.05f * (float)(Math.Sin(MathHelper.TwoPi * 6 * i - Main.GlobalTimeWrappedHourly * 4))) * (1 + translateFlex * 0.5f);
-                    points.Add(new Vector3(GetCPos(rot, Radius * m, circleScaling, circleOffset, rotation), 1f + 0.25f * (float)(Math.Sin(MathHelper.TwoPi * 4 * i + Main.GlobalTimeWrappedHourly * 12)) * (1 + translateFlex * 0.5f)));
+                    float m = (1f + 0.065f * (float)(Math.Sin(MathHelper.TwoPi * 6 * i - Main.GlobalTimeWrappedHourly * 4))) * (1 + translateFlex * 0.5f);
+                    points.Add(new Vector3(GetCPos(rot, Radius * m, circleScaling, circleOffset, rotation), 1f + 0.28f * (float)(Math.Sin(MathHelper.TwoPi * 4 * i + Main.GlobalTimeWrappedHourly * 8)) * (1 + translateFlex * 0.5f)));
                 }
                 Vector3 lastPoint = points[points.Count - 2];
                 List<ColoredVertex> ve = new List<ColoredVertex>();
                 List<ColoredVertex> ve2 = new List<ColoredVertex>();
                 float alpha = 1f;
-                float trailOffset = Main.GlobalTimeWrappedHourly * 2f;
+                float trailOffset = Main.GlobalTimeWrappedHourly * -4f;
                 Vector2 center = Projectile.GetOwner().GetDrawCenter();
                 for (int ii = 0; ii < points.Count; ii++)
                 {
