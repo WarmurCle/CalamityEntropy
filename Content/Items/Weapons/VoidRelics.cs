@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Items.Weapons.GrassSword;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
@@ -10,6 +11,7 @@ using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
 using CalamityMod.Particles;
 using CalamityOverhaul.Content;
+using Humanizer;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 using System;
@@ -37,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.damage = 3600;
+            Item.damage = 2200;
             Item.crit = 0;
             Item.DamageType = DamageClass.Summon;
             Item.width = 64;
@@ -148,6 +150,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public bool translating = false;
         public override void AI()
         {
+            Projectile.localAI[1] = float.Lerp(Projectile.localAI[1], 1, 0.05f);
             if (runes == null)
                 SetupRunes();
             runes[0].Rotation += 0.02f * (1 + translateFlex * 9);
@@ -162,6 +165,14 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             Player player = Main.player[Projectile.owner];
             Projectile.Center = player.MountedCenter + player.gfxOffY * Vector2.UnitY;
+
+            if (Projectile.Entropy().FirstFrames)
+            {
+                float scale = 2;
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center + new Vector2(0, -236), Vector2.Zero, new Color(80, 40, 200), scale * 1f, 1, true, BlendState.Additive, 0, 10);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center + new Vector2(0, -236), Vector2.Zero, Color.White, scale * 0.5f, 1, true, BlendState.Additive, 0, 10);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center + new Vector2(0, -236), Vector2.Zero, Color.White, scale * 0.3f, 1, true, BlendState.Additive, 0, 10);
+            }
             if (player.HasBuff(ModContent.BuffType<VoidStorm>()))
             {
                 Projectile.timeLeft = 3;
@@ -170,19 +181,20 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 return;
             }
-            if(player.channel)
+            bool channel = player.channel && player.HeldItem.type == ModContent.ItemType<VoidRelics>();
+            if(channel)
             {
                 player.itemTime = player.itemAnimation = 3;
             }
             translating = false;
 
-            if(player.channel && !player.HasCooldown(AbyssalStorm.ID))
+            if(channel && !player.HasCooldown(AbyssalStorm.ID))
             {
                 translating = true;
                 if (translateFlex >= 0.9f)
                     StormTime++;
             }
-            if ((StormTime > 6 * 60 || !player.channel) && StormTime > 0)
+            if ((StormTime > 6 * 60 || !channel) && StormTime > 0)
             {
                 translating = false;
                 player.channel = false;
@@ -271,7 +283,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
         }
         public float rotation => Projectile.rotation;
-        public float Radius => float.Lerp(160, 60, translateFlex) * Projectile.scale;
+        public float Radius => float.Lerp(160, 60, translateFlex) * Projectile.scale * Projectile.localAI[1];
         public Vector2 circleScaling => Vector2.Lerp(Vector2.One, new Vector2(0.4f, 1f), translateFlex);
         public Vector2 circleOffset => Vector2.Lerp(Vector2.Zero, new Vector2(100, 0), translateFlex);
 
@@ -311,14 +323,14 @@ namespace CalamityEntropy.Content.Items.Weapons
                 for (float i = 0; i <= 1; i += 0.005f)
                 {
                     float rot = i * MathHelper.TwoPi;
-                    float m = (1f + 0.05f * (float)(Math.Sin(MathHelper.TwoPi * 6 * i - Main.GlobalTimeWrappedHourly * 4))) * (1 + translateFlex * 0.5f);
-                    points.Add(new Vector3(GetCPos(rot, Radius * m, circleScaling, circleOffset, rotation), 1f + 0.25f * (float)(Math.Sin(MathHelper.TwoPi * 4 * i + Main.GlobalTimeWrappedHourly * 12)) * (1 + translateFlex * 0.5f)));
+                    float m = (1f + 0.065f * (float)(Math.Sin(MathHelper.TwoPi * 6 * i - Main.GlobalTimeWrappedHourly * 4))) * (1 + translateFlex * 0.5f);
+                    points.Add(new Vector3(GetCPos(rot, Radius * m, circleScaling, circleOffset, rotation), 1f + 0.28f * (float)(Math.Sin(MathHelper.TwoPi * 4 * i + Main.GlobalTimeWrappedHourly * 8)) * (1 + translateFlex * 0.5f)));
                 }
                 Vector3 lastPoint = points[points.Count - 2];
                 List<ColoredVertex> ve = new List<ColoredVertex>();
                 List<ColoredVertex> ve2 = new List<ColoredVertex>();
                 float alpha = 1f;
-                float trailOffset = Main.GlobalTimeWrappedHourly * 2f;
+                float trailOffset = Main.GlobalTimeWrappedHourly * -4f;
                 Vector2 center = Projectile.GetOwner().GetDrawCenter();
                 for (int ii = 0; ii < points.Count; ii++)
                 {
@@ -433,6 +445,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             return false;
         }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            EGlobalNPC.AddVoidTouch(target, 80, 10);
+        }
     }
 
     public class VoisenBullet : ModProjectile
@@ -488,7 +504,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            for (int i = 0; i < 16; i++)
+            EGlobalNPC.AddVoidTouch(target, 80, 5);
+            for (int i = 0; i < 6; i++)
             {
                 Dust dust = Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<SquashDust>(), -Projectile.velocity);
                 dust.scale = Main.rand.NextFloat(2f, 3f);
@@ -497,6 +514,9 @@ namespace CalamityEntropy.Content.Items.Weapons
                 dust.color = new Color(160, 160, 255);
                 dust.fadeIn = 2f;
             }
+            float r = CEUtils.randomRot();
+            EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White, widthMult = 1.2f }, target.Center - r.ToRotationVector2() * 120, Vector2.Zero, new Color(140, 100, 255), Main.rand.NextFloat(250, 280), 0.24f, true, BlendState.NonPremultiplied, r, 11);
+            CEUtils.PlaySound("slice", Main.rand.NextFloat(1f, 1.3f), target.Center);
         }
         public override string Texture => CEUtils.WhiteTexPath;
         public override bool PreDraw(ref Color lightColor)
