@@ -49,12 +49,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<VoidMark>();
             Item.shootSpeed = 2f;
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
-            SoundStyle s = new("CalamityEntropy/Assets/Sounds/vmspawn");
-            s.Volume = 0.6f;
-            s.Pitch = 1f;
-            Item.UseSound = s;
+            Item.UseSound = null;
             Item.autoReuse = true;
             Item.noMelee = true;
+            Item.useTurn = true;
+            Item.scale = 0.6f;
             Item.mana = 5;
             Item.buffType = ModContent.BuffType<VoidStorm>();
             Item.rare = ModContent.RarityType<VoidPurple>();
@@ -65,6 +64,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             int projectile = Projectile.NewProjectile(source, Main.MouseWorld, velocity, type, Item.damage, knockback, player.whoAmI, 0, 1, 0);
             Main.projectile[projectile].originalDamage = Item.damage;
 
+            SoundStyle s = new("CalamityEntropy/Assets/Sounds/vmspawn");
+            s.Volume = 0.6f;
+            s.Pitch = 1f;
+            SoundEngine.PlaySound(s, position);
             return false;
         }
 
@@ -201,13 +204,13 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (Projectile.owner == Main.myPlayer)
             {
-                NPC target = CEUtils.findTarget(player, Projectile, 4600);
+                NPC target = Projectile.FindMinionTarget(3600);
                 if (true)
                 {
                     if (translateFlex < 0.9f)
                     {
                         if(target != null)
-                            Projectile.ai[0] += player.HasCooldown(AbyssalStorm.ID) ? 1.2f : 1;
+                            Projectile.ai[0] += player.HasCooldown(AbyssalStorm.ID) ? 1.15f : 1;
                     }
                     else
                     {

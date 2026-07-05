@@ -235,10 +235,14 @@ Items: {
 		DisplayName: Void Relics
 		Tooltip:
 			'''
-			Spawns a Void Mark that follows your cursor and inflicts [cebuff:CalamityEntropy/VoidTouch]
-			The mark uses all of your summon slots, scaling with each one used
-			Using the item with a Void Mark present will cause it to realease a bigger slash on any enemies inside
-			The bigger slash deals double damage and inflicts [cebuff:CalamityMod/MarkedforDeath]
+			[c/9387ff:Summon up to one Voidgaze Eye and create a rune array around yourself]
+			[c/9387ff:Runes automatically fire homing Voisen Bolts at nearby enemies]
+			[c/9387ff:and also damage enemies they touch]
+			[c/9387ff:Holding the weapon gathers runes in front of you]
+			[c/9387ff:and rapidly fires a large number of Voisen Bolts toward the cursor]
+			[c/9387ff:Stopping use or using for over 6 seconds reverts runes]
+			[c/9387ff:and grants up to 36 seconds of cooldown based on use time]
+			[c/9387ff:During cooldown, runes gain 15% increased attack speed]
 			'''
 	}
 
