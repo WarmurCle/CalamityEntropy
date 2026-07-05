@@ -4978,10 +4978,10 @@ Projectiles: {
 	ZafkielProj.DisplayName: 刻刻帝
 	ApsychosTailShoot.DisplayName: 烬甲秽魔尾弹
 	EmberSwordHoldout.DisplayName: 灼烬巨剑
-	// tectonicShardHoming.DisplayName: tectonic Shard Homing
+	tectonicShardHoming.DisplayName: 地壳碎片
 	AshesSpirit.DisplayName: 灰烬之灵
 	AshesSpiritFireball.DisplayName: 灰烬火球
-	// tectonicShardAshesCore.DisplayName: tectonic Shard Ashes Core
+	tectonicShardAshesCore.DisplayName: 地壳碎片
 	ScorchingChakramThrown.DisplayName: 焦灼旋刃
 	ScorchingFireball.DisplayName: 焦灼火球
 	HellstoneMissileProj.DisplayName: 狱炎导弹
@@ -5020,14 +5020,13 @@ Projectiles: {
 	BuriedDot.DisplayName: 噬阳光点
 	BuriedShoot.DisplayName: 日陨激光
 	BuriedShoot2.DisplayName: 日陨激光
-	TectinicShardAshesCore.DisplayName: 板块碎片
-	TectinicShardHoming.DisplayName: 板块碎片
 	AcropolisTeslaBallWarn.DisplayName: 卫城机甲预警
 	VoidAnnihilateSpawner.DisplayName: 黯天飞刀
 	VoidAnnihilateCharge.DisplayName: 黯天飞刀蓄能
 	SilenceProj.DisplayName: 沉默
 	SilenceStealth.DisplayName: 赋能沉默
 	BuriedSunHoldout.DisplayName: 埋葬之阳
+	VoisenBullet.DisplayName: 窥虚冥弹
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5078,7 +5077,7 @@ Buffs: {
 	TwistedTwinBuff: {
 		DisplayName: 纠缠双子
 		Description: ""
-		// ItemTooltip: 20% increased damage
+		ItemTooltip: 20% 伤害
 	}
 
 	Rainstorm: {
@@ -5224,7 +5223,7 @@ Buffs: {
 	VoidVirus: {
 		DisplayName: 虚空病毒
 		Description: 你感染了虚空病毒
-		// ItemTooltip: Typeless - 240 DPS
+		ItemTooltip: 240 DPS
 	}
 
 	NyxolithrakenBuff: {
@@ -5311,7 +5310,7 @@ Buffs: {
 	WindPressure: {
 		DisplayName: 风压
 		Description: 你的武器上缠绕着旋风
-		// ItemTooltip: 3% increased damage and rogue attack speed
+		ItemTooltip: 每层增加3%盗贼伤害与攻速
 	}
 
 	PenMountBuff: {
@@ -5392,13 +5391,13 @@ Buffs: {
 	LifeOppress: {
 		DisplayName: 生命压制
 		Description: 你看见了你的死亡
-		// ItemTooltip: Typeless - 4500 DPS
+		ItemTooltip: 4500 DPS
 	}
 
 	MechanicalTrauma: {
 		DisplayName: 机械性创伤
 		Description: 你浑身疼痛不堪
-		// ItemTooltip: Typeless - 20 DPS
+		ItemTooltip: 20 DPS
 	}
 
 	IllusoryBlade: {
@@ -5424,7 +5423,7 @@ Buffs: {
 	BonePiercingToxin: {
 		DisplayName: 穿骨毒素
 		Description: 你感到钻心的疼痛
-		// ItemTooltip: Typeless - 24 DPS
+		ItemTooltip: 24 DPS
 	}
 
 	FlamingBlood: {
@@ -5458,38 +5457,38 @@ Buffs: {
 	}
 
 	CrystedgeWhipDebuff: {
-		// DisplayName: Crystedge Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.CrystedgeWhipDebuff.Description
+		DisplayName: 标记
+		Description: ""
 	}
 
 	DaylightWhipDebuff: {
-		// DisplayName: Daylight Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.DaylightWhipDebuff.Description
+		DisplayName: 标记
+		Description: ""
 	}
 
 	ForeseeWhipDebuff: {
-		// DisplayName: Foresee Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.ForeseeWhipDebuff.Description
+		DisplayName: 标记
+		Description: ""
 	}
 
 	LashingBramblerodWhipDebuff: {
-		// DisplayName: Lashing Bramblerod Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.LashingBramblerodWhipDebuff.Description
+		DisplayName: 标记
+		Description: ""
 	}
 
 	MindCorruptorWhipDebuff: {
-		// DisplayName: Mind Corruptor Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.MindCorruptorWhipDebuff.Description
+		DisplayName: 标记
+		Description: ""
 	}
 
 	SinewLashWhipDebuff: {
-		// DisplayName: Sinew Lash Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.SinewLashWhipDebuff.Description
+		DisplayName: 标记
+		Description: ""
 	}
 
 	WhipOfEvilKingWhipDebuff: {
-		// DisplayName: Whip of Evil King Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.WhipOfEvilKingWhipDebuff.Description
+		DisplayName: 标记
+		Description: ""
 	}
 }
 
@@ -5696,6 +5695,7 @@ Disabled: 已禁用
 CdMoonlight: 月光护盾
 CdDS: 神圣干预冷却
 CdAntivoid: 返虚冲刺冷却
+AbyssalStorm: 深渊狂舞冷却
 CruiserBestiary:
 	'''
 	来源于虚空的顶级猎杀者，与你所遭遇过的那位神明吞噬者有着相似的姿态。
@@ -5755,16 +5755,6 @@ Configs: {
 		ChainsawShakeScreen: {
 			Label: 电锯震动效果
 			Tooltip: ""
-		}
-
-		BindingOfIsaac_Rep_BossMusic: {
-			// Label: Binding of Isaac Rep Boss Music
-			// Tooltip: ""
-		}
-
-		RepBossMusicReplaceCalamityMusic: {
-			// Tooltip: ""
-			// Label: Rep Boss Music Replace Calamity Music
 		}
 
 		ItemAdditionalInfo: {

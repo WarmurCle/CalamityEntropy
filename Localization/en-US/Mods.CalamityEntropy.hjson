@@ -4905,10 +4905,8 @@ Projectiles: {
 	ZafkielProj.DisplayName: Zafkiel
 	ApsychosTailShoot.DisplayName: Apsychos Tail Shoot
 	EmberSwordHoldout.DisplayName: Ember Sword Holdout
-	tectonicShardHoming.DisplayName: tectonic Shard Homing
 	AshesSpirit.DisplayName: Ashes Spirit
 	AshesSpiritFireball.DisplayName: Ashes Spirit Fireball
-	tectonicShardAshesCore.DisplayName: tectonic Shard Ashes Core
 	ScorchingChakramThrown.DisplayName: Scorching Chakram Thrown
 	ScorchingFireball.DisplayName: Scorching Fireball
 	HellstoneMissileProj.DisplayName: Hellstone Missile Proj
@@ -4947,14 +4945,15 @@ Projectiles: {
 	BuriedDot.DisplayName: Buried Dot
 	BuriedShoot.DisplayName: Buried Shoot
 	BuriedShoot2.DisplayName: Buried Shoot2
-	TectinicShardAshesCore.DisplayName: Tectinic Shard Ashes Core
-	TectinicShardHoming.DisplayName: Tectinic Shard Homing
+	TectonicShardAshesCore.DisplayName: Tectonic Shard Ashes Core
+	TectonicShardHoming.DisplayName: Tectonic Shard Homing
 	AcropolisTeslaBallWarn.DisplayName: Acropolis Tesla Ball Warn
 	VoidAnnihilateSpawner.DisplayName: Void Annihilate Spawner
 	VoidAnnihilateCharge.DisplayName: Void Annihilate Charge
 	SilenceProj.DisplayName: Silence Proj
 	SilenceStealth.DisplayName: Silence Stealth
 	BuriedSunHoldout.DisplayName: Buried Sun Holdout
+	VoisenBullet.DisplayName: Voisen Bullet
 }
 
 LegendTooltip: - Legend -
@@ -5582,6 +5581,7 @@ Disabled: Disabled
 CdMoonlight: Moonlight Shield
 CdDS: Divine Shield Cooldown
 CdAntivoid: Antivoid Dash Cooldown
+AbyssalStorm: Abyssal Storm Cooldoawn
 CruiserBestiary:
 	'''
 	A supreme predator born from the void, bearing a resemblance to that Devourer of Gods you once encountered.
@@ -5641,16 +5641,6 @@ Configs: {
 		ChainsawShakeScreen: {
 			Label: Chainsaw Shake Screen
 			Tooltip: ""
-		}
-
-		BindingOfIsaac_Rep_BossMusic: {
-			Label: Binding of Isaac Rep Boss Music
-			Tooltip: ""
-		}
-
-		RepBossMusicReplaceCalamityMusic: {
-			Tooltip: ""
-			Label: Rep Boss Music Replace Calamity Music
 		}
 
 		ItemAdditionalInfo: {

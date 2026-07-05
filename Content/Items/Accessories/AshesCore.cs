@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public NPC target = null;
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/TectinicShardHoming");
+            Texture2D tex = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/TectonicShardHoming");
             UnifiedRandom rand = new UnifiedRandom(Projectile.Name.GetHashCode());
             for (int i = 0; i < 9; i++)
             {
@@ -112,7 +112,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                 {
                     Projectile.ai[0] = 30;
                     Vector2 shootPos = Projectile.Center + CEUtils.randomRot().ToRotationVector2() * vdist;
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), shootPos, (target.Center - shootPos).normalize() * 36, ModContent.ProjectileType<TectinicShardAshesCore>(), (int)player.GetDamage<SummonDamageClass>().ApplyTo(AshesCore.BaseDamage.ApplyAccArmorDamageBonus()), 5, player.whoAmI);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), shootPos, (target.Center - shootPos).normalize() * 36, ModContent.ProjectileType<TectonicShardAshesCore>(), (int)player.GetDamage<SummonDamageClass>().ApplyTo(AshesCore.BaseDamage.ApplyAccArmorDamageBonus()), 5, player.whoAmI);
                 }
             }
             else
@@ -137,9 +137,9 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
     }
     #region shoot
-    public class TectinicShardAshesCore : ModProjectile
+    public class TectonicShardAshesCore : ModProjectile
     {
-        public override string Texture => "CalamityEntropy/Content/Items/Weapons/TectinicShardHoming";
+        public override string Texture => "CalamityEntropy/Content/Items/Weapons/TectonicShardHoming";
         public List<Vector2> odp = new List<Vector2>();
         public List<float> odr = new List<float>();
         public override void SetStaticDefaults()

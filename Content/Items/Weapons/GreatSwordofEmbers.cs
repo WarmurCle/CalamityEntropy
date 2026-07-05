@@ -223,7 +223,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     NumHits = 0;
                     Breaked = 80 * Projectile.MaxUpdates;
                     swing = -1;
-                    int pt = ModContent.ProjectileType<TectinicShardHoming>();
+                    int pt = ModContent.ProjectileType<TectonicShardHoming>();
                     for (int i = 0; i < 6; i++)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(0, 100) * Projectile.scale, Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(16, 26) + CEUtils.randomPointInCircle(4), pt, Projectile.damage / 2, 4, Projectile.owner);
@@ -271,7 +271,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * (76 * Projectile.scale) * Projectile.scale, 40, DelegateMethods.CutTiles);
         }
     }
-    public class TectinicShardHoming : ModProjectile
+    public class TectonicShardHoming : ModProjectile
     {
         public List<Vector2> odp = new List<Vector2>();
         public List<float> odr = new List<float>();

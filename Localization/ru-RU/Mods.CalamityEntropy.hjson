@@ -4696,6 +4696,7 @@ Projectiles: {
 	// SilenceProj.DisplayName: Silence Proj
 	// SilenceStealth.DisplayName: Silence Stealth
 	// BuriedSunHoldout.DisplayName: Buried Sun Holdout
+	// VoisenBullet.DisplayName: Voisen Bullet
 }
 
 LegendTooltip: - Легенда -
@@ -5367,6 +5368,7 @@ Disabled: Выключенный
 CdMoonlight: Лунный Щит
 CdDS: Перезарядка Божественного Щита
 CdAntivoid: охлаждение с обратным спринтом
+AbyssalStorm: Буря в бездне
 CruiserBestiary:
 	'''
 	Верховный хищник, рожденный из пустоты, напоминающий того Пожирателя Богов, с которым ты когда-то сталкивался.
@@ -5426,16 +5428,6 @@ Configs: {
 		ChainsawShakeScreen: {
 			Label: Тряска камеры от бензопилы
 			Tooltip: ""
-		}
-
-		BindingOfIsaac_Rep_BossMusic: {
-			// Label: Binding of Isaac Rep Boss Music
-			// Tooltip: ""
-		}
-
-		RepBossMusicReplaceCalamityMusic: {
-			// Tooltip: ""
-			// Label: Rep Boss Music Replace Calamity Music
 		}
 
 		ItemAdditionalInfo: {

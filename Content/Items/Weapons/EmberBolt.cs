@@ -107,7 +107,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnKill(int timeLeft)
         {
-            int type = ModContent.ProjectileType<TectinicShardHoming>();
+            int type = ModContent.ProjectileType<TectonicShardHoming>();
             for (int i = 0; i < 4; i++)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * 16 * Main.rand.NextFloat(0.6f, 1f), type, Projectile.damage / 2, Projectile.knockBack, Projectile.owner).ToProj().DamageType = Projectile.DamageType;
