@@ -445,6 +445,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             return false;
         }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            EGlobalNPC.AddVoidTouch(target, 80, 10);
+        }
     }
 
     public class VoisenBullet : ModProjectile
@@ -500,6 +504,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            EGlobalNPC.AddVoidTouch(target, 80, 5);
             for (int i = 0; i < 6; i++)
             {
                 Dust dust = Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<SquashDust>(), -Projectile.velocity);
