@@ -5,6 +5,7 @@ using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Rarities;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -102,7 +103,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             if (Projectile.timeLeft == 16)
             {
                 Projectile.velocity = Projectile.velocity.normalize() * 22;
-                EParticle.spawnNew(new PortalParticle(), Projectile.Center + Projectile.velocity * 7, Vector2.Zero, new Color(120, 120, 255), 1.6f, 1, true, BlendState.Additive);
+                //PortalParticle Lifetime=-1永生,跟着射弹timeLeft死
+                PRTLoader.NewParticle<PRT_PortalParticle>(Projectile.Center + Projectile.velocity * 7, Vector2.Zero, new Color(120, 120, 255), 1.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, -1);
             }
             if (portalParticle)
             {
@@ -113,7 +115,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
 
                 portalParticle = false;
-                EParticle.spawnNew(new PortalParticle(), Projectile.Center, Vector2.Zero, new Color(120, 120, 255), 1.6f, 1, true, BlendState.Additive);
+                PRTLoader.NewParticle<PRT_PortalParticle>(Projectile.Center, Vector2.Zero, new Color(120, 120, 255), 1.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, -1);
             }
             Player player = Projectile.GetOwner();
             if (DashTime-- > 0 || Projectile.timeLeft <= 20)

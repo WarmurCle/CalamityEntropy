@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Projectiles;
+﻿using CalamityEntropy.Content.Particles.CalamityPorts;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Dusts;
@@ -6,7 +7,7 @@ using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Potions;
 using CalamityMod.Items.Weapons.Melee;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -196,8 +197,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 PositionInWorld = target.Center,
                 MovementVector = Vector2.Zero
             });
+            //GlowSparkCal命中扇形,CalamityPorts Configure不是统一五参
             for (int i = 0; i < 24; i++)
-                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, Projectile.velocity.normalize().RotatedByRandom(1.4f) * Main.rand.NextFloat(8f, 42f), false, 14, Main.rand.NextFloat(0.02f, 0.08f), Color.BlueViolet, new Vector2(0.4f, 1)));
+                //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
+                PRTLoader.NewParticle<PRT_GlowSparkCal>(target.Center, Projectile.velocity.normalize().RotatedByRandom(1.4f) * Main.rand.NextFloat(8f, 42f), Color.BlueViolet, Main.rand.NextFloat(0.02f, 0.08f)).Configure(false, 14, new Vector2(0.4f, 1));
         }
         public bool spawnProj = true;
         public override bool PreDraw(ref Color lightColor)

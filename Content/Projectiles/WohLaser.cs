@@ -1,7 +1,8 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Dusts;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
@@ -31,7 +32,12 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.rotation = Projectile.velocity.ToRotation();
             for (float i = 0; i < 2000; i += 100)
             {
-                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center - Projectile.GetOwner().velocity + Projectile.velocity.normalize() * (i + Main.rand.NextFloat(0, 200)), Projectile.velocity.normalize() * 26 * Main.rand.NextFloat() + CEUtils.randomPointInCircle(1) + Projectile.GetOwner().velocity, Color.Lerp(Color.DeepSkyBlue, Color.DarkBlue, Main.rand.NextFloat()), 12, Main.rand.NextFloat(1.8f, 2f) * Projectile.ai[1], 0.3f, Main.rand.NextFloat(-0.1f, 0.1f), false), false, CalamityMod.Enums.GeneralDrawLayer.BeforeProjectiles);
+                //HeavySmokeCal Configure是Calamity原构造顺序,跟PRT/EParticle统一尾参不是一回事
+                PRTLoader.NewParticle<PRT_HeavySmokeCal>(
+                    Projectile.Center - Projectile.GetOwner().velocity + Projectile.velocity.normalize() * (i + Main.rand.NextFloat(0, 200)),
+                    Projectile.velocity.normalize() * 26 * Main.rand.NextFloat() + CEUtils.randomPointInCircle(1) + Projectile.GetOwner().velocity,
+                    Color.Lerp(Color.DeepSkyBlue, Color.DarkBlue, Main.rand.NextFloat()),
+                    Main.rand.NextFloat(1.8f, 2f) * Projectile.ai[1]).Configure(0.3f, 12, Main.rand.NextFloat(-0.1f, 0.1f), false);
             }
 
             if (Projectile.ai[0] > 4)
@@ -73,15 +79,15 @@ namespace CalamityEntropy.Content.Projectiles
                 Color sparkColor2 = Color.DarkBlue;
 
                 float velc = 1f;
-                LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.Purple : Color.Purple);
-                GeneralParticleHandler.SpawnParticle(spark);
+                //跟AltSpark成对出现时寿命/速度系数是旧代码原值
+                PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * velc, Main.rand.NextBool() ? Color.Purple : Color.Purple, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));
 
             }
             for (int i = 0; i < 29; i++)
             {
                 Dust dust = Dust.NewDustPerfect(Projectile.Center + Projectile.rotation.ToRotationVector2() * CEUtils.getDistance(target.Center, Projectile.Center), ModContent.DustType<SquashDust>(), -Projectile.velocity);
                 dust.scale = Main.rand.NextFloat(3f, 3.5f);
-                dust.velocity = 
+                dust.velocity =
                     Projectile.velocity.normalize().RotatedByRandom(0.4f) * Main.rand.NextFloat(8, 36);
                 dust.noGravity = true;
                 dust.color = Color.LightBlue;

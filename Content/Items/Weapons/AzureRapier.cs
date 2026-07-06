@@ -1,14 +1,14 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Cooldowns;
-using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -230,7 +230,11 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if (counter % 3 == 0)
                 {
                     Vector2 spawnPos = Projectile.Center + new Vector2(Main.rand.Next(160, 240) * (Main.rand.NextBool() ? 1 : -1), Main.rand.Next(-140, 140));
-                    EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White, widthMult = 0.8f }, spawnPos, Vector2.Zero, Color.Aqua, 300, 1, true, BlendState.Additive, (Projectile.Center + new Vector2(0, spawnPos.Y - Projectile.Center.Y + Main.rand.NextFloat(-60, 60)) - spawnPos).ToRotation(), 16);
+                    //PRT_DOracleSlash Configure传NonPremultipliedBlend,跟Oracle系一致
+                    var slash = PRTLoader.NewParticle<PRT_DOracleSlash>(spawnPos, Vector2.Zero, Color.Aqua, 300);
+                    slash.centerColor = Color.White;
+                    slash.widthMult = 0.8f;
+                    slash.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, (Projectile.Center + new Vector2(0, spawnPos.Y - Projectile.Center.Y + Main.rand.NextFloat(-60, 60)) - spawnPos).ToRotation(), 16);
                     CEUtils.PlaySound("SwiftSlice", Main.rand.NextFloat(1.4f, 2f), Projectile.Center);
                 }
                 player.Entropy().noItemTime = 4;
@@ -276,8 +280,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 for (int i = 0; i < 6; i++)
                 {
-                    GeneralParticleHandler.SpawnParticle(new AltSparkParticle(Projectile.Center, player.velocity + Projectile.rotation.ToRotationVector2().RotatedByRandom(0.1f) * Main.rand.NextFloat(16, 28), false, 32, Main.rand.NextFloat(1, 1.4f), new Color(240, 240, 255)));
-                    GeneralParticleHandler.SpawnParticle(new AltSparkParticle(Projectile.Center, player.velocity + Projectile.rotation.ToRotationVector2().RotatedByRandom(0.1f) * -Main.rand.NextFloat(16, 28), false, 32, Main.rand.NextFloat(1, 1.4f), new Color(240, 240, 255)));
+                    //光效走AdditiveBlend,Configure尾参lifetime对齐旧timeLeft
+                    PRTLoader.NewParticle<PRT_AltSpark>(Projectile.Center, player.velocity + Projectile.rotation.ToRotationVector2().RotatedByRandom(0.1f) * Main.rand.NextFloat(16, 28), new Color(240, 240, 255), Main.rand.NextFloat(1, 1.4f)).Configure(false, 32);
+                    PRTLoader.NewParticle<PRT_AltSpark>(Projectile.Center, player.velocity + Projectile.rotation.ToRotationVector2().RotatedByRandom(0.1f) * -Main.rand.NextFloat(16, 28), new Color(240, 240, 255), Main.rand.NextFloat(1, 1.4f)).Configure(false, 32);
                 }
             }
             player.Entropy().AzureRapierBlock = 2;

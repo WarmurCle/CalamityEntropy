@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.DamageClasses;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
@@ -18,12 +18,11 @@ using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.NPCs.VoidInvasion;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Pets;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.DataStructures;
-using CalamityMod.Events;
 using CalamityMod.NPCs;
 using CalamityMod.NPCs.Abyss;
 using CalamityMod.NPCs.AstrumDeus;
@@ -43,9 +42,9 @@ using CalamityMod.NPCs.SunkenSea;
 using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.NPCs.TownNPCs;
 using CalamityMod.NPCs.Yharon;
-using CalamityMod.Particles;
 using CalamityMod.Systems.Collections;
 using CalamityMod.UI;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ReLogic.Graphics;
@@ -514,10 +513,12 @@ namespace CalamityEntropy.Common
                 int c = 16 - npc.Entropy().EclipsedImprintLevel;
                 if (counter % c == 0)
                 {
-                    AbyssalLine p = new AbyssalLine() { lx = 1.2f, xadd = 0.32f };
-                    p.spawnColor = Color.Gold;
-                    p.endColor = Color.DarkGoldenrod;
-                    EParticle.NewParticle(p, npc.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, CEUtils.randomRot());
+                    //PRT_AbyssalLine日蚀印记光环,lx/xadd/spawnColor spawn后直赋
+                    var __prt = PRTLoader.NewParticle<PRT_AbyssalLine>(npc.Center, Vector2.Zero, Color.White, 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot());
+                    __prt.lx = 1.2f;
+                    __prt.xadd = 0.32f;
+                    __prt.spawnColor = Color.Gold;
+                    __prt.endColor = Color.DarkGoldenrod;
 
                 }
             }
@@ -607,13 +608,9 @@ namespace CalamityEntropy.Common
                 {
                     for (int i = 0; i < 1; i++)
                     {
-                        Content.Particles.Particle p = new Content.Particles.Particle();
-                        p.position = npc.Center;
-                        p.alpha = 0.5f;
-
                         var rd = Main.rand;
-                        p.velocity = new Vector2((float)((rd.NextDouble() - 0.5) * 6), (float)((rd.NextDouble() - 0.5) * 6));
-                        VoidParticles.particles.Add(p);
+                        var p = PRTLoader.NewParticle<PRT_Void>(npc.Center, new Vector2((float)((rd.NextDouble() - 0.5) * 6), (float)((rd.NextDouble() - 0.5) * 6)), Color.White, 1f);
+                        p.Opacity = 0.5f;
                     }
                 }
                 if (Main.GameUpdateCount % 20 == 0 && !npc.dontTakeDamage)
@@ -1201,9 +1198,9 @@ namespace CalamityEntropy.Common
                         SoundEngine.PlaySound(PerforatorHive.DeathSound with { Pitch = 0.4f }, npc.Center);
                         for (int i = 0; i < 90; i++)
                         {
-                            GeneralParticleHandler.SpawnParticle(new BloodParticle(npc.Center, CEUtils.randomPointInCircle(22), 16, Main.rand.NextFloat(0.6f, 1), Color.Red));
+                            PRTLoader.NewParticle<PRT_BloodCal>(npc.Center, CEUtils.randomPointInCircle(22), Color.Red, Main.rand.NextFloat(0.6f, 1)).Configure(16);
                         }
-                        GeneralParticleHandler.SpawnParticle(new CustomPulse(npc.Center, Vector2.Zero, new Color(255, 24, 24), "CalamityMod/Particles/FlameExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.01f, 0.15f, 28));
+                        PRTLoader.NewParticle<PRT_CustomPulse>(npc.Center, Vector2.Zero, new Color(255, 24, 24), 0.01f).Configure("CalamityMod/Particles/FlameExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.01f, 0.15f, 28);
                     }
                 }
             }

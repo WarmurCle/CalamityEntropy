@@ -1,6 +1,7 @@
-﻿using CalamityMod;
+using CalamityEntropy.Content.Particles.CalamityPorts;
+using CalamityMod;
 using CalamityMod.Graphics.Primitives;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
@@ -170,14 +171,12 @@ namespace CalamityEntropy.Content.Projectiles
                 float velc = Projectile.Calamity().stealthStrike ? 1.5f : 0.9f;
                 if (Main.rand.NextBool())
                 {
-                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    //PRT_AltSpark跟LineCal随机混用,旧Calamity spark/Lines二选一
+                    PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * velc, sparkColor2, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));
                 }
                 else
                 {
-                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.GreenYellow
-                        : Color.LightYellow);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * velc, Main.rand.NextBool() ? Color.GreenYellow : Color.LightYellow, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));
                 }
             }
         }
@@ -195,14 +194,12 @@ namespace CalamityEntropy.Content.Projectiles
                 float velc = Projectile.Calamity().stealthStrike ? 1.5f : 0.9f;
                 if (Main.rand.NextBool())
                 {
-                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    //AltSpark Configure(bool,int)是Ports签名,不是opacity/glow/mode那套
+                    PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * velc, sparkColor2, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));
                 }
                 else
                 {
-                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.GreenYellow
-                        : Color.LightYellow);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * velc, Main.rand.NextBool() ? Color.GreenYellow : Color.LightYellow, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));
                 }
             }
             if (Projectile.owner == Main.myPlayer && beam && Projectile.Calamity().stealthStrike)

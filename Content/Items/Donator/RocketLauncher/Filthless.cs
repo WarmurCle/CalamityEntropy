@@ -1,11 +1,11 @@
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items.Materials;
-using CalamityMod.Particles;
-using Microsoft.Xna.Framework.Graphics;
+using InnoVault.PRT;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -170,8 +170,17 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             {
                 for (int i = 0; i < 18; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 9, Lifetime = 9, scaleEnd = 0 }, Projectile.Center + Projectile.velocity * i / 18f, CEUtils.randomPointInCircle(0.5f), new Color(100, 10, 100), Main.rand.NextFloat(0.02f, 0.03f), 0.9f, true, BlendState.Additive, CEUtils.randomRot());
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 9, Lifetime = 9, scaleEnd = 0 }, Projectile.Center + Projectile.velocity * i / 18f, CEUtils.randomPointInCircle(0.5f), Color.BlueViolet, Main.rand.NextFloat(0.01f, 0.018f), 0.9f, true, BlendState.Additive, CEUtils.randomRot());
+                    //PRT_Smoke timeleftmax/vd字段spawn后直赋
+                    var smoke = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center + Projectile.velocity * i / 18f, CEUtils.randomPointInCircle(0.5f), new Color(100, 10, 100), Main.rand.NextFloat(0.02f, 0.03f));
+                    smoke.timeleftmax = 9;
+                    smoke.Lifetime = 9;
+                    smoke.scaleEnd = 0;
+                    smoke.Configure(0.9f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 9);
+                    var smoke2 = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center + Projectile.velocity * i / 18f, CEUtils.randomPointInCircle(0.5f), Color.BlueViolet, Main.rand.NextFloat(0.01f, 0.018f));
+                    smoke2.timeleftmax = 9;
+                    smoke2.Lifetime = 9;
+                    smoke2.scaleEnd = 0;
+                    smoke2.Configure(0.9f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 9);
                 }
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
@@ -206,8 +215,14 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             {
                 for (int i = 0; i < 6; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16 }, Projectile.Center - Projectile.velocity * i / 6f, CEUtils.randomPointInCircle(0.5f), Color.Violet, Main.rand.NextFloat(0.04f, 0.06f), 0.9f, true, BlendState.Additive, CEUtils.randomRot());
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16 }, Projectile.Center - Projectile.velocity * i / 6f, CEUtils.randomPointInCircle(0.5f), new Color(255, 120, 255), Main.rand.NextFloat(0.012f, 0.02f), 0.9f, true, BlendState.Additive, CEUtils.randomRot());
+                    var smoke = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center - Projectile.velocity * i / 6f, CEUtils.randomPointInCircle(0.5f), Color.Violet, Main.rand.NextFloat(0.04f, 0.06f));
+                    smoke.timeleftmax = 16;
+                    smoke.Lifetime = 16;
+                    smoke.Configure(0.9f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 16);
+                    var smoke2 = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center - Projectile.velocity * i / 6f, CEUtils.randomPointInCircle(0.5f), new Color(255, 120, 255), Main.rand.NextFloat(0.012f, 0.02f));
+                    smoke2.timeleftmax = 16;
+                    smoke2.Lifetime = 16;
+                    smoke2.Configure(0.9f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 16);
                 }
             }
             if (Projectile.velocity.Length() < 24)
@@ -225,10 +240,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public override void OnKill(int timeLeft)
         {
             Projectile.GetOwner().Heal(5);
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Violet * 1.2f, "CalamityMod/Particles/ShineExplosion2", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.12f * Projectile.scale, 24));
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Violet * 1.2f, "CalamityMod/Particles/ShineExplosion1", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.12f * Projectile.scale, 24));
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Violet * 1.2f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.12f * Projectile.scale, 24));
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Violet * 1.4f, "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.123f * Projectile.scale, 24));
+            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Color.Violet * 1.2f, 0.005f).Configure("CalamityMod/Particles/ShineExplosion2", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.12f * Projectile.scale, 24);
+            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Color.Violet * 1.2f, 0.005f).Configure("CalamityMod/Particles/ShineExplosion1", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.12f * Projectile.scale, 24);
+            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Color.Violet * 1.2f, 0.005f).Configure("CalamityMod/Particles/ShatteredExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.12f * Projectile.scale, 24);
+            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Color.Violet * 1.4f, 0.005f).Configure("CalamityMod/Particles/SoftRoundExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, 0.123f * Projectile.scale, 24);
 
             CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage * 5, 250, Projectile.DamageType);
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);

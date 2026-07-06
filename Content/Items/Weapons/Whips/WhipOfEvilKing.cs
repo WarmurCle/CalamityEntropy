@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items.Materials;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -105,8 +106,20 @@ namespace CalamityEntropy.Content.Items.Weapons.Whips
             Projectile.timeLeft += 20;
             if (Projectile.timeLeft > 80)
                 Projectile.timeLeft = 80;
-            EParticle.spawnNew(new AbyssalLine() { lx = 0.8f, xadd = 0.62f, spawnColor = Color.White, endColor = Color.Black }, Projectile.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, 0, 32);
-            EParticle.spawnNew(new AbyssalLine() { lx = 0.8f, xadd = 0.62f, spawnColor = Color.White, endColor = Color.Black }, Projectile.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, MathHelper.PiOver2, 32);
+            //AbyssalLine/Abyssal有的走EffectLoader RT合成,Configure只管常规参数
+            var p = PRTLoader.NewParticle<PRT_AbyssalLine>(Projectile.Center, Vector2.Zero, Color.White, 1);
+            p.lx = 0.8f;
+            p.xadd = 0.62f;
+            p.spawnColor = Color.White;
+            p.endColor = Color.Black;
+            p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 32);
+            //第二道AbyssalLine endColor字段Configure前赋
+            var p2 = PRTLoader.NewParticle<PRT_AbyssalLine>(Projectile.Center, Vector2.Zero, Color.White, 1);
+            p2.lx = 0.8f;
+            p2.xadd = 0.62f;
+            p2.spawnColor = Color.White;
+            p2.endColor = Color.Black;
+            p2.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, MathHelper.PiOver2, 32);
             Projectile.ai[0] += 0.16f;
         }
     }

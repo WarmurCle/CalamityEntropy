@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Items.Donator;
 using CalamityMod;
 using CalamityMod.Items.Materials;
 using System;

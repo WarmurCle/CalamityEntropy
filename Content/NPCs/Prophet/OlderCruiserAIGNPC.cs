@@ -1,9 +1,10 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.Prophet;
 using CalamityMod;
 using CalamityMod.World;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -87,42 +88,27 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                     {
                         NPC.life = NPC.lifeMax / 2 - 1;
                     }
-                    Particle p2 = new Particle();
-                    p2.position = NPC.Center - Utils.ToRotationVector2(NPC.rotation) * -14f;
-                    p2.alpha = 0.7f;
-                    new Random();
-                    p2.velocity = Utils.ToRotationVector2(NPC.rotation) * -3f;
-                    VoidParticles.particles.Add(p2);
-                    p2 = new Particle();
-                    p2.position = NPC.Center - Utils.ToRotationVector2(NPC.rotation) * -14f;
-                    p2.alpha = 0.7f;
-                    p2.velocity = Utils.RotatedBy(Utils.ToRotationVector2(NPC.rotation), (double)MathHelper.ToRadians(70f), default(Vector2)) * -3f;
-                    VoidParticles.particles.Add(p2);
-                    p2 = new Particle();
-                    p2.position = NPC.Center - Utils.ToRotationVector2(NPC.rotation) * -14f;
-                    p2.alpha = 0.7f;
-                    p2.velocity = Utils.RotatedBy(Utils.ToRotationVector2(NPC.rotation), (double)MathHelper.ToRadians(-70f), default(Vector2)) * -3f;
-                    VoidParticles.particles.Add(p2);
+                    //P2转场120tick口部3向Void,Opacity 0.7,跟CruiserHead尾焰同款
+                    var spawnPos = NPC.Center - Utils.ToRotationVector2(NPC.rotation) * -14f;
+                    //PRT_Void Opacity/vd spawn后赋,旧VoidParticles原值
+                    var p2 = PRTLoader.NewParticle<PRT_Void>(spawnPos, Utils.ToRotationVector2(NPC.rotation) * -3f, Color.White, 1f);
+                    p2.Opacity = 0.7f;
+                    p2 = PRTLoader.NewParticle<PRT_Void>(spawnPos, Utils.RotatedBy(Utils.ToRotationVector2(NPC.rotation), (double)MathHelper.ToRadians(70f), default(Vector2)) * -3f, Color.White, 1f);
+                    p2.Opacity = 0.7f;
+                    p2 = PRTLoader.NewParticle<PRT_Void>(spawnPos, Utils.RotatedBy(Utils.ToRotationVector2(NPC.rotation), (double)MathHelper.ToRadians(-70f), default(Vector2)) * -3f, Color.White, 1f);
+                    p2.Opacity = 0.7f;
                 }
             }
             else if (this.aitype == 1f || this.aitype == 2f)
             {
-                Particle p3 = new Particle();
-                p3.position = NPC.Center - Utils.ToRotationVector2(NPC.rotation) * -14f;
-                p3.alpha = 0.7f;
-                new Random();
-                p3.velocity = Utils.ToRotationVector2(NPC.rotation) * -3f;
-                VoidParticles.particles.Add(p3);
-                p3 = new Particle();
-                p3.position = NPC.Center - Utils.ToRotationVector2(NPC.rotation) * -14f;
-                p3.alpha = 0.7f;
-                p3.velocity = Utils.RotatedBy(Utils.ToRotationVector2(NPC.rotation), (double)MathHelper.ToRadians(70f), default(Vector2)) * -3f;
-                VoidParticles.particles.Add(p3);
-                p3 = new Particle();
-                p3.position = NPC.Center - Utils.ToRotationVector2(NPC.rotation) * -14f;
-                p3.alpha = 0.7f;
-                p3.velocity = Utils.RotatedBy(Utils.ToRotationVector2(NPC.rotation), (double)MathHelper.ToRadians(-70f), default(Vector2)) * -3f;
-                VoidParticles.particles.Add(p3);
+                //aitype1/2待机也吐Void,没phaseTrans门槛,密度比P2转场低
+                var spawnPos = NPC.Center - Utils.ToRotationVector2(NPC.rotation) * -14f;
+                var p3 = PRTLoader.NewParticle<PRT_Void>(spawnPos, Utils.ToRotationVector2(NPC.rotation) * -3f, Color.White, 1f);
+                p3.Opacity = 0.7f;
+                p3 = PRTLoader.NewParticle<PRT_Void>(spawnPos, Utils.RotatedBy(Utils.ToRotationVector2(NPC.rotation), (double)MathHelper.ToRadians(70f), default(Vector2)) * -3f, Color.White, 1f);
+                p3.Opacity = 0.7f;
+                p3 = PRTLoader.NewParticle<PRT_Void>(spawnPos, Utils.RotatedBy(Utils.ToRotationVector2(NPC.rotation), (double)MathHelper.ToRadians(-70f), default(Vector2)) * -3f, Color.White, 1f);
+                p3.Opacity = 0.7f;
             }
             if (this.phase == 1 && this.aitype != 2f && NPC.life < NPC.lifeMax / 2)
             {
@@ -344,14 +330,12 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                                 targetPlayerr.Center = NPC.Center + Utils.ToRotationVector2(NPC.rotation) * 120f;
                                 CalamityUtils.Calamity(targetPlayerr).GeneralScreenShakePower = Utils.Remap(Main.LocalPlayer.Distance(NPC.Center), 1800f, 1000f, 0f, 4.5f, true) * 4f;
                                 this.mouthRot = -40f;
+                                //咬杀10颗Void,Random()每只NPC seed不一致是故意的
                                 for (int i3 = 0; i3 < 10; i3++)
                                 {
-                                    Particle p6 = new Particle();
-                                    p6.position = NPC.Center;
-                                    p6.alpha = 1.4f;
                                     Random r2 = new Random();
-                                    p6.velocity = new Vector2((float)((r2.NextDouble() - 0.5) * 16.0), (float)((r2.NextDouble() - 0.5) * 16.0));
-                                    VoidParticles.particles.Add(p6);
+                                    var p6 = PRTLoader.NewParticle<PRT_Void>(NPC.Center, new Vector2((float)((r2.NextDouble() - 0.5) * 16.0), (float)((r2.NextDouble() - 0.5) * 16.0)), Color.White, 1f);
+                                    p6.Opacity = 1.4f;
                                 }
                             }
                         }
@@ -793,7 +777,6 @@ namespace CalamityEntropy.Content.NPCs.Prophet
 
         public int rotDist = 900;
 
-        public Texture2D disTex = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/cruiserSpace", ReLogic.Content.AssetRequestMode.AsyncLoad).Value;
 
         public Vector2 rotPos = Vector2.Zero;
 

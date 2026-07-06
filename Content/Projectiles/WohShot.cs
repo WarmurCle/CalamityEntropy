@@ -1,13 +1,13 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles
@@ -94,8 +94,8 @@ namespace CalamityEntropy.Content.Projectiles
 
                     float velc = 0.6f;
 
-                    LineParticle spark = new LineParticle(Projectile.Center + Projectile.velocity * 1.2f, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.AliceBlue : Color.Purple);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    //PRT_LineCal Configure(false,lifetime)对齐Calamity LineParticle
+                    PRTLoader.NewParticle<PRT_LineCal>(Projectile.Center + Projectile.velocity * 1.2f, sparkVelocity2 * velc, Main.rand.NextBool() ? Color.AliceBlue : Color.Purple, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));  //跟AltSpark成对出现时寿命/速度系数是旧代码原值
 
                 }
                 EGlobalNPC.AddVoidTouch(target, 30, 1);

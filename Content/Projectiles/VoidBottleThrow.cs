@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Dusts;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
@@ -54,13 +55,11 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 for (int i = 0; i < 9; i++)
                 {
-                    Particle p = new Particle();
-                    p.position = Projectile.Center;
-                    p.alpha = Main.rand.NextFloat(0.8f, 1.6f);
+                    //PRT_Void字段直赋对齐旧VoidParticles,Opacity/ad/multShrink Configure管不了
+                    var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center, CEUtils.randomPointInCircle(8), Color.White, 1f);
+                    p.Opacity = Main.rand.NextFloat(0.8f, 1.6f);
                     p.shape = 4;
                     p.vd = 0.97f;
-                    p.velocity = CEUtils.randomPointInCircle(8);
-                    VoidParticles.particles.Add(p);
                 }
 
             }
@@ -68,12 +67,10 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    Particle p = new Particle();
-                    p.position = Projectile.Center;
-                    p.alpha = Main.rand.NextFloat(0.8f, 1.6f);
+                    //每帧拖尾Void,旧spawnNew也是AI里无脑刷
+                    var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center, CEUtils.randomPointInCircle(8), Color.White, 1f);
+                    p.Opacity = Main.rand.NextFloat(0.8f, 1.6f);
                     p.vd = 0.97f;
-                    p.velocity = CEUtils.randomPointInCircle(8);
-                    VoidParticles.particles.Add(p);
                 }
             }
             if (Projectile.ai[0] == 280)

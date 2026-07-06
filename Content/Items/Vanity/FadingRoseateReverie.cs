@@ -1,8 +1,8 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Rarities;
-using Microsoft.Xna.Framework.Graphics;
+using InnoVault.PRT;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -80,7 +80,9 @@ namespace CalamityEntropy.Content.Items.Vanity
                 int t = Main.rand.Next(1, Main.rand.NextBool(12) ? 6 : 2);
                 for (int i = 0; i < t; i++)
                 {
-                    EParticle.spawnNew(new SakuraPetalsParticle(), pos, vel, Color.Pink, Main.rand.NextFloat(0.35f, 0.68f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
+                    //PRT_SakuraPetalsParticle AlphaBlend+rotation走Configure
+                    PRTLoader.NewParticle<PRT_SakuraPetalsParticle>(pos, vel, Color.Pink, Main.rand.NextFloat(0.35f, 0.68f))
+                        .Configure(1, true, PRTDrawModeEnum.AlphaBlend, CEUtils.randomRot());
                     pos += CEUtils.randomPointInCircle(100);
                     vel += CEUtils.randomPointInCircle(0.4f);
                 }

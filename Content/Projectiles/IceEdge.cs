@@ -1,6 +1,7 @@
-﻿using CalamityMod.Buffs.StatBuffs;
+using CalamityEntropy.Content.Particles.CalamityPorts;
+using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -93,11 +94,10 @@ namespace CalamityEntropy.Content.Projectiles
             target.AddBuff(BuffID.Frostburn, 1080);
             Main.player[Projectile.owner].AddBuff(ModContent.BuffType<CosmicFreeze>(), 600);
             SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode);
-            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center + Projectile.velocity * 3, Vector2.Zero, new Color(170, 170, 255), new Vector2(2f, 2f), 0, 0.1f, 0.5f, 20);
-            GeneralParticleHandler.SpawnParticle(pulse);
+            //PRT_DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
+            PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center + Projectile.velocity * 3, Vector2.Zero, new Color(170, 170, 255), 0.1f).Configure(new Vector2(2f, 2f), 0, 0.5f, 20);
 
-            CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center + Projectile.velocity * 6, Vector2.Zero, new Color(140, 140, 255), Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.36f, 16);
-            GeneralParticleHandler.SpawnParticle(explosion2);
+            PRTLoader.NewParticle<PRT_DetailedExplosionCal>(Projectile.Center + Projectile.velocity * 6, Vector2.Zero, new Color(140, 140, 255), 0f).Configure(Vector2.One, Main.rand.NextFloat(-5, 5), 0.36f, 16);
 
             float sparkCount = 14;
             for (int i = 0; i < sparkCount; i++)
@@ -106,8 +106,8 @@ namespace CalamityEntropy.Content.Projectiles
                 int sparkLifetime2 = Main.rand.Next(26, 35);
                 float sparkScale2 = Main.rand.NextFloat(1.2f, 1.6f);
                 Color sparkColor2 = Color.Lerp(Color.SkyBlue, Color.LightSkyBlue, Main.rand.NextFloat(0, 1));
-                LineParticle spark = new LineParticle(Projectile.Center + Projectile.velocity * 3, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-                GeneralParticleHandler.SpawnParticle(spark);
+                //跟AltSpark成对出现时寿命/速度系数是旧代码原值
+                PRTLoader.NewParticle<PRT_LineCal>(Projectile.Center + Projectile.velocity * 3, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
 
             }
         }

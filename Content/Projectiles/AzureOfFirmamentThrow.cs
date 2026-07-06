@@ -1,5 +1,6 @@
-﻿using CalamityMod;
-using CalamityMod.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
+using CalamityMod;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
@@ -69,8 +70,8 @@ namespace CalamityEntropy.Content.Projectiles
                 for (float i = 0; i <= 1; i += 0.1f)
                 {
                     Vector2 velocity1 = CEUtils.randomPointInCircle(4);
-                    Particle sparkle1 = new CritSpark(Projectile.Center - Projectile.velocity * i + Projectile.velocity * 1.4f, velocity1, Color.White * 0.6f, Color.SkyBlue, 0.5f, 8, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
-                    GeneralParticleHandler.SpawnParticle(sparkle1);
+                    //PRT_CritSparkCal Calamity crit spark,Configure Ports签名
+                    PRTLoader.NewParticle<PRT_CritSparkCal>(Projectile.Center - Projectile.velocity * i + Projectile.velocity * 1.4f, velocity1, Color.White * 0.6f, 0.5f).Configure(Color.SkyBlue, 8, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
                 }
                 odp.Add(Projectile.Center + Projectile.rotation.ToRotationVector2() * 76);
                 odr.Add(Projectile.rotation);
@@ -165,8 +166,8 @@ namespace CalamityEntropy.Content.Projectiles
             for (int i = 0; i < 18; i++)
             {
                 Vector2 velocity = ((MathHelper.TwoPi * i / 18) - (MathHelper.Pi / 16f)).ToRotationVector2() * 18f;
-                Particle sparkle = new CritSpark(target.Center, velocity, Color.White, Color.SkyBlue, 1.4f, 36, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
-                GeneralParticleHandler.SpawnParticle(sparkle);
+                //CritSparkCal Calamity crit spark,Configure Ports签名
+                PRTLoader.NewParticle<PRT_CritSparkCal>(target.Center, velocity, Color.White, 1.4f).Configure(Color.SkyBlue, 36, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
             }
             SoundEngine.PlaySound(new("CalamityMod/Sounds/NPCKilled/DevourerSegmentBreak1") { Volume = 0.5f }, Projectile.Center);
             if (sp)

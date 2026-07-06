@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityMod.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -56,7 +57,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int counter = 0;
         public bool std = false;
         public int homingTime = 60;
-        public StarTrailParticle spt = null;
+        public PRT_StarTrailParticle spt = null;
         public override bool? CanHitNPC(NPC target)
         {
             if (Projectile.ai[0] < 9)
@@ -69,8 +70,9 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (spt == null)
             {
-                spt = new StarTrailParticle() { maxLength = 18 };
-                EParticle.NewParticle(spt, Projectile.Center, Vector2.Zero, Color.OrangeRed, 1f, 1, true, BlendState.Additive, 0);
+                //StarTrailParticle星尘拖尾,旧EParticle StarTrail
+                spt = PRTLoader.NewParticle<PRT_StarTrailParticle>(Projectile.Center, Vector2.Zero, Color.OrangeRed, 1f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
+                spt.maxLength = 18;
             }
             spt.Velocity = Projectile.velocity * 0.2f;
             spt.Lifetime = 30;
@@ -107,8 +109,8 @@ namespace CalamityEntropy.Content.Projectiles
         {
             Projectile.ai[2] = 1;
             Projectile.netUpdate = true;
-            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, Color.OrangeRed, new Vector2(2f, 2f), 0, 0.02f, 0.6f * 0.4f, 18);
-            GeneralParticleHandler.SpawnParticle(pulse);
+            //DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
+            PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.02f).Configure(new Vector2(2f, 2f), 0, 0.6f * 0.4f, 18);
             CEUtils.PlaySound(Main.rand.NextBool() ? "scholarStaffImpact" : "scholarStaffImpact2", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center);
         }
 

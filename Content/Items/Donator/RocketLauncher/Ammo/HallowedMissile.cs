@@ -1,8 +1,5 @@
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles;
-using CalamityMod.Particles;
-using InfernumMode.Common.Graphics.Particles;
-using Microsoft.Xna.Framework.Graphics;
+using CalamityEntropy.Content.Particles.CalamityPorts;
+using InnoVault.PRT;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -57,13 +54,14 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
         {
             CEUtils.PlaySound("metalhit", 0.4f, Projectile.Center, volume: 0.16f);
             CEUtils.PlaySound("explosionbig", 1.1f, Projectile.Center, volume: 0.98f);
-            
+
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             float scale = ExplodeRadius / 40f;
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Gold * 1.2f, "CalamityMod/Particles/DetailedExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.2f, 22));
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Gold * 1.2f, "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.047f, 24));
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Gold, "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 18));
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Gold * 0.8f, "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.02f, 15));
+            //CustomPulse贴图路径现传,CalamityPorts走PRTPathTextures
+            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Color.Gold * 1.2f, 0.005f).Configure("CalamityMod/Particles/DetailedExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.2f, 22);
+            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Color.Gold * 1.2f, 0.005f).Configure("CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.047f, 24);
+            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Color.Gold, 0.005f).Configure("CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 18);
+            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Color.Gold * 0.8f, 0.005f).Configure("CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.02f, 15);
             Vector2 BurstFXDirection = new Vector2(0, 6 * 0.16f).RotatedBy(MathHelper.PiOver4);
             for (int i = 0; i < 16; i++)
             {
@@ -75,8 +73,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
                     _ => Color.LawnGreen,
                 };
 
-                GlowSparkParticle spark = new GlowSparkParticle(Projectile.Center, (BurstFXDirection) * (i + 1f), false, 12, (0.25f - i * 0.02f) * 0.3f, randomColor, new Vector2(2.7f, 1.3f), true);
-                GeneralParticleHandler.SpawnParticle(spark);
+                PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center, (BurstFXDirection) * (i + 1f), randomColor, (0.25f - i * 0.02f) * 0.3f).Configure(false, 12, new Vector2(2.7f, 1.3f), true);
             }
             for (int k = 0; k < 25; k++)
             {
@@ -88,8 +85,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
                     _ => Color.LawnGreen,
                 };
 
-                GlowSparkParticle spark2 = new GlowSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(30 * 0.16f, 30 * 0.16f), BurstFXDirection * Main.rand.NextFloat(1f, 20.5f), false, Main.rand.Next(40, 50 + 1), Main.rand.NextFloat(0.01f, 0.02f), randomColor, new Vector2(0.3f, 1.6f));
-                GeneralParticleHandler.SpawnParticle(spark2);
+                PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + Main.rand.NextVector2Circular(30 * 0.16f, 30 * 0.16f), BurstFXDirection * Main.rand.NextFloat(1f, 20.5f), randomColor, Main.rand.NextFloat(0.01f, 0.02f)).Configure(false, Main.rand.Next(40, 50 + 1), new Vector2(0.3f, 1.6f));
             }
             for (int i = 0; i < 16; i++)
             {
@@ -101,8 +97,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
                     _ => Color.LawnGreen,
                 };
 
-                GlowSparkParticle spark = new GlowSparkParticle(Projectile.Center, (-BurstFXDirection) * (i + 1f), false, 12, (0.25f - i * 0.02f) * 0.3f, randomColor, new Vector2(2.7f, 1.3f), true);
-                GeneralParticleHandler.SpawnParticle(spark);
+                PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center, (-BurstFXDirection) * (i + 1f), randomColor, (0.25f - i * 0.02f) * 0.3f).Configure(false, 12, new Vector2(2.7f, 1.3f), true);
             }
             for (int k = 0; k < 25; k++)
             {
@@ -114,8 +109,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
                     _ => Color.LawnGreen,
                 };
 
-                GlowSparkParticle spark2 = new GlowSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(12, 12), -BurstFXDirection * Main.rand.NextFloat(1f, 20.5f), false, Main.rand.Next(40, 50 + 1), Main.rand.NextFloat(0.01f, 0.02f), randomColor, new Vector2(0.3f, 1.6f));
-                GeneralParticleHandler.SpawnParticle(spark2);
+                PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + Main.rand.NextVector2Circular(12, 12), -BurstFXDirection * Main.rand.NextFloat(1f, 20.5f), randomColor, Main.rand.NextFloat(0.01f, 0.02f)).Configure(false, Main.rand.Next(40, 50 + 1), new Vector2(0.3f, 1.6f));
             }
             Vector2 BurstFXDirection2 = new Vector2(6 * 0.16f, 0).RotatedBy(MathHelper.PiOver4);
             for (int i = 0; i < 16; i++)
@@ -128,8 +122,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
                     _ => Color.LawnGreen,
                 };
 
-                GlowSparkParticle spark = new GlowSparkParticle(Projectile.Center, (BurstFXDirection2) * (i + 1f), false, 12, (0.25f - i * 0.02f) * 0.3f, randomColor, new Vector2(2.7f, 1.3f), true);
-                GeneralParticleHandler.SpawnParticle(spark);
+                PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center, (BurstFXDirection2) * (i + 1f), randomColor, (0.25f - i * 0.02f) * 0.3f).Configure(false, 12, new Vector2(2.7f, 1.3f), true);
             }
             for (int k = 0; k < 25; k++)
             {
@@ -141,8 +134,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
                     _ => Color.LawnGreen,
                 };
 
-                GlowSparkParticle spark2 = new GlowSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(12, 12), BurstFXDirection2 * Main.rand.NextFloat(1f, 20.5f), false, Main.rand.Next(40, 50 + 1), Main.rand.NextFloat(0.01f, 0.02f), randomColor, new Vector2(0.3f, 1.6f));
-                GeneralParticleHandler.SpawnParticle(spark2);
+                PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + Main.rand.NextVector2Circular(12, 12), BurstFXDirection2 * Main.rand.NextFloat(1f, 20.5f), randomColor, Main.rand.NextFloat(0.01f, 0.02f)).Configure(false, Main.rand.Next(40, 50 + 1), new Vector2(0.3f, 1.6f));
             }
             for (int i = 0; i < 16; i++)
             {
@@ -154,8 +146,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
                     _ => Color.LawnGreen,
                 };
 
-                GlowSparkParticle spark = new GlowSparkParticle(Projectile.Center, (-BurstFXDirection2) * (i + 1f), false, 12, (0.25f - i * 0.02f) * 0.3f, randomColor, new Vector2(2.7f, 1.3f), true);
-                GeneralParticleHandler.SpawnParticle(spark);
+                PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center, (-BurstFXDirection2) * (i + 1f), randomColor, (0.25f - i * 0.02f) * 0.3f).Configure(false, 12, new Vector2(2.7f, 1.3f), true);
             }
             for (int k = 0; k < 25; k++)
             {
@@ -167,14 +158,13 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
                     _ => Color.LawnGreen,
                 };
 
-                GlowSparkParticle spark2 = new GlowSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(12, 12), -BurstFXDirection2 * Main.rand.NextFloat(1f, 20.5f), false, Main.rand.Next(40, 50 + 1), Main.rand.NextFloat(0.01f, 0.02f), randomColor, new Vector2(0.3f, 1.6f));
-                GeneralParticleHandler.SpawnParticle(spark2);
+                PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + Main.rand.NextVector2Circular(12, 12), -BurstFXDirection2 * Main.rand.NextFloat(1f, 20.5f), randomColor, Main.rand.NextFloat(0.01f, 0.02f)).Configure(false, Main.rand.Next(40, 50 + 1), new Vector2(0.3f, 1.6f));
             }
         }
         public override void SpawnParticle(Vector2 vel)
         {
-            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center - vel * 0.5f, vel * 0.1f, false, 12, 0.024f, Color.Gold, new Vector2(0.8f, 0.9f), false, false));
-            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, vel * 0.1f, false, 12, 0.028f, Color.Gold, new Vector2(1f, 0.7f), false, false));
+            PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center - vel * 0.5f, vel * 0.1f, Color.Gold, 0.024f).Configure(false, 12, new Vector2(0.8f, 0.9f), false, false);
+            PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center, vel * 0.1f, Color.Gold, 0.028f).Configure(false, 12, new Vector2(1f, 0.7f), false, false);
             CEUtils.AddLight(Projectile.Center, Color.Gold);
         }
     }

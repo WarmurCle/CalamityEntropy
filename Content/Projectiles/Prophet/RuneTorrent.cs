@@ -1,5 +1,6 @@
-﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -55,7 +56,8 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
             if (spawnParticleCount > 22)
             {
                 spawnParticleCount -= 22;
-                EParticle.NewParticle(new Particles.RuneParticle(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, Projectile.scale * 0.76f, 1, true, BlendState.AlphaBlend, 0);
+                //PRT_RuneParticle字段(homing/target)旧初始化器拆成spawn后直赋
+                PRTLoader.NewParticle<PRT_RuneParticle>(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, Projectile.scale * 0.76f).Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0);  //RuneParticle字段(homing/target)旧初始化器拆成spawn后直赋
             }
         }
         public float spawnParticleCount = 0;

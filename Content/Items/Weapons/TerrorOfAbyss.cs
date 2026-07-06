@@ -1,7 +1,8 @@
-﻿using CalamityMod;
+﻿using CalamityEntropy.Content.Particles.CalamityPorts;
+using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -90,13 +91,13 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Color sparkColor2 = Color.Lerp(new Color(102, 209, 224), new Color(15, 42, 77), p);
                 if (Main.rand.NextBool())
                 {
-                    AltSparkParticle spark = new AltSparkParticle(target.Center + sparkVelocity2, sparkVelocity2, false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    //旧Blend既不是Additive也不是AlphaBlend,Configure传NonPremultipliedBlend落第三桶
+                    PRTLoader.NewParticle<PRT_AltSpark>(target.Center + sparkVelocity2, sparkVelocity2, sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
                 }
                 else
                 {
-                    LineParticle spark = new LineParticle(target.Center + sparkVelocity2, sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.DarkBlue : Color.DeepSkyBlue);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    //LineCal分支frame==7时寿命系数不同,Configure(false,life)照抄Calamity
+                    PRTLoader.NewParticle<PRT_LineCal>(target.Center + sparkVelocity2, sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), Main.rand.NextBool() ? Color.DarkBlue : Color.DeepSkyBlue, sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f)).Configure(false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)));
                 }
             }
         }

@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Common;
-using CalamityMod;
 using InnoVault;
 using InnoVault.TileProcessors;
 using Microsoft.Xna.Framework.Graphics;
@@ -132,7 +131,7 @@ namespace CalamityEntropy.Content.AzafureMiners
             {
                 Color outlineColor = slc ? Color.Yellow : new Color(94, 94, 94);
                 var matrix = (Matrix)Main.spriteBatch.GetType().GetField("transformMatrix", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(Main.spriteBatch);
-                var rasterizer = (RasterizerState)Main.spriteBatch.GetType().GetField("rasterizerState", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(Main.spriteBatch); 
+                var rasterizer = (RasterizerState)Main.spriteBatch.GetType().GetField("rasterizerState", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(Main.spriteBatch);
                 Main.spriteBatch.End();
                 EffectLoader.OutlineShader.CurrentTechnique.Passes[0].Apply();
                 EffectLoader.OutlineShader.Parameters["texSize"].SetValue(tex.Size());

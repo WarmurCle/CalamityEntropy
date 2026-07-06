@@ -1,10 +1,6 @@
 ﻿using CalamityMod.Cooldowns;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.Localization;
-using static CalamityMod.CalamityUtils;
 
 namespace CalamityEntropy.Content.Cooldowns
 {

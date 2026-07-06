@@ -1,7 +1,7 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod.NPCs.ExoMechs.Ares;
-using CalamityMod.Particles;
-using Microsoft.Xna.Framework.Graphics;
+using InnoVault.PRT;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -50,21 +50,23 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[2] > 0)
             {
                 Projectile.DamageType = DamageClass.Magic;
-                EParticle.NewParticle(new HeavenfallStar() { xScale = 0.14f }, Projectile.Center, Projectile.velocity.normalize(), new Color(255, 120, 120), Main.rand.NextFloat(0.6f, 1.3f) * 1.6f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 14);
-                EParticle.NewParticle(new HeavenfallStar() { xScale = 0.14f }, Projectile.Center - Projectile.velocity / 2f, Projectile.velocity.normalize(), new Color(255, 120, 120), Main.rand.NextFloat(0.6f, 1.3f) * 1.6f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 14);
+                //HeavenfallStar拖尾,旧PRT/EParticle HeavenfallStar数值照抄
+                var __prt = PRTLoader.NewParticle<PRT_HeavenfallStar>(Projectile.Center, Projectile.velocity.normalize(), new Color(255, 120, 120), Main.rand.NextFloat(0.6f, 1.3f) * 1.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation(), 14);
+                __prt.xScale = 0.14f;
+                var __prt2 = PRTLoader.NewParticle<PRT_HeavenfallStar>(Projectile.Center - Projectile.velocity / 2f, Projectile.velocity.normalize(), new Color(255, 120, 120), Main.rand.NextFloat(0.6f, 1.3f) * 1.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation(), 14);
+                __prt2.xScale = 0.14f;
             }
             else
             {
                 Projectile p = Projectile;
                 if (Main.rand.NextBool(2))
                 {
-                    var smoke = new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.5f, Color.Lerp(Color.DodgerBlue.MultiplyRGB(p.ai[2] > 0 ? new Color(255, 80, 80) : Color.White), Color.MediumVioletRed.MultiplyRGB(Projectile.DamageType == DamageClass.Magic ? new Color(255, 140, 140) : Color.White), (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), 20, Main.rand.NextFloat(0.6f, 1.2f) * Projectile.scale, 0.28f, 0, false, 0, true);
-                    GeneralParticleHandler.SpawnParticle(smoke);
+                    //形体烟Cal+后面EHeavySmoke发光层的话后者Additive走Configure
+                    PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center, Projectile.velocity * 0.5f, Color.Lerp(Color.DodgerBlue.MultiplyRGB(p.ai[2] > 0 ? new Color(255, 80, 80) : Color.White), Color.MediumVioletRed.MultiplyRGB(Projectile.DamageType == DamageClass.Magic ? new Color(255, 140, 140) : Color.White), (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), Main.rand.NextFloat(0.6f, 1.2f) * Projectile.scale).Configure(0.28f, 20, 0, false, 0, true);
 
                     if (Main.rand.NextBool(3))
                     {
-                        var smokeGlow = new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.5f, Main.hslToRgb(Hue, 1, 0.7f).MultiplyRGB(p.ai[2] > 0 ? new Color(255, 80, 80) : Color.White), 15, Main.rand.NextFloat(0.4f, 0.7f) * Projectile.scale, 0.8f, 0, true, 0.05f, true);
-                        GeneralParticleHandler.SpawnParticle(smokeGlow);
+                        PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center, Projectile.velocity * 0.5f, Main.hslToRgb(Hue, 1, 0.7f).MultiplyRGB(p.ai[2] > 0 ? new Color(255, 80, 80) : Color.White), Main.rand.NextFloat(0.4f, 0.7f) * Projectile.scale).Configure(0.8f, 15, 0, true, 0.05f, true);
                     }
                 }
             }

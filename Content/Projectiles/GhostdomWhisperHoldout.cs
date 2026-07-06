@@ -1,7 +1,8 @@
-﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles.TwistedTwin;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -187,13 +188,13 @@ namespace CalamityEntropy.Content.Projectiles
                     float velc = 0.4f;
                     if (Main.rand.NextBool())
                     {
-                        AltSparkParticle spark = new AltSparkParticle(Projectile.Center + Projectile.rotation.ToRotationVector2() * 39 - sparkVelocity2 * 8, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, sparkColor2);
-                        GeneralParticleHandler.SpawnParticle(spark);
+                        //PRT_AltSpark跟LineCal随机混用,旧Calamity spark/Lines二选一
+                        PRTLoader.NewParticle<PRT_AltSpark>(Projectile.Center + Projectile.rotation.ToRotationVector2() * 39 - sparkVelocity2 * 8, sparkVelocity2 * velc, sparkColor2, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));
                     }
                     else
                     {
-                        LineParticle spark = new LineParticle(Projectile.Center + Projectile.rotation.ToRotationVector2() * 39 - sparkVelocity2 * 8, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.Purple : Color.Purple);
-                        GeneralParticleHandler.SpawnParticle(spark);
+                        //LineCal Configure(false,lifetime)对齐Calamity LineParticle
+                        PRTLoader.NewParticle<PRT_LineCal>(Projectile.Center + Projectile.rotation.ToRotationVector2() * 39 - sparkVelocity2 * 8, sparkVelocity2 * velc, Main.rand.NextBool() ? Color.Purple : Color.Purple, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));
                     }
                 }
             }

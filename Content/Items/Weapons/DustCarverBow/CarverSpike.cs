@@ -1,5 +1,6 @@
-﻿using CalamityMod;
-using CalamityMod.Particles;
+﻿using CalamityEntropy.Content.Particles.CalamityPorts;
+using CalamityMod;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
@@ -20,7 +21,8 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
 
         public override void AI()
         {
-            //GeneralParticleHandler.SpawnParticle(new AltSparkParticle(Projectile.Center - Projectile.velocity * 4, Projectile.velocity * 4, false, 8, Main.rand.NextFloat(0.2f, 0.4f), new Color(200, 0, 0)));
+            //旧Blend既不是Additive也不是AlphaBlend,Configure传NonPremultipliedBlend落第三桶
+            PRTLoader.NewParticle<PRT_AltSpark>(Projectile.Center - Projectile.velocity * 4, Projectile.velocity * 4, new Color(200, 0, 0), Main.rand.NextFloat(0.2f, 0.4f)).Configure(false, 8);
             Projectile.rotation = Projectile.velocity.ToRotation();
         }
 
@@ -28,7 +30,8 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
         {
             CEUtils.PlaySound("GrassSwordHit2", Main.rand.NextFloat(1.2f, 1.6f), target.Center, volume: 0.6f);
             for (int i = 0; i < 6; i++)
-                GeneralParticleHandler.SpawnParticle(new AltSparkParticle(target.Center, Projectile.velocity.RotatedByRandom(0.4f) * Main.rand.NextFloat(0.2f, 2), false, 18, Main.rand.NextFloat(0.3f, 0.6f), new Color(200, 0, 0)));
+                //命中burst AltSpark,Configure(false,life)对齐CalamityPorts
+                PRTLoader.NewParticle<PRT_AltSpark>(target.Center, Projectile.velocity.RotatedByRandom(0.4f) * Main.rand.NextFloat(0.2f, 2), new Color(200, 0, 0), Main.rand.NextFloat(0.3f, 0.6f)).Configure(false, 18);
         }
         public override bool PreDraw(ref Color lightColor)
         {

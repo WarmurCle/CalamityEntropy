@@ -4,6 +4,7 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -43,8 +44,15 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
 
                 for (int i = 0; i < 24; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { Lifetime = 26, timeleftmax = 26 }, target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16), new Color(140, 140, 255), 0.3f, 1, true, BlendState.Additive);
-                    EParticle.NewParticle(new Smoke() { Lifetime = 26, timeleftmax = 26 }, target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16), Color.LightGoldenrodYellow, 0.3f, 1, true, BlendState.Additive);
+                    //PRT_Smoke双色系各24颗,timeleftmax/Lifetime spawn后直赋
+                    var p = PRTLoader.NewParticle<PRT_Smoke>(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16), new Color(140, 140, 255), 0.3f);
+                    p.Lifetime = 26;
+                    p.timeleftmax = 26;
+                    p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0f, 26);
+                    p = PRTLoader.NewParticle<PRT_Smoke>(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16), Color.LightGoldenrodYellow, 0.3f);
+                    p.Lifetime = 26;
+                    p.timeleftmax = 26;
+                    p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0f, 26);
                 }
             }
         }

@@ -1,5 +1,6 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
 using CalamityMod;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -35,8 +36,9 @@ namespace CalamityEntropy.Content.Projectiles
             for (int i = 0; i < rots.Length; i++)
             {
                 float r = rots[i] + Projectile.rotation;
-                EParticle.spawnNew(new VoidImpactParticle(), target.Center, r.ToRotationVector2() * 9, Color.White, 1.8f, 1, true, BlendState.AlphaBlend, r, 46);
-                EParticle.spawnNew(new VoidImpactParticle(), target.Center, r.ToRotationVector2() * 12, Color.White, 2f, 1, true, BlendState.AlphaBlend, r, 46);
+                //VoidImpactParticle命中反馈,旧PRT/EParticle VoidImpact
+                PRTLoader.NewParticle<PRT_VoidImpactParticle>(target.Center, r.ToRotationVector2() * 9, Color.White, 1.8f).Configure(1, true, PRTDrawModeEnum.AlphaBlend, r, 46);  //VoidImpactParticle命中反馈,旧EParticle VoidImpact
+                PRTLoader.NewParticle<PRT_VoidImpactParticle>(target.Center, r.ToRotationVector2() * 12, Color.White, 2f).Configure(1, true, PRTDrawModeEnum.AlphaBlend, r, 46);
             }
             Projectile.damage = 0;
         }

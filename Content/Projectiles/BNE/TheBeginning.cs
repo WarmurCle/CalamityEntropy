@@ -1,8 +1,9 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
@@ -39,8 +40,8 @@ namespace CalamityEntropy.Content.Projectiles.BNE
             int sparkLifetime2 = Main.rand.Next(8, 12);
             float sparkScale2 = Main.rand.NextFloat(0.6f, 1.2f);
             Color sparkColor2 = Color.Lerp(Color.OrangeRed, Color.Gold, Main.rand.NextFloat(0, 1));
-            LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-            GeneralParticleHandler.SpawnParticle(spark);
+            //LineCal Configure(false,lifetime)对齐Calamity LineParticle
+            PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
 
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (playsound)
@@ -71,10 +72,12 @@ namespace CalamityEntropy.Content.Projectiles.BNE
             target.AddBuff<LifeOppress>(600);
             for (int i = 0; i < (Projectile.Calamity().stealthStrike ? 6 : 1); i++)
             {
-                AbyssalLine p = new AbyssalLine() { lx = (Projectile.Calamity().stealthStrike ? 3 : 1.6f), xadd = (Projectile.Calamity().stealthStrike ? 3 : 1.6f) };
-                p.spawnColor = Color.Gold;
-                p.endColor = Color.DarkGoldenrod;
-                EParticle.NewParticle(p, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, CEUtils.randomRot());
+                //AbyssalLine带lifetime的Configure是CalamityPorts签名
+                var __prt = PRTLoader.NewParticle<PRT_AbyssalLine>(target.Center, Vector2.Zero, Color.White, 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot());
+                __prt.lx = Projectile.Calamity().stealthStrike ? 3 : 1.6f;
+                __prt.xadd = Projectile.Calamity().stealthStrike ? 3 : 1.6f;
+                __prt.spawnColor = Color.Gold;
+                __prt.endColor = Color.DarkGoldenrod;
             }
             target.Entropy().EclipsedImprintTime = 12 * 60;
             target.Entropy().EclipsedImprintLevel = (int)MathHelper.Min(target.Entropy().EclipsedImprintLevel + (Projectile.Calamity().stealthStrike ? 6 : 1), 8);

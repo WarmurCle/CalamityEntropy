@@ -2,6 +2,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -93,7 +94,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 stopTime = 6 * Projectile.MaxUpdates;
                 ScreenShaker.AddShake(new ScreenShaker.NoDirQuickShake(8));
             }
-            CEUtils.PlaySound("truemoonlighthit", Main.rand.NextFloat(0.7f, 1.3f), target.Center, volume:CEUtils.WeapSound);
+            CEUtils.PlaySound("truemoonlighthit", Main.rand.NextFloat(0.7f, 1.3f), target.Center, volume: CEUtils.WeapSound);
         }
         public override void AI()
         {
@@ -205,6 +206,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 SpriteBatch sb = Main.spriteBatch;
                 Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/SwordTrail", AssetRequestMode.ImmediateLoad).Value;
                 sb.End();
+                //旧Blend既不是Additive也不是AlphaBlend,Configure传NonPremultipliedBlend落第三桶
                 sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 shader.Parameters["color2"].SetValue((new Color(200, 255, 200)).ToVector4());
                 shader.Parameters["color1"].SetValue((new Color(100, 160, 100)).ToVector4());
@@ -247,8 +249,19 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             CEUtils.PlaySound("HammerShoot" + Main.rand.Next(1, 4), Main.rand.NextFloat(1f, 1.4f), Projectile.Center);
-            EParticle.spawnNew(new AbyssalLine() { xadd = 0.8f, lx = 1.4f, spawnColor = new Color(212, 255, 212), endColor = Color.DarkSeaGreen }, target.Center, Vector2.Zero, new Color(220, 255, 220), 1, 1, true, BlendState.Additive, CEUtils.randomRot());
-            EParticle.spawnNew(new AbyssalLine() { xadd = 0.8f, lx = 1.4f, spawnColor = new Color(212, 255, 212), endColor = Color.DarkSeaGreen }, target.Center, Vector2.Zero, new Color(220, 255, 220), 1, 1, true, BlendState.Additive, CEUtils.randomRot());
+            //旧Blend既不是Additive也不是AlphaBlend,Configure传NonPremultipliedBlend落第三桶
+            var line1 = PRTLoader.NewParticle<PRT_AbyssalLine>(target.Center, Vector2.Zero, new Color(220, 255, 220), 1f);
+            line1.xadd = 0.8f;
+            line1.lx = 1.4f;
+            line1.spawnColor = new Color(212, 255, 212);
+            line1.endColor = Color.DarkSeaGreen;
+            line1.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot());
+            var line2 = PRTLoader.NewParticle<PRT_AbyssalLine>(target.Center, Vector2.Zero, new Color(220, 255, 220), 1f);
+            line2.xadd = 0.8f;
+            line2.lx = 1.4f;
+            line2.spawnColor = new Color(212, 255, 212);
+            line2.endColor = Color.DarkSeaGreen;
+            line2.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot());
         }
         public override void SetDefaults()
         {

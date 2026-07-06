@@ -4,7 +4,6 @@ using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Armor.AzafureT3;
 using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.UI.Poops;
-using CalamityMod.Events;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;

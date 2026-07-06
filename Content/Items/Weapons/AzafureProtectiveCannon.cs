@@ -1,12 +1,12 @@
-﻿using CalamityEntropy.Content.Cooldowns;
+using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Particles;
 using CalamityMod.Rarities;
-using Microsoft.Xna.Framework.Graphics;
+using InnoVault.PRT;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -84,17 +84,22 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (Projectile.localAI[0]++ == 0)
             {
                 CEUtils.PlaySound("Alarm", 1, Projectile.GetOwner().Center);
-                EParticle.spawnNew(new APRCAlarm(), new Vector2(Projectile.ai[0], Projectile.ai[1]), Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, 0, Projectile.timeLeft / Projectile.MaxUpdates);
+                //PRT_APRCAlarm 光效走AdditiveBlend,Configure尾参lifetime对齐旧timeLeft
+                PRTLoader.NewParticle<PRT_APRCAlarm>(new Vector2(Projectile.ai[0], Projectile.ai[1]), Vector2.Zero, Color.White).Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0, Projectile.timeLeft / Projectile.MaxUpdates);
             }
             if (Projectile.localAI[0] == 60)
                 CEUtils.PlaySound("aprclaunch", 1, Projectile.GetOwner().Center);
 
             if (ShouldUpdatePosition())
             {
+                //Smoke timeleftmax/Lifetime直赋+Configure,跟旧EParticle初始化器一一对应
                 for (float i = 0; i < 1; i += 0.1f)
                 {
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center - Projectile.velocity * i, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.06f, 0.08f), 0.6f, true, BlendState.Additive, CEUtils.randomRot());
-                    EParticle.NewParticle(new EMediumSmoke(), Projectile.Center + Projectile.velocity * i, new Vector2(Main.rand.NextFloat(-0.2f, 0.2f), Main.rand.NextFloat(-0.2f, 0.2f)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
+                    var p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center - Projectile.velocity * i, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.06f, 0.08f));
+                    p.timeleftmax = 26;
+                    p.Lifetime = 26;
+                    p.Configure(0.6f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 26);
+                    PRTLoader.NewParticle<PRT_EMediumSmoke>(Projectile.Center + Projectile.velocity * i, new Vector2(Main.rand.NextFloat(-0.2f, 0.2f), Main.rand.NextFloat(-0.2f, 0.2f)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f)).Configure(1, true, PRTDrawModeEnum.AlphaBlend, CEUtils.randomRot());
                 }
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
@@ -103,9 +108,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CEUtils.PlaySound("explosionbig", 1, Projectile.Center, 4, 1.4f);
             CEUtils.PlaySound("pulseBlast", 0.6f, Projectile.Center, 4, 1.4f);
-            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 3.2f, 20));
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 7.6f, 1, true, BlendState.Additive, 0, 24);
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 5.4f, 1, true, BlendState.Additive, 0, 24);
+            PRTLoader.NewParticle<PRT_PulseRing>(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f).Configure(3.2f, 20);
+            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.Firebrick, 7.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 24);
+            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, 5.4f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 24);
             if (Projectile.owner == Main.myPlayer)
             {
                 CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage, 280, Projectile.DamageType);

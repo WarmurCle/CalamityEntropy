@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityMod.Particles;
-using Microsoft.Xna.Framework.Graphics;
+using CalamityEntropy.Content.Particles.CalamityPorts;
+using InnoVault.PRT;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -30,13 +30,13 @@ namespace CalamityEntropy.Content.Projectiles
         public int counter = 0;
         public bool std = false;
         public int homingTime = 60;
-        public StarTrailParticle spt = null;
+        public PRT_StarTrailParticle spt = null;
         public override void AI()
         {
             if (spt == null)
             {
-                spt = new StarTrailParticle();
-                EParticle.NewParticle(spt, Projectile.Center, Vector2.Zero, Color.LightBlue * 1.5f, 1.2f, 1, true, BlendState.Additive, 0);
+                //StarTrailParticle星尘拖尾,旧EParticle StarTrail
+                spt = PRTLoader.NewParticle<PRT_StarTrailParticle>(Projectile.Center, Vector2.Zero, Color.LightBlue * 1.5f, 1.2f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
             }
             spt.maxLength = 16;
             spt.Lifetime = 30;
@@ -83,11 +83,10 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void OnKill(int timeLeft)
         {
-            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, Color.LightBlue, new Vector2(2f, 2f), 0, 0.02f, 0.85f * 0.4f, 18);
-            GeneralParticleHandler.SpawnParticle(pulse);
+            PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, Color.LightBlue, 0.02f).Configure(new Vector2(2f, 2f), 0, 0.85f * 0.4f, 18);
             for (int i = 0; i < 5; i++)
             {
-                EParticle.NewParticle(new StarTrailParticle(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(16, 36), Color.White, Main.rand.NextFloat(0.6f, 1.2f), 1, true, BlendState.Additive, 0);
+                PRTLoader.NewParticle<PRT_StarTrailParticle>(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(16, 36), Color.White, Main.rand.NextFloat(0.6f, 1.2f)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
             }
             CEUtils.PlaySound(Main.rand.NextBool() ? "scholarStaffImpact" : "scholarStaffImpact2", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center);
         }
@@ -127,7 +126,7 @@ namespace CalamityEntropy.Content.Projectiles
         public int counter = 0;
         public bool std = false;
         public int homingTime = 60;
-        public StarTrailParticle spt = null;
+        public PRT_StarTrailParticle spt = null;
         public override bool? CanHitNPC(NPC target)
         {
             if (Projectile.ai[0] < 20)
@@ -140,8 +139,8 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (spt == null)
             {
-                spt = new StarTrailParticle() { maxLength = 18 };
-                EParticle.NewParticle(spt, Projectile.Center, Vector2.Zero, Color.LightBlue, 1.8f, 1, true, BlendState.Additive, 0);
+                spt = PRTLoader.NewParticle<PRT_StarTrailParticle>(Projectile.Center, Vector2.Zero, Color.LightBlue, 1.8f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
+                spt.maxLength = 18;
             }
             spt.Velocity = Projectile.velocity;
             spt.Lifetime = 30;
@@ -187,11 +186,11 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void OnKill(int timeLeft)
         {
-            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, Color.LightBlue, new Vector2(2f, 2f), 0, 0.02f, 0.85f * 0.4f, 18);
-            GeneralParticleHandler.SpawnParticle(pulse);
+            //DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
+            PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, Color.LightBlue, 0.02f).Configure(new Vector2(2f, 2f), 0, 0.85f * 0.4f, 18);
             for (int i = 0; i < 5; i++)
             {
-                EParticle.NewParticle(new StarTrailParticle(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(16, 36), Color.White, Main.rand.NextFloat(0.6f, 1.2f), 1, true, BlendState.Additive, 0);
+                PRTLoader.NewParticle<PRT_StarTrailParticle>(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(16, 36), Color.White, Main.rand.NextFloat(0.6f, 1.2f)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
             }
             CEUtils.PlaySound(Main.rand.NextBool() ? "scholarStaffImpact" : "scholarStaffImpact2", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center);
         }
@@ -229,13 +228,13 @@ namespace CalamityEntropy.Content.Projectiles
         public int counter = 0;
         public bool std = false;
         public int homingTime = 60;
-        public StarTrailParticle spt = null;
+        public PRT_StarTrailParticle spt = null;
         public override void AI()
         {
             if (spt == null)
             {
-                spt = new StarTrailParticle() { maxLength = 12 };
-                EParticle.NewParticle(spt, Projectile.Center, Vector2.Zero, Color.LightBlue, 1f, 1, true, BlendState.Additive, 0);
+                spt = PRTLoader.NewParticle<PRT_StarTrailParticle>(Projectile.Center, Vector2.Zero, Color.LightBlue, 1f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
+                spt.maxLength = 12;
             }
             spt.Velocity = Projectile.velocity;
             spt.Lifetime = 30;
@@ -281,8 +280,7 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void OnKill(int timeLeft)
         {
-            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, Color.LightBlue, new Vector2(2f, 2f), 0, 0.02f, 0.85f * 0.4f, 18);
-            GeneralParticleHandler.SpawnParticle(pulse);
+            PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, Color.LightBlue, 0.02f).Configure(new Vector2(2f, 2f), 0, 0.85f * 0.4f, 18);
             CEUtils.PlaySound("metalhit", Main.rand.NextFloat(1.6f, 2f), Projectile.Center, 6, 0.35f * CEUtils.WeapSound);
         }
 

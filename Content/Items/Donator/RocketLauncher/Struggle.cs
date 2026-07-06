@@ -3,7 +3,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items.Materials;
-using Microsoft.Xna.Framework.Graphics;
+using InnoVault.PRT;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -92,8 +92,9 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
                     Projectile.NewProjectile(proj.GetSource_FromAI(), proj.Center, i.ToRadians().ToRotationVector2() * 16, type, proj.damage / 6, 4, proj.owner);
                 }
             }
-            EParticle.spawnNew(new ShineParticle(), proj.Center, Vector2.Zero, Color.Red, proj.scale * 0.8f, 1, true, BlendState.Additive, 0, 16);
-            EParticle.spawnNew(new ShineParticle(), proj.Center, Vector2.Zero, Color.White, proj.scale * 0.6f, 1, true, BlendState.Additive, 0, 16);
+            //PRT_ShineParticle FollowOwner等字段spawn后赋,Configure只管Additive
+            PRTLoader.NewParticle<PRT_ShineParticle>(proj.Center, Vector2.Zero, Color.Red, proj.scale * 0.8f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
+            PRTLoader.NewParticle<PRT_ShineParticle>(proj.Center, Vector2.Zero, Color.White, proj.scale * 0.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -144,7 +145,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             {
                 for (int i = 0; i < 18; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 9, Lifetime = 9 }, Projectile.Center + Projectile.velocity * i / 18f, CEUtils.randomPointInCircle(0.5f), Color.Red, Main.rand.NextFloat(0.008f, 0.01f), 0.7f, true, BlendState.Additive, CEUtils.randomRot());
+                    var p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center + Projectile.velocity * i / 18f, CEUtils.randomPointInCircle(0.5f), Color.Red, Main.rand.NextFloat(0.008f, 0.01f));
+                    p.timeleftmax = 9;
+                    p.Lifetime = 9;
+                    p.Configure(0.7f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 9);
                 }
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;

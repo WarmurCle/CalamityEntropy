@@ -1,5 +1,6 @@
-﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -30,7 +31,8 @@ namespace CalamityEntropy.Content.Projectiles
         {
             for (int i = 0; i < 9; i++)
             {
-                EParticle.NewParticle(new Particles.RuneParticle(), target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, Projectile.scale, 1, true, BlendState.AlphaBlend, 0);
+                //PRT_RuneParticle字段(homing/target)旧初始化器拆成spawn后直赋
+                PRTLoader.NewParticle<PRT_RuneParticle>(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, Projectile.scale).Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0);  //RuneParticle字段(homing/target)旧初始化器拆成spawn后直赋
             }
             CEUtils.PlaySound("crystalsound" + Main.rand.Next(1, 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), target.Center, 10, 0.4f);
             target.AddBuff(ModContent.BuffType<SoulDisorder>(), 300);

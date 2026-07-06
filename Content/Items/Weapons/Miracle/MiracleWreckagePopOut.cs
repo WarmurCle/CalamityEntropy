@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
@@ -31,7 +32,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 Projectile.velocity *= 0.996f;
                 Projectile.rotation += Projectile.velocity.Length() * 0.08f * (Projectile.velocity.X > 0 ? 1 : -1);
                 if (Projectile.localAI[0] % 8 == 0)
-                    GeneralParticleHandler.SpawnParticle(new CritSpark(Projectile.Center + Projectile.rotation.ToRotationVector2() * 80, Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * (Projectile.velocity.X > 0 ? -1 : 1)) * 4, new Color(255, 200, 255), Color.Violet, 1f, 18));
+                    //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
+                    PRTLoader.NewParticle<PRT_CritSparkCal>(Projectile.Center + Projectile.rotation.ToRotationVector2() * 80, Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * (Projectile.velocity.X > 0 ? -1 : 1)) * 4, new Color(255, 200, 255), 1f).Configure(Color.Violet, 18);
             }
             else
             {
@@ -54,8 +56,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 {
                     if (Projectile.ai[0] % 20 == 0)
                     {
-                        GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, Projectile.velocity * 0.1f, false, 16, 0.05f, Color.MediumVioletRed, new Vector2(0.32f, 1)));
-                        EParticle.spawnNew(new AbyssalLine() { lx = 0.8f, xadd = 1f, spawnColor = Main.rand.NextBool() ? Color.MediumVioletRed : Color.MediumPurple, endColor = Color.Red * 0.2f }, Projectile.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Projectile.rotation, 40);
+                        //AbyssalLine/Abyssal有的走EffectLoader RT合成,Configure只管常规参数
+                        PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center, Projectile.velocity * 0.1f, Color.MediumVioletRed, 0.05f).Configure(false, 16, new Vector2(0.32f, 1));
+                        var p = PRTLoader.NewParticle<PRT_AbyssalLine>(Projectile.Center, Vector2.Zero, Color.White, 1);
+                        p.lx = 0.8f;
+                        p.xadd = 1f;
+                        p.spawnColor = Main.rand.NextBool() ? Color.MediumVioletRed : Color.MediumPurple;
+                        p.endColor = Color.Red * 0.2f;
+                        p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.rotation, 40);
                     }
                 }
             }
@@ -63,7 +71,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             CEUtils.PlaySound("HalleysInfernoHit", Main.rand.NextFloat(2.8f, 3.2f), target.Center, 4, 0.4f * CEUtils.WeapSound, path: "CalamityMod/Sounds/Item/");
-            EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, new Color(255, 180, 255), 1.2f, 1, true, BlendState.Additive, 0, 6);
+            PRTLoader.NewParticle<PRT_ShineParticle>(target.Center, Vector2.Zero, new Color(255, 180, 255), 1.2f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 6);
         }
         public override bool PreDraw(ref Color lightColor)
         {

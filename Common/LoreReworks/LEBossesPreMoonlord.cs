@@ -1,6 +1,5 @@
 ﻿using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.Potions;
-using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items.LoreItems;
 using Terraria;
 using Terraria.ID;

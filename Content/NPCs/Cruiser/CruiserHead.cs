@@ -16,6 +16,8 @@ using CalamityMod.Events;
 using CalamityMod.Items.Potions;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.World;
+using InnoVault;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -75,7 +77,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public float maxDistance = 6000;
         public float maxDistanceTarget = 2900;
         public int rotDist = 900;
-        public Texture2D disTex = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/cruiserSpace").Value;
+        //旧disTex是实例字段Request,VaultLoaden挂实例上加载阶段会挂死,必须static
+        //cruiserSpace是PreDraw背景扭曲层,跟NPC本体贴图不是一张,路径别混
+        [VaultLoaden("CalamityEntropy/Assets/Extra/cruiserSpace")]
+        private static Asset<Texture2D> disTexAsset;
         public Vector2 rotPos = Vector2.Zero;
         public int phase = 1;
         public int circleDir = 1;
@@ -486,20 +491,18 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 if (!Main.zenithWorld)
                 {
                     CEUtils.PlaySound("VoidAttack", 1, NPC.Center);
+                    //死亡86颗PRT_Void全走EffectLoader RT合成,shape=4是旧VoidParticles几何,zenith改RealisticExplosion
                     for (int i = 0; i < 86; i++)
                     {
-                        Particle p = new Particle();
-                        p.position = NPC.Center;
-                        p.alpha = Main.rand.NextFloat(1f, 2f);
+                        var p = PRTLoader.NewParticle<PRT_Void>(NPC.Center, CEUtils.randomPointInCircle(16), Color.White, 1f);
+                        p.Opacity = Main.rand.NextFloat(1f, 2f);
                         p.shape = 4;
                         p.vd = 0.97f;
-                        p.velocity = CEUtils.randomPointInCircle(16);
-                        VoidParticles.particles.Add(p);
                     }
                 }
                 else
                 {
-                    EParticle.spawnNew(new RealisticExplosion(), NPC.Center, Vector2.Zero, Color.White, 10, 1, true, BlendState.AlphaBlend);
+                    PRTLoader.NewParticle<PRT_RealisticExplosion>(NPC.Center, Vector2.Zero, Color.White, 10).Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0, -1);
                 }
                 Main.LocalPlayer.Calamity().GeneralScreenShakePower = 16;
 
@@ -537,9 +540,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 DeathAnmCount--;
                 if (whiteLerp < 1)
                     whiteLerp += 1 / 160f;
+                //DeathAnm每6tick一颗PremultBurst,dedServ守卫别漏,服务端孤儿PRT对不上
                 if (DeathAnmCount % 6 == 0 && !Main.dedServ)
                 {
-                    EParticle.NewParticle(new PremultBurst(), NPC.Center, Vector2.Zero, Color.LightBlue, 3.2f, 1, true, BlendState.Additive, 0);
+                    PRTLoader.NewParticle<PRT_PremultBurst>(NPC.Center, Vector2.Zero, Color.LightBlue, 3.2f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
                 }
                 if (DeathAnmCount <= 0)
                 {
@@ -767,9 +771,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             {
                                 NPC.velocity *= 0.98f;
                             }
+                            //PhaseTransing bodies每节点每帧1 Void,节数多能堆几百颗,旧space转场密度
                             foreach (var p in bodies)
                             {
-                                VoidParticles.particles.Add(new Particle() { position = p, alpha = Main.rand.NextFloat(0.2f, 1.4f), shape = 4, velocity = CEUtils.randomPointInCircle(6) });
+                                var vpt = PRTLoader.NewParticle<PRT_Void>(p, CEUtils.randomPointInCircle(6), Color.White, 1f);
+                                vpt.Opacity = Main.rand.NextFloat(0.2f, 1.4f);
+                                vpt.shape = 4;
                             }
                         }
                         if (ai == AIStyle.TryToClosePlayer)
@@ -1116,8 +1123,9 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                     if (changeCounter > 1)
                                         NPC.rotation = (target.Center + target.velocity * u * 0.8f - NPC.Center).ToRotation();
                                     NPC.velocity = NPC.rotation.ToRotationVector2();
-                                    EParticle.NewParticle(new CruiserWarn(), NPC.Center, Vector2.Zero, Color.White, 1.8f, 1, true, BlendState.Additive, NPC.rotation);
-                                    EParticle.NewParticle(new CruiserWarn(), NPC.Center, Vector2.Zero, Color.White, 0.8f, 1, true, BlendState.Additive, NPC.rotation);
+                                    //VoidLaser每层双CruiserWarn,lifetime=-1靠手动删,跟46tick激光帧对齐
+                                    PRTLoader.NewParticle<PRT_CruiserWarn>(NPC.Center, Vector2.Zero, Color.White, 1.8f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, NPC.rotation, -1);
+                                    PRTLoader.NewParticle<PRT_CruiserWarn>(NPC.Center, Vector2.Zero, Color.White, 0.8f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, NPC.rotation, -1);
                                 }
                                 if (changeCounter % 46 == u)
                                 {
@@ -1172,29 +1180,23 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 {
                     mouthRot = -48;
                 }
+                //P2尾焰phaseTrans>120每帧8 Void(ad=0.013慢褪),跟旧mouth exhaust一致
                 if (phaseTrans > 120)
                 {
+                    var r = Main.rand;
                     for (int i = 0; i < 4; i++)
                     {
-                        Particle p = new Particle();
+                        var p = PRTLoader.NewParticle<PRT_Void>(NPC.Center - NPC.rotation.ToRotationVector2() * 60, new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3)), Color.White, 1f);
                         p.shape = 4;
-                        p.position = NPC.Center - NPC.rotation.ToRotationVector2() * 60;
-                        p.alpha = 1.6f * NPC.scale;
+                        p.Opacity = 1.6f * NPC.scale;
                         p.ad = 0.013f;
-                        var r = Main.rand;
-                        p.velocity = new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3));
-                        VoidParticles.particles.Add(p);
                     }
                     for (int i = 0; i < 4; i++)
                     {
-                        Particle p = new Particle();
+                        var p = PRTLoader.NewParticle<PRT_Void>(NPC.Center - NPC.rotation.ToRotationVector2() * 60 - NPC.velocity * 0.5f, new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3)), Color.White, 1f);
                         p.shape = 4;
-                        p.position = NPC.Center - NPC.rotation.ToRotationVector2() * 60 - NPC.velocity * 0.5f;
-                        p.alpha = 1.6f * NPC.scale;
+                        p.Opacity = 1.6f * NPC.scale;
                         p.ad = 0.013f;
-                        var r = Main.rand;
-                        p.velocity = new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3));
-                        VoidParticles.particles.Add(p);
                     }
                 }
                 if (tjv == 1)
@@ -1522,6 +1524,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 sb.End();
                 sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 Vector2 ddp = SpaceCenter;
+                Texture2D disTex = disTexAsset.Value;
                 sb.Draw(disTex, ddp - Main.screenPosition, null, Color.DarkBlue * 0.6f, 0, new Vector2(disTex.Width, disTex.Height) / 2, (float)maxDistance / 900f, SpriteEffects.None, 0);
                 sb.End();
                 sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);

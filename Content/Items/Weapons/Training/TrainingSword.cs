@@ -1,7 +1,8 @@
 ﻿
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -239,8 +240,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
 
             float impactParticleScale = 1.2f;
             Color impactColor = Color.LightBlue;
-            SparkleParticle impactParticle = new SparkleParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, impactColor, new Color(150, 101500, 255), impactParticleScale, 12, 0, 2.5f);
-            GeneralParticleHandler.SpawnParticle(impactParticle);
+            //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
+            PRTLoader.NewParticle<PRT_SparkleCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, impactColor, impactParticleScale).Configure(new Color(150, 101500, 255), 12, 0, 2.5f);
 
             float sparkCount = 12;
             for (int i = 0; i < sparkCount; i++)
@@ -252,13 +253,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Training
                 Color sparkColor2 = Color.Lerp(new Color(80, 80, 255), Color.Aqua, p);
                 if (Main.rand.NextBool())
                 {
-                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1f), sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    //AltSpark/LineCal随机二选一,都是CalamityPorts短Configure
+                    PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), sparkColor2, sparkScale2 * (1f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
                 }
                 else
                 {
-                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.Aqua : Color.SkyBlue);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), Main.rand.NextBool() ? Color.Aqua : Color.SkyBlue, sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f)).Configure(false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)));
                 }
             }
         }

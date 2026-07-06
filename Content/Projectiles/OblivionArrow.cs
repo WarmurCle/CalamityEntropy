@@ -1,6 +1,7 @@
-﻿using CalamityMod;
+using CalamityEntropy.Content.Particles.CalamityPorts;
+using CalamityMod;
 using CalamityMod.Graphics.Primitives;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -143,7 +144,8 @@ namespace CalamityEntropy.Content.Projectiles
                 float s = Main.rand.NextFloat(0.36f, 0.56f);
                 float rt = CEUtils.randomRot();
                 for (int i = 0; i < 4; i++)
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, (i * MathHelper.PiOver2 + rt).ToRotationVector2() * 10 * s, false, 12, 0.05f * s, Main.rand.NextBool() ? Color.SkyBlue : Color.MediumPurple, new Vector2(1.5f, 1), true));
+                    //GlowSparkCal Configure里stretch/glow是Calamity原参,别当PRT/EParticle尾参
+                    PRTLoader.NewParticle<PRT_GlowSparkCal>(target.Center, (i * MathHelper.PiOver2 + rt).ToRotationVector2() * 10 * s, Main.rand.NextBool() ? Color.SkyBlue : Color.MediumPurple, 0.05f * s).Configure(false, 12, new Vector2(1.5f, 1), true);  //GlowSparkCal Configure里stretch/glow是Calamity原参,别当EParticle尾参
                 Projectile.timeLeft = 4;
                 htd = true;
                 exps = 1;

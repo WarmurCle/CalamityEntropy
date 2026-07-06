@@ -1,6 +1,7 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
@@ -75,9 +76,10 @@ namespace CalamityEntropy.Content.Projectiles
                 CEUtils.PlaySound("CrystalBreak", 1.2f, target.Center, 8, 0.7f);
             float s = Projectile.velocity.Length() >= 14 ? 1 : 0.5f;
             for (int i = 0; i < 12; i++)
-                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 9 * s, false, 18, 0.03f * Main.rand.NextFloat(0.5f, 1f) * s, Main.rand.NextBool() ? Color.DeepSkyBlue : Color.LightGoldenrodYellow, new Vector2(0.6f, 1)), true);
+                //GlowSparkCal Configure里stretch/glow是Calamity原参,别当PRT/EParticle尾参
+                PRTLoader.NewParticle<PRT_GlowSparkCal>(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 9 * s, Main.rand.NextBool() ? Color.DeepSkyBlue : Color.LightGoldenrodYellow, 0.03f * Main.rand.NextFloat(0.5f, 1f) * s).Configure(false, 18, new Vector2(0.6f, 1));  //GlowSparkCal Configure里stretch/glow是Calamity原参,别当EParticle尾参
             for (int i = 0; i < 4; i++)
-                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, (i * MathHelper.PiOver2).ToRotationVector2() * 10 * s, false, 12, 0.05f * s, Main.rand.NextBool() ? Color.DeepSkyBlue : Color.LightGoldenrodYellow, new Vector2(1.5f, 1), true), true);
+                PRTLoader.NewParticle<PRT_GlowSparkCal>(target.Center, (i * MathHelper.PiOver2).ToRotationVector2() * 10 * s, Main.rand.NextBool() ? Color.DeepSkyBlue : Color.LightGoldenrodYellow, 0.05f * s).Configure(false, 12, new Vector2(1.5f, 1));
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {

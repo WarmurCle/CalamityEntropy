@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -56,7 +57,8 @@ namespace CalamityEntropy.Content.Projectiles
             CalamityEntropy.Instance.screenShakeAmp = 5;
             for (int i = 0; i < 3; i++)
             {
-                EParticle.NewParticle(new AbyssalLine(), target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, CEUtils.randomRot());
+                //AbyssalLine旧GeneralParticleHandler spawn,现走BasePRT,参数照抄
+                PRTLoader.NewParticle<PRT_AbyssalLine>(target.Center, Vector2.Zero, Color.White, 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot());  //AbyssalLine带lifetime的Configure是CalamityPorts签名
             }
             if (Projectile.owner.ToPlayer().HeldItem.ModItem is Xytheron xr)
             {

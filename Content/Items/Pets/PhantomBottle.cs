@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -148,27 +149,21 @@ namespace CalamityEntropy.Content.Items.Pets
 
         public void spawnParticles()
         {
+            var r = Main.rand;
             for (int i = 0; i < 4; i++)
             {
-                Particle p = new Particle();
+                //PRT_Void Opacity/vd spawn后赋,旧VoidParticles原值
+                var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center - Projectile.rotation.ToRotationVector2() * 60 + Projectile.velocity, new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3)), Color.White, 1f);
                 p.shape = 4;
-                p.position = Projectile.Center - Projectile.rotation.ToRotationVector2() * 60 + Projectile.velocity;
-                p.alpha = 1.6f;
+                p.Opacity = 1.6f;
                 p.ad = 0.013f;
-                var r = Main.rand;
-                p.velocity = new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3));
-                VoidParticles.particles.Add(p);
             }
             for (int i = 0; i < 4; i++)
             {
-                Particle p = new Particle();
+                var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center - Projectile.rotation.ToRotationVector2() * 60 - Projectile.velocity * 0.5f + Projectile.velocity, new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3)), Color.White, 1f);
                 p.shape = 4;
-                p.position = Projectile.Center - Projectile.rotation.ToRotationVector2() * 60 - Projectile.velocity * 0.5f + Projectile.velocity;
-                p.alpha = 1.6f;
+                p.Opacity = 1.6f;
                 p.ad = 0.013f;
-                var r = Main.rand;
-                p.velocity = new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3));
-                VoidParticles.particles.Add(p);
             }
         }
 

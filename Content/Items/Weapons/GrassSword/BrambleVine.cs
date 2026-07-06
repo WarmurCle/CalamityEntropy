@@ -1,5 +1,6 @@
-﻿using CalamityMod;
-using CalamityMod.Particles;
+﻿using CalamityEntropy.Content.Particles.CalamityPorts;
+using CalamityMod;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -56,8 +57,8 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 sparkScale2 *= (1 + Bramblecleave.GetLevel() * 0.05f);
                 Color sparkColor2 = Color.Lerp(Color.Green, Color.LightGreen, Main.rand.NextFloat());
 
-                AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
-                GeneralParticleHandler.SpawnParticle(spark);
+                //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
+                PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
             }
 
         }
@@ -280,8 +281,8 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             Color impactColor = Color.LightGreen;
             float impactParticleScale = Main.rand.NextFloat(2f, 3f);
 
-            SparkleParticle impactParticle = new SparkleParticle(Projectile.GetOwner().Center, Vector2.Zero, impactColor, Color.LawnGreen, impactParticleScale, 12, 0, 5f);
-            GeneralParticleHandler.SpawnParticle(impactParticle);
+            //EParticle.spawnNew→PRTLoader.NewParticle,spawn点和数值迁移纪律:一个不改
+            PRTLoader.NewParticle<PRT_SparkleCal>(Projectile.GetOwner().Center, Vector2.Zero, impactColor, impactParticleScale).Configure(Color.LawnGreen, 12, 0, 5f);
             Projectile.GetOwner().velocity = Projectile.GetOwner().velocity.normalize() * -20;
             Projectile.GetOwner().itemTime = Projectile.GetOwner().itemAnimation = 30;
 
@@ -296,13 +297,11 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 Color sparkColor2 = Color.Lerp(Color.Green, Color.LightGreen, p);
                 if (Main.rand.NextBool())
                 {
-                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
                 }
                 else
                 {
-                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.LightGreen : Color.LimeGreen);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2, Main.rand.NextBool() ? Color.LightGreen : Color.LimeGreen, sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f)).Configure(false, (int)(sparkLifetime2));
                 }
             }
             Projectile.Kill();

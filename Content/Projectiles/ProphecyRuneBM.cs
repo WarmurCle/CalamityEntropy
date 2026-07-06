@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -81,7 +82,8 @@ namespace CalamityEntropy.Content.Projectiles
             CEUtils.PlaySound("rune_shatter", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 1);
             for (int i = 0; i < 5; i++)
             {
-                EParticle.NewParticle(new GlowSpark(), target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f), 1, true, BlendState.Additive, 0);
+                //GlowSpark旧PRT/EParticle,Configure尾参统一签名那套
+                PRTLoader.NewParticle<PRT_GlowSpark>(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.LightBlue, Main.rand.NextFloat(0.06f, 0.1f)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);  //GlowSpark旧EParticle,Configure尾参统一签名那套
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -104,7 +105,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     for (float i = 0.04f; i <= 1; i += 0.02f)
                     {
                         Color rgbColor = Main.hslToRgb(i, 0.5f, 0.6f) * 0.25f;
-                        GeneralParticleHandler.SpawnParticle(new LineParticle(Vector2.Lerp(Projectile.Center, target.Center, i), (target.Center - Projectile.Center).normalize() * 0.01f, false, 18, (1f - i) * 0.8f + 0.8f, rgbColor));
+                        //LineCal彩虹连线,CalamityPorts Configure(false,lifetime)仿Calamity LineParticle
+                        PRTLoader.NewParticle<PRT_LineCal>(Vector2.Lerp(Projectile.Center, target.Center, i), (target.Center - Projectile.Center).normalize() * 0.01f, rgbColor, (1f - i) * 0.8f + 0.8f).Configure(false, 18);
                     }
                     if (Projectile.penetrate > 0)
                         Projectile.penetrate--;

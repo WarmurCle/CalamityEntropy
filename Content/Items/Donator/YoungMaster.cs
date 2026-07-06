@@ -1,23 +1,17 @@
 using CalamityEntropy.Content.Cooldowns;
-using CalamityEntropy.Content.Items.Weapons.Fractal;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
-using CalamityMod.Particles;
-using CalamityMod.Projectiles.Rogue;
-using CalamityMod.Tiles.Furniture.CraftingStations;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static CalamityEntropy.CEUtils;
-
 namespace CalamityEntropy.Content.Items.Donator
 {
     public class YoungMaster : ModItem, IDonatorItem
@@ -67,7 +61,7 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if(player.altFunctionUse == 2 && !player.HasCooldown(YoungMasterDashCD.ID))
+            if (player.altFunctionUse == 2 && !player.HasCooldown(YoungMasterDashCD.ID))
             {
                 type = ModContent.ProjectileType<YoungMasterDash>();
                 player.AddCooldown(YoungMasterDashCD.ID, 30 * 60);
@@ -109,7 +103,7 @@ namespace CalamityEntropy.Content.Items.Donator
                     if (Projectile.Hitbox.Intersects(player.Center.getRectCentered(80, 80)))
                         Projectile.Kill();
                 }
-                if (Projectile.localAI[1] ++ > Projectile.MaxUpdates * 9)
+                if (Projectile.localAI[1]++ > Projectile.MaxUpdates * 9)
                 {
                     Projectile.localAI[1] -= Projectile.MaxUpdates * 9;
                     CEUtils.PlaySound("spin" + Main.rand.Next(1, 3), Main.rand.NextFloat(0.7f, 1f), Projectile.Center, 60, 0.6f);
@@ -131,21 +125,22 @@ namespace CalamityEntropy.Content.Items.Donator
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.ai[2] = 5 * Projectile.MaxUpdates; 
+            Projectile.ai[2] = 5 * Projectile.MaxUpdates;
             CEUtils.PlaySound("slice", 1, target.Center);
             Color c = Mp.EnhancedTime > 0 ? new Color(255, 120, 120) : Color.Silver;
             for (int i = 0; i < 6; i++)
             {
                 float rot = 2;
-                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 60 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 14), false, 16, Projectile.scale * 0.04f, c, new Vector2(0.3f, 1), false, false));
-                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 60 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(-rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 14), false, 16, Projectile.scale * 0.04f, c, new Vector2(0.3f, 1), false, false));
+                //PRT_GlowSparkCal CalamityPorts,Configure签名对齐Calamity原构造
+                PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + Projectile.velocity.normalize() * 60 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 14), c, Projectile.scale * 0.04f).Configure(false, 16, new Vector2(0.3f, 1), false, false);
+                PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + Projectile.velocity.normalize() * 60 * Projectile.scale, Projectile.velocity.normalize().RotatedBy(-rot).RotatedByRandom(0.2f) * Main.rand.NextFloat(4, 14), c, Projectile.scale * 0.04f).Configure(false, 16, new Vector2(0.3f, 1), false, false);
             }
-            if(Mp.EnhancedTime > 0)
+            if (Mp.EnhancedTime > 0)
             {
                 CEUtils.PlaySound("pulseBlast", 0.8f, Projectile.Center, 6, 0.8f);
-                GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center + Projectile.velocity.normalize() * 80, Vector2.Zero, Color.Firebrick, 0.1f, 1.5f, 8));
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.velocity.normalize() * 80, Vector2.Zero, Color.Firebrick, 3.6f, 1, true, BlendState.Additive, 0, 16);
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.velocity.normalize() * 80, Vector2.Zero, Color.White, 2.4f, 1, true, BlendState.Additive, 0, 16);
+                PRTLoader.NewParticle<PRT_PulseRing>(Projectile.Center + Projectile.velocity.normalize() * 80, Vector2.Zero, Color.Firebrick, 0.1f).Configure(1.5f, 8);
+                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center + Projectile.velocity.normalize() * 80, Vector2.Zero, Color.Firebrick, 3.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
+                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center + Projectile.velocity.normalize() * 80, Vector2.Zero, Color.White, 2.4f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
                 if (Projectile.owner == Main.myPlayer)
                 {
                     CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center + Projectile.velocity.normalize() * 80, Projectile.damage / 3, 160, Projectile.DamageType);
@@ -170,7 +165,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 Color c = Mp.EnhancedTime > 0 ? new Color(255, 10, 10) : Color.Silver;
                 for (int i = 0; i < oldPos.Count; i++)
                 {
-                    sets1.Add(new VertexPointSets(oldPos[i] + oldRot[i].ToRotationVector2() * 74 * Projectile.scale, c, 10, (i / (oldPos.Count - 1f)) + Main.GlobalTimeWrappedHourly * 4)); 
+                    sets1.Add(new VertexPointSets(oldPos[i] + oldRot[i].ToRotationVector2() * 74 * Projectile.scale, c, 10, (i / (oldPos.Count - 1f)) + Main.GlobalTimeWrappedHourly * 4));
                     sets2.Add(new VertexPointSets(oldPos[i] - oldRot[i].ToRotationVector2() * 74 * Projectile.scale, c, 10, (i / (oldPos.Count - 1f)) + Main.GlobalTimeWrappedHourly * 4));
                 }
                 var gd = Main.graphics.GraphicsDevice;
@@ -182,7 +177,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve2.ToArray(), 0, ve2.Count - 2);
                 gd.Textures[0] = CEUtils.getExtraTex("SylvestaffStreak");
-                for(int i = 0; i < sets1.Count; i++)
+                for (int i = 0; i < sets1.Count; i++)
                 {
                     sets1[i].Color = Color.White;
                     sets2[i].Color = Color.White;
@@ -218,7 +213,7 @@ namespace CalamityEntropy.Content.Items.Donator
         public Vector2 target = Vector2.Zero;
         public override void AI()
         {
-            if(Projectile.Entropy().FirstFrames)
+            if (Projectile.Entropy().FirstFrames)
             {
                 CEUtils.PlaySound("AntivoidDash", 1.4f, Projectile.Center, 8, 0.5f);
             }
@@ -230,7 +225,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 Projectile.GetOwner().velocity *= 0f;
                 v *= 0.976f;
                 Projectile.GetOwner().itemAnimation = Projectile.GetOwner().itemTime = 5;
-                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center - Projectile.velocity.normalize() * 46f + CEUtils.randomPointInCircle(24), Projectile.velocity * -0.4f, false, 20, Projectile.scale * 0.06f, new Color(255, 100, 100), new Vector2(0.2f, 1), false, false));
+                PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center - Projectile.velocity.normalize() * 46f + CEUtils.randomPointInCircle(24), Projectile.velocity * -0.4f, new Color(255, 100, 100), Projectile.scale * 0.06f).Configure(false, 20, new Vector2(0.2f, 1), false, false);
             }
             else
             {
@@ -248,7 +243,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 if (Projectile.ai[0] == 30)
                 {
                     Vector2 tb = (target - player.Center).normalize();
-                    GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(player.Center, tb * 1, new Color(255, 120, 120), new Vector2(0.16f, 1), tb.ToRotation(), 0.8f, 3f, 32));
+                    PRTLoader.NewParticle<PRT_DirectionalPulseRing>(player.Center, tb * 1, new Color(255, 120, 120), 0.8f).Configure(new Vector2(0.16f, 1), tb.ToRotation(), 3f, 32);
                     if (Main.myPlayer == Projectile.owner)
                     {
                         player.velocity += tb * -25;
@@ -260,7 +255,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 if (Projectile.ai[0] < 30)
                     player.GetModPlayer<YMPlayer>().Rotation += player.velocity.X * 0.08f;
                 else
-                    player.GetModPlayer<YMPlayer>().Rotation += Math.Sign(player.velocity.X) * 0.5f; 
+                    player.GetModPlayer<YMPlayer>().Rotation += Math.Sign(player.velocity.X) * 0.5f;
                 if (Projectile.ai[0] > 40)
                 {
                     if (player.velocity.Y == 0)
@@ -284,8 +279,8 @@ namespace CalamityEntropy.Content.Items.Donator
             Projectile.ai[0]++;
             Projectile.timeLeft = 120;
             this.target = target.Center;
-            for(int i = 0; i < 32; i++)
-                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center - Projectile.velocity.normalize() * 0.5f + CEUtils.randomPointInCircle(24), Projectile.velocity.RotatedByRandom(0.6f) * Main.rand.NextFloat(-0.8f, -3), false, 20, Projectile.scale * 0.06f, new Color(255, 100, 100), new Vector2(0.2f, 1), false, false));
+            for (int i = 0; i < 32; i++)
+                PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center - Projectile.velocity.normalize() * 0.5f + CEUtils.randomPointInCircle(24), Projectile.velocity.RotatedByRandom(0.6f) * Main.rand.NextFloat(-0.8f, -3), new Color(255, 100, 100), Projectile.scale * 0.06f).Configure(false, 20, new Vector2(0.2f, 1), false, false);
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -345,13 +340,13 @@ namespace CalamityEntropy.Content.Items.Donator
 
             Vector2 p1 = Projectile.Center + new Vector2(-10, 118).RotatedBy(Projectile.rotation) * Projectile.scale * Projectile.Opacity;
             Vector2 p2 = Projectile.Center + new Vector2(-10, -118).RotatedBy(Projectile.rotation) * Projectile.scale * Projectile.Opacity;
-            if(lp1 == Vector2.Zero)
+            if (lp1 == Vector2.Zero)
             {
                 lp1 = p1 - Projectile.velocity;
                 lp2 = p2 - Projectile.velocity;
             }
-            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(p1, (p1 - lp1).normalize() * 6, false, 16, Projectile.scale * 0.036f * Projectile.Opacity, new Color(255, 100, 100) * Projectile.Opacity, new Vector2(0.4f, 1), false, false));
-            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(p2, (p2 - lp2).normalize() * 6, false, 16, Projectile.scale * 0.036f * Projectile.Opacity, new Color(255, 100, 100) * Projectile.Opacity, new Vector2(0.4f, 1), false, false));
+            PRTLoader.NewParticle<PRT_GlowSparkCal>(p1, (p1 - lp1).normalize() * 6, new Color(255, 100, 100) * Projectile.Opacity, Projectile.scale * 0.036f * Projectile.Opacity).Configure(false, 16, new Vector2(0.4f, 1), false, false);
+            PRTLoader.NewParticle<PRT_GlowSparkCal>(p2, (p2 - lp2).normalize() * 6, new Color(255, 100, 100) * Projectile.Opacity, Projectile.scale * 0.036f * Projectile.Opacity).Configure(false, 16, new Vector2(0.4f, 1), false, false);
             lp1 = p1;
             lp2 = p2;
         }
@@ -419,9 +414,9 @@ namespace CalamityEntropy.Content.Items.Donator
         public override void OnKill(int timeLeft)
         {
             CEUtils.PlaySound("pulseBlast", 0.8f, Projectile.Center, 6, 0.8f);
-            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center + Projectile.velocity.normalize() * 80, Vector2.Zero, Color.Firebrick, 0.1f, 1.5f, 8));
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.velocity.normalize() * 80, Vector2.Zero, Color.Firebrick, 3.6f, 1, true, BlendState.Additive, 0, 16);
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.velocity.normalize() * 80, Vector2.Zero, Color.White, 2.4f, 1, true, BlendState.Additive, 0, 16);
+            PRTLoader.NewParticle<PRT_PulseRing>(Projectile.Center + Projectile.velocity.normalize() * 80, Vector2.Zero, Color.Firebrick, 0.1f).Configure(1.5f, 8);
+            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center + Projectile.velocity.normalize() * 80, Vector2.Zero, Color.Firebrick, 3.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
+            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center + Projectile.velocity.normalize() * 80, Vector2.Zero, Color.White, 2.4f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
         }
     }
 }

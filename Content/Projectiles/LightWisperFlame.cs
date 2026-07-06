@@ -1,7 +1,8 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -69,10 +70,8 @@ namespace CalamityEntropy.Content.Projectiles
                 if (Main.rand.NextBool(17))
                 {
                     bool flag = !Main.rand.NextBool();
-                    GeneralParticleHandler.SpawnParticle(new FlameParticle(base.Projectile.Center, 20, MathHelper.Clamp(Time * 0.05f, 0.15f, 1.75f), 0.05f, Color.BlueViolet * (flag ? 1.2f : 0.5f), Color.DarkBlue * (flag ? 1.2f : 0.5f))
-                    {
-                        Velocity = new Vector2(base.Projectile.velocity.X * 0.8f, -10f).RotatedByRandom(0.004999999888241291) * (flag ? Main.rand.NextFloat(0.4f, 0.65f) : Main.rand.NextFloat(0.8f, 1f))
-                    });
+                    //PRT_FlameCal Calamity flame trail,Configure照Ports
+                    PRTLoader.NewParticle<PRT_FlameCal>(base.Projectile.Center, new Vector2(base.Projectile.velocity.X * 0.8f, -10f).RotatedByRandom(0.004999999888241291) * (flag ? Main.rand.NextFloat(0.4f, 0.65f) : Main.rand.NextFloat(0.8f, 1f)), Color.BlueViolet * (flag ? 1.2f : 0.5f), 0.05f).Configure(20, MathHelper.Clamp(Time * 0.05f, 0.15f, 1.75f), Color.DarkBlue * (flag ? 1.2f : 0.5f));  //FlameCal Calamity flame trail,Configure照Ports
                 }
             }
             else if (Time == 5f)

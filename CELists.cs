@@ -53,7 +53,7 @@ namespace CalamityEntropy
                 P<CinderConvergencerHoldout>(),
                 P<VoidAnnihilateCharge>(),
                 P<VoidAnnihilateSpawner>(),
-		        P<AzafureEKatanaSlash>()
+                P<AzafureEKatanaSlash>()
             };
         }
         public static List<int> SoyMilkProjectileBlacklist;
