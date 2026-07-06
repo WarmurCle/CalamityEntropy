@@ -4821,17 +4821,8 @@ Projectiles: {
 	Stinger.DisplayName: Stinger
 	ExplosiveSpore.DisplayName: Explosive Spore
 	SporeGas.DisplayName: Spore Gas
-
-	AzureRapierHeld: {
-		$parentVal: Azure Rapier
-		DisplayName: Azure Rapier Held
-	}
-
-	AzureRapierBlockSlash: {
-		$parentVal: Azure Rapier Slash
-		DisplayName: Azure Rapier Block Slash
-	}
-
+	AzureRapierHeld.DisplayName: Azure Rapier Held
+	AzureRapierBlockSlash.DisplayName: Azure Rapier Block Slash
 	AzureRapierBlock.DisplayName: Azure Rapier Block
 	DarkScriptureHeld.DisplayName: Dark Scripture Held
 	DarkBullet.DisplayName: Dark Bullet
@@ -4973,12 +4964,7 @@ Projectiles: {
 	YoungMasterProj.DisplayName: Young Master Proj
 	YMSlash.DisplayName: Y M Slash
 	YoungMasterDash.DisplayName: Young Master Dash
-
-	YoungMasterMark: {
-		$parentVal: Mark
-		DisplayName: Young Master Mark
-	}
-
+	YoungMasterMark.DisplayName: Young Master Mark
 	FutureKnifeSpin.DisplayName: Future Knife Spin
 }
 

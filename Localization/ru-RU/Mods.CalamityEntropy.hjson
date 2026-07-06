@@ -4717,7 +4717,7 @@ Projectiles: {
 	// YoungMasterDash.DisplayName: Young Master Dash
 
 	YoungMasterMark: {
-		// $parentVal: Mark
+		// $parentVal: Young Master Mark
 		// DisplayName: Young Master Mark
 	}
 

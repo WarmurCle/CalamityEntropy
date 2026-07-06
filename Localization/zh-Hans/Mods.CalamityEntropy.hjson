@@ -4890,17 +4890,8 @@ Projectiles: {
 	Stinger.DisplayName: 毒刺
 	ExplosiveSpore.DisplayName: 爆炸孢子
 	SporeGas.DisplayName: 孢子云
-
-	AzureRapierHeld: {
-		$parentVal: 苍蓝刺剑
-		DisplayName: 苍蓝刺剑
-	}
-
-	AzureRapierBlockSlash: {
-		$parentVal: 苍蓝刺剑防反
-		DisplayName: 苍蓝刺剑防反
-	}
-
+	AzureRapierHeld.DisplayName: 苍蓝刺剑
+	AzureRapierBlockSlash.DisplayName: 苍蓝刺剑防反
 	AzureRapierBlock.DisplayName: 苍蓝刺剑格挡
 	DarkScriptureHeld.DisplayName: 黑暗秘典
 	DarkBullet.DisplayName: 黑暗弹
@@ -5030,8 +5021,8 @@ Projectiles: {
 	BuriedDot.DisplayName: 噬阳光点
 	BuriedShoot.DisplayName: 日陨激光
 	BuriedShoot2.DisplayName: 日陨激光
-	// TectonicShardAshesCore.DisplayName: Tectonic Shard Ashes Core
-	// TectonicShardHoming.DisplayName: Tectonic Shard Homing
+	TectonicShardAshesCore.DisplayName: 板块碎片
+	TectonicShardHoming.DisplayName: 板块碎片
 	AcropolisTeslaBallWarn.DisplayName: 卫城机甲预警
 	VoidAnnihilateSpawner.DisplayName: 黯天飞刀
 	VoidAnnihilateCharge.DisplayName: 黯天飞刀蓄能
@@ -5042,13 +5033,10 @@ Projectiles: {
 	YoungMasterProj.DisplayName: 贵公子
 	YMSlash.DisplayName: 贵公子斩击
 	YoungMasterDash.DisplayName: 贵公子冲刺
-
-	YoungMasterMark: {
-		$parentVal: 爆炸标记
-		// DisplayName: Young Master Mark
+	YoungMasterMark.DisplayName: 爆炸标记
 	}
 
-	// FutureKnifeSpin.DisplayName: Future Knife Spin
+	FutureKnifeSpin.DisplayName: 预言飞刀
 }
 
 LegendTooltip: - 传奇物品 -
