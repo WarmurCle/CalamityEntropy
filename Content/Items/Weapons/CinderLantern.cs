@@ -192,7 +192,6 @@ namespace CalamityEntropy.Content.Items.Weapons
         public List<float> odr = new List<float>();
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 1;
             ProjectileID.Sets.MinionShot[Type] = true;
         }
         public override void PostAI()

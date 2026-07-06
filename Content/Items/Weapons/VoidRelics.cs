@@ -444,9 +444,13 @@ namespace CalamityEntropy.Content.Items.Weapons
 
     public class VoisenBullet : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.MinionShot[Type] = true;
+        }
         public override void SetDefaults()
         {
-            Projectile.DamageType = DamageClass.Melee;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.width = 12;
             Projectile.height = 12;
             Projectile.friendly = true;

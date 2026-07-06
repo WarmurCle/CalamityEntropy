@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
@@ -9,6 +10,10 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
 
     public class LuminarisMinionAstralShoot : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.MinionShot[Type] = true;
+        }
         public List<Vector2> odp = new List<Vector2>();
         public override string Texture => CEUtils.WhiteTexPath;
         public override void SetDefaults()
