@@ -4294,6 +4294,17 @@ Items: {
 			[c/ff7f50:“这把枪的前主人？你说那个全身凑不出二两肉的家伙？”]
 			'''
 	}
+
+	YoungMaster: {
+		DisplayName: 贵公子
+		Tooltip:
+			'''
+			丢出一个拼接而成的回旋镖
+			右键点击向前方冲刺，在此期间不会受到伤害
+			冲刺撞击到任何目标时会后空翻并在空中发射一个大范围的X形剑气，
+			剑气命中造成延迟爆炸同时为武器充能，强化接下来的10次普通攻击
+			'''
+	}
 }
 
 SmolderingSetBonus:
@@ -5027,6 +5038,14 @@ Projectiles: {
 	SilenceStealth.DisplayName: 赋能沉默
 	BuriedSunHoldout.DisplayName: 埋葬之阳
 	VoisenBullet.DisplayName: 窥虚冥弹
+	YoungMasterProj.DisplayName: 贵公子
+	YMSlash.DisplayName: 贵公子斩击
+	YoungMasterDash.DisplayName: 贵公子冲刺
+
+	YoungMasterMark: {
+		$parentVal: 爆炸标记
+		// DisplayName: Young Master Mark
+	}
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5696,6 +5715,7 @@ CdMoonlight: 月光护盾
 CdDS: 神圣干预冷却
 CdAntivoid: 返虚冲刺冷却
 AbyssalStorm: 深渊狂舞冷却
+YoungMasterDashCD: 冲刺攻击冷却
 CruiserBestiary:
 	'''
 	来源于虚空的顶级猎杀者，与你所遭遇过的那位神明吞噬者有着相似的姿态。

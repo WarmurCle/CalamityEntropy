@@ -3960,6 +3960,18 @@ Items: {
 			[c/ff7f50:"Former owner of this gun? You mean that guy covered by cyberware except his brain?"]
 			''' */
 	}
+
+	YoungMaster: {
+		DisplayName: Young Master
+		Tooltip:
+			'''
+			Бросьте лоскутный бумеранг
+			ПКМ – рывок вперёд, без получения урона во время рывка
+			При попадании рывком в цель – сальто назад и выстрел широким X-взмахом в воздухе
+			Попадание X-взмаха создаёт отложенный взрыв и заряжает оружие
+			Усиливает следующие 10 обычных атак
+			'''
+	}
 }
 
 SmolderingSetBonus:
@@ -4700,6 +4712,14 @@ Projectiles: {
 	// SilenceStealth.DisplayName: Silence Stealth
 	// BuriedSunHoldout.DisplayName: Buried Sun Holdout
 	// VoisenBullet.DisplayName: Voisen Bullet
+	// YoungMasterProj.DisplayName: Young Master Proj
+	// YMSlash.DisplayName: Y M Slash
+	// YoungMasterDash.DisplayName: Young Master Dash
+
+	YoungMasterMark: {
+		// $parentVal: Mark
+		// DisplayName: Young Master Mark
+	}
 }
 
 LegendTooltip: - Легенда -
@@ -5372,6 +5392,7 @@ CdMoonlight: Лунный Щит
 CdDS: Перезарядка Божественного Щита
 CdAntivoid: охлаждение с обратным спринтом
 AbyssalStorm: Буря в бездне
+// YoungMasterDashCD: Dash Cooldown
 CruiserBestiary:
 	'''
 	Верховный хищник, рожденный из пустоты, напоминающий того Пожирателя Богов, с которым ты когда-то сталкивался.

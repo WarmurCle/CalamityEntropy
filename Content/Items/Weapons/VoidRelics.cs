@@ -453,7 +453,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
             Projectile.light = 1f;
-            Projectile.timeLeft = 280;
+            Projectile.timeLeft = 16 * 60;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 0;
             Projectile.MaxUpdates = 4;

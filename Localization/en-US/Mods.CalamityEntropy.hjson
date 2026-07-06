@@ -4222,6 +4222,18 @@ Items: {
 			[c/ff7f50:"Former owner of this gun? You mean that guy covered by cyberware except his brain?"]
 			'''
 	}
+
+	YoungMaster: {
+		DisplayName: Young Master
+		Tooltip:
+			'''
+			Throw a patchwork boomerang
+			Right-click to dash forward, take no damage during dash
+			Hitting any target with dash triggers a backflip and fires a wide X-slash in midair
+			X-slash hit causes a delayed explosion and charges the weapon
+			Empowers the next 10 normal attacks
+			'''
+	}
 }
 
 SmolderingSetBonus:
@@ -4958,6 +4970,14 @@ Projectiles: {
 	SilenceStealth.DisplayName: Silence Stealth
 	BuriedSunHoldout.DisplayName: Buried Sun Holdout
 	VoisenBullet.DisplayName: Voisen Bullet
+	YoungMasterProj.DisplayName: Young Master Proj
+	YMSlash.DisplayName: Y M Slash
+	YoungMasterDash.DisplayName: Young Master Dash
+
+	YoungMasterMark: {
+		$parentVal: Mark
+		DisplayName: Young Master Mark
+	}
 }
 
 LegendTooltip: - Legend -
@@ -5586,6 +5606,7 @@ CdMoonlight: Moonlight Shield
 CdDS: Divine Shield Cooldown
 CdAntivoid: Antivoid Dash Cooldown
 AbyssalStorm: Abyssal Storm Cooldoawn
+YoungMasterDashCD: Dash Cooldown
 CruiserBestiary:
 	'''
 	A supreme predator born from the void, bearing a resemblance to that Devourer of Gods you once encountered.
