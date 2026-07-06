@@ -10,4 +10,4 @@ Bug Reports: [https://github.com/WarmurCle/CalamityEntropy/issues](https://githu
 
 Discord Server: [https://discord.com/invite/Mnmzd34Fda](https://discord.com/invite/Mnmzd34Fda)
 
-**If you're making a translation mod, check the LocalizationChangeLog.log. You can find all the text changes in there.
+··If you're making a translation mod, check the LocalizationChangeLog.log. You can find all the text changes in there.
