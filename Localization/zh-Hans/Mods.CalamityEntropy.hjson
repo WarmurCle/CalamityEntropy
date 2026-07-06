@@ -119,8 +119,9 @@ Items: {
 				DisplayName: 预言飞刀
 				Tooltip:
 					'''
-					发射一些追踪飞刀
-					潜伏攻击击中后召唤6个符文球攻击敌怪
+					发射一些旋转的飞刀，在目标周围短暂停滞后高速飞向并穿刺目标
+					旋转时的飞刀不会造成伤害
+					潜伏攻击会发射一柄较大的飞刀，击中后召唤6个符文球攻击敌怪，同时发射两柄追踪的小型飞刀
 					'''
 			}
 
@@ -5046,6 +5047,8 @@ Projectiles: {
 		$parentVal: 爆炸标记
 		// DisplayName: Young Master Mark
 	}
+
+	// FutureKnifeSpin.DisplayName: Future Knife Spin
 }
 
 LegendTooltip: - 传奇物品 -

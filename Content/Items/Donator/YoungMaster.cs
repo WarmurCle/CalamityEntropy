@@ -93,10 +93,11 @@ namespace CalamityEntropy.Content.Items.Donator
         public List<float> oldRot = new List<float>();
         public override void AI()
         {
-            if (Projectile.Entropy().FirstFrames && Mp.EnhancedTime-- > 0)
+            if (Projectile.Entropy().FirstFrames)
             {
-                Projectile.scale *= 1.4f;
-                Projectile.width = Projectile.height = (int)(Projectile.width * 1.4f);
+                float sm = Mp.EnhancedTime-- > 0 ? 1.8f : 1.4f;
+                Projectile.scale *= sm;
+                Projectile.width = Projectile.height = (int)(Projectile.width * sm);
             }
             if (Projectile.ai[2]-- <= 0)
             {

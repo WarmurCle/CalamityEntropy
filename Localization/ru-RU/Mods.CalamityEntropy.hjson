@@ -4720,6 +4720,8 @@ Projectiles: {
 		// $parentVal: Mark
 		// DisplayName: Young Master Mark
 	}
+
+	// FutureKnifeSpin.DisplayName: Future Knife Spin
 }
 
 LegendTooltip: - Легенда -
