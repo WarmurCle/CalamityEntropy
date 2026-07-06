@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityMod;
 using CalamityMod.Items.Materials;

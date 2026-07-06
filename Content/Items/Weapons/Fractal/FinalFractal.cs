@@ -399,9 +399,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            //dedServ时PRTLoader.NewParticle给孤儿实例,Configure照常
-            PRTLoader.NewParticle<PRT_ShineParticle>(target.Center, Vector2.Zero, new Color(225, 200, 255), 0.6f)
-                .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
+            EParticle.NewParticle(new ShineParticle(), target.Center, Vector2.Zero, new Color(225, 200, 255), 0.6f, 1, true, BlendState.Additive, 0, 12);
 
             if (Projectile.ai[0] == 3 && OnNPCTime > 0 && OnNPC == null)
             {
@@ -410,16 +408,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             if (Projectile.ai[0] == 3)
             {
                 scale = 2;
-                //dedServ时NewParticle给孤儿实例不是null,后面字段赋值照常别挡
-                if (!Main.dedServ)
+                for (int i = 0; i < 6; i++)
                 {
-                    for (int i = 0; i < 6; i++)
-                    {
-                        Vector2 ver = CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-12, 12);
-                        //PRT_Light burst,Configure opacity/glow/mode对齐旧spawnNew
-                        PRTLoader.NewParticle<PRT_Light>(target.Center, ver, new Color(220, 180, 255), Main.rand.NextFloat(1.3f, 1.7f))
-                            .Configure(0.15f, lifetime: 60);
-                    }
+                    Vector2 ver = CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-12, 12);
+                    BasePRT particle = new PRT_Light(target.Center, ver
+                        , Main.rand.NextFloat(1.3f, 1.7f), new Color(220, 180, 255), 60, 0.15f);
+                    PRTLoader.AddParticle(particle);
                 }
                 CEUtils.PlaySound("runesonghit", Main.rand.NextFloat(0.6f, 1.4f), target.Center, 64, volume: CEUtils.WeapSound);
             }

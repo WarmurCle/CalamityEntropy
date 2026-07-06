@@ -1,6 +1,5 @@
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using InnoVault.PRT;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Terraria;
@@ -73,12 +72,11 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.rotation.ToRotationVector2() * -46, ModContent.ProjectileType<VoidSpike>(), Projectile.damage, 2);
             }
             CEUtils.PlaySound("VoidBomb", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center, 16);
-            //DetailedExplosionCal Configure三参是Calamity explode原样,别套EParticle尾参
-            PRTLoader.NewParticle<PRT_DetailedExplosionCal>(Projectile.Center, Vector2.Zero, new Color(180, 156, 255) * 0.5f, 0f).Configure(Vector2.One, Main.rand.NextFloat(-5, 5), 0.46f, 30);
+            CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, new Color(180, 156, 255) * 0.5f, Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.46f, 30);
+            GeneralParticleHandler.SpawnParticle(explosion2);
             for (float i = 0; i <= 1; i += 0.1f)
             {
-                //CustomPulse贴图路径现传,走PRTPathTextures缓存,Configure第一个string是TexPath
-                PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Color.Lerp(Color.White, Color.BlueViolet, i), 0.01f).Configure("CalamityMod/Particles/ShatteredExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.01f, i * 0.16f, (int)(i * 30));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Lerp(Color.White, Color.BlueViolet, i), "CalamityMod/Particles/ShatteredExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.01f, i * 0.16f, (int)(i * 30)));
             }
         }
         public override bool PreDraw(ref Color lightColor)

@@ -1,14 +1,13 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Particles;
 using CalamityMod.Rarities;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -123,8 +122,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                     {
                         Color smokeColor = CalamityUtils.MulticolorLerp(Main.rand.NextFloat(), new Color[3] { Color.White, Color.Gray, Color.LightGray });
                         smokeColor = Color.Lerp(smokeColor, Color.Gray, 0.6f) * 0.65f;
-                        //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
-                        PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center - Projectile.velocity.normalize() * 120, Projectile.velocity.SafeNormalize(Vector2.Zero).RotatedByRandom(1.2f) * -1 * Main.rand.NextFloat(16, 24), smokeColor, 1f).Configure(1f, 40, 0.03f, true, 0.075f);
+                        HeavySmokeParticle smoke = new(Projectile.Center - Projectile.velocity.normalize() * 120, Projectile.velocity.SafeNormalize(Vector2.Zero).RotatedByRandom(1.2f) * -1 * Main.rand.NextFloat(16, 24), smokeColor, 40, 1f, 1f, 0.03f, true, 0.075f);
+                        GeneralParticleHandler.SpawnParticle(smoke);
                     }
                     CEUtils.PlaySound("SteamAAG", 1, Projectile.Center);
                     CEUtils.PlaySound("AAGLB", 1, Projectile.Center);
@@ -137,8 +136,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (shoot)
             {
                 player.velocity -= Projectile.velocity.normalize() * 5 * player.Entropy().GetPressure();
-                PRTLoader.NewParticle<PRT_ImpactParticle>(Projectile.Center + Projectile.velocity.normalize() * 150, Vector2.Zero, Color.LightGoldenrodYellow, 0.12f)
-                    .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.rotation);
+                EParticle.NewParticle(new Particles.ImpactParticle(), Projectile.Center + Projectile.velocity.normalize() * 150, Vector2.Zero, Color.LightGoldenrodYellow, 0.12f, 1, true, BlendState.Additive, Projectile.rotation);
 
                 CEUtils.PlaySound("AAGShot", 1, Projectile.Center);
                 CEUtils.SetShake(Projectile.Center - Projectile.rotation.ToRotationVector2() * 16, 36);
@@ -150,7 +148,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                     float sparkScale2 = Main.rand.NextFloat(0.6f, 1.4f);
                     var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
 
-                    PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
+                    LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                    GeneralParticleHandler.SpawnParticle(spark);
                 }
             }
             shoot = false;
@@ -216,8 +215,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                 float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
                 var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
 
-                //光效走AdditiveBlend,Configure尾参lifetime对齐旧timeLeft
-                PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
+                LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
             var p = new Projectile();
             p.SetDefaults((int)Projectile.ai[0]);
@@ -241,13 +240,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.rotation = Projectile.velocity.ToRotation();
             for (float i = 0; i < 1; i += 0.2f)
             {
-                //旧对象初始化器拆成字段直赋+Configure,顺序别反
-                var p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center + CEUtils.randomPointInCircle(4) - Projectile.velocity * i, Projectile.velocity * 0.6f + CEUtils.randomPointInCircle(0.4f), Color.OrangeRed, Main.rand.NextFloat(0.04f, 0.06f));
-                p.timeleftmax = 16;
-                p.Lifetime = 16;
-                p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 16);
+                EParticle.spawnNew(new Smoke() { timeleftmax = 16, Lifetime = 16 }, Projectile.Center + CEUtils.randomPointInCircle(4) - Projectile.velocity * i, Projectile.velocity * 0.6f + CEUtils.randomPointInCircle(0.4f), Color.OrangeRed, Main.rand.NextFloat(0.04f, 0.06f), 1, true, BlendState.Additive, CEUtils.randomRot());
             }
-            PRTLoader.NewParticle<PRT_EMediumSmoke>(Projectile.Center, CEUtils.randomPointInCircle(4), Color.LightGoldenrodYellow, Main.rand.NextFloat(0.4f, 0.8f)).Configure(1, true, PRTDrawModeEnum.AlphaBlend, CEUtils.randomRot());
+            EParticle.spawnNew(new EMediumSmoke(), Projectile.Center, CEUtils.randomPointInCircle(4), Color.LightGoldenrodYellow, Main.rand.NextFloat(0.4f, 0.8f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
         }
     }
 }

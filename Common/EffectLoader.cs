@@ -12,6 +12,7 @@ using CalamityEntropy.Content.Projectiles.Chainsaw;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.Pets.Abyss;
 using CalamityEntropy.Content.Projectiles.Prophet;
+using CalamityEntropy.Content.Skies;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using InnoVault;
@@ -72,16 +73,11 @@ namespace CalamityEntropy.Common
         public const string AssetPath = "CalamityEntropy/Assets/";
         public const string AssetPath2 = "Assets/";
         public const int MaxScreenSlot = 4;
-        [VaultLoaden("CalamityEntropy/Assets/Effects/Outline")]
         public static Effect OutlineShader
         {
             get
             {
                 return EBookUI.shader;
-            }
-            set
-            {
-                EBookUI.shader = value;
             }
         }
         public override int ScreenSlot => MaxScreenSlot;
@@ -117,7 +113,7 @@ namespace CalamityEntropy.Common
                 DrawProjectileEffects(graphicsDevice);
 
                 //绘制粒子效果
-                DrawParticleEffects(graphicsDevice);   //虚空粒子shape4走RT合成,不进常规PRT桶
+                DrawParticleEffects(graphicsDevice);
 
                 //应用背景着色器
                 ApplyBackgroundShader(graphicsDevice);
@@ -435,7 +431,6 @@ namespace CalamityEntropy.Common
 
             Main.spriteBatch.End();
         }
-        //PRT_Abyssal mask绘制,粒子枚举在DrawParticleEffectsAlt,和PRT_Void那套RT分流
         private static void DrawAbyssalEffect(GraphicsDevice graphicsDevice)
         {
             graphicsDevice.SetRenderTarget(Screen0);
@@ -511,7 +506,7 @@ namespace CalamityEntropy.Common
             if (ModContent.GetInstance<Config>().EnablePixelEffect)
             {
                 DrawInitialScreen(graphicsDevice);
-                graphicsDevice.SetRenderTarget(Screen2);   //IPixelPassPRT画进这层,ApplyPixelShader再过Pixel shader
+                graphicsDevice.SetRenderTarget(Screen2);
                 graphicsDevice.Clear(Color.Transparent);
             }
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.Transform);
@@ -557,10 +552,11 @@ namespace CalamityEntropy.Common
                 }*/
             }
 
-            DrawPixelPassPRT();   //IPixelPassPRT→Screen2,三桶序见DrawPixelPassPRT
+            EParticle.DrawPixelShaderParticles();
             Main.spriteBatch.End();
 
-            //IAdditivePRT自己管绘制,PRT分桶对不上,攒一批单独开Additive画
+
+
             List<IAdditivePRT> prtAdditives = new List<IAdditivePRT>();
             foreach (var prt in PRTLoader.PRT_InGame_World_Inds)
             {
@@ -583,79 +579,6 @@ namespace CalamityEntropy.Common
                 }
                 Main.spriteBatch.End();
             }
-        }
-
-        /// <summary>
-        /// IPixelPassPRT 画进 Screen2 RT，之后 ApplyPixelShader 过 Pixel shader
-        /// 三桶顺序 AlphaBlend → NonPremultiplied → Additive，对齐旧 PixelParticle 绘制序
-        /// </summary>
-        private static void DrawPixelPassPRT()
-        {
-            List<IPixelPassPRT> alphaBlendDraw = new();
-            List<IPixelPassPRT> nonPremultipliedDraw = new();
-            List<IPixelPassPRT> additiveDraw = new();
-
-            foreach (var prt in PRTLoader.PRT_InGame_World_Inds)
-            {
-                if (!prt.active || prt.Mod != Instance)
-                {
-                    continue;
-                }
-                if (prt is not IPixelPassPRT { PixelPass: true } pixelPRT)
-                {
-                    continue;
-                }
-
-                switch (prt.PRTDrawMode)
-                {
-                    case PRTDrawModeEnum.AdditiveBlend:
-                        additiveDraw.Add(pixelPRT);
-                        break;
-                    case PRTDrawModeEnum.AlphaBlend:
-                        alphaBlendDraw.Add(pixelPRT);
-                        break;
-                    default:
-                        nonPremultipliedDraw.Add(pixelPRT);   //非Additive非AlphaBlend全进这桶,旧EParticle三分支语义
-                        break;
-                }
-            }
-
-            if (alphaBlendDraw.Count == 0 && nonPremultipliedDraw.Count == 0 && additiveDraw.Count == 0)
-            {
-                return;
-            }
-
-            //PreparePixelShader开的批次得先End,再按桶重开画像素粒子
-            Main.spriteBatch.End();
-            if (alphaBlendDraw.Count > 0)
-            {
-                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
-                foreach (var p in alphaBlendDraw)
-                {
-                    p.DrawPixelPass(Main.spriteBatch);
-                }
-                Main.spriteBatch.End();
-            }
-            if (nonPremultipliedDraw.Count > 0)
-            {
-                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
-                foreach (var p in nonPremultipliedDraw)
-                {
-                    p.DrawPixelPass(Main.spriteBatch);
-                }
-                Main.spriteBatch.End();
-            }
-            if (additiveDraw.Count > 0)
-            {
-                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
-                foreach (var p in additiveDraw)
-                {
-                    p.DrawPixelPass(Main.spriteBatch);
-                }
-                Main.spriteBatch.End();
-            }
-            //三桶画完接回NonPremultiplied,后面NPC绘制续上PreparePixelShader开的批次
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
         }
 
         public static void ApplyPixelShader(GraphicsDevice graphicsDevice, int dye = 0, Entity dyeEnt = null, bool GameZoom = false, BlendState state = null)
@@ -811,22 +734,13 @@ namespace CalamityEntropy.Common
                 }
             }
 
-            foreach (var pt in PRTLoader.PRT_InGame_World_Inds)
+            foreach (Particle pt in VoidParticles.particles)
             {
-                if (!pt.active || pt.Mod != Instance)
-                {
-                    continue;
-                }
-                //is PRT_Void && is not PRT_Abyssal:两套RT shader分流,条件写反就画错桶
-                if (pt is not PRT_Void || pt is PRT_Abyssal)
-                {
-                    continue;
-                }
                 if (cvmask == null)
                 {
                     continue;
                 }
-                Main.spriteBatch.Draw(cvmask.Value, pt.Position - Main.screenPosition, null, Color.White * 0.06f, pt.Rotation, cvmask.Value.Size() / 2, (5.4f * pt.Opacity) * 0.05f, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(cvmask.Value, pt.position - Main.screenPosition, null, Color.White * 0.06f, pt.rotation, cvmask.Value.Size() / 2, (5.4f * pt.alpha) * 0.05f, SpriteEffects.None, 0);
             }
 
             foreach (Projectile p in Main.ActiveProjectiles)
@@ -843,30 +757,20 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.End();
         }
 
-        //PRT_Void shape4→Screen1(Additive)→kscreen2 shader→Screen2,不进常规PRT桶
         private static void DrawParticleEffects(GraphicsDevice graphicsDevice)
         {
             graphicsDevice.SetRenderTarget(Screen1);
             graphicsDevice.Clear(Color.Transparent);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null);
 
-            foreach (var pt in PRTLoader.PRT_InGame_World_Inds)
+            foreach (Particle pt in VoidParticles.particles)
             {
-                if (!pt.active || pt.Mod != Instance)
-                {
-                    continue;
-                }
-                //过滤条件和DrawNonPixVoidEffects/DrawParticleEffectsAlt镜像,is PRT_Abyssal走另一套RT
-                if (pt is not PRT_Void || pt is PRT_Abyssal)
-                {
-                    continue;
-                }
-                if (pt is PRT_Void voidPt && voidPt.shape != 4)   //只有shape4进kscreen2合成,别的走常规PRT桶
+                if (pt.shape != 4)
                 {
                     continue;
                 }
                 Texture2D draw = CEUtils.getExtraTex("cvdt");
-                Main.spriteBatch.Draw(draw, pt.Position - Main.screenPosition, null, Color.White, pt.Rotation, draw.Size() / 2, 2.2f * pt.Opacity, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(draw, pt.position - Main.screenPosition, null, Color.White, pt.rotation, draw.Size() / 2, 2.2f * pt.alpha, SpriteEffects.None, 0);
             }
 
             Main.spriteBatch.End();
@@ -930,22 +834,13 @@ namespace CalamityEntropy.Common
         }
         private static void DrawParticleEffectsAlt()
         {
-            //深渊粒子单独走DrawAbyssalEffect,过滤条件和上面虚空那套镜像
-            foreach (var prt in PRTLoader.PRT_InGame_World_Inds)
+            foreach (Particle pt in AbyssalParticles.particles)
             {
-                if (!prt.active || prt.Mod != Instance)
-                {
-                    continue;
-                }
-                if (prt is not PRT_Abyssal pt)
-                {
-                    continue;
-                }
                 if (cvmask == null)
                 {
                     continue;
                 }
-                Main.spriteBatch.Draw(cvmask.Value, pt.Position - Main.screenPosition, null, Color.White * 0.06f, pt.Rotation, cvmask.Value.Size() / 2, (5.4f * pt.Opacity) * 0.05f, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(cvmask.Value, pt.position - Main.screenPosition, null, Color.White * 0.06f, pt.rotation, cvmask.Value.Size() / 2, (5.4f * pt.alpha) * 0.05f, SpriteEffects.None, 0);
             }
         }
 
@@ -1004,6 +899,8 @@ namespace CalamityEntropy.Common
                     }
                 }
             }
+
+            PixelParticle.drawAll();
 
             //获取投射物类型 ID
             int voidBottleThrowType = ModContent.ProjectileType<VoidBottleThrow>();

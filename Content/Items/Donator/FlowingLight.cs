@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             if (line.Text.StartsWith("$"))
             {
-                if (!ModContent.GetInstance<CalamityClientConfig>().TextEffects)
+                if(!ModContent.GetInstance<CalamityClientConfig>().TextEffects)
                 {
                     return true;
                 }

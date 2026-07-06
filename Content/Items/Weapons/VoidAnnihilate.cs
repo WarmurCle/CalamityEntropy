@@ -1,6 +1,10 @@
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Rarities;
+using CalamityMod;
 using CalamityMod.Items;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

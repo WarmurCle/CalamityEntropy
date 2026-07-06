@@ -1,18 +1,17 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Lores;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles.LuminarisShoots;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.BiomeManagers;
 using CalamityMod.Events;
 using CalamityMod.Items.Materials;
+using CalamityMod.Particles;
 using CalamityMod.World;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -389,13 +388,10 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                         {
                             if (AIChangeCounter % (int)(8f / enrange) == 0)
                             {
-                                //AstralSwirl每8/enrange tick三连射+HadLine,跟玩家横向800振幅同步
                                 Shoot<LuminarisAstralShoot>(player.Center + new Vector2(-1400, 340), Vector2.UnitX * 26 * enrange, 1, Vector2.UnitY.ToRotation(), -0.3f * enrange, 30);
                                 Shoot<LuminarisAstralShoot>(player.Center + new Vector2(1400, 340), Vector2.UnitX * -26 * enrange, 1, Vector2.UnitY.ToRotation(), -0.3f * enrange, 30);
                                 Shoot<LuminarisAstralShoot>(NPC.Center, Vector2.UnitY * 14 * enrange, 1, (-Vector2.UnitY).ToRotation(), 0.3f * enrange, 30);
-                                //AstralSwirl PRT_HadLine跟弹幕同帧,PiOver2竖直天顶线预告
-                                PRTLoader.NewParticle<PRT_HadLine>(player.Center + player.velocity + new Vector2((float)(Math.Cos((AIChangeCounter - (int)(8f / enrange) * 1) * 0.056f)) * 800, -516), Vector2.Zero, Color.LightBlue * 0.82f, 1)
-                                    .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, MathHelper.PiOver2);
+                                EParticle.NewParticle(new HadLine(), player.Center + player.velocity + new Vector2((float)(Math.Cos((AIChangeCounter - (int)(8f / enrange) * 1) * 0.056f)) * 800, -516), Vector2.Zero, Color.LightBlue * 0.82f, 1, 1, true, BlendState.Additive, MathHelper.PiOver2);
                             }
                         }
                     }
@@ -576,9 +572,10 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                         Color impactColor = Color.White;
                         float impactParticleScale = 6f;
                         CEUtils.PlaySound("portal_emerge", 1, NPC.Center);
-                        //RoundAndDash每10tick SparkleCal+80°弹幕环,impactScale 6比Prophet还大
-                        PRTLoader.NewParticle<PRT_SparkleCal>(NPC.Center, Vector2.Zero, Color.White, impactParticleScale * 1.2f).Configure(Color.SkyBlue, 12, 0, 4.5f);
-                        PRTLoader.NewParticle<PRT_SparkleCal>(NPC.Center, Vector2.Zero, impactColor, impactParticleScale).Configure(Color.SkyBlue, 10, 0, 3f);
+                        SparkleParticle impactParticle2 = new SparkleParticle(NPC.Center, Vector2.Zero, Color.White, Color.SkyBlue, impactParticleScale * 1.2f, 12, 0, 4.5f);
+                        GeneralParticleHandler.SpawnParticle(impactParticle2);
+                        SparkleParticle impactParticle = new SparkleParticle(NPC.Center, Vector2.Zero, impactColor, Color.SkyBlue, impactParticleScale, 10, 0, 3f);
+                        GeneralParticleHandler.SpawnParticle(impactParticle);
                         float ag = CEUtils.randomRot();
                         for (int i = 0; i < 360; i += 80)
                         {

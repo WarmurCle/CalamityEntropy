@@ -1,7 +1,6 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -31,7 +30,7 @@ namespace CalamityEntropy.Content.Projectiles
         public float eRotSpeed = 0;
         public int EAnmTime = -1;
         public LoopSound chargeSnd = null;
-        public List<PRT_ShineParticle> ps = new();
+        public List<ShineParticle> ps = new();
 
         public override void AI()
         {
@@ -105,16 +104,11 @@ namespace CalamityEntropy.Content.Projectiles
                 lightColor = Color.Lerp(Color.White, Color.Red, 0.5f + (float)Math.Cos(counter * 0.16f) * 0.5f);
                 if (Main.rand.NextBool(8))
                 {
-                    //EMediumSmoke holdout蒸汽,Configure尾参+PRT/EParticle系
-                    PRTLoader.NewParticle<PRT_EMediumSmoke>(Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f)).Configure(1, true, PRTDrawModeEnum.AlphaBlend, CEUtils.randomRot());
+                    EParticle.NewParticle(new EMediumSmoke(), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
                 }
             }
             Vector2 sPos = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(64 * Projectile.scale, 64 * Projectile.scale);
-            var __prt = PRTLoader.NewParticle<PRT_ULineParticle>(sPos, (Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale - sPos) * 0.18f, lightColor, 0.4f).Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0);
-            __prt.spd = 0.064f;
-            __prt.w2 = 0.85f;
-            __prt.w1 = 0.8f;
-            __prt.len = 4;
+            EParticle.NewParticle(new ULineParticle(4, 0.8f, 0.85f, 0.064f), sPos, (Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale - sPos) * 0.18f, lightColor, 0.4f, 1, true, BlendState.AlphaBlend, 0);
 
             maxTime = 60;
 
@@ -130,15 +124,12 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         a += MathHelper.ToRadians(10);
                         Dust.NewDust(Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 60 * Projectile.scale, 1, 1, DustID.Smoke, a.ToRotationVector2().X * 0.4f, a.ToRotationVector2().Y * 0.4f);
-                        //ULineParticle furnace/lunar holdout装饰线,旧EParticle ULine
-                        var __prt2 = PRTLoader.NewParticle<PRT_ULineParticle>(Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(7, 16), Color.Lerp(Color.White, Color.Red, Main.rand.NextFloat(0, 1)), 1).Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0);
-                        __prt2.spd = 0.064f;
-                        __prt2.w2 = 0.85f;
-                        __prt2.w1 = 0.8f;
-                        __prt2.len = 4;
+                        EParticle.NewParticle(new ULineParticle(4, 0.8f, 0.85f, 0.064f), Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 64 * Projectile.scale, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(7, 16), Color.Lerp(Color.White, Color.Red, Main.rand.NextFloat(0, 1)), 1, 1, true, BlendState.AlphaBlend, 0);
                     }
-                    ps.Add(PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 60 * Projectile.scale, Vector2.Zero, Color.White, 0.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12));
-                    ps.Add(PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 60 * Projectile.scale, Vector2.Zero, Color.OrangeRed, 0.9f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12));
+                    ps.Add(new ShineParticle());
+                    ps.Add(new ShineParticle());
+                    EParticle.spawnNew(ps[0], Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 60 * Projectile.scale, Vector2.Zero, Color.White, 0.6f, 1, true, BlendState.Additive, 0, 12);
+                    EParticle.spawnNew(ps[1], Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 60 * Projectile.scale, Vector2.Zero, Color.OrangeRed, 0.9f, 1, true, BlendState.Additive, 0, 12);
                 }
             }
             foreach (var pt in ps)

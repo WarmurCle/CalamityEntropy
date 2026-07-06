@@ -1,9 +1,8 @@
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Items.Weapons.Summon;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -111,13 +110,14 @@ namespace CalamityEntropy.Content.Projectiles
                         int sparkLifetime2 = Main.rand.Next(36, 48);
                         float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
                         Color sparkColor2 = Color.Lerp(Color.OrangeRed, Color.Firebrick, Main.rand.NextFloat(0, 1));
-                        //PRT_LineCal Configure(false,lifetime)对齐Calamity LineParticle
-                        PRTLoader.NewParticle<PRT_LineCal>(top, -Projectile.velocity.RotatedBy(0.2f) * 3.2f, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
-                        PRTLoader.NewParticle<PRT_LineCal>(top, -Projectile.velocity.RotatedBy(-0.2f) * 3.2f, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
+                        LineParticle spark = new LineParticle(top, -Projectile.velocity.RotatedBy(0.2f) * 3.2f, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                        LineParticle spark2 = new LineParticle(top, -Projectile.velocity.RotatedBy(-0.2f) * 3.2f, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+
+                        GeneralParticleHandler.SpawnParticle(spark);
+                        GeneralParticleHandler.SpawnParticle(spark2);
                         if (Projectile.timeLeft % 3 == 0)
                         {
-                            PRTLoader.NewParticle<PRT_ImpactParticle>(Projectile.Center + Projectile.velocity * 22, Projectile.velocity * -0.6f, Color.LightGoldenrodYellow, 0.16f)
-                                .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation());
+                            EParticle.NewParticle(new Particles.ImpactParticle(), Projectile.Center + Projectile.velocity * 22, Projectile.velocity * -0.6f, Color.LightGoldenrodYellow, 0.16f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation());
                         }
                     }
                     Projectile.rotation = CEUtils.RotateTowardsAngle(Projectile.rotation, Projectile.velocity.ToRotation(), CanHit ? 0.8f : 0.06f, false);
@@ -156,34 +156,14 @@ namespace CalamityEntropy.Content.Projectiles
                     float rot = Projectile.rotation + player.direction * -2f;
                     for (int i = 0; i < 8; i++)
                     {
-                        var p = PRTLoader.NewParticle<PRT_Smoke>(steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f);
-                        p.timeleftmax = 36;
-                        p.Lifetime = 36;
-                        p.scaleEnd = Main.rand.NextFloat(0.06f, 0.16f);
-                        p.vc = 0.94f;
-                        p.Configure(0.03f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 36);
-                        var p2 = PRTLoader.NewParticle<PRT_Smoke>(steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f);
-                        p2.timeleftmax = 36;
-                        p2.Lifetime = 36;
-                        p2.scaleEnd = Main.rand.NextFloat(0.06f, 0.16f);
-                        p2.vc = 0.94f;
-                        p2.Configure(0.01f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 36);
+                        EParticle.NewParticle(new Smoke() { timeleftmax = 36, Lifetime = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f, 0.03f, true, BlendState.Additive, CEUtils.randomRot());
+                        EParticle.NewParticle(new Smoke() { timeleftmax = 36, Lifetime = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f, 0.01f, true, BlendState.Additive, CEUtils.randomRot());
                     }
                     rot += player.direction * 3.8f;
                     for (int i = 0; i < 8; i++)
                     {
-                        var p = PRTLoader.NewParticle<PRT_Smoke>(steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f);
-                        p.timeleftmax = 36;
-                        p.Lifetime = 36;
-                        p.scaleEnd = Main.rand.NextFloat(0.06f, 0.16f);
-                        p.vc = 0.94f;
-                        p.Configure(0.03f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 36);
-                        var p2 = PRTLoader.NewParticle<PRT_Smoke>(steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f);
-                        p2.timeleftmax = 36;
-                        p2.Lifetime = 36;
-                        p2.scaleEnd = Main.rand.NextFloat(0.06f, 0.16f);
-                        p2.vc = 0.94f;
-                        p2.Configure(0.01f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 36);
+                        EParticle.NewParticle(new Smoke() { timeleftmax = 36, Lifetime = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f, 0.03f, true, BlendState.Additive, CEUtils.randomRot());
+                        EParticle.NewParticle(new Smoke() { timeleftmax = 36, Lifetime = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f, 0.01f, true, BlendState.Additive, CEUtils.randomRot());
                     }
                 }
             }
@@ -255,7 +235,8 @@ namespace CalamityEntropy.Content.Projectiles
 
             Color impactColor = Main.rand.NextBool(3) ? Color.Firebrick : Color.OrangeRed;
             float impactParticleScale = Main.rand.NextFloat(1f, 1.75f) * 2.8f;
-            PRTLoader.NewParticle<PRT_SparkleCal>(target.Center, Vector2.Zero, impactColor, impactParticleScale).Configure(Color.OrangeRed, 8, 0.16f, 2f);
+            SparkleParticle impactParticle = new SparkleParticle(target.Center, Vector2.Zero, impactColor, Color.OrangeRed, impactParticleScale, 8, 0.16f, 2f);
+            GeneralParticleHandler.SpawnParticle(impactParticle);
 
             for (int i = 0; i < 32; i++)
             {
@@ -264,8 +245,8 @@ namespace CalamityEntropy.Content.Projectiles
                 int sparkLifetime2 = Main.rand.Next(20, 28);
                 float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
                 Color sparkColor2 = Color.Lerp(Color.OrangeRed, Color.LightGoldenrodYellow, Main.rand.NextFloat(0, 1));
-                //跟AltSpark成对出现时寿命/速度系数是旧代码原值
-                PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
+                LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
             for (int i = 0; i < 32; i++)
             {
@@ -274,7 +255,8 @@ namespace CalamityEntropy.Content.Projectiles
                 int sparkLifetime2 = Main.rand.Next(14, 18);
                 float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
                 Color sparkColor2 = Color.Lerp(Color.OrangeRed, Color.Crimson, Main.rand.NextFloat(0, 1));
-                PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
+                LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
 
             CEUtils.PlaySound("gunshot_large", 1, target.Center);
@@ -294,7 +276,8 @@ namespace CalamityEntropy.Content.Projectiles
 
             Color impactColor = Main.rand.NextBool(3) ? Color.Firebrick : Color.OrangeRed;
             float impactParticleScale = Main.rand.NextFloat(1f, 1.75f) * 2.8f;
-            PRTLoader.NewParticle<PRT_SparkleCal>(target.Center, Vector2.Zero, impactColor, impactParticleScale).Configure(Color.OrangeRed, 8, 0.16f, 2f);
+            SparkleParticle impactParticle = new SparkleParticle(target.Center, Vector2.Zero, impactColor, Color.OrangeRed, impactParticleScale, 8, 0.16f, 2f);
+            GeneralParticleHandler.SpawnParticle(impactParticle);
 
             for (int i = 0; i < 32; i++)
             {
@@ -303,7 +286,8 @@ namespace CalamityEntropy.Content.Projectiles
                 int sparkLifetime2 = Main.rand.Next(20, 28);
                 float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
                 Color sparkColor2 = Color.Lerp(Color.OrangeRed, Color.LightGoldenrodYellow, Main.rand.NextFloat(0, 1));
-                PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
+                LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
             for (int i = 0; i < 32; i++)
             {
@@ -312,7 +296,8 @@ namespace CalamityEntropy.Content.Projectiles
                 int sparkLifetime2 = Main.rand.Next(14, 18);
                 float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
                 Color sparkColor2 = Color.Lerp(Color.OrangeRed, Color.Crimson, Main.rand.NextFloat(0, 1));
-                PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
+                LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
 
             CEUtils.PlaySound("gunshot_large", 1, target.Center);

@@ -22,7 +22,6 @@ using CalamityEntropy.Content.Items.Weapons.Fractal;
 using CalamityEntropy.Content.Items.Weapons.Whips;
 using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Prefixes;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.HBProj;
@@ -37,6 +36,7 @@ using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Graphics;
 using CalamityMod.Items.LoreItems;
+using CalamityMod.Particles;
 using CalamityMod.Projectiles.Typeless;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Audio;
@@ -613,7 +613,7 @@ namespace CalamityEntropy.Common
                                 for (int i = 0; i < 16; i++)
                                 {
                                     Vector2 pos = CEUtils.randomPointInCircle(160) + Player.velocity * 12;
-                                    PRTLoader.NewParticle<PRT_TechyHolosquare>(Player.Center + pos, pos * -0.15f, new Color(120, 120, 255), Main.rand.NextFloat(4f, 5f)).Configure(7);
+                                    GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center + pos, pos * -0.15f, Main.rand.NextFloat(4f, 5f), new Color(120, 120, 255), 7));
                                 }
                             }
                         }
@@ -641,7 +641,7 @@ namespace CalamityEntropy.Common
                                 for (int i = 0; i < 16; i++)
                                 {
                                     Vector2 pos = CEUtils.randomPointInCircle(160) + Player.velocity * 12;
-                                    PRTLoader.NewParticle<PRT_TechyHolosquare>(Player.Center + pos, pos * -0.15f, new Color(120, 120, 255), Main.rand.NextFloat(4f, 5f)).Configure(7);
+                                    GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center + pos, pos * -0.15f, Main.rand.NextFloat(4f, 5f), new Color(120, 120, 255), 7));
                                 }
                             }
                         }
@@ -812,7 +812,7 @@ namespace CalamityEntropy.Common
                 DriverRegenDelay = 5 * 60;
                 for (int i = 0; i < 16; i++)
                 {
-                    PRTLoader.NewParticle<PRT_TechyHolosquare>(Player.Center + new Vector2(Main.rand.NextFloat(-28, 28), Main.rand.NextFloat(-28, 28)), CEUtils.randomPointInCircle(12), Color.OrangeRed * 0.6f, Main.rand.NextFloat(1.6f, 2f)).Configure(Main.rand.Next(6, 12));
+                    GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center + new Vector2(Main.rand.NextFloat(-28, 28), Main.rand.NextFloat(-28, 28)), CEUtils.randomPointInCircle(12), Main.rand.NextFloat(1.6f, 2f), Color.OrangeRed * 0.6f, Main.rand.Next(6, 12)));
                 }
                 ShieldAlphaAdd = 1;
                 CombatText.NewText(Player.getRect(), Color.OrangeRed, "-" + reduceDmg);
@@ -846,7 +846,7 @@ namespace CalamityEntropy.Common
                 NihilityRegenDelay = (int)(1.5f * 60);
                 for (int i = 0; i < int.Min(20, reduceDmg / 5 + 1); i++)
                 {
-                    PRTLoader.NewParticle<PRT_TechyHolosquare>(Player.Center + CEUtils.randomPointInCircle(64 * NihShieldScale), CEUtils.randomPointInCircle(16), new Color(100, 100, 255) * 0.9f, Main.rand.NextFloat(1.6f, 2f)).Configure(Main.rand.Next(12, 16));
+                    GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center + CEUtils.randomPointInCircle(64 * NihShieldScale), CEUtils.randomPointInCircle(16), Main.rand.NextFloat(1.6f, 2f), new Color(100, 100, 255) * 0.9f, Main.rand.Next(12, 16)));
                 }
                 ShieldAlphaAdd = 1;
                 CombatText.NewText(Player.getRect(), Color.SkyBlue, "-" + reduceDmg);
@@ -880,7 +880,7 @@ namespace CalamityEntropy.Common
                 regenDelay = (int)(5f * 60);
                 for (int i = 0; i < int.Min(20, reduceDmg / 5 + 1); i++)
                 {
-                    PRTLoader.NewParticle<PRT_TechyHolosquare>(Player.Center + CEUtils.randomPointInCircle(64 * NihShieldScale), CEUtils.randomPointInCircle(16), new Color(160, 160, 255) * 0.8f, Main.rand.NextFloat(1.2f, 1.4f)).Configure(Main.rand.Next(15, 18));
+                    GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center + CEUtils.randomPointInCircle(64 * NihShieldScale), CEUtils.randomPointInCircle(16), Main.rand.NextFloat(1.2f, 1.4f), new Color(160, 160, 255) * 0.8f, Main.rand.Next(15, 18)));
                 }
                 ShieldAlphaAdd = 1;
                 CombatText.NewText(Player.getRect(), Color.LightSkyBlue, "-" + reduceDmg);
@@ -914,7 +914,7 @@ namespace CalamityEntropy.Common
                 regenDelay = (int)(5f * 60);
                 for (int i = 0; i < int.Min(20, reduceDmg / 5 + 1); i++)
                 {
-                    PRTLoader.NewParticle<PRT_TechyHolosquare>(Player.Center + CEUtils.randomPointInCircle(64 * NihShieldScale), CEUtils.randomPointInCircle(16), Color.Aqua, Main.rand.NextFloat(1.2f, 1.4f)).Configure(Main.rand.Next(15, 18));
+                    GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center + CEUtils.randomPointInCircle(64 * NihShieldScale), CEUtils.randomPointInCircle(16), Main.rand.NextFloat(1.2f, 1.4f), Color.Aqua, Main.rand.Next(15, 18)));
                 }
                 ShieldAlphaAdd = 1;
                 CombatText.NewText(Player.getRect(), Color.Aqua, "-" + reduceDmg);
@@ -1129,7 +1129,7 @@ namespace CalamityEntropy.Common
         public Item vanityWing = null;
         public int WingFrameAnmCount = 0;
         public float plWingTrailAlpha = 0;
-        public PRT_StarTrailParticle plWingTrail = null;   //PhantomLightWing,每帧刷Lifetime+Position,不是spawn完就撒手
+        public StarTrailParticle plWingTrail = null;
         public override void Load()
         {
             wingData = new SpecialWingDrawingData();
@@ -1145,7 +1145,7 @@ namespace CalamityEntropy.Common
         {
             if (drCrystals == null && Main.myPlayer == Player.whoAmI && !Main.dedServ)
             {
-                drCrystals = new List<bool>() {
+                drCrystals = new List<bool>() { 
                     ShadowCrystalDeltarune.Ch1Crystal,
                     ShadowCrystalDeltarune.Ch2Crystal,
                     ShadowCrystalDeltarune.Ch3Crystal,
@@ -1170,8 +1170,9 @@ namespace CalamityEntropy.Common
             {
                 if (plWingTrail == null || plWingTrail.Lifetime <= 1)
                 {
-                    plWingTrail = PRTLoader.NewParticle<PRT_StarTrailParticle>(Player.Center, Vector2.Zero, Color.White, 1.4f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
+                    plWingTrail = new StarTrailParticle();
                     plWingTrail.maxLength = 32;
+                    EParticle.NewParticle(plWingTrail, Player.Center, Vector2.Zero, Color.White, 1.4f, 1, true, BlendState.Additive, 0);
                 }
                 plWingTrail.Lifetime = 30;
                 plWingTrail.Position = Player.MountedCenter + Player.gfxOffY * Vector2.UnitY + Player.velocity;
@@ -2196,16 +2197,13 @@ namespace CalamityEntropy.Common
                     SulphurousBubble = false;
                     if (BookMarkLoader.GetPlayerHeldEntropyBook(Player, out var ebk))
                         ((CommonExplotionFriendly)CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ebk.CauculateProjectileDamage(12), 580, DamageClass.Magic).ModProjectile).onHitAction = (target, hit, dmg) => { target.AddBuff<SulphuricPoisoning>(600); };
-                    PRTLoader.NewParticle<PRT_PulseRing>(Player.Center, Vector2.Zero, new Color(10, 190, 10), 0.2f).Configure(5.45f, 16);
-                    PRTLoader.NewParticle<PRT_PulseRing>(Player.Center, Vector2.Zero, new Color(10, 190, 10), 0.2f).Configure(5.8f, 16);
-                    if (!Main.dedServ)
+                    GeneralParticleHandler.SpawnParticle(new PulseRing(Player.Center, Vector2.Zero, new Color(10, 190, 10), 0.2f, 5.45f, 16));
+                    GeneralParticleHandler.SpawnParticle(new PulseRing(Player.Center, Vector2.Zero, new Color(10, 190, 10), 0.2f, 5.8f, 16));
+                    for (int i = 0; i < 80; i++)
                     {
-                        for (int i = 0; i < 80; i++)
-                        {
-                            PRTLoader.NewParticle<PRT_Light>(Player.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(1f, 10f)
-                                , new Color(0, 60, 0), Main.rand.NextFloat(0.3f, 0.6f))
-                                .Configure(0.2f, lifetime: 60);
-                        }
+                        BasePRT particle = new PRT_Light(Player.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(1f, 10f)
+                    , Main.rand.NextFloat(0.3f, 0.6f), new Color(0, 60, 0), 60, 0.2f);
+                        PRTLoader.AddParticle(particle);
                     }
                     SoundEngine.PlaySound(in SoundID.Item54, Player.position);
                     CEUtils.PlaySound("beast_lavaball_rise1", 1, Player.Center);
@@ -2283,7 +2281,7 @@ namespace CalamityEntropy.Common
                         CEUtils.PlaySound("shielddown", 1, Player.Center);
                         for (int i = 0; i < 24; i++)
                         {
-                            PRTLoader.NewParticle<PRT_TechyHolosquare>(Player.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(5, 9), new Color(165, 58, 222), Main.rand.NextFloat(0.8f, 2.4f)).Configure(40);
+                            GeneralParticleHandler.SpawnParticle(new TechyHoloysquareParticle(Player.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(5, 9), Main.rand.NextFloat(0.8f, 2.4f), new Color(165, 58, 222), 40));
                         }
                     }
                 }
@@ -2313,7 +2311,7 @@ namespace CalamityEntropy.Common
         public bool VSoundsPlayed = false;
         public bool DashFlag = false;
         public bool maliciousCode = false;
-        public PRT_ProminenceTrail runeDashTrail = null;   //RuneDash冲刺轨迹,AddPoint+Lifetime续命
+        public ProminenceTrail runeDashTrail = null;
         public int UICJ = 0;
         public int ilVortexType = -1;
         public bool WeaponsNoCostRogueStealth = false;
@@ -2327,7 +2325,7 @@ namespace CalamityEntropy.Common
         public float BrambleBarCharge = 0;
         public int BBarNoDecrease = 0;
         public bool dashing = false;
-        public PRT_DashBeam avTrail = null;   //ShadeCloak dash,PostUpdate里AddPoint驱动
+        public DashBeam avTrail = null;
         public bool NDFlag = false;
         public bool ResetRot = false;
         public int TDeckTime = 0;
@@ -2705,8 +2703,7 @@ namespace CalamityEntropy.Common
 
             /*for(float i = 0; i < 1; i += 0.05f)
             {
-                var __prt = PRTLoader.NewParticle<PRT_SlashDarkRed>(Player.Center - Player.velocity, Player.velocity * i, Color.Red, Main.rand.NextFloat(0.1f, 0.12f)).Configure(1, true, PRTDrawModeEnum.AlphaBlend, Player.velocity.ToRotation(), 10);
-                __prt.scw = 1f;
+                EParticle.spawnNew(new SlashDarkRed() { scw = 1f}, Player.Center - Player.velocity, Player.velocity * i, Color.Red, Main.rand.NextFloat(0.1f, 0.12f), 1, true, BlendState.AlphaBlend, Player.velocity.ToRotation(), 10);
             }*/
             bool addSRec = true;
             if (Main.myPlayer == Player.whoAmI && BookMarkLoader.HeldingBookAndHasBookmarkEffect<BookmarkSulphurousBMEffect>(Player))
@@ -2736,9 +2733,7 @@ namespace CalamityEntropy.Common
             }
             if (roaringDye && Main.GameUpdateCount % 4 == 0)
             {
-                var shadow = PRTLoader.NewParticle<PRT_PlayerShadow>(Player.position, new Vector2(Player.direction * -4, 0), Color.White, 1)
-                    .Configure(1, true, PRTDrawModeEnum.AlphaBlend);
-                shadow.plr = Player;
+                EParticle.spawnNew(new PlayerShadow() { plr = Player }, Player.position, new Vector2(Player.direction * -4, 0), Color.White, 1, 1, true, BlendState.AlphaBlend);
             }
             if (ResetRot)
             {
@@ -2762,10 +2757,10 @@ namespace CalamityEntropy.Common
                 {
                     if (hasAccVisual(ShadeCloak.ID))
                     {
-                        if (avTrail == null || !avTrail.active)
+                        if (avTrail == null || avTrail.Lifetime <= 0)
                         {
-                            avTrail = PRTLoader.NewParticle<PRT_DashBeam>(Player.Center, Vector2.Zero, new Color(0, 0, 0, 210), 1f)
-                                .Configure(1, true, PRTDrawModeEnum.NonPremultiplied);
+                            avTrail = new DashBeam();
+                            EParticle.spawnNew(avTrail, Player.Center, Vector2.Zero, new Color(0, 0, 0, 210), 1f, 1, true, BlendState.NonPremultiplied);
                             avTrail.maxLength = 30;
                         }
                     }
@@ -2780,8 +2775,7 @@ namespace CalamityEntropy.Common
 
                             for (int i = 0; i < 12; i++)
                             {
-                                var __prt = PRTLoader.NewParticle<PRT_ShadeCloakOrb>(Vector2.Zero, CEUtils.randomPointInCircle(4), Color.Black, 1).Configure(1, true, PRTDrawModeEnum.NonPremultiplied, -1, cd);
-                                __prt.PlayerIndex = Player.whoAmI;
+                                EParticle.NewParticle(new ShadeCloakOrb() { PlayerIndex = Player.whoAmI }, Vector2.Zero, CEUtils.randomPointInCircle(4), Color.Black, 1, 1, true, BlendState.NonPremultiplied, -1, cd);
                             }
                         }
                         NDFlag = true;
@@ -2798,11 +2792,11 @@ namespace CalamityEntropy.Common
                     {
                         if (hasAccVisual(ShadeCloak.ID))
                         {
-                            avTrail.Lifetime = avTrail.Time + 30;
+                            avTrail.Lifetime = 30;
                             for (int i = 0; i < 4; i++)
                             {
-                                PRTLoader.NewParticle<PRT_ShadeDashParticle>(Player.Center + Player.velocity * 6
-                                    + CEUtils.randomPointInCircle(26), -(Player.velocity.normalize().RotatedByRandom(0.12f)) * 40, Color.White, 1).Configure(1, true, PRTDrawModeEnum.NonPremultiplied, 0, 16);
+                                EParticle.NewParticle(new ShadeDashParticle(), Player.Center + Player.velocity * 6
+                                    + CEUtils.randomPointInCircle(26), -(Player.velocity.normalize().RotatedByRandom(0.12f)) * 40, Color.White, 1, 1, true, BlendState.NonPremultiplied, 0, 16);
                             }
                         }
                         if (hasAcc(ShadeCloak.ID))
@@ -3052,17 +3046,14 @@ namespace CalamityEntropy.Common
                 {
                     int rd = RuneDash - 1;
                     immune = 12;
-                    if (runeDashTrail == null || !runeDashTrail.active)
+                    if (runeDashTrail == null || runeDashTrail.Lifetime < 1)
                     {
-                        runeDashTrail = PRTLoader.NewParticle<PRT_ProminenceTrail>(Player.Center, Vector2.Zero, Color.White, 5f)
-                            .Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0);
-                        runeDashTrail.color1 = Color.DeepSkyBlue;
-                        runeDashTrail.color2 = Color.White;
-                        runeDashTrail.maxLength = 120;
+                        runeDashTrail = new ProminenceTrail() { color1 = Color.DeepSkyBlue, color2 = Color.White, maxLength = 120 };
+                        EParticle.NewParticle(runeDashTrail, Player.Center, Vector2.Zero, Color.White, 5f, 1, true, BlendState.AlphaBlend, 0);
                     }
                     for (int i = 0; i < 3; i++)
                     {
-                        PRTLoader.NewParticle<PRT_RuneParticle>(Player.Center + CEUtils.randomVec(26), CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, 1).Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0);
+                        EParticle.NewParticle(new RuneParticle(), Player.Center + CEUtils.randomVec(26), CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
 
                     }
                     RuneDash--;
@@ -3072,7 +3063,7 @@ namespace CalamityEntropy.Common
                         runeDashTrail?.AddPoint(Player.Center + Player.velocity * f * 0.1f);
                     }
 
-                    runeDashTrail.Lifetime = runeDashTrail.Time + 13;
+                    runeDashTrail.Lifetime = 13;
 
                     if (CEKeybinds.RuneDashHotKey.JustReleased)
                     {
@@ -3148,18 +3139,8 @@ namespace CalamityEntropy.Common
                     float rot = new Vector2(-1 * Player.direction, -2).ToRotation();
                     for (int i = 0; i < 8; i++)
                     {
-                        var p = PRTLoader.NewParticle<PRT_Smoke>(steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f);
-                        p.timeleftmax = 36;
-                        p.Lifetime = 36;
-                        p.scaleEnd = Main.rand.NextFloat(0.06f, 0.16f);
-                        p.vc = 0.94f;
-                        p.Configure(0.03f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 36);
-                        var p2 = PRTLoader.NewParticle<PRT_Smoke>(steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f);
-                        p2.timeleftmax = 36;
-                        p2.Lifetime = 36;
-                        p2.scaleEnd = Main.rand.NextFloat(0.06f, 0.16f);
-                        p2.vc = 0.94f;
-                        p2.Configure(0.01f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 36);
+                        EParticle.NewParticle(new Smoke() { timeleftmax = 36, Lifetime = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0f, 0.03f, true, BlendState.Additive, CEUtils.randomRot());
+                        EParticle.NewParticle(new Smoke() { timeleftmax = 36, Lifetime = 36, scaleEnd = Main.rand.NextFloat(0.06f, 0.16f), vc = 0.94f }, steamCenter + rot.ToRotationVector2().RotatedByRandom(0.16f) * 4, rot.ToRotationVector2().RotatedByRandom(0.16f) * 8, Color.White * 0.42f * c, 0.016f, 0.01f, true, BlendState.Additive, CEUtils.randomRot());
                     }
                 }
             }

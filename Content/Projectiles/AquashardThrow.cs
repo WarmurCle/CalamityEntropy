@@ -1,8 +1,7 @@
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Projectiles.Ranged;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -178,15 +177,13 @@ namespace CalamityEntropy.Content.Projectiles
             }
             for (int i = 0; i < 32; i++)
             {
-                //EGlowOrb Additive走Configure,旧PRT/EParticle GlowOrb
-                PRTLoader.NewParticle<PRT_EGlowOrb>(CEUtils.randomPoint(target.Hitbox), CEUtils.randomPointInCircle(4) + Projectile.velocity * 0.4f * Main.rand.NextFloat(0.2f, 1), Color.SkyBlue, 0.2f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 18);
+                EParticle.spawnNew(new EGlowOrb(), CEUtils.randomPoint(target.Hitbox), CEUtils.randomPointInCircle(4) + Projectile.velocity * 0.4f * Main.rand.NextFloat(0.2f, 1), Color.SkyBlue, 0.2f, 1, true, BlendState.Additive, 0, 18);
             }
             if (Projectile.Calamity().stealthStrike)
             {
                 for (int i = 0; i < 32; i++)
                 {
-                    //EGlowOrb Additive走Configure,旧EParticle GlowOrb
-                    PRTLoader.NewParticle<PRT_EGlowOrb>(target.Center, CEUtils.randomPointInCircle(16), Color.SkyBlue, 0.32f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 18);
+                    EParticle.spawnNew(new EGlowOrb(), target.Center, CEUtils.randomPointInCircle(16), Color.SkyBlue, 0.32f, 1, true, BlendState.Additive, 0, 18);
                 }
             }
         }

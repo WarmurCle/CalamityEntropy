@@ -6,7 +6,6 @@ using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -108,9 +107,7 @@ namespace CalamityEntropy.Content.Items.Books
                     Projectile.rotation = (Main.MouseWorld - Projectile.Center).ToRotation();
                     Projectile.velocity = Projectile.rotation.ToRotationVector2() * Projectile.velocity.Length();
                     base.Shoot();
-                    //PRT_HadCircle2 scale2链式赋值,Configure返回this所以能点.scale2
-                    PRTLoader.NewParticle<PRT_HadCircle2>(Projectile.Center, Vector2.Zero, Color.OrangeRed, 1)
-                        .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0).scale2 = 0.4f;
+                    EParticle.NewParticle(new HadCircle2() { scale2 = 0.4f }, Projectile.Center, Vector2.Zero, Color.OrangeRed, 1, 1, true, BlendState.Additive, 0);
                 }
                 Projectile.rotation = oRot;
                 Projectile.Center = opos;

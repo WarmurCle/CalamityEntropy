@@ -1,6 +1,5 @@
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod.Items.Materials;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -36,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
     }
     public class AerialiteMissileProj : BaseMissileProj
     {
-        public override float StickDamageAddition => 0.02f;
+	    public override float StickDamageAddition => 0.02f;
         public override string Texture => "CalamityEntropy/Content/Items/Donator/RocketLauncher/Ammo/AerialiteMissile";
         public override void SetupStats()
         {
@@ -47,14 +46,13 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             CEUtils.PlaySound("GrassSwordHit1", Main.rand.NextFloat(1.2f, 1.3f), Projectile.Center, 20, 0.4f);
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             float scale = ExplodeRadius / 40f;
-            //CustomPulse贴图路径现传,CalamityPorts走PRTPathTextures
-            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Color.SkyBlue * 1.2f, 0.005f).Configure("CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 24);
-            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Color.Gold, 0.005f).Configure("CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 18);
-            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(234, 240, 210), 0.005f).Configure("CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.02f, 15);
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.SkyBlue * 1.2f, "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 24));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Gold, "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 18));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(234, 240, 210), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.02f, 15));
         }
         public override void SpawnParticle(Vector2 vel)
         {
-            PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center, vel * 0.4f, Color.LightSkyBlue, Main.rand.NextFloat(0.02f, 0.03f)).Configure(false, 12, new Vector2(1.2f, 1f), true, false);
+            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, vel * 0.4f, false, 12, Main.rand.NextFloat(0.02f, 0.03f), Color.LightSkyBlue, new Vector2(1.2f, 1f), true, false));
         }
         public override void OnKill(int timeLeft)
         {
@@ -120,7 +118,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
                 }
                 if (Projectile.ai[0] >= 68)
                 {
-                    PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center, Projectile.velocity * 0.4f, Color.LightSkyBlue, Main.rand.NextFloat(0.012f, 0.02f)).Configure(false, 6, new Vector2(1f, 1f), true, false);
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, Projectile.velocity * 0.4f, false, 6, Main.rand.NextFloat(0.012f, 0.02f), Color.LightSkyBlue, new Vector2(1f, 1f), true, false));
                 }
             }
         }
@@ -135,7 +133,8 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             for (int i = 0; i < 6; i++)
             {
                 Vector2 velocity = ((MathHelper.TwoPi * i / 6) - (MathHelper.Pi / 16f) + r).ToRotationVector2() * 10f;
-                PRTLoader.NewParticle<PRT_CritSparkCal>(target.Center, velocity, Color.White, 0.6f).Configure(Color.LightSkyBlue, 20, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
+                var sparkle = new CritSpark(target.Center, velocity, Color.White, Color.LightSkyBlue, 0.6f, 20, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
+                GeneralParticleHandler.SpawnParticle(sparkle);
             }
         }
     }

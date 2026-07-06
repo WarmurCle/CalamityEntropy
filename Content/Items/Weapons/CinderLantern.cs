@@ -1,11 +1,10 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -106,10 +105,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (Projectile.localAI[0] == 0)
             {
                 for (int i = 0; i < 16; i++)
-                    //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
-                    PRTLoader.NewParticle<PRT_GlowLightParticle>(Projectile.Center, CEUtils.randomPointInCircle(9), Color.OrangeRed, Main.rand.NextFloat(0.6f, 1f)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 22);
+                    EParticle.spawnNew(new GlowLightParticle(), Projectile.Center, CEUtils.randomPointInCircle(9), Color.OrangeRed, Main.rand.NextFloat(0.6f, 1f), 1, true, BlendState.Additive, 0, 22);
                 float scale = 1f;
-                PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(255, 230, 60), 0.005f).Configure("CalamityMod/Particles/FlameExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.06f, 8);
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 230, 60), "CalamityMod/Particles/FlameExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.06f, 8));
             }
             if (Projectile.localAI[0]++ < 3)
             {
@@ -224,13 +222,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void OnKill(int timeLeft)
         {
             float scale = 0.5f;
-            //CustomPulse贴图路径Configure现传,Texture属性填白图应付框架
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.OrangeRed * 0.95f, scale * 0.8f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 6);
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White * 0.95f, scale * 0.5f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 6);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.OrangeRed * 0.95f, scale * 0.8f, 1, true, BlendState.Additive, 0, 6);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White * 0.95f, scale * 0.5f, 1, true, BlendState.Additive, 0, 6);
             CEUtils.PlaySound("cinderExplosion", Main.rand.NextFloat(1.2f, 1.5f), Projectile.Center, 8, 0.36f);
-            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(255, 230, 60), 0.005f).Configure("CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.04f, 10);
-            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(255, 230, 60), 0.005f).Configure("CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 14);
-            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(255, 230, 60), 0.005f).Configure("CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.06f, 18);
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 230, 60), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.04f, 10));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 230, 60), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 14));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 230, 60), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.06f, 18));
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
@@ -253,8 +250,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void AI()
         {
-            //光效走AdditiveBlend,Configure尾参lifetime对齐旧timeLeft
-            PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center - Projectile.velocity + CEUtils.randomPointInCircle(3), CEUtils.randomPointInCircle(3), Color.Firebrick, 0.4f).Configure(1f, 8, Main.rand.NextFloat(-0.1f, 0.1f), true);
+            GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center - Projectile.velocity + CEUtils.randomPointInCircle(3), CEUtils.randomPointInCircle(3), Color.Firebrick, 8, 0.4f, 1f, Main.rand.NextFloat(-0.1f, 0.1f), true));
         }
 
         public override bool PreDraw(ref Color lightColor)

@@ -1,5 +1,4 @@
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using InnoVault.PRT;
+﻿using CalamityMod.Particles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -65,9 +64,10 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     sparkColor.B = org.B;
                 }
-                //PRT_AltSpark跟LineCal随机混用,旧Calamity spark/Lines二选一
-                PRTLoader.NewParticle<PRT_AltSpark>(center, sparkVelo, sparkColor, sparkScale).Configure(false, sparkLifetime);
-                PRTLoader.NewParticle<PRT_LineCal>(center, sparkVelo, sparkColor, sparkScale * 0.8f).Configure(false, (int)(sparkLifetime));
+                var spark = new AltSparkParticle(center, sparkVelo, false, sparkLifetime, sparkScale, sparkColor);
+                GeneralParticleHandler.SpawnParticle(spark);
+                var spark2 = new LineParticle(center, sparkVelo, false, (int)(sparkLifetime), sparkScale * 0.8f, sparkColor);
+                GeneralParticleHandler.SpawnParticle(spark2);
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -99,9 +99,10 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     sparkColor.B = org.B;
                 }
-                //AltSpark Configure(bool,int)是Ports签名,不是opacity/glow/mode那套
-                PRTLoader.NewParticle<PRT_AltSpark>(center, sparkVelo, sparkColor, sparkScale).Configure(false, sparkLifetime);
-                PRTLoader.NewParticle<PRT_LineCal>(center + sparkVelo * 2, sparkVelo, sparkColor, sparkScale * 0.8f).Configure(false, (int)(sparkLifetime));
+                var spark = new AltSparkParticle(center, sparkVelo, false, sparkLifetime, sparkScale, sparkColor);
+                GeneralParticleHandler.SpawnParticle(spark);
+                var spark2 = new LineParticle(center + sparkVelo * 2, sparkVelo, false, (int)(sparkLifetime), sparkScale * 0.8f, sparkColor);
+                GeneralParticleHandler.SpawnParticle(spark2);
             }
         }
     }

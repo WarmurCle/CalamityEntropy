@@ -1,19 +1,20 @@
-﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Buffs.Wyrm;
-using CalamityEntropy.Content.Items.Donator;
-using CalamityMod;
+﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using CalamityMod.ChatTags;
-using Microsoft.Xna.Framework.Graphics;
+using CalamityMod;
 using ReLogic.Graphics;
 using System.Collections.Generic;
-using System.Linq;
-using Terraria;
 using Terraria.GameContent;
 using Terraria.GameInput;
-using Terraria.ID;
 using Terraria.Localization;
-using Terraria.ModLoader;
 using Terraria.UI.Chat;
+using System.Linq;
+using Terraria;
+using CalamityEntropy.Content.Buffs;
+using Terraria.ModLoader;
+using Terraria.ID;
+using CalamityEntropy.Content.Buffs.Wyrm;
+using CalamityEntropy.Content.Items.Donator;
 
 namespace CalamityEntropy.Core.ChatTags
 {

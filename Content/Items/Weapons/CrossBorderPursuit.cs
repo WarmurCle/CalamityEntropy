@@ -5,7 +5,6 @@ using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -113,11 +112,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     Vector2 to = plrPos;
                     for (float i = 0; i < 1; i += 0.05f)
                     {
-                        //scw/colorInside旧初始化器字段,Configure只管opacity+PRTDrawMode+rotation
-                        var slash = PRTLoader.NewParticle<PRT_SlashDarkRed>(Vector2.Lerp(from, to, i), (to - from) * 0.1f, Color.LightSkyBlue, Main.rand.NextFloat(0.06f, 0.07f));
-                        slash.scw = 1f;
-                        slash.colorInside = Color.White;
-                        slash.Configure(1, true, PRTDrawModeEnum.AlphaBlend, (to - from).ToRotation(), 7);
+                        EParticle.spawnNew(new SlashDarkRed() { scw = 1f, colorInside = Color.White }, Vector2.Lerp(from, to, i), (to - from) * 0.1f, Color.LightSkyBlue, Main.rand.NextFloat(0.06f, 0.07f), 1, true, BlendState.AlphaBlend, (to - from).ToRotation(), 7);
                     }
                 }
                 lastPlrPos = plrPos;
@@ -136,26 +131,21 @@ namespace CalamityEntropy.Content.Items.Weapons
                 if (counter > 6 && counter < MaxTime - 24 && counter % 3 == 0)
                 {
                     if (counter % 9 == 0)
-                    {
-                        var shard = PRTLoader.NewParticle<PRT_PrismShard>(target.Center + CEUtils.randomPointInCircle(128), Vector2.Zero, Color.White, 1f);
-                        shard.PixelPass = true;
-                        shard.Configure(1, true, PRTDrawModeEnum.AlphaBlend, CEUtils.randomRot());
-                    }
+                        EParticle.NewParticle(new Particles.PrismShard() { PixelShader = true }, target.Center + CEUtils.randomPointInCircle(128), Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
                     CEUtils.SetShake(Projectile.Center, 4);
                     CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, Projectile.Center, Projectile.damage / 4, 280, Projectile.DamageType).ArmorPenetration = 200;
                     float rot = CEUtils.randomRot();
                     for (int i = 0; i < 24; i++)
                     {
-                        var vp = PRTLoader.NewParticle<PRT_Void>(Projectile.Center + -rot.ToRotationVector2() * 180, (rot.ToRotationVector2() * 38 + CEUtils.randomPointInCircle(4)) * Main.rand.NextFloat(0.2f, 1), Color.White, 1f);
-                        vp.Opacity = Main.rand.NextFloat(0.3f, 0.4f);
-                        vp.shape = 4;
-                        vp.vd = 0.96f;
+                        Particle p = new Particle();
+                        p.position = Projectile.Center + -rot.ToRotationVector2() * 180;
+                        p.alpha = Main.rand.NextFloat(0.3f, 0.4f);
+                        p.shape = 4;
+                        p.vd = 0.96f;
+                        p.velocity = (rot.ToRotationVector2() * 38 + CEUtils.randomPointInCircle(4)) * Main.rand.NextFloat(0.2f, 1);
+                        VoidParticles.particles.Add(p);
                     }
-                    //DOracleSlash旧Blend既不是Additive也不是AlphaBlend,迁移落NonPremultiplied桶
-                    var ds = PRTLoader.NewParticle<PRT_DOracleSlash>(target.Hitbox.randomPoint(), Vector2.Zero, new Color(180, 180, 255), Main.rand.NextFloat(250, 280));
-                    ds.centerColor = Color.White;
-                    ds.PixelPass = true;
-                    ds.Configure(0.6f, true, PRTDrawModeEnum.NonPremultiplied, rot, 8);
+                    EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White, PixelShader = true }, target.Hitbox.randomPoint(), Vector2.Zero, new Color(180, 180, 255), Main.rand.NextFloat(250, 280), 0.6f, true, BlendState.NonPremultiplied, rot, 8);
 
                     CEUtils.PlaySound("AntivoidDash", Main.rand.NextFloat(1.4f, 1.8f), Projectile.Center, 16, 0.5f);
                 }
@@ -165,16 +155,12 @@ namespace CalamityEntropy.Content.Items.Weapons
                 for (int i = 0; i < 32; i++)
                 {
                     var ps = target.Center + new Vector2(Main.rand.NextFloat(-120, 120), Main.rand.NextFloat(-80, 80));
-                    PRTLoader.NewParticle<PRT_ShineParticle>(ps, (target.Center + new Vector2(0, -1000) - ps) / 12f, new Color(140, 140, 255), 0.5f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
+                    EParticle.NewParticle(new ShineParticle(), ps, (target.Center + new Vector2(0, -1000) - ps) / 12f, new Color(140, 140, 255), 0.5f, 1, true, BlendState.Additive, 0, 12);
                 }
             }
             if (counter == MaxTime - 14)
             {
-                var ds2 = PRTLoader.NewParticle<PRT_DOracleSlash>(target.Center + new Vector2(0, -2400), Vector2.Zero, new Color(80, 80, 255), Main.rand.NextFloat(250, 280));
-                ds2.widthMult = 2;
-                ds2.centerColor = Color.White;
-                ds2.vel = 2;
-                ds2.Configure(16f, true, PRTDrawModeEnum.NonPremultiplied, MathHelper.PiOver2, 16);
+                EParticle.spawnNew(new DOracleSlash() { widthMult = 2, centerColor = Color.White, vel = 2 }, target.Center + new Vector2(0, -2400), Vector2.Zero, new Color(80, 80, 255), Main.rand.NextFloat(250, 280), 16f, true, BlendState.NonPremultiplied, MathHelper.PiOver2, 16);
 
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - new Vector2(0, 1200), new Vector2(0, 26), ModContent.ProjectileType<CBPSmash>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
@@ -187,10 +173,13 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<NetherRiftCrack>(), Projectile.damage * 2, 1, Projectile.owner).ToProj().DamageType = Projectile.DamageType;
                 for (int i = 0; i < 64; i++)
                 {
-                    var vp = PRTLoader.NewParticle<PRT_Void>(Projectile.Center, CEUtils.randomPointInCircle(16), Color.White, 1f);
-                    vp.Opacity = Main.rand.NextFloat(0.6f, 0.8f);
-                    vp.shape = 4;
-                    vp.vd = 0.96f;
+                    Particle p = new Particle();
+                    p.position = Projectile.Center;
+                    p.alpha = Main.rand.NextFloat(0.6f, 0.8f);
+                    p.shape = 4;
+                    p.vd = 0.96f;
+                    p.velocity = CEUtils.randomPointInCircle(16);
+                    VoidParticles.particles.Add(p);
                 }
                 player.velocity = ((origPos - Projectile.Center) * new Vector2(1, 0.6f)).normalize() * 46;
                 if (player.velocity.Y < -24)

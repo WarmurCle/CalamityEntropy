@@ -1,6 +1,5 @@
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using CalamityMod;
-using InnoVault.PRT;
+﻿using CalamityMod;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
@@ -118,13 +117,13 @@ public class UhrwerkHammerCallout : ModProjectile
             float velc = 0.7f;
             if (Main.rand.NextBool())
             {
-                //PRT_AltSpark跟LineCal随机混用,旧Calamity spark/Lines二选一
-                PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * velc, sparkColor2, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));
+                AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
             else
             {
-                //LineCal Configure(false,lifetime)对齐Calamity LineParticle
-                PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * velc, Main.rand.NextBool() ? Color.Red : Color.Firebrick, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));
+                LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.Red : Color.Firebrick);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
         }
     }

@@ -1,12 +1,11 @@
 ﻿using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Particles;
 using CalamityMod.Rarities;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -179,8 +178,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                         {
                             Color smokeColor = CalamityUtils.MulticolorLerp(Main.rand.NextFloat(), new Color[3] { Color.White, Color.Gray, Color.LightGray });
                             smokeColor = Color.Lerp(smokeColor, Color.Gray, 0.6f) * 0.65f;
-                            //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
-                            PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center - Projectile.velocity.normalize() * 100, Projectile.velocity.SafeNormalize(Vector2.Zero).RotatedByRandom(1.2f) * -1 * Main.rand.NextFloat(16, 24), smokeColor, 1f).Configure(1f, 40, 0.03f, true, 0.075f);
+                            HeavySmokeParticle smoke = new(Projectile.Center - Projectile.velocity.normalize() * 100, Projectile.velocity.SafeNormalize(Vector2.Zero).RotatedByRandom(1.2f) * -1 * Main.rand.NextFloat(16, 24), smokeColor, 40, 1f, 1f, 0.03f, true, 0.075f);
+                            GeneralParticleHandler.SpawnParticle(smoke);
                         }
                         CEUtils.PlaySound("SteamAAG", 1, Projectile.Center);
                         if (Main.myPlayer == Projectile.owner)
@@ -188,8 +187,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 130, Projectile.rotation.ToRotationVector2() * 42, ModContent.ProjectileType<AzAGShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[0]);
                         }
                         player.velocity -= Projectile.velocity.normalize() * 2 * player.Entropy().GetPressure();
-                        PRTLoader.NewParticle<PRT_ImpactParticle>(Projectile.Center + Projectile.velocity.normalize() * 134, Vector2.Zero, Color.LightGoldenrodYellow, 0.12f)
-                            .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.rotation);
+                        EParticle.NewParticle(new Particles.ImpactParticle(), Projectile.Center + Projectile.velocity.normalize() * 134, Vector2.Zero, Color.LightGoldenrodYellow, 0.12f, 1, true, BlendState.Additive, Projectile.rotation);
 
                         CEUtils.PlaySound("AAGShot", 1, Projectile.Center);
                         CEUtils.SetShake(Projectile.Center - Projectile.rotation.ToRotationVector2() * 16, 4);
@@ -201,8 +199,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                             float sparkScale2 = Main.rand.NextFloat(0.6f, 1.4f);
                             var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
 
-                            //光效走AdditiveBlend,Configure尾参lifetime对齐旧timeLeft
-                            PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
+                            LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                            GeneralParticleHandler.SpawnParticle(spark);
                         }
                     }
                 }

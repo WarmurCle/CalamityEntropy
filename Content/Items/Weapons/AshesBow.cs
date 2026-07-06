@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
@@ -105,10 +104,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                     SoundStyle s = SoundID.DD2_BetsyFireballShot with { MaxInstances = 12 };
                     SoundEngine.PlaySound(s, Projectile.Center);
                     SoundEngine.PlaySound(s, Projectile.Center);
-                    //dedServ时PRTLoader.NewParticle给孤儿实例,Configure照常
-                    PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center + Projectile.rotation.ToRotationVector2() * 12, player.velocity, Color.OrangeRed * 0.85f, 0.8f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
-                    //双Shine叠色,PRTDrawMode走Configure尾参
-                    PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center + Projectile.rotation.ToRotationVector2() * 12, player.velocity, Color.OrangeRed, 0.5f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
+                    EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 12, player.velocity, Color.OrangeRed * 0.85f, 0.8f, 1, true, BlendState.Additive, 0, 12);
+                    EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 12, player.velocity, Color.OrangeRed, 0.5f, 1, true, BlendState.Additive, 0, 12);
                 }
             }
             Projectile.localAI[1] = float.Lerp(Projectile.localAI[1], Charge >= 1 ? 1 : (Charge * 0.85f), 0.12f);
@@ -178,7 +175,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (Projectile.localAI[2]++ == 0)
             {
                 CEUtils.PlaySound("AshesBeam", 1, Projectile.Center);
-                //dedServ屏震守卫,跟PRT spawn无关但别删
                 if (CEUtils.getDistance(Projectile.Center, Main.LocalPlayer.Center) < 1000 && !Main.dedServ)
                 {
                     ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 10));

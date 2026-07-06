@@ -1,7 +1,6 @@
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -60,8 +59,8 @@ namespace CalamityEntropy.Content.Projectiles
                 float v = Projectile.ai[0];
                 if (v < 0)
                     v = 0;
-                //PRT_DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
-                PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, new Color(255, 180, 180), 0.1f).Configure(new Vector2(2f, 2f), 0, 0.6f - v * 0.3f, 16);
+                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, new Color(255, 180, 180), new Vector2(2f, 2f), 0, 0.1f, 0.6f - v * 0.3f, 16);
+                GeneralParticleHandler.SpawnParticle(pulse);
                 CEUtils.SetShake(Projectile.Center, 4 - v * 1.2f);
                 CEUtils.PlaySound("energyImpact", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
                 if (v != 1)
@@ -123,9 +122,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.velocity.Y += 0.02f;
             }
-            //GlowSpark旧EParticle,Configure尾参统一签名那套
-            var __prt = PRTLoader.NewParticle<PRT_GlowSpark>(Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.05f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation(), (int)(Projectile.ai[2] * (Projectile.ai[0] == 0 ? 0.26f : 0.13f)) + 2);
-            __prt.grav = false;
+            EParticle.spawnNew(new GlowSpark() { grav = false}, Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.05f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), (int)(Projectile.ai[2] * (Projectile.ai[0] == 0 ? 0.26f : 0.13f)) + 2);
         }
 
         public override bool PreDraw(ref Color lightColor)

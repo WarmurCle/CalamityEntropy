@@ -1,8 +1,7 @@
-using CalamityEntropy.Content.Items.Books;
+﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -78,16 +77,16 @@ namespace CalamityEntropy.Content.Projectiles
                     {
                         for (int i = 0; i < 16; i++)
                         {
-                            //GlowSpark旧PRT/EParticle,Configure尾参统一签名那套
-                            PRTLoader.NewParticle<PRT_GlowSpark>(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.White, Main.rand.NextFloat(0.08f, 0.12f)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
+                            EParticle.NewParticle(new GlowSpark(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.White, Main.rand.NextFloat(0.08f, 0.12f), 1, true, BlendState.Additive, 0);
                         }
                         CEUtils.PlaySound("soulexplode", 1.2f, Projectile.Center, maxIns: 2, volume: 0.6f);
                         Projectile.timeLeft = 2;
                         Projectile.Resize(256, 256);
                         Main.LocalPlayer.Calamity().GeneralScreenShakePower = 6;
-                        //DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
-                        PRTLoader.NewParticle<PRT_DirectionalPulseRing>(target.Center, Vector2.Zero, Color.White, 0.1f).Configure(new Vector2(2f, 2f), 0, 0.85f * 0.5f, 18);
-                        PRTLoader.NewParticle<PRT_DetailedExplosionCal>(target.Center, Vector2.Zero, Color.White, 0f).Configure(Vector2.One, Main.rand.NextFloat(-5, 5), 0.5f * 0.65f, 13);
+                        CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(target.Center, Vector2.Zero, Color.White, new Vector2(2f, 2f), 0, 0.1f, 0.85f * 0.5f, 18);
+                        GeneralParticleHandler.SpawnParticle(pulse);
+                        CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(target.Center, Vector2.Zero, Color.White, Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.5f * 0.65f, 13);
+                        GeneralParticleHandler.SpawnParticle(explosion2);
                         Projectile.Kill();
                         //target.damage = (int)(target.damage * 0.2f);
                         if (target.damage > 0)

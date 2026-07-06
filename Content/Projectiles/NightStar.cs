@@ -1,9 +1,8 @@
-using CalamityEntropy.Content.Items.Books;
+﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -32,8 +31,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.rotation = Projectile.velocity.ToRotation();
             for (int i = 0; i < 3; i++)
             {
-                //HeavySmokeCal Configure是Calamity原构造顺序,跟PRT/EParticle统一尾参不是一回事
-                PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center, Projectile.velocity * 0.3f + CEUtils.randomVec(2), color, 0.6f).Configure(1, 40, 0.2f, true, 0, true);
+                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.3f + CEUtils.randomVec(2), color, 40, 0.6f, 1, 0.2f, true, 0, true));
             }
         }
         public override void PostAI()
@@ -88,8 +86,7 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnHitNPC(target, hit, damageDone);
             for (int i = 0; i < 12; i++)
             {
-                //形体烟Cal+后面EHeavySmoke发光层的话后者Additive走Configure
-                PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center, Projectile.velocity * 0.3f + CEUtils.randomVec(6), color, 0.8f).Configure(1, 40, 0.2f, true, 0, true);
+                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.3f + CEUtils.randomVec(6), color, 40, 0.8f, 1, 0.2f, true, 0, true));
             }
         }
         public Color TrailColor1(float completionRatio, Vector2 vertex)
@@ -116,11 +113,11 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnKill(timeLeft);
             for (int i = 0; i < 12; i++)
             {
-                PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center, Projectile.velocity * 0.3f + CEUtils.randomVec(6), color, 0.8f).Configure(1, 40, 0.2f, true, 0, true);
+                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.3f + CEUtils.randomVec(6), color, 40, 0.8f, 1, 0.2f, true, 0, true));
             }
             for (int i = 0; i < 6; i++)
             {
-                PRTLoader.NewParticle<PRT_WindParticle>(Projectile.Center, Vector2.Zero, this.color * 1.4f, 2).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot());
+                EParticle.NewParticle(new WindParticle(), Projectile.Center, Vector2.Zero, this.color * 1.4f, 2, 1, true, BlendState.Additive, CEUtils.randomRot());
             }
         }
     }

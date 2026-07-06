@@ -1,5 +1,5 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs.Pets;
+﻿using CalamityEntropy.Content.Buffs.Pets;
+using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Projectiles.Pets;
 using CalamityMod.Items.Materials;
 using Terraria;

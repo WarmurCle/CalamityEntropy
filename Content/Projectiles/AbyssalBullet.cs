@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod.Buffs.DamageOverTime;
-using InnoVault.PRT;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -48,11 +47,13 @@ namespace CalamityEntropy.Content.Projectiles
             }
             for (int i = 0; i < 5; i++)
             {
-                //PRT_Abyssal不进常规PRT桶,EffectLoader DrawParticleEffectsAlt RT画
-                var p = PRTLoader.NewParticle<PRT_Abyssal>(Projectile.Center, CEUtils.randomPointInCircle(3), Color.White, 1f);
+                Particle p = new Particle();
                 p.vd = 0.96f;
                 p.ad = 0.05f;
-                p.Opacity = 0.38f * Main.rand.NextFloat(0.8f, 1);
+                p.alpha = 0.38f * Main.rand.NextFloat(0.8f, 1);
+                p.position = Projectile.Center;
+                p.velocity = CEUtils.randomPointInCircle(3);
+                AbyssalParticles.particles.Add(p);
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -60,10 +61,12 @@ namespace CalamityEntropy.Content.Projectiles
             target.AddBuff(ModContent.BuffType<CrushDepth>(), 300);
             for (int i = 0; i < 16; i++)
             {
-                //vd/ad直赋对齐旧AbyssalParticles,Configure签名跟EParticle系不一样
-                var p = PRTLoader.NewParticle<PRT_Abyssal>(Projectile.Center, CEUtils.randomPointInCircle(6), Color.White, 1f);
-                p.Opacity = 0.6f * Main.rand.NextFloat(0.4f, 1);
+                Particle p = new Particle();
+                p.alpha = 0.6f * Main.rand.NextFloat(0.4f, 1);
+                p.position = Projectile.Center;
                 p.vd = 0.98f;
+                p.velocity = CEUtils.randomPointInCircle(6);
+                AbyssalParticles.particles.Add(p);
             }
         }
         public override bool PreDraw(ref Color lightColor)

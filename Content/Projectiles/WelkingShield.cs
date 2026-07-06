@@ -1,6 +1,5 @@
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
@@ -84,12 +83,8 @@ namespace CalamityEntropy.Content.Projectiles
                 SoundEngine.PlaySound(sound, Projectile.Center);
             }
 
-            //Sn粒子WelkingShield专用,旧PRT/EParticle Sn
-            PRTLoader.NewParticle<PRT_Sn>(Projectile.Center, Projectile.rotation.ToRotationVector2() * 16, Color.SkyBlue, 0.66f)
-                .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.rotation);  //Sn粒子WelkingShield专用,旧EParticle Sn
-            var __prt = PRTLoader.NewParticle<PRT_AbyssalLine>(Projectile.Center + Projectile.rotation.ToRotationVector2() * 66, Vector2.Zero, Color.SkyBlue, 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.rotation + MathHelper.PiOver2);
-            __prt.xadd = 0.44f;
-            __prt.lx = 0.44f;
+            EParticle.spawnNew(new Sn(), Projectile.Center, Projectile.rotation.ToRotationVector2() * 16, Color.SkyBlue, 0.66f, 1, true, BlendState.Additive, Projectile.rotation);
+            EParticle.spawnNew(new AbyssalLine() { xadd = 0.44f, lx = 0.44f }, Projectile.Center + Projectile.rotation.ToRotationVector2() * 66, Vector2.Zero, Color.SkyBlue, 1, 1, true, BlendState.Additive, Projectile.rotation + MathHelper.PiOver2);
         }
         public override string Texture => "CalamityEntropy/Assets/Extra/WelkinShield";
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

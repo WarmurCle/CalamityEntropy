@@ -2,11 +2,10 @@
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -260,18 +259,14 @@ namespace CalamityEntropy.Content.Items.Weapons
                     {
                         for (int i = 0; i < 8; i++)
                         {
-                            //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
-                            PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedByRandom(1) * -8, Color.White, 0.3f).Configure(0.3f, 16, Main.rand.NextFloat(-0.006f, 0.006f), true);
+                            GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedByRandom(1) * -8, Color.White, 16, 0.3f, 0.3f, Main.rand.NextFloat(-0.006f, 0.006f), true));
                         }
                     }
                     Projectile.velocity += (target.Center - Projectile.Center).normalize() * 1;
                     Projectile.velocity *= 0.86f;
                     for (int i = 0; i < 2; i++)
                     {
-                        var p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center - Projectile.velocity * 3, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f));
-                        p.timeleftmax = 26;
-                        p.Lifetime = 26;
-                        p.Configure(0.5f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 26);
+                        EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center - Projectile.velocity * 3, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
                     }
                 }
             }
@@ -279,11 +274,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    //光效走AdditiveBlend,Configure尾参lifetime对齐旧timeLeft
-                    var p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center - Projectile.velocity * 3, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f));
-                    p.timeleftmax = 26;
-                    p.Lifetime = 26;
-                    p.Configure(0.5f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 26);
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center - Projectile.velocity * 3, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
                 }
                 Projectile.ai[0] = 50;
                 Projectile.velocity += new Vector2(0, 0.1f);
@@ -294,9 +285,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void OnKill(int timeLeft)
         {
             CEUtils.PlaySound("pulseBlast", 0.8f, Projectile.Center, 6, 0.55f);
-            PRTLoader.NewParticle<PRT_PulseRing>(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f).Configure(1.5f, 8);
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.Firebrick, 3.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, 2.4f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
+            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 1.5f, 8));
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 3.6f, 1, true, BlendState.Additive, 0, 16);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 2.4f, 1, true, BlendState.Additive, 0, 16);
             if (Projectile.owner == Main.myPlayer)
             {
                 CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage, 160, Projectile.DamageType);

@@ -2,7 +2,7 @@
 using CalamityEntropy.Content.Items.Weapons.Whips;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
-using InnoVault.PRT;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -280,9 +280,7 @@ namespace CalamityEntropy.Content.Buffs
                                         projectile.GetOwner().ApplyDamageToNPC(n, dmg, 0, 0, false, projectile.DamageType);
                                         for (float f = 0; f <= 1; f += 0.1f)
                                         {
-                                            //预见鞭连锁,RuneParticle多帧贴图走PRTFrameTextures
-                                            PRTLoader.NewParticle<PRT_RuneParticle>(Vector2.Lerp(npc.Center, n.Center, f), CEUtils.randomPointInCircle(0.1f), Color.White, 0.5f)
-                                                .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
+                                            EParticle.NewParticle(new RuneParticle(), Vector2.Lerp(npc.Center, n.Center, f), CEUtils.randomPointInCircle(0.1f), Color.White, 0.5f, 1, true, BlendState.Additive, 0);
                                         }
                                     }
                                 }

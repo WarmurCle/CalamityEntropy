@@ -1,7 +1,5 @@
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using InnoVault.PRT;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -42,8 +40,7 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         public override void AI()
         {
             if (Projectile.ai[0] == 0)
-                //CruiserWarn cruiser专属警告圈,旧PRT/EParticle CruiserWarn
-                PRTLoader.NewParticle<PRT_CruiserWarn>(Projectile.Center, Projectile.velocity * 6, Color.White * 0.6f, 0.016f * Projectile.velocity.Length()).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation());
+                Content.Particles.EParticle.spawnNew(new Content.Particles.CruiserWarn(), Projectile.Center, Projectile.velocity * 6, Color.White * 0.6f, 0.016f * Projectile.velocity.Length(), 1, true, BlendState.Additive, Projectile.velocity.ToRotation());
             Projectile.ai[0]++;
             if (Projectile.ai[2] == 1 && Projectile.ai[0] < 60)
             {
@@ -71,12 +68,13 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
 
             if (Main.rand.NextBool(5))
             {
-                //形体烟Cal+后面EHeavySmoke发光层的话后者Additive走Configure
-                PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center, Projectile.velocity * 0.5f, Color.Lerp(Color.DodgerBlue, Color.MediumVioletRed, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), Main.rand.NextFloat(0.6f, 1.2f) * Projectile.scale).Configure(0.28f, 20, 0, false, 0, true);
+                Particle smoke = new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.5f, Color.Lerp(Color.DodgerBlue, Color.MediumVioletRed, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), 20, Main.rand.NextFloat(0.6f, 1.2f) * Projectile.scale, 0.28f, 0, false, 0, true);
+                GeneralParticleHandler.SpawnParticle(smoke);
 
                 if (Main.rand.NextBool(3))
                 {
-                    PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center, Projectile.velocity * 0.5f, Main.hslToRgb(Hue, 1, 0.7f), Main.rand.NextFloat(0.4f, 0.7f) * Projectile.scale).Configure(0.8f, 15, 0, true, 0.05f, true);
+                    Particle smokeGlow = new HeavySmokeParticle(Projectile.Center, Projectile.velocity * 0.5f, Main.hslToRgb(Hue, 1, 0.7f), 15, Main.rand.NextFloat(0.4f, 0.7f) * Projectile.scale, 0.8f, 0, true, 0.05f, true);
+                    GeneralParticleHandler.SpawnParticle(smokeGlow);
                 }
             }
         }

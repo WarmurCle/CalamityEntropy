@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using InnoVault.PRT;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -42,9 +41,12 @@ namespace CalamityEntropy.Content.Buffs
             }
             for (int i = 0; i < 1; i++)
             {
-                //PRT_Void进EffectLoader虚空shader,Opacity=0.5是旧playerUpdate原值
-                var p = PRTLoader.NewParticle<PRT_Void>(player.Center, new Vector2((float)((r.NextDouble() - 0.5) * 6), (float)((r.NextDouble() - 0.5) * 6)), Color.White, 1f);
-                p.Opacity = 0.5f;
+                Particle p = new Particle();
+                p.position = player.Center;
+                p.alpha = 0.5f;
+
+                p.velocity = new Vector2((float)((r.NextDouble() - 0.5) * 6), (float)((r.NextDouble() - 0.5) * 6));
+                VoidParticles.particles.Add(p);
             }
             player.GetModPlayer<EPlayerDash>().velt = false;
         }

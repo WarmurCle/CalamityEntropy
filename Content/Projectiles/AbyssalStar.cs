@@ -1,6 +1,5 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
@@ -33,8 +32,8 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void AI()
         {
-            //HeavenfallStar拖尾,旧PRT/EParticle HeavenfallStar数值照抄
-            PRTLoader.NewParticle<PRT_HeavenfallStar>(Projectile.Center - Projectile.velocity * 6, Projectile.velocity.normalize(), new Color(26, 26, 180), Main.rand.NextFloat(0.6f, 1.3f) * 0.4f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation(), 14);  //HeavenfallStar拖尾,旧EParticle HeavenfallStar数值照抄
+            var spark = new HeavenfallStar();
+            EParticle.NewParticle(spark, Projectile.Center - Projectile.velocity * 6, Projectile.velocity.normalize(), new Color(26, 26, 180), Main.rand.NextFloat(0.6f, 1.3f) * 0.4f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 14);
 
             Projectile.rotation += 0.16f;
 

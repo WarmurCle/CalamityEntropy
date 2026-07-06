@@ -1,14 +1,13 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Lores;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles.ApsychosProjs;
 using CalamityMod;
 using CalamityMod.Events;
+using CalamityMod.Particles;
 using CalamityMod.World;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -347,7 +346,6 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                         NPC.velocity += NPC.rotation.ToRotationVector2() * 5 * enrange;
                         if (!Main.dedServ)
                         {
-                            //Dash尾迹isp 0~1步长0.05,Smoke+dust双通道,phase1暖橙/p2冷蓝
                             for (float isp = 0; isp < 1; isp += 0.05f)
                             {
                                 var d = Dust.NewDustDirect(NPC.Center, 0, 0, DustID.FlameBurst);
@@ -360,11 +358,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                                 d.noGravity = true;
                                 d.scale = 1.6f;
                                 d.velocity = NPC.velocity * 0.16f + CEUtils.randomPointInCircle(4);
-                                var p = PRTLoader.NewParticle<PRT_Smoke>(NPC.Center + NPC.velocity * isp, Vector2.Zero, phase == 1 ? new Color(255, 160, 140) : new Color(120, 120, 255), 0.45f);
-                                p.scaleStart = 0.6f;
-                                p.scaleEnd = 0;
-                                //scaleStart→scaleEnd Additive,跟FlameBurst dust叠是刻意双通道
-                                p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 32);
+                                EParticle.spawnNew(new Smoke() { scaleStart = 0.6f, scaleEnd = 0 }, NPC.Center + NPC.velocity * isp, Vector2.Zero, phase == 1 ? new Color(255, 160, 140) : new Color(120, 120, 255), 0.45f, 1, true, BlendState.Additive, CEUtils.randomRot(), 32);
                             }
                         }
                     }
@@ -740,12 +734,11 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             if (NPC.life <= 0 && !Main.dedServ)
             {
                 float scale = 360 / 40f;
-                //死亡CustomPulse三层ShatteredExplosion+双Shine,scale=360/40是贴图原尺寸比
-                PRTLoader.NewParticle<PRT_ShineParticle>(NPC.Center, Vector2.Zero, Color.Red * 0.8f, scale * 0.8f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 10);
-                PRTLoader.NewParticle<PRT_ShineParticle>(NPC.Center, Vector2.Zero, Color.White * 0.8f, scale * 0.5f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 10);
-                PRTLoader.NewParticle<PRT_CustomPulse>(NPC.Center, Vector2.Zero, Color.OrangeRed * 1.4f, 0.005f).Configure("CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 24);
-                PRTLoader.NewParticle<PRT_CustomPulse>(NPC.Center, Vector2.Zero, Color.OrangeRed * 1.4f, 0.005f).Configure("CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 18);
-                PRTLoader.NewParticle<PRT_CustomPulse>(NPC.Center, Vector2.Zero, Color.OrangeRed * 1.4f, 0.005f).Configure("CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.02f, 15);
+                EParticle.spawnNew(new ShineParticle(), NPC.Center, Vector2.Zero, Color.Red * 0.8f, scale * 0.8f, 1, true, BlendState.Additive, 0, 10);
+                EParticle.spawnNew(new ShineParticle(), NPC.Center, Vector2.Zero, Color.White * 0.8f, scale * 0.5f, 1, true, BlendState.Additive, 0, 10);
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(NPC.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 24));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(NPC.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 18));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(NPC.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.02f, 15));
                 if (tail != null && segs != null)
                 {
                     Gore.NewGore(NPC.GetSource_Death(), tail.Center, CEUtils.randomPointInCircle(6), Mod.Find<ModGore>("ApsychosGore1").Type);

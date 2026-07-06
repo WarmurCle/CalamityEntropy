@@ -1,7 +1,7 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.SpiritFountainShoots;
 using CalamityMod;
-using InnoVault.PRT;
+using InnoVault.GameSystem;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -380,16 +380,11 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 {
                     LerpTo(Main.rand.NextFloat(-1200, 1200));
                 }
-                //counter%51触发HadLine,跟LerpTo硬切同步,不是每帧都有
                 if (counter % (t + 42) == 51)
                 {
-                    //HadLine成对spawn(hm=0.36)旧SpiritRing双轨残影,column.id决定offset朝向
                     Vector2 offset = column.id == 0 ? new Vector2(column.Num < 0 ? 1 : -1, 0) : new Vector2(0, column.Num < 0 ? 1 : -1);
-                    PRTLoader.NewParticle<PRT_HadLine>(NPC.Center + offset * 80, Vector2.Zero, Color.LightBlue, 3f)
-                        .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, offset.ToRotation(), 32).hm = 0.36f;
-                    //lifetime 32短帧,ShouldUpdatePosition=false位移全靠rotation
-                    PRTLoader.NewParticle<PRT_HadLine>(NPC.Center + offset * 80, Vector2.Zero, Color.LightBlue, 3f)
-                        .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, offset.ToRotation(), 32).hm = 0.36f;
+                    EParticle.spawnNew(new HadLine() { hm = 0.36f }, NPC.Center + offset * 80, Vector2.Zero, Color.LightBlue, 3f, 1, true, BlendState.Additive, offset.ToRotation(), 32);
+                    EParticle.spawnNew(new HadLine() { hm = 0.36f }, NPC.Center + offset * 80, Vector2.Zero, Color.LightBlue, 3f, 1, true, BlendState.Additive, offset.ToRotation(), 32);
 
                 }
             }

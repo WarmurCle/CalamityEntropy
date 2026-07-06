@@ -1,10 +1,9 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Particles;
 using CalamityMod.Rarities;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -114,8 +113,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
                 float sparkScale2 = Main.rand.NextFloat(0.6f, 1.4f);
                 var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
 
-                //dedServ时PRTLoader.NewParticle给孤儿实例,Configure照常
-                PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
+                LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
 
             for (int i = 0; i < 5; i++)
@@ -125,8 +124,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Cogfly
                 int sparkLifetime2 = Main.rand.Next(24, 28);
                 float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
                 Color sparkColor2 = Color.Lerp(Color.Red, Color.Firebrick, Main.rand.NextFloat(0, 1));
-                //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
-                PRTLoader.NewParticle<PRT_AltSpark>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
+                AltSparkParticle spark = new AltSparkParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
             CEUtils.PlaySound("ExoHit1", Main.rand.NextFloat(1.4f, 1.7f), target.Center, volume: 0.5f);
             AttackTimer = Projectile.GetOwner().AzafureEnhance() ? 60 : 80;

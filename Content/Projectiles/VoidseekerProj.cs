@@ -1,6 +1,5 @@
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using CalamityMod;
-using InnoVault.PRT;
+﻿using CalamityMod;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -81,10 +80,11 @@ namespace CalamityEntropy.Content.Projectiles
                     Vector2 direction = rot.ToRotationVector2().RotatedBy((Projectile.velocity.X > 0 ? -MathHelper.PiOver2 : MathHelper.PiOver2));
                     Vector2 smokeSpeed = direction * Main.rand.NextFloat(10f, 18f);
                     /*
-                    //HeavySmokeCal Configure是Calamity原构造顺序,跟PRT/EParticle统一尾参不是一回事
-                    PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center + rot.ToRotationVector2() * Main.rand.NextFloat(120, 230) * scale, smokeSpeed, Color.Lerp(Color.Purple, Color.Indigo, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), Main.rand.NextFloat(0.6f, 1.2f)).Configure(0.8f, 30, 0, false, 0, true);
+                    CalamityMod.Particles.Particle smoke = new HeavySmokeParticle(Projectile.Center + rot.ToRotationVector2() * Main.rand.NextFloat(120, 230) * scale, smokeSpeed, Color.Lerp(Color.Purple, Color.Indigo, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), 30, Main.rand.NextFloat(0.6f, 1.2f), 0.8f, 0, false, 0, true);
+                    GeneralParticleHandler.SpawnParticle(smoke);
                     */
-                    PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center + rot.ToRotationVector2() * Main.rand.NextFloat(145, 205) * scale, smokeSpeed, new Color(60, 60, 200), Main.rand.NextFloat(1f, 1.4f)).Configure(0.8f, 30, 0.008f, true, 0.01f, true);
+                    var smokeGlow = new HeavySmokeParticle(Projectile.Center + rot.ToRotationVector2() * Main.rand.NextFloat(145, 205) * scale, smokeSpeed, new Color(60, 60, 200), 30, Main.rand.NextFloat(1f, 1.4f), 0.8f, 0.008f, true, 0.01f, true);
+                    GeneralParticleHandler.SpawnParticle(smokeGlow);
 
                 }
             }
@@ -130,10 +130,11 @@ namespace CalamityEntropy.Content.Projectiles
                 Color impactColor = Main.rand.NextBool(3) ? Color.SkyBlue : Color.White;
                 float impactParticleScale = Main.rand.NextFloat(1f, 1.75f);
 
-                //holdout装饰sparkle,GeneralParticleHandler迁过来的,数值没动
-                PRTLoader.NewParticle<PRT_SparkleCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, Color.White, impactParticleScale * 1.2f).Configure(Color.Blue, 8, 0, 4.5f);
+                SparkleParticle impactParticle2 = new SparkleParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, Color.White, Color.Blue, impactParticleScale * 1.2f, 8, 0, 4.5f);
+                GeneralParticleHandler.SpawnParticle(impactParticle2);
 
-                PRTLoader.NewParticle<PRT_SparkleCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, impactColor, impactParticleScale).Configure(Color.Blue, 8, 0, 2.5f);
+                SparkleParticle impactParticle = new SparkleParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, impactColor, Color.Blue, impactParticleScale, 8, 0, 2.5f);
+                GeneralParticleHandler.SpawnParticle(impactParticle);
             }
 
             float sparkCount = MathHelper.Clamp(18 - Projectile.numHits * 3 + (Projectile.Calamity().stealthStrike ? 8 : 0), 0, 18);
@@ -145,11 +146,13 @@ namespace CalamityEntropy.Content.Projectiles
                 Color sparkColor2 = Main.rand.NextBool(3) ? Color.LightBlue : Color.AliceBlue;
                 if (Main.rand.NextBool())
                 {
-                    PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
+                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
+                    GeneralParticleHandler.SpawnParticle(spark);
                 }
                 else
                 {
-                    PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), sparkColor2, sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f)).Configure(false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)));
+                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), sparkColor2);
+                    GeneralParticleHandler.SpawnParticle(spark);
                 }
             }
             float dustCount = MathHelper.Clamp(25 - Projectile.numHits * 3, 0, 25);

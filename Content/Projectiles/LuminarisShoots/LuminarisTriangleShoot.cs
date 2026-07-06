@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
             }
             CEUtils.PlaySound("FractalHit", 1, Projectile.Center, 16, 0.6f);
             CEUtils.PlaySound("HammerShoot2", 1, Projectile.Center, 16);
-
+            
         }
         public override bool PreDraw(ref Color lightColor)
         {

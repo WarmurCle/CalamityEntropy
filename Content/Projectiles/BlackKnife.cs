@@ -1,5 +1,4 @@
-using CalamityEntropy.Content.Particles;
-using InnoVault.PRT;
+﻿using CalamityEntropy.Content.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
@@ -72,9 +71,8 @@ namespace CalamityEntropy.Content.Projectiles
                 if (counter == 65)
                 {
                     CEUtils.PlaySound("Dizzy", 1, Projectile.Center);
-                    //PRT_BlackKnifeParticle AlphaBlend+rotation走Configure,旧DarkBlade trail
-                    PRTLoader.NewParticle<PRT_BlackKnifeParticle>(Projectile.Center, Projectile.rotation.ToRotationVector2() * 260, Color.Red, Projectile.scale * 0.8f).Configure(1, true, PRTDrawModeEnum.AlphaBlend, Projectile.rotation);  //BlackKnifeParticle AlphaBlend+rotation走Configure,旧DarkBlade trail
-                    PRTLoader.NewParticle<PRT_BlackKnifeSlash>(center, Vector2.Zero, Color.White, 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.ai[1], 6);
+                    EParticle.spawnNew(new BlackKnifeParticle(), Projectile.Center, Projectile.rotation.ToRotationVector2() * 260, Color.Red, Projectile.scale * 0.8f, 1, true, BlendState.AlphaBlend, Projectile.rotation);
+                    EParticle.spawnNew(new BlackKnifeSlash(), center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Projectile.ai[1], 6);
                 }
                 if (counter > 70)
                 {

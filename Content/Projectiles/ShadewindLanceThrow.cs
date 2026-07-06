@@ -1,8 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -12,6 +11,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
+using Particle = CalamityEntropy.Content.Particles.Particle;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -162,42 +162,37 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    //PRT_Void字段直赋对齐旧VoidParticles,Opacity/ad/multShrink Configure管不了
-                    var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center + Projectile.rotation.ToRotationVector2() * 30 - Projectile.velocity * ((float)i * 0.1f), Vector2.Zero, Color.White, 1f);
-                    p.Opacity = 0.105f;
+                    Particle p = new Particle();
+                    p.position = Projectile.Center + Projectile.rotation.ToRotationVector2() * 30 - Projectile.velocity * ((float)i * 0.1f);
+                    p.alpha = 0.105f;
+                    VoidParticles.particles.Add(p);
                 }
                 for (int i = 0; i < 2; i++)
                 {
                     Vector2 direction = new Vector2(-1, 0).RotatedBy(Projectile.rotation);
                     Vector2 smokeSpeed = direction.RotatedByRandom(MathHelper.PiOver4 * 0.1f) * Main.rand.NextFloat(10f, 30f) * 0.9f;
-                    PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center + Projectile.rotation.ToRotationVector2() * 30 + direction * 46f, smokeSpeed + Projectile.velocity, Color.Lerp(Color.Purple, Color.Indigo, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), Main.rand.NextFloat(0.6f, 1.2f)).Configure(0.8f, 30, 0, false, 0, true);
+                    CalamityMod.Particles.Particle smoke = new HeavySmokeParticle(Projectile.Center + Projectile.rotation.ToRotationVector2() * 30 + direction * 46f, smokeSpeed + Projectile.velocity, Color.Lerp(Color.Purple, Color.Indigo, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), 30, Main.rand.NextFloat(0.6f, 1.2f), 0.8f, 0, false, 0, true);
+                    GeneralParticleHandler.SpawnParticle(smoke);
 
                     if (Main.rand.NextBool(3))
                     {
-                        PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center + Projectile.rotation.ToRotationVector2() * 30 + direction * 46f, smokeSpeed + Projectile.velocity, Main.hslToRgb(0.85f, 1, 0.8f), Main.rand.NextFloat(0.4f, 0.7f)).Configure(0.8f, 20, 0.01f, true, 0.01f, true);
+                        CalamityMod.Particles.Particle smokeGlow = new HeavySmokeParticle(Projectile.Center + Projectile.rotation.ToRotationVector2() * 30 + direction * 46f, smokeSpeed + Projectile.velocity, Main.hslToRgb(0.85f, 1, 0.8f), 20, Main.rand.NextFloat(0.4f, 0.7f), 0.8f, 0.01f, true, 0.01f, true);
+                        GeneralParticleHandler.SpawnParticle(smokeGlow);
                     }
                 }
-                for (int i = 0; i < 32; i++)
+                /*for (int i = 0; i < 32; i++)
                 {
-                    var p2 = PRTLoader.NewParticle<PRT_Void>(Projectile.Center + CEUtils.randomPointInCircle(6) + Projectile.velocity * i / 32f, Vector2.Zero, Color.White, 1f);
-                    p2.multShrink = true;
-                    p2.Opacity = 0.4f;
-                    p2.ad = 0.86f;
+                    VoidParticles.particles.Add(new Particle() {multShrink = true, alpha = 0.4f,ad = 0.86f , position = Projectile.Center + CEUtils.randomPointInCircle(6) + Projectile.velocity * i / 32f});
                 }
                 if (Projectile.ai[0] % 5 == 0)
                 {
-                    for (float r = 0; r < 359; r += 4)
+                    for(float r = 0; r < 359; r += 4)
                     {
-                        for (int i = 0; i < 2; i++)
-                        {
-                            //每帧拖尾Void,旧spawnNew也是AI里无脑刷
-                            var p2 = PRTLoader.NewParticle<PRT_Void>(Projectile.Center + CEUtils.randomPointInCircle(4) + ((MathHelper.ToRadians(r).ToRotationVector2() * 56) * new Vector2(0.3f, 1)).RotatedBy(Projectile.velocity.ToRotation()), Vector2.Zero, Color.White, 1f);
-                            p2.Opacity = 0.4f;
-                            p2.ad = 0.86f;
-                            p2.multShrink = true;
-                        }
+                        for(int i = 0; i < 2; i++)
+                            VoidParticles.particles.Add(new Particle() { alpha = 0.4f, ad = 0.86f, multShrink = true, position = Projectile.Center + CEUtils.randomPointInCircle(4) + ((MathHelper.ToRadians(r).ToRotationVector2() * 56) * new Vector2(0.3f, 1)).RotatedBy(Projectile.velocity.ToRotation()) });
+
                     }
-                }
+                }*/
             }
 
             Projectile.ai[0]++;
@@ -215,14 +210,15 @@ namespace CalamityEntropy.Content.Projectiles
         public bool eff = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            //命中爆发DirectionalPulseRing+DetailedExplosionCal,Configure是CalamityPorts原构造
-            PRTLoader.NewParticle<PRT_DirectionalPulseRing>(target.Center, Vector2.Zero, Color.Purple, 0.1f).Configure(new Vector2(2f, 2f), 0, (Projectile.Calamity().stealthStrike ? 2 : 1) * 0.85f, (Projectile.Calamity().stealthStrike ? 46 : 36));
+            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(target.Center, Vector2.Zero, Color.Purple, new Vector2(2f, 2f), 0, 0.1f, (Projectile.Calamity().stealthStrike ? 2 : 1) * 0.85f, (Projectile.Calamity().stealthStrike ? 46 : 36));
+            GeneralParticleHandler.SpawnParticle(pulse);
             if (Projectile.Calamity().stealthStrike && Main.myPlayer == Projectile.owner && eff)
             {
                 eff = false;
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<VoidRExp>(), 0, 0, Projectile.owner);
             }
-            PRTLoader.NewParticle<PRT_DetailedExplosionCal>(target.Center, Vector2.Zero, Color.Purple, 0f).Configure(Vector2.One, Main.rand.NextFloat(-5, 5), (Projectile.Calamity().stealthStrike ? 2.2f : 1) * 0.65f, (Projectile.Calamity().stealthStrike ? 30 : 26));
+            CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(target.Center, Vector2.Zero, Color.Purple, Vector2.One, Main.rand.NextFloat(-5, 5), 0f, (Projectile.Calamity().stealthStrike ? 2.2f : 1) * 0.65f, (Projectile.Calamity().stealthStrike ? 30 : 26));
+            GeneralParticleHandler.SpawnParticle(explosion2);
             EGlobalNPC.AddVoidTouch(target, Projectile.Calamity().stealthStrike ? 360 : 100, Projectile.Calamity().stealthStrike ? 5 : 2, 800, 10);
             float sparkCount = Projectile.Calamity().stealthStrike ? 26 : 16;
             for (int i = 0; i < sparkCount; i++)
@@ -235,11 +231,13 @@ namespace CalamityEntropy.Content.Projectiles
                 float velc = Projectile.Calamity().stealthStrike ? 1.5f : 0.9f;
                 if (Main.rand.NextBool())
                 {
-                    PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * velc, sparkColor2, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));
+                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, sparkColor2);
+                    GeneralParticleHandler.SpawnParticle(spark);
                 }
                 else
                 {
-                    PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * velc, Main.rand.NextBool() ? Color.Purple : Color.Purple, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));
+                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.Purple : Color.Purple);
+                    GeneralParticleHandler.SpawnParticle(spark);
                 }
             }
         }

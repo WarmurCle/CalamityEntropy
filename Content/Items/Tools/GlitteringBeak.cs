@@ -1,8 +1,8 @@
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items;
-using InnoVault.PRT;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -64,9 +64,7 @@ namespace CalamityEntropy.Content.Items.Tools
                     for (float i = 0; i <= 1; i += 0.25f)
                     {
                         KillCircleTile(Vector2.Lerp(Main.MouseWorld, mouseLast, i));
-                        //PRT_HadCircle2 AdditiveBlend+rotation走Configure
-                        PRTLoader.NewParticle<PRT_HadCircle2>(Vector2.Lerp(Main.MouseWorld, mouseLast, i), Vector2.Zero, Color.SkyBlue, 0.4f)
-                            .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0).CScale = 0.46f;
+                        EParticle.NewParticle(new HadCircle2() { CScale = 0.46f }, Vector2.Lerp(Main.MouseWorld, mouseLast, i), Vector2.Zero, Color.SkyBlue, 0.4f, 1, true, BlendState.Additive, 0);
                     }
                 }
                 else
@@ -82,18 +80,13 @@ namespace CalamityEntropy.Content.Items.Tools
                         for (float i = 0; i <= 1; i += 0.02f)
                         {
                             KillCircleTile(Vector2.Lerp(Main.MouseWorld, mouseLast, i));
-                            if (c++ % 10 == 0)
-                            {
-                                PRTLoader.NewParticle<PRT_HadCircle2>(Vector2.Lerp(Main.MouseWorld, mouseLast, i), Vector2.Zero, Color.SkyBlue, 0.4f)
-                                    .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0).CScale = 0.14f;
-                            }
+                            if (c++ % 10 == 0) EParticle.NewParticle(new HadCircle2() { CScale = 0.14f }, Vector2.Lerp(Main.MouseWorld, mouseLast, i), Vector2.Zero, Color.SkyBlue, 0.4f, 1, true, BlendState.Additive, 0);
                         }
                     }
                     else
                     {
                         if (Main.SmartCursorShowing)
-                            PRTLoader.NewParticle<PRT_HadCircle2>(new Vector2(Main.SmartCursorX * 16 + 8, Main.SmartCursorY * 16 + 8), Vector2.Zero, Color.SkyBlue, 0.4f)
-                                .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0).CScale = 0.14f;
+                            EParticle.NewParticle(new HadCircle2() { CScale = 0.14f }, new Vector2(Main.SmartCursorX * 16 + 8, Main.SmartCursorY * 16 + 8), Vector2.Zero, Color.SkyBlue, 0.4f, 1, true, BlendState.Additive, 0);
                     }
                 }
             }

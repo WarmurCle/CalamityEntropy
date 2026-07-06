@@ -1,9 +1,8 @@
 ﻿using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Items;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -94,8 +93,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.TwoPi * 0.05f)
                 {
-                    //dedServ时NewParticle给孤儿实例不是null,后面字段赋值照常别挡
-                    PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center, i.ToRotationVector2() * 12, Color.MediumPurple, Main.rand.NextFloat(0.5f, 0.7f)).Configure(0.8f, 26, Main.rand.NextFloat(-0.1f, 0.1f), true);
+                    GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, i.ToRotationVector2() * 12, Color.MediumPurple, 26, Main.rand.NextFloat(0.5f, 0.7f), 0.8f, Main.rand.NextFloat(-0.1f, 0.1f), true));
                 }
             }
             if (Projectile.localAI[0]++ < 3)
@@ -131,8 +129,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         Vector2 pos = ((projCharge - 1) * (MathHelper.TwoPi / maxProj)).ToRotationVector2() * 60 + Projectile.Center;
                         for (int i = 0; i < 9; i++)
                         {
-                            //EParticle.spawnNew→PRTLoader.NewParticle,spawn点和数值迁移纪律:一个不改
-                            PRTLoader.NewParticle<PRT_HeavySmokeCal>(pos + CEUtils.randomPointInCircle(3), CEUtils.randomPointInCircle(6), Color.MediumPurple, Main.rand.NextFloat(0.26f, 0.36f)).Configure(0.6f, 18, Main.rand.NextFloat(-0.1f, 0.1f), true);
+                            GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(pos + CEUtils.randomPointInCircle(3), CEUtils.randomPointInCircle(6), Color.MediumPurple, 18, Main.rand.NextFloat(0.26f, 0.36f), 0.6f, Main.rand.NextFloat(-0.1f, 0.1f), true));
                         }
                     }
                     foreach (Vector2 vec in GetProjOffsets())
@@ -177,7 +174,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), pos, (targetPos - pos).normalize() * 8, projType, Projectile.damage, Projectile.knockBack, Projectile.owner);
                 for (int i = 0; i < 9; i++)
                 {
-                    PRTLoader.NewParticle<PRT_HeavySmokeCal>(pos + CEUtils.randomPointInCircle(3), CEUtils.randomPointInCircle(6), Color.MediumPurple, Main.rand.NextFloat(0.26f, 0.36f)).Configure(0.6f, 18, Main.rand.NextFloat(-0.1f, 0.1f), true);
+                    GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(pos + CEUtils.randomPointInCircle(3), CEUtils.randomPointInCircle(6), Color.MediumPurple, 18, Main.rand.NextFloat(0.26f, 0.36f), 0.6f, Main.rand.NextFloat(-0.1f, 0.1f), true));
                 }
             }
         }
@@ -233,10 +230,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         public NPC target;
         public override void AI()
         {
-            //dedServ时PRTLoader.NewParticle给孤儿实例,Configure照常
             if (!Main.dedServ)
             {
-                PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center + CEUtils.randomPointInCircle(3), Vector2.Zero, Color.MediumPurple * 0.36f, Main.rand.NextFloat(0.35f, 0.4f)).Configure(0.6f, 18, Main.rand.NextFloat(-0.1f, 0.1f), true);
+                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomPointInCircle(3), Vector2.Zero, Color.MediumPurple * 0.36f, 18, Main.rand.NextFloat(0.35f, 0.4f), 0.6f, Main.rand.NextFloat(-0.1f, 0.1f), true));
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (target == null || !target.active)
@@ -253,7 +249,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             SoundEngine.PlaySound(SoundID.NPCDeath3, Projectile.Center);
             for (int i = 0; i < 12; i++)
             {
-                PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center + CEUtils.randomPointInCircle(6), CEUtils.randomPointInCircle(12), Color.MediumPurple, Main.rand.NextFloat(0.4f, 0.6f)).Configure(0.6f, 32, Main.rand.NextFloat(-0.05f, 0.05f), true);
+                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomPointInCircle(6), CEUtils.randomPointInCircle(12), Color.MediumPurple, 32, Main.rand.NextFloat(0.4f, 0.6f), 0.6f, Main.rand.NextFloat(-0.05f, 0.05f), true));
             }
         }
         public override bool PreDraw(ref Color lightColor)

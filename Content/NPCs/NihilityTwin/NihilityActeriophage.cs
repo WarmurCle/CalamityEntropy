@@ -133,7 +133,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         public override void OnKill()
         {
             NPC.SetEventFlagCleared(ref EDownedBosses.downedNihilityTwin, -1);
-            if (cell != null)
+            if(cell != null)
             {
                 cell.StrikeInstantKill();
             }

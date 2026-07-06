@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Particles;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
@@ -105,8 +104,8 @@ namespace CalamityEntropy.Content.Projectiles
         }
         private Vector2 lastPos = Vector2.Zero;
         public Vector2 spawnPos = Vector2.Zero;
-        public PRT_StarTrailParticle spt = null;
-        public PRT_StarTrailParticle spt2 = null;
+        public StarTrailParticle spt = null;
+        public StarTrailParticle spt2 = null;
         public override void AI()
         {
             if (counter == 0)
@@ -130,19 +129,16 @@ namespace CalamityEntropy.Content.Projectiles
                 }
                 if (spt == null)
                 {
-                    //StarTrailParticle星尘拖尾,旧EParticle StarTrail
-                    spt = PRTLoader.NewParticle<PRT_StarTrailParticle>(Projectile.Center, Vector2.Zero, Color.MediumPurple, 0.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
-                    spt.maxLength = 18;
-                    spt.maxLength = 18;
+                    spt = new StarTrailParticle() { maxLength = 18 };
+                    EParticle.NewParticle(spt, Projectile.Center, Vector2.Zero, Color.MediumPurple, 0.6f, 1, true, BlendState.Additive, 0);
                 }
                 spt.Velocity = Projectile.velocity * 0.2f;
                 spt.Lifetime = 30;
                 spt.Position = Projectile.Center;
                 if (spt2 == null)
                 {
-                    //StarTrailParticle星尘拖尾,旧EParticle StarTrail
-                    spt2 = PRTLoader.NewParticle<PRT_StarTrailParticle>(Projectile.Center, Vector2.Zero, Color.LightBlue, 0.4f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
-                    spt2.maxLength = 18;
+                    spt2 = new StarTrailParticle() { maxLength = 18 };
+                    EParticle.NewParticle(spt2, Projectile.Center, Vector2.Zero, Color.LightBlue, 0.4f, 1, true, BlendState.Additive, 0);
                 }
                 spt2.Velocity = Projectile.velocity * 0.2f;
                 spt2.Lifetime = 30;

@@ -4,7 +4,6 @@ using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
@@ -177,8 +176,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.netUpdate = true;
                         foreach (var pt in p)
                         {
-                            //TrailSparkParticle跟TrailParticle成对spawn,旧trail+spark一套
-                            PRTLoader.NewParticle<PRT_TrailSparkParticle>(pt, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
+                            EParticle.spawnNew(new TrailSparkParticle(), pt, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1, 1, true, BlendState.Additive); ;
 
                         }
                     }
@@ -194,8 +192,7 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.netUpdate = true;
                         foreach (var pt in p)
                         {
-                            //TrailSparkParticle跟TrailParticle成对spawn,旧trail+spark一套
-                            PRTLoader.NewParticle<PRT_TrailSparkParticle>(pt, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
+                            EParticle.spawnNew(new TrailSparkParticle(), pt, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-8, 8), Color.White, 1, 1, true, BlendState.Additive);
 
                         }
                     }

@@ -1,6 +1,5 @@
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using CalamityMod.Buffs.StatDebuffs;
-using InnoVault.PRT;
+﻿using CalamityMod.Buffs.StatDebuffs;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
@@ -33,10 +32,11 @@ namespace CalamityEntropy.Content.Projectiles
             if (!sPlayerd)
             {
                 sPlayerd = true;
-                //PRT_DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
-                PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, Color.Aqua, 0.1f).Configure(new Vector2(2f, 2f), 0, 0.85f, 36);  //DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
+                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, Color.Aqua, new Vector2(2f, 2f), 0, 0.1f, 0.85f, 36);
+                GeneralParticleHandler.SpawnParticle(pulse);
 
-                PRTLoader.NewParticle<PRT_DetailedExplosionCal>(Projectile.Center, Vector2.Zero, Color.Magenta, 0f).Configure(Vector2.One, Main.rand.NextFloat(-5, 5), 0.65f, 26);
+                CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, Color.Magenta, Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.65f, 26);
+                GeneralParticleHandler.SpawnParticle(explosion2);
                 SoundStyle s = new("CalamityEntropy/Assets/Sounds/swing" + Main.rand.Next(1, 4));
                 s.Volume = 1f;
                 s.Pitch = 0.8f;

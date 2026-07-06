@@ -9,7 +9,6 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items.Potions.Alcohol;
-using InnoVault.PRT;
 using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -463,7 +462,7 @@ namespace CalamityEntropy
         }
         public static void ExplotionParticleLOL(Vector2 pos)
         {
-            PRTLoader.NewParticle<PRT_RealisticExplosion>(pos, Vector2.Zero, Color.White, 2).Configure(1, true, PRTDrawModeEnum.AlphaBlend);
+            EParticle.NewParticle(new RealisticExplosion(), pos, Vector2.Zero, Color.White, 2, 1, true, BlendState.AlphaBlend);
         }
         public static void AddBuff<T>(this NPC npc, int time, bool quiet = false) where T : ModBuff
         {
@@ -1035,8 +1034,6 @@ namespace CalamityEntropy
             return item.type == ModContent.ItemType<T>();
         }
 
-        //PRT PostDraw里常调这个,setState默认true会End→Immediate画光晕→End→Deferred+AlphaBlend
-        //收尾批次跟PRT桶对不上,调用方还得sb.End()+BeginDrawingWithMode接回去
         public static void DrawGlow(Vector2 worldPos, Color color, float scale, bool additive = true, Texture2D tex = null, bool setState = true)
         {
             Texture2D glow = tex == null ? getExtraTex("Glow2") : tex;
@@ -1571,7 +1568,6 @@ namespace CalamityEntropy
             return rect.Contains((int)start.X, (int)start.Y) || rect.Contains((int)end.X, (int)end.Y) || Collision.CheckAABBvLineCollision(rect.TopLeft(), rect.Size(), start, end, lineWidth, ref point);
         }
 
-        //不碰SpriteBatch状态,假定外面批次已开好;PRT PreDraw里直接Draw用
         public static void drawLine(SpriteBatch spriteBatch, Texture2D px, Vector2 start, Vector2 end, Color color, float width, int wa = 0, bool worldpos = true)
         {
             spriteBatch.Draw(px, start - (worldpos ? Main.screenPosition : Vector2.Zero), null, color, (end - start).ToRotation(), new Vector2(0, 0.5f), new Vector2(getDistance(start, end) + wa, width), SpriteEffects.None, 0);
@@ -2288,8 +2284,6 @@ namespace CalamityEntropy
         public static void BeginDefault(this SpriteBatch SB) =>
     SB.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         #region ShaderSB
-        //EnterShaderRegion/ExitShaderRegion在InnoVault里,这批是CEUtils自管的End+Begin换shader批次
-        //PRT里WindParticle/Trail那类:Enter画完图元后还得End+BeginDrawingWithMode,光Exit不够
         public static void BeginShader(this SpriteBatch SB) =>
             SB.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         public static void BeginShader(this SpriteBatch SB, BlendState blendState) =>
@@ -2325,7 +2319,6 @@ namespace CalamityEntropy
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, blendState, samplerState, DepthStencilState.None, Main.Rasterizer, null, matrix);
         }
-        //shader/图元画完还回Deferred+AlphaBlend,跟ExitShaderRegion收尾语义接近
         public static void ReSetToEndShader()
         {
             Main.spriteBatch.End();

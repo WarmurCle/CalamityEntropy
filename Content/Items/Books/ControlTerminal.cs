@@ -9,7 +9,6 @@ using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Projectiles.Melee;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -273,8 +272,7 @@ namespace CalamityEntropy.Content.Items.Books
             }
             for (int i = 0; i < 4; i++)
             {
-                //PRT_GlowSpark AdditiveBlend走Configure,旧EParticle统一尾参
-                PRTLoader.NewParticle<PRT_GlowSpark>(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(5, 10), Color.LightGreen, Main.rand.NextFloat(0.04f, 0.08f)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
+                EParticle.NewParticle(new GlowSpark(), target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(5, 10), Color.LightGreen, Main.rand.NextFloat(0.04f, 0.08f), 1, true, BlendState.Additive, 0);
             }
         }
         public override bool PreDraw(ref Color lightColor)

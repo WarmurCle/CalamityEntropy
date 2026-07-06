@@ -1,8 +1,7 @@
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using CalamityMod;
+﻿using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Ranged;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -82,8 +81,8 @@ namespace CalamityEntropy.Content.Items.Donator
                 float sparkScale2 = Main.rand.NextFloat(0.6f, 1.4f);
                 var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
 
-                //PRT_LineCal CalamityPorts,Configure签名对齐Calamity原构造
-                PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
+                LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
             if (mode == 1)
             {

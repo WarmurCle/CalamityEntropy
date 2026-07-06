@@ -1,14 +1,14 @@
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityMod;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace CalamityEntropy.Content.Items.Books
 {
     public class AzafureCylinder : EntropyBook, IAzafureEnhancable
@@ -136,7 +136,7 @@ namespace CalamityEntropy.Content.Items.Books
                 SoundEngine.PlaySound(SoundID.Dig with { Volume = 0.6f }, Projectile.Center);
             return false;
         }
-        public PRT_TrailParticle trail = null;
+        public TrailParticle trail = null;
         public override void AI()
         {
             if (Projectile.localAI[2]++ == 0)
@@ -147,11 +147,8 @@ namespace CalamityEntropy.Content.Items.Books
             }
             if (trail == null)
             {
-                //PRT_TrailParticle maxLength=9短尾,ShouldDraw=false每帧AddPoint自己画
-                trail = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.4f);
-                trail.maxLength = 9;
-                trail.ShouldDraw = false;
-                trail.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, -1);
+                trail = new TrailParticle() { maxLength = 9, ShouldDraw = false };
+                EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.4f, 1, true, BlendState.Additive);
             }
             base.AI();
             foreach (NPC n in Main.ActiveNPCs)
@@ -197,7 +194,7 @@ namespace CalamityEntropy.Content.Items.Books
         public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            if (trail != null) trail.DrawTrail(Main.spriteBatch);
+            trail?.Draw();
             Main.spriteBatch.ExitShaderRegion();
             Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
             for (int i = 0; i < 1; i++)

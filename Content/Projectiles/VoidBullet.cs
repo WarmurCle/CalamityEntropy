@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using InnoVault.PRT;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -31,9 +30,10 @@ namespace CalamityEntropy.Content.Projectiles
         public float ap = 0;
         public override void AI()
         {
-            //PRT_Void字段直赋对齐旧VoidParticles,Opacity/ad/multShrink Configure管不了
-            var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center, Vector2.Zero, Color.White, 1f);
-            p.Opacity = 0.5f;  //Opacity旧初始化器字段,Configure管不了
+            Particle p = new Particle();
+            p.alpha = 0.5f;
+            p.position = Projectile.Center;
+            VoidParticles.particles.Add(p);
             NPC target = Projectile.FindTargetWithinRange(900, false);
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (target != null)

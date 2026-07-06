@@ -2,7 +2,6 @@
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Rogue;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
@@ -118,10 +117,9 @@ namespace CalamityEntropy.Content.Items.Weapons
                     Projectile.velocity.X *= 0.98f;
                 }
                 if (Projectile.ai[0] == 0)
-                    //光效走AdditiveBlend,Configure尾参lifetime对齐旧timeLeft
-                    PRTLoader.NewParticle<PRT_CrystalGlow>(Projectile.Center, Vector2.Zero, Color.MediumPurple, 0.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 20);
+                    EParticle.spawnNew(new CrystalGlow(), Projectile.Center, Vector2.Zero, Color.MediumPurple, 0.6f, 1, true, BlendState.Additive, 0, 20);
                 else
-                    PRTLoader.NewParticle<PRT_CrystalGlow>(Projectile.Center, Vector2.Zero, Color.MediumPurple, 0.36f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 8);
+                    EParticle.spawnNew(new CrystalGlow(), Projectile.Center, Vector2.Zero, Color.MediumPurple, 0.36f, 1, true, BlendState.Additive, 0, 8);
 
                 for (float i = 0; i < 1; i += 0.5f)
                 {
@@ -173,8 +171,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            //EParticle.spawnNew→PRTLoader.NewParticle,spawn点和数值迁移纪律:一个不改
-            PRTLoader.NewParticle<PRT_CrystalGlow>(Projectile.Center + Projectile.rotation.ToRotationVector2() * 10, Vector2.Zero, Color.MediumPurple * 1.3f, 1.5f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 10);
+            EParticle.spawnNew(new CrystalGlow(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 10, Vector2.Zero, Color.MediumPurple * 1.3f, 1.5f, 1, true, BlendState.Additive, 0, 10);
 
             CEUtils.PlaySound("truemoonlighthit", Main.rand.NextFloat(1.4f, 1.8f), target.Center, 60, 0.7f);
             int sum = 0;
@@ -203,8 +200,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (StickNPC >= 0)
                 return false;
-            //VFX接线从自研EParticle换InnoVault PRT,调用形状尽量跟旧的一样
-            PRTLoader.NewParticle<PRT_CrystalGlow>(Projectile.Center + oldVelocity + Projectile.rotation.ToRotationVector2() * 4, Vector2.Zero, Color.MediumPurple * 1.3f, 1.5f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 10);
+            EParticle.spawnNew(new CrystalGlow(), Projectile.Center + oldVelocity + Projectile.rotation.ToRotationVector2() * 4, Vector2.Zero, Color.MediumPurple * 1.3f, 1.5f, 1, true, BlendState.Additive, 0, 10);
             if (Main.myPlayer == Projectile.owner)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, oldVelocity.RotatedByRandom(0.6f) * Main.rand.NextFloat(-1, -0.5f), ModContent.ProjectileType<CrystalSpikePop>(), 0, 0, Projectile.owner);
@@ -265,7 +261,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Vector2 pos = CEUtils.Bezier(new List<Vector2>() { spawn, mid, target }, counter / 36f);
                 Vector2 offset = pos - Projectile.Center;
                 Projectile.rotation += offset.X * 0.05f;
-                PRTLoader.NewParticle<PRT_CrystalGlow>(Projectile.Center, Vector2.Zero, Color.MediumPurple, 0.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 20);
+                EParticle.spawnNew(new CrystalGlow(), Projectile.Center, Vector2.Zero, Color.MediumPurple, 0.6f, 1, true, BlendState.Additive, 0, 20);
                 for (float i = 0; i < 1; i += 0.5f)
                 {
                     var d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.PurpleTorch);

@@ -1,5 +1,5 @@
-using CalamityEntropy.Content.Particles;
-using InnoVault.PRT;
+﻿using CalamityEntropy.Content.Particles;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -28,9 +28,7 @@ namespace CalamityEntropy.Content.Projectiles.BNE
         }
         public override void AI()
         {
-            //PRT_EchoCircle rotation走Configure尾参,旧构造最后一个rotation参数
-            PRTLoader.NewParticle<PRT_EchoCircle>(Projectile.Center, Projectile.velocity, Color.White, 1f)
-                .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation());  //AdditiveBlend+rotation都在Configure,跟EParticle尾参顺序不同
+            EParticle.NewParticle(new EchoCircle(), Projectile.Center, Projectile.velocity, Color.White, 1, 1, true, BlendState.Additive, Projectile.velocity.ToRotation());
         }
         public override bool PreDraw(ref Color lightColor)
         {

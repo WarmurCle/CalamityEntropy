@@ -1,3 +1,4 @@
+using CalamityMod.Items;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;

@@ -1,6 +1,5 @@
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using InnoVault.PRT;
+﻿using CalamityEntropy.Content.Buffs;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -60,8 +59,8 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (timeLeft > 0)
             {
-                //PRT_DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
-                PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, new Color(255, 180, 180), 0.1f).Configure(new Vector2(2f, 2f), 0, 0.5f, 16);  //DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
+                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, new Color(255, 180, 180), new Vector2(2f, 2f), 0, 0.1f, 0.5f, 16);
+                GeneralParticleHandler.SpawnParticle(pulse);
                 CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 72, Projectile.DamageType);
                 CEUtils.SetShake(Projectile.Center, 4);
                 CEUtils.PlaySound("energyImpact", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);

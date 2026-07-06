@@ -1,7 +1,6 @@
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using InnoVault.PRT;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
@@ -10,6 +9,29 @@ namespace CalamityEntropy.Content.Projectiles
 {
     public class GravityGazeHoldout : ModProjectile
     {
+        public class SparkleParticle
+        {
+            public bool kill = false;
+            public float rot;
+            public float size;
+            public float addSize = 1;
+            public void update()
+            {
+                size += addSize;
+                addSize -= 0.12f;
+                if (size < 0)
+                {
+                    kill = true;
+                }
+            }
+
+            public SparkleParticle()
+            {
+                rot = CEUtils.randomRot();
+                size = 0;
+            }
+        }
+        public List<SparkleParticle> particles = new List<SparkleParticle>();
         public override void SetStaticDefaults()
         {
         }
@@ -47,9 +69,8 @@ namespace CalamityEntropy.Content.Projectiles
                     if (!Main.dedServ)
                     {
                         CEUtils.PlaySound("soulshine", Main.rand.NextFloat(1.5f, 1.8f), Projectile.Center, 8, 0.55f);
-                        SpawnHoldoutSparkle(Color.LightBlue * 0.6f, Color.LightBlue);
-                        SpawnHoldoutSparkle(Color.LightGreen * 0.6f, Color.LightGreen);
                     }
+                    particles.Add(new SparkleParticle());
                 }
                 else
                 {
@@ -64,6 +85,17 @@ namespace CalamityEntropy.Content.Projectiles
             else
             {
                 Projectile.timeLeft = 3;
+            }
+            foreach (SparkleParticle particle in particles)
+            {
+                particle.update();
+            }
+            for (int i = particles.Count - 1; i >= 0; i--)
+            {
+                if (particles[i].kill)
+                {
+                    particles.RemoveAt(i);
+                }
             }
             if (Main.myPlayer == Projectile.owner)
             {
@@ -123,6 +155,13 @@ namespace CalamityEntropy.Content.Projectiles
 
             Texture2D light = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Glow").Value;
             Main.spriteBatch.Draw(light, Projectile.Center - Main.screenPosition * Projectile.scale, null, Color.Lerp(new Color(104, 127, 255), new Color(238, 244, 213), (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)) * 0.7f, 0, light.Size() / 2, 0.5f * Projectile.scale * (1 + (float)Math.Cos((counter) * 0.02f) * 0.2f), SpriteEffects.None, 0);
+            Texture2D spark = CEUtils.getExtraTex("Sparkle");
+            foreach (SparkleParticle p in particles)
+            {
+                Main.spriteBatch.Draw(spark, Projectile.Center - Main.screenPosition * Projectile.scale, null, Color.LightBlue * 0.6f, p.rot, spark.Size() / 2, 0.06f * Projectile.scale * p.size, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(spark, Projectile.Center - Main.screenPosition * Projectile.scale, null, Color.LightGreen * 0.6f, p.rot + MathHelper.PiOver2, spark.Size() / 2, 0.06f * Projectile.scale * p.size, SpriteEffects.None, 0);
+
+            }
 
             Main.spriteBatch.End();
 
@@ -130,14 +169,6 @@ namespace CalamityEntropy.Content.Projectiles
 
 
             return false;
-        }
-
-        void SpawnHoldoutSparkle(Color color, Color bloom)
-        {
-            float sparkleScale = 0.28f * Projectile.scale;
-            //PRT_SparkleCal bloom/color在Configure里,旧Calamity SparkleParticle两色构造
-            PRTLoader.NewParticle<PRT_SparkleCal>(Projectile.Center, Vector2.Zero, color, sparkleScale)
-                .Configure(bloom, 17, Main.rand.NextFloat(-0.1f, 0.1f), 1.2f);  //holdout装饰sparkle,GeneralParticleHandler迁过来的,数值没动
         }
     }
 

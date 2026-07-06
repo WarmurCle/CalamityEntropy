@@ -1,7 +1,7 @@
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
@@ -214,7 +214,7 @@ namespace CalamityEntropy.Content.Items.Donator
 
     public class FilthyProjectile : ModProjectile
     {
-        public PRT_StarTrailParticle trail;
+        public StarTrailParticle trail;
         public override string Texture => CEUtils.WhiteTexPath;
         public override void SetDefaults()
         {
@@ -230,24 +230,25 @@ namespace CalamityEntropy.Content.Items.Donator
             if (trail == null)
             {
                 tOfs = CEUtils.randomPointInCircle(36);
-                //PRT_StarTrailParticle maxLength spawn后赋,轨迹类不开CanPool
-                trail = PRTLoader.NewParticle<PRT_StarTrailParticle>(Projectile.Center + tOfs, Projectile.velocity, Color.DarkRed, 1f);
-                trail.maxLength = 24;
-                trail.Configure(1, true, PRTDrawModeEnum.NonPremultiplied, Projectile.velocity.ToRotation(), 30);
+                trail = new StarTrailParticle() { maxLength = 24 };
+                EParticle.spawnNew(trail, Projectile.Center + tOfs, Projectile.velocity, Color.DarkRed, 1, 1, true, BlendState.NonPremultiplied, Projectile.velocity.ToRotation(), 30);
             }
             trail.Lifetime = 30;
             trail.Position = Projectile.Center + tOfs;
             trail.AddPoint(Projectile.Center + tOfs);
             Vector2 ver = Projectile.velocity;
-            PRTLoader.NewParticle<PRT_Light>(Projectile.Center + CEUtils.randomPointInCircle(32 * Projectile.scale), ver, Color.Red, Main.rand.NextFloat(2f, 4f))
-                .Configure(1f, lifetime: 140);
+            BasePRT particle = new PRT_Light(Projectile.Center + CEUtils.randomPointInCircle(32 * Projectile.scale), ver
+                , Main.rand.NextFloat(2f, 4f), Color.Red, 140, 1f);
+            PRTLoader.AddParticle(particle);
             if (Main.rand.NextBool())
             {
-                PRTLoader.NewParticle<PRT_LineCal>(Projectile.Center + Projectile.velocity * 4 + CEUtils.randomPointInCircle(32), Projectile.velocity, Color.DarkRed, Main.rand.NextFloat(1, 2)).Configure(false, 32);
+                LineParticle spark = new LineParticle(Projectile.Center + Projectile.velocity * 4 + CEUtils.randomPointInCircle(32), Projectile.velocity, false, 32, Main.rand.NextFloat(1, 2), Color.DarkRed);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
             else
             {
-                PRTLoader.NewParticle<PRT_SparkCal>(Projectile.Center + CEUtils.randomPointInCircle(32), Projectile.velocity, Color.Red, Main.rand.NextFloat(0.6f, 1.2f)).Configure(true, 50);
+                var spark2 = new SparkParticle(Projectile.Center + CEUtils.randomPointInCircle(32), Projectile.velocity, true, 50, Main.rand.NextFloat(0.6f, 1.2f), Color.Red);
+                GeneralParticleHandler.SpawnParticle(spark2);
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -255,7 +256,8 @@ namespace CalamityEntropy.Content.Items.Donator
             for (int i = 0; i < 2; i++)
             {
                 float r = CEUtils.randomRot();
-                PRTLoader.NewParticle<PRT_LineCal>(Projectile.Center + r.ToRotationVector2() * -160, r.ToRotationVector2() * 32, Color.Red, Main.rand.NextFloat(1, 2)).Configure(false, 32);
+                LineParticle spark = new LineParticle(Projectile.Center + r.ToRotationVector2() * -160, r.ToRotationVector2() * 32, false, 32, Main.rand.NextFloat(1, 2), Color.Red);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
             CEUtils.PlaySound("nvspark", 1, target.Center, 10, 0.7f);
         }
@@ -283,14 +285,8 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             for (int i = 0; i < 10; i++)
             {
-                var smoke = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center + Projectile.velocity * (i / 10f) + CEUtils.randomPointInCircle(6), CEUtils.randomPointInCircle(0.5f), Color.Red, Main.rand.NextFloat(0.06f, 0.09f));
-                smoke.timeleftmax = 26;
-                smoke.Lifetime = 26;
-                smoke.Configure(0.5f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 26);
-                var smoke2 = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center + Projectile.velocity * (i / 10f) + CEUtils.randomPointInCircle(3), CEUtils.randomPointInCircle(0.2f), new Color(255, 160, 160), Main.rand.NextFloat(0.06f, 0.09f) * 0.66f);
-                smoke2.timeleftmax = 26;
-                smoke2.Lifetime = 26;
-                smoke2.Configure(0.5f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 26);
+                EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center + Projectile.velocity * (i / 10f) + CEUtils.randomPointInCircle(6), CEUtils.randomPointInCircle(0.5f), Color.Red, Main.rand.NextFloat(0.06f, 0.09f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
+                EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center + Projectile.velocity * (i / 10f) + CEUtils.randomPointInCircle(3), CEUtils.randomPointInCircle(0.2f), new Color(255, 160, 160), Main.rand.NextFloat(0.06f, 0.09f) * 0.66f, 0.5f, true, BlendState.Additive, CEUtils.randomRot());
             }
             Lighting.AddLight(Projectile.Center, 0.25f, 0f, 0f);
         }
@@ -298,7 +294,8 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             Color impactColor = Color.Red;
             float impactParticleScale = 3;
-            PRTLoader.NewParticle<PRT_SparkleCal>(Projectile.Center, Vector2.Zero, impactColor, impactParticleScale).Configure(Color.OrangeRed, 14, 0f, 3f);
+            SparkleParticle impactParticle = new SparkleParticle(Projectile.Center, Vector2.Zero, impactColor, Color.OrangeRed, impactParticleScale, 14, 0f, 3f);
+            GeneralParticleHandler.SpawnParticle(impactParticle);
             CEUtils.PlaySound("sf_hit1", 1, Projectile.Center, volume: 0.4f);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items.Books;
+using CalamityOverhaul.Content;
 using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
 using InnoVault;
 using System;

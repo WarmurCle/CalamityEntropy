@@ -1,9 +1,8 @@
-﻿using CalamityEntropy.Common;
+﻿using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Items;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -103,9 +102,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                 int sparkLifetime2 = 26;
                 float sparkScale2 = 0.8f;
                 Color sparkColor2 = Color.Lerp(Color.Black, Color.Red, Main.rand.NextBool() ? Main.rand.NextFloat(0, 0.16f) : Main.rand.NextFloat(0.84f, 1f));
-                //DarkBladeParticle旧AlphaBlend,Additive那套会过曝
-                //这类走AlphaBlend桶,Additive会把烟/圈打亮
-                PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
+                AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
         }
         public float rScale = 1;
@@ -175,13 +173,14 @@ namespace CalamityEntropy.Content.Items.Weapons
                 int sparkLifetime2 = 24;
                 float sparkScale2 = 2f;
                 Color sparkColor2 = Color.Black;
-                //EParticle.spawnNew→PRTLoader.NewParticle,spawn点和数值迁移纪律:一个不改
-                PRTLoader.NewParticle<PRT_AltSpark>(Projectile.Center + Projectile.velocity.normalize() * 80, sparkVelocity2, sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
+                AltSparkParticle spark = new AltSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 80, sparkVelocity2, false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
 
                 sparkVelocity2 = Projectile.velocity * 1.4f;
                 sparkColor2 = Color.Red;
                 sparkScale2 = 0.8f;
-                PRTLoader.NewParticle<PRT_AltSpark>(Projectile.Center + Projectile.velocity.normalize() * 30, sparkVelocity2, sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
+                spark = new AltSparkParticle(Projectile.Center + Projectile.velocity.normalize() * 30, sparkVelocity2, false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
 
             }*/
             if (counter > MaxUpdateTimes)
@@ -283,7 +282,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                 int sparkLifetime2 = 26;
                 float sparkScale2 = 0.8f;
                 Color sparkColor2 = Color.Lerp(Color.Black, Color.Red, Main.rand.NextBool() ? Main.rand.NextFloat(0, 0.16f) : Main.rand.NextFloat(0.84f, 1f));
-                PRTLoader.NewParticle<PRT_AltSpark>(Projectile.Center, sparkVelocity2 * (1f), sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
+                AltSparkParticle spark = new AltSparkParticle(Projectile.Center, sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
             Projectile.damage = (int)(Projectile.damage * 0.9f);
         }
@@ -310,7 +310,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Projectile.Center = player.Center + offsetToPlr;
                 if (counter % (Projectile.MaxUpdates) == 0)
                 {
-                    PRTLoader.NewParticle<PRT_DarkBladeParticle>(Projectile.Center, Vector2.Zero, Color.White, Projectile.scale).Configure(1, true, PRTDrawModeEnum.AlphaBlend, Projectile.rotation + MathHelper.PiOver4, 12);
+                    EParticle.NewParticle(new DarkBladeParticle(), Projectile.Center, Vector2.Zero, Color.White, Projectile.scale, 1, true, BlendState.AlphaBlend, Projectile.rotation + MathHelper.PiOver4, 12);
                 }
             }
             else
@@ -332,8 +332,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                 {
                     if (counter % Projectile.MaxUpdates == 0)
                     {
-                        PRTLoader.NewParticle<PRT_DarkBladeParticle>(Projectile.Center, Vector2.Zero, new Color(255, 40, 40), Projectile.scale).Configure(1, true, PRTDrawModeEnum.AlphaBlend, Projectile.rotation + MathHelper.PiOver4, 20);
-                        PRTLoader.NewParticle<PRT_DarkBladeParticle>(Projectile.Center + Projectile.velocity * Projectile.MaxUpdates / 2, Vector2.Zero, new Color(255, 40, 40), Projectile.scale).Configure(1, true, PRTDrawModeEnum.AlphaBlend, Projectile.rotation + MathHelper.PiOver4, 20);
+                        EParticle.NewParticle(new DarkBladeParticle(), Projectile.Center, Vector2.Zero, new Color(255, 40, 40), Projectile.scale, 1, true, BlendState.AlphaBlend, Projectile.rotation + MathHelper.PiOver4, 20);
+                        EParticle.NewParticle(new DarkBladeParticle(), Projectile.Center + Projectile.velocity * Projectile.MaxUpdates / 2, Vector2.Zero, new Color(255, 40, 40), Projectile.scale, 1, true, BlendState.AlphaBlend, Projectile.rotation + MathHelper.PiOver4, 20);
                     }
                     if (Main.rand.NextBool(8))
                     {
@@ -341,7 +341,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                         var sparkVelocity2 = Projectile.velocity * 1.4f;
                         var sparkColor2 = Color.Red;
                         var sparkScale2 = Main.rand.NextFloat(0.1f, 0.6f);
-                        PRTLoader.NewParticle<PRT_AltSpark>(Projectile.Center - Projectile.velocity.normalize() * 18, sparkVelocity2, sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
+                        var spark = new AltSparkParticle(Projectile.Center - Projectile.velocity.normalize() * 18, sparkVelocity2, false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
+                        GeneralParticleHandler.SpawnParticle(spark);
                     }
                 }
             }

@@ -1,8 +1,8 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
-using InnoVault.PRT;
+using CalamityMod.Particles;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -103,9 +103,10 @@ namespace CalamityEntropy.Content.Projectiles
 
             Projectile.Resize(22, 22);
 
-            //PRT_DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
-            PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, Color.Aqua, 0.1f).Configure(new Vector2(2f, 2f), 0, 0.85f * 1.4f, (int)(36 * 1.1f));
-            PRTLoader.NewParticle<PRT_DetailedExplosionCal>(Projectile.Center, Vector2.Zero, Color.Magenta, 0f).Configure(Vector2.One, Main.rand.NextFloat(-5, 5), 0.65f * 1.4f, (int)(26 * 1.1f));
+            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, Color.Aqua, new Vector2(2f, 2f), 0, 0.1f, 0.85f * 1.4f, (int)(36 * 1.1f));
+            GeneralParticleHandler.SpawnParticle(pulse);
+            CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, Color.Magenta, Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.65f * 1.4f, (int)(26 * 1.1f));
+            GeneralParticleHandler.SpawnParticle(explosion2);
             float sparkCount = Projectile.Calamity().stealthStrike ? 26 : 16;
             for (int i = 0; i < sparkCount; i++)
             {
@@ -117,17 +118,18 @@ namespace CalamityEntropy.Content.Projectiles
                 float velc = 1.2f;
                 if (Main.rand.NextBool())
                 {
-                    //AltSpark Configure(bool,int)是Ports签名,不是opacity/glow/mode那套
-                    PRTLoader.NewParticle<PRT_AltSpark>(Projectile.Center + Main.rand.NextVector2Circular(Projectile.width * 0.5f, Projectile.height * 0.5f), sparkVelocity2 * velc, sparkColor2, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));
+                    AltSparkParticle spark = new AltSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(Projectile.width * 0.5f, Projectile.height * 0.5f), sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, sparkColor2);
+                    GeneralParticleHandler.SpawnParticle(spark);
                 }
                 else
                 {
-                    PRTLoader.NewParticle<PRT_LineCal>(Projectile.Center + Main.rand.NextVector2Circular(Projectile.width * 0.5f, Projectile.height * 0.5f), sparkVelocity2 * velc, Main.rand.NextBool() ? Color.Purple : Color.Purple, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));
+                    LineParticle spark = new LineParticle(Projectile.Center + Main.rand.NextVector2Circular(Projectile.width * 0.5f, Projectile.height * 0.5f), sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.Purple : Color.Purple);
+                    GeneralParticleHandler.SpawnParticle(spark);
                 }
             }
             if (CalamityEntropy.AprilFool)
             {
-                PRTLoader.NewParticle<PRT_EXPLOSIONCOSMIC>(Projectile.Center + new Vector2(0, -38), Vector2.Zero, Color.White, 2).Configure(1, true, PRTDrawModeEnum.NonPremultiplied, 0);
+                EParticle.NewParticle(new EXPLOSIONCOSMIC(), Projectile.Center + new Vector2(0, -38), Vector2.Zero, Color.White, 2, 1, true, BlendState.NonPremultiplied, 0);
             }
 
         }

@@ -1,8 +1,7 @@
-using CalamityEntropy.Content.Items.Weapons.GrassSword;
-using CalamityEntropy.Content.Particles.CalamityPorts;
+﻿using CalamityEntropy.Content.Items.Weapons.GrassSword;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -57,8 +56,8 @@ namespace CalamityEntropy.Content.Projectiles
         float drawcount = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            //PRT_DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
-            PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.position, Vector2.Zero, new Color(0, 255, 0), 0f).Configure(new Vector2(2f, 2f), 0, 0.2f, 8);
+            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.position, Vector2.Zero, new Color(0, 255, 0), new Vector2(2f, 2f), 0, 0f, 0.2f, 8);
+            GeneralParticleHandler.SpawnParticle(pulse);
 
             CEUtils.PlaySound("GrassSwordHit" + Main.rand.Next(4).ToString(), 1.4f, target.Center, 16, CEUtils.WeapSound * 0.6f);
 
@@ -71,8 +70,8 @@ namespace CalamityEntropy.Content.Projectiles
                 sparkScale2 *= (1 + Bramblecleave.GetLevel() * 0.05f);
                 Color sparkColor2 = Color.Lerp(Color.Green, Color.LightGreen, Main.rand.NextFloat());
 
-                //AltSpark Configure(bool,int)是Ports签名,不是opacity/glow/mode那套
-                PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
+                AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
         }
         public override string Texture => CEUtils.WhiteTexPath;

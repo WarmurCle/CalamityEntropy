@@ -1,7 +1,6 @@
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -118,33 +117,21 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             if (Projectile.localAI[0]++ == 0)
                 CEUtils.PlaySound("Snowgrave", 1, Projectile.Center, 2, 4);
 
-            float wave = (0.4f + 0.6f * (float)(Math.Sin(Main.GameUpdateCount * 0.35f) * 0.5f + 0.5f));
-            Player owner = Projectile.GetOwner();
-            void SpawnSnowPiece(Vector2 pos)
-            {
-                //owner绑射弹寿命,SnowPiece里ownedProjectileCounts<1才开始Opacity衰减
-                var snow = PRTLoader.NewParticle<PRT_SnowPiece>(pos, new Vector2(0, -80), Color.White, 1);
-                snow.owner = owner;
-                snow.Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0, -1);
-            }
-
             for (float i = 0.2f; i <= 1; i += 0.2f)
             {
-                SpawnSnowPiece(Projectile.Center + new Vector2(-30, -Math.Abs(i) * 40) + new Vector2(wave * i * 160, 1024));
-                SpawnSnowPiece(Projectile.Center + new Vector2(-30, -Math.Abs(i) * 40) + new Vector2(0, -40) + new Vector2(wave * i * 160, 1024));
-                SpawnSnowPiece(Projectile.Center + new Vector2(30, -Math.Abs(i) * 40) + new Vector2(wave * i * 160, 1024));
-                SpawnSnowPiece(Projectile.Center + new Vector2(30, -Math.Abs(i) * 40) + new Vector2(0, -40) + new Vector2(wave * i * 160, 1024));
+                EParticle.NewParticle(new SnowPiece() { owner = Projectile.GetOwner() }, Projectile.Center + new Vector2(-30, -Math.Abs(i) * 40) + new Vector2((0.4f + 0.6f * (float)(Math.Sin(Main.GameUpdateCount * 0.35f) * 0.5f + 0.5f)) * i * 160, 1024), new Vector2(0, -80), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
+                EParticle.NewParticle(new SnowPiece() { owner = Projectile.GetOwner() }, Projectile.Center + new Vector2(-30, -Math.Abs(i) * 40) + new Vector2(0, -40) + new Vector2((0.4f + 0.6f * (float)(Math.Sin(Main.GameUpdateCount * 0.35f) * 0.5f + 0.5f)) * i * 160, 1024), new Vector2(0, -80), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
+                EParticle.NewParticle(new SnowPiece() { owner = Projectile.GetOwner() }, Projectile.Center + new Vector2(30, -Math.Abs(i) * 40) + new Vector2((0.4f + 0.6f * (float)(Math.Sin(Main.GameUpdateCount * 0.35f) * 0.5f + 0.5f)) * i * 160, 1024), new Vector2(0, -80), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
+                EParticle.NewParticle(new SnowPiece() { owner = Projectile.GetOwner() }, Projectile.Center + new Vector2(30, -Math.Abs(i) * 40) + new Vector2(0, -40) + new Vector2((0.4f + 0.6f * (float)(Math.Sin(Main.GameUpdateCount * 0.35f) * 0.5f + 0.5f)) * i * 160, 1024), new Vector2(0, -80), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
 
-                SpawnSnowPiece(Projectile.Center + new Vector2(-30, -Math.Abs(i) * 40) + new Vector2(-wave * i * 160, 1024));
-                SpawnSnowPiece(Projectile.Center + new Vector2(-30, -Math.Abs(i) * 40) + new Vector2(0, -40) + new Vector2(-wave * i * 160, 1024));
-                SpawnSnowPiece(Projectile.Center + new Vector2(30, -Math.Abs(i) * 40) + new Vector2(-wave * i * 160, 1024));
-                SpawnSnowPiece(Projectile.Center + new Vector2(30, -Math.Abs(i) * 40) + new Vector2(0, -40) + new Vector2(-wave * i * 160, 1024));
+                EParticle.NewParticle(new SnowPiece() { owner = Projectile.GetOwner() }, Projectile.Center + new Vector2(-30, -Math.Abs(i) * 40) + new Vector2(-(0.4f + 0.6f * (float)(Math.Sin(Main.GameUpdateCount * 0.35f) * 0.5f + 0.5f)) * i * 160, 1024), new Vector2(0, -80), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
+                EParticle.NewParticle(new SnowPiece() { owner = Projectile.GetOwner() }, Projectile.Center + new Vector2(-30, -Math.Abs(i) * 40) + new Vector2(0, -40) + new Vector2(-(0.4f + 0.6f * (float)(Math.Sin(Main.GameUpdateCount * 0.35f) * 0.5f + 0.5f)) * i * 160, 1024), new Vector2(0, -80), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
+                EParticle.NewParticle(new SnowPiece() { owner = Projectile.GetOwner() }, Projectile.Center + new Vector2(30, -Math.Abs(i) * 40) + new Vector2(-(0.4f + 0.6f * (float)(Math.Sin(Main.GameUpdateCount * 0.35f) * 0.5f + 0.5f)) * i * 160, 1024), new Vector2(0, -80), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
+                EParticle.NewParticle(new SnowPiece() { owner = Projectile.GetOwner() }, Projectile.Center + new Vector2(30, -Math.Abs(i) * 40) + new Vector2(0, -40) + new Vector2(-(0.4f + 0.6f * (float)(Math.Sin(Main.GameUpdateCount * 0.35f) * 0.5f + 0.5f)) * i * 160, 1024), new Vector2(0, -80), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
             }
-
-            //大雾块AdditiveBlend桶,owner同上
-            var storm = PRTLoader.NewParticle<PRT_SnowStorm>(Projectile.Center + new Vector2(Main.rand.NextFloat(-260, 260), 1024), new Vector2(0, -20), Color.White, 10);
-            storm.owner = owner;
-            storm.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, -1);
+            //EParticle.NewParticle(new SnowPiece() { owner = Projectile.GetOwner() }, Projectile.Center + new Vector2(0, 0) + new Vector2(0, 1024), new Vector2(0, -80), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
+            //EParticle.NewParticle(new SnowPiece() { owner = Projectile.GetOwner() }, Projectile.Center + new Vector2(0, 0) + new Vector2(0, -40) + new Vector2(0, 1024), new Vector2(0, -80), Color.White, 1, 1, true, BlendState.AlphaBlend, 0);
+            EParticle.NewParticle(new SnowStorm() { owner = Projectile.GetOwner() }, Projectile.Center + new Vector2(Main.rand.NextFloat(-260, 260), 1024), new Vector2(0, -20), Color.White, 10, 1, true, BlendState.Additive, 0);
         }
         public override bool? CanHitNPC(NPC target)
         {

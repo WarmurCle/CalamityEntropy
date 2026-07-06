@@ -1,9 +1,8 @@
-using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles.CalamityPorts;
+﻿using CalamityEntropy.Common;
 using CalamityMod;
 using CalamityMod.Events;
 using CalamityMod.Items;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -189,14 +188,13 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 if (Main.rand.NextBool())
                 {
-                    //PRT_HeavySmokeCal CalamityPorts,Configure签名对齐Calamity原构造
-                    PRTLoader.NewParticle<PRT_HeavySmokeCal>(Player.Center + new Vector2(Main.rand.NextFloat(-3, 3), Player.height / 2) + CEUtils.randomVec(1), CEUtils.randomVec(1), new Color(100, 100, 255), 0.16f).Configure(1, 40, 0.1f, true, 0, true);
+                    GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Player.Center + new Vector2(Main.rand.NextFloat(-3, 3), Player.height / 2) + CEUtils.randomVec(1), CEUtils.randomVec(1), new Color(100, 100, 255), 40, 0.16f, 1, 0.1f, true, 0, true));
 
                 }
             }
             if (ExtraManaLv >= 5)
             {
-                PRTLoader.NewParticle<PRT_HeavySmokeCal>(CEUtils.randomPoint(Player.getRect()), Player.velocity * 0.2f + CEUtils.randomVec(1), new Color(100, 100, 255), 0.2f).Configure(1, 40, 0.1f, true, 0, true);
+                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(CEUtils.randomPoint(Player.getRect()), Player.velocity * 0.2f + CEUtils.randomVec(1), new Color(100, 100, 255), 40, 0.2f, 1, 0.1f, true, 0, true));
             }
 
         }

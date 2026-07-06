@@ -1,7 +1,6 @@
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -70,16 +69,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     for (int l = 0; l < 1 + 30 * ((float)shotCounter / maxChargeTime); l++)
                     {
-                        //TargetPos/followOwner旧初始化器字段,Configure只管opacity和AdditiveBlend分桶
-                        var glowSpark = PRTLoader.NewParticle<PRT_GlowSparkDirecting>(
-                            Projectile.Center + Projectile.rotation.ToRotationVector2() * 16 + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(60, 120),
-                            Vector2.Zero,
-                            Color.OrangeRed,
-                            Main.rand.NextFloat(0.6f, 1.4f) * 0.06f)
-                            .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, Main.rand.Next(10, 16));
-                        glowSpark.TargetPos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 16;
-                        glowSpark.followOwner = player;
-                        glowSpark.scaleX = Main.rand.NextFloat(1, 2);
+                        EParticle.NewParticle(new GlowSparkDirecting() { TargetPos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, followOwner = player, scaleX = Main.rand.NextFloat(1, 2) }, Projectile.Center + Projectile.rotation.ToRotationVector2() * 16 + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(60, 120), Vector2.Zero, Color.OrangeRed, Main.rand.NextFloat(0.6f, 1.4f) * 0.06f, 1, true, BlendState.Additive, 0, Main.rand.Next(10, 16));
                     }
                 }
                 if (shotCounter < maxChargeTime && shotCounter >= tShooted + ShootNeededTime)
@@ -111,12 +101,11 @@ namespace CalamityEntropy.Content.Projectiles
                     spawnParti = false;
                     Color impactColor = Color.OrangeRed;
                     float impactParticleScale = 2f;
-                    PRTLoader.NewParticle<PRT_SparkleCal>(Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, Vector2.Zero, impactColor * 0.34f, impactParticleScale).Configure(Color.OrangeRed * 0.34f, 14, 0f, 3f);
+                    SparkleParticle impactParticle = new SparkleParticle(Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, Vector2.Zero, impactColor * 0.34f, Color.OrangeRed * 0.34f, impactParticleScale, 14, 0f, 3f);
+                    GeneralParticleHandler.SpawnParticle(impactParticle);
 
-                    var __prt = PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, Vector2.Zero, new Color(255, 160, 144), 1.2f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
-                    __prt.FollowOwner = player;
-                    var __prt2 = PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, Vector2.Zero, new Color(255, 210, 196), 0.8f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
-                    __prt2.FollowOwner = player;
+                    EParticle.NewParticle(new ShineParticle() { FollowOwner = player }, Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, Vector2.Zero, new Color(255, 160, 144), 1.2f, 1, true, BlendState.Additive, 0, 12);
+                    EParticle.NewParticle(new ShineParticle() { FollowOwner = player }, Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, Vector2.Zero, new Color(255, 210, 196), 0.8f, 1, true, BlendState.Additive, 0, 12);
 
                 }
                 if (shotCounter > maxChargeTime + 36)
@@ -151,75 +140,44 @@ namespace CalamityEntropy.Content.Projectiles
                 float c = steamTime / 10f;
                 Vector2 steamCenter = Projectile.Center + new Vector2(38, 24).RotatedBy(Projectile.rotation) * Projectile.scale;
                 float rot = Projectile.rotation;
-                //蒸汽烟旧对象初始化器拆成字段+Configure,SetProperty在Configure前先跑,顺序别反
                 for (int i = 0; i < 16; i++)
                 {
-                    var p = PRTLoader.NewParticle<PRT_Smoke>(steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f);
-                    p.timeleftmax = 16;
-                    p.Lifetime = 16;
-                    p.scaleEnd = Main.rand.NextFloat(0.06f, 0.1f);
-                    p.vc = 0.85f;
-                    p.Configure(0.018f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 16);
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, CEUtils.randomRot());
                 }
 
                 steamCenter = Projectile.Center + new Vector2(38, -24).RotatedBy(Projectile.rotation) * Projectile.scale;
                 rot = Projectile.rotation;
                 for (int i = 0; i < 16; i++)
                 {
-                    var p = PRTLoader.NewParticle<PRT_Smoke>(steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f);
-                    p.timeleftmax = 16;
-                    p.Lifetime = 16;
-                    p.scaleEnd = Main.rand.NextFloat(0.06f, 0.1f);
-                    p.vc = 0.85f;
-                    p.Configure(0.018f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 16);
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, CEUtils.randomRot());
                 }
 
                 steamCenter = Projectile.Center + new Vector2(32, 43).RotatedBy(Projectile.rotation) * Projectile.scale;
                 rot = Projectile.rotation + MathHelper.ToRadians(45);
                 for (int i = 0; i < 16; i++)
                 {
-                    var p = PRTLoader.NewParticle<PRT_Smoke>(steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f);
-                    p.timeleftmax = 16;
-                    p.Lifetime = 16;
-                    p.scaleEnd = Main.rand.NextFloat(0.06f, 0.1f);
-                    p.vc = 0.85f;
-                    p.Configure(0.018f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 16);
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, CEUtils.randomRot());
                 }
 
                 steamCenter = Projectile.Center + new Vector2(32, -43).RotatedBy(Projectile.rotation) * Projectile.scale;
                 rot = Projectile.rotation - MathHelper.ToRadians(45);
                 for (int i = 0; i < 16; i++)
                 {
-                    var p = PRTLoader.NewParticle<PRT_Smoke>(steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f);
-                    p.timeleftmax = 16;
-                    p.Lifetime = 16;
-                    p.scaleEnd = Main.rand.NextFloat(0.06f, 0.1f);
-                    p.vc = 0.85f;
-                    p.Configure(0.018f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 16);
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, CEUtils.randomRot());
                 }
 
                 steamCenter = Projectile.Center + new Vector2(18, 55).RotatedBy(Projectile.rotation) * Projectile.scale;
                 rot = Projectile.rotation + MathHelper.ToRadians(70);
                 for (int i = 0; i < 16; i++)
                 {
-                    var p = PRTLoader.NewParticle<PRT_Smoke>(steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f);
-                    p.timeleftmax = 16;
-                    p.Lifetime = 16;
-                    p.scaleEnd = Main.rand.NextFloat(0.06f, 0.1f);
-                    p.vc = 0.85f;
-                    p.Configure(0.018f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 16);
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, CEUtils.randomRot());
                 }
 
                 steamCenter = Projectile.Center + new Vector2(18, -55).RotatedBy(Projectile.rotation) * Projectile.scale;
                 rot = Projectile.rotation - MathHelper.ToRadians(70);
                 for (int i = 0; i < 16; i++)
                 {
-                    var p = PRTLoader.NewParticle<PRT_Smoke>(steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f);
-                    p.timeleftmax = 16;
-                    p.Lifetime = 16;
-                    p.scaleEnd = Main.rand.NextFloat(0.06f, 0.1f);
-                    p.vc = 0.85f;
-                    p.Configure(0.018f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 16);
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16, scaleEnd = Main.rand.NextFloat(0.06f, 0.1f), vc = 0.85f }, steamCenter + rot.ToRotationVector2() * (20 * (i / 16f)), rot.ToRotationVector2().RotatedByRandom(0.16f) * 20, Color.White * 0.42f * c, 0.018f, 0.018f, true, BlendState.Additive, CEUtils.randomRot());
                 }
             }
         }
@@ -369,7 +327,8 @@ namespace CalamityEntropy.Content.Projectiles
                 for (int i = 0; i < 25; i++)
                 {
                     Vector2 randVel = CEUtils.randomPointInCircle(24) * Main.rand.NextFloat(0.05f, (Main.rand.NextBool(3) ? 1f : 0.5f));
-                    PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center + randVel, randVel, new Color(57, 46, 115) * 0.6f, Main.rand.NextFloat(0.9f, 2.3f)).Configure(0.5f, Main.rand.Next(25, 35 + 1));
+                    var smoke = new HeavySmokeParticle(Projectile.Center + randVel, randVel, new Color(57, 46, 115) * 0.6f, Main.rand.Next(25, 35 + 1), Main.rand.NextFloat(0.9f, 2.3f), 0.5f);
+                    GeneralParticleHandler.SpawnParticle(smoke);
                 }
                 for (int i = 0; i < 150; i++)
                 {
@@ -381,8 +340,10 @@ namespace CalamityEntropy.Content.Projectiles
                     dust2.alpha = Main.rand.Next(40, 100 + 1);
                 }
 
-                PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, mainColor, 4.5f * 0.16f).Configure("CalamityMod/Particles/LargeBloom", new Vector2(1, 1), Main.rand.NextFloat(-10, 10), 4.5f * 0.16f, 3.5f * 0.16f, 20);
-                PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Color.White, 4f * 0.16f).Configure("CalamityMod/Particles/LargeBloom", new Vector2(1, 1), Main.rand.NextFloat(-10, 10), 4f * 0.16f, 3f * 0.16f, 20);
+                var orb = new CustomPulse(Projectile.Center, Vector2.Zero, mainColor, "CalamityMod/Particles/LargeBloom", new Vector2(1, 1), Main.rand.NextFloat(-10, 10), 4.5f * 0.16f, 3.5f * 0.16f, 20);
+                GeneralParticleHandler.SpawnParticle(orb);
+                var orb2 = new CustomPulse(Projectile.Center, Vector2.Zero, Color.White, "CalamityMod/Particles/LargeBloom", new Vector2(1, 1), Main.rand.NextFloat(-10, 10), 4f * 0.16f, 3f * 0.16f, 20);
+                GeneralParticleHandler.SpawnParticle(orb2);
 
                 Vector2 BurstFXDirection = new Vector2(0, 6 * 0.16f).RotatedBy(MathHelper.PiOver4);
                 for (int i = 0; i < 16; i++)
@@ -395,7 +356,8 @@ namespace CalamityEntropy.Content.Projectiles
                         _ => Color.LawnGreen,
                     };
 
-                    PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center, (BurstFXDirection) * (i + 1f), randomColor, (0.25f - i * 0.02f) * 0.6f).Configure(false, 12, new Vector2(2.7f, 1.3f), true);
+                    GlowSparkParticle spark = new GlowSparkParticle(Projectile.Center, (BurstFXDirection) * (i + 1f), false, 12, (0.25f - i * 0.02f) * 0.6f, randomColor, new Vector2(2.7f, 1.3f), true);
+                    GeneralParticleHandler.SpawnParticle(spark);
                 }
                 for (int k = 0; k < 25; k++)
                 {
@@ -407,7 +369,8 @@ namespace CalamityEntropy.Content.Projectiles
                         _ => Color.LawnGreen,
                     };
 
-                    PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + Main.rand.NextVector2Circular(30 * 0.16f, 30 * 0.16f), BurstFXDirection * Main.rand.NextFloat(1f, 20.5f), randomColor, Main.rand.NextFloat(0.01f, 0.03f)).Configure(false, Main.rand.Next(40, 50 + 1), new Vector2(0.3f, 1.6f));
+                    GlowSparkParticle spark2 = new GlowSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(30 * 0.16f, 30 * 0.16f), BurstFXDirection * Main.rand.NextFloat(1f, 20.5f), false, Main.rand.Next(40, 50 + 1), Main.rand.NextFloat(0.01f, 0.03f), randomColor, new Vector2(0.3f, 1.6f));
+                    GeneralParticleHandler.SpawnParticle(spark2);
                 }
                 for (int i = 0; i < 16; i++)
                 {
@@ -419,7 +382,8 @@ namespace CalamityEntropy.Content.Projectiles
                         _ => Color.LawnGreen,
                     };
 
-                    PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center, (-BurstFXDirection) * (i + 1f), randomColor, (0.25f - i * 0.02f) * 0.6f).Configure(false, 12, new Vector2(2.7f, 1.3f), true);
+                    GlowSparkParticle spark = new GlowSparkParticle(Projectile.Center, (-BurstFXDirection) * (i + 1f), false, 12, (0.25f - i * 0.02f) * 0.6f, randomColor, new Vector2(2.7f, 1.3f), true);
+                    GeneralParticleHandler.SpawnParticle(spark);
                 }
                 for (int k = 0; k < 25; k++)
                 {
@@ -431,7 +395,8 @@ namespace CalamityEntropy.Content.Projectiles
                         _ => Color.LawnGreen,
                     };
 
-                    PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + Main.rand.NextVector2Circular(30, 30), -BurstFXDirection * Main.rand.NextFloat(1f, 20.5f), randomColor, Main.rand.NextFloat(0.01f, 0.03f)).Configure(false, Main.rand.Next(40, 50 + 1), new Vector2(0.3f, 1.6f));
+                    GlowSparkParticle spark2 = new GlowSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(30, 30), -BurstFXDirection * Main.rand.NextFloat(1f, 20.5f), false, Main.rand.Next(40, 50 + 1), Main.rand.NextFloat(0.01f, 0.03f), randomColor, new Vector2(0.3f, 1.6f));
+                    GeneralParticleHandler.SpawnParticle(spark2);
                 }
                 Vector2 BurstFXDirection2 = new Vector2(6 * 0.16f, 0).RotatedBy(MathHelper.PiOver4);
                 for (int i = 0; i < 16; i++)
@@ -444,7 +409,8 @@ namespace CalamityEntropy.Content.Projectiles
                         _ => Color.LawnGreen,
                     };
 
-                    PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center, (BurstFXDirection2) * (i + 1f), randomColor, (0.25f - i * 0.02f) * 0.6f).Configure(false, 12, new Vector2(2.7f, 1.3f), true);
+                    GlowSparkParticle spark = new GlowSparkParticle(Projectile.Center, (BurstFXDirection2) * (i + 1f), false, 12, (0.25f - i * 0.02f) * 0.6f, randomColor, new Vector2(2.7f, 1.3f), true);
+                    GeneralParticleHandler.SpawnParticle(spark);
                 }
                 for (int k = 0; k < 25; k++)
                 {
@@ -456,7 +422,8 @@ namespace CalamityEntropy.Content.Projectiles
                         _ => Color.LawnGreen,
                     };
 
-                    PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + Main.rand.NextVector2Circular(30, 30), BurstFXDirection2 * Main.rand.NextFloat(1f, 20.5f), randomColor, Main.rand.NextFloat(0.01f, 0.03f)).Configure(false, Main.rand.Next(40, 50 + 1), new Vector2(0.3f, 1.6f));
+                    GlowSparkParticle spark2 = new GlowSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(30, 30), BurstFXDirection2 * Main.rand.NextFloat(1f, 20.5f), false, Main.rand.Next(40, 50 + 1), Main.rand.NextFloat(0.01f, 0.03f), randomColor, new Vector2(0.3f, 1.6f));
+                    GeneralParticleHandler.SpawnParticle(spark2);
                 }
                 for (int i = 0; i < 16; i++)
                 {
@@ -468,7 +435,8 @@ namespace CalamityEntropy.Content.Projectiles
                         _ => Color.LawnGreen,
                     };
 
-                    PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center, (-BurstFXDirection2) * (i + 1f), randomColor, (0.25f - i * 0.02f) * 0.6f).Configure(false, 12, new Vector2(2.7f, 1.3f), true);
+                    GlowSparkParticle spark = new GlowSparkParticle(Projectile.Center, (-BurstFXDirection2) * (i + 1f), false, 12, (0.25f - i * 0.02f) * 0.6f, randomColor, new Vector2(2.7f, 1.3f), true);
+                    GeneralParticleHandler.SpawnParticle(spark);
                 }
                 for (int k = 0; k < 25; k++)
                 {
@@ -480,7 +448,8 @@ namespace CalamityEntropy.Content.Projectiles
                         _ => Color.LawnGreen,
                     };
 
-                    PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + Main.rand.NextVector2Circular(30, 30), -BurstFXDirection2 * Main.rand.NextFloat(1f, 20.5f), randomColor, Main.rand.NextFloat(0.01f, 0.03f)).Configure(false, Main.rand.Next(40, 50 + 1), new Vector2(0.3f, 1.6f));
+                    GlowSparkParticle spark2 = new GlowSparkParticle(Projectile.Center + Main.rand.NextVector2Circular(30, 30), -BurstFXDirection2 * Main.rand.NextFloat(1f, 20.5f), false, Main.rand.Next(40, 50 + 1), Main.rand.NextFloat(0.01f, 0.03f), randomColor, new Vector2(0.3f, 1.6f));
+                    GeneralParticleHandler.SpawnParticle(spark2);
                 }
 
                 for (int i = 0; i < 10; i++)
@@ -493,7 +462,8 @@ namespace CalamityEntropy.Content.Projectiles
                         _ => Color.LawnGreen,
                     };
 
-                    PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, randomColor * 0.7f, 0f).Configure("CalamityMod/Particles/FlameExplosion", new Vector2(1f, 1f), Main.rand.NextFloat(-20, 20), 0f, (4f - i * 0.28f) * 0.12f, 50);
+                    var pulse2 = new CustomPulse(Projectile.Center, Vector2.Zero, randomColor * 0.7f, "CalamityMod/Particles/FlameExplosion", new Vector2(1f, 1f), Main.rand.NextFloat(-20, 20), 0f, (4f - i * 0.28f) * 0.12f, 50);
+                    GeneralParticleHandler.SpawnParticle(pulse2);
                 }
             }
 
@@ -505,7 +475,8 @@ namespace CalamityEntropy.Content.Projectiles
                 int sparkLifetime2 = Main.rand.Next(40, 60);
                 float sparkScale2 = Main.rand.NextFloat(1f, 1.6f);
                 Color sparkColor2 = Color.Lerp(Color.OrangeRed, Color.Firebrick, Main.rand.NextFloat(0, 1));
-                PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
+                LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

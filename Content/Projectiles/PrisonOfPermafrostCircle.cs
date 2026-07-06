@@ -1,7 +1,6 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -73,9 +72,7 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     for (int i = 0; i < 16; i++)
                     {
-                        //Smoke vd/ad字段spawn后赋,旧PRT/EParticle Smoke初始化器
-                        var p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center + Projectile.rotation.ToRotationVector2() * 84 + CEUtils.randomVec(6), (Projectile.rotation + Main.rand.NextFloat(-0.6f, 0.6f)).ToRotationVector2() * Main.rand.NextFloat(34, 54), new Color(190, 226, 255) * 0.2f, 0.4f);  //Smoke vd/ad字段spawn后赋,旧EParticle Smoke初始化器
-                        p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0f);
+                        EParticle.NewParticle(new Smoke(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 84 + CEUtils.randomVec(6), (Projectile.rotation + Main.rand.NextFloat(-0.6f, 0.6f)).ToRotationVector2() * Main.rand.NextFloat(34, 54), new Color(190, 226, 255) * 0.2f, 0.4f, 1, true, BlendState.Additive);
                     }
                     if (Projectile.owner == Main.myPlayer)
                     {

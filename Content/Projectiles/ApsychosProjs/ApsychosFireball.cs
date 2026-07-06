@@ -1,5 +1,4 @@
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using InnoVault.PRT;
+﻿using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -35,8 +34,7 @@ namespace CalamityEntropy.Content.Projectiles.ApsychosProjs
             {
                 oldPos.RemoveAt(0);
             }
-            //HeavySmokeCal Configure是Calamity原构造顺序,跟PRT/EParticle统一尾参不是一回事
-            PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center + CEUtils.randomPointInCircle(4), CEUtils.randomPointInCircle(3), Projectile.ai[0] == 1 ? Color.Firebrick : Color.MediumPurple, 0.4f).Configure(1f, 18, Main.rand.NextFloat(-0.1f, 0.1f), true);  //形体烟Cal+后面EHeavySmoke发光层的话后者Additive走Configure
+            GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomPointInCircle(4), CEUtils.randomPointInCircle(3), Projectile.ai[0] == 1 ? Color.Firebrick : Color.MediumPurple, 18, 0.4f, 1f, Main.rand.NextFloat(-0.1f, 0.1f), true));
         }
         public override bool PreDraw(ref Color lightColor)
         {

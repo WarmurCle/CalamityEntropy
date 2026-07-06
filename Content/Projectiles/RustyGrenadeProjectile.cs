@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod.Buffs.StatDebuffs;
-using InnoVault.PRT;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -132,8 +132,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (CalamityEntropy.AprilFool)
             {
-                //EXPLOSION类名和贴图绑死了,迁移纪律不改名
-                PRTLoader.NewParticle<PRT_EXPLOSION>(Projectile.Center + new Vector2(0, -26), Vector2.Zero, Color.White, 1).Configure(1, true, PRTDrawModeEnum.NonPremultiplied, 0);  //EXPLOSION类名和贴图绑死了,迁移纪律不改名
+                EParticle.NewParticle(new EXPLOSION(), Projectile.Center + new Vector2(0, -26), Vector2.Zero, Color.White, 1, 1, true, BlendState.NonPremultiplied, 0);
             }
 
 

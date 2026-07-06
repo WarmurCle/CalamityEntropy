@@ -6,7 +6,6 @@ using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Projectiles.Rogue;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -172,9 +171,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Vector2 fpos = Projectile.Center + Projectile.velocity.normalize() * 18 * Projectile.scale;
                 for (int i = 0; i < 12; i++)
                 {
-                    //EParticle→PRT,EMediumSmoke Configure+PRTDrawMode AlphaBlend
-                    //PRTDrawMode AlphaBlend桶,枪口烟别走Additive会糊
-                    PRTLoader.NewParticle<PRT_EMediumSmoke>(fpos, Projectile.velocity.normalize().RotatedByRandom(1) * Main.rand.NextFloat(2, 9), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.7f, 1f)).Configure(1, true, PRTDrawModeEnum.AlphaBlend, CEUtils.randomRot());
+                    EParticle.NewParticle(new EMediumSmoke(), fpos, Projectile.velocity.normalize().RotatedByRandom(1) * Main.rand.NextFloat(2, 9), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.7f, 1f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot());
                 }
                 CEUtils.PlaySound("chainsaw_break", 1.4f, Projectile.Center);
                 if (Main.myPlayer == Projectile.owner)

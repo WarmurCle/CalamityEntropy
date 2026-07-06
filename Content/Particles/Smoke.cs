@@ -1,0 +1,44 @@
+﻿using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
+
+namespace CalamityEntropy.Content.Particles
+{
+    public class Smoke : EParticle
+    {
+        public override Texture2D Texture => textureType == 0 ? ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Smoke").Value : ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/Circle").Value;
+        public int timeleftmax = 200;
+        public float scaleEnd = -1;
+        public float scaleStart = -1;
+        public float vc = 1;
+        public bool colorTrans = false;
+        private bool setColor = true;
+        public Color endColor = Color.White;
+        private Color startColor = Color.White;
+        public bool NoAlphaFade = false;
+        public int textureType = 0;
+        public override void AI()
+        {
+            if (setColor)
+            {
+                setColor = false;
+                startColor = Color;
+            }
+            if (colorTrans)
+            {
+                Color = Color.Lerp(startColor, endColor, 1 - ((float)Lifetime / timeleftmax));
+            }
+            if (scaleStart < 0)
+            {
+                scaleStart = Scale;
+            }
+            if (scaleEnd >= 0)
+            {
+                Scale = float.Lerp(scaleStart, scaleEnd, 1 - (float)this.Lifetime / this.timeleftmax);
+            }
+            base.AI();
+            this.Velocity *= vc;
+            if (!NoAlphaFade)
+                this.Opacity = (float)this.Lifetime / (float)timeleftmax;
+        }
+    }
+}

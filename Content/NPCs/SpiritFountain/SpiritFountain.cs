@@ -1,12 +1,12 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles.SpiritFountainShoots;
 using CalamityMod;
 using CalamityMod.Items.Potions;
+using CalamityMod.Particles;
 using CalamityMod.World;
-using InnoVault.PRT;
+using InnoVault.GameSystem;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -301,8 +301,8 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             column2.trailDrawOffset += FountainSpeed;
             float EyeAlphaT = 0.6f;
             NPC.TargetClosest();
-            //双柱烟雾90×循环密度很高,3200px屏心裁剪+50%随机省一半spawn
-            for (int i = 0; i < 90; i++)
+            //Smoke Particle
+            for(int i = 0; i < 90; i++)
             {
                 Vector2 pos;
                 if (column1.alpha > 0)
@@ -312,12 +312,11 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                     {
                         if (Main.rand.NextBool())
                         {
-                            var smoke = PRTLoader.NewParticle<PRT_Smoke>(pos, Vector2.Zero, Color.AliceBlue * column1.alpha * 3, Main.rand.NextFloat(0.1f, 0.2f));
-                            smoke.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 50);
+                            EParticle.NewParticle(new Smoke(), pos, Vector2.Zero, Color.AliceBlue * column1.alpha * 3, Main.rand.NextFloat(0.1f, 0.2f), 1, true, BlendState.Additive, CEUtils.randomRot(), 50);
                         }
                         else
                         {
-                            PRTLoader.NewParticle<PRT_GlowLightParticle>(pos, CEUtils.randomPointInCircle(6), Color.AliceBlue * column1.alpha * 2f, Main.rand.NextFloat(0.6f, 0.8f)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 28);
+                            EParticle.NewParticle(new GlowLightParticle(), pos, CEUtils.randomPointInCircle(6), Color.AliceBlue * column1.alpha * 2f, Main.rand.NextFloat(0.6f, 0.8f), 1, true, BlendState.Additive, CEUtils.randomRot(), 28);
                         }
                     }
                 }
@@ -328,12 +327,11 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                     {
                         if (Main.rand.NextBool())
                         {
-                            var smoke2 = PRTLoader.NewParticle<PRT_Smoke>(pos, Vector2.Zero, Color.AliceBlue * column2.alpha * 3, Main.rand.NextFloat(0.1f, 0.2f));
-                            smoke2.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 50);
+                            EParticle.NewParticle(new Smoke(), pos, Vector2.Zero, Color.AliceBlue * column2.alpha * 3, Main.rand.NextFloat(0.1f, 0.2f), 1, true, BlendState.Additive, CEUtils.randomRot(), 50);
                         }
                         else
                         {
-                            PRTLoader.NewParticle<PRT_GlowLightParticle>(pos, CEUtils.randomPointInCircle(6), Color.AliceBlue * column2.alpha * 2f, Main.rand.NextFloat(0.6f, 0.8f)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 28);
+                            EParticle.NewParticle(new GlowLightParticle(), pos, CEUtils.randomPointInCircle(6), Color.AliceBlue * column2.alpha * 2f, Main.rand.NextFloat(0.6f, 0.8f), 1, true, BlendState.Additive, CEUtils.randomRot(), 28);
                         }
                     }
                 }
@@ -352,26 +350,18 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 }
                 if (GatheringAnimation == 300)
                 {
-                    //SpawnAnimation入场Gathering==300双Shine,lifetime 320一次性大粒子
-                    var shine1 = PRTLoader.NewParticle<PRT_ShineParticle>(NPC.Center, Vector2.Zero, Color.AliceBlue, 5);
-                    shine1.flag = true;
-                    shine1.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 320);
-                    var shine2 = PRTLoader.NewParticle<PRT_ShineParticle>(NPC.Center, Vector2.Zero, Color.White, 3.6f);
-                    shine2.flag = true;
-                    shine2.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 320);
+                    EParticle.spawnNew(new ShineParticle() { flag = true }, NPC.Center, Vector2.Zero, Color.AliceBlue, 5, 1, true, BlendState.Additive, 0, 320);
+                    EParticle.spawnNew(new ShineParticle() { flag = true }, NPC.Center, Vector2.Zero, Color.White, 3.6f, 1, true, BlendState.Additive, 0, 320);
                 }
 
                 if (GatheringAnimation-- > 0)
                 {
                     if (GatheringAnimation > 70)
                     {
-                        //HomingSpirit概率0.2~1随GatheringAnimation递减,后半段才密起来
                         if (Main.rand.NextFloat() < 0.2f + (1 - (GatheringAnimation - 100) / 200f))
                         {
                             float rr = CEUtils.randomRot();
-                            var spirit = PRTLoader.NewParticle<PRT_HomingSpiritParticle>(NPC.Center + rr.ToRotationVector2() * 1600, rr.ToRotationVector2().RotatedByRandom(0.4f).RotatedBy(2.7f * (Main.rand.NextBool() ? 1 : -1)) * Main.rand.NextFloat(12, 16), Color.AliceBlue, 1);
-                            spirit.TargetPos = NPC.Center;
-                            spirit.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, -1);
+                            EParticle.spawnNew(new HomingSpiritParticle() { TargetPos = NPC.Center }, NPC.Center + rr.ToRotationVector2() * 1600, rr.ToRotationVector2().RotatedByRandom(0.4f).RotatedBy(2.7f * (Main.rand.NextBool() ? 1 : -1)) * Main.rand.NextFloat(12, 16), Color.AliceBlue, 1, 1, true, BlendState.Additive);
                         }
                     }
                     aiTimer = 0;
@@ -497,7 +487,6 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                             Shoot(ModContent.ProjectileType<SpiritBullet>(), NPC.Center - rt.ToRotationVector2() * 2200f / enrage, rt.ToRotationVector2() * 16, 1, NPC.whoAmI, 1, 1);
                             for (float d = 0; d < 1; d += 0.025f)
                             {
-                                //Lasers phase LineCal d+=0.025铺整条弹幕路径,每45°扇每格40颗量级
                                 float dmx = 2200f / enrage;
                                 Vector2 top = NPC.Center + rt.ToRotationVector2() * (d * dmx);
                                 Vector2 sparkVelocity2 = (NPC.Center - top) * 0.03f;
@@ -505,7 +494,8 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                                 int sparkLifetime2 = 100;
                                 float sparkScale2 = Main.rand.NextFloat(1.4f, 2f);
                                 Color sparkColor2 = Color.Lerp(Color.AliceBlue, Color.SkyBlue, Main.rand.NextFloat(0, 1));
-                                PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
+                                LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                                GeneralParticleHandler.SpawnParticle(spark);
                             }
                         }
                     }

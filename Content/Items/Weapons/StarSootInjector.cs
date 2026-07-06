@@ -1,7 +1,7 @@
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
-using InnoVault.PRT;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -41,20 +41,10 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (player.itemTime > 0)
             {
-                //PRT_GlowLightParticle 光效走AdditiveBlend,Configure尾参lifetime对齐旧timeLeft
-                var p = PRTLoader.NewParticle<PRT_GlowLightParticle>(player.MountedCenter, (player.itemRotation + (player.direction > 0 ? 0 : MathHelper.Pi)).ToRotationVector2().RotatedByRandom(0.24f) * Main.rand.NextFloat(10, 20) * 2.5f, Color.LightBlue);
-                p.lightColor = Color.LightBlue * 0.55f;
-                p.Configure(Main.rand.NextFloat(0.6f, 1.4f), true, PRTDrawModeEnum.AdditiveBlend, 0, 30);
-                for (int i = 0; i < 3; i++)
-                {
-                    //Smoke timeleft直赋+Configure Additive,跟GlowLight成对
-                    var smoke = PRTLoader.NewParticle<PRT_Smoke>(player.MountedCenter, (player.itemRotation + (player.direction > 0 ? 0 : MathHelper.Pi)).ToRotationVector2().RotatedByRandom(0.24f) * Main.rand.NextFloat(10, 20) * 2.5f, Color.LightBlue, 1);
-                    smoke.timeleftmax = 30;
-                    smoke.Lifetime = 30;
-                    smoke.scaleStart = 0f;
-                    smoke.scaleEnd = Main.rand.NextFloat(0.6f, 1.4f) * 0.6f;
-                    smoke.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 30);
-                }
+                EParticle.NewParticle(new GlowLightParticle() { lightColor = Color.LightBlue * 0.55f }, player.MountedCenter, (player.itemRotation + (player.direction > 0 ? 0 : MathHelper.Pi)).ToRotationVector2().RotatedByRandom(0.24f) * Main.rand.NextFloat(10, 20) * 2.5f, Color.LightBlue, Main.rand.NextFloat(0.6f, 1.4f), 1, true, BlendState.Additive, 0, 30);
+                EParticle.NewParticle(new Smoke() { timeleftmax = 30, Lifetime = 30, scaleStart = 0f, scaleEnd = Main.rand.NextFloat(0.6f, 1.4f) * 0.6f }, player.MountedCenter, (player.itemRotation + (player.direction > 0 ? 0 : MathHelper.Pi)).ToRotationVector2().RotatedByRandom(0.24f) * Main.rand.NextFloat(10, 20) * 2.5f, Color.LightBlue, 1, 1, true, BlendState.Additive, 0);
+                EParticle.NewParticle(new Smoke() { timeleftmax = 30, Lifetime = 30, scaleStart = 0f, scaleEnd = Main.rand.NextFloat(0.6f, 1.4f) * 0.6f }, player.MountedCenter, (player.itemRotation + (player.direction > 0 ? 0 : MathHelper.Pi)).ToRotationVector2().RotatedByRandom(0.24f) * Main.rand.NextFloat(10, 20) * 2.5f, Color.LightBlue, 1, 1, true, BlendState.Additive, 0);
+                EParticle.NewParticle(new Smoke() { timeleftmax = 30, Lifetime = 30, scaleStart = 0f, scaleEnd = Main.rand.NextFloat(0.6f, 1.4f) * 0.6f }, player.MountedCenter, (player.itemRotation + (player.direction > 0 ? 0 : MathHelper.Pi)).ToRotationVector2().RotatedByRandom(0.24f) * Main.rand.NextFloat(10, 20) * 2.5f, Color.LightBlue, 1, 1, true, BlendState.Additive, 0);
             }
         }
     }

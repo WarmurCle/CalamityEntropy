@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
-using InnoVault.PRT;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -100,10 +99,13 @@ public class EPlayerDash : ModPlayer
             Player.immuneTime = 30;
             for (int i = 0; i < 32; i++)
             {
-                //PRT_Void dash残影,Opacity/vd spawn后赋,旧VoidParticles原值
-                var p = PRTLoader.NewParticle<PRT_Void>(Player.Center, newVelocity + CEUtils.randomPointInCircle(6), Color.White, 1f);
-                p.Opacity = 0.36f;
+                Particle p = new Particle();
+                p.position = Player.Center;
+                p.velocity = newVelocity;
+                p.alpha = 0.36f;
                 p.vd = 0.9f;
+                p.velocity += CEUtils.randomPointInCircle(6);
+                VoidParticles.particles.Add(p);
             }
         }
 
@@ -126,12 +128,18 @@ public class EPlayerDash : ModPlayer
             {
                 Player.velocity.Y = DashVelocity;
             }
-            var p = PRTLoader.NewParticle<PRT_Void>(Player.Center, Vector2.Zero, Color.White, 1f);
-            p.Opacity = 0.34f;
+            Particle p = new Particle();
+            p.position = Player.Center;
+            p.velocity = Vector2.Zero;
+            p.alpha = 0.34f;
             p.vd = 0.9f;
-            p = PRTLoader.NewParticle<PRT_Void>(Player.Center - Player.velocity / 2, Vector2.Zero, Color.White, 1f);
-            p.Opacity = 0.34f;
+            VoidParticles.particles.Add(p);
+            p = new Particle();
+            p.position = Player.Center - Player.velocity / 2;
+            p.velocity = Vector2.Zero;
+            p.alpha = 0.34f;
             p.vd = 0.9f;
+            VoidParticles.particles.Add(p);
             DashTimer--;
             Player.dashDelay = -1;
         }

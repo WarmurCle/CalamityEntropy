@@ -5,13 +5,13 @@ using CalamityMod;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Pets;
 using CalamityMod.Items.Placeables;
-using CalamityMod.Items.Tools;
 using CalamityMod.Items.TreasureBags.MiscGrabBags;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Melee;
+using CalamityMod.Items.Weapons.Summon;
 using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Items.Weapons.Rogue;
-using CalamityMod.Items.Weapons.Summon;
+using CalamityMod.Items.Tools;
 using CalamityMod.NPCs.PrimordialWyrm;
 using CalamityMod.Projectiles.Magic;
 using CalamityMod.Sounds;
@@ -166,10 +166,10 @@ namespace CalamityEntropy.Content.NPCs
         public override void AddShops()
         {
             var npcShop = new NPCShop(Type, ShopName)
-                .Add<CalamarisLament>()
-                .Add<Valediction>()
-                .Add<DeepSeaDumbbell>()
-                .Add<GrandDad>()
+		        .Add<CalamarisLament>()
+		        .Add<Valediction>()
+		        .Add<DeepSeaDumbbell>()
+		        .Add<GrandDad>()
                 .Add<EidolicWail>()
                 .Add<EidolonStaff>()
                 .Add<HalibutCannon>()
@@ -179,8 +179,8 @@ namespace CalamityEntropy.Content.NPCs
                 .Add<AbyssalTreasure>()
                 .Add<VoidTorch>()
                 .Add<AbyssShellFossil>()
-                .Add<BobbitHook>()
-                .Add<ReaperTooth>()
+		        .Add<BobbitHook>()
+		        .Add<ReaperTooth>()
                 .Add<WyrmTooth>()
                 .Add<Rock>(new Condition(Mod.GetLocalization("PassedBossRush"), () => DownedBossSystem.downedBossRush))
                 .Add(ModLoader.GetMod("CalamityModMusic").Find<ModItem>("PrimordialWyrmMusicBox").Type);

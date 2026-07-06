@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Common
+namespace CalamityEntropy.Content.Items.Donator
 {
     public interface IDevItem
     {

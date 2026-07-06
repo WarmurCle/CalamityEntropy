@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.NPCs.AbyssalWraith;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using Microsoft.Xna.Framework.Graphics;
@@ -82,8 +83,8 @@ namespace CalamityEntropy.Content.Skies
             Main.spriteBatch.UseSampleState(SamplerState.LinearWrap);
             Vector2 dp = new Vector2((Main.screenPosition.X * -0.5f + counter * 0.3f) % txd.Width, (Main.screenPosition.Y * -0.5f + counter * -0.1f) % txd.Height);
             spriteBatch.Draw(txd, new Vector2(-528, -528), new Rectangle((int)-dp.X, (int)-dp.Y, (int)(Main.screenWidth + 2024), (int)(Main.screenHeight + 1920)), ocolor * opacity, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-
-            if (shader == null)
+            
+            if(shader == null)
                 shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/ColorLerp2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             if (awtime > 0)
             {
@@ -132,7 +133,7 @@ namespace CalamityEntropy.Content.Skies
             Main.spriteBatch.ExitShaderRegion();
             spriteBatch.End();
 
-            if (ModContent.GetInstance<Config>().ScreenWarpEffects)
+            if(ModContent.GetInstance<Config>().ScreenWarpEffects)
             {
                 var graphicsDevice = Main.graphics.GraphicsDevice;
                 graphicsDevice.SetRenderTarget(EffectLoader.Screen0);

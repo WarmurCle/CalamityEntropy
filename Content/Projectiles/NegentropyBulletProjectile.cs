@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -56,40 +55,26 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public void portalParticle(Vector2 pos)
         {
-            if (PRTLoader.PRT_InGame_World_Inds.Count > 256 && Main.rand.NextBool())
+            if (EParticle.particles.Count > 256 && Main.rand.NextBool())
                 return;
             float rj = CEUtils.randomRot();
             for (int i = 0; i < 360; i += 90)
             {
-                //AbyssalLine旧GeneralParticleHandler spawn,现走BasePRT,参数照抄
-                var __prt = PRTLoader.NewParticle<PRT_AbyssalLine>(pos, Vector2.Zero, Color.LightBlue, 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, MathHelper.ToRadians(i) + rj, 26);
-                __prt.lx = 1f;
-                __prt.xadd = 0.1f;
+                EParticle.spawnNew(new AbyssalLine() { lx = 1f, xadd = 0.1f }, pos, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, MathHelper.ToRadians(i) + rj, 26);
             }
             for (int i = 0; i < 360; i += 90)
             {
                 float r = MathHelper.ToRadians(i);
-                var __prt = PRTLoader.NewParticle<PRT_AbyssalLine>(pos, (r + rj).ToRotationVector2() * 2f, Color.LightBlue, 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, r + rj, 26);
-                __prt.lx = 3f;
-                __prt.xadd = 0.06f;
+                EParticle.spawnNew(new AbyssalLine() { lx = 3f, xadd = 0.06f }, pos, (r + rj).ToRotationVector2() * 2f, Color.LightBlue, 1, 1, true, BlendState.Additive, r + rj, 26);
             }
             for (int i = 0; i < 360; i += 90)
             {
-                var __prt = PRTLoader.NewParticle<PRT_AbyssalLine>(pos, Vector2.Zero, Color.Black, 1).Configure(1, true, PRTDrawModeEnum.NonPremultiplied, MathHelper.ToRadians(i) + rj, 26);
-                __prt.lx = 0.7f;
-                __prt.xadd = 0.09f;
-                __prt.spawnColor = Color.Black;
-                __prt.endColor = Color.Black;
+                EParticle.spawnNew(new AbyssalLine() { lx = 0.7f, xadd = 0.09f, spawnColor = Color.Black, endColor = Color.Black }, pos, Vector2.Zero, Color.Black, 1, 1, true, BlendState.NonPremultiplied, MathHelper.ToRadians(i) + rj, 26);
             }
             for (int i = 0; i < 360; i += 90)
             {
                 float r = MathHelper.ToRadians(i);
-                //AbyssalLine带lifetime的Configure是CalamityPorts签名
-                var __prt = PRTLoader.NewParticle<PRT_AbyssalLine>(pos, (r + rj).ToRotationVector2() * 2f, Color.Black, 1).Configure(1, true, PRTDrawModeEnum.NonPremultiplied, r + rj, 26);
-                __prt.lx = 2.5f;
-                __prt.xadd = 0.055f;
-                __prt.spawnColor = Color.Black;
-                __prt.endColor = Color.Black;
+                EParticle.spawnNew(new AbyssalLine() { lx = 2.5f, xadd = 0.055f, spawnColor = Color.Black, endColor = Color.Black }, pos, (r + rj).ToRotationVector2() * 2f, Color.Black, 1, 1, true, BlendState.NonPremultiplied, r + rj, 26);
             }
         }
 
@@ -111,8 +96,8 @@ namespace CalamityEntropy.Content.Projectiles
                 if (Projectile.TryGetGlobalProjectile<ScorchingGProj>(out var sgp))
                 {
                     sgp.NPCHited.Clear();
-                    if (sgp.trail != null)
-                        sgp.trail.trailPositions.Clear();
+                    if (sgp.trail != null && sgp.trail is TrailGunShot t)
+                        t.trailPositions.Clear();
                 }
                 Projectile.timeLeft = 60 * Projectile.MaxUpdates;
                 portalParticle(Projectile.Center);
@@ -122,14 +107,8 @@ namespace CalamityEntropy.Content.Projectiles
         public int portalTime = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (PRTLoader.PRT_InGame_World_Inds.Count < 128 || Main.rand.NextBool())
-            {
-                var __prt = PRTLoader.NewParticle<PRT_AbyssalLine>(Projectile.Center, Vector2.Zero, Color.Blue, 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation(), 24);
-                __prt.spawnColor = new Color(200, 160, 255);
-                __prt.endColor = Color.Black;
-                __prt.lx = 0.9f;
-                __prt.xadd = 0.5f;
-            }
+            if (EParticle.particles.Count < 128 || Main.rand.NextBool())
+                EParticle.NewParticle(new AbyssalLine() { spawnColor = new Color(200, 160, 255), endColor = Color.Black, lx = 0.9f, xadd = 0.5f }, Projectile.Center, Vector2.Zero, Color.Blue, 1, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 24);
             Projectile.damage = (int)(Projectile.damage * 0.9f);
             CEUtils.PlaySound("ystn_hit", 1.6f, Projectile.Center, 1, 0.24f);
             if (portalcount > 0 && portalTime < 0)

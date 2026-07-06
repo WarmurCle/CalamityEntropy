@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -37,9 +36,10 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         public float ap = 0;
         public override void AI()
         {
-            //PRT_Void字段直赋对齐旧VoidParticles,Opacity/ad/multShrink Configure管不了
-            var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center, Vector2.Zero, Color.White, 1f);
-            p.Opacity = 0.5f;  //Opacity旧初始化器字段,Configure管不了
+            Particle p = new Particle();
+            p.alpha = 0.5f;
+            p.position = Projectile.Center;
+            VoidParticles.particles.Add(p);
             Projectile.rotation = (new Vector2(Projectile.ai[1], Projectile.ai[2]) - Projectile.position).ToRotation();
             Projectile.velocity += Projectile.rotation.ToRotationVector2() * 0.08f;
             if (CEUtils.getDistance(new Vector2(Projectile.ai[1], Projectile.ai[2]), Projectile.Center) < Projectile.velocity.Length() + 20)

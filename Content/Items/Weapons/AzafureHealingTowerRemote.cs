@@ -2,7 +2,6 @@ using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -165,12 +164,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         healing.Heal(1);
                     }
                     for (int i = 0; i < 3; i++)
-                    {
-                        //EParticle→PRT,HealingParticle Configure设AlphaBlend
-                        //AlphaBlend桶,PRTDrawMode只能Configure设不能塞SetProperty
-                        PRTLoader.NewParticle<PRT_HealingParticle>(healing.position + CEUtils.randomPoint(new Rectangle(-6, -6, 12 + healing.width, 12 + healing.height)), new Vector2(0, -2), Color.White, 0.8f)
-                            .Configure(1, true, PRTDrawModeEnum.AlphaBlend);
-                    }
+                        EParticle.spawnNew(new HealingParticle(), healing.position + CEUtils.randomPoint(new Rectangle(-6, -6, 12 + healing.width, 12 + healing.height)), new Vector2(0, -2), Color.White, 0.8f, 1, true, BlendState.AlphaBlend);
                 }
                 LaserTargetPos = healing.Center;
             }

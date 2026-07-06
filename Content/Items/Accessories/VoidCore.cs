@@ -1,5 +1,4 @@
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.CalPlayer;
@@ -7,7 +6,8 @@ using CalamityMod.CalPlayer.Dashes;
 using CalamityMod.Enums;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using InnoVault.PRT;
+using CalamityMod.Particles;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -108,7 +108,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                 float num = MathHelper.Lerp(0f, 1f, Utils.GetLerpValue(2f, 2.5f, Time, clamped: true));
                 for (float i = 0; i < 1; i += 0.1f)
                 {
-                    PRTLoader.NewParticle<PRT_GlowSpark>(CEUtils.randomPointInCircle(18) + player.Center - player.velocity * i, -player.velocity.RotatedByRandom(0.32f) * Main.rand.NextFloat(0.4f, 0.6f), Color.Lerp(new Color(100, 100, 255), Color.LightBlue, Main.rand.NextFloat()), Main.rand.NextFloat(0.1f, 0.14f)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, -player.velocity.ToRotation(), 16);
+                    EParticle.spawnNew(new GlowSpark(), CEUtils.randomPointInCircle(18) + player.Center - player.velocity * i, -player.velocity.RotatedByRandom(0.32f) * Main.rand.NextFloat(0.4f, 0.6f), Color.Lerp(new Color(100, 100, 255), Color.LightBlue, Main.rand.NextFloat()), Main.rand.NextFloat(0.1f, 0.14f), 1, true, BlendState.Additive, -player.velocity.ToRotation(), 16);
                 }
                 for (int i = 0; i < 6; i++)
                 {
@@ -128,13 +128,9 @@ namespace CalamityEntropy.Content.Items.Accessories
                 }
                 for (int i = 0; i < 3; i++)
                 {
-                    PRTLoader.NewParticle<PRT_LineCal>(CEUtils.randomPointInCircle(18) + player.Center - player.velocity * Main.rand.NextFloat(), -player.velocity * Main.rand.NextFloat(0.4f, 0.6f), Color.LightBlue, Main.rand.NextFloat(0.6f, 1)).Configure(false, 8);
+                    GeneralParticleHandler.SpawnParticle(new LineParticle(CEUtils.randomPointInCircle(18) + player.Center - player.velocity * Main.rand.NextFloat(), -player.velocity * Main.rand.NextFloat(0.4f, 0.6f), false, 8, Main.rand.NextFloat(0.6f, 1), Color.LightBlue));
                 }
-                //AbyssalLine被EffectLoader捞起走RT合成,xadd/lx得spawn后赋
-                var dashLine = PRTLoader.NewParticle<PRT_AbyssalLine>(player.Center - player.velocity, Vector2.Zero, Color.LightBlue, 1);
-                dashLine.xadd = 0.84f;
-                dashLine.lx = 0.84f;
-                dashLine.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, player.velocity.ToRotation(), 26);
+                EParticle.spawnNew(new AbyssalLine() { xadd = 0.84f, lx = 0.84f }, player.Center - player.velocity, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, player.velocity.ToRotation(), 26);
                 dashSpeed = 20f;
             }
         }
@@ -148,37 +144,18 @@ namespace CalamityEntropy.Content.Items.Accessories
             }
             NPC target = npc;
 
-            PRTLoader.NewParticle<PRT_ShineParticle>(player.Center, Vector2.Zero, Color.Blue, 1.4f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
-            PRTLoader.NewParticle<PRT_ShineParticle>(player.Center, Vector2.Zero, Color.White, 0.8f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
+            EParticle.NewParticle(new ShineParticle(), player.Center, Vector2.Zero, Color.Blue, 1.4f, 1, true, BlendState.Additive, 0, 12);
+            EParticle.NewParticle(new ShineParticle(), player.Center, Vector2.Zero, Color.White, 0.8f, 1, true, BlendState.Additive, 0, 12);
             float r2 = player.velocity.ToRotation();
             float r = player.velocity.ToRotation();
+            EParticle.spawnNew(new AbyssalLine() { xadd = 1.4f, lx = 3.2f }, player.Center, Vector2.Zero, new Color(30, 10, 50), 1, 1, true, BlendState.NonPremultiplied, r, 30);
+            EParticle.spawnNew(new AbyssalLine() { xadd = 1.4f, lx = 3.2f }, player.Center, Vector2.Zero, new Color(30, 10, 50), 1, 1, true, BlendState.NonPremultiplied, r2, 30);
 
-            var hitLine1 = PRTLoader.NewParticle<PRT_AbyssalLine>(player.Center, Vector2.Zero, new Color(30, 10, 50), 1);
-            hitLine1.xadd = 1.4f;
-            hitLine1.lx = 3.2f;
-            hitLine1.Configure(1, true, PRTDrawModeEnum.NonPremultiplied, r, 30);
-            var hitLine2 = PRTLoader.NewParticle<PRT_AbyssalLine>(player.Center, Vector2.Zero, new Color(30, 10, 50), 1);
-            hitLine2.xadd = 1.4f;
-            hitLine2.lx = 3.2f;
-            hitLine2.Configure(1, true, PRTDrawModeEnum.NonPremultiplied, r2, 30);
+            EParticle.spawnNew(new AbyssalLine() { xadd = 1.36f, lx = 3.2f }, player.Center, Vector2.Zero, new Color(80, 40, 120), 1, 1, true, BlendState.NonPremultiplied, r, 30);
+            EParticle.spawnNew(new AbyssalLine() { xadd = 1.36f, lx = 3.2f }, player.Center, Vector2.Zero, new Color(80, 40, 120), 1, 1, true, BlendState.NonPremultiplied, r2, 30);
 
-            var hitLine3 = PRTLoader.NewParticle<PRT_AbyssalLine>(player.Center, Vector2.Zero, new Color(80, 40, 120), 1);
-            hitLine3.xadd = 1.36f;
-            hitLine3.lx = 3.2f;
-            hitLine3.Configure(1, true, PRTDrawModeEnum.NonPremultiplied, r, 30);
-            var hitLine4 = PRTLoader.NewParticle<PRT_AbyssalLine>(player.Center, Vector2.Zero, new Color(80, 40, 120), 1);
-            hitLine4.xadd = 1.36f;
-            hitLine4.lx = 3.2f;
-            hitLine4.Configure(1, true, PRTDrawModeEnum.NonPremultiplied, r2, 30);
-
-            var hitLine5 = PRTLoader.NewParticle<PRT_AbyssalLine>(player.Center, Vector2.Zero, Color.LightBlue, 1);
-            hitLine5.xadd = 1.34f;
-            hitLine5.lx = 3f;
-            hitLine5.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, r, 36);
-            var hitLine6 = PRTLoader.NewParticle<PRT_AbyssalLine>(player.Center, Vector2.Zero, Color.LightBlue, 1);
-            hitLine6.xadd = 1.34f;
-            hitLine6.lx = 3f;
-            hitLine6.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, r2, 36);
+            EParticle.spawnNew(new AbyssalLine() { xadd = 1.34f, lx = 3f }, player.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, r, 36);
+            EParticle.spawnNew(new AbyssalLine() { xadd = 1.34f, lx = 3f }, player.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, r2, 36);
 
             CEUtils.PlaySound("amethyst_break", 1, npc.Center, 6, 0.6f);
             CEUtils.PlaySound("AntivoidDash", 1, npc.Center, 6, 0.6f);

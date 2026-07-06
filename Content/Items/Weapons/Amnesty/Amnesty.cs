@@ -5,7 +5,6 @@ using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -186,7 +185,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
         }
         public static void DrawCircle(Vector2 center, float active, float rotation, float scale = 1)
         {
-            //旧Blend既不是Additive也不是AlphaBlend,Configure传NonPremultipliedBlend落第三桶
             Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied);
             List<Vector2> points = new();
             void SetPoint(float r, int step, float rot = 0, Vector2 c = default)
@@ -371,15 +369,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
             Projectile.light = 1;
         }
         public float f = 0;
-        public PRT_TrailParticle trail;
+        public TrailParticle trail;
         public override void AI()
         {
             if (Projectile.timeLeft < 10)
                 Projectile.tileCollide = true;
             if (Projectile.localAI[2]++ == 0)
             {
-                //EParticle→PRT,批量Smoke的timeleftmax/Lifetime字段直赋对齐旧初始化器
-                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, new Color(80, 80, 255), 0.4f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 5);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(80, 80, 255), 0.4f, 1, true, BlendState.Additive, 0, 5);
                 CEUtils.PlaySound("malignShoot", Main.rand.NextFloat(1.4f, 1.8f), Projectile.Center, volume: 0.4f);
             }
             if (Projectile.timeLeft == 27 && Main.myPlayer == Projectile.owner)
@@ -410,15 +407,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
             }
             if (trail == null)
             {
-                //轨迹字段设完再Configure,PRTDrawMode只能走Configure不能塞SetProperty
-                trail = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, new Color(255, 255, 255), Projectile.scale);
-                trail.maxLength = 10;
-                trail.SameAlpha = true;
-                trail.Configure(1, true, PRTDrawModeEnum.AdditiveBlend);
+                trail = new TrailParticle() { maxLength = 10, SameAlpha = true };
+                EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, new Color(255, 255, 255), 0f, 1, true, BlendState.Additive);
             }
 
             trail.AddPoint(Projectile.Center + Projectile.velocity);
-            trail.Lifetime = 13;
+            trail.TimeLeftMax = trail.Lifetime = 13;
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (Projectile.timeLeft < 24)
             {
@@ -433,14 +427,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
             {
                 if (f < 1)
                     f += 0.01f;
-                var p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center + Projectile.velocity * i, Vector2.Zero, Color.White, 0.02f);
-                p.endColor = Color.Yellow;
-                p.colorTrans = true;
-                p.Lifetime = 18;
-                p.timeleftmax = 18;
-                p.scaleStart = 0.015f * f;
-                p.scaleEnd = 0.01f * f;
-                p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 18);
+                EParticle.spawnNew(new Smoke() { endColor = new Color(80, 80, 255), colorTrans = true, Lifetime = 18, timeleftmax = 18, scaleStart = 0.015f * f, scaleEnd = 0.01f * f }, Projectile.Center + Projectile.velocity * i, Vector2.Zero, Color.White, 0.02f, 1, true, BlendState.Additive, CEUtils.randomRot(), 18);
             }
         }
         public override bool PreDraw(ref Color lightColor)
@@ -469,9 +456,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Amnesty
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center), ModContent.ProjectileType<AmnestyLaser>(), Projectile.damage, 5, Projectile.owner);
             }
-            //轨迹类maxLength/SameAlpha字段Configure前先赋,PRTDrawMode只能走Configure
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, new Color(80, 80, 255), 0.8f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, 0.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(80, 80, 255), 0.8f, 1, true, BlendState.Additive, 0, 12);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.6f, 1, true, BlendState.Additive, 0, 12);
 
         }
     }

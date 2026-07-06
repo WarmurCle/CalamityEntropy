@@ -1,11 +1,11 @@
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace CalamityEntropy.Content.Items.Books
 {
     public class DarkScripture : EntropyBook
@@ -69,13 +69,12 @@ namespace CalamityEntropy.Content.Items.Books
         public void Explode()
         {
             CEUtils.PlaySound("blackholeEnd", Main.rand.NextFloat(1.2f, 1.6f), Projectile.Center, volume: 0.4f);
-            //CustomPulse贴图路径现传,CalamityPorts走PRTPathTextures,三层爆炸+Shine是旧GeneralParticleHandler原样
-            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(255, 80, 80), 0.02f).Configure("CalamityMod/Particles/SoftRoundExplosion", Vector2.One, 0, 0.02f, 0.1f, 16);
-            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(255, 80, 80), 0.02f).Configure("CalamityMod/Particles/SoftRoundExplosion", Vector2.One, 0, 0.02f, 0.09f, 16);
-            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(255, 80, 80), 0.02f).Configure("CalamityMod/Particles/SoftRoundExplosion", Vector2.One, 0, 0.02f, 0.08f, 16);
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.Red * 0.8f, 1.7f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, 0.8f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, 0.8f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 80, 80), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, 0, 0.02f, 0.1f, 16));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 80, 80), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, 0, 0.02f, 0.09f, 16));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(255, 80, 80), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, 0, 0.02f, 0.08f, 16));
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Red * 0.8f, 1.7f, 1, true, BlendState.Additive, 0, 16);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.8f, 1, true, BlendState.Additive, 0, 16);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.8f, 1, true, BlendState.Additive, 0, 16);
             if (Projectile.owner == Main.myPlayer)
             {
                 CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage, 120, Projectile.DamageType);
@@ -91,19 +90,18 @@ namespace CalamityEntropy.Content.Items.Books
             Explode();
             return base.OnTileCollide(oldVelocity);
         }
-        public PRT_TrailParticle t1;
-        public PRT_TrailParticle t2;
+        public TrailParticle t1;
+        public TrailParticle t2;
         public override void AI()
         {
             base.AI();
             if (t1 == null || t2 == null)
             {
-                t1 = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, new Color(255, 16, 16), 1f);
-                t1.maxLength = 20;
-                t1.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
-                t2 = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, new Color(255, 16, 16), 1f);
-                t2.maxLength = 20;
-                t2.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
+                t1 = new TrailParticle() { maxLength = 20, TimeLeftMax = 12 };
+                t2 = new TrailParticle() { maxLength = 20, TimeLeftMax = 12 };
+                EParticle.spawnNew(t1, Projectile.Center, Vector2.Zero, new Color(255, 16, 16), 1f, 1, true, BlendState.Additive);
+                EParticle.spawnNew(t2, Projectile.Center, Vector2.Zero, new Color(255, 16, 16), 1f, 1, true, BlendState.Additive);
+
             }
             t1.AddPoint(Projectile.Center + Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * 12 * Projectile.scale);
             t2.AddPoint(Projectile.Center + Projectile.velocity.normalize().RotatedBy(-MathHelper.PiOver2) * 12 * Projectile.scale);
@@ -116,7 +114,8 @@ namespace CalamityEntropy.Content.Items.Books
             }
             if (Projectile.timeLeft % 3 == 0)
             {
-                PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Projectile.velocity * 0.1f, new Color(255, 42, 42), 0.46f * Projectile.scale).Configure(new Vector2(0.38f, 1f), Projectile.velocity.ToRotation(), 0.1f * Projectile.scale, 38);
+                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Projectile.velocity * 0.1f, new Color(255, 42, 42), new Vector2(0.38f, 1f), Projectile.velocity.ToRotation(), 0.46f * Projectile.scale, 0.1f * Projectile.scale, 38);
+                GeneralParticleHandler.SpawnParticle(pulse);
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
         }

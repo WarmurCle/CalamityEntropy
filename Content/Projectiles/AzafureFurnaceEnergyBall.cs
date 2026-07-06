@@ -1,8 +1,8 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
+using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityMod;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -37,11 +37,11 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Projectile.extraUpdates = 9;
         }
-        public PRT_TrailParticle t1;
-        public PRT_TrailParticle t2;
-        public PRT_TrailParticle t3;
-        public PRT_TrailParticle t4;
-        public List<PRT_TrailParticle> ts = new List<PRT_TrailParticle>();
+        public TrailParticle t1 = new TrailParticle();
+        public TrailParticle t2 = new TrailParticle();
+        public TrailParticle t3 = new TrailParticle();
+        public TrailParticle t4 = new TrailParticle();
+        public List<TrailParticle> ts = new List<TrailParticle>();
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff<MechanicalTrauma>(340);
@@ -54,16 +54,15 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.localAI[1] == 0)
             {
-                var trailColor = Projectile.ai[1] == 1 ? Color.Red : Color.White;
-                //TrailParticle不开CanPool,odp轨迹List池化会闪上一条
-                t1 = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, trailColor, Projectile.scale * 0.5f).Configure(1, true, PRTDrawModeEnum.NonPremultiplied, 0);
-                t2 = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, trailColor, Projectile.scale * 0.5f).Configure(1, true, PRTDrawModeEnum.NonPremultiplied, 0);
-                t3 = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, trailColor, Projectile.scale * 0.5f).Configure(1, true, PRTDrawModeEnum.NonPremultiplied, 0);
-                t4 = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, trailColor, Projectile.scale * 0.5f).Configure(1, true, PRTDrawModeEnum.NonPremultiplied, 0);
                 t1.maxLength *= 4;
                 t2.maxLength *= 4;
                 t3.maxLength *= 4;
                 t4.maxLength *= 4;
+                EParticle.NewParticle(t1, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.5f, 1, true, BlendState.NonPremultiplied);
+                EParticle.NewParticle(t2, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.5f, 1, true, BlendState.NonPremultiplied);
+                EParticle.NewParticle(t3, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.5f, 1, true, BlendState.NonPremultiplied);
+                EParticle.NewParticle(t4, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.5f, 1, true, BlendState.NonPremultiplied);
+
             }
             ++Projectile.localAI[1];
             t1.Lifetime = 13;
@@ -88,12 +87,14 @@ namespace CalamityEntropy.Content.Projectiles
             CEUtils.PlaySound("ofhit", 1, Projectile.Center);
             for (int i = 0; i < 16; i++)
             {
-                //TrailSparkParticle跟TrailParticle成对spawn,旧trail+spark一套
-                PRTLoader.NewParticle<PRT_TrailSparkParticle>(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 16), (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 1.4f).Configure(1, true, PRTDrawModeEnum.NonPremultiplied, 0, 36);
+                EParticle.NewParticle(new TrailSparkParticle(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 16), (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 1.4f, 1, true, BlendState.NonPremultiplied, 0, 36);
             }
-            PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), 0.1f).Configure(new Vector2(2f, 2f), 0, 0.3f, 32);
-            PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), 0.1f).Configure(new Vector2(2f, 2f), 0, 0.4f, 36);
-            PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), 0.1f).Configure(new Vector2(2f, 2f), 0, 0.5f, 40);
+            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), new Vector2(2f, 2f), 0, 0.1f, 0.3f, 32);
+            GeneralParticleHandler.SpawnParticle(pulse);
+            CalamityMod.Particles.Particle pulse2 = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), new Vector2(2f, 2f), 0, 0.1f, 0.4f, 36);
+            GeneralParticleHandler.SpawnParticle(pulse2);
+            CalamityMod.Particles.Particle pulse3 = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), new Vector2(2f, 2f), 0, 0.1f, 0.5f, 40);
+            GeneralParticleHandler.SpawnParticle(pulse3);
             if (Main.myPlayer == Projectile.owner)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<FurnaceBlast>(), 0, 0, Projectile.owner, Projectile.ai[1]);

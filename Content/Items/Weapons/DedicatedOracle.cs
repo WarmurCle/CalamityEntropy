@@ -2,7 +2,6 @@
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
@@ -107,10 +106,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     Vector2 to = plrPos;
                     for (float i = 0; i < 1; i += 0.05f)
                     {
-                        //DOracleSlash旧Blend落NonPremultiplied第三桶,ShadeDash的c1/c2/TL Configure前赋
-                        var slash = PRTLoader.NewParticle<PRT_SlashDarkRed>(Vector2.Lerp(from, to, i), (to - from) * 0.1f, Color.Red, Main.rand.NextFloat(0.14f, 0.16f));
-                        slash.scw = 1f;
-                        slash.Configure(1, true, PRTDrawModeEnum.AlphaBlend, (to - from).ToRotation(), 7);
+                        EParticle.spawnNew(new SlashDarkRed() { scw = 1f }, Vector2.Lerp(from, to, i), (to - from) * 0.1f, Color.Red, Main.rand.NextFloat(0.14f, 0.16f), 1, true, BlendState.AlphaBlend, (to - from).ToRotation(), 7);
                     }
                 }
                 lastPlrPos = plrPos;
@@ -131,15 +127,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                     CEUtils.PlaySound("slice", Main.rand.NextFloat(0.9f, 1.2f), Projectile.Center, 16, 0.5f);
                     for (int i = 0; i < 3; i++)
                     {
-                        //旧Blend既不是Additive也不是AlphaBlend,Configure传NonPremultipliedBlend落第三桶
-                        var dash = PRTLoader.NewParticle<PRT_ShadeDashParticle>(player.Center, CEUtils.randomRot().ToRotationVector2() * 12, Color.White, Main.rand.NextFloat(0.4f, 0.6f));
-                        dash.TL = Main.rand.Next(80, 102);
-                        dash.c1 = Color.Red;
-                        dash.c2 = Color.Black;
-                        dash.Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0, 18);
+                        EParticle.spawnNew(new ShadeDashParticle() { TL = Main.rand.Next(80, 102), c1 = Color.Red, c2 = Color.Black }, player.Center, CEUtils.randomRot().ToRotationVector2() * 12, Color.White, Main.rand.NextFloat(0.4f, 0.6f), 1, true, BlendState.AlphaBlend, 0, 18);
 
                         float rot = CEUtils.randomRot();
-                        PRTLoader.NewParticle<PRT_DOracleSlash>(Projectile.Center, Vector2.Zero, Color.Red, Main.rand.NextFloat(250, 280)).Configure(1, true, PRTDrawModeEnum.NonPremultiplied, rot, 8);
+                        EParticle.spawnNew(new DOracleSlash(), Projectile.Center, Vector2.Zero, Color.Red, Main.rand.NextFloat(250, 280), 1, true, BlendState.NonPremultiplied, rot, 8);
                     }
                 }
             }
@@ -151,12 +142,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                 for (int i = 0; i < 16; i++)
                 {
                     var vel = (-Vector2.UnitY).RotatedByRandom(2.2f) * Main.rand.NextFloat(8, 15);
-                    var dash = PRTLoader.NewParticle<PRT_ShadeDashParticle>(player.Center, vel * 2, Color.White, Main.rand.NextFloat(0.9f, 1.2f));
-                    dash.TL = Main.rand.Next(40, 72);
-                    dash.c1 = Color.Red;
-                    dash.c2 = Color.Black;
-                    dash.Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0, 18);
-                    PRTLoader.NewParticle<PRT_SlashDarkRed>(player.Center, vel, Color.Red, Main.rand.NextFloat(0.5f, 1.4f)).Configure(1, true, PRTDrawModeEnum.AlphaBlend, vel.ToRotation(), 38);
+                    EParticle.spawnNew(new ShadeDashParticle() { TL = Main.rand.Next(40, 72), c1 = Color.Red, c2 = Color.Black }, player.Center, vel * 2, Color.White, Main.rand.NextFloat(0.9f, 1.2f), 1, true, BlendState.AlphaBlend, 0, 18);
+                    EParticle.spawnNew(new SlashDarkRed(), player.Center, vel, Color.Red, Main.rand.NextFloat(0.5f, 1.4f), 1, true, BlendState.AlphaBlend, vel.ToRotation(), 38);
                 }
                 CEUtils.PlaySound("AbyssalBladeLaunch", 1, Projectile.Center);
                 CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), player, Projectile.Center, Projectile.damage * 2, 600, Projectile.DamageType).Calamity().stealthStrike = true;

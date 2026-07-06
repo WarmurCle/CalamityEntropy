@@ -1,7 +1,6 @@
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -132,10 +131,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                                 if (Delay <= 0)
                                 {
                                     CEUtils.PlaySound("SwiftSlice", Main.rand.NextFloat(1.6f, 2), Projectile.Center);
-                                    //PRT_DOracleSlash 光效走AdditiveBlend,Configure尾参lifetime对齐旧timeLeft
-                                    var p = PRTLoader.NewParticle<PRT_DOracleSlash>(target.Center + (Projectile.Center - target.Center).normalize() * 80, Vector2.Zero, Color.Crimson, 140);
-                                    p.centerColor = Color.White;
-                                    p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, (target.Center - Projectile.Center).ToRotation(), 16);
+                                    EParticle.NewParticle(new DOracleSlash() { centerColor = Color.White }, target.Center + (Projectile.Center - target.Center).normalize() * 80, Vector2.Zero, Color.Crimson, 140, 1, true, BlendState.Additive, (target.Center - Projectile.Center).ToRotation(), 16);
                                     Projectile.ResetLocalNPCHitImmunity();
                                     Delay = (int)(8 / DelayMult);
                                     Projectile.velocity = (target.Center + (target.Center - Projectile.Center).normalize() * 250 - Projectile.Center) / (int)(8 / DelayMult);
@@ -165,8 +161,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                             if (Delay <= 0)
                             {
                                 Delay = (int)(26 / DelayMult);
-                                //旧对象初始化器拆成字段直赋+Configure,顺序别反
-                                PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, Vector2.Zero, new Color(255, 90, 90), 0.05f).Configure(new Vector2(0.25f, 1), Projectile.rotation, 0.36f, 24);
+                                GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(Projectile.Center + Projectile.rotation.ToRotationVector2() * 16, Vector2.Zero, new Color(255, 90, 90), new Vector2(0.25f, 1), Projectile.rotation, 0.05f, 0.36f, 24));
                                 CEUtils.PlaySound("lasershoot", Main.rand.NextFloat(1f, 1.2f), Projectile.Center, 64);
                                 CEUtils.PlaySound("lasershoot", Main.rand.NextFloat(1f, 1.2f), Projectile.Center, 64);
 

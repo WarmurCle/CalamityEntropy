@@ -1,9 +1,8 @@
 using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
 using CalamityEntropy.Content.Items.Weapons.GrassSword;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -149,8 +148,8 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
                 sparkScale2 *= (1 + Bramblecleave.GetLevel() * 0.05f);
                 Color sparkColor2 = Color.Lerp(Color.Violet, Color.White, Main.rand.NextFloat());
 
-                //PRT_AltSpark CalamityPorts,Configure(false,lifetime)仿Calamity spark/line
-                PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
+                AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
         }
         public override string Texture => CEUtils.WhiteTexPath;

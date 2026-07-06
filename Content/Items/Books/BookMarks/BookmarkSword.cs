@@ -1,7 +1,6 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -62,7 +61,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public bool Shake = true;
         public override bool PreDraw(ref Color lightColor)
         {
-            if (trail != null) trail.DrawTrail(Main.spriteBatch);
+            trail?.Draw();
             Main.spriteBatch.UseBlendState(BlendState.AlphaBlend);
             Texture2D tex = Projectile.GetTexture();
             for (int i = 0; i < OldPos.Count; i++)
@@ -91,7 +90,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         public float Offset = 0;
         public float num = 0;
         public float num2 = 0;
-        public PRT_TrailParticle trail = null;
+        public TrailParticle trail = null;
         public override float DamageMult => 0.45f;
         public override void AI()
         {
@@ -103,11 +102,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             Projectile.netUpdate = true;
             if (trail == null && ++Projectile.localAI[2] > 2)
             {
-                //PRT_TrailParticle寿命-1,每帧手动Lifetime+AddPoint,Hammer书签同款写法
-                trail = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, Color.Purple * 0.8f, 1f * Projectile.scale);
-                trail.maxLength = 42;
-                trail.ShouldDraw = false;
-                trail.Configure(1, true, PRTDrawModeEnum.NonPremultiplied, 0, -1);
+                trail = new TrailParticle() { maxLength = 42, ShouldDraw = false };
+                EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.Purple * 0.8f, 1f * Projectile.scale, 1, true, BlendState.NonPremultiplied);
             }
             if (Projectile.localAI[2] > 2)
             {
@@ -269,16 +265,17 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             CEUtils.PlaySound("metalhit", Main.rand.NextFloat(1.2f, 1.6f), Projectile.Center, volume: 0.5f);
             Color impactColor = Color.LightBlue;
             float impactParticleScale = Main.rand.NextFloat(2f, 2.4f);
-            PRTLoader.NewParticle<PRT_SparkleCal>(target.Center, Vector2.Zero, impactColor, impactParticleScale).Configure(new Color(140, 140, 255), 12, Main.rand.NextFloat(-0.1f, 0.1f), 2.5f);
+            SparkleParticle impactParticle = new SparkleParticle(target.Center, Vector2.Zero, impactColor, new Color(140, 140, 255), impactParticleScale, 12, Main.rand.NextFloat(-0.1f, 0.1f), 2.5f);
+            GeneralParticleHandler.SpawnParticle(impactParticle);
             if (aiStyle == AIStyle.Smash)
             {
                 for (int i = 0; i < 32; i++)
                 {
-                    PRTLoader.NewParticle<PRT_AltSpark>(target.Center, Projectile.velocity.normalize().RotatedByRandom(0.32f) * Main.rand.NextFloat(4, 16), Color.Lerp(new Color(236, 236, 236), Color.Blue, Main.rand.NextFloat()), Main.rand.NextFloat(0.4f, 1.2f)).Configure(false, 20);
+                    GeneralParticleHandler.SpawnParticle(new AltSparkParticle(target.Center, Projectile.velocity.normalize().RotatedByRandom(0.32f) * Main.rand.NextFloat(4, 16), false, 20, Main.rand.NextFloat(0.4f, 1.2f), Color.Lerp(new Color(236, 236, 236), Color.Blue, Main.rand.NextFloat())));
                 }
                 for (int i = 0; i < 32; i++)
                 {
-                    PRTLoader.NewParticle<PRT_AltSpark>(target.Center, CEUtils.randomPointInCircle(16), Color.Lerp(new Color(236, 236, 236), Color.Blue, Main.rand.NextFloat()), Main.rand.NextFloat(0.4f, 1.2f)).Configure(false, 20);
+                    GeneralParticleHandler.SpawnParticle(new AltSparkParticle(target.Center, CEUtils.randomPointInCircle(16), false, 20, Main.rand.NextFloat(0.4f, 1.2f), Color.Lerp(new Color(236, 236, 236), Color.Blue, Main.rand.NextFloat())));
                 }
                 if (Shake)
                     ScreenShaker.AddShake(new ScreenShake(Projectile.rotation.ToRotationVector2() * -1, Projectile.scale * 3 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
@@ -289,7 +286,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                     ScreenShaker.AddShake(new ScreenShake(Vector2.Zero, Projectile.scale * 1 * Utils.Remap(CEUtils.getDistance(target.Center, Projectile.GetOwner().Center), 400, 1800, 1, 0)));
                 for (int i = 0; i < 32; i++)
                 {
-                    PRTLoader.NewParticle<PRT_AltSpark>(target.Center, Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * num2).RotatedByRandom(0.32f) * Main.rand.NextFloat(4, 32), Color.Lerp(Color.Blue, Color.White, Main.rand.NextFloat()), Main.rand.NextFloat(0.4f, 1.2f)).Configure(false, 20);
+                    GeneralParticleHandler.SpawnParticle(new AltSparkParticle(target.Center, Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * num2).RotatedByRandom(0.32f) * Main.rand.NextFloat(4, 32), false, 20, Main.rand.NextFloat(0.4f, 1.2f), Color.Lerp(Color.Blue, Color.White, Main.rand.NextFloat())));
                 }
             }
             Shake = false;

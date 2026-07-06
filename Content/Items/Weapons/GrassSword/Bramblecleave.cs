@@ -1,10 +1,9 @@
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.LoreItems;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -318,8 +317,8 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             Color impactColor = Color.LightGreen;
             float impactParticleScale = Main.rand.NextFloat(1.4f, 1.6f);
 
-            //旧Blend既不是Additive也不是AlphaBlend,Configure传NonPremultipliedBlend落第三桶
-            PRTLoader.NewParticle<PRT_SparkleCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, impactColor, impactParticleScale).Configure(Color.LawnGreen, 8, 0, 2.5f);
+            SparkleParticle impactParticle = new SparkleParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, impactColor, Color.LawnGreen, impactParticleScale, 8, 0, 2.5f);
+            GeneralParticleHandler.SpawnParticle(impactParticle);
 
 
             float sparkCount = 16 + Bramblecleave.GetLevel() / 2;
@@ -334,11 +333,13 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 Color sparkColor2 = Color.Lerp(Color.Green, Color.LightGreen, p);
                 if (Main.rand.NextBool())
                 {
-                    PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
+                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
+                    GeneralParticleHandler.SpawnParticle(spark);
                 }
                 else
                 {
-                    PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2, Main.rand.NextBool() ? Color.LightGreen : Color.LimeGreen, sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f)).Configure(false, (int)(sparkLifetime2));
+                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.LightGreen : Color.LimeGreen);
+                    GeneralParticleHandler.SpawnParticle(spark);
                 }
             }
         }
@@ -564,17 +565,15 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
             Vector2 pos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 116 * scale * Projectile.scale * rScale;
             if (Main.rand.NextBool())
             {
-                //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
-                PRTLoader.NewParticle<PRT_AltSpark>(pos, sparkVelocity2 * (1f), sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
+                AltSparkParticle spark = new AltSparkParticle(pos, sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
             else
             {
-                PRTLoader.NewParticle<PRT_LineCal>(pos, sparkVelocity2, Main.rand.NextBool() ? Color.LightGreen : Color.LimeGreen, sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f)).Configure(false, (int)(sparkLifetime2));
+                LineParticle spark = new LineParticle(pos, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.LightGreen : Color.LimeGreen);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
-            var p = PRTLoader.NewParticle<PRT_GlowLightParticle>(Projectile.Center + Projectile.rotation.ToRotationVector2() * 100 * scale * Projectile.scale * rScale * Main.rand.NextFloat(0.25f, 1), sparkVelocity2 * 0.2f, Color.LawnGreen);
-            p.lightColor = Color.LightGreen * 0.5f;
-            p.HideTime = 16;
-            p.Configure(Main.rand.NextFloat(0.1f, 0.2f) * scale * Projectile.scale, true, PRTDrawModeEnum.AdditiveBlend, 0, 20);
+            EParticle.spawnNew(new GlowLightParticle() { lightColor = Color.LightGreen * 0.5f, HideTime = 16 }, Projectile.Center + Projectile.rotation.ToRotationVector2() * 100 * scale * Projectile.scale * rScale * Main.rand.NextFloat(0.25f, 1), sparkVelocity2 * 0.2f, Color.LawnGreen, Main.rand.NextFloat(0.1f, 0.2f) * scale * Projectile.scale, 1, true, BlendState.Additive, 0, 20);
             lPos = vpos;
         }
         public override bool PreDraw(ref Color lightColor)

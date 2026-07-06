@@ -1,8 +1,7 @@
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
@@ -169,16 +168,13 @@ namespace CalamityEntropy.Content.Items.Donator.Ratziel
             Projectile.GetOwner().Entropy().RatzielShieldTime = 3;
             if (Projectile.Opacity == 0)
             {
-                //PRT_HadCircle2 AdditiveBlend+rotation走Configure
-                PRTLoader.NewParticle<PRT_HadCircle2>(Projectile.Center, Vector2.Zero, Color.Yellow, 1)
-                    .Configure(1, true, PRTDrawModeEnum.AdditiveBlend).CScale = 0.7f * Projectile.scale;
-                PRTLoader.NewParticle<PRT_HadCircle2>(Projectile.Center, Vector2.Zero, Color.Yellow, 1)
-                    .Configure(1, true, PRTDrawModeEnum.AdditiveBlend).CScale = 1f * Projectile.scale;
+                EParticle.spawnNew(new HadCircle2() { CScale = 0.7f * Projectile.scale }, Projectile.Center, Vector2.Zero, Color.Yellow, 1, 1, true, BlendState.Additive);
+                EParticle.spawnNew(new HadCircle2() { CScale = 1f * Projectile.scale }, Projectile.Center, Vector2.Zero, Color.Yellow, 1, 1, true, BlendState.Additive);
             }
             if (Main.GameUpdateCount % 30 == 0)
-                PRTLoader.NewParticle<PRT_PulseRing>(Projectile.Center, Vector2.Zero, Color.Aqua * 0.5f, 1.2f * Projectile.scale).Configure(1.7f * Projectile.scale, 80);
+                GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Aqua * 0.5f, 1.2f * Projectile.scale, 1.7f * Projectile.scale, 80));
             if (Main.GameUpdateCount % 26 == 0)
-                PRTLoader.NewParticle<PRT_PulseRing>(Projectile.Center, Vector2.Zero, Color.Aqua * 0.4f, 1.08f * Projectile.scale).Configure(1.12f * Projectile.scale, 60);
+                GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Aqua * 0.4f, 1.08f * Projectile.scale, 1.12f * Projectile.scale, 60));
 
             if (Projectile.Opacity < 1)
                 Projectile.Opacity += 0.05f;

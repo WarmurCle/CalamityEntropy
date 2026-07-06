@@ -2,11 +2,11 @@ using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Items.Weapons.AzafureMissileLauncher;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using InnoVault.PRT;
+using CalamityMod.Particles;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -191,7 +191,7 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
         }
         public NPC target = null;
         public Vector2 targetPos => new Vector2(Projectile.ai[0], Projectile.ai[1]);
-        public PRT_APRCAlarm particle = null;
+        public EParticle particle = null;
         public override void AI()
         {
             if (target != null && !target.active)
@@ -208,46 +208,30 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
                     }
                 }
                 CEUtils.PlaySound("shootMissileLarge", 1, Projectile.GetOwner().Center);
-                //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
-                particle = PRTLoader.NewParticle<PRT_APRCAlarm>(new Vector2(Projectile.ai[0], Projectile.ai[1]), Vector2.Zero, Color.White, 1f);
-                particle.stick = target;
-                particle.Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0, Projectile.timeLeft / Projectile.MaxUpdates);
+                particle = new APRCAlarm() { stick = target };
+                EParticle.spawnNew(particle, new Vector2(Projectile.ai[0], Projectile.ai[1]), Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, 0, Projectile.timeLeft / Projectile.MaxUpdates);
 
-                PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center - Projectile.velocity * 0.5f, Vector2.Zero, Color.OrangeRed, 0.1f).Configure(new Vector2(1, 0.16f), 0, 2, 18);
+                GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(Projectile.Center - Projectile.velocity * 0.5f, Vector2.Zero, Color.OrangeRed, new Vector2(1, 0.16f), 0, 0.1f, 2, 18));
                 for (int i = 0; i < 3; i++)
                 {
                     Vector2 center = Projectile.Center - new Vector2(0, Projectile.velocity.Y / 2f);
-                    var la = PRTLoader.NewParticle<PRT_LightAlt>(center, Vector2.Zero, Color.OrangeRed, 0.36f);
-                    la.ScaleAdd = new Vector2(1f, 0);
-                    la.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 18);
-                    la = PRTLoader.NewParticle<PRT_LightAlt>(center, Vector2.Zero, Color.White, 0.25f);
-                    la.ScaleAdd = new Vector2(1f, 0);
-                    la.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 18);
+                    EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(1f, 0) }, center, Vector2.Zero, Color.OrangeRed, 0.36f, 1, true, BlendState.Additive, 0, 18);
+                    EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(1f, 0) }, center, Vector2.Zero, Color.White, 0.25f, 1, true, BlendState.Additive, 0, 18);
                 }
                 for (float i = 0.5f; i < 1; i += 0.025f)
                 {
-                    var p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center - Projectile.velocity * (1 - i), CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.05f, 0.07f));
-                    p.timeleftmax = 18;
-                    p.Lifetime = 18;
-                    p.Configure(0.5f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 18);
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 18, Lifetime = 18 }, Projectile.Center - Projectile.velocity * (1 - i), CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.05f, 0.07f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
                 }
             }
             else
             {
                 for (float i = 0; i < 1; i += 0.1f)
                 {
-                    var p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center + Projectile.velocity * i, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.05f, 0.07f));
-                    p.timeleftmax = 18;
-                    p.Lifetime = 18;
-                    p.Configure(0.5f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 18);
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 18, Lifetime = 18 }, Projectile.Center + Projectile.velocity * i, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.05f, 0.07f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
                 }
                 for (float i = 0; i < 1; i += 0.1f)
                 {
-                    //光效走AdditiveBlend,Configure尾参lifetime对齐旧timeLeft
-                    var p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center - Projectile.velocity * i, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.05f, 0.07f));
-                    p.timeleftmax = 18;
-                    p.Lifetime = 18;
-                    p.Configure(0.5f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 18);
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 18, Lifetime = 18 }, Projectile.Center - Projectile.velocity * i, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.05f, 0.07f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
                 }
             }
             Projectile.ai[2]++;
@@ -276,32 +260,23 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
         public override void OnKill(int timeLeft)
         {
             if (particle != null)
-                particle.Kill();
+            {
+                particle.Lifetime = 0;
+            }
             CEUtils.PlaySound("explosionbig", 0.9f, Projectile.Center, 4, 1.4f);
             CEUtils.PlaySound("blackholeEnd", 1.5f, Projectile.Center, 4, 1.4f);
             CEUtils.PlaySound("pulseBlast", 0.3f, Projectile.Center, 4, 1.4f);
             int lifetime = 20;
             Vector2 center = Projectile.Center;
-            //旧对象初始化器拆成字段直赋+Configure,顺序别反
-            var ring = PRTLoader.NewParticle<PRT_ERing>(center, Vector2.Zero, new Color(255, 30, 30), 300f);
-            ring.LineWidth = 120;
-            ring.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
+            EParticle.spawnNew(new ERing() { LineWidth = 120 }, center, Vector2.Zero, new Color(255, 30, 30), 300, 1, true, BlendState.Additive, 0, 16);
             for (int i = 0; i < 2; i++)
             {
-                var la = PRTLoader.NewParticle<PRT_LightAlt>(center, Vector2.Zero, Color.OrangeRed, 0.6f);
-                la.ScaleAdd = new Vector2(1, 0);
-                la.Configure(1f, true, PRTDrawModeEnum.AdditiveBlend, 0, lifetime);
-                la = PRTLoader.NewParticle<PRT_LightAlt>(center, Vector2.Zero, Color.White, 0.2f);
-                la.ScaleAdd = new Vector2(1, 0);
-                la.Configure(1f, true, PRTDrawModeEnum.AdditiveBlend, 0, lifetime);
-                la = PRTLoader.NewParticle<PRT_LightAlt>(center, Vector2.Zero, Color.OrangeRed, 0.6f);
-                la.ScaleAdd = new Vector2(0.4f, 0);
-                la.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, MathHelper.PiOver2, lifetime);
-                la = PRTLoader.NewParticle<PRT_LightAlt>(center, Vector2.Zero, Color.White, 0.2f);
-                la.ScaleAdd = new Vector2(0.4f, 0);
-                la.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, MathHelper.PiOver2, lifetime);
+                EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(1, 0) }, center, Vector2.Zero, Color.OrangeRed, 0.6f, 1f, true, BlendState.Additive, 0, lifetime);
+                EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(1, 0) }, center, Vector2.Zero, Color.White, 0.2f, 1f, true, BlendState.Additive, 0, lifetime);
+                EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(0.4f, 0) }, center, Vector2.Zero, Color.OrangeRed, 0.6f, 1, true, BlendState.Additive, MathHelper.PiOver2, lifetime);
+                EParticle.spawnNew(new LightAlt() { ScaleAdd = new Vector2(0.4f, 0) }, center, Vector2.Zero, Color.White, 0.2f, 1, true, BlendState.Additive, MathHelper.PiOver2, lifetime);
             }
-            PRTLoader.NewParticle<PRT_DirectionalPulseRing>(center, Vector2.Zero, Color.OrangeRed, 0.1f).Configure(new Vector2(1, 0.16f), 0, 6, 36);
+            GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(center, Vector2.Zero, Color.OrangeRed, new Vector2(1, 0.16f), 0, 0.1f, 6, 36));
             ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.UnitY * -4, 4), Projectile.Center);
             for (int i = 0; i < 96; i++)
             {
@@ -311,7 +286,8 @@ namespace CalamityEntropy.Content.Items.Weapons.PeaceKey
                 float sparkScale2 = Main.rand.NextFloat(1.2f, 1.6f);
                 var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
 
-                PRTLoader.NewParticle<PRT_LineCal>(top, velocity, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
+                LineParticle spark = new LineParticle(top, velocity, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
             void onhit(NPC target, NPC.HitInfo info, int damage)
             {

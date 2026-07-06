@@ -1,6 +1,5 @@
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod.Items;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -96,8 +95,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             if (Projectile.localAI[2]++ == 0)
             {
-                //皇冠弹丸拖尾,ImpactCal+CritSparkCal都是CalamityPorts
-                PRTLoader.NewParticle<PRT_ImpactCal>(Projectile.Center, Vector2.Zero, new Color(255, 80, 80), 0.6f).Configure(0, 12);
+                GeneralParticleHandler.SpawnParticle(new ImpactParticle(Projectile.Center, 0, 12, 0.6f, new Color(255, 80, 80)));
             }
             Projectile.rotation += (Projectile.velocity.X > 0 ? 1 : -1) * 0.2f;
             /* for (float i = 0; i < 1; i += 0.1f)
@@ -112,13 +110,14 @@ namespace CalamityEntropy.Content.Items.Accessories
                 for (float i = 0; i <= 1; i += 0.25f)
                 {
                     Vector2 velocity1 = CEUtils.randomPointInCircle(3);
-                    PRTLoader.NewParticle<PRT_CritSparkCal>(Projectile.Center - Projectile.velocity * i + Projectile.velocity * 1, velocity1, Color.White * 0.6f, 0.5f).Configure(Color.Crimson, 12, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
+                    Particle sparkle1 = new CritSpark(Projectile.Center - Projectile.velocity * i + Projectile.velocity * 1, velocity1, Color.White * 0.6f, Color.Crimson, 0.5f, 12, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
+                    GeneralParticleHandler.SpawnParticle(sparkle1);
                 }
             }
         }
         public override void OnKill(int timeLeft)
         {
-            PRTLoader.NewParticle<PRT_ImpactCal>(Projectile.Center, Vector2.Zero, new Color(255, 80, 80), 0.6f).Configure(0, 12);
+            GeneralParticleHandler.SpawnParticle(new ImpactParticle(Projectile.Center, 0, 12, 0.6f, new Color(255, 80, 80)));
         }
         public override bool PreDraw(ref Color lightColor)
         {

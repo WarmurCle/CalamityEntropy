@@ -1,5 +1,4 @@
-﻿using CalamityEntropy.Content.Particles.CalamityPorts;
-using InnoVault.PRT;
+﻿using CalamityMod.Particles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -33,8 +32,8 @@ namespace CalamityEntropy.Content.Projectiles
             for (int i = 0; i < 5; i++)
             {
                 Vector2 smokeSpeed = Vector2.Zero;
-                //MediumMistCal CalamityPorts,Configure是mist原构造
-                PRTLoader.NewParticle<PRT_MediumMistCal>(Projectile.Center + new Vector2(Main.rand.Next(-120, 121)).RotatedBy(CEUtils.randomRot()), Vector2.Zero, Color.Green, Main.rand.NextFloat(0.8f, 1.2f)).Configure(Color.Green, 255f * 0.6f, Main.rand.NextFloat(-0.1f, 0.1f));  //MediumMistCal CalamityPorts,Configure是mist原构造
+                CalamityMod.Particles.Particle smoke = new MediumMistParticle(Projectile.Center + new Vector2(Main.rand.Next(-120, 121)).RotatedBy(CEUtils.randomRot()), Vector2.Zero, Color.Green, Color.Green, Main.rand.NextFloat(0.8f, 1.2f), 255f * 0.6f, Main.rand.NextFloat(-0.1f, 0.1f));
+                GeneralParticleHandler.SpawnParticle(smoke);
             }
             if (!Exp)
             {

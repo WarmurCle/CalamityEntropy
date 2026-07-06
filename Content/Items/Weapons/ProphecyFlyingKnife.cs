@@ -1,10 +1,9 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Rogue;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -208,15 +207,15 @@ namespace CalamityEntropy.Content.Items.Weapons
             return Projectile.localAI[0] > 12 ? null : false;
         }
         public Vector2 targetPos { get { return new Vector2(Projectile.ai[0], Projectile.ai[1]); } set { Projectile.ai[0] = value.X; Projectile.ai[1] = value.Y; } }
-        public PRT_TrailParticle trail;
+        public TrailParticle trail;
         public override void AI()
         {
             Projectile.GetOwner().Calamity().mouseWorldListener = true;
-            if (Projectile.Entropy().FirstFrames)
+            if(Projectile.Entropy().FirstFrames)
             {
                 Projectile.velocity = (targetPos - Projectile.Center) / 12f;
             }
-            if (Projectile.localAI[0]++ >= 12)
+            if(Projectile.localAI[0]++ >= 12)
             {
                 sAlpha *= 0.8f;
                 if (Projectile.localAI[0] > 20)
@@ -233,19 +232,16 @@ namespace CalamityEntropy.Content.Items.Weapons
                         {
                             Projectile.rotation = (Projectile.GetOwner().Calamity().mouseWorld - Projectile.Center).ToRotation();
                         }
-                        Projectile.velocity = Projectile.rotation.ToRotationVector2() * 40;
+                            Projectile.velocity = Projectile.rotation.ToRotationVector2() * 40;
                         Projectile.MaxUpdates *= 2;
                     }
-                    //dedServ时NewParticle给孤儿实例不是null,后面字段赋值照常别挡
-                    PRTLoader.NewParticle<PRT_RuneParticle>(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.34f, 0.34f), Color.Aqua, 0.5f).Configure(0.5f, true, PRTDrawModeEnum.AlphaBlend, 0);
+                    EParticle.NewParticle(new Particles.RuneParticle(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.34f, 0.34f), Color.Aqua, 0.5f, 1, true, BlendState.AlphaBlend, 0); 
                     if (!Main.dedServ)
                     {
                         if (trail == null)
                         {
-                            //轨迹类maxLength/SameAlpha字段Configure前先赋,PRTDrawMode只能走Configure
-                            trail = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, Color.Aqua * 0.6f, Projectile.scale * 0.6f * (Projectile.Calamity().stealthStrike ? 2 : 1));
-                            trail.maxLength = 16;
-                            trail.Configure(1, true, PRTDrawModeEnum.AdditiveBlend);
+                            trail = new TrailParticle() { maxLength = 16 };
+                            EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.Aqua * 0.6f, Projectile.scale * 0.6f * (Projectile.Calamity().stealthStrike ? 2 : 1), 1, true, BlendState.Additive);
                         }
                         trail.Lifetime = 16;
                         trail.AddPoint(Projectile.Center + Projectile.velocity);
@@ -296,10 +292,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CEUtils.PlaySound("HIT", Main.rand.NextFloat(1.4f, 1.7f), target.Center, volume: 0.6f);
             CEUtils.PlaySound("VividClarityBeamAppear", Main.rand.NextFloat(1f, 1.3f), target.Center, volume: 0.5f);
-
+            
             for (int i = 0; i < 5; i++)
-                //轨迹类maxLength/SameAlpha字段Configure前先赋,PRTDrawMode只能走Configure
-                PRTLoader.NewParticle<PRT_GlowSparkCal>(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 8, Main.rand.NextBool() ? Color.Aqua : Color.SkyBlue, 0.04f * Main.rand.NextFloat(0.65f, 1f)).Configure(false, 11, new Vector2(2.4f, 0.6f), true);
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 8, false, 11, 0.04f * Main.rand.NextFloat(0.65f, 1f), Main.rand.NextBool() ? Color.Aqua : Color.SkyBlue, new Vector2(2.4f, 0.6f), true));
         }
     }
 }

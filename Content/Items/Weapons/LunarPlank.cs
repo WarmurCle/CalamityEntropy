@@ -1,10 +1,10 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Rogue;
+using CalamityMod.Particles;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -86,8 +86,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (Main.rand.NextBool(3))
             {
-                //dedServ时NewParticle给孤儿实例不是null,后面字段赋值照常别挡
-                PRTLoader.NewParticle<PRT_MediumMistCal>(Projectile.Center, Projectile.velocity * 0.4f + CEUtils.randomPointInCircle(6), Color.LightBlue, Main.rand.NextFloat(0.8f, 1.2f)).Configure(Color.SkyBlue, 130 - Main.rand.Next(60), Main.rand.NextFloat(-0.06f, 0.06f));
+                GeneralParticleHandler.SpawnParticle(new MediumMistParticle(Projectile.Center, Projectile.velocity * 0.4f + CEUtils.randomPointInCircle(6), Color.LightBlue, Color.SkyBlue, Main.rand.NextFloat(0.8f, 1.2f), 130 - Main.rand.Next(60), Main.rand.NextFloat(-0.06f, 0.06f)));
             }
             Projectile.rotation += Projectile.velocity.X * 0.004f;
 
@@ -179,26 +178,18 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 CEUtils.PlaySound("LunarPlankExplode", 1, Projectile.Center);
 
-                //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
-                PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, Color.LightBlue, 0.02f).Configure(new Vector2(2f, 2f), 0, 1.36f, 32);
-                if (!Main.dedServ)
+                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, Color.LightBlue, new Vector2(2f, 2f), 0, 0.02f, 1.36f, 32);
+                GeneralParticleHandler.SpawnParticle(pulse);
+                for (int i = 0; i < 12; i++)
                 {
-                    for (int i = 0; i < 12; i++)
-                    {
-                        PRTLoader.NewParticle<PRT_StarTrailParticle>(Projectile.Center,
-                            CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(10, 20), Color.White,
-                            Main.rand.NextFloat(0.6f, 1.2f))
-                            .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 50);
-                    }
+                    EParticle.NewParticle(new StarTrailParticle(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(10, 20), Color.White, Main.rand.NextFloat(0.6f, 1.2f), 1, true, BlendState.Additive, 0, 50);
                 }
-                if (!Main.dedServ)
+                for (int i = 0; i < 36; i++)
                 {
-                    for (int i = 0; i < 36; i++)
-                    {
-                        Vector2 ver = CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-10, 10);
-                        PRTLoader.NewParticle<PRT_Light>(Projectile.Center, ver, new Color(220, 180, 255), Main.rand.NextFloat(0.6f, 1.2f))
-                            .Configure(0.15f, lifetime: 80);
-                    }
+                    Vector2 ver = CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-10, 10);
+                    BasePRT particle = new PRT_Light(Projectile.Center, ver
+                        , Main.rand.NextFloat(0.6f, 1.2f), new Color(220, 180, 255), 80, 0.15f);
+                    PRTLoader.AddParticle(particle);
                 }
                 CEUtils.PlaySound(Main.rand.NextBool() ? "scholarStaffImpact" : "scholarStaffImpact2", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center);
                 CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 200, Projectile.DamageType);
@@ -209,17 +200,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             else
             {
-                //轨迹类maxLength/SameAlpha字段Configure前先赋,PRTDrawMode只能走Configure
-                PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, Color.LightBlue, 0.02f).Configure(new Vector2(2f, 2f), 0, 0.85f * 0.4f, 18);
-                if (!Main.dedServ)
+                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, Color.LightBlue, new Vector2(2f, 2f), 0, 0.02f, 0.85f * 0.4f, 18);
+                GeneralParticleHandler.SpawnParticle(pulse);
+                for (int i = 0; i < 5; i++)
                 {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        PRTLoader.NewParticle<PRT_StarTrailParticle>(Projectile.Center,
-                            CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(8, 14), Color.White,
-                            Main.rand.NextFloat(0.6f, 1.2f))
-                            .Configure(1, true, PRTDrawModeEnum.AdditiveBlend);
-                    }
+                    EParticle.NewParticle(new StarTrailParticle(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(8, 14), Color.White, Main.rand.NextFloat(0.6f, 1.2f), 1, true, BlendState.Additive, 0);
                 }
                 CEUtils.PlaySound(Main.rand.NextBool() ? "scholarStaffImpact" : "scholarStaffImpact2", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center);
             }

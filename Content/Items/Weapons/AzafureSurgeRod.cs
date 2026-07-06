@@ -1,12 +1,11 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Rogue;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -158,15 +157,14 @@ namespace CalamityEntropy.Content.Items.Weapons
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), stick != null ? stick.Center : Projectile.Center, Vector2.Zero, ModContent.ProjectileType<TeslaLightningRed>(), Projectile.damage, 0, Projectile.owner, npc.Center.X, npc.Center.Y, (Projectile.Calamity().stealthStrike ? 1 : 0)).ToProj().DamageType = Projectile.DamageType;
                         for (int i = 0; i < 8; i++)
                         {
-                            //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
-                            PRTLoader.NewParticle<PRT_AltSpark>(npc.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(4, 12), (Projectile.Calamity().stealthStrike ? Color.Red : Color.White), Main.rand.NextFloat(0.9f, 1.4f)).Configure(false, 60);
+                            GeneralParticleHandler.SpawnParticle(new AltSparkParticle(npc.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(4, 12), false, 60, Main.rand.NextFloat(0.9f, 1.4f), (Projectile.Calamity().stealthStrike ? Color.Red : Color.White)));
                         }
                     }
                     for (int i = 0; i < 16; i++)
                     {
                         Vector2 velocity = ((MathHelper.TwoPi * i / 16f) - (MathHelper.Pi / 16f)).ToRotationVector2() * 12f;
-                        //CritSparkCal CalamityPorts,Configure参数顺序跟AltSpark那套不一样
-                        PRTLoader.NewParticle<PRT_CritSparkCal>(stick != null ? stick.Center : Projectile.Center, velocity, (Projectile.Calamity().stealthStrike ? Color.DarkRed : Color.White), 0.8f).Configure((Projectile.Calamity().stealthStrike ? Color.DarkRed : Color.White), 30, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
+                        Particle sparkle = new CritSpark(stick != null ? stick.Center : Projectile.Center, velocity, (Projectile.Calamity().stealthStrike ? Color.DarkRed : Color.White), (Projectile.Calamity().stealthStrike ? Color.DarkRed : Color.White), 0.8f, 30, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
+                        GeneralParticleHandler.SpawnParticle(sparkle);
                     }
                     if (Projectile.GetOwner().AzafureEnhance())
                     {

@@ -5,7 +5,6 @@ using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -123,11 +122,10 @@ namespace CalamityEntropy.Content.Items.Armor.NihTwins
 
             if (st)
             {
-                //VoidEater弹丸拖尾,四连ShineParticle是旧spawn原样
-                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, new Color(100, 100, 255), 0.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 14);
-                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, 0.32f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 14);
-                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, 0.32f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 14);
-                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, 0.32f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 14);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(100, 100, 255), 0.6f, 1, true, BlendState.Additive, 0, 14);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.32f, 1, true, BlendState.Additive, 0, 14);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.32f, 1, true, BlendState.Additive, 0, 14);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.32f, 1, true, BlendState.Additive, 0, 14);
 
                 st = false;
                 for (int ii = 0; ii < 100; ii++)

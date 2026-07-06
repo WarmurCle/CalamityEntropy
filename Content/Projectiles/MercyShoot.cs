@@ -1,8 +1,8 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod.Buffs.DamageOverTime;
-using InnoVault.PRT;
+using CalamityMod.Particles;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ModLoader;
@@ -53,21 +53,14 @@ namespace CalamityEntropy.Content.Projectiles
             Color color = (Color)colorset;
             Vector2 direction = new Vector2(-1, 0).RotatedBy(projectile.velocity.ToRotation());
             Vector2 smokeSpeed = direction.RotatedByRandom(MathHelper.PiOver4 * 0.1f) * Main.rand.NextFloat(10f, 30f) * 0.9f;
-            //形体HeavySmokeCal+发光EHeavySmoke两层,后者AdditiveBlend走Configure(类头有写)
-            PRTLoader.NewParticle<PRT_HeavySmokeCal>(projectile.Center + direction * 46f, smokeSpeed + projectile.velocity, color, Main.rand.NextFloat(0.6f, 1.2f)).Configure(0.8f, 20, 0, false, 0, true);
+            CalamityMod.Particles.Particle smoke = new HeavySmokeParticle(projectile.Center + direction * 46f, smokeSpeed + projectile.velocity, color, 20, Main.rand.NextFloat(0.6f, 1.2f), 0.8f, 0, false, 0, true);
+            GeneralParticleHandler.SpawnParticle(smoke);
 
             if (Main.rand.NextBool(2))
             {
-                //EHeavySmoke AdditiveBlend+Spin/HueShift字段,Configure只管opacity和分桶
-                var smokeGlow = PRTLoader.NewParticle<PRT_EHeavySmoke>(
-                    projectile.Center + direction * 46f,
-                    smokeSpeed + projectile.velocity,
-                    Projectile.owner.ToPlayer().Entropy().WeaponBoost > 0 ? Main.hslToRgb(0.85f, 1, 0.8f) : new Color(255, 85, 0),
-                    Main.rand.NextFloat(0.4f, 0.7f))
-                    .Configure(0.8f, true, PRTDrawModeEnum.AdditiveBlend, 0f, 16);
-                smokeGlow.Spin = 0.01f;
-                smokeGlow.HueShift = 0.01f;
-                smokeGlow.StrongVisual = true;
+                EHeavySmoke smokeGlow = new EHeavySmoke();
+                EParticle.spawnNew(smokeGlow, Projectile.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive);
+                smokeGlow.SetValues(projectile.Center + direction * 46f, smokeSpeed + projectile.velocity, Projectile.owner.ToPlayer().Entropy().WeaponBoost > 0 ? Main.hslToRgb(0.85f, 1, 0.8f) : new Color(255, 85, 0), 16, Main.rand.NextFloat(0.4f, 0.7f), 0.8f, 0.01f, false, 0.01f, true);
             }
 
         }

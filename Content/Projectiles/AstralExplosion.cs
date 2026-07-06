@@ -1,5 +1,4 @@
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using InnoVault.PRT;
+﻿using CalamityMod.Particles;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -29,9 +28,10 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] == 0)
             {
                 CEUtils.PlaySound("explosion", 1, Projectile.Center, 4);
-                //PRT_DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
-                PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, new Color(160, 120, 255), 0.1f).Configure(new Vector2(2f, 2f), 0, 2 * 0.85f, 46);  //DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
-                PRTLoader.NewParticle<PRT_DetailedExplosionCal>(Projectile.Center, Vector2.Zero, new Color(180, 156, 255), 0f).Configure(Vector2.One, Main.rand.NextFloat(-5, 5), 2.2f * 0.65f, 30);
+                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, new Color(160, 120, 255), new Vector2(2f, 2f), 0, 0.1f, 2 * 0.85f, 46);
+                GeneralParticleHandler.SpawnParticle(pulse);
+                CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, new Color(180, 156, 255), Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 2.2f * 0.65f, 30);
+                GeneralParticleHandler.SpawnParticle(explosion2);
             }
             Projectile.ai[0]++;
         }

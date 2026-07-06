@@ -1,6 +1,5 @@
-using CalamityEntropy.Content.NPCs.SpiritFountain;
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using InnoVault.PRT;
+﻿using CalamityEntropy.Content.NPCs.SpiritFountain;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -45,8 +44,7 @@ namespace CalamityEntropy.Content.Projectiles.SpiritFountainShoots
                     int p = Player.FindClosest(Projectile.Center, 99999, 99999);
                     Projectile.velocity = ((Projectile.ai[2] != 0 ? (((int)Projectile.ai[0]).ToNPC().Center) : (Projectile.Center + Projectile.velocity * 16)) - Projectile.Center).normalize() * 10 * (1f / (1 + Projectile.ai[1] * 0.5f));
                 }
-                //HeavySmokeCal Configure是Calamity原构造顺序,跟PRT/EParticle统一尾参不是一回事
-                PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center + CEUtils.randomVec(1) + Projectile.velocity * Main.rand.NextFloat(), CEUtils.randomVec(1), new Color(160, 160, 255), 0.24f).Configure(1, 28, 0.1f, true, 0, true);  //形体烟Cal+后面EHeavySmoke发光层的话后者Additive走Configure
+                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomVec(1) + Projectile.velocity * Main.rand.NextFloat(), CEUtils.randomVec(1), new Color(160, 160, 255), 28, 0.24f, 1, 0.1f, true, 0, true));
 
             }
             else

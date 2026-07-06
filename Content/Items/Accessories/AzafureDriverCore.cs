@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Items.Armor.Azafure;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.CalPlayer.Dashes;
@@ -7,7 +6,7 @@ using CalamityMod.Enums;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -121,21 +120,29 @@ namespace CalamityEntropy.Content.Items.Accessories
 
                 Color sparkColor = Color.Lerp(Color.OrangeRed, Color.Firebrick, Main.rand.NextFloat(0, 1));
                 {
-                    //冲刺拖尾,LineCal/AltSpark是CalamityPorts,Configure(false,life)对齐Calamity原签名
-                    PRTLoader.NewParticle<PRT_LineCal>(player.Center + new Vector2(0, -8 * Math.Sign(player.velocity.X)), -player.velocity.RotatedBy(-0.12f) * 0.4f, sparkColor, sparkScale).Configure(false, (int)(sparkLifetime));
-                    PRTLoader.NewParticle<PRT_LineCal>(player.Center + new Vector2(0, 8 * Math.Sign(player.velocity.X)), -player.velocity.RotatedBy(0.12f) * 0.4f, sparkColor, sparkScale).Configure(false, (int)(sparkLifetime));
+                    LineParticle spark = new LineParticle(player.Center + new Vector2(0, -8 * Math.Sign(player.velocity.X)), -player.velocity.RotatedBy(-0.12f) * 0.4f, false, (int)(sparkLifetime), sparkScale, sparkColor);
+                    LineParticle spark2 = new LineParticle(player.Center + new Vector2(0, 8 * Math.Sign(player.velocity.X)), -player.velocity.RotatedBy(0.12f) * 0.4f, false, (int)(sparkLifetime), sparkScale, sparkColor);
+
+                    GeneralParticleHandler.SpawnParticle(spark);
+                    GeneralParticleHandler.SpawnParticle(spark2);
                 }
                 {
                     sparkLifetime = 12;
                     sparkColor = Color.LightGoldenrodYellow;
-                    PRTLoader.NewParticle<PRT_LineCal>(player.Center + new Vector2(0, -16 * Math.Sign(player.velocity.X)), -player.velocity.RotatedBy(0.06f) * 0.6f, sparkColor, sparkScale).Configure(false, (int)(sparkLifetime));
-                    PRTLoader.NewParticle<PRT_LineCal>(player.Center + new Vector2(0, 16 * Math.Sign(player.velocity.X)), -player.velocity.RotatedBy(-0.06f) * 0.6f, sparkColor, sparkScale).Configure(false, (int)(sparkLifetime));
+                    LineParticle spark = new LineParticle(player.Center + new Vector2(0, -16 * Math.Sign(player.velocity.X)), -player.velocity.RotatedBy(0.06f) * 0.6f, false, (int)(sparkLifetime), sparkScale, sparkColor);
+                    LineParticle spark2 = new LineParticle(player.Center + new Vector2(0, 16 * Math.Sign(player.velocity.X)), -player.velocity.RotatedBy(-0.06f) * 0.6f, false, (int)(sparkLifetime), sparkScale, sparkColor);
+
+                    GeneralParticleHandler.SpawnParticle(spark);
+                    GeneralParticleHandler.SpawnParticle(spark2);
                 }
                 {
                     sparkLifetime = 12;
                     sparkColor = Color.LightGoldenrodYellow;
-                    PRTLoader.NewParticle<PRT_LineCal>(player.Center + new Vector2(0, -16 * Math.Sign(player.velocity.X)), -player.velocity.RotatedBy(0.4f) * 0.4f, sparkColor, sparkScale).Configure(false, (int)(sparkLifetime));
-                    PRTLoader.NewParticle<PRT_LineCal>(player.Center + new Vector2(0, 16 * Math.Sign(player.velocity.X)), -player.velocity.RotatedBy(-0.4f) * 0.4f, sparkColor, sparkScale).Configure(false, (int)(sparkLifetime));
+                    LineParticle spark = new LineParticle(player.Center + new Vector2(0, -16 * Math.Sign(player.velocity.X)), -player.velocity.RotatedBy(0.4f) * 0.4f, false, (int)(sparkLifetime), sparkScale, sparkColor);
+                    LineParticle spark2 = new LineParticle(player.Center + new Vector2(0, 16 * Math.Sign(player.velocity.X)), -player.velocity.RotatedBy(-0.4f) * 0.4f, false, (int)(sparkLifetime), sparkScale, sparkColor);
+
+                    GeneralParticleHandler.SpawnParticle(spark);
+                    GeneralParticleHandler.SpawnParticle(spark2);
                 }
             }
             float num = MathHelper.Lerp(0f, 1f, Utils.GetLerpValue(2f, 2.5f, Time, clamped: true));
@@ -178,7 +185,8 @@ namespace CalamityEntropy.Content.Items.Accessories
                 float sparkScale2 = Main.rand.NextFloat(0.6f, 1.4f);
                 var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
 
-                PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
+                LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
 
             for (int i = 0; i < 16; i++)
@@ -188,7 +196,8 @@ namespace CalamityEntropy.Content.Items.Accessories
                 int sparkLifetime2 = Main.rand.Next(24, 28);
                 float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
                 Color sparkColor2 = Color.Lerp(Color.Red, Color.Firebrick, Main.rand.NextFloat(0, 1));
-                PRTLoader.NewParticle<PRT_AltSpark>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
+                AltSparkParticle spark = new AltSparkParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
+                GeneralParticleHandler.SpawnParticle(spark);
             }
             int hitDirection = player.direction;
             if (player.velocity.X != 0f)

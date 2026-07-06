@@ -84,7 +84,6 @@ using CalamityMod.NPCs.Yharon;
 using CalamityMod.UI;
 using CalamityMod.UI.CalamitasEnchants;
 using InnoVault;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -790,8 +789,9 @@ namespace CalamityEntropy
                     mp.DrawMech();
                 }
             }
+            EParticle.drawAll();
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform); 
             orig(self);
 
         }
@@ -1811,7 +1811,7 @@ namespace CalamityEntropy
                                 ["customPortrait"] = portrait
                             });
                         }
-                        if (!ModLoader.TryGetMod("InfernumMode", out _))
+                        if(!ModLoader.TryGetMod("InfernumMode", out _))
                         {
                             List<int> segments2 = new List<int>() { ModContent.NPCType<PrimordialWyrmHead>(), ModContent.NPCType<PrimordialWyrmBody>(), ModContent.NPCType<PrimordialWyrmBodyAlt>(), ModContent.NPCType<PrimordialWyrmTail>() };
 
@@ -2063,13 +2063,13 @@ namespace CalamityEntropy
             }
             for (int j = 0; j < 53; j++)
             {
-                PRTLoader.NewParticle<PRT_HeavenfallStar>(pos, norl * (0.1f + j * 0.34f) * sengs, color, Main.rand.NextFloat(0.6f, 1.3f) * scale)
-                    .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, norl.ToRotation(), LifeTime);
+                var spark = new HeavenfallStar();
+                EParticle.NewParticle(spark, pos, norl * (0.1f + j * 0.34f) * sengs, color, Main.rand.NextFloat(0.6f, 1.3f) * scale, 1, true, BlendState.Additive, norl.ToRotation(), LifeTime);
             }
             for (int j = 0; j < 53; j++)
             {
-                PRTLoader.NewParticle<PRT_HeavenfallStar>(pos, norl * -(0.1f + j * 0.34f) * sengs, color, Main.rand.NextFloat(0.6f, 1.3f) * scale)
-                    .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, (-norl).ToRotation(), LifeTime);
+                var spark = new HeavenfallStar();
+                EParticle.NewParticle(spark, pos, norl * -(0.1f + j * 0.34f) * sengs, color, Main.rand.NextFloat(0.6f, 1.3f) * scale, 1, true, BlendState.Additive, (-norl).ToRotation(), LifeTime);
             }
         }
     }

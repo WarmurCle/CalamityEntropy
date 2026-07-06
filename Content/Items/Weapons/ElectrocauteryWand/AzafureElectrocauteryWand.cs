@@ -1,10 +1,9 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Armor.Azafure;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -108,8 +107,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
                     }
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 60, Projectile.velocity * (0.3f + 0.7f * Charge), ModContent.ProjectileType<AzafureElectrocauteryWandBomb>(), (int)(Projectile.damage * Charge), Projectile.knockBack * Charge, Projectile.owner, 0, 0, Charge);
                     for (int i = 0; i < (int)(20 * Charge); i++)
-                        //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
-                        PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center + CEUtils.randomPointInCircle(4) + (Projectile.velocity.X > 0 ? new Vector2(80, 8) : new Vector2(80, -8)).RotatedBy(Projectile.rotation), CEUtils.randomPointInCircle(6), Color.Lerp(Color.Yellow, Color.White, 0.5f), Main.rand.NextFloat(0.12f, 0.36f)).Configure(0.6f, 22, 0.006f, true);
+                        GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomPointInCircle(4) + (Projectile.velocity.X > 0 ? new Vector2(80, 8) : new Vector2(80, -8)).RotatedBy(Projectile.rotation), CEUtils.randomPointInCircle(6), Color.Lerp(Color.Yellow, Color.White, 0.5f), 22, Main.rand.NextFloat(0.12f, 0.36f), 0.6f, 0.006f, true));
                     for (int i = 0; i < 3; i++)
                         CEUtils.PlaySound("cannon", 1, Projectile.Center, volume: Charge);
                     Shoot = false;
@@ -214,9 +212,8 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
                 if (Projectile.ai[0] > 66)
                 {
                     CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 256, Projectile.DamageType);
-                    //EParticle.spawnNew→PRTLoader.NewParticle,spawn点和数值迁移纪律:一个不改
-                    PRTLoader.NewParticle<PRT_PulseRing>(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.06f).Configure(2.4f, 16);
-                    PRTLoader.NewParticle<PRT_PulseRing>(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.06f).Configure(2.6f, 16);
+                    GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.06f, 2.4f, 16));
+                    GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.06f, 2.6f, 16));
                     foreach (var npc in target)
                     {
                         if (npc.active)
@@ -224,11 +221,12 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), npc.Center + new Vector2(0, -1200), Vector2.Zero, ModContent.ProjectileType<TeslaLightningRed>(), Projectile.damage, 0, Projectile.owner, npc.Center.X, npc.Center.Y).ToProj().DamageType = Projectile.DamageType; ;
                             for (int i = 0; i < 12; i++)
                             {
-                                PRTLoader.NewParticle<PRT_AltSpark>(npc.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(32, 46), new Color(255, 160, 165), Main.rand.NextFloat(0.9f, 2)).Configure(false, Main.rand.Next(6, 10));
+                                GeneralParticleHandler.SpawnParticle(new AltSparkParticle(npc.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(32, 46), false, Main.rand.Next(6, 10), Main.rand.NextFloat(0.9f, 2), new Color(255, 160, 165)));
                             }
                         }
                     }
-                    PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, new Color(255, 122, 122), 0.1f).Configure(new Vector2(2f, 2f), 0, 0.4f, 16);
+                    CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, new Color(255, 122, 122), new Vector2(2f, 2f), 0, 0.1f, 0.4f, 16);
+                    GeneralParticleHandler.SpawnParticle(pulse);
                     CEUtils.SetShake(Projectile.Center, 4);
                     CEUtils.PlaySound("energyImpact", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
 

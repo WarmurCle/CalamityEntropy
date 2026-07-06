@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items.Materials;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
@@ -109,11 +108,7 @@ namespace CalamityEntropy.Content.Items.Books
             Time++;
             Player player = Main.player[base.Projectile.owner];
 
-            //PRT_Smoke每帧一颗尾烟,timeleftmax/Lifetime跟旧Smoke初始化器一致
-            var p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center + Projectile.velocity * 0.5f, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f));
-            p.timeleftmax = 26;
-            p.Lifetime = 26;
-            p.Configure(0.5f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 26);
+            EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center + Projectile.velocity * 0.5f, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
 
             Lighting.AddLight(Projectile.Center, 0.25f, 0f, 0f);
             Projectile.rotation += 0.5f * (float)Projectile.direction;

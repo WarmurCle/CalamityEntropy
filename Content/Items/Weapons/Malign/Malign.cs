@@ -3,7 +3,6 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Terraria;
@@ -198,21 +197,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
             {
                 for (float i = 0; i <= 1; i += 0.005f)
                 {
-                    //轨迹类maxLength/SameAlpha字段Configure前先赋,PRTDrawMode只能走Configure
-                    var hs = PRTLoader.NewParticle<PRT_HeavenfallStar2>(Projectile.Center + Projectile.velocity * i, Vector2.Zero, new Color(255, 40, 255), CEUtils.CustomLerp2(1 - i) * 0.7f + 0.1f);
-                    hs.drawScale = new Vector2(0.2f, 1f);
-                    hs.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation(), 16);
+                    EParticle.spawnNew(new HeavenfallStar2() { drawScale = new Vector2(0.2f, 1f) }, Projectile.Center + Projectile.velocity * i, Vector2.Zero, new Color(255, 40, 255), CEUtils.CustomLerp2(1 - i) * 0.7f + 0.1f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 16);
                 }
-                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, new Color(255, 200, 255), 0.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(255, 200, 255), 0.6f, 1, true, BlendState.Additive, 0, 16);
                 for (int i = 0; i < 3; i++)
                 {
                     Vector2 v = Projectile.velocity.RotateRandom(0.4f);
-                    var hs = PRTLoader.NewParticle<PRT_HeavenfallStar2>(Projectile.Center, v * -0.0002f, new Color(255, 200, 255), 1.2f);
-                    hs.drawScale = new Vector2(0.4f, 1.5f);
-                    hs.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, v.ToRotation(), 16);
-                    hs = PRTLoader.NewParticle<PRT_HeavenfallStar2>(Projectile.Center, v * -0.0002f, new Color(255, 200, 255), 1.2f);
-                    hs.drawScale = new Vector2(0.4f, 1.5f);
-                    hs.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, v.ToRotation(), 16);
+                    EParticle.spawnNew(new HeavenfallStar2() { drawScale = new Vector2(0.4f, 1.5f) }, Projectile.Center, v * -0.0002f, new Color(255, 200, 255), 1.2f, 1, true, BlendState.Additive, v.ToRotation(), 16);
+                    EParticle.spawnNew(new HeavenfallStar2() { drawScale = new Vector2(0.4f, 1.5f) }, Projectile.Center, v * -0.0002f, new Color(255, 200, 255), 1.2f, 1, true, BlendState.Additive, v.ToRotation(), 16);
 
                 }
             }
@@ -228,7 +220,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
     }
     public class MalignBullet : ModProjectile
     {
-        public PRT_TrailParticle trail;
+        public TrailParticle trail;
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(DamageClass.Magic, true, 1);
@@ -240,8 +232,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
         {
             if (Projectile.localAI[2]++ == 0)
             {
-                //旧对象初始化器拆成字段直赋+Configure,顺序别反
-                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center + Projectile.velocity, Vector2.Zero, new Color(255, 190, 255), 0.4f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 5);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.velocity, Vector2.Zero, new Color(255, 190, 255), 0.4f, 1, true, BlendState.Additive, 0, 5);
                 CEUtils.PlaySound("malignShoot", Main.rand.NextFloat(0.8f, 1.4f), Projectile.Center, volume: 0.68f);
             }
             if (Main.myPlayer == Projectile.owner)
@@ -253,15 +244,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
             }
             if (trail == null)
             {
-                //轨迹类maxLength/SameAlpha字段Configure前先赋,PRTDrawMode只能走Configure
-                trail = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, new Color(255, 100, 255), 1.2f);
-                trail.maxLength = 12;
-                trail.SameAlpha = true;
-                trail.Configure(1, true, PRTDrawModeEnum.AdditiveBlend);
+                trail = new TrailParticle() { maxLength = 12, SameAlpha = true };
+                EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, new Color(255, 100, 255), 1.2f, 1, true, BlendState.Additive);
             }
 
             trail.AddPoint(Projectile.Center + Projectile.velocity);
-            trail.Lifetime = 13;
+            trail.TimeLeftMax = trail.Lifetime = 13;
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (Projectile.timeLeft < 22)
             {
@@ -271,11 +259,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
                     Projectile.velocity = CEUtils.RotateTowardsAngle(Projectile.velocity.ToRotation(), (target.Center - Projectile.Center).ToRotation(), 0.12f, true).ToRotationVector2() * Projectile.velocity.Length();
                 }
             }
-            var lp = PRTLoader.NewParticle<PRT_ELineParticle>(Projectile.Center + CEUtils.randomPointInCircle(2), Projectile.velocity.RotatedByRandom(0.04f), new Color(255, 190, 255) * 0.8f, 2f);
-            lp.width = 3.4f;
-            lp.c = 0.86f;
-            lp.r = 0.86f;
-            lp.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation(), 6);
+            EParticle.spawnNew(new Content.Particles.ELineParticle(3.4f, 0.86f, 0.86f), Projectile.Center + CEUtils.randomPointInCircle(2), Projectile.velocity.RotatedByRandom(0.04f), new Color(255, 190, 255) * 0.8f, 2, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 6);
 
         }
         public override bool PreDraw(ref Color lightColor)
@@ -296,7 +280,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Malign
         {
             if (Main.myPlayer == Projectile.owner)
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity.normalize() * 500, ModContent.ProjectileType<MalignLaser>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, new Color(255, 190, 255), 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(255, 190, 255), 1, 1, true, BlendState.Additive, 0, 12);
         }
     }
 

@@ -1,9 +1,8 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
@@ -178,13 +177,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
                 float velc = 0.7f;
                 if (Main.rand.NextBool())
                 {
-                    //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
-                    PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Projectile.velocity * 1.2f, sparkVelocity2 * velc, sparkColor2, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));
+                    AltSparkParticle spark = new AltSparkParticle(target.Center + Projectile.velocity * 1.2f, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, sparkColor2);
+                    GeneralParticleHandler.SpawnParticle(spark);
                 }
                 else
                 {
-                    //LineCal跟AltSpark随机二选一,都是CalamityPorts短Configure
-                    PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * velc, Main.rand.NextBool() ? Color.Red : Color.Firebrick, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));
+                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.Red : Color.Firebrick);
+                    GeneralParticleHandler.SpawnParticle(spark);
                 }
             }
         }

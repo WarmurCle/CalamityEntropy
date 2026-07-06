@@ -1,13 +1,12 @@
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Projectiles.ApsychosProjs
+namespace CalamityEntropy.Content.NPCs.Apsychos
 {
     public class ApsychosLaser : ModProjectile
     {
@@ -51,9 +50,8 @@ namespace CalamityEntropy.Content.Projectiles.ApsychosProjs
             Projectile.velocity = Projectile.rotation.ToRotationVector2() * 16;
             if (st)
             {
-                //PRT_ShineParticle FollowOwner字段spawn后赋,Configure只管Additive和lifetime
-                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, new Color(255, 255, 255), 0.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 15);  //ShineParticle FollowOwner字段spawn后赋,Configure只管Additive和lifetime
-                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, new Color(160, 160, 255), 0.29f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 15);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(255, 255, 255), 0.6f, 1, true, BlendState.Additive, 0, 15);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(160, 160, 255), 0.29f, 1, true, BlendState.Additive, 0, 15);
                 CEUtils.PlaySound("CrystalBallActive", 0.6f + Main.rand.NextFloat(-0.2f, 0.2f), Projectile.Center, 10, 0.4f);
                 st = false;
             }
@@ -79,7 +77,7 @@ namespace CalamityEntropy.Content.Projectiles.ApsychosProjs
             {
                 Vector2 v = Projectile.Center + Projectile.rotation.ToRotationVector2() * i;
                 length = (int)i;
-                if (!CEUtils.inWorld(v) || Main.tile[(int)(v.X / 16), (int)(v.Y / 16)].IsTileSolid())
+                if (!CEUtils.inWorld(v) || (Main.tile[(int)(v.X / 16), (int)(v.Y / 16)].IsTileSolid()))
                 {
                     break;
                 }

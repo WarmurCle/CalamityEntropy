@@ -1,6 +1,5 @@
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using CalamityMod;
-using InnoVault.PRT;
+﻿using CalamityMod;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -47,8 +46,7 @@ namespace CalamityEntropy.Content.Projectiles
                 for (int i = 0; i < 360; i += 90)
                 {
                     float rot = ((float)i).ToRadians() + Projectile.rotation;
-                    //GlowSparkCal Configure里stretch/glow是Calamity原参,别当PRT/EParticle尾参
-                    PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center, rot.ToRotationVector2() * 12, Color.DeepSkyBlue, Projectile.scale * 0.04f).Configure(false, 22, Vector2.One, false, true);  //GlowSparkCal Configure里stretch/glow是Calamity原参,别当EParticle尾参
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, rot.ToRotationVector2() * 12, false, 22, Projectile.scale * 0.04f, Color.DeepSkyBlue, Vector2.One, false, true));
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, rot.ToRotationVector2() * 9, type, Projectile.damage / 3, Projectile.knockBack / 4, Projectile.owner);
                 }
             }

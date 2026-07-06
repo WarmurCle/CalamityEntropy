@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
@@ -92,23 +91,27 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
         }
         public void spawnParticles()
         {
-            var r = Main.rand;
             for (int i = 0; i < 2; i++)
             {
-                //PRT_Void走EffectLoader void RT,vd/ad字段Configure前直赋
-                //EParticle VoidParticles→PRT_Void,数值迁移一个不改
-                var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center - Projectile.rotation.ToRotationVector2() * 60, new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3)), Color.White, 1f);
+                Particle p = new Particle();
                 p.shape = 4;
-                p.Opacity = 0.9f * (1 - Projectile.timeLeft / 24f);
+                p.position = Projectile.Center - Projectile.rotation.ToRotationVector2() * 60;
+                p.alpha = 0.9f * (1 - Projectile.timeLeft / 24f);
                 p.ad = 0.013f;
+                var r = Main.rand;
+                p.velocity = new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3));
+                VoidParticles.particles.Add(p);
             }
             for (int i = 0; i < 2; i++)
             {
-                //第二组Void带velocity偏移,vd/ad直赋+Configure对齐旧VoidParticles
-                var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center - Projectile.rotation.ToRotationVector2() * 60 - Projectile.velocity * 0.5f, new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3)), Color.White, 1f);
+                Particle p = new Particle();
                 p.shape = 4;
-                p.Opacity = 0.9f * (1 - Projectile.timeLeft / 24f);
+                p.position = Projectile.Center - Projectile.rotation.ToRotationVector2() * 60 - Projectile.velocity * 0.5f;
+                p.alpha = 0.9f * (1 - Projectile.timeLeft / 24f);
                 p.ad = 0.013f;
+                var r = Main.rand;
+                p.velocity = new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3));
+                VoidParticles.particles.Add(p);
             }
         }
         public override bool PreDraw(ref Color lightColor)

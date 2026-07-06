@@ -2,11 +2,10 @@
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Items;
+using CalamityMod.Particles;
 using CalamityMod.Rarities;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -91,7 +90,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     if (Charge >= 1f)
                     {
                         Charge = 1;
-                        PRTLoader.NewParticle<PRT_PulseRing>(FirePos, player.velocity, Color.Firebrick, 0.1f).Configure(0.6f, 10);
+                        GeneralParticleHandler.SpawnParticle(new PulseRing(FirePos, player.velocity, Color.Firebrick, 0.1f, 0.6f, 10));
                     }
                 }
                 Projectile.timeLeft = 3;
@@ -195,15 +194,14 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (trail == null)
             {
-                //双PRT_TrailParticle叠色,maxLength Configure前先赋
-                trail = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, Color.Red, 1.6f);
+                trail = new TrailParticle();
                 trail.maxLength = 1200;
-                trail.Lifetime = 20;
-                trail.Configure(1, true, PRTDrawModeEnum.AdditiveBlend);
-                trail2 = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, Color.White, 0.7f);
+                trail.TimeLeftMax = 20;
+                EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.Red, 1.6f, 1, true, BlendState.Additive);
+                trail2 = new TrailParticle();
                 trail2.maxLength = 1200;
-                trail2.Lifetime = 20;
-                trail2.Configure(1, true, PRTDrawModeEnum.AdditiveBlend);
+                trail2.TimeLeftMax = 20;
+                EParticle.spawnNew(trail2, Projectile.Center, Vector2.Zero, Color.White, 0.7f, 1, true, BlendState.Additive);
 
             }
             trail.Lifetime = 20;
@@ -225,10 +223,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void OnKill(int timeLeft)
         {
             CEUtils.PlaySound("pulseBlast", 0.8f, Projectile.Center);
-            //PulseRing+双Shine,PRTDrawMode/lifetime走Configure
-            PRTLoader.NewParticle<PRT_PulseRing>(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f).Configure(0.6f, 8);
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.Firebrick, 1.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, 1f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
+            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 0.6f, 8));
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 1.6f, 1, true, BlendState.Additive, 0, 12);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 1f, 1, true, BlendState.Additive, 0, 12);
             CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage, 128, Projectile.DamageType);
         }
 
@@ -242,14 +239,14 @@ namespace CalamityEntropy.Content.Items.Weapons
             Main.spriteBatch.End();
             Main.spriteBatch.begin_();
         }
-        public PRT_TrailParticle trail = null;
-        public PRT_TrailParticle trail2 = null;
+        public TrailParticle trail = null;
+        public TrailParticle trail2 = null;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff<MechanicalTrauma>(300);
-            PRTLoader.NewParticle<PRT_PulseRing>(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f).Configure(0.4f, 8);
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.Firebrick, 1.2f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, 0.7f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
+            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 0.4f, 8));
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 1.2f, 1, true, BlendState.Additive, 0, 12);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.7f, 1, true, BlendState.Additive, 0, 12);
 
             CEUtils.PlaySound("pulseBlast", 1f, Projectile.Center, 6, 0.7f);
         }
@@ -268,7 +265,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Ranged;
         }
-        public PRT_TrailParticle trail = null;
+        public TrailParticle trail = null;
 
         public override void AI()
         {
@@ -284,11 +281,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (trail == null)
             {
-                trail = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.8f);
+                trail = new TrailParticle();
                 trail.maxLength = 32;
-                trail.Lifetime = 12;
+                trail.TimeLeftMax = 12;
                 trail.ShouldDraw = false;
-                trail.Configure(1f, true, PRTDrawModeEnum.AdditiveBlend);
+                EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.Firebrick, 0.8f, 1f, true, BlendState.Additive);
             }
             trail.Lifetime = 12;
             trail.AddPoint(Projectile.Center + Projectile.velocity);
@@ -297,7 +294,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            trail?.DrawTrail(Main.spriteBatch);
+            trail?.Draw();
             float scale = 0.4f * Projectile.scale;
             DrawEnergyBall(Projectile.Center, scale, Projectile.Opacity);
             Main.spriteBatch.End();
@@ -306,8 +303,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnKill(int timeLeft)
         {
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.24f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, 0.06f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 0.24f, 1, true, BlendState.Additive, 0, 12);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.06f, 1, true, BlendState.Additive, 0, 12);
 
         }
 

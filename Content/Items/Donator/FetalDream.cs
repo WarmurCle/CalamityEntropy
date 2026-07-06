@@ -1,4 +1,3 @@
-using CalamityEntropy.Common;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
@@ -6,7 +5,6 @@ using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -14,6 +12,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace CalamityEntropy.Content.Items.Donator
 {
     public class FetalDream : ModItem, IDevItem, IGetFromStarterBag
@@ -120,11 +119,7 @@ namespace CalamityEntropy.Content.Items.Donator
                         for (float i = 0; i <= 1; i += 0.1f)
                         {
                             Vector2 pos = CEUtils.Bezier(new List<Vector2>() { player.position, centerPoint, targetPos }, i);
-                            //PRT_PlayerShadowBlack alpha spawn后赋,不开CanPool
-                            var p = PRTLoader.NewParticle<PRT_PlayerShadowBlack>(pos, Vector2.Zero, Color.Black, 1);
-                            p.alpha = 0.6f;
-                            p.plr = player;
-                            p.Configure(0.5f, true, PRTDrawModeEnum.AlphaBlend, 0, 120);
+                            EParticle.NewParticle(new PlayerShadowBlack() { alpha = 0.6f, plr = player }, pos, Vector2.Zero, Color.Black, 1, 0.5f, true, BlendState.AlphaBlend, 0, 120);
                         }
                     }
 
@@ -167,13 +162,8 @@ namespace CalamityEntropy.Content.Items.Donator
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 6));
-            var slash1 = PRTLoader.NewParticle<PRT_DOracleSlash>(target.Center - Projectile.velocity.ToRotation().ToRotationVector2() * 290, Vector2.Zero, new Color(255, 5, 5), 260);
-            slash1.centerColor = Color.White;
-            slash1.Configure(1f, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation(), 20);
-            var slash2 = PRTLoader.NewParticle<PRT_DOracleSlash>(target.Center - (Projectile.velocity.ToRotation() + MathHelper.PiOver4 * (Projectile.velocity.X > 0 ? 1 : -1)).ToRotationVector2() * 340, Vector2.Zero, new Color(255, 5, 5), 360);
-            slash2.centerColor = Color.White;
-            slash2.widthMult = 0.4f;
-            slash2.Configure(1f, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation() + MathHelper.PiOver4 * (Projectile.velocity.X > 0 ? 1 : -1), 20);
+            EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White }, target.Center - Projectile.velocity.ToRotation().ToRotationVector2() * 290, Vector2.Zero, new Color(255, 5, 5), 260, 1f, true, BlendState.Additive, Projectile.velocity.ToRotation(), 20);
+            EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White, widthMult = 0.4f }, target.Center - (Projectile.velocity.ToRotation() + MathHelper.PiOver4 * (Projectile.velocity.X > 0 ? 1 : -1)).ToRotationVector2() * 340, Vector2.Zero, new Color(255, 5, 5), 360, 1f, true, BlendState.Additive, Projectile.velocity.ToRotation() + MathHelper.PiOver4 * (Projectile.velocity.X > 0 ? 1 : -1), 20);
 
             CEUtils.PlaySound("ystn_hit", 2.7f, target.Center);
             var player = Projectile.GetOwner();

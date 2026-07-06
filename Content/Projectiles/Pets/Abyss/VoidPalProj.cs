@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Content.Buffs.Pets;
 using CalamityEntropy.Content.Particles;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -20,6 +19,9 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
             base.SetStaticDefaults();
 
         }
+        public Texture2D head = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Abyss/Head").Value;
+        public Texture2D body = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Abyss/Body").Value;
+        public Texture2D tail = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Abyss/Tail").Value;
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.ZephyrFish);
@@ -35,7 +37,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
 
             if (Main.gameMenu)
             {
-                Texture2D txd = AbyssPetTextures.Menu.Value;
+                Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Abyss/AbyssPet").Value;
                 Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(txd.Width, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
 
                 return false;
@@ -46,9 +48,6 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
             {
                 counter -= 36;
             }
-            Texture2D head = AbyssPetTextures.Head.Value;   //贴图在AbyssPet.cs的static VaultLoaden表,别改回实例字段
-            Texture2D body = AbyssPetTextures.Body.Value;
-            Texture2D tail = AbyssPetTextures.Tail.Value;
             Main.EntitySpriteDraw(head, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(head.Width, head.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
             Main.EntitySpriteDraw(body, bodyP - Main.screenPosition, null, lightColor, (Projectile.Center - bodyP).ToRotation(), new Vector2(body.Width, body.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
             Main.EntitySpriteDraw(tail, tailP - Main.screenPosition, null, lightColor, (bodyP - tailP).ToRotation(), new Vector2(body.Width, body.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
@@ -79,14 +78,19 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
             Projectile.rotation = Projectile.velocity.ToRotation();
             for (int i = 0; i < 2; i++)
             {
-                //PRT_Void字段直赋对齐旧VoidParticles,Opacity/ad/multShrink Configure管不了
-                var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center, new Vector2(0.3f, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), Color.White, 1f);
-                p.Opacity = 0.4f;  //Opacity旧初始化器字段,Configure管不了
+                Particle p = new Particle();
+                p.alpha = 0.4f;
+                p.position = Projectile.Center;
+                p.velocity = new Vector2(0.3f, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2);
+                VoidParticles.particles.Add(p);
             }
             for (int i = 0; i < 2; i++)
             {
-                var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center - Projectile.velocity / 2, new Vector2(0.3f, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), Color.White, 1f);
-                p.Opacity = 0.4f;
+                Particle p = new Particle();
+                p.alpha = 0.4f;
+                p.position = Projectile.Center - Projectile.velocity / 2;
+                p.velocity = new Vector2(0.3f, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2);
+                VoidParticles.particles.Add(p);
             }
 
             if (CEUtils.getDistance(Projectile.Center, targetPos) > 140)

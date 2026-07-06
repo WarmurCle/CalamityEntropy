@@ -1,5 +1,4 @@
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using InnoVault.PRT;
+﻿using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
@@ -47,8 +46,8 @@ namespace CalamityEntropy.Content.Projectiles
                 for (float i = 0; i <= 1; i += 0.5f)
                 {
                     Vector2 velocity1 = CEUtils.randomPointInCircle(1.6f);
-                    //PRT_CritSparkCal Calamity crit spark,Configure Ports签名
-                    PRTLoader.NewParticle<PRT_CritSparkCal>(Projectile.Center - Projectile.velocity * i + Projectile.velocity * 0.6f, velocity1, Color.White * 0.6f, 0.26f).Configure(Color.SkyBlue, 12, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
+                    Particle sparkle1 = new CritSpark(Projectile.Center - Projectile.velocity * i + Projectile.velocity * 0.6f, velocity1, Color.White * 0.6f, Color.SkyBlue, 0.26f, 12, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
+                    GeneralParticleHandler.SpawnParticle(sparkle1);
                 }
                 if (flag)
                 {
@@ -56,8 +55,8 @@ namespace CalamityEntropy.Content.Projectiles
                     for (int i = 0; i < 8; i++)
                     {
                         Vector2 velocity = ((MathHelper.TwoPi * i / 8) - (MathHelper.Pi / 16f)).ToRotationVector2() * 6f;
-                        //CritSparkCal Calamity crit spark,Configure Ports签名
-                        PRTLoader.NewParticle<PRT_CritSparkCal>(Projectile.Center, velocity, Color.White, 0.8f).Configure(Color.SkyBlue, 30, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
+                        Particle sparkle = new CritSpark(Projectile.Center, velocity, Color.White, Color.SkyBlue, 0.8f, 30, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
+                        GeneralParticleHandler.SpawnParticle(sparkle);
                     }
                     Projectile.velocity = new Vector2(Projectile.velocity.Length() * 3, 0).RotatedBy((homingTarget.Center - Projectile.Center).ToRotation());
                 }
@@ -77,7 +76,8 @@ namespace CalamityEntropy.Content.Projectiles
             for (int i = 0; i < 6; i++)
             {
                 Vector2 velocity = ((MathHelper.TwoPi * i / 6) - (MathHelper.Pi / 16f) + r).ToRotationVector2() * 10f;
-                PRTLoader.NewParticle<PRT_CritSparkCal>(target.Center, velocity, Color.White, 0.6f).Configure(Color.SkyBlue, 20, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
+                Particle sparkle = new CritSpark(target.Center, velocity, Color.White, Color.SkyBlue, 0.6f, 20, 0.1f, 3f, Main.rand.NextFloat(0f, 0.01f));
+                GeneralParticleHandler.SpawnParticle(sparkle);
             }
         }
         public override bool PreDraw(ref Color lightColor)

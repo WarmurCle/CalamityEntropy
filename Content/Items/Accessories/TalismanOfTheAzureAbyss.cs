@@ -1,11 +1,10 @@
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -186,11 +185,10 @@ namespace CalamityEntropy.Content.Items.Accessories
 
             Vector2 d = Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * Projectile.ai[0] * 28;
 
-            //GlowSparkCal的Configure跟Entropy签名不一样,跟Calamity原构造对齐
-            PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + d * 1, Projectile.velocity * -0.1f, Color.Violet, 0.03f * Projectile.ai[0]).Configure(false, 8, new Vector2(0.7f, 1));
-            PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + d * -1, Projectile.velocity * -0.1f, Color.Violet, 0.03f * Projectile.ai[0]).Configure(false, 8, new Vector2(0.7f, 1));
-            PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + d * 1 + Projectile.velocity / 2f, Projectile.velocity * -0.1f, Color.Violet, 0.03f * Projectile.ai[0]).Configure(false, 8, new Vector2(0.9f, 1));
-            PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + d * -1 + Projectile.velocity / 2f, Projectile.velocity * -0.1f, Color.Violet, 0.03f * Projectile.ai[0]).Configure(false, 8, new Vector2(0.9f, 1));
+            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * 1, Projectile.velocity * -0.1f, false, 8, 0.03f * Projectile.ai[0], Color.Violet, new Vector2(0.7f, 1)));
+            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * -1, Projectile.velocity * -0.1f, false, 8, 0.03f * Projectile.ai[0], Color.Violet, new Vector2(0.7f, 1)));
+            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * 1 + Projectile.velocity / 2f, Projectile.velocity * -0.1f, false, 8, 0.03f * Projectile.ai[0], Color.Violet, new Vector2(0.9f, 1)));
+            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * -1 + Projectile.velocity / 2f, Projectile.velocity * -0.1f, false, 8, 0.03f * Projectile.ai[0], Color.Violet, new Vector2(0.9f, 1)));
         }
         public void DrawRing(Vector2 position, Texture2D trail, Vector2 scaleOutside, Vector2 scaleInside, Color color, BlendState blend, bool? drawUpside = null)
         {

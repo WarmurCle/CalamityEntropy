@@ -25,19 +25,19 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Reference Include="AlchemistNPCLite">
-	    <HintPath>..\..\ModReader\AlchemistNPCLite\AlchemistNPCLite.dll</HintPath>
+	    <HintPath>..\ModAssemblies\AlchemistNPCLite.dll</HintPath>
 	  </Reference>
 	  <Reference Include="CalamityMod">
-	    <HintPath>..\..\ModReader\CalamityMod\CalamityMod.dll</HintPath>
+	    <HintPath>..\ModAssemblies\CalamityMod.dll</HintPath>
 	  </Reference>
 	  <Reference Include="CalamityOverhaul">
-	    <HintPath>..\CalamityOverhaul\bin\Debug\net8.0\CalamityOverhaul.dll</HintPath>
+	    <HintPath>..\ModAssemblies\CalamityOverhaul.dll</HintPath>
 	  </Reference>
 	  <Reference Include="InfernumMode">
-	    <HintPath>..\..\ModReader\InfernumMode\InfernumMode.dll</HintPath>
+	    <HintPath>..\ModAssemblies\InfernumMode.dll</HintPath>
 	  </Reference>
 	  <Reference Include="InnoVault">
-	    <HintPath>..\InnoVault\bin\Debug\net8.0\InnoVault.dll</HintPath>
+	    <HintPath>..\ModAssemblies\InnoVault.dll</HintPath>
 	  </Reference>
 	</ItemGroup>
 	<!-- References -->

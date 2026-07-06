@@ -1,7 +1,6 @@
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using CalamityMod;
+﻿using CalamityMod;
 using CalamityMod.Graphics.Primitives;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -48,8 +47,7 @@ namespace CalamityEntropy.Content.Projectiles
             CEUtils.PlaySound("CrystalBreak", 1.2f, target.Center, 8, 0.7f);
             float s = 1f;
             for (int i = 0; i < 12; i++)
-                //GlowSparkCal Configure里stretch/glow是Calamity原参,别当PRT/EParticle尾参
-                PRTLoader.NewParticle<PRT_GlowSparkCal>(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 24 * s, Main.rand.NextBool() ? Color.Firebrick : Color.Red, 0.024f * Main.rand.NextFloat(0.65f, 1f) * s).Configure(false, 9, new Vector2(2.4f, 1), true);  //GlowSparkCal Configure里stretch/glow是Calamity原参,别当EParticle尾参
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 24 * s, false, 9, 0.024f * Main.rand.NextFloat(0.65f, 1f) * s, Main.rand.NextBool() ? Color.Firebrick : Color.Red, new Vector2(2.4f, 1), true));
 
         }
         private float PrimitiveWidthFunction(float completionRatio, Vector2 vertex)

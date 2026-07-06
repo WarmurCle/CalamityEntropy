@@ -1,6 +1,6 @@
-using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
-using InnoVault.PRT;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -35,9 +35,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnKill(int timeLeft)
         {
             Main.LocalPlayer.Calamity().GeneralScreenShakePower += Utils.Remap(Main.LocalPlayer.Distance(Projectile.Center), 1800f, 1000f, 0f, 4.5f) * 2;
-            //PRT_EXPLOSIONCOSMIC同上,全大写是旧代码遗留
-            PRTLoader.NewParticle<PRT_EXPLOSIONCOSMIC>(Projectile.Center + new Vector2(0, -30), Vector2.Zero, Color.White, 1)
-                .Configure(1, true, PRTDrawModeEnum.NonPremultiplied, 0);  //EXPLOSIONCOSMIC同上,全大写是旧代码遗留
+            EParticle.NewParticle(new EXPLOSIONCOSMIC(), Projectile.Center + new Vector2(0, -30), Vector2.Zero, Color.White, 1, 1, true, BlendState.NonPremultiplied, 0);
             CEUtils.PlaySound("explosion", Main.rand.NextFloat(0.6f, 1.4f), Projectile.Center, 8);
             CEUtils.SpawnExplotionHostile(Projectile.GetSource_FromAI(), Projectile.Center, 999, 100);
         }

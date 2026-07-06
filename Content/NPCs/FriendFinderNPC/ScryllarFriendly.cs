@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Dusts;
-using InnoVault.PRT;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -80,13 +79,9 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                     }
                     if (NPC.ai[1] < 26)
                     {
-                        //Charge蓄力前26tick每帧6 Smoke,Additive 0.14低opacity,读条VFX
                         for (int i = 0; i < 6; i++)
                         {
-                            var p = PRTLoader.NewParticle<PRT_Smoke>(NPC.Center + CEUtils.randomVec(8), CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0, 0.6f) + new Vector2(0, -1.2f), Color.OrangeRed, 0.16f);
-                            p.timeleftmax = 30;
-                            //timeleftmax跟Configure lifetime双写,旧PRT_Smoke字段别删其一
-                            p.Configure(0.14f, true, PRTDrawModeEnum.AdditiveBlend, 0, 30);
+                            EParticle.NewParticle(new Smoke() { timeleftmax = 30, Lifetime = 30 }, NPC.Center + CEUtils.randomVec(8), CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0, 0.6f) + new Vector2(0, -1.2f), Color.OrangeRed, 0.16f, 0.14f, true, Microsoft.Xna.Framework.Graphics.BlendState.Additive);
                         }
                     }
                     if (NPC.ai[1] < 30)

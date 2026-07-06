@@ -1,10 +1,9 @@
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items;
+using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
@@ -183,7 +182,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         }
         public static void DrawCircle(Vector2 center, float active, float rotation, float scale = 1)
         {
-            //旧Blend既不是Additive也不是AlphaBlend,Configure传NonPremultipliedBlend落第三桶
             Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied);
             List<Vector2> points = new();
             void SetPoint(float r, int step, float rot = 0, Vector2 c = default)
@@ -304,15 +302,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
             Projectile.light = 1;
         }
         public float f = 0;
-        public PRT_TrailParticle trail;
+        public TrailParticle trail;
         public override void AI()
         {
             if (Projectile.timeLeft < 10)
                 Projectile.tileCollide = true;
             if (Projectile.localAI[2]++ == 0)
             {
-                //旧Blend既不是Additive也不是AlphaBlend,Configure传NonPremultipliedBlend落第三桶
-                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.Yellow, 0.4f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 5);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Yellow, 0.4f, 1, true, BlendState.Additive, 0, 5);
                 CEUtils.PlaySound("malignShoot", Main.rand.NextFloat(0.6f, 0.8f), Projectile.Center, volume: 0.4f);
             }
             if (Main.myPlayer == Projectile.owner)
@@ -325,15 +322,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
             }
             if (trail == null)
             {
-                //轨迹类maxLength/SameAlpha字段Configure前先赋,PRTDrawMode只能走Configure
-                trail = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, new Color(255, 255, 255), 0f);
-                trail.maxLength = 10;
-                trail.SameAlpha = true;
-                trail.Configure(1, true, PRTDrawModeEnum.AdditiveBlend);
+                trail = new TrailParticle() { maxLength = 10, SameAlpha = true };
+                EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, new Color(255, 255, 255), 0f, 1, true, BlendState.Additive);
             }
 
             trail.AddPoint(Projectile.Center + Projectile.velocity);
-            trail.Lifetime = 13;
+            trail.TimeLeftMax = trail.Lifetime = 13;
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (Projectile.timeLeft < 24)
             {
@@ -348,14 +342,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
             {
                 if (f < 1)
                     f += 0.01f;
-                var p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center + Projectile.velocity * i, Vector2.Zero, Color.White, 0.02f);
-                p.endColor = Color.Yellow;
-                p.colorTrans = true;
-                p.Lifetime = 18;
-                p.timeleftmax = 18;
-                p.scaleStart = 0.03f * f;
-                p.scaleEnd = 0.01f * f;
-                p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 18);
+                EParticle.spawnNew(new Smoke() { endColor = Color.Yellow, colorTrans = true, Lifetime = 18, timeleftmax = 18, scaleStart = 0.03f * f, scaleEnd = 0.01f * f }, Projectile.Center + Projectile.velocity * i, Vector2.Zero, Color.White, 0.02f, 1, true, BlendState.Additive, CEUtils.randomRot(), 18);
             }
         }
         public override bool PreDraw(ref Color lightColor)
@@ -377,8 +364,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Depletion
         public override void OnKill(int timeLeft)
         {
             CEUtils.PlaySound("light_bolt", Main.rand.NextFloat(2.4f, 2.8f), Projectile.Center, 50, 0.4f);
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.Yellow, 0.8f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, 0.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Yellow, 0.8f, 1, true, BlendState.Additive, 0, 12);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.6f, 1, true, BlendState.Additive, 0, 12);
             if (Main.myPlayer == Projectile.owner)
             {
                 for (int i = 0; i < 2; i++)

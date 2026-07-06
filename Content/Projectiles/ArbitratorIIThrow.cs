@@ -1,6 +1,5 @@
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using CalamityMod;
-using InnoVault.PRT;
+﻿using CalamityMod;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
@@ -199,12 +198,14 @@ namespace CalamityEntropy.Content.Projectiles
                     float velc = Projectile.Calamity().stealthStrike ? 1.5f : 0.9f;
                     if (Main.rand.NextBool())
                     {
-                        //PRT_AltSpark跟LineCal随机混用,旧Calamity spark/Lines二选一
-                        PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * velc, sparkColor2, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));
+                        AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, sparkColor2);
+                        GeneralParticleHandler.SpawnParticle(spark);
                     }
                     else
                     {
-                        PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * velc * 1.2f, Main.rand.NextBool() ? Color.Yellow : Color.Orange, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));
+                        LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * velc * 1.2f, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? Color.Yellow
+                            : Color.Orange);
+                        GeneralParticleHandler.SpawnParticle(spark);
                     }
                 }
                 if (!Projectile.Calamity().stealthStrike)
@@ -212,12 +213,14 @@ namespace CalamityEntropy.Content.Projectiles
                     for (int j = 0; j < 32; j++)
                     {
                         Projectile.localNPCImmunity[target.whoAmI] = 0;
-                        PRTLoader.NewParticle<PRT_AltSpark>(target.Center, CEUtils.randomPointInCircle(12), Color.Black, Main.rand.NextFloat(1.4f, 2.4f)).Configure(false, 60);
+                        AltSparkParticle spark = new AltSparkParticle(target.Center, CEUtils.randomPointInCircle(12), false, 60, Main.rand.NextFloat(1.4f, 2.4f), Color.Black);
+                        GeneralParticleHandler.SpawnParticle(spark);
                     }
                     for (int j = 0; j < 32; j++)
                     {
                         Projectile.localNPCImmunity[target.whoAmI] = 0;
-                        PRTLoader.NewParticle<PRT_AltSpark>(target.Center, CEUtils.randomPointInCircle(12), Color.OrangeRed, Main.rand.NextFloat(1.4f, 2.4f)).Configure(false, 60);
+                        AltSparkParticle spark = new AltSparkParticle(target.Center, CEUtils.randomPointInCircle(12), false, 60, Main.rand.NextFloat(1.4f, 2.4f), Color.OrangeRed);
+                        GeneralParticleHandler.SpawnParticle(spark);
                     }
                 }
             }
@@ -241,21 +244,24 @@ namespace CalamityEntropy.Content.Projectiles
                             for (int j = 0; j < 20; j++)
                             {
                                 Projectile.localNPCImmunity[target.whoAmI] = 0;
-                                //AltSpark Configure(bool,int)是Ports签名,不是opacity/glow/mode那套
-                                PRTLoader.NewParticle<PRT_AltSpark>(target.Center + new Vector2(Main.rand.NextFloat(-4, 4), Main.rand.NextFloat(-4, 4)), new Vector2(Main.rand.NextFloat(0, 16)).RotatedBy(MathHelper.ToRadians(i * 90)), Color.Black, Main.rand.NextFloat(1, 1.4f)).Configure(false, 60);
-                                PRTLoader.NewParticle<PRT_AltSpark>(target.Center + new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-6, 6)), new Vector2(Main.rand.NextFloat(0, 16)).RotatedBy(MathHelper.ToRadians(i * 90)), Color.OrangeRed, Main.rand.NextFloat(1, 1.4f)).Configure(false, 60);
+                                AltSparkParticle spark = new AltSparkParticle(target.Center + new Vector2(Main.rand.NextFloat(-4, 4), Main.rand.NextFloat(-4, 4)), new Vector2(Main.rand.NextFloat(0, 16)).RotatedBy(MathHelper.ToRadians(i * 90)), false, 60, Main.rand.NextFloat(1, 1.4f), Color.Black);
+                                GeneralParticleHandler.SpawnParticle(spark);
+                                AltSparkParticle spark2 = new AltSparkParticle(target.Center + new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-6, 6)), new Vector2(Main.rand.NextFloat(0, 16)).RotatedBy(MathHelper.ToRadians(i * 90)), false, 60, Main.rand.NextFloat(1, 1.4f), Color.OrangeRed);
+                                GeneralParticleHandler.SpawnParticle(spark2);
 
                             }
                         }
                         for (int j = 0; j < 46; j++)
                         {
                             Projectile.localNPCImmunity[target.whoAmI] = 0;
-                            PRTLoader.NewParticle<PRT_AltSpark>(target.Center, CEUtils.randomPointInCircle(12), Color.Black, Main.rand.NextFloat(1.4f, 2.4f)).Configure(false, 60);
+                            AltSparkParticle spark = new AltSparkParticle(target.Center, CEUtils.randomPointInCircle(12), false, 60, Main.rand.NextFloat(1.4f, 2.4f), Color.Black);
+                            GeneralParticleHandler.SpawnParticle(spark);
                         }
                         for (int j = 0; j < 46; j++)
                         {
                             Projectile.localNPCImmunity[target.whoAmI] = 0;
-                            PRTLoader.NewParticle<PRT_AltSpark>(target.Center, CEUtils.randomPointInCircle(12), Color.OrangeRed, Main.rand.NextFloat(1.4f, 2.4f)).Configure(false, 60);
+                            AltSparkParticle spark = new AltSparkParticle(target.Center, CEUtils.randomPointInCircle(12), false, 60, Main.rand.NextFloat(1.4f, 2.4f), Color.OrangeRed);
+                            GeneralParticleHandler.SpawnParticle(spark);
                         }
                         for (int i = 0; i < 64; i++)
                         {
@@ -275,7 +281,8 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.velocity *= 0.01f;
                     Projectile.Resize(300, 300);
                     Projectile.timeLeft = 2;
-                    PRTLoader.NewParticle<PRT_DetailedExplosionCal>(target.Center, Vector2.Zero, Color.Orange, 0f).Configure(Vector2.One, Main.rand.NextFloat(-5, 5), 1.4f, 24);
+                    CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(target.Center, Vector2.Zero, Color.Orange, Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 1.4f, 24);
+                    GeneralParticleHandler.SpawnParticle(explosion2);
                     exp = false;
                 }
             }

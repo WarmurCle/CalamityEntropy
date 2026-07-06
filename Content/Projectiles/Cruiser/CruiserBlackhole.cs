@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -95,9 +94,13 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
                     }
                     for (int i = 0; i < 64; i++)
                     {
-                        //PRT_Void字段直赋对齐旧VoidParticles,Opacity/ad/multShrink Configure管不了
-                        var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center, new Vector2(Main.rand.Next(0, 6), 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), Color.White, 1f);
-                        p.Opacity = 1f;  //Opacity旧初始化器字段,Configure管不了
+                        Particle p = new Particle();
+                        p.position = Projectile.Center;
+                        p.alpha = 1f;
+
+                        var r = Main.rand;
+                        p.velocity = new Vector2(Main.rand.Next(0, 6), 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2);
+                        VoidParticles.particles.Add(p);
                     }
 
                     Projectile.Kill();

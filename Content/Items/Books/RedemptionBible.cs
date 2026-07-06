@@ -3,13 +3,13 @@ using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod.Dusts;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace CalamityEntropy.Content.Items.Books
 {
     public class RedemptionBible : EntropyBook
@@ -247,11 +247,7 @@ namespace CalamityEntropy.Content.Items.Books
             Projectile.rotation = Projectile.velocity.ToRotation();
             for (float i = 0; i < 1; i += 0.05f)
             {
-                //PRT_GlowLightParticle拖尾,lightColor/AlphaShrink spawn后赋再Configure
-                var p = PRTLoader.NewParticle<PRT_GlowLightParticle>(Projectile.Center + Projectile.velocity * Main.rand.NextFloat(), Vector2.Zero, color * 1f, 0.6f);
-                p.lightColor = color * 0.12f;
-                p.AlphaShrink = false;
-                p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 8);
+                EParticle.spawnNew(new GlowLightParticle() { lightColor = color * 0.12f, AlphaShrink = false }, Projectile.Center + Projectile.velocity * Main.rand.NextFloat(), Vector2.Zero, color * 1f, 0.6f, 1, true, BlendState.Additive, 0, 8);
             }
         }
         public override bool PreDraw(ref Color lightColor)

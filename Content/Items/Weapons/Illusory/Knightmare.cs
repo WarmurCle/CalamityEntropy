@@ -1,12 +1,11 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Donator;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Summon;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -112,9 +111,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Illusory
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             CEUtils.PlaySound("slice", Main.rand.NextFloat(1, 1.4f), target.Center);
-            //GlowSparkCal单点slash,Configure里scale向量是Calamity原参
-            //命中只spawn一次,PRTDrawMode走Configure
-            PRTLoader.NewParticle<PRT_GlowSparkCal>(target.Center, Projectile.velocity.normalize(), new Color(160, 160, 255), 5f).Configure(false, 6, new Vector2(0.016f, 0.036f), true, false);
+            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, Projectile.velocity.normalize(), false, 6, 5f, new Color(160, 160, 255), new Vector2(0.016f, 0.036f), true, false));
             target.AddBuff<SoulDisorder>(180);
         }
         public NPC target;

@@ -1,8 +1,8 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
 using InnoVault;
-using InnoVault.PRT;
 using InnoVault.TileProcessors;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -308,12 +308,17 @@ namespace CalamityEntropy.Content.AzafureMiners
                 return;
             }
             //粒子效果
-            PRTLoader.NewParticle<PRT_EMediumSmoke>(
+            EParticle.NewParticle(
+                new EMediumSmoke(),
                 CenterInWorld + new Vector2(Main.rand.NextFloat(-24, 24), 0),
                 new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-2, -6)),
                 Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()),
-                Main.rand.NextFloat(0.8f, 1.4f))
-                .Configure(1, true, PRTDrawModeEnum.AlphaBlend, CEUtils.randomRot());
+                Main.rand.NextFloat(0.8f, 1.4f),
+                1,
+                true,
+                BlendState.AlphaBlend,
+                CEUtils.randomRot()
+            );
             //淫叫
             SoundEngine.PlaySound(SoundID.Tink with { PitchRange = (-0.1f, 2f) }, CenterInWorld);
 

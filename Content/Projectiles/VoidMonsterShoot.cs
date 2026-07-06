@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using InnoVault.PRT;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,12 +33,46 @@ namespace CalamityEntropy.Content.Projectiles
         public float ap = 0;
         public override void AI()
         {
-            for (int i = 0; i < 10; i++)
-            {
-                //PRT_Void字段直赋对齐旧VoidParticles,Opacity/ad/multShrink Configure管不了
-                var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center - Projectile.velocity * (i * 0.1f), Vector2.Zero, Color.White, 1f);
-                p.Opacity = 0.14f;  //Opacity旧初始化器字段,Configure管不了
-            }
+            Particle p = new Particle();
+            p.alpha = 0.14f;
+            p.position = Projectile.Center;
+            VoidParticles.particles.Add(p);
+            p = new Particle();
+            p.alpha = 0.14f;
+            p.position = Projectile.Center - Projectile.velocity * 0.1f;
+            VoidParticles.particles.Add(p);
+            p = new Particle();
+            p.alpha = 0.14f;
+            p.position = Projectile.Center - Projectile.velocity * 0.2f;
+            VoidParticles.particles.Add(p);
+            p = new Particle();
+            p.alpha = 0.14f;
+            p.position = Projectile.Center - Projectile.velocity * 0.3f;
+            VoidParticles.particles.Add(p);
+            p = new Particle();
+            p.alpha = 0.14f;
+            p.position = Projectile.Center - Projectile.velocity * 0.4f;
+            VoidParticles.particles.Add(p);
+            p = new Particle();
+            p.alpha = 0.14f;
+            p.position = Projectile.Center - Projectile.velocity * 0.5f;
+            VoidParticles.particles.Add(p);
+            p = new Particle();
+            p.alpha = 0.14f;
+            p.position = Projectile.Center - Projectile.velocity * 0.6f;
+            VoidParticles.particles.Add(p);
+            p = new Particle();
+            p.alpha = 0.14f;
+            p.position = Projectile.Center - Projectile.velocity * 0.7f;
+            VoidParticles.particles.Add(p);
+            p = new Particle();
+            p.alpha = 0.14f;
+            p.position = Projectile.Center - Projectile.velocity * 0.8f;
+            VoidParticles.particles.Add(p);
+            p = new Particle();
+            p.alpha = 0.14f;
+            p.position = Projectile.Center - Projectile.velocity * 0.9f;
+            VoidParticles.particles.Add(p);
 
             NPC target = Projectile.FindTargetWithinRange(900, false);
             Projectile.rotation = Projectile.velocity.ToRotation();

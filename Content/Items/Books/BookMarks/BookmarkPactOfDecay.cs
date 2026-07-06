@@ -1,8 +1,7 @@
-﻿using CalamityEntropy.Content.Particles.CalamityPorts;
-using CalamityMod.Buffs.DamageOverTime;
+﻿using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items;
+using CalamityMod.Particles;
 using CalamityMod.Rarities;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
@@ -123,11 +122,12 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             SoundStyle burn = new("CalamityMod/Sounds/Item/WeldingBurn");
             SoundEngine.PlaySound(burn with { Volume = 0.25f, Pitch = 0.4f }, target.Center);
 
-            //GlowOrbCal CalamityPorts,Configure(false,lifetime)跟Calamity glow orb原构造对齐
-            PRTLoader.NewParticle<PRT_GlowOrbCal>(target.Center, new Vector2(6, 6).RotatedByRandom(100) * Main.rand.NextFloat(0.3f, 1.1f), Main.rand.NextBool() ? Color.Red : Color.Lerp(Color.Red, Color.Magenta, 0.5f), Main.rand.NextFloat(1.55f, 3.75f)).Configure(false, 60);
+            GlowOrbParticle orb = new GlowOrbParticle(target.Center, new Vector2(6, 6).RotatedByRandom(100) * Main.rand.NextFloat(0.3f, 1.1f), false, 60, Main.rand.NextFloat(1.55f, 3.75f), Main.rand.NextBool() ? Color.Red : Color.Lerp(Color.Red, Color.Magenta, 0.5f), true, true);
+            GeneralParticleHandler.SpawnParticle(orb);
             if (Main.rand.NextBool())
             {
-                PRTLoader.NewParticle<PRT_GlowOrbCal>(target.Center, new Vector2(6, 6).RotatedByRandom(100) * Main.rand.NextFloat(0.3f, 1.1f), Color.Black, Main.rand.NextFloat(1.55f, 3.75f)).Configure(false, 60);
+                GlowOrbParticle orb2 = new GlowOrbParticle(target.Center, new Vector2(6, 6).RotatedByRandom(100) * Main.rand.NextFloat(0.3f, 1.1f), false, 60, Main.rand.NextFloat(1.55f, 3.75f), Color.Black, false, true, false);
+                GeneralParticleHandler.SpawnParticle(orb2);
             }
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)

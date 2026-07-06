@@ -1,7 +1,6 @@
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
+﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
@@ -25,11 +24,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             Projectile.rotation = Projectile.velocity.ToRotation();
             for (int i = 0; i < 8; i++)
             {
-                //Acropolis弹丸尾烟,Smoke的vd/ad在Configure前用字段赋
-                var p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center + Projectile.velocity * (i / 8f), CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f));
-                p.timeleftmax = 26;
-                p.Lifetime = 26;
-                p.Configure(0.5f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 26);
+                EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center + Projectile.velocity * (i / 8f), CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
             }
             bool f(int n)
             {
@@ -51,9 +46,9 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
             CEUtils.PlaySound("AcrHit", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
 
             CEUtils.PlaySound("pulseBlast", 0.8f, Projectile.Center, 6, 0.4f);
-            PRTLoader.NewParticle<PRT_PulseRing>(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f).Configure(0.7f, 8);
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.Firebrick, 1.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
-            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, 1f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
+            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 0.7f, 8));
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 1.6f, 1, true, BlendState.Additive, 0, 16);
+            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 1f, 1, true, BlendState.Additive, 0, 16);
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
@@ -68,7 +63,7 @@ namespace CalamityEntropy.Content.Items.Armor.AzafureT3
                 CEUtils.PlaySound("AcrHit", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
                 CEUtils.PlaySound("AcrHit", Main.rand.NextFloat(0.7f, 1.3f), Projectile.Center);
                 for (int i = 0; i < 6; i++)
-                    PRTLoader.NewParticle<PRT_LineCal>(Projectile.Center, Projectile.velocity.RotatedByRandom(0.4f) * Main.rand.NextFloat(), new Color(255, 100, 100), Main.rand.NextFloat(0.6f, 1.2f)).Configure(false, 12);
+                    GeneralParticleHandler.SpawnParticle(new LineParticle(Projectile.Center, Projectile.velocity.RotatedByRandom(0.4f) * Main.rand.NextFloat(), false, 12, Main.rand.NextFloat(0.6f, 1.2f), new Color(255, 100, 100)));
             }
         }
     }

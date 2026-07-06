@@ -1,12 +1,11 @@
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Dusts;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Melee;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -89,7 +88,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
         public float rotVel = 0;
         public override void AI()
         {
-            if (Projectile.Entropy().FirstFrames)
+            if(Projectile.Entropy().FirstFrames)
             {
                 float scale_ = Projectile.GetOwner().HeldItem.scale;
                 Projectile.GetOwner().ApplyMeleeScale(ref scale_);
@@ -268,8 +267,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             for (int i = 0; i < 16; i++)
             {
                 Color clr = Main.rand.NextBool() ? new Color(200, 200, 255) : new Color(190, 140, 255);
-                //CustomPulse/CustomSpark贴图路径Configure现传,别往Texture属性塞@CalamityMod
-                PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedByRandom(0.12f) * Main.rand.NextFloat(32, 64), clr, Main.rand.NextFloat(0.5f, 1) * 0.08f).Configure(false, 16, new Vector2(0.16f, 1));
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedByRandom(0.12f) * Main.rand.NextFloat(32, 64), false, 16, Main.rand.NextFloat(0.5f, 1) * 0.08f, clr, new Vector2(0.16f, 1)));
             }
             if (Main.myPlayer == Projectile.owner)
             {
@@ -283,8 +281,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             for (int i = 0; i < 16; i++)
             {
                 Color clr = Main.rand.NextBool() ? new Color(200, 200, 255) : new Color(190, 140, 255);
-                //旧Blend既不是Additive也不是AlphaBlend,Configure传NonPremultipliedBlend落第三桶
-                PRTLoader.NewParticle<PRT_GlowSparkCal>(position, Projectile.rotation.ToRotationVector2().RotatedByRandom(0.3f) * -1 * Main.rand.NextFloat(12, 36), clr, Main.rand.NextFloat(0.5f, 1) * 0.08f).Configure(false, 16, new Vector2(0.16f, 1));
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(position, Projectile.rotation.ToRotationVector2().RotatedByRandom(0.3f) * -1 * Main.rand.NextFloat(12, 36), false, 16, Main.rand.NextFloat(0.5f, 1) * 0.08f, clr, new Vector2(0.16f, 1)));
             }
         }
         public override bool ShouldUpdatePosition()
@@ -324,7 +321,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             else
             {
                 Color clr = Main.rand.NextBool() ? new Color(200, 200, 255) : new Color(190, 140, 255);
-                PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center - Projectile.rotation.ToRotationVector2() * 90 + Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * Main.rand.NextFloat(-16, 16), Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(12, 36), clr, Main.rand.NextFloat(0.5f, 1) * 0.02f).Configure(false, 16, new Vector2(0.16f, 1) * Projectile.Opacity * 1f);
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center - Projectile.rotation.ToRotationVector2() * 90 + Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * Main.rand.NextFloat(-16, 16), Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(12, 36), false, 16, Main.rand.NextFloat(0.5f, 1) * 0.02f, clr, new Vector2(0.16f, 1) * Projectile.Opacity * 1f));
                 for (float j = 0; j < 1; j += 0.5f)
                 {
                     for (int i = 0; i < 2; i++)
@@ -336,9 +333,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                         Vector2 ofs2 = -dustVel * j * (Projectile.localAI[0] % Projectile.MaxUpdates);
                         if (true)
                         {
-                            PRTLoader.NewParticle<PRT_VelChangingSpark>(Projectile.Center + ofs2 + offset + safeVel * 120, -dustVel, (clr) * 0.95f, 0.2f).Configure(-Projectile.velocity, "CalamityMod/Particles/BloomCircle", 5, new Vector2(1.2f, 1f), true, false, 0, 1.0f, 0.22f);
+                            VelChangingSpark spark = new VelChangingSpark(Projectile.Center + ofs2 + offset + safeVel * 120, -dustVel, -Projectile.velocity, "CalamityMod/Particles/BloomCircle", 5, 0.2f, (clr) * 0.95f, new Vector2(1.2f, 1f), true, false, 0, false, 1.0f, 0.22f);
+                            GeneralParticleHandler.SpawnParticle(spark);
 
-                            PRTLoader.NewParticle<PRT_VelChangingSpark>(Projectile.Center + ofs2 + offset + safeVel * 120, -dustVel, clr * 0.65f, 0.2f).Configure(-Projectile.velocity, "CalamityMod/Particles/BloomCircle", 10, new Vector2(1.2f, 1f), true, false, 0, 1.0f, 0.22f);
+                            VelChangingSpark spark2 = new VelChangingSpark(Projectile.Center + ofs2 + offset + safeVel * 120, -dustVel, -Projectile.velocity, "CalamityMod/Particles/BloomCircle", 10, 0.2f, clr * 0.65f, new Vector2(1.2f, 1f), true, false, 0, false, 1.0f, 0.22f);
+                            GeneralParticleHandler.SpawnParticle(spark2);
                         }
                         float rot = Projectile.rotation + (MathHelper.TwoPi * i);
                         Vector2 vel = (Utils.MoveTowards(-Projectile.velocity, new Vector2(0, -130).RotatedBy(rot).RotatedBy(-1.3f * Projectile.direction), (Utils.GetLerpValue(5, 2, Projectile.velocity.Length(), true))));
@@ -424,7 +423,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
 
             if (time < (float)endTime)
             {
-                PRTLoader.NewParticle<PRT_GlowSquareCal>(Projectile.Center, Vector2.Zero, FXColor, 1f).Configure(false, 32, 28, true, Main.rand.NextFloat(-0.2f, 0.2f));
+                GeneralParticleHandler.SpawnParticle(new GlowSquareParticle(Projectile.Center, Vector2.Zero, false, 32, 28, FXColor, true, Main.rand.NextFloat(-0.2f, 0.2f)));
                 time = endTime;
                 float lerpValue = Utils.GetLerpValue(35f, 0f, time, clamped: true);
                 float num = 3f;
@@ -434,7 +433,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                     MathHelper.ToRadians((float)i * num2);
                     Vector2 vector = CalamityUtils.RandomVelocity(100f, 70f, 250f, 0.04f);
                     vector *= Main.rand.NextFloat(15f, 30f) * lerpValue;
-                    PRTLoader.NewParticle<PRT_SparkCal>(Projectile.Center + vector * 2.5f, -vector * Main.rand.NextFloat(0.08f, 0.12f) * 1.5f, FXColor, Main.rand.NextFloat(1.1f, 1.25f) - 0.2f * lerpValue).Configure(false, 14);
+                    GeneralParticleHandler.SpawnParticle(new SparkParticle(Projectile.Center + vector * 2.5f, -vector * Main.rand.NextFloat(0.08f, 0.12f) * 1.5f, affectedByGravity: false, 14, Main.rand.NextFloat(1.1f, 1.25f) - 0.2f * lerpValue, FXColor));
                     Dust dust = Dust.NewDustPerfect(Projectile.Center + vector * 2.5f, 278, -vector * Main.rand.NextFloat(0.08f, 0.12f) * 1.5f, 0, default(Color), Main.rand.NextFloat(0.4f, 0.6f));
                     dust.noGravity = true;
                     dust.color = FXColor;
@@ -446,25 +445,25 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 Projectile.scale *= 1.15f;
                 for (int j = 0; j < 3; j++)
                 {
-                    PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, FXColor, 0.7f * (float)(j + 1) * Projectile.scale).Configure("CalamityMod/Particles/BloomCircle", Vector2.One, Main.rand.NextFloat(-10f, 10f), 0.7f * (float)(j + 1) * Projectile.scale, 1f * Projectile.scale, 18);
-                    PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Color.White, 0.35f * (float)(j + 1) * Projectile.scale).Configure("CalamityMod/Particles/BloomCircle", Vector2.One, Main.rand.NextFloat(-10f, 10f), 0.35f * (float)(j + 1) * Projectile.scale, 0.5f * Projectile.scale, 18);
+                    GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, FXColor, "CalamityMod/Particles/BloomCircle", Vector2.One, Main.rand.NextFloat(-10f, 10f), 0.7f * (float)(j + 1) * Projectile.scale, 1f * Projectile.scale, 18));
+                    GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.White, "CalamityMod/Particles/BloomCircle", Vector2.One, Main.rand.NextFloat(-10f, 10f), 0.35f * (float)(j + 1) * Projectile.scale, 0.5f * Projectile.scale, 18));
                 }
 
                 for (int k = 0; k < 6; k++)
                 {
-                    PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center, new Vector2((!VisualsOrange) ? 1 : 0, VisualsOrange ? 1 : 0) * -5f * ((k % 2 != 0) ? 1 : (-1)), FXColor, (0.08f - (float)k * 0.01f) * Projectile.scale).Configure(affectedByGravity: false, 15, new Vector2(5f, 0.8f), quickShrink: true, glow: false, 1.2f);
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, new Vector2((!VisualsOrange) ? 1 : 0, VisualsOrange ? 1 : 0) * -5f * ((k % 2 != 0) ? 1 : (-1)), affectedByGravity: false, 15, (0.08f - (float)k * 0.01f) * Projectile.scale, FXColor, new Vector2(5f, 0.8f), quickShrink: true, glow: false, 1.2f));
                 }
 
                 if (time == (float)endTime)
                 {
                     if (VisualsOrange)
                     {
-                        PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, FXColor, 0f).Configure("CalamityMod/Particles/GlowSquareParticleBig", Vector2.One, MathF.PI / 4f, 0f, 2.2f, 22);
-                        PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, FXColor, 0f).Configure("CalamityMod/Particles/GlowSquareParticleBig", Vector2.One, MathF.PI / 4f, 0f, 1.2f, 47);
+                        GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, FXColor, "CalamityMod/Particles/GlowSquareParticleBig", Vector2.One, MathF.PI / 4f, 0f, 2.2f, 22));
+                        GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, FXColor, "CalamityMod/Particles/GlowSquareParticleBig", Vector2.One, MathF.PI / 4f, 0f, 1.2f, 47));
                     }
                     else
                     {
-                        PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, FXColor, 0f).Configure("CalamityMod/Particles/HighResHollowCircleHardEdge", Vector2.One, MathF.PI / 4f, 0f, 0.3f, 22);
+                        GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, FXColor, "CalamityMod/Particles/HighResHollowCircleHardEdge", Vector2.One, MathF.PI / 4f, 0f, 0.3f, 22));
                     }
 
                     for (int l = 0; l < 30; l++)
@@ -475,11 +474,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                         dust2.color = Color.Lerp(Color.White, FXColor, 0.5f);
                         if (VisualsOrange)
                         {
-                            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.One.RotatedByRandom(100.0) * Main.rand.NextFloat(5.5f, 20f), FXColor, Main.rand.NextFloat(1.3f, 3.8f)).Configure("CalamityMod/Particles/GlowSquareParticle", Vector2.One, MathF.PI / 4f, Main.rand.NextFloat(1.3f, 3.8f), 0.2f, 38);
+                            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.One.RotatedByRandom(100.0) * Main.rand.NextFloat(5.5f, 20f), FXColor, "CalamityMod/Particles/GlowSquareParticle", Vector2.One, MathF.PI / 4f, Main.rand.NextFloat(1.3f, 3.8f), 0.2f, 38));
                         }
                         else
                         {
-                            PRTLoader.NewParticle<PRT_CustomSpark>(Projectile.Center, Vector2.One.RotatedByRandom(100.0) * Main.rand.NextFloat(5.5f, 20f), FXColor, Main.rand.NextFloat(2.2f, 4.8f)).Configure("CalamityMod/Particles/Sparkle", false, 38, new Vector2(0.4f, Main.rand.NextFloat(0.9f, 1.4f)), true, true, 0f, false, false);
+                            GeneralParticleHandler.SpawnParticle(new CustomSpark(Projectile.Center, Vector2.One.RotatedByRandom(100.0) * Main.rand.NextFloat(5.5f, 20f), "CalamityMod/Particles/Sparkle", affectedByGravity: false, 38, Main.rand.NextFloat(2.2f, 4.8f), FXColor, new Vector2(0.4f, Main.rand.NextFloat(0.9f, 1.4f)), useAddativeBlend: true, glowCenter: true, 0f, fadeIn: false, affectedByLight: false, 0.1f));
                         }
                     }
                 }
@@ -597,21 +596,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 ScreenShaker.AddShake(new ScreenShaker.ScreenShake(-(target.Center - Projectile.Center).normalize(), 26));
                 shake = false;
             }
-            //GlowSquareCal+ShadeDash成对spawn,NonPremultiplied和AlphaBlend混用是旧表现
-            //ShadeDash旧NonPremultiplied混合,c1/c2/TL字段Configure前面赋
             for (int i = 0; i < 32; i++)
             {
                 Color clr = Main.rand.NextBool() ? new Color(240, 240, 255) : new Color(210, 160, 255);
-                var p = PRTLoader.NewParticle<PRT_ShadeDashParticle>(target.Center + CEUtils.randomPointInCircle(26), (target.Center - Projectile.Center).normalize().RotatedByRandom(0.2f) * Main.rand.NextFloat(10, 64), Color.White);
-                p.c1 = clr;
-                p.c2 = clr;
-                p.TL = 12;
-                p.Configure(1, true, PRTDrawModeEnum.NonPremultiplied, 0, 16);
+                EParticle.NewParticle(new ShadeDashParticle() { c1 = clr, c2 = clr, TL = 12 }, target.Center + CEUtils.randomPointInCircle(26),
+                    (target.Center - Projectile.Center).normalize().RotatedByRandom(0.2f) * Main.rand.NextFloat(10, 64), Color.White, 1, 1, true, BlendState.NonPremultiplied, 0, 16);
                 ;
 
             }
-            PRTLoader.NewParticle<PRT_ShineParticle>(target.Center, Vector2.Zero, new Color(220, 220, 255), 3).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 6);
-            PRTLoader.NewParticle<PRT_ShineParticle>(target.Center, Vector2.Zero, new Color(255, 255, 255), 1.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 6);
+            EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, new Color(220, 220, 255), 3, 1, true, BlendState.Additive, 0, 6);
+            EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, new Color(255, 255, 255), 1.6f, 1, true, BlendState.Additive, 0, 6);
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
@@ -708,7 +702,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             {
                 for (int i = 0; i < 1; i++)
                 {
-                    PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + owner.velocity + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(0.2f, float.Max(0.2f, length)) * 522 - (Main.zenithWorld ? Projectile.rotation.ToRotationVector2() * (length * 20) : Vector2.Zero), owner.velocity * 0.4f + Projectile.rotation.ToRotationVector2().RotatedByRandom(0.2f) * Main.rand.NextFloat(32, 42) * length, Color.MediumVioletRed * 0.6f, Main.rand.NextFloat(0.04f, 0.054f) * length).Configure(false, 8, new Vector2(0.34f, 1));
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + owner.velocity + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(0.2f, float.Max(0.2f, length)) * 522 - (Main.zenithWorld ? Projectile.rotation.ToRotationVector2() * (length * 20) : Vector2.Zero), owner.velocity * 0.4f + Projectile.rotation.ToRotationVector2().RotatedByRandom(0.2f) * Main.rand.NextFloat(32, 42) * length, false, 8, Main.rand.NextFloat(0.04f, 0.054f) * length, Color.MediumVioletRed * 0.6f, new Vector2(0.34f, 1)));
                 }
             }
             if (swing > 0)

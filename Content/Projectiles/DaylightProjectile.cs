@@ -1,8 +1,7 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -101,8 +100,7 @@ namespace CalamityEntropy.Content.Projectiles
                     d.noGravity = true;
                     d.velocity += (points[points.Count - 1] - Projectile.GetOwner().Center).normalize() * 5;
                 }
-                //GlowLightParticle daylight glow,旧PRT/EParticle
-                PRTLoader.NewParticle<PRT_GlowLightParticle>(points[points.Count - 1], CEUtils.randomPointInCircle(4), Color.Lerp(Color.Red, Color.Yellow, Main.rand.NextFloat()), Main.rand.NextFloat(0.6f, 1f)).Configure(0.9f, true, PRTDrawModeEnum.AdditiveBlend, 0, 38);
+                EParticle.spawnNew(new GlowLightParticle(), points[points.Count - 1], CEUtils.randomPointInCircle(4), Color.Lerp(Color.Red, Color.Yellow, Main.rand.NextFloat()), Main.rand.NextFloat(0.6f, 1f), 0.9f, true, BlendState.Additive, 0, 38);
             }
             return base.PreAI();
         }
@@ -216,11 +214,10 @@ namespace CalamityEntropy.Content.Projectiles
 
             if (st)
             {
-                //ShineParticle FollowOwner字段spawn后赋,Configure只管Additive和lifetime
-                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, new Color(255, 255, 20), 0.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 14);
-                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, new Color(255, 255, 160), 0.29f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 14);
-                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, new Color(255, 255, 160), 0.29f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 14);
-                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, new Color(255, 255, 160), 0.29f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 14);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(255, 255, 20), 0.6f, 1, true, BlendState.Additive, 0, 14);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(255, 255, 160), 0.29f, 1, true, BlendState.Additive, 0, 14);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(255, 255, 160), 0.29f, 1, true, BlendState.Additive, 0, 14);
+                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(255, 255, 160), 0.29f, 1, true, BlendState.Additive, 0, 14);
                 CEUtils.PlaySound("CrystalBallActive", 0.6f + Main.rand.NextFloat(-0.2f, 0.2f), Projectile.Center, 10, 0.4f);
                 st = false;
             }

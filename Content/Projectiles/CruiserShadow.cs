@@ -1,6 +1,5 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
@@ -216,22 +215,27 @@ namespace CalamityEntropy.Content.Projectiles
 
         public void spawnParticles()
         {
-            var r = Main.rand;
             for (int i = 0; i < 4; i++)
             {
-                //PRT_Void字段直赋对齐旧VoidParticles,Opacity/ad/multShrink Configure管不了
-                var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center - Projectile.rotation.ToRotationVector2() * 60, new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3)), Color.White, 1f);
+                Particle p = new Particle();
                 p.shape = 4;
-                p.Opacity = 1.6f;
+                p.position = Projectile.Center - Projectile.rotation.ToRotationVector2() * 60;
+                p.alpha = 1.6f;
                 p.ad = 0.013f;
+                var r = Main.rand;
+                p.velocity = new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3));
+                VoidParticles.particles.Add(p);
             }
             for (int i = 0; i < 4; i++)
             {
-                //每帧拖尾Void,旧spawnNew也是AI里无脑刷
-                var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center - Projectile.rotation.ToRotationVector2() * 60 - Projectile.velocity * 0.5f, new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3)), Color.White, 1f);
+                Particle p = new Particle();
                 p.shape = 4;
-                p.Opacity = 1.6f;
+                p.position = Projectile.Center - Projectile.rotation.ToRotationVector2() * 60 - Projectile.velocity * 0.5f;
+                p.alpha = 1.6f;
                 p.ad = 0.013f;
+                var r = Main.rand;
+                p.velocity = new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3));
+                VoidParticles.particles.Add(p);
             }
         }
 

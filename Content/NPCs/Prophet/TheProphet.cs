@@ -1,4 +1,4 @@
-using CalamityEntropy.Common;
+﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
@@ -7,13 +7,12 @@ using CalamityEntropy.Content.Items.Lores;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.Whips;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Prophet;
 using CalamityMod;
 using CalamityMod.Events;
+using CalamityMod.Particles;
 using CalamityMod.World;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -25,6 +24,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace CalamityEntropy.Content.NPCs.Prophet
 {
     [AutoloadBossHead]
@@ -465,12 +465,8 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         }
                         if (this.trail == null || this.trail.Lifetime < 1)
                         {
-                            //ProminenceTrail单例挂trail,Lifetime<1才重建,冲刺段13帧续命
-                            this.trail = PRTLoader.NewParticle<PRT_ProminenceTrail>(NPC.Center, Vector2.Zero, Color.White, 7f);
-                            this.trail.color1 = Color.DeepSkyBlue;
-                            this.trail.color2 = Color.White;
-                            this.trail.maxLength = 14;
-                            this.trail.Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0, -1);
+                            this.trail = new ProminenceTrail() { color1 = Color.DeepSkyBlue, color2 = Color.White, maxLength = 14 };
+                            EParticle.NewParticle(this.trail, NPC.Center, Vector2.Zero, Color.White, 7f, 1, true, BlendState.AlphaBlend, 0);
                         }
                     }
                     if (NPC.ai[1] > 0)
@@ -647,9 +643,10 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         {
                             float rot = MathHelper.ToRadians(i);
                             float impactParticleScale = 4f;
-                            //符文环每锚SparkleCal双粒子,p1步60°/p2步40°,Calamity CometShard原配
-                            PRTLoader.NewParticle<PRT_SparkleCal>(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.White, impactParticleScale * 1.2f).Configure(Color.SkyBlue, 12, 0, 4.5f);
-                            PRTLoader.NewParticle<PRT_SparkleCal>(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.SkyBlue, impactParticleScale).Configure(Color.SkyBlue, 10, 0, 3f);
+                            var impactParticle2 = new SparkleParticle(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.White, Color.SkyBlue, impactParticleScale * 1.2f, 12, 0, 4.5f);
+                            GeneralParticleHandler.SpawnParticle(impactParticle2);
+                            var impactParticle = new SparkleParticle(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.SkyBlue, Color.SkyBlue, impactParticleScale, 10, 0, 3f);
+                            GeneralParticleHandler.SpawnParticle(impactParticle);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -668,9 +665,10 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         {
                             float rot = MathHelper.ToRadians(i);
                             float impactParticleScale = 4f;
-                            //符文环每锚SparkleCal双粒子,p1步60°/p2步40°,Calamity CometShard原配
-                            PRTLoader.NewParticle<PRT_SparkleCal>(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.White, impactParticleScale * 1.2f).Configure(Color.SkyBlue, 12, 0, 4.5f);
-                            PRTLoader.NewParticle<PRT_SparkleCal>(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.SkyBlue, impactParticleScale).Configure(Color.SkyBlue, 10, 0, 3f);
+                            var impactParticle2 = new SparkleParticle(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.White, Color.SkyBlue, impactParticleScale * 1.2f, 12, 0, 4.5f);
+                            GeneralParticleHandler.SpawnParticle(impactParticle2);
+                            var impactParticle = new SparkleParticle(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.SkyBlue, Color.SkyBlue, impactParticleScale, 10, 0, 3f);
+                            GeneralParticleHandler.SpawnParticle(impactParticle);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -690,9 +688,10 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                         {
                             float rot = MathHelper.ToRadians(i);
                             float impactParticleScale = 4f;
-                            //符文环每锚SparkleCal双粒子,p1步60°/p2步40°,Calamity CometShard原配
-                            PRTLoader.NewParticle<PRT_SparkleCal>(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.White, impactParticleScale * 1.2f).Configure(Color.SkyBlue, 12, 0, 4.5f);
-                            PRTLoader.NewParticle<PRT_SparkleCal>(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.SkyBlue, impactParticleScale).Configure(Color.SkyBlue, 10, 0, 3f);
+                            var impactParticle2 = new SparkleParticle(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.White, Color.SkyBlue, impactParticleScale * 1.2f, 12, 0, 4.5f);
+                            GeneralParticleHandler.SpawnParticle(impactParticle2);
+                            var impactParticle = new SparkleParticle(NPC.Center + rot.ToRotationVector2() * 86, Vector2.Zero, Color.SkyBlue, Color.SkyBlue, impactParticleScale, 10, 0, 3f);
+                            GeneralParticleHandler.SpawnParticle(impactParticle);
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -774,9 +773,8 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                                     plr.wingTime = plr.wingTimeMax;
                                     plr.velocity = (NPC.Center + new Vector2(0, -80) - plr.Center).normalize() * 10;
                                     plr.Center += (NPC.Center + new Vector2(0, -80) - plr.Center).normalize() * 36;
-                                    //拖人相位8颗RuneParticle/玩家,Additive 40帧,纯VFX不是攻击判定
                                     for (int i = 0; i < 8; i++)
-                                        PRTLoader.NewParticle<PRT_RuneParticle>(CEUtils.randomPoint(plr.getRect()), Vector2.Zero, Color.LightBlue, 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 40);
+                                        EParticle.spawnNew(new RuneParticle(), CEUtils.randomPoint(plr.getRect()), Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, 0, 40);
                                 }
                             }
                         }
@@ -885,7 +883,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 NPC.netSpam = 0;
             }
         }
-        public PRT_ProminenceTrail trail = null;
+        public ProminenceTrail trail = null;
         public void TeleportTo(Vector2 pos)
         {
 
@@ -893,14 +891,17 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             Color impactColor = Main.rand.NextBool(3) ? Color.SkyBlue : Color.White;
             float impactParticleScale = 5.6f;
 
-            //TeleportTo进出各2 SparkleCal,落点清空tail GP点
-            PRTLoader.NewParticle<PRT_SparkleCal>(NPC.Center, Vector2.Zero, Color.White, impactParticleScale * 1.2f).Configure(Color.SkyBlue, 12, 0, 4.5f);
-            PRTLoader.NewParticle<PRT_SparkleCal>(NPC.Center, Vector2.Zero, impactColor, impactParticleScale).Configure(Color.SkyBlue, 10, 0, 3f);
+            SparkleParticle impactParticle2 = new SparkleParticle(NPC.Center, Vector2.Zero, Color.White, Color.SkyBlue, impactParticleScale * 1.2f, 12, 0, 4.5f);
+            GeneralParticleHandler.SpawnParticle(impactParticle2);
+            SparkleParticle impactParticle = new SparkleParticle(NPC.Center, Vector2.Zero, impactColor, Color.SkyBlue, impactParticleScale, 10, 0, 3f);
+            GeneralParticleHandler.SpawnParticle(impactParticle);
 
             NPC.Center = pos;
 
-            PRTLoader.NewParticle<PRT_SparkleCal>(NPC.Center, Vector2.Zero, Color.White, impactParticleScale * 1.2f).Configure(Color.SkyBlue, 12, 0, 4.5f);
-            PRTLoader.NewParticle<PRT_SparkleCal>(NPC.Center, Vector2.Zero, impactColor, impactParticleScale).Configure(Color.SkyBlue, 10, 0, 3f);
+            impactParticle2 = new SparkleParticle(NPC.Center, Vector2.Zero, Color.White, Color.SkyBlue, impactParticleScale * 1.2f, 12, 0, 4.5f);
+            GeneralParticleHandler.SpawnParticle(impactParticle2);
+            impactParticle = new SparkleParticle(NPC.Center, Vector2.Zero, impactColor, Color.SkyBlue, impactParticleScale, 10, 0, 3f);
+            GeneralParticleHandler.SpawnParticle(impactParticle);
 
             tail.Clear();
         }

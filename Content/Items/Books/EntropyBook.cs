@@ -387,8 +387,8 @@ namespace CalamityEntropy.Content.Items.Books
             return true;
         }
         /// <summary>
-        /// 根据武器useTime，射速倍率，书签计算射击冷却（帧）
-        /// </summary>
+         /// 根据武器useTime，射速倍率，书签计算射击冷却（帧）
+         /// </summary>
         public virtual int GetShootCd()
         {
             int _shotCooldown = bookItem.useTime;

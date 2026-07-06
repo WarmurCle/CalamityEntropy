@@ -1,6 +1,6 @@
-using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using InnoVault.PRT;
+﻿using CalamityEntropy.Content.Particles;
+using CalamityMod.Particles;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -30,20 +30,14 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] == 0)
             {
                 CEUtils.PlaySound("explosion", 1, Projectile.Center, 4);
-                //PRT_PlasmaExplosionCal Aries爆炸,Calamity plasma explode原参
-                PRTLoader.NewParticle<PRT_PlasmaExplosionCal>(Projectile.Center, Vector2.Zero, new Color(160, 120, 255), 0f).Configure(new Vector2(2f, 2f), 0, 0.032f, 46);
-                PRTLoader.NewParticle<PRT_DetailedExplosionCal>(Projectile.Center, Vector2.Zero, new Color(180, 156, 255), 0f).Configure(Vector2.One, Main.rand.NextFloat(-5, 5), 0.4f, 30);
+                CalamityMod.Particles.Particle pulse = new PlasmaExplosion(Projectile.Center, Vector2.Zero, new Color(160, 120, 255), new Vector2(2f, 2f), 0, 0f, 0.032f, 46);
+                GeneralParticleHandler.SpawnParticle(pulse);
+                CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, new Color(180, 156, 255), Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.4f, 30);
+                GeneralParticleHandler.SpawnParticle(explosion2);
                 for (int i = 0; i < 28; i++)
                 {
-                    //Smoke vd/ad字段spawn后赋,旧EParticle Smoke初始化器
-                    var p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16) * 0.2f, new Color(140, 140, 255), 0.06f);
-                    p.Lifetime = 26;
-                    p.timeleftmax = 26;
-                    p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0f, 26);
-                    p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16) * 0.2f, Color.LightGoldenrodYellow, 0.06f);
-                    p.Lifetime = 26;
-                    p.timeleftmax = 26;
-                    p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0f, 26);
+                    EParticle.NewParticle(new Smoke() { Lifetime = 26, timeleftmax = 26 }, Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16) * 0.2f, new Color(140, 140, 255), 0.06f, 1, true, BlendState.Additive);
+                    EParticle.NewParticle(new Smoke() { Lifetime = 26, timeleftmax = 26 }, Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 16) * 0.2f, Color.LightGoldenrodYellow, 0.06f, 1, true, BlendState.Additive);
                 }
             }
             Projectile.ai[0]++;

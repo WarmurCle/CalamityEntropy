@@ -10,6 +10,8 @@ using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.GrassSword;
 using CalamityEntropy.Content.NPCs.Prophet;
 using CalamityEntropy.Content.NPCs.SpiritFountain;
+using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Skies;
 using CalamityEntropy.Content.UI;
 using CalamityEntropy.Content.UI.EntropyBookUI;
 using CalamityMod;
@@ -511,6 +513,9 @@ namespace CalamityEntropy.Common
                 CalamityEntropy.FlashEffectStrength -= 0.02f;
             }
             CalamityEntropy.blackMaskTime--;
+            PixelParticle.Update();
+            VoidParticles.Update();
+            AbyssalParticles.Update();
             CalamityEntropy.cutScreen += CalamityEntropy.cutScreenVel;
             if (CalamityEntropy.cutScreen > 0)
             {
@@ -581,6 +586,10 @@ namespace CalamityEntropy.Common
             Texture2D bar = ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/ui_chargebar").Value;
             Main.spriteBatch.Draw(bar, center, new Rectangle(0, 0, 54, 12), Color.White, 0, new Vector2(27, 6), 1, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(bar, center, new Rectangle(0, 12, (int)Math.Round(54 * prog), 12), color, 0, new Vector2(27, 6), 1, SpriteEffects.None, 0);
+        }
+        public override void PreUpdateDusts()
+        {
+            EParticle.updateAll();
         }
         public void drawXythBar()
         {

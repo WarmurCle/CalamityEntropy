@@ -1,5 +1,4 @@
 ﻿using CalamityEntropy.Content.Particles;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -74,8 +73,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnKill(int timeLeft)
         {
             ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 64), Projectile.Center);
-            //AdditiveBlend走Configure分桶,旧GeneralParticleHandler Before层那套
-            PRTLoader.NewParticle<PRT_HeavenfallStar3>(Projectile.GetOwner().Center, Vector2.Zero, new Color(100, 100, 255), 12).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);  //AdditiveBlend走Configure分桶,旧GeneralParticleHandler Before层那套
+            EParticle.NewParticle(new HeavenfallStar3(), Projectile.GetOwner().Center, Vector2.Zero, new Color(100, 100, 255), 12, 1, true, BlendState.Additive);
         }
     }
 

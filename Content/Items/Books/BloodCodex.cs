@@ -1,8 +1,7 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod.Items;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -58,25 +57,9 @@ namespace CalamityEntropy.Content.Items.Books
         public override bool Shoot()
         {
             base.Shoot();
-            //PRT_Smoke timeleftmax/vd字段spawn后直赋,旧EParticle Smoke初始化器拆出来的
-            var p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedByRandom(randomShootRotMax) * Main.rand.NextFloat(4, 20) * 1f, Color.Red, 0.5f);
-            p.timeleftmax = 30;
-            p.Lifetime = 30;
-            p.scaleStart = 0.01f;
-            p.scaleEnd = Main.rand.NextFloat(0.36f, 0.8f) * 0.6f;
-            p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 30);
-            p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedByRandom(randomShootRotMax) * Main.rand.NextFloat(4, 20) * 1f, Color.Red, 0.5f);
-            p.timeleftmax = 30;
-            p.Lifetime = 30;
-            p.scaleStart = 0.01f;
-            p.scaleEnd = Main.rand.NextFloat(0.36f, 0.8f) * 0.6f;
-            p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 30);
-            p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedByRandom(randomShootRotMax) * Main.rand.NextFloat(4, 20) * 1f, Color.Red, 0.5f);
-            p.timeleftmax = 30;
-            p.Lifetime = 30;
-            p.scaleStart = 0.01f;
-            p.scaleEnd = Main.rand.NextFloat(0.36f, 0.8f) * 0.6f;
-            p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 30);
+            EParticle.NewParticle(new Smoke() { timeleftmax = 30, Lifetime = 30, scaleStart = 0.01f, scaleEnd = Main.rand.NextFloat(0.36f, 0.8f) * 0.6f }, Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedByRandom(randomShootRotMax) * Main.rand.NextFloat(4, 20) * 1f, Color.Red, 0.5f, 1, true, BlendState.Additive, 0);
+            EParticle.NewParticle(new Smoke() { timeleftmax = 30, Lifetime = 30, scaleStart = 0.01f, scaleEnd = Main.rand.NextFloat(0.36f, 0.8f) * 0.6f }, Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedByRandom(randomShootRotMax) * Main.rand.NextFloat(4, 20) * 1f, Color.Red, 0.5f, 1, true, BlendState.Additive, 0);
+            EParticle.NewParticle(new Smoke() { timeleftmax = 30, Lifetime = 30, scaleStart = 0.01f, scaleEnd = Main.rand.NextFloat(0.36f, 0.8f) * 0.6f }, Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedByRandom(randomShootRotMax) * Main.rand.NextFloat(4, 20) * 1f, Color.Red, 0.5f, 1, true, BlendState.Additive, 0);
 
             return true;
         }
@@ -101,7 +84,7 @@ namespace CalamityEntropy.Content.Items.Books
             base.OnKill(timeLeft);
             for (int i = 0; i < 12; i++)
             {
-                PRTLoader.NewParticle<PRT_BloodCal>(Projectile.Center, CEUtils.randomPointInCircle(16), baseColor, Main.rand.NextFloat(0.6f, 1f)).Configure(26);
+                GeneralParticleHandler.SpawnParticle(new BloodParticle(Projectile.Center, CEUtils.randomPointInCircle(16), 26, Main.rand.NextFloat(0.6f, 1f), baseColor));
             }
         }
         public override void AI()
@@ -110,14 +93,7 @@ namespace CalamityEntropy.Content.Items.Books
             if (Projectile.localAI[2]++ > 10)
                 Projectile.velocity.Y += 0.26f;
             for (float i = 0; i < 1; i += 0.1f)
-            {
-                var p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center + Projectile.velocity * i, Vector2.Zero, new Color(255, 30, 30), 0.04f);
-                p.timeleftmax = 10;
-                p.Lifetime = 10;
-                p.scaleStart = 0.04f * (0.9f + i * 0.1f);
-                p.scaleEnd = 0f;
-                p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 10);
-            }
+                EParticle.NewParticle(new Smoke() { timeleftmax = 10, Lifetime = 10, scaleStart = 0.04f * (0.9f + i * 0.1f), scaleEnd = 0f }, Projectile.Center + Projectile.velocity * i, Vector2.Zero, new Color(255, 30, 30), 0.04f, 1, true, BlendState.Additive, 0);
         }
         public override Color baseColor => Color.Red;
         public override bool PreDraw(ref Color lightColor)

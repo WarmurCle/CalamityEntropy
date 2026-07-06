@@ -1,8 +1,7 @@
 ﻿using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Items;
-using InnoVault.PRT;
+using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -96,11 +95,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             for (int i = 0; i < 16; i++)
             {
-                //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
-                PRTLoader.NewParticle<PRT_GlowSparkCal>(target.Center, Projectile.velocity.normalize().RotatedByRandom(0.46f) * Main.rand.NextFloat(16, 30), Color.LightSeaGreen * 1.6f, Projectile.scale * 0.06f).Configure(false, 14, new Vector2(0.3f, 1), false, false);
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, Projectile.velocity.normalize().RotatedByRandom(0.46f) * Main.rand.NextFloat(16, 30), false, 14, Projectile.scale * 0.06f, Color.LightSeaGreen * 1.6f, new Vector2(0.3f, 1), false, false));
             }
             for (int i = 0; i < 24; i++)
-                PRTLoader.NewParticle<PRT_GlowSparkCal>(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 14, Main.rand.NextBool() ? Color.BlueViolet : Color.LightGreen, 0.06f * Main.rand.NextFloat(0.65f, 1f)).Configure(false, 11, new Vector2(3f, 0.4f), true);
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 14, false, 11, 0.06f * Main.rand.NextFloat(0.65f, 1f), Main.rand.NextBool() ? Color.BlueViolet : Color.LightGreen, new Vector2(3f, 0.4f), true));
 
             CEUtils.PlaySound("truemoonlighthit", Main.rand.NextFloat(1.3f, 1.5f), target.Center, 4, 0.6f * CEUtils.WeapSound);
         }
@@ -390,29 +388,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            //AbyssalLine/Abyssal有的走EffectLoader RT合成,Configure只管常规参数
-            var line1 = PRTLoader.NewParticle<PRT_AbyssalLine>(target.Center, Vector2.Zero, new Color(220, 220, 255), 1f);
-            line1.xadd = 0.8f;
-            line1.lx = 1.4f;
-            line1.spawnColor = new Color(212, 255, 212);
-            line1.endColor = Color.DarkSeaGreen;
-            line1.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot());
-            var line2 = PRTLoader.NewParticle<PRT_AbyssalLine>(target.Center, Vector2.Zero, new Color(220, 255, 255), 1f);
-            line2.xadd = 0.8f;
-            line2.lx = 1.4f;
-            line2.spawnColor = new Color(212, 255, 212);
-            line2.endColor = Color.DarkBlue;
-            line2.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot());
-            //光效走AdditiveBlend,Configure尾参lifetime对齐旧timeLeft
-            var line3 = PRTLoader.NewParticle<PRT_AbyssalLine>(target.Center, Vector2.Zero, new Color(220, 255, 220), 1f);
-            line3.xadd = 0.8f;
-            line3.lx = 1.4f;
-            line3.spawnColor = new Color(212, 255, 212);
-            line3.endColor = Color.DarkBlue;
-            line3.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot());
+            EParticle.spawnNew(new AbyssalLine() { xadd = 0.8f, lx = 1.4f, spawnColor = new Color(212, 255, 212), endColor = Color.DarkSeaGreen }, target.Center, Vector2.Zero, new Color(220, 220, 255), 1, 1, true, BlendState.Additive, CEUtils.randomRot());
+            EParticle.spawnNew(new AbyssalLine() { xadd = 0.8f, lx = 1.4f, spawnColor = new Color(212, 255, 212), endColor = Color.DarkBlue }, target.Center, Vector2.Zero, new Color(220, 255, 255), 1, 1, true, BlendState.Additive, CEUtils.randomRot());
+            EParticle.spawnNew(new AbyssalLine() { xadd = 0.8f, lx = 1.4f, spawnColor = new Color(212, 255, 212), endColor = Color.DarkBlue }, target.Center, Vector2.Zero, new Color(220, 255, 220), 1, 1, true, BlendState.Additive, CEUtils.randomRot());
             for (int i = 0; i < 26; i++)
             {
-                PRTLoader.NewParticle<PRT_HeavySmokeCal>(target.Center, Projectile.velocity * 0.7f + CEUtils.randomVec(12), new Color(140, 150, 255), 0.8f).Configure(1, 40, 0.04f, true, 0, true);
+                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(target.Center, Projectile.velocity * 0.7f + CEUtils.randomVec(12), new Color(140, 150, 255), 40, 0.8f, 1, 0.04f, true, 0, true));
             }
             CEUtils.PlaySound("HammerShoot" + Main.rand.Next(1, 4), Main.rand.NextFloat(1f, 1.4f), Projectile.Center);
         }

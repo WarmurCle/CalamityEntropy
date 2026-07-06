@@ -1,4 +1,4 @@
-using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
@@ -6,7 +6,6 @@ using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Rarities;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -153,14 +152,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             for (int i = 0; i < 52; i++)
             {
                 float p = Main.rand.NextFloat();
-                //PRT_EGlowOrb 光效走AdditiveBlend,Configure尾参lifetime对齐旧timeLeft
-                var orb = PRTLoader.NewParticle<PRT_EGlowOrb>(CEUtils.randomPoint(target.Hitbox), CEUtils.randomPointInCircle(4) + Projectile.velocity.RotatedBy(0.5f * p * (Main.rand.NextBool() ? 1 : -1)) * 4f * Main.rand.NextFloat(0.2f, 1) * (1.2f - p), Color.Lerp(Color.DarkRed, Color.Firebrick, Main.rand.NextFloat()), 0.12f);
-                orb.CenterScale = 0.55f;
-                orb.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 18);
+                EParticle.spawnNew(new EGlowOrb() { CenterScale = 0.55f }, CEUtils.randomPoint(target.Hitbox), CEUtils.randomPointInCircle(4) + Projectile.velocity.RotatedBy(0.5f * p * (Main.rand.NextBool() ? 1 : -1)) * 4f * Main.rand.NextFloat(0.2f, 1) * (1.2f - p), Color.Lerp(Color.DarkRed, Color.Firebrick, Main.rand.NextFloat()), 0.12f, 1, true, BlendState.Additive, 0, 18);
             }
-            //旧对象初始化器拆成字段直赋+Configure,顺序别反
-            PRTLoader.NewParticle<PRT_ShineParticle>(target.Center, Vector2.Zero, Color.Red, 0.7f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 8);
-            PRTLoader.NewParticle<PRT_ShineParticle>(target.Center, Vector2.Zero, Color.White, 0.56f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 8);
+            EParticle.NewParticle(new ShineParticle(), target.Center, Vector2.Zero, Color.Red, 0.7f, 1, true, BlendState.Additive, 0, 8);
+            EParticle.NewParticle(new ShineParticle(), target.Center, Vector2.Zero, Color.White, 0.56f, 1, true, BlendState.Additive, 0, 8);
             float dustCount = 16;
             for (int i = 0; i <= dustCount; i++)
             {
@@ -169,12 +164,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                 dust2.scale = Main.rand.NextFloat(0.9f, 2.4f);
                 dust2.noGravity = true;
             }
-            var ep = PRTLoader.NewParticle<PRT_ElecParticle>(target.Center, Vector2.Zero, new Color(255, 160, 160), 1.4f);
-            ep.PixelPass = true;
-            ep.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 26);
-            ep = PRTLoader.NewParticle<PRT_ElecParticle>(target.Center, Vector2.Zero, Color.White, 1.2f);
-            ep.PixelPass = true;
-            ep.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 26);
+            EParticle.spawnNew(new ElecParticle() { PixelShader = true }, target.Center, Vector2.Zero, new Color(255, 160, 160), 1.4f, 1, true, BlendState.Additive, 0, 26);
+            EParticle.spawnNew(new ElecParticle() { PixelShader = true }, target.Center, Vector2.Zero, Color.White, 1.2f, 1, true, BlendState.Additive, 0, 26);
             target.AddBuff<GalvanicCorrosion>(8 * 60);
             target.AddBuff<Crumbling>(8 * 60);
             target.AddBuff(BuffID.Electrified, 8 * 60);

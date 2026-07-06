@@ -1,11 +1,10 @@
-using CalamityEntropy.Content.Particles.CalamityPorts;
-using CalamityMod.Buffs.DamageOverTime;
+﻿using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Dusts;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
+using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -151,14 +150,16 @@ namespace CalamityEntropy.Content.Items.Books
             {
                 for (int i = 0; i < 2; ++i)
                 {
-                    //CustomPulse叠BasicCircle+BloomRing,CalamityPorts Configure签名跟Calamity原构造对齐
-                    PRTLoader.NewParticle<PRT_CustomPulse>(dustPos, Vector2.Zero, Color.Black, 0.4f * speedMultiplier * scale).Configure("CalamityMod/ExtraTextures/BasicCircle", Vector2.One, 0, 0.4f * speedMultiplier * scale, 0.05f * speedMultiplier * scale, 12, PRTDrawModeEnum.AlphaBlend);
-                    PRTLoader.NewParticle<PRT_CustomPulse>(dustPos, Vector2.Zero, color, 0.15f * (1 + i * 0.2f) * speedMultiplier * scale).Configure("CalamityMod/Particles/BloomRing", Vector2.One, 0, 0.15f * (1 + i * 0.2f) * speedMultiplier * scale, 0.025f * (1 + i * 0.2f) * speedMultiplier * scale, 12);
+                    var pulse = new CustomPulse(dustPos, Vector2.Zero, Color.Black, "CalamityMod/ExtraTextures/BasicCircle", Vector2.One, 0, 0.4f * speedMultiplier * scale, 0.05f * speedMultiplier * scale, 12, false);
+                    GeneralParticleHandler.SpawnParticle(pulse);
+                    var pulse2 = new CustomPulse(dustPos, Vector2.Zero, color, "CalamityMod/Particles/BloomRing", Vector2.One, 0, 0.15f * (1 + i * 0.2f) * speedMultiplier * scale, 0.025f * (1 + i * 0.2f) * speedMultiplier * scale, 12, true);
+                    GeneralParticleHandler.SpawnParticle(pulse2);
                 }
             }
             else
             {
-                PRTLoader.NewParticle<PRT_CustomSpark>(dustPos, Vector2.Zero, color, 0.3f * scale * speedMultiplier).Configure("CalamityMod/Particles/BloomCircle", false, 10, new Vector2(1f, 1f), true, false, 0f, false, false);
+                var pulse = new CustomSpark(dustPos, Vector2.Zero, "CalamityMod/Particles/BloomCircle", false, 10, 0.3f * scale * speedMultiplier, color, new Vector2(1f, 1f), true, true, glowOpacity: 1f);
+                GeneralParticleHandler.SpawnParticle(pulse);
             }
 
 
@@ -257,8 +258,10 @@ namespace CalamityEntropy.Content.Items.Books
             float scale = 2;
             for (int i = 0; i < 2; ++i)
             {
-                PRTLoader.NewParticle<PRT_CustomPulse>(dustPos, Vector2.Zero, Color.Black, 0.4f * scale).Configure("CalamityMod/ExtraTextures/BasicCircle", Vector2.One, 0, 0.4f * scale, 0.05f * scale, 16, PRTDrawModeEnum.AlphaBlend);
-                PRTLoader.NewParticle<PRT_CustomPulse>(dustPos, Vector2.Zero, color, 0.15f * (1 + i * 0.2f) * scale).Configure("CalamityMod/Particles/BloomRing", Vector2.One, 0, 0.15f * (1 + i * 0.2f) * scale, 0.025f * (1 + i * 0.2f) * scale, 16);
+                var pulse = new CustomPulse(dustPos, Vector2.Zero, Color.Black, "CalamityMod/ExtraTextures/BasicCircle", Vector2.One, 0, 0.4f * scale, 0.05f * scale, 16, false);
+                GeneralParticleHandler.SpawnParticle(pulse);
+                var pulse2 = new CustomPulse(dustPos, Vector2.Zero, color, "CalamityMod/Particles/BloomRing", Vector2.One, 0, 0.15f * (1 + i * 0.2f) * scale, 0.025f * (1 + i * 0.2f) * scale, 16, true);
+                GeneralParticleHandler.SpawnParticle(pulse2);
             }
         }
         public List<Vector2> OldPos = new();

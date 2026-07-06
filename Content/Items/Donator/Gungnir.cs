@@ -5,7 +5,6 @@ using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Projectiles.Rogue;
 using CalamityMod.Tiles.Furniture.CraftingStations;
-using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
@@ -13,6 +12,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace CalamityEntropy.Content.Items.Donator
 {
     public class Gungnir : ModItem, IDonatorItem
@@ -101,10 +101,7 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 for (float i = 0; i < 1; i += 1f)
                 {
-                    //PRT_HeavenfallStar2拖尾,旧EParticle数值照抄
-                    var p = PRTLoader.NewParticle<PRT_HeavenfallStar2>(Projectile.Center - Projectile.velocity * i, Projectile.velocity * 0.6f, new Color(60, 60, 255), 0.4f);
-                    p.drawScale = new Vector2(0.4f, 3);
-                    p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.rotation, 5);
+                    EParticle.spawnNew(new HeavenfallStar2() { drawScale = new Vector2(0.4f, 3) }, Projectile.Center - Projectile.velocity * i, Projectile.velocity * 0.6f, new Color(60, 60, 255), 0.4f, 1, true, BlendState.Additive, Projectile.rotation, 5);
                 }
             }
         }
@@ -112,9 +109,7 @@ namespace CalamityEntropy.Content.Items.Donator
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, 6));
-            var slash = PRTLoader.NewParticle<PRT_DOracleSlash>(Projectile.Center - Projectile.velocity * 0.8f, Vector2.Zero, new Color(122, 122, 255), Main.rand.NextFloat(380, 420));
-            slash.centerColor = Color.White;
-            slash.Configure(1f, true, PRTDrawModeEnum.AdditiveBlend, Projectile.rotation + MathHelper.Pi, 8);
+            EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White }, Projectile.Center - Projectile.velocity * 0.8f, Vector2.Zero, new Color(122, 122, 255), Main.rand.NextFloat(380, 420), 1f, true, BlendState.Additive, Projectile.rotation + MathHelper.Pi, 8);
             if (Projectile.ai[1]-- > -1)
             {
                 CEUtils.PlaySound("ThunderStrike", Main.rand.NextFloat(0.8f, 1.2f), target.Center, 6, 0.4f);
