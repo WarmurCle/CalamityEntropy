@@ -1,23 +1,57 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using InnoVault.PRT;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles
 {
-    public class RedemptionSpearParticle : EParticle
+    public class PRT_RedemptionSpearParticle : BasePRT
     {
-        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/RedemptionSpear").Value;
-        public override void OnSpawn()
+        public bool Glow = true;
+
+        public override string Texture => "CalamityEntropy/Content/Projectiles/RedemptionSpear";
+
+        public PRT_RedemptionSpearParticle Configure(float opacity, bool glow, PRTDrawModeEnum mode,
+            float rotation = 0f, int lifetime = -1)
         {
-            this.Lifetime = 20;
-        }
-        public override void AI()
-        {
-            base.AI();
-            this.Opacity = this.Lifetime / 20f;
-            this.Velocity *= 0.8f;
-            this.Rotation = this.Velocity.ToRotation() + MathHelper.PiOver4;
+            Opacity = opacity;
+            Glow = glow;
+            PRTDrawMode = mode;
+            Rotation = rotation;
+            if (lifetime > 0)
+                Lifetime = lifetime;
+            return this;
         }
 
+        public override void SetProperty()
+        {
+            ShouldKillWhenOffScreen = false;
+            if (Lifetime <= 0)
+                Lifetime = 20;
+        }
+
+        public override void AI()
+        {
+            Opacity = 1f - LifetimeCompletion;
+            Velocity *= 0.8f;
+            Rotation = Velocity.ToRotation() + MathHelper.PiOver4;
+        }
+
+        public override bool PreDraw(SpriteBatch sb)
+        {
+            Color clr = Color;
+            if (!Glow)
+                clr = Lighting.GetColor((int)(Position.X / 16), (int)(Position.Y / 16), clr);
+            //NonPremultiplied只乘A,Additive/AlphaBlend走clr*=Opacity
+            if (PRTDrawMode == PRTDrawModeEnum.NonPremultiplied)
+                clr.A = (byte)(clr.A * Opacity);
+            else
+                clr *= Opacity;
+            Texture2D tex = PRTLoader.PRT_IDToTexture[ID];
+            sb.Draw(tex, Position - Main.screenPosition, null, clr, Rotation,
+                tex.Size() / 2f, Scale, SpriteEffects.None, 0);
+            return false;
+        }
     }
+
+
 }

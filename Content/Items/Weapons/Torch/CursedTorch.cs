@@ -1,7 +1,8 @@
 ﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -94,20 +95,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Torch
             {
                 for (int i = 0; i < 64; i++)
                 {
-                    GeneralParticleHandler.SpawnParticle(new FlameParticle(base.Projectile.Center, 20, Main.rand.NextFloat(0.3f, 0.6f), 0.05f, Color.Yellow, Color.Firebrick)
-                    {
-                        Velocity = CEUtils.randomPointInCircle(6)
-                    });
+                    //FlameCal CalamityPorts,寿命走Configure尾参
+                    PRTLoader.NewParticle<PRT_FlameCal>(base.Projectile.Center, CEUtils.randomPointInCircle(6), Color.Yellow, 0.05f).Configure(20, Main.rand.NextFloat(0.3f, 0.6f), Color.Firebrick);
                 }
             }
-            GeneralParticleHandler.SpawnParticle(new FlameParticle(base.Projectile.Center, 18, Main.rand.NextFloat(0.5f, 0.65f), 0.05f, Color.Yellow, Color.Firebrick)
-            {
-                Velocity = new Vector2(Main.rand.NextFloat(-2, 2), -10f).RotatedByRandom(0.004999999888241291) * Main.rand.NextFloat(0.8f, 1f)
-            });
-            GeneralParticleHandler.SpawnParticle(new FlameParticle(base.Projectile.Center, 18, Main.rand.NextFloat(0.5f, 0.65f), 0.05f, Color.Yellow, Color.Firebrick)
-            {
-                Velocity = new Vector2(Main.rand.NextFloat(-2, 2), -10f).RotatedByRandom(0.004999999888241291) * Main.rand.NextFloat(0.8f, 1f)
-            });
+            //拖尾FlameCal单发,Configure寿命/color参数跟批量spawn那套一样
+            PRTLoader.NewParticle<PRT_FlameCal>(base.Projectile.Center, new Vector2(Main.rand.NextFloat(-2, 2), -10f).RotatedByRandom(0.004999999888241291) * Main.rand.NextFloat(0.8f, 1f), Color.Yellow, 0.05f).Configure(18, Main.rand.NextFloat(0.5f, 0.65f), Color.Firebrick);
+            PRTLoader.NewParticle<PRT_FlameCal>(base.Projectile.Center, new Vector2(Main.rand.NextFloat(-2, 2), -10f).RotatedByRandom(0.004999999888241291) * Main.rand.NextFloat(0.8f, 1f), Color.Yellow, 0.05f).Configure(18, Main.rand.NextFloat(0.5f, 0.65f), Color.Firebrick);
             if (Projectile.localAI[0]++ < 3)
             {
                 Projectile.timeLeft++;

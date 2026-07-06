@@ -3,7 +3,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items.Materials;
-using Microsoft.Xna.Framework.Graphics;
+using InnoVault.PRT;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -166,8 +166,15 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
             {
                 for (int i = 0; i < 18; i++)
                 {
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 9, Lifetime = 9 }, Projectile.Center + Projectile.velocity * i / 18f, CEUtils.randomPointInCircle(0.5f), new Color(0, 120, 0), Main.rand.NextFloat(0.02f, 0.03f), 0.9f, true, BlendState.Additive, CEUtils.randomRot());
-                    EParticle.NewParticle(new Smoke() { timeleftmax = 9, Lifetime = 9 }, Projectile.Center + Projectile.velocity * i / 18f, CEUtils.randomPointInCircle(0.5f), new Color(120, 255, 120), Main.rand.NextFloat(0.01f, 0.018f), 0.9f, true, BlendState.Additive, CEUtils.randomRot());
+                    //PRT_Smoke timeleftmax/vd字段spawn后直赋
+                    var smoke = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center + Projectile.velocity * i / 18f, CEUtils.randomPointInCircle(0.5f), new Color(0, 120, 0), Main.rand.NextFloat(0.02f, 0.03f));
+                    smoke.timeleftmax = 9;
+                    smoke.Lifetime = 9;
+                    smoke.Configure(0.9f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 9);
+                    var smoke2 = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center + Projectile.velocity * i / 18f, CEUtils.randomPointInCircle(0.5f), new Color(120, 255, 120), Main.rand.NextFloat(0.01f, 0.018f));
+                    smoke2.timeleftmax = 9;
+                    smoke2.Lifetime = 9;
+                    smoke2.Configure(0.9f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 9);
                 }
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;

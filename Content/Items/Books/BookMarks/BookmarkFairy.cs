@@ -1,5 +1,6 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -99,7 +100,11 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 Projectile.pushByOther(3f);
                 if (CEUtils.getDistance(Projectile.Center, target.Center) < 300 && Delay <= 0)
                 {
-                    EParticle.NewParticle(new DOracleSlash() { centerColor = Color.White, widthMult = 0.4f }, target.Center + (Projectile.Center - target.Center).normalize() * 80, Vector2.Zero, Color.Pink, 140, 1, true, BlendState.Additive, (target.Center - Projectile.Center).ToRotation(), 16);
+                    //PRT_DOracleSlash centerColor/widthMult spawn后赋,Configure只管Additive和rotation
+                    var p = PRTLoader.NewParticle<PRT_DOracleSlash>(target.Center + (Projectile.Center - target.Center).normalize() * 80, Vector2.Zero, Color.Pink, 140);
+                    p.centerColor = Color.White;
+                    p.widthMult = 0.4f;
+                    p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, (target.Center - Projectile.Center).ToRotation(), 16);
                     Projectile.ResetLocalNPCHitImmunity();
                     Delay = (int)(Main.rand.Next(40, 82) / DelayMult);
                     num = 8;

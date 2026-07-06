@@ -1,12 +1,13 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Rogue;
-using CalamityMod.Particles;
 using CalamityMod.Rarities;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -190,8 +191,8 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
                     float sparkScale2 = Main.rand.NextFloat(0.6f, 1.4f);
                     var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
 
-                    LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    //dedServ时NewParticle给孤儿实例不是null,后面字段赋值照常别挡
+                    PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
                 }
 
                 List<NPC> checkNpcs = new();
@@ -232,20 +233,24 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
                     float sparkScale2 = Main.rand.NextFloat(0.6f, 1.4f);
                     var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
 
-                    LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    //轨迹类maxLength/SameAlpha字段Configure前先赋,PRTDrawMode只能走Configure
+                    PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
                 }
 
                 for (float i = 0; i < 1; i += 0.02f)
                 {
-                    EParticle.NewParticle(new ShineParticle() { drawScale = new Vector2(3, 1) }, Projectile.Center + Projectile.rotation.ToRotationVector2() * 500 * i, Vector2.Zero, Color.Red, 0.25f * (1 - i), 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 8);
-                    EParticle.NewParticle(new ShineParticle() { drawScale = new Vector2(3, 1) }, Projectile.Center + Projectile.rotation.ToRotationVector2() * 500 * i, Vector2.Zero, Color.White, 0.18f * (1 - i), 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 8);
+                    var shineR = PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center + Projectile.rotation.ToRotationVector2() * 500 * i, Vector2.Zero, Color.Red, 0.25f * (1 - i));
+                    shineR.drawScale = new Vector2(3, 1);
+                    shineR.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation(), 8);
+                    var shineW = PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center + Projectile.rotation.ToRotationVector2() * 500 * i, Vector2.Zero, Color.White, 0.18f * (1 - i));
+                    shineW.drawScale = new Vector2(3, 1);
+                    shineW.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation(), 8);
                     if (i * 500 > dist || i > 0.8f) break;
                 }
 
                 Vector2 edp = Projectile.Center + Projectile.rotation.ToRotationVector2() * dist;
-                EParticle.NewParticle(new ShineParticle(), edp, Vector2.Zero, Color.Red, 0.5f, 1, true, BlendState.Additive, 0, 8);
-                EParticle.NewParticle(new ShineParticle(), edp, Vector2.Zero, Color.White, 0.2f, 1, true, BlendState.Additive, 0, 8);
+                PRTLoader.NewParticle<PRT_ShineParticle>(edp, Vector2.Zero, Color.Red, 0.5f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 8);
+                PRTLoader.NewParticle<PRT_ShineParticle>(edp, Vector2.Zero, Color.White, 0.2f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 8);
                 CEUtils.PlaySound("gunshot", Main.rand.NextFloat(1.3f, 1.6f), Projectile.Center, 6, 0.25f);
             }
 
@@ -294,7 +299,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
             Projectile.width = Projectile.height = 16;
             Projectile.extraUpdates = 5;
         }
-        public TrailParticle trail = new TrailParticle();
+        public PRT_TrailParticle trail;
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
@@ -315,11 +320,12 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
                     float sparkScale2 = Main.rand.NextFloat(0.6f, 1.4f);
                     var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
 
-                    LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
                 }
-                trail = new TrailParticle() { maxLength = 40 };
-                EParticle.NewParticle(trail, Projectile.Center, Vector2.Zero, new Color(255, 120, 120), 0.6f, 1, true, BlendState.Additive);
+                //轨迹类maxLength/SameAlpha字段Configure前先赋,PRTDrawMode只能走Configure
+                trail = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, new Color(255, 120, 120), 0.6f);
+                trail.maxLength = 40;
+                trail.Configure(1, true, PRTDrawModeEnum.AdditiveBlend);
 
             }
             trail.Lifetime = 13;
@@ -332,9 +338,9 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
         public override void OnKill(int timeLeft)
         {
             CEUtils.PlaySound("pulseBlast", 0.95f, Projectile.Center, 6, 0.55f);
-            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 2.4f, 8));
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 6f, 1, true, BlendState.Additive, 0, 16);
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 4f, 1, true, BlendState.Additive, 0, 16);
+            PRTLoader.NewParticle<PRT_PulseRing>(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f).Configure(2.4f, 8);
+            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.Firebrick, 6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
+            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, 4f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
             if (Projectile.owner == Main.myPlayer)
             {
                 CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage, 180, Projectile.DamageType);

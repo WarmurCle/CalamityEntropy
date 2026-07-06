@@ -1,17 +1,13 @@
-using CalamityEntropy.Content.Rarities;
-using CalamityMod;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod.Dusts;
-using CalamityMod.Enums;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Ranged;
-using CalamityMod.Particles;
-using CalamityMod.Projectiles.Ranged;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -181,8 +177,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public void SpawnParticle(Vector2 pos)
         {
-            GeneralParticleHandler.SpawnParticle(new CustomSpark(pos, Vector2.Zero, "CalamityMod/Particles/LargeBloom", affectedByGravity: false, 8, 0.24f, Color.Black, Vector2.One, useAddativeBlend: false));
-            GeneralParticleHandler.SpawnParticle(new CustomSpark(pos, Vector2.Zero, "CalamityMod/Particles/LargeBloom", affectedByGravity: false, 8, 0.12f, Color.White, Vector2.One), pixelate: false, GeneralDrawLayer.AfterEverything);
+            //Additive亮层走AfterPlayers叠暗层上,跟旧GeneralParticleHandler Before/After分层一样
+            PRTLoader.NewParticle<PRT_CustomSpark>(pos, Vector2.Zero, Color.Black, 0.24f).Configure("CalamityMod/Particles/LargeBloom", false, 8, Vector2.One, false, false, 0f, false, false);
+            PRTLoader.NewParticle<PRT_CustomSpark>(pos, Vector2.Zero, Color.White, 0.12f).Configure("CalamityMod/Particles/LargeBloom", false, 8, Vector2.One, true, false, 0f, false, false, renderLayer: PRTRenderLayer.AfterPlayers);
         }
         public override void AI()
         {
@@ -193,15 +190,16 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (base.Projectile.timeLeft % 2 == 0)
             {
-                GeneralParticleHandler.SpawnParticle(new CustomSpark(Projectile.Center + Projectile.velocity.normalize() * 40, -base.Projectile.velocity * 0.05f, "CalamityMod/Particles/GlowSpark2", affectedByGravity: false, 9, 0.052f, Color.Black, new Vector2(0.6f, 1.3f), useAddativeBlend: false));
-                GeneralParticleHandler.SpawnParticle(new CustomSpark(Projectile.Center + Projectile.velocity.normalize() * 40, -base.Projectile.velocity * 0.05f, "CalamityMod/Particles/GlowSpark", affectedByGravity: false, 9, 0.022f, Color.LightGreen, new Vector2(0.6f, 1.9f)), pixelate: false, GeneralDrawLayer.AfterEverything);
+                //DetailedExplosionCal/CustomSpark CalamityPorts,Configure签名各管各的
+                PRTLoader.NewParticle<PRT_CustomSpark>(Projectile.Center + Projectile.velocity.normalize() * 40, -base.Projectile.velocity * 0.05f, Color.Black, 0.052f).Configure("CalamityMod/Particles/GlowSpark2", false, 9, new Vector2(0.6f, 1.3f), false, false, 0f, false, false);
+                PRTLoader.NewParticle<PRT_CustomSpark>(Projectile.Center + Projectile.velocity.normalize() * 40, -base.Projectile.velocity * 0.05f, Color.LightGreen, 0.022f).Configure("CalamityMod/Particles/GlowSpark", false, 9, new Vector2(0.6f, 1.9f), true, false, 0f, false, false, renderLayer: PRTRenderLayer.AfterPlayers);
             }
         }
         public override void OnKill(int timeLeft)
         {
             Vector2 spos = Projectile.Center + Projectile.velocity.normalize() * 68;
             SpawnParticle(spos);
-            if(Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), spos, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(16, 24), ModContent.ProjectileType<BuriedDot>(), OrigDamage, Projectile.knockBack, Projectile.owner);
             }
@@ -230,8 +228,9 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Vector2 v = (base.Projectile.velocity * 2f).RotatedBy(num2 * 0.6f) * Main.rand.NextFloat(0.4f, 1f) * (1f - Math.Abs(num2)) * 3.6f;
 
                 float sc = Main.rand.NextFloat(0.6f, 1);
-                GeneralParticleHandler.SpawnParticle(new CustomSpark(Projectile.Center + v, v, "CalamityMod/Particles/GlowSpark2", affectedByGravity: false, 16, 0.06f * sc, Color.Black, new Vector2(0.6f, 1.3f), useAddativeBlend: false));
-                GeneralParticleHandler.SpawnParticle(new CustomSpark(Projectile.Center + v, v, "CalamityMod/Particles/GlowSpark", affectedByGravity: false, 16, 0.022f * sc, Color.LightGreen, new Vector2(0.6f, 1.9f)), pixelate: false, GeneralDrawLayer.AfterEverything);
+                //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
+                PRTLoader.NewParticle<PRT_CustomSpark>(Projectile.Center + v, v, Color.Black, 0.06f * sc).Configure("CalamityMod/Particles/GlowSpark2", false, 16, new Vector2(0.6f, 1.3f), false, false, 0f, false, false);
+                PRTLoader.NewParticle<PRT_CustomSpark>(Projectile.Center + v, v, Color.LightGreen, 0.022f * sc).Configure("CalamityMod/Particles/GlowSpark", false, 16, new Vector2(0.6f, 1.9f), true, false, 0f, false, false, renderLayer: PRTRenderLayer.AfterPlayers);
             }
         }
     }
@@ -263,15 +262,16 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public void SpawnParticle(Vector2 pos)
         {
-            GeneralParticleHandler.SpawnParticle(new CustomSpark(pos, Vector2.Zero, "CalamityMod/Particles/LargeBloom", affectedByGravity: false, 8, 0.24f, Color.Black, Vector2.One, useAddativeBlend: false));
-            GeneralParticleHandler.SpawnParticle(new CustomSpark(pos, Vector2.Zero, "CalamityMod/Particles/LargeBloom", affectedByGravity: false, 8, 0.12f, Color.White, Vector2.One), pixelate: false, GeneralDrawLayer.AfterEverything);
+            //CustomPulse贴图路径Configure现传,Texture属性填白图应付框架
+            PRTLoader.NewParticle<PRT_CustomSpark>(pos, Vector2.Zero, Color.Black, 0.24f).Configure("CalamityMod/Particles/LargeBloom", false, 8, Vector2.One, false, false, 0f, false, false);
+            PRTLoader.NewParticle<PRT_CustomSpark>(pos, Vector2.Zero, Color.White, 0.12f).Configure("CalamityMod/Particles/LargeBloom", false, 8, Vector2.One, true, false, 0f, false, false, renderLayer: PRTRenderLayer.AfterPlayers);
         }
         public override void AI()
         {
             if (base.Projectile.timeLeft % 2 == 0)
             {
-                GeneralParticleHandler.SpawnParticle(new CustomSpark(Projectile.Center + Projectile.velocity.normalize() * 40, -base.Projectile.velocity * 0.05f, "CalamityMod/Particles/GlowSpark2", affectedByGravity: false, 9, 0.052f, Color.Black, new Vector2(0.6f, 1.3f), useAddativeBlend: false));
-                GeneralParticleHandler.SpawnParticle(new CustomSpark(Projectile.Center + Projectile.velocity.normalize() * 40, -base.Projectile.velocity * 0.05f, "CalamityMod/Particles/GlowSpark", affectedByGravity: false, 9, 0.022f, Color.LightGreen, new Vector2(0.6f, 1.9f)), pixelate: false, GeneralDrawLayer.AfterEverything);
+                PRTLoader.NewParticle<PRT_CustomSpark>(Projectile.Center + Projectile.velocity.normalize() * 40, -base.Projectile.velocity * 0.05f, Color.Black, 0.052f).Configure("CalamityMod/Particles/GlowSpark2", false, 9, new Vector2(0.6f, 1.3f), false, false, 0f, false, false);
+                PRTLoader.NewParticle<PRT_CustomSpark>(Projectile.Center + Projectile.velocity.normalize() * 40, -base.Projectile.velocity * 0.05f, Color.LightGreen, 0.022f).Configure("CalamityMod/Particles/GlowSpark", false, 9, new Vector2(0.6f, 1.9f), true, false, 0f, false, false, renderLayer: PRTRenderLayer.AfterPlayers);
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -298,8 +298,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Vector2 v = (base.Projectile.velocity * 2f).RotatedBy(num2 * 0.6f) * Main.rand.NextFloat(0.4f, 1f) * (1f - Math.Abs(num2)) * 3.6f;
 
                 float sc = Main.rand.NextFloat(0.6f, 1);
-                GeneralParticleHandler.SpawnParticle(new CustomSpark(Projectile.Center + v, v, "CalamityMod/Particles/GlowSpark2", affectedByGravity: false, 16, 0.06f * sc, Color.Black, new Vector2(0.6f, 1.3f), useAddativeBlend: false));
-                GeneralParticleHandler.SpawnParticle(new CustomSpark(Projectile.Center + v, v, "CalamityMod/Particles/GlowSpark", affectedByGravity: false, 16, 0.022f * sc, Color.LightGreen, new Vector2(0.6f, 1.9f)), pixelate: false, GeneralDrawLayer.AfterEverything);
+                PRTLoader.NewParticle<PRT_CustomSpark>(Projectile.Center + v, v, Color.Black, 0.06f * sc).Configure("CalamityMod/Particles/GlowSpark2", false, 16, new Vector2(0.6f, 1.3f), false, false, 0f, false, false);
+                PRTLoader.NewParticle<PRT_CustomSpark>(Projectile.Center + v, v, Color.LightGreen, 0.022f * sc).Configure("CalamityMod/Particles/GlowSpark", false, 16, new Vector2(0.6f, 1.9f), true, false, 0f, false, false, renderLayer: PRTRenderLayer.AfterPlayers);
             }
         }
     }
@@ -395,7 +395,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                             if (target != null)
                             {
                                 Item gun = new Item(ModContent.ItemType<BuriedSun>());
-                                    Vector2 start = Projectile.Center;
+                                Vector2 start = Projectile.Center;
                                 if (Projectile.GetOwner().PickAmmo(gun, out int projType, out float speed, out int _, out float kb, out int _, false))
                                 {
                                     int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), start, (target.Center - start).normalize() * speed * 1.6f, projType, Projectile.damage / 3, kb, Projectile.owner);
@@ -421,8 +421,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                                 scale *= 0.6f;
                                 Vector2 v = (mid - start).normalize();
 
-                                GeneralParticleHandler.SpawnParticle(new CustomSpark(p, v, "CalamityMod/Particles/GlowSpark2", affectedByGravity: false, 8, 0.06f * scale, Color.Black, new Vector2(0.6f, 1.3f), useAddativeBlend: false));
-                                GeneralParticleHandler.SpawnParticle(new CustomSpark(p, v, "CalamityMod/Particles/GlowSpark", affectedByGravity: false, 8, 0.022f * scale, Color.LightGreen, new Vector2(0.6f, 1.9f)), pixelate: false, GeneralDrawLayer.AfterEverything);
+                                PRTLoader.NewParticle<PRT_CustomSpark>(p, v, Color.Black, 0.06f * scale).Configure("CalamityMod/Particles/GlowSpark2", false, 8, new Vector2(0.6f, 1.3f), false, false, 0f, false, false);
+                                PRTLoader.NewParticle<PRT_CustomSpark>(p, v, Color.LightGreen, 0.022f * scale).Configure("CalamityMod/Particles/GlowSpark", false, 8, new Vector2(0.6f, 1.9f), true, false, 0f, false, false, renderLayer: PRTRenderLayer.AfterPlayers);
                             }
                         }
                         NPC target = CEUtils.FindTarget_HomingProj(Projectile, mid, 1200);
@@ -450,12 +450,12 @@ namespace CalamityEntropy.Content.Items.Weapons
             Color color1 = Color.LightGreen;
             Color color2 = Color.Black;
             float ExplosionRadius = 60;
-            GeneralParticleHandler.SpawnParticle(new DetailedExplosion(pos, Vector2.Zero, color1, Vector2.One, Main.rand.NextFloat(-5f, 5f), 0f, ExplosionRadius * 0.0065f + 0.1f, Main.rand.Next(15, 22)), pixelate: false, GeneralDrawLayer.AfterEverything);
-            GeneralParticleHandler.SpawnParticle(new DetailedExplosion(pos, Vector2.Zero, Color.Black, Vector2.One, Main.rand.NextFloat(-5f, 5f), 0f, ExplosionRadius * 0.0045f + 0.1f, Main.rand.Next(15, 22), UseAdditiveBlend: false));
-            GeneralParticleHandler.SpawnParticle(new DetailedExplosion(pos, Vector2.Zero, Color.Black, Vector2.One, Main.rand.NextFloat(-5f, 5f), 0f, ExplosionRadius * 0.003f + 0.1f, Main.rand.Next(15, 22), UseAdditiveBlend: false));
+            PRTLoader.NewParticle<PRT_DetailedExplosionCal>(pos, Vector2.Zero, color1, 0f).Configure(Vector2.One, Main.rand.NextFloat(-5f, 5f), ExplosionRadius * 0.0065f + 0.1f, Main.rand.Next(15, 22), true, renderLayer: PRTRenderLayer.AfterPlayers);
+            PRTLoader.NewParticle<PRT_DetailedExplosionCal>(pos, Vector2.Zero, Color.Black, 0f).Configure(Vector2.One, Main.rand.NextFloat(-5f, 5f), ExplosionRadius * 0.0045f + 0.1f, Main.rand.Next(15, 22), false);
+            PRTLoader.NewParticle<PRT_DetailedExplosionCal>(pos, Vector2.Zero, Color.Black, 0f).Configure(Vector2.One, Main.rand.NextFloat(-5f, 5f), ExplosionRadius * 0.003f + 0.1f, Main.rand.Next(15, 22), false);
             for (int i = 0; i < 4; i++)
             {
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(pos, Vector2.Zero, color1, "CalamityMod/Particles/BloomCircle", Vector2.One, Main.rand.NextFloat(-10f, 10f), 0f, ExplosionRadius * 0.005f + 0.05f, 25), pixelate: false, GeneralDrawLayer.AfterEverything);
+                PRTLoader.NewParticle<PRT_CustomPulse>(pos, Vector2.Zero, color1, 0f).Configure("CalamityMod/Particles/BloomCircle", Vector2.One, Main.rand.NextFloat(-10f, 10f), 0f, ExplosionRadius * 0.005f + 0.05f, 25, renderLayer: PRTRenderLayer.AfterPlayers);
             }
 
             float num = ExplosionRadius * 0.1f + 10f;
@@ -474,8 +474,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public void SpawnParticle(Vector2 pos, float scale)
         {
-            GeneralParticleHandler.SpawnParticle(new CustomSpark(pos, Vector2.Zero, "CalamityMod/Particles/LargeBloom", affectedByGravity: false, 8, 0.24f * scale, Color.Black, Vector2.One, useAddativeBlend: false));
-            GeneralParticleHandler.SpawnParticle(new CustomSpark(pos, Vector2.Zero, "CalamityMod/Particles/LargeBloom", affectedByGravity: false, 8, 0.12f * scale, Color.White, Vector2.One), pixelate: false, GeneralDrawLayer.AfterEverything);
+            PRTLoader.NewParticle<PRT_CustomSpark>(pos, Vector2.Zero, Color.Black, 0.24f * scale).Configure("CalamityMod/Particles/LargeBloom", false, 8, Vector2.One, false, false, 0f, false, false);
+            PRTLoader.NewParticle<PRT_CustomSpark>(pos, Vector2.Zero, Color.White, 0.12f * scale).Configure("CalamityMod/Particles/LargeBloom", false, 8, Vector2.One, true, false, 0f, false, false, renderLayer: PRTRenderLayer.AfterPlayers);
         }
     }
 }

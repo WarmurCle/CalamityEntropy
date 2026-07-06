@@ -1,11 +1,12 @@
 ﻿using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -137,8 +138,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Color impactColor = Color.LightBlue;
             float impactParticleScale = Main.rand.NextFloat(1.4f, 1.6f);
 
-            SparkleParticle impactParticle = new SparkleParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, impactColor, Color.Blue, impactParticleScale, 8, 0, 2.5f);
-            GeneralParticleHandler.SpawnParticle(impactParticle);
+            //旧Blend既不是Additive也不是AlphaBlend,Configure传NonPremultipliedBlend落第三桶
+            PRTLoader.NewParticle<PRT_SparkleCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, impactColor, impactParticleScale).Configure(Color.Blue, 8, 0, 2.5f);
 
 
             float sparkCount = 32;
@@ -151,13 +152,11 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Color sparkColor2 = Color.Lerp(Color.DeepSkyBlue, Color.Purple, p);
                 if (Main.rand.NextBool())
                 {
-                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
                 }
                 else
                 {
-                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.Red : Color.Firebrick);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), Main.rand.NextBool() ? Color.Red : Color.Firebrick, sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f)).Configure(false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)));
                 }
             }
         }
@@ -294,8 +293,8 @@ namespace CalamityEntropy.Content.Items.Weapons
     public class AntivoidDash : ModProjectile
     {
         public override string Texture => CEUtils.WhiteTexPath;
-        public AntivoidTrail trail;
-        public StarTrailParticle trail2;
+        public PRT_AntivoidTrail trail;
+        public PRT_StarTrailParticle trail2;
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(DamageClass.Melee, true, -1);
@@ -314,10 +313,13 @@ namespace CalamityEntropy.Content.Items.Weapons
             player.Entropy().immune = 5;
             if (trail == null)
             {
-                trail = new AntivoidTrail();
-                trail2 = new StarTrailParticle() { addPoint = false, maxLength = 60 };
-                EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, new Color(40, 10, 80, 255), 1, 1, true, BlendState.NonPremultiplied);
-                EParticle.spawnNew(trail2, Projectile.Center, Vector2.UnitX * 0.1f, new Color(255, 20, 20, 255), 1, 1, true, BlendState.Additive);
+                //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
+                trail = PRTLoader.NewParticle<PRT_AntivoidTrail>(Projectile.Center, Vector2.Zero, new Color(40, 10, 80, 255), 1f);
+                trail.Configure(1, true, PRTDrawModeEnum.NonPremultiplied);
+                trail2 = PRTLoader.NewParticle<PRT_StarTrailParticle>(Projectile.Center, Vector2.UnitX * 0.1f, new Color(255, 20, 20, 255), 1f);
+                trail2.addPoint = false;
+                trail2.maxLength = 60;
+                trail2.Configure(1, true, PRTDrawModeEnum.AdditiveBlend);
             }
             trail.AddPoint(Projectile.Center + Projectile.velocity);
             trail2.Position = (Projectile.Center + new Vector2(0, -10));
@@ -369,9 +371,19 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (Projectile.ai[1] == 39)
             {
-                EParticle.spawnNew(new AbyssalLine() { xadd = 2.4f, lx = 3.6f }, Projectile.Center, Vector2.Zero, new Color(30, 10, 50), 1, 1, true, BlendState.NonPremultiplied, 0, 30);
-                EParticle.spawnNew(new AbyssalLine() { xadd = 2f, lx = 3f }, Projectile.Center, Vector2.Zero, new Color(80, 40, 120), 1, 1, true, BlendState.NonPremultiplied, 0, 30);
-                EParticle.spawnNew(new AbyssalLine() { xadd = 2f, lx = 2.8f }, Projectile.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, 0, 30);
+                //轨迹类maxLength/SameAlpha字段Configure前先赋,PRTDrawMode只能走Configure
+                var line1 = PRTLoader.NewParticle<PRT_AbyssalLine>(Projectile.Center, Vector2.Zero, new Color(30, 10, 50), 1f);
+                line1.xadd = 2.4f;
+                line1.lx = 3.6f;
+                line1.Configure(1, true, PRTDrawModeEnum.NonPremultiplied, 0, 30);
+                var line2 = PRTLoader.NewParticle<PRT_AbyssalLine>(Projectile.Center, Vector2.Zero, new Color(80, 40, 120), 1f);
+                line2.xadd = 2f;
+                line2.lx = 3f;
+                line2.Configure(1, true, PRTDrawModeEnum.NonPremultiplied, 0, 30);
+                var line3 = PRTLoader.NewParticle<PRT_AbyssalLine>(Projectile.Center, Vector2.Zero, Color.LightBlue, 1);
+                line3.xadd = 2f;
+                line3.lx = 2.8f;
+                line3.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 30);
             }
         }
         public override bool PreDraw(ref Color lightColor)

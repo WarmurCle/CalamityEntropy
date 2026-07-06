@@ -1,5 +1,6 @@
-﻿using CalamityEntropy.Content.Items.Weapons;
-using CalamityMod.Particles;
+using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Particles.CalamityPorts;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
@@ -99,11 +100,10 @@ namespace CalamityEntropy.Content.Projectiles
                             {
                                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), topPos, Projectile.velocity * 30, ModContent.ProjectileType<HadopelagicLaser>(), (int)owner.GetTotalDamage(Projectile.DamageType).ApplyTo((int)(Projectile.damage * 1.50f)), Projectile.knockBack, Projectile.owner);
                             }
-                            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(topPos + Projectile.velocity * 3, Vector2.Zero, new Color(170, 170, 255), new Vector2(2f, 2f), 0, 0.1f, 0.3f, 20);
-                            GeneralParticleHandler.SpawnParticle(pulse);
+                            //PRT_DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
+                            PRTLoader.NewParticle<PRT_DirectionalPulseRing>(topPos + Projectile.velocity * 3, Vector2.Zero, new Color(170, 170, 255), 0.1f).Configure(new Vector2(2f, 2f), 0, 0.3f, 20);
 
-                            CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(topPos + Projectile.velocity * 6, Vector2.Zero, new Color(140, 140, 255) * 0.6f, Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.16f, 12);
-                            GeneralParticleHandler.SpawnParticle(explosion2);
+                            PRTLoader.NewParticle<PRT_DetailedExplosionCal>(topPos + Projectile.velocity * 6, Vector2.Zero, new Color(140, 140, 255) * 0.6f, 0f).Configure(Vector2.One, Main.rand.NextFloat(-5, 5), 0.16f, 12);
                             if (Projectile.owner == Main.myPlayer)
                             {
                                 int p = Projectile.NewProjectile(Projectile.GetSource_FromAI(), topPos, Projectile.velocity, ModContent.ProjectileType<Impact>(), 0, 0, Projectile.owner, 0, 1.2f);
@@ -115,8 +115,8 @@ namespace CalamityEntropy.Content.Projectiles
                                 int sparkLifetime2 = Main.rand.Next(26, 35);
                                 float sparkScale2 = sparkVelocity2.Length() * 0.16f;
                                 Color sparkColor2 = Color.Lerp(Color.SkyBlue, Color.LightSkyBlue, Main.rand.NextFloat(0, 1));
-                                LineParticle spark = new LineParticle(topPos + Projectile.velocity * 3, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-                                GeneralParticleHandler.SpawnParticle(spark);
+                                //跟AltSpark成对出现时寿命/速度系数是旧代码原值
+                                PRTLoader.NewParticle<PRT_LineCal>(topPos + Projectile.velocity * 3, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
                             }
                             shootCd = 26;
                             owner.velocity -= Projectile.velocity * 9;

@@ -1,7 +1,8 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -87,7 +88,8 @@ namespace CalamityEntropy.Content.Projectiles.Prophet
                         RotateSpeed += rspd * CEUtils.getRotateAngle(Projectile.velocity.ToRotation(), (player.Center - Projectile.Center).ToRotation(), 0.042f);
                     }
                     if (Projectile.timeLeft % 10 == 0)
-                        GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.SkyBlue * 0.32f, 0.2f, 4f, 64));
+                        //PulseRing CalamityPorts ring,Configure原构造
+                        PRTLoader.NewParticle<PRT_PulseRing>(Projectile.Center, Vector2.Zero, Color.SkyBlue * 0.32f, 0.2f).Configure(4f, 64);  //PulseRing CalamityPorts ring,Configure原构造
                     RotateSpeed *= 0.977f;
                     foreach (var player in Main.ActivePlayers)
                     {

@@ -1,17 +1,11 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Dusts;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -32,7 +26,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             Player player = Projectile.GetOwner();
-            if(!player.active || player.dead)
+            if (!player.active || player.dead)
             {
                 Projectile.Kill();
                 return;
@@ -146,8 +140,8 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Projectile.ai[2] = value.whoAmI;
             }
-        }    
-        
+        }
+
         public override bool? CanDamage()
         {
             if (Hitted && !ForceStrike)
@@ -161,8 +155,9 @@ namespace CalamityEntropy.Content.Projectiles
                 Hitted = true;
                 Projectile.timeLeft = 900;
                 CEUtils.SyncProj(Projectile.whoAmI);
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(140, 140, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 1.8f, 15));
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(80, 80, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 1.4f, 18));
+                //CustomPulse贴图路径现传,走PRTPathTextures缓存,Configure第一个string是TexPath
+                PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(140, 140, 255), 0.01f).Configure("CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 1.8f, 15);
+                PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(80, 80, 255), 0.01f).Configure("CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 1.4f, 18);
                 for (int i = 0; i < 16; i++)
                 {
                     Dust dust = Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<SquashDust>(), -Projectile.velocity);
@@ -175,7 +170,7 @@ namespace CalamityEntropy.Content.Projectiles
                 CEUtils.PlaySound("DemonSwordImpact2", Main.rand.NextFloat(1.6f, 2f), Projectile.Center, 8, 0.8f);
                 Projectile.velocity = CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(17, 24);
                 int s = 0;
-                foreach(Projectile p in Main.ActiveProjectiles)
+                foreach (Projectile p in Main.ActiveProjectiles)
                 {
                     if (p.type == Projectile.type && p.owner == Projectile.owner && p.ai[0] > 0)
                         s++;
@@ -184,7 +179,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (s > 15)
                     Projectile.Kill();
             }
-            if(ForceStrike)
+            if (ForceStrike)
             {
                 CEUtils.PlaySound("moonlighthit" + Main.rand.Next(2), Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, 6, 1);
                 for (int i = 0; i < 5; i++)
@@ -196,7 +191,7 @@ namespace CalamityEntropy.Content.Projectiles
                     dust.color = Color.LightBlue;
                     dust.fadeIn = 2f;
                 }
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(180, 180, 255), "CalamityMod/Particles/GlowSquareParticleThick", Vector2.One, CEUtils.randomRot(), 0.005f, 1f, 16));
+                PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(180, 180, 255), 0.005f).Configure("CalamityMod/Particles/GlowSquareParticleThick", Vector2.One, CEUtils.randomRot(), 0.005f, 1f, 16);
                 Projectile.Kill();
             }
         }
@@ -226,14 +221,14 @@ namespace CalamityEntropy.Content.Projectiles
                     dust.color = Color.LightBlue;
                     dust.fadeIn = 2f;
                 }
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(140, 140, 255), "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 24));
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(140, 140, 255), "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 18));
+                PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(140, 140, 255), 0.005f).Configure("CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 24);
+                PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(140, 140, 255), 0.005f).Configure("CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 18);
             }
         }
         public override bool PreDraw(ref Color lightColor)
         {
             float trailOffset = Main.GlobalTimeWrappedHourly * 4;
-            if(ForceStrike)
+            if (ForceStrike)
             {
                 if (targetNPC != null)
                 {
@@ -317,7 +312,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Main.spriteBatch.ExitShaderRegion();
             }
             Texture2D tex = Projectile.GetTexture();
-            if(Hitted)
+            if (Hitted)
             {
                 Main.spriteBatch.UseAdditive();
                 for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver4)
@@ -382,7 +377,9 @@ namespace CalamityEntropy.Content.Projectiles
                             Projectile.ai[2] = 8;
                             Projectile.ai[0] = 1;
 
-                            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center + (Projectile.rotation + dir * 0.9f).ToRotationVector2() * 13, Vector2.Zero, new Color(120, 120, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 0.8f, 10) { Velocity = player.velocity});
+                            //LargeBloom/FlameExplosion那些Calamity路径字符串原样保留
+                            //CustomPulse贴图路径现传,走PRTPathTextures缓存,Configure第一个string是TexPath
+                            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center + (Projectile.rotation + dir * 0.9f).ToRotationVector2() * 13, player.velocity, new Color(120, 120, 255), 0.01f).Configure("CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 0.8f, 10);
                         }
                     }
                 }
@@ -439,8 +436,8 @@ namespace CalamityEntropy.Content.Projectiles
                     }
             }
             CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, (count > 0 ? 13f : 4f) * 62, Projectile.DamageType);
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(160, 160, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, count > 0 ? 10f : 4f, 24));
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(90, 90, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, count > 0 ? 5f : 3.2f, 28));
+            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(160, 160, 255), 0.01f).Configure("CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, count > 0 ? 10f : 4f, 24);
+            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(90, 90, 255), 0.01f).Configure("CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, count > 0 ? 5f : 3.2f, 28);
 
             Projectile.Kill();
         }
@@ -456,7 +453,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.ai[1] == 0)
                 return;
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(90, 90, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 2f, 19));
+            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(90, 90, 255), 0.01f).Configure("CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 2f, 19);
             CEUtils.PlaySound("DemonSwordInsaneImpact", Main.rand.NextFloat(1.8f, 2f), Projectile.Center, 8, 0.16f);
             CEUtils.PlaySound("Smash" + Main.rand.Next(1, 3), Main.rand.NextFloat(1.2f, 1.5f), Projectile.Center);
             CEUtils.PlaySound("Smash" + Main.rand.Next(1, 3), Main.rand.NextFloat(1.2f, 1.5f), Projectile.Center);
@@ -471,9 +468,9 @@ namespace CalamityEntropy.Content.Projectiles
                 dust.fadeIn = 2f;
             }
             float scale = 4f;
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(200, 200, 255), "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 18));
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(200, 200, 255), "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 14));
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(200, 200, 255), "CalamityMod/Particles/PulseStar", Vector2.One, 0, 0.005f, scale * 0.035f, 18));
+            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(200, 200, 255), 0.005f).Configure("CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 18);
+            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(200, 200, 255), 0.005f).Configure("CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 14);
+            PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(200, 200, 255), 0.005f).Configure("CalamityMod/Particles/PulseStar", Vector2.One, 0, 0.005f, scale * 0.035f, 18);
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -519,7 +516,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             Texture2D tex = Projectile.GetTexture();
             Main.spriteBatch.UseAdditive();
-            for(float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver4)
+            for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver4)
             {
                 Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition + (i + Main.GlobalTimeWrappedHourly * 12).ToRotationVector2() * (Projectile.ai[0] * 6 + Projectile.ai[2]), null, Color.White * (Projectile.ai[0] >= 1 ? 0.66f : 0.5f), Projectile.rotation - MathHelper.ToRadians(30), tex.Size().Half(), Projectile.scale, SpriteEffects.None, 0);
             }

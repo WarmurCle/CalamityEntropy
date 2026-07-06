@@ -1,28 +1,63 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using InnoVault.PRT;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 
 namespace CalamityEntropy.Content.Particles
 {
-    public class CrystalGlow : EParticle
+    //EParticle迁来的CrystalGlow,EmberSpike命中闪晶,双旋转叠两层
+    public class PRT_CrystalGlow : BasePRT
     {
-        public override Texture2D Texture => CEUtils.getExtraTex("CrystalGlow");
+        public bool Glow = true;
         public float r1 = 0;
         public float r2 = 0;
-        public override void OnSpawn()
+
+        public override bool CanPool => true;
+
+        public override void Reset()
         {
-            base.OnSpawn();
-            r1 = CEUtils.randomRot();
+            base.Reset();
+            Glow = true;
+            r1 = 0f;
+            r2 = 0f;
+        }
+
+        public override string Texture => "CalamityEntropy/Assets/Extra/CrystalGlow";
+
+        public PRT_CrystalGlow Configure(float opacity, bool glow, PRTDrawModeEnum mode,
+            float rotation = 0f, int lifetime = -1)
+        {
+            Opacity = opacity;
+            Glow = glow;
+            PRTDrawMode = mode;
+            Rotation = rotation;
+            if (lifetime > 0)
+                Lifetime = lifetime;
+            return this;
+        }
+
+        public override void SetProperty()
+        {
+            ShouldKillWhenOffScreen = false;
+            if (Lifetime <= 0)
+                Lifetime = 200;
+            r1 = CEUtils.randomRot();   //随机角放SetProperty,CanPool复用不会重跑字段初始化器
             r2 = CEUtils.randomRot();
         }
+
         public override void AI()
         {
-            base.AI();
-            this.Opacity = this.Lifetime / (float)this.TimeLeftMax;
+            Opacity = 1f - LifetimeCompletion;   //只淡出不改Scale,跟GlowSpark同款remaining写法
         }
-        public override void Draw()
+
+        public override bool PreDraw(SpriteBatch sb)
         {
-            Main.spriteBatch.Draw(Texture, Position - Main.screenPosition, null, this.Color * Opacity, r1, Texture.Size() * 0.5f, this.Scale, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(Texture, Position - Main.screenPosition, null, this.Color * Opacity, r2, Texture.Size() * 0.5f, this.Scale, SpriteEffects.None, 0);
+            Texture2D tex = PRTExtraTextures.CrystalGlow.Value;   //Assets/Extra走VaultLoaden,不走Texture属性加载
+            Color clr = Color * Opacity;
+            sb.Draw(tex, Position - Main.screenPosition, null, clr, r1, tex.Size() * 0.5f, Scale, SpriteEffects.None, 0);
+            sb.Draw(tex, Position - Main.screenPosition, null, clr, r2, tex.Size() * 0.5f, Scale, SpriteEffects.None, 0);   //r1/r2独立随机角,视觉上像两片晶体
+            return false;
         }
     }
+
+
 }

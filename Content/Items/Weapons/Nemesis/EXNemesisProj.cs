@@ -58,12 +58,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
             {
                 alp = 300;
                 Projectile.velocity = origVer.UnitVector() * 32;
-                for (int i = 0; i < 6; i++)
+                //dedServ时PRTLoader.NewParticle给孤儿实例,Configure照常
+                if (!Main.dedServ)
                 {
-                    Vector2 ver = Projectile.velocity.GetNormalVector() * Main.rand.NextFloat(-116, 116);
-                    BasePRT particle = new PRT_Light(Projectile.Center + Projectile.velocity * 10, ver
-                        , Main.rand.NextFloat(1.3f, 1.7f), Color.OrangeRed, 32, 0.2f);
-                    PRTLoader.AddParticle(particle);
+                    for (int i = 0; i < 6; i++)
+                    {
+                        Vector2 ver = Projectile.velocity.GetNormalVector() * Main.rand.NextFloat(-116, 116);
+                        //PRT_Light拖尾,Configure尾参lifetime对齐旧timeLeft
+                        PRTLoader.NewParticle<PRT_Light>(Projectile.Center + Projectile.velocity * 10, ver, Color.OrangeRed, Main.rand.NextFloat(1.3f, 1.7f))
+                            .Configure(0.2f, lifetime: 32);
+                    }
                 }
                 PunchCameraModifier modifier = new PunchCameraModifier(Projectile.Center
                         , (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, FullName);

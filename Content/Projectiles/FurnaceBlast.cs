@@ -1,6 +1,7 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Books;
-using CalamityMod.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -189,9 +190,11 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             {
                 CEUtils.PlaySound("energyImpact", Main.rand.NextFloat(0.9f, 1.2f), Projectile.Center, 8, 0.6f);
 
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.OrangeRed, "CalamityMod/Particles/ShineExplosion1", Vector2.One, CEUtils.randomRot(), 0.02f, 0.16f, 16));
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.OrangeRed, "CalamityMod/Particles/ShineExplosion2", Vector2.One, CEUtils.randomRot(), 0.02f, 0.16f, 16));
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.OrangeRed, "CalamityMod/Particles/FlameExplosion", Vector2.One, CEUtils.randomRot(), 0.02f, 0.14f, 16));
+                //CustomPulse贴图路径现传,走PRTPathTextures缓存,Configure第一个string是TexPath
+                PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.02f).Configure("CalamityMod/Particles/ShineExplosion1", Vector2.One, CEUtils.randomRot(), 0.02f, 0.16f, 16);  //LargeBloom/FlameExplosion那些Calamity路径字符串原样保留
+                //三连CustomPulse旧GeneralParticleHandler ShineExplosion+FlameExplosion叠层,TexPath字符串没动
+                PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.02f).Configure("CalamityMod/Particles/ShineExplosion2", Vector2.One, CEUtils.randomRot(), 0.02f, 0.16f, 16);
+                PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.02f).Configure("CalamityMod/Particles/FlameExplosion", Vector2.One, CEUtils.randomRot(), 0.02f, 0.14f, 16);
 
             }
         }

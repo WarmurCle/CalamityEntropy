@@ -1,5 +1,6 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
 using CalamityMod;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
@@ -70,7 +71,9 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     if (launch)
                     {
-                        EParticle.NewParticle(new Particles.ImpactParticle(), Projectile.Center, Vector2.Zero, Color.IndianRed, 0.18f, 1, true, BlendState.Additive, (target.Center - Projectile.Center).ToRotation());
+                        //ImpactParticle rotation走Configure,旧PRT/EParticle Impact尾参
+                        PRTLoader.NewParticle<PRT_ImpactParticle>(Projectile.Center, Vector2.Zero, Color.IndianRed, 0.18f)
+                            .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, (target.Center - Projectile.Center).ToRotation());  //ImpactParticle rotation走Configure,旧EParticle Impact尾参
 
                         if (!Main.dedServ)
                         {

@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
@@ -11,7 +12,7 @@ using CalamityMod.Items.LoreItems;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.NPCs.Perforator;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
@@ -24,7 +25,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-
 namespace CalamityEntropy.Content.Items.Donator
 {
     public class TlipocasScythe : RogueWeapon, IDevItem
@@ -565,7 +565,13 @@ namespace CalamityEntropy.Content.Items.Donator
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             CEUtils.PlaySound("slice", 1, target.Center);
-            EParticle.NewParticle(new MultiSlash() { xadd = 1f, lx = 1f, endColor = Color.Red, spawnColor = Color.IndianRed }, target.Center, Vector2.Zero, Color.IndianRed, 1, 1, true, BlendState.Additive, 0);
+            //PRT_MultiSlash xadd spawn后赋,旧MultiSlash原值
+            var p = PRTLoader.NewParticle<PRT_MultiSlash>(target.Center, Vector2.Zero, Color.IndianRed, 1);
+            p.xadd = 1f;
+            p.lx = 1f;
+            p.endColor = Color.Red;
+            p.spawnColor = Color.IndianRed;
+            p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, -1);
             if (TlipocasScythe.DashUpgrade())
             {
                 target.AddBuff<MarkedforDeath>(8 * 60);
@@ -613,8 +619,7 @@ namespace CalamityEntropy.Content.Items.Donator
                     for (float i = 0; i < 1; i += 0.01f)
                     {
                         Color sparkColor2 = Color.Lerp(Color.Red, Color.DarkRed, Main.rand.NextFloat(0, 1));
-                        var spark = new AltSparkParticle(top + CEUtils.randomPointInCircle(32), sparkVelocity2 * Main.rand.NextFloat(), false, (int)(sparkLifetime2), sparkScale2 * Main.rand.NextFloat(0.6f, 1), sparkColor2);
-                        GeneralParticleHandler.SpawnParticle(spark);
+                        PRTLoader.NewParticle<PRT_AltSpark>(top + CEUtils.randomPointInCircle(32), sparkVelocity2 * Main.rand.NextFloat(), sparkColor2, sparkScale2 * Main.rand.NextFloat(0.6f, 1)).Configure(false, (int)(sparkLifetime2));
                     }
                 }
                 else
@@ -632,8 +637,7 @@ namespace CalamityEntropy.Content.Items.Donator
                     for (float i = 0; i < 1; i += 0.01f)
                     {
                         Color sparkColor2 = Color.Lerp(Color.Red, Color.DarkRed, Main.rand.NextFloat(0, 1));
-                        var spark = new AltSparkParticle(top + CEUtils.randomPointInCircle(32), sparkVelocity2.RotatedBy(MathHelper.PiOver2 * (Main.rand.NextBool() ? 1 : -1)) * Main.rand.NextFloat(), false, (int)(sparkLifetime2), sparkScale2 * Main.rand.NextFloat(0.6f, 1), sparkColor2);
-                        GeneralParticleHandler.SpawnParticle(spark);
+                        PRTLoader.NewParticle<PRT_AltSpark>(top + CEUtils.randomPointInCircle(32), sparkVelocity2.RotatedBy(MathHelper.PiOver2 * (Main.rand.NextBool() ? 1 : -1)) * Main.rand.NextFloat(), sparkColor2, sparkScale2 * Main.rand.NextFloat(0.6f, 1)).Configure(false, (int)(sparkLifetime2));
                     }
                 }
             }
@@ -751,8 +755,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Color impactColor = Color.Red;
             float impactParticleScale = Main.rand.NextFloat(1.5f, 1.7f);
 
-            SparkleParticle impactParticle = new SparkleParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, TlipocasScythe.TrailColor(Projectile) * 8, Color.White, impactParticleScale, 12, 0, 2.5f);
-            GeneralParticleHandler.SpawnParticle(impactParticle);
+            PRTLoader.NewParticle<PRT_SparkleCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, TlipocasScythe.TrailColor(Projectile) * 8, impactParticleScale).Configure(Color.White, 12, 0, 2.5f);
 
             float sparkCount = 8 + TlipocasScythe.GetLevel();
             for (int i = 0; i < sparkCount; i++)
@@ -768,13 +771,11 @@ namespace CalamityEntropy.Content.Items.Donator
                     sparkColor2 = Color.Lerp(Color.DeepSkyBlue, Color.Purple, p);
                     if (Main.rand.NextBool())
                     {
-                        AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
-                        GeneralParticleHandler.SpawnParticle(spark);
+                        PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
                     }
                     else
                     {
-                        LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Color.Purple);
-                        GeneralParticleHandler.SpawnParticle(spark);
+                        PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), Color.Purple, sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f)).Configure(false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)));
                     }
                 }
                 else
@@ -783,17 +784,15 @@ namespace CalamityEntropy.Content.Items.Donator
                         sparkColor2 = TlipocasScythe.TrailColor(Projectile);
                     if (Main.rand.NextBool())
                     {
-                        AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
-                        GeneralParticleHandler.SpawnParticle(spark);
+                        PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
                     }
                     else
                     {
-                        LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.Red : Color.DarkRed);
-                        GeneralParticleHandler.SpawnParticle(spark);
+                        PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2, Main.rand.NextBool() ? Color.Red : Color.DarkRed, sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f)).Configure(false, (int)(sparkLifetime2));
                     }
                 }
             }
-            EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, new Color(255, 120, 120), 1, 1, true, BlendState.Additive, 0, 6);
+            PRTLoader.NewParticle<PRT_ShineParticle>(target.Center, Vector2.Zero, new Color(255, 120, 120), 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 6);
 
         }
         public override bool ShouldUpdatePosition()
@@ -1180,8 +1179,7 @@ namespace CalamityEntropy.Content.Items.Donator
             Color impactColor = Color.Red;
             float impactParticleScale = Main.rand.NextFloat(1.5f, 1.7f);
 
-            SparkleParticle impactParticle = new SparkleParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, TlipocasScythe.TrailColor(Projectile) * 12, Color.White, impactParticleScale, 8, 0, 2.5f);
-            GeneralParticleHandler.SpawnParticle(impactParticle);
+            PRTLoader.NewParticle<PRT_SparkleCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, TlipocasScythe.TrailColor(Projectile) * 12, impactParticleScale).Configure(Color.White, 8, 0, 2.5f);
 
 
             float sparkCount = 6 + TlipocasScythe.GetLevel();
@@ -1198,13 +1196,11 @@ namespace CalamityEntropy.Content.Items.Donator
                     sparkColor2 = Color.Lerp(Color.DeepSkyBlue, Color.Purple, p);
                     if (Main.rand.NextBool())
                     {
-                        AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
-                        GeneralParticleHandler.SpawnParticle(spark);
+                        PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
                     }
                     else
                     {
-                        LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Color.Purple);
-                        GeneralParticleHandler.SpawnParticle(spark);
+                        PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (Projectile.frame == 7 ? 1f : 0.65f), Color.Purple, sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f)).Configure(false, (int)(sparkLifetime2 * (Projectile.frame == 7 ? 1.2f : 1f)));
                     }
                 }
                 else
@@ -1213,17 +1209,15 @@ namespace CalamityEntropy.Content.Items.Donator
                         sparkColor2 = TlipocasScythe.TrailColor(Projectile);
                     if (Main.rand.NextBool())
                     {
-                        AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
-                        GeneralParticleHandler.SpawnParticle(spark);
+                        PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
                     }
                     else
                     {
-                        LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.Red : Color.DarkRed);
-                        GeneralParticleHandler.SpawnParticle(spark);
+                        PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2, Main.rand.NextBool() ? Color.Red : Color.DarkRed, sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f)).Configure(false, (int)(sparkLifetime2));
                     }
                 }
             }
-            EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, new Color(255, 120, 120), 1, 1, true, BlendState.Additive, 0, 6);
+            PRTLoader.NewParticle<PRT_ShineParticle>(target.Center, Vector2.Zero, new Color(255, 120, 120), 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 6);
 
         }
         public override void SendExtraAI(BinaryWriter writer)
@@ -1282,14 +1276,18 @@ namespace CalamityEntropy.Content.Items.Donator
                     if (DownedBossSystem.downedPolterghast)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, (Projectile.Center - player.Center).SafeNormalize((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX)) * 16, ModContent.ProjectileType<TlipocasScytheHeld>(), (int)(Projectile.damage * TeleportSlashDamageMult * 0.5f), Projectile.knockBack, player.whoAmI, 1, 1, 1);
-                        EParticle.spawnNew(new PlayerShadowBlack() { plr = player }, player.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, 0, 60);
+                        var p = PRTLoader.NewParticle<PRT_PlayerShadowBlack>(player.Center, Vector2.Zero, Color.White, 1);
+                        p.plr = player;
+                        p.Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0, 60);
                     }
                     Projectile.Kill();
                     Vector2 v1 = player.position;
                     Vector2 v2 = Projectile.Center - new Vector2(player.width, player.height) / 2;
                     for (float i = 0; i <= 1; i += 0.05f)
                     {
-                        EParticle.NewParticle(new PlayerShadowBlack() { plr = player }, Vector2.Lerp(v1, v2, i), Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend, 0, 12);
+                        var p = PRTLoader.NewParticle<PRT_PlayerShadowBlack>(Vector2.Lerp(v1, v2, i), Vector2.Zero, Color.White, 1);
+                        p.plr = player;
+                        p.Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0, 12);
                     }
                     player.Center = Projectile.Center;
                     player.Entropy().immune = 32;

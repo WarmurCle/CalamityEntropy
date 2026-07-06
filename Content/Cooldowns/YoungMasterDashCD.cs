@@ -1,6 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Donator;
-using CalamityMod.Cooldowns;
-using Terraria;
+﻿using CalamityMod.Cooldowns;
 using Terraria.Audio;
 using Terraria.Localization;
 

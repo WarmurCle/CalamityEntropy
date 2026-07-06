@@ -1,13 +1,12 @@
 ﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Particles;
-using Microsoft.Xna.Framework.Graphics;
+using InnoVault.PRT;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-
 namespace CalamityEntropy.Content.Items.Accessories
 {
     public class ShadowMantle : ModItem
@@ -67,7 +66,12 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             CEUtils.PlaySound("SwiftSlice", 1, target.Center);
-            EParticle.NewParticle(new MultiSlash() { xadd = 1f, lx = 1f, endColor = Color.Blue }, target.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, 0);
+            //MultiSlash寿命-1跟着斩击,字段赋值在Configure前
+            var p = PRTLoader.NewParticle<PRT_MultiSlash>(target.Center, Vector2.Zero, Color.LightBlue, 1);
+            p.xadd = 1f;
+            p.lx = 1f;
+            p.endColor = Color.Blue;
+            p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, -1);
         }
         public bool MovePlayer = true;
         public override void AI()
@@ -99,25 +103,19 @@ namespace CalamityEntropy.Content.Items.Accessories
                 Color sparkColor2 = Color.Lerp(Color.DarkBlue, Color.Purple, Main.rand.NextFloat(0, 1));
                 for (float i = 0; i < 1; i += 0.02f)
                 {
-                    var spark = new AltSparkParticle(top + rd * rdp, sparkVelocity2 * (0.1f + i) - rd * rdc, false, (int)(sparkLifetime2), sparkScale2 * (0.4f + (1 - i)), sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
-                    spark = new AltSparkParticle(top2 + rd * rdp, -sparkVelocity2 * (0.1f + i) - rd * rdc, false, (int)(sparkLifetime2), sparkScale2 * (0.4f + (1 - i)), sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    PRTLoader.NewParticle<PRT_AltSpark>(top + rd * rdp, sparkVelocity2 * (0.1f + i) - rd * rdc, sparkColor2, sparkScale2 * (0.4f + (1 - i))).Configure(false, (int)(sparkLifetime2));
+                    PRTLoader.NewParticle<PRT_AltSpark>(top2 + rd * rdp, -sparkVelocity2 * (0.1f + i) - rd * rdc, sparkColor2, sparkScale2 * (0.4f + (1 - i))).Configure(false, (int)(sparkLifetime2));
 
-                    spark = new AltSparkParticle(top - rd * rdp, sparkVelocity2 * (0.1f + i) + rd * rdc, false, (int)(sparkLifetime2), sparkScale2 * (0.4f + (1 - i)), sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
-                    spark = new AltSparkParticle(top2 - rd * rdp, -sparkVelocity2 * (0.1f + i) + rd * rdc, false, (int)(sparkLifetime2), sparkScale2 * (0.4f + (1 - i)), sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    PRTLoader.NewParticle<PRT_AltSpark>(top - rd * rdp, sparkVelocity2 * (0.1f + i) + rd * rdc, sparkColor2, sparkScale2 * (0.4f + (1 - i))).Configure(false, (int)(sparkLifetime2));
+                    PRTLoader.NewParticle<PRT_AltSpark>(top2 - rd * rdp, -sparkVelocity2 * (0.1f + i) + rd * rdc, sparkColor2, sparkScale2 * (0.4f + (1 - i))).Configure(false, (int)(sparkLifetime2));
                 }
 
                 sparkScale2 = 1;
                 sparkColor2 = Color.Lerp(Color.Aqua, new Color(200, 200, 255), Main.rand.NextFloat(0, 1));
                 for (float i = 0; i < 1; i += 0.02f)
                 {
-                    var spark2 = new LineParticle(top, sparkVelocity2 * (0.1f + i), false, (int)(sparkLifetime2), sparkScale2 * (0.4f + (1 - i)), sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark2);
-                    spark2 = new LineParticle(top2, -sparkVelocity2 * (0.1f + i), false, (int)(sparkLifetime2), sparkScale2 * (0.4f + (1 - i)), sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark2);
+                    PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2 * (0.1f + i), sparkColor2, sparkScale2 * (0.4f + (1 - i))).Configure(false, (int)(sparkLifetime2));
+                    PRTLoader.NewParticle<PRT_LineCal>(top2, -sparkVelocity2 * (0.1f + i), sparkColor2, sparkScale2 * (0.4f + (1 - i))).Configure(false, (int)(sparkLifetime2));
                 }
             }
         }

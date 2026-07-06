@@ -1,8 +1,9 @@
 ﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Ranged;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -44,14 +45,18 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Color impactColor = Main.rand.NextBool(3) ? Color.Firebrick : Color.OrangeRed;
             float impactParticleScale = Main.rand.NextFloat(1f, 1.75f) * 1.65f;
-            SparkleParticle impactParticle = new SparkleParticle(position + velocity, Vector2.Zero, impactColor, Color.OrangeRed, impactParticleScale, 8, 0.16f, 2f);
-            GeneralParticleHandler.SpawnParticle(impactParticle);
+            //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
+            PRTLoader.NewParticle<PRT_SparkleCal>(position + velocity, Vector2.Zero, impactColor, impactParticleScale).Configure(Color.OrangeRed, 8, 0.16f, 2f);
 
 
             Main.LocalPlayer.Calamity().GeneralScreenShakePower = 4 * player.Entropy().GetPressure();
+            //StrikeParticle+Smoke成对,PRTDrawMode走Configure尾参
             for (int i = 0; i < 64; i++)
             {
-                EParticle.NewParticle(new Smoke() { timeleftmax = 16, Lifetime = 16 }, position, velocity.RotatedByRandom(0.74) * 0.6f * Main.rand.NextFloat(0.4f, 1f), Color.OrangeRed, Main.rand.NextFloat(0.06f, 0.14f), 1, true, BlendState.Additive, CEUtils.randomRot());
+                var p = PRTLoader.NewParticle<PRT_Smoke>(position, velocity.RotatedByRandom(0.74) * 0.6f * Main.rand.NextFloat(0.4f, 1f), Color.OrangeRed, Main.rand.NextFloat(0.06f, 0.14f));
+                p.timeleftmax = 16;
+                p.Lifetime = 16;
+                p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 16);
             }
             for (int i = 0; i < 3; i++)
             {
@@ -64,7 +69,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 Projectile.NewProjectile(source, position, velocity.RotatedByRandom(0.64f) * 0.6f * Main.rand.NextFloat(0.4f, 1f), ModContent.ProjectileType<ProminenceSplitShot>(), damage / 6, knockback * 2, player.whoAmI);
                 Vector2 vel = velocity.RotatedByRandom(0.84f) * 1.4f * Main.rand.NextFloat(0.4f, 1f);
-                EParticle.NewParticle(new StrikeParticle(), position, vel, Color.Lerp(Color.OrangeRed, new Color(255, 231, 66), Main.rand.NextFloat()), 0.24f, 1, true, BlendState.Additive, vel.ToRotation());
+                PRTLoader.NewParticle<PRT_StrikeParticle>(position, vel, Color.Lerp(Color.OrangeRed, new Color(255, 231, 66), Main.rand.NextFloat()), 0.24f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, vel.ToRotation());
             }
             player.velocity -= velocity * 0.08f * player.Entropy().GetPressure();
             return false;

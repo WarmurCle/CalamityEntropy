@@ -1,48 +1,74 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Terraria.ModLoader;
+﻿using InnoVault.PRT;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace CalamityEntropy.Content.Particles
 {
-    public class ULineParticle : EParticle
+    public class PRT_ULineParticle : BasePRT
     {
-        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/LifeLeaf").Value;
+        public bool Glow = true;
+        public Vector2 b;
+        public float len = 2;
+        public float w1 = 0.96f;
+        public float w2 = 0.96f;
+        public float spd = 0.05f;
+        public int counter = 0;
+
+        public override bool CanPool => true;
+
+        public override void Reset()
+        {
+            base.Reset();
+            Glow = true;
+            b = default;
+            len = 2f;
+            w1 = 0.96f;
+            w2 = 0.96f;
+            spd = 0.05f;
+            counter = 0;
+        }
+
+        //同ELineParticle:线走drawLine的white,Texture借LifeLeaf,别指白图走像素通道
+        public override string Texture => "CalamityEntropy/Content/Particles/LifeLeaf";
+
+        public PRT_ULineParticle Configure(float opacity, bool glow, PRTDrawModeEnum mode,
+            float rotation = 0f, int lifetime = -1)
+        {
+            Opacity = opacity;
+            Glow = glow;
+            PRTDrawMode = mode;
+            Rotation = rotation;
+            if (lifetime > 0)
+                Lifetime = lifetime;
+            return this;
+        }
+
+        public override void SetProperty()
+        {
+            ShouldKillWhenOffScreen = false;
+            b = Position;   //尾端锚点,逻辑同ELineParticle只是短命版
+            if (Lifetime <= 0)
+                Lifetime = 4;   //旧默认4,到期前靠Time+4续命
+        }
 
         public override void AI()
         {
-            base.AI();
             counter++;
-            this.Velocity *= r;
-            b = Vector2.Lerp(this.Position, b, this.c);
-            this.Opacity -= this.alphaD;
-            if (CEUtils.getDistance(this.Position, b) < 4 && counter > 3 || this.Opacity < 0)
-            {
-                this.Lifetime = 0;
-            }
+            Velocity *= w2;
+            b = Vector2.Lerp(Position, b, w1);
+            Opacity -= spd;   //逐帧扣透明度,跟ELine那套距离判死并行
+            if (CEUtils.getDistance(Position, b) < 4 && counter > 3 || Opacity < 0)
+                Kill();
             else
-            {
-                this.Lifetime = 4;
-            }
+                Lifetime = Time + 4;   //续命窗口比ELine宽(4 tick),短线闪一下就收
         }
-        public Vector2 b;
-        public override void OnSpawn()
+
+        public override bool PreDraw(SpriteBatch sb)
         {
-            b = this.Position;
-        }
-        public float width = 2;
-        public float c;
-        public float r;
-        public float alphaD;
-        public ULineParticle(float width, float c = 0.96f, float r = 0.96f, float alphaDec = 0.05f)
-        {
-            this.width = width;
-            this.c = c;
-            this.r = r;
-            this.alphaD = alphaDec;
-        }
-        public int counter = 0;
-        public override void Draw()
-        {
-            CEUtils.drawLine(this.Position, b, this.Color * this.Opacity, width * this.Opacity);
+            //drawLine拉getExtraTex("white"),Opacity同时压色和线宽
+            CEUtils.drawLine(Position, b, Color * Opacity, len * Opacity);
+            return false;
         }
     }
+
+
 }

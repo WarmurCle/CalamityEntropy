@@ -1,7 +1,7 @@
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
-using CalamityMod.Items;
 using CalamityMod.Buffs.DamageOverTime;
+using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Melee;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public override void AddRecipes()
         {
             CreateRecipe()
-		        .AddIngredient<ShatteredFractal>()
+                .AddIngredient<ShatteredFractal>()
                 .AddIngredient(ItemID.Starfury)
                 .AddIngredient<WindBlade>()
                 .AddTile(TileID.Anvils)
@@ -190,7 +190,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
         public bool playHitSound = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-	        target.AddBuff(ModContent.BuffType<WindChilled>(), 300);
+            target.AddBuff(ModContent.BuffType<WindChilled>(), 300);
             if (playHitSound)
             {
                 playHitSound = false;

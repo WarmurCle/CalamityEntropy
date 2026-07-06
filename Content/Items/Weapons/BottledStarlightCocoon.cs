@@ -1,11 +1,12 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles.LuminarisShoots;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -119,8 +120,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         public Vector2 vec = Vector2.Zero;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, Projectile.velocity.normalize(), false, 10, 2, Color.White, new Vector2(0.02f, 0.02f), true, false));
-            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, Projectile.velocity.normalize(), false, 10, 2, Color.Blue, new Vector2(0.016f, 0.016f), true, false));
+            //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
+            PRTLoader.NewParticle<PRT_GlowSparkCal>(target.Center, Projectile.velocity.normalize(), Color.White, 2).Configure(false, 10, new Vector2(0.02f, 0.02f), true, false);
+            PRTLoader.NewParticle<PRT_GlowSparkCal>(target.Center, Projectile.velocity.normalize(), Color.Blue, 2).Configure(false, 10, new Vector2(0.016f, 0.016f), true, false);
         }
         public override void AI()
         {
@@ -129,9 +131,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (Projectile.localAI[0] == 0)
             {
                 for (int i = 0; i < 16; i++)
-                    EParticle.spawnNew(new GlowLightParticle(), Projectile.Center, CEUtils.randomPointInCircle(9), Color.LightBlue, Main.rand.NextFloat(0.6f, 1f), 1, true, BlendState.Additive, 0, 22);
+                    PRTLoader.NewParticle<PRT_GlowLightParticle>(Projectile.Center, CEUtils.randomPointInCircle(9), Color.LightBlue, Main.rand.NextFloat(0.6f, 1f)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 22);
                 float scale = 1f;
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(140, 40, 255), "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.06f, 8));
+                PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, new Color(140, 40, 255), 0.005f).Configure("CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.06f, 8);
             }
             if (Projectile.localAI[0]++ < 3)
             {
@@ -237,19 +239,18 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (trail == null || trail.Lifetime <= 0)
             {
-                trail = new StarTrailParticle();
+                //轨迹类maxLength/SameAlpha字段Configure前先赋,PRTDrawMode只能走Configure
+                trail = PRTLoader.NewParticle<PRT_StarTrailParticle>(Projectile.Center, Vector2.Zero, Color.White, 1.2f);
                 trail.addPoint = false;
                 trail.maxLength = 12;
-
-                EParticle.NewParticle(trail, Projectile.Center, Vector2.Zero, Color.White, 1.2f, 1, true, BlendState.Additive);
+                trail.Configure(1, true, PRTDrawModeEnum.AdditiveBlend);
             }
             trail.AddPoint(Projectile.Center + Projectile.velocity);
             trail.Position = Projectile.Center + Projectile.velocity;
             trail.Lifetime = 12;
-            trail.TimeLeftMax = 12;
 
         }
-        public StarTrailParticle trail = null;
+        public PRT_StarTrailParticle trail = null;
         public void SetAI(AIStyle t)
         {
             if (_ai != t && Main.myPlayer == Projectile.owner)

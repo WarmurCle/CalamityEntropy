@@ -1,42 +1,71 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using InnoVault.PRT;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles
 {
-    public class GlowLightParticle : EParticle
+    public class PRT_GlowLightParticle : BasePRT
     {
-        public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/GlowLight").Value;
-        public override void OnSpawn()
-        {
-            this.Lifetime = 60;
-        }
+        public bool Glow = true;
         public int HideTime = 20;
         public bool AlphaShrink = true;
         public float scale2 = 1;
-        public override void AI()
-        {
-            base.AI();
-            if (AlphaShrink)
-            {
-                this.Opacity = this.Lifetime / (float)HideTime;
-            }
-            else
-            {
-                scale2 = this.Lifetime / (float)TimeLeftMax;
-            }
-            if (Opacity > 1)
-            {
-                this.Opacity = 1;
-            }
-            this.Velocity *= 0.96f;
-        }
         public Color lightColor = Color.White * 0.2f;
 
-        public override void Draw()
+        public override bool CanPool => true;
+
+        //CanPool复用,HideTime/AlphaShrink/scale2/lightColor都得回默认
+        public override void Reset()
         {
-            Main.spriteBatch.Draw(Texture, Position - Main.screenPosition, null, lightColor * Opacity, 0, Texture.Size() / 2f, Scale * 0.65f * scale2, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(Texture, Position - Main.screenPosition, null, Color * Opacity, 0, Texture.Size() / 2f, Scale * 0.08f * scale2, SpriteEffects.None, 0);
+            base.Reset();
+            Glow = true;
+            HideTime = 20;
+            AlphaShrink = true;
+            scale2 = 1f;
+            lightColor = Color.White * 0.2f;
+        }
+
+        public override string Texture => "CalamityEntropy/Content/Particles/GlowLight";
+
+        public PRT_GlowLightParticle Configure(float opacity, bool glow, PRTDrawModeEnum mode,
+            float rotation = 0f, int lifetime = -1)
+        {
+            Opacity = opacity;
+            Glow = glow;
+            PRTDrawMode = mode;
+            Rotation = rotation;
+            if (lifetime > 0)
+                Lifetime = lifetime;
+            return this;
+        }
+
+        public override void SetProperty()
+        {
+            ShouldKillWhenOffScreen = false;
+            if (Lifetime <= 0)
+                Lifetime = 60;
+        }
+
+        public override void AI()
+        {
+            //AlphaShrink走remaining/HideTime,否则scale2吃LifetimeCompletion,两路进度别混
+            if (AlphaShrink)
+                Opacity = (Lifetime - Time) / (float)HideTime;
+            else
+                scale2 = 1f - LifetimeCompletion;
+            if (Opacity > 1)
+                Opacity = 1;
+            Velocity *= 0.96f;
+        }
+
+        public override bool PreDraw(SpriteBatch sb)
+        {
+            Texture2D tex = PRTLoader.PRT_IDToTexture[ID];
+            sb.Draw(tex, Position - Main.screenPosition, null, lightColor * Opacity, 0, tex.Size() / 2f, Scale * 0.65f * scale2, SpriteEffects.None, 0);
+            sb.Draw(tex, Position - Main.screenPosition, null, Color * Opacity, 0, tex.Size() / 2f, Scale * 0.08f * scale2, SpriteEffects.None, 0);
+            return false;
         }
     }
+
+
 }

@@ -1,5 +1,6 @@
-﻿using CalamityMod.Items;
-using CalamityMod.Particles;
+﻿using CalamityEntropy.Content.Particles.CalamityPorts;
+using CalamityMod.Items;
+using InnoVault.PRT;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -74,7 +75,8 @@ namespace CalamityEntropy.Content.Items.Accessories
             {
                 if (Projectile.localAI[2]++ == 0)
                 {
-                    GeneralParticleHandler.SpawnParticle(new ImpactParticle(Projectile.Center, 0, 12, 0.6f, new Color(255, 80, 80)));
+                    //ImpactCal,CalamityPorts的Configure(rot,life)签名
+                    PRTLoader.NewParticle<PRT_ImpactCal>(Projectile.Center, Vector2.Zero, new Color(255, 80, 80), 0.6f).Configure(0, 12);
                 }
                 Dust d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Blood);
                 d.velocity = Projectile.velocity * Main.rand.NextFloat(0.3f, 0.5f);
@@ -84,7 +86,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void OnKill(int timeLeft)
         {
-            GeneralParticleHandler.SpawnParticle(new ImpactParticle(Projectile.Center, 0, 12, 0.6f, new Color(255, 120, 120)));
+            PRTLoader.NewParticle<PRT_ImpactCal>(Projectile.Center, Vector2.Zero, new Color(255, 120, 120), 0.6f).Configure(0, 12);
         }
         public override bool PreDraw(ref Color lightColor)
         {

@@ -1,8 +1,9 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -108,9 +109,10 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
                 CEUtils.PlaySound("pulseBlast", 0.8f, Projectile.Center, 6, 0.26f);
-                GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f, 1.5f, 8));
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.Firebrick, 3.6f, 1, true, BlendState.Additive, 0, 16);
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 2.4f, 1, true, BlendState.Additive, 0, 16);
+                //Wulfrum核爆三颗PRT,PulseRing+ShineParticle,旧spawn参数照抄
+                PRTLoader.NewParticle<PRT_PulseRing>(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.1f).Configure(1.5f, 8);
+                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.Firebrick, 3.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
+                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, 2.4f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
 
             }
             for (int i = 0; i < 16; i++)

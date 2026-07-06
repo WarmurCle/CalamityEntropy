@@ -1,11 +1,11 @@
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
-using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -168,7 +168,8 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
                         num = (RotP * -2f) / (1 / add);
                         Projectile.ResetLocalNPCHitImmunity();
                         PlaySound = false;
-                        GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(Projectile.Center + Projectile.velocity.normalize() * 500 * Projectile.scale, player.velocity + Projectile.velocity.normalize() * -32 * Projectile.scale, new Color(255, 80, 80), new Vector2(0.3f, 1), Projectile.velocity.ToRotation(), 0.1f, 1f * Projectile.scale, 16));
+                        //PRT_DirectionalPulseRing Configure scale/rotation/lifetime顺序固定,CalamityPorts
+                        PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center + Projectile.velocity.normalize() * 500 * Projectile.scale, player.velocity + Projectile.velocity.normalize() * -32 * Projectile.scale, new Color(255, 80, 80), 0.1f).Configure(new Vector2(0.3f, 1), Projectile.velocity.ToRotation(), 1f * Projectile.scale, 16);
                     }
                     RotP += num;
                     AttackTime += add;
@@ -248,13 +249,11 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
                 Vector2 sparkVelocity2 = Projectile.rotation.ToRotationVector2().RotatedByRandom(0.2f) * 64 * Main.rand.NextFloat(0.2f, 1);
                 if (Main.rand.NextBool(5))
                 {
-                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, 12, sparkScale2 * (1.4f), Color.Crimson);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), Color.Crimson, sparkScale2 * (1.4f)).Configure(false, 12);
                 }
                 else
                 {
-                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2, false, 8, sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.Red : new Color(255, 190, 190));
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2, Main.rand.NextBool() ? Color.Red : new Color(255, 190, 190), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f)).Configure(false, 8);
                 }
             }
         }

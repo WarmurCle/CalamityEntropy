@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
@@ -30,8 +31,17 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (Main.GameUpdateCount % 5 == 0)
             {
-                EParticle.NewParticle(new WindParticle() { v1 = 9, v2 = 3, r = Projectile.rotation + MathHelper.Pi, dir = -1 }, Projectile.Center + Projectile.velocity * 4, Vector2.Zero, new Color(240, 245, 255), 1f, 1, true, BlendState.Additive, Projectile.rotation + MathHelper.Pi);
-                EParticle.NewParticle(new WindParticle() { v1 = 9, v2 = 3, r = Projectile.rotation + MathHelper.Pi, dir = 1 }, Projectile.Center + Projectile.velocity * 4, Vector2.Zero, new Color(240, 245, 255), 1f, 1, true, BlendState.Additive, Projectile.rotation + MathHelper.Pi);
+                //WindParticle旧EParticle,velocity/scale原值
+                var __prt = PRTLoader.NewParticle<PRT_WindParticle>(Projectile.Center + Projectile.velocity * 4, Vector2.Zero, new Color(240, 245, 255), 1f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.rotation + MathHelper.Pi);
+                __prt.v1 = 9;
+                __prt.v2 = 3;
+                __prt.r = Projectile.rotation + MathHelper.Pi;
+                __prt.dir = -1;
+                var __prt2 = PRTLoader.NewParticle<PRT_WindParticle>(Projectile.Center + Projectile.velocity * 4, Vector2.Zero, new Color(240, 245, 255), 1f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.rotation + MathHelper.Pi);
+                __prt2.v1 = 9;
+                __prt2.v2 = 3;
+                __prt2.r = Projectile.rotation + MathHelper.Pi;
+                __prt2.dir = 1;
             }
         }
 
@@ -57,14 +67,19 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnHitNPC(target, hit, damageDone);
             for (int i = 0; i < 10; i++)
             {
-                EParticle.NewParticle(new ULineParticle(4, 0.8f, 0.85f, 0.032f), target.Center + new Vector2(Main.rand.NextFloat(0, target.width) - (target.width / 2f), Main.rand.NextFloat(0, target.height) - (target.height / 2f)), new Vector2(0, -34), Color.Lerp(this.color, Color.LightBlue, 0.5f), 1, 1, true, BlendState.AlphaBlend, 0);
+                var __prt = PRTLoader.NewParticle<PRT_ULineParticle>(target.Center + new Vector2(Main.rand.NextFloat(0, target.width) - (target.width / 2f), Main.rand.NextFloat(0, target.height) - (target.height / 2f)), new Vector2(0, -34), Color.Lerp(this.color, Color.LightBlue, 0.5f), 1).Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0);
+                __prt.spd = 0.032f;
+                __prt.w2 = 0.85f;
+                __prt.w1 = 0.8f;
+                __prt.len = 4;
             }
             if ((target.knockBackResist != 0 || target.velocity.Length() > 0.1f) && !target.boss)
             {
                 target.velocity += Projectile.velocity * (0.6f + 0.4f * target.knockBackResist);
             }
-            EParticle.NewParticle(new HadCircle2(), target.Center, Vector2.Zero, new Color(170, 170, 255), 0, 0, true, BlendState.Additive, 0);
-            EParticle.NewParticle(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(240, 245, 255), 2, 1, true, BlendState.Additive, CEUtils.randomRot());
+            //AdditiveBlend走Configure分桶,旧GeneralParticleHandler Before层那套
+            PRTLoader.NewParticle<PRT_HadCircle2>(target.Center, Vector2.Zero, new Color(170, 170, 255), 0).Configure(0, true, PRTDrawModeEnum.AdditiveBlend, 0);
+            PRTLoader.NewParticle<PRT_WindParticle>(Projectile.Center, Vector2.Zero, new Color(240, 245, 255), 2).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot());
         }
 
         public override void OnKill(int timeLeft)
@@ -72,9 +87,9 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnKill(timeLeft);
             for (int i = 0; i < 3; i++)
             {
-                EParticle.NewParticle(new WindParticle(), Projectile.Center, Vector2.Zero, new Color(240, 245, 255), 2, 1, true, BlendState.Additive, CEUtils.randomRot());
+                PRTLoader.NewParticle<PRT_WindParticle>(Projectile.Center, Vector2.Zero, new Color(240, 245, 255), 2).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot());
             }
-            EParticle.NewParticle(new UpdraftParticle(), Projectile.Center, Projectile.velocity, Color.White, Projectile.scale * 0.4f, 1, true, BlendState.Additive, Projectile.rotation);
+            PRTLoader.NewParticle<PRT_UpdraftParticle>(Projectile.Center, Projectile.velocity, Color.White, Projectile.scale * 0.4f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.rotation);
         }
     }
 

@@ -1,5 +1,6 @@
-﻿using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
+using CalamityMod.Buffs.DamageOverTime;
+using InnoVault.PRT;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -44,8 +45,8 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
             int sparkLifetime2 = Main.rand.Next(28, 40);
             float sparkScale2 = Main.rand.NextFloat(0.6f, 1.6f);
             Color sparkColor2 = Color.Lerp(Color.SkyBlue, Color.Purple, Main.rand.NextFloat(0, 1));
-            LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-            GeneralParticleHandler.SpawnParticle(spark);
+            //PRT_LineCal Configure(false,lifetime)对齐Calamity LineParticle
+            PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));  //跟AltSpark成对出现时寿命/速度系数是旧代码原值
 
         }
         public override bool PreDraw(ref Color lightColor)

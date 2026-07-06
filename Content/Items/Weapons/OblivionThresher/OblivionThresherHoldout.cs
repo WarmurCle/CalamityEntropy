@@ -2,10 +2,10 @@
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Prophet;
 using CalamityMod;
-using CalamityMod.Particles;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -134,8 +134,8 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                     smokeVelocity = smokeVelocity.RotatedByRandom(MathHelper.Pi / 8f);
                     Color smokeColor = Main.rand.NextBool() ? Color.AliceBlue : Color.LightBlue;
 
-                    var fullChargeSmoke = new HeavySmokeParticle(jpos + Main.rand.NextVector2CircularEdge(3f, 3f), smokeVelocity, smokeColor, 30, 0.65f, 0.5f, Main.rand.NextFloat(-0.2f, 0.2f), true);
-                    GeneralParticleHandler.SpawnParticle(fullChargeSmoke);
+                    //dedServ时PRTLoader.NewParticle给孤儿实例,Configure照常
+                    PRTLoader.NewParticle<PRT_HeavySmokeCal>(jpos + Main.rand.NextVector2CircularEdge(3f, 3f), smokeVelocity, smokeColor, 0.65f).Configure(0.5f, 30, Main.rand.NextFloat(-0.2f, 0.2f), true);
                 }
             }
             Projectile.ai[2]++;
@@ -145,6 +145,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             {
                 Charge = 0;
             }
+            //dedServ时NewParticle给孤儿实例不是null,后面字段赋值照常别挡
             if (ChargeIdle == null && !(Main.dedServ) && player.channel)
             {
                 ChargeIdle = new LoopSound(FableEye.sound);
@@ -236,8 +237,8 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             {
                 Vector2 direction = target.Center;
                 Vector2 smokeSpeed = CEUtils.randomPointInCircle(6);
-                var smokeGlow = new HeavySmokeParticle(direction, smokeSpeed, new Color(60, 60, 200), 30, Main.rand.NextFloat(1f, 1.4f), 0.8f, 0.008f, true, 0.01f, true);
-                GeneralParticleHandler.SpawnParticle(smokeGlow);
+                //光效走AdditiveBlend,Configure尾参lifetime对齐旧timeLeft
+                PRTLoader.NewParticle<PRT_HeavySmokeCal>(direction, smokeSpeed, new Color(60, 60, 200), Main.rand.NextFloat(1f, 1.4f)).Configure(0.8f, 30, 0.008f, true, 0.01f, true);
             }
             float sparkCount = 64;
             for (int i = 0; i < sparkCount; i++)
@@ -246,8 +247,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                 int sparkLifetime2 = Main.rand.Next(9, 12);
                 float sparkScale2 = Main.rand.NextFloat(1, 1.6f);
                 Color sparkColor2 = Color.Lerp(Color.LightSkyBlue, Color.AliceBlue, Main.rand.NextFloat());
-                LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.3f, target.height * 0.3f), sparkVelocity2, false, sparkLifetime2, sparkScale2, sparkColor2);
-                GeneralParticleHandler.SpawnParticle(spark);
+                PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.3f, target.height * 0.3f), sparkVelocity2, sparkColor2, sparkScale2).Configure(false, sparkLifetime2);
             }
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
@@ -387,8 +387,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             {
                 Vector2 direction = target.Center;
                 Vector2 smokeSpeed = CEUtils.randomPointInCircle(6);
-                var smokeGlow = new HeavySmokeParticle(direction, smokeSpeed, new Color(60, 60, 200), 30, Main.rand.NextFloat(1f, 1.4f), 0.8f, 0.008f, true, 0.01f, true);
-                GeneralParticleHandler.SpawnParticle(smokeGlow);
+                PRTLoader.NewParticle<PRT_HeavySmokeCal>(direction, smokeSpeed, new Color(60, 60, 200), Main.rand.NextFloat(1f, 1.4f)).Configure(0.8f, 30, 0.008f, true, 0.01f, true);
             }
             float sparkCount = 64;
             for (int i = 0; i < sparkCount; i++)
@@ -397,15 +396,17 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                 int sparkLifetime2 = Main.rand.Next(9, 12);
                 float sparkScale2 = Main.rand.NextFloat(1, 1.6f);
                 Color sparkColor2 = Color.Lerp(Color.LightSkyBlue, Color.AliceBlue, Main.rand.NextFloat());
-                LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.3f, target.height * 0.3f), sparkVelocity2, false, sparkLifetime2, sparkScale2, sparkColor2);
-                GeneralParticleHandler.SpawnParticle(spark);
+                PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.3f, target.height * 0.3f), sparkVelocity2, sparkColor2, sparkScale2).Configure(false, sparkLifetime2);
             }
         }
         public override void AI()
         {
             if (Main.GameUpdateCount % 3 == 0 && Projectile.ai[0] > 0.6f)
             {
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(60, 70) * Projectile.scale * Projectile.ai[0], Projectile.velocity, Color.LightBlue, Projectile.scale * Projectile.ai[0] * Main.rand.NextFloat(0.6f, 1.2f), 1, true, BlendState.Additive, 0, 6);
+                PRTLoader.NewParticle<PRT_ShineParticle>(
+                    Projectile.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(60, 70) * Projectile.scale * Projectile.ai[0],
+                    Projectile.velocity, Color.LightBlue, Projectile.scale * Projectile.ai[0] * Main.rand.NextFloat(0.6f, 1.2f))
+                    .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 6);
             }
             Projectile.ai[2]--;
             Projectile.localAI[1]++;
@@ -428,8 +429,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                             }
                         }
                         CEUtils.PlaySound("voidseekercrit", 1f, Projectile.Center);
-                        CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, new Color(200, 136, 255), new Vector2(2f, 2f), 0, 0.2f, 1.2f * Projectile.scale * Projectile.ai[0] * (int.Min(Projectile.numHits, 10) / 10f), 36);
-                        GeneralParticleHandler.SpawnParticle(pulse);
+                        PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, new Color(200, 136, 255), 0.2f).Configure(new Vector2(2f, 2f), 0, 1.2f * Projectile.scale * Projectile.ai[0] * (int.Min(Projectile.numHits, 10) / 10f), 36);
                     }
                     Projectile.velocity += (Projectile.GetOwner().Center - Projectile.Center).normalize() * Utils.Remap(CEUtils.getDistance(Projectile.Center, Projectile.GetOwner().Center), 500, 1400, 2.2f, 3);
                     Projectile.velocity *= 0.9f;
@@ -536,8 +536,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             {
                 Vector2 direction = target.Center;
                 Vector2 smokeSpeed = CEUtils.randomPointInCircle(6);
-                var smokeGlow = new HeavySmokeParticle(direction, smokeSpeed, new Color(60, 60, 200), 30, Main.rand.NextFloat(1f, 1.4f), 0.8f, 0.008f, true, 0.01f, true);
-                GeneralParticleHandler.SpawnParticle(smokeGlow);
+                PRTLoader.NewParticle<PRT_HeavySmokeCal>(direction, smokeSpeed, new Color(60, 60, 200), Main.rand.NextFloat(1f, 1.4f)).Configure(0.8f, 30, 0.008f, true, 0.01f, true);
             }
             float sparkCount = 64;
             for (int i = 0; i < sparkCount; i++)
@@ -546,8 +545,7 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
                 int sparkLifetime2 = Main.rand.Next(9, 12);
                 float sparkScale2 = Main.rand.NextFloat(1, 1.6f);
                 Color sparkColor2 = Color.Lerp(Color.LightSkyBlue, Color.AliceBlue, Main.rand.NextFloat());
-                LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.3f, target.height * 0.3f), sparkVelocity2, false, sparkLifetime2, sparkScale2, sparkColor2);
-                GeneralParticleHandler.SpawnParticle(spark);
+                PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.3f, target.height * 0.3f), sparkVelocity2, sparkColor2, sparkScale2).Configure(false, sparkLifetime2);
             }
         }
         public override void AI()
@@ -590,9 +588,8 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
             if (!OnJaw)
             {
                 Vector2 ver = Projectile.velocity * -0.24f;
-                BasePRT particle = new PRT_Light(Projectile.Center + CEUtils.randomPointInCircle(120 * Projectile.scale), ver
-                    , Main.rand.NextFloat(0.6f, 1f), Color.AliceBlue, 60, 0.6f);
-                PRTLoader.AddParticle(particle);
+                PRTLoader.NewParticle<PRT_Light>(Projectile.Center + CEUtils.randomPointInCircle(120 * Projectile.scale), ver, Color.AliceBlue, Main.rand.NextFloat(0.6f, 1f))
+                    .Configure(0.6f, lifetime: 60);
                 if (Projectile.timeLeft % 24 == 0)
                 {
                     if (Main.myPlayer == Projectile.owner)
@@ -631,6 +628,5 @@ namespace CalamityEntropy.Content.Items.Weapons.OblivionThresher
 
     }
 }
-
 
 

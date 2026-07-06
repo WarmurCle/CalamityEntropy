@@ -1,8 +1,9 @@
 using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Graphics.Primitives;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -61,7 +62,8 @@ namespace CalamityEntropy.Content.Projectiles
                     Projectile.ai[1]--;
                     for (int i = 0; i < 6; i++)
                     {
-                        GeneralParticleHandler.SpawnParticle(new CritSpark(Projectile.Center, CEUtils.randomPointInCircle(8), Color.LightBlue, Color.Blue, Main.rand.NextFloat(0.7f, 1.3f), 16));
+                        //PRT_CritSparkCal Calamity crit spark,Configure Ports签名
+                        PRTLoader.NewParticle<PRT_CritSparkCal>(Projectile.Center, CEUtils.randomPointInCircle(8), Color.LightBlue, Main.rand.NextFloat(0.7f, 1.3f)).Configure(Color.Blue, 16);  //CritSparkCal Calamity crit spark,Configure Ports签名
                     }
                 }
                 else

@@ -1,8 +1,9 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Dusts;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles.AbyssalWraithProjs;
-using CalamityMod.Particles;
 using CalamityMod.World;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -882,17 +883,17 @@ namespace CalamityEntropy.Content.NPCs.AbyssalWraith
 
         public void spawnParticle()
         {
+            //每AI tick 2~3 HeavySmokeCal,1/3概率副色hsl紫,CalamityPort shrink+fade写法
             for (int i = 0; i < 2; i++)
             {
                 Vector2 direction = new Vector2(0, 1).RotatedBy(NPC.rotation);
                 Vector2 smokeSpeed = direction.RotatedByRandom(MathHelper.PiOver4 * 0.1f) * Main.rand.NextFloat(10f, 30f) * 0.9f;
-                CalamityMod.Particles.Particle smoke = new HeavySmokeParticle(NPC.Center + direction * 46f, smokeSpeed + NPC.velocity, Color.Lerp(Color.Purple, Color.Indigo, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), 30, Main.rand.NextFloat(0.6f, 1.2f), 0.8f, 0, false, 0, true);
-                GeneralParticleHandler.SpawnParticle(smoke);
+                PRTLoader.NewParticle<PRT_HeavySmokeCal>(NPC.Center + direction * 46f, smokeSpeed + NPC.velocity, Color.Lerp(Color.Purple, Color.Indigo, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), Main.rand.NextFloat(0.6f, 1.2f)).Configure(0.8f, 30, 0, false, 0, true);
 
+                //velocity叠加NPC.velocity别改符号,跟旧HeavySmoke trailing语义一致
                 if (Main.rand.NextBool(3))
                 {
-                    CalamityMod.Particles.Particle smokeGlow = new HeavySmokeParticle(NPC.Center + direction * 46f, smokeSpeed + NPC.velocity, Main.hslToRgb(0.85f, 1, 0.8f), 20, Main.rand.NextFloat(0.4f, 0.7f), 0.8f, 0.01f, true, 0.01f, true);
-                    GeneralParticleHandler.SpawnParticle(smokeGlow);
+                    PRTLoader.NewParticle<PRT_HeavySmokeCal>(NPC.Center + direction * 46f, smokeSpeed + NPC.velocity, Main.hslToRgb(0.85f, 1, 0.8f), Main.rand.NextFloat(0.4f, 0.7f)).Configure(0.8f, 20, 0.01f, true, 0.01f, true);
                 }
             }
 

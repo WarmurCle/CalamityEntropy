@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Particles;
 using CalamityMod.Items;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -39,7 +40,8 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
                 CEUtils.PlaySound("light_bolt", 1, n.Center);
                 for (int i = 0; i < 16; i++)
                 {
-                    EParticle.NewParticle(new GlowSpark2(), n.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 12), Color.Lerp(Color.SpringGreen, new Color(200, 230, 255), Main.rand.NextFloat()), Main.rand.NextFloat(0.1f, 0.2f), 1, true, BlendState.Additive, 0);
+                    //PRT_GlowSpark2 AdditiveBlend走Configure,旧EParticle尾参顺序对齐
+                    PRTLoader.NewParticle<PRT_GlowSpark2>(n.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(6, 12), Color.Lerp(Color.SpringGreen, new Color(200, 230, 255), Main.rand.NextFloat()), Main.rand.NextFloat(0.1f, 0.2f)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
                 }
                 ProjectileLoader.OnHitNPC(projectile, n, n.CalculateHitInfo(dmg, 0, false, 0, projectile.DamageType), dmg);
             }

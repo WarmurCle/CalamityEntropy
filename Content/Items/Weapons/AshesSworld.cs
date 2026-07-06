@@ -1,9 +1,10 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
 using CalamityMod.Items.Placeables.Plates;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -137,11 +138,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromThis(), Projectile.GetOwner(), target.Center, Projectile.damage / 2, 180, DamageClass.Melee);
             for (int i = 0; i < 24; i++)
-                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 14, false, 11, 0.06f * Main.rand.NextFloat(0.65f, 1f), Main.rand.NextBool() ? Color.Firebrick : Color.Red, new Vector2(3f, 0.4f), true));
+                //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
+                PRTLoader.NewParticle<PRT_GlowSparkCal>(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 14, Main.rand.NextBool() ? Color.Firebrick : Color.Red, 0.06f * Main.rand.NextFloat(0.65f, 1f)).Configure(false, 11, new Vector2(3f, 0.4f), true);
             SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact with { Pitch = 1.4f }, target.Center);
             for (int i = 0; i < 12; i++)
             {
-                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, Projectile.velocity.normalize().RotatedByRandom(0.66f) * Main.rand.NextFloat(4, 30), false, 12, Projectile.scale * 0.04f, Color.OrangeRed, new Vector2(0.3f, 1), false, false));
+                PRTLoader.NewParticle<PRT_GlowSparkCal>(target.Center, Projectile.velocity.normalize().RotatedByRandom(0.66f) * Main.rand.NextFloat(4, 30), Color.OrangeRed, Projectile.scale * 0.04f).Configure(false, 12, new Vector2(0.3f, 1), false, false);
             }
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -182,7 +184,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 Projectile.velocity.Y = -oldVelocity.Y;
             }
-            EParticle.spawnNew(new HadCircle2() { scale2 = 0.16f }, Projectile.Center, Vector2.Zero, Color.Firebrick, 0.16f, 1, true, BlendState.Additive);
+            //CustomPulse贴图路径Configure现传,Texture属性填白图应付框架
+            var p = PRTLoader.NewParticle<PRT_HadCircle2>(Projectile.Center, Vector2.Zero, Color.Firebrick, 0.16f);
+            p.scale2 = 0.16f;
+            p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
             return false;
         }
         public override void AI()
@@ -202,7 +207,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, (target.Center - Projectile.Center).normalize().RotatedByRandom(1f) * -Main.rand.NextFloat(4, 16), false, 16, Projectile.scale * 0.04f, Color.OrangeRed, new Vector2(0.3f, 1), false, false));
+                    //光效走AdditiveBlend,Configure尾参lifetime对齐旧timeLeft
+                    PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center, (target.Center - Projectile.Center).normalize().RotatedByRandom(1f) * -Main.rand.NextFloat(4, 16), Color.OrangeRed, Projectile.scale * 0.04f).Configure(false, 16, new Vector2(0.3f, 1), false, false);
                 }
                 if (Main.myPlayer == Projectile.owner)
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 20, ModContent.ProjectileType<AshesFireballMelee>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
@@ -210,11 +216,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             CEUtils.PlaySound("RockCrumble", Main.rand.NextFloat(1.4f, 1.6f), Projectile.Center, 60, 0.2f);
             float scale = 60 / 40f;
             Projectile p = Projectile;
-            EParticle.spawnNew(new ShineParticle(), p.Center, Vector2.Zero, Color.OrangeRed * 0.8f, scale * 0.8f, 1, true, BlendState.Additive, 0, 10);
-            EParticle.spawnNew(new ShineParticle(), p.Center, Vector2.Zero, Color.Firebrick * 0.8f, scale * 0.5f, 1, true, BlendState.Additive, 0, 10);
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(p.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 24));
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(p.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 18));
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(p.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.02f, 15));
+            PRTLoader.NewParticle<PRT_ShineParticle>(p.Center, Vector2.Zero, Color.OrangeRed * 0.8f, scale * 0.8f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 10);
+            PRTLoader.NewParticle<PRT_ShineParticle>(p.Center, Vector2.Zero, Color.Firebrick * 0.8f, scale * 0.5f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 10);
+            PRTLoader.NewParticle<PRT_CustomPulse>(p.Center, Vector2.Zero, Color.OrangeRed * 1.4f, 0.005f).Configure("CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 24);
+            PRTLoader.NewParticle<PRT_CustomPulse>(p.Center, Vector2.Zero, Color.OrangeRed * 1.4f, 0.005f).Configure("CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 18);
+            PRTLoader.NewParticle<PRT_CustomPulse>(p.Center, Vector2.Zero, Color.OrangeRed * 1.4f, 0.005f).Configure("CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.02f, 15);
             CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromThis(), Projectile.GetOwner(), Projectile.Center, Projectile.damage, 120, DamageClass.Melee);
         }
         public override bool PreDraw(ref Color lightColor)
@@ -262,8 +268,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             float scale = 30 / 40f;
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.OrangeRed, scale * 0.8f, 1, true, BlendState.Additive, 0, 10);
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, scale * 0.5f, 1, true, BlendState.Additive, 0, 10);
+            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.OrangeRed, scale * 0.8f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 10);
+            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, scale * 0.5f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 10);
             target.AddBuff(BuffID.OnFire3, 180);
             if (Projectile.timeLeft > 2)
                 Projectile.timeLeft = 2;
@@ -292,9 +298,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (Projectile.timeLeft % 10 == 0)
                 for (int i = 0; i < 5; i++)
                 {
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, Projectile.velocity.normalize().RotatedByRandom(1f) * -Main.rand.NextFloat(2, 8), false, 16, Projectile.scale * 0.025f, Color.OrangeRed, new Vector2(0.3f, 1), false, false));
+                    PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center, Projectile.velocity.normalize().RotatedByRandom(1f) * -Main.rand.NextFloat(2, 8), Color.OrangeRed, Projectile.scale * 0.025f).Configure(false, 16, new Vector2(0.3f, 1), false, false);
                 }
-            GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center + CEUtils.randomPointInCircle(4), CEUtils.randomPointInCircle(3), Color.Firebrick, 6, 0.4f, 1f, Main.rand.NextFloat(-0.1f, 0.1f), true));
+            PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center + CEUtils.randomPointInCircle(4), CEUtils.randomPointInCircle(3), Color.Firebrick, 0.4f).Configure(1f, 6, Main.rand.NextFloat(-0.1f, 0.1f), true);
 
         }
 

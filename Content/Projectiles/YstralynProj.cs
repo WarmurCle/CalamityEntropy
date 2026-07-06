@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Buffs.Wyrm;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -77,7 +78,10 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 for (int i = 0; i < (Projectile.Calamity().stealthStrike ? 6 : 1); i++)
                 {
-                    EParticle.NewParticle(new AbyssalLine() { lx = 1.2f, xadd = 1.2f }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, CEUtils.randomRot());
+                    //AbyssalLine旧GeneralParticleHandler spawn,现走BasePRT,参数照抄
+                    var __prt = PRTLoader.NewParticle<PRT_AbyssalLine>(target.Center, Vector2.Zero, Color.White, 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot());  //AbyssalLine带lifetime的Configure是CalamityPorts签名
+                    __prt.lx = 1.2f;
+                    __prt.xadd = 1.2f;
                 }
             }
 

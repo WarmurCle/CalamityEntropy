@@ -1,4 +1,5 @@
-﻿using CalamityMod.Particles;
+﻿using CalamityEntropy.Content.Particles.CalamityPorts;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -143,13 +144,14 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             {
                 for (int i = 0; i < 36; i++)
                 {
-                    GeneralParticleHandler.SpawnParticle(new MediumMistParticle(Projectile.Center, CEUtils.randomPointInCircle(14), Color.Lerp(this.color, Color.White, 0.5f), this.color, Projectile.scale, 230, 0.005f));
+                    //MediumMistCal带Cal后缀,CalamityPorts签名,color/lifetime/scale跟旧mist构造一致
+                    PRTLoader.NewParticle<PRT_MediumMistCal>(Projectile.Center, CEUtils.randomPointInCircle(14), Color.Lerp(this.color, Color.White, 0.5f), Projectile.scale).Configure(this.color, 230, 0.005f);
                 }
             }
             if (Main.GameUpdateCount % 2 == 0)
                 for (int i = 0; i < 4; i++)
                 {
-                    GeneralParticleHandler.SpawnParticle(new MediumMistParticle(Projectile.Center + CEUtils.randomPointInCircle(100), CEUtils.randomPointInCircle(2), Color.Lerp(this.color, Color.White, 0.5f), this.color, Projectile.scale, 230, 0.005f));
+                    PRTLoader.NewParticle<PRT_MediumMistCal>(Projectile.Center + CEUtils.randomPointInCircle(100), CEUtils.randomPointInCircle(2), Color.Lerp(this.color, Color.White, 0.5f), Projectile.scale).Configure(this.color, 230, 0.005f);
                 }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

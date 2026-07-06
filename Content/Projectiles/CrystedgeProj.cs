@@ -1,6 +1,4 @@
-﻿using CalamityEntropy.Common;
-using CalamityEntropy.Content.Buffs;
-using CalamityMod.Buffs.DamageOverTime;
+﻿using CalamityEntropy.Content.Buffs;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;

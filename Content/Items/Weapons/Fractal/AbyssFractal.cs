@@ -5,6 +5,7 @@ using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -193,15 +194,17 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                 PositionInWorld = target.Center,
                 MovementVector = Vector2.Zero
             });
+            //PRT_Abyssal不进常规桶,EffectLoader DrawParticleEffectsAlt RT画,vd/ad直赋对齐旧AbyssalParticles
+            //slash那套AbyssalLine是常规PRT桶,Configure设AdditiveBlend就行
             for (int i = 0; i < 64; i++)
             {
-                Particle p = new Particle();
+                var p = PRTLoader.NewParticle<PRT_Abyssal>(
+                    CEUtils.randomPoint(target.Hitbox),
+                    Projectile.velocity.RotatedByRandom(0.16f).normalize() * Main.rand.NextFloat(8, 48),
+                    Color.White, 1f);
                 p.vd = 0.92f;
                 p.ad = 0.03f;
-                p.alpha = 0.38f * Main.rand.NextFloat(1.2f, 1.6f);
-                p.position = CEUtils.randomPoint(target.Hitbox);
-                p.velocity = Projectile.velocity.RotatedByRandom(0.16f).normalize() * Main.rand.NextFloat(8, 48);
-                AbyssalParticles.particles.Add(p);
+                p.Opacity = 0.38f * Main.rand.NextFloat(1.2f, 1.6f);
             }
         }
         public bool spawnProj = true;

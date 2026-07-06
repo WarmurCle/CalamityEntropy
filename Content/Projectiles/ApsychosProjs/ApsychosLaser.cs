@@ -1,5 +1,6 @@
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -50,8 +51,9 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             Projectile.velocity = Projectile.rotation.ToRotationVector2() * 16;
             if (st)
             {
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(255, 255, 255), 0.6f, 1, true, BlendState.Additive, 0, 15);
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(160, 160, 255), 0.29f, 1, true, BlendState.Additive, 0, 15);
+                //PRT_ShineParticle FollowOwner字段spawn后赋,Configure只管Additive和lifetime
+                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, new Color(255, 255, 255), 0.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 15);  //ShineParticle FollowOwner字段spawn后赋,Configure只管Additive和lifetime
+                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, new Color(160, 160, 255), 0.29f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 15);
                 CEUtils.PlaySound("CrystalBallActive", 0.6f + Main.rand.NextFloat(-0.2f, 0.2f), Projectile.Center, 10, 0.4f);
                 st = false;
             }

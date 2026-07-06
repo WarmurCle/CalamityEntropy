@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -28,25 +29,25 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.penetrate = 1;
             Projectile.extraUpdates = 9;
         }
-        public TrailParticle t1 = new TrailParticle();
-        public TrailParticle t2 = new TrailParticle();
-        public List<TrailParticle> ts = new List<TrailParticle>();
+        public PRT_TrailParticle t1;
+        public PRT_TrailParticle t2;
+        public List<PRT_TrailParticle> ts = new List<PRT_TrailParticle>();
         public override void AI()
         {
             if (Projectile.localAI[1] == 0)
             {
+                var trailColor = Projectile.ai[1] == 1 ? Color.Red : Color.White;
                 for (int i = 0; i < 4; i++)
                 {
-                    var pt = new TrailParticle();
+                    //TrailParticle不开CanPool,odp轨迹List池化会闪上一条
+                    var pt = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, trailColor, Projectile.scale * 0.56f).Configure(1, true, PRTDrawModeEnum.NonPremultiplied, 0);
                     pt.maxLength = 11;
                     ts.Add(pt);
-                    EParticle.NewParticle(pt, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.56f, 1, true, BlendState.NonPremultiplied);
                 }
+                t1 = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, trailColor, Projectile.scale * 0.5f).Configure(1, true, PRTDrawModeEnum.NonPremultiplied, 0);
+                t2 = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, trailColor, Projectile.scale * 0.5f).Configure(1, true, PRTDrawModeEnum.NonPremultiplied, 0);
                 t1.maxLength *= 4;
                 t2.maxLength *= 4;
-
-                EParticle.NewParticle(t1, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.5f, 1, true, BlendState.NonPremultiplied);
-                EParticle.NewParticle(t2, Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale * 0.5f, 1, true, BlendState.NonPremultiplied);
             }
             ++Projectile.localAI[1];
             t1.Lifetime = 13;
@@ -68,12 +69,11 @@ namespace CalamityEntropy.Content.Projectiles
             CEUtils.PlaySound("ofhit", 1, Projectile.Center);
             for (int i = 0; i < 16; i++)
             {
-                EParticle.NewParticle(new TrailSparkParticle(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 14), (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale, 1, true, BlendState.NonPremultiplied);
+                //TrailSparkParticle跟TrailParticle成对spawn,旧trail+spark一套
+                PRTLoader.NewParticle<PRT_TrailSparkParticle>(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 14), (Projectile.ai[1] == 1 ? Color.Red : Color.White), Projectile.scale).Configure(1, true, PRTDrawModeEnum.NonPremultiplied, 0);
             }
-            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), new Vector2(2f, 2f), 0, 0.1f, (false ? 2 : 1) * 0.85f * 0.4f, (false ? 46 : 36));
-            GeneralParticleHandler.SpawnParticle(pulse);
-            CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), Vector2.One, Main.rand.NextFloat(-5, 5), 0f, (false ? 2.2f : 1) * 0.65f * 0.4f, (false ? 30 : 26));
-            GeneralParticleHandler.SpawnParticle(explosion2);
+            PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), 0.1f).Configure(new Vector2(2f, 2f), 0, (false ? 2 : 1) * 0.85f * 0.4f, (false ? 46 : 36));
+            PRTLoader.NewParticle<PRT_DetailedExplosionCal>(Projectile.Center, Vector2.Zero, (Projectile.ai[1] == 1 ? Color.Red : Color.White), 0f).Configure(Vector2.One, Main.rand.NextFloat(-5, 5), (false ? 2.2f : 1) * 0.65f * 0.4f, (false ? 30 : 26));
             if (Main.myPlayer == Projectile.owner)
             {
                 Projectile projectile = Projectile;

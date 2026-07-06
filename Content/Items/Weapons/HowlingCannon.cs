@@ -1,11 +1,12 @@
 ﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Ranged;
-using CalamityMod.Particles;
 using CalamityMod.Tiles.Furniture.CraftingStations;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -159,25 +160,27 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void OnKill(int timeLeft)
         {
             CEUtils.PlaySound("blackholeEnd", 3f, Projectile.Center, volume: 0.6f);
-            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.AliceBlue, 0.1f, 0.8f, 8));
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.SkyBlue * 0.8f, 1.5f, 1, true, BlendState.Additive, 0, 16);
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.4f, 1, true, BlendState.Additive, 0, 16);
+            //轨迹类maxLength/SameAlpha字段Configure前先赋,PRTDrawMode只能走Configure
+            PRTLoader.NewParticle<PRT_PulseRing>(Projectile.Center, Vector2.Zero, Color.AliceBlue, 0.1f).Configure(0.8f, 8);
+            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.SkyBlue * 0.8f, 1.5f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
+            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, 0.4f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
             if (Projectile.owner == Main.myPlayer)
             {
                 CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center, Projectile.damage, 120, Projectile.DamageType);
             }
             CEUtils.SetShake(Projectile.Center, 8);
         }
-        public TrailParticle t1;
-        public TrailParticle t2;
+        public PRT_TrailParticle t1;
+        public PRT_TrailParticle t2;
         public override void AI()
         {
             if (t1 == null || t2 == null)
             {
-                t1 = new TrailParticle();
-                t2 = new TrailParticle();
-                EParticle.spawnNew(t1, Projectile.Center, Vector2.Zero, Color.AliceBlue, 0.8f, 1, true, BlendState.Additive);
-                EParticle.spawnNew(t2, Projectile.Center, Vector2.Zero, Color.AliceBlue, 0.8f, 1, true, BlendState.Additive);
+                //轨迹类maxLength/SameAlpha字段Configure前先赋,PRTDrawMode只能走Configure
+                t1 = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, Color.AliceBlue, 0.8f);
+                t2 = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, Color.AliceBlue, 0.8f);
+                t1.Configure(1, true, PRTDrawModeEnum.AdditiveBlend);
+                t2.Configure(1, true, PRTDrawModeEnum.AdditiveBlend);
 
             }
             t1.AddPoint(Projectile.Center + Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * 12 * Projectile.scale);
@@ -189,8 +192,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (Projectile.timeLeft % 4 == 0)
             {
-                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Projectile.velocity * 0.2f, new Color(100, 100, 160), new Vector2(0.3f, 1f), Projectile.velocity.ToRotation(), 0.4f, 0.2f, 30);
-                GeneralParticleHandler.SpawnParticle(pulse);
+                PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Projectile.velocity * 0.2f, new Color(100, 100, 160), 0.4f).Configure(new Vector2(0.3f, 1f), Projectile.velocity.ToRotation(), 0.2f, 30);
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
         }
@@ -227,8 +229,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override string Texture => CEUtils.WhiteTexPath;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(target.Center, Vector2.Zero, new Color(200, 160, 200), new Vector2(1, 1f), 0, 0.2f, 0.8f, 42);
-            GeneralParticleHandler.SpawnParticle(pulse);
+            //EParticle.spawnNew→PRTLoader.NewParticle,spawn点和数值迁移纪律:一个不改
+            PRTLoader.NewParticle<PRT_DirectionalPulseRing>(target.Center, Vector2.Zero, new Color(200, 160, 200), 0.2f).Configure(new Vector2(1, 1f), 0, 0.8f, 42);
             for (float i = 0; i < 360; i += 4)
             {
                 var d = Dust.NewDustDirect(target.Center, 1, 1, DustID.AncientLight, 0, 0, 0);
@@ -238,9 +240,9 @@ namespace CalamityEntropy.Content.Items.Weapons
 
                 d.noGravity = true;
             }
-            EParticle.NewParticle(new HeavenfallStar(), target.Center, Vector2.Zero, Color.White * 0.6f, 4, 1, true, BlendState.Additive, Projectile.velocity.ToRotation() + MathHelper.PiOver2);
-            EParticle.NewParticle(new HeavenfallStar(), target.Center, Vector2.Zero, Color.AliceBlue * 0.6f, 5, 1, true, BlendState.Additive, Projectile.velocity.ToRotation() + MathHelper.PiOver2);
-            EParticle.NewParticle(new HeavenfallStar(), target.Center, Vector2.Zero, Color.Blue, 6, 1, true, BlendState.Additive, Projectile.velocity.ToRotation() + MathHelper.PiOver2);
+            PRTLoader.NewParticle<PRT_HeavenfallStar>(target.Center, Vector2.Zero, Color.White * 0.6f, 4f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation() + MathHelper.PiOver2);
+            PRTLoader.NewParticle<PRT_HeavenfallStar>(target.Center, Vector2.Zero, Color.AliceBlue * 0.6f, 5f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation() + MathHelper.PiOver2);
+            PRTLoader.NewParticle<PRT_HeavenfallStar>(target.Center, Vector2.Zero, Color.Blue, 6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation() + MathHelper.PiOver2);
         }
         public override void SetDefaults()
         {
@@ -268,13 +270,13 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (Projectile.localAI[1]++ == 0)
             {
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(255, 255, 255), 0.5f, 1, true, BlendState.Additive, 0, 12);
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(80, 80, 255), 0.7f, 1, true, BlendState.Additive, 0, 12);
+                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, new Color(255, 255, 255), 0.5f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
+                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, new Color(80, 80, 255), 0.7f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 12);
 
                 CEUtils.PlaySound("CrystalBallActive", 1.2f, Projectile.Center);
                 for (int i = 80; i < 2000; i += 10)
                 {
-                    EParticle.NewParticle(new HeavenfallStar(), Projectile.Center + Projectile.velocity.normalize() * i, Vector2.Zero, new Color(20, 20, 160), 2f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation(), 12);
+                    PRTLoader.NewParticle<PRT_HeavenfallStar>(Projectile.Center + Projectile.velocity.normalize() * i, Vector2.Zero, new Color(20, 20, 160), 2f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation(), 12);
                 }
             }
         }

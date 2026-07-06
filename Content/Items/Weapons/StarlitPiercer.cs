@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -65,7 +66,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(0.7f, 1.3f), target.Center, volume: CEUtils.WeapSound * 0.8f);
             for (int i = 0; i < 3; i++)
             {
-                EParticle.NewParticle(new StarTrailParticle(), target.Center, Projectile.velocity.normalize().RotatedByRandom(0.4f) * Main.rand.NextFloat(16, 36), Color.White, Main.rand.NextFloat(0.6f, 1.6f), 1, true, BlendState.Additive, 0);
+                //PRT_StarTrailParticle hit burst,Configure设opacity+PRTDrawMode
+                //EParticle→PRT,spawn参数迁移纪律:数值一个不改
+                PRTLoader.NewParticle<PRT_StarTrailParticle>(target.Center, Projectile.velocity.normalize().RotatedByRandom(0.4f) * Main.rand.NextFloat(16, 36), Color.White).Configure(Main.rand.NextFloat(0.6f, 1.6f), true, PRTDrawModeEnum.AdditiveBlend, 0);
             }
         }
         public float starAlpha = 0;

@@ -1,8 +1,9 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Dusts;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -79,7 +80,9 @@ namespace CalamityEntropy.Content.Projectiles
             }
             for (int i = 0; i < 4; i++)
             {
-                EParticle.NewParticle(new RuneParticleHoming() { homingTarget = Projectile.GetOwner() }, target.Center, CEUtils.randomPointInCircle(10), Color.White, 0.5f, 1, true, BlendState.AlphaBlend);
+                //RuneParticleHoming追踪字段spawn后赋,Configure管不了entity引用
+                var __prt = PRTLoader.NewParticle<PRT_RuneParticleHoming>(target.Center, CEUtils.randomPointInCircle(10), Color.White, 0.5f).Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0);
+                __prt.homingTarget = Projectile.GetOwner();
             }
             int smokeCount = 3 + (int)MathHelper.Clamp(target.width * 0.1f, 0f, 20f);
             for (int i = 0; i < smokeCount; i++)
@@ -87,8 +90,8 @@ namespace CalamityEntropy.Content.Projectiles
                 bool Smoketype = Main.rand.NextBool();
                 Vector2 smokePos = target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f);
                 Vector2 smokeVel = Vector2.UnitY * (Smoketype ? Main.rand.NextFloat(-0.8f, -2f) : Main.rand.NextFloat(-1.2f, -0.2f)) * MathHelper.Clamp(target.height * 0.1f, 1f, 10f);
-                CalamityMod.Particles.Particle smoke = new MediumMistParticle(smokePos, smokeVel, new Color(210, 210, 255), Color.SkyBlue, Smoketype ? Main.rand.NextFloat(0.4f, 0.75f) : Main.rand.NextFloat(1.5f, 2f), 220 - Main.rand.Next(50), 0.1f);
-                GeneralParticleHandler.SpawnParticle(smoke);
+                //MediumMistCal CalamityPorts,Configure是mist原构造
+                PRTLoader.NewParticle<PRT_MediumMistCal>(smokePos, smokeVel, new Color(210, 210, 255), Smoketype ? Main.rand.NextFloat(0.4f, 0.75f) : Main.rand.NextFloat(1.5f, 2f)).Configure(Color.SkyBlue, 220 - Main.rand.Next(50), 0.1f);
             }
         }
 

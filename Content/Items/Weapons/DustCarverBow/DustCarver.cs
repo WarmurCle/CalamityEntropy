@@ -1,9 +1,10 @@
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -310,10 +311,11 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                         {
                             proj.ai[0] = 0;
                         }
-                        GeneralParticleHandler.SpawnParticle(new PulseRing(proj.Center, Vector2.Zero, Color.Crimson, 0.1f, 0.4f, 18));
+                        //旧Blend既不是Additive也不是AlphaBlend,Configure传NonPremultipliedBlend落第三桶
+                        PRTLoader.NewParticle<PRT_PulseRing>(proj.Center, Vector2.Zero, Color.Crimson, 0.1f).Configure(0.4f, 18);
                         CEUtils.SyncProj(proj.whoAmI);
                         for (float i = 0; i <= 1f; i += 0.1f)
-                            GeneralParticleHandler.SpawnParticle(new AltLineParticle(Vector2.Lerp(Projectile.Center, proj.Center, i), (proj.Center - Projectile.Center).normalize() * 0.04f, false, 12, 1.4f, Color.Crimson));
+                            PRTLoader.NewParticle<PRT_AltLineCal>(Vector2.Lerp(Projectile.Center, proj.Center, i), (proj.Center - Projectile.Center).normalize() * 0.04f, Color.Crimson, 1.4f).Configure(false, 12);
                     }
                     SoundEngine.PlaySound(SoundID.Item4 with { PitchRange = (-0.4f, -0.2f) }, Projectile.Center);
                     List<Projectile> SetList = new();
@@ -430,10 +432,12 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             {
                 Charging = 0;
                 ShootDelay = useTime / 4;
-                sParticle = new HeavenfallStar2() { Inverse = true };
-                EParticle.spawnNew(sParticle, particlePos, Vector2.Zero, new Color(255, 40, 40), 4f, 1, true, BlendState.Additive, Projectile.rotation, 18);
-                sParticle2 = new HeavenfallStar2() { Inverse = true };
-                EParticle.spawnNew(sParticle2, particlePos, Vector2.Zero, new Color(255, 160, 160), 3.5f, 1, true, BlendState.Additive, Projectile.rotation, 18);
+                sParticle = PRTLoader.NewParticle<PRT_HeavenfallStar2>(particlePos, Vector2.Zero, new Color(255, 40, 40), 4f);
+                sParticle.Inverse = true;
+                sParticle.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.rotation, 18);
+                sParticle2 = PRTLoader.NewParticle<PRT_HeavenfallStar2>(particlePos, Vector2.Zero, new Color(255, 160, 160), 3.5f);
+                sParticle2.Inverse = true;
+                sParticle2.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.rotation, 18);
                 CEUtils.PlaySound("DustCarverShoot", Main.rand.NextFloat(1.6f, 2f), Projectile.Center, 6, 0.6f);
                 CEUtils.PlaySound("CarverShoot2", Main.rand.NextFloat(1.4f, 1.8f), Projectile.Center, 6, 0.6f);
 
@@ -462,10 +466,13 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
 
             if (trail1 == null)
             {
-                trail1 = new TrailParticle() { maxLength = 19 };
-                trail2 = new TrailParticle() { maxLength = 19 };
-                EParticle.spawnNew(trail1, p1, Vector2.Zero, new Color(180, 0, 0), 0.6f, 1, true, BlendState.Additive);
-                EParticle.spawnNew(trail2, p2, Vector2.Zero, new Color(180, 0, 0), 0.6f, 1, true, BlendState.Additive);
+                //轨迹类maxLength/SameAlpha字段Configure前先赋,PRTDrawMode只能走Configure
+                trail1 = PRTLoader.NewParticle<PRT_TrailParticle>(p1, Vector2.Zero, new Color(180, 0, 0), 0.6f);
+                trail1.maxLength = 19;
+                trail1.Configure(1, true, PRTDrawModeEnum.AdditiveBlend);
+                trail2 = PRTLoader.NewParticle<PRT_TrailParticle>(p2, Vector2.Zero, new Color(180, 0, 0), 0.6f);
+                trail2.maxLength = 19;
+                trail2.Configure(1, true, PRTDrawModeEnum.AdditiveBlend);
             }
             trail1.Lifetime = 30;
             trail1.AddPoint(p1);
@@ -473,10 +480,10 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
             trail2.Lifetime = 30;
             trail2.AddPoint(p2);
         }
-        public EParticle sParticle;
-        public EParticle sParticle2;
-        public TrailParticle trail1;
-        public TrailParticle trail2;
+        public PRT_HeavenfallStar2 sParticle;
+        public PRT_HeavenfallStar2 sParticle2;
+        public PRT_TrailParticle trail1;
+        public PRT_TrailParticle trail2;
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
@@ -613,14 +620,19 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                 CEUtils.PlaySound("bne_hit", Main.rand.NextFloat(1.2f, 1.4f), target.Center, 4, 0.8f);
                 for (int i = 0; i < 12; i++)
                 {
-                    float p = Main.rand.NextFloat();
+                    float prog = Main.rand.NextFloat();
                     Color clr = new Color(255, 24, 24);
-                    var vel = projectile.velocity.normalize().RotatedBy(0.25f * p * (Main.rand.NextBool() ? 1 : -1)) * 64 * (1.2f - p) * Main.rand.NextFloat(0.2f, 1);
-                    EParticle.NewParticle(new HeavenfallStar2() { drawScale = new Vector2(0.4f, 1) }, target.Center, vel, clr, (1.2f - p) * 1.2f, 1, true, BlendState.Additive, vel.ToRotation(), 24);
-                    EParticle.NewParticle(new HeavenfallStar2() { drawScale = new Vector2(0.4f, 1) }, target.Center, vel, new Color(255, 200, 200), (1.2f - p) * 0.7f * 1.2f, 1, true, BlendState.Additive, vel.ToRotation(), 24);
+                    var vel = projectile.velocity.normalize().RotatedBy(0.25f * prog * (Main.rand.NextBool() ? 1 : -1)) * 64 * (1.2f - prog) * Main.rand.NextFloat(0.2f, 1);
+                    //轨迹类maxLength/SameAlpha字段Configure前先赋,PRTDrawMode只能走Configure
+                    var hs = PRTLoader.NewParticle<PRT_HeavenfallStar2>(target.Center, vel, clr, (1.2f - prog) * 1.2f);
+                    hs.drawScale = new Vector2(0.4f, 1);
+                    hs.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, vel.ToRotation(), 24);
+                    hs = PRTLoader.NewParticle<PRT_HeavenfallStar2>(target.Center, vel, new Color(255, 200, 200), (1.2f - prog) * 0.7f * 1.2f);
+                    hs.drawScale = new Vector2(0.4f, 1);
+                    hs.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, vel.ToRotation(), 24);
                 }
-                EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, new Color(255, 50, 50), 1, 1, true, BlendState.Additive, 0, 6);
-                EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, new Color(255, 255, 255), 0.6f, 1, true, BlendState.Additive, 0, 6);
+                PRTLoader.NewParticle<PRT_ShineParticle>(target.Center, Vector2.Zero, new Color(255, 50, 50), 1f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 6);
+                PRTLoader.NewParticle<PRT_ShineParticle>(target.Center, Vector2.Zero, new Color(255, 255, 255), 0.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 6);
 
             }
         }
