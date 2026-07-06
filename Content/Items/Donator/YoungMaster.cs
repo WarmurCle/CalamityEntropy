@@ -400,7 +400,7 @@ namespace CalamityEntropy.Content.Items.Donator
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             CEUtils.PlaySound("VividClarityBeamAppear", 1, Projectile.Center);
-            Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<YoungMasterMark>(), Projectile.damage / 3, 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<YoungMasterMark>(), Projectile.damage / 2, 0, Projectile.owner);
         }
     }
     public class YoungMasterMark : ModProjectile
