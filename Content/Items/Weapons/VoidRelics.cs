@@ -6,6 +6,7 @@ using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Dusts;
 using CalamityMod.Items;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -119,7 +120,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public void SetupRunes()
         {
             runes = new List<VoidMarksRune>();
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 runes.Add(new VoidMarksRune(i, (i / 10f) * MathHelper.TwoPi));
             }
@@ -133,7 +134,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            if(runes == null) SetupRunes();
+            if (runes == null) SetupRunes();
             for (int i = 0; i < 10; i++)
                 runes[i].Glow = reader.ReadSingle();
         }
@@ -145,11 +146,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (runes == null)
                 SetupRunes();
             runes[0].Rotation += 0.02f * (1 + translateFlex * 9);
-            for(int i = 1; i < 10; i++)
+            for (int i = 1; i < 10; i++)
             {
                 runes[i].Rotation = runes[0].Rotation + i * (MathHelper.TwoPi) / 10f;
             }
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 VoidMarksRune r = runes[i];
                 r.Glow *= 0.9f;
@@ -160,9 +161,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (Projectile.Entropy().FirstFrames)
             {
                 float scale = 2;
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center + new Vector2(0, -236), player.velocity, new Color(80, 40, 200), scale * 1f, 1, true, BlendState.Additive, 0, 10);
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center + new Vector2(0, -236), player.velocity, Color.White, scale * 0.5f, 1, true, BlendState.Additive, 0, 10);
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center + new Vector2(0, -236), player.velocity, Color.White, scale * 0.3f, 1, true, BlendState.Additive, 0, 10);
+                //DOracleSlash Configure传NonPremultipliedBlend,同DedicatedOracle
+                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center + new Vector2(0, -236), player.velocity, new Color(80, 40, 200), scale * 1f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 10);
+                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center + new Vector2(0, -236), player.velocity, Color.White, scale * 0.5f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 10);
+                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center + new Vector2(0, -236), player.velocity, Color.White, scale * 0.3f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 10);
             }
             if (player.HasBuff(ModContent.BuffType<VoidStorm>()))
             {
@@ -173,13 +175,13 @@ namespace CalamityEntropy.Content.Items.Weapons
                 return;
             }
             bool channel = player.channel && player.HeldItem.type == ModContent.ItemType<VoidRelics>();
-            if(channel)
+            if (channel)
             {
                 player.itemTime = player.itemAnimation = 3;
             }
             translating = false;
 
-            if(channel && !player.HasCooldown(AbyssalStorm.ID))
+            if (channel && !player.HasCooldown(AbyssalStorm.ID))
             {
                 translating = true;
                 if (translateFlex >= 0.9f)
@@ -212,7 +214,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 {
                     if (translateFlex < 0.9f)
                     {
-                        if(target != null)
+                        if (target != null)
                             Projectile.ai[0] += player.HasCooldown(AbyssalStorm.ID) ? 1.15f : 1;
                     }
                     else
@@ -429,7 +431,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Main.spriteBatch.ExitShaderRegion();
             #endregion
 
-            
+
             for (int i = 0; i < runes.Count; i++)
             {
                 DrawRune(Projectile.GetOwner().GetDrawCenter() + GetCPos(runes[i].Rotation, Radius, circleScaling, circleOffset, rotation) - Main.screenPosition, runes[i], Projectile.scale);
@@ -487,7 +489,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
             oldPos.Add(Projectile.Center);
             oldRots.Add(Projectile.rotation);
-            if(oldPos.Count > 46)
+            if (oldPos.Count > 46)
             {
                 oldPos.RemoveAt(0);
                 oldRots.RemoveAt(0);
@@ -510,7 +512,11 @@ namespace CalamityEntropy.Content.Items.Weapons
                 dust.fadeIn = 2f;
             }
             float r = CEUtils.randomRot();
-            EParticle.spawnNew(new DOracleSlash() { centerColor = Color.White, widthMult = 1.2f }, target.Center - r.ToRotationVector2() * 120, Vector2.Zero, new Color(140, 100, 255), Main.rand.NextFloat(250, 280), 0.24f, true, BlendState.NonPremultiplied, r, 11);
+            //旧Blend既不是Additive也不是AlphaBlend,Configure传NonPremultipliedBlend落第三桶
+            var slash = PRTLoader.NewParticle<PRT_DOracleSlash>(target.Center - r.ToRotationVector2() * 120, Vector2.Zero, new Color(140, 100, 255), Main.rand.NextFloat(250, 280));
+            slash.centerColor = Color.White;
+            slash.widthMult = 1.2f;
+            slash.Configure(0.24f, true, PRTDrawModeEnum.NonPremultiplied, r, 11);
             CEUtils.PlaySound("slice", Main.rand.NextFloat(1f, 1.3f), target.Center);
         }
         public override string Texture => CEUtils.WhiteTexPath;

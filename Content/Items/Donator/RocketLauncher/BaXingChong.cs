@@ -87,14 +87,14 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             position += (new Vector2(54, -16) * new Vector2(1, player.direction)).RotatedBy(velocity.ToRotation());
-            for(int i = 0; i < 8; i++)
+            for (int i = 0; i < 8; i++)
             {
                 var v = velocity + CEUtils.randomPointInCircle(4);
                 int p = Projectile.NewProjectile(source, position + velocity * 1.5f, v, type, damage, knockback, player.whoAmI, MaxStick, ExplodeRadius);
                 p.ToProj().Entropy().applyBuffs.Add(ModContent.BuffType<MiracleBlight>());
                 p.ToProj().Entropy().applyBuffs.Add(ModContent.BuffType<TrueVulnerabilityHex>());
                 p.ToProj().Entropy().flameTrail = true;
-                if(p.ToProj().ModProjectile is BaseMissileProj m)
+                if (p.ToProj().ModProjectile is BaseMissileProj m)
                 {
                     m.Homing = 6;
                     m.winding = Main.rand.NextFloat() * 0.7f;

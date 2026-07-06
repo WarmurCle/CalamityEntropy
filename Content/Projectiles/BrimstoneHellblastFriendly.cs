@@ -1,7 +1,8 @@
-﻿using CalamityEntropy.Content.Items.Books;
+using CalamityEntropy.Content.Items.Books;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -56,11 +57,10 @@ namespace CalamityEntropy.Content.Projectiles
 
             Vector2 offset = Projectile.velocity.SafeNormalize(Vector2.UnitX).RotatedBy(MathHelper.PiOver2) * sine * 16f;
 
-            SparkParticle orb = new(Projectile.Center + offset, -Projectile.velocity * 0.05f, false, 8, 0.8f, Main.rand.NextBool() ? Color.Red : Color.Lerp(Color.Red, Color.Magenta, 0.5f));
-            GeneralParticleHandler.SpawnParticle(orb);
+            //PRT_SparkCal Configure(false,lifetime)旧Brimstone spark trail
+            PRTLoader.NewParticle<PRT_SparkCal>(Projectile.Center + offset, -Projectile.velocity * 0.05f, Main.rand.NextBool() ? Color.Red : Color.Lerp(Color.Red, Color.Magenta, 0.5f), 0.8f).Configure(false, 8);
 
-            SparkParticle orb2 = new(Projectile.Center - offset, -Projectile.velocity * 0.05f, false, 8, 0.8f, Main.rand.NextBool() ? Color.Red : Color.Lerp(Color.Red, Color.Magenta, 0.5f));
-            GeneralParticleHandler.SpawnParticle(orb2);
+            PRTLoader.NewParticle<PRT_SparkCal>(Projectile.Center - offset, -Projectile.velocity * 0.05f, Main.rand.NextBool() ? Color.Red : Color.Lerp(Color.Red, Color.Magenta, 0.5f), 0.8f).Configure(false, 8);
 
 
             if (Projectile.timeLeft < 21)
@@ -184,7 +184,7 @@ namespace CalamityEntropy.Content.Projectiles
             float num3 = ((num == -1 || !Main.npc[num].active || !Main.player[num].active || Main.npc[num] == null) ? 1000f : Vector2.Distance(Main.npc[num].Center, base.Projectile.Center));
             if (base.Projectile.ai[1] == 2f && Main.rand.NextBool())
             {
-                GeneralParticleHandler.SpawnParticle(new SparkParticle(base.Projectile.Center - base.Projectile.velocity + Main.rand.NextVector2Circular(30f, 30f), -base.Projectile.velocity * Main.rand.NextFloat(0.1f, 1f), affectedByGravity: false, 14, Main.rand.NextFloat(0.5f, 0.75f), (Main.rand.NextBool() ? Color.Lerp(Color.Red, Color.Magenta, 0.5f) : Color.Red) * base.Projectile.Opacity));
+                PRTLoader.NewParticle<PRT_SparkCal>(base.Projectile.Center - base.Projectile.velocity + Main.rand.NextVector2Circular(30f, 30f), -base.Projectile.velocity * Main.rand.NextFloat(0.1f, 1f), (Main.rand.NextBool() ? Color.Lerp(Color.Red, Color.Magenta, 0.5f) : Color.Red) * base.Projectile.Opacity, Main.rand.NextFloat(0.5f, 0.75f)).Configure(false, 14);
             }
 
             if ((base.Projectile.timeLeft == 1 && !withinRange) || (num3 < 224f && base.Projectile.Opacity == 1f))
@@ -223,23 +223,20 @@ namespace CalamityEntropy.Content.Projectiles
                 base.Projectile.velocity *= 0f;
                 for (int j = 0; j < 2; j++)
                 {
-                    Particle particle = new BloomParticle(base.Projectile.Center, Vector2.Zero, new Color(121, 21, 77), 0.1f, 0.85f, 30, fade: false);
-                    GeneralParticleHandler.SpawnParticle(particle);
-                    if (base.Projectile.ai[2] == 1f)
-                    {
-                        particle.Lifetime = 0;
-                    }
+                    if (base.Projectile.ai[2] != 1f)
+                        //BloomCal opacity+lifetime+shrink,BrimstoneHellblast那套Calamity bloom
+                        PRTLoader.NewParticle<PRT_BloomCal>(base.Projectile.Center, Vector2.Zero, new Color(121, 21, 77), 0.1f).Configure(0.85f, 30, false);
                 }
             }
 
             if (base.Projectile.timeLeft == 15)
             {
-                GeneralParticleHandler.SpawnParticle(new BloomParticle(base.Projectile.Center, Vector2.Zero, Color.Red, 0.1f, 0.8f, 15, fade: false));
+                PRTLoader.NewParticle<PRT_BloomCal>(base.Projectile.Center, Vector2.Zero, Color.Red, 0.1f).Configure(0.8f, 15, false);
             }
 
             if (base.Projectile.timeLeft == 8)
             {
-                GeneralParticleHandler.SpawnParticle(new BloomParticle(base.Projectile.Center, Vector2.Zero, Color.White, 0.1f, 0.7f, 8, fade: false));
+                PRTLoader.NewParticle<PRT_BloomCal>(base.Projectile.Center, Vector2.Zero, Color.White, 0.1f).Configure(0.7f, 8, false);
             }
         }
 
@@ -291,7 +288,7 @@ namespace CalamityEntropy.Content.Projectiles
                 for (int j = 0; j < 25; j++)
                 {
                     Vector2 vector = new Vector2(15f, 15f).RotatedByRandom(100.0);
-                    GeneralParticleHandler.SpawnParticle(new PointParticle(base.Projectile.Center + vector, vector * Main.rand.NextFloat(0.3f, 1f), affectedByGravity: false, 15, 1.25f, (Main.rand.NextBool() ? Color.Lerp(Color.Red, Color.Magenta, 0.5f) : Color.Red) * 0.6f));
+                    PRTLoader.NewParticle<PRT_PointCal>(base.Projectile.Center + vector, vector * Main.rand.NextFloat(0.3f, 1f), (Main.rand.NextBool() ? Color.Lerp(Color.Red, Color.Magenta, 0.5f) : Color.Red) * 0.6f, 1.25f).Configure(false, 15, true);
                 }
 
                 for (int k = 0; k < 25; k++)
@@ -375,7 +372,7 @@ namespace CalamityEntropy.Content.Projectiles
 
             if ((base.Projectile.ai[1] == 2f || (base.Projectile.ai[1] == 4f && time > 10)))
             {
-                GeneralParticleHandler.SpawnParticle(new SparkParticle(base.Projectile.Center - base.Projectile.velocity * 0.5f, -base.Projectile.velocity * Main.rand.NextFloat(0.1f, 0.6f), affectedByGravity: false, (int)MathHelper.Clamp(9f * Utils.GetLerpValue(630f, 690f, base.Projectile.timeLeft), 2f, 9f), 1.1f, (Main.rand.NextBool() ? Color.Red : Color.Lerp(Color.Red, Color.Magenta, 0.5f)) * base.Projectile.Opacity * 0.85f));
+                PRTLoader.NewParticle<PRT_SparkCal>(base.Projectile.Center - base.Projectile.velocity * 0.5f, -base.Projectile.velocity * Main.rand.NextFloat(0.1f, 0.6f), (Main.rand.NextBool() ? Color.Red : Color.Lerp(Color.Red, Color.Magenta, 0.5f)) * base.Projectile.Opacity * 0.85f, 1.1f).Configure(false, (int)MathHelper.Clamp(9f * Utils.GetLerpValue(630f, 690f, base.Projectile.timeLeft), 2f, 9f));
             }
 
             if (base.Projectile.ai[1] == 3f)

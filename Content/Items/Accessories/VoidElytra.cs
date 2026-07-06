@@ -4,6 +4,7 @@ using CalamityEntropy.Content.Particles;
 using CalamityMod.Items;
 using CalamityMod.Items.Accessories.Wings;
 using CalamityMod.Rarities;
+using InnoVault.PRT;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -43,12 +44,9 @@ namespace CalamityEntropy.Content.Items.Accessories
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    Particle p = new Particle();
-                    p.position = (player.Center - new Vector2(14f, 0f) * (float)player.direction) - player.velocity * ((float)i * 0.1f);
-                    p.velocity = new Vector2(-8f, 10f) * new Vector2((float)player.direction, 1f);
-                    p.alpha = 0.2f;
-                    p.position += p.velocity * ((float)i * 0.1f);
-                    VoidParticles.particles.Add(p);
+                    //翼飞时拖PRT_Void,Opacity=0.2旧VoidElytra原值
+                    var p = PRTLoader.NewParticle<PRT_Void>((player.Center - new Vector2(14f, 0f) * (float)player.direction) - player.velocity * ((float)i * 0.1f) + new Vector2(-8f, 10f) * new Vector2((float)player.direction, 1f) * ((float)i * 0.1f), new Vector2(-8f, 10f) * new Vector2((float)player.direction, 1f), Color.White, 1f);
+                    p.Opacity = 0.2f;
                 }
 
             }

@@ -1,5 +1,6 @@
-﻿using CalamityEntropy.Utilities;
-using CalamityMod.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
+using CalamityEntropy.Utilities;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -34,11 +35,11 @@ namespace CalamityEntropy.Content.Projectiles
         public int dmgandkbUp = 22;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(dmgandkbUp > 1)
+            if (dmgandkbUp > 1)
             {
                 dmgandkbUp = 1;
                 ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.NoDirQuickShake(8), CEUtils.getDistance(Projectile.GetOwner().Center, Projectile.Center));
-                
+
                 CEUtils.PlaySound("ksLand", Main.rand.NextFloat(1.2f, 1.4f), Projectile.Center, volume: CEUtils.WeapSound);
                 float sparkCount = 16;
                 for (int i = 0; i < sparkCount; i++)
@@ -46,8 +47,8 @@ namespace CalamityEntropy.Content.Projectiles
                     Vector2 sparkVelocity2 = Projectile.velocity.normalize().RotatedByRandom(0.4f) * Main.rand.NextFloat(8, 32);
                     int sparkLifetime2 = 18;
                     float sparkScale2 = 1.4f;
-                    AltSparkParticle spark = new AltSparkParticle(Projectile.Center, sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1f), Color.LightBlue);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    //PRT_AltSpark跟LineCal随机混用,旧Calamity spark/Lines二选一
+                    PRTLoader.NewParticle<PRT_AltSpark>(Projectile.Center, sparkVelocity2 * (1f), Color.LightBlue, sparkScale2 * (1f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
                 }
             }
             else
@@ -59,8 +60,8 @@ namespace CalamityEntropy.Content.Projectiles
                     Vector2 sparkVelocity2 = CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 12);
                     int sparkLifetime2 = 18;
                     float sparkScale2 = 0.7f;
-                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1f), Color.LightBlue);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    //AltSpark Configure(bool,int)是Ports签名,不是opacity/glow/mode那套
+                    PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), Color.LightBlue, sparkScale2 * (1f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
                 }
             }
         }

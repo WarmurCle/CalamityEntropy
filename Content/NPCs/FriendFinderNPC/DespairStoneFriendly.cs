@@ -1,8 +1,9 @@
-﻿using CalamityMod;
+﻿using CalamityEntropy.Content.Particles.CalamityPorts;
+using CalamityMod;
 using CalamityMod.Dusts;
 using CalamityMod.NPCs.Crags;
-using CalamityMod.Particles;
 using CalamityMod.World;
+using InnoVault.PRT;
 using ReLogic.Utilities;
 using System;
 using Terraria;
@@ -171,6 +172,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
 
             if (NPC.ai[1] % 4 == 0)
             {
+                //HitEffect溅血每4tick 2 SparkCal,10%大号分支,splatterDirection跟ai[2]朝向绑
                 for (int i = 0; i < 2; i++)
                 {
                     int sparkLifetime = Main.rand.Next(14, 21);
@@ -183,8 +185,8 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
 
                     Vector2 sparkVelocity = splatterDirection.RotatedByRandom(0.45f) * Main.rand.NextFloat(6f, 13f);
                     sparkVelocity.Y -= 6f;
-                    SparkParticle spark = new SparkParticle(bloodSpawnPosition, sparkVelocity, true, sparkLifetime, sparkScale, sparkColor);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    //SparkCal Configure(true,lifetime)走CalamityPort短寿火花,不是Additive桶
+                    PRTLoader.NewParticle<PRT_SparkCal>(bloodSpawnPosition, sparkVelocity, sparkColor, sparkScale).Configure(true, sparkLifetime);
                 }
             }
         }

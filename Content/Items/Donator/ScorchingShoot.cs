@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
@@ -6,10 +7,9 @@ using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Ranged;
-using CalamityMod.Particles;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
-using Microsoft.Xna.Framework.Graphics;
+using InnoVault.PRT;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +18,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-
 namespace CalamityEntropy.Content.Items.Donator
 {
     public class ScorchingShoot : ModItem, IDonatorItem
@@ -72,8 +71,8 @@ namespace CalamityEntropy.Content.Items.Donator
                 float sparkScale2 = Main.rand.NextFloat(0.6f, 1.4f);
                 var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
 
-                LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-                GeneralParticleHandler.SpawnParticle(spark);
+                //PRT_LineCal CalamityPorts,Configure签名对齐Calamity原构造
+                PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
             }
             if (HitCount > 6)
             {
@@ -138,7 +137,7 @@ namespace CalamityEntropy.Content.Items.Donator
         public override bool InstancePerEntity => true;
         public bool Active = false;
         public bool Enhanced = false;
-        public TrailGunShot trail = null;
+        public PRT_TrailGunShot trail = null;
         public bool flag = true;
         public List<int> NPCHited = new List<int>();
         public override void AI(Projectile projectile)
@@ -159,8 +158,8 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 if (trail == null)
                 {
-                    trail = new TrailGunShot();
-                    EParticle.spawnNew(trail, projectile.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.AlphaBlend);
+                    trail = PRTLoader.NewParticle<PRT_TrailGunShot>(projectile.Center, Vector2.Zero, Color.White, 1f);
+                    trail.Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0, -1);
                 }
                 else
                 {
@@ -177,8 +176,7 @@ namespace CalamityEntropy.Content.Items.Donator
                     float sparkScale2 = Main.rand.NextFloat(0.6f, 1.4f);
                     var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
 
-                    LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
                 }
             }
         }

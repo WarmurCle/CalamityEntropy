@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
@@ -23,14 +24,17 @@ namespace CalamityEntropy.Content.Buffs
             player.Entropy().maliciousCode = true;
             if (Main.rand.NextBool(14))
             {
-                EParticle.NewParticle(new MCodeParticle(), player.Center + CEUtils.randomVec(28), Vector2.Zero, Main.rand.NextBool(5) ? Main.DiscoColor : Color.White, Main.rand.NextFloat(0.6f, 3.4f), 1, true, BlendState.AlphaBlend, 0);
+                //恶意代码飘字,MCodeParticle的frame在AI里随机跳
+                PRTLoader.NewParticle<PRT_MCodeParticle>(player.Center + CEUtils.randomVec(28), Vector2.Zero, Main.rand.NextBool(5) ? Main.DiscoColor : Color.White, Main.rand.NextFloat(0.6f, 3.4f))
+                    .Configure(1, true, PRTDrawModeEnum.AlphaBlend);
             }
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
             if (Main.rand.NextBool(8))
             {
-                EParticle.NewParticle(new MCodeParticle(), npc.Center + new Vector2(Main.rand.NextFloat(npc.width) - npc.width / 2, Main.rand.NextFloat(npc.height) - npc.height / 2), Vector2.Zero, Main.rand.NextBool(4) ? Main.DiscoColor : Color.White, Main.rand.NextFloat(0.6f, 3.4f), 1, true, BlendState.AlphaBlend, 0);
+                PRTLoader.NewParticle<PRT_MCodeParticle>(npc.Center + new Vector2(Main.rand.NextFloat(npc.width) - npc.width / 2, Main.rand.NextFloat(npc.height) - npc.height / 2), Vector2.Zero, Main.rand.NextBool(4) ? Main.DiscoColor : Color.White, Main.rand.NextFloat(0.6f, 3.4f))
+                    .Configure(1, true, PRTDrawModeEnum.AlphaBlend);
             }
         }
     }

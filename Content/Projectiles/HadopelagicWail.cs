@@ -1,6 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
-using Microsoft.Xna.Framework.Graphics;
+using InnoVault.PRT;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -32,20 +32,22 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.ai[0] == 0)
             {
-                EParticle.NewParticle(new HadLine(), Projectile.Center + Projectile.velocity.RotatedBy(MathHelper.PiOver2).SafeNormalize(Vector2.Zero) * 120, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Projectile.velocity.ToRotation());
-                EParticle.NewParticle(new HadLine(), Projectile.Center + Projectile.velocity.RotatedBy(-MathHelper.PiOver2).SafeNormalize(Vector2.Zero) * 120, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, Projectile.velocity.ToRotation());
+                //HadLine带rotation的Configure对齐旧HadLine构造
+                PRTLoader.NewParticle<PRT_HadLine>(Projectile.Center + Projectile.velocity.RotatedBy(MathHelper.PiOver2).SafeNormalize(Vector2.Zero) * 120, Vector2.Zero, Color.White, 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation());
+                PRTLoader.NewParticle<PRT_HadLine>(Projectile.Center + Projectile.velocity.RotatedBy(-MathHelper.PiOver2).SafeNormalize(Vector2.Zero) * 120, Vector2.Zero, Color.White, 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation());
 
             }
             Projectile.ai[0]++;
-            EParticle.NewParticle(new HadCircle(), Projectile.Center, Vector2.Zero, Color.White, 0.6f, 0, true, BlendState.Additive, Projectile.velocity.ToRotation());
+            PRTLoader.NewParticle<PRT_HadCircle>(Projectile.Center, Vector2.Zero, Color.White, 0.6f).Configure(0, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation());
 
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff<LifeOppress>(600);
-            EParticle.NewParticle(new HadCircle2(), target.Center, Vector2.Zero, new Color(170, 170, 255), 0, 0, true, BlendState.Additive, 0);
-            EParticle.NewParticle(new HadCircle2(), target.Center, Vector2.Zero, new Color(170, 170, 255), 0, 0, true, BlendState.Additive, 0);
+            //AdditiveBlend走Configure分桶,旧GeneralParticleHandler Before层那套
+            PRTLoader.NewParticle<PRT_HadCircle2>(target.Center, Vector2.Zero, new Color(170, 170, 255), 0).Configure(0, true, PRTDrawModeEnum.AdditiveBlend, 0);
+            PRTLoader.NewParticle<PRT_HadCircle2>(target.Center, Vector2.Zero, new Color(170, 170, 255), 0).Configure(0, true, PRTDrawModeEnum.AdditiveBlend, 0);
         }
         public override bool PreDraw(ref Color lightColor)
         {

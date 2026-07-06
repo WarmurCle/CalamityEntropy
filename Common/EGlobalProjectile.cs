@@ -5,6 +5,7 @@ using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityEntropy.Content.Projectiles.HBProj;
@@ -13,18 +14,16 @@ using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Projectiles.VoidEchoProj;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Enums;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.NPCs.Signus;
 using CalamityMod.NPCs.StormWeaver;
-using CalamityMod.Particles;
 using CalamityMod.Projectiles.BaseProjectiles;
 using CalamityMod.Projectiles.Boss;
 using CalamityMod.Projectiles.Melee;
-using CalamityMod.Projectiles.Summon;
 using CalamityMod.Projectiles.Typeless;
 using InnoVault;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -273,10 +272,11 @@ namespace CalamityEntropy.Common
             updateTimes++;
             if (updateTimes % projectile.MaxUpdates == 0)
                 Lifetime++;
-            if(buriedShoot)
+            if (buriedShoot)
             {
-                GeneralParticleHandler.SpawnParticle(new CustomSpark(projectile.Center + projectile.velocity.normalize() * 40, -projectile.velocity * 0.05f, "CalamityMod/Particles/GlowSpark2", affectedByGravity: false, 9, 0.03f, Color.Black, new Vector2(0.6f, 1.3f), useAddativeBlend: false));
-                GeneralParticleHandler.SpawnParticle(new CustomSpark(projectile.Center + projectile.velocity.normalize() * 40, -projectile.velocity * 0.05f, "CalamityMod/Particles/GlowSpark", affectedByGravity: false, 7, 0.012f, Color.LightGreen, new Vector2(0.6f, 1.9f)), pixelate: false, GeneralDrawLayer.AfterEverything);
+                PRTLoader.NewParticle<PRT_CustomSpark>(projectile.Center + projectile.velocity.normalize() * 40, -projectile.velocity * 0.05f, Color.Black, 0.03f).Configure("CalamityMod/Particles/GlowSpark2", false, 9, new Vector2(0.6f, 1.3f), false, false, 0f, false, false);
+                //绿火花AfterPlayers:Calamity GeneralDrawLayer弹幕前后层PRT没有,硬提RenderLayer盖蓝光
+                PRTLoader.NewParticle<PRT_CustomSpark>(projectile.Center + projectile.velocity.normalize() * 40, -projectile.velocity * 0.05f, Color.LightGreen, 0.012f).Configure("CalamityMod/Particles/GlowSpark", false, 7, new Vector2(0.6f, 1.9f), true, false, 0f, false, false, renderLayer: PRTRenderLayer.AfterPlayers);
             }
         }
         public bool Losted = false;
@@ -483,7 +483,7 @@ namespace CalamityEntropy.Common
         }
         public Vector2? plrOldPos = null;
         public Vector2? plrOldVel = null;
-        public ProminenceTrail trail_pmn = null;
+        public PRT_ProminenceTrail trail_pmn = null;   //ProminenceArrow,AI里AddPoint续命
         public bool init_ = true;
         public float maxSpd = -1;
         public List<int> luminarHited = new List<int>();
@@ -493,7 +493,7 @@ namespace CalamityEntropy.Common
         public Vector2 typVel = Vector2.Zero;
         public bool SmartArcEffect = false;
         public bool Freeze = true;//For wisper arrows
-        public EParticle ParticleOnMe = null;
+        public PRT_HeavenfallStar2 ParticleOnMe = null;   //WisperArrow,AI里跟Center
         public bool slowFlag = true;
         public bool SetMaxUpdates = true;
         public override bool PreAI(Projectile projectile)
@@ -543,8 +543,7 @@ namespace CalamityEntropy.Common
                 if (targetDist < 1400f)
                 {
                     int positionVariation = 8;
-                    LineParticle spark = new LineParticle(projectile.Center + Main.rand.NextVector2Circular(positionVariation, positionVariation), -projectile.velocity * Main.rand.NextFloat(0.003f, 0.001f), false, 4, 1.45f, Color.Chocolate);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    PRTLoader.NewParticle<PRT_LineCal>(projectile.Center + Main.rand.NextVector2Circular(positionVariation, positionVariation), -projectile.velocity * Main.rand.NextFloat(0.003f, 0.001f), Color.Chocolate, 1.45f).Configure(false, 4);
                 }
                 projectile.position += projectile.velocity;
             }
@@ -570,8 +569,7 @@ namespace CalamityEntropy.Common
                 float sparkScale2 = Main.rand.NextFloat(0.64f, 0.8f);
                 var sparkColor2 = Color.Lerp(Color.DeepSkyBlue, Color.SkyBlue, Main.rand.NextFloat(0, 1));
 
-                LineParticle spark = new LineParticle(top, velocity, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-                GeneralParticleHandler.SpawnParticle(spark);
+                PRTLoader.NewParticle<PRT_LineCal>(top, velocity, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
             }
             if (WisperArrow)
             {
@@ -595,22 +593,19 @@ namespace CalamityEntropy.Common
                 if (wisperShine)
                 {
                     wisperShine = false;
-                    ParticleOnMe = new HeavenfallStar2();
-                    EParticle.spawnNew(ParticleOnMe, projectile.Center, Vector2.Zero, new Color(180, 120, 255), 0.8f, 1, true, BlendState.Additive, 0);
+                    ParticleOnMe = PRTLoader.NewParticle<PRT_HeavenfallStar2>(projectile.Center, Vector2.Zero, new Color(180, 120, 255), 0.8f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
                 }
             }
             if (LuminarArrow)
             {
                 if (starTrailPt == null || starTrailPt.Lifetime <= 0)
                 {
-                    starTrailPt = new StarTrailParticle();
+                    starTrailPt = PRTLoader.NewParticle<PRT_StarTrailParticle>(projectile.Center, Vector2.Zero, Color.LightBlue, 1.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
                     starTrailPt.addPoint = false;
                     starTrailPt.maxLength = projectile.MaxUpdates * 16;
-                    EParticle.NewParticle(starTrailPt, projectile.Center, Vector2.Zero, Color.LightBlue, 1.6f, 1, true, BlendState.Additive, 0);
-                    starTrailPt2 = new StarTrailParticle();
+                    starTrailPt2 = PRTLoader.NewParticle<PRT_StarTrailParticle>(projectile.Center, Vector2.Zero, Color.White, 0.64f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
                     starTrailPt2.addPoint = false;
                     starTrailPt2.maxLength = projectile.MaxUpdates * 16;
-                    EParticle.NewParticle(starTrailPt2, projectile.Center, Vector2.Zero, Color.White, 0.64f, 1, true, BlendState.Additive, 0);
 
                 }
                 starTrailPt.Velocity = projectile.velocity * 0.8f * projectile.MaxUpdates;
@@ -646,14 +641,14 @@ namespace CalamityEntropy.Common
             }
             if (ProminenceArrow)
             {
-                if (trail_pmn == null)
+                if (trail_pmn == null || !trail_pmn.active)
                 {
-                    trail_pmn = new ProminenceTrail();
-                    EParticle.NewParticle(trail_pmn, projectile.Center + projectile.velocity * 2, Vector2.Zero, Color.White, projectile.scale, 1, true, BlendState.NonPremultiplied);
+                    trail_pmn = PRTLoader.NewParticle<PRT_ProminenceTrail>(projectile.Center + projectile.velocity * 2, Vector2.Zero, Color.White, projectile.scale)
+                        .Configure(1, true, PRTDrawModeEnum.NonPremultiplied);
                 }
                 trail_pmn.AddPoint(projectile.Center + projectile.velocity * 1.5f);
                 trail_pmn.AddPoint(projectile.Center + projectile.velocity * 2);
-                trail_pmn.Lifetime = 11;
+                trail_pmn.Lifetime = trail_pmn.Time + 11;
             }
             promineceDamageAddition -= 0.006f / projectile.MaxUpdates;
             if (projectile.TryGetOwner(out var owner))
@@ -764,11 +759,13 @@ namespace CalamityEntropy.Common
             {
                 if (Main.rand.NextBool(4 * projectile.MaxUpdates))
                 {
-                    EParticle.spawnNew(new HeavenfallStar2() { drawScale = Vector2.One }, projectile.Center + CEUtils.randomPointInCircle(16), projectile.velocity * 0.3f, Main.hslToRgb(0.85f, 1, 0.8f), 0.3f, 1, true, BlendState.Additive, 0);
+                    var __prt = PRTLoader.NewParticle<PRT_HeavenfallStar2>(projectile.Center + CEUtils.randomPointInCircle(16), projectile.velocity * 0.3f, Main.hslToRgb(0.85f, 1, 0.8f), 0.3f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
+                    __prt.drawScale = Vector2.One;
                 }
                 if (Main.rand.NextBool(projectile.MaxUpdates))
                 {
-                    EParticle.spawnNew(new HeavenfallStar2() { drawScale = new Vector2(0.4f, 1f) }, projectile.Center + CEUtils.randomPointInCircle(12), projectile.velocity * 0.1f, Main.hslToRgb(0.85f, 1, 0.8f), 1.2f, 1, true, BlendState.Additive, projectile.velocity.ToRotation(), 16);
+                    var __prt = PRTLoader.NewParticle<PRT_HeavenfallStar2>(projectile.Center + CEUtils.randomPointInCircle(12), projectile.velocity * 0.1f, Main.hslToRgb(0.85f, 1, 0.8f), 1.2f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, projectile.velocity.ToRotation(), 16);
+                    __prt.drawScale = new Vector2(0.4f, 1f);
                 }
                 for (float i = 0; i < 1; i += 0.25f)
                 {
@@ -780,14 +777,12 @@ namespace CalamityEntropy.Common
                         Vector2 p = projectile.Center - projectile.velocity * i;
                         if (Main.rand.NextBool(2))
                         {
-                            CalamityMod.Particles.Particle smoke = new HeavySmokeParticle(p + direction * 46f, smokeSpeed + projectile.velocity, Color.Lerp(Color.Purple, Color.Blue, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 16f)), 30, Main.rand.NextFloat(0.6f, 0.7f), 0.8f, 0, false, 0, true);
+                            var smoke = PRTLoader.NewParticle<PRT_HeavySmokeCal>(p + direction * 46f, smokeSpeed + projectile.velocity, Color.Lerp(Color.Purple, Color.Blue, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 16f)), Main.rand.NextFloat(0.6f, 0.7f)).Configure(0.8f, 30, 0, false, 0, true);
                             smoke.Rotation = CEUtils.randomRot();
-                            GeneralParticleHandler.SpawnParticle(smoke);
                         }
                         {
-                            CalamityMod.Particles.Particle smokeGlow = new HeavySmokeParticle(p + direction * 46f, smokeSpeed + projectile.velocity, Main.hslToRgb(0.85f, 1, 0.8f), 20, Main.rand.NextFloat(0.36f, 0.5f), 0.8f, 0.01f, true, 0.01f, true);
+                            var smokeGlow = PRTLoader.NewParticle<PRT_HeavySmokeCal>(p + direction * 46f, smokeSpeed + projectile.velocity, Main.hslToRgb(0.85f, 1, 0.8f), Main.rand.NextFloat(0.36f, 0.5f)).Configure(0.8f, 20, 0.01f, true, 0.01f, true);
                             smokeGlow.Rotation = CEUtils.randomRot();
-                            GeneralParticleHandler.SpawnParticle(smokeGlow);
                         }
                     }
                 }
@@ -807,9 +802,8 @@ namespace CalamityEntropy.Common
                     Vector2 smokeSpeed = CEUtils.randomPointInCircle(2);
 
                     Vector2 p = projectile.Center - projectile.velocity * Main.rand.NextFloat();
-                    CalamityMod.Particles.Particle smokeGlow = new HeavySmokeParticle(p, smokeSpeed - projectile.velocity * 0.3f, Main.rand.NextBool() ? Color.OrangeRed : Color.Firebrick, 16, Main.rand.NextFloat(0.3f, 0.36f), 1f, Main.rand.NextFloat(-0.01f, 0.01f), true, 0.002f, true);
+                    var smokeGlow = PRTLoader.NewParticle<PRT_HeavySmokeCal>(p, smokeSpeed - projectile.velocity * 0.3f, Main.rand.NextBool() ? Color.OrangeRed : Color.Firebrick, Main.rand.NextFloat(0.3f, 0.36f)).Configure(1f, 16, Main.rand.NextFloat(-0.01f, 0.01f), true, 0.002f, true);
                     smokeGlow.Rotation = CEUtils.randomRot();
-                    GeneralParticleHandler.SpawnParticle(smokeGlow);
 
                 }
             }
@@ -1146,8 +1140,8 @@ namespace CalamityEntropy.Common
                 modifiers.SourceDamage *= 1 + promineceDamageAddition;
             }
         }
-        public StarTrailParticle starTrailPt = null;
-        public StarTrailParticle starTrailPt2 = null;
+        public PRT_StarTrailParticle starTrailPt = null;   //LuminarArrow,addPoint=false,AI里手动AddPoint
+        public PRT_StarTrailParticle starTrailPt2 = null;
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
             if (Losted)
@@ -1293,11 +1287,11 @@ namespace CalamityEntropy.Common
             if (ashesArrow)
             {
                 float scale = 36 / 40f;
-                EParticle.spawnNew(new ShineParticle(), projectile.Center, Vector2.Zero, Color.Red * 0.8f, scale * 0.8f, 1, true, BlendState.Additive, 0, 10);
-                EParticle.spawnNew(new ShineParticle(), projectile.Center, Vector2.Zero, Color.White * 0.8f, scale * 0.5f, 1, true, BlendState.Additive, 0, 10);
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(projectile.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 24));
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(projectile.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 18));
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(projectile.Center, Vector2.Zero, Color.OrangeRed * 1.4f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.02f, 15));
+                PRTLoader.NewParticle<PRT_ShineParticle>(projectile.Center, Vector2.Zero, Color.Red * 0.8f, scale * 0.8f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 10);
+                PRTLoader.NewParticle<PRT_ShineParticle>(projectile.Center, Vector2.Zero, Color.White * 0.8f, scale * 0.5f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 10);
+                PRTLoader.NewParticle<PRT_CustomPulse>(projectile.Center, Vector2.Zero, Color.OrangeRed * 1.4f, 0.005f).Configure("CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 24);
+                PRTLoader.NewParticle<PRT_CustomPulse>(projectile.Center, Vector2.Zero, Color.OrangeRed * 1.4f, 0.005f).Configure("CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.035f, 18);
+                PRTLoader.NewParticle<PRT_CustomPulse>(projectile.Center, Vector2.Zero, Color.OrangeRed * 1.4f, 0.005f).Configure("CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.02f, 15);
             }
             if (projectile.friendly)
             {
@@ -1327,7 +1321,7 @@ namespace CalamityEntropy.Common
             }
             if (zypArrow)
             {
-                GeneralParticleHandler.SpawnParticle(new GlowOrbParticle(projectile.Center, Vector2.Zero, false, 20, 4, new Color(Main.rand.Next(140, 220), Main.rand.Next(140, 220), 255)));
+                PRTLoader.NewParticle<PRT_GlowOrbCal>(projectile.Center, Vector2.Zero, new Color(Main.rand.Next(140, 220), Main.rand.Next(140, 220), 255), 4).Configure(false, 20);
 
                 for (int i = 0; i < 8; i++)
                 {
@@ -1336,7 +1330,7 @@ namespace CalamityEntropy.Common
                     Color clr = new Color(Main.rand.Next(140, 220), Main.rand.Next(140, 220), 255);
                     Color clr2 = Color.Blue;
                     float scale = Main.rand.NextFloat(0.5f, 0.9f) * 0.08f;
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(pos, vel, false, 20, scale, clr, new Vector2(0.25f, 1)));
+                    PRTLoader.NewParticle<PRT_GlowSparkCal>(pos, vel, clr, scale).Configure(false, 20, new Vector2(0.25f, 1));
                 }
             }
 
@@ -1351,8 +1345,10 @@ namespace CalamityEntropy.Common
             if (GWBow)
             {
                 CEUtils.PlaySound("bne_hit", 1.2f + 0.2f * projectile.numHits, target.Center);
-                EParticle.spawnNew(new HeavenfallStar2() { drawScale = Vector2.One }, target.Center, Vector2.Zero, Main.hslToRgb(0.85f, 1, 0.8f), 2.6f, 1, true, BlendState.Additive, 0, 28);
-                EParticle.spawnNew(new HeavenfallStar2() { drawScale = Vector2.One }, target.Center, Vector2.Zero, Main.hslToRgb(0.85f, 1, 0.8f), 1.4f, 1, true, BlendState.Additive, MathHelper.PiOver4, 40);
+                var __prt = PRTLoader.NewParticle<PRT_HeavenfallStar2>(target.Center, Vector2.Zero, Main.hslToRgb(0.85f, 1, 0.8f), 2.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 28);
+                __prt.drawScale = Vector2.One;
+                var __prt2 = PRTLoader.NewParticle<PRT_HeavenfallStar2>(target.Center, Vector2.Zero, Main.hslToRgb(0.85f, 1, 0.8f), 1.4f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, MathHelper.PiOver4, 40);
+                __prt2.drawScale = Vector2.One;
             }
             if (projectile.friendly && projectile.DamageType.CountsAsClass(DamageClass.Ranged))
             {
@@ -1376,8 +1372,7 @@ namespace CalamityEntropy.Common
                 float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
                 var sparkColor2 = Color.Lerp(Color.Goldenrod, Color.Yellow, Main.rand.NextFloat(0, 1));
 
-                LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-                GeneralParticleHandler.SpawnParticle(spark);
+                PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
 
                 if (target.Organic())
                 {
@@ -1392,11 +1387,10 @@ namespace CalamityEntropy.Common
             {
                 luminarHited.Add(target.whoAmI);
                 CEUtils.PlaySound("LuminarArrowHit", Main.rand.NextFloat(0.7f, 1.3f), projectile.Center);
-                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(projectile.Center, Vector2.Zero, Color.LightBlue, new Vector2(2f, 2f), 0, 0.02f, 0.6f * 0.4f, 12);
-                GeneralParticleHandler.SpawnParticle(pulse);
+                PRTLoader.NewParticle<PRT_DirectionalPulseRing>(projectile.Center, Vector2.Zero, Color.LightBlue, 0.02f).Configure(new Vector2(2f, 2f), 0, 0.6f * 0.4f, 12);
                 for (int i = 0; i < 4; i++)
                 {
-                    EParticle.NewParticle(new StarTrailParticle(), projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(10, 20), Color.White, Main.rand.NextFloat(0.6f, 1.2f), 1, true, BlendState.Additive, 0);
+                    PRTLoader.NewParticle<PRT_StarTrailParticle>(projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(10, 20), Color.White, Main.rand.NextFloat(0.6f, 1.2f)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
                 }
                 target.AddBuff(ModContent.BuffType<AstralInfectionDebuff>(), 300);
             }

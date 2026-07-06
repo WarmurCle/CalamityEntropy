@@ -1,5 +1,6 @@
-﻿using CalamityMod.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod.Projectiles.Turret;
+using InnoVault.PRT;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -35,10 +36,9 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (Projectile.ai[0] == 0)
             {
-                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, Color.AliceBlue, new Vector2(2f, 2f), 0, 0.1f, 2 * 0.85f, 46);
-                GeneralParticleHandler.SpawnParticle(pulse);
-                CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, Color.SkyBlue, Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 2.2f * 0.65f, 30);
-                GeneralParticleHandler.SpawnParticle(explosion2);
+                //PRT_DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
+                PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, Color.AliceBlue, 0.1f).Configure(new Vector2(2f, 2f), 0, 2 * 0.85f, 46);  //DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
+                PRTLoader.NewParticle<PRT_DetailedExplosionCal>(Projectile.Center, Vector2.Zero, Color.SkyBlue, 0f).Configure(Vector2.One, Main.rand.NextFloat(-5, 5), 2.2f * 0.65f, 30);
                 if (Main.myPlayer == Projectile.owner)
                 {
                     for (int i = 0; i < 32; i++)

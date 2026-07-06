@@ -1,6 +1,9 @@
 ﻿using CalamityEntropy.Content.Buffs.Pets;
 using CalamityEntropy.Content.Particles;
+using InnoVault;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -9,6 +12,16 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
 {
+    //head/body/tail旧写法是射弹实例字段Request,每条宠物实例化都拉贴图,加载/进世界能挂
+    //VoidPalProj也共用这套,VaultLoaden必须static
+    internal static class AbyssPetTextures
+    {
+        [VaultLoaden("CalamityEntropy/Content/Projectiles/Pets/Abyss/Head")] internal static Asset<Texture2D> Head;
+        [VaultLoaden("CalamityEntropy/Content/Projectiles/Pets/Abyss/Body")] internal static Asset<Texture2D> Body;
+        [VaultLoaden("CalamityEntropy/Content/Projectiles/Pets/Abyss/Tail")] internal static Asset<Texture2D> Tail;
+        [VaultLoaden("CalamityEntropy/Content/Projectiles/Pets/Abyss/AbyssPet")] internal static Asset<Texture2D> Menu;   //宠物栏预览那张
+    }
+
     public class AbyssPet : ModProjectile
     {
         public float counter = 0;
@@ -19,9 +32,6 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
             base.SetStaticDefaults();
 
         }
-        public Texture2D head = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Abyss/Head").Value;
-        public Texture2D body = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Abyss/Body").Value;
-        public Texture2D tail = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Abyss/Tail").Value;
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.ZephyrFish);
@@ -37,7 +47,7 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
 
             if (Main.gameMenu)
             {
-                Texture2D txd = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/Pets/Abyss/AbyssPet").Value;
+                Texture2D txd = AbyssPetTextures.Menu.Value;
                 Main.EntitySpriteDraw(txd, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(txd.Width, txd.Height) / 2, Projectile.scale, SpriteEffects.FlipHorizontally, 0);
 
                 return false;
@@ -87,6 +97,9 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
             }
             else
             {
+                Texture2D head = AbyssPetTextures.Head.Value;
+                Texture2D body = AbyssPetTextures.Body.Value;
+                Texture2D tail = AbyssPetTextures.Tail.Value;
                 Main.EntitySpriteDraw(head, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(head.Width, head.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
                 Main.EntitySpriteDraw(body, bodyP - Main.screenPosition, null, lightColor, (Projectile.Center - bodyP).ToRotation(), new Vector2(body.Width, body.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
                 Main.EntitySpriteDraw(tail, tailP - Main.screenPosition, null, lightColor, (bodyP - tailP).ToRotation(), new Vector2(body.Width, body.Height) / 2, Projectile.scale, SpriteEffects.None, 0);
@@ -119,19 +132,15 @@ namespace CalamityEntropy.Content.Projectiles.Pets.Abyss
                 Projectile.rotation = Projectile.velocity.ToRotation();
                 for (int i = 0; i < 2; i++)
                 {
-                    Particle p = new Particle();
-                    p.alpha = 0.4f;
-                    p.position = Projectile.Center;
-                    p.velocity = new Vector2(0.3f, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2);
-                    VoidParticles.particles.Add(p);
+                    //宠物拖尾PRT_Void,Opacity直赋对齐旧VoidParticles
+                    var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center, new Vector2(0.3f, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), Color.White, 1f);
+                    p.Opacity = 0.4f;  //Opacity旧初始化器值
                 }
                 for (int i = 0; i < 2; i++)
                 {
-                    Particle p = new Particle();
-                    p.alpha = 0.4f;
-                    p.position = Projectile.Center - Projectile.velocity / 2;
-                    p.velocity = new Vector2(0.3f, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2);
-                    VoidParticles.particles.Add(p);
+                    //velocity/2偏移那圈也是旧VoidParticles双环spawn
+                    var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center - Projectile.velocity / 2, new Vector2(0.3f, 0).RotatedBy(Main.rand.NextDouble() * Math.PI * 2), Color.White, 1f);
+                    p.Opacity = 0.4f;
                 }
 
                 if (CEUtils.getDistance(Projectile.Center, targetPos) > 140)

@@ -1,5 +1,6 @@
-﻿using CalamityEntropy.Content.Items.Books;
+using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -35,7 +36,9 @@ namespace CalamityEntropy.Content.Projectiles
         public override void AI()
         {
             base.AI();
-            EParticle.NewParticle(new LifeLeaf(), Projectile.Center, CEUtils.randomVec(6), Color.White, Main.rand.NextFloat(0.6f, 1.4f), 1, false, BlendState.AlphaBlend, CEUtils.randomRot());
+            //LifeLeaf bramble/silva装饰,旧PRT/EParticle LifeLeaf
+            PRTLoader.NewParticle<PRT_LifeLeaf>(Projectile.Center, CEUtils.randomVec(6), Color.White, Main.rand.NextFloat(0.6f, 1.4f))
+                .Configure(1, false, PRTDrawModeEnum.AlphaBlend, CEUtils.randomRot());
             if (Projectile.timeLeft < 3)
             {
                 return;
@@ -59,7 +62,8 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     for (int i = 0; i < 42; i++)
                     {
-                        EParticle.NewParticle(new GlowSpark(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.Gold, Main.rand.NextFloat(0.08f, 0.12f), 1, true, BlendState.Additive, 0);
+                        //GlowSpark旧EParticle,Configure尾参统一签名那套
+                        PRTLoader.NewParticle<PRT_GlowSpark>(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.Gold, Main.rand.NextFloat(0.08f, 0.12f)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
                     }
                     CEUtils.PlaySound("soulshine", 1f, Projectile.Center, maxIns: 6, volume: 0.6f);
                     Projectile.Kill();

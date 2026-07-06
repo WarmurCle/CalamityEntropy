@@ -1,11 +1,11 @@
 ﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-
 namespace CalamityEntropy.Content.Items.Books
 {
     public class OuijaBoard : EntropyBook
@@ -79,7 +79,8 @@ namespace CalamityEntropy.Content.Items.Books
         }
         public override void OnKill(int timeLeft)
         {
-            GeneralParticleHandler.SpawnParticle(new CalamityMod.Particles.ImpactParticle(Projectile.Center, 0, 9, 0.4f, new Color(255, 255, 255)));
+            //ImpactCal CalamityPorts,Configure(frameCount,lifetime)跟Calamity ImpactParticle对齐
+            PRTLoader.NewParticle<PRT_ImpactCal>(Projectile.Center, Vector2.Zero, new Color(255, 255, 255), 0.4f).Configure(0, 9);
         }
         public override void AI()
         {
@@ -100,7 +101,11 @@ namespace CalamityEntropy.Content.Items.Books
             if (Projectile.localAI[0] == 150)
                 Projectile.tileCollide = true;
             for (float i = 0; i < 1; i += 0.25f)
-                EParticle.spawnNew(new GlowLightParticle() { lightColor = Color.White * 0.14f }, Projectile.Center + Projectile.velocity * i, CEUtils.randomPointInCircle(2), new Color(160, 160, 200), Main.rand.NextFloat(0.6f, 1f), 1, true, BlendState.Additive, 0, 24);
+            {
+                var p = PRTLoader.NewParticle<PRT_GlowLightParticle>(Projectile.Center + Projectile.velocity * i, CEUtils.randomPointInCircle(2), new Color(160, 160, 200), Main.rand.NextFloat(0.6f, 1f));
+                p.lightColor = Color.White * 0.14f;
+                p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 24);
+            }
 
         }
     }

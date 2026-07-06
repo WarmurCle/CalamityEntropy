@@ -1,5 +1,6 @@
-﻿using CalamityEntropy.Content.Items.Books;
+using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -65,7 +66,8 @@ namespace CalamityEntropy.Content.Projectiles
             base.OnHitNPC(target, hit, damageDone);
             for (int i = 0; i < 10; i++)
             {
-                EParticle.NewParticle(new GlowSpark(), target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0, 4) + Projectile.velocity.SafeNormalize(Vector2.Zero) * 12, Color.Red, Main.rand.NextFloat(0.04f, 0.1f), 1, true, BlendState.Additive, 0);
+                //GlowSpark旧PRT/EParticle,Configure尾参统一签名那套
+                PRTLoader.NewParticle<PRT_GlowSpark>(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0, 4) + Projectile.velocity.SafeNormalize(Vector2.Zero) * 12, Color.Red, Main.rand.NextFloat(0.04f, 0.1f)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);  //GlowSpark旧EParticle,Configure尾参统一签名那套
             }
         }
         public override bool PreDraw(ref Color lightColor)

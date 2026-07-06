@@ -1,7 +1,8 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -9,7 +10,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-
 namespace CalamityEntropy.Content.Items.Books
 {
     public class SpectralWhispers : EntropyBook
@@ -115,7 +115,8 @@ namespace CalamityEntropy.Content.Items.Books
             {
                 for (int i = 0; i < 12; i++)
                 {
-                    GeneralParticleHandler.SpawnParticle(new CalamityMod.Particles.CritSpark(Projectile.Center, CEUtils.randomPointInCircle(9), color * 4, color, Main.rand.NextFloat(0.5f, 1.2f) * Projectile.scale, 18, 0.3f));
+                    //CritSparkCal CalamityPorts,Configure(color,lifetime,scale)不是统一五参
+                    PRTLoader.NewParticle<PRT_CritSparkCal>(Projectile.Center, CEUtils.randomPointInCircle(9), color * 4, Main.rand.NextFloat(0.5f, 1.2f) * Projectile.scale).Configure(color, 18, 0.3f);
                 }
             }
             if (stick > 0)
@@ -140,7 +141,10 @@ namespace CalamityEntropy.Content.Items.Books
             {
                 for (float i = 0; i < 1; i += 0.1f)
                 {
-                    EParticle.spawnNew(new GlowLightParticle() { lightColor = color * 0.1f, AlphaShrink = false }, Projectile.Center - Projectile.velocity * Main.rand.NextFloat(), Vector2.Zero, color * 3f, 0.9f, 1, true, BlendState.Additive, 0, 16);
+                    var p = PRTLoader.NewParticle<PRT_GlowLightParticle>(Projectile.Center - Projectile.velocity * Main.rand.NextFloat(), Vector2.Zero, color * 3f, 0.9f);
+                    p.lightColor = color * 0.1f;
+                    p.AlphaShrink = false;
+                    p.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
                 }
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
@@ -177,7 +181,7 @@ namespace CalamityEntropy.Content.Items.Books
             {
                 for (float i = 0; i <= 1; i += 0.05f)
                 {
-                    GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Lerp(color * 4.5f, color, i) * 0.8f, "CalamityMod/Particles/FlameExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, i * 0.165f * Projectile.scale, (int)((1.2f - i) * 20)));
+                    PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Color.Lerp(color * 4.5f, color, i) * 0.8f, 0.005f).Configure("CalamityMod/Particles/FlameExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.005f, i * 0.165f * Projectile.scale, (int)((1.2f - i) * 20));
                 }
                 SoundEngine.PlaySound(SoundID.Item122 with { PitchRange = (1.2f, 1.6f) }, Projectile.Center);
             }

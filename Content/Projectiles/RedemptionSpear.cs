@@ -1,9 +1,9 @@
 ﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Dusts;
-using CalamityMod.Effects;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
@@ -30,15 +30,17 @@ namespace CalamityEntropy.Content.Projectiles
         {
             hitbox = Projectile.Center.getRectCentered(52 * Projectile.scale, 52 * Projectile.scale);
         }
-        public TrailParticle trail = null;
+        public PRT_TrailParticle trail = null;
         public override void AI()
         {
             base.AI();
-            if(trail == null)
+            if (trail == null)
             {
-                trail = new TrailParticle() { maxLength = 8, SameAlpha = true };
+                //TrailParticle不开CanPool,odp轨迹List池化会闪上一条
+                trail = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, Color.Yellow, 2).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
+                trail.maxLength = 8;
+                trail.SameAlpha = true;
                 trail.ShouldDraw = false;
-                EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.Yellow, 2, 1, true, BlendState.Additive);
             }
             trail.AddPoint(Projectile.Center + Projectile.velocity + Projectile.velocity.normalize() * 12);
             trail.Lifetime = 12;
@@ -49,8 +51,7 @@ namespace CalamityEntropy.Content.Projectiles
             int sparkLifetime2 = 6;
             float sparkScale2 = Main.rand.NextFloat(1f, 1.2f);
             Color sparkColor2 = Color.Lerp(Color.OrangeRed, Color.Gold, Main.rand.NextFloat(0, 1));
-            LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-            GeneralParticleHandler.SpawnParticle(spark);
+            PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
             CEUtils.AddLight(Projectile.Center, Color.LightGoldenrodYellow);
         }
 
@@ -59,8 +60,8 @@ namespace CalamityEntropy.Content.Projectiles
             Texture2D tex = Projectile.GetTexture();
             Main.spriteBatch.UseAdditive();
             if (trail != null)
-                trail.Draw();
-            for(float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver2)
+                trail.DrawTrail(Main.spriteBatch);
+            for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver2)
             {
                 Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + i.ToRotationVector2() * 4, null, this.color, Projectile.rotation + MathHelper.PiOver4, tex.Size() / 2f, Projectile.scale, SpriteEffects.None, 0);
                 Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + i.ToRotationVector2() * 4, null, this.color, Projectile.rotation + MathHelper.PiOver4, tex.Size() / 2f, Projectile.scale, SpriteEffects.None, 0);
@@ -74,7 +75,8 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            EParticle.NewParticle(new StrikeParticle(), Projectile.Center - Projectile.velocity * 7, Projectile.velocity * 3, color, Projectile.scale * 0.6f, 1, true, BlendState.Additive, Projectile.velocity.ToRotation());
+            //StrikeParticle redemption spear命中层
+            PRTLoader.NewParticle<PRT_StrikeParticle>(Projectile.Center - Projectile.velocity * 7, Projectile.velocity * 3, color, Projectile.scale * 0.6f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, Projectile.velocity.ToRotation());
             for (int i = 0; i < 24; i++)
             {
                 Dust dust = Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<SquashDust>(), -Projectile.velocity);
@@ -84,13 +86,13 @@ namespace CalamityEntropy.Content.Projectiles
                 dust.color = Color.Goldenrod;
                 dust.fadeIn = 2f;
             }
-            SoundEngine.PlaySound(SoundID.Item96 with { Pitch = 0.6f, Volume = 1f}, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item96 with { Pitch = 0.6f, Volume = 1f }, Projectile.Center);
         }
 
         public override void OnKill(int timeLeft)
         {
             base.OnKill(timeLeft);
-            EParticle.NewParticle(new RedemptionSpearParticle(), Projectile.Center, Projectile.velocity, Color.White, Projectile.scale, 1, true, BlendState.AlphaBlend, Projectile.rotation);
+            PRTLoader.NewParticle<PRT_RedemptionSpearParticle>(Projectile.Center, Projectile.velocity, Color.White, Projectile.scale).Configure(1, true, PRTDrawModeEnum.AlphaBlend, Projectile.rotation);
         }
     }
 }

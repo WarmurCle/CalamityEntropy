@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -69,10 +70,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
 
             Vector2 d = Projectile.velocity.normalize().RotatedBy(MathHelper.PiOver2) * Projectile.ai[0] * 28;
 
-            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * 1, Projectile.velocity * -0.1f, false, 8, 0.03f * Projectile.ai[0], Color.Violet, new Vector2(0.7f, 1)));
-            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * -1, Projectile.velocity * -0.1f, false, 8, 0.03f * Projectile.ai[0], Color.Violet, new Vector2(0.7f, 1)));
-            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * 1 + Projectile.velocity / 2f, Projectile.velocity * -0.1f, false, 8, 0.03f * Projectile.ai[0], Color.Violet, new Vector2(0.9f, 1)));
-            GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + d * -1 + Projectile.velocity / 2f, Projectile.velocity * -0.1f, false, 8, 0.03f * Projectile.ai[0], Color.Violet, new Vector2(0.9f, 1)));
+            //旧Blend既不是Additive也不是AlphaBlend,Configure传NonPremultipliedBlend落第三桶
+            PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + d * 1, Projectile.velocity * -0.1f, Color.Violet, 0.03f * Projectile.ai[0]).Configure(false, 8, new Vector2(0.7f, 1));
+            PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + d * -1, Projectile.velocity * -0.1f, Color.Violet, 0.03f * Projectile.ai[0]).Configure(false, 8, new Vector2(0.7f, 1));
+            PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + d * 1 + Projectile.velocity / 2f, Projectile.velocity * -0.1f, Color.Violet, 0.03f * Projectile.ai[0]).Configure(false, 8, new Vector2(0.9f, 1));
+            PRTLoader.NewParticle<PRT_GlowSparkCal>(Projectile.Center + d * -1 + Projectile.velocity / 2f, Projectile.velocity * -0.1f, Color.Violet, 0.03f * Projectile.ai[0]).Configure(false, 8, new Vector2(0.9f, 1));
         }
         public void DrawRing(Vector2 position, Texture2D trail, Vector2 scaleOutside, Vector2 scaleInside, Color color, BlendState blend, bool? drawUpside = null)
         {
@@ -171,7 +173,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             }
             if (Projectile.localAI[0] == 52 || Projectile.localAI[0] == 180)
             {
-                EParticle.spawnNew(new AbyssalLine() { xadd = 2.6f, lx = 2.6f, spawnColor = Color.White, endColor = new Color(255, 255, 140) }, Projectile.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, 0, 36);
+                //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
+                var line = PRTLoader.NewParticle<PRT_AbyssalLine>(Projectile.Center, Vector2.Zero, Color.White, 1f);
+                line.xadd = 2.6f;
+                line.lx = 2.6f;
+                line.spawnColor = Color.White;
+                line.endColor = new Color(255, 255, 140);
+                line.Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 36);
             }
             if (Projectile.localAI[0] >= 180)
             {

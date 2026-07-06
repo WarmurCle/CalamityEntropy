@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
@@ -79,7 +80,9 @@ namespace CalamityEntropy.Content.Items.Accessories
                             {
                                 p.velocity = new Vector2(p.velocity.Length(), 0).RotatedBy((target.Center - p.Center).ToRotation());
                             }
-                            EParticle.NewParticle(new HadCircle2() { CScale = 0.4f }, Projectile.Center, p.velocity.normalize() * 16, Color.SkyBlue, 0.4f, 1, true, BlendState.Additive, 0);
+                            //HadCircle2链式圆环,Configure里NonPremultiplied是旧spawn原值
+                            PRTLoader.NewParticle<PRT_HadCircle2>(Projectile.Center, p.velocity.normalize() * 16, Color.SkyBlue, 0.4f)
+                                .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0).CScale = 0.4f;
                             CEUtils.SyncProj(Projectile.whoAmI);
                             CEUtils.SyncProj(p.whoAmI);
                             CEUtils.PlaySound("charm", Main.rand.NextFloat(0.6f, 1.4f), Projectile.Center, volume: 0.4f);
@@ -113,7 +116,8 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void OnKill(int timeLeft)
         {
-            EParticle.NewParticle(new HadCircle2() { CScale = 0.8f }, Projectile.Center, Vector2.Zero, Color.SkyBlue, 0.4f, 1, true, BlendState.Additive, 0);
+            PRTLoader.NewParticle<PRT_HadCircle2>(Projectile.Center, Vector2.Zero, Color.SkyBlue, 0.4f)
+                .Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0).CScale = 0.8f;
         }
         public override bool? CanHitNPC(NPC target)
         {

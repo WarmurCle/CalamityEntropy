@@ -1,7 +1,7 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles.Cruiser;
-using CalamityMod.Particles;
-using Microsoft.Xna.Framework.Graphics;
+using InnoVault.PRT;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -45,13 +45,16 @@ namespace CalamityEntropy.Content.Projectiles
                         int sparkLifetime2 = Main.rand.Next(18, 22);
                         float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
                         Color sparkColor2 = Color.Lerp(Color.Blue, Color.DeepSkyBlue, Main.rand.NextFloat(0, 1));
-                        LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-                        GeneralParticleHandler.SpawnParticle(spark);
+                        //PRT_LineCal Configure(false,lifetime)对齐Calamity LineParticle
+                        PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
                     }
-                    for (int i = 0; i < 16; i++)
+                    if (!Main.dedServ)
                     {
-                        PixelParticle p = new PixelParticle(Projectile.Center, Projectile.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(100, 256), Projectile.Center, Main.rand.Next(20, 42), Color.White, new Color(180, 180, 255));
-                        PixelParticle.particles.Add(p);
+                        for (int i = 0; i < 16; i++)
+                        {
+                            PRTLoader.NewParticle<PRT_Pixel>(Vector2.Zero, Vector2.Zero, Color.White, 1f)
+                                .Configure(Projectile.Center, Projectile.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(100, 256), Projectile.Center, Main.rand.Next(20, 42), Color.White, new Color(180, 180, 255));
+                        }
                     }
                 }
             }
@@ -61,7 +64,8 @@ namespace CalamityEntropy.Content.Projectiles
                 Vector2 vel = Projectile.velocity.normalize();
                 Color clr = new Color(Main.rand.Next(40, 100), Main.rand.Next(40, 100), 255);
                 float scale = Main.rand.NextFloat(0.7f, 1) * 0.05f;
-                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(pos, vel, false, 8, scale, clr, new Vector2(0.2f, 1)));
+                //GlowSparkCal Configure里stretch/glow是Calamity原参,别当EParticle尾参
+                PRTLoader.NewParticle<PRT_GlowSparkCal>(pos, vel, clr, scale).Configure(false, 8, new Vector2(0.2f, 1));
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
@@ -69,7 +73,9 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             CEUtils.PlaySound("bne_hit", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center, volume: 0.4f);
-            EParticle.NewParticle(new AbyssalLine() { lx = 1.9f, xadd = 1.9f }, target.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, CEUtils.randomRot());
+            var __prt = PRTLoader.NewParticle<PRT_AbyssalLine>(target.Center, Vector2.Zero, Color.White, 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot());
+            __prt.lx = 1.9f;
+            __prt.xadd = 1.9f;
 
             if (homing)
             {

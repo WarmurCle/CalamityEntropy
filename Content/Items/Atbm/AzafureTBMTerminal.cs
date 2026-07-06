@@ -1,7 +1,8 @@
-﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Items;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -365,13 +366,14 @@ namespace CalamityEntropy.Content.Items.Atbm
         {
             for (int i = 0; i < 12; i++)
             {
-                EParticle.NewParticle(new EMediumSmoke(), Projectile.Center + CEUtils.randomPointInCircle(12 * Projectile.scale), CEUtils.randomPointInCircle(12 * Projectile.scale), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1f) * Projectile.scale, 1, true, BlendState.AlphaBlend, CEUtils.randomRot(), 70);
+                //PRT_EMediumSmoke timeleftmax/vd字段spawn后直赋
+                PRTLoader.NewParticle<PRT_EMediumSmoke>(Projectile.Center + CEUtils.randomPointInCircle(12 * Projectile.scale), CEUtils.randomPointInCircle(12 * Projectile.scale), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1f) * Projectile.scale).Configure(1, true, PRTDrawModeEnum.AlphaBlend, CEUtils.randomRot(), 70);
             }
             foreach (var s in segs)
             {
                 for (int i = 0; i < 12; i++)
                 {
-                    EParticle.NewParticle(new EMediumSmoke(), s.Position + CEUtils.randomPointInCircle(12 * Projectile.scale), CEUtils.randomPointInCircle(12 * Projectile.scale), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1f) * Projectile.scale, 1, true, BlendState.AlphaBlend, CEUtils.randomRot(), 70);
+                    PRTLoader.NewParticle<PRT_EMediumSmoke>(s.Position + CEUtils.randomPointInCircle(12 * Projectile.scale), CEUtils.randomPointInCircle(12 * Projectile.scale), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.8f, 1f) * Projectile.scale).Configure(1, true, PRTDrawModeEnum.AlphaBlend, CEUtils.randomRot(), 70);
                 }
             }
             CEUtils.PlaySound("chainsaw_break", 1, Projectile.Center);

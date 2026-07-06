@@ -1,7 +1,8 @@
-﻿using CalamityEntropy.Content.Items.Books;
+using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -110,23 +111,23 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 for (int i = 0; i < 32; i++)
                 {
-                    EParticle.NewParticle(new GlowSpark(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.Red, Main.rand.NextFloat(0.1f, 0.16f), 1, true, BlendState.Additive, 0);
+                    //GlowSpark旧PRT/EParticle,Configure尾参统一签名那套
+                    PRTLoader.NewParticle<PRT_GlowSpark>(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.Red, Main.rand.NextFloat(0.1f, 0.16f)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
                 }
                 for (int i = 0; i < odp.Count; i++)
                 {
                     for (int i_ = 0; i_ < 6; i_++)
                     {
-                        EParticle.NewParticle(new GlowSpark(), odp[i], CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7) * ((float)i / odp.Count), Color.Red, Main.rand.NextFloat(0.1f, 0.16f) * ((float)i / odp.Count), 1, true, BlendState.Additive, 0);
+                        PRTLoader.NewParticle<PRT_GlowSpark>(odp[i], CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7) * ((float)i / odp.Count), Color.Red, Main.rand.NextFloat(0.1f, 0.16f) * ((float)i / odp.Count)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
                     }
                 }
                 CEUtils.PlaySound("soulexplode", 1.2f, Projectile.Center, maxIns: 4, volume: 0.8f);
                 Projectile.timeLeft = 2;
                 Projectile.Resize(256, 256);
                 Main.LocalPlayer.Calamity().GeneralScreenShakePower = 6;
-                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(target.Center, Vector2.Zero, Color.DarkRed, new Vector2(2f, 2f), 0, 0.1f, 1 * 0.85f, 36);
-                GeneralParticleHandler.SpawnParticle(pulse);
-                CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(target.Center, Vector2.Zero, Color.DarkRed, Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 1 * 0.65f, 26);
-                GeneralParticleHandler.SpawnParticle(explosion2);
+                //DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
+                PRTLoader.NewParticle<PRT_DirectionalPulseRing>(target.Center, Vector2.Zero, Color.DarkRed, 0.1f).Configure(new Vector2(2f, 2f), 0, 1 * 0.85f, 36);
+                PRTLoader.NewParticle<PRT_DetailedExplosionCal>(target.Center, Vector2.Zero, Color.DarkRed, 0f).Configure(Vector2.One, Main.rand.NextFloat(-5, 5), 1 * 0.65f, 26);
             }
         }
         public override Color baseColor => new Color(255, 255, 255);

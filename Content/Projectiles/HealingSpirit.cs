@@ -1,5 +1,6 @@
-﻿using CalamityEntropy.Content.Items.Accessories.SoulCards;
+using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -56,7 +57,8 @@ namespace CalamityEntropy.Content.Projectiles
                 {
                     for (int i = 0; i < 6; i++)
                     {
-                        EParticle.NewParticle(new GlowSpark(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.Gray, Main.rand.NextFloat(0.08f, 0.12f), 1, true, BlendState.Additive, 0);
+                        //GlowSpark旧PRT/EParticle,Configure尾参统一签名那套
+                        PRTLoader.NewParticle<PRT_GlowSpark>(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(2, 7), Color.Gray, Main.rand.NextFloat(0.08f, 0.12f)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);  //GlowSpark旧EParticle,Configure尾参统一签名那套
                     }
                     CEUtils.PlaySound("soulshine", 1f, Projectile.Center, maxIns: 6, volume: 0.3f);
                     Projectile.Kill();

@@ -1,5 +1,6 @@
-﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
@@ -34,7 +35,9 @@ namespace CalamityEntropy.Content.Projectiles
             var points = new List<Vector2>();
             Projectile.FillWhipControlPoints(Projectile, points);
             if (FlyProgress > 0.44f && FlyProgress < 0.88f)
-                EParticle.NewParticle(new LifeLeaf(), points[points.Count - 1], CEUtils.randomPointInCircle(4), Color.White, Main.rand.NextFloat(0.8f, 1.2f), 1, false, BlendState.AlphaBlend, CEUtils.randomRot());
+                //LifeLeaf bramble/silva装饰,旧PRT/EParticle LifeLeaf
+                PRTLoader.NewParticle<PRT_LifeLeaf>(points[points.Count - 1], CEUtils.randomPointInCircle(4), Color.White, Main.rand.NextFloat(0.8f, 1.2f))
+                    .Configure(1, false, PRTDrawModeEnum.AlphaBlend, CEUtils.randomRot());  //LifeLeaf bramble/silva装饰,旧EParticle LifeLeaf
 
             return base.PreAI();
         }

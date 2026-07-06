@@ -1,6 +1,4 @@
-﻿using CalamityEntropy.Content.Items.Vanity;
-using CalamityEntropy.Content.NPCs.NihilityTwin;
-using CalamityEntropy.Content.NPCs.Prophet;
+﻿using CalamityEntropy.Content.NPCs.Prophet;
 using CalamityMod.Events;
 using Terraria;
 using Terraria.ModLoader;

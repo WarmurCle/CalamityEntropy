@@ -1,4 +1,5 @@
-﻿using CalamityMod.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -73,7 +74,8 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(target.Center, Projectile.velocity * 0.01f, Color.AliceBlue, new Vector2(0.7f, 1), Projectile.velocity.ToRotation(), 0.08f, 0.36f, 16));
+            //PRT_DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
+            PRTLoader.NewParticle<PRT_DirectionalPulseRing>(target.Center, Projectile.velocity * 0.01f, Color.AliceBlue, 0.08f).Configure(new Vector2(0.7f, 1), Projectile.velocity.ToRotation(), 0.36f, 16);  //DirectionalPulseRing Configure是Calamity ring原构造,scale/rotation/lifetime顺序固定
         }
 
         public void drawT()

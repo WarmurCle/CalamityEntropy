@@ -1,11 +1,12 @@
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Rogue;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
@@ -103,8 +104,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Color impactColor = Color.Red;
             float impactParticleScale = Main.rand.NextFloat(1.4f, 1.6f);
 
-            SparkleParticle impactParticle = new SparkleParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, impactColor, Color.LawnGreen, impactParticleScale, 8, 0, 2.5f);
-            GeneralParticleHandler.SpawnParticle(impactParticle);
+            //带Cal后缀是CalamityPorts,Configure签名对齐Calamity原构造不是统一五参
+            PRTLoader.NewParticle<PRT_SparkleCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.75f, target.height * 0.75f), Vector2.Zero, impactColor, impactParticleScale).Configure(Color.LawnGreen, 8, 0, 2.5f);
 
             float sparkCount = 6;
             for (int i = 0; i < sparkCount; i++)
@@ -117,17 +118,16 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Color sparkColor2 = Color.Lerp(Color.DarkRed, Color.IndianRed, p);
                 if (Main.rand.NextBool())
                 {
-                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    //光效走AdditiveBlend,Configure尾参lifetime对齐旧timeLeft
+                    PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
                 }
                 else
                 {
-                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.Red : Color.DarkRed);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2, Main.rand.NextBool() ? Color.Red : Color.DarkRed, sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f)).Configure(false, (int)(sparkLifetime2));
                 }
             }
 
-            EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, new Color(255, 120, 120), 1, 1, true, BlendState.Additive, 0, 6);
+            PRTLoader.NewParticle<PRT_ShineParticle>(target.Center, Vector2.Zero, new Color(255, 120, 120), 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 6);
 
         }
         public override void SendExtraAI(BinaryWriter writer)
@@ -242,4 +242,3 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
     }
 }
-

@@ -1,10 +1,11 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
-using CalamityMod.Particles;
 using CalamityMod.Projectiles.Magic;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -196,11 +197,12 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             SoundEngine.PlaySound(in SoundID.Item14, base.Projectile.Center);
             if (!Main.dedServ)
             {
+                //dedServ守卫:批量spawn时孤儿实例语义,别用null判断
                 for (int i = 0; i < 32; i++)
-                    EParticle.spawnNew(new GlowLightParticle(), Projectile.Center, CEUtils.randomPointInCircle(16), Color.LightBlue, Main.rand.NextFloat(0.6f, 1f), 1, true, BlendState.Additive, 0, 22);
+                    PRTLoader.NewParticle<PRT_GlowLightParticle>(Projectile.Center, CEUtils.randomPointInCircle(16), Color.LightBlue, Main.rand.NextFloat(0.6f, 1f)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 22);
                 float scale = 3f;
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Main.DiscoColor * 1.4f, "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.06f, 16));
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Main.DiscoColor, "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.034f, 12));
+                PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Main.DiscoColor * 1.4f, 0.005f).Configure("CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.06f, 16);
+                PRTLoader.NewParticle<PRT_CustomPulse>(Projectile.Center, Vector2.Zero, Main.DiscoColor, 0.005f).Configure("CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.034f, 12);
 
             }
         }

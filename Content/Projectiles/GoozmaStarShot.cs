@@ -1,8 +1,9 @@
 ﻿using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Particles;
-using CalamityMod.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod.Projectiles.Magic;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
@@ -36,8 +37,8 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
 
-            CalamityMod.Particles.Particle smokeGlow = new HeavySmokeParticle(Projectile.Center, Projectile.rotation.ToRotationVector2() * -20 + Projectile.velocity, Main.DiscoColor, 18, Main.rand.NextFloat(0.3f, 0.5f), 1f, 0.012f, true, 0.01f, true);
-            GeneralParticleHandler.SpawnParticle(smokeGlow);
+            //HeavySmokeCal Configure是Calamity原构造顺序,跟EParticle统一尾参不是一回事
+            PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center, Projectile.rotation.ToRotationVector2() * -20 + Projectile.velocity, Main.DiscoColor, Main.rand.NextFloat(0.3f, 0.5f)).Configure(1f, 18, 0.012f, true, 0.01f, true);
 
             Projectile.velocity *= 0.95f;
             Projectile.rotation = Projectile.velocity.ToRotation();
@@ -50,8 +51,13 @@ namespace CalamityEntropy.Content.Projectiles
         {
             base.OnKill(timeLeft);
             float r = CEUtils.randomRot();
-            EParticle.spawnNew(new AbyssalLine() { lx = 1.4f, xadd = 0.6f }, Projectile.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, r);
-            EParticle.spawnNew(new AbyssalLine() { lx = 1.4f, xadd = 0.6f }, Projectile.Center, Vector2.Zero, Color.LightBlue, 1, 1, true, BlendState.Additive, r + MathHelper.PiOver2);
+            //AbyssalLine带lifetime的Configure是CalamityPorts签名
+            var __prt = PRTLoader.NewParticle<PRT_AbyssalLine>(Projectile.Center, Vector2.Zero, Color.LightBlue, 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, r);
+            __prt.lx = 1.4f;
+            __prt.xadd = 0.6f;
+            var __prt2 = PRTLoader.NewParticle<PRT_AbyssalLine>(Projectile.Center, Vector2.Zero, Color.LightBlue, 1).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, r + MathHelper.PiOver2);
+            __prt2.lx = 1.4f;
+            __prt2.xadd = 0.6f;
             for (int i = 0; i < Main.rand.Next(1, 3); i++)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, CEUtils.randomVec(24), ModContent.ProjectileType<GRainbowRocket>(), Projectile.damage / 3, Projectile.knockBack, Projectile.owner);

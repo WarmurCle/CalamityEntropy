@@ -1,6 +1,7 @@
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
@@ -48,8 +49,9 @@ namespace CalamityEntropy.Content.Items.Weapons.GrassSword
                 sparkScale2 *= (1 + Bramblecleave.GetLevel() * 0.05f);
                 Color sparkColor2 = Color.Lerp(Color.Green, Color.LightGreen, Main.rand.NextFloat());
 
-                AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, (int)(sparkLifetime2 * (1.2f)), sparkScale2 * (1.4f), sparkColor2);
-                GeneralParticleHandler.SpawnParticle(spark);
+                //AltSpark CalamityPorts,Configure(false,life)对齐旧GeneralParticleHandler
+                //EParticle→PRT,草剑alt命中spark迁移没改数值
+                PRTLoader.NewParticle<PRT_AltSpark>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), sparkColor2, sparkScale2 * (1.4f)).Configure(false, (int)(sparkLifetime2 * (1.2f)));
             }
 
         }

@@ -1,6 +1,7 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Utilities;
 using CalamityMod.Buffs.StatDebuffs;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -152,10 +153,12 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.localAI[0] == 0)
             {
                 CEUtils.PlaySound("spark", 1, Projectile.Center, 1);
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.16f, 1, true, BlendState.Additive, 0, 18);
-                EParticle.spawnNew(new ShineParticle(), end, Vector2.Zero, Color.White, 0.16f, 1, true, BlendState.Additive, 0, 18);
-                EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.16f, 1, true, BlendState.Additive, 0, 18);
-                EParticle.spawnNew(new ShineParticle(), end, Vector2.Zero, Color.White, 0.16f, 1, true, BlendState.Additive, 0, 18);
+                //PRT_ShineParticle FollowOwner字段spawn后赋,Configure只管Additive和lifetime
+                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, 0.16f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 18);
+                PRTLoader.NewParticle<PRT_ShineParticle>(end, Vector2.Zero, Color.White, 0.16f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 18);
+                PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, 0.16f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 18);
+                //ShineParticle FollowOwner字段spawn后赋,Configure只管Additive和lifetime
+                PRTLoader.NewParticle<PRT_ShineParticle>(end, Vector2.Zero, Color.White, 0.16f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 18);
 
             }
 

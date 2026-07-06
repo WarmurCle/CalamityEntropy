@@ -1,4 +1,5 @@
-﻿using CalamityMod.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
@@ -49,8 +50,8 @@ namespace CalamityEntropy.Content.Projectiles.BNE
             int sparkLifetime2 = Main.rand.Next(20, 24);
             float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
             Color sparkColor2 = Color.Lerp(Color.OrangeRed, Color.Gold, Main.rand.NextFloat(0, 1));
-            LineParticle spark = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-            GeneralParticleHandler.SpawnParticle(spark);
+            //PRT_LineCal Configure(false,lifetime)对齐Calamity LineParticle
+            PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));  //跟AltSpark成对出现时寿命/速度系数是旧代码原值
         }
         public float alpha = 1;
         public override bool? CanHitNPC(NPC target)

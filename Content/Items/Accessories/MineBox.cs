@@ -1,7 +1,8 @@
-﻿using CalamityMod.Items;
+﻿using CalamityEntropy.Content.Particles.CalamityPorts;
+using CalamityMod.Items;
 using CalamityMod.Items.Materials;
-using CalamityMod.Particles;
 using CalamityMod.Rarities;
+using InnoVault.PRT;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -64,14 +65,12 @@ namespace CalamityEntropy.Content.Items.Accessories
             Projectile.light = (1 - Projectile.timeLeft / 90f);
             if (Projectile.timeLeft == 1)
             {
-                CalamityMod.Particles.Particle pulse = new DirectionalPulseRing(Projectile.Center, Vector2.Zero, Color.Orange, new Vector2(2f, 2f), 0, 0.1f, 0.78f, 46);
-                GeneralParticleHandler.SpawnParticle(pulse);
-                CalamityMod.Particles.Particle explosion2 = new DetailedExplosion(Projectile.Center, Vector2.Zero, Color.OrangeRed, Vector2.One, Main.rand.NextFloat(-5, 5), 0f, 0.63f, 30);
-                GeneralParticleHandler.SpawnParticle(explosion2);
+                //矿井爆开,CalamityPorts的PulseRing/DetailedExplosion+AltSpark,数值没动
+                PRTLoader.NewParticle<PRT_DirectionalPulseRing>(Projectile.Center, Vector2.Zero, Color.Orange, 0.1f).Configure(new Vector2(2f, 2f), 0, 0.78f, 46);
+                PRTLoader.NewParticle<PRT_DetailedExplosionCal>(Projectile.Center, Vector2.Zero, Color.OrangeRed, 0f).Configure(Vector2.One, Main.rand.NextFloat(-5, 5), 0.63f, 30);
                 for (int i = 0; i < 32; i++)
                 {
-                    var spark = new AltSparkParticle(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(3, 12), false, Main.rand.Next(22, 32), Main.rand.NextFloat(0.8f, 1.4f), Color.Lerp(Color.Red, Color.Orange, Main.rand.NextFloat()));
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    PRTLoader.NewParticle<PRT_AltSpark>(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(3, 12), Color.Lerp(Color.Red, Color.Orange, Main.rand.NextFloat()), Main.rand.NextFloat(0.8f, 1.4f)).Configure(false, Main.rand.Next(22, 32));
                 }
 
                 CEUtils.PlaySound("ofhit", 1, Projectile.Center);

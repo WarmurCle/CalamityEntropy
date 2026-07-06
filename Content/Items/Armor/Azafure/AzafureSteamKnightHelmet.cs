@@ -1,10 +1,11 @@
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
-using CalamityMod.Particles;
 using CalamityMod.UI.Rippers;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
@@ -144,16 +145,17 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                     if (DeathExplosion % 6 == 0)
                         ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, Utils.Remap(Main.LocalPlayer.Center.Distance(Player.Center), 4000, 1000, 0, 12)));
 
-                    EParticle.NewParticle(new ShockParticle2(), Player.Center, Vector2.Zero, Color.White, 0.1f, 1, true, BlendState.Additive, CEUtils.randomRot());
+                    //SteamKnight自爆环,ShockParticle2+PulseRing照搬Azafure甲那套
+                    PRTLoader.NewParticle<PRT_ShockParticle2>(Player.Center, Vector2.Zero, Color.White, 0.1f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot());
                 }
                 if (DeathExplosion == 0 || DeathExplosion == 3 || DeathExplosion == 6 || DeathExplosion == 9 || DeathExplosion == 12 || DeathExplosion == 15 || DeathExplosion == 18 || DeathExplosion == 21)
                 {
                     CEUtils.PlaySound("pulseBlast", 0.6f, Player.Center, 6, 1f);
                     CEUtils.PlaySound("blackholeEnd", 0.6f, Player.Center, 6, 1f);
 
-                    GeneralParticleHandler.SpawnParticle(new PulseRing(Player.Center, Vector2.Zero, Color.Firebrick, 0.1f, 12f, 8));
-                    EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.Firebrick, 20f, 1, true, BlendState.Additive, 0, 16);
-                    EParticle.spawnNew(new ShineParticle(), Player.Center, Vector2.Zero, Color.White, 16f, 1, true, BlendState.Additive, 0, 16);
+                    PRTLoader.NewParticle<PRT_PulseRing>(Player.Center, Vector2.Zero, Color.Firebrick, 0.1f).Configure(12f, 8);
+                    PRTLoader.NewParticle<PRT_ShineParticle>(Player.Center, Vector2.Zero, Color.Firebrick, 20f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
+                    PRTLoader.NewParticle<PRT_ShineParticle>(Player.Center, Vector2.Zero, Color.White, 16f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
                     ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 100), 1200);
                     var proj = CEUtils.SpawnExplotionFriendly(Player.GetSource_FromThis(), Player, Player.Center, ((int)(Player.GetBestClassDamage().ApplyTo(1900))).ApplyAccArmorDamageBonus(Player), 1200, DamageClass.Generic);
                     proj.ArmorPenetration = 60;
@@ -230,7 +232,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
                         CEUtils.PlaySound("chainsaw_break", 1.3f, Player.Center, 6, 0.6f);
                         for (int i = 0; i < 16; i++)
                         {
-                            EParticle.NewParticle(new EMediumSmoke(), Player.Center + CEUtils.randomPointInCircle(12), CEUtils.randomPointInCircle(16), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(1f, 2f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot(), 120);
+                            PRTLoader.NewParticle<PRT_EMediumSmoke>(Player.Center + CEUtils.randomPointInCircle(12), CEUtils.randomPointInCircle(16), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(1f, 2f)).Configure(1, true, PRTDrawModeEnum.AlphaBlend, CEUtils.randomRot(), 120);
                         }
                     }
                 }

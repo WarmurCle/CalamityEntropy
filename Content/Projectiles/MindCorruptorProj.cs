@@ -1,7 +1,8 @@
-﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.CalPlayer;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -84,13 +85,12 @@ namespace CalamityEntropy.Content.Projectiles
                     int sparkLifetime2 = Main.rand.Next(10, 14);
                     float sparkScale2 = Main.rand.NextFloat(1f, 1.2f);
                     Color sparkColor2 = Color.Lerp(Color.DarkBlue, Color.Purple, Main.rand.NextFloat(0, 1));
-                    var spark = new AltSparkParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    //AltSpark跟LineCal随机混用,旧Calamity spark/Lines二选一
+                    PRTLoader.NewParticle<PRT_AltSpark>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
 
                     sparkScale2 = Main.rand.NextFloat(0.3f, 0.5f);
                     sparkColor2 = Color.Lerp(Color.Aqua, new Color(200, 200, 255), Main.rand.NextFloat(0, 1));
-                    var spark2 = new LineParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark2);
+                    PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
                 }
                 LastEnd = EndPoint;
             }
@@ -104,7 +104,9 @@ namespace CalamityEntropy.Content.Projectiles
                     CEUtils.PlaySound("corruptwhip_hit", 1, hookNPC.ToNPC().Center);
                     for (float i = 0; i <= 1; i += 0.05f)
                     {
-                        GeneralParticleHandler.SpawnParticle(new CustomPulse(hookNPC.ToNPC().Center, Vector2.Zero, Color.Lerp(Color.LightBlue, Color.Purple, i) * 0.8f, "CalamityMod/Particles/FlameExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.01f, i * 0.14f, (int)((1.2f - i) * 20)));
+                        //LargeBloom/FlameExplosion那些Calamity路径字符串原样保留
+                        //CustomPulse贴图路径现传,走PRTPathTextures缓存,Configure第一个string是TexPath
+                        PRTLoader.NewParticle<PRT_CustomPulse>(hookNPC.ToNPC().Center, Vector2.Zero, Color.Lerp(Color.LightBlue, Color.Purple, i) * 0.8f, 0.01f).Configure("CalamityMod/Particles/FlameExplosion", Vector2.One, Main.rand.NextFloat(-10, 10), 0.01f, i * 0.14f, (int)((1.2f - i) * 20));
                     }
                     Main.LocalPlayer.GetModPlayer<CalamityPlayer>().GeneralScreenShakePower = 8;
                 }
@@ -226,14 +228,12 @@ namespace CalamityEntropy.Content.Projectiles
                 int sparkLifetime2 = Main.rand.Next(12, 16);
                 float sparkScale2 = Main.rand.NextFloat(1.6f, 1.8f);
                 Color sparkColor2 = Color.Lerp(Color.Purple, Color.Black, Main.rand.NextFloat(0.4f, 1));
-                var spark = new AltSparkParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2, sparkColor2);
-                GeneralParticleHandler.SpawnParticle(spark);
+                PRTLoader.NewParticle<PRT_AltSpark>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
 
                 sparkScale2 = Main.rand.NextFloat(1.4f, 1.6f);
                 sparkColor2 = Color.Lerp(Color.MediumPurple, Color.Blue, Main.rand.NextFloat(0, 1));
-                var spark2 = new GlowSparkParticle(top, sparkVelocity2, false, (int)(sparkLifetime2), sparkScale2 * 0.06f, sparkColor2, new Vector2(0.25f, 1));
+                var spark2 = PRTLoader.NewParticle<PRT_GlowSparkCal>(top, sparkVelocity2, sparkColor2, sparkScale2 * 0.06f).Configure(false, (int)(sparkLifetime2), new Vector2(0.25f, 1));
                 spark2.Glowing = false;
-                GeneralParticleHandler.SpawnParticle(spark2);
             }
             ++Projectile.ai[0];
         }

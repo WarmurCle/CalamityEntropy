@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -63,13 +64,11 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             {
                 return;
             }
+            //死亡64颗Void burst,Opacity 0.2~1随机,跟旧VoidCultist HitEffect密度一致
             for (int i = 0; i < 64; i++)
             {
-                Particle p = new Particle();
-                p.position = NPC.Center;
-                p.velocity = CEUtils.randomRot().ToRotationVector2() * ((float)Main.rand.Next(0, 400)) * 0.01f;
-                p.alpha = ((float)Main.rand.Next(20, 100)) * 0.01f;
-                VoidParticles.particles.Add(p);
+                var p = PRTLoader.NewParticle<PRT_Void>(NPC.Center, CEUtils.randomRot().ToRotationVector2() * ((float)Main.rand.Next(0, 400)) * 0.01f, Color.White, 1f);
+                p.Opacity = ((float)Main.rand.Next(20, 100)) * 0.01f;
             }
         }
         public virtual int maxAtkDist => 500;
@@ -230,13 +229,11 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                 {
                     if (!Main.dedServ)
                     {
+                        //传送闪现前后各34颗Void,dedServ跳整套,双burst对称是旧视觉不是重复代码
                         for (int i = 0; i < 34; i++)
                         {
-                            Particle p = new Particle();
-                            p.position = NPC.Center;
-                            p.velocity = CEUtils.randomRot().ToRotationVector2() * ((float)Main.rand.Next(0, 500)) * 0.01f;
-                            p.alpha = ((float)Main.rand.Next(20, 100)) * 0.01f;
-                            VoidParticles.particles.Add(p);
+                            var p = PRTLoader.NewParticle<PRT_Void>(NPC.Center, CEUtils.randomRot().ToRotationVector2() * ((float)Main.rand.Next(0, 500)) * 0.01f, Color.White, 1f);
+                            p.Opacity = ((float)Main.rand.Next(20, 100)) * 0.01f;
                         }
                     }
                     NPC.Center = proji.Center + new Vector2(Main.rand.Next(-260, 261), 40);
@@ -244,11 +241,8 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                     {
                         for (int i = 0; i < 34; i++)
                         {
-                            Particle p = new Particle();
-                            p.position = NPC.Center;
-                            p.velocity = CEUtils.randomRot().ToRotationVector2() * ((float)Main.rand.Next(0, 400)) * 0.01f;
-                            p.alpha = ((float)Main.rand.Next(20, 100)) * 0.01f;
-                            VoidParticles.particles.Add(p);
+                            var p = PRTLoader.NewParticle<PRT_Void>(NPC.Center, CEUtils.randomRot().ToRotationVector2() * ((float)Main.rand.Next(0, 400)) * 0.01f, Color.White, 1f);
+                            p.Opacity = ((float)Main.rand.Next(20, 100)) * 0.01f;
                         }
                     }
                     if (Main.dedServ)
@@ -266,10 +260,14 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
                 }
                 if (noSummon <= 0)
                 {
-                    for (int i = 0; i < 3; i++)
+                    if (!Main.dedServ)
                     {
-                        PixelParticle p = new PixelParticle(NPC.Center + new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11)), (NPC.Center + index.ToProj().Center) / 2 + new Vector2(Main.rand.Next(-140, 141), Main.rand.Next(-80, 81)), index.ToProj().Center, 90, Color.Purple, Color.White);
-                        PixelParticle.particles.Add(p);
+                        //召唤法阵3颗PRT_Pixel走像素RT,Configure贝塞尔三点是旧PixelParticle语义
+                        for (int i = 0; i < 3; i++)
+                        {
+                            PRTLoader.NewParticle<PRT_Pixel>(Vector2.Zero, Vector2.Zero, Color.White, 1f)
+                                .Configure(NPC.Center + new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11)), (NPC.Center + index.ToProj().Center) / 2 + new Vector2(Main.rand.Next(-140, 141), Main.rand.Next(-80, 81)), index.ToProj().Center, 90, Color.Purple, Color.White);
+                        }
                     }
                 }
             }

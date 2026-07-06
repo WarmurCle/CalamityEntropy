@@ -1,4 +1,5 @@
-﻿using CalamityMod.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -55,13 +56,13 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Vector2 direction = new Vector2(0, 1).RotatedBy(Projectile.rotation);
                 Vector2 smokeSpeed = direction.RotatedByRandom(MathHelper.PiOver4 * 0.1f) * Main.rand.NextFloat(10f, 30f) * 0.9f;
-                CalamityMod.Particles.Particle smoke = new HeavySmokeParticle(Projectile.Center, smokeSpeed + Projectile.owner.ToPlayer().velocity, Color.Lerp(Color.Purple, Color.Indigo, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), 15, Main.rand.NextFloat(0.6f, 1.2f), 0.8f, 0, false, 0, true);
-                GeneralParticleHandler.SpawnParticle(smoke);
+                //HeavySmokeCal Configure是Calamity原构造顺序,跟PRT/EParticle统一尾参不是一回事
+                PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center, smokeSpeed + Projectile.owner.ToPlayer().velocity, Color.Lerp(Color.Purple, Color.Indigo, (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f)), Main.rand.NextFloat(0.6f, 1.2f)).Configure(0.8f, 15, 0, false, 0, true);
 
                 if (Main.rand.NextBool(3))
                 {
-                    CalamityMod.Particles.Particle smokeGlow = new HeavySmokeParticle(Projectile.Center, smokeSpeed + Projectile.owner.ToPlayer().velocity, Main.hslToRgb(0.85f, 1, 0.8f), 10, Main.rand.NextFloat(0.4f, 0.7f), 0.8f, 0.01f, true, 0.01f, true);
-                    GeneralParticleHandler.SpawnParticle(smokeGlow);
+                    //HeavySmokeCal Configure是Calamity原构造顺序,跟EParticle统一尾参不是一回事
+                    PRTLoader.NewParticle<PRT_HeavySmokeCal>(Projectile.Center, smokeSpeed + Projectile.owner.ToPlayer().velocity, Main.hslToRgb(0.85f, 1, 0.8f), Main.rand.NextFloat(0.4f, 0.7f)).Configure(0.8f, 10, 0.01f, true, 0.01f, true);
                 }
             }
         }

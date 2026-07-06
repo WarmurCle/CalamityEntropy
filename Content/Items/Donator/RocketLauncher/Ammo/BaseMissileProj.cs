@@ -1,6 +1,7 @@
-﻿using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles;
-using CalamityMod.Particles;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -17,13 +18,19 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
         /// <summary>
         /// 同一个目标身上的最大黏附数量
         /// </summary>
-        public virtual int MaxStick { get { return (int)Projectile.ai[0]; }
-            set { Projectile.ai[0] = value; } }
+        public virtual int MaxStick
+        {
+            get { return (int)Projectile.ai[0]; }
+            set { Projectile.ai[0] = value; }
+        }
         /// <summary>
         /// 爆炸半径
         /// </summary>
-        public virtual float ExplodeRadius { get { return (int) Projectile.ai[1]; } 
-            set { Projectile.ai[1] = value; } }
+        public virtual float ExplodeRadius
+        {
+            get { return (int)Projectile.ai[1]; }
+            set { Projectile.ai[1] = value; }
+        }
         public virtual NPC StickOnNPC => Projectile.ai[2] < 0 ? null : Main.npc[(int)Projectile.ai[2]];
         public virtual float adjustRotation => MathHelper.PiOver2;
         public virtual int Lifetime { get { return (int)Projectile.localAI[0]; } set { Projectile.localAI[0] = value; } }
@@ -108,9 +115,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             float scale = ExplodeRadius / 40f;
-            GeneralParticleHandler.SpawnParticle(new PulseRing(Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.1f, scale * 0.46f, 14));
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.OrangeRed, scale * 0.8f, 1, true, BlendState.Additive, 0, 10);
-            EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, scale * 0.5f, 1, true, BlendState.Additive, 0, 10);
+            //PRT_PulseRing scale/lifetime走Configure,旧GeneralParticleHandler
+            PRTLoader.NewParticle<PRT_PulseRing>(Projectile.Center, Vector2.Zero, Color.OrangeRed, 0.1f).Configure(scale * 0.46f, 14);
+            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.OrangeRed, scale * 0.8f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 10);
+            PRTLoader.NewParticle<PRT_ShineParticle>(Projectile.Center, Vector2.Zero, Color.White, scale * 0.5f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 10);
         }
         public virtual void SetupStats() { }
         public virtual void StickUpdate(NPC target)
@@ -201,7 +209,10 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
         {
             for (int i = 0; i < 4; i++)
             {
-                EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center + vel * 0.25f * i, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
+                var p = PRTLoader.NewParticle<PRT_Smoke>(Projectile.Center + vel * 0.25f * i, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f));
+                p.timeleftmax = 26;
+                p.Lifetime = 26;
+                p.Configure(0.5f, true, PRTDrawModeEnum.AdditiveBlend, CEUtils.randomRot(), 26);
             }
         }
         public override bool ShouldUpdatePosition()

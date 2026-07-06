@@ -1,7 +1,7 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityMod;
-using Microsoft.Xna.Framework.Graphics;
+using InnoVault.PRT;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -27,15 +27,16 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.localNPCHitCooldown = 0;
 
         }
-        public TrailParticle trail;
+        public PRT_TrailParticle trail;
         public override void AI()
         {
             if (!Main.dedServ)
             {
                 if (trail == null)
                 {
-                    trail = new TrailParticle() { maxLength = 16 };
-                    EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.AliceBlue * 0.6f, Projectile.scale * 0.6f * (Projectile.Calamity().stealthStrike ? 2 : 1), 1, true, BlendState.Additive);
+                    //TrailParticle不开CanPool,odp轨迹List池化会闪上一条
+                    trail = PRTLoader.NewParticle<PRT_TrailParticle>(Projectile.Center, Vector2.Zero, Color.AliceBlue * 0.6f, Projectile.scale * 0.6f * (Projectile.Calamity().stealthStrike ? 2 : 1)).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
+                    trail.maxLength = 16;
                 }
                 trail.Lifetime = 16;
                 trail.AddPoint(Projectile.Center + Projectile.velocity);
@@ -58,7 +59,8 @@ namespace CalamityEntropy.Content.Projectiles
             }
             if (Projectile.timeLeft <= 78 && !Main.dedServ && CEUtils.getDistance(Projectile.Center, Main.LocalPlayer.Center) < 1600)
             {
-                EParticle.NewParticle(new Particles.RuneParticle(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, 0.6f, 1, true, BlendState.AlphaBlend, 0);
+                //RuneParticle字段(homing/target)旧初始化器拆成spawn后直赋
+                PRTLoader.NewParticle<PRT_RuneParticle>(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-0.6f, 0.6f), Color.White, 0.6f).Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0);
             }
         }
 
@@ -66,7 +68,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             for (int i = 0; i < 6; i++)
             {
-                EParticle.NewParticle(new Particles.RuneParticle(), target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, 0.5f, 1, true, BlendState.AlphaBlend, 0);
+                PRTLoader.NewParticle<PRT_RuneParticle>(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(-5f, 5f), Color.White, 0.5f).Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0);
             }
             CEUtils.PlaySound("crystalsound" + Main.rand.Next(1, 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), target.Center, 10, 0.4f);
             target.AddBuff(ModContent.BuffType<SoulDisorder>(), 300);

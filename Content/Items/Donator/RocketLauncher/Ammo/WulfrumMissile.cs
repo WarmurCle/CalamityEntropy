@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
     }
     public class WulfrumMissileProj : BaseMissileProj
     {
-	    public override float StickDamageAddition => 0.01f;
+        public override float StickDamageAddition => 0.01f;
         public override string Texture => "CalamityEntropy/Content/Items/Donator/RocketLauncher/Ammo/WulfrumMissile";
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

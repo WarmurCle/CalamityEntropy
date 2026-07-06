@@ -1,15 +1,16 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.MusicBoxes;
 using CalamityEntropy.Content.Items.Tools;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Particles.CalamityPorts;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.BiomeManagers;
 using CalamityMod.Items.Materials;
-using CalamityMod.Particles;
 using CalamityMod.World;
+using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -65,7 +66,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                         return false;
                     }
                 }
-                
+
                 if (CEUtils.getDistance(StandPoint, targetPos) < ms * (NPC.velocity.Y > 1f ? 3 : 1))
                 {
                     StandPoint = targetPos;
@@ -395,7 +396,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                     if (Main.GameUpdateCount % 2 == 0)
                     {
                         ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Vector2.Zero, Utils.Remap(Main.LocalPlayer.Center.Distance(NPC.Center), 4000, 1000, 0, 5)));
-                        EParticle.NewParticle(new ShockParticle(), NPC.Center, Vector2.Zero, Color.White, 0.1f * NPC.scale, 1, true, BlendState.NonPremultiplied, CEUtils.randomRot());
+                        //DeathCounter充电每2tick ShockParticle,NonPremultiplied是旧ShockParticle默认桶
+                        PRTLoader.NewParticle<PRT_ShockParticle>(NPC.Center, Vector2.Zero, Color.White, 0.1f * NPC.scale).Configure(1, true, PRTDrawModeEnum.NonPremultiplied, CEUtils.randomRot());
                     }
                 }
 
@@ -669,7 +671,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             }
             else if (JumpAndShoot-- > 0)
             {
-                for(int i = 0; i < 2; i++)
+                for (int i = 0; i < 2; i++)
                     cannon.PointAPos(NPC.Center + cannon.offset * NPC.scale + new Vector2(0, 220)); //(player.Center + new Vector2(NPC.velocity.normalize().X * 400, -160));
                 TeslaUpCD -= enrange;
                 if (TeslaUpCD <= 0)
@@ -990,18 +992,20 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
                     if (Main.zenithWorld)
                     {
-                        EParticle.spawnNew(new RealisticExplosion(), NPC.Center, Vector2.Zero, Color.White, 18f * NPC.scale, 1, true, BlendState.AlphaBlend);
+                        PRTLoader.NewParticle<PRT_RealisticExplosion>(NPC.Center, Vector2.Zero, Color.White, 18f * NPC.scale).Configure(1, true, PRTDrawModeEnum.AlphaBlend, 0, -1);
                     }
                     else
                     {
-                        GeneralParticleHandler.SpawnParticle(new PulseRing(NPC.Center, Vector2.Zero, Color.Firebrick, 0.1f, 7f, 8));
-                        EParticle.spawnNew(new ShineParticle(), NPC.Center, Vector2.Zero, Color.Firebrick, 14f, 1, true, BlendState.Additive, 0, 16);
-                        EParticle.spawnNew(new ShineParticle(), NPC.Center, Vector2.Zero, Color.White, 10f, 1, true, BlendState.Additive, 0, 16);
+                        //正常死亡PulseRing+双Shine+40 EMediumSmoke,zenith改单RealisticExplosion
+                        PRTLoader.NewParticle<PRT_PulseRing>(NPC.Center, Vector2.Zero, Color.Firebrick, 0.1f).Configure(7f, 8);
+                        PRTLoader.NewParticle<PRT_ShineParticle>(NPC.Center, Vector2.Zero, Color.Firebrick, 14f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
+                        PRTLoader.NewParticle<PRT_ShineParticle>(NPC.Center, Vector2.Zero, Color.White, 10f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0, 16);
                         ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 100), CEUtils.getDistance(NPC.Center, Main.LocalPlayer.Center), 1200);
 
                         for (int i = 0; i < 40; i++)
                         {
-                            EParticle.NewParticle(new EMediumSmoke(), NPC.Center + CEUtils.randomPointInCircle(60 * NPC.scale), CEUtils.randomPointInCircle(32 * NPC.scale), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(1f, 4f) * NPC.scale, 1, true, BlendState.AlphaBlend, CEUtils.randomRot(), 120);
+                            //40颗EMediumSmoke随机喷出,跟PulseRing/Shine同帧,死亡密度最高的一段
+                            PRTLoader.NewParticle<PRT_EMediumSmoke>(NPC.Center + CEUtils.randomPointInCircle(60 * NPC.scale), CEUtils.randomPointInCircle(32 * NPC.scale), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(1f, 4f) * NPC.scale).Configure(1, true, PRTDrawModeEnum.AlphaBlend, CEUtils.randomRot(), 120);
                         }
                     }
                     Gore.NewGore(NPC.GetSource_FromAI(), NPC.Center + CEUtils.randomPointInCircle(46), CEUtils.randomPointInCircle(16), Mod.Find<ModGore>("AcrGore0").Type, NPC.scale);
