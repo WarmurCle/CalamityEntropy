@@ -25,12 +25,12 @@ namespace CalamityEntropy.Content.Items.Weapons
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true;
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
-            ItemID.Sets.StaffMinionSlotsRequired[Item.type] = 5;
+            ItemID.Sets.StaffMinionSlotsRequired[Item.type] = 4;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 2200;
+            Item.damage = 370;
             Item.crit = 0;
             Item.DamageType = DamageClass.Summon;
             Item.width = 64;
@@ -94,7 +94,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.minion = true;
-            Projectile.minionSlots = 5;
+            Projectile.minionSlots = 4;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 16;
         }

@@ -28,9 +28,8 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             CreateRecipe()
                 .AddIngredient<SaharaSlicers>()
-                .AddIngredient<HellIndustrialComponents>(6)
-                .AddRecipeGroup(CERecipeGroups.AnyOrichalcumBar, 8)
-                .AddIngredient(ItemID.SoulofMight, 4)
+                .AddIngredient(ItemID.TitaniumBar, 10)
+                .AddIngredient(ItemID.SoulofMight, 15)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
@@ -39,7 +38,7 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             Item.width = 120;
             Item.height = 120;
-            Item.damage = 80;
+            Item.damage = 125;
             Item.crit = 10;
             Item.noMelee = true;
             Item.noUseGraphic = true;
@@ -148,7 +147,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center + Projectile.velocity.normalize() * 80, Vector2.Zero, Color.White, 2.4f, 1, true, BlendState.Additive, 0, 16);
                 if (Projectile.owner == Main.myPlayer)
                 {
-                    CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center + Projectile.velocity.normalize() * 80, Projectile.damage / 3, 160, Projectile.DamageType);
+                    CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromAI(), Projectile.owner.ToPlayer(), Projectile.Center + Projectile.velocity.normalize() * 80, Projectile.damage / 8, 160, Projectile.DamageType);
                 }
                 for (int i = 0; i < 32; i++)
                 {
