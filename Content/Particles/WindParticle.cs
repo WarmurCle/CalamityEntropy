@@ -36,11 +36,18 @@ namespace CalamityEntropy.Content.Particles
 
         public override void Draw()
         {
-            Main.spriteBatch.EnterShaderRegion();
-            GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Wind"));
-            GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
+            if (EParticle.Last == null || EParticle.Last.GetType() != this.GetType())
+            {
+                Main.spriteBatch.EnterShaderRegion();
+                GameShaders.Misc["CalamityMod:ArtAttack"].SetShaderTexture(ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/Wind"));
+                GameShaders.Misc["CalamityMod:ArtAttack"].Apply();
+            }
             PrimitiveRenderer.RenderTrail(odp, new PrimitiveSettings(TrailWidth, TrailColor, (_, _) => Vector2.Zero, smoothen: true, pixelate: false, GameShaders.Misc["CalamityMod:ArtAttack"]), 180);
-            Main.spriteBatch.UseBlendState(this.useAlphaBlend ? BlendState.AlphaBlend : (this.useAdditive ? BlendState.Additive : BlendState.NonPremultiplied));
+
+            if (EParticle.Next == null || EParticle.Next.GetType() != this.GetType())
+            {
+                Main.spriteBatch.UseBlendState(this.useAlphaBlend ? BlendState.AlphaBlend : (this.useAdditive ? BlendState.Additive : BlendState.NonPremultiplied));
+            }
         }
 
         public Color TrailColor(float completionRatio, Vector2 vertex)

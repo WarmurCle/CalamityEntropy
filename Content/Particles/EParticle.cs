@@ -23,6 +23,9 @@ namespace CalamityEntropy.Content.Particles
         public int UpdateTimes = 1;
         public static List<EParticle> particles = new List<EParticle>();
         public bool ShouldDraw = true;
+        public static EParticle Last = null;
+        public static EParticle Next = null;
+
         public static void DrawPixelShaderParticles()
         {
             List<EParticle> additiveDraw = new List<EParticle>();
@@ -137,35 +140,61 @@ namespace CalamityEntropy.Content.Particles
             {
                 List<EParticle> extraDrawParti = new();
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+                int count;
+
+                Last = null;
+                count = 0;
                 foreach (EParticle p in alphaBlendDraw)
                 {
+                    Next = (alphaBlendDraw.Count > count + 1) ? alphaBlendDraw[count + 1] : null;
+                    count++;
                     p.Draw();
                     if (p is SlashDarkRed)
                         extraDrawParti.Add(p);
+                    Last = p;
                 }
+                Last = null;
+                count = 0;
                 foreach (EParticle p in extraDrawParti)
                 {
+                    Next = (extraDrawParti.Count > count + 1) ? extraDrawParti[count + 1] : null;
+                    count++;
                     if (p is SlashDarkRed sldr)
                         sldr.DrawEffect();
+                    Last = p;
                 }
+                Last = null;
                 Main.spriteBatch.End();
             }
             if (other.Count > 0)
             {
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+                Last = null;
+                int count = 0;
                 foreach (EParticle p in other)
                 {
+                    Next = (other.Count > count + 1) ? other[count + 1] : null;
+                    count++;
                     p.Draw();
+                    Last = p;
                 }
+                Last = null;
                 Main.spriteBatch.End();
             }
             if (additiveDraw.Count > 0)
             {
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+
+                Last = null;
+                int count = 0;
                 foreach (EParticle p in additiveDraw)
                 {
+                    Next = (additiveDraw.Count > count + 1) ? additiveDraw[count + 1] : null;
+                    count++;
                     p.Draw();
+                    Last = p;
                 }
+                Last = null;
                 Main.spriteBatch.End();
             }
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
