@@ -4,8 +4,8 @@
 [3.17-Changes]
 [Mods.CalamityEntropy.YoungMasterDashCD] - added
 [Mods.CalamityEntropy.Projectiles.YoungMasterProj.DisplayName] - added
-[Mods.CalamityEntropy.Projectiles.TectinicShardAshesCore.DisplayName] - removed
-[Mods.CalamityEntropy.Projectiles.TectinicShardHoming.DisplayName] - removed
+[Mods.CalamityEntropy.Projectiles.TectinicShardAshesCore.DisplayName] - removed // This is a spelling mistake, remove this key
+[Mods.CalamityEntropy.Projectiles.TectinicShardHoming.DisplayName] - removed    // This is a spelling mistake, remove this key
 [Mods.CalamityEntropy.Projectiles.VoisenBullet.DisplayName] - added
 [Mods.CalamityEntropy.Projectiles.YMSlash.DisplayName] - added
 [Mods.CalamityEntropy.Projectiles.YoungMasterDash.DisplayName] - added
@@ -13,4 +13,4 @@
 [Mods.CalamityEntropy.Items.YoungMaster.DisplayName] - added
 [Mods.CalamityEntropy.Items.YoungMaster.Tooltip] - added
 [Mods.CalamityEntropy.Items.VoidRelics.Tooltip] - changed
-[Mods.CalamityEntropy.Items.Weapons.Rogue.ProphecyFlyingKnife.Tooltip] - changed
+[Mods.CalamityEntropy.Projectiles.YoungMasterMark.DisplayName] - added

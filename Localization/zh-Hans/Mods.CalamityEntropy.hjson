@@ -5033,6 +5033,7 @@ Projectiles: {
 	YoungMasterProj.DisplayName: 贵公子
 	YMSlash.DisplayName: 贵公子斩击
 	YoungMasterDash.DisplayName: 贵公子冲刺
+	YoungMasterMark.DisplayName: 爆炸标记
 	FutureKnifeSpin.DisplayName: 预言飞刀
 }
 
