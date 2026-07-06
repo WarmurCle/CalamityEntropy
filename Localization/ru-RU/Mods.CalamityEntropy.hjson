@@ -522,7 +522,15 @@ Items: {
 
 	RuneSong: {
 		DisplayName: Руническая песня
-		Tooltip: ""
+		Tooltip:
+			'''
+			Короткая зарядка
+			Затем широкий взмах
+			При попадании клинок отскакивает
+			Затем более широкая многоударная рубка
+			При промахе меч направлен на курсор
+			И выпускает Рунный импульс
+			'''
 	}
 
 	GalaxyGrapeSoda: {
@@ -4708,6 +4716,8 @@ Projectiles: {
 	// YoungMasterDash.DisplayName: Young Master Dash
 	// YoungMasterMark.DisplayName: Young Master Mark
 	// FutureKnifeSpin.DisplayName: Future Knife Spin
+	// RuneSongHeld.DisplayName: Rune Song Held
+	// RuneBolt.DisplayName: Rune Bolt
 }
 
 LegendTooltip: - Легенда -

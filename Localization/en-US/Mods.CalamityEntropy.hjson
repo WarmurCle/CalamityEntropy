@@ -605,8 +605,13 @@ Items: {
 		DisplayName: Archaic Song
 		Tooltip:
 			'''
-			Releases two homing runes on swing that inflicts [cebuff:CalamityEntropy/SoulDisorder]
-			Creates a ritual circle every five swings that release additional homing runes
+			Briefly charge up
+			Then sweep in a wide arc
+			If it hits an enemy, the blade recoils
+			Then performs a wider multi‑slash
+			If it misses, the sword points to cursor
+			And fires a Rune Pulse
+			Inflicts [cebuff:CalamityEntropy/SoulDisorder]
 			'''
 	}
 
@@ -4966,6 +4971,8 @@ Projectiles: {
 	YoungMasterDash.DisplayName: Young Master Dash
 	YoungMasterMark.DisplayName: Young Master Mark
 	FutureKnifeSpin.DisplayName: Future Knife Spin
+	RuneSongHeld.DisplayName: Rune Song Held
+	RuneBolt.DisplayName: Rune Bolt
 }
 
 LegendTooltip: - Legend -

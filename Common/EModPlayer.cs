@@ -4057,13 +4057,6 @@ namespace CalamityEntropy.Common
                 Player.headRotation = MathHelper.ToRadians(Player.direction * -(45 + 16f * (float)(Math.Cos(Main.GameUpdateCount * 0.1f))));
             }
         }
-        public override void HideDrawLayers(PlayerDrawSet drawInfo)
-        {
-            if (Player.ownedProjectileCounts[ModContent.ProjectileType<RuneSongProj>()] > 0)
-            {
-
-            }
-        }
         public override void ModifyMaxStats(out StatModifier health, out StatModifier mana)
         {
             health = StatModifier.Default;

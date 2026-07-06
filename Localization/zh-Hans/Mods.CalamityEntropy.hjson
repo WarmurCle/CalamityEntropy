@@ -597,7 +597,13 @@ Items: {
 
 	RuneSong: {
 		DisplayName: 符文之歌
-		Tooltip: 挥舞时发射符文之矢
+		Tooltip:
+			'''
+			经过短暂的充能随后进行一次大范围的挥舞
+			如果命中了敌人，剑身会弹开，随后进行一次更大范围的多段斩击
+			如果没有命中则剑会指向光标方向并发射一道符文脉冲束
+			所有攻击造成[cebuff:CalamityEntropy/SoulDisorder]
+			'''
 	}
 
 	GalaxyGrapeSoda: {
@@ -5035,6 +5041,8 @@ Projectiles: {
 	YoungMasterDash.DisplayName: 贵公子冲刺
 	YoungMasterMark.DisplayName: 爆炸标记
 	FutureKnifeSpin.DisplayName: 预言飞刀
+	RuneSongHeld.DisplayName: 符文之歌
+	RuneBolt.DisplayName: 符文脉冲束
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5049,12 +5057,11 @@ Buffs: {
 	VoidTouch: {
 		DisplayName: 虚空之触
 		Description: 你正在被虚空残蚀
-		/* ItemTooltip:
-			'''
-			Void - ??? DPS
-			The more times this debuff stacks, the more damage it does
-			The rate and extent to void stacking depends on the source
-			''' */
+		ItemTooltip:
+		'''
+		每秒造成???点伤害
+		层数越高，伤害和减速效果越高
+		'''
 	}
 
 	WyrmChanBuff: {
@@ -5201,11 +5208,10 @@ Buffs: {
 	ServiceBuff: {
 		DisplayName: 使役
 		Description: 提升伤害、攻速和暴击
-		/* ItemTooltip:
-			'''
-			Increases damage, attack speed and crit chance
-			The amount increased scales with the buffs remaining time
-			''' */
+		ItemTooltip:
+		'''
+		根据剩余时间的长短为你提供伤害，暴击，挖掘速度的增幅
+		'''
 	}
 
 	EclipsedImprint: {
@@ -5231,7 +5237,7 @@ Buffs: {
 	VoidVirus: {
 		DisplayName: 虚空病毒
 		Description: 你感染了虚空病毒
-		ItemTooltip: 240 DPS
+		ItemTooltip: 每秒造成240点伤害
 	}
 
 	NyxolithrakenBuff: {
@@ -5261,13 +5267,11 @@ Buffs: {
 	MaliciousCode: {
 		DisplayName: 恶意代码
 		Description: 它很恶意
-		/* ItemTooltip:
-			'''
-			Attacks against the target pierce 25 more defence
-			Contact damage reduced
-			Projectiles fired will be slower
-			Projectiles deal reduced damage
-			''' */
+		ItemTooltip:
+		'''
+		减少25点护甲
+		减少敌怪的接触伤害
+		'''
 	}
 
 	SpiritGathering: {
@@ -5278,11 +5282,12 @@ Buffs: {
 	SoulDisorder: {
 		DisplayName: 灵魂紊乱
 		Description: 灵魂的动荡使你更加脆弱
-		/* ItemTooltip:
-			'''
-			Damage taken increased by 5%
-			Attacks against the target ignore 15 more defense
-			''' */
+		ItemTooltip:
+		'''
+		敌怪所受伤害增加 5%
+		减少15点护甲
+		减少15%伤害减免（如果有）
+		'''
 	}
 
 	ShatteredOrb: {
@@ -5293,11 +5298,11 @@ Buffs: {
 	HeatDeath: {
 		DisplayName: 热寂
 		Description: ？？？
-		/* ItemTooltip:
-			'''
-			~0.06% max life DPS - Typeless
-			Slows enemies
-			''' */
+		ItemTooltip:
+		'''
+		每秒造成等同于拥有减益的敌怪0.06%最大生命值的伤害
+		减缓其移速
+		'''
 	}
 
 	GuardiansBuff: {
@@ -5389,23 +5394,23 @@ Buffs: {
 	Koishi: {
 		DisplayName: 本我的解放
 		Description: ""
-		/* ItemTooltip:
-			'''
-			5% increased damage for players
-			Slows enemies
-			''' */
+		ItemTooltip:
+		'''
+		增加玩家5%伤害
+		对敌怪则减缓其移速
+		'''
 	}
 
 	LifeOppress: {
 		DisplayName: 生命压制
 		Description: 你看见了你的死亡
-		ItemTooltip: 4500 DPS
+		ItemTooltip: 每秒造成4500点伤害
 	}
 
 	MechanicalTrauma: {
 		DisplayName: 机械性创伤
 		Description: 你浑身疼痛不堪
-		ItemTooltip: 20 DPS
+		ItemTooltip: 每秒造成20点伤害
 	}
 
 	IllusoryBlade: {
@@ -5431,7 +5436,7 @@ Buffs: {
 	BonePiercingToxin: {
 		DisplayName: 穿骨毒素
 		Description: 你感到钻心的疼痛
-		ItemTooltip: 24 DPS
+		ItemTooltip: 每秒造成24点伤害
 	}
 
 	FlamingBlood: {
