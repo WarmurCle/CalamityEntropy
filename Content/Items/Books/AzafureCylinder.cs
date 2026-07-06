@@ -1,6 +1,6 @@
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
-using CalamityEntropy.Content.Projectiles.Cruiser;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;

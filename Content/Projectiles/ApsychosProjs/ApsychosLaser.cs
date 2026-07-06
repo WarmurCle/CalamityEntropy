@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.NPCs.Apsychos
+namespace CalamityEntropy.Content.Projectiles.ApsychosProjs
 {
     public class ApsychosLaser : ModProjectile
     {
@@ -79,7 +79,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             {
                 Vector2 v = Projectile.Center + Projectile.rotation.ToRotationVector2() * i;
                 length = (int)i;
-                if (!CEUtils.inWorld(v) || (Main.tile[(int)(v.X / 16), (int)(v.Y / 16)].IsTileSolid()))
+                if (!CEUtils.inWorld(v) || Main.tile[(int)(v.X / 16), (int)(v.Y / 16)].IsTileSolid())
                 {
                     break;
                 }

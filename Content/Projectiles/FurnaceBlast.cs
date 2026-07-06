@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace CalamityEntropy.Content.Projectiles.Cruiser
+namespace CalamityEntropy.Content.Projectiles
 {
 
     public class FurnaceBlast : ModProjectile

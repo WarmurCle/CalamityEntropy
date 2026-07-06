@@ -1,7 +1,6 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Particles.CalamityPorts;
-using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityMod;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
