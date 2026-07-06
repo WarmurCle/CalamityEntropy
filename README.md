@@ -9,3 +9,5 @@ Steam: [https://steamcommunity.com/sharedfiles/filedetails/?id=3316697363](https
 Bug Reports: [https://github.com/WarmurCle/CalamityEntropy/issues](https://github.com/WarmurCle/CalamityEntropy/issues)
 
 Discord Server: [https://discord.com/invite/Mnmzd34Fda](https://discord.com/invite/Mnmzd34Fda)
+
+**If you're making a translation mod, check the LocalizationChangeLog.log. You can find all the text changes in there.
