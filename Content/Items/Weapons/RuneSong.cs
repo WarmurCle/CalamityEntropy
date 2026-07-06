@@ -8,6 +8,7 @@ using CalamityMod.Items;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -93,7 +94,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     RotVel = 0.64f * speedMelee;
                 }
                 if (Projectile.ai[0] > 1.3f)
-                    sAlpha *= 0.9f;
+                    sAlpha *= 0.86f;
                 Projectile.ai[0] += speedTrueMelee / 42f;
                 if (Projectile.ai[0] >= 2)
                 {
@@ -124,17 +125,13 @@ namespace CalamityEntropy.Content.Items.Weapons
                     sAlpha = 1;
                     RotVel = 0.6f * speedMelee;
                     Projectile.ResetLocalNPCHitImmunity();
+                    Projectile.localNPCHitCooldown = 8;
                 }
                 if (Projectile.ai[0] > 2.5f)
-                    sAlpha *= 0.9f;
+                    sAlpha *= 0.86f;
                 if (Projectile.ai[0] > 2.4f)
                     RotVel *= (float)Math.Pow(0.87f, speedTrueMelee);
                 Projectile.localAI[1] += Math.Abs(RotVel);
-                if (Projectile.localAI[1] > MathHelper.Pi)
-                {
-                    Projectile.ResetLocalNPCHitImmunity();
-                    Projectile.localAI[1] = 0;
-                }
                 Projectile.ai[0] += speedTrueMelee / 60f;
                 if (Projectile.ai[0] >= 3)
                 {
@@ -142,6 +139,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                     return;
                 }
             }
+            if (sAlpha < 0.02f)
+                sAlpha = 0;
             if (flag == 3)
             {
                 Rot = CEUtils.RotateTowardsAngle(Rot, 0, 0.08f, false);
@@ -159,7 +158,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 
                         for (int i = 0; i < 128; i++)
                         {
-                            EParticle.spawnNew(new RuneParticle(), Projectile.Center + CEUtils.randomPointInCircle(12) + Projectile.velocity.normalize() * 60, Projectile.velocity.normalize() * Main.rand.NextFloat(4, 64), Color.Aqua, Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.Additive, 0, 42);
+                            EParticle.spawnNew(new RuneParticle(), Projectile.Center + CEUtils.randomPointInCircle(12) + Projectile.velocity.normalize() * 160, Projectile.velocity.normalize() * Main.rand.NextFloat(4, 80), Color.Aqua, Main.rand.NextFloat(0.8f, 1.4f), 1, true, BlendState.Additive, 0, 42);
                         }
                         if(Main.myPlayer == Projectile.owner)
                         {
@@ -188,7 +187,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public float scaleE = 1f;
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * Length * Projectile.scale * scaleE, targetHitbox, 50);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * Length * Projectile.scale * scaleE, targetHitbox, 90);
         }
         public override void CutTiles()
         {
@@ -218,10 +217,22 @@ namespace CalamityEntropy.Content.Items.Weapons
                 flag = 4;
                 RotVel = -0.4f;
                 sAlpha = 0;
+                CEUtils.SyncProj(Projectile.whoAmI);
             }
             target.AddBuff<SoulDisorder>(200);
         }
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(RotVel);
+            writer.Write(sAlpha);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            RotVel = reader.ReadSingle();
+            sAlpha = reader.ReadSingle();
+        }
     }
+    
     public class RuneBolt : ModProjectile
     {
         public override string Texture => CEUtils.WhiteTexPath;
@@ -306,6 +317,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Texture2D tex = CEUtils.getExtraTex("Streak1");
             Texture2D r = CEUtils.getExtraTex("RuneRibbon2");
             CEUtils.DrawGlow(Projectile.Center, Color.White * Projectile.ai[1], 2f * Projectile.scale, true, null, false);
+            CEUtils.DrawGlow(Projectile.Center, Color.White * Projectile.ai[1], 1.6f * Projectile.scale, true, null, false);
             CEUtils.DrawGlow(Projectile.Center, Color.Aqua * Projectile.ai[1], 4f * Projectile.scale, true, null, false);
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, new Rectangle(-(int)(Main.GlobalTimeWrappedHourly * 900), 0, (int)(Projectile.scale * length), tex.Height), new Color(90, 90, 140), Projectile.rotation, new Vector2(0, tex.Height * 0.5f), new Vector2(1, Projectile.scale * Projectile.ai[1] * 0.37f), SpriteEffects.None, 0);
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, new Rectangle(-(int)(Main.GlobalTimeWrappedHourly * 1400), 0, (int)(Projectile.scale * length), tex.Height), new Color(255, 255, 255), Projectile.rotation, new Vector2(0, tex.Height * 0.5f), new Vector2(1, Projectile.scale * Projectile.ai[1] * 0.22f), SpriteEffects.None, 0);
