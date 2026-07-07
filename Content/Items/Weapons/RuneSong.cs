@@ -106,11 +106,14 @@ namespace CalamityEntropy.Content.Items.Weapons
                         return;
                     }
                 }
+                if (Projectile.ai[0] < 1.56f)
+                    for (int i = 0; i < 3; i++)
+                        EParticle.spawnNew(new RuneParticle(), Projectile.Center + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(40, Length * scaleE), CEUtils.randomPointInCircle(2), Color.LightBlue, 1f, 1, true, BlendState.Additive, 0, 38);
             }
             if(flag == 4)
             {
                 RotVel *= (float)Math.Pow(0.9f, speedTrueMelee);
-                Projectile.ai[0] += speedTrueMelee / 60f;
+                Projectile.ai[0] += speedTrueMelee / 34f;
                 if (Projectile.ai[0] >= 2)
                 {
                     Projectile.ai[0] = 2;
@@ -120,6 +123,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if(flag == 2)
             {
+                
                 if (Projectile.ai[0] == 2)
                 {
                     sAlpha = 1;
@@ -133,11 +137,20 @@ namespace CalamityEntropy.Content.Items.Weapons
                     RotVel *= (float)Math.Pow(0.87f, speedTrueMelee);
                 Projectile.localAI[1] += Math.Abs(RotVel);
                 Projectile.ai[0] += speedTrueMelee / 60f;
+                if (Projectile.localAI[2] <= 0 && Projectile.ai[0] < 2.7f)
+                {
+                    CEUtils.PlaySound("HellkiteSwing" + Main.rand.Next(1, 3), Main.rand.NextFloat(2.4f, 2.8f), Projectile.Center, 40, 0.5f);
+                    Projectile.localAI[2] = 1f;
+                }
+                Projectile.localAI[2] -= speedTrueMelee / 14f;
                 if (Projectile.ai[0] >= 3)
                 {
                     Projectile.Kill();
                     return;
                 }
+                if (Projectile.ai[0] < 2.6f)
+                    for(int i = 0; i < 3; i++)
+                        EParticle.spawnNew(new RuneParticle(), Projectile.Center + Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(40, Length * scaleE), CEUtils.randomPointInCircle(2), Color.LightBlue, 1f, 1, true, BlendState.Additive, 0, 38);
             }
             if (sAlpha < 0.02f)
                 sAlpha = 0;
@@ -162,7 +175,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         }
                         if(Main.myPlayer == Projectile.owner)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 180, Projectile.velocity.normalize() * 8, ModContent.ProjectileType<RuneBolt>(), Projectile.damage * 3, Projectile.knockBack, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 180, Projectile.velocity.normalize() * 8, ModContent.ProjectileType<RuneBolt>(), Projectile.damage * 4, Projectile.knockBack, Projectile.owner);
                             CalamityEntropy.FlashEffectStrength = 0.24f;
                         }
                     }
@@ -181,13 +194,13 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.SourceDamage *= 1.2f;
+            modifiers.SourceDamage *= 1f;
         }
         public int Length = 250;
         public float scaleE = 1f;
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * Length * Projectile.scale * scaleE, targetHitbox, 90);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * Length * Projectile.scale * scaleE, targetHitbox, 100);
         }
         public override void CutTiles()
         {

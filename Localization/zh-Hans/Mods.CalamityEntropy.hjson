@@ -5058,10 +5058,10 @@ Buffs: {
 		DisplayName: 虚空之触
 		Description: 你正在被虚空残蚀
 		ItemTooltip:
-		'''
-		每秒造成???点伤害
-		层数越高，伤害和减速效果越高
-		'''
+			'''
+			每秒造成???点伤害
+			层数越高，伤害和减速效果越高
+			'''
 	}
 
 	WyrmChanBuff: {
@@ -5208,10 +5208,7 @@ Buffs: {
 	ServiceBuff: {
 		DisplayName: 使役
 		Description: 提升伤害、攻速和暴击
-		ItemTooltip:
-		'''
-		根据剩余时间的长短为你提供伤害，暴击，挖掘速度的增幅
-		'''
+		ItemTooltip: 根据剩余时间的长短为你提供伤害，暴击，挖掘速度的增幅
 	}
 
 	EclipsedImprint: {
@@ -5268,10 +5265,10 @@ Buffs: {
 		DisplayName: 恶意代码
 		Description: 它很恶意
 		ItemTooltip:
-		'''
-		减少25点护甲
-		减少敌怪的接触伤害
-		'''
+			'''
+			减少25点护甲
+			减少敌怪的接触伤害
+			'''
 	}
 
 	SpiritGathering: {
@@ -5283,11 +5280,11 @@ Buffs: {
 		DisplayName: 灵魂紊乱
 		Description: 灵魂的动荡使你更加脆弱
 		ItemTooltip:
-		'''
-		敌怪所受伤害增加 5%
-		减少15点护甲
-		减少15%伤害减免（如果有）
-		'''
+			'''
+			敌怪所受伤害增加 5%
+			减少15点护甲
+			减少15%伤害减免（如果有）
+			'''
 	}
 
 	ShatteredOrb: {
@@ -5299,10 +5296,10 @@ Buffs: {
 		DisplayName: 热寂
 		Description: ？？？
 		ItemTooltip:
-		'''
-		每秒造成等同于拥有减益的敌怪0.06%最大生命值的伤害
-		减缓其移速
-		'''
+			'''
+			每秒造成等同于拥有减益的敌怪0.06%最大生命值的伤害
+			减缓其移速
+			'''
 	}
 
 	GuardiansBuff: {
@@ -5395,10 +5392,10 @@ Buffs: {
 		DisplayName: 本我的解放
 		Description: ""
 		ItemTooltip:
-		'''
-		增加玩家5%伤害
-		对敌怪则减缓其移速
-		'''
+			'''
+			增加玩家5%伤害
+			对敌怪则减缓其移速
+			'''
 	}
 
 	LifeOppress: {
