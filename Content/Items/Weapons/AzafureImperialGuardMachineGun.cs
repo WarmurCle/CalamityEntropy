@@ -181,7 +181,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         {
                             for (int i = 0; i < 1; i++)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + new Vector2(16, -14 * dir).RotatedBy(Projectile.rotation), Projectile.velocity.RotatedByRandom(Main.rand.NextFloat(0, 0.8f)) * Main.rand.NextFloat(1.2f, 1.42f) * (player.AzafureEnhance() ? 1.4f : 1), ModContent.ProjectileType<ImperialGuardShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + new Vector2(16, -14 * dir).RotatedBy(Projectile.rotation), Projectile.velocity.RotatedByRandom(Main.rand.NextFloat(0, player.AzafureEnhance() ? 0.3f : 0.6f)) * Main.rand.NextFloat(1.2f, 1.42f) * (player.AzafureEnhance() ? 1.4f : 1), ModContent.ProjectileType<ImperialGuardShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                             }
                         }
                         EParticle.spawnNew(new ShellParticle(), Projectile.Center + new Vector2(12, 4 * dir).RotatedBy(Projectile.rotation), Projectile.velocity.RotatedBy(dir * -2.2f) * 0.7f + CEUtils.randomPointInCircle(5), Color.White, 1, 1, false, BlendState.AlphaBlend, CEUtils.randomRot());
@@ -226,7 +226,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (trail == null)
             {
                 trail = new TrailParticle();
-                trail.maxLength = 32;
+                trail.maxLength = 18;
                 trail.TimeLeftMax = 12;
                 trail.ShouldDraw = false;
                 EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.Firebrick, 0.8f, 1f, true, BlendState.Additive);
@@ -257,6 +257,10 @@ namespace CalamityEntropy.Content.Items.Weapons
                 EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, Color.White, 0.3f, 1, true, BlendState.Additive, 0, 8);
                 CEUtils.PlaySound("beast_lavaball_rise1", Main.rand.NextFloat(2.4f, 2.8f), Projectile.Center, 36, 0.4f);
             }
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.ArmorPenetration += 30;
         }
     }
 }

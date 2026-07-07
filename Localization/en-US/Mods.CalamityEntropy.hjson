@@ -4248,6 +4248,16 @@ Items: {
 			Fires rapid short-range shotgun rounds
 			'''
 	}
+
+	AzafureExhaustGasInjector: {
+		DisplayName: Azafure Exhaust Gas Injector
+		Tooltip: Jetting corrosive exhaust gas
+	}
+
+	AzafureStandardShotgun: {
+		DisplayName: Azafure Standard Shotgun
+		Tooltip: Fire some scattered shotgun pellets
+	}
 }
 
 SmolderingSetBonus:
@@ -4984,6 +4994,8 @@ Projectiles: {
 	RuneBolt.DisplayName: Rune Bolt
 	AzafureImperialGuardMachineGunHeld.DisplayName: Azafure Imperial Guard Machine Gun Held
 	ImperialGuardShot.DisplayName: Imperial Guard Shot
+	AzafureExhaustGasInjectorHeld.DisplayName: Azafure Exhaust Gas Injector Held
+	ExhaustGas.DisplayName: Exhaust Gas
 }
 
 LegendTooltip: - Legend -
@@ -6408,7 +6420,9 @@ AzafureEnhances: {
 		'''
 	AzafureSupportRemote: Increased attack speed
 	MottledSpear: Increased hook speed
-	AzafureImperialGuardMachineGun: Increase attack range
+	AzafureImperialGuardMachineGun: Enhance the range and accuracy of projectiles
+	AzafureExhaustGasInjector: Increase damage frequency
+	AzafureStandardShotgun: Increase bullet counts
 }
 
 Menu: {

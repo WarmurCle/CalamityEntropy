@@ -4321,6 +4321,16 @@ Items: {
 			快速散射短程霰弹
 			'''
 	}
+
+	AzafureExhaustGasInjector: {
+		DisplayName: 阿萨福勒废气喷射器
+		Tooltip: 喷射腐蚀性废气
+	}
+
+	AzafureStandardShotgun: {
+		DisplayName: 阿萨福勒制式霰弹
+		Tooltip: 发射散射的霰弹
+	}
 }
 
 SmolderingSetBonus:
@@ -5052,8 +5062,10 @@ Projectiles: {
 	FutureKnifeSpin.DisplayName: 预言飞刀
 	RuneSongHeld.DisplayName: 符文之歌
 	RuneBolt.DisplayName: 符文脉冲束
-	AzafureImperialGuardMachineGunHeld.DisplayName: 近卫机枪
+	AzafureImperialGuardMachineGunHeld.DisplayName: 阿萨福勒近卫机枪
 	ImperialGuardShot.DisplayName: 近卫机枪弹
+	AzafureExhaustGasInjectorHeld.DisplayName: 阿萨福勒废气喷射器
+	ExhaustGas.DisplayName: 废气
 }
 
 LegendTooltip: - 传奇物品 -
@@ -6490,7 +6502,9 @@ AzafureEnhances: {
 		'''
 	AzafureSupportRemote: 增加攻击速度
 	MottledSpear: 提升钩爪性能
-	AzafureImperialGuardMachineGun: 提升子弹射程
+	AzafureImperialGuardMachineGun: 提升子弹射程和精准度
+	AzafureExhaustGasInjector: 增加伤害频率
+	AzafureStandardShotgun: 增加霰弹数量
 }
 
 Menu: {

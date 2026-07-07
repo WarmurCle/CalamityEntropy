@@ -1033,7 +1033,26 @@ namespace CalamityEntropy
         {
             return item.type == ModContent.ItemType<T>();
         }
-
+        public static void DrawRotatedGlow(Vector2 worldPos, Color color, float scale, float rot, bool additive = true, Texture2D tex = null, bool setState = true)
+        {
+            Texture2D glow = tex == null ? getExtraTex("Glow2") : tex;
+            SpriteBatch sb = Main.spriteBatch;
+            var blend = BlendState.AlphaBlend;
+            var sample = sb.GraphicsDevice.SamplerStates[0];
+            var depth = sb.GraphicsDevice.DepthStencilState;
+            var rasterizer = sb.GraphicsDevice.RasterizerState;
+            if (setState)
+            {
+                sb.End();
+                sb.Begin(SpriteSortMode.Immediate, additive ? BlendState.Additive : BlendState.NonPremultiplied, sample, depth, rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            }
+            sb.Draw(glow, worldPos - Main.screenPosition, null, color, rot, glow.Size() * 0.5f, scale * 0.4f, SpriteEffects.None, 0);
+            if (setState)
+            {
+                sb.End();
+                sb.Begin(SpriteSortMode.Deferred, blend, sample, depth, rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            }
+        }
         public static void DrawGlow(Vector2 worldPos, Color color, float scale, bool additive = true, Texture2D tex = null, bool setState = true)
         {
             Texture2D glow = tex == null ? getExtraTex("Glow2") : tex;
@@ -1151,6 +1170,10 @@ namespace CalamityEntropy
         public static Rectangle getRectCentered(this Vector2 center, float w, float h)
         {
             return new Rectangle((int)(center.X - w / 2), (int)(center.Y - h / 2), (int)w, (int)h);
+        }
+        public static Rectangle getRectCentered(this Vector2 center, float s)
+        {
+            return center.getRectCentered(s, s);
         }
         public static void DrawLines(List<Vector2> points, Color color, float width, int wa = 2)
         {
