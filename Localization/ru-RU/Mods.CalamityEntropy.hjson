@@ -3997,7 +3997,7 @@ Items: {
 
 	AzafureStandardShotgun: {
 		// DisplayName: Azafure Standard Shotgun
-		// Tooltip: ""
+		// Tooltip: Fire some scattered shotgun pellets
 	}
 }
 
@@ -6174,6 +6174,7 @@ AzafureEnhances: {
 	MottledSpear: Свойства захвата крюка
 	// AzafureImperialGuardMachineGun: Enhance the range and accuracy of projectiles
 	// AzafureExhaustGasInjector: Increase damage frequency
+	// AzafureStandardShotgun: Increase bullet counts
 }
 
 Menu: {
