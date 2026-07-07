@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
@@ -33,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Atbm
             Item.autoReuse = false;
             Item.UseSound = SoundID.Item8;
             Item.noMelee = true;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ModContent.RarityType<AzafureOrange>();
         }
         public override bool? UseItem(Player player)
         {

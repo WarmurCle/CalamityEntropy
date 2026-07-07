@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Items;
@@ -41,7 +42,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<AzafureEKatanaSlash>();
             Item.shootSpeed = 12;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
-            Item.rare = ModContent.RarityType<DarkOrange>();
+            Item.rare = ModContent.RarityType<AzafureOrange>();
             if (Main.zenithWorld)
                 Item.damage *= 2;
         }

@@ -2,6 +2,7 @@ using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
@@ -27,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureMissileLauncher
             Item.noMelee = true;
             Item.knockBack = 4f;
             Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ModContent.RarityType<AzafureOrange>();
             Item.UseSound = SoundID.DD2_DefenseTowerSpawn;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<MissileSilo>();

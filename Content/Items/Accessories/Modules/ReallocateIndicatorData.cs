@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
@@ -32,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Accessories.Modules
             Item.width = 40;
             Item.height = 40;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
-            Item.rare = ModContent.RarityType<DarkOrange>();
+            Item.rare = ModContent.RarityType<AzafureOrange>();
             Item.accessory = true;
         }
         public static void CalculateStatsForPlayer(Player player)

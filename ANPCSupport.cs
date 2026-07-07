@@ -33,8 +33,18 @@ namespace CalamityEntropy
                 }
                 else
                 {
-                    CalamityEntropy.Instance.Logger.Warn("Cannot find operator's shop");
+                    CalamityEntropy.Instance.Logger.Warn("Cannot find operator's bossbag shop");
                 }
+                if (NPCShopDatabase.TryGetNPCShop(NPCShopDatabase.GetShopName(ModContent.NPCType<Operator>(), "ModMaterials"), out var meterialShop))
+                {
+                    var shop = (NPCShop)meterialShop;
+                    shop.AddModItemToShop(CalamityEntropy.Instance, "HellIndustrialComponents", 5000, () => EDownedBosses.downedAcropolis);
+                }
+                else
+                {
+                    CalamityEntropy.Instance.Logger.Warn("Cannot find operator's meterials shop");
+                }
+                
             }
             public static MethodBase GetAddShopMethod()
             {

@@ -1,6 +1,7 @@
 ﻿
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Particles;
@@ -23,7 +24,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
             Item.height = 48;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.defense = 6;
-            Item.rare = ModContent.RarityType<DarkOrange>();
+            Item.rare = ModContent.RarityType<AzafureOrange>();
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)

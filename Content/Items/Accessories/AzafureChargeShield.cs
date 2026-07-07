@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.CalPlayer;
 using CalamityMod.CalPlayer.Dashes;
@@ -33,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.defense = 4;
             Item.accessory = true;
-            Item.rare = ModContent.RarityType<DarkOrange>();
+            Item.rare = ModContent.RarityType<AzafureOrange>();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

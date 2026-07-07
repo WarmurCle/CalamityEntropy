@@ -4312,6 +4312,15 @@ Items: {
 			剑气命中造成延迟爆炸同时为武器充能，强化接下来的10次普通攻击
 			'''
 	}
+
+	AzafureImperialGuardMachineGun: {
+		DisplayName: 阿萨福勒近卫机枪
+		Tooltip:
+			'''
+			使用[i:CalamityEntropy/HellIndustrialComponents]地狱工业构件为武器装载[AMMOMAX]发弹药
+			快速散射短程霰弹
+			'''
+	}
 }
 
 SmolderingSetBonus:
@@ -5043,6 +5052,8 @@ Projectiles: {
 	FutureKnifeSpin.DisplayName: 预言飞刀
 	RuneSongHeld.DisplayName: 符文之歌
 	RuneBolt.DisplayName: 符文脉冲束
+	AzafureImperialGuardMachineGunHeld.DisplayName: 近卫机枪
+	ImperialGuardShot.DisplayName: 近卫机枪弹
 }
 
 LegendTooltip: - 传奇物品 -
@@ -6479,6 +6490,7 @@ AzafureEnhances: {
 		'''
 	AzafureSupportRemote: 增加攻击速度
 	MottledSpear: 提升钩爪性能
+	AzafureImperialGuardMachineGun: 提升子弹射程
 }
 
 Menu: {
@@ -6506,3 +6518,4 @@ NonZenithWorld: 不在天顶世界
 ZenithWorld: 在天顶世界时
 RatizelShield: 嗫告篇帙护盾
 PrefixEnchantedDesc: +4% 强化魔力
+NoAmmo: 无弹药！

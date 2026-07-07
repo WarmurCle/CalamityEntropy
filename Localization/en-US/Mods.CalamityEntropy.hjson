@@ -4239,6 +4239,15 @@ Items: {
 			Empowers the next 10 normal attacks
 			'''
 	}
+
+	AzafureImperialGuardMachineGun: {
+		DisplayName: Azafure Imperial Guard Machine Gun
+		Tooltip:
+			'''
+			Using [i:CalamityEntropy/HellIndustrialComponents] Hell Industry Components to load [AMMOMAX] ammunition
+			Fires rapid short-range shotgun rounds
+			'''
+	}
 }
 
 SmolderingSetBonus:
@@ -4973,6 +4982,8 @@ Projectiles: {
 	FutureKnifeSpin.DisplayName: Future Knife Spin
 	RuneSongHeld.DisplayName: Rune Song Held
 	RuneBolt.DisplayName: Rune Bolt
+	AzafureImperialGuardMachineGunHeld.DisplayName: Azafure Imperial Guard Machine Gun Held
+	ImperialGuardShot.DisplayName: Imperial Guard Shot
 }
 
 LegendTooltip: - Legend -
@@ -6397,6 +6408,7 @@ AzafureEnhances: {
 		'''
 	AzafureSupportRemote: Increased attack speed
 	MottledSpear: Increased hook speed
+	AzafureImperialGuardMachineGun: Increase attack range
 }
 
 Menu: {
@@ -6424,3 +6436,4 @@ NonZenithWorld: Not in zenith world
 ZenithWorld: In zenith world
 RatizelShield: Ratizel Shield
 PrefixEnchantedDesc: Mods.CalamityEntropy.PrefixEnchantedDesc
+NoAmmo: Out of ammo!
