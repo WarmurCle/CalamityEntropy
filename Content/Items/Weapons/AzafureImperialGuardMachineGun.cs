@@ -229,7 +229,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 trail.maxLength = 18;
                 trail.TimeLeftMax = 12;
                 trail.ShouldDraw = false;
-                EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.Firebrick, 0.8f, 1f, true, BlendState.Additive);
+                EParticle.spawnNew(trail, Projectile.Center, Vector2.Zero, Color.Orange, 0.8f, 1f, true, BlendState.Additive);
             }
             if (Projectile.timeLeft < 20)
                 Projectile.Opacity -= 1 / 20f;
