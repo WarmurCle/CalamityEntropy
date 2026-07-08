@@ -78,7 +78,7 @@ namespace CalamityEntropy.Common
         {
             return true;
         }
-        public int TrasherID = -1;
+        public static int TrasherID = -1;
         public override void OnHitNPC(NPC npc, NPC target, NPC.HitInfo hit)
         {
             if (TrasherID == -1)
