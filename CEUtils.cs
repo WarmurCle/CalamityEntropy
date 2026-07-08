@@ -1097,6 +1097,13 @@ namespace CalamityEntropy
             Main.HoverItem = item.Clone();
             Main.hoverItemName = item.HoverName;
         }
+        public static void SyncItem(int i)
+        {
+            if (Main.netMode != NetmodeID.SinglePlayer)
+            {
+                NetMessage.SendData(MessageID.SyncItem, -1, -1, null, i);
+            }
+        }
         public static void SyncProj(int proj)
         {
             if (Main.netMode != NetmodeID.SinglePlayer)
