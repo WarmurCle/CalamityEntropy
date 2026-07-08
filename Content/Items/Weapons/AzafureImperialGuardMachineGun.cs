@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 30;
+            Item.damage = 32;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 76;
             Item.height = 46;
@@ -179,9 +179,9 @@ namespace CalamityEntropy.Content.Items.Weapons
                         Projectile.rotation += Main.rand.NextFloat(-0.15f, 0.15f);
                         if (Main.myPlayer == Projectile.owner)
                         {
-                            for (int i = 0; i < 1; i++)
+                            for (int i = 0; i < 3; i++)
                             {
-                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + new Vector2(16, -14 * dir).RotatedBy(Projectile.rotation), Projectile.velocity.RotatedByRandom(Main.rand.NextFloat(0, player.AzafureEnhance() ? 0.3f : 0.6f)) * Main.rand.NextFloat(1.2f, 1.42f) * (player.AzafureEnhance() ? 1.4f : 1), ModContent.ProjectileType<ImperialGuardShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + new Vector2(16, -14 * dir).RotatedBy(Projectile.rotation), Projectile.velocity.RotatedByRandom(Main.rand.NextFloat(0, player.AzafureEnhance() ? 0.3f : 0.6f)) * Main.rand.NextFloat(1.2f, 1.42f) * (player.AzafureEnhance() ? 1.4f : 1), ModContent.ProjectileType<ImperialGuardShot>(), Projectile.damage / 3, Projectile.knockBack, Projectile.owner);
                             }
                         }
                         EParticle.spawnNew(new ShellParticle(), Projectile.Center + new Vector2(12, 4 * dir).RotatedBy(Projectile.rotation), Projectile.velocity.RotatedBy(dir * -2.2f) * 0.7f + CEUtils.randomPointInCircle(5), Color.White, 1, 1, false, BlendState.AlphaBlend, CEUtils.randomRot());
@@ -249,6 +249,10 @@ namespace CalamityEntropy.Content.Items.Weapons
             Main.spriteBatch.ExitShaderRegion();
             return false;
         }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff<MechanicalTrauma>(3 * 60);
+        }
         public override void OnKill(int timeLeft)
         {
             if (timeLeft > 6)
@@ -260,7 +264,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.ArmorPenetration += 30;
+            modifiers.ArmorPenetration += 60;
         }
     }
 }
