@@ -2,6 +2,7 @@
 global using CalamityMod.Items.Placeables.Furniture;
 global using CalamityMod.Items.Placeables.SunkenSea;
 global using Microsoft.Xna.Framework;
+using AlchemistNPCLite.NPCs;
 using CalamityEntropy.Common;
 using CalamityEntropy.Content.ArmorPrefixes;
 using CalamityEntropy.Content.Buffs;
@@ -84,6 +85,7 @@ using CalamityMod.NPCs.Yharon;
 using CalamityMod.UI;
 using CalamityMod.UI.CalamitasEnchants;
 using InnoVault;
+using InnoVault.Actors;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -1688,6 +1690,48 @@ namespace CalamityEntropy
                 UrnOfSoulsHoldout.loopSnd = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/flamethrower loop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 otLoop = ModContent.Request<SoundEffect>("CalamityEntropy/Assets/Sounds/ThretherLoop", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             }
+
+            #region MusicDisplay
+            if(ModLoader.TryGetMod("MusicDisplay", out Mod display))
+            {
+                display.Call("AddMusic",
+                  (short)MusicLoader.GetMusicSlot(this, "Assets/Sounds/Music/Apsychos"),
+                  this.GetLocalization("Musics.Apsychos"),
+                  this.GetLocalization("Musics.Francium"),
+                  this.GetLocalization("Musics.ThemeOf").WithFormatArgs(CEUtils.GetNPCName<Apsychos>()));
+                display.Call("AddMusic",
+                  (short)MusicLoader.GetMusicSlot(this, "Assets/Sounds/Music/CruiserBoss"),
+                  this.GetLocalization("Musics.Cruiser"),
+                  this.GetLocalization("Musics.Francium"),
+                  this.GetLocalization("Musics.ThemeOf").WithFormatArgs(CEUtils.GetNPCName<CruiserHead>()));
+                display.Call("AddMusic",
+                  (short)MusicLoader.GetMusicSlot(this, "Assets/Sounds/Music/SpectralForesight"),
+                  this.GetLocalization("Musics.Prophet1"),
+                  this.GetLocalization("Musics.Francium"),
+                  this.GetLocalization("Musics.ThemeOf").WithFormatArgs(CEUtils.GetNPCName<TheProphet>()));
+                display.Call("AddMusic",
+                  (short)MusicLoader.GetMusicSlot(this, "Assets/Sounds/Music/Prophet2"),
+                  this.GetLocalization("Musics.Prophet2"),
+                  this.GetLocalization("Musics.BadbfHX"),
+                  this.GetLocalization("Musics.ThemeOf").WithFormatArgs(CEUtils.GetNPCName<TheProphet>()));
+                display.Call("AddMusic",
+                  (short)MusicLoader.GetMusicSlot(this, "Assets/Sounds/Music/vtfight"),
+                  this.GetLocalization("Musics.Cruiser"),
+                  this.GetLocalization("Musics.BadbfHX"),
+                  this.GetLocalization("Musics.ThemeOf").
+                  WithFormatArgs(this.GetLocalization("NPCs.NihilityActeriophage.BossChecklistIntegration.EntryName")));
+                display.Call("AddMusic",
+                  (short)MusicLoader.GetMusicSlot(this, "Assets/Sounds/Music/LuminarisBoss"),
+                  this.GetLocalization("Musics.Luminaris"),
+                  this.GetLocalization("Musics.BadbfHX"),
+                  this.GetLocalization("Musics.ThemeOf").WithFormatArgs(CEUtils.GetNPCName<Luminaris>()));
+                display.Call("AddMusic",
+                  (short)MusicLoader.GetMusicSlot(this, "Assets/Sounds/Music/HellBlazenRobotics"),
+                  this.GetLocalization("Musics.Acropolis"),
+                  this.GetLocalization("Musics.SobaNoodles"),
+                  this.GetLocalization("Musics.ThemeOf").WithFormatArgs(CEUtils.GetNPCName<AcropolisMachine>()));
+            }
+            #endregion
 
             #region RegisterBoss
             Mod bossChecklist;

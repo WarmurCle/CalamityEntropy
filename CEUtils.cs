@@ -25,12 +25,23 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 
 namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static LocalizedText GetNPCName(int npc)
+        {
+            if (npc < NPCID.Count)
+                return Language.GetText("NPCName." + NPCID.Search.GetName(npc));
+            return NPCLoader.GetNPC(npc).GetLocalization("DisplayName");
+        }
+        public static LocalizedText GetNPCName<T>() where T : ModNPC
+        {
+            return GetNPCName(ModContent.NPCType<T>());
+        }
         public class VertexPointSets
         {
             public Vector2 Position;
