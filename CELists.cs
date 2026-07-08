@@ -53,7 +53,8 @@ namespace CalamityEntropy
                 P<VoidAnnihilateCharge>(),
                 P<VoidAnnihilateSpawner>(),
 		        P<AzafureEKatanaSlash>(),
-                P<RuneSongHeld>()
+                P<RuneSongHeld>(),
+                P<AzafureImperialGuardMachineGunHeld>()
             };
         }
         public static List<int> SoyMilkProjectileBlacklist;
