@@ -259,9 +259,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             Vector2 targetPos = Projectile.Center;
             Vector2 bestTarget = Projectile.Center;
             int HitCount = 1;
-            for(int i = 0; i < 100; i++)
+            for(int i = 0; i < 128; i++)
             {
-                targetPos = CEUtils.randomPointInCircle(CrossBombDist * 0.7f) + Projectile.Center;
+                targetPos = CEUtils.randomPointInCircle(CrossBombDist * 1.2f) + Projectile.Center;
                 int hitCountTemp = 0;
                 Rectangle h = targetPos.getRectCentered(CrossBombDist * 2, Projectile.Calamity().stealthStrike ? 60 : 26);
                 Rectangle w = targetPos.getRectCentered(Projectile.Calamity().stealthStrike ? 60 : 26, CrossBombDist * 2);
