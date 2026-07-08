@@ -124,6 +124,10 @@ namespace CalamityEntropy.Content.Items.Weapons
     }
     public class ExhaustGas : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 10000000;
+        }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             modifiers.ArmorPenetration += target.defense;
