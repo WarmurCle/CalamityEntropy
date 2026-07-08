@@ -19,7 +19,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 100;
+            Item.damage = 230;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 56;
             Item.noUseGraphic = true;
@@ -175,7 +175,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         }
                         if(Main.myPlayer == Projectile.owner)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 180, Projectile.velocity.normalize() * 8, ModContent.ProjectileType<RuneBolt>(), Projectile.damage * 4, Projectile.knockBack, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.rotation.ToRotationVector2() * 180, Projectile.velocity.normalize() * 8, ModContent.ProjectileType<RuneBolt>(), (int)(Projectile.damage * 2.5f), Projectile.knockBack, Projectile.owner);
                             CalamityEntropy.FlashEffectStrength = 0.24f;
                         }
                     }
