@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 40;
             Item.height = 40;
-            Item.damage = 20;
+            Item.damage = 17;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 30;
@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddTile(TileID.Anvils)
                 .Register();
         }
-        public override float StealthDamageMultiplier => 2.2f;
+        public override float StealthDamageMultiplier => 2.5f;
         public override float StealthVelocityMultiplier => 1f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -137,8 +137,8 @@ namespace CalamityEntropy.Content.Items.Weapons
                     {
                         plr.Hurt(PlayerDeathReason.ByProjectile(Projectile.owner, Projectile.whoAmI), 20, 0, true, false);
                         CEUtils.PlaySound("firedeath hiss", 1.5f, plr.Center, 8, 0.4f);
-                        plr.Entropy().immune = 160;
-                        plr.Entropy().MewmewSmokeEffect = 160;
+                        plr.Entropy().immune = 60;
+                        plr.Entropy().MewmewSmokeEffect = 60;
                     }
                 }
             }
