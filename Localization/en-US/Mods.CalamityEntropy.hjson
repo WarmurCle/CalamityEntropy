@@ -211,12 +211,13 @@ Items: {
 
 			MewMewBomb: {
 				DisplayName: Mew Mew Bomb
-				Tooltip: 
-				'''
-				[c/FF69B4:Throw a bomb that bounces off blocks]
-				[c/FF69B4:After hitting a target, it bounces to a position that can hit as many targets as possible and explodes in a cross pattern]
-				[c/FF69B4:Stealth attacks increase the explosion radius]
-				'''
+				Tooltip:
+					'''
+					[c/FF69B4:Throw a bomb that bounces off blocks]
+					[c/FF69B4:After hitting a target, it bounces to a position that can hit as many targets as possible and explodes in a cross pattern]
+					[c/FF69B4:Stealth attacks increase the explosion radius and can hurt players]
+					[c/FF69B4:Players who are hit by the explosion will receive 2.5 seconds of invincibility]
+					'''
 			}
 		}
 	}

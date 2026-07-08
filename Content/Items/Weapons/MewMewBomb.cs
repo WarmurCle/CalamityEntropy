@@ -129,6 +129,19 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 EXPLODE();
             }
+            if(Exploded && Projectile.timeLeft == 2 && Projectile.Calamity().stealthStrike)
+            {
+                foreach(Player plr in Main.ActivePlayers)
+                {
+                    if(Projectile.Colliding(Projectile.Hitbox, plr.getRect()))
+                    {
+                        plr.Hurt(PlayerDeathReason.ByProjectile(Projectile.owner, Projectile.whoAmI), 20, 0, true, false);
+                        CEUtils.PlaySound("firedeath hiss", 1.5f, plr.Center, 8, 0.4f);
+                        plr.Entropy().immune = 160;
+                        plr.Entropy().MewmewSmokeEffect = 160;
+                    }
+                }
+            }
             float or = Projectile.rotation;
             if (Projectile.localAI[0] ++ > 40 && !Hitted)
             {
@@ -227,7 +240,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 return false;
             if (Exploded)
             {
-                int wd = Projectile.Calamity().stealthStrike ? 24 : 50;
+                int wd = Projectile.Calamity().stealthStrike ? 60 : 26;
                 Rectangle h = Projectile.Center.getRectCentered(CrossBombDist * 2, wd);
                 Rectangle w = Projectile.Center.getRectCentered(wd, CrossBombDist * 2);
                 return targetHitbox.Intersects(h) || targetHitbox.Intersects(w);
@@ -250,8 +263,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 targetPos = CEUtils.randomPointInCircle(CrossBombDist * 0.7f) + Projectile.Center;
                 int hitCountTemp = 0;
-                Rectangle h = targetPos.getRectCentered(CrossBombDist * 2, Projectile.Calamity().stealthStrike ? 24 : 50);
-                Rectangle w = targetPos.getRectCentered(Projectile.Calamity().stealthStrike ? 24 : 50, CrossBombDist * 2);
+                Rectangle h = targetPos.getRectCentered(CrossBombDist * 2, Projectile.Calamity().stealthStrike ? 60 : 26);
+                Rectangle w = targetPos.getRectCentered(Projectile.Calamity().stealthStrike ? 60 : 26, CrossBombDist * 2);
                 foreach (NPC n in targetNearby)
                 {
                     if (w.Intersects(n.Hitbox) || h.Intersects(n.Hitbox))
