@@ -14,3 +14,26 @@
 [Mods.CalamityEntropy.Items.YoungMaster.Tooltip] - added
 [Mods.CalamityEntropy.Items.VoidRelics.Tooltip] - changed
 [Mods.CalamityEntropy.Projectiles.YoungMasterMark.DisplayName] - added
+
+
+[3.18-Changes]
+[Mods.CalamityEntropy.AzafureEnhances.AzafureStandardShotgun] - added
+[Mods.CalamityEntropy.AzafureEnhances.AzafureImperialGuardMachineGun] - added
+[Mods.CalamityEntropy.AzafureEnhances.AzafureExhaustGasInjector] - added
+[Mods.CalamityEntropy.NoAmmo] - added
+[Mods.CalamityEntropy.Projectiles.RuneSongHeld.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.ExhaustGas.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.MewMewBombThrow.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.ImperialGuardShot.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.AzafureImperialGuardMachineGunHeld.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.RuneBolt.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.AzafureExhaustGasInjectorHeld.DisplayName] - added
+[Mods.CalamityEntropy.Items.AzafureImperialGuardMachineGun.DisplayName] - added
+[Mods.CalamityEntropy.Items.AzafureImperialGuardMachineGun.Tooltip] - added
+[Mods.CalamityEntropy.Items.RuneSong.Tooltip] - changed
+[Mods.CalamityEntropy.Items.AzafureStandardShotgun.DisplayName] - added
+[Mods.CalamityEntropy.Items.AzafureStandardShotgun.Tooltip] - added
+[Mods.CalamityEntropy.Items.Weapons.Rogue.MewMewBomb.DisplayName] - added
+[Mods.CalamityEntropy.Items.Weapons.Rogue.MewMewBomb.Tooltip] - added
+[Mods.CalamityEntropy.Items.AzafureExhaustGasInjector.DisplayName] - added
+[Mods.CalamityEntropy.Items.AzafureExhaustGasInjector.Tooltip] - added
