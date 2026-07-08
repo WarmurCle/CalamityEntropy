@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
@@ -26,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 6;
             Item.value = 360;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ModContent.RarityType<AzafureOrange>();
             Item.UseSound = SoundID.Item23;
             Item.channel = true;
             Item.noMelee = true;

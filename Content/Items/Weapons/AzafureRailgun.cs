@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Particles;
@@ -27,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 14;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
-            Item.rare = ModContent.RarityType<DarkOrange>();
+            Item.rare = ModContent.RarityType<AzafureOrange>();
             Item.UseSound = null;
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<AzafureRailgunHeld>();
@@ -297,8 +298,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             trail?.Draw();
             float scale = 0.4f * Projectile.scale;
             DrawEnergyBall(Projectile.Center, scale, Projectile.Opacity);
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            Main.spriteBatch.ExitShaderRegion();
             return false;
         }
         public override void OnKill(int timeLeft)

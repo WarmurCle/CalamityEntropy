@@ -1,5 +1,6 @@
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -17,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo
             Item.height = 24;
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(copper: 5);
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ModContent.RarityType<AzafureOrange>();
             Item.ammo = BaseMissileProj.AmmoType;
             Item.damage = 11;
             Item.shoot = ModContent.ProjectileType<AzafureMissileProj>();

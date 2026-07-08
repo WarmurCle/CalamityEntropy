@@ -174,6 +174,8 @@ namespace CalamityEntropy.Common
         public int StealthRegenDelay = 0;
         public bool CanSlainTownNPC = false;
         internal int koishiStabTimer = 0;
+        public int MewmewSmokeEffect = 0;
+
         public List<bool> drCrystals = null;
 
         public class SpecialWingDrawingData
@@ -234,6 +236,7 @@ namespace CalamityEntropy.Common
         public bool visualWispLantern = false;
 
         public int HammerStrikeTimes = 0;
+        
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
         {
             deusCoreBloodOut = 0;
@@ -2402,6 +2405,15 @@ namespace CalamityEntropy.Common
         public bool smdVisual = false;
         public override void PostUpdate()
         {
+            if(MewmewSmokeEffect > 0)
+            {
+                Player.immuneNoBlink = true;
+                MewmewSmokeEffect--;
+                if(Main.rand.NextBool(2))
+                {
+                    EParticle.NewParticle(new EMediumSmoke() { wl = 0}, CEUtils.randomPoint(Player.getRect()), CEUtils.randomPointInCircle(5) + new Vector2(0, -6), Color.Black, Main.rand.NextFloat(0.52f, 0.7f), 1, true, BlendState.AlphaBlend, CEUtils.randomRot(), 50);
+                }
+            }
             if (smolderingSets == null)
             {
                 smolderingSets = new List<int>() { ModContent.ItemType<SmolderingHelmet>(), ModContent.ItemType<SmolderingBreastplate>(), ModContent.ItemType<SmolderingGreaves>() };
@@ -4049,19 +4061,18 @@ namespace CalamityEntropy.Common
                 g = 0.2f;
                 b = 0.2f;
             }
+            if(MewmewSmokeEffect > 0)
+            {
+                float c = 1 - float.Min(1, MewmewSmokeEffect / 50f);
+                a = 1f;
+                r = g = b = c;
+            }
         }
         public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
         {
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<BloodRing>()] > 0)
             {
                 Player.headRotation = MathHelper.ToRadians(Player.direction * -(45 + 16f * (float)(Math.Cos(Main.GameUpdateCount * 0.1f))));
-            }
-        }
-        public override void HideDrawLayers(PlayerDrawSet drawInfo)
-        {
-            if (Player.ownedProjectileCounts[ModContent.ProjectileType<RuneSongProj>()] > 0)
-            {
-
             }
         }
         public override void ModifyMaxStats(out StatModifier health, out StatModifier mana)

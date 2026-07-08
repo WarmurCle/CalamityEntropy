@@ -1,4 +1,5 @@
 ﻿using CalamityEntropy.Content.Items.Armor.Azafure;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
@@ -24,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Tools
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ModContent.RarityType<AzafureOrange>();
             Item.UseSound = SoundID.Item23;
             Item.autoReuse = true;
             Item.useTurn = false;

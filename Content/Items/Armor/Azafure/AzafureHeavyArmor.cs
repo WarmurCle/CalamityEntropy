@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items;
+﻿using CalamityEntropy.Content.Rarities;
+using CalamityMod.Items;
 using CalamityMod.Rarities;
 using Terraria;
 using Terraria.ID;
@@ -15,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Armor.Azafure
             Item.height = 18;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.defense = 8;
-            Item.rare = ModContent.RarityType<DarkOrange>();
+            Item.rare = ModContent.RarityType<AzafureOrange>();
         }
 
         public override void UpdateEquip(Player player)

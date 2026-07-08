@@ -35,8 +35,7 @@ namespace CalamityEntropy
                 I<AshesSword>(),
                 I<MoonlightSword>(),
                 I<TrueMoonlightSword>(),
-                I<Voidshade>(),
-                I<RuneSong>()
+                I<Voidshade>()
             };
             SoyMilkProjectileBlacklist = new()
             {
@@ -53,7 +52,8 @@ namespace CalamityEntropy
                 P<CinderConvergencerHoldout>(),
                 P<VoidAnnihilateCharge>(),
                 P<VoidAnnihilateSpawner>(),
-		        P<AzafureEKatanaSlash>()
+		        P<AzafureEKatanaSlash>(),
+                P<RuneSongHeld>()
             };
         }
         public static List<int> SoyMilkProjectileBlacklist;

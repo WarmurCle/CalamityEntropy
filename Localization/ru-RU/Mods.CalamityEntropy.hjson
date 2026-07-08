@@ -169,6 +169,16 @@ Items: {
 					Игнорировать броню 8.
 					'''
 			}
+
+			MewMewBomb: {
+				DisplayName: Mew Mew Bomb
+				Tooltip:
+					'''
+					[c/FF69B4:Бросает бомбу, которая отскакивает от блоков]
+					[c/FF69B4:После попадания в цель она отскакивает в позицию, которая поражает максимальное количество целей, и взрывается крестом]
+					[c/FF69B4:Скрытые атаки увеличивают радиус взрыва]
+					'''
+			}
 		}
 	}
 
@@ -522,7 +532,15 @@ Items: {
 
 	RuneSong: {
 		DisplayName: Руническая песня
-		Tooltip: ""
+		Tooltip:
+			'''
+			Короткая зарядка
+			Затем широкий взмах
+			При попадании клинок отскакивает
+			Затем более широкая многоударная рубка
+			При промахе меч направлен на курсор
+			И выпускает Рунный импульс
+			'''
 	}
 
 	GalaxyGrapeSoda: {
@@ -3960,6 +3978,37 @@ Items: {
 			[c/ff7f50:"Former owner of this gun? You mean that guy covered by cyberware except his brain?"]
 			''' */
 	}
+
+	YoungMaster: {
+		DisplayName: Young Master
+		Tooltip:
+			'''
+			Бросьте лоскутный бумеранг
+			ПКМ – рывок вперёд, без получения урона во время рывка
+			При попадании рывком в цель – сальто назад и выстрел широким X-взмахом в воздухе
+			Попадание X-взмаха создаёт отложенный взрыв и заряжает оружие
+			Усиливает следующие 10 обычных атак
+			'''
+	}
+
+	AzafureImperialGuardMachineGun: {
+		// DisplayName: Azafure Imperial Guard Machine Gun
+		/* Tooltip:
+			'''
+			Using [i:CalamityEntropy/HellIndustrialComponents] Hell Industry Components to load [AMMOMAX] ammunition
+			Fires rapid short-range shotgun rounds
+			''' */
+	}
+
+	AzafureExhaustGasInjector: {
+		// DisplayName: Azafure Exhaust Gas Injector
+		// Tooltip: Jetting corrosive exhaust gas
+	}
+
+	AzafureStandardShotgun: {
+		// DisplayName: Azafure Standard Shotgun
+		// Tooltip: Fire some scattered shotgun pellets
+	}
 }
 
 SmolderingSetBonus:
@@ -4551,17 +4600,8 @@ Projectiles: {
 	Stinger.DisplayName: Наркотики
 	ExplosiveSpore.DisplayName: Споры взрыва
 	SporeGas.DisplayName: Облако спор
-
-	AzureRapierHeld: {
-		$parentVal: Голубой меч.
-		// DisplayName: Azure Rapier Held
-	}
-
-	AzureRapierBlockSlash: {
-		$parentVal: Синий меч против
-		// DisplayName: Azure Rapier Block Slash
-	}
-
+	// AzureRapierHeld.DisplayName: Azure Rapier Held
+	// AzureRapierBlockSlash.DisplayName: Azure Rapier Block Slash
 	// AzureRapierBlock.DisplayName: Azure Rapier Block
 	DarkScriptureHeld.DisplayName: Тайны тьмы
 	DarkBullet.DisplayName: Тёмная бомба
@@ -4700,6 +4740,18 @@ Projectiles: {
 	// SilenceStealth.DisplayName: Silence Stealth
 	// BuriedSunHoldout.DisplayName: Buried Sun Holdout
 	// VoisenBullet.DisplayName: Voisen Bullet
+	// YoungMasterProj.DisplayName: Young Master Proj
+	// YMSlash.DisplayName: Y M Slash
+	// YoungMasterDash.DisplayName: Young Master Dash
+	// YoungMasterMark.DisplayName: Young Master Mark
+	// FutureKnifeSpin.DisplayName: Future Knife Spin
+	// RuneSongHeld.DisplayName: Rune Song Held
+	// RuneBolt.DisplayName: Rune Bolt
+	// AzafureImperialGuardMachineGunHeld.DisplayName: Azafure Imperial Guard Machine Gun Held
+	// ImperialGuardShot.DisplayName: Imperial Guard Shot
+	// AzafureExhaustGasInjectorHeld.DisplayName: Azafure Exhaust Gas Injector Held
+	// ExhaustGas.DisplayName: Exhaust Gas
+	// MewMewBombThrow.DisplayName: Mew Mew Bomb Throw
 }
 
 LegendTooltip: - Легенда -
@@ -5372,6 +5424,7 @@ CdMoonlight: Лунный Щит
 CdDS: Перезарядка Божественного Щита
 CdAntivoid: охлаждение с обратным спринтом
 AbyssalStorm: Буря в бездне
+// YoungMasterDashCD: Dash Cooldown
 CruiserBestiary:
 	'''
 	Верховный хищник, рожденный из пустоты, напоминающий того Пожирателя Богов, с которым ты когда-то сталкивался.
@@ -6130,6 +6183,9 @@ AzafureEnhances: {
 		'''
 	AzafureSupportRemote: Увеличить скорость атаки
 	MottledSpear: Свойства захвата крюка
+	// AzafureImperialGuardMachineGun: Enhance the range and accuracy of projectiles
+	// AzafureExhaustGasInjector: Increase damage frequency
+	// AzafureStandardShotgun: Increase bullet counts
 }
 
 Menu: {
@@ -6157,3 +6213,4 @@ NonZenithWorld: Не в зенитном мире.
 ZenithWorld: В зенитном мире
 RatizelShield: Щит.
 PrefixEnchantedDesc: +4% к увеличению маны
+// NoAmmo: Out of ammo!

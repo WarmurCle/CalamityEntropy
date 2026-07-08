@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Cooldowns;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
@@ -38,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.UseSound = null;
             Item.noMelee = true;
             Item.mana = 10;
-            Item.rare = ModContent.RarityType<DarkOrange>();
+            Item.rare = ModContent.RarityType<AzafureOrange>();
         }
         public static int Cooldown = 20 * 60;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

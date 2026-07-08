@@ -1,6 +1,7 @@
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace CalamityEntropy.Content.Items.Books
             base.SetDefaults();
             Item.damage = 17;
             Item.mana = 7;
+            Item.rare = ModContent.RarityType<AzafureOrange>();
         }
         public override int HeldProjectileType => ModContent.ProjectileType<AzafureCylinderHeld>();
         public override int SlotCount => 3;

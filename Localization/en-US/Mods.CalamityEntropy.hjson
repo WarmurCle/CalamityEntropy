@@ -208,6 +208,19 @@ Items: {
 					Ignores 8 points of defense
 					'''
 			}
+
+			MewMewBomb: {
+				DisplayName: Mew Mew Bomb
+				Tooltip:
+					'''
+					[c/FF69B4:Throw a bomb that bounces off blocks]
+					[c/FF69B4:After hitting a target, ]
+					[c/FF69B4:it bounces to a position that can hit as many targets as possible and explodes in a cross pattern]
+					[c/FF69B4:Stealth strikes increase the explosion radius and can hurt players]
+					[c/FF69B4:Players who are hit by the explosion will receive 2.5 seconds of invincibility]
+					[c/FF69B4:"A detonator with cat ears, somehow it emits cat meows"]
+					'''
+			}
 		}
 	}
 
@@ -605,8 +618,13 @@ Items: {
 		DisplayName: Archaic Song
 		Tooltip:
 			'''
-			Releases two homing runes on swing that inflicts [cebuff:CalamityEntropy/SoulDisorder]
-			Creates a ritual circle every five swings that release additional homing runes
+			Briefly charge up
+			Then sweep in a wide arc
+			If it hits an enemy, the blade recoils
+			Then performs a wider multi‑slash
+			If it misses, the sword points to cursor
+			And fires a Rune Pulse
+			Inflicts [cebuff:CalamityEntropy/SoulDisorder]
 			'''
 	}
 
@@ -4222,6 +4240,37 @@ Items: {
 			[c/ff7f50:"Former owner of this gun? You mean that guy covered by cyberware except his brain?"]
 			'''
 	}
+
+	YoungMaster: {
+		DisplayName: Young Master
+		Tooltip:
+			'''
+			Throw a patchwork boomerang
+			Right-click to dash forward, take no damage during dash
+			Hitting any target with dash triggers a backflip and fires a wide X-slash in midair
+			X-slash hit causes a delayed explosion and charges the weapon
+			Empowers the next 10 normal attacks
+			'''
+	}
+
+	AzafureImperialGuardMachineGun: {
+		DisplayName: Azafure Imperial Guard Machine Gun
+		Tooltip:
+			'''
+			Using [i:CalamityEntropy/HellIndustrialComponents] Hell Industry Components to load [AMMOMAX] ammunition
+			Fires rapid short-range shotgun rounds
+			'''
+	}
+
+	AzafureExhaustGasInjector: {
+		DisplayName: Azafure Exhaust Gas Injector
+		Tooltip: Jetting corrosive exhaust gas
+	}
+
+	AzafureStandardShotgun: {
+		DisplayName: Azafure Standard Shotgun
+		Tooltip: Fire some scattered shotgun pellets
+	}
 }
 
 SmolderingSetBonus:
@@ -4809,17 +4858,8 @@ Projectiles: {
 	Stinger.DisplayName: Stinger
 	ExplosiveSpore.DisplayName: Explosive Spore
 	SporeGas.DisplayName: Spore Gas
-
-	AzureRapierHeld: {
-		$parentVal: Azure Rapier
-		DisplayName: Azure Rapier Held
-	}
-
-	AzureRapierBlockSlash: {
-		$parentVal: Azure Rapier Slash
-		DisplayName: Azure Rapier Block Slash
-	}
-
+	AzureRapierHeld.DisplayName: Azure Rapier Held
+	AzureRapierBlockSlash.DisplayName: Azure Rapier Block Slash
 	AzureRapierBlock.DisplayName: Azure Rapier Block
 	DarkScriptureHeld.DisplayName: Dark Scripture Held
 	DarkBullet.DisplayName: Dark Bullet
@@ -4958,6 +4998,18 @@ Projectiles: {
 	SilenceStealth.DisplayName: Silence Stealth
 	BuriedSunHoldout.DisplayName: Buried Sun Holdout
 	VoisenBullet.DisplayName: Voisen Bullet
+	YoungMasterProj.DisplayName: Young Master Proj
+	YMSlash.DisplayName: Y M Slash
+	YoungMasterDash.DisplayName: Young Master Dash
+	YoungMasterMark.DisplayName: Young Master Mark
+	FutureKnifeSpin.DisplayName: Future Knife Spin
+	RuneSongHeld.DisplayName: Rune Song Held
+	RuneBolt.DisplayName: Rune Bolt
+	AzafureImperialGuardMachineGunHeld.DisplayName: Azafure Imperial Guard Machine Gun Held
+	ImperialGuardShot.DisplayName: Imperial Guard Shot
+	AzafureExhaustGasInjectorHeld.DisplayName: Azafure Exhaust Gas Injector Held
+	ExhaustGas.DisplayName: Exhaust Gas
+	MewMewBombThrow.DisplayName: Mew Mew Bomb Throw
 }
 
 LegendTooltip: - Legend -
@@ -5586,6 +5638,7 @@ CdMoonlight: Moonlight Shield
 CdDS: Divine Shield Cooldown
 CdAntivoid: Antivoid Dash Cooldown
 AbyssalStorm: Abyssal Storm Cooldoawn
+YoungMasterDashCD: Dash Cooldown
 CruiserBestiary:
 	'''
 	A supreme predator born from the void, bearing a resemblance to that Devourer of Gods you once encountered.
@@ -6381,6 +6434,9 @@ AzafureEnhances: {
 		'''
 	AzafureSupportRemote: Increased attack speed
 	MottledSpear: Increased hook speed
+	AzafureImperialGuardMachineGun: Enhance the range and accuracy of projectiles
+	AzafureExhaustGasInjector: Increase damage frequency
+	AzafureStandardShotgun: Increase bullet counts
 }
 
 Menu: {
@@ -6408,3 +6464,4 @@ NonZenithWorld: Not in zenith world
 ZenithWorld: In zenith world
 RatizelShield: Ratizel Shield
 PrefixEnchantedDesc: Mods.CalamityEntropy.PrefixEnchantedDesc
+NoAmmo: Out of ammo!

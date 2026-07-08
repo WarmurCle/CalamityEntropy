@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Particles;
@@ -27,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons.ElectrocauteryWand
             Item.shoot = ModContent.ProjectileType<AzafureElectrocauteryWandHeld>();
             Item.knockBack = 6f;
             Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ModContent.RarityType<AzafureOrange>();
             Item.UseSound = null;
             Item.autoReuse = false;
             Item.shootSpeed = 22f;

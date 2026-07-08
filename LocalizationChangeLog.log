@@ -1,0 +1,39 @@
+//You can find all localization changes in zh-Hans in this file
+//This may assist you in creating localizations for other languages
+
+[3.17-Changes]
+[Mods.CalamityEntropy.YoungMasterDashCD] - added
+[Mods.CalamityEntropy.Projectiles.YoungMasterProj.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.TectinicShardAshesCore.DisplayName] - removed // This is a spelling mistake, remove this key
+[Mods.CalamityEntropy.Projectiles.TectinicShardHoming.DisplayName] - removed    // This is a spelling mistake, remove this key
+[Mods.CalamityEntropy.Projectiles.VoisenBullet.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.YMSlash.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.YoungMasterDash.DisplayName] - added
+[Mods.CalamityEntropy.AbyssalStorm] - added
+[Mods.CalamityEntropy.Items.YoungMaster.DisplayName] - added
+[Mods.CalamityEntropy.Items.YoungMaster.Tooltip] - added
+[Mods.CalamityEntropy.Items.VoidRelics.Tooltip] - changed
+[Mods.CalamityEntropy.Projectiles.YoungMasterMark.DisplayName] - added
+
+
+[3.18-Changes]
+[Mods.CalamityEntropy.AzafureEnhances.AzafureStandardShotgun] - added
+[Mods.CalamityEntropy.AzafureEnhances.AzafureImperialGuardMachineGun] - added
+[Mods.CalamityEntropy.AzafureEnhances.AzafureExhaustGasInjector] - added
+[Mods.CalamityEntropy.NoAmmo] - added
+[Mods.CalamityEntropy.Projectiles.RuneSongHeld.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.ExhaustGas.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.MewMewBombThrow.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.ImperialGuardShot.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.AzafureImperialGuardMachineGunHeld.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.RuneBolt.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.AzafureExhaustGasInjectorHeld.DisplayName] - added
+[Mods.CalamityEntropy.Items.AzafureImperialGuardMachineGun.DisplayName] - added
+[Mods.CalamityEntropy.Items.AzafureImperialGuardMachineGun.Tooltip] - added
+[Mods.CalamityEntropy.Items.RuneSong.Tooltip] - changed
+[Mods.CalamityEntropy.Items.AzafureStandardShotgun.DisplayName] - added
+[Mods.CalamityEntropy.Items.AzafureStandardShotgun.Tooltip] - added
+[Mods.CalamityEntropy.Items.Weapons.Rogue.MewMewBomb.DisplayName] - added
+[Mods.CalamityEntropy.Items.Weapons.Rogue.MewMewBomb.Tooltip] - added
+[Mods.CalamityEntropy.Items.AzafureExhaustGasInjector.DisplayName] - added
+[Mods.CalamityEntropy.Items.AzafureExhaustGasInjector.Tooltip] - added

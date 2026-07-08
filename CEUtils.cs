@@ -31,6 +31,33 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public class VertexPointSets
+        {
+            public Vector2 Position;
+            public Color Color;
+            public float Width;
+            public float TexCoordsX;
+            public VertexPointSets(Vector2 position, Color color, float width, float texCoordsX)
+            {
+                Position = position;
+                Color = color;
+                Width = width;
+                TexCoordsX = texCoordsX;
+            }
+        }
+        public static List<ColoredVertex> GetVertexesList(List<VertexPointSets> sets, bool fade = true)
+        {
+            List<ColoredVertex> vertexes = new List<ColoredVertex>();
+            for (int i = 0; i < sets.Count; i++)
+            {
+                Vector2 va = i == 0 ? Vector2.Zero : (sets[i].Position - sets[i - 1].Position).normalize().RotatedBy(MathHelper.PiOver2);
+                float w = sets[i].Width;
+                float a = fade ? (i / (sets.Count - 1f)) : 1;
+                vertexes.Add(new ColoredVertex(sets[i].Position - va * w - Main.screenPosition, sets[i].Color * a, new Vector3(sets[i].TexCoordsX, 0, 1)));
+                vertexes.Add(new ColoredVertex(sets[i].Position + va * w - Main.screenPosition, sets[i].Color * a, new Vector3(sets[i].TexCoordsX, 1, 1)));
+            }
+            return vertexes;
+        }
         public static float GetDistanceToEllipseEdge(float semiMajorAxis, float semiMinorAxis, float angleRadians)
         {
             float cos = (float)Math.Cos(angleRadians);
@@ -1006,7 +1033,26 @@ namespace CalamityEntropy
         {
             return item.type == ModContent.ItemType<T>();
         }
-
+        public static void DrawRotatedGlow(Vector2 worldPos, Color color, float scale, float rot, bool additive = true, Texture2D tex = null, bool setState = true)
+        {
+            Texture2D glow = tex == null ? getExtraTex("Glow2") : tex;
+            SpriteBatch sb = Main.spriteBatch;
+            var blend = BlendState.AlphaBlend;
+            var sample = sb.GraphicsDevice.SamplerStates[0];
+            var depth = sb.GraphicsDevice.DepthStencilState;
+            var rasterizer = sb.GraphicsDevice.RasterizerState;
+            if (setState)
+            {
+                sb.End();
+                sb.Begin(SpriteSortMode.Immediate, additive ? BlendState.Additive : BlendState.NonPremultiplied, sample, depth, rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            }
+            sb.Draw(glow, worldPos - Main.screenPosition, null, color, rot, glow.Size() * 0.5f, scale * 0.4f, SpriteEffects.None, 0);
+            if (setState)
+            {
+                sb.End();
+                sb.Begin(SpriteSortMode.Deferred, blend, sample, depth, rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            }
+        }
         public static void DrawGlow(Vector2 worldPos, Color color, float scale, bool additive = true, Texture2D tex = null, bool setState = true)
         {
             Texture2D glow = tex == null ? getExtraTex("Glow2") : tex;
@@ -1125,6 +1171,10 @@ namespace CalamityEntropy
         {
             return new Rectangle((int)(center.X - w / 2), (int)(center.Y - h / 2), (int)w, (int)h);
         }
+        public static Rectangle getRectCentered(this Vector2 center, float s)
+        {
+            return center.getRectCentered(s, s);
+        }
         public static void DrawLines(List<Vector2> points, Color color, float width, int wa = 2)
         {
             for (int i = 1; i < points.Count; i++)
@@ -1179,7 +1229,7 @@ namespace CalamityEntropy
         public static void UseBlendState(this SpriteBatch sb, BlendState blend, SamplerState s = null)
         {
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, blend, s == null ? Main.DefaultSamplerState : s, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(SpriteSortMode.Immediate, blend, s == null ? Main.DefaultSamplerState : s, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
         }
         public static void UseAdditive(this SpriteBatch sb)
         {
@@ -1576,7 +1626,7 @@ namespace CalamityEntropy
             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
 
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.CurrentWantedZoomMatrix);
 
         }
         public static Vector2 getTxP(List<Vector2> points, float p)

@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Rogue;
@@ -30,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 4;
             Item.value = CalamityGlobalItem.RarityRedBuyPrice;
-            Item.rare = ModContent.RarityType<DarkOrange>();
+            Item.rare = ModContent.RarityType<AzafureOrange>();
             Item.UseSound = null;
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<AzafureLightMachineGunHeld>();
