@@ -202,6 +202,16 @@ Items: {
 					无视8点护甲
 					'''
 			}
+
+			MewMewBomb: {
+				DisplayName: 喵喵炸弹
+				Tooltip: 
+				'''
+				[c/FF69B4:丢出一个会在物块上反弹的炸弹]
+				[c/FF69B4:击中目标后会弹到一个能尽可能命中最多目标的位置并爆炸成十字]
+				[c/FF69B4:潜伏攻击会使爆炸范围更大]
+				'''
+			}
 		}
 	}
 
@@ -5066,6 +5076,7 @@ Projectiles: {
 	ImperialGuardShot.DisplayName: 近卫机枪弹
 	AzafureExhaustGasInjectorHeld.DisplayName: 阿萨福勒废气喷射器
 	ExhaustGas.DisplayName: 废气
+	MewMewBombThrow.DisplayName: 喵喵炸弹
 }
 
 LegendTooltip: - 传奇物品 -

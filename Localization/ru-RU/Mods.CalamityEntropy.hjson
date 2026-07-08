@@ -169,6 +169,16 @@ Items: {
 					Игнорировать броню 8.
 					'''
 			}
+
+			MewMewBomb: {
+				DisplayName: Mew Mew Bomb
+				Tooltip: 
+				'''
+				[c/FF69B4:Бросает бомбу, которая отскакивает от блоков]
+				[c/FF69B4:После попадания в цель она отскакивает в позицию, которая поражает максимальное количество целей, и взрывается крестом]
+				[c/FF69B4:Скрытые атаки увеличивают радиус взрыва]
+				'''
+			}
 		}
 	}
 
@@ -4741,6 +4751,7 @@ Projectiles: {
 	// ImperialGuardShot.DisplayName: Imperial Guard Shot
 	// AzafureExhaustGasInjectorHeld.DisplayName: Azafure Exhaust Gas Injector Held
 	// ExhaustGas.DisplayName: Exhaust Gas
+	// MewMewBombThrow.DisplayName: Mew Mew Bomb Throw
 }
 
 LegendTooltip: - Легенда -
