@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 40;
             Item.height = 40;
-            Item.damage = 17;
+            Item.damage = 18;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 30;
@@ -137,8 +137,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                     {
                         plr.Hurt(PlayerDeathReason.ByProjectile(Projectile.owner, Projectile.whoAmI), 20, 0, true, false);
                         CEUtils.PlaySound("firedeath hiss", 1.5f, plr.Center, 8, 0.4f);
-                        plr.Entropy().immune = 60;
-                        plr.Entropy().MewmewSmokeEffect = 60;
+                        plr.Entropy().immune = plr.Entropy().MewmewSmokeEffect = 150;
                     }
                 }
             }
