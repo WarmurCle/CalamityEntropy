@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Rarities
             spriteBatch.Draw(glow, new Vector2(X, Y + ey) + origin, null, Color.DeepSkyBlue * 0.6f, 0, glow.Size() * 0.5f, origin * 0.017f * new Vector2(1, 1f), SpriteEffects.None, 0);
 
             UnifiedRandom rand = new UnifiedRandom((int)(Item.type.GetHashCode()));
-            int particleCount = (int)(font.MeasureString(text).X * 0.32f);
+            int particleCount = (int)(font.MeasureString(text).X * 0.08f);
 
             for (int i = 0; i < particleCount; i++)
             {
