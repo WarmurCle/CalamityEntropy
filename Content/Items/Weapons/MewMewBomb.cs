@@ -186,7 +186,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 oldPos.Add(Vector2.Lerp(Projectile.Center, Projectile.Center + Projectile.velocity, i));
                 oldRots.Add(CEUtils.RotateTowardsAngle(or, Projectile.rotation, i, false));
-                if (oldPos.Count > 60)
+                if (oldPos.Count > 80)
                 {
                     oldPos.RemoveAt(0);
                     oldRots.RemoveAt(0);
@@ -209,7 +209,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             SoundEngine.PlaySound(SoundID.Item58 with { Volume = 1.6f, Pitch = Main.rand.NextFloat(0.2f, 0.5f) }, Projectile.Center);
             SoundEngine.PlaySound(SoundID.Item58 with { Volume = 1.6f, Pitch = Main.rand.NextFloat(0.2f, 0.5f) }, Projectile.Center);
             float scale = Projectile.Calamity().stealthStrike ? 1.3f : 1f;
-            for (int i = 0; i < 32; i++)
+            for (int i = 0; i < 46; i++)
             {
                 var d = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Fireworks, Main.rand.NextFloat(-12, 12) * scale, Main.rand.NextFloat(-12, 12) * scale);
                 d.scale = Main.rand.NextFloat(1.2f, 1.4f) * scale;
@@ -251,8 +251,9 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (Hitted)
                 return;
-
+            CEUtils.PlaySound("HIT", 1.8f, Projectile.Center);
             GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Pink * 1.25f, "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, Projectile.scale * 0.4f, 20));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Pink * 1.25f, "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, Projectile.scale * 1.4f, 20));
             SoundEngine.PlaySound(SoundID.Item56 with { Volume = 1.5f }, Projectile.Center);
             Hitted = true;
             List<NPC> targetNearby = CEUtils.FindSomeNearEnemies(Projectile.Center, 24, 900);
@@ -296,7 +297,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 for (int i = 0; i < oldPos.Count; i++)
                 {
                     float p = ((float)(1 + i) / oldPos.Count);
-                    Color clr = Color.Pink * 0.4f * p;
+                    Color clr = Color.Pink * 0.44f * p;
                     Main.spriteBatch.Draw(tex, oldPos[i] - Main.screenPosition, null, clr, oldRots[i], tex.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
                 }
             }
