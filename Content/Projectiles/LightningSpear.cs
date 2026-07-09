@@ -68,7 +68,6 @@ namespace CalamityEntropy.Content.Projectiles
         {
             List<VertexPointSets> v = new List<VertexPointSets>();
             var gd = Main.graphics.GraphicsDevice;
-            gd.Textures[0] = getExtraTex("VoltTrailThicc");
             Main.spriteBatch.UseAdditive();
             for (int i = 0; i < odp.Count; i++)
             {
@@ -76,6 +75,7 @@ namespace CalamityEntropy.Content.Projectiles
                 v.Add(new VertexPointSets(odp[i], Color.LightBlue, 26, (i / (odp.Count - 1f)) * 3f + Main.GlobalTimeWrappedHourly * 4));
             }
             var ve = GetVertexesList(v);
+            gd.Textures[0] = getExtraTex("VoltTrailThicc");
             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
             v.Clear();
             for (int i = 0; i < odp.Count; i++)
@@ -84,8 +84,10 @@ namespace CalamityEntropy.Content.Projectiles
                 v.Add(new VertexPointSets(odp[i], Color.White, 12, (i / (odp.Count - 1f)) * 3f + Main.GlobalTimeWrappedHourly * 6));
             }
             ve = GetVertexesList(v);
+            gd.Textures[0] = getExtraTex("VoltTrailThicc");
             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
-            Main.spriteBatch.ExitShaderRegion();
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
             Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/LightningSpear").Value;
             float x = 0f;
             for (int i = 0; i < odp.Count; i++)
@@ -98,6 +100,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Main.spriteBatch.Draw(tx, odp[i] - Main.screenPosition, null, tc * x * 0.6f, odr[i], new Vector2(tx.Width, tx.Height) / 2, 1, SpriteEffects.None, 0);
                 x += 1 / 14f;
             }
+            Main.spriteBatch.ExitShaderRegion();
 
             return true;
 
