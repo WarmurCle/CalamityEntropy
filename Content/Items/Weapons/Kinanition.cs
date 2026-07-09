@@ -131,6 +131,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(DamageClass.Ranged, false, 3);
+            Projectile.width = Projectile.height = 46;
         }
         public override string Texture => "CalamityEntropy/Assets/Extra/Glow";
         public int NoChaseTime = 12;
