@@ -52,7 +52,6 @@ namespace CalamityEntropy.Content.Projectiles
                 return false;
             List<VertexPointSets> v = new List<VertexPointSets>();
             var gd = Main.graphics.GraphicsDevice;
-            gd.Textures[0] = getExtraTex("VoltTrailThicc");
             Main.spriteBatch.UseAdditive();
             for (int i = 0; i < oldPos.Count; i++)
             {
@@ -61,6 +60,7 @@ namespace CalamityEntropy.Content.Projectiles
                 v.Add(new VertexPointSets(oldPos[i], Color.Aqua, 36 * w, (i / (oldPos.Count - 1f)) * 3f + Main.GlobalTimeWrappedHourly * 4));
             }
             var ve = GetVertexesList(v, false);
+            gd.Textures[0] = getExtraTex("VoltTrailThicc");
             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
             v.Clear();
             for (int i = 0; i < oldPos.Count; i++)
@@ -70,6 +70,7 @@ namespace CalamityEntropy.Content.Projectiles
                 v.Add(new VertexPointSets(oldPos[i], Color.White, 16 * w, (i / (oldPos.Count - 1f)) * 3f + Main.GlobalTimeWrappedHourly * 6));
             }
             ve = GetVertexesList(v, false);
+            gd.Textures[0] = getExtraTex("VoltTrailThicc");
             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
             Main.spriteBatch.ExitShaderRegion();
             return false;
