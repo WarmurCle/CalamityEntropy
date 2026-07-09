@@ -55,7 +55,7 @@ namespace CalamityEntropy.Content.Projectiles
                 }
             }
             odr.Add(Projectile.rotation);
-            odp.Add(Projectile.Center);
+            odp.Add(Projectile.Center + Projectile.velocity);
             if (odp.Count > 12)
             {
                 odp.RemoveAt(0);
