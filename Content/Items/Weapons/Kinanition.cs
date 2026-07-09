@@ -2,6 +2,10 @@
 using CalamityMod;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Ranged;
+using CalamityMod.Particles;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using System.Runtime.Intrinsics.Arm;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -26,20 +30,20 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.DamageType = DamageClass.Ranged;
             Item.width = 36;
             Item.height = 110;
-            Item.useTime = 19;
-            Item.useAnimation = 5;
+            Item.useTime = 5;
+            Item.useAnimation = 15;
+            Item.reuseDelay = 20;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 6f;
             Item.UseSound = SoundID.Item5;
             Item.shoot = ProjectileID.WoodenArrowFriendly;
-            Item.shootSpeed = 16f;
+            Item.shootSpeed = 20f;
             Item.useAmmo = AmmoID.Arrow;
             Item.autoReuse = true;
             Item.ArmorPenetration = 12;
             Item.value = 8000;
             Item.rare = ItemRarityID.Purple;
-
         }
 
         public override void ModifyWeaponCrit(Player player, ref float crit) => crit += 16;
@@ -48,46 +52,19 @@ namespace CalamityEntropy.Content.Items.Weapons
 
         public override bool AltFunctionUse(Player player) => true;
 
-        public override bool? UseItem(Player player)
+        public override bool CanUseItem(Player player)
         {
             if (player.altFunctionUse == 2)
             {
-                Item.shoot = ModContent.ProjectileType<LightningSpear>();
+                Item.useTime = 20;
+                Item.useAnimation = 20;
             }
             else
             {
-                Item.shoot = ProjectileID.WoodenArrowFriendly;
+                Item.useTime = 5;
+                Item.useAnimation = 15;
             }
-            return base.UseItem(player);
-        }
-
-        public override bool CanUseItem(Player player)
-        {
-            if (player.altFunctionUse == 2f)
-            {
-                Item.knockBack = 6f;
-                SoundStyle usd = new SoundStyle("CalamityMod/Sounds/Item/RealityRuptureStealth", SoundType.Sound);
-                usd.Volume = 0.4f;
-                Item.UseSound = usd;
-                Item.shootSpeed = 60f;
-                Item.useAmmo = AmmoID.None;
-                Item.autoReuse = true;
-                Item.useTime = 36;
-                Item.useAnimation = 36;
-                Item.shoot = ModContent.ProjectileType<LightningSpear>();
-            }
-            else
-            {
-                Item.knockBack = 6f;
-                Item.UseSound = SoundID.Item5;
-                Item.shootSpeed = 16f;
-                Item.autoReuse = true;
-                Item.useAmmo = AmmoID.Arrow;
-                Item.useTime = 7;
-                Item.useAnimation = 40;
-                Item.shoot = ProjectileID.WoodenArrowFriendly;
-            }
-            return base.CanUseItem(player);
+            return true;
         }
         public override bool CanConsumeAmmo(Item ammo, Player player)
         {
@@ -99,18 +76,14 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-
             if (player.altFunctionUse == 2)
             {
-                Projectile.NewProjectile(source, position, velocity, type, damage * 6, knockback, player.whoAmI);
+                CEUtils.PlaySound("flashback", 1.2f, position, 8, 0.4f);
+                type = ModContent.ProjectileType<LightningSpear>();
+                Projectile.NewProjectile(source, position, velocity * 3, type, damage * 6, knockback, player.whoAmI);
             }
             else
             {
-                if (player.itemAnimation < player.itemAnimationMax / 2)
-                {
-
-                    return false;
-                }
                 SoundEngine.PlaySound(Item.UseSound);
                 if (CalamityUtils.CheckWoodenAmmo(type, player))
                     type = ProjectileID.WoodenArrowFriendly;
@@ -127,16 +100,14 @@ namespace CalamityEntropy.Content.Items.Weapons
                         int arrow;
                         arrow = Projectile.NewProjectile(source, position + player.itemRotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * j + player.itemRotation.ToRotationVector2() * Main.rand.Next(4, 16), velocity.RotatedBy(MathHelper.ToRadians((float)Main.rand.Next(0, 7) - 3f)) * 2, type, damage / 2, knockback, player.whoAmI);
                         Main.projectile[arrow].Entropy().Lightning = true;
-                        if (arrow.ToProj().penetrate > 0)
-                            Main.projectile[arrow].penetrate += 4;
                         arrow.ToProj().localNPCHitCooldown = 6;
                         arrow.ToProj().usesLocalNPCImmunity = true;
+                        CEUtils.SyncProj(arrow);
                         arrow = Projectile.NewProjectile(source, position + player.itemRotation.ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * j + player.itemRotation.ToRotationVector2() * Main.rand.Next(4, 16), velocity.RotatedBy(MathHelper.ToRadians((float)Main.rand.Next(0, 7) - 3f)) * 2, type, damage / 2, knockback, player.whoAmI);
                         Main.projectile[arrow].Entropy().Lightning = true;
-                        if (arrow.ToProj().penetrate > 0)
-                            Main.projectile[arrow].penetrate += 4;
                         arrow.ToProj().localNPCHitCooldown = 6;
                         arrow.ToProj().usesLocalNPCImmunity = true;
+                        CEUtils.SyncProj(arrow);
                     }
                 }
             }
@@ -153,6 +124,56 @@ namespace CalamityEntropy.Content.Items.Weapons
                 AddIngredient(ModContent.ItemType<LifeAlloy>(), 5).
                 AddTile(TileID.MythrilAnvil).
                 Register();
+        }
+    }
+    public class KinanitionSpawn : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            Projectile.FriendlySetDefaults(DamageClass.Ranged, false, 3);
+        }
+        public override string Texture => "CalamityEntropy/Assets/Extra/Glow";
+        public int NoChaseTime = 12;
+        public override void AI()
+        {
+            if (NoChaseTime > 0)
+            {
+                Projectile.velocity *= 0.9f;
+                NoChaseTime--;
+            }
+            else
+            {
+                Projectile.HomingToNPCNearby(12, 0.9f, 1200);
+            }
+            for(float i = 0.1f; i <= 1f; i+=0.1f)
+            {
+                oldPos.Add(Vector2.Lerp(Projectile.Center, Projectile.Center + Projectile.velocity, i));
+                if(oldPos.Count > 40)
+                    oldPos.RemoveAt(0);
+            }
+        }
+        public List<Vector2> oldPos = new List<Vector2>();
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            NoChaseTime = 8;
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(60, 255, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 0.6f, 14));
+        }
+        public override bool? CanHitNPC(NPC target)
+        {
+            return NoChaseTime <= 0;
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D tex = Projectile.GetTexture();
+            float ap = 1f / (float)oldPos.Count;
+            Main.spriteBatch.UseAdditive();
+            for (int i = 0; i < oldPos.Count; i++)
+            {
+                Main.spriteBatch.Draw(tex, oldPos[i] - Main.screenPosition, null, new Color(60, 255, 255) * ap, Projectile.velocity.ToRotation(), tex.Size() / 2, new Vector2(1 + (Projectile.velocity.Length() * 0.01f), (1f / (1 + (Projectile.velocity.Length() * 0.01f)))) * 0.26f * ap, SpriteEffects.None, 0);
+                ap += 1f / (float)oldPos.Count;
+            }
+            Main.spriteBatch.ExitShaderRegion();
+            return false;
         }
     }
 }

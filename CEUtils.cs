@@ -1251,7 +1251,8 @@ namespace CalamityEntropy
         }
         public static void UseAdditive(this SpriteBatch sb)
         {
-            sb.UseBlendState(BlendState.Additive);
+            sb.End();
+            sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
         }
         public static void UseSampleState(this SpriteBatch sb, SamplerState s)
         {

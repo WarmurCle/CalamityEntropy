@@ -13,6 +13,7 @@ using CalamityEntropy.Content.Projectiles.TwistedTwin;
 using CalamityEntropy.Content.Projectiles.VoidEchoProj;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
+using CalamityMod.Dusts;
 using CalamityMod.Enums;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.NPCs.CeaselessVoid;
@@ -258,10 +259,6 @@ namespace CalamityEntropy.Common
         public override bool InstancePerEntity => true;
         public override void SetDefaults(Projectile entity)
         {
-            if (entity.Entropy().Lightning)
-            {
-                entity.penetrate = 5;
-            }
         }
         public bool netsnc = true;
         public static bool checkHoldOut = true;
@@ -508,7 +505,8 @@ namespace CalamityEntropy.Common
                 if (Lightning)
                 {
                     SetMaxUpdates = false;
-                    projectile.MaxUpdates *= 2;
+                    projectile.MaxUpdates = 4;
+                    projectile.velocity = projectile.velocity.normalize() * 16;
                 }
             }
             if (Losted && slowFlag)
@@ -844,30 +842,9 @@ namespace CalamityEntropy.Common
             {
                 projectile.Entropy().odp2.RemoveAt(0);
             }
-            if (projectile.arrow && projectile.owner >= 0)
-            {
-                if (projectile.owner.ToPlayer().HeldItem.type == ModContent.ItemType<Kinanition>() && projectile.ModProjectile is not LightningSpear)
-                {
-                    projectile.Entropy().Lightning = true;
-                }
-            }
             if (projectile.Entropy().Lightning && projectile.owner >= 0)
             {
-                if (projectile.Entropy().counter % 18 == 0 && projectile.owner == Main.myPlayer)
-                {
-                    int p = Projectile.NewProjectile(projectile.owner.ToPlayer().GetSource_FromAI(), projectile.Center + projectile.velocity * 1.4f, Vector2.Zero, ModContent.ProjectileType<Lcircle>(), 0, 0, projectile.owner);
-                    p.ToProj().rotation = projectile.velocity.ToRotation();
-                }
                 Lighting.AddLight(projectile.Center, 0.7f, 0.7f, 0.9f);
-                if (projectile.penetrate < 5)
-                {
-                    NPC target = projectile.FindTargetWithinRange(1800, false);
-                    if (target != null)
-                    {
-                        projectile.velocity += (target.Center - projectile.Center).ToRotation().ToRotationVector2() * 1.8f;
-                        projectile.velocity *= 0.998f;
-                    }
-                }
             }
             if (projectile.Entropy().gh && projectile.friendly)
             {
@@ -1222,6 +1199,18 @@ namespace CalamityEntropy.Common
                     x += 1 / 7f;
                 }
                 Main.spriteBatch.Draw(tx, projectile.Center - Main.screenPosition, null, Color.White, projectile.rotation, new Vector2(tx.Width, tx.Height) / 2, projectile.scale, SpriteEffects.None, 0);
+                Main.spriteBatch.UseAdditive();
+                float sine = MathHelper.Lerp(Math.Abs((float)Math.Sin(Main.GlobalTimeWrappedHourly * 50f / MathHelper.Pi)), 0.8f, 0.7f);
+                Texture2D bTexture = CEUtils.getExtraTex("ArchSmear");
+                for (int i = 0; i < 10; i++)
+                {
+                    float bScale2 = 0.75f;
+                    float fxFade = 1f;
+                    Vector2 scale = new Vector2((1 - i * 0.13f) * sine, ((1 + i * 0.012f) + fxFade * 0.2f) * 1.6f) * (bScale2 + i * 0.08f) * fxFade * 0.3f;
+                    Vector2 aimVel = projectile.velocity;
+                    Main.EntitySpriteDraw(bTexture, projectile.Center - Main.screenPosition + aimVel.SafeNormalize(Vector2.UnitX) * -4, null, Color.Lerp(Color.Aquamarine, Color.Aqua, i * 0.15f) with { A = 255 } * fxFade * 1f, aimVel.ToRotation() + MathHelper.PiOver2, bTexture.Size() * 0.5f, scale, i % 2 == 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                }
+                Main.spriteBatch.ExitShaderRegion();
 
                 return false;
             }
@@ -1339,7 +1328,23 @@ namespace CalamityEntropy.Common
                     GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(pos, vel, false, 20, scale, clr, new Vector2(0.25f, 1)));
                 }
             }
-
+            if (Lightning)
+            {
+                for (int i = 0; i < 14; i++)
+                {
+                    Dust dust = Dust.NewDustPerfect(projectile.Center, ModContent.DustType<SquashDust>(), -projectile.velocity);
+                    dust.scale = Main.rand.NextFloat(2f, 2.5f);
+                    dust.velocity = (projectile.velocity.normalize().RotatedByRandom(0.4f) * Main.rand.NextFloat(16f, 30));
+                    dust.noGravity = true;
+                    dust.color = Color.Aqua;
+                    dust.fadeIn = 2f;
+                }
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(projectile.Center, Vector2.Zero, new Color(60, 255, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 0.8f, 20));
+                if (projectile.numHits == 0)
+                {
+                    Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, projectile.velocity * projectile.MaxUpdates, ModContent.ProjectileType<KinanitionSpawn>(), projectile.damage, projectile.knockBack, projectile.owner);
+                }
+            }
             foreach (int id in applyBuffs)
             {
                 target.AddBuff(id, 5 * 60);

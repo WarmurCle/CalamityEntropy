@@ -1,9 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using CalamityMod;
+using CalamityMod.Particles;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
+using static CalamityEntropy.CEUtils;
 
 namespace CalamityEntropy.Content.Projectiles
 {
@@ -32,20 +35,23 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override void AI()
         {
+            Player Owner = Projectile.GetOwner();
             if (!sd && Projectile.owner == Main.myPlayer)
             {
-                int p = Projectile.NewProjectile(Projectile.owner.ToPlayer().GetSource_FromAI(), Projectile.Center + Projectile.velocity * 1.4f, Vector2.Zero, ModContent.ProjectileType<Impact>(), 0, 0, Projectile.owner);
                 sd = true;
-                p.ToProj().rotation = Projectile.velocity.ToRotation();
+                Particle pulse = new CustomSpark(Projectile.Center, Projectile.velocity.SafeNormalize(Vector2.UnitX) * 16, "CalamityMod/Particles/HighResHollowCircleHardEdgeAlt", false, 22, 0.07f, Color.MediumTurquoise, new Vector2(1f, 1.7f), shrinkSpeed: -0.2f);
+                GeneralParticleHandler.SpawnParticle(pulse);
+                Particle pulse2 = new CustomSpark(Projectile.Center, Projectile.velocity.SafeNormalize(Vector2.UnitX) * 24, "CalamityMod/Particles/HighResHollowCircleHardEdgeAlt", false, 18, 0.05f, Color.DeepSkyBlue, new Vector2(1f, 1.7f), shrinkSpeed: -0.23f);
+                GeneralParticleHandler.SpawnParticle(pulse2);
             }
             Projectile.ai[0]++;
-            if (Projectile.ai[0] > 8)
+            if (Projectile.ai[0] > 5)
             {
                 NPC target = Projectile.FindTargetWithinRange(1200, false);
                 if (target != null)
                 {
-                    Projectile.velocity += (target.Center - Projectile.Center).ToRotation().ToRotationVector2() * 8f;
-                    Projectile.velocity *= 0.88f;
+                    Projectile.velocity += (target.Center - Projectile.Center).ToRotation().ToRotationVector2() * 12f;
+                    Projectile.velocity *= 0.9f;
                 }
             }
             odr.Add(Projectile.rotation);
@@ -60,6 +66,26 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
+            List<VertexPointSets> v = new List<VertexPointSets>();
+            var gd = Main.graphics.GraphicsDevice;
+            gd.Textures[0] = getExtraTex("VoltTrailThicc");
+            Main.spriteBatch.UseAdditive();
+            for (int i = 0; i < odp.Count; i++)
+            {
+                float a = (i / (odp.Count - 1f));
+                v.Add(new VertexPointSets(odp[i], Color.LightBlue, 26, (i / (odp.Count - 1f)) * 3f + Main.GlobalTimeWrappedHourly * 4));
+            }
+            var ve = GetVertexesList(v);
+            gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+            v.Clear();
+            for (int i = 0; i < odp.Count; i++)
+            {
+                float a = (i / (odp.Count - 1f));
+                v.Add(new VertexPointSets(odp[i], Color.White, 12, (i / (odp.Count - 1f)) * 3f + Main.GlobalTimeWrappedHourly * 6));
+            }
+            ve = GetVertexesList(v);
+            gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+            Main.spriteBatch.ExitShaderRegion();
             Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/LightningSpear").Value;
             float x = 0f;
             for (int i = 0; i < odp.Count; i++)
@@ -80,6 +106,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             SoundStyle sd = new("CalamityMod/Sounds/Item/AnomalysNanogunMPFBExplosion");
+            sd.Volume = 0.6f;
             SoundEngine.PlaySound(sd, Projectile.Center);
             var r = Main.rand;
             for (int i = 0; i < 8 + 4 * Projectile.owner.ToPlayer().Entropy().WeaponBoost; i++)

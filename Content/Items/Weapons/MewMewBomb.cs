@@ -4,6 +4,7 @@ using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Rogue;
+using CalamityMod.NPCs.Other;
 using CalamityMod.Particles;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
@@ -116,7 +117,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 Projectile.velocity.Y = -oldVelocity.Y * 1f;
             }
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Pink * 1.25f, "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, Projectile.scale * 0.4f, 20));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Pink * 1.1f, "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, Projectile.scale * 0.4f, 20));
             SoundEngine.PlaySound(SoundID.Item56 with { Volume = 1.5f }, Projectile.Center);
             SoundEngine.PlaySound(SoundID.Item58 with { Volume = 1.2f, Pitch = Main.rand.NextFloat(-0.4f, 0.4f) }, Projectile.Center);
 
@@ -133,6 +134,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 foreach(Player plr in Main.ActivePlayers)
                 {
+                    if (plr.Entropy().immune > 0)
+                        continue;
                     if(Projectile.Colliding(Projectile.Hitbox, plr.getRect()))
                     {
                         plr.Hurt(PlayerDeathReason.ByProjectile(Projectile.owner, Projectile.whoAmI), 20, 0, true, false);
@@ -258,7 +261,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             List<NPC> targetNearby = CEUtils.FindSomeNearEnemies(Projectile.Center, 24, 900);
             Vector2 targetPos = Projectile.Center;
             Vector2 bestTarget = Projectile.Center;
-            int HitCount = 1;
+            int HitCount = 0;
             for(int i = 0; i < 128; i++)
             {
                 targetPos = CEUtils.randomPointInCircle(CrossBombDist * 1.2f) + Projectile.Center;
@@ -284,6 +287,14 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public Vector2 ExplodeTargetPos = Vector2.Zero;
         public Vector2 hitPos = Vector2.Zero;
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (target.type == ModContent.NPCType<ExhumedHeart>())
+            {
+                return false;
+            }
+            return null;
+        }
         public int CrossBombDist => Projectile.Calamity().stealthStrike ? 500 : 320;
         public override bool PreDraw(ref Color lightColor)
         {
