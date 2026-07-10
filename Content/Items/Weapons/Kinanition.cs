@@ -134,7 +134,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Projectile.width = Projectile.height = 46;
         }
         public override string Texture => "CalamityEntropy/Assets/Extra/Glow";
-        public int NoChaseTime = 12;
+        public int NoChaseTime = 14;
         public override void AI()
         {
             if (NoChaseTime > 0)
@@ -161,7 +161,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override bool? CanHitNPC(NPC target)
         {
-            return NoChaseTime <= 0;
+            return NoChaseTime <= 0 ? null : false;
         }
         public override bool PreDraw(ref Color lightColor)
         {
