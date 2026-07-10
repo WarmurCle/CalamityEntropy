@@ -23,6 +23,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.Entropy().plagueEngine = true;
             player.GetAttackSpeed(DamageClass.Melee) += ATKSpeed;
             player.lifeRegen += 2;
+            player.noKnockback = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

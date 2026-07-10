@@ -99,7 +99,7 @@ namespace CalamityEntropy.Common
         {
             if (entity.type == ModContent.NPCType<PrimordialWyrmHead>())
                 entity.lifeMax = (int)(entity.lifeMax * 2.5f);
-                entity.defense = (int)(entity.defense * 1.25f);
+            if (entity.type == ModContent.NPCType<PrimordialWyrmHead>())
 		        entity.damage = (int)(entity.damage * 1.2f);
         }
         public float DebuffDamageMult()

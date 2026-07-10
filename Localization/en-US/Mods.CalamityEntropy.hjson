@@ -719,7 +719,7 @@ Items: {
 		DisplayName: Revered Moonlight
 		Tooltip:
 			'''
-			+15% increased magic damage
+			+15% increased magic damage and +50 maximum mana
 			Forms a magic shield every thirty seconds that deals damage on contact, increases your movement speed and reduces mana consumption by 10%
 			When the magic shield is broken, these benefits dissappear, but your magic damage can lifesteal
 			This shield does not stack with the Chalice of the Blood God
@@ -2286,6 +2286,7 @@ Items: {
 		DisplayName: Bacterial Combustion Engine
 		Tooltip:
 			'''
+			Grants immunity to knockback
 			Hitting enemies with true melee weapons restores 8 life and grants temporary defense to a max of 8
 			{AttackSpeed}% increased true melee attack speed
 			'''
