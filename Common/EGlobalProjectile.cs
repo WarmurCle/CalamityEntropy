@@ -1060,9 +1060,8 @@ namespace CalamityEntropy.Common
                     TextureAssets.Projectile[projectile.type] = muraTex;
                 }
             }
-            //修复部分射弹导致其他射弹不显示
-            //不要在绘制完射弹把SpriteSortMode设置成Immediate
-            if (projectile.ModProjectile != null)
+
+            /*if (projectile.ModProjectile != null)
             {
                 if (SSMFInfo == null)
                 {
@@ -1076,7 +1075,7 @@ namespace CalamityEntropy.Common
                         Main.spriteBatch.ExitShaderRegion();
                     }
                 }
-            }
+            }*/
 
             if (IndexOfTwistedTwinShootedThisProj >= 0 && projectile.owner >= 0 && lastCenter != Vector2.Zero)
             {
