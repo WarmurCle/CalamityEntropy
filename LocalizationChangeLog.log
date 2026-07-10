@@ -39,7 +39,7 @@
 [Mods.CalamityEntropy.Items.AzafureExhaustGasInjector.Tooltip] - added
 
 
-[3.18-Changes]
+[3.19-Changes]
 [Mods.CalamityEntropy.Musics.Apsychos] - added
 [Mods.CalamityEntropy.Musics.Cruiser] - added
 [Mods.CalamityEntropy.Musics.Prophet1] - added
@@ -52,3 +52,6 @@
 [Mods.CalamityEntropy.Musics.SobaNoodles] - added
 [Mods.CalamityEntropy.Musics.ThemeOf] - added
 [Mods.CalamityEntropy.Items.Weapons.Rogue.MewMewBomb.Tooltip] - changed
+[Mods.CalamityEntropy.Items.Kinanition.Tooltip] - changed
+[Mods.CalamityEntropy.Items.HolyMoonlight.Tooltip] - changed
+[Mods.CalamityEntropy.Items.PlagueInternalCombustionEngine.Tooltip] - changed
