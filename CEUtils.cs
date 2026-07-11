@@ -32,6 +32,12 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static Vector3 RotatedBy(this Vector3 vector, float rotation, Vector3 axis)
+        {
+            axis.Normalize();
+            Quaternion quaternion = Quaternion.CreateFromAxisAngle(axis, rotation);
+            return Vector3.Transform(vector, quaternion);
+        }
         public static LocalizedText GetNPCName(int npc)
         {
             if (npc < NPCID.Count)
