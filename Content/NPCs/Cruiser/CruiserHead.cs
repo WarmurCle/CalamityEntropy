@@ -75,7 +75,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public float maxDistance = 6000;
         public float maxDistanceTarget = 2900;
         public int rotDist = 900;
-        public Texture2D disTex = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/cruiserSpace").Value;
         public Vector2 rotPos = Vector2.Zero;
         public int phase = 1;
         public int circleDir = 1;
@@ -1516,16 +1515,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override void PostDraw(SpriteBatch sbb, Vector2 screenPos, Color drawColor)
         {
             Main.spriteBatch.ExitShaderRegion();
-            if (phase == 1)
-            {
-                SpriteBatch sb = Main.spriteBatch;
-                sb.End();
-                sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                Vector2 ddp = SpaceCenter;
-                sb.Draw(disTex, ddp - Main.screenPosition, null, Color.DarkBlue * 0.6f, 0, new Vector2(disTex.Width, disTex.Height) / 2, (float)maxDistance / 900f, SpriteEffects.None, 0);
-                sb.End();
-                sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            }
         }
     }
 }

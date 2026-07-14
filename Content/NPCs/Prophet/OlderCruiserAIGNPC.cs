@@ -793,8 +793,6 @@ namespace CalamityEntropy.Content.NPCs.Prophet
 
         public int rotDist = 900;
 
-        public Texture2D disTex = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/cruiserSpace", ReLogic.Content.AssetRequestMode.AsyncLoad).Value;
-
         public Vector2 rotPos = Vector2.Zero;
 
         public int phase = 1;

@@ -43,8 +43,6 @@ namespace CalamityEntropy.Common
         private static Asset<Texture2D> cruiserSlash;
         [VaultLoaden("CalamityEntropy/Content/Projectiles/Cruiser/CruiserBlackholeBullet")]
         private static Asset<Texture2D> cruiserBlackholeBullet;
-        [VaultLoaden("CalamityEntropy/Assets/Extra/cruiserSpace2")]
-        private static Asset<Texture2D> cruiserSpace2;
         [VaultLoaden("CalamityEntropy/Assets/Extra/ksc1")]
         private static Asset<Texture2D> ksc1;
         [VaultLoaden("CalamityEntropy/Assets/Extra/shockwave")]
@@ -717,22 +715,6 @@ namespace CalamityEntropy.Common
                 }
             }
 
-            int cruiserHeadType = ModContent.NPCType<CruiserHead>();
-
-            foreach (NPC n in Main.ActiveNPCs)
-            {
-                if (n.type != cruiserHeadType)
-                {
-                    continue;
-                }
-
-                if (n.ModNPC is CruiserHead ch && ch.phaseTrans > 120 && n.ai[0] > 1)
-                {
-                    Vector2 ddp = ch.SpaceCenter;
-                    Main.spriteBatch.Draw(cruiserSpace2.Value, ddp - Main.screenPosition, null, Color.White * 0.1f, 0, new Vector2(cruiserSpace2.Value.Width, cruiserSpace2.Value.Height) / 2, ch.maxDistance / 900f * 2 - 0.01f, SpriteEffects.None, 0);
-                    Main.spriteBatch.Draw(cruiserSpace2.Value, ddp - Main.screenPosition, null, Color.White, 0, new Vector2(cruiserSpace2.Value.Width, cruiserSpace2.Value.Height) / 2, ch.maxDistance / 900f * 2, SpriteEffects.None, 0);
-                }
-            }
 
             foreach (Particle pt in VoidParticles.particles)
             {
