@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Ranged;
@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 46;
+            Item.damage = 25;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 36;
             Item.height = 110;
@@ -41,8 +41,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shootSpeed = 20f;
             Item.useAmmo = AmmoID.Arrow;
             Item.autoReuse = true;
-            Item.ArmorPenetration = 12;
-            Item.value = 8000;
+            Item.ArmorPenetration = 30;
+            Item.value = Item.buyPrice(gold: 12);
             Item.rare = ItemRarityID.Purple;
         }
 
