@@ -4344,6 +4344,11 @@ Items: {
 		DisplayName: 阿萨福勒制式霰弹
 		Tooltip: 发射散射的霰弹
 	}
+
+	ThalassianGleam: {
+		// DisplayName: Thalassian Gleam
+		// Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
@@ -5081,6 +5086,7 @@ Projectiles: {
 	ExhaustGas.DisplayName: 废气
 	MewMewBombThrow.DisplayName: 喵喵炸弹
 	// KinanitionSpawn.DisplayName: Kinanition Spawn
+	// ThalassianGleamHeld.DisplayName: Thalassian Gleam Held
 }
 
 LegendTooltip: - 传奇物品 -

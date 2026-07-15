@@ -136,28 +136,39 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                     bool Holding = false;
                     Texture2D holderTexture = null;
                     Vector2 pos = Main.ScreenSize.ToVector2() / 2 + (MathHelper.ToRadians(i * (360f / c)) + slotRot).ToRotationVector2() * slotDist;
-                    if (bookItem.ModItem is EntropyBook eb)
+                    if (!(bookItem.ModItem is EntropyBook))
                     {
-                        holderTexture = eb.BookMarkTexture;
-                        if (i >= c - texSpecial.Count)
-                        {
-                            holderTexture = texSpecial[i - (c - texSpecial.Count)];
-                        }
+                        active = false;
+                        return;
+                    }
+                    EntropyBook eb = (EntropyBook)bookItem.ModItem;
+                    holderTexture = eb.BookMarkTexture;
+                    if (i >= c - texSpecial.Count)
+                    {
+                        holderTexture = texSpecial[i - (c - texSpecial.Count)];
+                    }
+                    bool predraw = eb.PreDrawBookmarkSlot(Main.LocalPlayer.Entropy().EBookStackItems[i], pos, (closeAnm / 11f), drawScale, OutlineAlpha[i]);
+                    
+
+                    if (predraw)
+                    {
+                        //Holder
                         Main.spriteBatch.Draw(holderTexture, pos, null, Color.White * (closeAnm / 11f), 0, holderTexture.Size() / 2, 1 * drawScale, SpriteEffects.None, 0);
+
+                        //Bookmark
+                        if (Main.LocalPlayer.Entropy().EBookStackItems.Count > i && Main.LocalPlayer.Entropy().EBookStackItems[i].type != ItemID.None)
+                        {
+                            if (BookMarkLoader.IsABookMark(Main.LocalPlayer.Entropy().EBookStackItems[i]) && BookMarkLoader.GetUITexture(Main.LocalPlayer.Entropy().EBookStackItems[i]) != null)
+                            {
+                                Main.spriteBatch.Draw(BookMarkLoader.GetUITexture(Main.LocalPlayer.Entropy().EBookStackItems[i]), pos, null, Color.White * (closeAnm / 11f), 0, BookMarkLoader.GetUITexture(Main.LocalPlayer.Entropy().EBookStackItems[i]).Size() / 2, 1 * drawScale, SpriteEffects.None, 0);
+                            }
+                            else
+                            {
+                                ItemSlot.DrawItemIcon(Main.LocalPlayer.Entropy().EBookStackItems[i], 1, Main.spriteBatch, pos, 0.8f * drawScale, 256, Color.White * (closeAnm / 11f));
+                            }
+                        }
                     }
 
-                    if (Main.LocalPlayer.Entropy().EBookStackItems.Count > i && Main.LocalPlayer.Entropy().EBookStackItems[i].type != ItemID.None)
-                    {
-                        if (BookMarkLoader.IsABookMark(Main.LocalPlayer.Entropy().EBookStackItems[i]) && BookMarkLoader.GetUITexture(Main.LocalPlayer.Entropy().EBookStackItems[i]) != null)
-                        {
-                            Main.spriteBatch.Draw(BookMarkLoader.GetUITexture(Main.LocalPlayer.Entropy().EBookStackItems[i]), pos, null, Color.White * (closeAnm / 11f), 0, BookMarkLoader.GetUITexture(Main.LocalPlayer.Entropy().EBookStackItems[i]).Size() / 2, 1 * drawScale, SpriteEffects.None, 0);
-                        }
-                        else
-                        {
-                            ItemSlot.DrawItemIcon(Main.LocalPlayer.Entropy().EBookStackItems[i], 1, Main.spriteBatch, pos, 0.8f * drawScale, 256, Color.White * (closeAnm / 11f));
-                        }
-
-                    }
                     if (!outlineFlag && active && Main.MouseScreen.getRectCentered(2, 2).Intersects(pos.getRectCentered(36, 46)))
                     {
                         if (!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir)
@@ -237,7 +248,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                         if (!Main.LocalPlayer.Entropy().EBookStackItems[i].IsAir)
                             ItemSlot.DrawItemIcon(Main.LocalPlayer.Entropy().EBookStackItems[i], 1, Main.spriteBatch, pos + new Vector2(0, -8 - OutlineAlpha[i] * 36), 0.85f * OutlineAlpha[i], 256, Color.White * (closeAnm / 11f) * OutlineAlpha[i]);
 
-                        if (shader != null)
+                        if (shader != null && predraw)
                         {
                             Main.spriteBatch.End();
                             shader.CurrentTechnique.Passes[0].Apply();

@@ -37,6 +37,10 @@ namespace CalamityEntropy.Content.Items.Books
         {
             return false;
         }
+        public virtual bool PreDrawBookmarkSlot(Item bookmark, Vector2 pos, float alpha, float scale, float outlineAlpha)
+        {
+            return true;
+        }
         public virtual int HeldProjectileType => -1;
         public virtual int SlotCount => 6;
         public virtual Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/BookMark1").Value;

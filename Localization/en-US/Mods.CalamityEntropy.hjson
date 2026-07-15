@@ -4272,6 +4272,11 @@ Items: {
 		DisplayName: Azafure Standard Shotgun
 		Tooltip: Fire some scattered shotgun pellets
 	}
+
+	ThalassianGleam: {
+		DisplayName: Thalassian Gleam
+		Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
@@ -5012,6 +5017,7 @@ Projectiles: {
 	ExhaustGas.DisplayName: Exhaust Gas
 	MewMewBombThrow.DisplayName: Mew Mew Bomb Throw
 	KinanitionSpawn.DisplayName: Kinanition Spawn
+	ThalassianGleamHeld.DisplayName: Thalassian Gleam Held
 }
 
 LegendTooltip: - Legend -
