@@ -41,6 +41,10 @@ namespace CalamityEntropy.Content.Items.Books
         {
             return true;
         }
+        public virtual void PlayBookmarkInsertSound()
+        {
+            CEUtils.PlaySound("turnPage");
+        }
         public virtual int HeldProjectileType => -1;
         public virtual int SlotCount => 6;
         public virtual Texture2D BookMarkTexture => ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/EntropyBookUI/BookMark1").Value;
@@ -577,7 +581,7 @@ namespace CalamityEntropy.Content.Items.Books
                                     }
 
                                 }
-                                shotCooldown = (int)((float)shotCooldown / m.attackSpeed);
+                                SetShootCooldown((int)((float)shotCooldown / m.attackSpeed));
                             }
                         }
                         else
@@ -606,7 +610,10 @@ namespace CalamityEntropy.Content.Items.Books
             UpdateAnimations();
             Projectile.GetOwner().heldProj = Projectile.whoAmI;
         }
-
+        public virtual void SetShootCooldown(int cd)
+        {
+            shotCooldown = cd;
+        }
         public virtual void SetPosision()
         {
             Projectile.Center = Projectile.GetOwner().MountedCenter + (UIOpen ? UIHeldOffset : new Vector2(heldOffset.X, heldOffset.Y * (Projectile.velocity.X > 0 ? 1 : -1))).RotatedBy(Projectile.rotation);

@@ -62,7 +62,7 @@ namespace CalamityEntropy
                 TexCoordsX = texCoordsX;
             }
         }
-        public static List<ColoredVertex> GetVertexesList(List<VertexPointSets> sets, bool fade = true)
+        public static List<ColoredVertex> GetVertexesList(this List<VertexPointSets> sets, bool fade = true, bool worldPos = true)
         {
             List<ColoredVertex> vertexes = new List<ColoredVertex>();
             for (int i = 0; i < sets.Count; i++)
@@ -70,8 +70,8 @@ namespace CalamityEntropy
                 Vector2 va = i == 0 ? Vector2.Zero : (sets[i].Position - sets[i - 1].Position).normalize().RotatedBy(MathHelper.PiOver2);
                 float w = sets[i].Width;
                 float a = fade ? (i / (sets.Count - 1f)) : 1;
-                vertexes.Add(new ColoredVertex(sets[i].Position - va * w - Main.screenPosition, sets[i].Color * a, new Vector3(sets[i].TexCoordsX, 0, 1)));
-                vertexes.Add(new ColoredVertex(sets[i].Position + va * w - Main.screenPosition, sets[i].Color * a, new Vector3(sets[i].TexCoordsX, 1, 1)));
+                vertexes.Add(new ColoredVertex(sets[i].Position - va * w - (worldPos ? Main.screenPosition : Vector2.Zero), sets[i].Color * a, new Vector3(sets[i].TexCoordsX, 0, 1)));
+                vertexes.Add(new ColoredVertex(sets[i].Position + va * w - (worldPos ? Main.screenPosition : Vector2.Zero), sets[i].Color * a, new Vector3(sets[i].TexCoordsX, 1, 1)));
             }
             return vertexes;
         }
@@ -1243,12 +1243,12 @@ namespace CalamityEntropy
         public static void UseBlendState_UI(this SpriteBatch sb, BlendState blend)
         {
             sb.End();
-            sb.Begin(SpriteSortMode.Deferred, blend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
+            sb.Begin(SpriteSortMode.Deferred, blend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
         }
         public static void UseBlendState_UI(this SpriteBatch sb, BlendState blend, SamplerState sample)
         {
             sb.End();
-            sb.Begin(SpriteSortMode.Deferred, blend, sample, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
+            sb.Begin(SpriteSortMode.Immediate, blend, sample, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
         }
         public static void UseBlendState(this SpriteBatch sb, BlendState blend, SamplerState s = null)
         {

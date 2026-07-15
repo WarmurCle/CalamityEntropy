@@ -201,7 +201,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                                 Item mouseItem = Main.mouseItem.Clone();
                                 Main.mouseItem = Main.LocalPlayer.Entropy().EBookStackItems[i];
                                 Main.LocalPlayer.Entropy().EBookStackItems[i] = mouseItem;
-                                CEUtils.PlaySound("turnPage");
+                                eb.PlayBookmarkInsertSound();
                                 sync = true;
                             }
                         }
@@ -219,7 +219,7 @@ namespace CalamityEntropy.Content.UI.EntropyBookUI
                                     {
                                         ItemIO.Load(Main.LocalPlayer.inventory[ii], ItemIO.Save(Main.LocalPlayer.Entropy().EBookStackItems[i]));
                                         Main.LocalPlayer.Entropy().EBookStackItems[i].TurnToAir();
-                                        CEUtils.PlaySound("turnPage");
+                                        eb.PlayBookmarkInsertSound();
                                         sync = true;
                                         break;
                                     }

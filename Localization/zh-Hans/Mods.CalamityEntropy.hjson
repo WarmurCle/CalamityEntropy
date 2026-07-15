@@ -5087,6 +5087,7 @@ Projectiles: {
 	MewMewBombThrow.DisplayName: 喵喵炸弹
 	// KinanitionSpawn.DisplayName: Kinanition Spawn
 	// ThalassianGleamHeld.DisplayName: Thalassian Gleam Held
+	// ThalassianWaterBolt.DisplayName: Thalassian Water Bolt
 }
 
 LegendTooltip: - 传奇物品 -
