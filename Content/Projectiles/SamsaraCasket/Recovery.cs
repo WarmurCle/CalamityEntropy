@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.localNPCHitCooldown = 8;
+            Projectile.localNPCHitCooldown = 12;
         }
         public override void AI()
         {
@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
                     }
                     if (counter % 60 == 0)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), t.Center, CEUtils.randomRot().ToRotationVector2() * 26, ModContent.ProjectileType<RecoveryVineTop>(), (int)(Projectile.damage * 0.7f), Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), t.Center, CEUtils.randomRot().ToRotationVector2() * 26, ModContent.ProjectileType<RecoveryVineTop>(), (int)(Projectile.damage * 0.5f), Projectile.knockBack, Projectile.owner);
                     }
                 }
             }
