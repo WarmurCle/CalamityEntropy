@@ -1493,7 +1493,7 @@ namespace CalamityEntropy.Common
                 sJudgeCd -= 1;
                 if (sJudgeCd <= 0)
                 {
-                    sJudgeCd = (30 * 60).ApplyCdDec(Player);
+                    sJudgeCd = (90 * 60).ApplyCdDec(Player);
                     SacredJudgeShields += 1;
                 }
             }
