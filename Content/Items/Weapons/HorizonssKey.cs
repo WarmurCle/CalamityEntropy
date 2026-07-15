@@ -321,7 +321,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (DownedBossSystem.downedCalamitas)
             {
-                ad += 0.3f;
+                ad += 0.5f;
             }
             if (DownedBossSystem.downedExoMechs && DownedBossSystem.downedCalamitas)
             {
@@ -329,7 +329,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (DownedBossSystem.downedBossRush)
             {
-                ad += 1.5f;
+                ad += 2.0f;
             }
             return ad;
         }
