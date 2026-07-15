@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.localNPCHitCooldown = 10;
+            Projectile.localNPCHitCooldown = 20;
         }
         public bool shieldLast = false;
         public override void AI()
