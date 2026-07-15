@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Common;
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Projectiles.SamsaraCasket;
 using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
@@ -31,7 +31,11 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (damageClass == CEUtils.RogueDC)
             {
-                return new StatInheritanceData(0.35f, 0.35f, 0.35f, 0.35f, 0.35f);
+                return new StatInheritanceData(0.2f, 0.2f, 0.2f, 0.2f, 0.2f);
+            }
+	    if (damageClass == Summon)
+            {
+                return new StatInheritanceData(0.3f, 0.3f, 0.3f, 0.3f, 0.3f);
             }
             return StatInheritanceData.Full;
         }
@@ -154,7 +158,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 ap += 30;
             }
-            ap += 46 * Main.LocalPlayer.Entropy().WeaponBoost;
+            ap += 10 * Main.LocalPlayer.Entropy().WeaponBoost;
             return ap;
         }
         public static int getLevel()
@@ -253,39 +257,39 @@ namespace CalamityEntropy.Content.Items.Weapons
             float ad = 0.7f;
             if (NPC.downedSlimeKing)
             {
-                ad += 0.22f;
+                ad += 0.2f;
             }
             if (NPC.downedBoss1)
             {
-                ad += 0.24f;
+                ad += 0.2f;
             }
             if (NPC.downedBoss2)
             {
-                ad += 0.24f;
+                ad += 0.2f;
             }
             if (NPC.downedBoss3)
             {
-                ad += 0.3f;
+                ad += 0.1f;
             }
             if (Main.hardMode)
             {
-                ad += 0.3f;
+                ad += 0.65f;
             }
             if (DownedBossSystem.downedCryogen)
             {
-                ad += 0.26f;
+                ad += 0.3f;
             }
             if (NPC.downedGolemBoss)
             {
-                ad += 0.1f;
+                ad += 0.2f;
             }
             if (NPC.downedAncientCultist)
             {
-                ad += 0.1f;
+                ad += 0.15f;
             }
             if (NPC.downedMoonlord)
             {
-                ad += 1.0f;
+                ad += 0.5f;
             }
             if (DownedBossSystem.downedProvidence)
             {
@@ -305,11 +309,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (DownedBossSystem.downedDoG)
             {
-                ad += 0.5f;
+                ad += 0.6f;
             }
             if (DownedBossSystem.downedYharon)
             {
-                ad += 1.0f;
+                ad += 1.75f;
             }
             if (DownedBossSystem.downedExoMechs)
             {
@@ -317,11 +321,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             if (DownedBossSystem.downedCalamitas)
             {
-                ad += 0.8f;
+                ad += 0.3f;
             }
             if (DownedBossSystem.downedExoMechs && DownedBossSystem.downedCalamitas)
             {
-                ad += 0.5f;
+                ad += 0.75f;
             }
             if (DownedBossSystem.downedBossRush)
             {
@@ -355,6 +359,5 @@ namespace CalamityEntropy.Content.Items.Weapons
                 .AddIngredient(ModContent.ItemType<LoreAwakening>())
                 .AddTile(TileID.WorkBenches).Register();
         }
-
     }
 }
