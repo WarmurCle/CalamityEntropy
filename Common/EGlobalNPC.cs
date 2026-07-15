@@ -78,10 +78,29 @@ namespace CalamityEntropy.Common
         {
             return true;
         }
+        public static int TrasherID = -1;
+        public override void OnHitNPC(NPC npc, NPC target, NPC.HitInfo hit)
+        {
+            if (TrasherID == -1)
+                TrasherID = ModContent.NPCType<Trasher>();
+            if (npc.type == TrasherID && target.life <= 0)
+            {
+                if (target.type == NPCID.Turtle || target.type == NPCID.TurtleJungle)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        int i = Item.NewItem(target.GetSource_Death(), target.getRect(), new Item(ModContent.ItemType<SusiesBracelet>()));
+                        CEUtils.SyncItem(i);
+                    }
+                }
+            }
+        }
         public override void SetDefaults(NPC entity)
         {
             if (entity.type == ModContent.NPCType<PrimordialWyrmHead>())
-                entity.lifeMax = (int)(entity.lifeMax * 2.0f);
+                entity.lifeMax = (int)(entity.lifeMax * 2.5f);
+            if (entity.type == ModContent.NPCType<PrimordialWyrmHead>())
+		        entity.damage = (int)(entity.damage * 1.2f);
         }
         public float DebuffDamageMult()
         {

@@ -22,12 +22,8 @@ Items: {
 				DisplayName: Silence
 				Tooltip:
 					'''
-					[c/9387ff:Throw a frisbee]
-					[c/9387ff:After hitting an enemy,]
-					[c/9387ff:it will use a Void Chain to pull you toward that enemy after a short delay,]
-					[c/9387ff:and explode upon contact with it.]
-					[c/9387ff:Stealth strikes cause the frisbee to stick to the hit enemy]
-					[c/9387ff:and unfold a large-area vortex, continuously damaging targets within its range.]
+					[c/9387ff:Throw a void-chained frisbee that pulls itself back to enemies on hit after a short delay before exploding on impact]
+					[c/9387ff:Stealth strikes cause the frisbee to stick to the hit enemy once chained, creating a void vortex that rapidly damages in a large area]
 					'''
 			}
 
@@ -99,7 +95,7 @@ Items: {
 				DisplayName: The Beginning And The End
 				Tooltip:
 					'''
-					Left click throws The Beginning, right click throws The End, both inflict the [cebuff:CalamityEntropy/LifeOppress] debuff
+					Left Click throws The Beginning, Right Click throws The End, both inflict the [cebuff:CalamityEntropy/LifeOppress] debuff
 					The Beginning inflicts the [cebuff:CalamityEntropy/EclipsedImprint] debuff
 					The End inflicts the [cebuff:CalamityEntropy/StareOfTheAbyss] debuff
 					These debuffs both stack up to 8 times, when the opposite debuff is applied, that amount of Eclipse or Echo souls are created
@@ -122,8 +118,8 @@ Items: {
 				DisplayName: Prophetic Daggers
 				Tooltip:
 					'''
-					Flings several homing daggers that inflict [cebuff:CalamityEntropy/SoulDisorder]
-					Stealth strikes throw a single knife that spawns 6 collapsing runes on impact
+					Flings 4 daggers in a random arc that fly towards enemies after a moment in the air
+					Stealth strikes throw a spread of 3 larger knives that spawn 6 collapsing runes on hit and inflict [cebuff:CalamityEntropy/SoulDisorder]
 					'''
 			}
 
@@ -214,8 +210,7 @@ Items: {
 				Tooltip:
 					'''
 					[c/FF69B4:Throw a bomb that bounces off blocks]
-					[c/FF69B4:After hitting a target, ]
-					[c/FF69B4:it bounces to a position that can hit as many targets as possible and explodes in a cross pattern]
+					[c/FF69B4:After hitting a target, it bounces to a position that can hit as many targets as possible and explodes in a cross pattern]
 					[c/FF69B4:Stealth strikes increase the explosion radius and can hurt players]
 					[c/FF69B4:Players who are hit by the explosion will receive 2.5 seconds of invincibility]
 					[c/FF69B4:"A detonator with cat ears, somehow it emits cat meows"]
@@ -238,9 +233,9 @@ Items: {
 		DisplayName: Kinanition
 		Tooltip:
 			'''
-			[c/ce97fa:Launches a series of homing lightning arrows]
+			[c/ce97fa:Launches a series of lightning arrows that convert into homing energy bolts on hit]
 			[c/ce97fa:These arrows retain the original effect of your ammunition]
-			[c/0078b9:Right click to launch a homing Thunderbolt that bursts into lightning on hit]
+			[c/0078b9:Right Click to launch a homing thunderbolt that bursts into lightning on hit]
 			'''
 	}
 
@@ -248,14 +243,13 @@ Items: {
 		DisplayName: Void Relics
 		Tooltip:
 			'''
-			[c/9387ff:Summon up to one Voidgaze Eye and create a rune array around yourself]
-			[c/9387ff:Runes automatically fire homing Voisen Bolts at nearby enemies]
-			[c/9387ff:and also damage enemies they touch]
-			[c/9387ff:Holding the weapon gathers runes in front of you]
-			[c/9387ff:and rapidly fires a large number of Voisen Bolts toward the cursor]
-			[c/9387ff:Stopping use or using for over 6 seconds reverts runes]
-			[c/9387ff:and grants up to 36 seconds of cooldown based on use time]
+			[c/9387ff:Summon a Voidgaze Eye and an array of runes around yourself]
+			[c/9387ff:Runes automatically fire homing voisen bolts at nearby enemies and also damage enemies they touch, inflicting ][cebuff:CalamityEntropy/VoidTouch]
+			[c/9387ff:Left Click while the eye and runes are summoned to gather runes in front of you and rapidly fire voisen bolts toward the cursor]
+			[c/9387ff:Releasing Left Click or holding for over 6 seconds reverts runes to their passive state]
+			[c/9387ff:Runes can be gathered for concentrated fire on up to a 36 second cooldown time based on how long it was held for]
 			[c/9387ff:During cooldown, runes gain 15% increased attack speed]
+			[c/9387ff:There can only be one set of void relics at a time]
 			'''
 	}
 
@@ -466,7 +460,7 @@ Items: {
 
 	WingsOfHush: {
 		DisplayName: Wings of Hush
-		Tooltip: "[c/9387ff:Shoot powerful void laser and 4 voidbeams]"
+		Tooltip: "[c/9387ff:Fires a piercing void laser alongside four smaller voidbeams that all inflict ][cebuff:CalamityEntropy/VoidTouch]"
 	}
 
 	SoyMilk: {
@@ -618,13 +612,10 @@ Items: {
 		DisplayName: Archaic Song
 		Tooltip:
 			'''
-			Briefly charge up
-			Then sweep in a wide arc
-			If it hits an enemy, the blade recoils
-			Then performs a wider multi‑slash
-			If it misses, the sword points to cursor
-			And fires a Rune Pulse
-			Inflicts [cebuff:CalamityEntropy/SoulDisorder]
+			Briefly charge up before sweeping the blade in a wide arc
+			If it hits an enemy, the blade recoils before rapidly spinning the blade around you
+			If the initial sweep misses, the next swing will instead aim at the cursor and fires a rune pulse
+			All attacks inflict [cebuff:CalamityEntropy/SoulDisorder]
 			'''
 	}
 
@@ -693,7 +684,7 @@ Items: {
 			Puts a shell around the owner when below 50% life that reduces damage taken
 			Absorbs 25% of damage done to players on your team while above 25% life
 			Provide you with a Holy Shield that can withstand damage once with a 150sec cooldown
-			Hold shift and right click to toggle [i:PanicNecklace] [c/aaaaaa:Panic Necklace's effect]
+			Hold shift and Right Click to toggle [i:PanicNecklace] [c/aaaaaa:Panic Necklace's effect]
 			[TOGGLE]
 			'''
 		ToggleEffectOn: "[c/00ff00:Panic enabled]"
@@ -719,7 +710,7 @@ Items: {
 		DisplayName: Revered Moonlight
 		Tooltip:
 			'''
-			+15% increased magic damage
+			+15% increased magic damage and +50 maximum mana
 			Forms a magic shield every thirty seconds that deals damage on contact, increases your movement speed and reduces mana consumption by 10%
 			When the magic shield is broken, these benefits dissappear, but your magic damage can lifesteal
 			This shield does not stack with the Chalice of the Blood God
@@ -1391,7 +1382,7 @@ Items: {
 		DisplayName: Undertaker's Windsnap
 		Tooltip:
 			'''
-			Sends two halves to collide at your cursor and inflict [cbuff:CalamityMod/MarkedforDeath]
+			Sends two halves of the whip to collide at your cursor, inflicting [cbuff:CalamityMod/ArmorCrunch] on hit
 			Homing stars release from the collision point
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
@@ -1427,7 +1418,7 @@ Items: {
 		Tooltip:
 			'''
 			Inflicts [cebuff:CalamityEntropy/LifeOppress] and accumulates energy on hit
-			When your energy bar is full, you can right click to slash forward, leaving behind an abyssal rift
+			When your energy bar is full, you can Right Click to slash forward, leaving behind an abyssal rift
 			'''
 	}
 
@@ -1895,7 +1886,7 @@ Items: {
 			Gives a more challenging experience than existing Calamity difficulties
 			Lore items gain special, toggleable bonuses
 			[c/ff0000: Note: This mod's balancing doesn't take this mode into account! Expect dire circumstances ahead...]
-			Right click use to only toggle TDR
+			Right Click use to only toggle TDR
 			'''
 	}
 
@@ -2058,7 +2049,7 @@ Items: {
 		DisplayName: Runic Ruin
 		Tooltip:
 			'''
-			Right click with this item on armor in the inventory to remove prefixes
+			Right Click with this item on armor in the inventory to remove prefixes
 			The prefix item used will be recovered
 			'''
 	}
@@ -2286,6 +2277,7 @@ Items: {
 		DisplayName: Bacterial Combustion Engine
 		Tooltip:
 			'''
+			Grants immunity to knockback
 			Hitting enemies with true melee weapons restores 8 life and grants temporary defense to a max of 8
 			{AttackSpeed}% increased true melee attack speed
 			'''
@@ -2306,7 +2298,7 @@ Items: {
 		DisplayName: Void Fractal
 		Tooltip:
 			'''
-			Left click to swing forward a voiden bolt five times
+			Left Click to swing forward a voiden bolt five times
 			The sixth swing throws the sword forward, casting a ring of stars
 			The seventh swing creates a slash across the screen
 			Right Click to perform a void slash towards your cursor and makes the character invincible every 10 seconds
@@ -2344,7 +2336,7 @@ Items: {
 			Calls down a storm of infernal feathers that inflict [cebuff:CalamityEntropy/LifeOppress] and [cebuff:CalamityMod/Dragonfire]
 			Infernal feathers will also return to the player on hit, restoring between 10 and 14 life
 			Every 7th swing instead calls down a giant blade that inflicts [cebuff:BetsysCurse]
-			Holding right click will charge the blade, releasing right click at full charge will release a torrent of fire slashes
+			Holding Right Click will charge the blade, releasing Right Click at full charge will release a torrent of fire slashes
 			'''
 	}
 
@@ -2368,7 +2360,7 @@ Items: {
 			Sends visions of past blades towards your cursor
 			On every 9th slash send forth a devastating beam
 			On every 10th slash throw the sword out on a chain, releasing cosmic energy
-			Right click to perform a ghost slash that grants invunerability and sends you towards your cursor every 5 seconds
+			Right Click to perform a ghost slash that grants invunerability and sends you towards your cursor every 5 seconds
 			'[c/fcc7ff:The path past your Zenith is of your will and perserverance alone...]'
 			'''
 	}
@@ -2739,7 +2731,7 @@ Items: {
 		DisplayName: Test Item - Remove All Cooldowns
 		Tooltip:
 			'''
-			Right click while in the inventory to set cooldown time multiplier
+			Right Click while in the inventory to set cooldown time multiplier
 			Current: Reduce cooldown time by [R]%
 			'''
 	}
@@ -2883,7 +2875,7 @@ Items: {
 		Tooltip:
 			'''
 			Every 5 swings the sword lets out an extra powerful slash
-			Right click to
+			Right Click to
 			This sword's power grows with progression
 			Current Level: [LV] / 15
 			When her power is sufficient, you can use the following skills:  
@@ -4236,7 +4228,7 @@ Items: {
 		DisplayName: Ba Xing Chong
 		Tooltip:
 			'''
-			Launch lot of homing missile
+			Launches two barrages of homing missiles that explode on impact, inflicting [cbuff:CalamityMod/MiracleBlight], [cbuff:CalamityMod/TrueVulnerabilityHex] and [cbuff:OnFire3]
 			[c/ff7f50:"Former owner of this gun? You mean that guy covered by cyberware except his brain?"]
 			'''
 	}
@@ -4246,10 +4238,9 @@ Items: {
 		Tooltip:
 			'''
 			Throw a patchwork boomerang
-			Right-click to dash forward, take no damage during dash
-			Hitting any target with dash triggers a backflip and fires a wide X-slash in midair
-			X-slash hit causes a delayed explosion and charges the weapon
-			Empowers the next 10 normal attacks
+			Right Click to dash forward and gain temporary invulnerability on a 30 second cooldown
+			Hitting any target with the dash triggers a backflip, granting more invulnerability before firing a wide X-slash at the hit target
+			X-slash damage causes a delayed explosion and empowers the boomerang for the next 10 throws
 			'''
 	}
 
@@ -4257,19 +4248,19 @@ Items: {
 		DisplayName: Azafure Imperial Guard Machine Gun
 		Tooltip:
 			'''
-			Using [i:CalamityEntropy/HellIndustrialComponents] Hell Industry Components to load [AMMOMAX] ammunition
-			Fires rapid short-range shotgun rounds
+			Left Click with [i:CalamityEntropy/HellIndustrialComponents] Brimstone Industrial Components in your inventory to load [AMMOMAX] ammunition
+			Fires a constant stream of short-range bullets that inflict [cebuff:CalamityEntropy/MechanicalTrauma]
 			'''
 	}
 
 	AzafureExhaustGasInjector: {
 		DisplayName: Azafure Exhaust Gas Injector
-		Tooltip: Jetting corrosive exhaust gas
+		Tooltip: Fires a constrant stream of corrosive exhaust gas
 	}
 
 	AzafureStandardShotgun: {
 		DisplayName: Azafure Standard Shotgun
-		Tooltip: Fire some scattered shotgun pellets
+		Tooltip: Fire a spread of shotgun rounds that inflict [cebuff:CalamityEntropy/MechanicalTrauma]
 	}
 }
 
@@ -5010,6 +5001,7 @@ Projectiles: {
 	AzafureExhaustGasInjectorHeld.DisplayName: Azafure Exhaust Gas Injector Held
 	ExhaustGas.DisplayName: Exhaust Gas
 	MewMewBombThrow.DisplayName: Mew Mew Bomb Throw
+	KinanitionSpawn.DisplayName: Kinanition Spawn
 }
 
 LegendTooltip: - Legend -

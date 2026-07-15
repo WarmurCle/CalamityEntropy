@@ -333,6 +333,7 @@ namespace CalamityEntropy.Content.Items.Books
         {
             if (!Projectile.active)
                 return;
+            int origType = this.getShootProjectileType();
             var modifer = GetProjectileModifer();
             Vector2 shootVel = (velocity.normalize() * bookItem.shootSpeed * modifer.shotSpeed * shotSpeedMul).RotatedByRandom(this.randomShootRotMax * randomRotMult);
             float kb = Projectile.GetOwner().GetTotalKnockback(Projectile.DamageType).ApplyTo(bookItem.knockBack * modifer.Knockback);
@@ -356,6 +357,7 @@ namespace CalamityEntropy.Content.Items.Books
                     bp.homingRange *= modifer.HomingRange;
                     bp.attackSpeed = modifer.attackSpeed;
                     bp.lifeSteal += modifer.lifeSteal;
+                    bp.origProjType = origType;
                     for (int i = 0; i < Math.Min(Main.LocalPlayer.GetMyMaxActiveBookMarks(bookItem), Projectile.GetOwner().Entropy().EBookStackItems.Count); i++)
                     {
                         Item it = Projectile.GetOwner().Entropy().EBookStackItems[i];
@@ -378,6 +380,7 @@ namespace CalamityEntropy.Content.Items.Books
                     }
                 }
                 initAction?.Invoke(proj);
+                CEUtils.SyncProj(proj);
             }
             bookItem.channel = true;
         }
@@ -673,6 +676,7 @@ namespace CalamityEntropy.Content.Items.Books
         public float lifeSteal = 0;
         public float gravity = 0;
         public bool mainProj = false;
+        public int origProjType = -1;
         public virtual Color baseColor => Color.White;
         public Color color;
         public bool initColor = true;
@@ -723,6 +727,7 @@ namespace CalamityEntropy.Content.Items.Books
             writer.Write(lifeSteal);
             writer.Write(gravity);
             writer.Write(mainProj);
+            writer.Write(origProjType);
 
             writer.Write(ProjectileEffects.Count);
             foreach (var effect in ProjectileEffects)
@@ -742,6 +747,7 @@ namespace CalamityEntropy.Content.Items.Books
             lifeSteal = reader.ReadInt32();
             gravity = reader.ReadSingle();
             mainProj = reader.ReadBoolean();
+            origProjType = reader.ReadInt32();
 
             this.ProjectileEffects.Clear();
             int r = reader.ReadInt32();

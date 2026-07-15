@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Items;
 using System;
@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             CEUtils.PlaySound("gunshot_small" + Main.rand.Next(1, 4).ToString(), Main.rand.NextFloat(0.7f, 1.3f), position, 10, 0.4f);
             CEUtils.PlaySound("crystalsound" + Main.rand.Next(1, 3).ToString(), Main.rand.NextFloat(0.7f, 1.3f), position, 10, 0.4f);
             Projectile.NewProjectile(source, position + new Vector2(8, velocity.X > 0 ? -7 : 7).RotatedBy(velocity.ToRotation()), velocity, type, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position + new Vector2(0, Main.rand.NextFloat(-10, 10)).RotatedBy(velocity.ToRotation()), velocity, ModContent.ProjectileType<RuneTorrentRanger>(), damage, 4, player.whoAmI);
+            Projectile.NewProjectile(source, position + new Vector2(0, Main.rand.NextFloat(-10, 10)).RotatedBy(velocity.ToRotation()), velocity, ModContent.ProjectileType<RuneTorrentRanger>(), (int)(damage * 0.75f), 4, player.whoAmI);
             return false;
         }
         public override bool CanConsumeAmmo(Item ammo, Player player)

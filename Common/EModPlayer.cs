@@ -2037,7 +2037,7 @@ namespace CalamityEntropy.Common
             }
             if (info.Damage > Player.statLifeMax2 / 20 && MariviniumShieldCount > 0)
             {
-                immune = 30;
+                immune = 60;
                 MariviniumShieldCount--;
                 Player.Heal(100);
                 CEUtils.PlaySound("crystalShieldBreak", 1, Player.Center, 1, 0.7f);

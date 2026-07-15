@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 60;
+            Item.damage = 33;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 76;
             Item.height = 46;
@@ -124,6 +124,10 @@ namespace CalamityEntropy.Content.Items.Weapons
     }
     public class ExhaustGas : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 10000000;
+        }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             modifiers.ArmorPenetration += target.defense;

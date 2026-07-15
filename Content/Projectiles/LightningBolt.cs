@@ -1,13 +1,15 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using CalamityMod;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
+using static CalamityEntropy.CEUtils;
 
 namespace CalamityEntropy.Content.Projectiles
 {
     public class LightningBolt : ModProjectile
     {
-        public List<Vector2> odp = new List<Vector2>();
+        public List<Vector2> oldPos = new List<Vector2>();
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 1;
@@ -22,39 +24,55 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.timeLeft = 80;
+            Projectile.extraUpdates = 1;
         }
 
         public override void AI()
         {
-            Vector2 ps = Projectile.Center + new Vector2(Main.rand.Next(-20, 21), Main.rand.Next(-20, 21));
-            odp.Add(ps);
-            if (odp.Count > 16)
+            Vector2 ps = Projectile.velocity + Projectile.Center + CEUtils.randomPointInCircle(42);
+            for (float i = 0.1f; i <= 1; i += 0.1f)
             {
-                odp.RemoveAt(0);
+                oldPos.Add(Vector2.Lerp(Projectile.Center, ps, i));
+                if (oldPos.Count > 200)
+                {
+                    oldPos.RemoveAt(0);
+                }
             }
-            foreach (Vector2 p in odp)
-            {
-                Lighting.AddLight(p, 1, 1, 1);
-            }
+            Lighting.AddLight(ps, 1, 1, 1);
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(odp[0], Projectile.Center, targetHitbox, (int)(20 * Projectile.scale));
+            return CEUtils.LineThroughRect(oldPos[0], Projectile.Center, targetHitbox, (int)(20 * Projectile.scale));
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
-            if (odp.Count > 1)
+            if (oldPos.Count < 3)
+                return false;
+            List<VertexPointSets> v = new List<VertexPointSets>();
+            var gd = Main.graphics.GraphicsDevice;
+            Main.spriteBatch.UseAdditive();
+            for (int i = 0; i < oldPos.Count; i++)
             {
-                for (int i = 1; i < odp.Count; i++)
-                {
-                    CEUtils.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, odp[i - 1], odp[i], Color.White * 0.4f, 20 * Projectile.scale);
-
-                    CEUtils.drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, odp[i - 1], odp[i], Color.White, 12 * Projectile.scale, (int)(8 * Projectile.scale));
-
-                }
+                float a = (i / (oldPos.Count - 1f));
+                float w = CEUtils.Parabola(a, 1);
+                v.Add(new VertexPointSets(oldPos[i], Color.Aqua, 36 * w, (i / (oldPos.Count - 1f)) * 3f + Main.GlobalTimeWrappedHourly * 4));
             }
+            var ve = GetVertexesList(v, false);
+            gd.Textures[0] = getExtraTex("VoltTrailThicc");
+            gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+            v.Clear();
+            for (int i = 0; i < oldPos.Count; i++)
+            {
+                float a = (i / (oldPos.Count - 1f));
+                float w = CEUtils.Parabola(a, 1);
+                v.Add(new VertexPointSets(oldPos[i], Color.White, 16 * w, (i / (oldPos.Count - 1f)) * 3f + Main.GlobalTimeWrappedHourly * 6));
+            }
+            ve = GetVertexesList(v, false);
+            gd.Textures[0] = getExtraTex("VoltTrailThicc");
+            gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+            Main.spriteBatch.ExitShaderRegion();
             return false;
         }
     }

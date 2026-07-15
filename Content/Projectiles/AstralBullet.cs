@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Projectiles
                         if (this.ShooterModProjectile is EntropyBookHeldProjectile mp)
                         {
                             NPC target = Projectile.FindTargetWithinRange(1400);
-                            int type = mp.getShootProjectileType();
+                            int type = this.origProjType;
                             foreach (var e in this.ProjectileEffects)
                             {
                                 if (e is GZMBMEffect)
@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Projectiles
                                     type = new BookMarkGoozma().modifyProjectile(type);
                                 }
                             }
-                            mp.ShootSingleProjectile(type, Projectile.Center, (target == null ? Projectile.velocity : (target.Center - Projectile.Center)), 1);
+                            mp.ShootSingleProjectile(type, Projectile.Center, (target == null ? Projectile.velocity : (target.Center - Projectile.Center)), 1, initAction:(p) => ((EBookBaseProjectile)p.ModProjectile).origProjType = this.origProjType);
                         }
                     }
                 }

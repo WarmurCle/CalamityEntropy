@@ -232,7 +232,7 @@ Items: {
 		Tooltip:
 			'''
 			[c/ce97fa:左键发射一连串的闪电箭，]
-			[c/ce97fa:闪电箭保留弹药原有效果，并在击中目标后追踪]
+			[c/ce97fa:闪电箭保留弹药原有效果，并在击中目标后生成追逐敌人的水流]
 			[c/0078b9:右键发射一发追踪的雷电之矛，]
 			[c/0078b9:击中目标后爆发出雷电]
 			'''
@@ -699,7 +699,7 @@ Items: {
 		DisplayName: 圣洁月光
 		Tooltip:
 			'''
-			增加15%魔法伤害
+			增加15%魔法伤害和50点最大魔力值
 			每三十秒获得一个魔力护盾，数值等同于魔力上限的25%，
 			魔力护盾存在期间增加10%移动速度并降低10%魔力消耗，
 			护盾会对触碰到的敌人造成伤害，
@@ -2407,6 +2407,7 @@ Items: {
 		DisplayName: 瘟疫内燃机
 		Tooltip:
 			'''
+			免疫击退
 			使用真近战武器命中敌人会为你回血并增加临时护甲
 			+{AttackSpeed}%近战攻速
 			'''
@@ -5079,6 +5080,7 @@ Projectiles: {
 	AzafureExhaustGasInjectorHeld.DisplayName: 阿萨福勒废气喷射器
 	ExhaustGas.DisplayName: 废气
 	MewMewBombThrow.DisplayName: 喵喵炸弹
+	// KinanitionSpawn.DisplayName: Kinanition Spawn
 }
 
 LegendTooltip: - 传奇物品 -

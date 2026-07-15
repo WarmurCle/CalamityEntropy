@@ -25,12 +25,29 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 
 namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static Vector3 RotatedBy(this Vector3 vector, float rotation, Vector3 axis)
+        {
+            axis.Normalize();
+            Quaternion quaternion = Quaternion.CreateFromAxisAngle(axis, rotation);
+            return Vector3.Transform(vector, quaternion);
+        }
+        public static LocalizedText GetNPCName(int npc)
+        {
+            if (npc < NPCID.Count)
+                return Language.GetText("NPCName." + NPCID.Search.GetName(npc));
+            return NPCLoader.GetNPC(npc).GetLocalization("DisplayName");
+        }
+        public static LocalizedText GetNPCName<T>() where T : ModNPC
+        {
+            return GetNPCName(ModContent.NPCType<T>());
+        }
         public class VertexPointSets
         {
             public Vector2 Position;
@@ -1097,6 +1114,13 @@ namespace CalamityEntropy
             Main.HoverItem = item.Clone();
             Main.hoverItemName = item.HoverName;
         }
+        public static void SyncItem(int i)
+        {
+            if (Main.netMode != NetmodeID.SinglePlayer)
+            {
+                NetMessage.SendData(MessageID.SyncItem, -1, -1, null, i);
+            }
+        }
         public static void SyncProj(int proj)
         {
             if (Main.netMode != NetmodeID.SinglePlayer)
@@ -1233,7 +1257,8 @@ namespace CalamityEntropy
         }
         public static void UseAdditive(this SpriteBatch sb)
         {
-            sb.UseBlendState(BlendState.Additive);
+            sb.End();
+            sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
         }
         public static void UseSampleState(this SpriteBatch sb, SamplerState s)
         {

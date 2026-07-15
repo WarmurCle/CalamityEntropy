@@ -115,7 +115,6 @@ namespace CalamityEntropy.Content.Items.Books
                 Projectile.localAI[0]++;
                 return true;
             }
-
             return base.Shoot();
         }
         public override bool PreDraw(ref Color lightColor)

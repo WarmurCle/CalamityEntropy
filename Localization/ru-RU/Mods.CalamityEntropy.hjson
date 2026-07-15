@@ -4752,6 +4752,7 @@ Projectiles: {
 	// AzafureExhaustGasInjectorHeld.DisplayName: Azafure Exhaust Gas Injector Held
 	// ExhaustGas.DisplayName: Exhaust Gas
 	// MewMewBombThrow.DisplayName: Mew Mew Bomb Throw
+	// KinanitionSpawn.DisplayName: Kinanition Spawn
 }
 
 LegendTooltip: - Легенда -
