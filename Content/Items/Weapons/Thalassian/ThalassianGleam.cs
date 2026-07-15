@@ -59,22 +59,22 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
         public static int ShootCount() => Level() switch
         {
             0 => 2,
-            1 => 3,
+            1 => 2,
             2 => 3,
-            3 => 4,
-            4 => 5,
-            5 => 5,
-            6 => 6,
-            7 => 6,
-            8 => 7,
-            9 => 8,
-            10 => 8,
-            11 => 9,
-            12 => 9,
-            13 => 10,
-            14 => 11,
-            15 => 12,
-            _ => 12
+            3 => 3,
+            4 => 3,
+            5 => 3,
+            6 => 3,
+            7 => 4,
+            8 => 4,
+            9 => 4,
+            10 => 4,
+            11 => 5,
+            12 => 5,
+            13 => 5,
+            14 => 5,
+            15 => 6,
+            _ => 6
         };
         public override void AddRecipes()
         {
@@ -83,6 +83,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
         #region SlotStaffs
         public override bool PreDrawBookmarkSlot(Item bookmark, Vector2 pos, float alpha, float scale, float outlineAlpha)
         {
+            scale *= 1.2f;
             if (!bookmark.IsAir)
             {
                 if (BookMarkLoader.IsABookMark(bookmark) && bookmark.ModItem is not ThalassianLegendGem && BookMarkLoader.GetUITexture(bookmark) != null)
@@ -109,9 +110,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
                     gemShape = false;
             }
             float num = 46;
-            float l = 32 * scale;
+            float l = 28 * scale;
             float w = 14 * scale;
-            float h = 26 * scale;
+            float h = 24 * scale;
             Vector2 center = pos;
             List<Vector2> points = new List<Vector2>();
             List<CEUtils.VertexPointSets> sets = new List<CEUtils.VertexPointSets>();
@@ -205,17 +206,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
                 {
                     width = CEUtils.Parabola(Utils.Remap(pr, 0.1f, 0.95f, 0, 1), 1);
                 }
-                width *= 5f * scale;
+                width *= 2.4f * scale;
                 sets.Add(new CEUtils.VertexPointSets(points[i] + center, Color.White * alpha, width, 0));
             }
-            ThalassianWaterBolt.DrawTrail(sets, Color.Lerp(Color.Aqua, Color.Yellow, outlineAlpha), Color.White, true);
+            ThalassianWaterBolt.DrawTrail(sets, Color.Lerp(Color.Aqua, Color.Yellow, outlineAlpha), new Color(60, 255, 255), CEUtils.getExtraTex("VoronoiShapes"), CEUtils.getExtraTex("StreakSolid"), true);
 
             return false;
         }
         #endregion
         public static int Level()
         {
-            return 8;
             if (DownedBossSystem.downedExoMechs && DownedBossSystem.downedCalamitas)
                 return 15;
             if (DownedBossSystem.downedExoMechs || DownedBossSystem.downedCalamitas)
@@ -284,7 +284,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
             if (s)
             {
                 float scale = getBaseModifer().Size;
-                CEUtils.PlaySound("ThalassianShoot", Main.rand.NextFloat(0.6f, 1.1f), Projectile.Center, volume: 0.4f);
+                CEUtils.PlaySound("ThalassianShoot", Main.rand.NextFloat(0.6f, 1.1f), Projectile.Center, volume: 0.32f);
                 for (int i = 0; i < 10 + ThalassianGleam.Level() / 3; i++)
                 {
                     Dust dust = Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<SquashDust>(), Vector2.Zero);
@@ -296,13 +296,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
                 }
                 for(int i = 0; i < 4; i++)
                 {
-                    GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(180, 255, 255), "CalamityEntropy/Assets/Extra/Star2", Vector2.One, CEUtils.randomRot(), 0.01f, 0.8f * scale, 16));
+                    GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Projectile.GetOwner().velocity, new Color(180, 255, 255), "CalamityEntropy/Assets/Extra/Star2", Vector2.One, CEUtils.randomRot(), 0.01f, 0.8f * scale, 16));
                 }
             }
             Projectile.Center = opos;
             Projectile.velocity = ovel;
             
             return s;
+        }
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+        {
         }
         public override void SetShootCooldown(int cd)
         {
@@ -315,7 +318,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
             }
             else
             {
-                shotCooldown /= 5;
+                shotCooldown /= 3;
             }
         }
         public float orot = 0;
@@ -360,6 +363,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
                 Projectile.rotation = -MathHelper.PiOver2;
                 orot = Projectile.rotation;
             }
+            Projectile.GetOwner().heldProj = Projectile.whoAmI;
             Projectile.GetOwner().SetHandRotWithDir(orot, Projectile.velocity.X > 0 ? 1 : -1);
         }
         public int UIOpenAnmSCount = 0;

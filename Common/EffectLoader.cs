@@ -1050,7 +1050,7 @@ namespace CalamityEntropy.Common
             graphicsDevice.Clear(Color.Transparent);
             if (votype == -1)
                 votype = ModContent.TileType<VoidOreTile>();
-            if (Main.LocalPlayer.Entropy().voidOreNearby > 0)
+            if (Main.LocalPlayer.Entropy().voidOreNearby > 0 && Config.Instance.TileEffect)
                 DrawVoidOres(votype);
             bool startBatch = false;
             int ratzielStype = ModContent.ProjectileType<RatzielSentry>();

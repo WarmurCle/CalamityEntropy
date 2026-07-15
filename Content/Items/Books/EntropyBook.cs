@@ -524,7 +524,6 @@ namespace CalamityEntropy.Content.Items.Books
                     player.itemTime = 3;
                     player.itemAnimation = 3;
                     player.channel = true;
-
                 }
                 if (!UIOpen)
                 {
