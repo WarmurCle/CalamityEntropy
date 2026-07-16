@@ -4346,8 +4346,17 @@ Items: {
 	}
 
 	ThalassianGleam: {
-		// DisplayName: Thalassian Gleam
-		// Tooltip: ""
+		DisplayName: 渊潇棱光之杖
+		Tooltip: ""
+	}
+
+	GoldenFlowerInAJar: {
+		DisplayName: 罐中金色花
+		Tooltip:
+			'''
+			将背景变为一片粉金的田野
+			$谢谢你见证我的梦
+			'''
 	}
 }
 

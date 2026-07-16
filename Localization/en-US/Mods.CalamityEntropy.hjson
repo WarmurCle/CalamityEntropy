@@ -4277,6 +4277,15 @@ Items: {
 		DisplayName: Thalassian Gleam
 		Tooltip: ""
 	}
+
+	GoldenFlowerInAJar: {
+		DisplayName: Golden Flower In A Jar
+		Tooltip:
+			'''
+			Turns the background into a field of pink and gold
+			$Thank you for watching my dream
+			'''
+	}
 }
 
 SmolderingSetBonus:
