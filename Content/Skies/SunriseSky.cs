@@ -113,7 +113,7 @@ namespace CalamityEntropy.Content.Skies
             for(int i = 0; i < 8; i++)
             {
                 offsetn = xOffset * ((i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * 0.04f);
-                float yset = (float)Math.Pow(float.Max(0, worldHeight * 0.205f - Main.screenPosition.Y) * ((i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * 0.6f), 0.57f);
+                float yset = (float)Math.Pow(float.Max(0, worldHeight * 0.205f - Main.screenPosition.Y) * ((i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * 0.6f), 0.52f);
                 Main.spriteBatch.Draw(Fields[i], Vector2.UnitY * (98 + yset) * scale, new Rectangle((int)offsetn, 0, fullscreen.Width, Fields[i].Height), lColor * opacity * (0.3f + 0.7f * (i / 7f)), 0, Vector2.Zero, scale, SpriteEffects.None, 0);
             }
             Main.spriteBatch.ExitShaderRegion();
