@@ -948,6 +948,7 @@ namespace CalamityEntropy.Common
         public int RatzielShieldTime = 0;
         public int BigShotWingVisual = 0;
         public float MeleeScale = 1;
+        public int SunriseScene = 0;
         public override void ResetEffects()
         {
             MeleeScale = 1;
@@ -1146,6 +1147,8 @@ namespace CalamityEntropy.Common
 
         public override void PreUpdate()
         {
+            if (SunriseScene > 0)
+                SunriseScene--;
             if (drCrystals == null && Main.myPlayer == Player.whoAmI && !Main.dedServ)
             {
                 drCrystals = new List<bool>() { 

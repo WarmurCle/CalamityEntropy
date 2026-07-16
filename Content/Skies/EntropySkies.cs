@@ -16,7 +16,8 @@ namespace CalamityEntropy.Content.Skies
             SkyManager.Instance["CalamityEntropy:VoidVortex"] = new VoidVortexSky();
             Terraria.Graphics.Effects.Filters.Scene["CalamityEntropy:Snowgrave"] = new Filter(new TransScreenShaderData("FilterMiniTower").UseColor(new Color(200, 200, 255)).UseOpacity(0f), EffectPriority.VeryHigh);
             SkyManager.Instance["CalamityEntropy:Snowgrave"] = new SnowgraveSky();
-
+            Terraria.Graphics.Effects.Filters.Scene["CalamityEntropy:SunriseSky"] = new Filter(new TransScreenShaderData("FilterMiniTower").UseColor(Color.White).UseOpacity(0f), EffectPriority.VeryHigh);
+            SkyManager.Instance["CalamityEntropy:SunriseSky"] = new SunriseSky();
         }
     }
 }
