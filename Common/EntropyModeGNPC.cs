@@ -220,7 +220,7 @@ namespace CalamityEntropy.Common
                 {
                     if (Main.GameUpdateCount % 40 == 0 && Main.rand.NextBool(2))
                     {
-                        Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, (NPC.plantBoss.ToNPC().target.ToPlayer().Center - npc.Center).normalize() * 22, ProjectileID.SeedPlantera, npc.GetProjectileDamage(ProjectileID.SeedPlantera) / 2, 2, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, (NPC.plantBoss.ToNPC().target.ToPlayer().Center - npc.Center).normalize() * 22, ProjectileID.SeedPlantera, (int)(npc.GetProjectileDamage(ProjectileID.SeedPlantera) * 0.6f), 2, Main.myPlayer);
                     }
                 }
                 if (npc.type == NPCID.KingSlime)
