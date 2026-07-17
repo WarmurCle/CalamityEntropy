@@ -4358,6 +4358,11 @@ Items: {
 			$谢谢你见证我的梦
 			'''
 	}
+
+	Erebodrepanon: {
+		DisplayName: 泓渊亡铭
+		Tooltip: 挥舞一把巨镰，将你的敌人撕的粉碎
+	}
 }
 
 SmolderingSetBonus:
@@ -5097,6 +5102,8 @@ Projectiles: {
 	// KinanitionSpawn.DisplayName: Kinanition Spawn
 	// ThalassianGleamHeld.DisplayName: Thalassian Gleam Held
 	// ThalassianWaterBolt.DisplayName: Thalassian Water Bolt
+	// ErebodrepanonHeld.DisplayName: Erebodrepanon Held
+	// ErebodrepanonMark.DisplayName: Erebodrepanon Mark
 }
 
 LegendTooltip: - 传奇物品 -

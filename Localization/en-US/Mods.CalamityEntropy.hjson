@@ -4286,6 +4286,11 @@ Items: {
 			$Thank you for watching my dream
 			'''
 	}
+
+	Erebodrepanon: {
+		DisplayName: Erebodrepanon
+		Tooltip: Wield a giant scythe and tear your enemies to pieces
+	}
 }
 
 SmolderingSetBonus:
@@ -5028,6 +5033,8 @@ Projectiles: {
 	KinanitionSpawn.DisplayName: Kinanition Spawn
 	ThalassianGleamHeld.DisplayName: Thalassian Gleam Held
 	ThalassianWaterBolt.DisplayName: Thalassian Water Bolt
+	ErebodrepanonHeld.DisplayName: Erebodrepanon Held
+	ErebodrepanonMark.DisplayName: Erebodrepanon Mark
 }
 
 LegendTooltip: - Legend -
