@@ -61,12 +61,12 @@ namespace CalamityEntropy.Content.Items.Accessories
                 string t = line.Text.StartsWith("$") ? line.Text.Substring(1) : line.Text;
                 for(int i = 0; i < t.Length; i++)
                 {
-                    float sa = 0.65f + 0.35f * (float)(Math.Sin(i / (t.Length - 1f) * 4f + Main.GlobalTimeWrappedHourly * -6));
+                    float sa = 0.65f + 0.35f * (float)(Math.Sin(i / (t.Length - 1f) * 4f + Main.GlobalTimeWrappedHourly * (line.Name == "ItemName" ? -2 : 6)));
                     string character = t[i].ToString();
-                    Vector2 p = new Vector2(line.X + xj, line.Y + (float)(Math.Sin(i / (t.Length - 1f) * 4f + Main.GlobalTimeWrappedHourly * -4) * 1));
+                    Vector2 p = new Vector2(line.X + xj, line.Y + (float)(Math.Sin(i / (t.Length - 1f) * 4f + Main.GlobalTimeWrappedHourly * -4) * 1) * (line.Name == "ItemName" ? 1 : -1));
                     for(float r = 0; r < MathHelper.TwoPi; r += MathHelper.PiOver4)
                     {
-                        Main.spriteBatch.DrawString(FontAssets.MouseText.Value, character, p + r.ToRotationVector2() * 2, line.Name == "ItemName" ? Color.Gold * 0.6f : Color.Pink * sa);
+                        Main.spriteBatch.DrawString(FontAssets.MouseText.Value, character, p + r.ToRotationVector2() * 2, (line.Name == "ItemName" ? Color.Gold * 0.6f : Color.Pink) * sa);
                     }
                     Main.spriteBatch.DrawString(FontAssets.MouseText.Value, character, p, line.Name == "ItemName" ? Color.Pink * 2 : Color.Gold * 1.1f);
                     xj += FontAssets.MouseText.Value.MeasureString(character).X;

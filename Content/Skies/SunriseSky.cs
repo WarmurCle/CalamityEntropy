@@ -94,27 +94,27 @@ namespace CalamityEntropy.Content.Skies
             float bgOffset = Utils.Remap(Main.screenPosition.Y / 10000f, worldHeight * 0.3f, worldHeight * 0.42f, 0, 280);
             float xOffset = Main.screenPosition.X;
             Main.spriteBatch.UseSampleState(SamplerState.PointWrap);
-            float offsetn = xOffset * 0.005f + time * 0.05f;
-            float scale = Main.screenWidth / Background.Width * 1.35f;
+            float offsetn = time * 0.1f;
+            float scale = Main.screenWidth / Cliffs.Width * 1;
             Main.spriteBatch.Draw(CEUtils.pixelTex, fullscreen, Color.Lerp(new Color(52, 20, 12, 255), new Color(254, 224, 79), sunPos * 0.5f + 0.5f) * opacity);
 
             Main.spriteBatch.Draw(CloudsBack2, Vector2.UnitY * -60 * scale, new Rectangle((int)offsetn, 0, CloudsBack2.Width, CloudsBack2.Height), lColor * opacity, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
-            offsetn = xOffset * 0.006f + time * 0.1f;
+            offsetn = time * 0.25f;
             Main.spriteBatch.Draw(CloudsBack1, Vector2.Zero * -40 * scale, new Rectangle((int)offsetn, 0, CloudsBack1.Width, CloudsBack1.Height), lColor * opacity, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
-            offsetn = xOffset * 0.007f + time * 0.25f;
+            offsetn = time * 0.5f;
             Main.spriteBatch.Draw(CloudsMid, new Vector2(0, 15 * scale), new Rectangle((int)offsetn, 0, CloudsMid.Width, CloudsMid.Height), lColor * opacity, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
-            offsetn = xOffset * 0.008f + time * 0.4f;
+            offsetn = time * 0.8f;
             Main.spriteBatch.Draw(CloudsFore, Vector2.Zero, new Rectangle((int)offsetn, 0, CloudsFore.Width, CloudsFore.Height), lColor * opacity, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
 
             offsetn = 6;
-            Main.spriteBatch.Draw(Cliffs, new Vector2(0, 60 * scale), new Rectangle((int)offsetn, 0, (int)(Main.screenWidth / scale) + 1, Cliffs.Height), lColor * opacity, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(Sun, new Vector2(Main.screenWidth / 2, (100 - sunPos * 20) * scale), null, Color.White * opacity, 0, Sun.Size().Half(), scale, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(CEUtils.pixelTex, new Vector2(0, 97 * scale), fullscreen, Color.Lerp(new Color(40, 32, 16, 255), new Color(247, 210, 43), sunPos * 0.5f + 0.5f) * opacity);
+            Main.spriteBatch.Draw(Cliffs, new Vector2(0, 100 * scale), new Rectangle((int)offsetn, 0, (int)(Main.screenWidth / scale) + 1, Cliffs.Height), lColor * opacity, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(Sun, new Vector2(236 * scale, (138 - sunPos * 20) * scale), null, Color.White * opacity, 0, Sun.Size().Half(), scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(CEUtils.pixelTex, new Vector2(0, 137 * scale), fullscreen, Color.Lerp(new Color(40, 32, 16, 255), new Color(247, 210, 43), sunPos * 0.5f + 0.5f) * opacity);
             for(int i = 0; i < 8; i++)
             {
                 offsetn = xOffset * ((i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * 0.04f);
-                float yset = (float)Math.Pow(float.Max(0, worldHeight * 0.205f - Main.screenPosition.Y) * ((i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * 0.6f), 0.52f);
-                Main.spriteBatch.Draw(Fields[i], Vector2.UnitY * (98 + yset) * scale, new Rectangle((int)offsetn, 0, fullscreen.Width, Fields[i].Height), lColor * opacity * (0.3f + 0.7f * (i / 7f)), 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+                float yset = (float)Math.Pow(float.Max(0, worldHeight * 0.22f - Main.screenPosition.Y) * ((i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * 16f), 0.52f) * 0.3f;
+                Main.spriteBatch.Draw(Fields[i], Vector2.UnitY * (138 + yset) * scale, new Rectangle((int)offsetn, 0, fullscreen.Width, Fields[i].Height), lColor * opacity * (0.4f + 0.6f * (i / 7f)), 0, Vector2.Zero, scale, SpriteEffects.None, 0);
             }
             Main.spriteBatch.ExitShaderRegion();
         }
