@@ -850,40 +850,43 @@ namespace CalamityEntropy.Common
             {
                 if (projectile.owner == Main.myPlayer)
                 {
-                    foreach (NPC n in Main.ActiveNPCs)
+                    if (!CELists.GodheadBlacklist.Contains(projectile.type))
                     {
-                        if (!n.friendly && !n.dontTakeDamage)
+                        foreach (NPC n in Main.ActiveNPCs)
                         {
-                            float rsize = (projectile.width + projectile.height) / 2 * 6;
-                            if (rsize < 128)
+                            if (!n.friendly && !n.dontTakeDamage)
                             {
-                                rsize = 128;
-                            }
-                            if (rsize > 600)
-                            {
-                                rsize = 600;
-                            }
-                            if (CircleIntersectsRectangle(projectile.Center, rsize / 2, n.Hitbox))
-                            {
-                                int c = projectile.Entropy().ghcounter;
-                                if (c % 8 == 0)
+                                float rsize = (projectile.width + projectile.height) / 2 * 6;
+                                if (rsize < 128)
                                 {
-                                    bool canHit = true;
-                                    if (projectile.ModProjectile is ModProjectile mp)
+                                    rsize = 128;
+                                }
+                                if (rsize > 600)
+                                {
+                                    rsize = 600;
+                                }
+                                if (CircleIntersectsRectangle(projectile.Center, rsize / 2, n.Hitbox))
+                                {
+                                    int c = projectile.Entropy().ghcounter;
+                                    if (c % 8 == 0)
                                     {
-                                        bool? ch = mp.CanHitNPC(n);
-                                        if (ch.HasValue && !ch.Value)
+                                        bool canHit = true;
+                                        if (projectile.ModProjectile is ModProjectile mp)
                                         {
-                                            canHit = false;
+                                            bool? ch = mp.CanHitNPC(n);
+                                            if (ch.HasValue && !ch.Value)
+                                            {
+                                                canHit = false;
+                                            }
+                                        }
+                                        if (canHit)
+                                        {
+                                            int ydf = n.defense;
+                                            Main.LocalPlayer.ApplyDamageToNPC(n, projectile.damage.ApplyAccArmorDamageBonus(projectile.owner.ToPlayer()) / 26, 0, 0, false, DamageClass.Generic, false);
                                         }
                                     }
-                                    if (canHit)
-                                    {
-                                        int ydf = n.defense;
-                                        Main.LocalPlayer.ApplyDamageToNPC(n, projectile.damage.ApplyAccArmorDamageBonus(projectile.owner.ToPlayer()) / 26, 0, 0, false, DamageClass.Generic, false);
-                                    }
+                                    projectile.Entropy().ghcounter++;
                                 }
-                                projectile.Entropy().ghcounter++;
                             }
                         }
                     }

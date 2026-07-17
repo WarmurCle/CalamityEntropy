@@ -55,3 +55,12 @@
 [Mods.CalamityEntropy.Items.Kinanition.Tooltip] - changed
 [Mods.CalamityEntropy.Items.HolyMoonlight.Tooltip] - changed
 [Mods.CalamityEntropy.Items.PlagueInternalCombustionEngine.Tooltip] - changed
+
+
+[3.20-Changes]
+[Mods.CalamityEntropy.Items.Erebodrepanon.DisplayName] - added
+[Mods.CalamityEntropy.Items.Erebodrepanon.Tooltip] - added
+[Mods.CalamityEntropy.Items.ThalassianGleam.DisplayName] - added
+[Mods.CalamityEntropy.Items.ThalassianGleam.Tooltip] - added
+[Mods.CalamityEntropy.Items.GoldenFlowerInAJar.DisplayName] - added
+[Mods.CalamityEntropy.Items.GoldenFlowerInAJar.Tooltip] - added

@@ -1,7 +1,9 @@
+using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.Fractal;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Projectiles.Melee;
+using CalamityMod.Projectiles.Typeless;
 using System.Collections.Generic;
 using Terraria.ModLoader;
 
@@ -11,6 +13,7 @@ namespace CalamityEntropy
     {
         public static List<string> tooltipNameUpList = new() { "zh-Hans" };
         public static List<int> SpecialTaintedEnchantmentList;
+        public static List<int> GodheadBlacklist;
         public static void Load()
         {
             int I<T>() where T : ModItem
@@ -56,12 +59,18 @@ namespace CalamityEntropy
                 P<RuneSongHeld>(),
                 P<AzafureImperialGuardMachineGunHeld>()
             };
+            GodheadBlacklist = new()
+            {
+                P<ElectricLaser>(),
+                P<FlashBolt>()
+            };
         }
         public static List<int> SoyMilkProjectileBlacklist;
         public static void Unload()
         {
             SpecialTaintedEnchantmentList = null;
             SoyMilkProjectileBlacklist = null;
+            GodheadBlacklist = null;
         }
     }
 }

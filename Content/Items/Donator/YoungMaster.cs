@@ -130,7 +130,7 @@ namespace CalamityEntropy.Content.Items.Donator
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (Projectile.ai[2] < 5 * Projectile.MaxUpdates)
+            if (Projectile.ai[2] < -8 * Projectile.MaxUpdates)
                 Projectile.ai[2] = 5 * Projectile.MaxUpdates; 
             CEUtils.PlaySound("slice", 1, target.Center);
             Color c = Mp.EnhancedTime > 0 ? new Color(255, 120, 120) : Color.Silver;
