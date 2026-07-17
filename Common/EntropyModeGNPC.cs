@@ -220,7 +220,7 @@ namespace CalamityEntropy.Common
                 {
                     if (Main.GameUpdateCount % 40 == 0 && Main.rand.NextBool(2))
                     {
-                        Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, (NPC.plantBoss.ToNPC().target.ToPlayer().Center - npc.Center).normalize() * 22, ProjectileID.SeedPlantera, npc.GetProjectileDamage(ProjectileID.SeedPlantera), 2, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, (NPC.plantBoss.ToNPC().target.ToPlayer().Center - npc.Center).normalize() * 22, ProjectileID.SeedPlantera, npc.GetProjectileDamage(ProjectileID.SeedPlantera) / 2, 2, Main.myPlayer);
                     }
                 }
                 if (npc.type == NPCID.KingSlime)
@@ -287,7 +287,7 @@ namespace CalamityEntropy.Common
                                     int totalProjectiles = BossRushEvent.BossRushActive ? 8 : 5;
                                     float radians = MathHelper.TwoPi / totalProjectiles;
                                     int type = iceBlast;
-                                    int damage = npc.GetProjectileDamage(type);
+                                    int damage = (int)(npc.GetProjectileDamage(type) * 0.7f);
                                     float velocity = 26f;
                                     float projectileVelocityToPass = 0f;
                                     Vector2 spinningPoint = new Vector2(0f, -velocity);
@@ -310,7 +310,7 @@ namespace CalamityEntropy.Common
                                         int totalProjectiles = 3;
                                         float radians = MathHelper.TwoPi / totalProjectiles;
                                         int type = ModContent.ProjectileType<IceBomb>();
-                                        int damage = npc.GetProjectileDamage(type);
+                                        int damage = (int)(npc.GetProjectileDamage(type) * 0.7f);
                                         float velocity = 2f + npc.ai[0];
                                         double angleA = radians * 0.5;
                                         double angleB = MathHelper.ToRadians(90f) - angleA;
@@ -364,7 +364,7 @@ namespace CalamityEntropy.Common
                     }
                     if (npc.ModNPC is Crabulon)
                     {
-                        npc.MaxFallSpeedMultiplier *= 10f;
+                        npc.MaxFallSpeedMultiplier *= 2f;
                         if (npc.velocity.Length() < 40)
                         {
                             npc.velocity *= 1.01f;
