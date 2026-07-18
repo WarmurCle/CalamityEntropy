@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.damage = 9000;
+            Item.damage = 10000;
             Item.crit = 20;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             Item.width = 132;
@@ -51,7 +51,8 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             CreateRecipe()
                 .AddIngredient<DeathsAscension>()
-                .AddIngredient<FadingRunestone>(2)
+                .AddIngredient(ModContent.ItemType<WyrmTooth>(), 12)
+                .AddIngredient<FadingRunestone>()
                 .AddTile<AbyssalAltarTile>()
                 .Register();
         }
@@ -186,7 +187,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 if (Projectile.numHits < 3)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<ErebodrepanonMark>(), Projectile.damage, 0, Projectile.owner, 0, 0, target.whoAmI);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<ErebodrepanonMark>(), (int)(Projectile.damage * 0.4f), 0, Projectile.owner, 0, 0, target.whoAmI);
                 }
             }
             target.AddBuff<LifeOppress>(5 * 60);
