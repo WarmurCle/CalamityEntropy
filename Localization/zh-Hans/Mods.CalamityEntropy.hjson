@@ -4363,6 +4363,11 @@ Items: {
 		DisplayName: 泓渊亡铭
 		Tooltip: 挥舞一把巨镰，将你的敌人撕的粉碎
 	}
+
+	FlowerHeadband: {
+		DisplayName: 花朵发箍
+		Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:

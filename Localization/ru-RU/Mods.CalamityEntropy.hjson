@@ -4028,6 +4028,11 @@ Items: {
 		// DisplayName: Erebodrepanon
 		// Tooltip: Wield a giant scythe and tear your enemies to pieces
 	}
+
+	FlowerHeadband: {
+		// DisplayName: Flower Headband
+		// Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:

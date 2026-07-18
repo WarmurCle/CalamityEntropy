@@ -33,6 +33,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
             Item.shootSpeed = 15;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
         }
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override Texture2D BookMarkTexture => CEUtils.pixelTex;
         public override int HeldProjectileType => ModContent.ProjectileType<ThalassianGleamHeld>();
         public override int SlotCount => GetSlotCount();
