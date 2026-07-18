@@ -364,10 +364,10 @@ namespace CalamityEntropy
             if (info.Damage < leastDmg)
                 info.Damage = leastDmg;
 
-            if (self.Entropy().deusCore && info.Damage > 5)
+            if (self.Entropy().deusCore && info.Damage > 20)
             {
-                self.Entropy().deusCoreBloodOut += info.Damage - 5;
-                info.Damage = 5;
+                self.Entropy().deusCoreBloodOut += info.Damage - 20;
+                info.Damage = 20;
             }
             if (self.Entropy().NihTwinArmorConnetPlayer != -1)
             {
