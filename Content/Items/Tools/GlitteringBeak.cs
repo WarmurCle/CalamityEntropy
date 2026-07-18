@@ -71,15 +71,15 @@ namespace CalamityEntropy.Content.Items.Tools
                 {
                     if (!Main.SmartCursorIsUsed)
                     {
-                        void KillCircleTile(Vector2 pos)
+                        void KillTile(Vector2 pos)
                         {
                             Point point = (pos / 16f).ToPoint();
                             CEUtils.TryKillTileAndChest(point.X, point.Y, player);
                         }
                         int c = 0;
-                        for (float i = 0; i <= 1; i += 0.02f)
+                        for (float i = 0; i <= 1; i += 0.01f)
                         {
-                            KillCircleTile(Vector2.Lerp(Main.MouseWorld, mouseLast, i));
+                            KillTile(Vector2.Lerp(Main.MouseWorld, mouseLast, i));
                             if (c++ % 10 == 0) EParticle.NewParticle(new HadCircle2() { CScale = 0.14f }, Vector2.Lerp(Main.MouseWorld, mouseLast, i), Vector2.Zero, Color.SkyBlue, 0.4f, 1, true, BlendState.Additive, 0);
                         }
                     }
