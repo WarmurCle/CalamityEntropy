@@ -2,6 +2,7 @@
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityMod.Items;
+using CalamityMod.Items.Tools;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
@@ -113,7 +114,7 @@ namespace CalamityEntropy.Content.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe().
-                AddRecipeGroup("LunarPickaxe").
+                AddIngredient<BlossomPickaxe>().
                 AddIngredient<FadingRunestone>().
                 AddIngredient<WyrmTooth>(5).
                 AddTile<AbyssalAltarTile>().
