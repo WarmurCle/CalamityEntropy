@@ -86,6 +86,9 @@ namespace CalamityEntropy.Content.Items.Weapons
             player.heldProj = Projectile.whoAmI;
             if (counter == 0)
             {
+                float scale_ = Projectile.GetOwner().HeldItem.scale;
+                Projectile.GetOwner().ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
                 Projectile.MaxUpdates = (int)Math.Ceiling(Projectile.MaxUpdates * speed);
             }
             if (style < 3)
