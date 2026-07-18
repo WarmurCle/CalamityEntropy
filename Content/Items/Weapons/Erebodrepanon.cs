@@ -200,7 +200,6 @@ namespace CalamityEntropy.Content.Items.Weapons
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
-            Texture2D tglow = this.getTextureGlow();
             Texture2D star = CEUtils.getExtraTex("Star2");
             Texture2D s3 = CEUtils.getExtraTex("CircularSmear");
             Texture2D s2 = CEUtils.getExtraTex("CircularSmearSmokey");
@@ -208,7 +207,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             SpriteEffects ef = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
             Vector2 origin = dir > 0 ? new Vector2(8, tex.Height - 8) : new Vector2(8, 8);
             float scale = Projectile.scale * ScaleExtra;
-            Main.spriteBatch.UseAdditive();
+            Main.spriteBatch.UseBlendState(BlendState.Additive, SamplerState.PointClamp);
             for(int i = 0; i < oldRot.Count; i++)
             {
                 float a = i / (oldRot.Count - 1.0f);
