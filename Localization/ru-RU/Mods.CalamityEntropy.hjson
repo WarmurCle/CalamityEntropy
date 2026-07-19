@@ -4033,6 +4033,11 @@ Items: {
 		// DisplayName: Flower Headband
 		// Tooltip: ""
 	}
+
+	Silentpeak: {
+		// DisplayName: Silentpeak
+		// Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
@@ -4781,6 +4786,7 @@ Projectiles: {
 	// ThalassianWaterBolt.DisplayName: Thalassian Water Bolt
 	// ErebodrepanonHeld.DisplayName: Erebodrepanon Held
 	// ErebodrepanonMark.DisplayName: Erebodrepanon Mark
+	// SilentpeakSword.DisplayName: Silentpeak Sword
 }
 
 LegendTooltip: - Легенда -
@@ -5243,6 +5249,11 @@ Buffs: {
 	WhipOfEvilKingWhipDebuff: {
 		// DisplayName: Whip of Evil King Whip Debuff
 		// Description: Mods.CalamityEntropy.Buffs.WhipOfEvilKingWhipDebuff.Description
+	}
+
+	SilentpeakBuff: {
+		// DisplayName: Silentpeak Buff
+		// Description: Mods.CalamityEntropy.Buffs.SilentpeakBuff.Description
 	}
 }
 

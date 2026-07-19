@@ -4296,6 +4296,11 @@ Items: {
 		DisplayName: Flower Headband
 		Tooltip: ""
 	}
+
+	Silentpeak: {
+		DisplayName: Silentpeak
+		Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
@@ -5040,6 +5045,7 @@ Projectiles: {
 	ThalassianWaterBolt.DisplayName: Thalassian Water Bolt
 	ErebodrepanonHeld.DisplayName: Erebodrepanon Held
 	ErebodrepanonMark.DisplayName: Erebodrepanon Mark
+	SilentpeakSword.DisplayName: Silentpeak Sword
 }
 
 LegendTooltip: - Legend -
@@ -5502,6 +5508,11 @@ Buffs: {
 	WhipOfEvilKingWhipDebuff: {
 		DisplayName: Whip of Evil King Whip Debuff
 		Description: Mods.CalamityEntropy.Buffs.WhipOfEvilKingWhipDebuff.Description
+	}
+
+	SilentpeakBuff: {
+		DisplayName: Silentpeak
+		Description: "Call forth the will of the Iron Emperor, to shelter and defend you eternally"
 	}
 }
 

@@ -4368,6 +4368,11 @@ Items: {
 		DisplayName: 花朵发箍
 		Tooltip: ""
 	}
+
+	Silentpeak: {
+		DisplayName: 静岳之剑
+		Tooltip: "召唤铁皇的意志护你左右"
+	}
 }
 
 SmolderingSetBonus:
@@ -5104,11 +5109,12 @@ Projectiles: {
 	AzafureExhaustGasInjectorHeld.DisplayName: 阿萨福勒废气喷射器
 	ExhaustGas.DisplayName: 废气
 	MewMewBombThrow.DisplayName: 喵喵炸弹
-	// KinanitionSpawn.DisplayName: Kinanition Spawn
-	// ThalassianGleamHeld.DisplayName: Thalassian Gleam Held
-	// ThalassianWaterBolt.DisplayName: Thalassian Water Bolt
-	// ErebodrepanonHeld.DisplayName: Erebodrepanon Held
-	// ErebodrepanonMark.DisplayName: Erebodrepanon Mark
+	KinanitionSpawn.DisplayName: 孱弱血亲水弹
+	ThalassianGleamHeld.DisplayName: 渊潇棱光之杖
+	ThalassianWaterBolt.DisplayName: 渊潇棱光水束
+	ErebodrepanonHeld.DisplayName: 泓渊亡铭
+	ErebodrepanonMark.DisplayName: 泓渊亡铭标记
+	SilentpeakSword.DisplayName: 静岳之剑
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5564,6 +5570,11 @@ Buffs: {
 
 	WhipOfEvilKingWhipDebuff: {
 		DisplayName: 标记
+		Description: ""
+	}
+
+	SilentpeakBuff: {
+		DisplayName: 静岳之剑
 		Description: ""
 	}
 }
