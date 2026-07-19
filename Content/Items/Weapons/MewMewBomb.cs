@@ -237,7 +237,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             v = Vector2.UnitY;
             GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, v, false, plt, 0.04f * scale, Color.DeepPink, new Vector2(8, 4), true, false));
             GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, v, false, plt, 0.03f * scale, Color.White, new Vector2(8, 4), true, false));
-            CEUtils.SyncProj(Projectile.whoAmI);
+            if (Main.myPlayer == Projectile.owner)
+                CEUtils.SyncProj(Projectile.whoAmI);
         }
         public override void OnKill(int timeLeft)
         {
