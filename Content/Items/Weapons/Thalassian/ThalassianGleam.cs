@@ -1,9 +1,11 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Books;
+using CalamityEntropy.Content.Items.Donator.RocketLauncher;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Content.UI.EntropyBookUI;
+using CalamityEntropy.Utilities;
 using CalamityMod;
 using CalamityMod.Dusts;
 using CalamityMod.Graphics.Primitives;
@@ -12,6 +14,7 @@ using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Intrinsics.Arm;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
@@ -32,10 +35,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
             Item.mana = 5;
             Item.shootSpeed = 15;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
-        }
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return false;
         }
         public override Texture2D BookMarkTexture => CEUtils.pixelTex;
         public override int HeldProjectileType => ModContent.ProjectileType<ThalassianGleamHeld>();
@@ -282,7 +281,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
         {
             Vector2 ovel = Projectile.velocity;
             Vector2 opos = Projectile.Center;
-            Projectile.Center = Projectile.Center + Projectile.rotation.ToRotationVector2() * 50 * Projectile.scale;
+            Projectile.Center = Projectile.Center + Projectile.rotation.ToRotationVector2() * 66 * Projectile.scale;
             Projectile.velocity = (Main.MouseWorld - Projectile.Center).normalize() * Projectile.velocity.Length();
             bool s = base.Shoot();
             if (s)
@@ -357,7 +356,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
         }
         public override Vector2 GetOrigin()
         {
-            return new Vector2(40, 70);
+            return new Vector2(36, 80);
         }
         public override void AI()
         {
@@ -369,15 +368,78 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
             }
             Projectile.GetOwner().heldProj = Projectile.whoAmI;
             Projectile.GetOwner().SetHandRotWithDir(orot, Projectile.velocity.X > 0 ? 1 : -1);
+            UpdateRope();
         }
         public int UIOpenAnmSCount = 0;
         public override int frameChange => 1;
         public override int baseProjectileType => ModContent.ProjectileType<ThalassianWaterBolt>();
+        public Rope rope = null;
+        public int lastDir = 1;
+        public void UpdateRope()
+        {
+            int d = Projectile.velocity.X > 0 ? 1 : -1;
+            Vector2 ropePoint = Projectile.Center + Projectile.rotation.ToRotationVector2() * 38 * Projectile.scale;
+            if (rope == null)
+            {
+                rope = new Rope(ropePoint, 10, 9.8f * Projectile.scale, new Vector2(0, 0.4f), 0.15f, 30);
+            }
+            rope.gravity = active ? Projectile.velocity.normalize() * -1.2f : new Vector2(0, 0.4f);
+            if (d != lastDir)
+            {
+                for (int i = 0; i < rope.segments.Count; i++)
+                {
+                    rope.segments[i].position = new Vector2(Projectile.Center.X * 2 - rope.segments[i].position.X, rope.segments[i].position.Y);
+                    rope.segments[i].oldPosition = rope.segments[i].position;
+                    rope.segments[i].velocity *= 0;
+                }
+                rope.Start = ropePoint;
+            }
+            lastDir = d;
+            Vector2 lst = rope.Start;
+            for (float r = 0.5f; r <= 1; r += 0.5f)
+            {
+                rope.Start = Vector2.Lerp(lst, ropePoint, r);
+                rope.Update();
+            }
+            return;
+        }
+        public void DrawRope()
+        {
+            if (rope != null)
+            {
+                var odp = rope.GetPoints();
+                float w = 9 * Projectile.scale;
+                int xp = 0;
+                List<ColoredVertex> ve = new List<ColoredVertex>();
+                Color b = Lighting.GetColor((odp[0] / 16).ToPoint());
+                ve.Add(new ColoredVertex(new Vector2(xp, 0) + odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * w,
+                          new Vector3((float)0, 1, 1),
+                          b));
+                ve.Add(new ColoredVertex(new Vector2(xp, 0) + odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * w,
+                      new Vector3((float)0, 0, 1),
+                      b));
+                for (int i = 1; i < odp.Count; i++)
+                {
+                    b = Lighting.GetColor((odp[i] / 16).ToPoint());
+                    ve.Add(new ColoredVertex(new Vector2(xp, 0) + odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * w,
+                          new Vector3((float)(i + 1) / odp.Count, 1, 1),
+                          b));
+                    ve.Add(new ColoredVertex(new Vector2(xp, 0) + odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * w,
+                          new Vector3((float)(i + 1) / odp.Count, 0, 1),
+                          b));
+
+                }
+                Texture2D texst = this.getTextureAlt("String");
+                var gd = Main.graphics.GraphicsDevice;
+                gd.Textures[0] = texst;
+                gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
+            }
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture = getTexture();
             Vector2 origin = GetOrigin();
-            float rot = 1.3f;
+            float rot = MathHelper.PiOver4;
             int dir = Projectile.velocity.X > 0 ? 1 : -1;
             if (UIOpen)
                 dir = 1;
@@ -386,7 +448,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
                 rot *= -1;
                 origin.Y = texture.Height - origin.Y;
             }
-            
+            DrawRope();
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation + rot, origin, Projectile.scale, (Projectile.velocity.X > 0 || UIOpen ? SpriteEffects.None : SpriteEffects.FlipVertically), 0);
             if (UIOpen)
             {
@@ -454,15 +516,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
         }
         public static void DrawTrail(List<CEUtils.VertexPointSets> sets)
         {
-            DrawTrail(sets, new Color(30, 210, 235), Color.White);
+            DrawTrail(sets, new Color(30, 120, 205), Color.White);
         }
         public static void DrawTrail(List<CEUtils.VertexPointSets> sets, Color a, Color b)
         {
-            DrawTrail(sets, a, b, CEUtils.getExtraTex("ThalassianThin"), CEUtils.getExtraTex("GigaBeamTrailThin"));
+            DrawTrail(sets, a, b, CEUtils.getExtraTex("Streak1"), CEUtils.getExtraTex("Streak2"));
         }
         public static void DrawTrail(List<CEUtils.VertexPointSets> sets, Color a, Color b, bool UI)
         {
-            DrawTrail(sets, a, b, CEUtils.getExtraTex("ThalassianThin"), CEUtils.getExtraTex("GigaBeamTrailThin"), UI);
+            DrawTrail(sets, a, b, CEUtils.getExtraTex("Streak1"), CEUtils.getExtraTex("Streak2"), UI);
         }
         public static void DrawTrail(List<CEUtils.VertexPointSets> sets, Color a, Color b, Texture2D trail1, Texture2D trail2, bool UI = false)
         {
@@ -480,7 +542,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
                         cxOffset += CEUtils.getDistance(lastPoint, s.Position) * 0.004f;
                     float opc = (s.Color.A / 255f);
                     sets1.Add(new CEUtils.VertexPointSets(s.Position, a * opc, s.Width * 1f, cxOffset + Main.GlobalTimeWrappedHourly * 2));
-                    sets2.Add(new CEUtils.VertexPointSets(s.Position, b * opc, s.Width * 0.6f, cxOffset + Main.GlobalTimeWrappedHourly * 3));
+                    sets2.Add(new CEUtils.VertexPointSets(s.Position, b * opc, s.Width * 0.5f, cxOffset + Main.GlobalTimeWrappedHourly * 4));
                     lastPoint = s.Position;
                 }
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
@@ -515,7 +577,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
                     width = p / 0.8f;
                 else
                     width = CEUtils.Parabola(0.5f + (p - 0.8f) / 0.4f, 1);
-                vp.Add(new CEUtils.VertexPointSets(odp[i], Color.White * alpha, 12 * Projectile.scale * width, 0));
+                vp.Add(new CEUtils.VertexPointSets(odp[i], Color.White * alpha, 18 * Projectile.scale * width, 0));
             }
             DrawTrail(vp);
             return false;

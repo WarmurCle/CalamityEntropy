@@ -4371,7 +4371,7 @@ Items: {
 
 	Silentpeak: {
 		DisplayName: 静岳之剑
-		Tooltip: "召唤铁皇的意志护你左右"
+		Tooltip: 召唤铁皇的意志护你左右
 	}
 }
 

@@ -5252,8 +5252,8 @@ Buffs: {
 	}
 
 	SilentpeakBuff: {
-		// DisplayName: Silentpeak Buff
-		// Description: Mods.CalamityEntropy.Buffs.SilentpeakBuff.Description
+		// DisplayName: Silentpeak
+		// Description: Call forth the will of the Iron Emperor, to shelter and defend you eternally
 	}
 }
 
