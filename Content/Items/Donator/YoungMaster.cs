@@ -100,6 +100,7 @@ namespace CalamityEntropy.Content.Items.Donator
             }
             if (Projectile.ai[2]-- <= 0)
             {
+                HCooldown--;
                 Player player = Projectile.GetOwner();
                 if (Projectile.localAI[0]++ > 90)
                 {
@@ -127,11 +128,14 @@ namespace CalamityEntropy.Content.Items.Donator
         {
             return Projectile.ai[2] <= 0;
         }
-
+        public int HCooldown = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (Projectile.ai[2] < -8 * Projectile.MaxUpdates)
-                Projectile.ai[2] = 5 * Projectile.MaxUpdates; 
+            if (HCooldown <= 0)
+            {
+                HCooldown = 3 * Projectile.MaxUpdates;
+                Projectile.ai[2] = 5 * Projectile.MaxUpdates;
+            } 
             CEUtils.PlaySound("slice", 1, target.Center);
             Color c = Mp.EnhancedTime > 0 ? new Color(255, 120, 120) : Color.Silver;
             for (int i = 0; i < 6; i++)

@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.useTime = Item.useAnimation = 25;
+            Item.useTime = Item.useAnimation = 20;
             Item.damage = 16;
             Item.crit = 10;
             Item.mana = 5;
