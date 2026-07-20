@@ -30,7 +30,7 @@ namespace CalamityEntropy.Common.DrawLayers
 
             texture = CEUtils.RequestTex("CalamityEntropy/Content/Items/Vanity/TsumugisHood_Hood");
             headPos = drawInfo.HeadPosition(true);
-            drawInfo.DrawDataCache.Add(new DrawData(texture, headPos, null, drawInfo.colorArmorHead, drawInfo.drawPlayer.headRotation, new Vector2(texture.Width / 2 - 1 * player.direction, texture.Height / 2 + 9), 1, drawInfo.playerEffect) { shader = drawInfo.drawPlayer.cHead });
+            drawInfo.DrawDataCache.Add(new DrawData(texture, headPos, null, drawInfo.colorArmorHead, drawInfo.drawPlayer.headRotation, new Vector2(texture.Width / 2 - 1 * player.direction, texture.Height / 2 + 9 * player.gravDir), 1, drawInfo.playerEffect) { shader = drawInfo.drawPlayer.cHead });
         }
     }
 }
