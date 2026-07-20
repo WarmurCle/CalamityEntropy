@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items.Accessories.Vanity;
+﻿using CalamityEntropy.Content.Items.Vanity;
+using CalamityMod.Items.Accessories.Vanity;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -27,6 +28,8 @@ namespace CalamityEntropy.Common
             {
                 if (dummy == null)
                 {
+                    int oFlag = Main.LocalPlayer.GetModPlayer<VanityModPlayer>().SpecialFlag;
+                    Main.LocalPlayer.GetModPlayer<VanityModPlayer>().SpecialFlag = 1;
                     dummy = new Player();
                     dummy.CopyVisuals(Main.LocalPlayer);
                     dummy.cHandOn = 0;
@@ -71,6 +74,7 @@ namespace CalamityEntropy.Common
                         else
                             sb.Draw(data.texture, data.position, data.sourceRect, data.color, data.rotation, data.origin, data.scale, data.effect, 0f);
                     }
+                    Main.LocalPlayer.GetModPlayer<VanityModPlayer>().SpecialFlag = oFlag;
                 }
             }
             if (line.Name == "CESkinDisplay" || line.Name == "Placeholder")

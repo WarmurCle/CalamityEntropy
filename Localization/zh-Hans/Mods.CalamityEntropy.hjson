@@ -647,7 +647,7 @@ Items: {
 		DisplayName: 尘封之星
 		Tooltip:
 			'''
-			使你变成一个黄毛兽耳美少年
+			让你变成主创的形象
 			“记得给灾熵点个赞”
 			'''
 	}
@@ -4366,12 +4366,29 @@ Items: {
 
 	FlowerHeadband: {
 		DisplayName: 花朵发箍
-		Tooltip: ""
+		Tooltip: 使你化身为四季夏目
 	}
 
 	Silentpeak: {
 		DisplayName: 静岳之剑
 		Tooltip: 召唤铁皇的意志护你左右
+	}
+
+	FeatheredHeadpiece: {
+		DisplayName: 羽翼头饰
+		Tooltip: 使你化身为白雪乃爱
+	}
+
+	TsumugisHood: {
+		DisplayName: 紬的兜帽
+		Tooltip:
+			'''
+			使你化身为椎叶紬
+			右键点击切换兜帽是否显示
+			当前: [D]
+			'''
+		Show: 显示
+		Hide: 隐藏
 	}
 }
 

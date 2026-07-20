@@ -4038,6 +4038,22 @@ Items: {
 		// DisplayName: Silentpeak
 		// Tooltip: ""
 	}
+
+	FeatheredHeadpiece: {
+		// DisplayName: Feathered Headpiece
+		// Tooltip: ""
+	}
+
+	TsumugisHood: {
+		// DisplayName: Tsumugis Hood
+		/* Tooltip:
+			'''
+			Right click to toggle hood's visual
+			Current: [D]
+			''' */
+		// Show: Show
+		// Hide: Hide
+	}
 }
 
 SmolderingSetBonus:
