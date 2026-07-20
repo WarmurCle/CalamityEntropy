@@ -79,18 +79,18 @@ namespace CalamityEntropy.Content.Particles
             {
                 List<ColoredVertex> ve = new List<ColoredVertex>();
                 Color b = this.Color * fscale * 1.6f;
-                ve.Add(new ColoredVertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 8 * this.Scale,
+                ve.Add(new ColoredVertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 3 * this.Scale,
                           new Vector3(-Main.GlobalTimeWrappedHourly * 2.5f, 1, 1),
                           b));
-                ve.Add(new ColoredVertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 8 * this.Scale,
+                ve.Add(new ColoredVertex(odp[0] - Main.screenPosition + (odp[1] - odp[0]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 3 * this.Scale,
                       new Vector3(-Main.GlobalTimeWrappedHourly * 2.5f, 0, 1),
                       b));
                 for (int i = 1; i < odp.Count; i++)
                 {
-                    ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 4 * this.Scale,
+                    ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(90)) * 3 * this.Scale,
                           new Vector3((((float)i) / odp.Count) - Main.GlobalTimeWrappedHourly * 2.5f, 1, 1),
                           b * ((odp.Count - i) / (float)odp.Count)));
-                    ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 4 * this.Scale,
+                    ve.Add(new ColoredVertex(odp[i] - Main.screenPosition + (odp[i] - odp[i - 1]).ToRotation().ToRotationVector2().RotatedBy(MathHelper.ToRadians(-90)) * 3 * this.Scale,
                           new Vector3((((float)i) / odp.Count) - Main.GlobalTimeWrappedHourly * 2.5f, 0, 1),
                           b * ((odp.Count - i) / (float)odp.Count)));
                 }
