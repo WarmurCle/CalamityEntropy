@@ -58,9 +58,18 @@
 
 
 [3.20-Changes]
-[Mods.CalamityEntropy.Items.Erebodrepanon.DisplayName] - added
-[Mods.CalamityEntropy.Items.Erebodrepanon.Tooltip] - added
-[Mods.CalamityEntropy.Items.ThalassianGleam.DisplayName] - added
-[Mods.CalamityEntropy.Items.ThalassianGleam.Tooltip] - added
-[Mods.CalamityEntropy.Items.GoldenFlowerInAJar.DisplayName] - added
-[Mods.CalamityEntropy.Items.GoldenFlowerInAJar.Tooltip] - added
+[Mods.CalamityEntropy.Items.Erebodrepanon] - added
+[Mods.CalamityEntropy.Items.ThalassianGleam] - added
+[Mods.CalamityEntropy.Items.GoldenFlowerInAJar] - added
+[Mods.CalamityEntropy.Projectiles.ThalassianWaterBolt] - added
+[Mods.CalamityEntropy.Projectiles.SilentpeakSword] - added
+[Mods.CalamityEntropy.Projectiles.ErebodrepanonMark] - added
+[Mods.CalamityEntropy.Projectiles.KinanitionSpawn] - added
+[Mods.CalamityEntropy.Projectiles.ErebodrepanonHeld] - added
+[Mods.CalamityEntropy.Projectiles.ThalassianGleamHeld] - added
+[Mods.CalamityEntropy.Buffs.SilentpeakBuff] - added
+[Mods.CalamityEntropy.Buffs.SilentpeakBuff] - added
+[Mods.CalamityEntropy.Items.FeatheredHeadpiece] - added
+[Mods.CalamityEntropy.Items.TsumugisHood] - added
+[Mods.CalamityEntropy.Items.FlowerHeadband] - added
+[Mods.CalamityEntropy.Items.Silentpeak] - added
