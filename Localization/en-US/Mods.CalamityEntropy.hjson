@@ -4311,7 +4311,7 @@ Items: {
 		DisplayName: Tsumugis Hood
 		Tooltip:
 			'''
-			Right click to toggle hood's visual
+			Hold shift + Right click in inventory to toggle hood's visual
 			Current: [D]
 			'''
 		Show: Show
