@@ -38,7 +38,7 @@ namespace CalamityEntropy.Content.Projectiles
         {
             if (counter > 6 && counter < 60)
             {
-                return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 130 * Projectile.scale * getScale(), targetHitbox, 36);
+                return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 92 * Projectile.scale * getScale(), targetHitbox, 36);
             }
             return false;
         }
