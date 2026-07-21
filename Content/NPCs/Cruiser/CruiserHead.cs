@@ -136,29 +136,29 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override void SetDefaults()
         {
             NPC.Calamity().canBreakPlayerDefense = true;
-            NPC.Calamity().DR = 0.56f;
+            NPC.Calamity().DR = 0.54f;
             NPC.boss = true;
-            NPC.width = 100;
-            NPC.height = 100;
-            NPC.damage = 220;
+            NPC.width = 96;
+            NPC.height = 96;
+            NPC.damage = 216;
             if (Main.expertMode)
             {
                 NPC.damage += 4;
             }
             if (Main.masterMode)
             {
-                NPC.damage += 5;
+                NPC.damage += 4;
             }
-            NPC.defense = 90;
-            NPC.lifeMax = 1200000;
+            NPC.defense = 80;
+            NPC.lifeMax = 1120000;
             if (CalamityWorld.death)
             {
-                NPC.damage += 8;
+                NPC.damage += 6;
                 length += 4;
             }
             else if (CalamityWorld.revenge)
             {
-                NPC.damage += 4;
+                NPC.damage += 5;
                 length += 3;
             }
             tdamage = NPC.damage;
@@ -173,16 +173,16 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.scale = 1f;
             if (Main.masterMode)
             {
-                NPC.scale = 1.12f;
+                NPC.scale = 1.05f;
             }
             if (Main.getGoodWorld)
             {
-                NPC.scale = 1.33f;
+                NPC.scale = 1.3f;
                 NPC.lifeMax += 750000;
             }
             if (Main.zenithWorld)
             {
-                NPC.scale = 1.6f;
+                NPC.scale = 1.5f;
                 length = 10;
             }
             NPC.netAlways = true;
@@ -865,6 +865,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                 NPC.velocity *= 0.92f;
                                 NPC.velocity += (target.Center - NPC.Center).normalize() * 0.36f;
                             }
+                            if (changeCounter == 2)
+                                CEUtils.PlaySound("voidSound", 0.8f, NPC.Center);
                             if (changeCounter == 80)
                             {
                                 if (canShoot)
@@ -874,8 +876,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                         Shoot(ModContent.ProjectileType<VoidResidue>(), NPC.Center, NPC.velocity.normalize().RotatedByRandom(2f) * 24 * Main.rand.NextFloat(0.2f, 1f), 0.8f);
                                     }
                                 }
-                                CEUtils.PlaySound("brimstonevortexshoot", 1, NPC.Center);
-                                CEUtils.PlaySound("vbuse", 1, NPC.Center);
+                                CEUtils.PlaySound("CruiserSpit2", 1.4f, NPC.Center);
+                                CEUtils.PlaySound("CruiserVoidResidue", 1, NPC.Center);
                             }
                             if (changeCounter > 140)
                             {
@@ -1049,6 +1051,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                     mouthRot += 5f;
                                 }
                             }
+                            if (changeCounter == 20)
+                                CEUtils.PlaySound("voidSound", 1.05f, NPC.Center);
                             changeCounter++;
                             if (changeCounter < 100 && NPC.Distance(target.Center) > 900)
                             {
@@ -1069,7 +1073,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                         Shoot(ModContent.ProjectileType<VoidStar>(), NPC.Center, NPC.velocity.normalize().RotatedByRandom(2f) * 24 * Main.rand.NextFloat(0.2f, 1f), 0.75f);
                                     }
                                 }
-                                CEUtils.PlaySound("brimstonevortexshoot", 1, NPC.Center);
+                                CEUtils.PlaySound("CruiserSpit", 1.2f, NPC.Center);
+                                CEUtils.PlaySound("VoidBomb", 1.1f, NPC.Center);
+                                CEUtils.PlaySound("VoidBomb", 1.1f, NPC.Center);
+                                CEUtils.PlaySound("VoidBomb", 1.1f, NPC.Center);
                                 CEUtils.PlaySound("vbuse", 1, NPC.Center);
                             }
                             if (changeCounter > 140)

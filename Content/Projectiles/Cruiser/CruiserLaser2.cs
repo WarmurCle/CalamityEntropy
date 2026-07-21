@@ -47,6 +47,10 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
         }
         public override void AI()
         {
+            if (Projectile.Entropy().FirstFrames)
+            {
+                CEUtils.PlaySound("CruiserDash", 1.6f, Main.LocalPlayer.Center, 12, 1);
+            }
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (st)
             {

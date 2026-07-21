@@ -61,6 +61,7 @@ namespace CalamityEntropy.Common
         public static Asset<Effect> Cylinder;
         public static Effect kscreen;
         public static Effect fscreen;
+        public static Effect fscreenCr;
         public static Effect kscreen2;
         public static Effect cvoid;
         public static Effect cvoid2;
@@ -425,7 +426,7 @@ namespace CalamityEntropy.Common
             cblood.Parameters["time"].SetValue(Instance.cvcount / 50f);
             cblood.Parameters["scrsize"].SetValue(Screen0.Size());
             cblood.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(Main.screenWidth, Main.screenHeight));
-            Main.spriteBatch.Draw(Main.screenTargetSwap, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(Main.screenTargetSwap, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, Main.LocalPlayer.gravDir < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0);
 
             Main.spriteBatch.End();
         }
@@ -481,7 +482,7 @@ namespace CalamityEntropy.Common
             cabyss.Parameters["time"].SetValue(Instance.cvcount / 50f);
             cabyss.Parameters["scrsize"].SetValue(Screen0.Size());
             cabyss.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(Main.screenWidth, Main.screenHeight));
-            Main.spriteBatch.Draw(Main.screenTargetSwap, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(Main.screenTargetSwap, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, Main.LocalPlayer.gravDir < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0);
 
             Main.spriteBatch.End();
         }
@@ -846,7 +847,7 @@ namespace CalamityEntropy.Common
             cvoid.Parameters["time"].SetValue(Instance.cvcount / 50f);
             cvoid.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2());
             cvoid.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(-Instance.cvcount / 6f, Instance.cvcount / 6f)) / Main.ScreenSize.ToVector2());
-            Main.spriteBatch.Draw(Screen2, Vector2.Zero, Color.White);
+            Main.spriteBatch.Draw(Screen2, Main.ScreenSize.ToVector2() * 0.5f, null, Color.White, 0, Screen2.Size() * 0.5f, 1, Main.LocalPlayer.gravDir < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0);
             Main.spriteBatch.End();
         }
 
@@ -1094,8 +1095,9 @@ namespace CalamityEntropy.Common
             fscreen.CurrentTechnique = fscreen.Techniques["Technique1"];
             fscreen.CurrentTechnique.Passes[0].Apply();
             fscreen.Parameters["strengthMult"].SetValue(0.1f);
-            fscreen.Parameters["screen"].SetValue(Main.screenPosition / Main.ScreenSize.ToVector2());
+            fscreen.Parameters["screen"].SetValue(Main.screenPosition * new Vector2(1, Main.LocalPlayer.gravDir) / Main.ScreenSize.ToVector2());
             fscreen.Parameters["iTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.034f);
+            fscreen.Parameters["coordMult"].SetValue(new Vector2(1, (float)Main.screenHeight / Main.screenWidth) * 1.2f);
             graphicsDevice.Textures[0] = Screen0;
             graphicsDevice.Textures[1] = Main.screenTargetSwap;
             graphicsDevice.Textures[2] = CEUtils.getExtraTex("VoidBack");
@@ -1178,7 +1180,7 @@ namespace CalamityEntropy.Common
                         Texture2D tileDrawTexture = GetTileDrawTexture(tile, j, i);
                         vertices = new VertexColors(Color.LightBlue);
                         var pos = new Vector2(j * 16, i * 16) + vector;
-                        CEUtils.DrawGlow(pos + new Vector2(8, 8), Color.White * 0.22f, 3.4f);
+                        CEUtils.DrawGlow(pos + new Vector2(8, 8), Color.White * 0.24f, 3.6f, true, null, false);
                     }
                 }
             }

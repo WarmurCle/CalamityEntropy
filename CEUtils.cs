@@ -1263,7 +1263,7 @@ namespace CalamityEntropy
         public static void UseSampleState(this SpriteBatch sb, SamplerState s)
         {
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, Main.graphics.GraphicsDevice.BlendState, s, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(SpriteSortMode.Immediate, Main.graphics.GraphicsDevice.BlendState, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
         }
         public static void UseState_UI(this SpriteBatch sb, BlendState blend, SamplerState sampler)
         {
