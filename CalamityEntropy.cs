@@ -1765,7 +1765,7 @@ namespace CalamityEntropy
                             Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>
                             {
                                 Texture2D texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/BCL/Apsychos").Value;
-                                sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 0.6f, SpriteEffects.None, 0);
+                                sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 0.36f, SpriteEffects.None, 0);
                             };
                             Func<bool> downed = () => EDownedBosses.downedApsychos;
                             AddBoss(bossChecklist, Instance, entryName, 6.4f, downed, ModContent.NPCType<Apsychos>(), new Dictionary<string, object>()

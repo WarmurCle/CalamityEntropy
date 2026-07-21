@@ -114,7 +114,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Projectile.timeLeft++;
                 return;
             }
-            if (Projectile.Distance(player.Center) > 2000)
+            if (Projectile.Distance(player.Center) > 4000)
             {
                 Projectile.Center = player.Center + CEUtils.randomPointInCircle(128);
             }
