@@ -45,7 +45,7 @@ namespace CalamityEntropy.Core.Systems
                 Setup = delegate (SummonTag summonTag)
                 {
                     summonTag.AutoDrawTooltip = false;
-                    summonTag.TagTexture = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Weapons/Crystedge", (AssetRequestMode)1);
+                    summonTag.TagTexture = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Weapons/Whips/Crystedge", (AssetRequestMode)1);
                 }
             });
             entries.Add(new SummonTagEntry
