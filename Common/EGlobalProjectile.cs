@@ -259,6 +259,11 @@ namespace CalamityEntropy.Common
         public override bool InstancePerEntity => true;
         public override void SetDefaults(Projectile entity)
         {
+            if(entity.ModProjectile != null && entity.ModProjectile.Mod is CalamityEntropy)
+            {
+                if (entity.minion)
+                    entity.netImportant = true;
+            }
         }
         public bool netsnc = true;
         public static bool checkHoldOut = true;
