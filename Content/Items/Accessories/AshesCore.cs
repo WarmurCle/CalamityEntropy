@@ -86,7 +86,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             int distance = 1600;
             if (CEUtils.getDistance(Projectile.Center, player.Center) > 3200)
                 Projectile.Center = player.Center;
-            if (player.Entropy().ashesCore)
+            if (player.Entropy().ashesCore && !player.dead)
             {
                 Projectile.timeLeft = 5;
             }
@@ -338,7 +338,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         {
             if(Projectile.Entropy().FirstFrames)
             {
-                float scale = 1.1f;
+                float scale = 1.6f;
                 for (int i = 0; i < 12; i++)
                 {
                     Dust dust = Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<SquashDust>(), Vector2.Zero);
