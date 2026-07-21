@@ -106,11 +106,14 @@ namespace CalamityEntropy.Content.Skies
             offsetn = time * 0.8f;
             Main.spriteBatch.Draw(CloudsFore, Vector2.Zero, new Rectangle((int)offsetn, 0, CloudsFore.Width, CloudsFore.Height), lColor * opacity, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
 
+            Main.spriteBatch.UseSampleState(SamplerState.PointClamp);
             offsetn = 6;
             Main.spriteBatch.Draw(Cliffs, new Vector2(0, 100 * scale), new Rectangle((int)offsetn, 0, (int)(Main.screenWidth / scale) + 1, Cliffs.Height), lColor * opacity, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(Sun, new Vector2(236 * scale, (138 - sunPos * 20) * scale), null, Color.White * opacity, 0, Sun.Size().Half(), scale, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(CEUtils.pixelTex, new Vector2(0, 137 * scale), fullscreen, Color.Lerp(new Color(40, 32, 16, 255), new Color(247, 210, 43), sunPos * 0.5f + 0.5f) * opacity);
-            for(int i = 0; i < 8; i++)
+
+            Main.spriteBatch.UseSampleState(SamplerState.PointWrap);
+            for (int i = 0; i < 8; i++)
             {
                 offsetn = xOffset * ((i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * 0.04f);
                 float yset = (float)Math.Pow(float.Max(0, worldHeight * 0.22f - Main.screenPosition.Y) * ((i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * (i / 7f) * 16f), 0.52f) * 0.3f;
