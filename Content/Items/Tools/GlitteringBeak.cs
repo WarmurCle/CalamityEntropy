@@ -27,8 +27,8 @@ namespace CalamityEntropy.Content.Items.Tools
             Item.height = 70;
             Item.damage = 1000;
             Item.knockBack = 9f;
-            Item.useTime = 8;
-            Item.useAnimation = 8;
+            Item.useTime = 1;
+            Item.useAnimation = 6;
             Item.pick = PickPower;
             Item.axe = PickPower / 5;
             Item.tileBoost = 120;

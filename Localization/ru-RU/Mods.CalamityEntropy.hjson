@@ -4049,7 +4049,7 @@ Items: {
 		/* Tooltip:
 			'''
 			Hold shift + Right click in inventory to toggle hood's visual
-			Current: [D]
+			[c/e9afc0:Current - [D]]
 			''' */
 		// Show: Show
 		// Hide: Hide
