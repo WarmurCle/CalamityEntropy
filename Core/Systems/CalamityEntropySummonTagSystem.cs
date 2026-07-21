@@ -10,7 +10,6 @@ using System;
 using Terraria;
 using CalamityEntropy.Content.Items.Weapons.Whips;
 using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Items.Weapons;
 
 namespace CalamityEntropy.Core.Systems
 {

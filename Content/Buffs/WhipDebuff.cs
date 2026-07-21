@@ -132,7 +132,7 @@ namespace CalamityEntropy.Content.Buffs
         //Hooked to CalamityGlobalNPC.ModifyHitByProjectile in EModILEdit:107
         public void ModifyHitByProj(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            if (projectile.npcProj || projectile.trap || !(projectile.DamageType == DamageClass.Summon) || ProjectileID.Sets.IsAWhip[projectile.type])
+            if (projectile.npcProj || projectile.trap || !(projectile.DamageType.CountsAsClass(DamageClass.Summon)) || ProjectileID.Sets.IsAWhip[projectile.type])
                 return;
             bool crit = false;
             if (projectile.TryGetOwner(out var owner))
