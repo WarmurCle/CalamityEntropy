@@ -992,7 +992,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                                 }
                                                 else
                                                 {
-                                                    Shoot(ModContent.ProjectileType<CruiserSlash>(), NPC.Center + NPC.velocity.normalize().RotatedBy(0.09f * j) * 300 * i, NPC.velocity.RotatedBy(0.09f * j));
+                                                    Shoot(ModContent.ProjectileType<CruiserSlash>(), NPC.Center + NPC.velocity.normalize().RotatedBy(0.125f * j) * 300 * i, NPC.velocity.RotatedBy(0.09f * j));
                                                 }
                                             }
                                         }
