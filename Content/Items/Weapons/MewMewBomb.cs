@@ -159,7 +159,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             if (!Hitted)
             {
                 Projectile.velocity *= 0.998f;
-                if(Projectile.timeLeft < 5)
+                if(Projectile.timeLeft < 8)
                 {
                     if(!Exploded)
                     {
