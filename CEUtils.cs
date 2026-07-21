@@ -822,7 +822,7 @@ namespace CalamityEntropy
         }
         public static bool CheckAirLine(Vector2 v1, Vector2 v2)
         {
-            for (float i = 0; i < 1; i += getDistance(v1, v2) / 8)
+            for (float i = 0; i < 1; i += 1f / (getDistance(v1, v2) / 8))
             {
                 if (!isAir(Vector2.Lerp(v1, v2, i)))
                     return false;
@@ -831,7 +831,7 @@ namespace CalamityEntropy
         }
         public static bool HomingWithTileBlockingFilter(Projectile proj, int npc)
         {
-            return CheckAirLine(npc.ToNPC().Center, proj.Center);
+            return CheckAirLine(proj.Center, npc.ToNPC().Center);
         }
         public static NPC FindTarget_HomingProj(Projectile proj, Vector2 center, float radians, Func<Projectile, int, bool> filter = null)
         {
