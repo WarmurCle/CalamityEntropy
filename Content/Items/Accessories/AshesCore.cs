@@ -1,5 +1,7 @@
-﻿using CalamityEntropy.Content.Particles;
+﻿using CalamityEntropy.Content.Items.Weapons.Thalassian;
+using CalamityEntropy.Content.Particles;
 using CalamityMod;
+using CalamityMod.Dusts;
 using CalamityMod.Graphics.Primitives;
 using CalamityMod.Items;
 using CalamityMod.Particles;
@@ -334,7 +336,19 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
         public override void AI()
         {
-
+            if(Projectile.Entropy().FirstFrames)
+            {
+                float scale = 1.1f;
+                for (int i = 0; i < 12; i++)
+                {
+                    Dust dust = Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<SquashDust>(), Vector2.Zero);
+                    dust.scale = Main.rand.NextFloat(0.4f, 1f) * scale * 1.4f;
+                    dust.velocity = Projectile.velocity.normalize().RotatedByRandom(0.4f) * Main.rand.NextFloat(0.4f, 1f) * 18 * scale;
+                    dust.noGravity = false;
+                    dust.color = Color.Orange * 1.2f;
+                    dust.fadeIn = 2f;
+                }
+            }
         }
 
         public override bool PreDraw(ref Color lightColor)
