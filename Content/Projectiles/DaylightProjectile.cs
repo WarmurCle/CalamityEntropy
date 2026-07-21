@@ -124,15 +124,15 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void AI()
         {
-            if (Projectile.ai[0] > 0 && Projectile.ai[1] == 0)
+            if (Projectile.ai[0] > 0 && Projectile.ai[2] == 0)
             {
-                Projectile.ai[1] = 1;
+                Projectile.ai[2] = 1;
 
             }
-            if (Projectile.ai[1] > 0 && Projectile.ai[1] < 22)
+            if (Projectile.ai[2] > 0 && Projectile.ai[2] < 22)
             {
-                Projectile.ai[1]++;
-                if (Projectile.ai[1] % 5 == 0)
+                Projectile.ai[2]++;
+                if (Projectile.ai[2] % 5 == 0)
                 {
                     if (Main.myPlayer == Projectile.owner)
                     {

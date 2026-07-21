@@ -77,7 +77,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Whips
         public override void AI()
         {
             Projectile.ai[0] = float.Lerp(Projectile.ai[0], 1, 0.3f);
-            Projectile.ai[1] = float.Lerp(Projectile.ai[1], 1, 0.1f);
+            Projectile.ai[2] = float.Lerp(Projectile.ai[2], 1, 0.1f);
         }
         public override void OnKill(int timeLeft)
         {
@@ -91,9 +91,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Whips
             for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver2)
             {
                 Vector2 offset = i.ToRotationVector2() * 4;
-                Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + offset, null, Color.Black * Projectile.ai[1], 0, origin, Projectile.scale * Projectile.ai[0], SpriteEffects.None);
+                Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + offset, null, Color.Black * Projectile.ai[2], 0, origin, Projectile.scale * Projectile.ai[0], SpriteEffects.None);
             }
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White * Projectile.ai[1], 0, origin, Projectile.scale * Projectile.ai[0], SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White * Projectile.ai[2], 0, origin, Projectile.scale * Projectile.ai[0], SpriteEffects.None);
             return false;
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
