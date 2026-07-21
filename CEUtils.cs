@@ -430,11 +430,7 @@ namespace CalamityEntropy
 
             if (player.HasBuff<T>())
             {
-                proj.timeLeft = 4;
-            }
-            else
-            {
-                proj.Kill();
+                proj.timeLeft = 5;
             }
         }
         public static NPC FindMinionTarget(this Projectile projectile, int radians = 3000, bool CheckTile = false)
