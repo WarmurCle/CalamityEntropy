@@ -38,6 +38,10 @@ namespace CalamityEntropy.Content.Items.Vanity
             Item.value = CalamityMod.Items.CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Green;
             Item.vanity = true;
+            Item.Entropy().tooltipStyle = 8;
+            Item.Entropy().strokeColor = new Color(155, 220, 255);
+            Item.Entropy().NameColor = new Color(40, 72, 90);
+            Item.Entropy().NameLightColor = Color.Aqua * 0.5f;
         }
 
         public override void UpdateVanity(Player player)
@@ -59,7 +63,7 @@ namespace CalamityEntropy.Content.Items.Vanity
                 .AddIngredient(ItemID.Moonglow)
                 .AddIngredient(ItemID.Daybloom)
                 .AddIngredient(ItemID.Silk, 6)
-                .AddTile(TileID.WorkBenches)
+                .AddTile(TileID.Loom)
                 .Register();
         }
     }

@@ -4312,10 +4312,25 @@ Items: {
 		Tooltip:
 			'''
 			Hold shift + Right click in inventory to toggle hood's visual
-			Current: [D]
+			[c/e9afc0:Current - [D]]
 			'''
 		Show: Show
 		Hide: Hide
+	}
+
+	CrystalofHeart: {
+		DisplayName: Crystal of Heart
+		Tooltip: ""
+	}
+
+	FuchsiaRibbon: {
+		DisplayName: Fuchsia Ribbon
+		Tooltip: ""
+	}
+
+	MikoMaeTengkan: {
+		DisplayName: Miko Mae Tengkan
+		Tooltip: ""
 	}
 }
 

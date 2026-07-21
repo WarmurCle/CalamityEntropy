@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class FeatheredHeadpiece : ModItem, IVanitySkin
+    public class FuchsiaRibbon : ModItem, IVanitySkin
     {
         public override void Load()
         {
@@ -33,15 +33,15 @@ namespace CalamityEntropy.Content.Items.Vanity
         public override void SetDefaults()
         {
             Item.width = 30;
-            Item.height = 26;
+            Item.height = 32;
             Item.accessory = true;
             Item.value = CalamityMod.Items.CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Green;
-            Item.vanity = true;
+            Item.vanity = true; 
             Item.Entropy().tooltipStyle = 8;
-            Item.Entropy().strokeColor = new Color(228, 228, 228);
-            Item.Entropy().NameColor = new Color(70, 70, 70);
-            Item.Entropy().NameLightColor = Color.White * 0.2f;
+            Item.Entropy().strokeColor = Color.LimeGreen;
+            Item.Entropy().NameColor = new Color(10, 50, 10);
+            Item.Entropy().NameLightColor = Color.LightGreen * 0.38f;
         }
 
         public override void UpdateVanity(Player player)
@@ -60,9 +60,8 @@ namespace CalamityEntropy.Content.Items.Vanity
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.AngelStatue)
-                .AddIngredient(ItemID.Feather, 6)
-                .AddIngredient(ItemID.CloudinaBottle)
+                .AddIngredient(ItemID.SilkRope, 12)
+                .AddRecipeGroup(CERecipeGroups.butterflies)
                 .AddTile(TileID.Loom)
                 .Register();
         }

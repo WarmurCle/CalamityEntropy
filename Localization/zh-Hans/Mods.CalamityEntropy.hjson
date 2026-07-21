@@ -4385,10 +4385,25 @@ Items: {
 			'''
 			使你化身为椎叶紬
 			在物品栏中Shift+右键点击此物品切换兜帽是否显示
-			当前: [D]
+			[c/e9afc0:当前: [D]]
 			'''
 		Show: 显示
 		Hide: 隐藏
+	}
+
+	CrystalofHeart: {
+		DisplayName: 心之水晶
+		Tooltip: 使你化身为因幡巡
+	}
+
+	FuchsiaRibbon: {
+		DisplayName: 品红缎带
+		Tooltip: 使你化身为丛雨
+	}
+
+	MikoMaeTengkan: {
+		DisplayName: 巫女头冠
+		Tooltip: 使你化身为朝武芳乃
 	}
 }
 

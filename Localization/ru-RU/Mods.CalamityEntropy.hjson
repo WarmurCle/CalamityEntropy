@@ -4054,6 +4054,21 @@ Items: {
 		// Show: Show
 		// Hide: Hide
 	}
+
+	CrystalofHeart: {
+		// DisplayName: Crystal of Heart
+		// Tooltip: ""
+	}
+
+	FuchsiaRibbon: {
+		// DisplayName: Fuchsia Ribbon
+		// Tooltip: ""
+	}
+
+	MikoMaeTengkan: {
+		// DisplayName: Miko Mae Tengkan
+		// Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:

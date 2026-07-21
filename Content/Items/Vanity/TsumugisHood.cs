@@ -43,13 +43,14 @@ namespace CalamityEntropy.Content.Items.Vanity
         {
             NoHoodEnabled = reader.ReadBoolean();
         }
-        public override bool CanRightClick() => true;
+        public override bool CanRightClick() => Main.keyState.PressingShift();
         public override void RightClick(Player player)
         {
             if (Main.keyState.PressingShift())
             {
                 NoHoodEnabled = !NoHoodEnabled;
                 Item.NetStateChanged();
+                Item.Entropy().strokeColor = Color.White;
             }
         }
         public override bool ConsumeItem(Player player)
@@ -81,12 +82,20 @@ namespace CalamityEntropy.Content.Items.Vanity
             Item.value = CalamityMod.Items.CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Green;
             Item.vanity = true;
+            Item.Entropy().tooltipStyle = 8;
+            Item.Entropy().strokeColor = new Color(174, 156, 162);
+            Item.Entropy().NameColor = new Color(40, 20, 30);
+            Item.Entropy().NameLightColor = Color.Green * 0.7f;
         }
-
+        public override void UpdateInventory(Player player)
+        {
+            Item.Entropy().strokeColor = Color.Lerp(Item.Entropy().strokeColor, new Color(174, 156, 162), 0.07f);
+        }
         public override void UpdateVanity(Player player)
         {
             player.GetModPlayer<VanityModPlayer>().vanityEquipped = Name;
             player.GetModPlayer<VanityModPlayer>().SpecialFlag = NoHoodEnabled ? 1 : 0;
+            Item.Entropy().strokeColor = new Color(174, 156, 162);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -95,6 +104,7 @@ namespace CalamityEntropy.Content.Items.Vanity
             {
                 player.GetModPlayer<VanityModPlayer>().vanityEquipped = Name;
                 player.GetModPlayer<VanityModPlayer>().SpecialFlag = NoHoodEnabled ? 1 : 0;
+                Item.Entropy().strokeColor = new Color(174, 156, 162);
             }
         }
 

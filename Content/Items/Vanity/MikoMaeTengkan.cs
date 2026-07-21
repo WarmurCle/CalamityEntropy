@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class FeatheredHeadpiece : ModItem, IVanitySkin
+    public class MikoMaeTengkan : ModItem, IVanitySkin
     {
         public override void Load()
         {
@@ -32,16 +32,16 @@ namespace CalamityEntropy.Content.Items.Vanity
 
         public override void SetDefaults()
         {
-            Item.width = 30;
-            Item.height = 26;
+            Item.width = 34;
+            Item.height = 34;
             Item.accessory = true;
             Item.value = CalamityMod.Items.CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Green;
             Item.vanity = true;
             Item.Entropy().tooltipStyle = 8;
-            Item.Entropy().strokeColor = new Color(228, 228, 228);
-            Item.Entropy().NameColor = new Color(70, 70, 70);
-            Item.Entropy().NameLightColor = Color.White * 0.2f;
+            Item.Entropy().strokeColor = new Color(255, 180, 212);
+            Item.Entropy().NameColor = new Color(120, 80, 110);
+            Item.Entropy().NameLightColor = Color.Pink * 0.6f;
         }
 
         public override void UpdateVanity(Player player)
@@ -60,10 +60,16 @@ namespace CalamityEntropy.Content.Items.Vanity
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.AngelStatue)
-                .AddIngredient(ItemID.Feather, 6)
-                .AddIngredient(ItemID.CloudinaBottle)
-                .AddTile(TileID.Loom)
+                .AddIngredient(ItemID.GoldBar, 8)
+                .AddIngredient(ItemID.Topaz, 6)
+                .AddIngredient(ItemID.Silk, 2)
+                .AddTile(TileID.Anvils)
+                .Register();
+            CreateRecipe()
+                .AddIngredient(ItemID.PlatinumBar, 8)
+                .AddIngredient(ItemID.Topaz, 6)
+                .AddIngredient(ItemID.Silk, 2)
+                .AddTile(TileID.Anvils)
                 .Register();
         }
     }
