@@ -1116,7 +1116,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             }
                             if (NPC.localAI[2] > 36)
                             {
-                                int u = (int)Utils.Remap(changeCounter, 0, 6 * 46, 42, 8);
+                                int u = (int)Utils.Remap(46 * (int)(changeCounter / 46f), 0, 6 * 46, 42, 18);
                                 if (changeCounter % 46 == 0)
                                 {
                                     if (changeCounter > 1)
