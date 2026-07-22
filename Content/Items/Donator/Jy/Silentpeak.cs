@@ -67,19 +67,19 @@ namespace CalamityEntropy.Content.Items.Donator.Jy
         }
         public static int GetDamage(int level) => level switch
         {
-            0 => 5,
-            1 => 7,
-            2 => 9,
-            3 => 12,
-            4 => 24,
-            5 => 30,
-            6 => 45,
-            7 => 80,
-            8 => 100,
-            9 => 140,
-            10 => 180,
-            11 => 270,
-            _ => 270
+            0 => 9,
+            1 => 20,
+            2 => 32,
+            3 => 45,
+            4 => 60,
+            5 => 80,
+            6 => 100,
+            7 => 200,
+            8 => 300,
+            9 => 400,
+            10 => 580,
+            11 => 800,
+            _ => 870
         };
         public static int Level()
         {

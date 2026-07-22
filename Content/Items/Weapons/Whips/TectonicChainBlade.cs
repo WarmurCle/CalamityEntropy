@@ -120,8 +120,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Whips
             Projectile.GetWhipSettings(Projectile, out float ttfo, out int segCount, out float rangeMul);
             if (Projectile.ai[1] == -1)
             {
-                Vector2 lMid = Projectile.GetOwner().MountedCenter + Projectile.velocity.RotatedBy((cm - 0.5f) * Projectile.ai[2] * 1f).normalize() * Projectile.scale * rangeMul * 90 * vm;
-                Vector2 lEnd = Projectile.GetOwner().MountedCenter + Projectile.velocity.RotatedBy((cm - 0.5f) * Projectile.ai[2] * -0.4f).normalize() * Projectile.scale * rangeMul * 280 * vm;
+                Vector2 lMid = Projectile.GetOwner().MountedCenter + Projectile.velocity.RotatedBy((cm - 0.5f) * Projectile.ai[2] * 1f).normalize() * Projectile.scale * rangeMul * 90 * vm * Projectile.GetOwner().whipRangeMultiplier;
+                Vector2 lEnd = Projectile.GetOwner().MountedCenter + Projectile.velocity.RotatedBy((cm - 0.5f) * Projectile.ai[2] * -0.4f).normalize() * Projectile.scale * rangeMul * 280 * vm * Projectile.GetOwner().whipRangeMultiplier;
                 for (int i = 0; i < points.Count; i++)
                 {
                     points[i] = CEUtils.Bezier(new List<Vector2>() { Projectile.GetOwner().MountedCenter, lMid, lEnd }, (i + 1f) / points.Count);
