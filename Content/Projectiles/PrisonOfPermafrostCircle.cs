@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Particles;
+using CalamityMod;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -370,6 +371,7 @@ namespace CalamityEntropy.Content.Projectiles
             rd = rd.RotatedBy(Projectile.rotation);
 
             CEUtils.drawTextureToPoint(Main.spriteBatch, circle, Color.White * alpha, dp + lu, dp + ru, dp + ld, dp + rd);
+            Main.spriteBatch.ExitShaderRegion();
             return false;
 
         }

@@ -113,15 +113,13 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/IceEdge").Value;
+            Texture2D tx = CEUtils.RequestTex("CalamityEntropy/Content/Projectiles/IceEdge");
             float x = 0f;
             for (int i = 0; i < odp.Count; i++)
             {
                 Main.spriteBatch.Draw(tx, odp[i] - Main.screenPosition, null, Color.White * x * 0.4f, odr[i], new Vector2(tx.Width, tx.Height) / 2, 1, SpriteEffects.None, 0);
                 x += 1 / 10f;
             }
-
-
             return true;
         }
 
