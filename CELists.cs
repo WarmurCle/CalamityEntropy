@@ -1,7 +1,9 @@
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.Fractal;
+using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.Projectiles;
+using CalamityEntropy.Content.Projectiles.Cruiser;
 using CalamityMod.Items.Accessories.Vanity;
 using CalamityMod.Projectiles.Melee;
 using CalamityMod.Projectiles.Typeless;
@@ -16,6 +18,8 @@ namespace CalamityEntropy
         public static List<int> SpecialTaintedEnchantmentList;
         public static List<int> GodheadBlacklist;
         public static List<int> CalVanityItems;
+        public static List<int> CruiserSpecificDeathProjs;
+        public static List<int> CruiserSegs;
         public static void Load()
         {
             int I<T>() where T : ModItem
@@ -31,6 +35,10 @@ namespace CalamityEntropy
             int P<T>() where T : ModProjectile
             {
                 return ModContent.ProjectileType<T>();
+            }
+            int N<T>() where T : ModNPC
+            {
+                return ModContent.NPCType<T>();
             }
             SpecialTaintedEnchantmentList = new()
             {
@@ -84,6 +92,23 @@ namespace CalamityEntropy
                 I<XyksBlessingBlue>(),
                 I<XyksBlessingOrange>() 
             };
+            CruiserSpecificDeathProjs = new()
+            {
+                P<VoidStar>(),
+                P<CruiserEnergyBall>(),
+                P<VoidResidue>(),
+                P<VoidSpike>(),
+                P<CruiserSlash>(),
+                P<CruiserLaser2>(),
+                P<VoidBomb>(),
+                P<VoidExplode>()
+            };
+            CruiserSegs = new()
+            {
+                N<CruiserHead>(),
+                N<CruiserBody>(),
+                N<CruiserTail>()
+            };
         }
         public static List<int> SoyMilkProjectileBlacklist;
         public static void Unload()
@@ -92,6 +117,8 @@ namespace CalamityEntropy
             SoyMilkProjectileBlacklist = null;
             GodheadBlacklist = null;
             CalVanityItems = null;
+            CruiserSpecificDeathProjs = null;
+            CruiserSegs = null;
         }
     }
 }

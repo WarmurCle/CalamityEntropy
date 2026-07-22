@@ -6630,3 +6630,9 @@ ZenithWorld: 在天顶世界时
 RatizelShield: 嗫告篇帙护盾
 PrefixEnchantedDesc: +4% 强化魔力
 NoAmmo: 无弹药！
+VoidDeath0: "{0}消散在了薄薄的空间中"
+VoidDeath1: "{0}被打散成了原子"
+VoidDeath2: "{0}化为了纯粹的能量"
+VoidDeath3: "{0}无法回归物质循环"
+VoidDeath4: "{0}回归了虚无"
+VoidDeath5: "{0}的载体被抹除了"

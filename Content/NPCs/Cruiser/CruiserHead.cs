@@ -140,7 +140,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.boss = true;
             NPC.width = 96;
             NPC.height = 96;
-            NPC.damage = 216;
+            NPC.damage = 200;
             if (Main.expertMode)
             {
                 NPC.damage += 4;
@@ -153,12 +153,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.lifeMax = 1120000;
             if (CalamityWorld.death)
             {
-                NPC.damage += 6;
+                NPC.damage += 4;
                 length += 4;
             }
             else if (CalamityWorld.revenge)
             {
-                NPC.damage += 5;
+                NPC.damage += 2;
                 length += 3;
             }
             tdamage = NPC.damage;

@@ -24,12 +24,17 @@ namespace CalamityEntropy.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (Main.GameUpdateCount % 25 == 0 && player.Entropy().voidResistance < 1)
+            if (player.Entropy().voidResistance >= 1)
+                return;
+            if (Main.GameUpdateCount % (int)(4f / (1 - player.Entropy().voidResistance)) == 0 && player.Entropy().voidResistance < 1)
             {
-                int dmg = (int)((1 - player.Entropy().voidResistance) * 10);
+                int dmg = 3;
                 player.statLife -= dmg;
                 if (player.statLife <= dmg)
                 {
+                    player.SetImmuneTimeForAllTypes(0);
+                    player.immune = false;
+                    player.DelBuff(buffIndex--);
                     player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetText("Mods.CalamityEntropy.KilledByVoidTouch").ToNetworkText(player.name)), dmg, 0);
                 }
             }

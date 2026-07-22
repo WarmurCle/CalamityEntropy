@@ -20,6 +20,7 @@ using CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun;
 using CalamityEntropy.Content.Items.Weapons.DustCarverBow;
 using CalamityEntropy.Content.Items.Weapons.Fractal;
 using CalamityEntropy.Content.Items.Weapons.Whips;
+using CalamityEntropy.Content.NPCs.Cruiser;
 using CalamityEntropy.Content.NPCs.FriendFinderNPC;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Prefixes;
@@ -245,6 +246,23 @@ namespace CalamityEntropy.Common
                 var rs = PlayerDeathReason.ByCustomReason(Mod.GetLocalization("LilyDeath" + Main.rand.Next(2).ToString()).ToNetworkText(Player.name));
                 damageSource = rs;
             }
+            bool CruiserDeathText = false;
+            if(damageSource.SourceProjectileType > 0)
+            {
+                if(CELists.CruiserSpecificDeathProjs.Contains(damageSource.SourceProjectileType))
+                {
+                    CruiserDeathText = true;
+                }
+            }
+            if(damageSource.SourceNPCIndex >= 0)
+            {
+                if (Main.npc[damageSource.SourceNPCIndex].active && CELists.CruiserSegs.Contains(Main.npc[damageSource.SourceNPCIndex].type))
+                    CruiserDeathText = true;
+            }
+            if(CruiserDeathText)
+            {
+                damageSource = PlayerDeathReason.ByCustomReason(Mod.GetLocalization("VoidDeath" + Main.rand.Next(6).ToString()).ToNetworkText(Player.name));
+            }
 
             if (immune > 0)
             {
@@ -324,6 +342,8 @@ namespace CalamityEntropy.Common
             {
                 Player.Calamity().defenseDamageRatio = SilvasCrown.DDR;
             }
+            if (CELists.CruiserSpecificDeathProjs.Contains(proj.whoAmI))
+                Player.AddBuff(ModContent.BuffType<VoidTouch>(), 200);
         }
         public bool SCrown;
 
@@ -1629,7 +1649,7 @@ namespace CalamityEntropy.Common
             {
                 Player.lifeRegen /= 2;
             }
-            if (UsingItemCounter > 0 && bloodBoiling > 1)
+            if ((UsingItemCounter > 0 && bloodBoiling > 1) || Player.HasBuff<VoidTouch>())
             {
                 Player.lifeRegenTime = 0;
                 Player.lifeRegen = int.Min(0, Player.lifeRegen);

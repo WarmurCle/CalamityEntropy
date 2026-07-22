@@ -6543,3 +6543,9 @@ ZenithWorld: In zenith world
 RatizelShield: Ratizel Shield
 PrefixEnchantedDesc: Mods.CalamityEntropy.PrefixEnchantedDesc
 NoAmmo: Out of ammo!
+VoidDeath0: "{0} vanished into thin air"
+VoidDeath1: "{0} has been decomposed into atoms"
+VoidDeath2: "{0} transformed into pure energy"
+VoidDeath3: "{0} cannot return to the material cycle"
+VoidDeath4: "{0} has returned to nothingness"
+VoidDeath5: "{0}'s carrier has been erased"

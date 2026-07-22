@@ -80,7 +80,8 @@ namespace CalamityEntropy.Content.Skies
             if (awtime >= 0)
                 awtime--;
 
-            Main.spriteBatch.UseSampleState(SamplerState.LinearWrap);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null);
             Vector2 dp = new Vector2((Main.screenPosition.X * -0.5f + counter * 0.3f) % txd.Width, (Main.screenPosition.Y * -0.5f * Main.LocalPlayer.gravDir + counter * -0.1f) % txd.Height);
             spriteBatch.Draw(txd, Main.ScreenSize.ToVector2() * 0.5f, new Rectangle((int)-dp.X, (int)-dp.Y, (int)(Main.screenWidth * 2), (int)(Main.screenHeight * 2)), ocolor * opacity, 0, Main.ScreenSize.ToVector2(), 1, SpriteEffects.None, 0);
             
@@ -119,7 +120,7 @@ namespace CalamityEntropy.Content.Skies
             {
             }
             spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null);
             ocolor = new Color((int)(66 * pc), (int)(60 * pc), (int)(94 * pc));
             float c = 1f;
             for (int i = 1; i <= 2; i++)
@@ -158,7 +159,7 @@ namespace CalamityEntropy.Content.Skies
                 fscreen.Parameters["strengthMult"].SetValue(0.28f * opacity + 0.0001f);
                 fscreen.Parameters["screen"].SetValue(Main.screenPosition * 0.5f / Main.ScreenSize.ToVector2() * new Vector2(1, Main.LocalPlayer.gravDir));
                 fscreen.Parameters["iTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.03f);
-                fscreen.Parameters["coordMult"].SetValue(new Vector2(1f, 1f));
+                fscreen.Parameters["coordMult"].SetValue(new Vector2(1f, 1f) / Main.GameViewMatrix.Zoom);
                 fscreen.Parameters["cStrength"].SetValue(3.2f);
                 fscreen.Parameters["cNum"].SetValue(1.12f);
                 graphicsDevice.Textures[0] = EffectLoader.Screen0;
@@ -168,7 +169,7 @@ namespace CalamityEntropy.Content.Skies
                 Main.spriteBatch.End();
             }
 
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
             /*if (SubworldSystem.IsActive<VOIDSubworld>())
             {
