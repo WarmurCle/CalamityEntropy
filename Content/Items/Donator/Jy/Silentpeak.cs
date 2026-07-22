@@ -7,6 +7,7 @@ using CalamityMod;
 using CalamityMod.Items;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Graphics.PackedVector;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,9 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator.Jy
 {
-    public class Silentpeak : ModItem, IDonatorItem
+    public class Silentpeak : ModItem, IDonatorItem, IGetFromStarterBag
     {
         public string DonatorName => "静岳";
-
         public override void SetStaticDefaults()
         {
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true;
@@ -107,6 +107,19 @@ namespace CalamityEntropy.Content.Items.Donator.Jy
                 return 1;
             return 0;
         }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.CopperShortsword)
+                .AddIngredient(ItemID.Feather, 2)
+                .AddIngredient(ItemID.Cloud, 8)
+                .NearShimmer()
+                .Register();
+        }
+        public bool OwnAble(Player player, ref int count)
+        {
+            return StartBagGItem.NameContains(player, "息衍");
+        }
     }
     public class SilentpeakBuff : BaseMinionBuff
     {
@@ -148,10 +161,16 @@ namespace CalamityEntropy.Content.Items.Donator.Jy
             for (int i = 0; i < 8; i++)
                 GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 8, false, 9, 0.04f * Main.rand.NextFloat(0.65f, 1f), Main.rand.NextBool() ? Color.LightGreen : Color.LightGray, new Vector2(2.4f, 0.6f), true));
         }
+        public int LEVEL = Silentpeak.Level();
         public NPC target = null;
         public override void AI()
         {
             Player player = Projectile.GetOwner();
+            int newLv = Silentpeak.Level();
+            if (newLv != LEVEL)
+            {
+                Projectile.Kill();
+            }
             Projectile.MinionCheck<SilentpeakBuff>();
             if (Projectile.localAI[0] == 0)
             {
@@ -237,7 +256,69 @@ namespace CalamityEntropy.Content.Items.Donator.Jy
                     Projectile.rotation = (Projectile.Center - vec1).ToRotation();
                 }
             }
-            if(oldPos.Count > 2)
+            if (aiStyle == AIStyle.MultiSwing)
+            {
+                Projectile.velocity *= 0.9f;
+                Projectile.velocity += ((target.Center + (Projectile.Center - target.Center).normalize() * 190) - Projectile.Center) * 0.007f;
+                vec1 += Projectile.velocity;
+                if (AICounter == 0)
+                {
+                    num1 = Main.rand.NextBool() ? 1 : -1;
+                    vec1 = Projectile.Center;
+                }
+                Projectile.localNPCHitCooldown = 6;
+                float p = AICounter / 130f;
+                if (p >= 1)
+                {
+                    Projectile.localNPCHitCooldown = 30;
+                    NextAI();
+                }
+                else
+                {
+                    Projectile.Center = vec1 + (target.Center - vec1).RotatedBy((CEUtils.GetRepeatedCosFromZeroToOne(p, 2) - 0.5f) * 18 * num1) * CEUtils.Parabola(p, 1);
+                    Projectile.rotation = (Projectile.Center - vec1).ToRotation();
+                }
+            }
+            if (aiStyle == AIStyle.Dash)
+            {
+                if(AICounter == 0)
+                {
+                    Projectile.velocity = (target.Center - Projectile.Center).normalize() * 24;
+                    Projectile.ResetLocalNPCHitImmunity();
+                }
+                if(AICounter < 16)
+                {
+                    Projectile.velocity = Vector2.UnitX.RotatedBy((target.Center - Projectile.Center).ToRotation()) * Projectile.velocity.Length();
+                    if (Projectile.Colliding(Projectile.getRect(), target.getRect()))
+                        AICounter = 20;
+                }
+                if(AICounter > 30)
+                {
+                    Projectile.velocity *= 0.9f;
+                }
+                Projectile.rotation = Projectile.velocity.ToRotation();
+                if (AICounter > 50)
+                    NextAI();
+            }
+            if (aiStyle == AIStyle.Spin)
+            {
+                if (AICounter == 0)
+                {
+                    Projectile.localNPCHitCooldown = 10;
+                    Projectile.ResetLocalNPCHitImmunity();
+                }
+                Projectile.velocity *= 0.96f;
+                Projectile.velocity += (target.Center - Projectile.Center).normalize() * 1.1f;
+                Projectile.pushByOther(0.12f);
+                Projectile.rotation += 0.6f;
+                if (AICounter > 160)
+                {
+                    Projectile.velocity = CEUtils.randomPointInCircle(24);
+                    Projectile.localNPCHitCooldown = 30;
+                    NextAI();
+                }
+            }
+            if (oldPos.Count > 2)
             {
                 Vector2 vc = Projectile.Center - oldPos[oldPos.Count - 1];
                 if(vc.Length() > 4)
@@ -249,6 +330,16 @@ namespace CalamityEntropy.Content.Items.Donator.Jy
                 }
             }
             AICounter++;
+            if (aiStyle == AIStyle.Spin)
+            {
+                if (csAlpha < 1)
+                    csAlpha += 0.1f;
+            }
+            else
+            {
+                if (csAlpha > 0)
+                    csAlpha -= 0.1f;
+            }
             oldPos.Add(Projectile.Center);
             oldRot.Add(Projectile.rotation);
             if(oldPos.Count > 30)
@@ -256,6 +347,11 @@ namespace CalamityEntropy.Content.Items.Donator.Jy
                 oldPos.RemoveAt(0);
                 oldRot.RemoveAt(0);
             }
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (aiStyle == AIStyle.Spin)
+                modifiers.SourceDamage *= 0.2f;
         }
         public Vector2 vec1 = Vector2.Zero;
         public override void SendExtraAI(BinaryWriter writer)
@@ -273,33 +369,38 @@ namespace CalamityEntropy.Content.Items.Donator.Jy
         {
             AICounter = 0;
             int attackStyle = NPC.downedMoonlord ? 2 : (Main.hardMode ? 1 : 0);
-            attackStyle = 0;
-            if (attackStyle == 2)
-            {
-                if (aiStyle == AIStyle.MultiSwing)
-                    aiStyle = AIStyle.Spin;
-                else if (aiStyle == AIStyle.CloseTarget)
-                    aiStyle = AIStyle.MultiSwing;
-                else
-                    aiStyle = AIStyle.CloseTarget;
-            }
-            else if (attackStyle == 1)
-            {
-                if (aiStyle == AIStyle.Spin)
-                    aiStyle = AIStyle.Dash;
-                else if (aiStyle == AIStyle.CloseTarget)
-                    aiStyle = AIStyle.Spin;
-                else
-                    aiStyle = AIStyle.CloseTarget;
-            }
-            else
+            attackStyle = 2;
+            if (attackStyle == 0)
             {
                 if (aiStyle == AIStyle.CloseTarget)
                     aiStyle = AIStyle.Swing;
                 else
                     aiStyle = AIStyle.CloseTarget;
             }
+            else if (attackStyle == 1)
+            {
+                if (aiStyle == AIStyle.Dash)
+                    aiStyle = AIStyle.Spin;
+                else if (aiStyle == AIStyle.CloseTarget)
+                    aiStyle = AIStyle.Swing;
+                else if (aiStyle == AIStyle.Swing)
+                    aiStyle = AIStyle.Dash;
+                else
+                    aiStyle = AIStyle.CloseTarget;
+            }
+            else
+            {
+                if (aiStyle == AIStyle.MultiSwing)
+                    aiStyle = AIStyle.Dash;
+                else if (aiStyle == AIStyle.CloseTarget)
+                    aiStyle = AIStyle.MultiSwing;
+                else if (aiStyle == AIStyle.Dash)
+                    aiStyle = AIStyle.Spin;
+                else
+                    aiStyle = AIStyle.CloseTarget;
+            }
         }
+        public float csAlpha = 0;
         public int num1 = 1;
         public int AICounter = 0;
         public List<Vector2> oldPos = new List<Vector2>();
@@ -356,6 +457,13 @@ namespace CalamityEntropy.Content.Items.Donator.Jy
             }
             Main.spriteBatch.ExitShaderRegion();
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation + MathHelper.PiOver4, tex.Size() * 0.5f, Projectile.scale, (Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
+            if(csAlpha > 0.016f)
+            {
+                Main.spriteBatch.UseAdditive();
+                Texture2D cs = CEUtils.getExtraTex("CircularSmear");
+                Main.spriteBatch.Draw(cs, Projectile.Center - Main.screenPosition, null, new Color(204, 255, 196) * csAlpha, Projectile.rotation + MathHelper.PiOver4, cs.Size() / 2, Projectile.scale * 0.66f, SpriteEffects.None, 0);
+                Main.spriteBatch.ExitShaderRegion();
+            }
             return false;
         }
     }

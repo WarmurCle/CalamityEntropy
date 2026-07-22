@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Whips
                 swingDirection *= -2.5f;
             }
             UseCount++;
-            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0, UseCount % 3 != 0 ? -1 : swingDirection, (Vector2.UnitX.RotatedBy(1f * (Main.rand.NextBool() ? 1 : -1)).RotatedByRandom(0.8f)).ToRotation());
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0, UseCount % 3 == 0 ? -1 : swingDirection, (Vector2.UnitX.RotatedBy(1f * (Main.rand.NextBool() ? 1 : -1)).RotatedByRandom(0.8f)).ToRotation());
             return false;
         }
         public override void AddRecipes()
@@ -121,7 +121,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Whips
             if (Projectile.ai[1] == -1)
             {
                 Vector2 lMid = Projectile.GetOwner().MountedCenter + Projectile.velocity.RotatedBy((cm - 0.5f) * Projectile.ai[2] * 1f).normalize() * Projectile.scale * rangeMul * 90 * vm;
-                Vector2 lEnd = Projectile.GetOwner().MountedCenter + Projectile.velocity.RotatedBy((cm - 0.5f) * Projectile.ai[2] * -1).normalize() * Projectile.scale * rangeMul * 200 * vm;
+                Vector2 lEnd = Projectile.GetOwner().MountedCenter + Projectile.velocity.RotatedBy((cm - 0.5f) * Projectile.ai[2] * -0.4f).normalize() * Projectile.scale * rangeMul * 280 * vm;
                 for (int i = 0; i < points.Count; i++)
                 {
                     points[i] = CEUtils.Bezier(new List<Vector2>() { Projectile.GetOwner().MountedCenter, lMid, lEnd }, (i + 1f) / points.Count);

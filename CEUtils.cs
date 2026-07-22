@@ -32,6 +32,7 @@ namespace CalamityEntropy
 {
     public static class CEUtils
     {
+        public static Recipe NearShimmer(this Recipe r) => r.AddCondition(CalamityEntropy.Instance.GetLocalization("NearShimmer"), () => (Main.LocalPlayer.ZoneShimmer));
         public static Vector3 RotatedBy(this Vector3 vector, float rotation, Vector3 axis)
         {
             axis.Normalize();

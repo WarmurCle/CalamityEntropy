@@ -4403,12 +4403,12 @@ Items: {
 
 	TectonicChainBlade: {
 		DisplayName: 板块链刃
-		Tooltip: 
-		'''
-		{$CommonItemTooltip.SummonTagDamage}
-		{$CommonItemTooltip.Whips}
-		仆从命中被标记的敌怪有概率产生追踪板块碎片
-		'''
+		Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			仆从命中被标记的敌怪有概率产生追踪板块碎片
+			'''
 	}
 }
 
