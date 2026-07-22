@@ -1669,12 +1669,6 @@ namespace CalamityEntropy
                     NPCID.Sets.SpecificDebuffImmunity[j][i] = false;
                 }
             }
-            if (ModLoader.TryGetMod("IsaacMod", out Mod isaac))
-            {
-                isaac.Call("HeldProj", ModContent.ProjectileType<RailPulseBowProjectile>());
-                isaac.Call("HeldProj", ModContent.ProjectileType<GhostdomWhisperHoldout>());
-                isaac.Call("HeldProj", ModContent.ProjectileType<SamsaraCasketProj>());
-            }
 
             string MyGameFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "My Games");
             string Isaac1 = Path.Combine(MyGameFolder, "Binding of Isaac Repentance").Replace("/", "\\");

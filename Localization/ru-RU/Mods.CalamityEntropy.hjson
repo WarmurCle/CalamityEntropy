@@ -1723,11 +1723,6 @@ Items: {
 		Tooltip: ""
 	}
 
-	BookMarkNeutron: {
-		DisplayName: Закладка - Нейтрон
-		Tooltip: Вероятность вызвать нейтронный взрыв при попадании снарядов во врагов
-	}
-
 	ControlTerminal: {
 		DisplayName: Терминал управления
 		Tooltip: ""
@@ -4069,6 +4064,11 @@ Items: {
 		// DisplayName: Miko Mae Tengkan
 		// Tooltip: ""
 	}
+
+	TectonicChainBlade: {
+		// DisplayName: Tectonic Chain Blade
+		// Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
@@ -4818,6 +4818,7 @@ Projectiles: {
 	// ErebodrepanonHeld.DisplayName: Erebodrepanon Held
 	// ErebodrepanonMark.DisplayName: Erebodrepanon Mark
 	// SilentpeakSword.DisplayName: Silentpeak Sword
+	// TectonicChainBladeWhip.DisplayName: Tectonic Chain Blade Whip
 }
 
 LegendTooltip: - Легенда -
@@ -5285,6 +5286,11 @@ Buffs: {
 	SilentpeakBuff: {
 		// DisplayName: Silentpeak
 		// Description: Call forth the will of the Iron Emperor, to shelter and defend you eternally
+	}
+
+	TectonicChainBladeWhipDebuff: {
+		// DisplayName: Tectonic Chain Blade Whip Debuff
+		// Description: Mods.CalamityEntropy.Buffs.TectonicChainBladeWhipDebuff.Description
 	}
 }
 

@@ -1852,11 +1852,6 @@ Items: {
 		Tooltip: Summons homing void spikes from below that inflict [cebuff:CalamityEntropy/VoidTouch]
 	}
 
-	BookMarkNeutron: {
-		DisplayName: Bookmark - Neutron
-		Tooltip: Enemy hits have a rare chance to cause a neutron explosion
-	}
-
 	ControlTerminal: {
 		DisplayName: Control Terminal
 		Tooltip:
@@ -4332,6 +4327,11 @@ Items: {
 		DisplayName: Miko Mae Tengkan
 		Tooltip: ""
 	}
+
+	TectonicChainBlade: {
+		DisplayName: Tectonic Chain Blade
+		Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
@@ -5077,6 +5077,7 @@ Projectiles: {
 	ErebodrepanonHeld.DisplayName: Erebodrepanon Held
 	ErebodrepanonMark.DisplayName: Erebodrepanon Mark
 	SilentpeakSword.DisplayName: Silentpeak Sword
+	TectonicChainBladeWhip.DisplayName: Tectonic Chain Blade Whip
 }
 
 LegendTooltip: - Legend -
@@ -5544,6 +5545,11 @@ Buffs: {
 	SilentpeakBuff: {
 		DisplayName: Silentpeak
 		Description: Call forth the will of the Iron Emperor, to shelter and defend you eternally
+	}
+
+	TectonicChainBladeWhipDebuff: {
+		DisplayName: Tectonic Chain Blade Whip Debuff
+		Description: Mods.CalamityEntropy.Buffs.TectonicChainBladeWhipDebuff.Description
 	}
 }
 

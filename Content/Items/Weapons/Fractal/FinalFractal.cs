@@ -615,9 +615,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     swords.Add(cwr.Find<ModItem>("WeaverGrievances").Type);
                     swords.Add(cwr.Find<ModItem>("FadingGlory").Type);
                     swords.Add(cwr.Find<ModItem>("WeaverGrievances").Type);
-                    swords.Add(cwr.Find<ModItem>("FoodStallChair").Type);
-                    swords.Add(cwr.Find<ModItem>("FoodStallChair").Type);
-                    swords.Add(cwr.Find<ModItem>("WUTIVSelfPortrait").Type);
                 }
             }
             Main.spriteBatch.UseBlendState(BlendState.Additive);

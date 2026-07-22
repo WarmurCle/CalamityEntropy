@@ -138,6 +138,16 @@ namespace CalamityEntropy.Core.Systems
                     summonTag.TagTexture = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Weapons/Whips/Ystralyn", (AssetRequestMode)1);
                 }
             });
+            entries.Add(new SummonTagEntry
+            {
+                ItemType = () => ModContent.ItemType<TectonicChainBlade>(),
+                BuffType = () => ModContent.BuffType<TectonicChainBladeWhipDebuff>(),
+                Setup = delegate (SummonTag summonTag)
+                {
+                    summonTag.AutoDrawTooltip = false;
+                    summonTag.TagTexture = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Weapons/Whips/TectonicChainBlade", (AssetRequestMode)1);
+                }
+            });
 
             foreach (SummonTagEntry summonTagEntry in entries)
             {

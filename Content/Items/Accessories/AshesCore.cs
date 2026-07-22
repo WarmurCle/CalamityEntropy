@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = CEUtils.RequestTex("CalamityEntropy/Content/Items/Weapons/TectonicShardHoming");
-            UnifiedRandom rand = new UnifiedRandom(Projectile.Name.GetHashCode());
+            UnifiedRandom rand = new UnifiedRandom(Projectile.Name.GetHashCode() + Projectile.whoAmI);
             for (int i = 0; i < 9; i++)
             {
                 float tr = rand.NextFloat() * MathHelper.TwoPi + (rand.NextBool() ? 1 : -1) * Main.GlobalTimeWrappedHourly * 1;

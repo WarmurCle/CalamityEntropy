@@ -104,6 +104,14 @@ namespace CalamityEntropy.Content.Buffs
             BuffID.Sets.IsATagBuff[Type] = true;
         }
     }
+    public class TectonicChainBladeWhipDebuff : ModBuff
+    {
+        public override string Texture => "CalamityEntropy/Content/Buffs/WhipDebuff";
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.IsATagBuff[Type] = true;
+        }
+    }
     #endregion
     //Entropy Whip Tag System
     public class WhipTag
@@ -285,6 +293,13 @@ namespace CalamityEntropy.Content.Buffs
                                     }
                                 }
                             }
+                        }
+                    }
+                    if(t.EffectName == "TectonicChainBlade")
+                    {
+                        if(Main.rand.NextBool(5))
+                        {
+                            Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(16, 22), ModContent.ProjectileType<TectonicShardHomingSummon>(), (int)(projectile.damage * 0.7f) + 1, 2, projectile.owner);
                         }
                     }
                     if (t.EffectName == "MindCorruptor")

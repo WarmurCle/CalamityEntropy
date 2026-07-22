@@ -1964,11 +1964,6 @@ Items: {
 		Tooltip: 从下射出视域长枪
 	}
 
-	BookMarkNeutron: {
-		DisplayName: 中子星书签
-		Tooltip: 击中敌人概率产生中子星爆炸
-	}
-
 	ControlTerminal: {
 		DisplayName: 控制终端
 		Tooltip: 发射星流旋刃
@@ -4405,6 +4400,16 @@ Items: {
 		DisplayName: 巫女头冠
 		Tooltip: 使你化身为朝武芳乃
 	}
+
+	TectonicChainBlade: {
+		DisplayName: 板块链刃
+		Tooltip: 
+		'''
+		{$CommonItemTooltip.SummonTagDamage}
+		{$CommonItemTooltip.Whips}
+		仆从命中被标记的敌怪有概率产生追踪板块碎片
+		'''
+	}
 }
 
 SmolderingSetBonus:
@@ -5147,6 +5152,7 @@ Projectiles: {
 	ErebodrepanonHeld.DisplayName: 泓渊亡铭
 	ErebodrepanonMark.DisplayName: 泓渊亡铭标记
 	SilentpeakSword.DisplayName: 静岳之剑
+	// TectonicChainBladeWhip.DisplayName: Tectonic Chain Blade Whip
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5608,6 +5614,11 @@ Buffs: {
 	SilentpeakBuff: {
 		DisplayName: 静岳之剑
 		Description: ""
+	}
+
+	TectonicChainBladeWhipDebuff: {
+		// DisplayName: Tectonic Chain Blade Whip Debuff
+		// Description: Mods.CalamityEntropy.Buffs.TectonicChainBladeWhipDebuff.Description
 	}
 }
 
