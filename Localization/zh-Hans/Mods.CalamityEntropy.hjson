@@ -214,6 +214,15 @@ Items: {
 					[c/FF69B4:"一个带有猫耳的雷管，不知为何它会发出猫叫"]
 					'''
 			}
+
+			BrillianceSwirlblade: {
+				DisplayName: 光耀轮刃
+				Tooltip:
+					'''
+					飞行一段时间或触碰到敌怪时展开，造成多次伤害
+					潜伏攻击会使展开的范围更大并持续更长时间
+					'''
+			}
 		}
 	}
 
@@ -5153,6 +5162,7 @@ Projectiles: {
 	ErebodrepanonMark.DisplayName: 泓渊亡铭标记
 	SilentpeakSword.DisplayName: 静岳之剑
 	// TectonicChainBladeWhip.DisplayName: Tectonic Chain Blade Whip
+	// BrillianceSwirlbladeProj.DisplayName: Brilliance Swirlblade Proj
 }
 
 LegendTooltip: - 传奇物品 -

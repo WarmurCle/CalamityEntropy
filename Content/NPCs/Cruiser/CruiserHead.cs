@@ -1180,6 +1180,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 }
                 if (phaseTrans > 120)
                 {
+                    foreach(var plr in Main.ActivePlayers)
+                    {
+                        plr.Calamity().infiniteFlight = true;
+                    }
                     for (int i = 0; i < 4; i++)
                     {
                         Particle p = new Particle();

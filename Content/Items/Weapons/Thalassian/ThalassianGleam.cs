@@ -532,6 +532,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
             {
                 List<CEUtils.VertexPointSets> sets1 = new List<CEUtils.VertexPointSets>();
                 List<CEUtils.VertexPointSets> sets2 = new List<CEUtils.VertexPointSets>();
+                List<CEUtils.VertexPointSets> sets3 = new List<CEUtils.VertexPointSets>();
                 Vector2 lastPoint = Vector2.Zero;
                 float cxOffset = 0;
                 for (int i = 0; i < sets.Count; i++)
@@ -539,10 +540,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
                     var s = sets[i];
 
                     if (i > 0)
-                        cxOffset += CEUtils.getDistance(lastPoint, s.Position) * 0.004f;
+                        cxOffset += CEUtils.getDistance(lastPoint, s.Position) * 0.007f;
                     float opc = (s.Color.A / 255f);
-                    sets1.Add(new CEUtils.VertexPointSets(s.Position, a * opc, s.Width * 1f, cxOffset + Main.GlobalTimeWrappedHourly * 2));
-                    sets2.Add(new CEUtils.VertexPointSets(s.Position, b * opc, s.Width * 0.5f, cxOffset + Main.GlobalTimeWrappedHourly * 4));
+                    sets1.Add(new CEUtils.VertexPointSets(s.Position, a * opc, s.Width * 1f, cxOffset + Main.GlobalTimeWrappedHourly * 4));
+                    sets2.Add(new CEUtils.VertexPointSets(s.Position, b * opc * 0.8f, s.Width * 1f, cxOffset + Main.GlobalTimeWrappedHourly * 5));
+                    sets3.Add(new CEUtils.VertexPointSets(s.Position, b * opc * 0.5f, s.Width * 1f, cxOffset + Main.GlobalTimeWrappedHourly * 5));
                     lastPoint = s.Position;
                 }
                 GraphicsDevice gd = Main.graphics.GraphicsDevice;
@@ -550,6 +552,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
                     Main.spriteBatch.UseBlendState_UI(BlendState.Additive, SamplerState.LinearWrap);
                 else
                     Main.spriteBatch.UseAdditive();
+
+                Texture2D trail3 = CEUtils.getExtraTex("MegaStreakBacking2");
                 List<ColoredVertex> lt;
                 lt = sets1.GetVertexesList(false, !UI);
                 gd.Textures[0] = trail1;
@@ -557,6 +561,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
 
                 lt = sets2.GetVertexesList(false, !UI);
                 gd.Textures[0] = trail2;
+                gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, lt.ToArray(), 0, lt.Count - 2);
+
+                lt = sets3.GetVertexesList(false, !UI);
+                gd.Textures[0] = trail3;
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, lt.ToArray(), 0, lt.Count - 2);
 
                 if (UI)

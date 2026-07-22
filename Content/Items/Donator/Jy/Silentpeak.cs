@@ -369,7 +369,6 @@ namespace CalamityEntropy.Content.Items.Donator.Jy
         {
             AICounter = 0;
             int attackStyle = NPC.downedMoonlord ? 2 : (Main.hardMode ? 1 : 0);
-            attackStyle = 2;
             if (attackStyle == 0)
             {
                 if (aiStyle == AIStyle.CloseTarget)

@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
@@ -30,8 +31,66 @@ using Terraria.ObjectData;
 
 namespace CalamityEntropy
 {
+    public struct Circle
+    {
+        public Vector2 Center;
+        public float Radius;
+        public Circle(Vector2 center, float rad)
+        {
+            Center = center;
+            Radius = rad;
+        }
+        public bool Intersects(Rectangle rectangle)
+        {
+            Vector2 closestPoint = new Vector2(
+                MathHelper.Clamp(Center.X, rectangle.Left, rectangle.Right),
+                MathHelper.Clamp(Center.Y, rectangle.Top, rectangle.Bottom)
+            );
+
+            Vector2 distance = Center - closestPoint;
+
+            return distance.LengthSquared() < Radius * Radius;
+        }
+        public bool Intersects(Circle circle)
+        {
+            return Vector2.Distance(this.Center, circle.Center) <= this.Radius + circle.Radius;
+        }
+        public override bool Equals([NotNullWhen(true)] object obj)
+        {
+            if (obj is Circle c)
+                return this == c;
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            return Center.GetHashCode() + Radius.GetHashCode();
+        }
+        public static bool operator ==(Circle value1, Circle value2)
+        {
+            return (value1.Center == value2.Center &&
+                    value1.Radius == value2.Radius);
+        }
+        public static bool operator !=(Circle value1, Circle value2)
+        {
+            return !(value1 == value2);
+        }
+        public static Circle operator *(Circle value, float scaleFactor)
+        {
+            value.Radius *= scaleFactor;
+            return value;
+        }
+        public static Circle operator /(Circle value, float d)
+        {
+            value.Radius /= d;
+            return value;
+        }
+    }
     public static class CEUtils
     {
+        public static string ItemTexPath<T>() where T : ModItem
+        {
+            return (typeof(T).Namespace + "." + typeof(T).Name).Replace('.', '/');
+        }
         public static Recipe NearShimmer(this Recipe r) => r.AddCondition(CalamityEntropy.Instance.GetLocalization("NearShimmer"), () => (Main.LocalPlayer.ZoneShimmer));
         public static Vector3 RotatedBy(this Vector3 vector, float rotation, Vector3 axis)
         {

@@ -179,6 +179,11 @@ Items: {
 					[c/FF69B4:Скрытые атаки увеличивают радиус взрыва]
 					'''
 			}
+
+			BrillianceSwirlblade: {
+				// DisplayName: Brilliance Swirlblade
+				// Tooltip: ""
+			}
 		}
 	}
 
@@ -4819,6 +4824,7 @@ Projectiles: {
 	// ErebodrepanonMark.DisplayName: Erebodrepanon Mark
 	// SilentpeakSword.DisplayName: Silentpeak Sword
 	// TectonicChainBladeWhip.DisplayName: Tectonic Chain Blade Whip
+	// BrillianceSwirlbladeProj.DisplayName: Brilliance Swirlblade Proj
 }
 
 LegendTooltip: - Легенда -
