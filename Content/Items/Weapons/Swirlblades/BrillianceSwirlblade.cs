@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.noMelee = true;
             Item.noUseGraphic = true;
         }
-        public override float StealthDamageMultiplier => 2f;
+        public override float StealthDamageMultiplier => 1f;
         public override float StealthVelocityMultiplier => 1.2f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -124,7 +124,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         {
             CEUtils.PlaySound("SCSlash", Main.rand.NextFloat(0.75f, 1f), Projectile.Center);
             for (int i = 0; i < 12; i++)
-                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, (i / 12f * MathHelper.TwoPi).ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 8, false, 10, 0.06f * Main.rand.NextFloat(0.65f, 1f), Main.rand.NextBool() ? Color.Aqua : Color.SkyBlue, new Vector2(2.4f, 0.6f), true));
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, (i / 12f * MathHelper.TwoPi).ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 8, false, 11, Radius / 2400f * Main.rand.NextFloat(0.65f, 1f), Main.rand.NextBool() ? Color.Aqua : Color.SkyBlue, new Vector2(2.4f, 0.6f), true));
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
