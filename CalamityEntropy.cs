@@ -517,6 +517,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            CommonEffects.Unload();
             CELists.Unload();
             Apsychos.shader = null;
             CEUtils.BS_ColorInverse = null;
@@ -1542,6 +1543,7 @@ namespace CalamityEntropy
         }
         public override void PostSetupContent()
         {
+            CommonEffects.Load();
             CELists.Load();
             Apsychos.WhiteTransShader();
             ScreenShaker.Init();

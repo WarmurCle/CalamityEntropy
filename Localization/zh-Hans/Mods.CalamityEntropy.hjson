@@ -254,6 +254,16 @@ Items: {
 					所有攻击都能短暂使目标减速
 					'''
 			}
+
+			RunicSwirlblade: {
+				DisplayName: 符文轮刃
+				Tooltip: 
+				'''
+				飞行一段时间或触碰到敌怪时展开锯片，造成多次伤害
+				展开时释放一些追逐的符文导弹
+				潜伏攻击会大幅增加锯片尺寸，并在返回前释放更强大的符文导弹
+				'''
+			}
 		}
 	}
 
@@ -5201,6 +5211,8 @@ Projectiles: {
 	AzafureSwirlbladeMissile.DisplayName: 阿萨福勒导弹
 	// GlacierSwirlbladeProj.DisplayName: Glacier Swirlblade Proj
 	// GlacierSwirlbladeSaw.DisplayName: Glacier Swirlblade Saw
+	// RunicSwirlbladeBullet.DisplayName: Runic Swirlblade Bullet
+	// RunicSwirlbladeProj.DisplayName: Runic Swirlblade Proj
 }
 
 LegendTooltip: - 传奇物品 -
