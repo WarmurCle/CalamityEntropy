@@ -296,7 +296,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
 
                     Projectile.velocity += v * 0.5f;
                 }
-                Vector2 adv = Projectile.ai[2] == 0 ? Projectile.velocity.RotatedBy((float)Math.Sin(Projectile.localAI[0] * 0.1f + Projectile.ai[0]) * 0.4f) : Projectile.velocity;
+                Vector2 adv = Projectile.velocity;
                 Projectile.rotation = adv.ToRotation();
                 Projectile.position += adv;
             }
