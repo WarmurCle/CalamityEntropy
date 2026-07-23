@@ -336,7 +336,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 dust.scale = Main.rand.NextFloat(2f, 2.4f) * Projectile.scale;
                 dust.velocity = new Vector2(20, 0).RotatedBy(CEUtils.randomRot()) * Main.rand.NextFloat(0.3f, 1f) * Projectile.scale;
                 dust.noGravity = false;
-                dust.color = new Color(215, 230, 255);
+                dust.color = new Color(150, 190, 255);
                 dust.fadeIn = 2f;
             }
             float r = CEUtils.randomRot();
