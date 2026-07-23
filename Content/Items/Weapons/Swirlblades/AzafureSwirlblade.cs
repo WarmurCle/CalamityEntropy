@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.noMelee = true;
             Item.noUseGraphic = true;
         }
-        public override float StealthDamageMultiplier => 1.8f;
+        public override float StealthDamageMultiplier => 1.14f;
         public override float StealthVelocityMultiplier => 1.2f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -145,7 +145,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                     int totalCount = (player.AzafureEnhance() ? 10 : 8);
                     for (int i = 0; i < totalCount; i++)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, ((i / (float)totalCount) * MathHelper.TwoPi).ToRotationVector2() * 6, flame, (int)(Projectile.damage * 0.36f), 6, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, ((i / (float)totalCount) * MathHelper.TwoPi).ToRotationVector2() * 7, flame, (int)(Projectile.damage * 0.5f), 6, Projectile.owner);
                     }
                 }
                 else
@@ -153,7 +153,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                     for (int i = 0; i < (player.AzafureEnhance() ? 3 : 2); i++)
                     {
                         float dir = CEUtils.randomRot();
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, dir.ToRotationVector2() * 6, flame, (int)(Projectile.damage * 0.36f), 6, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, dir.ToRotationVector2() * 6, flame, (int)(Projectile.damage * 1f), 6, Projectile.owner);
                     }
                 }
             }
@@ -347,7 +347,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         }
         public override bool? CanHitNPC(NPC target)
         {
-            return Projectile.ai[0] > 6 ? null : false;
+            return Projectile.ai[0] > 18 ? null : false;
         }
         public override void AI()
         {
@@ -358,18 +358,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 if (Projectile.ai[2] < 1)
                     Projectile.ai[2] += 0.005f;
                 Projectile.rotation = Projectile.velocity.ToRotation();
-                if (counter > 6)
+
+                GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedByRandom(0.3f) * -8, Color.Orange, 16, 0.3f, 0.3f, Main.rand.NextFloat(-0.006f, 0.006f), true));
+                for (int i = 0; i < 2; i++)
                 {
-                    GeneralParticleHandler.SpawnParticle(new HeavySmokeParticle(Projectile.Center, Projectile.rotation.ToRotationVector2().RotatedByRandom(0.3f) * -8, Color.Orange, 16, 0.3f, 0.3f, Main.rand.NextFloat(-0.006f, 0.006f), true));
-                    if (counter > 16)
-                    {
-                        Projectile.velocity *= 1f - Projectile.ai[2] * 0.18f;
-                        Projectile.velocity += (target.Center - Projectile.Center).normalize() * Projectile.ai[2] * 1.8f;
-                    }
-                    for (int i = 0; i < 2; i++)
-                    {
-                        EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center - Projectile.velocity * 3, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
-                    }
+                    EParticle.NewParticle(new Smoke() { timeleftmax = 26, Lifetime = 26 }, Projectile.Center - Projectile.velocity * 3, CEUtils.randomPointInCircle(0.5f), Color.OrangeRed, Main.rand.NextFloat(0.02f, 0.04f), 0.5f, true, BlendState.Additive, CEUtils.randomRot());
+                }
+                if (counter > 30)
+                {
+                    Projectile.velocity *= 1f - Projectile.ai[2] * 0.18f;
+                    Projectile.velocity += (target.Center - Projectile.Center).normalize() * Projectile.ai[2] * 1.8f;
                 }
             }
             else
