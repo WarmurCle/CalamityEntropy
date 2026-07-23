@@ -3373,7 +3373,6 @@ Items: {
 			'''
 			Throws a spear that summons stars and astral bolts on hit
 			Attacks inflict [cbuff:CalamityMod/AstralInfectionDebuff] and [cbuff:CalamityMod/StaticDischarge]
-			'击中后降下闪电和陨星'
 			'''
 	}
 
