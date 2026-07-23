@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<AzafureSwirlblade>(), 6)
+                .AddIngredient(ModContent.ItemType<AzafureSwirlblade>())
                 .AddIngredient(ModContent.ItemType<IceStar>())
                 .AddIngredient(ModContent.ItemType<CryonicBar>(), 6)
                 .AddTile(TileID.MythrilAnvil)
@@ -220,9 +220,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public int CD = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.velocity *= 1.34f;
             if (CD <= 0)
             {
+                Projectile.velocity *= 1.26f;
                 NoPosUpdate = 6;
                 CD = 8;
                 for (int i = 0; i < 6; i++)
