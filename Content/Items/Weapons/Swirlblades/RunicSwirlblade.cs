@@ -178,6 +178,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         }
         public override void OnSpread()
         {
+            CEUtils.PlaySound("soulshine", Main.rand.NextFloat(0.6f, 0.8f), Projectile.Center);
             CEUtils.PlaySound("SCSlash", Main.rand.NextFloat(0.75f, 1f), Projectile.Center);
             for (int i = 0; i < 12; i++)
                 GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, (i / 12f * MathHelper.TwoPi).ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 8, false, 11, Radius / 2400f * Main.rand.NextFloat(0.65f, 1f), Main.rand.NextBool() ? new Color(200, 220, 255) : Color.LightBlue, new Vector2(2.4f, 0.6f), true));
@@ -196,6 +197,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         {
             if (Projectile.Calamity().stealthStrike)
             {
+                CEUtils.PlaySound("soulshine", Main.rand.NextFloat(0.3f, 0.36f), Projectile.Center);
+                CEUtils.PlaySound("soulshine", Main.rand.NextFloat(1.85f, 2.2f), Projectile.Center);
                 CEUtils.PlaySound("CruiserDash", 1.2f, Projectile.Center);
                 int type = ModContent.ProjectileType<RunicSwirlbladeBullet>();
                 if (Main.myPlayer == Projectile.owner)
