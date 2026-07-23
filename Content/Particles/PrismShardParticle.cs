@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Particles
 {
-    public class PrismShard : EParticle
+    public class PrismShardParticle : EParticle
     {
         public override Texture2D Texture => ModContent.Request<Texture2D>("CalamityEntropy/Content/Particles/PrismShard").Value;
         public override void OnSpawn()

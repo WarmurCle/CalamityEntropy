@@ -224,7 +224,32 @@ Items: {
 
 			BrillianceSwirlblade: {
 				DisplayName: Brilliance Swirlblade
-				Tooltip: ""
+				Tooltip:
+					'''
+					Deploy sawblade that dealing multiple hits when fly for a while or hit an enem
+					Stealth attack increases spread and duration
+					'''
+			}
+
+			FlamingSwirlblade: {
+				DisplayName: Flaming Swirlblade
+				Tooltip:
+					'''
+					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
+					On deployment, fires a homing flame
+					Stealth attack increases spread and duration and releases 8 flames
+					'''
+			}
+
+			AzafureSwirlblade: {
+				DisplayName: Azafure Swirlblade
+				Tooltip:
+					'''
+					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
+					On deploy, fires two homing missiles
+					Stealth attack fires 8 missiles on deploy
+					And throws sawblade at nearest target on recall
+					'''
 			}
 		}
 	}
@@ -5084,6 +5109,11 @@ Projectiles: {
 	SilentpeakSword.DisplayName: Silentpeak Sword
 	TectonicChainBladeWhip.DisplayName: Tectonic Chain Blade Whip
 	BrillianceSwirlbladeProj.DisplayName: Brilliance Swirlblade Proj
+	FlamingSwirlbladeFlame.DisplayName: Flaming Swirlblade Flame
+	FlamingSwirlbladeProj.DisplayName: Flaming Swirlblade Proj
+	AzafureSwirlbladeProj.DisplayName: Azafure Swirlblade Proj
+	AzafureSwirlbladeSaw.DisplayName: Azafure Swirlblade Saw
+	AzafureSwirlbladeMissile.DisplayName: Azafure Swirlblade Missile
 }
 
 LegendTooltip: - Legend -
@@ -6521,6 +6551,11 @@ AzafureEnhances: {
 	AzafureImperialGuardMachineGun: Enhance the range and accuracy of projectiles
 	AzafureExhaustGasInjector: Increase damage frequency
 	AzafureStandardShotgun: Increase bullet counts
+	AzafureSwirlblade:
+		'''
+		Increase the range and time of the saw
+		Increase missile amount
+		'''
 }
 
 Menu: {

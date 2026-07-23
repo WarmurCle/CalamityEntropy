@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         }
         public override void AI()
         {
-            Projectile.rotation += Math.Sign(Projectile.velocity.X) * Projectile.velocity.Length() * 0.04f;
+            Projectile.rotation += Math.Sign(Projectile.velocity.X) * Projectile.velocity.Length() * 0.065f;
             if (Counter < FlyTime)
             {
                 foreach (NPC npc in Main.ActiveNPCs)
@@ -76,9 +76,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 if(Spreaded)
                 {
                     Spreaded = false;
-                    OnRetract();
                     Projectile.velocity += CEUtils.randomPointInCircle(42);
                     oldPos.Clear();
+                    OnRetract();
                 }
                 else
                 {
@@ -98,7 +98,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                     BladeScale = 0;
             }
             if (Spreaded)
-                Projectile.rotation += Math.Sign(Projectile.Center.X - player.Center.X) * 0.7f;
+                Projectile.rotation += Math.Sign(Projectile.Center.X - player.Center.X) * 0.54f;
             Counter++;
 
             oldPos.Add(Projectile.Center + Projectile.velocity);
@@ -131,6 +131,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             {
                 Projectile.velocity.Y = -oldVelocity.Y;
             }
+            if (Counter > FlyTime + SpreadTime + 60)
+                Projectile.tileCollide = false;
             return false;
         }
     }

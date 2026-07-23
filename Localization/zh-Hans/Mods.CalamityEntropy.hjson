@@ -219,8 +219,28 @@ Items: {
 				DisplayName: 光耀轮刃
 				Tooltip:
 					'''
-					飞行一段时间或触碰到敌怪时展开，造成多次伤害
+					飞行一段时间或触碰到敌怪时展开锯片，造成多次伤害
 					潜伏攻击会使展开的范围更大并持续更长时间
+					'''
+			}
+
+			FlamingSwirlblade: {
+				DisplayName: 炙炎轮刃
+				Tooltip:
+					'''
+					飞行一段时间或触碰到敌怪时展开锯片，造成多次伤害
+					锯片展开时会释放一束追踪的火焰
+					潜伏攻击会使展开的范围更大并持续更长时间并释放8束火焰
+					'''
+			}
+
+			AzafureSwirlblade: {
+				DisplayName: 阿萨福勒轮刃
+				Tooltip:
+					'''
+					飞行一段时间或触碰到敌怪时展开锯片，造成多次伤害
+					锯片展开时会发射两枚追踪的导弹
+					潜伏攻击会在展开时发射8枚导弹并在收回时将锯片丢向最近的目标
 					'''
 			}
 		}
@@ -5161,8 +5181,13 @@ Projectiles: {
 	ErebodrepanonHeld.DisplayName: 泓渊亡铭
 	ErebodrepanonMark.DisplayName: 泓渊亡铭标记
 	SilentpeakSword.DisplayName: 静岳之剑
-	// TectonicChainBladeWhip.DisplayName: Tectonic Chain Blade Whip
-	// BrillianceSwirlbladeProj.DisplayName: Brilliance Swirlblade Proj
+	TectonicChainBladeWhip.DisplayName: 板块碎片
+	BrillianceSwirlbladeProj.DisplayName: 光耀轮刃
+	FlamingSwirlbladeFlame.DisplayName: 炙炎之火
+	FlamingSwirlbladeProj.DisplayName: 炙炎轮刃
+	AzafureSwirlbladeProj.DisplayName: 阿萨福勒轮刃
+	AzafureSwirlbladeSaw.DisplayName: 锯片
+	AzafureSwirlbladeMissile.DisplayName: 阿萨福勒导弹
 }
 
 LegendTooltip: - 传奇物品 -
@@ -6612,6 +6637,11 @@ AzafureEnhances: {
 	AzafureImperialGuardMachineGun: 提升子弹射程和精准度
 	AzafureExhaustGasInjector: 增加伤害频率
 	AzafureStandardShotgun: 增加霰弹数量
+	AzafureSwirlblade:
+		'''
+		增加锯片的尺寸和持续时间
+		增加导弹的数量
+		'''
 }
 
 Menu: {

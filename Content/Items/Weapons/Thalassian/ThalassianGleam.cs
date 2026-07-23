@@ -526,7 +526,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
         {
             DrawTrail(sets, a, b, CEUtils.getExtraTex("Streak1"), CEUtils.getExtraTex("Streak2"), UI);
         }
-        public static void DrawTrail(List<CEUtils.VertexPointSets> sets, Color a, Color b, Texture2D trail1, Texture2D trail2, bool UI = false)
+        public static void DrawTrail(List<CEUtils.VertexPointSets> sets, Color a, Color b, Texture2D trail1, Texture2D trail2, bool UI = false, float innerWidth = 1)
         {
             if (sets.Count > 1)
             {
@@ -542,7 +542,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Thalassian
                     if (i > 0)
                         cxOffset += CEUtils.getDistance(lastPoint, s.Position) * 0.007f;
                     float opc = (s.Color.A / 255f);
-                    sets1.Add(new CEUtils.VertexPointSets(s.Position, a * opc, s.Width * 1f, cxOffset + Main.GlobalTimeWrappedHourly * 4));
+                    sets1.Add(new CEUtils.VertexPointSets(s.Position, a * opc, s.Width * innerWidth, cxOffset + Main.GlobalTimeWrappedHourly * 4));
                     sets2.Add(new CEUtils.VertexPointSets(s.Position, b * opc * 0.8f, s.Width * 1f, cxOffset + Main.GlobalTimeWrappedHourly * 5));
                     sets3.Add(new CEUtils.VertexPointSets(s.Position, b * opc * 0.5f, s.Width * 1f, cxOffset + Main.GlobalTimeWrappedHourly * 5));
                     lastPoint = s.Position;

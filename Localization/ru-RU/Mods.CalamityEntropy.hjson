@@ -182,7 +182,35 @@ Items: {
 
 			BrillianceSwirlblade: {
 				// DisplayName: Brilliance Swirlblade
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Deploy sawblade that dealing multiple hits when fly for a while or hit an enem
+					Stealth attack increases spread and duration
+					''' */
+			}
+
+			FlamingSwirlblade: {
+				DisplayName: Flaming Swirlblade
+				Tooltip:
+					'''
+					Летит некоторое время или при попадании во врага
+					Разворачивает лезвие, нанося многократный урон
+					При развертывании выпускает самонаводящееся пламя
+					Скрытая атака увеличивает радиус и длительность
+					И выпускает 8 языков пламени
+					'''
+			}
+
+			AzafureSwirlblade: {
+				DisplayName: Azafure Swirlblade
+				Tooltip:
+					'''
+					Летит некоторое время или при попадании во врага
+					Разворачивает лезвие, нанося многократный урон
+					При развертывании выпускает две самонаводящиеся ракеты
+					Скрытая атака выпускает 8 ракет при развертывании
+					И бросает лезвие в ближайшую цель при возврате
+					'''
 			}
 		}
 	}
@@ -4825,6 +4853,11 @@ Projectiles: {
 	// SilentpeakSword.DisplayName: Silentpeak Sword
 	// TectonicChainBladeWhip.DisplayName: Tectonic Chain Blade Whip
 	// BrillianceSwirlbladeProj.DisplayName: Brilliance Swirlblade Proj
+	// FlamingSwirlbladeFlame.DisplayName: Flaming Swirlblade Flame
+	// FlamingSwirlbladeProj.DisplayName: Flaming Swirlblade Proj
+	// AzafureSwirlbladeProj.DisplayName: Azafure Swirlblade Proj
+	// AzafureSwirlbladeSaw.DisplayName: Azafure Swirlblade Saw
+	// AzafureSwirlbladeMissile.DisplayName: Azafure Swirlblade Missile
 }
 
 LegendTooltip: - Легенда -
@@ -6269,6 +6302,11 @@ AzafureEnhances: {
 	// AzafureImperialGuardMachineGun: Enhance the range and accuracy of projectiles
 	// AzafureExhaustGasInjector: Increase damage frequency
 	// AzafureStandardShotgun: Increase bullet counts
+	/* AzafureSwirlblade:
+		'''
+		Increase the range and time of the saw
+		Increase missile amount
+		''' */
 }
 
 Menu: {
