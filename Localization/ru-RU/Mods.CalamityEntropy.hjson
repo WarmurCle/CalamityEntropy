@@ -227,7 +227,12 @@ Items: {
 
 			RunicSwirlblade: {
 				// DisplayName: Runic Swirlblade
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
+					Release homing runic missiles when deploy
+					Stealth attack will increase saw's size and release stronger runic missile before return
+					''' */
 			}
 		}
 	}
