@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
             Item.rare = ItemRarityID.Yellow;
             Item.shoot = ModContent.ProjectileType<RunicSwirlbladeProj>();
-            Item.shootSpeed = 50f;
+            Item.shootSpeed = 58f;
             Item.knockBack = 2f;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.autoReuse = true;
@@ -73,6 +73,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         {
             base.SetDefaults();
             Projectile.localNPCHitCooldown = 4;
+            Projectile.tileCollide = false;
         }
         public override float Radius => 170 * (Projectile.Calamity().stealthStrike ? 1.2f : 1);
         public override int SpreadTime => Projectile.Calamity().stealthStrike ? 50 : 23;
