@@ -76,7 +76,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Projectile.tileCollide = false;
         }
         public override float Radius => 170 * (Projectile.Calamity().stealthStrike ? 1.2f : 1);
-        public override int SpreadTime => Projectile.Calamity().stealthStrike ? 50 : 23;
+        public override int SpreadTime => Projectile.Calamity().stealthStrike ? 50 : 13;
         public float ExtraRadius = 0;
         public override void AI()
         {
@@ -248,6 +248,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             if (Projectile.ai[2] > 0 && PreCounter < MovingTime * 4)
+                return false;
+            if (PreCounter < 20)
                 return false;
             return Projectile.position.getRectCentered(20 * Projectile.scale, 20 * Projectile.scale).Intersects(targetHitbox);
         }
