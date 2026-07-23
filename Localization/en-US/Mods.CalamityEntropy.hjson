@@ -251,6 +251,17 @@ Items: {
 					And throws sawblade at nearest target on recall
 					'''
 			}
+
+			GlacierSwirlblade: {
+				DisplayName: Glacier Swirlblade
+				Tooltip:
+					'''
+					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
+					Then release homing small blades and return
+					Stealth attack will chase nearest target on deploy
+					and release more and larger blades before return
+					'''
+			}
 		}
 	}
 
@@ -5114,6 +5125,8 @@ Projectiles: {
 	AzafureSwirlbladeProj.DisplayName: Azafure Swirlblade Proj
 	AzafureSwirlbladeSaw.DisplayName: Azafure Swirlblade Saw
 	AzafureSwirlbladeMissile.DisplayName: Azafure Swirlblade Missile
+	GlacierSwirlbladeProj.DisplayName: Glacier Swirlblade Proj
+	GlacierSwirlbladeSaw.DisplayName: Glacier Swirlblade Saw
 }
 
 LegendTooltip: - Legend -

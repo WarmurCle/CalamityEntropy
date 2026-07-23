@@ -243,6 +243,17 @@ Items: {
 					潜伏攻击会在展开时发射8枚伤害较低的导弹并在收回时将锯片丢向最近的目标
 					'''
 			}
+
+			GlacierSwirlblade: {
+				DisplayName: 霜蓝轮刃
+				Tooltip:
+					'''
+					飞行一段时间或触碰到敌怪时展开锯片，造成多次伤害
+					随后释放一些追踪的小型锯片并返回
+					潜伏攻击会在展开时持续追逐最近的目标，并在返回前释放更多更大的锯片
+					所有攻击都能短暂使目标减速
+					'''
+			}
 		}
 	}
 
@@ -5188,6 +5199,8 @@ Projectiles: {
 	AzafureSwirlbladeProj.DisplayName: 阿萨福勒轮刃
 	AzafureSwirlbladeSaw.DisplayName: 锯片
 	AzafureSwirlbladeMissile.DisplayName: 阿萨福勒导弹
+	// GlacierSwirlbladeProj.DisplayName: Glacier Swirlblade Proj
+	// GlacierSwirlbladeSaw.DisplayName: Glacier Swirlblade Saw
 }
 
 LegendTooltip: - 传奇物品 -

@@ -79,6 +79,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         }
         public override float Radius => 140 * (Projectile.Calamity().stealthStrike ? 1.18f : 1) * (player.AzafureEnhance() ? 1.2f : 1);
         public override int SpreadTime => (Projectile.Calamity().stealthStrike ? 24 : 30) + (player.AzafureEnhance() ? 14 : 0);
+        public override void AI()
+        {
+            base.AI();
+            if (BladeScale >= 0.2f)
+            {
+                float particleRot = CEUtils.randomRot();
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + particleRot.ToRotationVector2() * Radius, particleRot.ToRotationVector2().RotatedBy(-1.86f) * Main.rand.NextFloat(12, 18), false, Main.rand.Next(12, 16), Main.rand.NextFloat(0.6f, 1f) * 0.04f, (Main.rand.NextBool() ? Color.Firebrick * 1.2f : Color.OrangeRed) * BladeScale, new Vector2(0.18f, 1f), false, false));
+            }
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
@@ -211,6 +220,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 Projectile.velocity *= 0.9f;
             }
         }
+
         
         public int nh = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

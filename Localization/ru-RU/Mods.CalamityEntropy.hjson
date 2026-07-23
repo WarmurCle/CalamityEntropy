@@ -212,6 +212,18 @@ Items: {
 					И бросает лезвие в ближайшую цель при возврате
 					'''
 			}
+
+			GlacierSwirlblade: {
+				// DisplayName: Glacier Swirlblade
+				Tooltip:
+					'''
+					Летит некоторое время или при попадании во врага
+					Разворачивает лезвие, нанося многократный урон
+					Затем выпускает самонаводящиеся малые лезвия и возвращается
+					Скрытая атака: преследует ближайшую цель при развертывании
+					Выпускает больше и крупнее лезвий перед возвратом
+					'''
+			}
 		}
 	}
 
@@ -4858,6 +4870,8 @@ Projectiles: {
 	// AzafureSwirlbladeProj.DisplayName: Azafure Swirlblade Proj
 	// AzafureSwirlbladeSaw.DisplayName: Azafure Swirlblade Saw
 	// AzafureSwirlbladeMissile.DisplayName: Azafure Swirlblade Missile
+	// GlacierSwirlbladeProj.DisplayName: Glacier Swirlblade Proj
+	// GlacierSwirlbladeSaw.DisplayName: Glacier Swirlblade Saw
 }
 
 LegendTooltip: - Легенда -

@@ -452,10 +452,10 @@ namespace CalamityEntropy.Content.Items.Donator.Jy
             Main.spriteBatch.UseBlendState(BlendState.Additive, SamplerState.LinearClamp);
             for(float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver4 * 0.5f)
             {
-                Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + i.ToRotationVector2() * 3, null, Color.White, Projectile.rotation + MathHelper.PiOver4, tex.Size() * 0.5f, Projectile.scale, (Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
+                Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition + i.ToRotationVector2() * 3, null, Color.White, Projectile.rotation + MathHelper.PiOver2, tex.Size() * 0.5f, Projectile.scale, (Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
             }
             Main.spriteBatch.ExitShaderRegion();
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation + MathHelper.PiOver4, tex.Size() * 0.5f, Projectile.scale, (Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation + MathHelper.PiOver2, tex.Size() * 0.5f, Projectile.scale, (Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally));
             if(csAlpha > 0.016f)
             {
                 Main.spriteBatch.UseAdditive();
