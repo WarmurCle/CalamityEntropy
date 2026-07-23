@@ -167,8 +167,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 }
 
                 Texture2D pulse = CEUtils.getExtraTex("HighResFoggyCircleHardEdge");
-                Main.spriteBatch.Draw(pulse, Projectile.Center - Main.screenPosition, null, new Color(200, 225, 255) * Projectile.Opacity * ExtraRadius, Projectile.rotation, pulse.Size().Half(), ExtraRadius * Radius * 0.0015f * Projectile.scale * 0.7f, SpriteEffects.None, 0);
-                Main.spriteBatch.Draw(pulse, Projectile.Center - Main.screenPosition, null, new Color(200, 225, 255) * Projectile.Opacity * ExtraRadius, Projectile.rotation, pulse.Size().Half(), ExtraRadius * Radius * 0.0015f * Projectile.scale, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(pulse, Projectile.Center - Main.screenPosition, null, new Color(136, 160, 200) * Projectile.Opacity * ExtraRadius, Projectile.rotation, pulse.Size().Half(), ExtraRadius * Radius * 0.0016f * Projectile.scale * 0.7f, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(pulse, Projectile.Center - Main.screenPosition, null, new Color(136, 160, 200) * Projectile.Opacity * ExtraRadius, Projectile.rotation, pulse.Size().Half(), ExtraRadius * Radius * 0.0016f * Projectile.scale, SpriteEffects.None, 0);
 
                 Main.spriteBatch.ExitShaderRegion();
             }
