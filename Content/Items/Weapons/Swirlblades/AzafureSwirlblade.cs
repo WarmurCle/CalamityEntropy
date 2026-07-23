@@ -383,6 +383,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 Projectile.rotation = Projectile.velocity.ToRotation();
             }
         }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff<MechanicalTrauma>(300);
+        }
         public override void OnKill(int timeLeft)
         {
             CEUtils.PlaySound("explosion1", Main.rand.NextFloat(1.5f, 1.8f), Projectile.Center, 6, 0.5f);
