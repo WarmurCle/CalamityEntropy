@@ -133,6 +133,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             }
             if (Counter > FlyTime + SpreadTime + 60)
                 Projectile.tileCollide = false;
+            if(oldPos.Count > 0)
+            {
+                oldPos.RemoveAt(oldPos.Count - 1);
+                oldPos.Add(Projectile.Center + Projectile.velocity);
+            }
             return false;
         }
     }
