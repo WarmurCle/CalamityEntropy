@@ -57,6 +57,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                         if (Projectile.Center.getRectCentered(80, 80).Intersects(npc.getRect()))
                         {
                             Counter = FlyTime;
+                            if(Projectile.owner == Main.myPlayer)
+                                CEUtils.SyncProj(Projectile.whoAmI);
                             break;
                         }
                     }
