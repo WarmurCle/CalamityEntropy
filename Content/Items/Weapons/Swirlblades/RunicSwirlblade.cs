@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.useAnimation = Item.useTime = 30;
             Item.width = 50;
             Item.height = 58;
-            Item.damage = 380;
+            Item.damage = 50;
             Item.ArmorPenetration = 12;
             Item.UseSound = SoundID.Item1 with { Volume = 1f };
             Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.noMelee = true;
             Item.noUseGraphic = true;
         }
-        public override float StealthDamageMultiplier => 1.4f;
+        public override float StealthDamageMultiplier => 0.6f;
         public override float StealthVelocityMultiplier => 1.2f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -60,8 +60,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<GlacierSwirlblade>())
-                .AddIngredient(ModContent.ItemType<SamsaraSlicer>())
-                .AddIngredient(ItemID.Ectoplasm, 6)
+                .AddIngredient(ModContent.ItemType<AzafureSwirlblade>())
+                .AddIngredient(ItemID.SpectreBar, 20)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
