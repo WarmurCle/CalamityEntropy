@@ -5,6 +5,7 @@ using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
 using CalamityEntropy.Content.Items.Accessories.Hungry;
+using CalamityEntropy.Content.Items.Accessories.Oath;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Armor.Marivinium;
 using CalamityEntropy.Content.Items.Armor.NihTwins;
@@ -171,6 +172,7 @@ namespace CalamityEntropy.Common
         public int bloodBoiling = 0;
         public int UsingItemCounter = 0;
         public float VanityTailRot = 0;
+        public float FlagRot = 0;
         public int JetpackDye = -1;
         public int StealthRegenDelay = 0;
         public bool CanSlainTownNPC = false;
@@ -528,6 +530,10 @@ namespace CalamityEntropy.Common
         public float EDamageReduce = 0;
         public int NoPlatformCollide = 0;
         public bool exquisiteCrown = false;
+        public bool oathBanner = false;
+        public bool oathBannerVisual = false;
+        public int oathBannerDye = 0;
+        public int OathBannerFrameCount = 0;
         #endregion
         public void UpdateDriverShield()
         {
@@ -971,6 +977,9 @@ namespace CalamityEntropy.Common
         public int SunriseScene = 0;
         public override void ResetEffects()
         {
+            oathBannerDye = 0;
+            oathBanner = false;
+            oathBannerVisual = false;
             MeleeScale = 1;
             EquipedAnyRogueAcc = false;
             if (RatzielShieldTime > 0)
@@ -2426,8 +2435,33 @@ namespace CalamityEntropy.Common
         public int AzureShield = 0;
         public List<int> smolderingSets;
         public bool smdVisual = false;
+        public float veloCounter = 0;
         public override void PostUpdate()
         {
+            FlagRot *= 0.9f;
+            if (Player.velocity.Length() > 1f)
+            {
+                int dr = (Player.velocity.X != 0) ? Math.Sign(Player.velocity.X) : Player.direction;
+                Vector2 vl = Player.velocity * new Vector2(1, 1) * (dr < 0 ? -1 : 1);
+                FlagRot = float.Lerp(FlagRot, vl.ToRotation(), 0.02f);
+            }
+            veloCounter += 0.1f;
+            veloCounter += Player.velocity.Length() * 0.028f;
+            while (veloCounter > 1)
+            {
+                veloCounter--;
+                OathBannerFrameCount++;
+                if (OathBannerFrameCount > 7)
+                    OathBannerFrameCount = 0;
+            }
+            foreach(Player plr in Main.ActivePlayers)
+            {
+                if(plr.whoAmI != Player.whoAmI && plr.Entropy().oathBanner && plr.team == Player.team)
+                {
+                    if(plr.Distance(Player.Center) < 10000)
+                        Player.AddBuff(ModContent.BuffType<OathofCommand>(), 8);
+                }
+            }
             if(MewmewSmokeEffect > 0)
             {
                 Player.immuneNoBlink = true;

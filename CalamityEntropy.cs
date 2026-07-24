@@ -10,6 +10,7 @@ using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
+using CalamityEntropy.Content.Items.Accessories.Oath;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Armor.AzafureT3;
 using CalamityEntropy.Content.Items.Atbm;
@@ -428,6 +429,7 @@ namespace CalamityEntropy
         public static int tmtype = -1;
         public static int retype = -1;
         public static int aetype = -1;
+        public static int obtype = -1;
         private void update_item_dye(On_Player.orig_UpdateItemDye orig, Player self, bool isNotInVanitySlot, bool isSetToHidden, Item armorItem, Item dyeItem)
         {
             if (tmtype < 1)
@@ -436,6 +438,8 @@ namespace CalamityEntropy
                 retype = ModContent.ItemType<RustyDetectionEquipment>();
             if (aetype < 1)
                 aetype = ModContent.ItemType<AzafureDetectionEquipment>();
+            if (obtype < 1)
+                obtype = ModContent.ItemType<OathBanner>();
             if (!armorItem.IsAir)
             {
                 armorItem.Entropy().DyeType = dyeItem.type;
@@ -452,6 +456,10 @@ namespace CalamityEntropy
             if (!armorItem.IsAir && (armorItem.type == retype || armorItem.type == aetype))
             {
                 self.Entropy().JetpackDye = dyeItem.dye;
+            }
+            if (!armorItem.IsAir && armorItem.type == obtype)
+            {
+                self.Entropy().oathBannerDye = dyeItem.IsAir ? 0 : dyeItem.dye;
             }
             orig(self, isNotInVanitySlot, isSetToHidden, armorItem, dyeItem);
         }

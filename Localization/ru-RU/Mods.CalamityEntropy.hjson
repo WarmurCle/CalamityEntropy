@@ -4135,6 +4135,21 @@ Items: {
 		// DisplayName: Tectonic Chain Blade
 		// Tooltip: ""
 	}
+
+	OathBanner: {
+		// DisplayName: Oath Banner
+		Tooltip: 
+		'''
+		Уменьшает получаемый урон на [DR]%
+		Увеличивает регенерацию здоровья на [REG]/с
+		Уменьшает скорость передвижения на [MSD]%
+		Союзникам в радиусе 625 клеток
+		Даёт следующие усиления:
+		Увеличивает урон на [DMG]%
+		Увеличивает шанс крита на [CRIT]%
+		Увеличивает скорость передвижения на [MSA]%
+		'''
+	}
 }
 
 SmolderingSetBonus:
@@ -5369,6 +5384,11 @@ Buffs: {
 	TectonicChainBladeWhipDebuff: {
 		// DisplayName: Tectonic Chain Blade Whip Debuff
 		// Description: Mods.CalamityEntropy.Buffs.TectonicChainBladeWhipDebuff.Description
+	}
+
+	OathofCommand: {
+		// DisplayName: Oathof Command
+		// Description: Mods.CalamityEntropy.Buffs.OathofCommand.Description
 	}
 }
 

@@ -4470,6 +4470,20 @@ Items: {
 			仆从命中被标记的敌怪有概率产生追踪板块碎片
 			'''
 	}
+
+	OathBanner: {
+		DisplayName: 誓约战旗
+		Tooltip: 
+		'''
+		减少[DR]%所受伤害
+		增加[REG]/s自然生命再生
+		减少[MSD]%移动速度
+		为周围625格内同一队伍的其他玩家提供以下增益：
+		增加[DMG]%伤害
+		增加[CRIT]%暴击率
+		增加[MSA]%移动速度
+		'''
+	}
 }
 
 SmolderingSetBonus:
@@ -5691,6 +5705,11 @@ Buffs: {
 	TectonicChainBladeWhipDebuff: {
 		// DisplayName: Tectonic Chain Blade Whip Debuff
 		// Description: Mods.CalamityEntropy.Buffs.TectonicChainBladeWhipDebuff.Description
+	}
+
+	OathofCommand: {
+		// DisplayName: Oathof Command
+		// Description: Mods.CalamityEntropy.Buffs.OathofCommand.Description
 	}
 }
 
