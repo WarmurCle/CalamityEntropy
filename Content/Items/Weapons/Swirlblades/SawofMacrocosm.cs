@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.useAnimation = Item.useTime = 40;
             Item.width = 86;
             Item.height = 86;
-            Item.damage = 230;
+            Item.damage = 225;
             Item.ArmorPenetration = 30;
             Item.UseSound = SoundID.Item1 with { Volume = 1.2f };
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.noMelee = true;
             Item.noUseGraphic = true;
         }
-        public override float StealthDamageMultiplier => 0.66f;
+        public override float StealthDamageMultiplier => 0.6f;
         public override float StealthVelocityMultiplier => 1.25f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
