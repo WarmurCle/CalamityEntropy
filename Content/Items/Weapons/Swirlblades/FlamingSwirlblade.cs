@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.useAnimation = Item.useTime = 24;
             Item.width = 48;
             Item.height = 52;
-            Item.damage = 7;
+            Item.damage = 8;
             Item.ArmorPenetration = 8;
             Item.UseSound = SoundID.Item1 with { Volume = 1.2f };
             Item.value = CalamityGlobalItem.RarityLightRedBuyPrice;
@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.noMelee = true;
             Item.noUseGraphic = true;
         }
-        public override float StealthDamageMultiplier => 1.0f;
+        public override float StealthDamageMultiplier => 0.8f;
         public override float StealthVelocityMultiplier => 1.4f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -58,7 +58,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.HellstoneBar, 25)
+                .AddIngredient(ModContent.ItemType<BrillianceSwirlblade>())
+                .AddIngredient(ItemID.HellstoneBar, 8)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
