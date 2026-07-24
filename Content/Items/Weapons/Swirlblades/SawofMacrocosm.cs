@@ -67,7 +67,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<BlazingSwirlblade>())
-                .AddIngredient(ModContent.ItemType<CosmiliteBar>(), 8)
+                .AddIngredient(ModContent.ItemType<DimensionTearingDisk>())
+                .AddIngredient(ModContent.ItemType<CosmiliteBar>(), 6)
                 .AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 2)
                 .AddTile<CosmicAnvil>()
                 .Register();
