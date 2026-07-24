@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<BrillianceSwirlblade>(), 10)
+                .AddIngredient(ModContent.ItemType<BrillianceSwirlblade>())
                 .AddIngredient(ItemID.HellstoneBar, 8)
                 .AddTile(TileID.Anvils)
                 .Register();

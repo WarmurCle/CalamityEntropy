@@ -234,6 +234,11 @@ Items: {
 					Stealth attack will increase saw's size and release stronger runic missile before return
 					''' */
 			}
+
+			BlazingSwirlblade: {
+				// DisplayName: Blazing Swirlblade
+				// Tooltip: ""
+			}
 		}
 	}
 
@@ -4884,6 +4889,8 @@ Projectiles: {
 	// GlacierSwirlbladeSaw.DisplayName: Glacier Swirlblade Saw
 	// RunicSwirlbladeBullet.DisplayName: Runic Swirlblade Bullet
 	// RunicSwirlbladeProj.DisplayName: Runic Swirlblade Proj
+	// BlazingSwirlbladeFlame.DisplayName: Blazing Swirlblade Flame
+	// BlazingSwirlbladeProj.DisplayName: Blazing Swirlblade Proj
 }
 
 LegendTooltip: - Легенда -

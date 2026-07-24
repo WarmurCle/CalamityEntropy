@@ -264,6 +264,15 @@ Items: {
 					潜伏攻击会大幅增加锯片尺寸，并在返回前释放更强大的符文导弹
 					'''
 			}
+
+			BlazingSwirlblade: {
+				DisplayName: 耀目轮刃
+				Tooltip: 
+				'''
+				飞行一段时间或触碰到敌怪时释放强大的火焰冲击并展开能造成多次伤害的锯片
+				潜伏攻击会使展开的范围更大并持续更长时间
+				'''
+			}
 		}
 	}
 
@@ -5213,6 +5222,8 @@ Projectiles: {
 	// GlacierSwirlbladeSaw.DisplayName: Glacier Swirlblade Saw
 	// RunicSwirlbladeBullet.DisplayName: Runic Swirlblade Bullet
 	// RunicSwirlbladeProj.DisplayName: Runic Swirlblade Proj
+	// BlazingSwirlbladeFlame.DisplayName: Blazing Swirlblade Flame
+	// BlazingSwirlbladeProj.DisplayName: Blazing Swirlblade Proj
 }
 
 LegendTooltip: - 传奇物品 -

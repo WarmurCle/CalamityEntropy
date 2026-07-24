@@ -272,6 +272,16 @@ Items: {
 					Stealth attack will increase saw's size and release stronger runic missile before return
 					'''
 			}
+
+			BlazingSwirlblade: {
+				DisplayName: Blazing Swirlblade
+				Tooltip: 
+				'''
+				Deploy sawblade that dealing multiple hits when fly for a while or hit an enem
+				Release powerful flame shock when deploy
+				Stealth attack increases spread and duration
+				'''
+			}
 		}
 	}
 
@@ -5138,6 +5148,8 @@ Projectiles: {
 	GlacierSwirlbladeSaw.DisplayName: Glacier Swirlblade Saw
 	RunicSwirlbladeBullet.DisplayName: Runic Swirlblade Bullet
 	RunicSwirlbladeProj.DisplayName: Runic Swirlblade Proj
+	BlazingSwirlbladeFlame.DisplayName: Blazing Swirlblade Flame
+	BlazingSwirlbladeProj.DisplayName: Blazing Swirlblade Proj
 }
 
 LegendTooltip: - Legend -
