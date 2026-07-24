@@ -4408,6 +4408,16 @@ Items: {
 			Increase movement speed by [MSA]%
 			'''
 	}
+
+	ReapersButterfly: {
+		DisplayName: Reapers Butterfly
+		Tooltip: ""
+	}
+
+	BottleofCrystal: {
+		DisplayName: Bottle of Crystal
+		Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
@@ -5641,8 +5651,8 @@ Buffs: {
 	}
 
 	OathofCommand: {
-		DisplayName: Oathof Command
-		Description: Mods.CalamityEntropy.Buffs.OathofCommand.Description
+		DisplayName: Oath of Command
+		Description: You feel that morale is high
 	}
 }
 

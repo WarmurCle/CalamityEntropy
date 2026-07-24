@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            CEUtils.PlaySound("SwingMid", Main.rand.NextFloat(1.4f, 1.8f), position, 16, 0.5f);
+            CEUtils.PlaySound("SwingMid", Main.rand.NextFloat(1.2f, 1.5f), position, 16, 0.4f);
             int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
             if (player.Calamity().StealthStrikeAvailable() && p.WithinBounds(Main.maxProjectiles))
             {

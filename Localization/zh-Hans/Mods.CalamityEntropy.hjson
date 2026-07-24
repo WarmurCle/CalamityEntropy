@@ -4484,6 +4484,16 @@ Items: {
 			增加[MSA]%移动速度
 			'''
 	}
+
+	ReapersButterfly: {
+		DisplayName: 死神之蝶
+		Tooltip: 使你化身为明月栞那
+	}
+
+	BottleofCrystal: {
+		DisplayName: 水晶之瓶
+		Tooltip: 使你化身为绫地宁宁
+	}
 }
 
 SmolderingSetBonus:
@@ -5233,12 +5243,12 @@ Projectiles: {
 	AzafureSwirlbladeProj.DisplayName: 阿萨福勒轮刃
 	AzafureSwirlbladeSaw.DisplayName: 锯片
 	AzafureSwirlbladeMissile.DisplayName: 阿萨福勒导弹
-	// GlacierSwirlbladeProj.DisplayName: Glacier Swirlblade Proj
-	// GlacierSwirlbladeSaw.DisplayName: Glacier Swirlblade Saw
-	// RunicSwirlbladeBullet.DisplayName: Runic Swirlblade Bullet
-	// RunicSwirlbladeProj.DisplayName: Runic Swirlblade Proj
-	// BlazingSwirlbladeFlame.DisplayName: Blazing Swirlblade Flame
-	// BlazingSwirlbladeProj.DisplayName: Blazing Swirlblade Proj
+	GlacierSwirlbladeProj.DisplayName: 霜蓝轮刃
+	GlacierSwirlbladeSaw.DisplayName: 霜蓝锯片
+	RunicSwirlbladeBullet.DisplayName: 符文导弹
+	RunicSwirlbladeProj.DisplayName: 符文轮刃
+	BlazingSwirlbladeFlame.DisplayName: 浊火冲击
+	BlazingSwirlbladeProj.DisplayName: 耀目轮刃
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5703,13 +5713,13 @@ Buffs: {
 	}
 
 	TectonicChainBladeWhipDebuff: {
-		// DisplayName: Tectonic Chain Blade Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.TectonicChainBladeWhipDebuff.Description
+		DisplayName: 标记
+		Description: ""
 	}
 
 	OathofCommand: {
-		// DisplayName: Oathof Command
-		// Description: Mods.CalamityEntropy.Buffs.OathofCommand.Description
+		DisplayName: 誓令
+		Description: 你感觉士气高涨
 	}
 }
 
