@@ -228,8 +228,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 for (int i = 0; i < 6; i++)
                 {
                     float rot = 2;
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * Radius * Projectile.scale, Projectile.velocity.normalize().RotatedBy(rot).RotatedByRandom(0.3f) * Main.rand.NextFloat(4, 16), false, 16, Projectile.scale * 0.04f, Color.AliceBlue, new Vector2(0.3f, 1), false, false));
-                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * Radius * Projectile.scale, Projectile.velocity.normalize().RotatedBy(-rot).RotatedByRandom(0.3f) * Main.rand.NextFloat(4, 16), false, 16, Projectile.scale * 0.04f, Color.AliceBlue, new Vector2(0.3f, 1), false, false));
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * Radius * Projectile.scale, Projectile.velocity.normalize().RotatedBy(rot).RotatedByRandom(0.3f) * Main.rand.NextFloat(4, 16) * Projectile.scale, false, 16, Projectile.scale * 0.04f, Color.AliceBlue, new Vector2(0.3f, 1), false, false));
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + Projectile.velocity.normalize() * Radius * Projectile.scale, Projectile.velocity.normalize().RotatedBy(-rot).RotatedByRandom(0.3f) * Main.rand.NextFloat(4, 16) * Projectile.scale, false, 16, Projectile.scale * 0.04f, Color.AliceBlue, new Vector2(0.3f, 1), false, false));
                 }
             }
 
@@ -239,15 +239,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             for (int i = 0; i < 8; i++)
             {
                 Dust dust = Dust.NewDustPerfect(target.Center, ModContent.DustType<SquashDust>(), Vector2.Zero);
-                dust.scale = Main.rand.NextFloat(0.3f, 1f) * scale * 1.6f;
-                dust.velocity = CEUtils.randomPointInCircle(30);
+                dust.scale = Main.rand.NextFloat(0.3f, 1f) * scale * 1.6f * Projectile.scale;
+                dust.velocity = CEUtils.randomPointInCircle(30 * Projectile.scale);
                 dust.noGravity = false;
                 dust.color = Main.rand.NextBool() ? Color.AliceBlue : Color.LightSkyBlue;
                 dust.fadeIn = 2f;
             }
             scale = 1.6f;
-            EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, Color.Aqua * 0.8f, scale * 1f, 1, true, BlendState.Additive, 0, 7);
-            EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, Color.White * 0.8f, scale * 0.5f, 1, true, BlendState.Additive, 0, 7);
+            EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, Color.Aqua * 0.8f, scale * 1f * Projectile.scale, 1, true, BlendState.Additive, 0, 7);
+            EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, Color.White * 0.8f, scale * 0.5f * Projectile.scale, 1, true, BlendState.Additive, 0, 7);
         }
 
         public float BladeScale => 1;
