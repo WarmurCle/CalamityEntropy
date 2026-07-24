@@ -64,6 +64,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
     }
     public class GlacierSwirlbladeProj : BaseSwirlblade
     {
@@ -140,6 +144,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 float particleRot = CEUtils.randomRot();
                 GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + particleRot.ToRotationVector2() * Radius, particleRot.ToRotationVector2().RotatedBy(-1.86f) * Main.rand.NextFloat(12, 18), false, Main.rand.Next(12, 16), Main.rand.NextFloat(0.6f, 1f) * 0.04f, (Main.rand.NextBool() ? Color.AliceBlue : Color.LightSkyBlue) * BladeScale, new Vector2(0.18f, 1f), false, false));
             }
+            CEUtils.AddLight(Projectile.Center, new Color(140, 140, 255));
         }
         public override void OnSpread()
         {
@@ -181,6 +186,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Projectile.tileCollide = false;
             Projectile.timeLeft = 120;
             Projectile.localNPCHitCooldown = 6;
+            Projectile.light = 0.7f;
         }
         public override bool ShouldUpdatePosition()
         {

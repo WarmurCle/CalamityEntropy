@@ -63,6 +63,12 @@ namespace CalamityEntropy.Content.Items.Weapons
         public float sAlpha = 0;
         public override void AI()
         {
+            if (Projectile.Entropy().FirstFrames)
+            {
+                float scale_ = Projectile.GetOwner().HeldItem.scale;
+                Projectile.GetOwner().ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
+            }
             Player player = Projectile.GetOwner();
             float speedMelee = (1 + ((player.GetTotalAttackSpeed(DamageClass.Melee) - 1) * ItemID.Sets.BonusAttackSpeedMultiplier[player.HeldItem.type]));
             float speedTrueMelee = player.GetWeaponAttackSpeed(player.HeldItem);

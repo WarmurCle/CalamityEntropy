@@ -70,6 +70,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
     }
     public class BlazingSwirlbladeProj : BaseSwirlblade
     {
@@ -79,6 +83,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             base.SetDefaults();
             Projectile.localNPCHitCooldown = 6;
             Projectile.tileCollide = false;
+            Projectile.light = 1;
         }
         public override float Radius => 180 * (Projectile.Calamity().stealthStrike ? 1.6f : 1);
         public override int SpreadTime => Projectile.Calamity().stealthStrike ? 90 : 22;

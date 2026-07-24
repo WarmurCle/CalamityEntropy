@@ -15,7 +15,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(CEUtils.RogueDC, true, -1);
-            Projectile.light = 0.3f;
             Projectile.width = Projectile.height = 24;
             Projectile.localNPCHitCooldown = 6;
         }
@@ -47,6 +46,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         }
         public override void AI()
         {
+            if (Projectile.Entropy().FirstFrames)
+            {
+                float scale_ = Projectile.GetOwner().HeldItem.scale;
+                Projectile.GetOwner().ApplyMeleeScale(ref scale_);
+                Projectile.scale *= scale_;
+            }
             Projectile.rotation += Math.Sign(Projectile.velocity.X) * Projectile.velocity.Length() * 0.065f;
             if (Counter < FlyTime)
             {
