@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.width = 50;
             Item.height = 58;
             Item.damage = 50;
-            Item.ArmorPenetration = 12;
+            Item.ArmorPenetration = 15;
             Item.UseSound = SoundID.Item1 with { Volume = 1f };
             Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
             Item.rare = ItemRarityID.Yellow;
@@ -60,8 +60,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<GlacierSwirlblade>())
-                .AddIngredient(ModContent.ItemType<AzafureSwirlblade>())
-                .AddIngredient(ItemID.SpectreBar, 20)
+                .AddIngredient(ModContent.ItemType<SamsaraSlicer>())
+                .AddIngredient(ItemID.Ectoplasm, 6)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
