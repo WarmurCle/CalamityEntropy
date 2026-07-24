@@ -106,7 +106,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 {
                     float p = ((float)(1 + i) / posC.Count);
                     Color clr = new Color(255, 170, 170) * 0.58f * p;
-                    Main.spriteBatch.Draw(tex, posC[i] - Main.screenPosition, null, clr, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(tex, posC[i] - Main.screenPosition, null, clr, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale * p, SpriteEffects.None, 0);
                 }
                 Main.spriteBatch.ExitShaderRegion();
 

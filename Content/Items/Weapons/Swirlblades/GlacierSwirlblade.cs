@@ -72,6 +72,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
     public class GlacierSwirlbladeProj : BaseSwirlblade
     {
         public override string Texture => CEUtils.ItemTexPath<GlacierSwirlblade>();
+        public override int OldPosLength => 11;
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -81,7 +82,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         }
         public override float Radius => 140 * (Projectile.Calamity().stealthStrike ? 1.2f : 1);
         public override int SpreadTime => Projectile.Calamity().stealthStrike ? 120 : 21;
-
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D tex = Projectile.GetTexture();
@@ -100,7 +100,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 {
                     float p = ((float)(1 + i) / posC.Count);
                     Color clr = Color.Aqua * 0.58f * p;
-                    Main.spriteBatch.Draw(tex, posC[i] - Main.screenPosition, null, clr, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(tex, posC[i] - Main.screenPosition, null, clr, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale * p, SpriteEffects.None, 0);
                 }
                 Main.spriteBatch.ExitShaderRegion();
 

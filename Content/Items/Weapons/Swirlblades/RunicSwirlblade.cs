@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
     }
     public class RunicSwirlbladeProj : BaseSwirlblade
     {
-        public override string Texture => CEUtils.ItemTexPath<RunicSwirlblade>();
+        public override string Texture => CEUtils.ItemTexPath<RunicSwirlblade>(); public override int OldPosLength => 10;
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -127,7 +127,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 {
                     float p = ((float)(1 + i) / posC.Count);
                     Color clr = Color.Aqua * 0.58f * p;
-                    Main.spriteBatch.Draw(tex, posC[i] - Main.screenPosition, null, clr, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(tex, posC[i] - Main.screenPosition, null, clr, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale * p, SpriteEffects.None, 0);
                 }
                 Main.spriteBatch.ExitShaderRegion();
 

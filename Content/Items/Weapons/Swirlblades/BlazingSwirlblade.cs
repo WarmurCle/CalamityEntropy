@@ -77,7 +77,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
     }
     public class BlazingSwirlbladeProj : BaseSwirlblade
     {
-        public override string Texture => CEUtils.ItemTexPath<BlazingSwirlblade>();
+        public override string Texture => CEUtils.ItemTexPath<BlazingSwirlblade>(); public override int OldPosLength => 12;
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -114,8 +114,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 for (int i = 0; i < posC.Count; i++)
                 {
                     float p = ((float)(1 + i) / posC.Count);
-                    Color clr = new Color(255, 255, 190) * 0.58f * p;
-                    Main.spriteBatch.Draw(tex, posC[i] - Main.screenPosition, null, clr, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
+                    Color clr = new Color(255, 255, 200) * 0.58f * p;
+                    Main.spriteBatch.Draw(tex, posC[i] - Main.screenPosition, null, clr, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale * p, SpriteEffects.None, 0);
                 }
                 Main.spriteBatch.ExitShaderRegion();
 
