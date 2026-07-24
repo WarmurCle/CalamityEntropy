@@ -513,7 +513,22 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 vp.Add(new CEUtils.VertexPointSets(odp[i], Color.White * alpha, 30 * Projectile.scale * width * (Projectile.Calamity().stealthStrike ? 1.8f : 1), 0));
             }
             ThalassianWaterBolt.DrawTrail(vp, new Color(220, 180, 255), new Color(80, 60, 255));
-            DrawBlackTrail(vp, Color.Black, CEUtils.getExtraTex("MegaStreakBacking2b"), 0.3f);
+            if (vp.Count > 6)
+            {
+                vp = new();
+                for (int i = 0; i < odp.Count - 6; i++)
+                {
+                    float p = (i / (odp.Count - 6f - 1f));
+                    float alpha = p < 0.7f ? p / 0.7f : 1;
+                    float width = 1;
+                    if (p < 0.8f)
+                        width = p / 0.8f;
+                    else
+                        width = CEUtils.Parabola(0.5f + (p - 0.8f) / 0.4f, 1);
+                    vp.Add(new CEUtils.VertexPointSets(odp[i], Color.White * alpha, 30 * Projectile.scale * width * (Projectile.Calamity().stealthStrike ? 1.8f : 1), 0));
+                }
+                DrawBlackTrail(vp, Color.Black, CEUtils.getExtraTex("MegaStreakBacking2b"), 0.3f);
+            }
             return false;
         }
         public override string Texture => CEUtils.WhiteTexPath;

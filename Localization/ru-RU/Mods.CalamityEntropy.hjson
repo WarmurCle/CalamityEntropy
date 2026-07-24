@@ -248,15 +248,15 @@ Items: {
 
 			SawofMacrocosm: {
 				// DisplayName: Sawof Macrocosm
-				Tooltip: 
-				'''
-				Летит некоторое время
-				Выпускает 4 малых кольцевых лезвия и разворачивает широкое лезвие
-				Малые лезвия тоже разворачивают лезвия
-				При возврате выпускают самонаводящийся Разрывной луч
-				Скрытая атака: малые лезвия отбрасываются дальше
-				Поглощает их Разрывные лучи и устремляется к ближайшей цели
-				'''
+				Tooltip:
+					'''
+					Летит некоторое время
+					Выпускает 4 малых кольцевых лезвия и разворачивает широкое лезвие
+					Малые лезвия тоже разворачивают лезвия
+					При возврате выпускают самонаводящийся Разрывной луч
+					Скрытая атака: малые лезвия отбрасываются дальше
+					Поглощает их Разрывные лучи и устремляется к ближайшей цели
+					'''
 			}
 		}
 	}
@@ -4173,6 +4173,16 @@ Items: {
 		// DisplayName: Bottle of Crystal
 		// Tooltip: ""
 	}
+
+	BlackSkirt: {
+		// DisplayName: Black Skirt
+		// Tooltip: ""
+	}
+
+	CantaloupeSmoothie: {
+		// DisplayName: Cantaloupe Smoothie
+		// Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
@@ -4937,7 +4947,7 @@ Projectiles: {
 	// BlazingSwirlbladeProj.DisplayName: Blazing Swirlblade Proj
 	// SawofMacrocosmProj.DisplayName: Sawof Macrocosm Proj
 	// MacrocosmSawDash.DisplayName: Macrocosm Saw Dash
-	// MacrocosmVoidBolt.DisplayName: Macrocosm Void Bolt
+	// MacrocosmVoidBolt.DisplayName: Rift Beam
 	// SawofMacrocosmSplit.DisplayName: Sawof Macrocosm Split
 }
 

@@ -277,12 +277,12 @@ Items: {
 
 			SawofMacrocosm: {
 				DisplayName: 噬宙轮刃
-				Tooltip: 
-				'''
-				飞行一段时间后弹出4个较小的轮刃并展开大范围锯片
-				小轮刃也会弹出锯片，并在收回时发射一道追踪的虚空破裂束
-				潜伏攻击会使小锯片被弹的更远，并吸收小锯片的虚空破裂束，随即冲向最近的模目标
-				'''
+				Tooltip:
+					'''
+					飞行一段时间后弹出4个较小的轮刃并展开大范围锯片
+					小轮刃也会弹出锯片，并在收回时发射一道追踪的虚空破裂束
+					潜伏攻击会使小锯片被弹的更远，并吸收小锯片的虚空破裂束，随即冲向最近的模目标
+					'''
 			}
 		}
 	}
@@ -4503,6 +4503,16 @@ Items: {
 	BottleofCrystal: {
 		DisplayName: 水晶之瓶
 		Tooltip: 使你化身为绫地宁宁
+	}
+
+	BlackSkirt: {
+		DisplayName: 黑色短裙
+		Tooltip: 使你化身为谷风天音
+	}
+
+	CantaloupeSmoothie: {
+		DisplayName: 哈密瓜冰沙
+		Tooltip: 使你化身为小云雀来海
 	}
 }
 

@@ -286,15 +286,15 @@ Items: {
 
 			SawofMacrocosm: {
 				DisplayName: Sawof Macrocosm
-				Tooltip: 
-				'''
-				Fly for a while
-				Deploy 4 smaller ringblades and expand a wide sawblade
-				Small ringblades also deploy sawblades
-				On recall, fire a homing Rift Beam
-				Stealth attack knock small blades farther,
-				asorb their Rift Beams and charge at nearest target
-				'''
+				Tooltip:
+					'''
+					Fly for a while
+					Deploy 4 smaller ringblades and expand a wide sawblade
+					Small ringblades also deploy sawblades
+					On recall, fire a homing Rift Beam
+					Stealth attack knock small blades farther,
+					asorb their Rift Beams and charge at nearest target
+					'''
 			}
 		}
 	}
@@ -4429,6 +4429,16 @@ Items: {
 
 	BottleofCrystal: {
 		DisplayName: Bottle of Crystal
+		Tooltip: ""
+	}
+
+	BlackSkirt: {
+		DisplayName: Black Skirt
+		Tooltip: ""
+	}
+
+	CantaloupeSmoothie: {
+		DisplayName: Cantaloupe Smoothie
 		Tooltip: ""
 	}
 }
