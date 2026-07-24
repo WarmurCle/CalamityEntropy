@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.useAnimation = Item.useTime = 28;
             Item.width = 92;
             Item.height = 92;
-            Item.damage = 220;
+            Item.damage = 32;
             Item.ArmorPenetration = 10;
             Item.UseSound = SoundID.Item1 with { Volume = 1.2f };
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.noMelee = true;
             Item.noUseGraphic = true;
         }
-        public override float StealthDamageMultiplier => 0.6f;
+        public override float StealthDamageMultiplier => 0.5f;
         public override float StealthVelocityMultiplier => 1.2f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<AzafureSwirlblade>())
+                .AddIngredient(ModContent.ItemType<BrillianceSwirlblade>())
                 .AddIngredient(ModContent.ItemType<IceStar>())
                 .AddIngredient(ModContent.ItemType<CryonicBar>(), 6)
                 .AddTile(TileID.MythrilAnvil)
@@ -159,7 +159,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             {
                 for (int i = 0; i < (Projectile.Calamity().stealthStrike ? 4 : 2); i++)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(32, 38) * (Projectile.Calamity().stealthStrike ? 1.5f : 1), sawType, Projectile.damage / 3, 6, Projectile.owner, Radius * (Projectile.Calamity().stealthStrike ? 0.5f : 0.4f));
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(32, 38) * (Projectile.Calamity().stealthStrike ? 1.5f : 1), sawType, Projectile.damage / 5, 6, Projectile.owner, Radius * (Projectile.Calamity().stealthStrike ? 0.5f : 0.4f));
                 }
             }
         }
@@ -185,7 +185,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Projectile.height = 28;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 120;
-            Projectile.localNPCHitCooldown = 6;
+            Projectile.localNPCHitCooldown = 15;
             Projectile.light = 0.7f;
         }
         public override bool ShouldUpdatePosition()
