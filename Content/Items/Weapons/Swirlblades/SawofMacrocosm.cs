@@ -35,8 +35,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.useAnimation = Item.useTime = 40;
             Item.width = 86;
             Item.height = 86;
-            Item.damage = 900;
-            Item.ArmorPenetration = 10;
+            Item.damage = 230;
+            Item.ArmorPenetration = 30;
             Item.UseSound = SoundID.Item1 with { Volume = 1.2f };
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
             Item.rare = ModContent.RarityType<CosmicPurple>();
@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.noMelee = true;
             Item.noUseGraphic = true;
         }
-        public override float StealthDamageMultiplier => 1.8f;
+        public override float StealthDamageMultiplier => 0.66f;
         public override float StealthVelocityMultiplier => 1.25f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -67,8 +67,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<BlazingSwirlblade>())
-                .AddIngredient(ModContent.ItemType<DimensionTearingDisk>())
-                .AddIngredient(ModContent.ItemType<CosmiliteBar>(), 6)
+                .AddIngredient(ModContent.ItemType<CosmiliteBar>(), 8)
                 .AddIngredient(ModContent.ItemType<AscendantSpiritEssence>(), 2)
                 .AddTile<CosmicAnvil>()
                 .Register();
@@ -256,7 +255,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.localNPCHitCooldown = 6;
+            Projectile.localNPCHitCooldown = 15;
             Projectile.tileCollide = false;
         }
         public override bool CollideWithNPC => false;
@@ -271,7 +270,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             {
                 if (Main.myPlayer == Projectile.owner)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MacrocosmVoidBolt>(), Projectile.damage, 4f, Projectile.owner, Projectile.ai[1], orgPos.X, orgPos.Y);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MacrocosmVoidBolt>(), (int)(Projectile.damage * 0.66f), 4f, Projectile.owner, Projectile.ai[1], orgPos.X, orgPos.Y);
                 }
             }
             if(TimeUtilSpread > 10)
