@@ -275,12 +275,12 @@ Items: {
 
 			BlazingSwirlblade: {
 				DisplayName: Blazing Swirlblade
-				Tooltip: 
-				'''
-				Deploy sawblade that dealing multiple hits when fly for a while or hit an enem
-				Release powerful flame shock when deploy
-				Stealth attack increases spread and duration
-				'''
+				Tooltip:
+					'''
+					Deploy sawblade that dealing multiple hits when fly for a while or hit an enem
+					Release powerful flame shock when deploy
+					Stealth attack increases spread and duration
+					'''
 			}
 		}
 	}

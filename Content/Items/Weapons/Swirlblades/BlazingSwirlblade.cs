@@ -291,16 +291,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                     Vector2 v = (lastPoint.xy() - pos).RotatedBy(MathHelper.PiOver2).normalize();
                     ve.Add(new ColoredVertex(center + pos + v * w * Projectile.scale - Main.screenPosition,
                           new Vector3((ii / ((float)points.Count - 1f)) * 12 + trailOffset * 0.6f, 1, 1),
-                          new Color(230, 230, 150) * alpha));
+                          new Color(200, 200, 90) * alpha));
                     ve.Add(new ColoredVertex(center + pos - v * w * Projectile.scale - Main.screenPosition,
                           new Vector3((ii / ((float)points.Count - 1f)) * 12 + trailOffset * 0.6f, 0, 1),
-                          new Color(230, 230, 150) * alpha));
+                          new Color(120, 120, 170) * alpha));
                     ve2.Add(new ColoredVertex(center + pos + v * w * Projectile.scale * 0.76f - Main.screenPosition,
                           new Vector3((ii / ((float)points.Count - 1f)) * 12 + trailOffset, 1, 1),
-                          new Color(140, 140, 255) * alpha));
+                          new Color(200, 200, 90) * alpha));
                     ve2.Add(new ColoredVertex(center + pos - v * w * Projectile.scale * 0.76f - Main.screenPosition,
                           new Vector3((ii / ((float)points.Count - 1f)) * 12 + trailOffset, 0, 1),
-                          new Color(140, 140, 255) * alpha));
+                          new Color(120, 120, 120) * alpha));
 
                     lastPoint = points[i];
                 }
