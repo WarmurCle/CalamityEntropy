@@ -283,6 +283,19 @@ Items: {
 					Stealth attack increases spread and duration
 					'''
 			}
+
+			SawofMacrocosm: {
+				DisplayName: Sawof Macrocosm
+				Tooltip: 
+				'''
+				Fly for a while
+				Deploy 4 smaller ringblades and expand a wide sawblade
+				Small ringblades also deploy sawblades
+				On recall, fire a homing Rift Beam
+				Stealth attack knock small blades farther,
+				asorb their Rift Beams and charge at nearest target
+				'''
+			}
 		}
 	}
 
@@ -5176,6 +5189,10 @@ Projectiles: {
 	RunicSwirlbladeProj.DisplayName: Runic Swirlblade Proj
 	BlazingSwirlbladeFlame.DisplayName: Blazing Swirlblade Flame
 	BlazingSwirlbladeProj.DisplayName: Blazing Swirlblade Proj
+	SawofMacrocosmProj.DisplayName: Sawof Macrocosm Proj
+	MacrocosmSawDash.DisplayName: Macrocosm Saw Dash
+	MacrocosmVoidBolt.DisplayName: Rift Beam
+	SawofMacrocosmSplit.DisplayName: Sawof Macrocosm Split
 }
 
 LegendTooltip: - Legend -

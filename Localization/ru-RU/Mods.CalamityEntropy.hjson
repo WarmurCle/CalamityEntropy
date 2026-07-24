@@ -245,6 +245,19 @@ Items: {
 					Stealth attack increases spread and duration
 					''' */
 			}
+
+			SawofMacrocosm: {
+				// DisplayName: Sawof Macrocosm
+				Tooltip: 
+				'''
+				Летит некоторое время
+				Выпускает 4 малых кольцевых лезвия и разворачивает широкое лезвие
+				Малые лезвия тоже разворачивают лезвия
+				При возврате выпускают самонаводящийся Разрывной луч
+				Скрытая атака: малые лезвия отбрасываются дальше
+				Поглощает их Разрывные лучи и устремляется к ближайшей цели
+				'''
+			}
 		}
 	}
 
@@ -4157,7 +4170,7 @@ Items: {
 	}
 
 	BottleofCrystal: {
-		// DisplayName: Bottleof Crystal
+		// DisplayName: Bottle of Crystal
 		// Tooltip: ""
 	}
 }
@@ -4922,6 +4935,10 @@ Projectiles: {
 	// RunicSwirlbladeProj.DisplayName: Runic Swirlblade Proj
 	// BlazingSwirlbladeFlame.DisplayName: Blazing Swirlblade Flame
 	// BlazingSwirlbladeProj.DisplayName: Blazing Swirlblade Proj
+	// SawofMacrocosmProj.DisplayName: Sawof Macrocosm Proj
+	// MacrocosmSawDash.DisplayName: Macrocosm Saw Dash
+	// MacrocosmVoidBolt.DisplayName: Macrocosm Void Bolt
+	// SawofMacrocosmSplit.DisplayName: Sawof Macrocosm Split
 }
 
 LegendTooltip: - Легенда -
@@ -5397,8 +5414,8 @@ Buffs: {
 	}
 
 	OathofCommand: {
-		// DisplayName: Oathof Command
-		// Description: Mods.CalamityEntropy.Buffs.OathofCommand.Description
+		// DisplayName: Oath of Command
+		// Description: You feel that morale is high
 	}
 }
 

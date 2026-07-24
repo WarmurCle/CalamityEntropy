@@ -34,8 +34,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.DamageType = CEUtils.RogueDC;
         }
 
-
-
         public override float StealthDamageMultiplier => 1.2f;
         public override float StealthVelocityMultiplier => 1.2f;
         public override float StealthKnockbackMultiplier => 3f;

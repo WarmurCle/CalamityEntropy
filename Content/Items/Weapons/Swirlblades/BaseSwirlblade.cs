@@ -28,6 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public virtual int SpreadTime => 17 * Projectile.MaxUpdates;
         public virtual int TimeUtilSpread => Counter - FlyTime - SpreadTime;
         public List<Vector2> oldPos = new List<Vector2>();
+        public virtual bool CollideWithNPC => true;
         public virtual int OldPosLength => 9;
         public virtual void FlyBack()
         {
@@ -53,7 +54,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 Projectile.scale *= scale_;
             }
             Projectile.rotation += Math.Sign(Projectile.velocity.X) * Projectile.velocity.Length() * 0.065f;
-            if (Counter < FlyTime)
+            if (Counter < FlyTime && CollideWithNPC)
             {
                 foreach (NPC npc in Main.ActiveNPCs)
                 {

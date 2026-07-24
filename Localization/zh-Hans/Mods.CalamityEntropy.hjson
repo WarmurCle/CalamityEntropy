@@ -274,6 +274,16 @@ Items: {
 					潜伏攻击会使展开的范围更大并持续更长时间
 					'''
 			}
+
+			SawofMacrocosm: {
+				DisplayName: 噬宙轮刃
+				Tooltip: 
+				'''
+				飞行一段时间后弹出4个较小的轮刃并展开大范围锯片
+				小轮刃也会弹出锯片，并在收回时发射一道追踪的虚空破裂束
+				潜伏攻击会使小锯片被弹的更远，并吸收小锯片的虚空破裂束，随即冲向最近的模目标
+				'''
+			}
 		}
 	}
 
@@ -5249,6 +5259,10 @@ Projectiles: {
 	RunicSwirlbladeProj.DisplayName: 符文轮刃
 	BlazingSwirlbladeFlame.DisplayName: 浊火冲击
 	BlazingSwirlbladeProj.DisplayName: 耀目轮刃
+	SawofMacrocosmProj.DisplayName: 噬宙轮刃
+	MacrocosmSawDash.DisplayName: 噬宙之颚
+	MacrocosmVoidBolt.DisplayName: 虚空破裂束
+	SawofMacrocosmSplit.DisplayName: 小型噬宙轮刃
 }
 
 LegendTooltip: - 传奇物品 -
