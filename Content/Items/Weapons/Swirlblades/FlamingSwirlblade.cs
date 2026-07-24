@@ -26,8 +26,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         {
             Item.DamageType = CEUtils.RogueDC;
             Item.useAnimation = Item.useTime = 24;
-            Item.width = 46;
-            Item.height = 46;
+            Item.width = 48;
+            Item.height = 52;
             Item.damage = 56;
             Item.ArmorPenetration = 15;
             Item.UseSound = SoundID.Item1 with { Volume = 1.2f };
