@@ -76,7 +76,7 @@ namespace CalamityEntropy.Content.Items.Donator.Jy
             6 => 55,
             7 => 85,
             8 => 115,
-            9 => 160,
+            9 => 150,
             10 => 210,
             11 => 400,
             _ => 400
