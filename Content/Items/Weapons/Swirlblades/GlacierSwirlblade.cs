@@ -28,7 +28,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.useAnimation = Item.useTime = 28;
             Item.width = 92;
             Item.height = 92;
-            Item.damage = 32;
+            Item.damage = 35;
             Item.ArmorPenetration = 10;
             Item.UseSound = SoundID.Item1 with { Volume = 1.2f };
             Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<BrillianceSwirlblade>())
+                .AddIngredient(ModContent.ItemType<AzafureSwirlblade>())
                 .AddIngredient(ModContent.ItemType<IceStar>())
                 .AddIngredient(ModContent.ItemType<CryonicBar>(), 6)
                 .AddTile(TileID.MythrilAnvil)
@@ -185,7 +185,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Projectile.height = 28;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 120;
-            Projectile.localNPCHitCooldown = 15;
+            Projectile.localNPCHitCooldown = 18;
             Projectile.light = 0.7f;
         }
         public override bool ShouldUpdatePosition()
