@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 .AddIngredient(ModContent.ItemType<ScorchingChakram>())
                 .AddIngredient(ModContent.ItemType<HellIndustrialComponents>(), 6)
                 .AddRecipeGroup(CERecipeGroups.AnyOrichalcumBar, 8)
-                .AddTile(TileID.MythrilAnvil)
+                .AddTile(TileID.Anvils)
                 .Register();
         }
         public override bool MeleePrefix()
