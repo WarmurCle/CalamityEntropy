@@ -64,6 +64,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<RunicSwirlblade>())
+                .AddIngredient(ModContent.ItemType<MoltenAmputator>())
                 .AddIngredient<DivineGeode>(12)
                 .AddIngredient<UnholyEssence>(8)
                 .AddTile(TileID.MythrilAnvil)
