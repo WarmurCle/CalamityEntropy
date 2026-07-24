@@ -31,8 +31,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.useAnimation = Item.useTime = 46;
             Item.width = 74;
             Item.height = 70;
-            Item.damage = 90;
-            Item.ArmorPenetration = 15;
+            Item.damage = 32;
+            Item.ArmorPenetration = 10;
             Item.UseSound = SoundID.Item1 with { Volume = 1.2f, Pitch = -0.32f };
             Item.value = CalamityGlobalItem.RarityLightRedBuyPrice;
             Item.rare = ModContent.RarityType<AzafureOrange>();
@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.noMelee = true;
             Item.noUseGraphic = true;
         }
-        public override float StealthDamageMultiplier => 1.14f;
+        public override float StealthDamageMultiplier => 0.75f;
         public override float StealthVelocityMultiplier => 1.2f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 .AddIngredient(ModContent.ItemType<ScorchingChakram>())
                 .AddIngredient(ModContent.ItemType<HellIndustrialComponents>(), 6)
                 .AddRecipeGroup(CERecipeGroups.AnyOrichalcumBar, 8)
-                .AddTile(TileID.Anvils)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
         public override bool MeleePrefix()
