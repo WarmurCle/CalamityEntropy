@@ -81,7 +81,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Projectile.tileCollide = false;
         }
         public override float Radius => 180 * (Projectile.Calamity().stealthStrike ? 1.6f : 1);
-        public override int SpreadTime => Projectile.Calamity().stealthStrike ? 60 : 22;
+        public override int SpreadTime => Projectile.Calamity().stealthStrike ? 90 : 22;
         public override void AI()
         {
             base.AI();
