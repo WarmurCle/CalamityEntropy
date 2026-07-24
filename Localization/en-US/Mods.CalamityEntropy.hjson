@@ -4396,17 +4396,17 @@ Items: {
 
 	OathBanner: {
 		DisplayName: Oath Banner
-		Tooltip: 
-		'''
-		Reduce incoming damage by [DR]%
-		Increase natural health regen by [REG]/s
-		Reduce movement speed by [MSD]%
-		For teammates within 625 tiles
-		Provide these buffs:
-		Increase damage by [DMG]%
-		Increase crit chance by [CRIT]%
-		Increase movement speed by [MSA]%
-		'''
+		Tooltip:
+			'''
+			Reduce incoming damage by [DR]%
+			Increase natural health regen by [REG]/s
+			Reduce movement speed by [MSD]%
+			For teammates within 625 tiles
+			Provide these buffs:
+			Increase damage by [DMG]%
+			Increase crit chance by [CRIT]%
+			Increase movement speed by [MSA]%
+			'''
 	}
 }
 
