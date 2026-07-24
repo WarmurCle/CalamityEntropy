@@ -172,7 +172,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             }
             if (Main.myPlayer == Projectile.owner)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<BlazingSwirlbladeFlame>(), Projectile.damage * 2, 0, Projectile.owner, 0, Projectile.Calamity().stealthStrike ? 0.5f : 0);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<BlazingSwirlbladeFlame>(), Projectile.damage * 2, 0, Projectile.owner, 0, Projectile.Calamity().stealthStrike ? 0.25f : 0);
             }
         }
         public int fhCd = 0;
