@@ -28,8 +28,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.useAnimation = Item.useTime = 24;
             Item.width = 48;
             Item.height = 52;
-            Item.damage = 56;
-            Item.ArmorPenetration = 15;
+            Item.damage = 7;
+            Item.ArmorPenetration = 8;
             Item.UseSound = SoundID.Item1 with { Volume = 1.2f };
             Item.value = CalamityGlobalItem.RarityLightRedBuyPrice;
             Item.rare = ItemRarityID.LightRed;
@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.noMelee = true;
             Item.noUseGraphic = true;
         }
-        public override float StealthDamageMultiplier => 1.8f;
+        public override float StealthDamageMultiplier => 1.0f;
         public override float StealthVelocityMultiplier => 1.4f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -58,8 +58,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<BrillianceSwirlblade>())
-                .AddIngredient(ItemID.HellstoneBar, 8)
+                .AddIngredient(ItemID.HellstoneBar, 25)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
@@ -164,7 +163,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.OnFire3, 300);
+            target.AddBuff(BuffID.OnFire3, 90);
             if(!target.boss)
             {
                 target.velocity *= 0.6f;
@@ -219,7 +218,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.OnFire3, 300);
+            target.AddBuff(BuffID.OnFire3, 90);
 
             float scale = 1.5f;
             for (int i = 0; i < 12; i++)
