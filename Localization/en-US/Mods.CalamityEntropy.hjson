@@ -302,13 +302,13 @@ Items: {
 
 			ExergySwirlblade: {
 				DisplayName: Exergy Swirlblade
-				Tooltip: 
-				'''
-				Flies for a while or hits an enemy, then deploys a multi-hit sawblade that shrinks over time
-				If deployed by enemy contact, the ringblade sticks to that enemy
-				As the sawblade shrinks, it fires smaller homing sawblades that stop tracking after one hit
-				Stealth attack increases deployment range and duration, and fires a larger persistent homing sawblade at the end
-				'''
+				Tooltip:
+					'''
+					Flies for a while or hits an enemy, then deploys a multi-hit sawblade that shrinks over time
+					If deployed by enemy contact, the ringblade sticks to that enemy
+					As the sawblade shrinks, it fires smaller homing sawblades that stop tracking after one hit
+					Stealth attack increases deployment range and duration, and fires a larger persistent homing sawblade at the end
+					'''
 			}
 		}
 	}

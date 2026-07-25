@@ -26,18 +26,18 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public override void SetDefaults()
         {
             Item.DamageType = CEUtils.RogueDC;
-            Item.useAnimation = Item.useTime = 38;
-            Item.width = 92;
-            Item.height = 92;
-            Item.damage = 35;
-            Item.crit = 4;
-            Item.ArmorPenetration = 10;
+            Item.useAnimation = Item.useTime = 42;
+            Item.width = 70;
+            Item.height = 70;
+            Item.damage = 360;
+            Item.crit = 6;
+            Item.ArmorPenetration = 20;
             Item.UseSound = SoundID.Item1 with { Volume = 1.2f };
-            Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
-            Item.rare = ItemRarityID.Pink;
+            Item.value = CalamityGlobalItem.RarityRedBuyPrice;
+            Item.rare = ItemRarityID.Red;
             Item.shoot = ModContent.ProjectileType<ExergySwirlbladeProj>();
-            Item.shootSpeed = 48f;
-            Item.knockBack = 2f;
+            Item.shootSpeed = 49f;
+            Item.knockBack = 3f;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.autoReuse = true;
             Item.maxStack = 1;
@@ -74,6 +74,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
     {
         public override string Texture => CEUtils.ItemTexPath<ExergySwirlblade>();
         public override int OldPosLength => 11;
+        public override int FlyTime => Projectile.MaxUpdates * 17;
         public override void SetDefaults()
         {
             base.SetDefaults();
