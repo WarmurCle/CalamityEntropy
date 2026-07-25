@@ -65,7 +65,6 @@ namespace CalamityEntropy.Content.Items.Weapons
             }
             else
             {
-
                 Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
             }
             return false;
