@@ -134,7 +134,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                         Projectile.velocity *= 0.96f;
                         Projectile.velocity += (homing.Center - Projectile.Center).normalize() * 1.6f;
                     }
-                    Size.Y = float.Lerp(Size.Y, 0.24f, 0.08f);
+                    Size.Y = float.Lerp(Size.Y, homing == null ? 1 : 0.24f, 0.08f);
                 }
                 else
                 {
