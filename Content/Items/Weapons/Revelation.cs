@@ -58,7 +58,17 @@ namespace CalamityEntropy.Content.Items.Weapons
                 }
                 return false;
             }
-            return true;
+            if (Main.zenithWorld)
+            {
+                for (int i = 0; i < 8; i++)
+                    Projectile.NewProjectile(source, position, velocity.RotatedBy(i * MathHelper.PiOver4), type, damage / 6, knockback, player.whoAmI);
+            }
+            else
+            {
+
+                Projectile.NewProjectile(source, position, velocity.RotatedBy(i * MathHelper.PiOver4), type, damage, knockback, player.whoAmI);
+            }
+            return false;
         }
         public override void AddRecipes()
         {
