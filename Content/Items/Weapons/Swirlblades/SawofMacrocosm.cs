@@ -130,7 +130,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 }
                 if (Main.myPlayer == Projectile.owner)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 46, ModContent.ProjectileType<MacrocosmSawDash>(), Projectile.damage * 5, Projectile.knockBack * 8, Projectile.owner, Radius);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 46, ModContent.ProjectileType<MacrocosmSawDash>(), Projectile.damage * 8, Projectile.knockBack * 8, Projectile.owner, Radius);
                 }
                 ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 9), Projectile.Distance(Main.LocalPlayer.Center), 3600);
                 Projectile.Kill();
