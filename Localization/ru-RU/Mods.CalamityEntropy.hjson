@@ -262,6 +262,17 @@ Items: {
 					Поглощает их Разрывные лучи и устремляется к ближайшей цели
 					'''
 			}
+
+			ExergySwirlblade: {
+				// DisplayName: Exergy Swirlblade
+				Tooltip: 
+				'''
+				Летит некоторое время или при попадании по врагу, затем разворачивает многоударное лезвие, которое со временем уменьшается
+				Если развёрнуто от соприкосновения с врагом, кольцевое лезвие прилипает к этому врагу
+				При уменьшении лезвие выпускает малые самонаводящиеся лезвия, которые перестают наводиться после одного попадания
+				Скрытая атака увеличивает радиус и длительность развёртывания, а в конце выпускает большое самонаводящееся лезвие, постоянно преследующее цель
+				'''
+			}
 		}
 	}
 
@@ -4971,6 +4982,8 @@ Projectiles: {
 	// RevelationThrown.DisplayName: Revelation Thrown
 	// RevelationBolt.DisplayName: Revelation Bolt
 	// RevelationStealth.DisplayName: Revelation Stealth
+	// ExergySwirlbladeProj.DisplayName: Exergy Swirlblade Proj
+	// ExergySwirlbladeSaw.DisplayName: Exergy Swirlblade Saw
 }
 
 LegendTooltip: - Легенда -

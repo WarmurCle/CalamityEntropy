@@ -64,7 +64,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<RunicSwirlblade>())
+                .AddIngredient(ModContent.ItemType<ExergySwirlblade>())
                 .AddIngredient(ModContent.ItemType<MoltenAmputator>())
                 .AddIngredient<DivineGeode>(12)
                 .AddIngredient<UnholyEssence>(8)
