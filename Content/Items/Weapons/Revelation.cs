@@ -245,7 +245,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             if (Main.myPlayer == Projectile.owner)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<RevelationExplode>(), Projectile.damage * 4, 0, Projectile.owner, 300);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<RevelationExplode>(), Projectile.damage * 2, 0, Projectile.owner, 300);
             }
             RevelationExplode.ExpParticle(Projectile.Center, 300, 1);
             for (int i = 0; i < 32; i++)
