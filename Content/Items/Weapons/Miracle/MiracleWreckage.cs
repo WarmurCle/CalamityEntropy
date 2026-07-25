@@ -644,7 +644,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
             Player owner = Projectile.GetOwner();
             if (!flag)
                 if (Projectile.localAI[0]++ > 300)
-                    length = float.Lerp(length, (Main.zenithWorld ? 2f : 1), 0.01f);
+                    length = float.Lerp(length, (Main.zenithWorld ? 2f : 1.23f), 0.01f);
             if (!owner.dead)
                 Projectile.timeLeft = 3;
             owner.Calamity().mouseWorldListener = true;
