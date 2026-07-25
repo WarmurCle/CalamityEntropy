@@ -163,7 +163,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 oldTexRot.RemoveAt(0);
                 oldSize.RemoveAt(0);
             }
-            texRot += 0.12f * Math.Sign](Projectile.velocity.X);
+            texRot += 0.12f * Math.Sign(Projectile.velocity.X);
         }
         public override bool? CanDamage()
         {
