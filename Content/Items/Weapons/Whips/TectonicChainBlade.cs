@@ -20,12 +20,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Whips
 {
     public class TectonicChainBlade : BaseWhipItem
     {
-        public override int TagDamage => 7;
+        public override int TagDamage => 3;
         public int UseCount = 0;
         
         public override void SetDefaults()
         {
-            Item.DefaultToWhip(ModContent.ProjectileType<TectonicChainBladeWhip>(), 33, 3, 4, 28);
+            Item.DefaultToWhip(ModContent.ProjectileType<TectonicChainBladeWhip>(), 22, 3, 4, 28);
             Item.rare = ItemRarityID.LightRed;
             Item.value = CalamityGlobalItem.RarityLightRedBuyPrice;
             Item.autoReuse = true;
