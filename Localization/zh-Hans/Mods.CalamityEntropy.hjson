@@ -214,6 +214,76 @@ Items: {
 					[c/FF69B4:"一个带有猫耳的雷管，不知为何它会发出猫叫"]
 					'''
 			}
+
+			BrillianceSwirlblade: {
+				DisplayName: 光耀轮刃
+				Tooltip:
+					'''
+					飞行一段时间或触碰到敌怪时展开锯片，造成多次伤害
+					潜伏攻击会使展开的范围更大并持续更长时间
+					'''
+			}
+
+			FlamingSwirlblade: {
+				DisplayName: 炙炎轮刃
+				Tooltip:
+					'''
+					飞行一段时间或触碰到敌怪时展开锯片，造成多次伤害
+					锯片展开时会释放一束追踪的火焰
+					潜伏攻击会使展开的范围更大并持续更长时间并释放8束火焰
+					'''
+			}
+
+			AzafureSwirlblade: {
+				DisplayName: 阿萨福勒轮刃
+				Tooltip:
+					'''
+					飞行一段时间或触碰到敌怪时展开锯片，造成多次伤害
+					锯片展开时会发射两枚追踪的导弹
+					潜伏攻击会在展开时发射8枚伤害较低的导弹并在收回时将锯片丢向最近的目标
+					'''
+			}
+
+			GlacierSwirlblade: {
+				DisplayName: 霜蓝轮刃
+				Tooltip:
+					'''
+					飞行一段时间或触碰到敌怪时展开锯片，造成多次伤害
+					随后释放一些追踪的小型锯片并返回
+					潜伏攻击会在展开时持续追逐最近的目标，并在返回前释放更多更大的锯片
+					所有攻击都能短暂使目标减速
+					'''
+			}
+
+			RunicSwirlblade: {
+				DisplayName: 符文轮刃
+				Tooltip:
+					'''
+					飞行一段时间或触碰到敌怪时展开锯片，造成多次伤害
+					展开时释放一些追逐的符文导弹
+					潜伏攻击会大幅增加锯片尺寸，并在返回前释放更强大的符文导弹
+					'''
+			}
+
+			BlazingSwirlblade: {
+				DisplayName: 耀目轮刃
+				Tooltip:
+					'''
+					飞行一段时间或触碰到敌怪时释放强大的火焰冲击并展开能造成多次伤害的锯片
+					命中时会产生大范围的爆炸
+					潜伏攻击会使展开的范围更大并持续更长时间
+					'''
+			}
+
+			SawofMacrocosm: {
+				DisplayName: 噬宙轮刃
+				Tooltip:
+					'''
+					飞行一段时间后弹出4个较小的轮刃并展开大范围锯片
+					小轮刃也会弹出锯片，并在收回时发射一道追踪的虚空破裂束
+					潜伏攻击会使小锯片被弹的更远，并吸收小锯片的虚空破裂束，随即冲向最近的模目标
+					'''
+			}
 		}
 	}
 
@@ -647,7 +717,7 @@ Items: {
 		DisplayName: 尘封之星
 		Tooltip:
 			'''
-			使你变成一个黄毛兽耳美少年
+			让你变成主创的形象
 			“记得给灾熵点个赞”
 			'''
 	}
@@ -1962,11 +2032,6 @@ Items: {
 	VoidOde: {
 		DisplayName: 虚空颂章
 		Tooltip: 从下射出视域长枪
-	}
-
-	BookMarkNeutron: {
-		DisplayName: 中子星书签
-		Tooltip: 击中敌人概率产生中子星爆炸
 	}
 
 	ControlTerminal: {
@@ -4344,6 +4409,111 @@ Items: {
 		DisplayName: 阿萨福勒制式霰弹
 		Tooltip: 发射散射的霰弹
 	}
+
+	ThalassianGleam: {
+		DisplayName: 渊潇棱光之杖
+		Tooltip: ""
+	}
+
+	GoldenFlowerInAJar: {
+		DisplayName: 罐中金色花
+		Tooltip:
+			'''
+			将背景变为一片粉金的田野
+			$谢谢你见证我的梦
+			'''
+	}
+
+	Erebodrepanon: {
+		DisplayName: 泓渊亡铭
+		Tooltip: 挥舞一把巨镰，将你的敌人撕的粉碎
+	}
+
+	FlowerHeadband: {
+		DisplayName: 花朵发箍
+		Tooltip: 使你化身为四季夏目
+	}
+
+	Silentpeak: {
+		DisplayName: 静岳之剑
+		Tooltip: 召唤铁皇的意志护你左右
+	}
+
+	FeatheredHeadpiece: {
+		DisplayName: 羽翼头饰
+		Tooltip: 使你化身为白雪乃爱
+	}
+
+	TsumugisHood: {
+		DisplayName: 紬的兜帽
+		Tooltip:
+			'''
+			使你化身为椎叶紬
+			在物品栏中Shift+右键点击此物品切换兜帽是否显示
+			[c/e9afc0:当前: [D]]
+			'''
+		Show: 显示
+		Hide: 隐藏
+	}
+
+	CrystalofHeart: {
+		DisplayName: 心之水晶
+		Tooltip: 使你化身为因幡巡
+	}
+
+	FuchsiaRibbon: {
+		DisplayName: 品红缎带
+		Tooltip: 使你化身为丛雨
+	}
+
+	MikoMaeTengkan: {
+		DisplayName: 巫女头冠
+		Tooltip: 使你化身为朝武芳乃
+	}
+
+	TectonicChainBlade: {
+		DisplayName: 板块链刃
+		Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			仆从命中被标记的敌怪有概率产生追踪板块碎片
+			'''
+	}
+
+	OathBanner: {
+		DisplayName: 誓约战旗
+		Tooltip:
+			'''
+			减少[DR]%所受伤害
+			增加[REG]/s自然生命再生
+			减少[MSD]%移动速度
+			为周围625格内同一队伍的其他玩家提供以下增益：
+			增加[DMG]%伤害
+			增加[CRIT]%暴击率
+			增加[MSA]%移动速度
+			'''
+	}
+
+	ReapersButterfly: {
+		DisplayName: 死神之蝶
+		Tooltip: 使你化身为明月栞那
+	}
+
+	BottleofCrystal: {
+		DisplayName: 水晶之瓶
+		Tooltip: 使你化身为绫地宁宁
+	}
+
+	BlackSkirt: {
+		DisplayName: 黑色短裙
+		Tooltip: 使你化身为谷风天音
+	}
+
+	CantaloupeSmoothie: {
+		DisplayName: 哈密瓜冰沙
+		Tooltip: 使你化身为小云雀来海
+	}
 }
 
 SmolderingSetBonus:
@@ -5080,7 +5250,29 @@ Projectiles: {
 	AzafureExhaustGasInjectorHeld.DisplayName: 阿萨福勒废气喷射器
 	ExhaustGas.DisplayName: 废气
 	MewMewBombThrow.DisplayName: 喵喵炸弹
-	// KinanitionSpawn.DisplayName: Kinanition Spawn
+	KinanitionSpawn.DisplayName: 孱弱血亲水弹
+	ThalassianGleamHeld.DisplayName: 渊潇棱光之杖
+	ThalassianWaterBolt.DisplayName: 渊潇棱光水束
+	ErebodrepanonHeld.DisplayName: 泓渊亡铭
+	ErebodrepanonMark.DisplayName: 泓渊亡铭标记
+	SilentpeakSword.DisplayName: 静岳之剑
+	TectonicChainBladeWhip.DisplayName: 板块碎片
+	BrillianceSwirlbladeProj.DisplayName: 光耀轮刃
+	FlamingSwirlbladeFlame.DisplayName: 炙炎之火
+	FlamingSwirlbladeProj.DisplayName: 炙炎轮刃
+	AzafureSwirlbladeProj.DisplayName: 阿萨福勒轮刃
+	AzafureSwirlbladeSaw.DisplayName: 锯片
+	AzafureSwirlbladeMissile.DisplayName: 阿萨福勒导弹
+	GlacierSwirlbladeProj.DisplayName: 霜蓝轮刃
+	GlacierSwirlbladeSaw.DisplayName: 霜蓝锯片
+	RunicSwirlbladeBullet.DisplayName: 符文导弹
+	RunicSwirlbladeProj.DisplayName: 符文轮刃
+	BlazingSwirlbladeFlame.DisplayName: 浊火冲击
+	BlazingSwirlbladeProj.DisplayName: 耀目轮刃
+	SawofMacrocosmProj.DisplayName: 噬宙轮刃
+	MacrocosmSawDash.DisplayName: 噬宙之颚
+	MacrocosmVoidBolt.DisplayName: 虚空破裂束
+	SawofMacrocosmSplit.DisplayName: 小型噬宙轮刃
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5537,6 +5729,21 @@ Buffs: {
 	WhipOfEvilKingWhipDebuff: {
 		DisplayName: 标记
 		Description: ""
+	}
+
+	SilentpeakBuff: {
+		DisplayName: 静岳之剑
+		Description: ""
+	}
+
+	TectonicChainBladeWhipDebuff: {
+		DisplayName: 标记
+		Description: ""
+	}
+
+	OathofCommand: {
+		DisplayName: 誓令
+		Description: 你感觉士气高涨
 	}
 }
 
@@ -6520,6 +6727,11 @@ AzafureEnhances: {
 	AzafureImperialGuardMachineGun: 提升子弹射程和精准度
 	AzafureExhaustGasInjector: 增加伤害频率
 	AzafureStandardShotgun: 增加霰弹数量
+	AzafureSwirlblade:
+		'''
+		增加锯片的尺寸和持续时间
+		增加导弹的数量
+		'''
 }
 
 Menu: {
@@ -6548,3 +6760,9 @@ ZenithWorld: 在天顶世界时
 RatizelShield: 嗫告篇帙护盾
 PrefixEnchantedDesc: +4% 强化魔力
 NoAmmo: 无弹药！
+VoidDeath0: "{0}消散在了薄薄的空间中"
+VoidDeath1: "{0}被打散成了原子"
+VoidDeath2: "{0}化为了纯粹的能量"
+VoidDeath3: "{0}无法回归物质循环"
+VoidDeath4: "{0}回归了虚无"
+VoidDeath5: "{0}的载体被抹除了"

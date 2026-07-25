@@ -216,6 +216,81 @@ Items: {
 					[c/FF69B4:"A detonator with cat ears, somehow it emits cat meows"]
 					'''
 			}
+
+			BrillianceSwirlblade: {
+				DisplayName: Brilliance Swirlblade
+				Tooltip:
+					'''
+					Deploy sawblade that dealing multiple hits when fly for a while or hit an enem
+					Stealth attack increases spread and duration
+					'''
+			}
+
+			FlamingSwirlblade: {
+				DisplayName: Flaming Swirlblade
+				Tooltip:
+					'''
+					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
+					On deployment, fires a homing flame
+					Stealth attack increases spread and duration and releases 8 flames
+					'''
+			}
+
+			AzafureSwirlblade: {
+				DisplayName: Azafure Swirlblade
+				Tooltip:
+					'''
+					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
+					On deploy, fires two homing missiles
+					Stealth attack fires 8 missiles on deploy
+					And throws sawblade at nearest target on recall
+					'''
+			}
+
+			GlacierSwirlblade: {
+				DisplayName: Glacier Swirlblade
+				Tooltip:
+					'''
+					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
+					Then release homing small blades and return
+					Stealth attack will chase nearest target on deploy
+					and release more and larger blades before return
+					'''
+			}
+
+			RunicSwirlblade: {
+				DisplayName: Runic Swirlblade
+				Tooltip:
+					'''
+					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
+					Release homing runic missiles when deploy
+					Stealth attack will increase saw's size and release stronger runic missile before return
+					'''
+			}
+
+			BlazingSwirlblade: {
+				DisplayName: Blazing Swirlblade
+				Tooltip:
+					'''
+					Deploy sawblade that dealing multiple hits when fly for a while or hit an enem
+					Release powerful flame shock when deploy
+					Spawn explosions when saw hit enemy
+					Stealth attack increases spread and duration
+					'''
+			}
+
+			SawofMacrocosm: {
+				DisplayName: Sawof Macrocosm
+				Tooltip:
+					'''
+					Fly for a while
+					Deploy 4 smaller ringblades and expand a wide sawblade
+					Small ringblades also deploy sawblades
+					On recall, fire a homing Rift Beam
+					Stealth attack knock small blades farther,
+					asorb their Rift Beams and charge at nearest target
+					'''
+			}
 		}
 	}
 
@@ -1843,11 +1918,6 @@ Items: {
 		Tooltip: Summons homing void spikes from below that inflict [cebuff:CalamityEntropy/VoidTouch]
 	}
 
-	BookMarkNeutron: {
-		DisplayName: Bookmark - Neutron
-		Tooltip: Enemy hits have a rare chance to cause a neutron explosion
-	}
-
 	ControlTerminal: {
 		DisplayName: Control Terminal
 		Tooltip:
@@ -3318,7 +3388,6 @@ Items: {
 			'''
 			Throws a spear that summons stars and astral bolts on hit
 			Attacks inflict [cbuff:CalamityMod/AstralInfectionDebuff] and [cbuff:CalamityMod/StaticDischarge]
-			'击中后降下闪电和陨星'
 			'''
 	}
 
@@ -4262,6 +4331,106 @@ Items: {
 		DisplayName: Azafure Standard Shotgun
 		Tooltip: Fire a spread of shotgun rounds that inflict [cebuff:CalamityEntropy/MechanicalTrauma]
 	}
+
+	ThalassianGleam: {
+		DisplayName: Thalassian Gleam
+		Tooltip: ""
+	}
+
+	GoldenFlowerInAJar: {
+		DisplayName: Golden Flower In A Jar
+		Tooltip:
+			'''
+			Turns the background into a field of pink and gold
+			$Thank you for watching my dream
+			'''
+	}
+
+	Erebodrepanon: {
+		DisplayName: Erebodrepanon
+		Tooltip: Wield a giant scythe and tear your enemies to pieces
+	}
+
+	FlowerHeadband: {
+		DisplayName: Flower Headband
+		Tooltip: ""
+	}
+
+	Silentpeak: {
+		DisplayName: Silentpeak
+		Tooltip: Call forth the will of the Iron Emperor, to shelter and defend you eternally
+	}
+
+	FeatheredHeadpiece: {
+		DisplayName: Feathered Headpiece
+		Tooltip: ""
+	}
+
+	TsumugisHood: {
+		DisplayName: Tsumugis Hood
+		Tooltip:
+			'''
+			Hold shift + Right click in inventory to toggle hood's visual
+			[c/e9afc0:Current - [D]]
+			'''
+		Show: Show
+		Hide: Hide
+	}
+
+	CrystalofHeart: {
+		DisplayName: Crystal of Heart
+		Tooltip: ""
+	}
+
+	FuchsiaRibbon: {
+		DisplayName: Fuchsia Ribbon
+		Tooltip: ""
+	}
+
+	MikoMaeTengkan: {
+		DisplayName: Miko Mae Tengkan
+		Tooltip: ""
+	}
+
+	TectonicChainBlade: {
+		DisplayName: Tectonic Chain Blade
+		Tooltip: ""
+	}
+
+	OathBanner: {
+		DisplayName: Oath Banner
+		Tooltip:
+			'''
+			Reduce incoming damage by [DR]%
+			Increase natural health regen by [REG]/s
+			Reduce movement speed by [MSD]%
+			For teammates within 625 tiles
+			Provide these buffs:
+			Increase damage by [DMG]%
+			Increase crit chance by [CRIT]%
+			Increase movement speed by [MSA]%
+			'''
+	}
+
+	ReapersButterfly: {
+		DisplayName: Reapers Butterfly
+		Tooltip: ""
+	}
+
+	BottleofCrystal: {
+		DisplayName: Bottle of Crystal
+		Tooltip: ""
+	}
+
+	BlackSkirt: {
+		DisplayName: Black Skirt
+		Tooltip: ""
+	}
+
+	CantaloupeSmoothie: {
+		DisplayName: Cantaloupe Smoothie
+		Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
@@ -5002,6 +5171,28 @@ Projectiles: {
 	ExhaustGas.DisplayName: Exhaust Gas
 	MewMewBombThrow.DisplayName: Mew Mew Bomb Throw
 	KinanitionSpawn.DisplayName: Kinanition Spawn
+	ThalassianGleamHeld.DisplayName: Thalassian Gleam Held
+	ThalassianWaterBolt.DisplayName: Thalassian Water Bolt
+	ErebodrepanonHeld.DisplayName: Erebodrepanon Held
+	ErebodrepanonMark.DisplayName: Erebodrepanon Mark
+	SilentpeakSword.DisplayName: Silentpeak Sword
+	TectonicChainBladeWhip.DisplayName: Tectonic Chain Blade Whip
+	BrillianceSwirlbladeProj.DisplayName: Brilliance Swirlblade Proj
+	FlamingSwirlbladeFlame.DisplayName: Flaming Swirlblade Flame
+	FlamingSwirlbladeProj.DisplayName: Flaming Swirlblade Proj
+	AzafureSwirlbladeProj.DisplayName: Azafure Swirlblade Proj
+	AzafureSwirlbladeSaw.DisplayName: Azafure Swirlblade Saw
+	AzafureSwirlbladeMissile.DisplayName: Azafure Swirlblade Missile
+	GlacierSwirlbladeProj.DisplayName: Glacier Swirlblade Proj
+	GlacierSwirlbladeSaw.DisplayName: Glacier Swirlblade Saw
+	RunicSwirlbladeBullet.DisplayName: Runic Swirlblade Bullet
+	RunicSwirlbladeProj.DisplayName: Runic Swirlblade Proj
+	BlazingSwirlbladeFlame.DisplayName: Blazing Swirlblade Flame
+	BlazingSwirlbladeProj.DisplayName: Blazing Swirlblade Proj
+	SawofMacrocosmProj.DisplayName: Sawof Macrocosm Proj
+	MacrocosmSawDash.DisplayName: Macrocosm Saw Dash
+	MacrocosmVoidBolt.DisplayName: Rift Beam
+	SawofMacrocosmSplit.DisplayName: Sawof Macrocosm Split
 }
 
 LegendTooltip: - Legend -
@@ -5464,6 +5655,21 @@ Buffs: {
 	WhipOfEvilKingWhipDebuff: {
 		DisplayName: Whip of Evil King Whip Debuff
 		Description: Mods.CalamityEntropy.Buffs.WhipOfEvilKingWhipDebuff.Description
+	}
+
+	SilentpeakBuff: {
+		DisplayName: Silentpeak
+		Description: Call forth the will of the Iron Emperor, to shelter and defend you eternally
+	}
+
+	TectonicChainBladeWhipDebuff: {
+		DisplayName: Tectonic Chain Blade Whip Debuff
+		Description: Mods.CalamityEntropy.Buffs.TectonicChainBladeWhipDebuff.Description
+	}
+
+	OathofCommand: {
+		DisplayName: Oath of Command
+		Description: You feel that morale is high
 	}
 }
 
@@ -6429,6 +6635,11 @@ AzafureEnhances: {
 	AzafureImperialGuardMachineGun: Enhance the range and accuracy of projectiles
 	AzafureExhaustGasInjector: Increase damage frequency
 	AzafureStandardShotgun: Increase bullet counts
+	AzafureSwirlblade:
+		'''
+		Increase the range and time of the saw
+		Increase missile amount
+		'''
 }
 
 Menu: {
@@ -6457,3 +6668,9 @@ ZenithWorld: In zenith world
 RatizelShield: Ratizel Shield
 PrefixEnchantedDesc: Mods.CalamityEntropy.PrefixEnchantedDesc
 NoAmmo: Out of ammo!
+VoidDeath0: "{0} vanished into thin air"
+VoidDeath1: "{0} has been decomposed into atoms"
+VoidDeath2: "{0} transformed into pure energy"
+VoidDeath3: "{0} cannot return to the material cycle"
+VoidDeath4: "{0} has returned to nothingness"
+VoidDeath5: "{0}'s carrier has been erased"

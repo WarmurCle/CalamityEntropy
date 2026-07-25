@@ -75,7 +75,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public float maxDistance = 6000;
         public float maxDistanceTarget = 2900;
         public int rotDist = 900;
-        public Texture2D disTex = ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/cruiserSpace").Value;
         public Vector2 rotPos = Vector2.Zero;
         public int phase = 1;
         public int circleDir = 1;
@@ -137,29 +136,29 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override void SetDefaults()
         {
             NPC.Calamity().canBreakPlayerDefense = true;
-            NPC.Calamity().DR = 0.56f;
+            NPC.Calamity().DR = 0.54f;
             NPC.boss = true;
-            NPC.width = 100;
-            NPC.height = 100;
-            NPC.damage = 220;
+            NPC.width = 96;
+            NPC.height = 96;
+            NPC.damage = 200;
             if (Main.expertMode)
             {
                 NPC.damage += 4;
             }
             if (Main.masterMode)
             {
-                NPC.damage += 5;
+                NPC.damage += 4;
             }
-            NPC.defense = 90;
-            NPC.lifeMax = 1200000;
+            NPC.defense = 80;
+            NPC.lifeMax = 1120000;
             if (CalamityWorld.death)
             {
-                NPC.damage += 8;
+                NPC.damage += 4;
                 length += 4;
             }
             else if (CalamityWorld.revenge)
             {
-                NPC.damage += 4;
+                NPC.damage += 2;
                 length += 3;
             }
             tdamage = NPC.damage;
@@ -174,16 +173,16 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.scale = 1f;
             if (Main.masterMode)
             {
-                NPC.scale = 1.12f;
+                NPC.scale = 1.05f;
             }
             if (Main.getGoodWorld)
             {
-                NPC.scale = 1.33f;
+                NPC.scale = 1.3f;
                 NPC.lifeMax += 750000;
             }
             if (Main.zenithWorld)
             {
-                NPC.scale = 1.6f;
+                NPC.scale = 1.5f;
                 length = 10;
             }
             NPC.netAlways = true;
@@ -866,6 +865,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                 NPC.velocity *= 0.92f;
                                 NPC.velocity += (target.Center - NPC.Center).normalize() * 0.36f;
                             }
+                            if (changeCounter == 2)
+                                CEUtils.PlaySound("voidSound", 0.8f, NPC.Center);
                             if (changeCounter == 80)
                             {
                                 if (canShoot)
@@ -875,8 +876,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                         Shoot(ModContent.ProjectileType<VoidResidue>(), NPC.Center, NPC.velocity.normalize().RotatedByRandom(2f) * 24 * Main.rand.NextFloat(0.2f, 1f), 0.8f);
                                     }
                                 }
-                                CEUtils.PlaySound("brimstonevortexshoot", 1, NPC.Center);
-                                CEUtils.PlaySound("vbuse", 1, NPC.Center);
+                                CEUtils.PlaySound("CruiserSpit2", 1.4f, NPC.Center);
+                                CEUtils.PlaySound("CruiserVoidResidue", 1, NPC.Center);
                             }
                             if (changeCounter > 140)
                             {
@@ -991,7 +992,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                                 }
                                                 else
                                                 {
-                                                    Shoot(ModContent.ProjectileType<CruiserSlash>(), NPC.Center + NPC.velocity.normalize().RotatedBy(0.09f * j) * 300 * i, NPC.velocity.RotatedBy(0.09f * j));
+                                                    Shoot(ModContent.ProjectileType<CruiserSlash>(), NPC.Center + NPC.velocity.normalize().RotatedBy(0.125f * j) * 300 * i, NPC.velocity.RotatedBy(0.125f * j));
                                                 }
                                             }
                                         }
@@ -1050,6 +1051,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                     mouthRot += 5f;
                                 }
                             }
+                            if (changeCounter == 20)
+                                CEUtils.PlaySound("voidSound", 1.05f, NPC.Center);
                             changeCounter++;
                             if (changeCounter < 100 && NPC.Distance(target.Center) > 900)
                             {
@@ -1070,7 +1073,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                                         Shoot(ModContent.ProjectileType<VoidStar>(), NPC.Center, NPC.velocity.normalize().RotatedByRandom(2f) * 24 * Main.rand.NextFloat(0.2f, 1f), 0.75f);
                                     }
                                 }
-                                CEUtils.PlaySound("brimstonevortexshoot", 1, NPC.Center);
+                                CEUtils.PlaySound("CruiserSpit", 1.2f, NPC.Center);
+                                CEUtils.PlaySound("VoidBomb", 1.1f, NPC.Center);
+                                CEUtils.PlaySound("VoidBomb", 1.1f, NPC.Center);
+                                CEUtils.PlaySound("VoidBomb", 1.1f, NPC.Center);
                                 CEUtils.PlaySound("vbuse", 1, NPC.Center);
                             }
                             if (changeCounter > 140)
@@ -1110,7 +1116,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                             }
                             if (NPC.localAI[2] > 36)
                             {
-                                int u = (int)Utils.Remap(changeCounter, 0, 6 * 46, 42, 8);
+                                int u = (int)Utils.Remap(46 * (int)(changeCounter / 46f), 0, 6 * 46, 42, 18);
                                 if (changeCounter % 46 == 0)
                                 {
                                     if (changeCounter > 1)
@@ -1174,6 +1180,10 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 }
                 if (phaseTrans > 120)
                 {
+                    foreach(var plr in Main.ActivePlayers)
+                    {
+                        plr.Calamity().infiniteFlight = true;
+                    }
                     for (int i = 0; i < 4; i++)
                     {
                         Particle p = new Particle();
@@ -1516,16 +1526,6 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public override void PostDraw(SpriteBatch sbb, Vector2 screenPos, Color drawColor)
         {
             Main.spriteBatch.ExitShaderRegion();
-            if (phase == 1)
-            {
-                SpriteBatch sb = Main.spriteBatch;
-                sb.End();
-                sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                Vector2 ddp = SpaceCenter;
-                sb.Draw(disTex, ddp - Main.screenPosition, null, Color.DarkBlue * 0.6f, 0, new Vector2(disTex.Width, disTex.Height) / 2, (float)maxDistance / 900f, SpriteEffects.None, 0);
-                sb.End();
-                sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-            }
         }
     }
 }

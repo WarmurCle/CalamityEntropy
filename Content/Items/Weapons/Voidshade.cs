@@ -49,13 +49,15 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 attackType = 3;
                 damage = (int)(damage * 1.5f);
-                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/AntivoidDashSlash") { Pitch = -0.2f, MaxInstances = 4 }, player.Center);
+                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/AntivoidDashSlash") { Pitch = -0.2f, MaxInstances = 4, Volume = 0.65f * CEUtils.WeapSound }, player.Center);
             }
             else
             {
                 if (player.Entropy().voidshadeBoostTime > 0)
                 {
-                    SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/rswave"), player.Center);
+                    var st = new SoundStyle("CalamityEntropy/Assets/Sounds/rswave");
+                    st.Volume = 0.6f * CEUtils.WeapSound ;
+                    SoundEngine.PlaySound(st, player.Center);
                 }
                 SoundEngine.PlaySound(SoundID.Item1, player.Center);
             }

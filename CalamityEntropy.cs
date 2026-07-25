@@ -10,6 +10,7 @@ using CalamityEntropy.Content.ILEditing;
 using CalamityEntropy.Content.Items;
 using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Accessories.EvilCards;
+using CalamityEntropy.Content.Items.Accessories.Oath;
 using CalamityEntropy.Content.Items.Accessories.SoulCards;
 using CalamityEntropy.Content.Items.Armor.AzafureT3;
 using CalamityEntropy.Content.Items.Atbm;
@@ -187,6 +188,7 @@ namespace CalamityEntropy
                 wikithis.Call("AddWikiTexture", this, ModContent.Request<Texture2D>("CalamityEntropy/Assets/UI/icon_s"));
                 wikithis.Call(3, this, ModContent.Request<Texture2D>("CalamityEntropy/Assets/UI/icon_s"));
             }
+
             efont1 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/EFont", AssetRequestMode.ImmediateLoad).Value;
             efont2 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/VCRFont", AssetRequestMode.ImmediateLoad).Value;
             efont3 = ModContent.Request<DynamicSpriteFont>("CalamityEntropy/Assets/Fonts/MaruMonica", AssetRequestMode.ImmediateLoad).Value;
@@ -363,10 +365,10 @@ namespace CalamityEntropy
             if (info.Damage < leastDmg)
                 info.Damage = leastDmg;
 
-            if (self.Entropy().deusCore && info.Damage > 5)
+            if (self.Entropy().deusCore && info.Damage > 20)
             {
-                self.Entropy().deusCoreBloodOut += info.Damage - 5;
-                info.Damage = 5;
+                self.Entropy().deusCoreBloodOut += info.Damage - 20;
+                info.Damage = 20;
             }
             if (self.Entropy().NihTwinArmorConnetPlayer != -1)
             {
@@ -427,6 +429,7 @@ namespace CalamityEntropy
         public static int tmtype = -1;
         public static int retype = -1;
         public static int aetype = -1;
+        public static int obtype = -1;
         private void update_item_dye(On_Player.orig_UpdateItemDye orig, Player self, bool isNotInVanitySlot, bool isSetToHidden, Item armorItem, Item dyeItem)
         {
             if (tmtype < 1)
@@ -435,6 +438,8 @@ namespace CalamityEntropy
                 retype = ModContent.ItemType<RustyDetectionEquipment>();
             if (aetype < 1)
                 aetype = ModContent.ItemType<AzafureDetectionEquipment>();
+            if (obtype < 1)
+                obtype = ModContent.ItemType<OathBanner>();
             if (!armorItem.IsAir)
             {
                 armorItem.Entropy().DyeType = dyeItem.type;
@@ -451,6 +456,10 @@ namespace CalamityEntropy
             if (!armorItem.IsAir && (armorItem.type == retype || armorItem.type == aetype))
             {
                 self.Entropy().JetpackDye = dyeItem.dye;
+            }
+            if (!armorItem.IsAir && armorItem.type == obtype)
+            {
+                self.Entropy().oathBannerDye = dyeItem.IsAir ? 0 : dyeItem.dye;
             }
             orig(self, isNotInVanitySlot, isSetToHidden, armorItem, dyeItem);
         }
@@ -516,6 +525,7 @@ namespace CalamityEntropy
 
         public override void Unload()
         {
+            CommonEffects.Unload();
             CELists.Unload();
             Apsychos.shader = null;
             CEUtils.BS_ColorInverse = null;
@@ -1541,6 +1551,7 @@ namespace CalamityEntropy
         }
         public override void PostSetupContent()
         {
+            CommonEffects.Load();
             CELists.Load();
             Apsychos.WhiteTransShader();
             ScreenShaker.Init();
@@ -1668,12 +1679,6 @@ namespace CalamityEntropy
                     NPCID.Sets.SpecificDebuffImmunity[j][i] = false;
                 }
             }
-            if (ModLoader.TryGetMod("IsaacMod", out Mod isaac))
-            {
-                isaac.Call("HeldProj", ModContent.ProjectileType<RailPulseBowProjectile>());
-                isaac.Call("HeldProj", ModContent.ProjectileType<GhostdomWhisperHoldout>());
-                isaac.Call("HeldProj", ModContent.ProjectileType<SamsaraCasketProj>());
-            }
 
             string MyGameFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "My Games");
             string Isaac1 = Path.Combine(MyGameFolder, "Binding of Isaac Repentance").Replace("/", "\\");
@@ -1764,7 +1769,7 @@ namespace CalamityEntropy
                             Action<SpriteBatch, Rectangle, Color> portrait = (SpriteBatch sb, Rectangle rect, Color color) =>
                             {
                                 Texture2D texture = ModContent.Request<Texture2D>("CalamityEntropy/Assets/BCL/Apsychos").Value;
-                                sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 0.6f, SpriteEffects.None, 0);
+                                sb.Draw(texture, rect.Center.ToVector2(), null, color, 0, texture.Size() / 2, 0.36f, SpriteEffects.None, 0);
                             };
                             Func<bool> downed = () => EDownedBosses.downedApsychos;
                             AddBoss(bossChecklist, Instance, entryName, 6.4f, downed, ModContent.NPCType<Apsychos>(), new Dictionary<string, object>()

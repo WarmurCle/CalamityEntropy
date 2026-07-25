@@ -49,8 +49,13 @@ namespace CalamityEntropy.Content.Menu
 
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
-
-            if (counter % 15 == 0)
+            if(Main.rand.NextBool(8))
+            {
+                MenuParticle particle = new MenuParticle(new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), (Main.rand.Next(6) / 6f * MathHelper.TwoPi).ToRotationVector2() * 1, new Vector2(1.5f, 1), 660);
+                MenuParticle.particles.Add(particle);
+                particle.pos += particle.velocity * 2;
+            }
+            if (counter % 35 == 0)
             {
                 MenuParticle particle = new MenuParticle(new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), new Vector2(Main.screenWidth / 2, Main.screenHeight / 2), CEUtils.randomRot().ToRotationVector2() * 1, new Vector2(1.5f, 1), 660);
                 MenuParticle.particles.Add(particle);
@@ -131,14 +136,16 @@ namespace CalamityEntropy.Content.Menu
         public Vector2 size;
         public float timeleft;
         public float alpha = 0f;
+        public List<Vector2> oldPos = new List<Vector2>();
+        public List<float> oldRot = new List<float>();
         public MenuParticle(Vector2 pos, Vector2 center, Vector2 vel, Vector2 size, float time)
         {
             this.center = center;
             this.pos = center + vel.RotatedBy(-MathHelper.PiOver2).normalize() * 660;
             dist = 660;
             this.velocity = vel;
-            this.size = size * Main.rand.NextFloat(0.4f, 1.1f);
-            this.timeleft = 800;
+            this.size = size * Main.rand.NextFloat(0.4f, 0.64f);
+            this.timeleft = 600;
             rot = vel.ToRotation();
         }
         public Vector2 lastPos = Vector2.Zero;
@@ -146,13 +153,23 @@ namespace CalamityEntropy.Content.Menu
         public float rot = 0;
         public void update()
         {
+            oldPos.Add(pos);
+            oldRot.Add(rot);
+            if(oldPos.Count > 40)
+            {
+                oldPos.RemoveAt(0);
+                oldRot.RemoveAt(0);
+            }
             if (alpha < 1)
             {
                 alpha += 0.005f;
             }
             timeleft--;
-            dist *= 0.997f;
-            rot += Utils.Remap(dist, 0, 660, 0.012f, 0.003f);
+            if (dist < 12)
+                if (timeleft > 2)
+                    timeleft = 2;
+            dist -= Utils.Remap(dist, 0, 660, 1.4f, 0.9f);
+            rot += Utils.Remap(dist, 0, 660, 0.015f, 0.003f);
             pos = center + rot.ToRotationVector2() * dist;
             velocity = (pos - lastPos);
             lastPos = pos;
@@ -164,10 +181,14 @@ namespace CalamityEntropy.Content.Menu
             float op = 1;
             if (timeleft < 90)
             {
-                op = (float)timeleft / 90f;
+                op = float.Min(1, (float)timeleft / 90f);
             }
             op *= alpha;
-            Main.spriteBatch.Draw(tx, pos, null, Color.AliceBlue * op * 0.8f, this.velocity.ToRotation(), tx.Size() / 2, this.size * 0.15f * (dist / 660f), SpriteEffects.None, 0);
+            for(int i = 0; i < oldPos.Count; i++)
+            {
+                Main.spriteBatch.Draw(tx, oldPos[i], null, new Color(170, 180, 255) * op * 0.6f * ((i + 1f) / oldPos.Count), oldRot[i], tx.Size() / 2, this.size * 0.15f * (dist / 660f), SpriteEffects.None, 0);
+            }
+            Main.spriteBatch.Draw(tx, pos, null, new Color(170, 180, 255) * op * 0.8f, this.velocity.ToRotation(), tx.Size() / 2, this.size * 0.15f * (dist / 660f), SpriteEffects.None, 0);
         }
         public void draw(float opc)
         {

@@ -90,7 +90,7 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 Vector2 velocity = Projectile.SafeDirectionTo(target.Center) * 12;
 
-                int p = Projectile.NewProjectile(player.GetSource_FromAI(), Projectile.Center, velocity, ModContent.ProjectileType<WohLaser>(), Projectile.originalDamage, 4, Main.myPlayer);
+                int p = Projectile.NewProjectile(player.GetSource_FromAI(), Projectile.Center, velocity, ModContent.ProjectileType<WohLaser>(), Projectile.originalDamage, 4, Main.myPlayer, ai2:1);
                 p.ToProj().scale = 0.6f;
                 p.ToProj().DamageType = Projectile.DamageType;
                 p.ToProj().netUpdate = true;

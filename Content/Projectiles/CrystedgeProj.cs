@@ -52,6 +52,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            base.OnHitNPC(target, hit, damageDone);
             target.AddBuff(ModContent.BuffType<CrystedgeWhipDebuff>(), 240);
         }
         public override void ModifyWhipSettings(ref float ttfo, ref int segs, ref float rangeMul)

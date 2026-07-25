@@ -10,7 +10,6 @@ using System;
 using Terraria;
 using CalamityEntropy.Content.Items.Weapons.Whips;
 using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Items.Weapons;
 
 namespace CalamityEntropy.Core.Systems
 {
@@ -46,7 +45,7 @@ namespace CalamityEntropy.Core.Systems
                 Setup = delegate (SummonTag summonTag)
                 {
                     summonTag.AutoDrawTooltip = false;
-                    summonTag.TagTexture = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Weapons/Crystedge", (AssetRequestMode)1);
+                    summonTag.TagTexture = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Weapons/Whips/Crystedge", (AssetRequestMode)1);
                 }
             });
             entries.Add(new SummonTagEntry
@@ -137,6 +136,16 @@ namespace CalamityEntropy.Core.Systems
                 {
                     summonTag.AutoDrawTooltip = false;
                     summonTag.TagTexture = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Weapons/Whips/Ystralyn", (AssetRequestMode)1);
+                }
+            });
+            entries.Add(new SummonTagEntry
+            {
+                ItemType = () => ModContent.ItemType<TectonicChainBlade>(),
+                BuffType = () => ModContent.BuffType<TectonicChainBladeWhipDebuff>(),
+                Setup = delegate (SummonTag summonTag)
+                {
+                    summonTag.AutoDrawTooltip = false;
+                    summonTag.TagTexture = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Weapons/Whips/TectonicChainBlade", (AssetRequestMode)1);
                 }
             });
 

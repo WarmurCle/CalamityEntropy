@@ -1663,9 +1663,11 @@ namespace CalamityEntropy.Common
                             {
                                 if (CECooldowns.CheckCD("AshesFireball", 20))
                                 {
+                                    var vc = (npc.Center - proj.Center).normalize();
                                     CEUtils.PlaySound("YharonFireball1", 0.9f, npc.Center);
                                     CEUtils.PlaySound("YharonFireball1", 0.9f, npc.Center);
-                                    Projectile.NewProjectile(proj.GetSource_FromThis(), proj.Center, (npc.Center - proj.Center).normalize() * 36, ModContent.ProjectileType<AshesSpiritFireball>(), AshesCore.BaseDamage, 4, player.whoAmI);
+                                    Projectile.NewProjectile(proj.GetSource_FromThis(), proj.Center, vc * 36, ModContent.ProjectileType<AshesSpiritFireball>(), AshesCore.BaseDamage, 4, player.whoAmI);
+                                    proj.velocity += vc * -12;
                                 }
                             }
                         }

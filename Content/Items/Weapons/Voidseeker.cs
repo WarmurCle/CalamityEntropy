@@ -12,7 +12,6 @@ namespace CalamityEntropy.Content.Items.Weapons
 {
     public class Voidseeker : RogueWeapon
     {
-
         public override void SetDefaults()
         {
             Item.width = 36;

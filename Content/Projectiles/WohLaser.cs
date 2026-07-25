@@ -27,7 +27,8 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public override void AI()
         {
-            Projectile.Center = Projectile.GetOwner().MountedCenter;
+            if (Projectile.ai[2] == 0)
+                Projectile.Center = Projectile.GetOwner().MountedCenter;
             Projectile.rotation = Projectile.velocity.ToRotation();
             for (float i = 0; i < 2000; i += 100)
             {

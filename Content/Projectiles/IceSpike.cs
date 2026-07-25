@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 1;
+
         }
         public override void SetDefaults()
         {
@@ -53,7 +53,8 @@ namespace CalamityEntropy.Content.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.spriteBatch.Draw(ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/IceSpike").Value, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, new Vector2(24, 24), 1, SpriteEffects.None, 0);
+            CEUtils.DrawGlow(Projectile.Center, Color.LightBlue * 0.2f, 1f);
+            Main.spriteBatch.Draw(Projectile.GetTexture(), Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, Projectile.GetTexture().Size() * 0.5f, 1, SpriteEffects.None, 0);
             return false;
         }
     }

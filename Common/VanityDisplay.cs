@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items.Accessories.Vanity;
+﻿using CalamityEntropy.Content.Items.Vanity;
+using CalamityMod.Items.Accessories.Vanity;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -27,6 +28,8 @@ namespace CalamityEntropy.Common
             {
                 if (dummy == null)
                 {
+                    int oFlag = Main.LocalPlayer.GetModPlayer<VanityModPlayer>().SpecialFlag;
+                    Main.LocalPlayer.GetModPlayer<VanityModPlayer>().SpecialFlag = 1;
                     dummy = new Player();
                     dummy.CopyVisuals(Main.LocalPlayer);
                     dummy.cHandOn = 0;
@@ -53,10 +56,9 @@ namespace CalamityEntropy.Common
                     dummy.head = EquipLoader.GetEquipSlot(item.ModItem.Mod, item.ModItem.Name, EquipType.Head);
                     dummy.direction = 1;
                     dummy.velocity = Vector2.Zero;
-                    //Main.PlayerRenderer.DrawPlayer(new Terraria.Graphics.Camera(), dummy, new Vector2(line.X, line.Y) + Main.screenPosition, 0, Vector2.Zero, 0, 1);
                     var drawInfo = default(PlayerDrawSet);
                     drawInfo.isSitting = drawInfo.isSleeping = false;
-                    drawInfo.BoringSetup(dummy, new List<DrawData>(), new List<int>(), new List<int>(), new Vector2(line.X, line.Y) + Main.screenPosition * 1, 0, 0, Vector2.Zero);
+                    drawInfo.BoringSetup(dummy, new List<DrawData>(), new List<int>(), new List<int>(), new Vector2(line.X + 8, line.Y) + Main.screenPosition * 1, 0, 0, Vector2.Zero);
                     drawInfo.colorArmorBody = drawInfo.colorArmorHead = drawInfo.colorArmorLegs = Color.White;
                     drawInfo.colorHead = drawInfo.colorBodySkin = drawInfo.colorLegs = Main.LocalPlayer.skinColor;
 
@@ -72,6 +74,7 @@ namespace CalamityEntropy.Common
                         else
                             sb.Draw(data.texture, data.position, data.sourceRect, data.color, data.rotation, data.origin, data.scale, data.effect, 0f);
                     }
+                    Main.LocalPlayer.GetModPlayer<VanityModPlayer>().SpecialFlag = oFlag;
                 }
             }
             if (line.Name == "CESkinDisplay" || line.Name == "Placeholder")
@@ -83,7 +86,7 @@ namespace CalamityEntropy.Common
         }
         public static bool IsASkinVanity(Item item)
         {
-            if (item.ModItem != null && (item.ModItem is HapuFruit || item.ModItem is OracleHeadphones))
+            if (item.ModItem != null && CELists.CalVanityItems.Contains(item.type))
                 return true;
             return VanityItems.Contains(item.type);
         }

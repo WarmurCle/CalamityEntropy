@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public static bool AltType(Player player)
         {
-            return ((player.TryGetModPlayer<PGetPlayer>(out var mp) && mp.accVanity) || (player.name.ToLower() == "kanna" || StartBagGItem.NameContains(player, "akizukikanna")));
+            return ((player.name.ToLower() == "kanna" || StartBagGItem.NameContains(player, "akizukikanna")) || (player.TryGetModPlayer<VanityModPlayer>(out var vnp) && vnp.vanityEquippedLast.Equals("ReapersButterfly")));//(player.TryGetModPlayer<PGetPlayer>(out var mp) && mp.accVanity) || 
         }
         public static Color TrailColor(Projectile Projectile)
         {
@@ -394,9 +394,12 @@ namespace CalamityEntropy.Content.Items.Donator
             else
             {
                 Item.ClearNameOverride();
-
-                if (player != null && (player.name.ToLower() == "kanna" || StartBagGItem.NameContains(player, "akizukikanna") || player.GetModPlayer<PGetPlayer>().accVanity))
+                Item.Entropy().NameColor = new Color(160, 0, 0);
+                Item.Entropy().strokeColor = new Color(90, 0, 0);
+                if (player != null && AltType(player))
                 {
+                    Item.Entropy().NameColor = new Color(60, 60, 60);
+                    Item.Entropy().strokeColor = new Color(210, 210, 230);
                     Item.SetNameOverride(Mod.GetLocalization("TScytheSpecialName2").Value);
                 }
                 else if (player != null && (player.name.ToLower() is "tlipoca" or "kino" || (player.TryGetModPlayer<VanityModPlayer>(out var mp) && mp.vanityEquippedLast == "BlackFlower")))
@@ -448,8 +451,8 @@ namespace CalamityEntropy.Content.Items.Donator
             Item.shoot = ModContent.ProjectileType<TlipocasScytheHeld>();
             Item.Entropy().tooltipStyle = 4;
             Item.Entropy().NameColor = new Color(160, 0, 0);
-            Item.Entropy().stroke = true;
             Item.Entropy().strokeColor = new Color(90, 0, 0);
+            Item.Entropy().stroke = true;
             Item.Entropy().HasCustomStrokeColor = true;
             Item.Entropy().HasCustomNameColor = true;
             Item.Entropy().Legend = true;

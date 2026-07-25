@@ -32,10 +32,10 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Scale = 0.44f,
-                PortraitScale = 0.44f,
+                PortraitScale = 0.3f,
                 CustomTexturePath = "CalamityEntropy/Assets/BCL/Apsychos",
                 PortraitPositionXOverride = 0,
-                PortraitPositionYOverride = 66
+                PortraitPositionYOverride = -90
             };
             NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
