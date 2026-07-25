@@ -224,7 +224,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             {
                 target.velocity *= 0.6f;
             }
-            CEUtils.PlaySound("VividClarityBeamAppear", Main.rand.NextFloat(1.2f, 1.5f), target.Center, volume: 0.9f);
+            CEUtils.PlaySound("VividClarityBeamAppear", Main.rand.NextFloat(1.2f, 1.5f), target.Center, volume: 0.5f);
 
             for (int i = 0; i < 12; i++)
                 GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 8, false, 11, 0.04f * Main.rand.NextFloat(0.65f, 1f), Main.rand.NextBool() ? Color.LightGreen : Color.LightSeaGreen, new Vector2(2.4f, 0.6f), true));
