@@ -131,6 +131,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 46, ModContent.ProjectileType<MacrocosmSawDash>(), Projectile.damage * 5, Projectile.knockBack * 8, Projectile.owner, Radius);
                 }
+                ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.NoDirQuickShake(8), Projectile.Distance(Main.LocalPlayer.Center), 2600);
                 Projectile.Kill();
             }
             if(!Projectile.Calamity().stealthStrike)
@@ -189,7 +190,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                     effect.Parameters["FadeOutDistance"].SetValue(fadeOutDistance);
                     effect.Parameters["FadeOutWidth"].SetValue(fadeOutWidth);
                     effect.Parameters["enhanceLightAlpha"].SetValue(0.8f);
-                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, effect, Main.GameViewMatrix.ZoomMatrix);
                     effect.CurrentTechnique.Passes[0].Apply();
                     Main.spriteBatch.Draw(CEUtils.getExtraTex("VoronoiShapes"), pos - Main.screenPosition, null, color, Main.GlobalTimeWrappedHourly * 12, CEUtils.getExtraTex("VoronoiShapes").Size() / 2f, 0.2f * Size, SpriteEffects.None, 0);
                     CEUtils.DrawGlow(pos, Color.White * glow * 0.6f, 1.4f * Size * glow);
@@ -606,6 +607,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             {
                 NoPosUpdate = 24;
                 CD = 30;
+
+                ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.NoDirQuickShake(6), Projectile.Distance(Main.LocalPlayer.Center), 2600);
 
                 for (int i = 0; i < 6; i++)
                 {

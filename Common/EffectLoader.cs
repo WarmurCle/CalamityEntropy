@@ -169,12 +169,12 @@ namespace CalamityEntropy.Common
                 return;
             if (!startBatch)
                 Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, blend, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.ZoomMatrix);
-            shader.CurrentTechnique.Passes[0].Apply();
             shader.Parameters["radius"].SetValue(rad);
             shader.Parameters["rotation"].SetValue(rot);
             shader.Parameters["tileCount"].SetValue(tiles);
             shader.Parameters["innerWall"].SetValue(inner ? 1 : 0);
+            shader.CurrentTechnique.Passes[0].Apply();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, blend, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.ZoomMatrix);
             Main.spriteBatch.Draw(tex, pos, new Rectangle(0, 0, tex.Width, (int)(tex.Height * Height)), color, FullRot, new Vector2(tex.Width * 0.5f, tex.Height * Height * 0.5f), scale, SpriteEffects.None, 0);
             Main.spriteBatch.End();
             if (!startBatch)
@@ -364,13 +364,13 @@ namespace CalamityEntropy.Common
             graphicsDevice.SetRenderTarget(Main.screenTarget);
             graphicsDevice.Clear(Color.Transparent);
 
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone);
             cvoid2.CurrentTechnique = cvoid2.Techniques["Technique1"];
             cvoid2.CurrentTechnique.Passes[0].Apply();
             cvoid2.Parameters["tex0"].SetValue(Main.screenTargetSwap);
             cvoid2.Parameters["tex1"].SetValue(VoidBack.Value);
             cvoid2.Parameters["time"].SetValue(Instance.cvcount / 50f);
             cvoid2.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(Main.screenWidth, Main.screenHeight));
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone);
             Main.spriteBatch.Draw(Screen0, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
             Main.spriteBatch.End();
         }
@@ -417,7 +417,6 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
             Main.spriteBatch.Draw(Screen0, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
             cblood.CurrentTechnique = cblood.Techniques["Technique1"];
             cblood.CurrentTechnique.Passes[0].Apply();
@@ -426,6 +425,7 @@ namespace CalamityEntropy.Common
             cblood.Parameters["time"].SetValue(Instance.cvcount / 50f);
             cblood.Parameters["scrsize"].SetValue(Screen0.Size());
             cblood.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(Main.screenWidth, Main.screenHeight));
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
             Main.spriteBatch.Draw(Main.screenTargetSwap, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, Main.LocalPlayer.gravDir < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0);
 
             Main.spriteBatch.End();
@@ -473,7 +473,6 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
             Main.spriteBatch.Draw(Screen0, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, SpriteEffects.None, 0);
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
             cabyss.CurrentTechnique = cabyss.Techniques["Technique1"];
             cabyss.CurrentTechnique.Passes[0].Apply();
@@ -482,6 +481,7 @@ namespace CalamityEntropy.Common
             cabyss.Parameters["time"].SetValue(Instance.cvcount / 50f);
             cabyss.Parameters["scrsize"].SetValue(Screen0.Size());
             cabyss.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(Instance.cvcount * 1.4f, Instance.cvcount * 1.4f)) / new Vector2(Main.screenWidth, Main.screenHeight));
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
             Main.spriteBatch.Draw(Main.screenTargetSwap, Main.ScreenSize.ToVector2() / 2, null, Color.White, 0, Main.ScreenSize.ToVector2() / 2, 1, Main.LocalPlayer.gravDir < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0);
 
             Main.spriteBatch.End();
@@ -760,13 +760,13 @@ namespace CalamityEntropy.Common
 
             graphicsDevice.SetRenderTarget(Screen2);
             graphicsDevice.Clear(Color.Transparent);
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone);
             kscreen2.CurrentTechnique = kscreen2.Techniques["Technique1"];
             kscreen2.CurrentTechnique.Passes[0].Apply();
             kscreen2.Parameters["tex0"].SetValue(Screen1);
             kscreen2.Parameters["tex1"].SetValue(CEUtils.getExtraTex("EternityStreak"));
             kscreen2.Parameters["offset"].SetValue(Main.screenPosition / Main.ScreenSize.ToVector2());
             kscreen2.Parameters["i"].SetValue(0.04f);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone);
             Main.spriteBatch.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
         }
@@ -805,13 +805,13 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.Draw(Screen0, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
 
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
-
             cvoid3.CurrentTechnique.Passes[0].Apply();
             cvoid3.Parameters["tex1"].SetValue(planetarium_blue_base.Value);
             cvoid3.Parameters["time"].SetValue(Instance.cvcount / 50f);
             cvoid3.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2());
             cvoid3.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(-Instance.cvcount / 6f, Instance.cvcount / 6f)) / Main.ScreenSize.ToVector2());
+
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
             Main.spriteBatch.Draw(Main.screenTargetSwap, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
         }
@@ -835,7 +835,6 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.Draw(Screen0, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
 
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
             cvoid.CurrentTechnique = cvoid.Techniques["Technique1"];
             cvoid.CurrentTechnique.Passes[0].Apply();
             cvoid.Parameters["tex1"].SetValue(planetarium_blue_base.Value);
@@ -847,6 +846,7 @@ namespace CalamityEntropy.Common
             cvoid.Parameters["time"].SetValue(Instance.cvcount / 50f);
             cvoid.Parameters["scsize"].SetValue(Main.ScreenSize.ToVector2());
             cvoid.Parameters["offset"].SetValue((Main.screenPosition + new Vector2(-Instance.cvcount / 6f, Instance.cvcount / 6f)) / Main.ScreenSize.ToVector2());
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, cvoid, Main.GameViewMatrix.ZoomMatrix);
             Main.spriteBatch.Draw(Screen2, Main.ScreenSize.ToVector2() * 0.5f, null, Color.White, 0, Screen2.Size() * 0.5f, 1, Main.LocalPlayer.gravDir < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0);
             Main.spriteBatch.End();
         }
@@ -1021,11 +1021,11 @@ namespace CalamityEntropy.Common
 
             graphicsDevice.SetRenderTarget(Main.screenTarget);
             graphicsDevice.Clear(Color.Transparent);
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             kscreen.CurrentTechnique = kscreen.Techniques["Technique1"];
             kscreen.CurrentTechnique.Passes[0].Apply();
             kscreen.Parameters["tex0"].SetValue(Main.screenTargetSwap);
             kscreen.Parameters["i"].SetValue(0.1f);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, kscreen);
             Main.spriteBatch.Draw(Screen0, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
         }
@@ -1091,7 +1091,6 @@ namespace CalamityEntropy.Common
 
             graphicsDevice.SetRenderTarget(Main.screenTarget);
             graphicsDevice.Clear(Color.Transparent);
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             fscreen.CurrentTechnique = fscreen.Techniques["Technique1"];
             fscreen.CurrentTechnique.Passes[0].Apply();
             fscreen.Parameters["strengthMult"].SetValue(0.1f);
@@ -1101,6 +1100,7 @@ namespace CalamityEntropy.Common
             graphicsDevice.Textures[0] = Screen0;
             graphicsDevice.Textures[1] = Main.screenTargetSwap;
             graphicsDevice.Textures[2] = CEUtils.getExtraTex("VoidBack");
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, fscreen);
             Main.spriteBatch.Draw(Screen0, Vector2.Zero, Color.White);
             Main.spriteBatch.End();
         }
@@ -1282,12 +1282,12 @@ namespace CalamityEntropy.Common
 
             graphicsDevice.SetRenderTarget(Main.screenTarget);
             graphicsDevice.Clear(Color.Black);
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
             Effect blur = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/blur", AssetRequestMode.ImmediateLoad).Value;
             blur.CurrentTechnique = blur.Techniques["GaussianBlur"];
             blur.Parameters["resolution"].SetValue(Main.ScreenSize.ToVector2());
             blur.Parameters["blurAmount"].SetValue(cutScreen * 0.036f);
             blur.CurrentTechnique.Passes[0].Apply();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
             Main.spriteBatch.Draw(Screen0, cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * -cutScreen * Main.GameViewMatrix.Zoom.X, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(Screen1, cutScreenRot.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * cutScreen * Main.GameViewMatrix.Zoom.X, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             Main.spriteBatch.End();

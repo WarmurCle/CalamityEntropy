@@ -259,9 +259,9 @@ namespace CalamityEntropy.Content.Items.Weapons
                 SpriteBatch sb = Main.spriteBatch;
                 Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/AntivoidTrail", AssetRequestMode.ImmediateLoad).Value;
                 sb.End();
-                sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 shader.Parameters["alpha"].SetValue(1f - progress);
                 shader.Parameters["offset"].SetValue(rofs);
+                sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
                 shader.CurrentTechnique.Passes["EffectPass"].Apply();
                 gd.Textures[1] = CEUtils.getExtraTex("MotionTrail3");
                 gd.Textures[0] = trail;

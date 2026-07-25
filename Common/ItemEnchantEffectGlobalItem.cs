@@ -34,10 +34,10 @@ namespace CalamityEntropy.Common
             shader.Parameters["color"].SetValue(enchantColor.ToVector4());
             shader.Parameters["strength"].SetValue(strength);
 
-            shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
             Main.instance.GraphicsDevice.Textures[1] = texture.Value;
             sb.End();
             sb.Begin(0, sb.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, shader, Main.UIScaleMatrix);
+            shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
             return true;
         }
 
@@ -63,11 +63,11 @@ namespace CalamityEntropy.Common
             shader.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.2f);
             shader.Parameters["color"].SetValue(enchantColor.ToVector4());
             shader.Parameters["strength"].SetValue(strength);
-            shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
 
             Main.instance.GraphicsDevice.Textures[1] = texture.Value;
             sb.End();
             sb.Begin(0, Main.spriteBatch.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0], Main.spriteBatch.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, shader, Main.GameViewMatrix.TransformationMatrix);
+            shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
             return true;
         }
 
