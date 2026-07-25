@@ -10,6 +10,7 @@ using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -162,7 +163,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 oldTexRot.RemoveAt(0);
                 oldSize.RemoveAt(0);
             }
-            texRot += 0.12f;
+            texRot += 0.12f * Math.Sign](Projectile.velocity.X);
         }
         public override bool? CanDamage()
         {
@@ -199,23 +200,31 @@ namespace CalamityEntropy.Content.Items.Weapons
                 dust.scale = Main.rand.NextFloat(1.6f, 2.2f) * 0.54f * scale;
             }
         }
+        public void DrawRevelation(Texture2D tex, Color color, Vector2 position, float rotation, float texRotation, Vector2 scale)
+        {
+            DrawRevelation(tex, color, position, rotation, texRotation, scale, BlendState.AlphaBlend);
+        }
+        public void DrawRevelation(Texture2D tex, Color color, Vector2 position, float rotation, float texRotation, Vector2 scale, BlendState bs)
+        {
+            Effect shader = CommonEffects.rotation;
+            shader.Parameters["rad"].SetValue(texRotation);
+            shader.Parameters["center"].SetValue(Vector2.One * 0.5f);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, bs, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
+            shader.CurrentTechnique.Passes[0].Apply();
+            Main.spriteBatch.Draw(tex, position, null, color, rotation, tex.Size() * 0.5f, scale, SpriteEffects.None, 0);
+        }
         public override bool PreDraw(ref Color lightColor)
         {
-            void DrawRevelation(Texture2D tex, Color color, Vector2 position, float rotation, float texRotation, Vector2 scale)
-            {
-                Effect shader = CommonEffects.rotation;
-                shader.Parameters["rad"].SetValue(texRotation);
-                shader.Parameters["center"].SetValue(Vector2.One * 0.5f);
-                Main.spriteBatch.End();
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
-                shader.CurrentTechnique.Passes[0].Apply();
-                Main.spriteBatch.Draw(tex, position, null, color, rotation, tex.Size() * 0.5f, scale, SpriteEffects.None, 0);
-            }
             Texture2D texture = Projectile.GetTexture();
             for (int i = 0; i < oldPos.Count; i++)
             {
                 float p = (i + 1f) / oldPos.Count;
                 DrawRevelation(texture, Color.White * 0.4f * p, oldPos[i] - Main.screenPosition, oldRot[i], oldTexRot[i], oldSize[i]);
+            }
+            for(float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver4 * 0.5f)
+            {
+                DrawRevelation(texture, Color.LightGreen, Projectile.Center + i.ToRotationVector2() * 5 - Main.screenPosition, Projectile.rotation, texRot, Size, BlendState.Additive);
             }
             DrawRevelation(texture, Color.White, Projectile.Center - Main.screenPosition, Projectile.rotation, texRot, Size);
             Main.spriteBatch.ExitShaderRegion();
