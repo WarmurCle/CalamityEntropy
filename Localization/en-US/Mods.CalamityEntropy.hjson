@@ -221,8 +221,9 @@ Items: {
 				DisplayName: Brilliance Swirlblade
 				Tooltip:
 					'''
-					Deploy sawblade that dealing multiple hits when fly for a while or hit an enem
-					Stealth attack increases spread and duration
+					Throw a sawblade that on hit or after some time stops in place and starts spinning
+					The sawblade deals damage in a large area when spinning and will return after some time
+					Stealth strikes fly out faster and generate a larger spin that lasts longer
 					'''
 			}
 
@@ -230,9 +231,10 @@ Items: {
 				DisplayName: Flaming Swirlblade
 				Tooltip:
 					'''
-					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
-					On deployment, fires a homing flame
-					Stealth attack increases spread and duration and releases 8 flames
+					Throw a sawblade that on hit or after some time stops in place, releasing a homing flame bolt before spinning
+					The sawblade deals damage in a large area when spinning and will return after some time
+					Stealth strikes fly out faster and generate a larger spin that lasts longer, releasing a torrent of homing flame bolts
+					Attacks inflict [cbuff:OnFire3] on hit
 					'''
 			}
 
@@ -240,10 +242,11 @@ Items: {
 				DisplayName: Azafure Swirlblade
 				Tooltip:
 					'''
-					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
-					On deploy, fires two homing missiles
-					Stealth attack fires 8 missiles on deploy
-					And throws sawblade at nearest target on recall
+					Throw a sawblade that on hit or after some time stops in place, releasing a pair of homing missiles before spinning
+					The sawblade deals damage in a large area when spinning and will return after some time
+					Stealth strikes fly out faster and generate a larger spin that lasts longer, releasing a swarm of 8 missiles
+					Stealth strikes on return will also fire the spinning blade at the closest enemy
+					Attacks inflict [cebuff:CalamityEntropy/MechanicalTrauma] on hit
 					'''
 			}
 
@@ -251,10 +254,11 @@ Items: {
 				DisplayName: Glacier Swirlblade
 				Tooltip:
 					'''
-					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
-					Then release homing small blades and return
-					Stealth attack will chase nearest target on deploy
-					and release more and larger blades before return
+					Throw a sawblade that on hit or after some time stops in place, releasing a pair of homing blades before spinning
+					The sawblade deals damage in a large area when spinning and will return after some time
+					Stealth strikes fly out faster and generate a larger spin that lasts longer and homes onto enemies
+					Stealth strikes on return will also fire 4 spinning blades at the closest enemy
+					Attacks inflict [cebuff:CalamityEntropy/Deceive] on hit
 					'''
 			}
 
@@ -262,9 +266,11 @@ Items: {
 				DisplayName: Runic Swirlblade
 				Tooltip:
 					'''
-					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
-					Release homing runic missiles when deploy
-					Stealth attack will increase saw's size and release stronger runic missile before return
+					Throw a sawblade that on hit or after some time stops in place, releasing a swarm of homing rune bolts before spinning
+					The sawblade deals damage in a large area when spinning and will return after some time
+					Stealth strikes fly out faster and generate a much larger spin that lasts longer
+					Stealth strikes on return will also fire a swarm of stronger homing rune bolts at the closest enemy
+					Attacks inflict [cebuff:CalamityEntropy/SoulDisorder] on hit
 					'''
 			}
 
@@ -272,23 +278,23 @@ Items: {
 				DisplayName: Blazing Swirlblade
 				Tooltip:
 					'''
-					Deploy sawblade that dealing multiple hits when fly for a while or hit an enem
-					Release powerful flame shock when deploy
-					Spawn explosions when saw hit enemy
-					Stealth attack increases spread and duration
+					Throw a sawblade that on hit or after some time stops in place, releasing a holy heatwave before spinning
+					The sawblade deals damage in a large area when spinning and will return after some time
+					Stealth strikes fly out faster and generate a much larger spin and holy heatwave that lasts longer
+					Attacks inflict [cbuff:CalamityMod/HolyFlames] on hit
 					'''
 			}
 
 			SawofMacrocosm: {
-				DisplayName: Sawof Macrocosm
+				DisplayName: Saw of Macrocosm
 				Tooltip:
 					'''
-					Fly for a while
-					Deploy 4 smaller ringblades and expand a wide sawblade
-					Small ringblades also deploy sawblades
-					On recall, fire a homing Rift Beam
-					Stealth attack knock small blades farther,
-					asorb their Rift Beams and charge at nearest target
+					Throw a sawblade that on hit or after some time stops in place, releasing 4 more smaller blades before spinning
+					The sawblades deals damage in a large area when spinning and will return after some time
+					Smaller blades on return release homing cosmic bolts at the closest enemy
+					Stealth strikes fly out faster and send out the smaller blades further away, converging back to the larger blade after some time
+					Upon converging, the sawblade flies towards the closest enemy for increased damage
+					Attacks inflict [cbuff:CalamityMod/GodSlayerInferno] on hit
 					'''
 			}
 		}
@@ -927,8 +933,8 @@ Items: {
 		DisplayName: Rotten Jailor
 		Tooltip:
 			'''
-			Minions gain 2% increased critical strike chance
 			{$CommonItemTooltip.SummonTagDamage}
+			2% summon tag critical strike chance
 			{$CommonItemTooltip.Whips}
 			Inflicts [cbuff:CalamityMod/BurningBlood] and [cebuff:CalamityEntropy/FlamingBlood], which causes enemies to explode on death
 			'''
@@ -1087,7 +1093,7 @@ Items: {
 			'''
 			Transforms damage recieved into Astral Erosion, which deals that damage over time
 			Your attacks transfer astral erosion to the target, allowing them to deal additional damage
-			Your life regen is halved
+			Your life regeneration is halved
 			- Death -
 			'''
 	}
@@ -1130,7 +1136,7 @@ Items: {
 		DisplayName: Phantom Card - Confuse
 		Tooltip:
 			'''
-			Attacks inflict [cebuff:CalamityEntropy/Deceive], reducing enemy movement speed
+			Attacks inflict [cebuff:CalamityEntropy/Deceive]
 			'Confusion shackles and drains the mind of all motive...'
 			'''
 	}
@@ -1447,9 +1453,9 @@ Items: {
 		DisplayName: Vitalfeather
 		Tooltip:
 			'''
-			Struck enemies are inflicted with [cbuff:CalamityMod/Dragonfire] and erupt homing flames on minion hit
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
+			Struck enemies are inflicted with [cbuff:CalamityMod/Dragonfire] and erupt homing flames on minion hit
 			'''
 	}
 
@@ -1457,10 +1463,10 @@ Items: {
 		DisplayName: Undertaker's Windsnap
 		Tooltip:
 			'''
-			Sends two halves of the whip to collide at your cursor, inflicting [cbuff:CalamityMod/ArmorCrunch] on hit
-			Homing stars release from the collision point
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
+			Sends two halves of the whip to collide at your cursor, inflicting [cbuff:CalamityMod/ArmorCrunch] on hit
+			Homing stars release from the collision point
 			'''
 	}
 
@@ -1510,10 +1516,10 @@ Items: {
 		DisplayName: Ystralyn
 		Tooltip:
 			'''
-			Summons a phantom Eilodon Wyrm that inflicts [cebuff:CalamityMod/MarkedforDeath] and [cebuff:CalamityEntropy/LifeOppress] on hit
-			Minions gain 12% increased critical strike chance
 			{$CommonItemTooltip.SummonTagDamage}
+			12% summon tag critical strike chance
 			{$CommonItemTooltip.Whips}
+			Summons a phantom Eilodon Wyrm that inflicts [cebuff:CalamityMod/MarkedforDeath] and [cebuff:CalamityEntropy/LifeOppress] on hit
 			'''
 	}
 
@@ -1973,11 +1979,11 @@ Items: {
 		DisplayName: Crystedge
 		Tooltip:
 			'''
-			Lets out a flurry of strikes, then a much larger swing
 			{$CommonItemTooltip.SummonTagDamage}
 			3% summon tag critical strike chance
-			Critical strikes summon split floating crystals
 			{$CommonItemTooltip.Whips}
+			Lets out a flurry of strikes, then a much larger swing
+			Critical strikes summon split floating crystals
 			'''
 	}
 
@@ -1999,10 +2005,10 @@ Items: {
 		DisplayName: Sinew Lash
 		Tooltip:
 			'''
-			Throws forward and then retracts, tearing through enemies in its path and inflicting [cbuff:CalamityMod/BurningBlood]
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
-			Minions tear chunks of flesh out of enemies when attacking
+			Throws forward and then retracts, tearing through enemies in its path and inflicting [cbuff:CalamityMod/BurningBlood]
+			Minions tear chunks of flesh out of tagged enemies when attacking
 			'''
 	}
 
@@ -2019,10 +2025,10 @@ Items: {
 		DisplayName: Mind Corruptor
 		Tooltip:
 			'''
-			Throws a far reaching swipe that latches into the first enemy hit before being torn back out, inflicting [cbuff:CalamityMod/BrainRot]
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
-			Minion attacks summon a flurry of shadow slashes on hit
+			Throws a far reaching swipe that latches into the first enemy hit before being torn back out, inflicting [cbuff:CalamityMod/BrainRot]
+			Minion attacks summon a flurry of shadow slashes on tagged enemy hit
 			'''
 	}
 
@@ -2293,7 +2299,6 @@ Items: {
 			'''
 			Sends feathers from above and below towards the cursor
 			Every third swing creates 3 homing stars
-			Attacks inflict [cbuff:CalamityMod/WindChilled]
 			'[c/d4fff8:You have channeled clouds into the design...]'
 			'''
 	}
@@ -2391,9 +2396,9 @@ Items: {
 		DisplayName: Lash Futurum
 		Tooltip:
 			'''
-			{$CommonItemTooltip.Whips}
 			{$CommonItemTooltip.SummonTagDamage}
 			10% summon tag critical strike chance
+			{$CommonItemTooltip.Whips}
 			Tagged enemies take 5% more damage from all sources
 			Minion critical strikes will chain damage for up to 5 nearby enemies
 			'''
@@ -2414,9 +2419,9 @@ Items: {
 		DisplayName: Thrash Bramble
 		Tooltip:
 			'''
-			{$CommonItemTooltip.Whips}
 			{$CommonItemTooltip.SummonTagDamage}
 			[1]% summon tag critical strike chance
+			{$CommonItemTooltip.Whips}
 			Minion critical strikes cause thorns to sprout around you, granting a one-time [2]% damage reduction
 			If thorns are already present, a flower will bloom, with each flower providing an additional [3]% damage reduction and [4]HP/s life regeneration per second
 			Up to [5] flowers can bloom at a time
@@ -4348,7 +4353,11 @@ Items: {
 
 	Erebodrepanon: {
 		DisplayName: Erebodrepanon
-		Tooltip: Wield a giant scythe and tear your enemies to pieces
+		Tooltip:
+			'''
+			Wield a giant scythe that inflicts [cebuff:CalamityEntropy/LifeOppress] and tears your enemies to pieces
+			Every third swing will have a longer range and summon a spiral of wyrm energy to close in on hit enemies
+			'''
 	}
 
 	FlowerHeadband: {
@@ -4370,7 +4379,7 @@ Items: {
 		DisplayName: Tsumugis Hood
 		Tooltip:
 			'''
-			Hold shift + Right click in inventory to toggle hood's visual
+			Shift-Right Click this item in your inventory to toggle hood's visual
 			[c/e9afc0:Current - [D]]
 			'''
 		Show: Show
@@ -4394,21 +4403,26 @@ Items: {
 
 	TectonicChainBlade: {
 		DisplayName: Tectonic Chain Blade
-		Tooltip: ""
+		Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			Inflicts [cbuff:OnFire3] and your minions gain a 20% chance to generate a tectonic shard on hit
+			Tectonic shard home in on enemies and deal 70% of minion damage
+			'''
 	}
 
 	OathBanner: {
 		DisplayName: Oath Banner
 		Tooltip:
 			'''
-			Reduce incoming damage by [DR]%
-			Increase natural health regen by [REG]/s
-			Reduce movement speed by [MSD]%
-			For teammates within 625 tiles
-			Provide these buffs:
-			Increase damage by [DMG]%
-			Increase crit chance by [CRIT]%
-			Increase movement speed by [MSA]%
+			[DR]% increased damage reduction
+			Grants +[REG]HP/s life regeneration
+			[MSD]% reduced movement speed
+			Teammates within 625 tiles gain the following:
+			[DMG]% increased damage
+			[CRIT]% increased critical strike chance
+			[MSA]% increased movement speed
 			'''
 	}
 
@@ -5324,6 +5338,10 @@ Buffs: {
 	Deceive: {
 		DisplayName: Deceive
 		Description: Speed down
+		ItemTooltip:
+			'''
+			Slows enemies
+			'''
 	}
 
 	VoidCandleBuff: {
@@ -5659,7 +5677,7 @@ Buffs: {
 
 	SilentpeakBuff: {
 		DisplayName: Silentpeak
-		Description: Call forth the will of the Iron Emperor, to shelter and defend you eternally
+		Description: Call forth the will of the Iron Emperor to shelter and defend you eternally
 	}
 
 	TectonicChainBladeWhipDebuff: {
