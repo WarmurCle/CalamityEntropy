@@ -110,7 +110,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         {
             if (Projectile.Calamity().stealthStrike)
             {
-                NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 2000);
+                NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 6000);
                 if(target == null)
                 {
                     Projectile.Calamity().stealthStrike = false;
