@@ -64,7 +64,6 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ModContent.ItemType<SubductionSlicer>(), 1);
-            recipe.AddIngredient(ModContent.ItemType<CelestialReaper>(), 1);
             recipe.AddIngredient(ModContent.ItemType<MeldBlob>(), 12);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.Register();
