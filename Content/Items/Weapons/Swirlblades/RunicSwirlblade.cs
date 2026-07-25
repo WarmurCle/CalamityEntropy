@@ -30,6 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.width = 50;
             Item.height = 58;
             Item.damage = 50;
+            Item.crit = 5;
             Item.ArmorPenetration = 15;
             Item.UseSound = SoundID.Item1 with { Volume = 1f };
             Item.value = CalamityGlobalItem.RarityYellowBuyPrice;

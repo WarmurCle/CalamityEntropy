@@ -36,6 +36,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.width = 86;
             Item.height = 86;
             Item.damage = 225;
+            Item.crit = 8;
             Item.ArmorPenetration = 30;
             Item.UseSound = SoundID.Item1 with { Volume = 1.2f };
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
@@ -131,7 +132,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 46, ModContent.ProjectileType<MacrocosmSawDash>(), Projectile.damage * 5, Projectile.knockBack * 8, Projectile.owner, Radius);
                 }
-                ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.NoDirQuickShake(8), Projectile.Distance(Main.LocalPlayer.Center), 2600);
+                ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 9), Projectile.Distance(Main.LocalPlayer.Center), 3600);
                 Projectile.Kill();
             }
             if(!Projectile.Calamity().stealthStrike)
@@ -608,7 +609,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 NoPosUpdate = 24;
                 CD = 30;
 
-                ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.NoDirQuickShake(6), Projectile.Distance(Main.LocalPlayer.Center), 2600);
+                ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.NoDirQuickShake(24), Projectile.Distance(Main.LocalPlayer.Center), 3600);
 
                 for (int i = 0; i < 6; i++)
                 {

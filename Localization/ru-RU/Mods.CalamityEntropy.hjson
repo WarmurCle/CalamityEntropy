@@ -377,6 +377,20 @@ Items: {
 				Проклятие запуталось, и оно наконец - то было снято.
 				'''
 		}
+
+		LoreAcropolis: {
+			// DisplayName: Acropolis Machines
+			/* Lore:
+				'''
+				These machines were built by Azafure as armed guardians for the city,
+				their special metal shells let them survive that battle.
+				Though many years have passed, 
+				they still execute the program set since creation: eliminate all uninvited visitors
+				Time has dulled them, but with refined high-tech precision,
+				they can still restart using ambient heat
+				''' */
+			// Tooltip: ""
+		}
 	}
 
 	BrokenChainsaw: {

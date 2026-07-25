@@ -421,7 +421,29 @@ Items: {
 		LoreApsychos: {
 			DisplayName: Apsychos
 			Tooltip: ""
-			Lore: This ancient abomination was one of the first attempts at sealing away a god. At first, they tried to seal its essence within the tectonic plates deep in the world. This triggered the agitation of a dormant creature within the deepest lava oceans of the Underworld, causing it to lash out in an attempt to resist the sudden surge of energy. Ultimately, the attempt only half-succeded, leaving the strange creature stuck in its harrowing state. About time someone freed it of man's error.
+			Lore:
+				'''
+				This ancient abomination was one of the first attempts at sealing away a god.
+				At first, they tried to seal its essence within the tectonic plates deep in the world.
+				This triggered the agitation of a dormant creature within the deepest lava oceans of the Underworld,
+				causing it to lash out in an attempt to resist the sudden surge of energy.
+				Ultimately, the attempt only half-succeded, leaving the strange creature stuck in its harrowing state.
+				About time someone freed it of man's error.
+				'''
+		}
+
+		LoreAcropolis: {
+			DisplayName: Acropolis Machines
+			Lore:
+				'''
+				These machines were built by Azafure as armed guardians for the city,
+				their special metal shells let them survive that battle.
+				Though many years have passed, 
+				they still execute the program set since creation: eliminate all uninvited visitors
+				Time has dulled them, but with refined high-tech precision,
+				they can still restart using ambient heat
+				'''
+			Tooltip: ""
 		}
 	}
 

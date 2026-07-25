@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items;
+using CalamityEntropy.Content.Items.Lores;
 using CalamityEntropy.Content.Items.MusicBoxes;
 using CalamityEntropy.Content.Items.Tools;
 using CalamityEntropy.Content.Particles;
@@ -19,6 +20,8 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Utilities;
+using Terraria.Utilities.Terraria.Utilities;
 
 namespace CalamityEntropy.Content.NPCs.Acropolis
 {
@@ -905,8 +908,40 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         public int CannonUpAtk = 0;
         public float HarpoonCharge = 0;
         public float HarpoonCD = 120;
+        public static void PrepareCharredShader(Texture2D tex, Texture2D noise, float minAlpha, Vector2 noiseOffset, Color color)
+        {
+            Effect shader = CommonEffects.charred;
+            if (minAlpha >= 1)
+            {
+                Main.spriteBatch.ExitShaderRegion();
+            }
+            else
+            {
+                Main.spriteBatch.End();
+                shader.Parameters["minAlpha"].SetValue(minAlpha);
+                shader.Parameters["cColor"].SetValue(color.ToVector4());
+                shader.Parameters["noiseOffset"].SetValue(noiseOffset);
+                shader.Parameters["texSize"].SetValue(tex.Size());
+                shader.Parameters["noiseSize"].SetValue(noise.Size() * 2f);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
+                var gd = Main.graphics.GraphicsDevice;
+                gd.Textures[0] = tex;
+                gd.Textures[1] = noise;
+            }
+        }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+            UnifiedRandom random = new UnifiedRandom((NPC.type + NPC.whoAmI * 47));
+            Texture2D noise = CEUtils.getExtraTex("cloudNoise");
+            float cAlpha = random.NextBool(6) ? random.NextFloat(0.6f, 1f) : random.NextFloat(0.8f, 1f);
+            void prepareShader(Texture2D texture)
+            {
+                float al = float.Clamp(cAlpha + random.NextFloat(-0.1f, 0.1f), 0, 1);
+                if (random.NextBool(5))
+                    al = 0;
+                Vector2 ofs = new Vector2(random.NextFloat(0, 0.5f), random.NextFloat(0, 0.5f)) * noise.Size();
+                PrepareCharredShader(texture, noise, al, ofs, Color.Black * 0.76f);
+            }
             if (Main.zenithWorld)
             {
                 drawColor = Main.DiscoColor;
@@ -940,8 +975,12 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 points.Add(p1);
                 points.Add(CEUtils.GetCircleIntersection(p1, l2, leg.StandPoint, l3));
                 points.Add(points[points.Count - 1] + (leg.StandPoint - points[points.Count - 1]).normalize() * l3);
+
+                prepareShader(t1);
                 Main.EntitySpriteDraw(t1, points[0] - Main.screenPosition, null, drawColor, (points[1] - points[0]).ToRotation(), new Vector2(4, 13), NPC.scale * leg.Scale, SpriteEffects.None);
+                prepareShader(t2);
                 Main.EntitySpriteDraw(t2, points[1] - Main.screenPosition, null, drawColor, (points[2] - points[1]).ToRotation(), new Vector2(6, 9), NPC.scale * leg.Scale, SpriteEffects.None);
+                prepareShader(t3);
                 Main.EntitySpriteDraw(t3, points[2] - Main.screenPosition, null, drawColor, (points[3] - points[2]).ToRotation() + ((leg.offset.X > 0 ? 1 : -1) * MathHelper.ToRadians(24)), new Vector2(27, t3.Height / 2f), NPC.scale * leg.Scale, leg.offset.X > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
                 //CEUtils.DrawLines(points, Color.Blue, 4);
             }
@@ -955,20 +994,33 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
             Texture2D shoulder = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Acropolis/Shoulder");
 
+            prepareShader(harpoon1);
             Main.EntitySpriteDraw(harpoon1, (harpoon.offset * new Vector2(dir, 1) * NPC.scale).RotatedBy(((AcropolisMachine)npc.ModNPC).dir > 0 ? npc.rotation : (npc.rotation + MathHelper.Pi)) + NPC.Center - Main.screenPosition, null, drawColor, harpoon.Seg1Rot, new Vector2(6, harpoon1.Height / 2f), NPC.scale, SpriteEffects.None);
             if (_harpoon < 0 || (((Harpoon)_harpoon.ToNPC().ModNPC).OnLauncher))
             {
+                Main.spriteBatch.ExitShaderRegion();
                 for (float r = 0; r <= 360; r += 60)
                 {
                     Main.EntitySpriteDraw(harpoonOutline, MathHelper.ToRadians(r).ToRotationVector2() * 2 + harpoon.seg1end + harpoon.Seg2Rot.ToRotationVector2() * 150 * NPC.scale + new Vector2(0, 10 * dir).RotatedBy(harpoon.Seg2Rot) * NPC.scale - Main.screenPosition, null, Color.OrangeRed * HarpoonCharge, harpoon.Seg2Rot, new Vector2(70, harpoon3.Height / 2f), NPC.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
                 }
+                prepareShader(harpoon3);
                 Main.EntitySpriteDraw(harpoon3, harpoon.seg1end + harpoon.Seg2Rot.ToRotationVector2() * 150 * NPC.scale + new Vector2(0, 10 * dir).RotatedBy(harpoon.Seg2Rot) * NPC.scale - Main.screenPosition, null, drawColor, harpoon.Seg2Rot, new Vector2(70, harpoon3.Height / 2f), NPC.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
             }
+            else
+            {
+                //Don't mess up the random
+                prepareShader(harpoon3);
+            }
+            prepareShader(harpoon2);
             Main.EntitySpriteDraw(harpoon2, harpoon.seg1end - Main.screenPosition, null, drawColor, harpoon.Seg2Rot, new Vector2(6, harpoon2.Height / 2f), NPC.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+            prepareShader(body);
             Main.EntitySpriteDraw(body, NPC.Center - screenPos, null, drawColor, NPC.rotation, body.Size() / 2f, NPC.scale, dir < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None);
+            prepareShader(cannon1);
             Main.EntitySpriteDraw(cannon1, (cannon.offset * new Vector2(dir, 1) * NPC.scale).RotatedBy(((AcropolisMachine)npc.ModNPC).dir > 0 ? npc.rotation : (npc.rotation + MathHelper.Pi)) + NPC.Center - Main.screenPosition, null, drawColor, cannon.Seg1Rot, new Vector2(6, cannon1.Height / 2f), NPC.scale, SpriteEffects.None);
+            prepareShader(cannon2);
             Main.EntitySpriteDraw(cannon2, cannon.seg1end - Main.screenPosition, null, drawColor, cannon.Seg2Rot, new Vector2(6, cannon2.Height / 2f), NPC.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically);
 
+            prepareShader(shoulder);
             Main.EntitySpriteDraw(shoulder, NPC.Center - screenPos, null, drawColor, NPC.rotation, shoulder.Size() / 2f, NPC.scale, dir < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None);
 
             return false;
@@ -1114,6 +1166,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             npcLoot.DefineConditionalDropSet(DropHelper.RevAndMaster).Add(ModContent.ItemType<AcropolisRelic>());
             npcLoot.Add(ModContent.ItemType<AcropolisTrophy>(), 10);
             npcLoot.Add(ModContent.ItemType<AzafurePhonograph>(), 8);
+            npcLoot.AddConditionalPerPlayer(() => !EDownedBosses.downedAcropolis, ModContent.ItemType<LoreAcropolis>());
         }
     }
 }
