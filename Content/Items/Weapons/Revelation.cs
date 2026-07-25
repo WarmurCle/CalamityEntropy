@@ -353,6 +353,10 @@ namespace CalamityEntropy.Content.Items.Weapons
 
                 Main.spriteBatch.Draw(texture, oldPos[i] - Main.screenPosition, null, Color.LightGreen * p, oldRot[i], texture.Size() * 0.5f, Projectile.scale * 2, SpriteEffects.None, 0);
             }
+            for(float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver4 * 0.5f)
+            {
+                Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition + i.ToRotationVector2() * 10, null, Color.LightGreen, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale * 2, SpriteEffects.None, 0);
+            }
             Main.spriteBatch.ExitShaderRegion();
             Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale * 2, SpriteEffects.None, 0);
             return false;
