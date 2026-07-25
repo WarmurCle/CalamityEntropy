@@ -185,7 +185,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Projectile.width = 28;
             Projectile.height = 28;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 148;
             Projectile.localNPCHitCooldown = 18;
             Projectile.light = 0.7f;
         }
@@ -229,7 +229,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         {
             if (CD <= 0)
             {
-                Projectile.velocity *= 1.26f;
+                Projectile.velocity = Projectile.velocity.normalize() * float.Max(Projectile.velocity.Length(), 80);
                 NoPosUpdate = 6;
                 CD = 8;
                 for (int i = 0; i < 6; i++)
