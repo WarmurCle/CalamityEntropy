@@ -12,8 +12,10 @@ Items: {
 				DisplayName: 启示录
 				Tooltip:
 					'''
-					扔出一把会回旋的镰刀，留下追踪滞留弹幕
-					潜伏攻击改为挥舞镰刀并射出3发强追踪弹幕
+					扔出一把旋转的镰刀，在空中会快速减速，随后爆炸并发射两发追踪的启示光束并返回玩家
+					返回时如果命中敌怪能再次造成一次伤害
+					潜伏攻击会扔出三把镰刀，并追踪向离你最近的敌怪，命中后会融合为一把巨大的镰刀，并多次砸向该敌怪
+					巨化的镰刀每次命中都会产生大范围的爆炸
 					'''
 			}
 
@@ -5285,6 +5287,10 @@ Projectiles: {
 	MacrocosmSawDash.DisplayName: 噬宙之颚
 	MacrocosmVoidBolt.DisplayName: 虚空破裂束
 	SawofMacrocosmSplit.DisplayName: 小型噬宙轮刃
+	RevelationExplode.DisplayName: 启示录爆炸
+	RevelationThrown.DisplayName: 启示录
+	RevelationBolt.DisplayName: 启示射线
+	RevelationStealth.DisplayName: 巨化启示录
 }
 
 LegendTooltip: - 传奇物品 -

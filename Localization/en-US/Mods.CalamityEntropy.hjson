@@ -12,9 +12,12 @@ Items: {
 				DisplayName: Revelation
 				Tooltip:
 					'''
-					Throws a returning sickle that leaves behind mini meld-sickles
-					Mini meld-sickles have a short lifespan and home in on targets
-					Stealth strikes throw out a fan of 3 explosive homing sickles alongside a powerful slash
+					Throws a spinning scythe that rapidly slows in midair,
+					then explodes and fires two homing Revelation Beams before returning to the player
+					On return, it deals damage again if hitting an enemy
+					Stealth attack throws three scythes that home in on the nearest enemy;
+					on hit they merge into a giant scythe which strikes that enemy multiple times
+					Each giant scythe hit creates a large explosion
 					'''
 			}
 
@@ -5225,6 +5228,10 @@ Projectiles: {
 	MacrocosmSawDash.DisplayName: Macrocosm Saw Dash
 	MacrocosmVoidBolt.DisplayName: Rift Beam
 	SawofMacrocosmSplit.DisplayName: Sawof Macrocosm Split
+	RevelationExplode.DisplayName: Revelation Explode
+	RevelationThrown.DisplayName: Revelation Thrown
+	RevelationBolt.DisplayName: Revelation Bolt
+	RevelationStealth.DisplayName: Revelation Stealth
 }
 
 LegendTooltip: - Legend -

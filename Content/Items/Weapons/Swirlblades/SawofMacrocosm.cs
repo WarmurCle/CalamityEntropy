@@ -452,7 +452,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         }
         public override bool? CanDamage()
         {
-            return Projectile.ai[0] == 0;
+            return Projectile.ai[0] == 0 ? null : false;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
