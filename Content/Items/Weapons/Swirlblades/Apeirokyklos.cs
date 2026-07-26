@@ -275,11 +275,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             CEUtils.PlaySound("VividClarityBeamAppear", Main.rand.NextFloat(1.5f, 1.8f), target.Center, 60);
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < 6; i++)
             {
                 Dust dust = Dust.NewDustPerfect(target.Center, ModContent.DustType<SquashDust>(), Vector2.Zero);
                 dust.scale = Main.rand.NextFloat(0.6f, 1f) * 3.6f;
-                dust.velocity = Projectile.velocity.normalize().RotatedByRandom(0.12f) * Main.rand.NextFloat(0.5f, 1) * 38;
+                dust.velocity = Projectile.velocity.normalize().RotatedByRandom(0.07f) * Main.rand.NextFloat(0.5f, 1) * 38;
                 dust.noGravity = true;
                 dust.color = Main.rand.NextBool() ? Color.LightBlue : Color.LightSkyBlue;
                 dust.fadeIn = 2f;
