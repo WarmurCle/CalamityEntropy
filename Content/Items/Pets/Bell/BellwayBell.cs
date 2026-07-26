@@ -77,8 +77,8 @@ namespace CalamityEntropy.Content.Items.Pets.Bell
             Projectile.CloneDefaults(ProjectileID.ZephyrFish);
             Projectile.aiStyle = -1;
             Projectile.tileCollide = false;
-            Projectile.width = 30;
-            Projectile.height = 60;
+            Projectile.width = 16;
+            Projectile.height = 24;
         }
         public int TexType = 0;
         public bool Flying = false;
@@ -109,8 +109,8 @@ namespace CalamityEntropy.Content.Items.Pets.Bell
             {
                 if (CEUtils.getDistance(Projectile.Center, player.Center) > 140) 
                 {
-                    Projectile.velocity *= 0.97f;
-                    Projectile.velocity += (player.Center - Projectile.Center).normalize() * 0.7f;
+                    Projectile.velocity *= 0.96f;
+                    Projectile.velocity += (player.Center - Projectile.Center).normalize() * 0.86f;
                 }
                 if (CEUtils.getDistance(Projectile.Center, player.Center) < 200)
                 {
@@ -122,7 +122,7 @@ namespace CalamityEntropy.Content.Items.Pets.Bell
                             Projectile.velocity *= 0.2f;
                             Projectile.velocity.Y = -12;
                             SoundEngine.PlaySound(SoundID.Item128, Projectile.Center);
-                            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Gold, "CalamityMod/Particles/FlameExplosion", Vector2.One, CEUtils.randomRot(), 0.0046f, 0.09f, 18));
+                            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Gold, "CalamityMod/Particles/FlameExplosion", Vector2.One, CEUtils.randomRot(), 0.0046f, 0.05f, 18));
                         }
                     }
                 }
@@ -132,19 +132,19 @@ namespace CalamityEntropy.Content.Items.Pets.Bell
             else
             {
                 Projectile.rotation = 0;
-                if(CEUtils.getDistance(Projectile.Center, player.Center) > 500 || (CEUtils.getDistance(Projectile.Center, player.Center) > 300 && Projectile.velocity.Y >= 10))
+                if(CEUtils.getDistance(Projectile.Center, player.Center) > 650 || (CEUtils.getDistance(Projectile.Center, player.Center) > 300 && Projectile.velocity.Y >= 10))
                 {
                     Projectile.velocity *= 0;
                     Flying = true;
                     SoundEngine.PlaySound(SoundID.Item128, Projectile.Center);
-                    GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Gold, "CalamityMod/Particles/FlameExplosion", Vector2.One, CEUtils.randomRot(), 0.0046f, 0.09f, 18));
+                    GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Gold, "CalamityMod/Particles/FlameExplosion", Vector2.One, CEUtils.randomRot(), 0.0046f, 0.05f, 18));
                     return;
                 }
                 Projectile.velocity *= 0.98f;
-                float ms = 0.4f;
-                if(Projectile.velocity.Y < 0 && Projectile.velocity.Length() < 10)
+                float ms = 0.28f;
+                if(Projectile.velocity.Y < -0.5f && Projectile.velocity.Length() < 10)
                 {
-                    ms = 4;
+                    ms = 2;
                 }
                 if (Projectile.Center.X < player.Center.X - 200)
                 {
@@ -154,9 +154,11 @@ namespace CalamityEntropy.Content.Items.Pets.Bell
                 {
                     Projectile.velocity.X -= ms;
                 }
-                if (Projectile.Distance(player.Center) < 180)
+                if (Projectile.Distance(player.Center) < 200)
                     Projectile.velocity.X *= 0.9f;
-                if (CEUtils.CheckSolidTile((Projectile.Center + new Vector2(Projectile.velocity.X * 5, 0)).getRectCentered(100, 50)))
+                else
+                    Projectile.velocity.X *= 0.99f;
+                if (CEUtils.CheckSolidTile((Projectile.Center + new Vector2(Projectile.velocity.X * 5, 0)).getRectCentered(100, Projectile.height / 2 - 4)))
                 {
                     if (Projectile.Distance(player.Center) > 240)
                     {
@@ -197,7 +199,6 @@ namespace CalamityEntropy.Content.Items.Pets.Bell
             {
                 TexType = 0;
                 dir = 1;
-                Projectile.scale = 0.5f;
                 dp += new Vector2(0, 20);
             }
             if (TexType == 0)
@@ -208,7 +209,7 @@ namespace CalamityEntropy.Content.Items.Pets.Bell
             {
                 tex = this.getTextureAlt(fr == 0 ? "Idle0" : "Idle1");
             }
-            Main.EntitySpriteDraw(tex, dp - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+            Main.EntitySpriteDraw(tex, dp - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale * 0.5f, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
             return false;
         }
     }
