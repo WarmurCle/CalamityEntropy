@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.useAnimation = Item.useTime = 24;
             Item.width = 42;
             Item.height = 46;
-            Item.damage = 2800;
+            Item.damage = 1400;
             Item.ArmorPenetration = 40;
             Item.UseSound = CEUtils.GetSound("ApeirokyklosThrow", 1, 12, 0.5f) with { PitchRange = (0.3f, 0.55f) };
             Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
@@ -148,9 +148,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 if(stealthHitted && Counter % 6 == 0)
                 {
                     NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 4000);
-                    Vector2 pos = Projectile.Center + CEUtils.randomPointInCircle(Radius * 1.2f);
-                    float r = (target.Center - pos).ToRotation();
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, r.ToRotationVector2() * 32, ModContent.ProjectileType<ApeirokyklosSpike>(), Projectile.damage, Projectile.knockBack * 12, Projectile.owner, Main.rand.NextFloat(300, 324), 0.88f);
+                    if (target != null)
+                    {
+                        Vector2 pos = Projectile.Center + CEUtils.randomPointInCircle(Radius * 1.2f);
+                        float r = (target.Center - pos).ToRotation();
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, r.ToRotationVector2() * 32, ModContent.ProjectileType<ApeirokyklosSpike>(), Projectile.damage, Projectile.knockBack * 12, Projectile.owner, Main.rand.NextFloat(300, 324), 0.88f);
+                    }
                 }
             }
         }
