@@ -70,6 +70,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
     public class ApeirokyklosProj : BaseSwirlblade
     {
         public override string Texture => CEUtils.ItemTexPath<Apeirokyklos>();
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 6000;
+        }
         public override void SetDefaults()
         {
             base.SetDefaults();
