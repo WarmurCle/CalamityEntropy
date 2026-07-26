@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.useAnimation = Item.useTime = 24;
             Item.width = 42;
             Item.height = 46;
-            Item.damage = 7000;
+            Item.damage = 1800;
             Item.ArmorPenetration = 40;
             Item.UseSound = CEUtils.GetSound("ApeirokyklosThrow", 1, 12, 0.5f) with { PitchRange = (0.3f, 0.55f) };
             Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
