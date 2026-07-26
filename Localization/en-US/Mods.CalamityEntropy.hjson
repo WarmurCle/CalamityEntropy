@@ -4488,6 +4488,11 @@ Items: {
 		DisplayName: Cantaloupe Smoothie
 		Tooltip: ""
 	}
+
+	BellwayBell: {
+		DisplayName: Bellway Bell
+		Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
@@ -5256,6 +5261,7 @@ Projectiles: {
 	ExergySwirlbladeSaw.DisplayName: Exergy Swirlblade Saw
 	ApeirokyklosProj.DisplayName: Apeirokyklos Proj
 	ApeirokyklosSpike.DisplayName: Apeirokyklos Spike
+	Bellbeast.DisplayName: Bellbeast
 }
 
 LegendTooltip: - Legend -
@@ -5687,37 +5693,37 @@ Buffs: {
 
 	CrystedgeWhipDebuff: {
 		DisplayName: Crystedge Whip Debuff
-		Description: Mods.CalamityEntropy.Buffs.CrystedgeWhipDebuff.Description
+		Description: ""
 	}
 
 	DaylightWhipDebuff: {
 		DisplayName: Daylight Whip Debuff
-		Description: Mods.CalamityEntropy.Buffs.DaylightWhipDebuff.Description
+		Description: ""
 	}
 
 	ForeseeWhipDebuff: {
 		DisplayName: Foresee Whip Debuff
-		Description: Mods.CalamityEntropy.Buffs.ForeseeWhipDebuff.Description
+		Description: ""
 	}
 
 	LashingBramblerodWhipDebuff: {
 		DisplayName: Lashing Bramblerod Whip Debuff
-		Description: Mods.CalamityEntropy.Buffs.LashingBramblerodWhipDebuff.Description
+		Description: ""
 	}
 
 	MindCorruptorWhipDebuff: {
 		DisplayName: Mind Corruptor Whip Debuff
-		Description: Mods.CalamityEntropy.Buffs.MindCorruptorWhipDebuff.Description
+		Description: ""
 	}
 
 	SinewLashWhipDebuff: {
 		DisplayName: Sinew Lash Whip Debuff
-		Description: Mods.CalamityEntropy.Buffs.SinewLashWhipDebuff.Description
+		Description: ""
 	}
 
 	WhipOfEvilKingWhipDebuff: {
 		DisplayName: Whip of Evil King Whip Debuff
-		Description: Mods.CalamityEntropy.Buffs.WhipOfEvilKingWhipDebuff.Description
+		Description: ""
 	}
 
 	SilentpeakBuff: {
@@ -5727,12 +5733,17 @@ Buffs: {
 
 	TectonicChainBladeWhipDebuff: {
 		DisplayName: Tectonic Chain Blade Whip Debuff
-		Description: Mods.CalamityEntropy.Buffs.TectonicChainBladeWhipDebuff.Description
+		Description: ""
 	}
 
 	OathofCommand: {
 		DisplayName: Oath of Command
 		Description: You feel that morale is high
+	}
+
+	BellbeastBuff: {
+		DisplayName: Bellbeast Buff
+		Description: ""
 	}
 }
 

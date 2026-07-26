@@ -4223,6 +4223,11 @@ Items: {
 		// DisplayName: Cantaloupe Smoothie
 		// Tooltip: ""
 	}
+
+	BellwayBell: {
+		// DisplayName: Bellway Bell
+		// Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
@@ -4995,6 +5000,7 @@ Projectiles: {
 	// ExergySwirlbladeSaw.DisplayName: Exergy Swirlblade Saw
 	// ApeirokyklosProj.DisplayName: Apeirokyklos Proj
 	// ApeirokyklosSpike.DisplayName: Apeirokyklos Spike
+	// Bellbeast.DisplayName: Bellbeast
 }
 
 LegendTooltip: - Легенда -
@@ -5472,6 +5478,11 @@ Buffs: {
 	OathofCommand: {
 		// DisplayName: Oath of Command
 		// Description: You feel that morale is high
+	}
+
+	BellbeastBuff: {
+		// DisplayName: Bellbeast Buff
+		// Description: Mods.CalamityEntropy.Buffs.BellbeastBuff.Description
 	}
 }
 

@@ -4550,6 +4550,11 @@ Items: {
 		DisplayName: 哈密瓜冰沙
 		Tooltip: 使你化身为小云雀来海
 	}
+
+	BellwayBell: {
+		DisplayName: 钟道铃铛
+		Tooltip: "召唤钟道兽宝宝"
+	}
 }
 
 SmolderingSetBonus:
@@ -5315,6 +5320,7 @@ Projectiles: {
 	ExergySwirlbladeSaw.DisplayName: 裂界轮刃锯片
 	ApeirokyklosProj.DisplayName: 永渊环葬
 	ApeirokyklosSpike.DisplayName: 深渊尖刺
+	Bellbeast.DisplayName: 钟道兽
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5786,6 +5792,11 @@ Buffs: {
 	OathofCommand: {
 		DisplayName: 誓令
 		Description: 你感觉士气高涨
+	}
+
+	BellbeastBuff: {
+		DisplayName: 钟道兽宝宝
+		Description: 咣当
 	}
 }
 

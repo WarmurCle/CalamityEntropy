@@ -39,6 +39,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 40;
             Projectile.ArmorPenetration = 6;
+            Projectile.MaxUpdates = 2;
             SetHandRot = true;
         }
         public float handrot = 0;
@@ -175,15 +176,16 @@ namespace CalamityEntropy.Content.Projectiles
                     }
                 }
             }
-            for (int i = 0; i < 32; i++)
+            for (int i = 0; i < 16; i++)
             {
                 EParticle.spawnNew(new EGlowOrb(), CEUtils.randomPoint(target.Hitbox), CEUtils.randomPointInCircle(4) + Projectile.velocity * 0.4f * Main.rand.NextFloat(0.2f, 1), Color.SkyBlue, 0.2f, 1, true, BlendState.Additive, 0, 18);
             }
             if (Projectile.Calamity().stealthStrike)
             {
-                for (int i = 0; i < 32; i++)
+                for (int i = 0; i < 16; i++)
                 {
-                    EParticle.spawnNew(new EGlowOrb(), target.Center, CEUtils.randomPointInCircle(16), Color.SkyBlue, 0.32f, 1, true, BlendState.Additive, 0, 18);
+                    EParticle.spawnNew(new EGlowOrb(), Projectile
+                        .Center, CEUtils.randomPointInCircle(16), Color.SkyBlue, 0.32f, 1, true, BlendState.Additive, 0, 18);
                 }
             }
         }
@@ -240,6 +242,10 @@ namespace CalamityEntropy.Content.Projectiles
             if (Projectile.ai[0] < 12)
             {
                 rj = -handrot * Projectile.owner.ToPlayer().direction;
+            }
+            for(float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver4)
+            {
+                Main.EntitySpriteDraw(tx, Projectile.Center - Main.screenPosition + i.ToRotationVector2() * 5, null, lightColor, Projectile.rotation + MathHelper.PiOver4 + rj, tx.Size() / 2, Projectile.scale, SpriteEffects.None);
             }
             Main.EntitySpriteDraw(tx, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation + MathHelper.PiOver4 + rj, tx.Size() / 2, Projectile.scale, SpriteEffects.None);
 

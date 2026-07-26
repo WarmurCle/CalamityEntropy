@@ -32,11 +32,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shootSpeed = 40f;
             Item.DamageType = CEUtils.RogueDC;
         }
-
-
-
         public override float StealthDamageMultiplier => 1.2f;
-        public override float StealthVelocityMultiplier => 1.5f;
+        public override float StealthVelocityMultiplier => 1.2f;
         public override float StealthKnockbackMultiplier => 3f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
