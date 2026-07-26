@@ -86,8 +86,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             base.ModifyHitNPC(target, ref modifiers);
-            if (Projectile.Calamity().stealthStrike)
-                modifiers.SourceDamage *= 0.92f;
         }
         public override int SpreadTime => Projectile.Calamity().stealthStrike ? 120 : 56;
         public bool stealthHitted = false;
