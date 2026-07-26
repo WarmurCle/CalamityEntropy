@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public override string Texture => CEUtils.ItemTexPath<Apeirokyklos>();
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 6000;
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 1200;
         }
         public override void SetDefaults()
         {
@@ -80,6 +80,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Projectile.localNPCHitCooldown = 6;
             Projectile.MaxUpdates = 2;
         }
+        public override int BladeOpenTime => 15;
         public override float Radius => 210 * (Projectile.Calamity().stealthStrike ? (stealthHitted ? 0.7f : 1.5f) : 1);
         public override int FlyTime => 600;
         public override Rectangle CollisionRect => Projectile.Center.getRectCentered(90, 90);
@@ -178,7 +179,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 }
                 for(float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver4)
                 {
-                    Main.EntitySpriteDraw(Projectile.getDrawData(lightColor, overridePos: Projectile.Center + i.ToRotationVector2() * 4));
+                    Main.EntitySpriteDraw(Projectile.getDrawData(Color.White, overridePos: Projectile.Center + i.ToRotationVector2() * 4));
                 }
                 Main.spriteBatch.ExitShaderRegion();
 
