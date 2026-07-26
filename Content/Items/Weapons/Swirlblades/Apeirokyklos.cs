@@ -87,7 +87,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         {
             base.ModifyHitNPC(target, ref modifiers);
             if (Projectile.Calamity().stealthStrike)
-                modifiers.SourceDamage *= 0.4f;
+                modifiers.SourceDamage *= 0.2f;
         }
         public override int SpreadTime => Projectile.Calamity().stealthStrike ? 120 : 56;
         public bool stealthHitted = false;
@@ -241,7 +241,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 target.velocity *= 0.6f;
             }
             CEUtils.PlaySound("VividClarityBeamAppear", Main.rand.NextFloat(1.4f, 1.7f), target.Center,  60, 0.6f);
-            if(!Projectile.Calamity().stealthStrike && SpikeCD <= 0)
+            if(!stealthHitted && SpikeCD <= 0)
             {
                 SpikeCD = 2;
                 float r = Main.rand.NextFloat(-0.5f, 0.5f) + MathHelper.PiOver2;
