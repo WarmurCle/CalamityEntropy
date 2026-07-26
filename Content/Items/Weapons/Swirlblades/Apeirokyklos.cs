@@ -104,7 +104,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 CEUtils.PlaySound("crystalShieldBreak", 1.4f, npc.Center);
                 chargeBloom = 1;
                 Counter = FlyTime - 80;
-                ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 14), Main.LocalPlayer.Distance(npc.Center), 3200);
+                ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Projectile.velocity.normalize() * 6, 12), Main.LocalPlayer.Distance(npc.Center), 3200);
 
                 for (int i = 0; i < 60; i++)
                 {
