@@ -277,7 +277,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("VividClarityBeamAppear", Main.rand.NextFloat(1.5f, 1.8f), target.Center, 60, 0.7f);
+            CEUtils.PlaySound("VividClarityBeamAppear", Main.rand.NextFloat(1.5f, 1.8f), target.Center, 60, 0.4f);
             for (int i = 0; i < 6; i++)
             {
                 Dust dust = Dust.NewDustPerfect(target.Center, ModContent.DustType<SquashDust>(), Vector2.Zero);
@@ -297,7 +297,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             if (Projectile.Entropy().FirstFrames)
             {
                 ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.NoDirQuickShake(8), Main.LocalPlayer.Distance(Projectile.Center), 3200);
-                CEUtils.PlaySound("AbyssalSpikeHit" + Main.rand.Next(0, 3), Main.rand.NextFloat(0.5f, 0.8f), Projectile.Center, 100, 0.55f);
+                CEUtils.PlaySound("AbyssalSpikeHit" + Main.rand.Next(0, 3), Main.rand.NextFloat(0.5f, 0.8f), Projectile.Center, 100, 0.32f);
 
                 for (int i = 0; i < 16; i++)
                 {

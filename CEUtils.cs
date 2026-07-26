@@ -1056,11 +1056,12 @@ namespace CalamityEntropy
         }
         public static void DrawChargeBar(float barScale, Vector2 position, float progress, Color color)
         {
-            var barBG = ModContent.Request<Texture2D>("CalamityMod/UI/MiscTextures/GenericBarBack").Value;
-            var barFG = ModContent.Request<Texture2D>("CalamityMod/UI/MiscTextures/GenericBarFront").Value;
+            var barBG = ModContent.Request<Texture2D>("CalamityMod/UI/MiscTextures/GenericBarBack", AssetRequestMode.ImmediateLoad).Value;
+            var barFG = ModContent.Request<Texture2D>("CalamityMod/UI/MiscTextures/GenericBarFront", AssetRequestMode.ImmediateLoad).Value;
 
             Vector2 barOrigin = barBG.Size() * 0.5f;
             Vector2 drawPos = position;
+            progress = float.Clamp(progress, 0, 1);
             Rectangle frameCrop = new Rectangle(0, 0, (int)(progress * barFG.Width), barFG.Height);
 
             SpriteBatch spriteBatch = Main.spriteBatch;
