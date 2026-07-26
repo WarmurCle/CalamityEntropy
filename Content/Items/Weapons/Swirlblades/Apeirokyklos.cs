@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.noMelee = true;
             Item.noUseGraphic = true;
         }
-        public override float StealthDamageMultiplier => 2f;
+        public override float StealthDamageMultiplier => 1.0f;
         public override float StealthVelocityMultiplier => 1.2f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -87,7 +87,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         {
             base.ModifyHitNPC(target, ref modifiers);
             if (Projectile.Calamity().stealthStrike)
-                modifiers.SourceDamage *= 0.2f;
+                modifiers.SourceDamage *= 0.92f;
         }
         public override int SpreadTime => Projectile.Calamity().stealthStrike ? 120 : 56;
         public bool stealthHitted = false;
@@ -122,7 +122,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 }
                 if(Main.myPlayer == Projectile.owner)
                 {
-                    CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromThis(), Projectile.GetOwner(), Projectile.Center, Projectile.damage * 4, 370, Projectile.DamageType);
+                    CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromThis(), Projectile.GetOwner(), Projectile.Center, Projectile.damage * 6, 370, Projectile.DamageType);
                 }
             }
         }
@@ -152,7 +152,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                     {
                         Vector2 pos = Projectile.Center + CEUtils.randomPointInCircle(Radius * 1.2f);
                         float r = (target.Center - pos).ToRotation();
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, r.ToRotationVector2() * 32, ModContent.ProjectileType<ApeirokyklosSpike>(), Projectile.damage, Projectile.knockBack * 12, Projectile.owner, Main.rand.NextFloat(300, 324), 0.88f);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, r.ToRotationVector2() * 32, ModContent.ProjectileType<ApeirokyklosSpike>(), (int)(Projectile.damage * 1f), Projectile.knockBack * 12, Projectile.owner, Main.rand.NextFloat(300, 324), 0.88f);
                     }
                 }
             }
@@ -245,7 +245,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             {
                 SpikeCD = 2;
                 float r = Main.rand.NextFloat(-0.5f, 0.5f) + MathHelper.PiOver2;
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center + r.ToRotationVector2() * Main.rand.NextFloat(700, 800), r.ToRotationVector2() * -16, ModContent.ProjectileType<ApeirokyklosSpike>(), Projectile.damage / 2, Projectile.knockBack * 8, Projectile.owner, Main.rand.NextFloat(235, 250), 0.85f);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center + r.ToRotationVector2() * Main.rand.NextFloat(700, 800), r.ToRotationVector2() * -16, ModContent.ProjectileType<ApeirokyklosSpike>(), (int)(Projectile.damage * 0.48f), Projectile.knockBack * 8, Projectile.owner, Main.rand.NextFloat(235, 250), 0.85f);
             }
             for (int i = 0; i < 12; i++)
                 GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 8, false, 11, 0.04f * Main.rand.NextFloat(0.65f, 1f), Main.rand.NextBool() ? Color.LightBlue : Color.SkyBlue, new Vector2(2.4f, 0.6f), true));
