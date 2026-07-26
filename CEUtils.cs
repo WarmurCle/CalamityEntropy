@@ -1056,17 +1056,27 @@ namespace CalamityEntropy
         }
         public static void DrawChargeBar(float barScale, Vector2 position, float progress, Color color)
         {
+            if (float.IsNaN(barScale) || float.IsInfinity(barScale) || barScale <= 0f)
+                return; 
+            if (float.IsNaN(progress) || float.IsInfinity(progress))
+                progress = 0f;
             var barBG = ModContent.Request<Texture2D>("CalamityMod/UI/MiscTextures/GenericBarBack", AssetRequestMode.ImmediateLoad).Value;
             var barFG = ModContent.Request<Texture2D>("CalamityMod/UI/MiscTextures/GenericBarFront", AssetRequestMode.ImmediateLoad).Value;
-
+            if (barBG == null || barFG == null || barBG.Width <= 0 || barFG.Width <= 0)
+                return;
             Vector2 barOrigin = barBG.Size() * 0.5f;
             Vector2 drawPos = position;
-            progress = float.Clamp(progress, 0, 1);
-            Rectangle frameCrop = new Rectangle(0, 0, (int)(progress * barFG.Width), barFG.Height);
 
+            progress = float.Clamp(progress, 0, 1);
+            float bw = barFG.Width;
+            int bh = barFG.Height;
             SpriteBatch spriteBatch = Main.spriteBatch;
             spriteBatch.Draw(barBG, drawPos, null, color, 0f, barOrigin, barScale, 0f, 0f);
-            spriteBatch.Draw(barFG, drawPos, frameCrop, color * 0.8f, 0f, barOrigin, barScale, 0f, 0f);
+            if (progress >= 0)
+            {
+                Rectangle frameCrop = new Rectangle(0, 0, (int)(progress * bw), bh);
+                spriteBatch.Draw(barFG, drawPos, frameCrop, color * 0.8f, 0f, barOrigin, barScale, 0f, 0f);
+            }
         }
         public static void ApplyGameShaderForPlayer(int id, Player player)
         {
