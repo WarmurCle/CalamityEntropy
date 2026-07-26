@@ -276,7 +276,13 @@ Items: {
 
 			Apeirokyklos: {
 				// DisplayName: Apeirokyklos
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Deploys a multi-hit sawblade when flies for a while or hits an enemy 
+					Each hit of the sawblade summons an Abyss Spike from below to pierce the target
+					Stealth attack deals high-damage impact and knocks back on hit,
+					then charges and fires many spikes to pierce targets
+					''' */
 			}
 		}
 	}

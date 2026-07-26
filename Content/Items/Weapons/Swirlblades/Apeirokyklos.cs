@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.useAnimation = Item.useTime = 24;
             Item.width = 42;
             Item.height = 46;
-            Item.damage = 1800;
+            Item.damage = 2800;
             Item.ArmorPenetration = 40;
             Item.UseSound = CEUtils.GetSound("ApeirokyklosThrow", 1, 12, 0.5f) with { PitchRange = (0.3f, 0.55f) };
             Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.noMelee = true;
             Item.noUseGraphic = true;
         }
-        public override float StealthDamageMultiplier => 1.6f;
+        public override float StealthDamageMultiplier => 2f;
         public override float StealthVelocityMultiplier => 1.2f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -240,7 +240,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             if(!Projectile.Calamity().stealthStrike)
             {
                 float r = Main.rand.NextFloat(-0.5f, 0.5f) + MathHelper.PiOver2;
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center + r.ToRotationVector2() * Main.rand.NextFloat(700, 800), r.ToRotationVector2() * -16, ModContent.ProjectileType<ApeirokyklosSpike>(), Projectile.damage, Projectile.knockBack * 8, Projectile.owner, Main.rand.NextFloat(235, 250), 0.84f);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center + r.ToRotationVector2() * Main.rand.NextFloat(700, 800), r.ToRotationVector2() * -16, ModContent.ProjectileType<ApeirokyklosSpike>(), Projectile.damage / 2, Projectile.knockBack * 8, Projectile.owner, Main.rand.NextFloat(235, 250), 0.84f);
             }
             for (int i = 0; i < 12; i++)
                 GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 8, false, 11, 0.04f * Main.rand.NextFloat(0.65f, 1f), Main.rand.NextBool() ? Color.LightBlue : Color.SkyBlue, new Vector2(2.4f, 0.6f), true));
