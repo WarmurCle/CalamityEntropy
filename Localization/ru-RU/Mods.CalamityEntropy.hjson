@@ -4228,6 +4228,11 @@ Items: {
 		// DisplayName: Bellway Bell
 		// Tooltip: ""
 	}
+
+	FlowerWithFace: {
+		// DisplayName: Flower With Face
+		// Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
@@ -5001,6 +5006,7 @@ Projectiles: {
 	// ApeirokyklosProj.DisplayName: Apeirokyklos Proj
 	// ApeirokyklosSpike.DisplayName: Apeirokyklos Spike
 	// Bellbeast.DisplayName: Bellbeast
+	// Flowery.DisplayName: Flowery
 }
 
 LegendTooltip: - Легенда -
@@ -5432,37 +5438,37 @@ Buffs: {
 
 	CrystedgeWhipDebuff: {
 		// DisplayName: Crystedge Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.CrystedgeWhipDebuff.Description
+		// Description: ""
 	}
 
 	DaylightWhipDebuff: {
 		// DisplayName: Daylight Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.DaylightWhipDebuff.Description
+		// Description: ""
 	}
 
 	ForeseeWhipDebuff: {
 		// DisplayName: Foresee Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.ForeseeWhipDebuff.Description
+		// Description: ""
 	}
 
 	LashingBramblerodWhipDebuff: {
 		// DisplayName: Lashing Bramblerod Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.LashingBramblerodWhipDebuff.Description
+		// Description: ""
 	}
 
 	MindCorruptorWhipDebuff: {
 		// DisplayName: Mind Corruptor Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.MindCorruptorWhipDebuff.Description
+		// Description: ""
 	}
 
 	SinewLashWhipDebuff: {
 		// DisplayName: Sinew Lash Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.SinewLashWhipDebuff.Description
+		// Description: ""
 	}
 
 	WhipOfEvilKingWhipDebuff: {
 		// DisplayName: Whip of Evil King Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.WhipOfEvilKingWhipDebuff.Description
+		// Description: ""
 	}
 
 	SilentpeakBuff: {
@@ -5472,7 +5478,7 @@ Buffs: {
 
 	TectonicChainBladeWhipDebuff: {
 		// DisplayName: Tectonic Chain Blade Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.TectonicChainBladeWhipDebuff.Description
+		// Description: ""
 	}
 
 	OathofCommand: {
@@ -5482,7 +5488,12 @@ Buffs: {
 
 	BellbeastBuff: {
 		// DisplayName: Bellbeast Buff
-		// Description: Mods.CalamityEntropy.Buffs.BellbeastBuff.Description
+		// Description: ""
+	}
+
+	FloweryBuff: {
+		// DisplayName: Flowery Buff
+		// Description: Mods.CalamityEntropy.Buffs.FloweryBuff.Description
 	}
 }
 

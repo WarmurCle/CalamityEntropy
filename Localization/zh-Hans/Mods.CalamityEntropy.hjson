@@ -4553,7 +4553,12 @@ Items: {
 
 	BellwayBell: {
 		DisplayName: 钟道铃铛
-		Tooltip: "召唤钟道兽宝宝"
+		Tooltip: 召唤钟道兽宝宝
+	}
+
+	FlowerWithFace: {
+		// DisplayName: Flower With Face
+		// Tooltip: ""
 	}
 }
 
@@ -5321,6 +5326,7 @@ Projectiles: {
 	ApeirokyklosProj.DisplayName: 永渊环葬
 	ApeirokyklosSpike.DisplayName: 深渊尖刺
 	Bellbeast.DisplayName: 钟道兽
+	// Flowery.DisplayName: Flowery
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5797,6 +5803,11 @@ Buffs: {
 	BellbeastBuff: {
 		DisplayName: 钟道兽宝宝
 		Description: 咣当
+	}
+
+	FloweryBuff: {
+		// DisplayName: Flowery Buff
+		// Description: Mods.CalamityEntropy.Buffs.FloweryBuff.Description
 	}
 }
 
