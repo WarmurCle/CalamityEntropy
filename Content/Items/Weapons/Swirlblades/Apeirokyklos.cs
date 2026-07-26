@@ -156,6 +156,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                     }
                 }
             }
+            SpikeCD--;
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -231,7 +232,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             for (int i = 0; i < 12; i++)
                 GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, (i / 12f * MathHelper.TwoPi).ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 8, false, 11, Radius / 2400f * Main.rand.NextFloat(0.65f, 1f), Main.rand.NextBool() ? Color.LightBlue : Color.SkyBlue, new Vector2(2.4f, 0.6f), true));
         }
-
+        public int SpikeCD = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff<LifeOppress>(300);
@@ -240,8 +241,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 target.velocity *= 0.6f;
             }
             CEUtils.PlaySound("VividClarityBeamAppear", Main.rand.NextFloat(1.4f, 1.7f), target.Center,  60, 0.6f);
-            if(!Projectile.Calamity().stealthStrike)
+            if(!Projectile.Calamity().stealthStrike && SpikeCD <= 0)
             {
+                SpikeCD = 2;
                 float r = Main.rand.NextFloat(-0.5f, 0.5f) + MathHelper.PiOver2;
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center + r.ToRotationVector2() * Main.rand.NextFloat(700, 800), r.ToRotationVector2() * -16, ModContent.ProjectileType<ApeirokyklosSpike>(), Projectile.damage / 2, Projectile.knockBack * 8, Projectile.owner, Main.rand.NextFloat(235, 250), 0.85f);
             }
