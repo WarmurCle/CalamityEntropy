@@ -80,7 +80,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Projectile.localNPCHitCooldown = 6;
             Projectile.MaxUpdates = 2;
         }
-        public override float Radius => 210 * (Projectile.Calamity().stealthStrike ? (stealthHitted ? 0.7f : 1.2f) : 1);
+        public override float Radius => 210 * (Projectile.Calamity().stealthStrike ? (stealthHitted ? 0.7f : 1.5f) : 1);
         public override int FlyTime => 600;
         public override Rectangle CollisionRect => Projectile.Center.getRectCentered(90, 90);
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
@@ -251,6 +251,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
     }
     public class ApeirokyklosSpike : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 6000;
+        }
         public override string Texture => CEUtils.WhiteTexPath;
         public override void SetDefaults()
         {
