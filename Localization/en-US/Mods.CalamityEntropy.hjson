@@ -229,7 +229,7 @@ Items: {
 				DisplayName: Brilliance Swirlblade
 				Tooltip:
 					'''
-					Deploy sawblade that dealing multiple hits when fly for a while or hit an enem
+					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
 					Stealth attack increases spread and duration
 					'''
 			}
@@ -4564,8 +4564,6 @@ MissileLauncherMaxStickTooltip: Up to {0} can be lodged in the same enemy
 Projectiles: {
 	VoidBladeProj.DisplayName: Void Blade
 	VoidBladeHit.DisplayName: Void Blade Hit
-	RevelationThrow.DisplayName: Revelation Throw
-	RevelationMelee.DisplayName: Revelation Melee
 	Rvshoot.DisplayName: Rvshoot
 	PrisonOfPermafrostCircle.DisplayName: Prison of Permafrost
 	IceSpike.DisplayName: Ice Spike

@@ -4623,8 +4623,6 @@ MissileLauncherMaxStickTooltip: 每个敌怪最多黏附{0}个
 Projectiles: {
 	VoidBladeProj.DisplayName: 虚空锋刃
 	VoidBladeHit.DisplayName: 虚空缝隙
-	RevelationThrow.DisplayName: 启示录
-	RevelationMelee.DisplayName: 启示录
 	Rvshoot.DisplayName: 启示录
 	PrisonOfPermafrostCircle.DisplayName: 樊寒法阵
 	IceSpike.DisplayName: 冰刺
