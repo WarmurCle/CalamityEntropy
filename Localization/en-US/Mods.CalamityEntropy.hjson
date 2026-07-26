@@ -310,6 +310,17 @@ Items: {
 					Stealth attack increases deployment range and duration, and fires a larger persistent homing sawblade at the end
 					'''
 			}
+
+			Apeirokyklos: {
+				DisplayName: Apeirokyklos
+				Tooltip: 
+				'''
+				Deploys a multi-hit sawblade when flies for a while or hits an enemy 
+				Each hit of the sawblade summons an Abyss Spike from below to pierce the target
+				Stealth attack deals high-damage impact and knocks back on hit,
+				then charges and fires many spikes to pierce targets
+				'''
+			}
 		}
 	}
 
@@ -5243,6 +5254,8 @@ Projectiles: {
 	RevelationStealth.DisplayName: Revelation Stealth
 	ExergySwirlbladeProj.DisplayName: Exergy Swirlblade Proj
 	ExergySwirlbladeSaw.DisplayName: Exergy Swirlblade Saw
+	ApeirokyklosProj.DisplayName: Apeirokyklos Proj
+	ApeirokyklosSpike.DisplayName: Apeirokyklos Spike
 }
 
 LegendTooltip: - Legend -

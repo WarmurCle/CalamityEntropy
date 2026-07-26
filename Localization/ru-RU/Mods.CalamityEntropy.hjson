@@ -188,7 +188,7 @@ Items: {
 				// DisplayName: Brilliance Swirlblade
 				/* Tooltip:
 					'''
-					Deploy sawblade that dealing multiple hits when fly for a while or hit an enem
+					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
 					Stealth attack increases spread and duration
 					''' */
 			}
@@ -272,6 +272,11 @@ Items: {
 					При уменьшении лезвие выпускает малые самонаводящиеся лезвия, которые перестают наводиться после одного попадания
 					Скрытая атака увеличивает радиус и длительность развёртывания, а в конце выпускает большое самонаводящееся лезвие, постоянно преследующее цель
 					'''
+			}
+
+			Apeirokyklos: {
+				// DisplayName: Apeirokyklos
+				// Tooltip: ""
 			}
 		}
 	}
@@ -4303,8 +4308,6 @@ MissileLauncherMaxStickTooltip: Каждый монстр прилипает {0}
 Projectiles: {
 	VoidBladeProj.DisplayName: Клинок пустоты
 	VoidBladeHit.DisplayName: Удар пустотного клинка
-	RevelationThrow.DisplayName: Бросок откровения
-	RevelationMelee.DisplayName: Откровение: Ближний бой
 	Rvshoot.DisplayName: Rv-выстрел
 	PrisonOfPermafrostCircle.DisplayName: Тюрьма Пермафроста
 	IceSpike.DisplayName: Ледяной шип
@@ -4984,6 +4987,8 @@ Projectiles: {
 	// RevelationStealth.DisplayName: Revelation Stealth
 	// ExergySwirlbladeProj.DisplayName: Exergy Swirlblade Proj
 	// ExergySwirlbladeSaw.DisplayName: Exergy Swirlblade Saw
+	// ApeirokyklosProj.DisplayName: Apeirokyklos Proj
+	// ApeirokyklosSpike.DisplayName: Apeirokyklos Spike
 }
 
 LegendTooltip: - Легенда -

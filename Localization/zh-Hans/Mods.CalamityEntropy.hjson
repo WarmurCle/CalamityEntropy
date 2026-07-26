@@ -297,6 +297,16 @@ Items: {
 					潜伏攻击会使展开的范围更大并持续更长时间，同时在最后发射一个较大的，持续追逐目标的锯片
 					'''
 			}
+
+			Apeirokyklos: {
+				DisplayName: 永渊环葬
+				Tooltip: 
+				'''
+				飞行一段时间或触碰到敌怪时展开能造成多次伤害的锯片
+				锯片每次命中都会从下方召唤一根深渊尖刺刺穿目标
+				潜伏攻击将会在命中后产生高伤害冲击并弹开，随后蓄力发射大量尖刺刺穿目标
+				'''
+			}
 		}
 	}
 
@@ -423,7 +433,7 @@ Items: {
 				尽管已经过了许久，它们任然执行着自从被制造出来就设定好的程序，消灭一切未被允许的来访者。
 				时间的流逝让它们变得迟钝，但凭借着精密高超的技术，它们仍然能利用环境的热量重新启动。
 				'''
-			// Tooltip: ""
+			Tooltip: ""
 		}
 	}
 
@@ -5300,8 +5310,10 @@ Projectiles: {
 	RevelationThrown.DisplayName: 启示录
 	RevelationBolt.DisplayName: 启示射线
 	RevelationStealth.DisplayName: 巨化启示录
-	// ExergySwirlbladeProj.DisplayName: Exergy Swirlblade Proj
-	// ExergySwirlbladeSaw.DisplayName: Exergy Swirlblade Saw
+	ExergySwirlbladeProj.DisplayName: 裂界轮刃
+	ExergySwirlbladeSaw.DisplayName: 裂界轮刃锯片
+	ApeirokyklosProj.DisplayName: 永渊环葬
+	ApeirokyklosSpike.DisplayName: 深渊尖刺
 }
 
 LegendTooltip: - 传奇物品 -

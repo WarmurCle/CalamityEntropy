@@ -46,6 +46,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             if (Projectile.timeLeft > 2)
                 Projectile.timeLeft = 2;
         }
+        public virtual Rectangle CollisionRect => Projectile.Center.getRectCentered(Radius * 0.7f, Radius * 0.7f);
         public override void AI()
         {
             if (Projectile.Entropy().FirstFrames)
@@ -61,7 +62,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 {
                     if (!npc.friendly && !npc.dontTakeDamage)
                     {
-                        if (Projectile.Center.getRectCentered(Radius * 0.7f, Radius * 0.7f).Intersects(npc.getRect()))
+                        if (CollisionRect.Intersects(npc.getRect()))
                         {
                             Counter = FlyTime;
                             OnCollideWithNPC(npc);
