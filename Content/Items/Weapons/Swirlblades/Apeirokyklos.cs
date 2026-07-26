@@ -24,10 +24,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public override void SetDefaults()
         {
             Item.DamageType = CEUtils.RogueDC;
-            Item.useAnimation = Item.useTime = 24;
+            Item.useAnimation = Item.useTime = 30;
             Item.width = 42;
             Item.height = 46;
-            Item.damage = 1400;
+            Item.damage = 2200;
             Item.ArmorPenetration = 40;
             Item.UseSound = CEUtils.GetSound("ApeirokyklosThrow", 1, 12, 0.5f) with { PitchRange = (0.3f, 0.55f) };
             Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
