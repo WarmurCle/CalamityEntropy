@@ -147,10 +147,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             {
                 if(stealthHitted && Counter % 6 == 0)
                 {
-                    NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 3000);
+                    NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 4000);
                     Vector2 pos = Projectile.Center + CEUtils.randomPointInCircle(Radius * 1.2f);
                     float r = (target.Center - pos).ToRotation();
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, r.ToRotationVector2() * 32, ModContent.ProjectileType<ApeirokyklosSpike>(), Projectile.damage, Projectile.knockBack * 10, Projectile.owner, Main.rand.NextFloat(260, 274), 0.84f);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, r.ToRotationVector2() * 32, ModContent.ProjectileType<ApeirokyklosSpike>(), Projectile.damage, Projectile.knockBack * 12, Projectile.owner, Main.rand.NextFloat(300, 324), 0.88f);
                 }
             }
         }
@@ -240,7 +240,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             if(!Projectile.Calamity().stealthStrike)
             {
                 float r = Main.rand.NextFloat(-0.5f, 0.5f) + MathHelper.PiOver2;
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center + r.ToRotationVector2() * Main.rand.NextFloat(700, 800), r.ToRotationVector2() * -16, ModContent.ProjectileType<ApeirokyklosSpike>(), Projectile.damage / 2, Projectile.knockBack * 8, Projectile.owner, Main.rand.NextFloat(235, 250), 0.84f);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center + r.ToRotationVector2() * Main.rand.NextFloat(700, 800), r.ToRotationVector2() * -16, ModContent.ProjectileType<ApeirokyklosSpike>(), Projectile.damage / 2, Projectile.knockBack * 8, Projectile.owner, Main.rand.NextFloat(235, 250), 0.85f);
             }
             for (int i = 0; i < 12; i++)
                 GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 8, false, 11, 0.04f * Main.rand.NextFloat(0.65f, 1f), Main.rand.NextBool() ? Color.LightBlue : Color.SkyBlue, new Vector2(2.4f, 0.6f), true));
