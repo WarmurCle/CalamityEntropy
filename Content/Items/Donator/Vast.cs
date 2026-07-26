@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Donator
                 .AddIngredient(ItemID.Diamond)
                 .AddIngredient(ItemID.ManaFlower)
                 .AddIngredient(ItemID.ArcaneCrystal)
-                .AddCondition(Mod.GetLocalization("NearShimmer", () => "Near shimmer"), () => (Main.LocalPlayer.ZoneShimmer))
+                .NearShimmer()
                 .Register();
         }
 

@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
@@ -30,8 +31,67 @@ using Terraria.ObjectData;
 
 namespace CalamityEntropy
 {
+    public struct Circle
+    {
+        public Vector2 Center;
+        public float Radius;
+        public Circle(Vector2 center, float rad)
+        {
+            Center = center;
+            Radius = rad;
+        }
+        public bool Intersects(Rectangle rectangle)
+        {
+            Vector2 closestPoint = new Vector2(
+                MathHelper.Clamp(Center.X, rectangle.Left, rectangle.Right),
+                MathHelper.Clamp(Center.Y, rectangle.Top, rectangle.Bottom)
+            );
+
+            Vector2 distance = Center - closestPoint;
+
+            return distance.LengthSquared() < Radius * Radius;
+        }
+        public bool Intersects(Circle circle)
+        {
+            return Vector2.Distance(this.Center, circle.Center) <= this.Radius + circle.Radius;
+        }
+        public override bool Equals([NotNullWhen(true)] object obj)
+        {
+            if (obj is Circle c)
+                return this == c;
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            return Center.GetHashCode() + Radius.GetHashCode();
+        }
+        public static bool operator ==(Circle value1, Circle value2)
+        {
+            return (value1.Center == value2.Center &&
+                    value1.Radius == value2.Radius);
+        }
+        public static bool operator !=(Circle value1, Circle value2)
+        {
+            return !(value1 == value2);
+        }
+        public static Circle operator *(Circle value, float scaleFactor)
+        {
+            value.Radius *= scaleFactor;
+            return value;
+        }
+        public static Circle operator /(Circle value, float d)
+        {
+            value.Radius /= d;
+            return value;
+        }
+    }
     public static class CEUtils
     {
+        public static string ItemTexPath<T>() where T : ModItem
+        {
+            return (typeof(T).Namespace + "." + typeof(T).Name).Replace('.', '/');
+        }
+        public static Recipe NearShimmer(this Recipe r) => r.AddCondition(CalamityEntropy.Instance.GetLocalization("NearShimmer"), () => (Main.LocalPlayer.ZoneShimmer));
         public static Vector3 RotatedBy(this Vector3 vector, float rotation, Vector3 axis)
         {
             axis.Normalize();
@@ -62,7 +122,7 @@ namespace CalamityEntropy
                 TexCoordsX = texCoordsX;
             }
         }
-        public static List<ColoredVertex> GetVertexesList(List<VertexPointSets> sets, bool fade = true)
+        public static List<ColoredVertex> GetVertexesList(this List<VertexPointSets> sets, bool fade = true, bool worldPos = true)
         {
             List<ColoredVertex> vertexes = new List<ColoredVertex>();
             for (int i = 0; i < sets.Count; i++)
@@ -70,8 +130,8 @@ namespace CalamityEntropy
                 Vector2 va = i == 0 ? Vector2.Zero : (sets[i].Position - sets[i - 1].Position).normalize().RotatedBy(MathHelper.PiOver2);
                 float w = sets[i].Width;
                 float a = fade ? (i / (sets.Count - 1f)) : 1;
-                vertexes.Add(new ColoredVertex(sets[i].Position - va * w - Main.screenPosition, sets[i].Color * a, new Vector3(sets[i].TexCoordsX, 0, 1)));
-                vertexes.Add(new ColoredVertex(sets[i].Position + va * w - Main.screenPosition, sets[i].Color * a, new Vector3(sets[i].TexCoordsX, 1, 1)));
+                vertexes.Add(new ColoredVertex(sets[i].Position - va * w - (worldPos ? Main.screenPosition : Vector2.Zero), sets[i].Color * a, new Vector3(sets[i].TexCoordsX, 0, 1)));
+                vertexes.Add(new ColoredVertex(sets[i].Position + va * w - (worldPos ? Main.screenPosition : Vector2.Zero), sets[i].Color * a, new Vector3(sets[i].TexCoordsX, 1, 1)));
             }
             return vertexes;
         }
@@ -430,11 +490,7 @@ namespace CalamityEntropy
 
             if (player.HasBuff<T>())
             {
-                proj.timeLeft = 4;
-            }
-            else
-            {
-                proj.Kill();
+                proj.timeLeft = 6;
             }
         }
         public static NPC FindMinionTarget(this Projectile projectile, int radians = 3000, bool CheckTile = false)
@@ -822,7 +878,7 @@ namespace CalamityEntropy
         }
         public static bool CheckAirLine(Vector2 v1, Vector2 v2)
         {
-            for (float i = 0; i < 1; i += getDistance(v1, v2) / 8)
+            for (float i = 0; i < 1; i += 1f / (getDistance(v1, v2) / 8))
             {
                 if (!isAir(Vector2.Lerp(v1, v2, i)))
                     return false;
@@ -831,7 +887,7 @@ namespace CalamityEntropy
         }
         public static bool HomingWithTileBlockingFilter(Projectile proj, int npc)
         {
-            return CheckAirLine(npc.ToNPC().Center, proj.Center);
+            return CheckAirLine(proj.Center, npc.ToNPC().Center);
         }
         public static NPC FindTarget_HomingProj(Projectile proj, Vector2 center, float radians, Func<Projectile, int, bool> filter = null)
         {
@@ -1243,12 +1299,12 @@ namespace CalamityEntropy
         public static void UseBlendState_UI(this SpriteBatch sb, BlendState blend)
         {
             sb.End();
-            sb.Begin(SpriteSortMode.Deferred, blend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
+            sb.Begin(SpriteSortMode.Deferred, blend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
         }
         public static void UseBlendState_UI(this SpriteBatch sb, BlendState blend, SamplerState sample)
         {
             sb.End();
-            sb.Begin(SpriteSortMode.Deferred, blend, sample, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
+            sb.Begin(SpriteSortMode.Immediate, blend, sample, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
         }
         public static void UseBlendState(this SpriteBatch sb, BlendState blend, SamplerState s = null)
         {
@@ -1263,7 +1319,7 @@ namespace CalamityEntropy
         public static void UseSampleState(this SpriteBatch sb, SamplerState s)
         {
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, Main.graphics.GraphicsDevice.BlendState, s, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(SpriteSortMode.Immediate, Main.graphics.GraphicsDevice.BlendState, s, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
         }
         public static void UseState_UI(this SpriteBatch sb, BlendState blend, SamplerState sampler)
         {

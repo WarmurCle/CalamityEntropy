@@ -1,6 +1,8 @@
 ﻿using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Projectiles;
 using CalamityMod.Items.Materials;
+using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -16,6 +18,17 @@ namespace CalamityEntropy.Content.Items.Weapons.Whips
             Item.DefaultToWhip(ModContent.ProjectileType<JailerWhipProjectile>(), 20, 2, 4);
             Item.rare = ItemRarityID.Orange;
             Item.autoReuse = true;
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            float swingDirection = 0.6f + (0.4f * Main.rand.NextFloat());
+            if (Main.rand.NextBool(3))
+            {
+                swingDirection *= -2.5f;
+            }
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0f, swingDirection);
+            return false;
         }
 
         public override void AddRecipes()

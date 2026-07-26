@@ -1,4 +1,5 @@
-﻿using CalamityMod.Items.Materials;
+﻿using CalamityEntropy.Content.Rarities;
+using CalamityMod.Items.Materials;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,7 +18,7 @@ namespace CalamityEntropy.Content.Items
         public override void SetDefaults()
         {
             Item.value = Item.sellPrice(silver: 4);
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ModContent.RarityType<AzafureOrange>();
             Item.maxStack = 9999;
             Item.MakeUsableWithChlorophyteExtractinator();
             Item.useTime = 2;

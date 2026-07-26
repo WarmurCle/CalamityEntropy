@@ -65,20 +65,6 @@ namespace CalamityEntropy.Content.Items.PrefixItem
     public class BlessingHeatDeath : BasePrefixItem
     {
         public override string PrefixName => "HeatDeath";
-        public override void AddRecipes()
-        {
-            if (ModLoader.TryGetMod("CalamityOverhaul", out var overhaul))
-            {
-                if (!ArmorPrefix.Enabled)
-                    return;
-                CreateRecipe().
-                    AddIngredient(overhaul.Find<ModItem>("InfinityCatalyst").Type, 16)
-                    .AddIngredient<VoidScales>(99)
-                    .AddIngredient<WyrmTooth>(99)
-                    .DisableDecraft()
-                    .Register();
-            }
-        }
     }
 
     // RuneStone Prefixes

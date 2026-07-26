@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Projectiles
         }
         public float counter { get { return Projectile.localAI[0]; } set { Projectile.localAI[0] = value; } }
         public float grav { get { return Projectile.localAI[2]; } set { Projectile.localAI[2] = value; } }
-        public float gravity = 2.2f;
+        public float gravity = 2.4f;
         public bool hited
         {
             get { return Projectile.ai[1] > 0; }
@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Projectiles
         public bool homing = false;
         public override void AI()
         {
-            Projectile.rotation += Projectile.velocity.X * 0.1f;
+            Projectile.rotation += Projectile.velocity.X * 0.03f;
             counter++;
             if (Projectile.ai[0] == 0)
             {
@@ -109,20 +109,20 @@ namespace CalamityEntropy.Content.Projectiles
                         hited = true;
                     }
                     Projectile.velocity.Y += grav;
-                    if (grav < 1f)
+                    if (grav < 2f)
                     {
-                        grav += 0.02f;
+                        grav += 0.05f;
                     }
-                    if (counter % 6 == 0)
+                    if (counter % 8 == 0)
                     {
-                        CEUtils.PlaySound("spin" + Main.rand.Next(1, 3).ToString(), 1, Projectile.Center);
+                        CEUtils.PlaySound("spin" + Main.rand.Next(1, 3).ToString(), 1, Projectile.Center, 8, 0.5f);
                     }
                 }
             }
             else
             {
                 Projectile.localNPCHitCooldown = 5;
-                if (counter > 46)
+                if (counter > 30)
                 {
                     Projectile.velocity *= 0.92f;
                     Projectile.velocity += (Projectile.GetOwner().Center - Projectile.Center).normalize() * 3f;

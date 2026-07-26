@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 PortraitScale = 0.56f,
                 CustomTexturePath = "CalamityEntropy/Assets/BCL/Prophet",
                 PortraitPositionXOverride = 0,
-                PortraitPositionYOverride = 0
+                PortraitPositionYOverride = -66
             };
             NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
             NPCID.Sets.MPAllowedEnemies[Type] = true;

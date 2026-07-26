@@ -82,6 +82,7 @@ namespace CalamityEntropy.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             EGlobalNPC.RemoveAllTags(target);
+            base.OnHitNPC(target, hit, damageDone);
             target.AddBuff(ModContent.BuffType<DragonWhipDebuff>(), 240);
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
             Projectile.damage = (int)(Projectile.damage * 0.9f);
@@ -102,8 +103,6 @@ namespace CalamityEntropy.Content.Projectiles
                 obj.fadeIn = 1f;
                 obj.color = Color.Crimson * 0.5f;
             }
-
-
         }
 
         private void DrawLine(List<Vector2> list)

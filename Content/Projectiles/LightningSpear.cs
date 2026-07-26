@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Projectiles
                 float a = (i / (odp.Count - 1f));
                 v.Add(new VertexPointSets(odp[i], Color.LightBlue, 26, (i / (odp.Count - 1f)) * 3f + Main.GlobalTimeWrappedHourly * 4));
             }
-            var ve = GetVertexesList(v);
+            var ve = v.GetVertexesList();
             gd.Textures[0] = getExtraTex("VoltTrailThicc");
             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
             v.Clear();
@@ -83,7 +83,7 @@ namespace CalamityEntropy.Content.Projectiles
                 float a = (i / (odp.Count - 1f));
                 v.Add(new VertexPointSets(odp[i], Color.White, 12, (i / (odp.Count - 1f)) * 3f + Main.GlobalTimeWrappedHourly * 6));
             }
-            ve = GetVertexesList(v);
+            ve = v.GetVertexesList();
             gd.Textures[0] = getExtraTex("VoltTrailThicc");
             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
             Main.spriteBatch.End();

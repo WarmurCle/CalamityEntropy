@@ -117,15 +117,22 @@ namespace CalamityEntropy.Content.Items.Weapons
             {
                 Projectile.velocity.Y = -oldVelocity.Y * 1f;
             }
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Pink * 1.1f, "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, Projectile.scale * 0.4f, 20));
-            SoundEngine.PlaySound(SoundID.Item56 with { Volume = 1.5f }, Projectile.Center);
-            SoundEngine.PlaySound(SoundID.Item58 with { Volume = 1.2f, Pitch = Main.rand.NextFloat(-0.4f, 0.4f) }, Projectile.Center);
+            if (Projectile.localAI[1] <= 0)
+            {
+                Projectile.localAI[1] = 4 * Projectile.MaxUpdates;
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.Pink * 1.1f, "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, Projectile.scale * 0.4f, 20));
+                SoundEngine.PlaySound(SoundID.Item56 with { Volume = 1.5f }, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item58 with { Volume = 1f, Pitch = Main.rand.NextFloat(-0.4f, 0.4f) }, Projectile.Center);
+            }
 
             return false;
         }
         public bool ExplodeEffect = true;
         public override void AI()
         {
+            if (Hitted)
+                Projectile.tileCollide = false;
+            Projectile.localAI[1]--;
             if(Main.myPlayer != Projectile.owner && Exploded && ExplodeEffect)
             {
                 EXPLODE();
@@ -147,12 +154,12 @@ namespace CalamityEntropy.Content.Items.Weapons
             float or = Projectile.rotation;
             if (Projectile.localAI[0] ++ > 40 && !Hitted)
             {
-                Projectile.velocity.Y += 0.08f;
+                Projectile.velocity.Y += 0.07f;
             }
             if (!Hitted)
             {
                 Projectile.velocity *= 0.998f;
-                if(Projectile.timeLeft < 5)
+                if(Projectile.timeLeft < 8)
                 {
                     if(!Exploded)
                     {
@@ -230,7 +237,8 @@ namespace CalamityEntropy.Content.Items.Weapons
             v = Vector2.UnitY;
             GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, v, false, plt, 0.04f * scale, Color.DeepPink, new Vector2(8, 4), true, false));
             GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, v, false, plt, 0.03f * scale, Color.White, new Vector2(8, 4), true, false));
-            CEUtils.SyncProj(Projectile.whoAmI);
+            if (Main.myPlayer == Projectile.owner)
+                CEUtils.SyncProj(Projectile.whoAmI);
         }
         public override void OnKill(int timeLeft)
         {

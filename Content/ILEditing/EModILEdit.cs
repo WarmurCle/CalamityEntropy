@@ -96,7 +96,7 @@ namespace CalamityEntropy.Content.ILEditing
             Type.EmptyTypes,
             null);
             _hook = EModHooks.Add(originalMethod, ConsumeStealthByAttackingHook);
-
+            
             originalMethod = typeof(CalamityGlobalNPC)
              .GetMethod("ModifyHitByProjectile",
                     System.Reflection.BindingFlags.Public |

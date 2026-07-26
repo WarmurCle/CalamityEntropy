@@ -65,7 +65,9 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 return false;
             }
-            return ct > 60 && CEUtils.LineThroughRect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 380, Projectile.Center + Projectile.rotation.ToRotationVector2() * -380, targetHitbox, 12);
+            if (ct < 60 || ct > 64)
+                return false;
+            return CEUtils.LineThroughRect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 380, Projectile.Center + Projectile.rotation.ToRotationVector2() * -380, targetHitbox, 12);
         }
 
         public override bool PreDraw(ref Color lightColor)

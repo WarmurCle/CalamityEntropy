@@ -56,8 +56,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
             if (player.altFunctionUse == 2)
             {
                 CEUtils.PlaySound("VoidAnticipation", 1, position, volume: CEUtils.WeapSound);
-                player.AddBuff(BuffID.ChaosState, 5 * 60);
-                Projectile.NewProjectile(source, position, velocity * 4, ModContent.ProjectileType<VoidSlash>(), damage * 15, 0, player.whoAmI, 1);
+                player.AddBuff(BuffID.ChaosState, 10 * 60);
+                Projectile.NewProjectile(source, position, velocity * 4, ModContent.ProjectileType<VoidSlash>(), damage * 10, 0, player.whoAmI, 1);
                 return false;
             }
             int at = 2;
@@ -615,9 +615,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Fractal
                     swords.Add(cwr.Find<ModItem>("WeaverGrievances").Type);
                     swords.Add(cwr.Find<ModItem>("FadingGlory").Type);
                     swords.Add(cwr.Find<ModItem>("WeaverGrievances").Type);
-                    swords.Add(cwr.Find<ModItem>("FoodStallChair").Type);
-                    swords.Add(cwr.Find<ModItem>("FoodStallChair").Type);
-                    swords.Add(cwr.Find<ModItem>("WUTIVSelfPortrait").Type);
                 }
             }
             Main.spriteBatch.UseBlendState(BlendState.Additive);

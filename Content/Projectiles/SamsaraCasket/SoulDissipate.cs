@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Projectiles.SamsaraCasket
         }
         public override void attackAI(NPC t)
         {
-            setDamage(2);
+            setDamage(1);
             if (counter % 10 == 0)
             {
                 SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
