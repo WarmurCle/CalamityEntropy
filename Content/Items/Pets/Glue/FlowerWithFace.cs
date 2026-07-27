@@ -31,11 +31,6 @@ namespace CalamityEntropy.Content.Items.Pets.Glue
             Item.rare = ItemRarityID.Yellow;
             Item.value = Item.buyPrice(0, 0, 20, 0);
         }
-        public override void AddRecipes()
-        {
-
-
-        }
         public override bool? UseItem(Player player)
         {
             if (player.whoAmI == Main.myPlayer)
