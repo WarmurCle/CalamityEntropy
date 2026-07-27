@@ -4088,7 +4088,7 @@ Items: {
 		// DisplayName: Ba Xing Chong
 		/* Tooltip:
 			'''
-			Launch lot of homing missile
+			Launches two barrages of homing missiles that explode on impact, inflicting [cbuff:CalamityMod/MiracleBlight], [cbuff:CalamityMod/TrueVulnerabilityHex] and [cbuff:OnFire3]
 			[c/ff7f50:"Former owner of this gun? You mean that guy covered by cyberware except his brain?"]
 			''' */
 	}
@@ -4109,19 +4109,19 @@ Items: {
 		// DisplayName: Azafure Imperial Guard Machine Gun
 		/* Tooltip:
 			'''
-			Using [i:CalamityEntropy/HellIndustrialComponents] Hell Industry Components to load [AMMOMAX] ammunition
-			Fires rapid short-range shotgun rounds
+			Left Click with [i:CalamityEntropy/HellIndustrialComponents] Brimstone Industrial Components in your inventory to load [AMMOMAX] ammunition
+			Fires a constant stream of short-range bullets that inflict [cebuff:CalamityEntropy/MechanicalTrauma]
 			''' */
 	}
 
 	AzafureExhaustGasInjector: {
 		// DisplayName: Azafure Exhaust Gas Injector
-		// Tooltip: Jetting corrosive exhaust gas
+		// Tooltip: Fires a constrant stream of corrosive exhaust gas
 	}
 
 	AzafureStandardShotgun: {
 		// DisplayName: Azafure Standard Shotgun
-		// Tooltip: Fire some scattered shotgun pellets
+		// Tooltip: Fire a spread of shotgun rounds that inflict [cebuff:CalamityEntropy/MechanicalTrauma]
 	}
 
 	ThalassianGleam: {

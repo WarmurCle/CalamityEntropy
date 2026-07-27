@@ -25,12 +25,8 @@ Items: {
 				DisplayName: Silence
 				Tooltip:
 					'''
-					[c/9387ff:Throw a frisbee]
-					[c/9387ff:After hitting an enemy,]
-					[c/9387ff:it will use a Void Chain to pull you toward that enemy after a short delay,]
-					[c/9387ff:and explode upon contact with it.]
-					[c/9387ff:Stealth strikes cause the frisbee to stick to the hit enemy]
-					[c/9387ff:and unfold a large-area vortex, continuously damaging targets within its range.]
+					[c/9387ff:Throw a void-chained frisbee that pulls itself back to enemies on hit after a short delay before exploding on impact]
+					[c/9387ff:Stealth strikes cause the frisbee to stick to the hit enemy once chained, creating a void vortex that rapidly damages in a large area]
 					'''
 			}
 
@@ -102,7 +98,7 @@ Items: {
 				DisplayName: The Beginning And The End
 				Tooltip:
 					'''
-					Left click throws The Beginning, right click throws The End, both inflict the [cebuff:CalamityEntropy/LifeOppress] debuff
+					Left Click throws The Beginning, Right Click throws The End, both inflict the [cebuff:CalamityEntropy/LifeOppress] debuff
 					The Beginning inflicts the [cebuff:CalamityEntropy/EclipsedImprint] debuff
 					The End inflicts the [cebuff:CalamityEntropy/StareOfTheAbyss] debuff
 					These debuffs both stack up to 8 times, when the opposite debuff is applied, that amount of Eclipse or Echo souls are created
@@ -125,8 +121,8 @@ Items: {
 				DisplayName: Prophetic Daggers
 				Tooltip:
 					'''
-					Flings several homing daggers that inflict [cebuff:CalamityEntropy/SoulDisorder]
-					Stealth strikes throw a single knife that spawns 6 collapsing runes on impact
+					Flings 4 daggers in a random arc that fly towards enemies after a moment in the air
+					Stealth strikes throw a spread of 3 larger knives that spawn 6 collapsing runes on hit and inflict [cebuff:CalamityEntropy/SoulDisorder]
 					'''
 			}
 
@@ -217,8 +213,7 @@ Items: {
 				Tooltip:
 					'''
 					[c/FF69B4:Throw a bomb that bounces off blocks]
-					[c/FF69B4:After hitting a target, ]
-					[c/FF69B4:it bounces to a position that can hit as many targets as possible and explodes in a cross pattern]
+					[c/FF69B4:After hitting a target, it bounces to a position that can hit as many targets as possible and explodes in a cross pattern]
 					[c/FF69B4:Stealth strikes increase the explosion radius and can hurt players]
 					[c/FF69B4:Players who are hit by the explosion will receive 2.5 seconds of invincibility]
 					[c/FF69B4:"A detonator with cat ears, somehow it emits cat meows"]
@@ -229,8 +224,9 @@ Items: {
 				DisplayName: Brilliance Swirlblade
 				Tooltip:
 					'''
-					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
-					Stealth attack increases spread and duration
+					Throw a sawblade that on hit or after some time stops in place and starts spinning
+					The sawblade deals damage in a large area when spinning and will return after some time
+					Stealth strikes fly out faster and generate a larger spin that lasts longer
 					'''
 			}
 
@@ -238,9 +234,10 @@ Items: {
 				DisplayName: Flaming Swirlblade
 				Tooltip:
 					'''
-					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
-					On deployment, fires a homing flame
-					Stealth attack increases spread and duration and releases 8 flames
+					Throw a sawblade that on hit or after some time stops in place, releasing a homing flame bolt before spinning
+					The sawblade deals damage in a large area when spinning and will return after some time
+					Stealth strikes fly out faster and generate a larger spin that lasts longer, releasing a torrent of homing flame bolts
+					Attacks inflict [cbuff:OnFire3] on hit
 					'''
 			}
 
@@ -248,10 +245,11 @@ Items: {
 				DisplayName: Azafure Swirlblade
 				Tooltip:
 					'''
-					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
-					On deploy, fires two homing missiles
-					Stealth attack fires 8 missiles on deploy
-					And throws sawblade at nearest target on recall
+					Throw a sawblade that on hit or after some time stops in place, releasing a pair of homing missiles before spinning
+					The sawblade deals damage in a large area when spinning and will return after some time
+					Stealth strikes fly out faster and generate a larger spin that lasts longer, releasing a swarm of 8 missiles
+					Stealth strikes on return will also fire the spinning blade at the closest enemy
+					Attacks inflict [cebuff:CalamityEntropy/MechanicalTrauma] on hit
 					'''
 			}
 
@@ -259,10 +257,11 @@ Items: {
 				DisplayName: Glacier Swirlblade
 				Tooltip:
 					'''
-					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
-					Then release homing small blades and return
-					Stealth attack will chase nearest target on deploy
-					and release more and larger blades before return
+					Throw a sawblade that on hit or after some time stops in place, releasing a pair of homing blades before spinning
+					The sawblade deals damage in a large area when spinning and will return after some time
+					Stealth strikes fly out faster and generate a larger spin that lasts longer and homes onto enemies
+					Stealth strikes on return will also fire 4 spinning blades at the closest enemy
+					Attacks inflict [cebuff:CalamityEntropy/Deceive] on hit
 					'''
 			}
 
@@ -270,9 +269,11 @@ Items: {
 				DisplayName: Runic Swirlblade
 				Tooltip:
 					'''
-					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
-					Release homing runic missiles when deploy
-					Stealth attack will increase saw's size and release stronger runic missile before return
+					Throw a sawblade that on hit or after some time stops in place, releasing a swarm of homing rune bolts before spinning
+					The sawblade deals damage in a large area when spinning and will return after some time
+					Stealth strikes fly out faster and generate a much larger spin that lasts longer
+					Stealth strikes on return will also fire a swarm of stronger homing rune bolts at the closest enemy
+					Attacks inflict [cebuff:CalamityEntropy/SoulDisorder] on hit
 					'''
 			}
 
@@ -280,23 +281,23 @@ Items: {
 				DisplayName: Blazing Swirlblade
 				Tooltip:
 					'''
-					Deploy sawblade that dealing multiple hits when fly for a while or hit an enem
-					Release powerful flame shock when deploy
-					Spawn explosions when saw hit enemy
-					Stealth attack increases spread and duration
+					Throw a sawblade that on hit or after some time stops in place, releasing a holy heatwave before spinning
+					The sawblade deals damage in a large area when spinning and will return after some time
+					Stealth strikes fly out faster and generate a much larger spin and holy heatwave that lasts longer
+					Attacks inflict [cbuff:CalamityMod/HolyFlames] on hit
 					'''
 			}
 
 			SawofMacrocosm: {
-				DisplayName: Sawof Macrocosm
+				DisplayName: Saw of Macrocosm
 				Tooltip:
 					'''
-					Fly for a while
-					Deploy 4 smaller ringblades and expand a wide sawblade
-					Small ringblades also deploy sawblades
-					On recall, fire a homing Rift Beam
-					Stealth attack knock small blades farther,
-					asorb their Rift Beams and charge at nearest target
+					Throw a sawblade that on hit or after some time stops in place, releasing 4 more smaller blades before spinning
+					The sawblades deals damage in a large area when spinning and will return after some time
+					Smaller blades on return release homing cosmic bolts at the closest enemy
+					Stealth strikes fly out faster and send out the smaller blades further away, converging back to the larger blade after some time
+					Upon converging, the sawblade flies towards the closest enemy for increased damage
+					Attacks inflict [cbuff:CalamityMod/GodSlayerInferno] on hit
 					'''
 			}
 
@@ -338,9 +339,9 @@ Items: {
 		DisplayName: Kinanition
 		Tooltip:
 			'''
-			[c/ce97fa:Launches a series of homing lightning arrows]
+			[c/ce97fa:Launches a series of lightning arrows that convert into homing energy bolts on hit]
 			[c/ce97fa:These arrows retain the original effect of your ammunition]
-			[c/0078b9:Right click to launch a homing Thunderbolt that bursts into lightning on hit]
+			[c/0078b9:Right Click to launch a homing thunderbolt that bursts into lightning on hit]
 			'''
 	}
 
@@ -348,14 +349,13 @@ Items: {
 		DisplayName: Void Relics
 		Tooltip:
 			'''
-			[c/9387ff:Summon up to one Voidgaze Eye and create a rune array around yourself]
-			[c/9387ff:Runes automatically fire homing Voisen Bolts at nearby enemies]
-			[c/9387ff:and also damage enemies they touch]
-			[c/9387ff:Holding the weapon gathers runes in front of you]
-			[c/9387ff:and rapidly fires a large number of Voisen Bolts toward the cursor]
-			[c/9387ff:Stopping use or using for over 6 seconds reverts runes]
-			[c/9387ff:and grants up to 36 seconds of cooldown based on use time]
+			[c/9387ff:Summon a Voidgaze Eye and an array of runes around yourself]
+			[c/9387ff:Runes automatically fire homing voisen bolts at nearby enemies and also damage enemies they touch, inflicting ][cebuff:CalamityEntropy/VoidTouch]
+			[c/9387ff:Left Click while the eye and runes are summoned to gather runes in front of you and rapidly fire voisen bolts toward the cursor]
+			[c/9387ff:Releasing Left Click or holding for over 6 seconds reverts runes to their passive state]
+			[c/9387ff:Runes can be gathered for concentrated fire on up to a 36 second cooldown time based on how long it was held for]
 			[c/9387ff:During cooldown, runes gain 15% increased attack speed]
+			[c/9387ff:There can only be one set of void relics at a time]
 			'''
 	}
 
@@ -588,7 +588,7 @@ Items: {
 
 	WingsOfHush: {
 		DisplayName: Wings of Hush
-		Tooltip: "[c/9387ff:Shoot powerful void laser and 4 voidbeams]"
+		Tooltip: "[c/9387ff:Fires a piercing void laser alongside four smaller voidbeams that all inflict ][cebuff:CalamityEntropy/VoidTouch]"
 	}
 
 	SoyMilk: {
@@ -740,13 +740,10 @@ Items: {
 		DisplayName: Archaic Song
 		Tooltip:
 			'''
-			Briefly charge up
-			Then sweep in a wide arc
-			If it hits an enemy, the blade recoils
-			Then performs a wider multi‑slash
-			If it misses, the sword points to cursor
-			And fires a Rune Pulse
-			Inflicts [cebuff:CalamityEntropy/SoulDisorder]
+			Briefly charge up before sweeping the blade in a wide arc
+			If it hits an enemy, the blade recoils before rapidly spinning the blade around you
+			If the initial sweep misses, the next swing will instead aim at the cursor and fires a rune pulse
+			All attacks inflict [cebuff:CalamityEntropy/SoulDisorder]
 			'''
 	}
 
@@ -815,7 +812,7 @@ Items: {
 			Puts a shell around the owner when below 50% life that reduces damage taken
 			Absorbs 25% of damage done to players on your team while above 25% life
 			Provide you with a Holy Shield that can withstand damage once with a 150sec cooldown
-			Hold shift and right click to toggle [i:PanicNecklace] [c/aaaaaa:Panic Necklace's effect]
+			Hold shift and Right Click to toggle [i:PanicNecklace] [c/aaaaaa:Panic Necklace's effect]
 			[TOGGLE]
 			'''
 		ToggleEffectOn: "[c/00ff00:Panic enabled]"
@@ -983,8 +980,8 @@ Items: {
 		DisplayName: Rotten Jailor
 		Tooltip:
 			'''
-			Minions gain 2% increased critical strike chance
 			{$CommonItemTooltip.SummonTagDamage}
+			2% summon tag critical strike chance
 			{$CommonItemTooltip.Whips}
 			Inflicts [cbuff:CalamityMod/BurningBlood] and [cebuff:CalamityEntropy/FlamingBlood], which causes enemies to explode on death
 			'''
@@ -1143,7 +1140,7 @@ Items: {
 			'''
 			Transforms damage recieved into Astral Erosion, which deals that damage over time
 			Your attacks transfer astral erosion to the target, allowing them to deal additional damage
-			Your life regen is halved
+			Your life regeneration is halved
 			- Death -
 			'''
 	}
@@ -1186,7 +1183,7 @@ Items: {
 		DisplayName: Phantom Card - Confuse
 		Tooltip:
 			'''
-			Attacks inflict [cebuff:CalamityEntropy/Deceive], reducing enemy movement speed
+			Attacks inflict [cebuff:CalamityEntropy/Deceive]
 			'Confusion shackles and drains the mind of all motive...'
 			'''
 	}
@@ -1503,9 +1500,9 @@ Items: {
 		DisplayName: Vitalfeather
 		Tooltip:
 			'''
-			Struck enemies are inflicted with [cbuff:CalamityMod/Dragonfire] and erupt homing flames on minion hit
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
+			Struck enemies are inflicted with [cbuff:CalamityMod/Dragonfire] and erupt homing flames on minion hit
 			'''
 	}
 
@@ -1513,10 +1510,10 @@ Items: {
 		DisplayName: Undertaker's Windsnap
 		Tooltip:
 			'''
-			Sends two halves to collide at your cursor and inflict [cbuff:CalamityMod/MarkedforDeath]
-			Homing stars release from the collision point
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
+			Sends two halves of the whip to collide at your cursor, inflicting [cbuff:CalamityMod/ArmorCrunch] on hit
+			Homing stars release from the collision point
 			'''
 	}
 
@@ -1549,7 +1546,7 @@ Items: {
 		Tooltip:
 			'''
 			Inflicts [cebuff:CalamityEntropy/LifeOppress] and accumulates energy on hit
-			When your energy bar is full, you can right click to slash forward, leaving behind an abyssal rift
+			When your energy bar is full, you can Right Click to slash forward, leaving behind an abyssal rift
 			'''
 	}
 
@@ -1566,10 +1563,10 @@ Items: {
 		DisplayName: Ystralyn
 		Tooltip:
 			'''
-			Summons a phantom Eilodon Wyrm that inflicts [cebuff:CalamityMod/MarkedforDeath] and [cebuff:CalamityEntropy/LifeOppress] on hit
-			Minions gain 12% increased critical strike chance
 			{$CommonItemTooltip.SummonTagDamage}
+			12% summon tag critical strike chance
 			{$CommonItemTooltip.Whips}
+			Summons a phantom Eilodon Wyrm that inflicts [cebuff:CalamityMod/MarkedforDeath] and [cebuff:CalamityEntropy/LifeOppress] on hit
 			'''
 	}
 
@@ -2012,7 +2009,7 @@ Items: {
 			Gives a more challenging experience than existing Calamity difficulties
 			Lore items gain special, toggleable bonuses
 			[c/ff0000: Note: This mod's balancing doesn't take this mode into account! Expect dire circumstances ahead...]
-			Right click use to only toggle TDR
+			Right Click use to only toggle TDR
 			'''
 	}
 
@@ -2029,11 +2026,11 @@ Items: {
 		DisplayName: Crystedge
 		Tooltip:
 			'''
-			Lets out a flurry of strikes, then a much larger swing
 			{$CommonItemTooltip.SummonTagDamage}
 			3% summon tag critical strike chance
-			Critical strikes summon split floating crystals
 			{$CommonItemTooltip.Whips}
+			Lets out a flurry of strikes, then a much larger swing
+			Critical strikes summon split floating crystals
 			'''
 	}
 
@@ -2055,10 +2052,10 @@ Items: {
 		DisplayName: Sinew Lash
 		Tooltip:
 			'''
-			Throws forward and then retracts, tearing through enemies in its path and inflicting [cbuff:CalamityMod/BurningBlood]
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
-			Minions tear chunks of flesh out of enemies when attacking
+			Throws forward and then retracts, tearing through enemies in its path and inflicting [cbuff:CalamityMod/BurningBlood]
+			Minions tear chunks of flesh out of tagged enemies when attacking
 			'''
 	}
 
@@ -2075,10 +2072,10 @@ Items: {
 		DisplayName: Mind Corruptor
 		Tooltip:
 			'''
-			Throws a far reaching swipe that latches into the first enemy hit before being torn back out, inflicting [cbuff:CalamityMod/BrainRot]
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
-			Minion attacks summon a flurry of shadow slashes on hit
+			Throws a far reaching swipe that latches into the first enemy hit before being torn back out, inflicting [cbuff:CalamityMod/BrainRot]
+			Minion attacks summon a flurry of shadow slashes on tagged enemy hit
 			'''
 	}
 
@@ -2175,7 +2172,7 @@ Items: {
 		DisplayName: Runic Ruin
 		Tooltip:
 			'''
-			Right click with this item on armor in the inventory to remove prefixes
+			Right Click with this item on armor in the inventory to remove prefixes
 			The prefix item used will be recovered
 			'''
 	}
@@ -2349,7 +2346,6 @@ Items: {
 			'''
 			Sends feathers from above and below towards the cursor
 			Every third swing creates 3 homing stars
-			Attacks inflict [cbuff:CalamityMod/WindChilled]
 			'[c/d4fff8:You have channeled clouds into the design...]'
 			'''
 	}
@@ -2424,7 +2420,7 @@ Items: {
 		DisplayName: Void Fractal
 		Tooltip:
 			'''
-			Left click to swing forward a voiden bolt five times
+			Left Click to swing forward a voiden bolt five times
 			The sixth swing throws the sword forward, casting a ring of stars
 			The seventh swing creates a slash across the screen
 			Right Click to perform a void slash towards your cursor and makes the character invincible every 10 seconds
@@ -2447,9 +2443,9 @@ Items: {
 		DisplayName: Lash Futurum
 		Tooltip:
 			'''
-			{$CommonItemTooltip.Whips}
 			{$CommonItemTooltip.SummonTagDamage}
 			10% summon tag critical strike chance
+			{$CommonItemTooltip.Whips}
 			Tagged enemies take 5% more damage from all sources
 			Minion critical strikes will chain damage for up to 5 nearby enemies
 			'''
@@ -2462,7 +2458,7 @@ Items: {
 			Calls down a storm of infernal feathers that inflict [cebuff:CalamityEntropy/LifeOppress] and [cebuff:CalamityMod/Dragonfire]
 			Infernal feathers will also return to the player on hit, restoring between 10 and 14 life
 			Every 7th swing instead calls down a giant blade that inflicts [cebuff:BetsysCurse]
-			Holding right click will charge the blade, releasing right click at full charge will release a torrent of fire slashes
+			Holding Right Click will charge the blade, releasing Right Click at full charge will release a torrent of fire slashes
 			'''
 	}
 
@@ -2470,9 +2466,9 @@ Items: {
 		DisplayName: Thrash Bramble
 		Tooltip:
 			'''
-			{$CommonItemTooltip.Whips}
 			{$CommonItemTooltip.SummonTagDamage}
 			[1]% summon tag critical strike chance
+			{$CommonItemTooltip.Whips}
 			Minion critical strikes cause thorns to sprout around you, granting a one-time [2]% damage reduction
 			If thorns are already present, a flower will bloom, with each flower providing an additional [3]% damage reduction and [4]HP/s life regeneration per second
 			Up to [5] flowers can bloom at a time
@@ -2486,7 +2482,7 @@ Items: {
 			Sends visions of past blades towards your cursor
 			On every 9th slash send forth a devastating beam
 			On every 10th slash throw the sword out on a chain, releasing cosmic energy
-			Right click to perform a ghost slash that grants invunerability and sends you towards your cursor every 5 seconds
+			Right Click to perform a ghost slash that grants invunerability and sends you towards your cursor every 5 seconds
 			'[c/fcc7ff:The path past your Zenith is of your will and perserverance alone...]'
 			'''
 	}
@@ -2857,7 +2853,7 @@ Items: {
 		DisplayName: Test Item - Remove All Cooldowns
 		Tooltip:
 			'''
-			Right click while in the inventory to set cooldown time multiplier
+			Right Click while in the inventory to set cooldown time multiplier
 			Current: Reduce cooldown time by [R]%
 			'''
 	}
@@ -3001,7 +2997,7 @@ Items: {
 		Tooltip:
 			'''
 			Every 5 swings the sword lets out an extra powerful slash
-			Right click to
+			Right Click to
 			This sword's power grows with progression
 			Current Level: [LV] / 15
 			When her power is sufficient, you can use the following skills:  
@@ -4353,7 +4349,7 @@ Items: {
 		DisplayName: Ba Xing Chong
 		Tooltip:
 			'''
-			Launch lot of homing missile
+			Launches two barrages of homing missiles that explode on impact, inflicting [cbuff:CalamityMod/MiracleBlight], [cbuff:CalamityMod/TrueVulnerabilityHex] and [cbuff:OnFire3]
 			[c/ff7f50:"Former owner of this gun? You mean that guy covered by cyberware except his brain?"]
 			'''
 	}
@@ -4363,10 +4359,9 @@ Items: {
 		Tooltip:
 			'''
 			Throw a patchwork boomerang
-			Right-click to dash forward, take no damage during dash
-			Hitting any target with dash triggers a backflip and fires a wide X-slash in midair
-			X-slash hit causes a delayed explosion and charges the weapon
-			Empowers the next 10 normal attacks
+			Right Click to dash forward and gain temporary invulnerability on a 30 second cooldown
+			Hitting any target with the dash triggers a backflip, granting more invulnerability before firing a wide X-slash at the hit target
+			X-slash damage causes a delayed explosion and empowers the boomerang for the next 10 throws
 			'''
 	}
 
@@ -4374,19 +4369,19 @@ Items: {
 		DisplayName: Azafure Imperial Guard Machine Gun
 		Tooltip:
 			'''
-			Using [i:CalamityEntropy/HellIndustrialComponents] Hell Industry Components to load [AMMOMAX] ammunition
-			Fires rapid short-range shotgun rounds
+			Left Click with [i:CalamityEntropy/HellIndustrialComponents] Brimstone Industrial Components in your inventory to load [AMMOMAX] ammunition
+			Fires a constant stream of short-range bullets that inflict [cebuff:CalamityEntropy/MechanicalTrauma]
 			'''
 	}
 
 	AzafureExhaustGasInjector: {
 		DisplayName: Azafure Exhaust Gas Injector
-		Tooltip: Jetting corrosive exhaust gas
+		Tooltip: Fires a constrant stream of corrosive exhaust gas
 	}
 
 	AzafureStandardShotgun: {
 		DisplayName: Azafure Standard Shotgun
-		Tooltip: Fire some scattered shotgun pellets
+		Tooltip: Fire a spread of shotgun rounds that inflict [cebuff:CalamityEntropy/MechanicalTrauma]
 	}
 
 	ThalassianGleam: {
@@ -4405,7 +4400,11 @@ Items: {
 
 	Erebodrepanon: {
 		DisplayName: Erebodrepanon
-		Tooltip: Wield a giant scythe and tear your enemies to pieces
+		Tooltip:
+			'''
+			Wield a giant scythe that inflicts [cebuff:CalamityEntropy/LifeOppress] and tears your enemies to pieces
+			Every third swing will have a longer range and summon a spiral of wyrm energy to close in on hit enemies
+			'''
 	}
 
 	FlowerHeadband: {
@@ -4427,7 +4426,7 @@ Items: {
 		DisplayName: Tsumugis Hood
 		Tooltip:
 			'''
-			Hold shift + Right click in inventory to toggle hood's visual
+			Shift-Right Click this item in your inventory to toggle hood's visual
 			[c/e9afc0:Current - [D]]
 			'''
 		Show: Show
@@ -4451,21 +4450,26 @@ Items: {
 
 	TectonicChainBlade: {
 		DisplayName: Tectonic Chain Blade
-		Tooltip: ""
+		Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			Inflicts [cbuff:OnFire3] and your minions gain a 20% chance to generate a tectonic shard on hit
+			Tectonic shard home in on enemies and deal 70% of minion damage
+			'''
 	}
 
 	OathBanner: {
 		DisplayName: Oath Banner
 		Tooltip:
 			'''
-			Reduce incoming damage by [DR]%
-			Increase natural health regen by [REG]/s
-			Reduce movement speed by [MSD]%
-			For teammates within 625 tiles
-			Provide these buffs:
-			Increase damage by [DMG]%
-			Increase crit chance by [CRIT]%
-			Increase movement speed by [MSA]%
+			[DR]% increased damage reduction
+			Grants +[REG]HP/s life regeneration
+			[MSD]% reduced movement speed
+			Teammates within 625 tiles gain the following:
+			[DMG]% increased damage
+			[CRIT]% increased critical strike chance
+			[MSA]% increased movement speed
 			'''
 	}
 
@@ -5399,6 +5403,10 @@ Buffs: {
 	Deceive: {
 		DisplayName: Deceive
 		Description: Speed down
+		ItemTooltip:
+			'''
+			Slows enemies
+			'''
 	}
 
 	VoidCandleBuff: {
@@ -5734,7 +5742,7 @@ Buffs: {
 
 	SilentpeakBuff: {
 		DisplayName: Silentpeak
-		Description: Call forth the will of the Iron Emperor, to shelter and defend you eternally
+		Description: Call forth the will of the Iron Emperor to shelter and defend you eternally
 	}
 
 	TectonicChainBladeWhipDebuff: {
