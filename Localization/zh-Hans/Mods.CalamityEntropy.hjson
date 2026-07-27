@@ -5327,8 +5327,8 @@ Projectiles: {
 	ApeirokyklosSpike.DisplayName: 深渊尖刺
 	Bellbeast.DisplayName: 钟道兽
 	Flowery.DisplayName: Flowery
-	// AquaShardWaterBullet.DisplayName: Aqua Shard Water Bullet
-	// WaterBulletSpawner.DisplayName: Water Bullet Spawner
+	AquaShardWaterBullet.DisplayName: 水弹
+	WaterBulletSpawner.DisplayName: 水弹标记
 }
 
 LegendTooltip: - 传奇物品 -
