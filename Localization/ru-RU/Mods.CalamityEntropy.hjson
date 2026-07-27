@@ -5020,6 +5020,8 @@ Projectiles: {
 	// ApeirokyklosSpike.DisplayName: Apeirokyklos Spike
 	// Bellbeast.DisplayName: Bellbeast
 	// Flowery.DisplayName: Flowery
+	// AquaShardWaterBullet.DisplayName: Aqua Shard Water Bullet
+	// WaterBulletSpawner.DisplayName: Water Bullet Spawner
 }
 
 LegendTooltip: - Легенда -

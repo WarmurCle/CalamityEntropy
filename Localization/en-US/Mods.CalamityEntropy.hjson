@@ -44,8 +44,8 @@ Items: {
 				DisplayName: Aquashard
 				Tooltip:
 					'''
-					Throws a fragile javelin that shatters into smaller homing crystals upon hit
-					Stealth strikes pierce, shed homing crystals as they fly, and cause the javelin to fracture on impact
+					Throws a javelin that spawns water bullets when hit
+					Stealth strikes pierce, shed homing crystals as they fly, and spawn more homing water bullets when hit
 					'''
 			}
 
@@ -5272,6 +5272,8 @@ Projectiles: {
 	ApeirokyklosSpike.DisplayName: Apeirokyklos Spike
 	Bellbeast.DisplayName: Bellbeast
 	Flowery.DisplayName: Flowery
+	AquaShardWaterBullet.DisplayName: Aqua Shard Water Bullet
+	WaterBulletSpawner.DisplayName: Water Bullet Spawner
 }
 
 LegendTooltip: - Legend -

@@ -79,6 +79,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             base.SetDefaults();
             Projectile.localNPCHitCooldown = 6;
             Projectile.MaxUpdates = 2;
+            Projectile.tileCollide = false;
+            Projectile.light = 1;
         }
         public override int BladeOpenTime => 15;
         public override float Radius => 210 * (Projectile.Calamity().stealthStrike ? (stealthHitted ? 0.7f : 1.5f) : 1);
