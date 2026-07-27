@@ -29,7 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ItemRarityID.Orange;
             Item.shoot = ModContent.ProjectileType<AquashardThrow>();
-            Item.shootSpeed = 40f;
+            Item.shootSpeed = 50f;
             Item.DamageType = CEUtils.RogueDC;
         }
         public override float StealthDamageMultiplier => 1.2f;
