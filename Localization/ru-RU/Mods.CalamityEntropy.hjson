@@ -188,8 +188,9 @@ Items: {
 				// DisplayName: Brilliance Swirlblade
 				/* Tooltip:
 					'''
-					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
-					Stealth attack increases spread and duration
+					Throw a sawblade that on hit or after some time stops in place and starts spinning
+					The sawblade deals damage in a large area when spinning and will return after some time
+					Stealth strikes fly out faster and generate a larger spin that lasts longer
 					''' */
 			}
 
@@ -233,9 +234,11 @@ Items: {
 				// DisplayName: Runic Swirlblade
 				/* Tooltip:
 					'''
-					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
-					Release homing runic missiles when deploy
-					Stealth attack will increase saw's size and release stronger runic missile before return
+					Throw a sawblade that on hit or after some time stops in place, releasing a swarm of homing rune bolts before spinning
+					The sawblade deals damage in a large area when spinning and will return after some time
+					Stealth strikes fly out faster and generate a much larger spin that lasts longer
+					Stealth strikes on return will also fire a swarm of stronger homing rune bolts at the closest enemy
+					Attacks inflict [cebuff:CalamityEntropy/SoulDisorder] on hit
 					''' */
 			}
 
@@ -243,15 +246,15 @@ Items: {
 				// DisplayName: Blazing Swirlblade
 				/* Tooltip:
 					'''
-					Deploy sawblade that dealing multiple hits when fly for a while or hit an enem
-					Release powerful flame shock when deploy
-					Spawn explosions when saw hit enemy
-					Stealth attack increases spread and duration
+					Throw a sawblade that on hit or after some time stops in place, releasing a holy heatwave before spinning
+					The sawblade deals damage in a large area when spinning and will return after some time
+					Stealth strikes fly out faster and generate a much larger spin and holy heatwave that lasts longer
+					Attacks inflict [cbuff:CalamityMod/HolyFlames] on hit
 					''' */
 			}
 
 			SawofMacrocosm: {
-				// DisplayName: Sawof Macrocosm
+				// DisplayName: Saw of Macrocosm
 				Tooltip:
 					'''
 					Летит некоторое время
@@ -4140,7 +4143,11 @@ Items: {
 
 	Erebodrepanon: {
 		// DisplayName: Erebodrepanon
-		// Tooltip: Wield a giant scythe and tear your enemies to pieces
+		/* Tooltip:
+			'''
+			Wield a giant scythe that inflicts [cebuff:CalamityEntropy/LifeOppress] and tears your enemies to pieces
+			Every third swing will have a longer range and summon a spiral of wyrm energy to close in on hit enemies
+			''' */
 	}
 
 	FlowerHeadband: {
@@ -4162,7 +4169,7 @@ Items: {
 		// DisplayName: Tsumugis Hood
 		/* Tooltip:
 			'''
-			Hold shift + Right click in inventory to toggle hood's visual
+			Shift-Right Click this item in your inventory to toggle hood's visual
 			[c/e9afc0:Current - [D]]
 			''' */
 		// Show: Show
@@ -4186,7 +4193,13 @@ Items: {
 
 	TectonicChainBlade: {
 		// DisplayName: Tectonic Chain Blade
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
+			Inflicts [cbuff:OnFire3] and your minions gain a 20% chance to generate a tectonic shard on hit
+			Tectonic shard home in on enemies and deal 70% of minion damage
+			''' */
 	}
 
 	OathBanner: {
@@ -5138,6 +5151,7 @@ Buffs: {
 	Deceive: {
 		DisplayName: Обман
 		Description: Замедление
+		// ItemTooltip: Slows enemies
 	}
 
 	VoidCandleBuff: {
@@ -5473,7 +5487,7 @@ Buffs: {
 
 	SilentpeakBuff: {
 		// DisplayName: Silentpeak
-		// Description: Call forth the will of the Iron Emperor, to shelter and defend you eternally
+		// Description: Call forth the will of the Iron Emperor to shelter and defend you eternally
 	}
 
 	TectonicChainBladeWhipDebuff: {

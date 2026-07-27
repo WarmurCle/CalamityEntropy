@@ -5403,10 +5403,7 @@ Buffs: {
 	Deceive: {
 		DisplayName: Deceive
 		Description: Speed down
-		ItemTooltip:
-			'''
-			Slows enemies
-			'''
+		ItemTooltip: Slows enemies
 	}
 
 	VoidCandleBuff: {
@@ -5762,7 +5759,7 @@ Buffs: {
 
 	FloweryBuff: {
 		DisplayName: Flowery Buff
-		Description: Mods.CalamityEntropy.Buffs.FloweryBuff.Description
+		Description: Glue!
 	}
 }
 

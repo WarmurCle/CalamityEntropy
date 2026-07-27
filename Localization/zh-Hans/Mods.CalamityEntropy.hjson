@@ -4557,8 +4557,8 @@ Items: {
 	}
 
 	FlowerWithFace: {
-		// DisplayName: Flower With Face
-		// Tooltip: ""
+		DisplayName: Flower With Face
+		Tooltip: ""
 	}
 }
 
@@ -5326,7 +5326,7 @@ Projectiles: {
 	ApeirokyklosProj.DisplayName: 永渊环葬
 	ApeirokyklosSpike.DisplayName: 深渊尖刺
 	Bellbeast.DisplayName: 钟道兽
-	// Flowery.DisplayName: Flowery
+	Flowery.DisplayName: Flowery
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5456,7 +5456,8 @@ Buffs: {
 
 	Deceive: {
 		DisplayName: 蒙蔽
-		Description: 减伤移动速度
+		Description: 减少移动速度
+		ItemTooltip: 减速敌人
 	}
 
 	VoidCandleBuff: {
@@ -5806,8 +5807,8 @@ Buffs: {
 	}
 
 	FloweryBuff: {
-		// DisplayName: Flowery Buff
-		// Description: Mods.CalamityEntropy.Buffs.FloweryBuff.Description
+		DisplayName: Flowery
+		Description: Glue!
 	}
 }
 

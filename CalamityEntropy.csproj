@@ -1,49 +1,33 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<!-- Import tModLoader mod properties -->
 	<Import Project="..\tModLoader.targets" />
 
 	<!-- General -->
-  <PropertyGroup>
-		<Platforms>AnyCPU;x64</Platforms>
-		<PlatformTarget>AnyCPU</PlatformTarget>
+	<PropertyGroup>
+		
 	</PropertyGroup>
+
+	<!-- References -->
 	<ItemGroup>
 	  <PackageReference Include="System.Text.Json" Version="9.0.3" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Update="Properties\Resources.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Resources.resx</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="MonoMod" Version="22.7.31.1" />
-	</ItemGroup>
-	<ItemGroup>
-	  <EmbeddedResource Update="Properties\Resources.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
-	</ItemGroup>
-	<ItemGroup>
 	  <Reference Include="AlchemistNPCLite">
-	    <HintPath>..\ModAssemblies\AlchemistNPCLite_v1.9.9.dll</HintPath>
+	    <HintPath>..\ModAssemblies\AlchemistNPCLite.dll</HintPath>
 	  </Reference>
 	  <Reference Include="CalamityMod">
-	    <HintPath>..\ModAssemblies\CalamityMod_v2.2.dll</HintPath>
+	    <HintPath>..\ModAssemblies\CalamityMod.dll</HintPath>
 	  </Reference>
 	  <Reference Include="CalamityOverhaul">
-	    <HintPath>..\ModAssemblies\CalamityOverhaul_v0.9019.dll</HintPath>
+	    <HintPath>..\ModAssemblies\CalamityOverhaul.dll</HintPath>
 	  </Reference>
 	  <Reference Include="InfernumMode">
-	    <HintPath>..\ModAssemblies\InfernumMode_v2.0.1.26.dll</HintPath>
+	    <HintPath>..\ModAssemblies\InfernumMode.dll</HintPath>
 	  </Reference>
 	  <Reference Include="InnoVault">
-	    <HintPath>..\ModAssemblies\InnoVault_v1.9.96.dll</HintPath>
+	    <HintPath>..\ModAssemblies\InnoVault.dll</HintPath>
 	  </Reference>
 	</ItemGroup>
-	<!-- References -->
-	
+
 </Project>
