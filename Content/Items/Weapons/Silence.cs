@@ -326,11 +326,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             Texture2D tx = CEUtils.getExtraTex("MegaStreakBacking2c");
             gd.Textures[0] = tx;
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve1a.ToArray(), 0, ve1a.Count - 2);
             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve2a.ToArray(), 0, ve2a.Count - 2);
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve1b.ToArray(), 0, ve1b.Count - 2);
             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve2b.ToArray(), 0, ve2b.Count - 2);
             Main.spriteBatch.ExitShaderRegion();
@@ -592,7 +592,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             effect.Parameters["FadeOutDistance"].SetValue(fadeOutDistance);
             effect.Parameters["FadeOutWidth"].SetValue(fadeOutWidth);
             effect.Parameters["enhanceLightAlpha"].SetValue(0.8f);
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             effect.CurrentTechnique.Passes[0].Apply();
             Main.spriteBatch.Draw(CEUtils.getExtraTex("VoronoiShapes"), Projectile.Center - Main.screenPosition, null, new Color(126, 126, 255) * areaAlpha, Main.GlobalTimeWrappedHourly * 15, CEUtils.getExtraTex("VoronoiShapes").Size() / 2f, 0.17f * Projectile.scale * areaSize * aScale, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(CEUtils.getExtraTex("VoronoiShapes"), Projectile.Center - Main.screenPosition, null, new Color(126, 126, 255) * areaAlpha, Main.GlobalTimeWrappedHourly * 12, CEUtils.getExtraTex("VoronoiShapes").Size() / 2f, 0.17f * Projectile.scale * areaSize * aScale, SpriteEffects.None, 0);
@@ -690,11 +690,11 @@ namespace CalamityEntropy.Content.Items.Weapons
             Texture2D tx = CEUtils.getExtraTex("MegaStreakBacking2c");
             gd.Textures[0] = tx;
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve1a.ToArray(), 0, ve1a.Count - 2);
             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve2a.ToArray(), 0, ve2a.Count - 2);
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve1b.ToArray(), 0, ve1b.Count - 2);
             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve2b.ToArray(), 0, ve2b.Count - 2);
             Main.spriteBatch.ExitShaderRegion();

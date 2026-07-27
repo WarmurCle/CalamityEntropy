@@ -90,7 +90,7 @@ namespace CalamityEntropy.Content.Skies
             if (awtime > 0)
             {
                 spriteBatch.End();
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 ocolor = new Color((int)(36 * pc), (int)(36 * pc), (int)(36 * pc));
                 if (Main.rand.NextBool(120))
                 {
@@ -138,7 +138,7 @@ namespace CalamityEntropy.Content.Skies
                 var graphicsDevice = Main.graphics.GraphicsDevice;
                 graphicsDevice.SetRenderTarget(EffectLoader.Screen0);
                 graphicsDevice.Clear(Color.Transparent);
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 Main.spriteBatch.Draw(Main.screenTarget, Vector2.Zero, Color.White);
                 Main.spriteBatch.End();
 

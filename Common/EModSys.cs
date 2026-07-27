@@ -145,7 +145,7 @@ namespace CalamityEntropy.Common
             if (active)
             {
                 float alpha = 0.5f + 0.5f * progress;
-                Main.spriteBatch.Begin(0, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+                Main.spriteBatch.Begin(0, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
                 Color clr = Color.Lerp(new Color(190, 40, 40), Color.White, 0.5f + 0.5f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * 10))) * 0.8f;
                 int offset = (int)Main.GameUpdateCount;
                 Vector2 so = new Vector2(12, 12) * scale;
@@ -163,7 +163,7 @@ namespace CalamityEntropy.Common
             else
             {
                 float alpha = 0.72f * progress;
-                Main.spriteBatch.Begin(0, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+                Main.spriteBatch.Begin(0, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
                 Color clr = Color.Lerp(new Color(255, 100, 100), Color.White, 0.5f + 0.5f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * 36)));
                 int offset = (int)Main.GameUpdateCount;
                 Vector2 so = new Vector2(12, 12) * scale;
@@ -186,11 +186,11 @@ namespace CalamityEntropy.Common
             var gd = Main.graphics.GraphicsDevice;
             gd.Textures[1] = CEUtils.getExtraTex("Noise_10");
             Texture2D tex = CEUtils.getExtraTex("Hexagon");
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.ZoomMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.TransformationMatrix);
             Main.spriteBatch.Draw(tex, center - Main.screenPosition, null, new Color(200, 200, 255) * alpha, 0, tex.Size() / 2f, scale, SpriteEffects.None, 0);
             Main.spriteBatch.End();
             shader.Parameters["OutlineColor"].SetValue((Color.Lerp(new Color(140, 140, 255), Color.White, 0.16f + 0.16f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * 6)))).ToVector4() * alpha * player.Entropy().ShieldAlphaAdd);
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.ZoomMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.TransformationMatrix);
             Main.spriteBatch.Draw(tex, center - Main.screenPosition, null, new Color(200, 200, 255) * alpha * player.Entropy().ShieldAlphaAdd, 0, tex.Size() / 2f, scale, SpriteEffects.None, 0);
 
             Main.spriteBatch.End();
@@ -208,7 +208,7 @@ namespace CalamityEntropy.Common
             shader.Parameters["offset"].SetValue(Main.GlobalTimeWrappedHourly);
             shader.Parameters["num"].SetValue(0.98f);
             shader.CurrentTechnique.Passes[0].Apply();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.ZoomMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.TransformationMatrix);
             var gd = Main.graphics.GraphicsDevice;
             gd.Textures[1] = CEUtils.getExtraTex("Noise_10");
             Texture2D tex = CEUtils.getExtraTex("Circle");
@@ -218,11 +218,11 @@ namespace CalamityEntropy.Common
                 rot *= Main.GlobalTimeWrappedHourly * 2;
                 Main.spriteBatch.End();
                 shader.Parameters["OutlineColor"].SetValue((Color.Lerp(new Color(140, 140, 255), Color.White, 0.16f + 0.16f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * 6)))).ToVector4() * alpha);
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.ZoomMatrix);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.TransformationMatrix);
                 Main.spriteBatch.Draw(tex, center - Main.screenPosition, null, new Color(200, 200, 255) * alpha, 0 + rot, tex.Size() / 2f, scale, SpriteEffects.None, 0);
                 Main.spriteBatch.End();
                 shader.Parameters["OutlineColor"].SetValue((Color.Lerp(new Color(140, 140, 255), Color.White, 0.16f + 0.16f * (float)(Math.Sin(Main.GlobalTimeWrappedHourly * 6)))).ToVector4() * alpha * player.Entropy().ShieldAlphaAdd);
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.ZoomMatrix);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.TransformationMatrix);
                 Main.spriteBatch.Draw(tex, center - Main.screenPosition, null, new Color(200, 200, 255) * alpha * player.Entropy().ShieldAlphaAdd, 0 + rot, tex.Size() / 2f, scale, SpriteEffects.None, 0);
             }
             Main.spriteBatch.End();
@@ -336,7 +336,7 @@ namespace CalamityEntropy.Common
             {
                 if (SmartScope.target != null)
                 {
-                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
                     var tx = CEUtils.getExtraTex("SS_Target");
                     Main.spriteBatch.Draw(tx, SmartScope.target.Center - Main.screenPosition, null, Color.White, 0, tx.Size() / 2f, 1, SpriteEffects.None, 0);
@@ -345,7 +345,7 @@ namespace CalamityEntropy.Common
             }
             if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<EventideSniper>())
             {
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 foreach (NPC npc in Main.ActiveNPCs)
                 {
                     if (!npc.dontTakeDamage && !npc.friendly)

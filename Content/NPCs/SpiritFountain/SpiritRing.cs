@@ -411,7 +411,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             Texture2D glow = CEUtils.getExtraTex("Glow2");
             var sb = Main.spriteBatch;
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 
             for (float i = 0; i < (int)TrailLength; i++)
             {
@@ -424,7 +424,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                 rt += MathHelper.ToRadians(4) * (NPC.whoAmI % 2 == 0 ? 1 : -1);
             }
             sb.End();
-            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 
         }
         public float AlphaLaserWarning = 0;

@@ -144,7 +144,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             //GraphicsDevice gdv = Main.graphics.GraphicsDevice;
             //EffectLoader.PreparePixelShader(gdv);
             //Main.spriteBatch.End();
-            //Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            //Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
             float Mxl = 1;
             for (float i = 0; i <= 1; i += 0.0025f)
             {

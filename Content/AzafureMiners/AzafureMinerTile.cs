@@ -137,7 +137,7 @@ namespace CalamityEntropy.Content.AzafureMiners
                 EffectLoader.OutlineShader.CurrentTechnique.Passes[0].Apply();
                 EffectLoader.OutlineShader.Parameters["texSize"].SetValue(tex.Size());
                 EffectLoader.OutlineShader.Parameters["color"].SetValue(outlineColor.ToVector4());
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, EffectLoader.OutlineShader, Main.GameViewMatrix.ZoomMatrix);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, EffectLoader.OutlineShader, Main.GameViewMatrix.TransformationMatrix);
 
                 if (!t.IsHalfBlock && t.Slope == 0)
                 {

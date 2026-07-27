@@ -793,7 +793,7 @@ namespace CalamityEntropy
             Main.spriteBatch.End();
 
 
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
             foreach (Player player in Main.ActivePlayers)
             {
                 if (player.TryGetModPlayer<AcropolisArmorPlayer>(out var mp))

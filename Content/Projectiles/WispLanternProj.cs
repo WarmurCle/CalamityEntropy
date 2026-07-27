@@ -209,7 +209,7 @@ namespace CalamityEntropy.Content.Projectiles
                 shader.Parameters["minColor"].SetValue(new Color(40, 6, 100).ToVector4());
                 shader.Parameters["maxColor"].SetValue(new Color(255, 220, 255).ToVector4());
                 sb.End();
-                sb.Begin(0, sb.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, shader, Main.GameViewMatrix.ZoomMatrix);
+                sb.Begin(0, sb.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, shader, Main.GameViewMatrix.TransformationMatrix);
 
                 shader.CurrentTechnique.Passes["EnchantedPass"].Apply();
 
@@ -232,7 +232,7 @@ namespace CalamityEntropy.Content.Projectiles
 
                 }
                 sb.End();
-                sb.Begin(0, sb.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.GameViewMatrix.ZoomMatrix);
+                sb.Begin(0, sb.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.GameViewMatrix.TransformationMatrix);
 
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
