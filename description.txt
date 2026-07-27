@@ -22,7 +22,7 @@ Ahirith: Sprite, Concept (Pets)
 JesterRomut: Sprite, Music (Title Theme), Code
 Special thanks to Hadrian (FRANCIUMKILLA) for making Cruiser & Prophet's theme
 Thank Soba Noodles for the Acropolis theme
-Thanks to 鸡腿, Gel, OXYGEN, 黑森林大蛇, 迷途, OwenDraw, Fiveling,and myku for providing some textures (even though some of them have not been implemented yet).
+Thanks to 鸡腿, Gel, OXYGEN, 黑森林大蛇, 小史龙, 迷途, OwenDraw, Fiveling,and myku for providing some textures (even though some of them have not been implemented yet).
 Thank you to all the donors for their support.
 Thanks to hocha113 for providing some code assistance.
 
