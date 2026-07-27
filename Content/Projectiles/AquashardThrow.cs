@@ -178,19 +178,19 @@ namespace CalamityEntropy.Content.Projectiles
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<AquaShardWaterBullet>(), (int)(Projectile.damage * 0.85f), 0f, Projectile.owner).ToProj().DamageType = CEUtils.RogueDC;
                     }
                 }
+                if (Projectile.Calamity().stealthStrike)
+                {
+                    for (int i = 0; i < 16; i++)
+                    {
+                        EParticle.spawnNew(new EGlowOrb(), Projectile
+                            .Center, CEUtils.randomPointInCircle(16), Color.SkyBlue, 0.32f, 1, true, BlendState.Additive, 0, 18);
+                    }
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<WaterBulletSpawner>(), (int)(Projectile.damage * 0.28f), Projectile.knockBack / 3, Projectile.owner, target.whoAmI);
+                }
             }
             for (int i = 0; i < 16; i++)
             {
                 EParticle.spawnNew(new EGlowOrb(), Projectile.Center + Projectile.velocity.normalize(), CEUtils.randomPointInCircle(2) + Projectile.velocity * 0.7f * Main.rand.NextFloat(0.2f, 1), Color.SkyBlue, 0.2f, 1, true, BlendState.Additive, 0, 14);
-            }
-            if (Projectile.Calamity().stealthStrike)
-            {
-                for (int i = 0; i < 16; i++)
-                {
-                    EParticle.spawnNew(new EGlowOrb(), Projectile
-                        .Center, CEUtils.randomPointInCircle(16), Color.SkyBlue, 0.32f, 1, true, BlendState.Additive, 0, 18);
-                }
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<WaterBulletSpawner>(), (int)(Projectile.damage * 0.28f), Projectile.knockBack / 3, Projectile.owner, target.whoAmI);
             }
         }
         public override void OnKill(int timeLeft)
