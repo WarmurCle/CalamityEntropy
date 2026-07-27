@@ -35,8 +35,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.useAnimation = Item.useTime = 40;
             Item.width = 86;
             Item.height = 86;
-            Item.damage = 900;
-            Item.ArmorPenetration = 10;
+            Item.damage = 225;
+            Item.crit = 8;
+            Item.ArmorPenetration = 30;
             Item.UseSound = SoundID.Item1 with { Volume = 1.2f };
             Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
             Item.rare = ModContent.RarityType<CosmicPurple>();
@@ -49,7 +50,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.noMelee = true;
             Item.noUseGraphic = true;
         }
-        public override float StealthDamageMultiplier => 1.8f;
+        public override float StealthDamageMultiplier => 0.6f;
         public override float StealthVelocityMultiplier => 1.25f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -109,7 +110,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         {
             if (Projectile.Calamity().stealthStrike)
             {
-                NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 2000);
+                NPC target = CEUtils.FindTarget_HomingProj(Projectile, Projectile.Center, 6000);
                 if(target == null)
                 {
                     Projectile.Calamity().stealthStrike = false;
@@ -129,8 +130,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 }
                 if (Main.myPlayer == Projectile.owner)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 46, ModContent.ProjectileType<MacrocosmSawDash>(), Projectile.damage * 5, Projectile.knockBack * 8, Projectile.owner, Radius);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (target.Center - Projectile.Center).normalize() * 46, ModContent.ProjectileType<MacrocosmSawDash>(), Projectile.damage * 8, Projectile.knockBack * 8, Projectile.owner, Radius);
                 }
+                ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 9), Projectile.Distance(Main.LocalPlayer.Center), 3600);
                 Projectile.Kill();
             }
             if(!Projectile.Calamity().stealthStrike)
@@ -189,7 +191,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                     effect.Parameters["FadeOutDistance"].SetValue(fadeOutDistance);
                     effect.Parameters["FadeOutWidth"].SetValue(fadeOutWidth);
                     effect.Parameters["enhanceLightAlpha"].SetValue(0.8f);
-                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, effect, Main.GameViewMatrix.ZoomMatrix);
                     effect.CurrentTechnique.Passes[0].Apply();
                     Main.spriteBatch.Draw(CEUtils.getExtraTex("VoronoiShapes"), pos - Main.screenPosition, null, color, Main.GlobalTimeWrappedHourly * 12, CEUtils.getExtraTex("VoronoiShapes").Size() / 2f, 0.2f * Size, SpriteEffects.None, 0);
                     CEUtils.DrawGlow(pos, Color.White * glow * 0.6f, 1.4f * Size * glow);
@@ -256,7 +258,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.localNPCHitCooldown = 6;
+            Projectile.localNPCHitCooldown = 15;
             Projectile.tileCollide = false;
         }
         public override bool CollideWithNPC => false;
@@ -271,7 +273,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             {
                 if (Main.myPlayer == Projectile.owner)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MacrocosmVoidBolt>(), Projectile.damage, 4f, Projectile.owner, Projectile.ai[1], orgPos.X, orgPos.Y);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MacrocosmVoidBolt>(), (int)(Projectile.damage * 0.66f), 4f, Projectile.owner, Projectile.ai[1], orgPos.X, orgPos.Y);
                 }
             }
             if(TimeUtilSpread > 10)
@@ -450,7 +452,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         }
         public override bool? CanDamage()
         {
-            return Projectile.ai[0] == 0;
+            return Projectile.ai[0] == 0 ? null : false;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -606,6 +608,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             {
                 NoPosUpdate = 24;
                 CD = 30;
+
+                ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.NoDirQuickShake(24), Projectile.Distance(Main.LocalPlayer.Center), 3600);
 
                 for (int i = 0; i < 6; i++)
                 {

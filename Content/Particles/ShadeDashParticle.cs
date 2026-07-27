@@ -54,7 +54,6 @@ namespace CalamityEntropy.Content.Particles
 
         public override void Draw()
         {
-            ;
             Texture2D trail = Texture;
             List<ColoredVertex> ve = new List<ColoredVertex>();
 
@@ -71,23 +70,20 @@ namespace CalamityEntropy.Content.Particles
             var gd = Main.graphics.GraphicsDevice;
             SpriteBatch sb = Main.spriteBatch;
             Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/ShadeDashParticle", AssetRequestMode.ImmediateLoad).Value;
-            if (EParticle.Last == null || EParticle.Last.GetType() != this.GetType())
-            {
-                sb.End();
-                sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
-                shader.CurrentTechnique.Passes["EffectPass"].Apply();
-            }
+            sb.End();
+            shader.Parameters["color1"].SetValue(c1.ToVector4());
+            shader.Parameters["color2"].SetValue(c2.ToVector4());
+            shader.Parameters["alpha"].SetValue(Lifetime / (float)TimeLeftMax);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
+            shader.CurrentTechnique.Passes["EffectPass"].Apply();
+
             if (ve.Count >= 3)
             {
                 gd.Textures[0] = trail;
-                shader.Parameters["color1"].SetValue(c1.ToVector4());
-                shader.Parameters["color2"].SetValue(c2.ToVector4());
-                shader.Parameters["alpha"].SetValue(Lifetime / (float)TimeLeftMax);
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
             }
             if (EParticle.Next == null || EParticle.Next.GetType() != this.GetType())
                 Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied);
         }
-
     }
 }

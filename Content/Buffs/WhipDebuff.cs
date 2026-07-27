@@ -299,7 +299,7 @@ namespace CalamityEntropy.Content.Buffs
                     {
                         if(Main.rand.NextBool(5))
                         {
-                            Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(16, 22), ModContent.ProjectileType<TectonicShardHomingSummon>(), (int)(projectile.damage * 0.7f) + 1, 2, projectile.owner);
+                            Projectile.NewProjectile(projectile.GetSource_FromAI(), npc.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(16, 22), ModContent.ProjectileType<TectonicShardHomingSummon>(), (int)(projectile.damage * 0.33f) + 1, 2, projectile.owner);
                         }
                     }
                     if (t.EffectName == "MindCorruptor")

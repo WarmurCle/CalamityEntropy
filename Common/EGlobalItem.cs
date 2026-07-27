@@ -14,6 +14,7 @@ using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
 using CalamityEntropy.Content.Items.Pets;
+using CalamityEntropy.Content.Items.Pets.Glue;
 using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
@@ -283,10 +284,13 @@ namespace CalamityEntropy.Common
 
         public static bool CalCI = false;
         public int DyeType = 0;
-
         public override bool ConsumeItem(Item item, Player player)
         {
-
+            if(item.useStyle == ItemUseStyleID.EatFood || item.useStyle == ItemUseStyleID.DrinkLiquid)
+            {
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<Flowery>()] > 0)
+                    CEUtils.PlaySound("VoiceClips/ConsumeFood", 1, player.Entropy().floweryPosition);
+            }
             if (player.Entropy().hasAcc("VastLV2") && item.healMana > 0)
             {
                 CalCI = true;

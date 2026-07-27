@@ -29,6 +29,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public virtual int TimeUtilSpread => Counter - FlyTime - SpreadTime;
         public List<Vector2> oldPos = new List<Vector2>();
         public virtual bool CollideWithNPC => true;
+        public virtual void OnCollideWithNPC(NPC npc) { }
         public virtual int OldPosLength => 9;
         public virtual void FlyBack()
         {
@@ -45,6 +46,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             if (Projectile.timeLeft > 2)
                 Projectile.timeLeft = 2;
         }
+        public virtual Rectangle CollisionRect => Projectile.Center.getRectCentered(Radius * 0.7f, Radius * 0.7f);
         public override void AI()
         {
             if (Projectile.Entropy().FirstFrames)
@@ -53,16 +55,17 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 Projectile.GetOwner().ApplyMeleeScale(ref scale_);
                 Projectile.scale *= scale_;
             }
-            Projectile.rotation += Math.Sign(Projectile.velocity.X) * Projectile.velocity.Length() * 0.065f;
+            Projectile.rotation += Math.Sign(Projectile.velocity.X) * Projectile.velocity.Length() * 0.1f;
             if (Counter < FlyTime && CollideWithNPC)
             {
                 foreach (NPC npc in Main.ActiveNPCs)
                 {
                     if (!npc.friendly && !npc.dontTakeDamage)
                     {
-                        if (Projectile.Center.getRectCentered(Radius * 0.7f, Radius * 0.7f).Intersects(npc.getRect()))
+                        if (CollisionRect.Intersects(npc.getRect()))
                         {
                             Counter = FlyTime;
+                            OnCollideWithNPC(npc);
                             if(Projectile.owner == Main.myPlayer)
                                 CEUtils.SyncProj(Projectile.whoAmI);
                             break;

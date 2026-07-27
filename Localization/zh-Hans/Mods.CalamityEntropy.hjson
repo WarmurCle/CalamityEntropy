@@ -12,8 +12,10 @@ Items: {
 				DisplayName: 启示录
 				Tooltip:
 					'''
-					扔出一把会回旋的镰刀，留下追踪滞留弹幕
-					潜伏攻击改为挥舞镰刀并射出3发强追踪弹幕
+					扔出一把旋转的镰刀，在空中会快速减速，随后爆炸并发射两发追踪的启示光束并返回玩家
+					返回时如果命中敌怪能再次造成一次伤害
+					潜伏攻击会扔出三把镰刀，并追踪向离你最近的敌怪，命中后会融合为一把巨大的镰刀，并多次砸向该敌怪
+					巨化的镰刀每次命中都会产生大范围的爆炸
 					'''
 			}
 
@@ -284,6 +286,28 @@ Items: {
 					潜伏攻击会使小锯片被弹的更远，并吸收小锯片的虚空破裂束，随即冲向最近的模目标
 					'''
 			}
+
+			ExergySwirlblade: {
+				DisplayName: 裂界轮刃
+				Tooltip:
+					'''
+					飞行一段时间或触碰到敌怪时展开能造成多次伤害的锯片，锯片会随时间缩小
+					如果是触碰敌怪触发的锯片，则轮刃会黏附在该敌怪身上
+					锯片缩小时会发射较小的追踪锯片，命中一次后停止追踪
+					潜伏攻击会使展开的范围更大并持续更长时间，同时在最后发射一个较大的，持续追逐目标的锯片
+					'''
+			}
+
+			Apeirokyklos: {
+				DisplayName: 永渊环葬
+				Tooltip:
+					'''
+					飞行一段时间或触碰到敌怪时展开能造成多次伤害的锯片
+					锯片每次命中都会从下方召唤一根深渊尖刺刺穿目标
+					潜伏攻击将会在命中后产生高伤害冲击并弹开，随后蓄力发射大量尖刺刺穿目标
+					如果潜伏攻击没有命中目标，也会在飞行一段时间后展开，此时的锯片会更大，并且造成更高的伤害
+					'''
+			}
 		}
 	}
 
@@ -399,6 +423,18 @@ Items: {
 				这简直是亵渎！多么无辜的生灵，被当作封印污秽的容器。
 				诅咒缠绕的它终于得到了解脱。
 				'''
+		}
+
+		LoreAcropolis: {
+			DisplayName: 阿萨福勒卫城机甲
+			Lore:
+				'''
+				这些机械本是阿萨福勒制作出来守卫城市的武装机器人，
+				特质的金属外壳使它们在那场战斗中幸免于难。
+				尽管已经过了许久，它们任然执行着自从被制造出来就设定好的程序，消灭一切未被允许的来访者。
+				时间的流逝让它们变得迟钝，但凭借着精密高超的技术，它们仍然能利用环境的热量重新启动。
+				'''
+			Tooltip: ""
 		}
 	}
 
@@ -4514,6 +4550,16 @@ Items: {
 		DisplayName: 哈密瓜冰沙
 		Tooltip: 使你化身为小云雀来海
 	}
+
+	BellwayBell: {
+		DisplayName: 钟道铃铛
+		Tooltip: 召唤钟道兽宝宝
+	}
+
+	FlowerWithFace: {
+		// DisplayName: Flower With Face
+		// Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
@@ -4598,8 +4644,6 @@ MissileLauncherMaxStickTooltip: 每个敌怪最多黏附{0}个
 Projectiles: {
 	VoidBladeProj.DisplayName: 虚空锋刃
 	VoidBladeHit.DisplayName: 虚空缝隙
-	RevelationThrow.DisplayName: 启示录
-	RevelationMelee.DisplayName: 启示录
 	Rvshoot.DisplayName: 启示录
 	PrisonOfPermafrostCircle.DisplayName: 樊寒法阵
 	IceSpike.DisplayName: 冰刺
@@ -5273,6 +5317,16 @@ Projectiles: {
 	MacrocosmSawDash.DisplayName: 噬宙之颚
 	MacrocosmVoidBolt.DisplayName: 虚空破裂束
 	SawofMacrocosmSplit.DisplayName: 小型噬宙轮刃
+	RevelationExplode.DisplayName: 启示录爆炸
+	RevelationThrown.DisplayName: 启示录
+	RevelationBolt.DisplayName: 启示射线
+	RevelationStealth.DisplayName: 巨化启示录
+	ExergySwirlbladeProj.DisplayName: 裂界轮刃
+	ExergySwirlbladeSaw.DisplayName: 裂界轮刃锯片
+	ApeirokyklosProj.DisplayName: 永渊环葬
+	ApeirokyklosSpike.DisplayName: 深渊尖刺
+	Bellbeast.DisplayName: 钟道兽
+	// Flowery.DisplayName: Flowery
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5744,6 +5798,16 @@ Buffs: {
 	OathofCommand: {
 		DisplayName: 誓令
 		Description: 你感觉士气高涨
+	}
+
+	BellbeastBuff: {
+		DisplayName: 钟道兽宝宝
+		Description: 咣当
+	}
+
+	FloweryBuff: {
+		// DisplayName: Flowery Buff
+		// Description: Mods.CalamityEntropy.Buffs.FloweryBuff.Description
 	}
 }
 

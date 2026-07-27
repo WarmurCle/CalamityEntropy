@@ -251,6 +251,9 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Projectile.tileCollide = false;
             }
             Projectile.velocity *= 0;
+            CEUtils.PlaySound("ExoHit" + Main.rand.Next(1, 5), Main.rand.NextFloat(1.9f, 2.3f), target.Center, 4, 1f);
+            for (int i = 0; i < 2; i++)
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 8, false, 11, 0.04f * Main.rand.NextFloat(0.65f, 1f), Projectile.Calamity().stealthStrike ? new Color(255, 200, 200) : Color.LightBlue, new Vector2(2.4f, 0.6f), true));
             CEUtils.SyncProj(Projectile.whoAmI);
         }
         public override bool OnTileCollide(Vector2 oldVelocity)

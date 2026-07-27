@@ -32,8 +32,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.useAnimation = Item.useTime = 30;
             Item.width = 74;
             Item.height = 74;
-            Item.damage = 750;
-            Item.ArmorPenetration = 36;
+            Item.damage = 200;
+            Item.crit = 7;
+            Item.ArmorPenetration = 25;
             Item.UseSound = SoundID.Item1;
             Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
             Item.rare = ModContent.RarityType<Turquoise>();
@@ -46,7 +47,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.noMelee = true;
             Item.noUseGraphic = true;
         }
-        public override float StealthDamageMultiplier => 0.8f;
+        public override float StealthDamageMultiplier => 0.35f;
         public override float StealthVelocityMultiplier => 1.4f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -63,7 +64,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<RunicSwirlblade>())
+                .AddIngredient(ModContent.ItemType<ExergySwirlblade>())
                 .AddIngredient(ModContent.ItemType<MoltenAmputator>())
                 .AddIngredient<DivineGeode>(12)
                 .AddIngredient<UnholyEssence>(8)
@@ -177,7 +178,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             }
             if (Main.myPlayer == Projectile.owner)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<BlazingSwirlbladeFlame>(), Projectile.damage * 2, 0, Projectile.owner, 0, Projectile.Calamity().stealthStrike ? 0.25f : 0);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<BlazingSwirlbladeFlame>(), (int)(Projectile.damage * 0.66f), 0, Projectile.owner, 0, Projectile.Calamity().stealthStrike ? 0.25f : 0);
             }
         }
         public int fhCd = 0;
@@ -220,7 +221,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                     GeneralParticleHandler.SpawnParticle(new CustomPulse(target.Center, Vector2.Zero, Color.Lerp(new Color(255, 255, 160), new Color(255, 255, 0), i) * i, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f * i * (Radius / 180f), scale * 0.07f * i * (Radius / 180f), 12 + (int)(i * 8)));
                     GeneralParticleHandler.SpawnParticle(new CustomPulse(target.Center, Vector2.Zero, Color.Lerp(new Color(255, 255, 190), new Color(255, 255, 0), i) * i, "CalamityMod/Particles/SoftRoundExplosion", Vector2.One, CEUtils.randomRot(), 0.0046f * i * (Radius / 180f), scale * 0.06f * i * (Radius / 180f), 12 + (int)(i * 8)));
                 }
-                CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromThis(), Projectile.GetOwner(), target.Center, Projectile.damage, scale * 54 * (Radius / 180f), Projectile.DamageType);
+                CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromThis(), Projectile.GetOwner(), target.Center, Projectile.damage / 5, scale * 54 * (Radius / 180f), Projectile.DamageType);
             }
         }
     }

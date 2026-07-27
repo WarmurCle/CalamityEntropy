@@ -15,6 +15,7 @@ using CalamityEntropy.Content.Items.Books.BookMarks;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Donator.Ratziel;
 using CalamityEntropy.Content.Items.Lores;
+using CalamityEntropy.Content.Items.Pets.Glue;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun;
@@ -78,7 +79,7 @@ namespace CalamityEntropy.Common
                 Player.Heal(1);
             }
         }
-
+        public Vector2 floweryPosition = Vector2.Zero;
         public int voidOreNearby = 0;
         public bool rottenFangs = false;
         public float alpha = 1f;
@@ -326,7 +327,11 @@ namespace CalamityEntropy.Common
             }
             voidcharge = 0; VoidInspire = 0; lastStandCd = 0; mantleCd = 0; magiShieldCd = 0; sJudgeCd = 2;
 
+            respawnsnd = true;
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Flowery>()] > 0)
+                CEUtils.PlaySound("VoiceClips/Death", 1, floweryPosition);
         }
+        public bool respawnsnd = false;
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
             if (SCrown)
@@ -1324,7 +1329,7 @@ namespace CalamityEntropy.Common
             {
                 eb.CheckSpawn(Player);
             }
-            if (!Main.dedServ && vetrasylsEye && vShieldCD <= 0 && CEKeybinds.VetrasylsEyeBlockHotKey.JustReleased)
+            if (!Main.dedServ && vetrasylsEye && vShieldCD <= 0 && CEKeybinds.VetrasylsEyeBlockHotKey.JustPressed)
             {
                 vShieldCD = 180.ApplyCdDec(Player);
                 Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, (Main.MouseWorld - Player.Center).normalize() * 6, ModContent.ProjectileType<WelkingShield>(), 0, 0, Player.whoAmI);
@@ -2438,6 +2443,13 @@ namespace CalamityEntropy.Common
         public float veloCounter = 0;
         public override void PostUpdate()
         {
+            if(respawnsnd && !Player.dead)
+            {
+                respawnsnd = false;
+
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<Flowery>()] > 0)
+                    CEUtils.PlaySound("VoiceClips/Respawn", 1, floweryPosition);
+            }
             FlagRot *= 0.9f;
             if (Player.velocity.Length() > 1f)
             {

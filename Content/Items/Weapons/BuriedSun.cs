@@ -465,7 +465,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 float num3 = MathHelper.ToRadians((float)j * num2);
                 Vector2 vector = (Vector2.UnitX * Main.rand.NextFloat(ExplosionRadius * 0.2f, 3.1f)).RotatedBy(num3 * Main.rand.NextFloat(1.1f, 9.1f));
                 Vector2 vector2 = (Vector2.UnitX * Main.rand.NextFloat(ExplosionRadius * 0.2f, 3.1f)).RotatedBy(num3 * Main.rand.NextFloat(1.1f, 9.1f));
-                Dust dust = Dust.NewDustPerfect(pos + vector, Main.rand.NextBool(4) ? ModContent.DustType<LightDust>() : ((base.Projectile.ai[1] == 5f) ? 278 : ModContent.DustType<VoidDustInverted>()), vector2);
+                Dust dust = Dust.NewDustPerfect(pos + vector, Main.rand.NextBool(4) ? ModContent.DustType<LightDust>() : (Main.rand.NextBool() ? 278 : ModContent.DustType<VoidDustInverted>()), vector2);
                 dust.noGravity = dust.type != 278;
                 dust.color = color1;
                 dust.velocity = vector2;

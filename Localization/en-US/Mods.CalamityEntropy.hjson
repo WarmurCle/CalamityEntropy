@@ -12,9 +12,12 @@ Items: {
 				DisplayName: Revelation
 				Tooltip:
 					'''
-					Throws a returning sickle that leaves behind mini meld-sickles
-					Mini meld-sickles have a short lifespan and home in on targets
-					Stealth strikes throw out a fan of 3 explosive homing sickles alongside a powerful slash
+					Throws a spinning scythe that rapidly slows in midair,
+					then explodes and fires two homing Revelation Beams before returning to the player
+					On return, it deals damage again if hitting an enemy
+					Stealth attack throws three scythes that home in on the nearest enemy;
+					on hit they merge into a giant scythe which strikes that enemy multiple times
+					Each giant scythe hit creates a large explosion
 					'''
 			}
 
@@ -297,6 +300,28 @@ Items: {
 					Attacks inflict [cbuff:CalamityMod/GodSlayerInferno] on hit
 					'''
 			}
+
+			ExergySwirlblade: {
+				DisplayName: Exergy Swirlblade
+				Tooltip:
+					'''
+					Flies for a while or hits an enemy, then deploys a multi-hit sawblade that shrinks over time
+					If deployed by enemy contact, the ringblade sticks to that enemy
+					As the sawblade shrinks, it fires smaller homing sawblades that stop tracking after one hit
+					Stealth attack increases deployment range and duration, and fires a larger persistent homing sawblade at the end
+					'''
+			}
+
+			Apeirokyklos: {
+				DisplayName: Apeirokyklos
+				Tooltip:
+					'''
+					Deploys a multi-hit sawblade when flies for a while or hits an enemy 
+					Each hit of the sawblade summons an Abyss Spike from below to pierce the target
+					Stealth attack deals high-damage impact and knocks back on hit,
+					then charges and fires many spikes to pierce targets
+					'''
+			}
 		}
 	}
 
@@ -421,7 +446,29 @@ Items: {
 		LoreApsychos: {
 			DisplayName: Apsychos
 			Tooltip: ""
-			Lore: This ancient abomination was one of the first attempts at sealing away a god. At first, they tried to seal its essence within the tectonic plates deep in the world. This triggered the agitation of a dormant creature within the deepest lava oceans of the Underworld, causing it to lash out in an attempt to resist the sudden surge of energy. Ultimately, the attempt only half-succeded, leaving the strange creature stuck in its harrowing state. About time someone freed it of man's error.
+			Lore:
+				'''
+				This ancient abomination was one of the first attempts at sealing away a god.
+				At first, they tried to seal its essence within the tectonic plates deep in the world.
+				This triggered the agitation of a dormant creature within the deepest lava oceans of the Underworld,
+				causing it to lash out in an attempt to resist the sudden surge of energy.
+				Ultimately, the attempt only half-succeded, leaving the strange creature stuck in its harrowing state.
+				About time someone freed it of man's error.
+				'''
+		}
+
+		LoreAcropolis: {
+			DisplayName: Acropolis Machines
+			Lore:
+				'''
+				These machines were built by Azafure as armed guardians for the city,
+				their special metal shells let them survive that battle.
+				Though many years have passed, 
+				they still execute the program set since creation: eliminate all uninvited visitors
+				Time has dulled them, but with refined high-tech precision,
+				they can still restart using ambient heat
+				'''
+			Tooltip: ""
 		}
 	}
 
@@ -4445,6 +4492,16 @@ Items: {
 		DisplayName: Cantaloupe Smoothie
 		Tooltip: ""
 	}
+
+	BellwayBell: {
+		DisplayName: Bellway Bell
+		Tooltip: ""
+	}
+
+	FlowerWithFace: {
+		DisplayName: Flower With Face
+		Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
@@ -4532,8 +4589,6 @@ MissileLauncherMaxStickTooltip: Up to {0} can be lodged in the same enemy
 Projectiles: {
 	VoidBladeProj.DisplayName: Void Blade
 	VoidBladeHit.DisplayName: Void Blade Hit
-	RevelationThrow.DisplayName: Revelation Throw
-	RevelationMelee.DisplayName: Revelation Melee
 	Rvshoot.DisplayName: Rvshoot
 	PrisonOfPermafrostCircle.DisplayName: Prison of Permafrost
 	IceSpike.DisplayName: Ice Spike
@@ -5207,6 +5262,16 @@ Projectiles: {
 	MacrocosmSawDash.DisplayName: Macrocosm Saw Dash
 	MacrocosmVoidBolt.DisplayName: Rift Beam
 	SawofMacrocosmSplit.DisplayName: Sawof Macrocosm Split
+	RevelationExplode.DisplayName: Revelation Explode
+	RevelationThrown.DisplayName: Revelation Thrown
+	RevelationBolt.DisplayName: Revelation Bolt
+	RevelationStealth.DisplayName: Revelation Stealth
+	ExergySwirlbladeProj.DisplayName: Exergy Swirlblade Proj
+	ExergySwirlbladeSaw.DisplayName: Exergy Swirlblade Saw
+	ApeirokyklosProj.DisplayName: Apeirokyklos Proj
+	ApeirokyklosSpike.DisplayName: Apeirokyklos Spike
+	Bellbeast.DisplayName: Bellbeast
+	Flowery.DisplayName: Flowery
 }
 
 LegendTooltip: - Legend -
@@ -5642,37 +5707,37 @@ Buffs: {
 
 	CrystedgeWhipDebuff: {
 		DisplayName: Crystedge Whip Debuff
-		Description: Mods.CalamityEntropy.Buffs.CrystedgeWhipDebuff.Description
+		Description: ""
 	}
 
 	DaylightWhipDebuff: {
 		DisplayName: Daylight Whip Debuff
-		Description: Mods.CalamityEntropy.Buffs.DaylightWhipDebuff.Description
+		Description: ""
 	}
 
 	ForeseeWhipDebuff: {
 		DisplayName: Foresee Whip Debuff
-		Description: Mods.CalamityEntropy.Buffs.ForeseeWhipDebuff.Description
+		Description: ""
 	}
 
 	LashingBramblerodWhipDebuff: {
 		DisplayName: Lashing Bramblerod Whip Debuff
-		Description: Mods.CalamityEntropy.Buffs.LashingBramblerodWhipDebuff.Description
+		Description: ""
 	}
 
 	MindCorruptorWhipDebuff: {
 		DisplayName: Mind Corruptor Whip Debuff
-		Description: Mods.CalamityEntropy.Buffs.MindCorruptorWhipDebuff.Description
+		Description: ""
 	}
 
 	SinewLashWhipDebuff: {
 		DisplayName: Sinew Lash Whip Debuff
-		Description: Mods.CalamityEntropy.Buffs.SinewLashWhipDebuff.Description
+		Description: ""
 	}
 
 	WhipOfEvilKingWhipDebuff: {
 		DisplayName: Whip of Evil King Whip Debuff
-		Description: Mods.CalamityEntropy.Buffs.WhipOfEvilKingWhipDebuff.Description
+		Description: ""
 	}
 
 	SilentpeakBuff: {
@@ -5682,12 +5747,22 @@ Buffs: {
 
 	TectonicChainBladeWhipDebuff: {
 		DisplayName: Tectonic Chain Blade Whip Debuff
-		Description: Mods.CalamityEntropy.Buffs.TectonicChainBladeWhipDebuff.Description
+		Description: ""
 	}
 
 	OathofCommand: {
 		DisplayName: Oath of Command
 		Description: You feel that morale is high
+	}
+
+	BellbeastBuff: {
+		DisplayName: Bellbeast Buff
+		Description: ""
+	}
+
+	FloweryBuff: {
+		DisplayName: Flowery Buff
+		Description: Mods.CalamityEntropy.Buffs.FloweryBuff.Description
 	}
 }
 

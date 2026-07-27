@@ -824,9 +824,9 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             Texture2D segTex = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Apsychos/ApsychosSeg");
             Texture2D tailTex = CEUtils.RequestTex("CalamityEntropy/Content/NPCs/Apsychos/ApsychosTail");
             Main.spriteBatch.End();
+            shader.Parameters["strength"].SetValue(1);
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.TransformationMatrix);
             shader.CurrentTechnique.Passes[0].Apply();
-            shader.Parameters["strength"].SetValue(1);
             for (int ir = 0; ir < 4; ir++)
             {
                 float r = ir * MathHelper.PiOver2 + Main.GlobalTimeWrappedHourly * 10;

@@ -12,8 +12,12 @@ Items: {
 				DisplayName: Откровение
 				Tooltip:
 					'''
-					Бросает серп
-					Во время полной скрытности, стреляет снарядами
+					Бросает вращающуюся косу, которая быстро замедляется в воздухе,
+					затем взрывается и выпускает два самонаводящихся Луча Откровения перед возвратом к игроку
+					При возврате она наносит урон повторно при попадании по врагу
+					Скрытая атака бросает три косы, которые наводятся на ближайшего врага;
+					при попадании они сливаются в гигантскую косу, которая многократно бьёт этого врага
+					Каждый удар гигантской косы создаёт крупный взрыв
 					'''
 			}
 
@@ -184,7 +188,7 @@ Items: {
 				// DisplayName: Brilliance Swirlblade
 				/* Tooltip:
 					'''
-					Deploy sawblade that dealing multiple hits when fly for a while or hit an enem
+					Deploy sawblade that dealing multiple hits when fly for a while or hit an enemy
 					Stealth attack increases spread and duration
 					''' */
 			}
@@ -257,6 +261,28 @@ Items: {
 					Скрытая атака: малые лезвия отбрасываются дальше
 					Поглощает их Разрывные лучи и устремляется к ближайшей цели
 					'''
+			}
+
+			ExergySwirlblade: {
+				// DisplayName: Exergy Swirlblade
+				Tooltip:
+					'''
+					Летит некоторое время или при попадании по врагу, затем разворачивает многоударное лезвие, которое со временем уменьшается
+					Если развёрнуто от соприкосновения с врагом, кольцевое лезвие прилипает к этому врагу
+					При уменьшении лезвие выпускает малые самонаводящиеся лезвия, которые перестают наводиться после одного попадания
+					Скрытая атака увеличивает радиус и длительность развёртывания, а в конце выпускает большое самонаводящееся лезвие, постоянно преследующее цель
+					'''
+			}
+
+			Apeirokyklos: {
+				// DisplayName: Apeirokyklos
+				/* Tooltip:
+					'''
+					Deploys a multi-hit sawblade when flies for a while or hits an enemy 
+					Each hit of the sawblade summons an Abyss Spike from below to pierce the target
+					Stealth attack deals high-damage impact and knocks back on hit,
+					then charges and fires many spikes to pierce targets
+					''' */
 			}
 		}
 	}
@@ -376,6 +402,20 @@ Items: {
 				Это просто богохульство! Какое невинное существо используется в качестве запечатанного контейнера для грязи.
 				Проклятие запуталось, и оно наконец - то было снято.
 				'''
+		}
+
+		LoreAcropolis: {
+			// DisplayName: Acropolis Machines
+			/* Lore:
+				'''
+				These machines were built by Azafure as armed guardians for the city,
+				their special metal shells let them survive that battle.
+				Though many years have passed, 
+				they still execute the program set since creation: eliminate all uninvited visitors
+				Time has dulled them, but with refined high-tech precision,
+				they can still restart using ambient heat
+				''' */
+			// Tooltip: ""
 		}
 	}
 
@@ -4183,6 +4223,16 @@ Items: {
 		// DisplayName: Cantaloupe Smoothie
 		// Tooltip: ""
 	}
+
+	BellwayBell: {
+		// DisplayName: Bellway Bell
+		// Tooltip: ""
+	}
+
+	FlowerWithFace: {
+		// DisplayName: Flower With Face
+		// Tooltip: ""
+	}
 }
 
 SmolderingSetBonus:
@@ -4274,8 +4324,6 @@ MissileLauncherMaxStickTooltip: Каждый монстр прилипает {0}
 Projectiles: {
 	VoidBladeProj.DisplayName: Клинок пустоты
 	VoidBladeHit.DisplayName: Удар пустотного клинка
-	RevelationThrow.DisplayName: Бросок откровения
-	RevelationMelee.DisplayName: Откровение: Ближний бой
 	Rvshoot.DisplayName: Rv-выстрел
 	PrisonOfPermafrostCircle.DisplayName: Тюрьма Пермафроста
 	IceSpike.DisplayName: Ледяной шип
@@ -4949,6 +4997,16 @@ Projectiles: {
 	// MacrocosmSawDash.DisplayName: Macrocosm Saw Dash
 	// MacrocosmVoidBolt.DisplayName: Rift Beam
 	// SawofMacrocosmSplit.DisplayName: Sawof Macrocosm Split
+	// RevelationExplode.DisplayName: Revelation Explode
+	// RevelationThrown.DisplayName: Revelation Thrown
+	// RevelationBolt.DisplayName: Revelation Bolt
+	// RevelationStealth.DisplayName: Revelation Stealth
+	// ExergySwirlbladeProj.DisplayName: Exergy Swirlblade Proj
+	// ExergySwirlbladeSaw.DisplayName: Exergy Swirlblade Saw
+	// ApeirokyklosProj.DisplayName: Apeirokyklos Proj
+	// ApeirokyklosSpike.DisplayName: Apeirokyklos Spike
+	// Bellbeast.DisplayName: Bellbeast
+	// Flowery.DisplayName: Flowery
 }
 
 LegendTooltip: - Легенда -
@@ -5380,37 +5438,37 @@ Buffs: {
 
 	CrystedgeWhipDebuff: {
 		// DisplayName: Crystedge Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.CrystedgeWhipDebuff.Description
+		// Description: ""
 	}
 
 	DaylightWhipDebuff: {
 		// DisplayName: Daylight Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.DaylightWhipDebuff.Description
+		// Description: ""
 	}
 
 	ForeseeWhipDebuff: {
 		// DisplayName: Foresee Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.ForeseeWhipDebuff.Description
+		// Description: ""
 	}
 
 	LashingBramblerodWhipDebuff: {
 		// DisplayName: Lashing Bramblerod Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.LashingBramblerodWhipDebuff.Description
+		// Description: ""
 	}
 
 	MindCorruptorWhipDebuff: {
 		// DisplayName: Mind Corruptor Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.MindCorruptorWhipDebuff.Description
+		// Description: ""
 	}
 
 	SinewLashWhipDebuff: {
 		// DisplayName: Sinew Lash Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.SinewLashWhipDebuff.Description
+		// Description: ""
 	}
 
 	WhipOfEvilKingWhipDebuff: {
 		// DisplayName: Whip of Evil King Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.WhipOfEvilKingWhipDebuff.Description
+		// Description: ""
 	}
 
 	SilentpeakBuff: {
@@ -5420,12 +5478,22 @@ Buffs: {
 
 	TectonicChainBladeWhipDebuff: {
 		// DisplayName: Tectonic Chain Blade Whip Debuff
-		// Description: Mods.CalamityEntropy.Buffs.TectonicChainBladeWhipDebuff.Description
+		// Description: ""
 	}
 
 	OathofCommand: {
 		// DisplayName: Oath of Command
 		// Description: You feel that morale is high
+	}
+
+	BellbeastBuff: {
+		// DisplayName: Bellbeast Buff
+		// Description: ""
+	}
+
+	FloweryBuff: {
+		// DisplayName: Flowery Buff
+		// Description: Mods.CalamityEntropy.Buffs.FloweryBuff.Description
 	}
 }
 
