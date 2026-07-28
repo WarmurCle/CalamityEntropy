@@ -2448,6 +2448,7 @@ namespace CalamityEntropy.Common
         public float veloCounter = 0;
         public float MaxBaitCharge = 1;
         public bool BaitUsable = false;
+        public int lbaitType = -1;
         public override void PostUpdate()
         {
             if (Player.HeldItem.IsAir)
@@ -2458,6 +2459,9 @@ namespace CalamityEntropy.Common
             {
                 if (BaitCharging)
                 {
+                    if (Player.HeldItem.type != lbaitType)
+                        BaitCharge = 0;
+                    lbaitType = Player.HeldItem.type;
                     if (BaitCharge < MaxBaitCharge)
                     {
                         float mul = 12;
@@ -2484,6 +2488,7 @@ namespace CalamityEntropy.Common
                     BaitCharge = 0;
                 }
             }
+            
             BaitUsable = BaitCharge >= 1;
             if(respawnsnd && !Player.dead)
             {

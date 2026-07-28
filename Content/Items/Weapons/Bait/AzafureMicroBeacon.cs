@@ -104,6 +104,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     Projectile.GetOwner().Calamity().mouseWorldListener = true;
                     npc.GetGlobalNPC<WhipDebuffNPC>().ClearBaitTags();
                     npc.GetGlobalNPC<WhipDebuffNPC>().Tags.Add(new WhipTag(this.GetType().Name, 5, this.TagDamage, 1, 0, this.GetType().Name) { IsABaitTag = true });
+                    if (ActiveCounter % 20 == 0)
+                        CEUtils.PlaySound("WulfrumPingReady",  0.9f + ActiveCounter / 280f, Projectile.Center);
                 }
                 Projectile.Center = npc.Center + StickOffset;
                 ActiveCounter++;
@@ -152,7 +154,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            OnHitEffect(Projectile.Center);
+            OnHitEffect(Projectile.Center); 
+            SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/WulfrumPing"), target.Center);
+            SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/WulfrumProsthesisSucc") with { Volume = 0.34f}, target.Center);
             Projectile.velocity *= 0;
             StickNPC = target.whoAmI;
             StickOffset = Projectile.Center - target.Center;
