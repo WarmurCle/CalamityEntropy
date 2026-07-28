@@ -126,7 +126,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public float activeEffectAlpha = 0;
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
             if (activeEffectAlpha >= 0.01f)
             {
                 Main.spriteBatch.UseAdditiveClamp();
@@ -138,6 +137,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                 }
                 Main.spriteBatch.ExitShaderRegion();
             }
+            Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
             return false;
         }
         public override bool? CanDamage()

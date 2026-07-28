@@ -4558,11 +4558,11 @@ Items: {
 
 	FlowerWithFace: {
 		DisplayName: 长脸的花
-		Tooltip: 
-		'''
-		召唤Flowery跟随你
-		Flowery会使用Jarona攻击附近的敌人
-		'''
+		Tooltip:
+			'''
+			召唤Flowery跟随你
+			Flowery会使用Jarona攻击附近的敌人
+			'''
 	}
 
 	AntlionShell: {
@@ -6537,6 +6537,7 @@ BloodBoilingDescr: 持续使用物品时增加攻速，但会对自身产生持�
 PrefixHeavyDesc: +10% 下落速度
 DamageReduceCD: 减伤冷却
 DeltaruneCH5ShadowCrystal: 获取Deltarune第五章的暗影水晶
+
 InfernumIntros: {
 	NihilityTwin:
 		'''
