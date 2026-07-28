@@ -5,7 +5,9 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Weapons.Bait
 {
     public interface IBaitItem
-    { }
+    {
+        public virtual float ChargeTimeMult => 12;
+    }
 
     public abstract class BaitProj : ModProjectile
     {

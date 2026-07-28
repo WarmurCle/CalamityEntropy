@@ -2460,7 +2460,10 @@ namespace CalamityEntropy.Common
                 {
                     if (BaitCharge < MaxBaitCharge)
                     {
-                        float chargeSpeed = Player.GetTotalAttackSpeed(Player.HeldItem.DamageType) / (Player.HeldItem.useTime * 20);
+                        float mul = 12;
+                        if (Player.HeldItem.ModItem != null && Player.HeldItem is IBaitItem ibi)
+                            mul = ibi.ChargeTimeMult;
+                        float chargeSpeed = Player.GetTotalAttackSpeed(Player.HeldItem.DamageType) / (Player.HeldItem.useTime * mul);
                         BaitCharge += chargeSpeed;
                         if (BaitCharge >= MaxBaitCharge)
                         {

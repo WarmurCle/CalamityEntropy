@@ -4574,6 +4574,16 @@ Items: {
 			引导黄沙恶虫撕咬目标
 			'''
 	}
+
+	AzafureMicroBeacon: {
+		DisplayName: 阿萨福勒微型信标
+		Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			呼叫突击无人机群扫射目标
+			'''
+	}
 }
 
 BaitCommonTooltip1: 手持时装填，只能在装填完成时使用
@@ -5345,8 +5355,11 @@ Projectiles: {
 	Flowery.DisplayName: Flowery
 	AquaShardWaterBullet.DisplayName: 水弹
 	WaterBulletSpawner.DisplayName: 水弹标记
-	// AntlionShellProjectile.DisplayName: Antlion Shell Projectile
-	// DesertNuisanceFriendly.DisplayName: Desert Nuisance Friendly
+	AntlionShellProjectile.DisplayName: 干缩蚁狮
+	DesertNuisanceFriendly.DisplayName: 黄沙恶虫
+	AzafureAssaultDrone.DisplayName: 阿萨福勒突击无人机
+	AzafureMicroBeaconProjectile.DisplayName: 阿萨福勒微型信标
+	BeaconDroneShoot.DisplayName: 突击无人机子弹
 }
 
 LegendTooltip: - 传奇物品 -
@@ -6816,6 +6829,7 @@ AzafureEnhances: {
 		增加锯片的尺寸和持续时间
 		增加导弹的数量
 		'''
+	AzafureMicroBeacon: 增加无人机的数量
 }
 
 Menu: {

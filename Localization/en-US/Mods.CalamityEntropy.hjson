@@ -4516,6 +4516,16 @@ Items: {
 			Guide the Desert Nuisance to bite the target
 			'''
 	}
+
+	AzafureMicroBeacon: {
+		DisplayName: Azafure Micro Beacon
+		Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			Call in a strike drone swarm to strafe the target
+			'''
+	}
 }
 
 BaitCommonTooltip1: Charge when held. Usable when fully charged
@@ -5296,6 +5306,9 @@ Projectiles: {
 	WaterBulletSpawner.DisplayName: Water Bullet Spawner
 	AntlionShellProjectile.DisplayName: Antlion Shell Projectile
 	DesertNuisanceFriendly.DisplayName: Desert Nuisance Friendly
+	AzafureAssaultDrone.DisplayName: Azafure Assault Drone
+	AzafureMicroBeaconProjectile.DisplayName: Azafure Micro Beacon Projectile
+	BeaconDroneShoot.DisplayName: Beacon Drone Shoot
 }
 
 LegendTooltip: - Legend -
@@ -6753,6 +6766,7 @@ AzafureEnhances: {
 		Increase the range and time of the saw
 		Increase missile amount
 		'''
+	AzafureMicroBeacon: Increase the amount of drones
 }
 
 Menu: {

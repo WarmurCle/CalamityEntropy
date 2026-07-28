@@ -18,20 +18,21 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
     public class AntlionShell : ModItem, IBaitItem
     {
         public static int TagDamage = 5;
+        public static float DamageMult = 4;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(TagDamage);
 
         public override void SetDefaults()
         {
-            Item.damage = 120;
+            Item.damage = 30;
             Item.knockBack = 0;
             Item.shootSpeed = 26;
+            Item.useAnimation = Item.useTime = 20;
             Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Green;
             Item.width = 38;
             Item.height = 38; 
             Item.autoReuse = false;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useAnimation = Item.useTime = 20;
             var snd = CEUtils.GetSound("BaitThrow", 1, 6);
             snd.PitchRange = (0f, 0.4f);
             Item.UseSound = snd;
@@ -43,11 +44,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override bool CanUseItem(Player player)
         {
-            return player.Entropy().BaitCharge >= 1;
+            return player.Entropy().BaitUsable;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0, 0, TagDamage);
+            Projectile.NewProjectile(source, position, velocity, type, (int)(damage * DamageMult), knockback, player.whoAmI, 0, 0, TagDamage);
             return false;
         }
 
@@ -94,10 +95,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     return;
                 }
                 Main.player[Projectile.owner].MinionAttackTargetNPC = npc.whoAmI;
+                npc.GetGlobalNPC<WhipDebuffNPC>().BaitStick = 2;
                 if (IsActive)
                 {
                     Projectile.GetOwner().Calamity().mouseWorldListener = true;
-                    npc.GetGlobalNPC<WhipDebuffNPC>().BaitStick = 3;
                     npc.GetGlobalNPC<WhipDebuffNPC>().ClearBaitTags();
                     npc.GetGlobalNPC<WhipDebuffNPC>().Tags.Add(new WhipTag(this.GetType().Name, 5, this.TagDamage, 1, 0, this.GetType().Name) { IsABaitTag = true });
                 }
@@ -194,13 +195,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Projectile.FriendlySetDefaults(DamageClass.Summon, false, -1);
             Projectile.width = Projectile.height = 64;
             Projectile.localNPCHitCooldown = -1;
-            Projectile.timeLeft = 200;
+            Projectile.timeLeft = 260;
         }
         public int headFrame = 0;
         public bool Bite = true;
         public bool InGround = true;
         public override void AI()
         {
+            if (Projectile.timeLeft < 18)
+                Projectile.Opacity -= 1 / 18f;
             if (spawnSeg)
             {
                 spawnSeg = false;
@@ -344,10 +347,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
 
             return false;
         }
-        public Texture2D texGlow => CEUtils.getExtraTex("NxDragonGlow");
         public void DrawSeg(Texture2D tex, Vector2 pos, Rectangle? frame, float rot, Vector2 origin, Color color)
         {
-            Main.EntitySpriteDraw(tex, pos - Main.screenPosition, frame, color, rot + MathHelper.PiOver2, origin, Projectile.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(tex, pos - Main.screenPosition, frame, color * Projectile.Opacity, rot + MathHelper.PiOver2, origin, Projectile.scale, SpriteEffects.None);
         }
     }
 }
