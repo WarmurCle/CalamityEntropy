@@ -27,6 +27,18 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public float Counter { get { return Projectile.localAI[0]; } set { Projectile.localAI[0] = value; } }
         public float ActiveCounter { get { return Projectile.localAI[1]; } set { Projectile.localAI[1] = value; } }
         public int TagDamage => (int)Projectile.ai[2];
+        public virtual void SetActive()
+        {
+            IsActive = false;
+            ActiveEffect(1);
+        }
+        public virtual void ActiveEffect(float DamageMul)
+        { }
+
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.SourceDamage *= 0.16f;
+        }
     }
 }
 

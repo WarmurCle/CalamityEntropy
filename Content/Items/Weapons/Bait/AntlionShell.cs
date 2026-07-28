@@ -22,6 +22,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
 
         public override void SetDefaults()
         {
+            Item.damage = 120;
+            Item.knockBack = 0;
+            Item.shootSpeed = 26;
+            Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
+            Item.rare = ItemRarityID.Green;
             Item.width = 38;
             Item.height = 38; 
             Item.autoReuse = false;
@@ -34,11 +39,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Item.DamageType = DamageClass.SummonMeleeSpeed;
             Item.noUseGraphic = true;
             Item.shoot = ModContent.ProjectileType<AntlionShellProjectile>();
-            Item.damage = 10;
-            Item.knockBack = 0;
-            Item.shootSpeed = 24;
-            Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
-            Item.rare = ItemRarityID.Green;
             Item.autoReuse = true;
         }
         public override bool CanUseItem(Player player)
@@ -107,20 +107,19 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                 {
                     if(IsActive)
                     {
-                        IsActive = false;
                         CEUtils.SyncProj(Projectile.whoAmI);
-                        ActiveEffect();
+                        SetActive();
                     }
                 }
             }
             activeEffectAlpha = float.Lerp(activeEffectAlpha, (StickNPC >= 0 && IsActive) ? 1 : 0, 0.04f);
             Counter++;
         }
-        public void ActiveEffect()
+        public override void ActiveEffect(float damageMul)
         {
             if(Main.myPlayer == Projectile.owner)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + new Vector2(Main.rand.NextFloat(-400, 400), 620), Vector2.Zero, ModContent.ProjectileType<DesertNuisanceFriendly>(), Projectile.damage * 9, 6, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + new Vector2(Main.rand.NextFloat(-400, 400), 700), Vector2.Zero, ModContent.ProjectileType<DesertNuisanceFriendly>(), (int)(Projectile.damage * damageMul), 6, Projectile.owner);
             }
         }
         public float activeEffectAlpha = 0;
@@ -227,7 +226,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                 {
                     targetPos = player.Calamity().mouseWorld;
                 }
-                Projectile.velocity = (targetPos - Projectile.Center).normalize() * 30;
+                Projectile.velocity = (targetPos - Projectile.Center).normalize() * 36;
             }
 
             if (player.MinionAttackTargetNPC >= 0 && Bite)
