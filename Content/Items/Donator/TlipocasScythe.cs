@@ -375,8 +375,8 @@ namespace CalamityEntropy.Content.Items.Donator
                     case 5: dmg = 130; break;
                     case 6: dmg = 180; break;
                     case 7: dmg = 250; break;
-                    case 8: dmg = 280; break;
-                    case 9: dmg = 330; break;
+                    case 8: dmg = 270; break;
+                    case 9: dmg = 300; break;
                     case 10: dmg = 480; break;
                     case 11: dmg = 580; break;
                     case 12: dmg = 750; break;
@@ -728,6 +728,10 @@ namespace CalamityEntropy.Content.Items.Donator
             if (DownedBossSystem.downedCalamitas)
             {
                 target.AddBuff<VulnerabilityHex>(60 * 3);
+            }
+            if (DownedBossSystem.downedRavager)
+            {
+                target.AddBuff<Laceration>(60 * 3);
             }
             if (Main.hardMode)
             {
@@ -1157,6 +1161,10 @@ namespace CalamityEntropy.Content.Items.Donator
             if (DownedBossSystem.downedCalamitas)
             {
                 target.AddBuff<VulnerabilityHex>(60 * 3);
+            }
+            if (DownedBossSystem.downedRavager)
+            {
+                target.AddBuff<Laceration>(60 * 3);
             }
             if (Main.hardMode)
             {
