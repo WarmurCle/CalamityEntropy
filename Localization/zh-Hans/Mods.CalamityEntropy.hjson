@@ -5840,16 +5840,17 @@ NPCs: {
 		TownNPCMood: {
 			NoHome: 战斗愉快，你赢了。现在请给我个住所吧。
 			Content: 谢谢你，在这里我很愉快。
-			FarFromHome: 这是哪？
+			FarFromHome: 这里太偏远了...
 			LoveSpace: 这里很宽广，我很喜欢。
-			DislikeCrowded: 这里太热闹了...
-			HateCrowded: 这里的人好多...
+			DislikeCrowded: 这里太拥挤了...
+			HateCrowded: 这里太拥挤了，我讨厌这样...
 			LikeNPC_Princess: 我喜欢 {NPCName}，他人很好。
 			Princess_LovesNPC: 我喜欢 {NPCName}。
+			MonumentNearby: 那座难看的石碑是从哪来来的，我不想看见它。
 		}
 
-		DisplayName: 始源妖龙
-		Census.SpawnCondition: 击败始源妖龙后
+		DisplayName: 妖龙酱
+		Census.SpawnCondition: 击败始源妖龙后入住
 	}
 
 	NihilityActeriophage: {
@@ -5940,9 +5941,6 @@ WyrmChatBloodMoon2: 也许你应该睡一觉。
 WyrmChatRain1: 下雨了，真清爽。我以前从没感受过。
 WyrmChatRain2: 雨水落在身上挺舒服。这可比不上深渊水压的万分之一。
 WyrmChatRain3: 很清爽，不是吗？
-WyrmChatCOHalibut1: 你给我带来了海鲜？等等...
-WyrmChatCOHalibut2: 我能尝尝这个吗？什么，不行吗...
-WyrmChatCOHalibut3: 那是个啥，看起来不错，嘿嘿...
 loreCruiser:
 	'''
 	生命摄取能量以进行熵减。
