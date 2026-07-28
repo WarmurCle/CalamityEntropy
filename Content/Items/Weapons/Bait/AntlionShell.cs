@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
 {
     public class AntlionShell : ModItem, IBaitItem
     {
-        public static int TagDamage = 4;
+        public static int TagDamage = 5;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(TagDamage);
 
         public override void SetDefaults()
