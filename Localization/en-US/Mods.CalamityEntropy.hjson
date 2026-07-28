@@ -4500,7 +4500,11 @@ Items: {
 
 	FlowerWithFace: {
 		DisplayName: Flower With Face
-		Tooltip: ""
+		Tooltip: 
+		'''
+		Summon Flowery to follow you
+		Flowery will use Jarona at enemies nearby
+		'''
 	}
 
 	AntlionShell: {
@@ -6425,7 +6429,7 @@ BloodBoiling: Boiling Blood
 BloodBoilingDescr: Continuously using items increases attack speed, but it will cause sustained damage to yourself
 PrefixHeavyDesc: +10% increased fall speed
 DamageReduceCD: Damage Reduction Cooldown
-
+DeltaruneCH5ShadowCrystal: Get shadow crystal in Deltarune chapter5
 InfernumIntros: {
 	NihilityTwin:
 		'''

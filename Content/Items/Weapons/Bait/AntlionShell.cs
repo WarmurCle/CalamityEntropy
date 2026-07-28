@@ -61,30 +61,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             return true;
         }
     }
-    public class AntlionShellProjectile : ModProjectile, IBaitProj
+    public class AntlionShellProjectile : BaitProj
     {
-        public bool IsActive => Active;
         public override string Texture => CEUtils.ItemTexPath<AntlionShell>();
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(DamageClass.Summon, true, -1);
             Projectile.width = Projectile.height = 24;
         }
-        public override void SendExtraAI(BinaryWriter writer)
-        {
-            writer.Write(StickNPC);
-            writer.WriteVector2(StickOffset);
-            writer.Write(Active);
-        }
-        public override void ReceiveExtraAI(BinaryReader reader)
-        {
-            StickNPC = reader.ReadInt32();
-            StickOffset = reader.ReadVector2();
-            Active = reader.ReadBoolean();
-        }
-        public float Counter { get { return Projectile.localAI[0]; } set { Projectile.localAI[0] = value; } }
-        public float ActiveCounter { get { return Projectile.localAI[1]; } set { Projectile.localAI[1] = value; } }
-        public bool Active = true;
 
         public override void AI()
         {
@@ -110,26 +94,26 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     return;
                 }
                 Main.player[Projectile.owner].MinionAttackTargetNPC = npc.whoAmI;
-                if (Active)
+                if (IsActive)
                 {
                     Projectile.GetOwner().Calamity().mouseWorldListener = true;
                     npc.GetGlobalNPC<WhipDebuffNPC>().BaitStick = 3;
                     npc.GetGlobalNPC<WhipDebuffNPC>().ClearBaitTags();
-                    npc.GetGlobalNPC<WhipDebuffNPC>().Tags.Add(new WhipTag(this.GetType().Name, 5, (int)Projectile.ai[2], 1, 0, this.GetType().Name) { IsABaitTag = true });
+                    npc.GetGlobalNPC<WhipDebuffNPC>().Tags.Add(new WhipTag(this.GetType().Name, 5, this.TagDamage, 1, 0, this.GetType().Name) { IsABaitTag = true });
                 }
                 Projectile.Center = npc.Center + StickOffset;
                 ActiveCounter++;
                 if(ActiveCounter > 120)
                 {
-                    if(Active)
+                    if(IsActive)
                     {
-                        Active = false;
+                        IsActive = false;
                         CEUtils.SyncProj(Projectile.whoAmI);
                         ActiveEffect();
                     }
                 }
             }
-            activeEffectAlpha = float.Lerp(activeEffectAlpha, (StickNPC >= 0 && Active) ? 1 : 0, 0.04f);
+            activeEffectAlpha = float.Lerp(activeEffectAlpha, (StickNPC >= 0 && IsActive) ? 1 : 0, 0.04f);
             Counter++;
         }
         public void ActiveEffect()
@@ -156,8 +140,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             }
             return false;
         }
-        public int StickNPC = -1;
-        public Vector2 StickOffset = Vector2.Zero;
         public override bool? CanDamage()
         {
             return StickNPC == -1;
@@ -272,7 +254,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     }
                     foreach(Projectile p in Main.ActiveProjectiles)
                     {
-                        if(p.ModProjectile != null && p.ModProjectile is IBaitProj ibp)
+                        if(p.ModProjectile != null && p.ModProjectile is BaitProj ibp)
                         {
                             if (!ibp.IsActive)
                                 p.Kill();
