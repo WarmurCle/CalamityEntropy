@@ -122,6 +122,7 @@ namespace CalamityEntropy.Content.Buffs
         public int TimeLeft = 0;
         public string ItemFullName;
         public string EffectName;
+        public bool IsABaitTag = false;
         public WhipTag(string name, int tick, int tagDamage, float tagDamageMult, float Crit = 0, string effectName = "")
         {
             ItemFullName = name;
@@ -136,7 +137,23 @@ namespace CalamityEntropy.Content.Buffs
     {
         public override bool InstancePerEntity => true;
         public List<WhipTag> Tags = new List<WhipTag>();
-
+        public int BaitStick = 0;
+        public void ClearBaitTags()
+        {
+            for(int i = Tags.Count - 1; i >= 0; i--)
+            {
+                if (Tags[i].IsABaitTag)
+                    Tags.RemoveAt(i);
+            }
+        }
+        public void ClearTag(string Name)
+        {
+            for (int i = Tags.Count - 1; i >= 0; i--)
+            {
+                if (Tags[i].EffectName == Name)
+                    Tags.RemoveAt(i);
+            }
+        }
         //Hooked to CalamityGlobalNPC.ModifyHitByProjectile in EModILEdit:107
         public void ModifyHitByProj(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
@@ -219,6 +236,7 @@ namespace CalamityEntropy.Content.Buffs
                     Tags.RemoveAt(i);
                 }
             }
+            BaitStick--;
             return base.PreAI(npc);
         }
         public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)

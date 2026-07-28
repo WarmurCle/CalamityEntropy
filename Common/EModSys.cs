@@ -592,6 +592,11 @@ namespace CalamityEntropy.Common
             Main.spriteBatch.Draw(bar, center, new Rectangle(0, 0, 54, 12), Color.White, 0, new Vector2(27, 6), 1, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(bar, center, new Rectangle(0, 12, (int)Math.Round(54 * prog), 12), color, 0, new Vector2(27, 6), 1, SpriteEffects.None, 0);
         }
+        public void drawChargeBarNoback(Vector2 center, float prog, Color color)
+        {
+            Texture2D bar = ModContent.Request<Texture2D>("CalamityEntropy/Content/UI/ui_chargebar").Value;
+            Main.spriteBatch.Draw(bar, center, new Rectangle(0, 12, (int)Math.Round(54 * prog), 12), color, 0, new Vector2(27, 6), 1, SpriteEffects.None, 0);
+        }
         public override void PreUpdateDusts()
         {
             EParticle.updateAll();
@@ -693,7 +698,23 @@ namespace CalamityEntropy.Common
                 }, InterfaceScaleType.UI));
                 layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("CalamityEntropy: Other Charge Bars", () =>
                 {
-                    int baroffsety = 84;
+                    int baroffsety = 44;
+                    if (Main.LocalPlayer.Entropy().BaitCharging)
+                    {
+                        float baitCharge = Main.LocalPlayer.Entropy().BaitCharge;
+                        drawChargeBar(Main.ScreenSize.ToVector2() / 2 + new Vector2(0, baroffsety), float.Min(1, baitCharge), Color.Yellow);
+                        if (baitCharge > 1)
+                        {
+                            float bc = baitCharge - 1;
+                            drawChargeBarNoback(Main.ScreenSize.ToVector2() / 2 + new Vector2(0, baroffsety), float.Min(1, bc), Color.OrangeRed);
+                        }
+                        if (baitCharge > 2)
+                        {
+                            float bc = baitCharge - 2;
+                            drawChargeBarNoback(Main.ScreenSize.ToVector2() / 2 + new Vector2(0, baroffsety), float.Min(1, bc), Color.Aqua);
+                        }
+                        baroffsety += 20;
+                    }
                     if (Main.LocalPlayer.GetModPlayer<CapricornBookmarkRecordPlayer>().SandStormCharge > 0)
                     {
                         drawChargeBar(Main.ScreenSize.ToVector2() / 2 + new Vector2(0, baroffsety), Main.LocalPlayer.GetModPlayer<CapricornBookmarkRecordPlayer>().SandStormCharge, new Color(246, 201, 122));
@@ -716,7 +737,7 @@ namespace CalamityEntropy.Common
                     }
 
                     return true;
-                }, InterfaceScaleType.None));
+                }, InterfaceScaleType.None)); 
                 layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("CalamityEntropy: Poop UI", () =>
                 {
                     if (Main.LocalPlayer.Entropy().brokenAnkh)

@@ -4560,8 +4560,20 @@ Items: {
 		DisplayName: Flower With Face
 		Tooltip: ""
 	}
+
+	AntlionShell: {
+		DisplayName: 干缩蚁狮
+		Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			引导黄沙恶虫撕咬目标
+			'''
+	}
 }
 
+BaitCommonTooltip1: 手持时装填，只能在装填完成时使用
+BaitCommonTooltip2: 丢出一个命中敌人后会黏住的诱饵，并使仆从对其增加{0}点标记伤害
 SmolderingSetBonus:
 	'''
 	召唤一条灼烬之尾
@@ -5329,6 +5341,8 @@ Projectiles: {
 	Flowery.DisplayName: Flowery
 	AquaShardWaterBullet.DisplayName: 水弹
 	WaterBulletSpawner.DisplayName: 水弹标记
+	// AntlionShellProjectile.DisplayName: Antlion Shell Projectile
+	// DesertNuisanceFriendly.DisplayName: Desert Nuisance Friendly
 }
 
 LegendTooltip: - 传奇物品 -

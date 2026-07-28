@@ -4502,8 +4502,24 @@ Items: {
 		DisplayName: Flower With Face
 		Tooltip: ""
 	}
+
+	AntlionShell: {
+		DisplayName: Antlion Shell
+		Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			Guide the Desert Nuisance to bite the target
+			'''
+	}
 }
 
+BaitCommonTooltip1: Charge when held. Usable when fully charged
+BaitCommonTooltip2:
+	'''
+	Throw a bait that will stick to the enemy after hitting it,
+	and cause minion deal {0} more damage to it
+	'''
 SmolderingSetBonus:
 	'''
 	Gain a demonic tail that attacks nearby enemies and inflicts [cbuff:OnFire3]
@@ -5274,6 +5290,8 @@ Projectiles: {
 	Flowery.DisplayName: Flowery
 	AquaShardWaterBullet.DisplayName: Aqua Shard Water Bullet
 	WaterBulletSpawner.DisplayName: Water Bullet Spawner
+	AntlionShellProjectile.DisplayName: Antlion Shell Projectile
+	DesertNuisanceFriendly.DisplayName: Desert Nuisance Friendly
 }
 
 LegendTooltip: - Legend -

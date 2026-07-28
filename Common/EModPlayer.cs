@@ -19,6 +19,7 @@ using CalamityEntropy.Content.Items.Pets.Glue;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
 using CalamityEntropy.Content.Items.Weapons.AzafureLightMachineGun;
+using CalamityEntropy.Content.Items.Weapons.Bait;
 using CalamityEntropy.Content.Items.Weapons.DustCarverBow;
 using CalamityEntropy.Content.Items.Weapons.Fractal;
 using CalamityEntropy.Content.Items.Weapons.Whips;
@@ -473,6 +474,7 @@ namespace CalamityEntropy.Common
         }
         #region Misc
         public List<McAttributeRecord> McAttributes = null;
+        public bool BaitCharging = false;
         public bool devouringCard = false;
         public bool NoNaturalStealthRegen = false;
         public bool ExtraStealthBar = false;
@@ -982,6 +984,8 @@ namespace CalamityEntropy.Common
         public int SunriseScene = 0;
         public override void ResetEffects()
         {
+            BaitCharging = false;
+            MaxBaitCharge = 1;
             oathBannerDye = 0;
             oathBanner = false;
             oathBannerVisual = false;
@@ -1179,6 +1183,7 @@ namespace CalamityEntropy.Common
             drCrystals = null;
         }
 
+        public float BaitCharge = 0;
         public override void PreUpdate()
         {
             if (SunriseScene > 0)
@@ -2441,8 +2446,42 @@ namespace CalamityEntropy.Common
         public List<int> smolderingSets;
         public bool smdVisual = false;
         public float veloCounter = 0;
+        public float MaxBaitCharge = 1;
+        public bool BaitUsable = false;
         public override void PostUpdate()
         {
+            if (Player.HeldItem.IsAir)
+            {
+                BaitCharge = 0;
+            }
+            else
+            {
+                if (BaitCharging)
+                {
+                    if (BaitCharge < MaxBaitCharge)
+                    {
+                        float chargeSpeed = Player.GetTotalAttackSpeed(Player.HeldItem.DamageType) / (Player.HeldItem.useTime * 20);
+                        BaitCharge += chargeSpeed;
+                        if (BaitCharge >= MaxBaitCharge)
+                        {
+                            BaitCharge = MaxBaitCharge;
+                        }
+                        if(!BaitUsable && BaitCharge >= 1)
+                        {
+                            BaitUsable = true;
+                            if (Main.myPlayer == Player.whoAmI)
+                            {
+                                CEUtils.PlaySound("BaitReady", 1.1f, Player.MountedCenter);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    BaitCharge = 0;
+                }
+            }
+            BaitUsable = BaitCharge >= 1;
             if(respawnsnd && !Player.dead)
             {
                 respawnsnd = false;
@@ -3941,6 +3980,10 @@ namespace CalamityEntropy.Common
         public int WindPressureTime = 0;
         public override void PostUpdateEquips()
         {
+            if (!Player.HeldItem.IsAir && Player.HeldItem.ModItem != null && Player.HeldItem.ModItem is IBaitItem)
+            {
+                BaitCharging = true;
+            }
             if (exquisiteCrown && rottenFangs)
                 Player.maxMinions++;
             if (Player.Calamity().chaliceOfTheBloodGod && holyMoonlight)

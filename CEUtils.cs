@@ -87,6 +87,7 @@ namespace CalamityEntropy
     }
     public static class CEUtils
     {
+        public static Color GetLight(Vector2 pos) => Lighting.GetColor((pos / 16).ToPoint());
         public static string ItemTexPath<T>() where T : ModItem
         {
             return (typeof(T).Namespace + "." + typeof(T).Name).Replace('.', '/');
