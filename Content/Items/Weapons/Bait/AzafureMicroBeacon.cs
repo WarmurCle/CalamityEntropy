@@ -125,7 +125,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             {
                 for (int i = 0; i < (Projectile.GetOwner().AzafureEnhance() ? 9 : 6); i++)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.GetOwner().Center + new Vector2(Main.rand.NextFloat(-100, 100), -800), Vector2.Zero, ModContent.ProjectileType<AzafureAssaultDrone>(), (int)(Projectile.damage * damageMul), 6, Projectile.owner, 0, Main.rand.Next(0, 10));
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.GetOwner().Center + new Vector2(Main.rand.NextFloat(-100, 100), -800), Vector2.Zero, ModContent.ProjectileType<AzafureAssaultDrone>(), (int)(Projectile.damage * damageMul), 6, Projectile.owner, 0, Main.rand.Next(0, 30));
                 }
             }
         }
@@ -204,42 +204,42 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override void AI()
         {
-            if (Projectile.timeLeft < 18)
-                Projectile.Opacity -= 1 / 18f;
-            Player player = Projectile.GetOwner();
-            Vector2 targetPos = Vector2.Zero;
-            NPC target = Projectile.FindMinionTarget(2000, true);
-            if (target != null && ShootCount > 0)
+            if (Projectile.ai[1]-- <= 0)
             {
-                targetPos = target.Center + new Vector2(RandOffset, -340);
-            }
-            else
-            {
-                target = null;
-                targetPos = Projectile.Center + new Vector2(0, -400);
-            }
+                if (Projectile.timeLeft < 18)
+                    Projectile.Opacity -= 1 / 18f;
+                Player player = Projectile.GetOwner();
+                Vector2 targetPos = Vector2.Zero;
+                NPC target = Projectile.FindMinionTarget(2000, true);
+                if (target != null && ShootCount > 0)
+                {
+                    targetPos = target.Center + new Vector2(RandOffset, -380);
+                }
+                else
+                {
+                    target = null;
+                    targetPos = Projectile.Center + new Vector2(0, -400);
+                }
 
-            Projectile.frame++;
-            if (Projectile.frame >= Main.projFrames[Type])
-                Projectile.frame = 0;
-            if (CEUtils.getDistance(Projectile.Center, targetPos) > 140)
-            {
-                Projectile.velocity *= 0.935f;
-                Projectile.velocity += (targetPos - Projectile.Center).normalize() * 2.5f;
-            }
-            else
-            {
-                Projectile.velocity *= 0.88f;
-            }
-            if (target != null)
-                gunRot = (target.Center - Projectile.Center).ToRotation();
-            else
-                gunRot = CEUtils.RotateTowardsAngle(gunRot, MathHelper.PiOver2, 0.1f, false);
+                Projectile.frame++;
+                if (Projectile.frame >= Main.projFrames[Type])
+                    Projectile.frame = 0;
+                if (CEUtils.getDistance(Projectile.Center, targetPos) > 140)
+                {
+                    Projectile.velocity *= 0.935f;
+                    Projectile.velocity += (targetPos - Projectile.Center).normalize() * 2.5f;
+                }
+                else
+                {
+                    Projectile.velocity *= 0.88f;
+                }
+                if (target != null)
+                    gunRot = (target.Center - Projectile.Center).ToRotation();
+                else
+                    gunRot = CEUtils.RotateTowardsAngle(gunRot, MathHelper.PiOver2, 0.1f, false);
 
-            NoShootTime--;
-            if (target != null && NoShootTime <= 0)
-            {
-                if (Projectile.ai[1]-- <= 0)
+                NoShootTime--;
+                if (target != null && NoShootTime <= 0)
                 {
                     if (ShootCD-- <= 0)
                     {
