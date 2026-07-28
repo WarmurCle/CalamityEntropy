@@ -5797,10 +5797,11 @@ NPCs: {
 			HateCrowded: There are many people here.
 			LikeNPC_Princess: I like {NPCName}.
 			Princess_LovesNPC: I like {NPCName}.
+			MonumentNearby: Where did that ugly monument come from? I don't want to see it anymore.
 		}
 
-		DisplayName: Primordial Wyrm
-		Census.SpawnCondition: Conditions unknown
+		DisplayName: Wyrm-Chan
+		Census.SpawnCondition: After defeating the primordial wyrm
 	}
 
 	NihilityActeriophage: {
@@ -5891,9 +5892,6 @@ WyrmChatBloodMoon2: Maybe you should go bed.
 WyrmChatRain1: It's raining, it's really refreshing. I have never felt it before.
 WyrmChatRain2: Rainwater falling on the body feels quite comfortable. This is not comparable to the water pressure in the abyss.
 WyrmChatRain3: The air is very fresh, isn't it?
-WyrmChatCOHalibut1: Did you bring me seafood? wait...
-WyrmChatCOHalibut2: Can I taste this? What, can't it be done...
-WyrmChatCOHalibut3: What is that? It looks good, hehe...
 loreCruiser: Entropy, in definition, is the concept of everything eventually returning to nothing. To hunt one down who has embraced this concept, you must prove you believe it too. Shattering that bottle must have been enough to attract its attention. Is only hunting down those with similar energies a survival instinct? Or is it something selfish, more like a goal or sport to it? Regardless, entities like these are best left alone from my experience. If you lost, the world may have returned to the eternal silence from whence it came.
 loreLuminaris: An expected development, the only organism that evolved alongside the astral infection. Many have been blighted by it, but with fast generational cycles comes evolution. Nowadays, it is viewed as an embodiment of beauty, its lithe form dancing along constellations. New legends have been born off the glittering wings of the starborn moth. However, various offerings have rendered it unpredictable to those who bring offerings, and is known to attack those that bring what it considers "offensive." Did power get to its head? Or did it just get used to what was handed to it? Whether natural or intentional, we shall never know now, just be aware of exactly where you let your power strike, for the innocent take no part in our pursuit.
 UseToggle: Use this item to turn on or off special effects:
