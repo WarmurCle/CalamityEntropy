@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Items.Donator
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
         }
         public string DevName => "Kino";
-        public override float StealthDamageMultiplier => 1.2f;
+        public override float StealthDamageMultiplier => 1.0f;
         public override float StealthVelocityMultiplier => 1f;
         public override float StealthKnockbackMultiplier => 2f;
 
@@ -364,19 +364,19 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 RecheckStats = false;
                 NowLevel = lv;
-                int dmg = 20;
+                int dmg = 10;
                 switch (lv)
                 {
-                    case 0: dmg = 20; break;
-                    case 1: dmg = 30; break;
-                    case 2: dmg = 35; break;
-                    case 3: dmg = 50; break;
+                    case 0: dmg = 10; break;
+                    case 1: dmg = 18; break;
+                    case 2: dmg = 30; break;
+                    case 3: dmg = 45; break;
                     case 4: dmg = 72; break;
                     case 5: dmg = 130; break;
                     case 6: dmg = 180; break;
                     case 7: dmg = 250; break;
-                    case 8: dmg = 280; break;
-                    case 9: dmg = 330; break;
+                    case 8: dmg = 270; break;
+                    case 9: dmg = 300; break;
                     case 10: dmg = 480; break;
                     case 11: dmg = 580; break;
                     case 12: dmg = 750; break;
@@ -731,6 +731,10 @@ namespace CalamityEntropy.Content.Items.Donator
             }
             if (DownedBossSystem.downedRavager)
             {
+                target.AddBuff<Laceration>(60 * 3);
+            }
+            if (Main.hardMode)
+            {
                 if (DownedBossSystem.downedProvidence)
                 {
                     if (DownedBossSystem.downedPrimordialWyrm)
@@ -744,12 +748,12 @@ namespace CalamityEntropy.Content.Items.Donator
                 }
                 else
                 {
-                    target.AddBuff<Laceration>(60 * 3);
+                    target.AddBuff<HeavyBleeding>(60 * 3);
                 }
             }
             else
             {
-                target.AddBuff<HeavyBleeding>(60 * 3);
+                target.AddBuff(BuffID.OnFire, 180);
             }
             Color impactColor = Color.Red;
             float impactParticleScale = Main.rand.NextFloat(1.5f, 1.7f);
@@ -1160,6 +1164,10 @@ namespace CalamityEntropy.Content.Items.Donator
             }
             if (DownedBossSystem.downedRavager)
             {
+                target.AddBuff<Laceration>(60 * 3);
+            }
+            if (Main.hardMode)
+            {
                 if (DownedBossSystem.downedProvidence)
                 {
                     if (DownedBossSystem.downedPrimordialWyrm)
@@ -1173,12 +1181,12 @@ namespace CalamityEntropy.Content.Items.Donator
                 }
                 else
                 {
-                    target.AddBuff<Laceration>(60 * 3);
+                    target.AddBuff<HeavyBleeding>(60 * 3);
                 }
             }
             else
             {
-                target.AddBuff<HeavyBleeding>(60 * 3);
+                target.AddBuff(BuffID.OnFire, 180);
             }
             Color impactColor = Color.Red;
             float impactParticleScale = Main.rand.NextFloat(1.5f, 1.7f);

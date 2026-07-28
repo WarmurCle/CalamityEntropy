@@ -284,7 +284,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Texture2D laser = CEUtils.getExtraTex("DeathRay");
             Effect shader = ModContent.Request<Effect>("CalamityEntropy/Assets/Effects/ColorLerp", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicWrap, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.ZoomMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicWrap, DepthStencilState.None, Main.Rasterizer, shader, Main.GameViewMatrix.TransformationMatrix);
             shader.CurrentTechnique.Passes[0].Apply();
             Main.spriteBatch.Draw(laser, Projectile.Center - Main.screenPosition, new Rectangle(-(int)((Main.GameUpdateCount * 400) % laser.Width), 0, 8000, laser.Height), Color.Blue, Projectile.velocity.ToRotation(), new Vector2(0, laser.Height / 2), new Vector2(1, CEUtils.Parabola(Projectile.timeLeft / 10f, 1)) * Projectile.scale * 0.4f, SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();

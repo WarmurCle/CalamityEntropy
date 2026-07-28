@@ -41,8 +41,8 @@ Items: {
 				DisplayName: 蓝晶破浪
 				Tooltip:
 					'''
-					丢出一把击中敌人会分裂出追踪棱晶碎片的标枪
-					潜伏攻击会获得穿透并且在标枪飞行时留下棱镜碎片，同时击中后分裂出更多的棱晶碎片
+					丢出一把击中敌人会抛射水弹的标枪
+					潜伏攻击会获得穿透并且在标枪飞行时留下棱镜碎片，同时击中后持续以目标为中心生成追踪水弹
 					'''
 			}
 
@@ -4557,11 +4557,27 @@ Items: {
 	}
 
 	FlowerWithFace: {
-		// DisplayName: Flower With Face
-		// Tooltip: ""
+		DisplayName: 长脸的花
+		Tooltip: 
+		'''
+		召唤Flowery跟随你
+		Flowery会使用Jarona攻击附近的敌人
+		'''
+	}
+
+	AntlionShell: {
+		DisplayName: 干缩蚁狮
+		Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			引导黄沙恶虫撕咬目标
+			'''
 	}
 }
 
+BaitCommonTooltip1: 手持时装填，只能在装填完成时使用
+BaitCommonTooltip2: 丢出一个命中敌人后会黏住的诱饵，并使仆从对其增加{0}点标记伤害
 SmolderingSetBonus:
 	'''
 	召唤一条灼烬之尾
@@ -5326,7 +5342,11 @@ Projectiles: {
 	ApeirokyklosProj.DisplayName: 永渊环葬
 	ApeirokyklosSpike.DisplayName: 深渊尖刺
 	Bellbeast.DisplayName: 钟道兽
-	// Flowery.DisplayName: Flowery
+	Flowery.DisplayName: Flowery
+	AquaShardWaterBullet.DisplayName: 水弹
+	WaterBulletSpawner.DisplayName: 水弹标记
+	// AntlionShellProjectile.DisplayName: Antlion Shell Projectile
+	// DesertNuisanceFriendly.DisplayName: Desert Nuisance Friendly
 }
 
 LegendTooltip: - 传奇物品 -
@@ -5456,7 +5476,8 @@ Buffs: {
 
 	Deceive: {
 		DisplayName: 蒙蔽
-		Description: 减伤移动速度
+		Description: 减少移动速度
+		ItemTooltip: 减速敌人
 	}
 
 	VoidCandleBuff: {
@@ -5806,8 +5827,8 @@ Buffs: {
 	}
 
 	FloweryBuff: {
-		// DisplayName: Flowery Buff
-		// Description: Mods.CalamityEntropy.Buffs.FloweryBuff.Description
+		DisplayName: Flowery
+		Description: Glue!
 	}
 }
 
@@ -5837,16 +5858,17 @@ NPCs: {
 		TownNPCMood: {
 			NoHome: 战斗愉快，你赢了。现在请给我个住所吧。
 			Content: 谢谢你，在这里我很愉快。
-			FarFromHome: 这是哪？
+			FarFromHome: 这里太偏远了...
 			LoveSpace: 这里很宽广，我很喜欢。
-			DislikeCrowded: 这里太热闹了...
-			HateCrowded: 这里的人好多...
+			DislikeCrowded: 这里太拥挤了...
+			HateCrowded: 这里太拥挤了，我讨厌这样...
 			LikeNPC_Princess: 我喜欢 {NPCName}，他人很好。
 			Princess_LovesNPC: 我喜欢 {NPCName}。
+			MonumentNearby: 那座难看的石碑是从哪来来的，我不想看见它。
 		}
 
-		DisplayName: 始源妖龙
-		Census.SpawnCondition: 击败始源妖龙后
+		DisplayName: 妖龙酱
+		Census.SpawnCondition: 击败始源妖龙后入住
 	}
 
 	NihilityActeriophage: {
@@ -5937,9 +5959,6 @@ WyrmChatBloodMoon2: 也许你应该睡一觉。
 WyrmChatRain1: 下雨了，真清爽。我以前从没感受过。
 WyrmChatRain2: 雨水落在身上挺舒服。这可比不上深渊水压的万分之一。
 WyrmChatRain3: 很清爽，不是吗？
-WyrmChatCOHalibut1: 你给我带来了海鲜？等等...
-WyrmChatCOHalibut2: 我能尝尝这个吗？什么，不行吗...
-WyrmChatCOHalibut3: 那是个啥，看起来不错，嘿嘿...
 loreCruiser:
 	'''
 	生命摄取能量以进行熵减。
@@ -6517,7 +6536,7 @@ BloodBoiling: 血沸
 BloodBoilingDescr: 持续使用物品时增加攻速，但会对自身产生持续的伤害，该效果会随着使用时间增加
 PrefixHeavyDesc: +10% 下落速度
 DamageReduceCD: 减伤冷却
-
+DeltaruneCH5ShadowCrystal: 获取Deltarune第五章的暗影水晶
 InfernumIntros: {
 	NihilityTwin:
 		'''

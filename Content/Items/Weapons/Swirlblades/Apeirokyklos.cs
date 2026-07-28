@@ -2,6 +2,7 @@ using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Weapons.Thalassian;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Rarities;
+using CalamityEntropy.Content.Tiles;
 using CalamityMod;
 using CalamityMod.Dusts;
 using CalamityMod.Items;
@@ -27,7 +28,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.useAnimation = Item.useTime = 30;
             Item.width = 42;
             Item.height = 46;
-            Item.damage = 2200;
+            Item.damage = 900;
+            Item.crit = 10;
             Item.ArmorPenetration = 40;
             Item.UseSound = CEUtils.GetSound("ApeirokyklosThrow", 1, 12, 0.5f) with { PitchRange = (0.3f, 0.55f) };
             Item.value = CalamityGlobalItem.RarityCalamityRedBuyPrice;
@@ -41,7 +43,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.noMelee = true;
             Item.noUseGraphic = true;
         }
-        public override float StealthDamageMultiplier => 1.0f;
+        public override float StealthDamageMultiplier => 0.9f;
         public override float StealthVelocityMultiplier => 1.2f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -58,8 +60,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<SawofMacrocosm>())
-                .AddIngredient(ModContent.ItemType<FadingRunestone>(), 2)
-                .AddTile(TileID.Anvils)
+                .AddIngredient(ModContent.ItemType<WyrmTooth>(), 12)
+                .AddIngredient(ModContent.ItemType<FadingRunestone>(), 1)
+                .AddTile(ModContent.TileType<AbyssalAltarTile>())
                 .Register();
         }
         public override bool MeleePrefix()
@@ -79,6 +82,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             base.SetDefaults();
             Projectile.localNPCHitCooldown = 6;
             Projectile.MaxUpdates = 2;
+            Projectile.tileCollide = false;
+            Projectile.light = 1;
         }
         public override int BladeOpenTime => 15;
         public override float Radius => 210 * (Projectile.Calamity().stealthStrike ? (stealthHitted ? 0.7f : 1.5f) : 1);

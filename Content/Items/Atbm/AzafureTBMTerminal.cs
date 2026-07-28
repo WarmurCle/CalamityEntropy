@@ -428,7 +428,7 @@ namespace CalamityEntropy.Content.Items.Atbm
             if (player.HeldItem.dye > 0)
             {
                 Main.spriteBatch.End();
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
                 GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(player.HeldItem.type), Projectile);
             }
 

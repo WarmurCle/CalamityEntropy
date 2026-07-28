@@ -1,6 +1,7 @@
 ﻿using CalamityEntropy.Content.Particles;
 using CalamityMod;
 using CalamityMod.Graphics.Primitives;
+using CalamityMod.Particles;
 using CalamityMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -33,13 +34,12 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.width = 46;
             Projectile.height = 46;
             Projectile.friendly = true;
-            Projectile.penetrate = 1;
+            Projectile.penetrate = 3;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 260;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 40;
             Projectile.ArmorPenetration = 6;
-            Projectile.MaxUpdates = 2;
             SetHandRot = true;
         }
         public float handrot = 0;
@@ -73,8 +73,8 @@ namespace CalamityEntropy.Content.Projectiles
         {
             odp.Add(Projectile.Center);
             odr.Add(Projectile.rotation);
-            if (Projectile.ai[0] > 12 && Projectile.Calamity().stealthStrike && Main.myPlayer == Projectile.owner && ++Projectile.localAI[1] % 3 == 0)
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center - Projectile.velocity * 3, Projectile.velocity * 0.1f, ModContent.ProjectileType<AquashardSplit>(), (int)(Projectile.damage * 0.25), 0f, Projectile.owner).ToProj().DamageType = CEUtils.RogueDC;
+            if (Projectile.ai[0] > 12 && Projectile.Calamity().stealthStrike && Main.myPlayer == Projectile.owner && ++Projectile.localAI[1] % 3 == 0 && ++Projectile.localAI[2] < 9)
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center - Projectile.velocity * 3, Projectile.velocity * 0.2f, ModContent.ProjectileType<AquashardSplit>(), (int)(Projectile.damage * 0.25), 0f, Projectile.owner).ToProj().DamageType = CEUtils.RogueDC;
 
             if (odp.Count > 16)
             {
@@ -139,7 +139,9 @@ namespace CalamityEntropy.Content.Projectiles
                 Projectile.tileCollide = true;
                 if (Projectile.ai[0] > 26)
                 {
-                    Projectile.velocity.Y += 2f;
+                    Projectile.velocity.Y += 1.6f;
+                    Projectile.velocity *= 0.996f;
+                    Projectile.velocity.X *= 0.96f;
                 }
                 Projectile.rotation = Projectile.velocity.ToRotation();
             }
@@ -163,30 +165,32 @@ namespace CalamityEntropy.Content.Projectiles
         public bool spawnShard = true;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(60, 255, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 0.64f, 14));
             CEUtils.PlaySound("slice", Projectile.Calamity().stealthStrike ? 1.2f : 1f, target.Center);
             if (spawnShard)
             {
                 spawnShard = false;
                 if (Projectile.owner == Main.myPlayer)
                 {
-                    for (int i = 0; i < 2 + (Projectile.Calamity().stealthStrike ? 3 : 0); i++)
+                    for (int i = 0; i < (Projectile.Calamity().stealthStrike ? 0 : 3); i++)
                     {
-                        Vector2 velocity = CalamityUtils.RandomVelocity(100f, 70f, 100f);
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<AquashardSplit>(), (int)(Projectile.damage * 0.6), 0f, Projectile.owner).ToProj().DamageType = CEUtils.RogueDC;
+                        Vector2 velocity = new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-34, -26));
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<AquaShardWaterBullet>(), (int)(Projectile.damage * 0.33f), 0f, Projectile.owner).ToProj().DamageType = CEUtils.RogueDC;
                     }
+                }
+                if (Projectile.Calamity().stealthStrike)
+                {
+                    for (int i = 0; i < 16; i++)
+                    {
+                        EParticle.spawnNew(new EGlowOrb(), Projectile
+                            .Center, CEUtils.randomPointInCircle(16), Color.SkyBlue, 0.32f, 1, true, BlendState.Additive, 0, 18);
+                    }
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<WaterBulletSpawner>(), (int)(Projectile.damage * 0.3f), Projectile.knockBack / 3, Projectile.owner, target.whoAmI);
                 }
             }
             for (int i = 0; i < 16; i++)
             {
-                EParticle.spawnNew(new EGlowOrb(), CEUtils.randomPoint(target.Hitbox), CEUtils.randomPointInCircle(4) + Projectile.velocity * 0.4f * Main.rand.NextFloat(0.2f, 1), Color.SkyBlue, 0.2f, 1, true, BlendState.Additive, 0, 18);
-            }
-            if (Projectile.Calamity().stealthStrike)
-            {
-                for (int i = 0; i < 16; i++)
-                {
-                    EParticle.spawnNew(new EGlowOrb(), Projectile
-                        .Center, CEUtils.randomPointInCircle(16), Color.SkyBlue, 0.32f, 1, true, BlendState.Additive, 0, 18);
-                }
+                EParticle.spawnNew(new EGlowOrb(), Projectile.Center + Projectile.velocity.normalize(), CEUtils.randomPointInCircle(2) + Projectile.velocity * 0.7f * Main.rand.NextFloat(0.2f, 1), Color.SkyBlue, 0.2f, 1, true, BlendState.Additive, 0, 14);
             }
         }
         public override void OnKill(int timeLeft)
@@ -243,16 +247,123 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 rj = -handrot * Projectile.owner.ToPlayer().direction;
             }
-            for(float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver4)
+            Main.spriteBatch.UseBlendState(BlendState.Additive, SamplerState.PointClamp);
+            for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver2)
             {
-                Main.EntitySpriteDraw(tx, Projectile.Center - Main.screenPosition + i.ToRotationVector2() * 5, null, lightColor, Projectile.rotation + MathHelper.PiOver4 + rj, tx.Size() / 2, Projectile.scale, SpriteEffects.None);
+                Main.EntitySpriteDraw(tx, Projectile.Center - Main.screenPosition + i.ToRotationVector2() * 3, null, Color.White, Projectile.rotation + MathHelper.PiOver4 + rj, tx.Size() / 2, Projectile.scale, SpriteEffects.None);
             }
+            Main.spriteBatch.ExitShaderRegion();
             Main.EntitySpriteDraw(tx, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation + MathHelper.PiOver4 + rj, tx.Size() / 2, Projectile.scale, SpriteEffects.None);
 
             return false;
         }
-
-
     }
-
+    public class WaterBulletSpawner : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            Projectile.FriendlySetDefaults(CEUtils.RogueDC, false, 2);
+            Projectile.width = Projectile.height = 16;
+            Projectile.timeLeft = 100;
+            Projectile.Opacity = 0;
+        }
+        public override string Texture => "CalamityEntropy/Assets/Extra/Glow";
+        public override void AI()
+        {
+            int NPC = (int)Projectile.ai[0];
+            if (!NPC.ToNPC().active)
+                Projectile.Kill();
+            if (Projectile.Opacity < 1)
+                Projectile.Opacity += 0.2f;
+            Projectile.Center = NPC.ToNPC().Center;
+            Projectile.scale -= 0.01f;
+            if(Projectile.timeLeft % 10 == 0 && Projectile.timeLeft > 19)
+            {
+                if (Main.myPlayer == Projectile.owner)
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * 24, ModContent.ProjectileType<AquaShardWaterBullet>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1);
+            }
+        }
+        public override bool? CanDamage()
+        {
+            return false;
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            CEUtils.DrawGlow(Projectile.Center, new Color(50, 255, 255) * Projectile.Opacity, Projectile.scale * 3f);
+            CEUtils.DrawGlow(Projectile.Center, Color.White * Projectile.Opacity, Projectile.scale * 2.7f);
+            return false;
+        }
+    }
+    public class AquaShardWaterBullet : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            Projectile.FriendlySetDefaults(CEUtils.RogueDC, false, 2);
+            Projectile.width = Projectile.height = 46;
+            Projectile.timeLeft = 120;
+        }
+        public override string Texture => "CalamityEntropy/Assets/Extra/Glow";
+        public int NoChaseTime = 10;
+        public override void AI()
+        {
+            if (Projectile.ai[0] == 0)
+            {
+                NoChaseTime--;
+                NoChaseTime--;
+                if (NoChaseTime > 0)
+                {
+                    NoChaseTime--;
+                }
+                else
+                {
+                    Projectile.velocity.Y += 4f;
+                }
+            }
+            else
+            {
+                if (NoChaseTime > 0)
+                {
+                    Projectile.velocity *= 0.9f;
+                    NoChaseTime--;
+                }
+                else
+                {
+                    Projectile.HomingToNPCNearby(12, 0.9f, 1200);
+                }
+            }
+            for (float i = 0.1f; i <= 1f; i += 0.1f)
+            {
+                oldPos.Add(Vector2.Lerp(Projectile.Center, Projectile.Center + Projectile.velocity, i));
+                if (oldPos.Count > 40)
+                    oldPos.RemoveAt(0);
+            }
+        }
+        public List<Vector2> oldPos = new List<Vector2>();
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            NoChaseTime = 8;
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, new Color(60, 255, 255), "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, 0.55f, 14));
+        }
+        public override bool? CanHitNPC(NPC target)
+        {
+            return NoChaseTime <= 0 ? null : false;
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.ArmorPenetration += 20;
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D tex = Projectile.GetTexture();
+            float ap = 1f / (float)oldPos.Count;
+            Main.spriteBatch.UseAdditive();
+            for (int i = 0; i < oldPos.Count; i++)
+            {
+                Main.spriteBatch.Draw(tex, oldPos[i] - Main.screenPosition, null, new Color(60, 255, 255) * ap, Projectile.velocity.ToRotation(), tex.Size() / 2, new Vector2(1 + (Projectile.velocity.Length() * 0.01f), (1f / (1 + (Projectile.velocity.Length() * 0.01f)))) * 0.26f * ap * (Projectile.ai[0] == 1 ? 1 : 0.8f), SpriteEffects.None, 0);
+                ap += 1f / (float)oldPos.Count;
+            }
+            Main.spriteBatch.ExitShaderRegion();
+            return false;
+        }
+    }
 }

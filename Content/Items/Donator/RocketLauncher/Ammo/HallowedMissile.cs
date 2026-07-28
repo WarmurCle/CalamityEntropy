@@ -1,8 +1,4 @@
-using CalamityEntropy.Content.Buffs;
-using CalamityEntropy.Content.Particles;
 using CalamityMod.Particles;
-using InfernumMode.Common.Graphics.Particles;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

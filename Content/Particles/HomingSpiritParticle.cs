@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Particles
         {
             var sb = Main.spriteBatch;
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 
             for (int i = 0; i < (int)OldPos.Count; i++)
             {
@@ -49,7 +49,7 @@ namespace CalamityEntropy.Content.Particles
                 sb.Draw(Texture, OldPos[i] - Main.screenPosition, null, Color * Opc * s, 0, Texture.Size() * 0.5f, s * 0.16f, SpriteEffects.None, 0);
             }
             sb.End();
-            sb.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 
         }
     }

@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
         public override void SetDefaults()
         {
             Item.DamageType = CEUtils.RogueDC;
-            Item.useAnimation = Item.useTime = 24;
+            Item.useAnimation = Item.useTime = 26;
             Item.width = 48;
             Item.height = 52;
             Item.damage = 8;
@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             Item.noMelee = true;
             Item.noUseGraphic = true;
         }
-        public override float StealthDamageMultiplier => 0.8f;
+        public override float StealthDamageMultiplier => 1.0f;
         public override float StealthVelocityMultiplier => 1.4f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

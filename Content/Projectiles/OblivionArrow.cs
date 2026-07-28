@@ -175,7 +175,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Main.spriteBatch.Draw(tex, Projectile.owner.ToPlayer().Center - Main.screenPosition, null, Color.Blue, spawnrot, new Vector2(0, tex.Height / 2), 0.42f * new Vector2(2f - 2 * particlea, particlea * 1.6f), SpriteEffects.None, 0);
 
                 Main.spriteBatch.End();
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
             }
             drawT();
             return false;

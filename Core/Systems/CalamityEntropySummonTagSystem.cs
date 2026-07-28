@@ -3,11 +3,8 @@ using CalamityMod.Systems.Collections;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
-using InfernumMode.Content.Items.Weapons.Summoner;
-using InfernumMode.Content.Buffs;
 using Terraria.ModLoader;
 using System;
-using Terraria;
 using CalamityEntropy.Content.Items.Weapons.Whips;
 using CalamityEntropy.Content.Buffs;
 

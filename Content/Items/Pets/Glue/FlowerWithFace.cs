@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Buffs.Pets;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs.Pets;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Projectiles.Pets.Desert;
 using CalamityMod;
@@ -29,12 +30,8 @@ namespace CalamityEntropy.Content.Items.Pets.Glue
             Item.noUseGraphic = true;
             Item.useStyle = -1;
             Item.rare = ItemRarityID.Yellow;
+            Item.width = Item.height = 40;
             Item.value = Item.buyPrice(0, 0, 20, 0);
-        }
-        public override void AddRecipes()
-        {
-
-
         }
         public override bool? UseItem(Player player)
         {
@@ -44,6 +41,14 @@ namespace CalamityEntropy.Content.Items.Pets.Glue
             }
             return true;
         }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.Sunflower)
+                .AddIngredient(ItemID.ReflectiveGoldDye)
+                .AddCondition(Mod.GetLocalization("DeltaruneCH5ShadowCrystal"), () => ShadowCrystalDeltarune.Ch5Crystal)
+                .Register();
+        }
     }
     public class FloweryBuff : ModBuff
     {
@@ -52,6 +57,7 @@ namespace CalamityEntropy.Content.Items.Pets.Glue
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
         }
+        
         public override void Update(Player player, ref int buffIndex)
         {
             bool unused = false;
@@ -412,6 +418,10 @@ namespace CalamityEntropy.Content.Items.Pets.Glue
                         oldStats.RemoveAt(0);
                 }
             }
+        }
+        public override void OnKill(int timeLeft)
+        {
+            CEUtils.ExplotionParticleLOL(Projectile.Center);
         }
         public void PlayRandomVoiceClip()
         {

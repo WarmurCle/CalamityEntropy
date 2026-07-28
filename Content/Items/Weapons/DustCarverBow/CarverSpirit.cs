@@ -79,7 +79,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
 
             float DelayMult = player.GetWeaponAttackSpeed(player.HeldItem);
             Projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
-            Projectile.damage = player.GetWeaponDamage(player.HeldItem) / 8;
+            Projectile.damage = player.GetWeaponDamage(player.HeldItem) / 20;
             Projectile.MaxUpdates = 1;
 
             if (Main.myPlayer == Projectile.owner && Keyboard.GetState().IsKeyDown(Keys.LeftShift))
@@ -186,7 +186,7 @@ namespace CalamityEntropy.Content.Items.Weapons.DustCarverBow
                                     if (Delay <= 0 && p.Colliding(p.getRect(), Projectile.getRect()))
                                     {
                                         p.Kill();
-                                        Delay = (int)(420 / DelayMult);
+                                        Delay = (int)(600 / DelayMult);
                                         CEUtils.PlaySound("LightHit", 1, Projectile.Center);
                                     }
                                     else

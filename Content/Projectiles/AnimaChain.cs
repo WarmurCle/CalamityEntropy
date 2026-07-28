@@ -109,7 +109,7 @@ namespace CalamityEntropy.Content.Projectiles
             shader.Parameters["strength"].SetValue(redAlpha);
             shader.CurrentTechnique.Passes["EffectPass"].Apply();
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, shader, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, shader, Main.GameViewMatrix.TransformationMatrix);
 
             foreach (Vector2 p in points)
             {
@@ -151,7 +151,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Main.EntitySpriteDraw(tex, target.Center - Main.screenPosition, null, Color.White, 0, tex.Size() / 2, Projectile.scale, SpriteEffects.None);
             }
             sb.End();
-            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.GameViewMatrix.TransformationMatrix);
 
             return false;
         }

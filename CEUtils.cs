@@ -87,6 +87,7 @@ namespace CalamityEntropy
     }
     public static class CEUtils
     {
+        public static Color GetLight(Vector2 pos) => Lighting.GetColor((pos / 16).ToPoint());
         public static string ItemTexPath<T>() where T : ModItem
         {
             return (typeof(T).Namespace + "." + typeof(T).Name).Replace('.', '/');
@@ -1128,13 +1129,13 @@ namespace CalamityEntropy
             if (setState)
             {
                 sb.End();
-                sb.Begin(SpriteSortMode.Immediate, additive ? BlendState.Additive : BlendState.NonPremultiplied, sample, depth, rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+                sb.Begin(SpriteSortMode.Immediate, additive ? BlendState.Additive : BlendState.NonPremultiplied, sample, depth, rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
             }
             sb.Draw(glow, worldPos - Main.screenPosition, null, color, rot, glow.Size() * 0.5f, scale * 0.4f, SpriteEffects.None, 0);
             if (setState)
             {
                 sb.End();
-                sb.Begin(SpriteSortMode.Deferred, blend, sample, depth, rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+                sb.Begin(SpriteSortMode.Deferred, blend, sample, depth, rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
             }
         }
         public static void DrawGlow(Vector2 worldPos, Color color, float scale, bool additive = true, Texture2D tex = null, bool setState = true)
@@ -1148,13 +1149,13 @@ namespace CalamityEntropy
             if (setState)
             {
                 sb.End();
-                sb.Begin(SpriteSortMode.Immediate, additive ? BlendState.Additive : BlendState.NonPremultiplied, sample, depth, rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+                sb.Begin(SpriteSortMode.Immediate, additive ? BlendState.Additive : BlendState.NonPremultiplied, sample, depth, rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
             }
             sb.Draw(glow, worldPos - Main.screenPosition, null, color, 0, glow.Size() * 0.5f, scale * 0.4f, SpriteEffects.None, 0);
             if (setState)
             {
                 sb.End();
-                sb.Begin(SpriteSortMode.Deferred, blend, sample, depth, rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+                sb.Begin(SpriteSortMode.Deferred, blend, sample, depth, rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
             }
         }
 
@@ -1320,17 +1321,22 @@ namespace CalamityEntropy
         public static void UseBlendState(this SpriteBatch sb, BlendState blend, SamplerState s = null)
         {
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, blend, s == null ? Main.DefaultSamplerState : s, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(SpriteSortMode.Immediate, blend, s == null ? Main.DefaultSamplerState : s, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        }
+        public static void UseAdditiveClamp(this SpriteBatch sb)
+        {
+            sb.End();
+            sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         }
         public static void UseAdditive(this SpriteBatch sb)
         {
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         }
         public static void UseSampleState(this SpriteBatch sb, SamplerState s)
         {
             sb.End();
-            sb.Begin(SpriteSortMode.Immediate, Main.graphics.GraphicsDevice.BlendState, s, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(SpriteSortMode.Immediate, Main.graphics.GraphicsDevice.BlendState, s, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         }
         public static void UseState_UI(this SpriteBatch sb, BlendState blend, SamplerState sampler)
         {
@@ -1339,7 +1345,7 @@ namespace CalamityEntropy
         }
         public static void begin_(this SpriteBatch sb)
         {
-            sb.Begin(0, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+            sb.Begin(0, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
         }
         public static void DrawRectAlt(Rectangle rect, Color color, float width, int num = 16)
         {
@@ -1718,7 +1724,7 @@ namespace CalamityEntropy
             gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
 
             sb.End();
-            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.CurrentWantedZoomMatrix);
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 
         }
         public static Vector2 getTxP(List<Vector2> points, float p)

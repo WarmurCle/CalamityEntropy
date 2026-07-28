@@ -22,6 +22,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             player.Entropy().worshipRelic = true;
             player.Entropy().NoNaturalStealthRegen = true;
             player.Entropy().WeaponsNoCostRogueStealth = true;
+            player.Entropy().MaxBaitCharge += 1;
         }
         public override void AddRecipes()
         {

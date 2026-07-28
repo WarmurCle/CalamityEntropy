@@ -1,5 +1,7 @@
 ﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Particles;
 using CalamityMod;
+using CalamityMod.Dusts;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -50,7 +52,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
             soundCd--;
             Player player = Main.player[Projectile.owner];
             Projectile.ai[0]++;
-            if (Projectile.ai[0] % 3 == 0)
+            if (Projectile.ai[0] % 2 == 0)
             {
                 Projectile.ai[1]++;
                 if (Projectile.ai[1] > 12)
@@ -71,13 +73,13 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
             }
             if (Projectile.ai[1] == 0)
             {
-                hitSound.Pitch = 1f;
-                hs.Pitch = 1.3f;
+                hitSound.Pitch = 1.3f;
+                hs.Pitch = 1.6f;
             }
             if (Projectile.ai[1] == 6)
             {
-                hitSound.Pitch = 0.9f;
-                hs.Pitch = 1f;
+                hitSound.Pitch = 1.1f;
+                hs.Pitch = 1.4f;
             }
             if (Projectile.ai[1] > 6)
             {
@@ -89,7 +91,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
             }
             if (Projectile.ai[1] == 7 || Projectile.ai[1] == 1)
             {
-                if (Projectile.ai[0] % 3 == 0)
+                if (Projectile.ai[0] % 2 == 0)
                 {
                     SoundEngine.PlaySound(hs, Projectile.Center);
                 }
@@ -97,7 +99,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
             Vector2 playerRotatedPoint = player.RotatedRelativePoint(player.MountedCenter, true);
             if (Main.myPlayer == Projectile.owner)
             {
-                if (Projectile.ai[0] % 3 == 0)
+                if (Projectile.ai[0] % 2 == 0)
                 {
                     if (Projectile.ai[1] == 6 || Projectile.ai[1] == 0)
                         HandleChannelMovement(player, playerRotatedPoint);
@@ -133,7 +135,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            if (Projectile.ai[0] % 3 == 0)
+            if (Projectile.ai[0] % 2 == 0)
             {
                 Player player = Main.player[Projectile.owner];
                 if (Projectile.ai[1] == 1)
@@ -165,44 +167,38 @@ namespace CalamityEntropy.Content.Projectiles.VoidBlade
             if (soundCd <= 0)
             {
                 soundCd = 5;
-                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/da3") { MaxInstances = 1, Volume = 0.4f * CEUtils.WeapSound }, target.Center);
+                SoundEngine.PlaySound(new SoundStyle("CalamityEntropy/Assets/Sounds/VividClarityBeamAppear") { MaxInstances = 12, Volume = 0.88f * CEUtils.WeapSound, PitchRange = (0.1f, 0.6f) }, target.Center);
+                CEUtils.PlaySound("WScytheHit", Main.rand.NextFloat(1, 1.4f), target.Center, 12, 0.45f);
             }
-            target.immune[Projectile.owner] = 3;
-            if (Projectile.owner == Main.myPlayer)
+            for (int i = 0; i < 18; i++)
             {
-                int pj = Projectile.NewProjectile(Main.player[Projectile.owner].GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<VoidBladeHit>(), Projectile.damage, 0, Projectile.owner, 0, (target.Center - Main.player[Projectile.owner].Center).ToRotation());
+                Color clr = Projectile.ai[1] >= 7 ? new Color(177, 164, 218) : new Color(186, 80, 212);
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(CEUtils.randomPoint(target.Hitbox), Projectile.velocity.normalize().RotatedByRandom(0.02f) * Main.rand.NextFloat(6, 56), false, 16, Main.rand.NextFloat(0.3f, 1) * 0.08f, clr, new Vector2(0.26f, 1), false, false));
+                if (Main.rand.NextBool(4))
+                {
+                    EParticle.NewParticle(new ShadeDashParticle() { c1 = clr, c2 = clr * 4, TL = 14 }, CEUtils.randomPoint(target.Hitbox),
+                        Projectile.velocity.normalize().RotatedByRandom(0.3f) * Main.rand.NextFloat(16, 46), Color.White, 1, 1, true, BlendState.NonPremultiplied, 0, 9);
+                }
+            }
 
-            }
-            EGlobalNPC.AddVoidTouch(target, 60, 0.5f + 0.3f * Projectile.owner.ToPlayer().Entropy().WeaponBoost, 460, 1);
-            target.Entropy().vtnoparticle = target.Entropy().VoidTouchTime;
-            float sparkCount = 3;
-            for (int i = 0; i < sparkCount; i++)
+            for (int i = 0; i < 9; i++)
             {
-                Vector2 sparkVelocity2 = (Projectile.rotation.ToRotationVector2() * 12).RotatedByRandom(1.6f) * Main.rand.NextFloat(0.5f, 1.8f);
-                int sparkLifetime2 = Main.rand.Next(23, 35);
-                float sparkScale2 = Main.rand.NextFloat(1.4f, 2.6f);
-                Color sparkColor2 = Color.Purple;
-                if (Projectile.ai[1] > 4)
-                {
-                    sparkColor2 = Color.LightBlue;
-                }
-                float velc = 2f;
-                if (Main.rand.NextBool())
-                {
-                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, sparkColor2);
-                    GeneralParticleHandler.SpawnParticle(spark);
-                }
-                else
-                {
-                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * velc, false, (int)(sparkLifetime2 * 1), sparkScale2 * 1, Main.rand.NextBool() ? sparkColor2 : Color.Blue);
-                    GeneralParticleHandler.SpawnParticle(spark);
-                }
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(target.Center, Projectile.velocity.normalize().RotatedByRandom(0.6f) * Main.rand.NextFloat(0.6f, 1) * 8, false, 11, 0.05f * Main.rand.NextFloat(0.65f, 1f), Main.rand.NextBool() ? Color.MediumPurple : Color.LightBlue, new Vector2(4f, 0.5f), true));
+            }
+            for (int i = 0; i < 32; i++)
+            {
+                Dust dust = Dust.NewDustPerfect(target.Center, ModContent.DustType<SquashDust>(), Vector2.Zero);
+                dust.scale = Main.rand.NextFloat(1.6f, 3.4f);
+                dust.velocity = Projectile.velocity.normalize().RotatedByRandom(0.5f) * Main.rand.NextFloat(0.5f, 1) * 46;
+                dust.noGravity = false;
+                dust.color = Main.rand.NextBool() ? Color.MediumPurple : Color.LightBlue;
+                dust.fadeIn = 2f;
             }
         }
 
         public override bool PreDraw(ref Color dc)
         {
-            Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/VoidBlade/f" + ((int)Projectile.ai[1]).ToString()).Value;
+            Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Projectiles/VoidBlade/f" + ((int)Projectile.ai[1]).ToString(), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Main.spriteBatch.Draw(tx, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, new Vector2(200, 200), new Vector2(Projectile.scale, Projectile.scale), SpriteEffects.None, 0);
             return false;
         }

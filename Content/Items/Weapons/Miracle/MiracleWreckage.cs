@@ -601,8 +601,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Miracle
                 Color clr = Main.rand.NextBool() ? new Color(240, 240, 255) : new Color(210, 160, 255);
                 EParticle.NewParticle(new ShadeDashParticle() { c1 = clr, c2 = clr, TL = 12 }, target.Center + CEUtils.randomPointInCircle(26),
                     (target.Center - Projectile.Center).normalize().RotatedByRandom(0.2f) * Main.rand.NextFloat(10, 64), Color.White, 1, 1, true, BlendState.NonPremultiplied, 0, 16);
-                ;
-
             }
             EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, new Color(220, 220, 255), 3, 1, true, BlendState.Additive, 0, 6);
             EParticle.spawnNew(new ShineParticle(), target.Center, Vector2.Zero, new Color(255, 255, 255), 1.6f, 1, true, BlendState.Additive, 0, 6);

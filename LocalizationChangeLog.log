@@ -127,3 +127,46 @@
 [Mods.CalamityEntropy.Buffs.TectonicChainBladeWhipDebuff.DisplayName] - added
 [Mods.CalamityEntropy.Buffs.TectonicChainBladeWhipDebuff.Description] - added
 [Mods.CalamityEntropy.Buffs.OathofCommand] - added
+
+
+[3.24-Changes]
+[Mods.CalamityEntropy.Projectiles.RevelationMelee.DisplayName] - removed
+[Mods.CalamityEntropy.Projectiles.ExergySwirlbladeProj.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.Flowery.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.AquaShardWaterBullet.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.Bellbeast.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.ApeirokyklosSpike.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.ApeirokyklosProj.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.RevelationThrow.DisplayName] - removed
+[Mods.CalamityEntropy.Projectiles.WaterBulletSpawner.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.ExergySwirlbladeSaw.DisplayName] - added
+[Mods.CalamityEntropy.WyrmChatCOHalibut2] - removed
+[Mods.CalamityEntropy.WyrmChatCOHalibut1] - removed
+[Mods.CalamityEntropy.BaitCommonTooltip1] - added
+[Mods.CalamityEntropy.DeltaruneCH5ShadowCrystal] - added
+[Mods.CalamityEntropy.WyrmChatCOHalibut3] - removed
+[Mods.CalamityEntropy.BaitCommonTooltip2] - added
+[Mods.CalamityEntropy.Buffs.Deceive.Description] - changed
+[Mods.CalamityEntropy.Buffs.Deceive.ItemTooltip] - added
+[Mods.CalamityEntropy.Buffs.FloweryBuff.DisplayName] - added
+[Mods.CalamityEntropy.Buffs.FloweryBuff.Description] - added
+[Mods.CalamityEntropy.Buffs.BellbeastBuff.DisplayName] - added
+[Mods.CalamityEntropy.Buffs.BellbeastBuff.Description] - added
+[Mods.CalamityEntropy.Items.BellwayBell.DisplayName] - added
+[Mods.CalamityEntropy.Items.BellwayBell.Tooltip] - added
+[Mods.CalamityEntropy.Items.FlowerWithFace.DisplayName] - added
+[Mods.CalamityEntropy.Items.FlowerWithFace.Tooltip] - added
+[Mods.CalamityEntropy.Items.AntlionShell.DisplayName] - added
+[Mods.CalamityEntropy.Items.AntlionShell.Tooltip] - added
+[Mods.CalamityEntropy.Items.Lore.LoreAcropolis.Tooltip] - added
+[Mods.CalamityEntropy.Items.Weapons.Rogue.Apeirokyklos.DisplayName] - added
+[Mods.CalamityEntropy.Items.Weapons.Rogue.Apeirokyklos.Tooltip] - added
+[Mods.CalamityEntropy.Items.Weapons.Rogue.ExergySwirlblade.DisplayName] - added
+[Mods.CalamityEntropy.Items.Weapons.Rogue.ExergySwirlblade.Tooltip] - added
+[Mods.CalamityEntropy.Items.Weapons.Rogue.Aquashard.Tooltip] - changed
+[Mods.CalamityEntropy.NPCs.PrimordialWyrmNPC.DisplayName] - changed
+[Mods.CalamityEntropy.NPCs.PrimordialWyrmNPC.Census.SpawnCondition] - changed
+[Mods.CalamityEntropy.NPCs.PrimordialWyrmNPC.TownNPCMood.DislikeCrowded] - changed
+[Mods.CalamityEntropy.NPCs.PrimordialWyrmNPC.TownNPCMood.FarFromHome] - changed
+[Mods.CalamityEntropy.NPCs.PrimordialWyrmNPC.TownNPCMood.HateCrowded] - changed
+[Mods.CalamityEntropy.NPCs.PrimordialWyrmNPC.TownNPCMood.MonumentNearby] - added

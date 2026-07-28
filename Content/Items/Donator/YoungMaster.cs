@@ -368,7 +368,7 @@ namespace CalamityEntropy.Content.Items.Donator
             float wh = s.X * 0.5f;
             float hh = s.Y * 0.5f;
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.CurrentWantedZoomMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             {
                 wd = 36 * Projectile.scale;
                 List<Vector2> points = new List<Vector2>()

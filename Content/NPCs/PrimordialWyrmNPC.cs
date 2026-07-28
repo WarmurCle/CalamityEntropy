@@ -22,6 +22,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
+using CalamityMod.NPCs;
 
 namespace CalamityEntropy.Content.NPCs
 {
@@ -72,11 +73,6 @@ namespace CalamityEntropy.Content.NPCs
         {
             WeightedRandom<string> chat = new WeightedRandom<string>();
             {
-                if (MaliciousCode.CALAMITY__OVERHAUL && Main.LocalPlayer.HeldItem.type == ModContent.ItemType<HalibutCannon>())
-                {
-                    chat.Add(Mod.GetLocalization("WyrmChatCOHalibut" + Main.rand.Next(1, 4).ToString()).Value);
-                    return chat;
-                }
                 if (Main.rand.NextBool(6))
                 {
                     string dns = "";
@@ -96,6 +92,11 @@ namespace CalamityEntropy.Content.NPCs
                         lc.RemoveAt(d);
                     }
                     chat.Add(Mod.GetLocalization("WyrmChatDonors").Value.Replace("[0]", dns));
+                    return chat;
+                }
+                if(NPC.GetGlobalNPC<CalamityGlobalTownNPC>().AffectedByTheMonument)
+                {
+                    chat.Add(Mod.GetLocalization("PrimordialWyrmNPC.TownNPCMood.MonumentNearby").Value);
                     return chat;
                 }
                 if (!Main.bloodMoon && !Main.eclipse)

@@ -307,7 +307,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             var gd = Main.graphics.GraphicsDevice;
             Texture2D tx = CEUtils.getExtraTex("DeathRay");
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             gd.Textures[0] = tx;
             {
                 List<Vector3> points = new List<Vector3>();
