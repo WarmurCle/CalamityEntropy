@@ -5545,6 +5545,7 @@ NPCs: {
 			HateCrowded: Здесь много людей.
 			LikeNPC_Princess: Мне нравиться {NPCName}.
 			Princess_LovesNPC: Мне нравиться {NPCName}.
+			// MonumentNearby: Where did that ugly monument come from? I don't want to see it anymore.
 		}
 
 		DisplayName: Первозданный змей
@@ -5639,9 +5640,6 @@ WyrmChatBloodMoon2: Может, тебе стоит поспать.
 WyrmChatRain1: Дождь идет, как освежает. Я никогда раньше этого не чувствовал.
 WyrmChatRain2: Дождь удобно выпадает на тело. Это не сравнимо с одной десятитысячной долей давления воды в бездне.
 WyrmChatRain3: Очень освежает, не так ли?
-WyrmChatCOHalibut1: Ты принес мне морепродукты? Подождите. Это...
-WyrmChatCOHalibut2: Могу я попробовать это? Что, нет? Это...
-WyrmChatCOHalibut3: Это что такое, хорошо выглядит, эй, эй. Это...
 loreCruiser:
 	'''
 	Жизнь поглощает энергию для уменьшения энтропии.

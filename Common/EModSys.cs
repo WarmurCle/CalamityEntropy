@@ -355,7 +355,6 @@ namespace CalamityEntropy.Common
                 }
                 Main.spriteBatch.End();
             }
-
         }
         public void DrawForce(Player player, float alpha)
         {
