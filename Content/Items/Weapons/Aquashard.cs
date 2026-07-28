@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 36;
             Item.height = 34;
-            Item.damage = 22;
+            Item.damage = 17;
             Item.ArmorPenetration = 6;
             Item.noMelee = true;
             Item.noUseGraphic = true;
@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shootSpeed = 50f;
             Item.DamageType = CEUtils.RogueDC;
         }
-        public override float StealthDamageMultiplier => 1.2f;
+        public override float StealthDamageMultiplier => 0.8f;
         public override float StealthVelocityMultiplier => 1.2f;
         public override float StealthKnockbackMultiplier => 3f;
 
