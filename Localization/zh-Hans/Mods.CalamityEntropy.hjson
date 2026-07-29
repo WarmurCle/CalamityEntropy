@@ -4587,12 +4587,12 @@ Items: {
 
 	DeliciousAcorn: {
 		DisplayName: 美味橡果
-		Tooltip: 
-		'''
-		{$BaitCommonTooltip1}
-		{$BaitCommonTooltip2}
-		召唤松鼠小队朝目标投掷石子
-		'''
+		Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			召唤松鼠小队朝目标投掷石子
+			'''
 	}
 }
 

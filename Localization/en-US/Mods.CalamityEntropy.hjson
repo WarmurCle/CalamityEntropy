@@ -4529,12 +4529,12 @@ Items: {
 
 	DeliciousAcorn: {
 		DisplayName: Delicious Acorn
-		Tooltip: 
-		'''
-		{$BaitCommonTooltip1}
-		{$BaitCommonTooltip2}
-		Summon the Squirrel Squad to throw stones at the target
-		'''
+		Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			Summon the Squirrel Squad to throw stones at the target
+			'''
 	}
 }
 

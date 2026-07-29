@@ -127,7 +127,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     Vector2 randomPos = Projectile.Center + new Vector2(Main.rand.NextFloat(-260, 360) * (Main.rand.NextBool() ? 1 : -1), 0);
                     if (CEUtils.isAir(randomPos, true))
                     {
-                        for (int c = 0; c < 80; c++)
+                        for (int c = 0; c < 260; c++)
                         {
                             randomPos.Y += 8;
                             if (CEUtils.HasTile(randomPos, true))
@@ -141,7 +141,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     else
                     {
 
-                        for (int c = 0; c < 80; c++)
+                        for (int c = 0; c < 120; c++)
                         {
                             randomPos.Y -= 8;
                             if (CEUtils.isAir(randomPos, true))
@@ -257,16 +257,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     }
                     if(Projectile.velocity.Y == 0)
                     {
-                        Vector2 velj = CEUtils.CalculateSourceVel(Projectile.Center, acornPos, 46, 0.9f);
+                        Vector2 velj = CEUtils.CalculateSourceVel(Projectile.Center, acornPos, 38, 1f);
                         Projectile.velocity = velj;
                         GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.SandyBrown, "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, Projectile.scale * 0.36f, 13));
                         SoundEngine.PlaySound(SoundID.Item56 with { Volume = 1f, Pitch = Main.rand.NextFloat(-0.4f, 0.4f) }, Projectile.Center);
                     }
                     if(Jump-- <= 0)
                     {
-                        Projectile.velocity.Y += 0.9f;
+                        Projectile.velocity.Y += 1f;
                     }
-                    if(Projectile.getRect().Intersects(acorn.Center.getRectCentered(64, 64)))
+                    if(Projectile.getRect().Intersects(acorn.Center.getRectCentered(72, 72)))
                     {
                         acorn.Kill();
                         GrabedArcon = true;
@@ -315,7 +315,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             {
                 SpawnTime--;
                 Projectile.velocity = new Vector2(0, -8);
-                if (!CEUtils.CheckSolidTileOrPlatform(Projectile.getRect()))
+                if (SpawnTime < 20 && !CEUtils.CheckSolidTileOrPlatform(Projectile.getRect()))
                 {
                     SpawnTime = 0;
                     Projectile.tileCollide = false;
@@ -366,6 +366,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     }
                     if (ShootDelay > 0 || CEUtils.getDistance(Projectile.Center, target.Center) > 600)
                     {
+                        if(target.Center.Y < Projectile.Center.Y - 460)
+                        {
+                            if (Projectile.velocity.Y == 0)
+                            {
+                                Projectile.velocity = (target.Center - Projectile.Center).normalize() * 30;
+                                GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.SandyBrown, "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, Projectile.scale * 0.36f, 13));
+                                SoundEngine.PlaySound(SoundID.Item56 with { Volume = 1f, Pitch = Main.rand.NextFloat(-0.4f, 0.4f) }, Projectile.Center);
+                            }
+                        }
                         if (ShootFrame == -1 && Math.Abs(Projectile.Center.X - target.Center.X) > 400)
                         {
                             Projectile.velocity.X += Math.Sign(target.Center.X - Projectile.Center.X) * 0.75f;
@@ -418,6 +427,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             return false;
+        }
+        
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            NPC target = Projectile.FindMinionTarget();
+            fallThrough = target.Center.Y > Projectile.Center.Y + 100;
+            return true;
         }
         public override bool PreDraw(ref Color lightColor)
         {
