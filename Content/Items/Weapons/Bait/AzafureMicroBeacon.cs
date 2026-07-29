@@ -281,7 +281,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Projectile.width = 8;
             Projectile.height = 8;
             Projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.penetrate = 1;
             Projectile.timeLeft = 300;
             Projectile.usesLocalNPCImmunity = true;

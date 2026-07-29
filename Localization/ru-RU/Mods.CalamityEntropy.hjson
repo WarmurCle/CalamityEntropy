@@ -5064,6 +5064,7 @@ Projectiles: {
 	// BeaconDroneShoot.DisplayName: Beacon Drone Shoot
 	// DeliciousAcornProjectile.DisplayName: Delicious Acorn Projectile
 	// SquirrerMinion.DisplayName: Squirrer Minion
+	// SquirrelStone.DisplayName: Squirrel Stone
 }
 
 LegendTooltip: - Легенда -

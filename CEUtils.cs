@@ -28,6 +28,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CalamityEntropy
 {
@@ -87,6 +88,14 @@ namespace CalamityEntropy
     }
     public static class CEUtils
     {
+        public static Vector2 CalculateSourceVel(Vector2 shootPos, Vector2 target, int frame, float gravity)
+        {
+            Vector2 displacement = target - shootPos;
+            Vector2 velocity = new Vector2();
+            velocity.X = displacement.X / frame;
+            velocity.Y = (displacement.Y - 0.5f * gravity * frame * frame) / frame;
+            return velocity;
+        }
         public static Color Mult(this Color c1, Color c2)
         {
             return new Color((byte)(((c1.R / 255f) * (c2.R / 255f)) * 255), (byte)(((c1.G / 255f) * (c2.G / 255f)) * 255), (byte)(((c1.B / 255f) * (c2.B / 255f)) * 255), (byte)(((c1.A / 255f) * (c2.A / 255f)) * 255));
@@ -1393,6 +1402,10 @@ namespace CalamityEntropy
         public static bool isAir(int i, int j, bool plat = false)
         {
             return isAir(new Vector2(i * 16, j * 16), plat);
+        }
+        public static bool HasTile(Vector2 dp, bool containsPlatform)
+        {
+            return !isAir(dp, containsPlatform);
         }
         public static bool isAir(Vector2 dp, bool platBlock = false)
         {

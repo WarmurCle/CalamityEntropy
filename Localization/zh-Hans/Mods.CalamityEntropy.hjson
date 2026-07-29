@@ -4586,12 +4586,17 @@ Items: {
 	}
 
 	DeliciousAcorn: {
-		// DisplayName: Delicious Acorn
-		// Tooltip: ""
+		DisplayName: 美味橡果
+		Tooltip: 
+		'''
+		{$BaitCommonTooltip1}
+		{$BaitCommonTooltip2}
+		召唤松鼠朝目标丢石子
+		'''
 	}
 }
 
-BaitCommonTooltip1: 手持时装填，只能在装填完成时使用
+BaitCommonTooltip1: 手持时充能，只能在装填完成时充能
 BaitCommonTooltip2: 丢出一个命中敌人后会黏住的诱饵，并使仆从对其增加{0}点标记伤害
 SmolderingSetBonus:
 	'''
@@ -5367,6 +5372,7 @@ Projectiles: {
 	BeaconDroneShoot.DisplayName: 突击无人机子弹
 	// DeliciousAcornProjectile.DisplayName: Delicious Acorn Projectile
 	// SquirrerMinion.DisplayName: Squirrer Minion
+	// SquirrelStone.DisplayName: Squirrel Stone
 }
 
 LegendTooltip: - 传奇物品 -
