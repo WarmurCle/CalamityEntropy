@@ -124,7 +124,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                 for (int i = 0; i < 3; i++)
                 {
                     bool f = false;
-                    Vector2 randomPos = Projectile.Center + new Vector2(Main.rand.NextFloat(-260, 360) * (Main.rand.NextBool() ? 1 : -1), 0);
+                    Vector2 randomPos = Projectile.Center + new Vector2(Main.rand.NextFloat(300, 400) * (Main.rand.NextBool() ? 1 : -1), 0);
                     if (CEUtils.isAir(randomPos, true))
                     {
                         for (int c = 0; c < 160; c++)
