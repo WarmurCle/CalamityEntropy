@@ -400,7 +400,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                         ShootCount--;
                         ShootFrame = 0;
                         Projectile.frameCounter = 0;
-                        ShootDelay = 50;
+                        ShootDelay = 20;
                         if(Main.myPlayer == Projectile.owner)
                         {
                             Vector2 targetPos = target.Center;
