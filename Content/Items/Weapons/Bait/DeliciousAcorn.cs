@@ -174,7 +174,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Projectile.velocity *= 0;
             StickNPC = target.whoAmI;
             StickOffset = Projectile.Center - target.Center;
-            Projectile.timeLeft = 1200;
+            Projectile.timeLeft = 780;
             CEUtils.SyncProj(Projectile.whoAmI);
         }
         public void OnHitEffect(Vector2 pos)
