@@ -87,6 +87,10 @@ namespace CalamityEntropy
     }
     public static class CEUtils
     {
+        public static Color Mult(this Color c1, Color c2)
+        {
+            return new Color((byte)(((c1.R / 255f) * (c2.R / 255f)) * 255), (byte)(((c1.G / 255f) * (c2.G / 255f)) * 255), (byte)(((c1.B / 255f) * (c2.B / 255f)) * 255), (byte)(((c1.A / 255f) * (c2.A / 255f)) * 255));
+        }
         public static Color GetLight(Vector2 pos) => Lighting.GetColor((pos / 16).ToPoint());
         public static string ItemTexPath<T>() where T : ModItem
         {

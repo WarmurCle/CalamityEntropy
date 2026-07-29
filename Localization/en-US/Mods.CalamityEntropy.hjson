@@ -588,7 +588,7 @@ Items: {
 
 	WingsOfHush: {
 		DisplayName: Wings of Hush
-		Tooltip: "Fires a piercing void laser alongside four smaller [ceeffect/cruiser:voidbeams] that all inflict [cebuff:CalamityEntropy/VoidTouch]"
+		Tooltip: Fires a piercing void laser alongside four smaller [ceeffect/cruiser:voidbeams] that all inflict [cebuff:CalamityEntropy/VoidTouch]
 	}
 
 	SoyMilk: {
@@ -6061,6 +6061,11 @@ Configs: {
 		EnableRetroLighting: {
 			Label: Allow Retro Lighting and allow zero wave quality
 			Tooltip: If you still want use retro light mode, set this to true. Ensure the Enable Pixel Effect option closed to show UI correct
+		}
+
+		CalamityTextEffectCompatibilityFix: {
+			Label: Calamity Text Effect Compatibility Fix
+			Tooltip: ""
 		}
 	}
 

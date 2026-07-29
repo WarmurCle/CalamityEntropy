@@ -562,7 +562,7 @@ Items: {
 
 	WingsOfHush: {
 		DisplayName: 虚寂之翼
-		Tooltip: "射出强力的[ceeffect/cruiser:虚空镭射]和4发[ceeffect/cruiser:虚空矢]"
+		Tooltip: 射出强力的[ceeffect/cruiser:虚空镭射]和4发[ceeffect/cruiser:虚空矢]
 	}
 
 	SoyMilk: {
@@ -6152,6 +6152,11 @@ Configs: {
 				关闭此选项将会关闭[启用绚丽特效]选项，由于Bug，在这些模式下UI不会正常显示
 				[c/FF0000:警告：开启复古照明模式或关闭水波会导致某些特效、射弹或NPC无法正常绘制进而影响游戏体验]
 				'''
+		}
+
+		CalamityTextEffectCompatibilityFix: {
+			Label: 灾厄文字特效兼容性修复
+			Tooltip: "更改部分可能导致兼容性问题的灾厄特殊稀有度文字特效的绘制逻辑（如鼠标悬停在物品上导致黑屏），视效完全相同但是兼容性更好"
 		}
 	}
 

@@ -5859,6 +5859,11 @@ Configs: {
 				[c/FF0000: Предупреждение: Включение режима ретро - освещения или выключение волн может привести к тому, что некоторые спецэффекты, снаряды или NPC не будут должным образом нарисованы, что повлияет на игровой опыт]
 				'''
 		}
+
+		CalamityTextEffectCompatibilityFix: {
+			// Label: Calamity Text Effect Compatibility Fix
+			// Tooltip: ""
+		}
 	}
 
 	ServerConfig: {
