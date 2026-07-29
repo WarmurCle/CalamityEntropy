@@ -4584,6 +4584,11 @@ Items: {
 			呼叫突击无人机群扫射目标
 			'''
 	}
+
+	DeliciousAcorn: {
+		// DisplayName: Delicious Acorn
+		// Tooltip: ""
+	}
 }
 
 BaitCommonTooltip1: 手持时装填，只能在装填完成时使用
@@ -5360,6 +5365,8 @@ Projectiles: {
 	AzafureAssaultDrone.DisplayName: 阿萨福勒突击无人机
 	AzafureMicroBeaconProjectile.DisplayName: 阿萨福勒微型信标
 	BeaconDroneShoot.DisplayName: 突击无人机子弹
+	// DeliciousAcornProjectile.DisplayName: Delicious Acorn Projectile
+	// SquirrerMinion.DisplayName: Squirrer Minion
 }
 
 LegendTooltip: - 传奇物品 -
@@ -6156,7 +6163,7 @@ Configs: {
 
 		CalamityTextEffectCompatibilityFix: {
 			Label: 灾厄文字特效兼容性修复
-			Tooltip: "更改部分可能导致兼容性问题的灾厄特殊稀有度文字特效的绘制逻辑（如鼠标悬停在物品上导致黑屏），视效完全相同但是兼容性更好"
+			Tooltip: 更改部分可能导致兼容性问题的灾厄特殊稀有度文字特效的绘制逻辑（如鼠标悬停在物品上导致黑屏），视效完全相同但是兼容性更好
 		}
 	}
 

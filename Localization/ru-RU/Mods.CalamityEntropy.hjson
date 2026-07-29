@@ -4270,6 +4270,11 @@ Items: {
 			Call in a strike drone swarm to strafe the target
 			''' */
 	}
+
+	DeliciousAcorn: {
+		// DisplayName: Delicious Acorn
+		// Tooltip: ""
+	}
 }
 
 // BaitCommonTooltip1: Charge when held. Usable when fully charged
@@ -5057,6 +5062,8 @@ Projectiles: {
 	// AzafureAssaultDrone.DisplayName: Azafure Assault Drone
 	// AzafureMicroBeaconProjectile.DisplayName: Azafure Micro Beacon Projectile
 	// BeaconDroneShoot.DisplayName: Beacon Drone Shoot
+	// DeliciousAcornProjectile.DisplayName: Delicious Acorn Projectile
+	// SquirrerMinion.DisplayName: Squirrer Minion
 }
 
 LegendTooltip: - Легенда -

@@ -38,6 +38,8 @@ namespace CalamityEntropy.Core.ChatTags
         public override bool UniqueDraw(bool justCheckingString, out Vector2 size, SpriteBatch spriteBatch, Vector2 position = new Vector2(), Color color = new Color(), float scale = 1)
         {
             size = new Vector2(GetStringLength(FontAssets.MouseText.Value), FontAssets.MouseText.Value.MeasureString(" ").Y * scale);
+            if (position == Vector2.Zero)
+                return true;
             Vector2 line = position + new Vector2(2 * Scale, 0);
             var font = FontAssets.MouseText.Value;
             Vector2 origin = font.MeasureString(text) * new Vector2(1, 0.6f) * 0.5f;
