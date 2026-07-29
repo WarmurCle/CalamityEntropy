@@ -261,7 +261,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     }
                     if(Projectile.velocity.Y == 0)
                     {
-                        Vector2 velj = CEUtils.CalculateSourceVel(Projectile.Center, acornPos, 38, 1f);
+                        Vector2 velj = CEUtils.CalculateSourceVel(Projectile.Center, acornPos, int.Clamp((int)(Projectile.Distance(acornPos) / 20f), 6, 60), 1f);
                         Projectile.velocity = velj;
                         GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.SandyBrown, "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, Projectile.scale * 0.36f, 13));
                         SoundEngine.PlaySound(SoundID.Item56 with { Volume = 1f, Pitch = Main.rand.NextFloat(-0.4f, 0.4f) }, Projectile.Center);
@@ -331,11 +331,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             if(ShootFrame >= 0)
             {
                 Projectile.frameCounter++;
-                if(Projectile.frameCounter > 3)
+                if(Projectile.frameCounter > 1)
                 {
                     Projectile.frameCounter = 0;
                     ShootFrame++;
-                    if (ShootFrame > 1)
+                    if (ShootFrame > 3)
                         ShootFrame = -1;
                 }
             }
@@ -346,7 +346,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                 {
                     Projectile.frameCounter = 0;
                     Frame++;
-                    if (Frame > 2)
+                    if (Frame > 3)
                         Frame = 0;
                 }
             }

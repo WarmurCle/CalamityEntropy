@@ -5959,8 +5959,8 @@ Keybinds: {
 	VetrasylsEyeBlock.DisplayName: Vetrasyls Eye Block
 	RuneDash.DisplayName: Rune Wings Dash
 	CommandMinions.DisplayName: Command Minions
-	NihilityAndChaoticArmorConnectKey.DisplayName: Nihility And Chaotic Armor Connect Key
-	AcropolisMechTransformation.DisplayName: Mods.CalamityEntropy.Keybinds.AcropolisMechTransformation.DisplayName
+	NihilityAndChaoticArmorConnectKey.DisplayName: "Nihility & Chaotic Armor Connect Key"
+	AcropolisMechTransformation.DisplayName: Acropolis Mecha Transformation
 }
 
 ProphetLoreEffect:
