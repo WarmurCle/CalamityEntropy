@@ -173,7 +173,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Projectile.velocity *= 0;
             StickNPC = target.whoAmI;
             StickOffset = Projectile.Center - target.Center;
-            Projectile.timeLeft = 1800;
+            Projectile.timeLeft = 1600;
             CEUtils.SyncProj(Projectile.whoAmI);
         }
         public void OnHitEffect(Vector2 pos)
@@ -202,8 +202,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(DamageClass.Summon, false, -1);
-            Projectile.Opacity = 0;
-            Projectile.timeLeft = 1600;
+            Projectile.timeLeft = 2200;
             Projectile.width = Projectile.height = 32;
         }
         public int SpawnTime = 30;
@@ -219,7 +218,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public bool GrabedArcon = false;
         public override void AI()
         {
+            if(Counter == 0)
+                Projectile.Opacity = 0;
             Counter++;
+
+            NPC target = Projectile.FindMinionTarget();
+            dir = (Math.Sign(target.Center.X - Projectile.Center.X));
             if (Projectile.velocity.X > 0.1f)
                 dir = 1;
             if (Projectile.velocity.X < -0.1f)
@@ -245,7 +249,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                             acornPos = p.Center;
                         }
                     }
-                    if(Counter2++ > 240 || acornPos.Distance(Projectile.Center) > 2000 || acorn == null || GrabedArcon)
+                    if(Counter2++ > 600 || acornPos.Distance(Projectile.Center) > 3000 || acorn == null || GrabedArcon || Projectile.timeLeft < 60)
                     {
                         Projectile.ai[2] = 0;
                         return;
@@ -254,12 +258,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     {
                         Vector2 velj = CEUtils.CalculateSourceVel(Projectile.Center, acornPos, 46, 0.9f);
                         Projectile.velocity = velj;
+                        GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.SandyBrown, "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, Projectile.scale * 0.36f, 13));
+                        SoundEngine.PlaySound(SoundID.Item56 with { Volume = 1f, Pitch = Main.rand.NextFloat(-0.4f, 0.4f) }, Projectile.Center);
                     }
                     if(Jump-- <= 0)
                     {
                         Projectile.velocity.Y += 0.9f;
                     }
-                    if(Projectile.getRect().Intersects(acorn.getRect()))
+                    if(Projectile.getRect().Intersects(acorn.Center.getRectCentered(64, 64)))
                     {
                         acorn.Kill();
                         GrabedArcon = true;
@@ -294,14 +300,17 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                         }
                     }
                     Leaving++;
-                    Projectile.Opacity -= 0.1f;
+                    Projectile.Opacity -= 0.05f;
                     Projectile.tileCollide = false;
                     Projectile.velocity.Y = 8;
                     if (Leaving > 10)
                         Projectile.Kill();
                 }
             }
-            if(SpawnTime > 0)
+            if(Leaving == 0)
+                if (Projectile.Opacity < 1)
+                    Projectile.Opacity += 0.05f;
+            if (SpawnTime > 0)
             {
                 SpawnTime--;
                 Projectile.velocity = new Vector2(0, -8);
@@ -312,8 +321,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                 }
                 if (SpawnTime <= 0)
                     Projectile.tileCollide = true;
-                if (Projectile.Opacity < 1)
-                    Projectile.Opacity += 0.1f;
             }
             if(ShootFrame >= 0)
             {
@@ -337,7 +344,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                         Frame = 0;
                 }
             }
-            NPC target = Projectile.FindMinionTarget();
             ShootDelay--;
             if (Projectile.velocity.Y == 0)
                 Projectile.velocity.X *= 0.94f;
@@ -346,7 +352,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             if (SpawnTime <= 0)
             {
                 Projectile.pushByOther(0.8f);
-                if ((target == null && Counter > 60 || ShootCount <= 0) && ShootFrame == -1)
+                if (((target == null && Counter > 60) || ShootCount <= 0) && ShootFrame == -1 && Projectile.velocity.Y == 0)
                 {
                     Leaving = 1;
                     return;
@@ -361,12 +367,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     {
                         if (ShootFrame == -1 && Math.Abs(Projectile.Center.X - target.Center.X) > 400)
                         {
-                            Projectile.velocity.X += Math.Sign(target.Center.X - Projectile.Center.X) * 0.65f;
+                            Projectile.velocity.X += Math.Sign(target.Center.X - Projectile.Center.X) * 0.75f;
                             if (CEUtils.CheckSolidTile((Projectile.Center + Projectile.velocity * 2).getRectCentered(Projectile.width, Projectile.height * 0.75f)))
                             {
                                 if (Projectile.velocity.Y == 0)
                                 {
                                     Projectile.velocity.Y = -18;
+
+                                    GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.SandyBrown, "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, Projectile.scale * 0.36f, 13));
+                                    SoundEngine.PlaySound(SoundID.Item56 with { Volume = 1f, Pitch = Main.rand.NextFloat(-0.4f, 0.4f) }, Projectile.Center);
                                 }
                             }
                         }
@@ -386,11 +395,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                         {
                             Vector2 targetPos = target.Center;
                             Vector2 myPos = Projectile.Center;
-                            Vector2 vel = CEUtils.CalculateSourceVel(myPos, targetPos, 80, SquirrelStone.Gravity);
+                            Vector2 vel = CEUtils.CalculateSourceVel(myPos, targetPos, 100, SquirrelStone.Gravity);
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, vel, ModContent.ProjectileType<SquirrelStone>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         }
                         dir = (target.Center.X > Projectile.Center.X) ? 1 : -1;
-                        Projectile.velocity.X *= 0f;
                     }
                 }
             }
@@ -415,11 +423,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             SpriteEffects se = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             Texture2D tex = ShootFrame >= 0 ? this.getTextureAlt("Throw") : Projectile.GetTexture();
             Rectangle frame = CEUtils.GetCutTexRect(tex, 4, ShootFrame >= 0 ? ShootFrame : Frame, false);
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, frame, lightColor, Projectile.rotation, frame.Size() * 0.5f, Projectile.scale, se, 0);
+            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, frame, lightColor * Projectile.Opacity, Projectile.rotation, frame.Size() * 0.5f, Projectile.scale, se, 0);
             if(GrabedArcon)
             {
                 Texture2D arcon = CEUtils.RequestTex(CEUtils.ItemTexPath<DeliciousAcorn>());
-                Main.EntitySpriteDraw(arcon, Projectile.Center - Main.screenPosition, null, lightColor, 0, arcon.Size() * 0.5f, 1, SpriteEffects.None);
+                Main.EntitySpriteDraw(arcon, Projectile.Center - Main.screenPosition, null, lightColor * Projectile.Opacity, 0, arcon.Size() * 0.5f, 1, SpriteEffects.None);
             }
             return false;
         }
@@ -443,7 +451,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Projectile.extraUpdates = 4;
             Projectile.tileCollide = true;
         }
-        public static float Gravity = 0.4f;
+        public static float Gravity = 0.2f;
         public List<Vector2> oldPos = new List<Vector2>();
         public override void AI()
         {
@@ -455,7 +463,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             }
             Projectile.velocity.Y += Gravity;
             oldPos.Add(Projectile.Center);
-            if (oldPos.Count > 20)
+            if (oldPos.Count > 22)
                 oldPos.RemoveAt(0);
         }
         public override void OnKill(int timeLeft)
@@ -478,10 +486,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             for(int i = 0; i < oldPos.Count; i++)
             {
                 float p = (i + 1f) / oldPos.Count;
-                Main.spriteBatch.Draw(tex, oldPos[i] - Main.screenPosition, null, Color.White * 0.2f * p, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(tex, oldPos[i] - Main.screenPosition, null, Color.White * p, Projectile.rotation, tex.Size() * 0.5f, Projectile.scale * p, SpriteEffects.None, 0);
             }
-            Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
             Main.spriteBatch.ExitShaderRegion();
+            Main.EntitySpriteDraw(Projectile.getDrawData(lightColor));
             return false;
         }
     }
