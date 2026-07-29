@@ -161,7 +161,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Projectile.velocity *= 0;
             StickNPC = target.whoAmI;
             StickOffset = Projectile.Center - target.Center;
-            Projectile.timeLeft = 360;
+            Projectile.timeLeft = 480;
             target.AddBuff<MechanicalTrauma>(260);
             CEUtils.SyncProj(Projectile.whoAmI);
         }

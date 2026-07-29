@@ -151,7 +151,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Projectile.velocity *= 0;
             StickNPC = target.whoAmI;
             StickOffset = Projectile.Center - target.Center;
-            Projectile.timeLeft = 360;
+            Projectile.timeLeft = 480;
             CEUtils.SyncProj(Projectile.whoAmI);
         }
         public void OnHitEffect(Vector2 pos)
@@ -259,7 +259,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     {
                         if(p.ModProjectile != null && p.ModProjectile is BaitProj ibp)
                         {
-                            if (!ibp.IsActive)
+                            if (!ibp.IsActive && ibp.StickNPC == player.MinionAttackTargetNPC)
                                 p.Kill();
                         }
                     }

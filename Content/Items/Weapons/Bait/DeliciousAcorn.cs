@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -154,7 +155,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     }
                     if (!f)
                         randomPos = Projectile.Center + new Vector2(0, 200);
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), randomPos, Vector2.Zero, ModContent.ProjectileType<SquirrerMinion>(), (int)(Projectile.damage * damageMul), Projectile.knockBack, Projectile.owner, 0, 0, i == 0 ? 0 : 1);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), randomPos, Vector2.Zero, ModContent.ProjectileType<SquirrerMinion>(), (int)(Projectile.damage * damageMul), Projectile.knockBack, Projectile.owner, 0, 0, i == 0 ? 1 : 0);
                 }
             }
         }
@@ -203,7 +204,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public override void SetDefaults()
         {
             Projectile.FriendlySetDefaults(DamageClass.Summon, false, -1);
-            Projectile.timeLeft = 2200;
+            Projectile.timeLeft = 2400;
             Projectile.width = Projectile.height = 32;
         }
         public int SpawnTime = 30;
@@ -217,6 +218,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public int Jump = 0;
         public int Counter2 = 0;
         public bool GrabedArcon = false;
+        public int AcornProjType = 0;
         public override void AI()
         {
             if(Counter == 0)
@@ -245,7 +247,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     Projectile acorn = null;
                     foreach(Projectile p in Main.ActiveProjectiles)
                     {
-                        if(p.ModProjectile != null && p.ModProjectile is BaitProj)
+                        if(p.ModProjectile != null && p.ModProjectile is BaitProj bp && !bp.IsActive)
                         {
                             acorn = p;
                             acornPos = p.Center;
@@ -254,6 +256,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     if(Counter2++ > 1800 || acornPos.Distance(Projectile.Center) > 3000 || acorn == null || GrabedArcon || Projectile.timeLeft < 60)
                     {
                         Projectile.ai[2] = 0;
+                        Leaving = 0;
                         return;
                     }
                     if(Projectile.velocity.Y == 0)
@@ -272,6 +275,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                         acorn.Kill();
                         GrabedArcon = true;
                         Counter2 = 0;
+                        AcornProjType = acorn.type;
                     }
                     if(Projectile.velocity.Y != 0)
                     {
@@ -354,10 +358,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             if (SpawnTime <= 0)
             {
                 Projectile.pushByOther(0.8f);
-                if (((target == null && Counter > 60) || ShootCount <= 0) && ShootFrame == -1 && Projectile.velocity.Y == 0)
+                if (((target == null && Counter > 60) || ShootCount <= 0) && ShootFrame == -1)
                 {
-                    Leaving = 1;
-                    return;
+                    if (Projectile.velocity.Y == 0)
+                    {
+                        Leaving = 1;
+                        return;
+                    }
                 }
                 if (target != null)
                 {
@@ -445,7 +452,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, frame, lightColor * Projectile.Opacity, Projectile.rotation, frame.Size() * 0.5f, Projectile.scale, se, 0);
             if(GrabedArcon)
             {
-                Texture2D arcon = CEUtils.RequestTex(CEUtils.ItemTexPath<DeliciousAcorn>());
+                Texture2D arcon = TextureAssets.Projectile[AcornProjType].Value;
                 Main.EntitySpriteDraw(arcon, Projectile.Center - Main.screenPosition, null, lightColor * Projectile.Opacity, 0, arcon.Size() * 0.5f, 1, SpriteEffects.None);
             }
             return false;
