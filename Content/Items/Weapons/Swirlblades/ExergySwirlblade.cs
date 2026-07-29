@@ -165,7 +165,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             if(BladeScale >= 0.2f)
             {
                 float particleRot = CEUtils.randomRot();
-                GeneralParticleHandler.SpawnParticle(new AltLineParticle(Projectile.Center + particleRot.ToRotationVector2() * Radius, particleRot.ToRotationVector2().RotatedBy(-1.86f) * Main.rand.NextFloat(12, 18), false, Main.rand.Next(12, 16), Main.rand.NextFloat(0.6f, 1f) * 2.2f, (Main.rand.NextBool() ? Color.Black : Color.LightGreen) * BladeScale));
+                GeneralParticleHandler.SpawnParticle(new AltLineParticle(Projectile.Center + particleRot.ToRotationVector2() * Radius * BladeScale * Projectile.scale, particleRot.ToRotationVector2().RotatedBy(-1.86f) * Main.rand.NextFloat(12, 18), false, Main.rand.Next(12, 16), Main.rand.NextFloat(0.6f, 1f) * 2.2f * BladeScale * Projectile.scale, (Main.rand.NextBool() ? Color.Black : Color.LightGreen) * BladeScale));
             }
             NPC stickNpc = null;
             if(Stick >= 0)

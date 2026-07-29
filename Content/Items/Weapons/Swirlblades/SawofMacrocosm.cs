@@ -97,7 +97,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
             if (BladeScale >= 0.2f)
             {
                 float particleRot = CEUtils.randomRot();
-                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + particleRot.ToRotationVector2() * Radius, particleRot.ToRotationVector2().RotatedBy(-1.86f) * Main.rand.NextFloat(12, 18), false, Main.rand.Next(12, 16), Main.rand.NextFloat(0.6f, 1f) * 0.06f, (Main.rand.NextBool() ? Color.MediumPurple : new Color(80, 80, 255)) * BladeScale, new Vector2(0.22f, 1f), false, false));
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center + particleRot.ToRotationVector2() * Radius * BladeScale * Projectile.scale, particleRot.ToRotationVector2().RotatedBy(-1.86f) * Main.rand.NextFloat(12, 18), false, Main.rand.Next(12, 16), Main.rand.NextFloat(0.6f, 1f) * 0.06f * BladeScale * Projectile.scale, (Main.rand.NextBool() ? Color.MediumPurple : new Color(80, 80, 255)) * BladeScale, new Vector2(0.22f, 1f), false, false));
             }
             CEUtils.AddLight(Projectile.Center, new Color(255, 100, 255));
 
