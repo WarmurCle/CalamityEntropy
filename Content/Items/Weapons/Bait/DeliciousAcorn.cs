@@ -154,7 +154,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     }
                     if (!f)
                         randomPos = Projectile.Center + new Vector2(0, 200);
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), randomPos, Vector2.Zero, ModContent.ProjectileType<SquirrerMinion>(), (int)(Projectile.damage * damageMul), Projectile.knockBack, Projectile.owner, 0, 0, i == 0 ? 1 : 0);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), randomPos, Vector2.Zero, ModContent.ProjectileType<SquirrerMinion>(), (int)(Projectile.damage * damageMul), Projectile.knockBack, Projectile.owner, 0, 0, i == 0 ? 0 : 1);
                 }
             }
         }
