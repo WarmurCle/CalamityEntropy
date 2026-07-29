@@ -169,6 +169,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            Projectile.tileCollide = false;
             OnHitEffect(Projectile.Center);
             Projectile.velocity *= 0;
             StickNPC = target.whoAmI;
@@ -249,7 +250,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                             acornPos = p.Center;
                         }
                     }
-                    if(Counter2++ > 600 || acornPos.Distance(Projectile.Center) > 3000 || acorn == null || GrabedArcon || Projectile.timeLeft < 60)
+                    if(Counter2++ > 1800 || acornPos.Distance(Projectile.Center) > 3000 || acorn == null || GrabedArcon || Projectile.timeLeft < 60)
                     {
                         Projectile.ai[2] = 0;
                         return;

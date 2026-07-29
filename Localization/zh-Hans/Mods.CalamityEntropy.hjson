@@ -4591,7 +4591,7 @@ Items: {
 		'''
 		{$BaitCommonTooltip1}
 		{$BaitCommonTooltip2}
-		召唤松鼠朝目标丢石子
+		召唤松鼠小队朝目标投掷石子
 		'''
 	}
 }

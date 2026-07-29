@@ -146,6 +146,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            Projectile.tileCollide = false;
             OnHitEffect(Projectile.Center);
             Projectile.velocity *= 0;
             StickNPC = target.whoAmI;

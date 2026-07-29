@@ -154,6 +154,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            Projectile.tileCollide = false;
             OnHitEffect(Projectile.Center); 
             SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/WulfrumPing"), target.Center);
             SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/WulfrumProsthesisSucc") with { Volume = 0.34f}, target.Center);
