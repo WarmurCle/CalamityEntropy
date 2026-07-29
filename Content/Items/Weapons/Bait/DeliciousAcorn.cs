@@ -224,7 +224,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Counter++;
 
             NPC target = Projectile.FindMinionTarget();
-            dir = (Math.Sign(target.Center.X - Projectile.Center.X));
+            if(target != null)
+                dir = (Math.Sign(target.Center.X - Projectile.Center.X));
             if (Projectile.velocity.X > 0.1f)
                 dir = 1;
             if (Projectile.velocity.X < -0.1f)
@@ -432,7 +433,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             NPC target = Projectile.FindMinionTarget();
-            fallThrough = target.Center.Y > Projectile.Center.Y + 100;
+            if(target != null)
+                fallThrough = target.Center.Y > Projectile.Center.Y + 100;
             return true;
         }
         public override bool PreDraw(ref Color lightColor)
