@@ -1084,7 +1084,6 @@ namespace CalamityEntropy.Common
                     var font = FontAssets.MouseText.Value;
                     Texture2D glow = CEUtils.getExtraTex("Glow");
                     Main.spriteBatch.UseBlendState_UI(BlendState.Additive);
-                    Main.spriteBatch.UseBlendState_UI(BlendState.Additive);
                     Vector2 origin = font.MeasureString(line.Text) * new Vector2(1, 0.6f) * 0.5f;
                     Main.spriteBatch.Draw(glow, new Vector2(line.X, line.Y) + origin, null, Color.AliceBlue * 0.6f, 0, glow.Size() * 0.5f, origin * 0.02f * new Vector2(1, 0.6f), SpriteEffects.None, 0);
                     Main.spriteBatch.UseBlendState_UI(BlendState.AlphaBlend);

@@ -24,9 +24,9 @@ Items: {
 			Silence: {
 				DisplayName: Silence
 				Tooltip:
-					'''
-					[c/9387ff:Throw a void-chained frisbee that pulls itself back to enemies on hit after a short delay before exploding on impact]
-					[c/9387ff:Stealth strikes cause the frisbee to stick to the hit enemy once chained, creating a void vortex that rapidly damages in a large area]
+					'
+					Throw a [ceeffect/cruiser:void-chained frisbee] that pulls itself back to enemies on hit after a short delay before exploding on impact]
+					Stealth strikes cause the frisbee to stick to the hit enemy once chained, creating a [ceeffect/cruiser:void vortex] that rapidly damages in a large area]
 					'''
 			}
 
@@ -349,13 +349,13 @@ Items: {
 		DisplayName: Void Relics
 		Tooltip:
 			'''
-			[c/9387ff:Summon a Voidgaze Eye and an array of runes around yourself]
-			[c/9387ff:Runes automatically fire homing voisen bolts at nearby enemies and also damage enemies they touch, inflicting ][cebuff:CalamityEntropy/VoidTouch]
-			[c/9387ff:Left Click while the eye and runes are summoned to gather runes in front of you and rapidly fire voisen bolts toward the cursor]
-			[c/9387ff:Releasing Left Click or holding for over 6 seconds reverts runes to their passive state]
-			[c/9387ff:Runes can be gathered for concentrated fire on up to a 36 second cooldown time based on how long it was held for]
-			[c/9387ff:During cooldown, runes gain 15% increased attack speed]
-			[c/9387ff:There can only be one set of void relics at a time]
+			Summon a [ceeffect/cruiser:Voidgaze Eye] and an array of [ceeffect/cruiser:Voidborn Runes] around yourself
+			Runes automatically fire homing [ceeffect/cruiser:voisen bolts] at nearby enemies and also damage enemies they touch, inflicting [cebuff:CalamityEntropy/VoidTouch]
+			Left Click while the eye and runes are summoned to gather runes in front of you and rapidly fire [ceeffect/cruiser:voisen bolts] toward the cursor
+			Releasing Left Click or holding for over 6 seconds reverts runes to their passive state
+			Runes can be gathered for concentrated fire on up to a 36 second cooldown time based on how long it was held for
+			During cooldown, runes gain 15% increased attack speed
+			There can only be one set of void relics at a time
 			'''
 	}
 
@@ -540,7 +540,7 @@ Items: {
 		DisplayName: Symbol of Theocracy
 		Tooltip:
 			'''
-			Summons a circle of up to 6 divine cannons that fire lasers upon release
+			Summons a circle of up to 6 [ceeffect/cruiser:divine cannons] that fire lasers upon release
 			Inflicts [cebuff:CalamityEntropy/VoidTouch]
 			'Void is an ever potent element, only a few drops are needed for complete annihilation'
 			'''
@@ -588,7 +588,7 @@ Items: {
 
 	WingsOfHush: {
 		DisplayName: Wings of Hush
-		Tooltip: "[c/9387ff:Fires a piercing void laser alongside four smaller voidbeams that all inflict ][cebuff:CalamityEntropy/VoidTouch]"
+		Tooltip: "Fires a piercing void laser alongside four smaller [ceeffect/cruiser:voidbeams] that all inflict [cebuff:CalamityEntropy/VoidTouch]"
 	}
 
 	SoyMilk: {
@@ -760,12 +760,12 @@ Items: {
 		DisplayName: Nihil Orbit
 		Tooltip:
 			'''
-			[c/9387ff:Click LMB or hold RMB to throw some knives]
-			[c/9387ff:After hitting a target, they will bounce off and float around]
-			[c/9387ff:Long press the left button to build up momentum]
-			[c/9387ff:When fully charged,]
-			[c/9387ff:releasing it will throw an enhanced knife that causing triple damage]
-			[c/9387ff:Enhancing knives will cause all floating knives to hit the target]
+			Click LMB or hold RMB to throw some [ceeffect/cruiser:Orbit knives]
+			After hitting a target, they will bounce off and float around
+			Long press the left button to build up momentum
+			When fully charged,
+			releasing it will throw an enhanced knife that causing triple damage
+			Enhancing knives will cause all floating knives to hit the target
 			'''
 	}
 

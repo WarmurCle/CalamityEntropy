@@ -199,7 +199,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Projectile.timeLeft = 220;
         }
         public float RandOffset = Main.rand.NextFloat(-200, 200);
-        public int ShootCount = 12;
+        public int ShootCount = 16;
         public int ShootCD = 0;
         public int NoShootTime = 50;
         public override bool? CanDamage()
