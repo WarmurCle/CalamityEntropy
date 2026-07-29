@@ -24,7 +24,7 @@ Items: {
 			Silence: {
 				DisplayName: Silence
 				Tooltip:
-					'
+					'''
 					Throw a [ceeffect/cruiser:void-chained frisbee] that pulls itself back to enemies on hit after a short delay before exploding on impact]
 					Stealth strikes cause the frisbee to stick to the hit enemy once chained, creating a [ceeffect/cruiser:void vortex] that rapidly damages in a large area]
 					'''
