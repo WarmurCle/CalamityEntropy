@@ -18,6 +18,7 @@ using CalamityEntropy.Content.Items.Pets.Glue;
 using CalamityEntropy.Content.Items.PrefixItem;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Items.Weapons.Bait;
 using CalamityEntropy.Content.Items.Weapons.CrystalBalls;
 using CalamityEntropy.Content.Items.Weapons.DustCarverBow;
 using CalamityEntropy.Content.Items.Weapons.Torch;
@@ -1835,6 +1836,7 @@ namespace CalamityEntropy.Common
             if (item.Is<DesertScourgeBag>())
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkLeo>(), new Fraction(1, 2));
+                itemLoot.Add(ModContent.ItemType<AntlionShell>(), new Fraction(1, 3));
             }
             if (item.type == ItemID.FairyQueenBossBag)
             {

@@ -5,6 +5,7 @@ using CalamityEntropy.Content.Rarities;
 using CalamityMod;
 using CalamityMod.Dusts;
 using CalamityMod.Items;
+using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.Typeless;
 using Microsoft.Xna.Framework.Graphics;
@@ -57,7 +58,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
 
         public override void AddRecipes()
         {
-
+            CreateRecipe()
+                .AddIngredient<HellIndustrialComponents>(6)
+                .AddIngredient<AerialiteBar>(8)
+                .AddIngredient<MysteriousCircuitry>(2)
+                .AddTile(TileID.Anvils)
+                .Register();
         }
 
         public override bool MeleePrefix()

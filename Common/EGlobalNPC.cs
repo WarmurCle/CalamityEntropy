@@ -13,6 +13,7 @@ using CalamityEntropy.Content.Items.Donator.RocketLauncher.Ammo;
 using CalamityEntropy.Content.Items.Pets;
 using CalamityEntropy.Content.Items.Vanity;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Items.Weapons.Bait;
 using CalamityEntropy.Content.Items.Weapons.Whips;
 using CalamityEntropy.Content.NPCs;
 using CalamityEntropy.Content.NPCs.FriendFinderNPC;
@@ -29,6 +30,7 @@ using CalamityMod.NPCs.Abyss;
 using CalamityMod.NPCs.AstrumDeus;
 using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.NPCs.Crabulon;
+using CalamityMod.NPCs.DesertScourge;
 using CalamityMod.NPCs.DevourerofGods;
 using CalamityMod.NPCs.HiveMind;
 using CalamityMod.NPCs.NormalNPCs;
@@ -851,6 +853,10 @@ namespace CalamityEntropy.Common
             {
                 npcLoot.AddIf(() => (!NPC.downedMoonlord), ModContent.ItemType<FlowingLight>(), 1);
                 npcLoot.AddNormalOnly(ModContent.ItemType<BookMarkAuric>(), 4, 1, 1);
+            }
+            if (npc.type == ModContent.NPCType<DesertScourgeHead>())
+            {
+                npcLoot.AddNormalOnly(ModContent.ItemType<AntlionShell>(), 3, 1, 1);
             }
             if (npc.type == NPCID.WallofFlesh)
             {
