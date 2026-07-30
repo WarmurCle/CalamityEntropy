@@ -2451,6 +2451,8 @@ namespace CalamityEntropy.Common
         public int lbaitType = -1;
         public override void PostUpdate()
         {
+            if (BaitCharge < 0)
+                BaitCharge = 0;
             if (Player.HeldItem.IsAir)
             {
                 BaitCharge = 0;
