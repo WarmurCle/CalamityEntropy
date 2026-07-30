@@ -211,7 +211,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.MinionShot[Type] = true;
-            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 2000;
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 4000;
             Main.projFrames[Type] = 4;
         }
         public override void SetDefaults()
@@ -442,6 +442,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.MinionShot[Type] = true;
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 4000;
         }
         public override void SetDefaults()
         {
