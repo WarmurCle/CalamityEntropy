@@ -4614,6 +4614,16 @@ Items: {
 			召唤幻影眼攻击目标
 			'''
 	}
+
+	MutantBulb: {
+		DisplayName: 变异球茎
+		Tooltip: 
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			召唤藤蔓刺穿目标
+			'''
+	}
 }
 
 BaitCommonTooltip1: 手持时充能，只能在装填完成时充能
@@ -5399,6 +5409,8 @@ Projectiles: {
 	MoonlightCoreProjectile.DisplayName: 月荧核
 	MoonlightLaser.DisplayName: 月荧死光
 	TrueEye.DisplayName: 幻影眼
+	// MutantBulbProjectile.DisplayName: Mutant Bulb Projectile
+	// MutantVine.DisplayName: Mutant Vine
 }
 
 LegendTooltip: - 传奇物品 -

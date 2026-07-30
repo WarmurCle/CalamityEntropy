@@ -1714,6 +1714,11 @@ namespace CalamityEntropy
         {
             Main.spriteBatch.Draw(getExtraTex("white"), start - (worldpos ? Main.screenPosition : Vector2.Zero), null, color, (end - start).ToRotation(), new Vector2(0, 0.5f), new Vector2(getDistance(start, end) + wa, width), SpriteEffects.None, 0);
         }
+        public static void drawLineBetter(Vector2 start, Vector2 end, Color color, float width, int wa = 0, bool worldpos = true)
+        {
+            var tex = getExtraTex("BasicTrailThin");
+            Main.spriteBatch.Draw(tex, start - (worldpos ? Main.screenPosition : Vector2.Zero), null, color, (end - start).ToRotation(), new Vector2(0, tex.Height / 2), new Vector2((getDistance(start, end) + wa) / 200f, width / 40f), SpriteEffects.None, 0);
+        }
         public static void drawTextureToPoint(SpriteBatch sb, Texture2D texture, Color color, Vector2 lu, Vector2 ru, Vector2 ld, Vector2 rd)
         {
             sb.End();

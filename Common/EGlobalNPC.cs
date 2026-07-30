@@ -935,6 +935,7 @@ namespace CalamityEntropy.Common
             if (npc.type == NPCID.Plantera)
             {
                 npcLoot.AddNormalOnly(ModContent.ItemType<LashingBramblerod>(), new Fraction(3, 5));
+                npcLoot.AddNormalOnly(ModContent.ItemType<MutantBulb>(), new Fraction(2, 5));
             }
             if (npc.type == NPCID.WyvernHead)
             {

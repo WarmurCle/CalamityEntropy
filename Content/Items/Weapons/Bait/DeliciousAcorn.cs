@@ -224,9 +224,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             if (Counter == 0)
             {
                 Projectile.Opacity = 0;
-                if(Main.rand.NextBool(80))
+                if(Main.rand.NextBool(180))
                 {
-                    Projectile.scale *= 3.5f;
+                    Projectile.scale *= 3.2f;
                 }
                 else
                 {

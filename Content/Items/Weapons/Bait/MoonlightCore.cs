@@ -33,8 +33,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Item.knockBack = 0;
             Item.shootSpeed = 44;
             Item.useAnimation = Item.useTime = 22;
-            Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
-            Item.rare = ItemRarityID.Green;
+            Item.value = CalamityGlobalItem.RarityRedBuyPrice;
+            Item.rare = ItemRarityID.Red;
             Item.width = 38;
             Item.height = 38; 
             Item.autoReuse = false;
@@ -451,6 +451,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Projectile.height = 24;
             Projectile.timeLeft = 34;
             Projectile.light = 1;
+            Projectile.localNPCHitCooldown = -1;
         }
         public float Length = 2000;
         public int rDir = Main.rand.NextBool() ? 1 : -1;
@@ -469,7 +470,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             }
             Projectile.ai[2] = CEUtils.Parabola(Projectile.timeLeft / 34f, 1);
             Projectile.ai[2] = (1 - Projectile.ai[2]);
-            Projectile.ai[2] *= Projectile.ai[2] * Projectile.ai[2];
+            Projectile.ai[2] *= Projectile.ai[2];
             Projectile.ai[2] = (1 - Projectile.ai[2]);
 
             Projectile.rotation = Projectile.velocity.ToRotation() + (CEUtils.GetRepeatedCosFromZeroToOne(Projectile.timeLeft / 34f, 1) - 0.5f) * 0.95f * rDir;

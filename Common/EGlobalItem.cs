@@ -1887,6 +1887,7 @@ namespace CalamityEntropy.Common
             if (item.type == ItemID.PlanteraBossBag)
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkSilva>(), new Fraction(1, 2));
+                itemLoot.Add(ModContent.ItemType<MutantBulb>(), new Fraction(1, 2));
                 itemLoot.Add(ModContent.ItemType<LashingBramblerod>(), new Fraction(4, 5));
             }
             if (item.Is<SlimeGodBag>())

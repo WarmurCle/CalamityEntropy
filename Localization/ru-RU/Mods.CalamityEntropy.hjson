@@ -4300,6 +4300,11 @@ Items: {
 			Summon phantom eyes to attack target
 			''' */
 	}
+
+	MutantBulb: {
+		// DisplayName: Mutant Bulb
+		// Tooltip: ""
+	}
 }
 
 // BaitCommonTooltip1: Charge when held. Usable when fully charged
@@ -5096,6 +5101,8 @@ Projectiles: {
 	// MoonlightCoreProjectile.DisplayName: Moonlight Core Projectile
 	// MoonlightLaser.DisplayName: Moonlight Laser
 	// TrueEye.DisplayName: Phantom Eye
+	// MutantBulbProjectile.DisplayName: Mutant Bulb Projectile
+	// MutantVine.DisplayName: Mutant Vine
 }
 
 LegendTooltip: - Легенда -
