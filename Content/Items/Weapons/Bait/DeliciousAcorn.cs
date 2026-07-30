@@ -272,7 +272,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                         Leaving = 0;
                         return;
                     }
-                    if(Math.Abs(Projectile.velocity.Y) <= 0.6f)
+                    if(Math.Abs(Projectile.velocity.Y) <= 0.01f)
                     {
                         Vector2 velj = CEUtils.CalculateSourceVel(Projectile.Center, acornPos, int.Clamp((int)((Projectile.Distance(acornPos) / 20f) / Projectile.scale), 3, 60), 1f * Projectile.scale);
                         Projectile.velocity = velj;
@@ -389,7 +389,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     {
                         if(target.Center.Y < Projectile.Center.Y - 460 * Projectile.scale)
                         {
-                            if (Math.Abs(Projectile.velocity.Y) <= 0.6f)
+                            if (Math.Abs(Projectile.velocity.Y) <= 0.01f)
                             {
                                 Projectile.velocity = (target.Center - Projectile.Center).normalize() * 30 * Projectile.scale;
                                 GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.SandyBrown, "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, Projectile.scale * 0.36f, 13));
