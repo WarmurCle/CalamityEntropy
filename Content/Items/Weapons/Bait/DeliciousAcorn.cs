@@ -373,7 +373,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                 Projectile.pushByOther(0.8f);
                 if (((target == null && Counter > 60) || ShootCount <= 0) && ShootFrame == -1)
                 {
-                    if (Math.Abs(Projectile.velocity.Y) <= 0.6f)
+                    if (Math.Abs(Projectile.velocity.Y) <= 0.02f)
                     {
                         Leaving = 1;
                         return;
