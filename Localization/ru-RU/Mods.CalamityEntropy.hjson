@@ -4313,7 +4313,12 @@ Items: {
 
 	MechanicalTransmitter: {
 		// DisplayName: Mechanical Transmitter
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			Summon some detector that fire lasers to the target
+			''' */
 	}
 }
 
@@ -5116,6 +5121,7 @@ Projectiles: {
 	// DetectorMinion.DisplayName: Detector Minion
 	// DetectorMinionLaser.DisplayName: Detector Minion Laser
 	// MechanicalTransmitterProjectile.DisplayName: Mechanical Transmitter Projectile
+	// BaitHeldEffect.DisplayName: Bait Held Effect
 }
 
 LegendTooltip: - Легенда -

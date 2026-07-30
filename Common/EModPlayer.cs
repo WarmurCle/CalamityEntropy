@@ -3988,11 +3988,18 @@ namespace CalamityEntropy.Common
         public bool visualMagiShield = false;
         public float RogueStealthRegenMult = 1;
         public int WindPressureTime = 0;
+        public int baitHeldType = -1;
         public override void PostUpdateEquips()
         {
             if (!Player.HeldItem.IsAir && Player.HeldItem.ModItem != null && Player.HeldItem.ModItem is IBaitItem)
             {
                 BaitCharging = true;
+                if (baitHeldType <= 0)
+                    baitHeldType = ModContent.ProjectileType<BaitHeldEffect>();
+                if (Player.whoAmI == Main.myPlayer && Player.ownedProjectileCounts[baitHeldType] == 0)
+                {
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.MountedCenter, Vector2.Zero, baitHeldType, 0, 0, Player.whoAmI);
+                }
             }
             if (exquisiteCrown && rottenFangs)
                 Player.maxMinions++;

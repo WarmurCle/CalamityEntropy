@@ -4,6 +4,7 @@ using CalamityEntropy.Content.Items.Accessories;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Donator;
 using CalamityEntropy.Content.Items.Weapons;
+using CalamityEntropy.Content.Items.Weapons.Bait;
 using CalamityEntropy.Content.Particles;
 using CalamityEntropy.Content.Projectiles;
 using CalamityEntropy.Content.Projectiles.Cruiser;
@@ -500,6 +501,16 @@ namespace CalamityEntropy.Common
         public bool SetMaxUpdates = true;
         public override bool PreAI(Projectile projectile)
         {
+            if (FirstFrames && projectile.ModProjectile != null && projectile.ModProjectile is BaitProj)
+            {
+                foreach(Projectile p in Main.ActiveProjectiles)
+                {
+                    if (p.ModProjectile != null && p.ModProjectile is BaitHeldEffect bh)
+                    {
+                        bh.throwAnm = 1;
+                    }
+                }
+            }
             if (SetMaxUpdates)
             {
                 if (ashesArrow)

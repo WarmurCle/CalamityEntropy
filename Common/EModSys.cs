@@ -699,22 +699,6 @@ namespace CalamityEntropy.Common
                 layers.Insert(mouseIndex, new LegacyGameInterfaceLayer("CalamityEntropy: Other Charge Bars", () =>
                 {
                     int baroffsety = 44;
-                    if (Main.LocalPlayer.Entropy().BaitCharging)
-                    {
-                        float baitCharge = Main.LocalPlayer.Entropy().BaitCharge;
-                        drawChargeBar(Main.ScreenSize.ToVector2() / 2 + new Vector2(0, baroffsety), float.Min(1, baitCharge), Color.Yellow);
-                        if (baitCharge > 1)
-                        {
-                            float bc = baitCharge - 1;
-                            drawChargeBarNoback(Main.ScreenSize.ToVector2() / 2 + new Vector2(0, baroffsety), float.Min(1, bc), Color.OrangeRed);
-                        }
-                        if (baitCharge > 2)
-                        {
-                            float bc = baitCharge - 2;
-                            drawChargeBarNoback(Main.ScreenSize.ToVector2() / 2 + new Vector2(0, baroffsety), float.Min(1, bc), Color.Aqua);
-                        }
-                        baroffsety += 20;
-                    }
                     if (Main.LocalPlayer.GetModPlayer<CapricornBookmarkRecordPlayer>().SandStormCharge > 0)
                     {
                         drawChargeBar(Main.ScreenSize.ToVector2() / 2 + new Vector2(0, baroffsety), Main.LocalPlayer.GetModPlayer<CapricornBookmarkRecordPlayer>().SandStormCharge, new Color(246, 201, 122));

@@ -4627,7 +4627,7 @@ Items: {
 
 	MechanicalTransmitter: {
 		DisplayName: 机械发讯器
-		Tooltip: 
+		Tooltip:
 			'''
 			{$BaitCommonTooltip1}
 			{$BaitCommonTooltip2}
@@ -5424,6 +5424,7 @@ Projectiles: {
 	DetectorMinion.DisplayName: 探测器
 	DetectorMinionLaser.DisplayName: 探测器激光
 	MechanicalTransmitterProjectile.DisplayName: 机械发讯器
+	// BaitHeldEffect.DisplayName: Bait Held Effect
 }
 
 LegendTooltip: - 传奇物品 -

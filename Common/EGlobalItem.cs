@@ -42,6 +42,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -278,6 +279,15 @@ namespace CalamityEntropy.Common
             if (player.Entropy().hasAcc("VastLV2"))
             {
                 healValue = (int)((CalCI ? 0.25f : 0.75f) * healValue);
+            }
+        }
+        public override void PostDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        {
+            if(item.ModItem != null && item.ModItem is IBaitItem && Main.LocalPlayer.HeldItem.type == item.type)
+            {
+                scale = 1;
+                float charge = float.Clamp(Main.LocalPlayer.Entropy().BaitCharge, 0, 1);
+                CEUtils.DrawChargeBar(scale, position + new Vector2(0, 16 * scale), ((float)charge / 1f), Color.Yellow);
             }
         }
 
