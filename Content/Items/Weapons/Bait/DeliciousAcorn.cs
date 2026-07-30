@@ -427,7 +427,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                             Vector2 targetPos = target.Center;
                             Vector2 myPos = Projectile.Center;
                             Vector2 vel = CEUtils.CalculateSourceVel(myPos, targetPos, 100, SquirrelStone.Gravity);
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, vel, ModContent.ProjectileType<SquirrelStone>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + new Vector2(20 * dir, 0) * Projectile.scale, vel, ModContent.ProjectileType<SquirrelStone>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         }
                         dir = (target.Center.X > Projectile.Center.X) ? 1 : -1;
                     }
