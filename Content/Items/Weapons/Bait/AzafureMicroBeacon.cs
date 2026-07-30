@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
 {
     public class AzafureMicroBeacon : ModItem, IBaitItem, IAzafureEnhancable
     {
-        public static int TagDamage = 6;
+        public static int TagDamage = 7;
         public static float DamageMult = 3.2f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(TagDamage);
 
@@ -321,9 +321,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         {
             if (target.GetGlobalNPC<WhipDebuffNPC>().BaitStick > 0)
             {
+                target.GetGlobalNPC<WhipDebuffNPC>().BaitStick = 0;
                 foreach (Projectile p in Main.ActiveProjectiles)
                 {
-                    if (p.ModProjectile != null && p.ModProjectile is BaitProj ibp)
+                    if (p.ModProjectile != null && p.ModProjectile is BaitProj ibp && ibp.StickNPC == target.whoAmI)
                     {
                         if (!ibp.IsActive)
                             p.Kill();

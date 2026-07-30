@@ -221,8 +221,20 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public int AcornProjType = 0;
         public override void AI()
         {
-            if(Counter == 0)
+            if (Counter == 0)
+            {
                 Projectile.Opacity = 0;
+                if(Main.rand.NextBool(80))
+                {
+                    Projectile.scale *= 3.5f;
+                }
+                else
+                {
+                    Projectile.scale *= Main.rand.NextFloat(0.8f, 1.4f);
+                }
+                Projectile.width = (int)(Projectile.width * Projectile.scale);
+                Projectile.height = (int)(Projectile.height * Projectile.scale);
+            }
             Counter++;
 
             NPC target = Projectile.FindMinionTarget();
@@ -251,9 +263,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                         {
                             acorn = p;
                             acornPos = p.Center;
+                            break;
                         }
                     }
-                    if(Counter2++ > 1800 || acornPos.Distance(Projectile.Center) > 3000 || acorn == null || GrabedArcon || Projectile.timeLeft < 60)
+                    if(Counter2++ > 1800 || acornPos.Distance(Projectile.Center) > 3000 * Projectile.scale || acorn == null || GrabedArcon || Projectile.timeLeft < 60)
                     {
                         Projectile.ai[2] = 0;
                         Leaving = 0;
@@ -261,14 +274,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     }
                     if(Projectile.velocity.Y == 0)
                     {
-                        Vector2 velj = CEUtils.CalculateSourceVel(Projectile.Center, acornPos, int.Clamp((int)(Projectile.Distance(acornPos) / 20f), 6, 60), 1f);
+                        Vector2 velj = CEUtils.CalculateSourceVel(Projectile.Center, acornPos, int.Clamp((int)((Projectile.Distance(acornPos) / 20f) / Projectile.scale), 3, 60), 1f * Projectile.scale);
                         Projectile.velocity = velj;
                         GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.SandyBrown, "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, Projectile.scale * 0.36f, 13));
                         SoundEngine.PlaySound(SoundID.Item56 with { Volume = 1f, Pitch = Main.rand.NextFloat(-0.4f, 0.4f) }, Projectile.Center);
                     }
                     if(Jump-- <= 0)
                     {
-                        Projectile.velocity.Y += 1f;
+                        Projectile.velocity.Y += 1f * Projectile.scale;
                     }
                     if(Projectile.getRect().Intersects(acorn.Center.getRectCentered(72, 72)))
                     {
@@ -301,14 +314,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                             {
                                 Projectile.velocity.X *= 0.94f;
                             }
-                            Projectile.velocity.Y += 0.6f;
+                            Projectile.velocity.Y += 0.6f * Projectile.scale;
                             return;
                         }
                     }
                     Leaving++;
                     Projectile.Opacity -= 0.05f;
                     Projectile.tileCollide = false;
-                    Projectile.velocity.Y = 8;
+                    Projectile.velocity.Y = 8 * Projectile.scale;
                     if (Leaving > 10)
                         Projectile.Kill();
                 }
@@ -319,7 +332,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             if (SpawnTime > 0)
             {
                 SpawnTime--;
-                Projectile.velocity = new Vector2(0, -8);
+                Projectile.velocity = new Vector2(0, -8 * Projectile.scale);
                 if (SpawnTime < 20 && !CEUtils.CheckSolidTileOrPlatform(Projectile.getRect()))
                 {
                     SpawnTime = 0;
@@ -378,7 +391,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                         {
                             if (Projectile.velocity.Y == 0)
                             {
-                                Projectile.velocity = (target.Center - Projectile.Center).normalize() * 30;
+                                Projectile.velocity = (target.Center - Projectile.Center).normalize() * 30 * Projectile.scale;
                                 GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.SandyBrown, "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, Projectile.scale * 0.36f, 13));
                                 SoundEngine.PlaySound(SoundID.Item56 with { Volume = 1f, Pitch = Main.rand.NextFloat(-0.4f, 0.4f) }, Projectile.Center);
                             }
@@ -390,7 +403,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                             {
                                 if (Projectile.velocity.Y == 0)
                                 {
-                                    Projectile.velocity.Y = -18;
+                                    Projectile.velocity.Y = -18 * Projectile.scale;
 
                                     GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.SandyBrown, "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, Projectile.scale * 0.36f, 13));
                                     SoundEngine.PlaySound(SoundID.Item56 with { Volume = 1f, Pitch = Main.rand.NextFloat(-0.4f, 0.4f) }, Projectile.Center);
@@ -428,7 +441,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     if (dir < 0)
                         Projectile.rotation += MathHelper.Pi;
                 }
-                Projectile.velocity.Y += 0.9f;
+                Projectile.velocity.Y += 0.9f * Projectile.scale;
                 Projectile.velocity *= 0.98f;
             }
         }

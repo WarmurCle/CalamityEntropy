@@ -4536,6 +4536,26 @@ Items: {
 			Summon the Squirrel Squad to throw stones at the target
 			'''
 	}
+
+	MoltenAnchor: {
+		DisplayName: Molten Anchor
+		Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			Summon a bone serpant to burn all encountered targets
+			'''
+	}
+
+	MoonlightCore: {
+		DisplayName: Moonlight Core
+		Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			Summon phantom eyes to attack target
+			'''
+	}
 }
 
 BaitCommonTooltip1: Charge when held. Usable when fully charged
@@ -5322,6 +5342,12 @@ Projectiles: {
 	DeliciousAcornProjectile.DisplayName: Delicious Acorn Projectile
 	SquirrerMinion.DisplayName: Squirrer Minion
 	SquirrelStone.DisplayName: Squirrel Stone
+	BoneSerpentFriendly.DisplayName: Bone Serpent Friendly
+	MoltenAnchorProjectile.DisplayName: Molten Anchor Projectile
+	MoonlightBeam.DisplayName: Moonlight Beam
+	MoonlightCoreProjectile.DisplayName: Moonlight Core Projectile
+	MoonlightLaser.DisplayName: Moonlight Laser
+	TrueEye.DisplayName: Phantom Eye
 }
 
 LegendTooltip: - Legend -
@@ -5959,7 +5985,7 @@ Keybinds: {
 	VetrasylsEyeBlock.DisplayName: Vetrasyls Eye Block
 	RuneDash.DisplayName: Rune Wings Dash
 	CommandMinions.DisplayName: Command Minions
-	NihilityAndChaoticArmorConnectKey.DisplayName: "Nihility & Chaotic Armor Connect Key"
+	NihilityAndChaoticArmorConnectKey.DisplayName: Nihility & Chaotic Armor Connect Key
 	AcropolisMechTransformation.DisplayName: Acropolis Mecha Transformation
 }
 

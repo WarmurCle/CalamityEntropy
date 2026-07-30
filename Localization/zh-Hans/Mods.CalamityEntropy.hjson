@@ -4594,6 +4594,26 @@ Items: {
 			召唤松鼠小队朝目标投掷石子
 			'''
 	}
+
+	MoltenAnchor: {
+		DisplayName: 熔融骨锚
+		Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			召唤骨蟒，灼烧所有碰到的目标
+			'''
+	}
+
+	MoonlightCore: {
+		DisplayName: 月荧核
+		Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			召唤幻影眼攻击目标
+			'''
+	}
 }
 
 BaitCommonTooltip1: 手持时充能，只能在装填完成时充能
@@ -5370,9 +5390,15 @@ Projectiles: {
 	AzafureAssaultDrone.DisplayName: 阿萨福勒突击无人机
 	AzafureMicroBeaconProjectile.DisplayName: 阿萨福勒微型信标
 	BeaconDroneShoot.DisplayName: 突击无人机子弹
-	// DeliciousAcornProjectile.DisplayName: Delicious Acorn Projectile
-	// SquirrerMinion.DisplayName: Squirrer Minion
-	// SquirrelStone.DisplayName: Squirrel Stone
+	DeliciousAcornProjectile.DisplayName: 美味橡果
+	SquirrerMinion.DisplayName: 松鼠
+	SquirrelStone.DisplayName: 石子
+	BoneSerpentFriendly.DisplayName: 骨蟒
+	MoltenAnchorProjectile.DisplayName: 熔融骨锚
+	MoonlightBeam.DisplayName: 月荧光束
+	MoonlightCoreProjectile.DisplayName: 月荧核
+	MoonlightLaser.DisplayName: 月荧死光
+	TrueEye.DisplayName: 幻影眼
 }
 
 LegendTooltip: - 传奇物品 -

@@ -1844,7 +1844,8 @@ namespace CalamityEntropy.Common
             }
             if (item.type == ItemID.MoonLordBossBag)
             {
-                itemLoot.Add(ModContent.ItemType<BookMarkLunar>(), new Fraction(1, 1));
+                itemLoot.Add(ModContent.ItemType<BookMarkLunar>(), new Fraction(3, 5));
+                itemLoot.Add(ModContent.ItemType<MoonlightCore>(), new Fraction(2, 5));
             }
             if (item.type == ItemID.SkeletronPrimeBossBag)
             {
