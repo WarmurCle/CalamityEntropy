@@ -4617,11 +4617,21 @@ Items: {
 
 	MutantBulb: {
 		DisplayName: 变异球茎
-		Tooltip: 
+		Tooltip:
 			'''
 			{$BaitCommonTooltip1}
 			{$BaitCommonTooltip2}
 			召唤藤蔓刺穿目标
+			'''
+	}
+
+	MechanicalTransmitter: {
+		DisplayName: 机械发讯器
+		Tooltip: 
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			召唤一些探测器用激光攻击目标
 			'''
 	}
 }
@@ -5409,8 +5419,11 @@ Projectiles: {
 	MoonlightCoreProjectile.DisplayName: 月荧核
 	MoonlightLaser.DisplayName: 月荧死光
 	TrueEye.DisplayName: 幻影眼
-	// MutantBulbProjectile.DisplayName: Mutant Bulb Projectile
-	// MutantVine.DisplayName: Mutant Vine
+	MutantBulbProjectile.DisplayName: 变异球茎
+	MutantVine.DisplayName: 变异藤蔓
+	DetectorMinion.DisplayName: 探测器
+	DetectorMinionLaser.DisplayName: 探测器激光
+	MechanicalTransmitterProjectile.DisplayName: 机械发讯器
 }
 
 LegendTooltip: - 传奇物品 -

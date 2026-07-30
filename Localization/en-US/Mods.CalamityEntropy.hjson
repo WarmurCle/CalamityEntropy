@@ -4559,11 +4559,21 @@ Items: {
 
 	MutantBulb: {
 		DisplayName: Mutant Bulb
-		Tooltip: 
+		Tooltip:
 			'''
 			{$BaitCommonTooltip1}
 			{$BaitCommonTooltip2}
 			Summon vines to tear target apart
+			'''
+	}
+
+	MechanicalTransmitter: {
+		DisplayName: Mechanical Transmitter
+		Tooltip: 
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			Summon some detector that fire lasers to the target
 			'''
 	}
 }
@@ -5360,6 +5370,9 @@ Projectiles: {
 	TrueEye.DisplayName: Phantom Eye
 	MutantBulbProjectile.DisplayName: Mutant Bulb Projectile
 	MutantVine.DisplayName: Mutant Vine
+	DetectorMinion.DisplayName: Detector Minion
+	DetectorMinionLaser.DisplayName: Detector Minion Laser
+	MechanicalTransmitterProjectile.DisplayName: Mechanical Transmitter Projectile
 }
 
 LegendTooltip: - Legend -
