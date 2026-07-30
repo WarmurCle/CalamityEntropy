@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Item.useAnimation = Item.useTime = 18;
             Item.value = CalamityGlobalItem.RarityWhiteBuyPrice;
             Item.rare = ItemRarityID.White;
-            Item.width = 38;
+            Item.width = 24;
             Item.height = 38; 
             Item.autoReuse = false;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -272,7 +272,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                         Leaving = 0;
                         return;
                     }
-                    if(Projectile.velocity.Y == 0)
+                    if(Math.Abs(Projectile.velocity.Y) <= 0.6f)
                     {
                         Vector2 velj = CEUtils.CalculateSourceVel(Projectile.Center, acornPos, int.Clamp((int)((Projectile.Distance(acornPos) / 20f) / Projectile.scale), 3, 60), 1f * Projectile.scale);
                         Projectile.velocity = velj;
@@ -305,9 +305,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     {
                         if (Counter2 > 0)
                         {
-                            if (Projectile.velocity.Y == 0)
+                            if (Math.Abs(Projectile.velocity.Y) <= 0.6f)
                             {
-                                Projectile.velocity *= 0.92f;
+                                Projectile.velocity.X *= 0.92f;
                                 Counter2--;
                             }
                             else
@@ -364,7 +364,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                 }
             }
             ShootDelay--;
-            if (Projectile.velocity.Y == 0)
+            if (Math.Abs(Projectile.velocity.Y) <= 0.6f)
                 Projectile.velocity.X *= 0.94f;
             if(Projectile.timeLeft < 60)
                 Leaving = 1;
@@ -373,7 +373,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                 Projectile.pushByOther(0.8f);
                 if (((target == null && Counter > 60) || ShootCount <= 0) && ShootFrame == -1)
                 {
-                    if (Projectile.velocity.Y == 0)
+                    if (Math.Abs(Projectile.velocity.Y) <= 0.6f)
                     {
                         Leaving = 1;
                         return;
@@ -385,11 +385,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     {
                         ShootDelay = 10;
                     }
-                    if (ShootDelay > 0 || CEUtils.getDistance(Projectile.Center, target.Center) > 600)
+                    if (ShootDelay > 0 || CEUtils.getDistance(Projectile.Center, target.Center) > 600 * Projectile.scale)
                     {
-                        if(target.Center.Y < Projectile.Center.Y - 460)
+                        if(target.Center.Y < Projectile.Center.Y - 460 * Projectile.scale)
                         {
-                            if (Projectile.velocity.Y == 0)
+                            if (Math.Abs(Projectile.velocity.Y) <= 0.6f)
                             {
                                 Projectile.velocity = (target.Center - Projectile.Center).normalize() * 30 * Projectile.scale;
                                 GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.SandyBrown, "CalamityMod/Particles/BloomRing", Vector2.One, CEUtils.randomRot(), 0.01f, Projectile.scale * 0.36f, 13));
@@ -401,7 +401,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                             Projectile.velocity.X += Math.Sign(target.Center.X - Projectile.Center.X) * 0.75f;
                             if (CEUtils.CheckSolidTile((Projectile.Center + Projectile.velocity * 2).getRectCentered(Projectile.width, Projectile.height * 0.75f)))
                             {
-                                if (Projectile.velocity.Y == 0)
+                                if (Math.Abs(Projectile.velocity.Y) <= 0.6f)
                                 {
                                     Projectile.velocity.Y = -18 * Projectile.scale;
 
@@ -412,7 +412,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                         }
                         else
                         {
-                            if(Projectile.velocity.Y == 0)
+                            if(Math.Abs(Projectile.velocity.Y) <= 0.6f)
                                 Projectile.velocity.X *= 0.99f;
                         }
                     }
