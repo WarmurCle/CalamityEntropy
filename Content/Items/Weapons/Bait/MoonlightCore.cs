@@ -232,7 +232,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public int NoTargetCounter = 0;
         public int ShootDelay = 20;
         public int ShootCount = 0;
-        public int NoUpdate = Main.rand.Next(0, 40);
+        public int NoUpdate = Main.rand.Next(0, 50);
         public override void AI()
         {
             if (NoUpdate-- > 0)
@@ -286,6 +286,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                         NoTargetCounter = 0;
                         Vector2 targetPos = target.Center + (Projectile.Center - target.Center).normalize() * 340;
                         Projectile.velocity = (targetPos - Projectile.Center) * 0.06f;
+                        Projectile.pushByOther(2);
                         if (ShootDelay <= 0)
                         {
                             ShootDelay = 12;
