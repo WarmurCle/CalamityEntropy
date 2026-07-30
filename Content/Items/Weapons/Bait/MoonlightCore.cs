@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         {
             Item.damage = 140;
             Item.knockBack = 0;
-            Item.shootSpeed = 38;
+            Item.shootSpeed = 44;
             Item.useAnimation = Item.useTime = 22;
             Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
             Item.rare = ItemRarityID.Green;
