@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Vanity;
 
-public class KamishiroKou : ModItem, IDevItem, IVanitySkin
+public class KamishiroKou : ModItem, IDevItem, IVanitySkin, IGetFromStarterBag
 {
     public string DevName => "Kernschmelze";
 
@@ -67,4 +67,9 @@ public class KamishiroKou : ModItem, IDevItem, IVanitySkin
                 .AddCondition(Condition.InGraveyard)
                 .Register();
         }
-    }
+
+        public bool OwnAble(Player player, ref int count)
+        {
+            return StartBagGItem.NameContains(player, "kernschmelze") || StartBagGItem.NameContains(player, "jester");
+        }
+}
