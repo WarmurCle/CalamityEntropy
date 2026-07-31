@@ -4330,6 +4330,11 @@ Items: {
 			Summon three pigeons to attack the target
 			''' */
 	}
+
+	KamishiroKou: {
+		// DisplayName: Kamishiro Kou
+		// Tooltip: ""
+	}
 }
 
 // BaitCommonTooltip1: Charge when held. Usable when fully charged

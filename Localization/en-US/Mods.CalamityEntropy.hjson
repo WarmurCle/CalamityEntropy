@@ -4586,6 +4586,11 @@ Items: {
 			Summon three pigeons to attack the target
 			'''
 	}
+
+	KamishiroKou: {
+		DisplayName: Kamishiro Kou's Broken Goggles
+		Tooltip: “If being chosen is a complete lie, meant only to stuff us into boxes and turn us into evolution fodder… Clutching the Digivice with its backdoor, in this digital Myanmar of a trap, where are we to go?”
+	}
 }
 
 BaitCommonTooltip1: Charge when held. Usable when fully charged
