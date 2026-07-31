@@ -114,6 +114,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     if(ActiveCounter % 2 == 0)
                     {
                         SetActive();
+                        if(ActiveCounter < 158)
+                            IsActive = true;
+                        CEUtils.SyncProj(Projectile.whoAmI);
                     }
                 }
             }

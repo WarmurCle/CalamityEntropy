@@ -4634,6 +4634,16 @@ Items: {
 			召唤一些探测器用激光攻击目标
 			'''
 	}
+
+	MagicHat: {
+		DisplayName: 魔术帽
+		Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			召唤3只鸽子攻击目标
+			'''
+	}
 }
 
 BaitCommonTooltip1: 手持时充能，只能在装填完成时充能
@@ -5424,7 +5434,9 @@ Projectiles: {
 	DetectorMinion.DisplayName: 探测器
 	DetectorMinionLaser.DisplayName: 探测器激光
 	MechanicalTransmitterProjectile.DisplayName: 机械发讯器
-	// BaitHeldEffect.DisplayName: Bait Held Effect
+	BaitHeldEffect.DisplayName: 手持诱饵
+	MagicHatProjectile.DisplayName: 魔术帽
+	PigeonMinion.DisplayName: 鸽子
 }
 
 LegendTooltip: - 传奇物品 -

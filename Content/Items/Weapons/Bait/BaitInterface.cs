@@ -70,15 +70,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                 Projectile.Kill();
                 return;
             }
-            
-            Projectile.timeLeft = 4;
-            Projectile.Center = player.MountedCenter + new Vector2(player.direction * -4, 0).RotatedBy(player.fullRotation);
-            player.Calamity().mouseWorldListener = true;
+
             Projectile.velocity = new Vector2(16, 0).RotatedBy((player.Calamity().mouseWorld - player.MountedCenter).ToRotation());
+            int dir = Projectile.velocity.X > 0 ? 1 : -1;
             Projectile.rotation = Projectile.velocity.ToRotation();
+            Projectile.timeLeft = 4;
+            Projectile.Center = player.MountedCenter + new Vector2(dir * -4, 0).RotatedBy(player.fullRotation);
+            player.Calamity().mouseWorldListener = true;
             float hr = 2.4f;
             float charge = float.Clamp(player.Entropy().BaitCharge, 0, 1);
-            int dir = Projectile.velocity.X > 0 ? 1 : -1;
             if(throwAnm > 0)
             {
                 Projectile.rotation += (-hr + CEUtils.Parabola((1 - throwAnm * throwAnm * throwAnm) * 0.5f, hr * 1.6f)) * dir;

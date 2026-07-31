@@ -4576,6 +4576,16 @@ Items: {
 			Summon some detector that fire lasers to the target
 			'''
 	}
+
+	MagicHat: {
+		DisplayName: Magic Hat
+		Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			Summon three pigeons to attack the target
+			'''
+	}
 }
 
 BaitCommonTooltip1: Charge when held. Usable when fully charged
@@ -5374,6 +5384,8 @@ Projectiles: {
 	DetectorMinionLaser.DisplayName: Detector Minion Laser
 	MechanicalTransmitterProjectile.DisplayName: Mechanical Transmitter Projectile
 	BaitHeldEffect.DisplayName: Bait Held Effect
+	MagicHatProjectile.DisplayName: Magic Hat Projectile
+	PigeonMinion.DisplayName: Pigeon Minion
 }
 
 LegendTooltip: - Legend -
