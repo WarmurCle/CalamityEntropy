@@ -128,7 +128,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             }
             activeEffectAlpha = float.Lerp(activeEffectAlpha, (StickNPC >= 0 && IsActive) ? 1 : 0, 0.04f);
             Counter++;
-            shake2 *= 0.82f;
+            shake2 *= 0.85f;
         }
         public override void ActiveEffect(float damageMul)
         {
@@ -139,6 +139,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(24, 32), ModContent.ProjectileType<FrostboundSpirit>(), (int)(Projectile.damage * damageMul), 6, Projectile.owner, 0, Main.rand.Next(0, 30));
                 }
             }
+            CEUtils.PlaySound("CryogenHit" + Main.rand.Next(1, 4), 1, Projectile.Center);
             CEUtils.PlaySound("soulScreem", 0.6f, Projectile.Center);
             CEUtils.PlaySound("explosion1", 1, Projectile.Center);
             if(Projectile.active)
@@ -160,9 +161,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     Main.spriteBatch.Draw(pulse, Projectile.Center + offset  - Main.screenPosition, null, Color.LightSkyBlue * 1.4f * Projectile.Opacity * (1 - scale) * activeEffectAlpha, i * MathHelper.TwoPi, pulse.Size() * 0.5f, scale * Projectile.scale * 0.16f, SpriteEffects.None, 0);
                 }
             }
-            for(float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver4)
+            float s2 = 1 - shake2;
+            s2 = 1 - s2 * s2 * s2;
+            
+            for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver4)
             {
-                Main.EntitySpriteDraw(Projectile.getDrawData(Color.White * shake, null, Projectile.Center + i.ToRotationVector2() * 3 + offset));
+                Main.EntitySpriteDraw(Projectile.getDrawData(Color.White * s2, null, Projectile.Center + i.ToRotationVector2() * 7 + offset));
             }
             Main.spriteBatch.ExitShaderRegion();
             Main.EntitySpriteDraw(Projectile.getDrawData(lightColor, overridePos:Projectile.Center +  offset));
@@ -217,7 +221,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         {
             Projectile.FriendlySetDefaults(DamageClass.Summon, false, -1);
             Projectile.width = Projectile.height = 64;
-            Projectile.timeLeft = 400;
+            Projectile.timeLeft = 300;
             Projectile.light = 1;
         }
         public List<Vector2> oldPos = new List<Vector2>();
@@ -237,8 +241,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Projectile.Opacity = 1;
             if (Projectile.timeLeft < 20)
                 Projectile.Opacity = Projectile.timeLeft / 20f;
-            if (Projectile.timeLeft > 380)
-                Projectile.Opacity = (400 - Projectile.timeLeft) / 20f;
+            if (Projectile.timeLeft > 280)
+                Projectile.Opacity = (300 - Projectile.timeLeft) / 20f;
             Player player = Projectile.GetOwner();
             Projectile.frameCounter++;
             if(Projectile.frameCounter % 3 == 0)
@@ -345,7 +349,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             for (float i = 0.05f; i <= 1f; i += 0.05f)
             {
                 odp.Add(Projectile.Center + Projectile.velocity * i);
-                if (odp.Count > 280)
+                if (odp.Count > 190)
                 {
                     odp.RemoveAt(0);
                 }
@@ -399,12 +403,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                 float p = (i / (odp.Count - 1f));
                 float alpha = p < 0.7f ? p / 0.7f : 1;
                 float width = p;
-                vp.Add(new CEUtils.VertexPointSets(odp[i], Color.White * alpha, 18 * Projectile.scale * width, 0));
+                vp.Add(new CEUtils.VertexPointSets(odp[i], Color.White * alpha, 11 * Projectile.scale * width, 0));
             }
             ThalassianWaterBolt.DrawTrail(vp, new Color(100, 190, 255), EffectColor());
             Main.spriteBatch.UseAdditiveClamp();
-            Texture2D ar = CEUtils.getExtraTex("SpearArrowGlow");
-            Main.spriteBatch.Draw(ar, Projectile.Center - Main.screenPosition, null, Color.SkyBlue, Projectile.rotation, ar.Size() * 0.5f, Projectile.scale * 0.3f, SpriteEffects.None, 0); Main.spriteBatch.Draw(ar, Projectile.Center - Main.screenPosition, null, Color.LightSkyBlue, Projectile.rotation, ar.Size() * 0.5f, Projectile.scale * 0.2f, SpriteEffects.None, 0);
+            Texture2D ar = CEUtils.getExtraTex("SpearArrowGlow2");
+            Main.spriteBatch.Draw(ar, Projectile.Center - Main.screenPosition, null, new Color(80, 90, 255), Projectile.rotation, ar.Size() * 0.5f, Projectile.scale * 0.3f, SpriteEffects.None, 0); Main.spriteBatch.Draw(ar, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, ar.Size() * 0.5f, Projectile.scale * 0.22f, SpriteEffects.None, 0);
             Main.spriteBatch.ExitShaderRegion();
             return false;
         }
