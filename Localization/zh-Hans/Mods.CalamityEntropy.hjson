@@ -4656,7 +4656,7 @@ Items: {
 
 	FrostboundCage: {
 		DisplayName: 寒霜锢笼
-		Tooltip: 
+		Tooltip:
 			'''
 			{$BaitCommonTooltip1}
 			{$BaitCommonTooltip2}

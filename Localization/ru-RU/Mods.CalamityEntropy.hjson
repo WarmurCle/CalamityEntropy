@@ -4342,7 +4342,12 @@ Items: {
 
 	FrostboundCage: {
 		// DisplayName: Frostbound Cage
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			Release the imprisoned spirits, and they will attack their targets using tracking ice bullets
+			''' */
 	}
 }
 

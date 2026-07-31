@@ -134,7 +134,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         {
             if(Main.myPlayer == Projectile.owner)
             {
-                for (int i = 0; i < 6; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(24, 32), ModContent.ProjectileType<FrostboundSpirit>(), (int)(Projectile.damage * damageMul), 6, Projectile.owner, 0, Main.rand.Next(0, 30));
                 }
@@ -190,6 +190,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             for (int i = 0; i < 4; i++)
                 GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, (i * MathHelper.PiOver2).ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 36, false, 12, 0.06f, Color.LightSkyBlue, new Vector2(0.1f, 1f)));
         }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return new Circle(Projectile.Center, 38 * Projectile.scale).Intersects(targetHitbox);
+        }
         public override void OnKill(int timeLeft)
         {
             if (IsActive)
@@ -227,11 +231,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             get { return Projectile.ai[0]; }
             set { Projectile.ai[0] = value; }
         }
-        public int ShootDelay = 80;
-        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
-        {
-            return new Circle(Projectile.Center, 36 * Projectile.scale).Intersects(targetHitbox);
-        }
+        public int ShootDelay = Main.rand.Next(70, 100);
         public override void AI()
         {
             Projectile.Opacity = 1;
@@ -265,7 +265,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     Projectile.velocity = Projectile.rotation.ToRotationVector2() * Projectile.velocity.Length();
                     if(ShootDelay <= 0)
                     {
-                        ShootDelay = 32;
+                        ShootDelay = Main.rand.Next(26, 38);
                         if(Main.myPlayer == Projectile.owner)
                         {
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity * 1.25f, ModContent.ProjectileType<FrostShoot>(), Projectile.damage, 6, Projectile.owner);
