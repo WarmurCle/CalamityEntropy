@@ -132,7 +132,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         {
             if (Main.myPlayer == Projectile.owner)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (new Vector2(0, -12)).RotateRandom(1.2f), ModContent.ProjectileType<PigeonMinion>(), (int)(Projectile.damage * damageMul), 6, Projectile.owner, 0, Main.rand.Next(0, 30));
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, (new Vector2(0, -16)).RotateRandom(0.6f), ModContent.ProjectileType<PigeonMinion>(), (int)(Projectile.damage * damageMul), 6, Projectile.owner, 0, Main.rand.Next(0, 30));
             }
         }
         public float activeEffectAlpha = 0;
@@ -192,7 +192,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         {
             Projectile.FriendlySetDefaults(DamageClass.Summon, false, -1);
             Projectile.width = Projectile.height = 36;
-            Projectile.timeLeft = 400;
+            Projectile.timeLeft = 340;
             Projectile.localNPCHitCooldown = 12;
         }
         public float Counter
@@ -230,14 +230,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     else
                     {
                         if (Projectile.velocity.Length() < 28)
-                            Projectile.velocity *= 1.04f;
+                            Projectile.velocity *= 1.1f;
                     }
                 }
                 else
                 {
-                    if(Math.Abs(Projectile.velocity.X) < 16)
-                        Projectile.velocity.X *= 1.06f;
-                    Projectile.velocity.Y *= 0.94f;
+                    if(Counter > 6)
+                        if(Math.Abs(Projectile.velocity.X) < 16)
+                            Projectile.velocity.X *= 1.08f;
+                    Projectile.velocity.Y *= 0.98f;
                 }
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
