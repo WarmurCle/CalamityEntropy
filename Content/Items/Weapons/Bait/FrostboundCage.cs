@@ -132,18 +132,25 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override void ActiveEffect(float damageMul)
         {
-            if(Main.myPlayer == Projectile.owner)
+            if (!Main.dedServ)
             {
-                for (int i = 0; i < 5; i++)
+                ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.NoDirQuickShake(32), Main.LocalPlayer.Distance(Projectile.Center), 1800);
+                for (int i = 0; i < 32; i++)
+                    GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.1f, 1) * 26, false, 18, 0.06f * Main.rand.NextFloat(0.3f, 1f), Color.LightSkyBlue, new Vector2(0.32f, 1f)));
+                if (Main.myPlayer == Projectile.owner)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(24, 32), ModContent.ProjectileType<FrostboundSpirit>(), (int)(Projectile.damage * damageMul), 6, Projectile.owner, 0, Main.rand.Next(0, 30));
+                    CEUtils.SpawnExplotionFriendly(Projectile.GetSource_FromThis(), Projectile.GetOwner(), Projectile.Center, Projectile.damage * 5, 180, Projectile.DamageType);
+                    for (int i = 0; i < 5; i++)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(24, 32), ModContent.ProjectileType<FrostboundSpirit>(), (int)(Projectile.damage * damageMul), 6, Projectile.owner, 0, Main.rand.Next(0, 30));
+                    }
                 }
+                CEUtils.PlaySound("CryogenHit" + Main.rand.Next(1, 4), 1, Projectile.Center);
+                CEUtils.PlaySound("soulScreem", 0.6f, Projectile.Center);
+                CEUtils.PlaySound("explosion1", 1, Projectile.Center);
             }
-            CEUtils.PlaySound("CryogenHit" + Main.rand.Next(1, 4), 1, Projectile.Center);
-            CEUtils.PlaySound("soulScreem", 0.6f, Projectile.Center);
-            CEUtils.PlaySound("explosion1", 1, Projectile.Center);
-            if(Projectile.active)
-                Projectile.Kill();
+            if (Projectile.active)
+                    Projectile.Kill();
         }
         public float activeEffectAlpha = 0;
         public float shake2 = 0;
@@ -155,10 +162,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             if (activeEffectAlpha >= 0.01f)
             {
                 Texture2D pulse = CEUtils.getExtraTex("ShatteredExplosion");
-                for(float i = 0; i < 1f; i += 0.25f)
+                for(float i = 0; i < 1f; i += 0.1f)
                 {
                     float scale = CEUtils.Frac(i + Main.GlobalTimeWrappedHourly * 4f);
-                    Main.spriteBatch.Draw(pulse, Projectile.Center + offset  - Main.screenPosition, null, Color.LightSkyBlue * 1.4f * Projectile.Opacity * (1 - scale) * activeEffectAlpha, i * MathHelper.TwoPi, pulse.Size() * 0.5f, scale * Projectile.scale * 0.16f, SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(pulse, Projectile.Center + offset  - Main.screenPosition, null, Color.LightSkyBlue * 0.86f * Projectile.Opacity * (1 - scale * scale) * activeEffectAlpha, i * MathHelper.TwoPi, pulse.Size() * 0.5f, scale * Projectile.scale * 0.2f * shake, SpriteEffects.None, 0);
                 }
             }
             float s2 = 1 - shake2;
@@ -189,14 +196,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public void OnHitEffect(Vector2 pos)
         {
             CEUtils.PlaySound("CryogenHit" + Main.rand.Next(1, 4), 1, Projectile.Center);
-            for (int i = 0; i < 16; i++)
-                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 24, false, 12, 0.03f * Main.rand.NextFloat(0.6f, 1f), Color.LightSkyBlue, new Vector2(0.2f, 1f)));
+            for (int i = 0; i < 32; i++)
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0.3f, 1) * 24, false, 16, 0.08f * Main.rand.NextFloat(0.6f, 1f), Color.LightSkyBlue, new Vector2(0.2f, 1f)));
             for (int i = 0; i < 4; i++)
-                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, (i * MathHelper.PiOver2).ToRotationVector2() * Main.rand.NextFloat(0.6f, 1) * 36, false, 12, 0.06f, Color.LightSkyBlue, new Vector2(0.1f, 1f)));
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(Projectile.Center, (i * MathHelper.PiOver2).ToRotationVector2() * 30, false, 20, 0.12f, Color.LightSkyBlue, new Vector2(0.16f, 1f)));
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return new Circle(Projectile.Center, 38 * Projectile.scale).Intersects(targetHitbox);
+            return new Circle(Projectile.Center, 30 * Projectile.scale).Intersects(targetHitbox);
         }
         public override void OnKill(int timeLeft)
         {
@@ -207,8 +214,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             }
             float scale = 4;
             GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.LightSkyBlue * 1.14f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.05f, 24));
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.LightSkyBlue * 1.12f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.04f, 18));
-            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.LightSkyBlue * 1.12f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.028f, 15));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.LightSkyBlue * 1.12f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.032f, 18));
+            GeneralParticleHandler.SpawnParticle(new CustomPulse(Projectile.Center, Vector2.Zero, Color.LightSkyBlue * 1.12f, "CalamityMod/Particles/ShatteredExplosion", Vector2.One, CEUtils.randomRot(), 0.005f, scale * 0.024f, 15));
         }
     }
     public class FrostboundSpirit : ModProjectile
@@ -384,12 +391,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             {
                 float scale = Projectile.scale;
                 CEUtils.PlaySound("ThalassianHit", Main.rand.NextFloat(0.8f, 1.2f), Projectile.Center);
-                for (int i = 0; i < 16; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     Dust dust = Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<SquashDust>(), Vector2.Zero);
-                    dust.scale = Main.rand.NextFloat(0.6f, 1f) * scale * 3f;
+                    dust.scale = Main.rand.NextFloat(0.7f, 1f) * scale * 3.2f;
                     dust.velocity = Projectile.velocity.normalize().RotatedByRandom(0.2f) * Main.rand.NextFloat(0.4f, 1f) * 40 * scale;
-                    dust.noGravity = true;
+                    dust.noGravity = false;
                     dust.color = EffectColor();
                     dust.fadeIn = 2f;
                 }
