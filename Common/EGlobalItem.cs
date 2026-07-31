@@ -1842,6 +1842,7 @@ namespace CalamityEntropy.Common
             if (item.Is<CryogenBag>())
             {
                 itemLoot.Add(ModContent.ItemType<BookMarkIce>(), new Fraction(1, 2));
+                itemLoot.Add(ModContent.ItemType<FrostboundCage>(), new Fraction(2, 5));
             }
             if (item.Is<DesertScourgeBag>())
             {

@@ -30,6 +30,7 @@ using CalamityMod.NPCs.Abyss;
 using CalamityMod.NPCs.AstrumDeus;
 using CalamityMod.NPCs.CeaselessVoid;
 using CalamityMod.NPCs.Crabulon;
+using CalamityMod.NPCs.Cryogen;
 using CalamityMod.NPCs.DesertScourge;
 using CalamityMod.NPCs.DevourerofGods;
 using CalamityMod.NPCs.HiveMind;
@@ -952,6 +953,10 @@ namespace CalamityEntropy.Common
             if (npc.type == ModContent.NPCType<PerforatorHive>())
             {
                 npcLoot.Add(ModContent.ItemType<SinewLash>(), 3);
+            }
+            if (npc.type == ModContent.NPCType<Cryogen>())
+            {
+                npcLoot.Add(ModContent.ItemType<FrostboundCage>(), 3);
             }
             if (npc.type == NPCID.QueenSlimeBoss)
             {

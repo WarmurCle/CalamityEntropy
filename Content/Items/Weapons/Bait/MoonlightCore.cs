@@ -200,7 +200,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override void OnKill(int timeLeft)
         {
-            if(timeLeft > 0)
+            if(timeLeft > 0 && !Main.dedServ)
             {
                 OnHitEffect(Projectile.Center);
             }

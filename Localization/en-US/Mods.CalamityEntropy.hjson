@@ -4595,6 +4595,16 @@ Items: {
 			Clutching the Digivice with its backdoor, in this digital Myanmar of a trap, where are we to go?"
 			'''
 	}
+
+	FrostboundCage: {
+		DisplayName: Frostbound Cage
+		Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			Release the imprisoned spirits, and they will attack their targets using tracking ice bullets
+			'''
+	}
 }
 
 BaitCommonTooltip1: Charge when held. Usable when fully charged
@@ -5395,6 +5405,9 @@ Projectiles: {
 	BaitHeldEffect.DisplayName: Bait Held Effect
 	MagicHatProjectile.DisplayName: Magic Hat Projectile
 	PigeonMinion.DisplayName: Pigeon Minion
+	FrostboundCageProjectile.DisplayName: Frostbound Cage Projectile
+	FrostboundSpirit.DisplayName: Frostbound Spirit
+	FrostShoot.DisplayName: Frost Shoot
 }
 
 LegendTooltip: - Legend -

@@ -4653,6 +4653,16 @@ Items: {
 			捏着有着后门的神圣计划，在这数码缅北中，我们又该何去何从呢？”
 			'''
 	}
+
+	FrostboundCage: {
+		DisplayName: 寒霜锢笼
+		Tooltip: 
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			释放被囚禁的恶灵们，它们会使用追踪冰弹攻击目标
+			'''
+	}
 }
 
 BaitCommonTooltip1: 手持时充能，只能在装填完成时充能
@@ -5446,6 +5456,9 @@ Projectiles: {
 	BaitHeldEffect.DisplayName: 手持诱饵
 	MagicHatProjectile.DisplayName: 魔术帽
 	PigeonMinion.DisplayName: 鸽子
+	// FrostboundCageProjectile.DisplayName: Frostbound Cage Projectile
+	// FrostboundSpirit.DisplayName: Frostbound Spirit
+	// FrostShoot.DisplayName: Frost Shoot
 }
 
 LegendTooltip: - 传奇物品 -

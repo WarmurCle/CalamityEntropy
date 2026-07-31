@@ -180,7 +180,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override void OnKill(int timeLeft)
         {
-            if(timeLeft > 0)
+            if(timeLeft > 0 && !Main.dedServ)
             {
                 OnHitEffect(Projectile.Center);
             }
@@ -199,7 +199,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.MinionShot[Type] = true;
-            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 10000;
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 4500;
         }
         public override void SetDefaults()
         {

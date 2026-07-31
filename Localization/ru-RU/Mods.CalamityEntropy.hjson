@@ -4335,9 +4335,14 @@ Items: {
 		// DisplayName: Kamishiro Kou's Broken Goggles
 		/* Tooltip:
 			'''
-			"If being chosen is a complete lie, meant only to stuff us into boxes and turn us into evolution fodder...
+			"If being chosen is a complete lie, meant only to stuff us into boxes and turn us into evolution items...
 			Clutching the Digivice with its backdoor, in this digital Myanmar of a trap, where are we to go?"
 			''' */
+	}
+
+	FrostboundCage: {
+		// DisplayName: Frostbound Cage
+		// Tooltip: ""
 	}
 }
 
@@ -5143,6 +5148,9 @@ Projectiles: {
 	// BaitHeldEffect.DisplayName: Bait Held Effect
 	// MagicHatProjectile.DisplayName: Magic Hat Projectile
 	// PigeonMinion.DisplayName: Pigeon Minion
+	// FrostboundCageProjectile.DisplayName: Frostbound Cage Projectile
+	// FrostboundSpirit.DisplayName: Frostbound Spirit
+	// FrostShoot.DisplayName: Frost Shoot
 }
 
 LegendTooltip: - Легенда -

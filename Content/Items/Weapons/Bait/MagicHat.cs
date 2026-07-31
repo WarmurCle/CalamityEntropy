@@ -172,13 +172,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override void OnKill(int timeLeft)
         {
-            for (int i = 0; i < 32; i++)
+            if (!Main.dedServ)
             {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.MagicMirror, Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-6, 6), 0, new Color(200, 160, 255), Main.rand.NextFloat(1.4f, 1.6f));
+                for (int i = 0; i < 32; i++)
+                {
+                    Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.MagicMirror, Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-6, 6), 0, new Color(200, 160, 255), Main.rand.NextFloat(1.4f, 1.6f));
+                }
+                float r = CEUtils.randomRot();
+                EParticle.NewParticle(new AbyssalLine() { lx = 3f, xadd = 0.9f, spawnColor = Color.LightBlue, endColor = Color.Purple }, Projectile.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, r);
+                EParticle.NewParticle(new AbyssalLine() { lx = 3f, xadd = 0.9f, spawnColor = Color.LightBlue, endColor = Color.Purple }, Projectile.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, r + MathHelper.PiOver2);
             }
-            float r = CEUtils.randomRot();
-            EParticle.NewParticle(new AbyssalLine() { lx = 3f, xadd = 0.9f, spawnColor = Color.LightBlue, endColor = Color.Purple }, Projectile.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, r);
-            EParticle.NewParticle(new AbyssalLine() { lx = 3f, xadd = 0.9f, spawnColor = Color.LightBlue, endColor = Color.Purple }, Projectile.Center, Vector2.Zero, Color.White, 1, 1, true, BlendState.Additive, r + MathHelper.PiOver2);
         }
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
