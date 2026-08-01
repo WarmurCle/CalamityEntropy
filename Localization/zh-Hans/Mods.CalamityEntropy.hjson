@@ -4695,7 +4695,16 @@ Items: {
 			'''
 			{$BaitCommonTooltip1}
 			{$BaitCommonTooltip2}
-			黏附一段时间后炸开，释放虚空骇兽反复撕咬目标
+			黏附一段时间后炸开，释放[ceeffect/cruiser:噬虚弹]反复撕咬目标
+			'''
+	}
+
+	AzafureWarSatelliteAuthorizationKey: {
+		DisplayName: 阿萨福勒战争卫星密钥
+		Tooltip: '''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			召唤阿萨福勒战争卫星打击目标
 			'''
 	}
 }
@@ -5491,17 +5500,20 @@ Projectiles: {
 	BaitHeldEffect.DisplayName: 手持诱饵
 	MagicHatProjectile.DisplayName: 魔术帽
 	PigeonMinion.DisplayName: 鸽子
-	// FrostboundCageProjectile.DisplayName: Frostbound Cage Projectile
-	// FrostboundSpirit.DisplayName: Frostbound Spirit
-	// FrostShoot.DisplayName: Frost Shoot
-	// BlueFlatTopMushroomProjectile.DisplayName: Blue Flat Top Mushroom Projectile
-	// BlueFox.DisplayName: Blue Fox
-	// BlueSporeCloud.DisplayName: Blue Spore Cloud
-	// SacredShoot.DisplayName: Sacred Shoot
-	// SacredStoneProjectile.DisplayName: Sacred Stone Projectile
-	// SacredStoneSummon.DisplayName: Sacred Stone Summon
-	// BottledFissureProjectile.DisplayName: Bottled Fissure Projectile
-	// VoidEater.DisplayName: Void Eater
+	FrostboundCageProjectile.DisplayName: 寒霜锢笼
+	FrostboundSpirit.DisplayName: 寒霜恶灵
+	FrostShoot.DisplayName: 寒霜弹
+	BlueFlatTopMushroomProjectile.DisplayName: 蓝平顶菇
+	BlueFox.DisplayName: 蓝狐
+	BlueSporeCloud.DisplayName: 孢子云
+	SacredShoot.DisplayName: 圣火
+	SacredStoneProjectile.DisplayName: 圣火流石
+	SacredStoneSummon.DisplayName: 圣火灵
+	BottledFissureProjectile.DisplayName: 瓶装裂隙
+	VoidEater.DisplayName: 噬虚弹
+	AzafureWarSatelliteAuthorizationKeyProjectile.DisplayName: 阿萨福勒战争卫星密钥
+	SateliteLaser.DisplayName: 卫星激光
+	WarSatellite.DisplayName: 阿萨福勒战争卫星
 }
 
 LegendTooltip: - 传奇物品 -

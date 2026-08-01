@@ -4639,8 +4639,17 @@ Items: {
 			'''
 			{$BaitCommonTooltip1}
 			{$BaitCommonTooltip2}
-			Break after stick for a while,
-			release Void-eaters to bite the target
+			Summon [ceeffect/cruiser:Void-devour bullet] chasing the target
+			'''
+	}
+
+	AzafureWarSatelliteAuthorizationKey: {
+		DisplayName: Azafure War Satellite Authorization Key
+		Tooltip: 
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			Call Azafure War satellite to strike target
 			'''
 	}
 }
@@ -5454,6 +5463,9 @@ Projectiles: {
 	SacredStoneSummon.DisplayName: Sacred Stone Summon
 	BottledFissureProjectile.DisplayName: Bottled Fissure Projectile
 	VoidEater.DisplayName: Void Eater
+	AzafureWarSatelliteAuthorizationKeyProjectile.DisplayName: Azafure War Satellite Authorization Key Projectile
+	SateliteLaser.DisplayName: Satelite Laser
+	WarSatellite.DisplayName: War Satellite
 }
 
 LegendTooltip: - Legend -

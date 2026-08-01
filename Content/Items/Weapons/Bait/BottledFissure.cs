@@ -145,8 +145,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         {
             if (Main.myPlayer == Projectile.owner)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * 46, ModContent.ProjectileType<VoidEater>(), (int)(Projectile.damage * damageMul), 6, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * 46, ModContent.ProjectileType<VoidEater>(), (int)(Projectile.damage * damageMul), 6, Projectile.owner);
+                for (int i = 0; i < 3; i++)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, CEUtils.randomRot().ToRotationVector2() * 46, ModContent.ProjectileType<VoidEater>(), (int)(Projectile.damage * damageMul), 6, Projectile.owner);
+                }
             }
             if (!Main.dedServ)
             {
@@ -238,10 +240,11 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             get { return Projectile.Center; }
             set { Projectile.Center = value; }
         }
-        public override string Texture => base.Texture;
+        public override string Texture => CEUtils.WhiteTexPath;
 
         public bool spawnSeg = true;
         public List<WyrmSeg> segs;
+        public List<Vector2> oldPos = new List<Vector2>();
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.MinionShot[Type] = true;
@@ -253,7 +256,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Projectile.width = Projectile.height = 40;
             Projectile.localNPCHitCooldown = 16;
             Projectile.timeLeft = 580;
-            Projectile.MaxUpdates = 3;
+            Projectile.MaxUpdates = 2;
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
@@ -326,6 +329,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                 seg.update();
             }
             Projectile.position -= Projectile.velocity;
+            for(float i = 0; i < 1f; i += 0.2f)
+            {
+                oldPos.Add(Projectile.Center + Projectile.velocity * i);
+                if (oldPos.Count > 100)
+                    oldPos.RemoveAt(0);
+            }
         }
         internal ref float Time => ref base.Projectile.ai[0];
 
@@ -372,18 +381,18 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     num4 -= 10f;
                 }
 
-                num4 = MathHelper.Clamp(num4, 16f, 34f);
+                num4 = MathHelper.Clamp(num4, 16f, 34f) * 1.3f;
                 Projectile.velocity = Projectile.velocity.ToRotation().AngleTowards(base.Projectile.AngleTo(center), FlyAcceleration * 1.3f).ToRotationVector2() * num4;
             }
             Projectile.ai[2]--;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            CEUtils.PlaySound("DoGLaserWallSpawn", 1.4f, Projectile.Center, 16, 0.7f);
-            CEUtils.PlaySound("DnBite", 1.4f, Projectile.Center, 12, 0.6f);
-            for (int i = 0; i < 14; i++)
+            CEUtils.PlaySound("DoGLaserWallSpawn", 1.2f, Projectile.Center, 16, 0.4f);
+            CEUtils.PlaySound("DnBite", 1.2f, Projectile.Center, 12, 0.36f);
+            for (int i = 0; i < 12; i++)
             {
-                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(CEUtils.randomPoint(target.getRect()), Projectile.velocity.normalize().RotatedByRandom(0.4f) * Main.rand.NextFloat(9, 18), true, 24, Main.rand.NextFloat(1.2f, 1.6f) * 0.04f, Color.LightBlue, new Vector2(0.2f, 1f)));
+                GeneralParticleHandler.SpawnParticle(new GlowSparkParticle(CEUtils.randomPoint(target.getRect()), Projectile.velocity.normalize().RotatedByRandom(0.4f) * Main.rand.NextFloat(26, 32), true, 24, Main.rand.NextFloat(1.2f, 1.6f) * 0.04f, Color.LightBlue, new Vector2(0.2f, 1f)));
             }
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -419,8 +428,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public override bool PreDraw(ref Color lightColor)
         {
             float Scale = 1.8f;
-            DrawVortex(PortalPos, new Color(200, 180, 255) * PortalAlpha, Scale * PortalAlpha);
-            DrawVortex(PortalPos, Color.White * PortalAlpha, Scale * 0.6f * PortalAlpha);
+            DrawVortex(PortalPos, new Color(200, 180, 255) * PortalAlpha, Scale * PortalAlpha * 2);
+            DrawVortex(PortalPos, Color.White * PortalAlpha, Scale * 0.6f * PortalAlpha * 2);
             Main.spriteBatch.UseAdditiveClamp();
             Texture2D g = CEUtils.getExtraTex("Circle");
             Main.spriteBatch.Draw(g, PortalPos - Main.screenPosition, null, new Color(80, 80, 255) * PortalAlpha, 0, g.Size() * 0.5f, new Vector2(1, 0.06f) * 0.6f, SpriteEffects.None, 0);
@@ -434,35 +443,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Main.spriteBatch.ExitShaderRegion();
             if (Hide)
                 return false;
-            Texture2D s1 = Projectile.GetTexture();
-            Texture2D s2 = this.getTextureAlt("1");
-            Texture2D s3 = this.getTextureAlt("2");
-            Texture2D s4 = this.getTextureAlt("3");
 
             Main.spriteBatch.UseAdditiveClamp();
-            if (segs != null)
+            Texture2D tex = CEUtils.getExtraTex("lightball");
+            for(int i = 0; i < oldPos.Count; i++)
             {
-                for (int i = segs.Count - 1; i >= 0; i--)
-                {
-                    Texture2D tex = i == segs.Count - 1 ? s4 : (i % 2 == 1 ? s2 : s3);
-
-                    DrawSeg(tex, segs[i].Center, null, segs[i].rot, new Vector2(tex.Width / 2, tex.Height / 2), Color.White, true);
-                }
+                float ap = (i + 1f) / oldPos.Count;
+                Main.spriteBatch.Draw(tex, oldPos[i] - Main.screenPosition, null, new Color(90, 90, 255) * ap, Projectile.velocity.ToRotation(), tex.Size() / 2, new Vector2(1 + (Projectile.velocity.Length() * 0.01f), (1f / (1 + (Projectile.velocity.Length() * 0.01f)))) * 0.36f * ap * (Projectile.ai[0] == 1 ? 1 : 0.8f), SpriteEffects.None, 0);
+                ap += 1f / (float)oldPos.Count;
             }
-            DrawSeg(s1, Projectile.Center, null, Projectile.rotation, new Vector2(s1.Width / 2, s1.Height / 2), lightColor, true);
             Main.spriteBatch.ExitShaderRegion();
-
-            if (segs != null)
-            {
-                for (int i = segs.Count - 1; i >= 0; i--)
-                {
-                    Texture2D tex = i == segs.Count - 1 ? s4 : (i % 2 == 1 ? s2 : s3);
-
-                    DrawSeg(tex, segs[i].Center, null, segs[i].rot, new Vector2(tex.Width / 2, tex.Height / 2), Color.White);
-                }
-            }
-            DrawSeg(s1, Projectile.Center, null, Projectile.rotation, new Vector2(s1.Width / 2, s1.Height / 2), lightColor);
-
             return false;
         }
         public void DrawSeg(Texture2D tex, Vector2 pos, Rectangle? frame, float rot, Vector2 origin, Color color, bool outline = false)
