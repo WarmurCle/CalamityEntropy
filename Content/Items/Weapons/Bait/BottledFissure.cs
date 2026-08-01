@@ -1,4 +1,5 @@
-﻿using CalamityEntropy.Content.Buffs;
+﻿using CalamityEntropy.Common;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Books;
 using CalamityEntropy.Content.Items.Weapons.Thalassian;
 using CalamityEntropy.Content.Particles;
@@ -388,6 +389,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            EGlobalNPC.AddVoidTouch(target, 60, 4, 600, 12);
             CEUtils.PlaySound("DoGLaserWallSpawn", 1.2f, Projectile.Center, 16, 0.4f);
             CEUtils.PlaySound("DnBite", 1.2f, Projectile.Center, 12, 0.36f);
             for (int i = 0; i < 12; i++)

@@ -153,6 +153,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff(BuffID.OnFire3, 180);
             Projectile.tileCollide = false;
             OnHitEffect(Projectile.Center);
             Projectile.velocity *= 0;
@@ -299,6 +300,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff(BuffID.OnFire3, 180);
             SoundStyle burn = new("CalamityMod/Sounds/Item/WeldingBurn");
             SoundEngine.PlaySound(burn with { Volume = 0.28f, Pitch = 0.5f }, target.Center);
             for (int i = 0; i < 5; i++)

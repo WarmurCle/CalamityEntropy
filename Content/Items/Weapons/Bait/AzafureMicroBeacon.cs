@@ -319,6 +319,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff<MechanicalTrauma>(260);
             if (target.GetGlobalNPC<WhipDebuffNPC>().BaitStick > 0)
             {
                 target.GetGlobalNPC<WhipDebuffNPC>().BaitStick = 0;
