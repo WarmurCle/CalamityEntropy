@@ -4635,11 +4635,11 @@ Items: {
 
 	BottledFissure: {
 		DisplayName: Bottled Fissure
-		Tooltip: 
+		Tooltip:
 			'''
 			{$BaitCommonTooltip1}
 			{$BaitCommonTooltip2}
-			Break when hit tile or stick for a while,
+			Break after stick for a while,
 			release Void-eaters to bite the target
 			'''
 	}

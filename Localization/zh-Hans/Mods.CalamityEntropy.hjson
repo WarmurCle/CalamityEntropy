@@ -4691,11 +4691,11 @@ Items: {
 
 	BottledFissure: {
 		DisplayName: 瓶装裂隙
-		Tooltip: 
+		Tooltip:
 			'''
 			{$BaitCommonTooltip1}
 			{$BaitCommonTooltip2}
-			碰到物块或黏附一段时间后炸开，释放虚空骇兽反复撕咬目标
+			黏附一段时间后炸开，释放虚空骇兽反复撕咬目标
 			'''
 	}
 }
