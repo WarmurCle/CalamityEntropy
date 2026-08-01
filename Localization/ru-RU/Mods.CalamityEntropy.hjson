@@ -4384,7 +4384,12 @@ Items: {
 
 	AzafureWarSatelliteAuthorizationKey: {
 		// DisplayName: Azafure War Satellite Authorization Key
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			Call Azafure War satellite to strike target
+			''' */
 	}
 }
 

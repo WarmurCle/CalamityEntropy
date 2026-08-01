@@ -4701,7 +4701,8 @@ Items: {
 
 	AzafureWarSatelliteAuthorizationKey: {
 		DisplayName: 阿萨福勒战争卫星密钥
-		Tooltip: '''
+		Tooltip:
+			'''
 			{$BaitCommonTooltip1}
 			{$BaitCommonTooltip2}
 			召唤阿萨福勒战争卫星打击目标
