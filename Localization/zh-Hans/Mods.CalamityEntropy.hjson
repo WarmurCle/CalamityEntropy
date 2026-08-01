@@ -5515,6 +5515,8 @@ Projectiles: {
 	AzafureWarSatelliteAuthorizationKeyProjectile.DisplayName: 阿萨福勒战争卫星密钥
 	SateliteLaser.DisplayName: 卫星激光
 	WarSatellite.DisplayName: 阿萨福勒战争卫星
+	// ArbitratorStealthImpact.DisplayName: Arbitrator Stealth Impact
+	// ArbitratorStealthImpactSpawner.DisplayName: Arbitrator Stealth Impact Spawner
 }
 
 LegendTooltip: - 传奇物品 -

@@ -5209,6 +5209,8 @@ Projectiles: {
 	// AzafureWarSatelliteAuthorizationKeyProjectile.DisplayName: Azafure War Satellite Authorization Key Projectile
 	// SateliteLaser.DisplayName: Satelite Laser
 	// WarSatellite.DisplayName: War Satellite
+	// ArbitratorStealthImpact.DisplayName: Arbitrator Stealth Impact
+	// ArbitratorStealthImpactSpawner.DisplayName: Arbitrator Stealth Impact Spawner
 }
 
 LegendTooltip: - Легенда -
