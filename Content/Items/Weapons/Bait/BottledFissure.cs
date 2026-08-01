@@ -229,22 +229,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             }
         }
     }
-    public class VoidEater : ModProjectile, iWyrmSeg
+    public class VoidEater : ModProjectile
     {
-        public float rot
-        {
-            get { return Projectile.rotation; }
-            set { Projectile.rotation = value; }
-        }
-        public Vector2 Center
-        {
-            get { return Projectile.Center; }
-            set { Projectile.Center = value; }
-        }
         public override string Texture => CEUtils.WhiteTexPath;
 
-        public bool spawnSeg = true;
-        public List<WyrmSeg> segs;
         public List<Vector2> oldPos = new List<Vector2>();
         public override void SetStaticDefaults()
         {
@@ -278,20 +266,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                 PortalPos = Projectile.Center;
             if (Projectile.timeLeft < 18)
                 Projectile.Opacity -= 1 / 18f;
-            if (spawnSeg)
-            {
-                spawnSeg = false;
-                segs = new List<WyrmSeg>();
-                iWyrmSeg seg = this;
-                List<int> spacings = new List<int>();
-                for (int i = 0; i < Segments; i++)
-                {
-                    spacings.Add(16);
-                    WyrmSeg spawn = new WyrmSeg() { Center = Projectile.Center, follow = seg, rotC = 0.2f, spacing = spacings[i], AlwaysFollow = false };
-                    segs.Add(spawn);
-                    seg = spawn;
-                }
-            }
             Player player = Projectile.GetOwner();
             if (!Hide)
             {
@@ -324,12 +298,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             if (Hide)
                 Projectile.velocity *= 0;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            Projectile.position += Projectile.velocity;
-            foreach (WyrmSeg seg in segs)
-            {
-                seg.update();
-            }
-            Projectile.position -= Projectile.velocity;
             for(float i = 0; i < 1f; i += 0.2f)
             {
                 oldPos.Add(Projectile.Center + Projectile.velocity * i);
@@ -399,11 +367,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            foreach (var seg in segs)
-            {
-                if (seg.Center.getRectCentered(38, 38).Intersects(targetHitbox))
-                    return true;
-            }
             return null;
         }
         public void DrawVortex(Vector2 pos, Color color, float Size = 1, float glow = 1f)
