@@ -3431,7 +3431,12 @@ Items: {
 
 	StarBreaker: {
 		DisplayName: Starbreaker
-		Tooltip: Rapidly stabs enemies with a spear that inflicts [cbuff:CalamityMod/MarkedforDeath]
+		Tooltip:
+			'''
+			Rapidly stabs enemies with a spear that inflicts [cbuff:CalamityMod/MarkedforDeath]
+			Hold RMB for swinging up and down, then followed by a sprint forward, 
+			during which you are invulnerable
+			'''
 	}
 
 	Gungnir: {
@@ -4627,6 +4632,17 @@ Items: {
 			then releasing holy flames to burn the target
 			'''
 	}
+
+	BottledFissure: {
+		DisplayName: Bottled Fissure
+		Tooltip: 
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			Break when hit tile or stick for a while,
+			release Void-eaters to bite the target
+			'''
+	}
 }
 
 BaitCommonTooltip1: Charge when held. Usable when fully charged
@@ -5436,6 +5452,8 @@ Projectiles: {
 	SacredShoot.DisplayName: Sacred Shoot
 	SacredStoneProjectile.DisplayName: Sacred Stone Projectile
 	SacredStoneSummon.DisplayName: Sacred Stone Summon
+	BottledFissureProjectile.DisplayName: Bottled Fissure Projectile
+	VoidEater.DisplayName: Void Eater
 }
 
 LegendTooltip: - Legend -

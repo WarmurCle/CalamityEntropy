@@ -1287,6 +1287,13 @@ namespace CalamityEntropy
                 drawLine(Main.spriteBatch, ModContent.Request<Texture2D>("CalamityEntropy/Assets/Extra/white").Value, points[i - 1], points[i], color, width, wa, true);
             }
         }
+        public static void DrawLinesBetter(List<Vector2> points, Color color, float width, int wa = 2)
+        {
+            for (int i = 1; i < points.Count; i++)
+            {
+                drawLineBetter(points[i - 1], points[i], color, width, wa, true);
+            }
+        }
         public static SoundStyle GetSound(string name, float pitch = 1, int maxIns = 4, float volume = 1)
         {
             SoundStyle s = new SoundStyle("CalamityEntropy/Assets/Sounds/" + name);

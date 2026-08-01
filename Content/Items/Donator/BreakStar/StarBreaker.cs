@@ -1,3 +1,4 @@
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Utilities;
 using CalamityMod;
@@ -95,7 +96,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
         {
             if (AttackType == 1 && AttackCount2 == 2 && AttackTime <= 0.2f)
                 return false;
-            return CEUtils.LineThroughRect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 480 * Projectile.scale * ((AttackType == 1 && AttackCount2 < 2) ? 1.2f : 1f), Projectile.Center, targetHitbox, 200);
+            return CEUtils.LineThroughRect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 480 * Projectile.scale * ((AttackType == 1 && AttackCount2 < 2) ? 1.06f : 1f), Projectile.Center, targetHitbox, 200);
         }
         public override void CutTiles()
         {
@@ -195,7 +196,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
                             num = (RotP * -2f) / (1 / add);
                             Projectile.ResetLocalNPCHitImmunity();
                             PlaySound = false;
-                            GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(Projectile.Center + Projectile.velocity.normalize() * 500 * Projectile.scale, player.velocity + Projectile.velocity.normalize() * -32 * Projectile.scale, new Color(255, 80, 80), new Vector2(0.3f, 1), Projectile.velocity.ToRotation(), 0.1f, 1f * Projectile.scale, 16));
+                            GeneralParticleHandler.SpawnParticle(new DirectionalPulseRing(Projectile.Center + Projectile.velocity.normalize() * 500 * Projectile.scale, player.velocity + Projectile.velocity.normalize() * -32 * Projectile.scale, new Color(80, 80, 255), new Vector2(0.3f, 1), Projectile.velocity.ToRotation(), 0.1f, 1f * Projectile.scale, 16));
                         }
                         RotP += num;
                         AttackTime += add;
@@ -257,7 +258,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
                             SndFlag = false;
                         }
                         Projectile.Center += Projectile.rotation.ToRotationVector2() * 120 * Projectile.scale;
-                        Projectile.rotation = Projectile.velocity.ToRotation() + (CEUtils.GetRepeatedCosFromZeroToOne(p, 2) - 0.5f) * 4f * (AttackCount2 == 0 ? 1 : -1) * (Projectile.velocity.X > 0 ? 1 : -1);
+                        Projectile.rotation = Projectile.velocity.ToRotation() + (CEUtils.GetRepeatedCosFromZeroToOne(p, 2) - 0.5f) * 4f * (AttackCount2 == 0 ? 1 : -1) * (Projectile.velocity.X > 0 ? -1 : 1);
                         Projectile.position += (Projectile.rotation).ToRotationVector2() * CEUtils.Parabola(p, 1) * 80;
                         Projectile.Center += Projectile.rotation.ToRotationVector2() * -120 * Projectile.scale;
                         Atk2Counter -= player.GetTotalAttackSpeed(Projectile.DamageType) * (1f / ItemTime) * 1f;
@@ -342,7 +343,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
                 else
                 {
 
-                    modifiers.SourceDamage *= 2.4f;
+                    modifiers.SourceDamage *= 1.2f;
                 }
             }
         }
@@ -350,24 +351,32 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
         {
             target.AddBuff<MarkedforDeath>(180);
 
+            if(AttackType == 1)
+            {
+                if (AttackCount2 == 0)
+                    Projectile.GetOwner().AddBuff(BuffID.ParryDamageBuff, 180);
+                if (AttackCount2 == 1)
+                    target.AddBuff<SoulDisorder>(180);
+            }
+
             if (!PlaySound)
             {
                 ScreenShaker.AddShake(new ScreenShaker.ScreenShake(Projectile.velocity.normalize() * -4, 3));
                 PlaySound = true;
                 CEUtils.PlaySound("spearImpact", Main.rand.NextFloat(0.8f, 1.4f), target.Center);
             }
-            for (int i = 0; i < 32; i++)
+            for (int i = 0; i < 24; i++)
             {
                 float sparkScale2 = Main.rand.NextFloat(1.4f, 2.4f);
                 Vector2 sparkVelocity2 = Projectile.rotation.ToRotationVector2().RotatedByRandom(0.2f) * 64 * Main.rand.NextFloat(0.2f, 1);
-                if (Main.rand.NextBool(5))
+                if (Main.rand.NextBool(3))
                 {
-                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, 12, sparkScale2 * (1.4f), Color.Crimson);
-                    GeneralParticleHandler.SpawnParticle(spark);
+                    AltSparkParticle spark = new AltSparkParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2 * (1f), false, 12, sparkScale2 * (1.4f), new Color(60, 60, 255));
+                    GeneralParticleHandler.SpawnParticle(spark, false, CalamityMod.Enums.GeneralDrawLayer.AfterPlayers);
                 }
                 else
                 {
-                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2, false, 8, sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.Red : new Color(255, 190, 190));
+                    LineParticle spark = new LineParticle(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f), sparkVelocity2, false, 8, sparkScale2 * (Projectile.frame == 7 ? 1.4f : 1f), Main.rand.NextBool() ? Color.Blue : new Color(140, 140, 255));
                     GeneralParticleHandler.SpawnParticle(spark);
                 }
             }
@@ -421,7 +430,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
 
             for (int i = 0; i < 2; i++)
             {
-                Main.spriteBatch.Draw(arrow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 330 + CEUtils.randomPointInCircle(24), null, applyAlpha(Color.Red), Projectile.rotation + Main.rand.NextFloat(-0.22f, 0.22f), arrow.Size() / 2f, new Vector2(2f, 1) * Projectile.scale * 0.4f, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(arrow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 330 + CEUtils.randomPointInCircle(24), null, applyAlpha(Color.Blue), Projectile.rotation + Main.rand.NextFloat(-0.22f, 0.22f), arrow.Size() / 2f, new Vector2(2f, 1) * Projectile.scale * 0.4f, SpriteEffects.None, 0);
             }
 
             if(oldRots.Count > 0)
@@ -434,9 +443,9 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
                     ap = 0.4f * (i + 1f) / oldRots.Count;
                     float rotation = oldRots[i];
                     Main.spriteBatch.UseBlendState(BlendState.Additive);
-                    Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition + rotation.ToRotationVector2() * 360, null, new Color(255, 16, 16) * arrowAlpha * ap, rotation, arrow.Size() / 2f, new Vector2(1.8f, 1) * Projectile.scale * 0.6f * Projectile.scale, SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition + rotation.ToRotationVector2() * 360, null, new Color(16, 16, 255) * arrowAlpha * ap, rotation, arrow.Size() / 2f, new Vector2(1.8f, 1) * Projectile.scale * 0.6f * Projectile.scale, SpriteEffects.None, 0);
                     Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied);
-                    Main.spriteBatch.Draw(arrow, Projectile.Center - Main.screenPosition + rotation.ToRotationVector2() * 360, null, applyAlpha(Color.Red), rotation, arrow.Size() / 2f, new Vector2(1.8f, 1) * Projectile.scale * 0.6f * Projectile.scale, SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(arrow, Projectile.Center - Main.screenPosition + rotation.ToRotationVector2() * 360, null, applyAlpha(Color.Blue), rotation, arrow.Size() / 2f, new Vector2(1.8f, 1) * Projectile.scale * 0.6f * Projectile.scale, SpriteEffects.None, 0);
                     Main.spriteBatch.UseBlendState(BlendState.Additive);
                     Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition + rotation.ToRotationVector2() * 360, null, Color.White * arrowAlpha * ap * 2, rotation, arrow.Size() / 2f, new Vector2(1.7f, 0.4f) * Projectile.scale * 0.6f * Projectile.scale, SpriteEffects.None, 0);
                     ;
@@ -446,9 +455,9 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
                 Projectile.Center = oCenter;
             }
             Main.spriteBatch.UseBlendState(BlendState.Additive);
-            Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 360, null, new Color(255, 16, 16) * arrowAlpha, Projectile.rotation, arrow.Size() / 2f, new Vector2(1.8f, 1) * Projectile.scale * 0.6f * Projectile.scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 360, null, new Color(16, 16, 255) * arrowAlpha, Projectile.rotation, arrow.Size() / 2f, new Vector2(1.8f, 1) * Projectile.scale * 0.6f * Projectile.scale, SpriteEffects.None, 0);
             Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied);
-            Main.spriteBatch.Draw(arrow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 360, null, applyAlpha(Color.Red), Projectile.rotation, arrow.Size() / 2f, new Vector2(1.8f, 1) * Projectile.scale * 0.6f * Projectile.scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(arrow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 360, null, applyAlpha(Color.Blue), Projectile.rotation, arrow.Size() / 2f, new Vector2(1.8f, 1) * Projectile.scale * 0.6f * Projectile.scale, SpriteEffects.None, 0);
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition + Projectile.rotation.ToRotationVector2() * 360, null, Color.White * arrowAlpha * 2, Projectile.rotation, arrow.Size() / 2f, new Vector2(1.7f, 0.4f) * Projectile.scale * 0.6f * Projectile.scale, SpriteEffects.None, 0);
             ;
@@ -458,7 +467,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
             {
                 int dir = AttackCount2 == 0 ? 1 : -1;
                 Texture2D smr = CEUtils.getExtraTex("CircularSmear");
-                Main.spriteBatch.Draw(smr, Projectile.GetOwner().Center - Main.screenPosition, null, new Color(255, 60, 60) * arrowAlpha, Projectile.rotation + 0.7f * dir, smr.Size() * 0.5f, Projectile.scale * 6f, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
+                Main.spriteBatch.Draw(smr, Projectile.GetOwner().Center - Main.screenPosition, null, new Color(60, 60, 255) * arrowAlpha, Projectile.rotation + 0.7f * dir, smr.Size() * 0.5f, Projectile.scale * 6f, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
             }
             Main.spriteBatch.ExitShaderRegion();
             List<Vector2> points = new();
@@ -466,7 +475,9 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
             {
                 points.Add(Projectile.Center + Projectile.rotation.ToRotationVector2() * i * Projectile.scale + Projectile.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2) * Main.rand.Next(-60, 61) * ((450 - i) / (AttackCount % 4 != 3 ? 200f : 350f)));
             }
-            CEUtils.DrawLines(points, Color.White * (arrowAlpha / 0.5f), 2 * Projectile.scale);
+            Main.spriteBatch.UseAdditiveClamp();
+            CEUtils.DrawLinesBetter(points, Color.White * (arrowAlpha / 0.5f), 2 * Projectile.scale);
+            Main.spriteBatch.ExitShaderRegion();
             return false;
         }
     }

@@ -3535,7 +3535,11 @@ Items: {
 
 	StarBreaker: {
 		DisplayName: 星启破军
-		Tooltip: ""
+		Tooltip:
+			'''
+			左键快速突刺，每第四下突刺会变得更大且更强
+			右键上下挥舞，随后向前方冲刺，冲刺期间无敌
+			'''
 	}
 
 	Gungnir: {
@@ -4684,6 +4688,16 @@ Items: {
 			黏附后经过两秒的再次充能会从目标身上弹出，并释放圣火焚烧目标
 			'''
 	}
+
+	BottledFissure: {
+		DisplayName: 瓶装裂隙
+		Tooltip: 
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			碰到物块或黏附一段时间后炸开，释放虚空骇兽反复撕咬目标
+			'''
+	}
 }
 
 BaitCommonTooltip1: 手持时充能，只能在充能完成时丢出
@@ -5486,6 +5500,8 @@ Projectiles: {
 	// SacredShoot.DisplayName: Sacred Shoot
 	// SacredStoneProjectile.DisplayName: Sacred Stone Projectile
 	// SacredStoneSummon.DisplayName: Sacred Stone Summon
+	// BottledFissureProjectile.DisplayName: Bottled Fissure Projectile
+	// VoidEater.DisplayName: Void Eater
 }
 
 LegendTooltip: - 传奇物品 -

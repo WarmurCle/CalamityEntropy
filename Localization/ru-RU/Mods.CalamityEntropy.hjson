@@ -4371,6 +4371,11 @@ Items: {
 			then releasing holy flames to burn the target
 			''' */
 	}
+
+	BottledFissure: {
+		// DisplayName: Bottled Fissure
+		// Tooltip: ""
+	}
 }
 
 // BaitCommonTooltip1: Charge when held. Usable when fully charged
@@ -5184,6 +5189,8 @@ Projectiles: {
 	// SacredShoot.DisplayName: Sacred Shoot
 	// SacredStoneProjectile.DisplayName: Sacred Stone Projectile
 	// SacredStoneSummon.DisplayName: Sacred Stone Summon
+	// BottledFissureProjectile.DisplayName: Bottled Fissure Projectile
+	// VoidEater.DisplayName: Void Eater
 }
 
 LegendTooltip: - Легенда -
