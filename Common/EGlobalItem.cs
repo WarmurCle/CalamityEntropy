@@ -1882,7 +1882,8 @@ namespace CalamityEntropy.Common
             }
             if (item.Is<ProvidenceBag>())
             {
-                itemLoot.Add(ModContent.ItemType<BookMarkProfaned>(), new Fraction(1, 1));
+                itemLoot.Add(ModContent.ItemType<BookMarkProfaned>(), new Fraction(3, 5));
+                itemLoot.Add(ModContent.ItemType<SacredStone>(), new Fraction(3, 5));
             }
             if (item.type == ItemID.EyeOfCthulhuBossBag)
             {

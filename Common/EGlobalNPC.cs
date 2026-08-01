@@ -910,6 +910,7 @@ namespace CalamityEntropy.Common
             if (npc.type == ModContent.NPCType<Providence>())
             {
                 npcLoot.Add(ModContent.ItemType<HellBohea>(), 2);
+                npcLoot.Add(ModContent.ItemType<SacredStone>(), 3);
             }
             if (npc.type == NPCID.Paladin)
             {
