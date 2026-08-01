@@ -466,8 +466,9 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
             if(AttackType == 1 && AttackCount2 < 2)
             {
                 int dir = AttackCount2 == 0 ? 1 : -1;
+                dir *= Projectile.velocity.X > 0 ? 1 : -1;
                 Texture2D smr = CEUtils.getExtraTex("CircularSmear");
-                Main.spriteBatch.Draw(smr, Projectile.GetOwner().Center - Main.screenPosition, null, new Color(60, 60, 255) * arrowAlpha, Projectile.rotation + 0.7f * dir, smr.Size() * 0.5f, Projectile.scale * 6f, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
+                Main.spriteBatch.Draw(smr, Projectile.GetOwner().Center - Main.screenPosition, null, new Color(60, 60, 255) * arrowAlpha, Projectile.rotation + -2.7f * dir, smr.Size() * 0.5f, Projectile.scale * 6f, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
             }
             Main.spriteBatch.ExitShaderRegion();
             List<Vector2> points = new();
