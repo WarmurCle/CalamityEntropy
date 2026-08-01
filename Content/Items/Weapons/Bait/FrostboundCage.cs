@@ -203,7 +203,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return new Circle(Projectile.Center, 30 * Projectile.scale).Intersects(targetHitbox);
+            return new Circle(Projectile.Center, 18 * Projectile.scale).Intersects(targetHitbox);
         }
         public override void OnKill(int timeLeft)
         {

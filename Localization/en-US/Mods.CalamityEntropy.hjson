@@ -4605,6 +4605,17 @@ Items: {
 			Release the imprisoned spirits, and they will attack their targets using tracking ice bullets
 			'''
 	}
+
+	BlueFlatTopMushroom: {
+		DisplayName: Blue Flat-Top Mushroom
+		Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			Summon a blue fox
+			The fox will steal the mushroom and release a spore cloud
+			'''
+	}
 }
 
 BaitCommonTooltip1: Charge when held. Usable when fully charged
@@ -5408,6 +5419,9 @@ Projectiles: {
 	FrostboundCageProjectile.DisplayName: Frostbound Cage Projectile
 	FrostboundSpirit.DisplayName: Frostbound Spirit
 	FrostShoot.DisplayName: Frost Shoot
+	BlueFlatTopMushroomProjectile.DisplayName: Blue Flat Top Mushroom Projectile
+	BlueFox.DisplayName: Blue Fox
+	BlueSporeCloud.DisplayName: Blue Spore Cloud
 }
 
 LegendTooltip: - Legend -

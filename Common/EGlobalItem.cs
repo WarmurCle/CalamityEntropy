@@ -1747,11 +1747,6 @@ namespace CalamityEntropy.Common
             {
                 itemLoot.Add(ModContent.ItemType<BookmarkCosmic>(), 2);
             }
-            if (item.Is<CrabulonBag>())
-            {
-                itemLoot.Add(ModContent.ItemType<WisperCard>(), 2);
-                itemLoot.Add(ModContent.ItemType<BookmarkSpore>(), 2);
-            }
             if (item.Is<PlaguebringerGoliathBag>())
             {
                 itemLoot.Add(ModContent.ItemType<PlagueInternalCombustionEngine>(), 4);
@@ -1808,7 +1803,10 @@ namespace CalamityEntropy.Common
             }
             if (item.Is<CrabulonBag>())
             {
-                itemLoot.Add(ModContent.ItemType<BookMarkCancer>(), new Fraction(1, 2));
+                itemLoot.Add(ModContent.ItemType<WisperCard>(), 2);
+                itemLoot.Add(ModContent.ItemType<BookMarkCancer>(), new Fraction(2, 5));
+                itemLoot.Add(ModContent.ItemType<BookmarkSpore>(), new Fraction(2, 5));
+                itemLoot.Add(ModContent.ItemType<BlueFlatTopMushroom>(), new Fraction(2, 5));
             }
             if (item.Is<AquaticScourgeBag>())
             {

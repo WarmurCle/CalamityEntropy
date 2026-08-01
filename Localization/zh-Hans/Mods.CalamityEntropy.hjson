@@ -4663,6 +4663,17 @@ Items: {
 			释放被囚禁的恶灵们，它们会使用追踪冰弹攻击目标
 			'''
 	}
+
+	BlueFlatTopMushroom: {
+		DisplayName: 蓝色平顶菇
+		Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			召唤一只蓝狐
+			蓝狐会偷走蘑菇并释放一团孢子云
+			'''
+	}
 }
 
 BaitCommonTooltip1: 手持时充能，只能在装填完成时充能
@@ -5459,6 +5470,9 @@ Projectiles: {
 	// FrostboundCageProjectile.DisplayName: Frostbound Cage Projectile
 	// FrostboundSpirit.DisplayName: Frostbound Spirit
 	// FrostShoot.DisplayName: Frost Shoot
+	// BlueFlatTopMushroomProjectile.DisplayName: Blue Flat Top Mushroom Projectile
+	// BlueFox.DisplayName: Blue Fox
+	// BlueSporeCloud.DisplayName: Blue Spore Cloud
 }
 
 LegendTooltip: - 传奇物品 -
