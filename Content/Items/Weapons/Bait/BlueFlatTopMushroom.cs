@@ -229,9 +229,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             }
             Counter++;
 
-            NPC target = Projectile.FindMinionTarget();
-            if(target != null)
-                dir = (Math.Sign(target.Center.X - Projectile.Center.X));
             if (Projectile.velocity.X > 0.1f)
                 dir = 1;
             if (Projectile.velocity.X < -0.1f)
@@ -243,10 +240,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                 {
                     Vector2 acornPos = Vector2.Zero;
                     Projectile acorn = null;
+                    NPC target = null;
                     foreach(Projectile p in Main.ActiveProjectiles)
                     {
                         if(p.ModProjectile != null && p.ModProjectile is BaitProj bp && !bp.IsActive)
                         {
+                            target = bp.StickNPC.ToNPC();
                             acorn = p;
                             acornPos = p.Center;
                             break;
@@ -363,7 +362,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            SpriteEffects se = dir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            SpriteEffects se = dir < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             Texture2D tex = Projectile.GetTexture();
             Rectangle frame = CEUtils.GetCutTexRect(tex, 4, Frame, false);
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, frame, lightColor * Projectile.Opacity, Projectile.rotation, frame.Size() * 0.5f, Projectile.scale, se, 0);

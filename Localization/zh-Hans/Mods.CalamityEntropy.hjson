@@ -4674,10 +4674,20 @@ Items: {
 			蓝狐会偷走蘑菇并释放一团孢子云
 			'''
 	}
+
+	SacredStone: {
+		DisplayName: 圣火流石
+		Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			黏附后经过两秒的再次充能会从目标身上弹出，并释放圣火焚烧目标
+			'''
+	}
 }
 
-BaitCommonTooltip1: 手持时充能，只能在装填完成时充能
-BaitCommonTooltip2: 丢出一个命中敌人后会黏住的诱饵，并使仆从对其增加{0}点标记伤害
+BaitCommonTooltip1: 手持时充能，只能在充能完成时丢出
+BaitCommonTooltip2: 命中敌人后会黏住，并使仆从对其增加{0}点标记伤害
 SmolderingSetBonus:
 	'''
 	召唤一条灼烬之尾
@@ -5473,6 +5483,9 @@ Projectiles: {
 	// BlueFlatTopMushroomProjectile.DisplayName: Blue Flat Top Mushroom Projectile
 	// BlueFox.DisplayName: Blue Fox
 	// BlueSporeCloud.DisplayName: Blue Spore Cloud
+	// SacredShoot.DisplayName: Sacred Shoot
+	// SacredStoneProjectile.DisplayName: Sacred Stone Projectile
+	// SacredStoneSummon.DisplayName: Sacred Stone Summon
 }
 
 LegendTooltip: - 传奇物品 -

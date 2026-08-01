@@ -4616,6 +4616,17 @@ Items: {
 			The fox will steal the mushroom and release a spore cloud
 			'''
 	}
+
+	SacredStone: {
+		DisplayName: Sacred Stone
+		Tooltip:
+			'''
+			{$BaitCommonTooltip1}
+			{$BaitCommonTooltip2}
+			After sticking, it will recharge for two seconds and then bounce off the target,
+			then releasing holy flames to burn the target
+			'''
+	}
 }
 
 BaitCommonTooltip1: Charge when held. Usable when fully charged
@@ -5422,6 +5433,9 @@ Projectiles: {
 	BlueFlatTopMushroomProjectile.DisplayName: Blue Flat Top Mushroom Projectile
 	BlueFox.DisplayName: Blue Fox
 	BlueSporeCloud.DisplayName: Blue Spore Cloud
+	SacredShoot.DisplayName: Sacred Shoot
+	SacredStoneProjectile.DisplayName: Sacred Stone Projectile
+	SacredStoneSummon.DisplayName: Sacred Stone Summon
 }
 
 LegendTooltip: - Legend -

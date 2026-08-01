@@ -245,6 +245,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public int ShootDelay = Main.rand.Next(70, 100);
         public override void AI()
         {
+            if (Projectile.localAI[1] == 0)
+                Projectile.localAI[1] = Main.rand.NextFloat(MathHelper.Pi, MathHelper.Pi * 3);
             Projectile.Opacity = 1;
             if (Projectile.timeLeft < 20)
                 Projectile.Opacity = Projectile.timeLeft / 20f;
@@ -290,7 +292,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                 }
             }
             Counter++;
-            var adv = Projectile.velocity.RotatedBy((float)(Math.Sin(Counter * 0.12f)) * 0.32f);
+            var adv = Projectile.velocity.RotatedBy((float)(Math.Sin(Counter * 0.2f + Projectile.localAI[1])) * 0.6f);
             Projectile.rotation = adv.ToRotation();
             for (float i = 0; i < 1f; i += 0.1f)
             {
