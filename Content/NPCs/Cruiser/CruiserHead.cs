@@ -518,6 +518,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             bool canShoot = Main.netMode != NetmodeID.MultiplayerClient;
             if (DeathAnm)
             {
+                WarningAlpha = 0;
                 if (camLerp < 1)
                 {
                     camLerp += 0.025f;
