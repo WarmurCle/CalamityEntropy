@@ -1,6 +1,8 @@
 using CalamityEntropy.Common;
 using CalamityEntropy.Core.ChatTags;
+using CalamityMod;
 using CalamityMod.ChatTags;
+using CalamityMod.NPCs.NormalNPCs;
 using CalamityMod.Rarities;
 using CalamityMod.Utilities.Daybreak.Buffers;
 using Microsoft.Xna.Framework.Graphics;
@@ -34,6 +36,45 @@ namespace CalamityEntropy.Content.ILEditing
                 EModHooks.Add(mtd, hookBurnishedAuric);
                 mtd = typeof(ExoticRainbow.CustomTextSnippet).GetMethod("UniqueDraw", BindingFlags.Instance | BindingFlags.Public);
                 EModHooks.Add(mtd, hookExoticRainbow);
+
+                mtd = typeof(DivineSwine).GetMethod("Draw_BestiaryPortrait", BindingFlags.Instance | BindingFlags.Public);
+                EModHooks.Add(mtd, hookDivineSwinePortrait);
+            }
+        }
+        public static void hookDivineSwinePortrait(Action<DivineSwine, SpriteBatch> orig, DivineSwine self, SpriteBatch spriteBatch)
+        {
+            NPC NPC = self.NPC;
+            if (Active())
+            {
+                Texture2D baseTexture = TextureAssets.Npc[self.Type].Value;
+                float floatHeight = MathHelper.Lerp(-8f, 8f, MathF.Sin((float)NPC.ai[0] / 150f) * 0.5f + 0.5f);
+                Vector2 drawPosition = NPC.Center + Vector2.UnitY * floatHeight;
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Deferred, CalamityUtils.SubtractiveBlending, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
+
+                int backShadowCount = 3;
+                for (int i = 0; i < backShadowCount; i++)
+                {
+                    float rotation = (float)(Main.timeForVisualEffects / MathHelper.Pi * 0.08f) + NPC.whoAmI;
+                    Vector2 backglowDrawPosition = drawPosition + Vector2.UnitX.RotatedBy(i * MathHelper.TwoPi / backShadowCount + rotation) * 6f;
+                    spriteBatch.Draw(baseTexture, backglowDrawPosition, NPC.frame, NPC.GetAlpha(Color.White) * 0.9f, NPC.rotation, NPC.frame.Size() * 0.5f, NPC.scale, 0, 0f);
+                }
+
+                int backShadowCount2 = 6;
+                for (int i = 0; i < backShadowCount2; i++)
+                {
+                    float rotation = (float)(Main.timeForVisualEffects / MathHelper.Pi * 0.06f) + NPC.whoAmI;
+                    Vector2 backglowDrawPosition = drawPosition + Vector2.UnitX.RotatedBy(i * MathHelper.TwoPi / backShadowCount2 + rotation) * 12f;
+                    spriteBatch.Draw(baseTexture, backglowDrawPosition, NPC.frame, NPC.GetAlpha(Color.White) * 0.7f, NPC.rotation, NPC.frame.Size() * 0.5f, NPC.scale, 0, 0f);
+                }
+
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
+                spriteBatch.Draw(baseTexture, drawPosition, NPC.frame, NPC.GetAlpha(Color.White), NPC.rotation, NPC.frame.Size() * 0.5f, NPC.scale, 0, 0f);
+            }
+            else
+            {
+                orig(self, spriteBatch);
             }
         }
 
