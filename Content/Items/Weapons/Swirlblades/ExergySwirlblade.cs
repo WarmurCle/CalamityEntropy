@@ -143,16 +143,16 @@ namespace CalamityEntropy.Content.Items.Weapons.Swirlblades
                 float time = Main.GlobalTimeWrappedHourly;
                 Vector2 o = smear.Size() * 0.5f;
                 Main.spriteBatch.UseBlendState(BlendState.NonPremultiplied, SamplerState.PointClamp);
-
+                
                 Main.spriteBatch.Draw(smear, Projectile.Center + CEUtils.randomPointInCircle(4 * Projectile.scale) - Main.screenPosition, null, new Color(0, 0, 0) * Projectile.Opacity * BladeScale, time * -42f, o, scale * 1f, SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(smear, Projectile.Center + CEUtils.randomPointInCircle(4 * Projectile.scale) - Main.screenPosition, null, new Color(0, 0, 0) * Projectile.Opacity * BladeScale, time * -36f, o, scale * 0.7f, SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(smear, Projectile.Center + CEUtils.randomPointInCircle(4 * Projectile.scale) - Main.screenPosition, null, new Color(0, 0, 0) * Projectile.Opacity * BladeScale, time * 36f, o, scale * 1f, SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(smear, Projectile.Center + CEUtils.randomPointInCircle(4 * Projectile.scale) - Main.screenPosition, null, new Color(0, 0, 0) * Projectile.Opacity * BladeScale, time * 42f, o, scale * 0.7f, SpriteEffects.None, 0);
 
-                Main.spriteBatch.UseBlendState(BlendState.Additive, SamplerState.PointClamp);
-                Main.spriteBatch.Draw(smear, Projectile.Center + CEUtils.randomPointInCircle(4 * Projectile.scale) - Main.screenPosition, null, new Color(190, 246, 190) * Projectile.Opacity * BladeScale, time * 42f, o, scale * 0.9f, SpriteEffects.None, 0);
-                Main.spriteBatch.Draw(smear, Projectile.Center + CEUtils.randomPointInCircle(4 * Projectile.scale) - Main.screenPosition, null, new Color(190, 246, 190) * Projectile.Opacity * BladeScale, time * -34f, o, scale * 0.9f, SpriteEffects.None, 0);
-                Main.spriteBatch.Draw(smear, Projectile.Center + CEUtils.randomPointInCircle(4 * Projectile.scale) - Main.screenPosition, null, new Color(190, 246, 190) * Projectile.Opacity * BladeScale, time * 36f, o, scale * 0.64f, SpriteEffects.None, 0);
+                BaseSwirlblade.ApplyShader(new Color(190, 255, 190));
+                Main.spriteBatch.Draw(smear, Projectile.Center + CEUtils.randomPointInCircle(4 * Projectile.scale) - Main.screenPosition, null, new Color(0, 246, 0) * Projectile.Opacity * BladeScale, time * 42f, o, scale * 0.97f, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(smear, Projectile.Center + CEUtils.randomPointInCircle(4 * Projectile.scale) - Main.screenPosition, null, new Color(0, 246, 0) * Projectile.Opacity * BladeScale, time * -34f, o, scale * 0.97f, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(smear, Projectile.Center + CEUtils.randomPointInCircle(4 * Projectile.scale) - Main.screenPosition, null, new Color(0, 246, 0) * Projectile.Opacity * BladeScale, time * 36f, o, scale * 0.96f, SpriteEffects.None, 0);
             }
 
             Main.spriteBatch.ExitShaderRegion();

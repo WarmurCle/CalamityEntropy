@@ -6681,6 +6681,7 @@ AzafureEnhances: {
 		Increase missile amount
 		''' */
 	// AzafureMicroBeacon: Increase the amount of drones
+	// AzafureWarSatelliteAuthorizationKey: Increase the laser duration
 }
 
 Menu: {

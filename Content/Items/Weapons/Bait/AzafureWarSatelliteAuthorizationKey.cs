@@ -202,7 +202,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Projectile.FriendlySetDefaults(DamageClass.Summon, false, -1);
             Projectile.width = Projectile.height = 32;
             Projectile.localNPCHitCooldown = -1;
-            Projectile.timeLeft = 380 + (Projectile.GetOwner().AzafureEnhance() ? 60 : 0);
+            Projectile.timeLeft = 380;
         }
         public int Delay = 60;
         public int ChargeTime = 100;
@@ -213,6 +213,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override void AI()
         {
+            if(Projectile.Entropy().FirstFrames)
+            {
+                Projectile.timeLeft += (Projectile.GetOwner().AzafureEnhance() ? 60 : 0);
+            }
             if(Projectile.frameCounter++ % 4 == 0)
             {
                 Projectile.frame++;
@@ -320,7 +324,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Projectile.FriendlySetDefaults(DamageClass.Summon, false, -1);
             Projectile.width = 24;
             Projectile.height = 24;
-            Projectile.timeLeft = (120 + (Projectile.GetOwner().AzafureEnhance() ? 60 : 0));
+            Projectile.timeLeft = 120;
             Projectile.light = 1;
             Projectile.localNPCHitCooldown = 6;
         }
@@ -331,6 +335,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override void AI()
         {
+            if (Projectile.Entropy().FirstFrames)
+            {
+                Projectile.timeLeft += (Projectile.GetOwner().AzafureEnhance() ? 60 : 0);
+            }
             if (Projectile.Entropy().FirstFrames)
             {
                 CEUtils.PlaySound("CruiserDash", 1f, Projectile.Center);
