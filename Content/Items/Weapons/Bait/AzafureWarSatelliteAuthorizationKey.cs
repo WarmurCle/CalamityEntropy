@@ -202,7 +202,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Projectile.FriendlySetDefaults(DamageClass.Summon, false, -1);
             Projectile.width = Projectile.height = 32;
             Projectile.localNPCHitCooldown = -1;
-            Projectile.timeLeft = 380;
+            Projectile.timeLeft = 380 + (Projectile.GetOwner().AzafureEnhance() ? 60 : 0);
         }
         public int Delay = 60;
         public int ChargeTime = 100;
@@ -254,7 +254,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                     if (ChargeTime > 0)
                     {
                         ChargeTime--;
-                        for (int i = 0; i < 6; i++)
+                        for (int i = 0; i < (int)(7 * (1 - (ChargeTime / 100f) * (ChargeTime / 100f))); i++)
                         {
                             Vector2 pos = Projectile.Center + Projectile.rotation.ToRotationVector2() * 58 + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(38, 70);
 
@@ -262,7 +262,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                             dust.scale = Main.rand.NextFloat(0.6f, 1f) * 2f;
                             dust.velocity = (Projectile.Center + Projectile.rotation.ToRotationVector2() * 58 - pos) * 0.1f;
                             dust.noGravity = true;
-                            dust.color = Color.OrangeRed;
+                            dust.color = Color.OrangeRed * (1 - (ChargeTime / 100f) * (ChargeTime / 100f));
                             dust.fadeIn = 1.6f;
                         }
                         if (ChargeTime == 0)
@@ -320,7 +320,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             Projectile.FriendlySetDefaults(DamageClass.Summon, false, -1);
             Projectile.width = 24;
             Projectile.height = 24;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = (120 + (Projectile.GetOwner().AzafureEnhance() ? 60 : 0));
             Projectile.light = 1;
             Projectile.localNPCHitCooldown = 6;
         }
@@ -337,7 +337,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                 CEUtils.PlaySound("DoGLaserWallSpawn", 1f, Projectile.Center);
                 SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Item/TeslaCannonFire") with { Pitch = 0.6f }, Projectile.Center);
             }
-            Projectile.ai[2] = CEUtils.Parabola(Projectile.timeLeft / 120f, 1);
+            Projectile.ai[2] = CEUtils.Parabola(Projectile.timeLeft / (120f + (Projectile.GetOwner().AzafureEnhance() ? 60 : 0)), 1);
             Projectile.ai[2] = (1 - Projectile.ai[2]);
             Projectile.ai[2] *= Projectile.ai[2] * Projectile.ai[2] * Projectile.ai[2];
             Projectile.ai[2] = (1 - Projectile.ai[2]);
@@ -376,6 +376,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public override bool PreDraw(ref Color lightColor)
         {
             List<CEUtils.VertexPointSets> vp = new();
+            List<CEUtils.VertexPointSets> vp2 = new();
             for (float i = 1; i >= 0f; i -= 0.0025f)
             {
                 Vector2 pos = Projectile.Center + Projectile.rotation.ToRotationVector2() * i * Length;
@@ -385,8 +386,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                 if (i > 0.9f)
                     wm *= 1 - (i - 0.9f) / 0.1f;
                 vp.Add(new CEUtils.VertexPointSets(pos, Color.White, wm * 9, 0));
+                vp2.Add(new CEUtils.VertexPointSets(pos + CEUtils.randomPointInCircle(18), Color.White, wm * 5, 0));
             }
             ThalassianWaterBolt.DrawTrail(vp, new Color(255, 255, 255), Color.OrangeRed);
+            ThalassianWaterBolt.DrawTrail(vp2, new Color(255, 230, 230), Color.Red);
             return false;
         }
         public override string Texture => CEUtils.WhiteTexPath;
