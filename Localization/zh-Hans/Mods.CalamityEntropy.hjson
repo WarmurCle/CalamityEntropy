@@ -6992,6 +6992,7 @@ AzafureEnhances: {
 		增加导弹的数量
 		'''
 	AzafureMicroBeacon: 增加无人机的数量
+	AzafureWarSatelliteAuthorizationKey: 增加激光持续时间
 }
 
 Menu: {
