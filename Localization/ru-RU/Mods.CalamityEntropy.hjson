@@ -4391,6 +4391,11 @@ Items: {
 			Call Azafure War satellite to strike target
 			''' */
 	}
+
+	Fooveria: {
+		// DisplayName: Fooveria
+		// Tooltip: ""
+	}
 }
 
 // BaitCommonTooltip1: Charge when held. Usable when fully charged
@@ -5212,6 +5217,7 @@ Projectiles: {
 	// ArbitratorStealthImpact.DisplayName: Arbitrator Stealth Impact
 	// ArbitratorStealthImpactSpawner.DisplayName: Arbitrator Stealth Impact Spawner
 	// TheDeadCutSlash.DisplayName: The Dead Cut Slash
+	// FooveriaHeld.DisplayName: Fooveria Held
 }
 
 LegendTooltip: - Легенда -

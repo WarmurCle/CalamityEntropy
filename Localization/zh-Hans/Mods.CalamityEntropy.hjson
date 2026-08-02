@@ -4708,6 +4708,11 @@ Items: {
 			召唤阿萨福勒战争卫星打击目标
 			'''
 	}
+
+	Fooveria: {
+		DisplayName: 霜痕
+		Tooltip: ""
+	}
 }
 
 BaitCommonTooltip1: 手持时充能，只能在充能完成时丢出
@@ -5518,6 +5523,7 @@ Projectiles: {
 	// ArbitratorStealthImpact.DisplayName: Arbitrator Stealth Impact
 	// ArbitratorStealthImpactSpawner.DisplayName: Arbitrator Stealth Impact Spawner
 	// TheDeadCutSlash.DisplayName: The Dead Cut Slash
+	// FooveriaHeld.DisplayName: Fooveria Held
 }
 
 LegendTooltip: - 传奇物品 -

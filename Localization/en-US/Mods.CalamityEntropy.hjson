@@ -4652,6 +4652,11 @@ Items: {
 			Call Azafure War satellite to strike target
 			'''
 	}
+
+	Fooveria: {
+		DisplayName: Fooveria
+		Tooltip: ""
+	}
 }
 
 BaitCommonTooltip1: Charge when held. Usable when fully charged
@@ -5469,6 +5474,7 @@ Projectiles: {
 	ArbitratorStealthImpact.DisplayName: Arbitrator Stealth Impact
 	ArbitratorStealthImpactSpawner.DisplayName: Arbitrator Stealth Impact Spawner
 	TheDeadCutSlash.DisplayName: The Dead Cut Slash
+	FooveriaHeld.DisplayName: Fooveria Held
 }
 
 LegendTooltip: - Legend -
@@ -6959,7 +6965,7 @@ MinionAccDescCrownFangs: When equipped with [ITEM]: Increases your max number of
 NonZenithWorld: Not in zenith world
 ZenithWorld: In zenith world
 RatizelShield: Ratizel Shield
-PrefixEnchantedDesc: Mods.CalamityEntropy.PrefixEnchantedDesc
+PrefixEnchantedDesc: +4% Enhanced mana
 NoAmmo: Out of ammo!
 VoidDeath0: "{0} vanished into thin air"
 VoidDeath1: "{0} has been decomposed into atoms"
