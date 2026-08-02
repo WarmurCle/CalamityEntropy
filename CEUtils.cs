@@ -2201,7 +2201,25 @@ namespace CalamityEntropy
         #endregion
         public static string InvisAsset => "CalamityEntropy/Assets/InvisibleProj";
 
-        public static BlendState BS_ColorInverse;
+        public static readonly BlendState ColorInverse = new BlendState()
+        {
+            ColorSourceBlend = Blend.InverseDestinationColor,
+            ColorDestinationBlend = Blend.Zero,
+            ColorBlendFunction = BlendFunction.Add,
+            AlphaSourceBlend = Blend.One,
+            AlphaDestinationBlend = Blend.One,
+            AlphaBlendFunction = BlendFunction.Add,
+        };
+
+        public static readonly BlendState SubtractiveBlending = new BlendState
+        {
+            ColorBlendFunction = BlendFunction.ReverseSubtract,
+            ColorDestinationBlend = Blend.One,
+            ColorSourceBlend = Blend.SourceAlpha,
+            AlphaBlendFunction = BlendFunction.ReverseSubtract,
+            AlphaDestinationBlend = Blend.One,
+            AlphaSourceBlend = Blend.SourceAlpha
+        };
 
         /// <summary>
         /// 新的追踪方法，这个会指定一个NPC, 且可以自定义输入额外更新，以及强制速度不受距离影响

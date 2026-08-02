@@ -1,3 +1,4 @@
+using CalamityEntropy.Common;
 using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Tiles;
 using CalamityEntropy.Utilities;
@@ -468,7 +469,14 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
                 int dir = AttackCount2 == 0 ? 1 : -1;
                 dir *= Projectile.velocity.X > 0 ? 1 : -1;
                 Texture2D smr = CEUtils.getExtraTex("CircularSmear");
-                Main.spriteBatch.Draw(smr, Projectile.GetOwner().Center - Main.screenPosition, null, new Color(60, 60, 255) * arrowAlpha, Projectile.rotation + -2.7f * dir, smr.Size() * 0.5f, Projectile.scale * 6f, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
+
+                Effect shader = CommonEffects.colorLerp;
+                Main.spriteBatch.End();
+                shader.Parameters["color"].SetValue((new Color(240, 240, 255) * arrowAlpha).ToVector4());
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, shader, Main.GameViewMatrix.TransformationMatrix);
+                shader.CurrentTechnique.Passes[0].Apply();
+                Main.spriteBatch.Draw(smr, Projectile.GetOwner().Center - Main.screenPosition, null, new Color(0, 0, 255) * arrowAlpha, Projectile.rotation + -2.7f * dir, smr.Size() * 0.5f, Projectile.scale * 6f, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
+                Main.spriteBatch.Draw(smr, Projectile.GetOwner().Center - Main.screenPosition, null, new Color(0, 0, 255) * arrowAlpha, Projectile.rotation + -2.7f * dir, smr.Size() * 0.5f, Projectile.scale * 6f, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
             }
             Main.spriteBatch.ExitShaderRegion();
             List<Vector2> points = new();

@@ -141,16 +141,6 @@ namespace CalamityEntropy
         public string EntropyWikiURL;
         public override void Load()
         {
-            CEUtils.BS_ColorInverse = new BlendState()
-            {
-                ColorSourceBlend = Blend.InverseDestinationColor,
-                ColorDestinationBlend = Blend.Zero,
-                ColorBlendFunction = BlendFunction.Add,
-
-                AlphaSourceBlend = Blend.One,
-                AlphaDestinationBlend = Blend.One,
-                AlphaBlendFunction = BlendFunction.Add,
-            };
             VanityDisplaySys.VanityItems = new();
             CEUtils.TexCache = new Dictionary<string, Texture2D>();
             theVoid_SCBIE = new CESpawnConditionBestiaryInfoElement(this.GetLocalizationKey("TheVoid"), 0, "CalamityEntropy/Assets/VoidBack");
@@ -528,7 +518,6 @@ namespace CalamityEntropy
             CommonEffects.Unload();
             CELists.Unload();
             Apsychos.shader = null;
-            CEUtils.BS_ColorInverse = null;
             Typer.activeTypers = null;
             ScreenShaker.Unload();
             VanityDisplaySys.VanityItems = null;
