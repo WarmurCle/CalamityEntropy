@@ -5211,6 +5211,7 @@ Projectiles: {
 	// WarSatellite.DisplayName: War Satellite
 	// ArbitratorStealthImpact.DisplayName: Arbitrator Stealth Impact
 	// ArbitratorStealthImpactSpawner.DisplayName: Arbitrator Stealth Impact Spawner
+	// TheDeadCutSlash.DisplayName: The Dead Cut Slash
 }
 
 LegendTooltip: - Легенда -

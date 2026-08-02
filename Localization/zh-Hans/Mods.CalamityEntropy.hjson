@@ -5517,6 +5517,7 @@ Projectiles: {
 	WarSatellite.DisplayName: 阿萨福勒战争卫星
 	// ArbitratorStealthImpact.DisplayName: Arbitrator Stealth Impact
 	// ArbitratorStealthImpactSpawner.DisplayName: Arbitrator Stealth Impact Spawner
+	// TheDeadCutSlash.DisplayName: The Dead Cut Slash
 }
 
 LegendTooltip: - 传奇物品 -
