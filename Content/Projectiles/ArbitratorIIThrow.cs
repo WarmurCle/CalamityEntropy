@@ -374,7 +374,8 @@ namespace CalamityEntropy.Content.Projectiles
             {
                 if (!Main.dedServ)
                 {
-                    CEUtils.PlaySound("ApoctosisShoot", Main.rand.NextFloat(1.2f, 1.8f), Projectile.Center, 60, 0.75f);
+                    SoundEngine.PlaySound(in SoundID.NPCDeath56, Projectile.Center);
+                    CEUtils.PlaySound("ApoctosisShoot", Main.rand.NextFloat(3f, 3.4f), Projectile.Center, 60, 0.95f);
                     for (int i = 0; i < 12; i++)
                     {
                         List<Vector2> points = new List<Vector2>();
