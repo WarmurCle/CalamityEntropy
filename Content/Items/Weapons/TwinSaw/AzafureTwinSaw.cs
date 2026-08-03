@@ -47,6 +47,21 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
             return true;
         }
         public int UseCount = 0;
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<HellIndustrialComponents>(6)
+                .AddIngredient(ItemID.IronBar, 8)
+                .AddIngredient(ItemID.Wood, 6)
+                .AddTile(TileID.Anvils)
+                .Register();
+            CreateRecipe()
+                .AddIngredient<HellIndustrialComponents>(6)
+                .AddIngredient(ItemID.LeadBar, 8)
+                .AddIngredient(ItemID.Wood, 6)
+                .AddTile(TileID.Anvils)
+                .Register();
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (UseCount == 2)
@@ -103,7 +118,7 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
                 player.heldProj = Projectile.whoAmI;
             }
             
-            int MaxTime = 16;
+            int MaxTime = (int)(16 / player.GetTotalAttackSpeed(Projectile.DamageType));
             float p = Projectile.localAI[0] / MaxTime;
             bool CollideTarget()
             {
@@ -192,11 +207,11 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
                     Counter++;
                     if (Counter < t)
                     {
-                        Rotation = -0.03f;
+                        Rotation = -0.07f;
                         if(Main.myPlayer == Projectile.owner && Projectile.ai[0] > 0 && Counter > 1)
                         {
                             Vector2 pos = sawOrigin + (Projectile.rotation + MathHelper.PiOver2 * dir).ToRotationVector2() * 14 * Projectile.scale;
-                            Vector2 vel = Projectile.rotation.ToRotationVector2() * (player.AzafureEnhance() ? 14 : 10);
+                            Vector2 vel = Projectile.rotation.ToRotationVector2() * (player.AzafureEnhance() ? 10 : 7) * Projectile.scale;
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), pos, vel, ModContent.ProjectileType<AzafureSawSpark>(), Projectile.damage / 5, 0, Projectile.owner);
                         }
                         if(Projectile.ai[0] > 0 && Counter == 4)
@@ -277,7 +292,7 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
             return new Circle(sawOrigin, (Hitted ? 22 : 16) * Projectile.scale).Intersects(targetHitbox);
         }
         public int dir => (int)Projectile.ai[0] * (Projectile.velocity.X > 0 ? 1 : -1);
-        public Vector2 heldOrigin => new Vector2(-24, 12 * dir);
+        public Vector2 heldOrigin => new Vector2(-26, 10 * dir);
         public Vector2 sawOrigin => Projectile.Center + (new Vector2(26, 0) - heldOrigin).RotatedBy(Projectile.rotation) * Projectile.scale;
         public override bool ShouldUpdatePosition()
         {
@@ -349,9 +364,9 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
                 for (int i = 0; i < 12; i++)
                 {
                     Vector2 pos = Projectile.Center;
-                    Vector2 vel = Projectile.velocity * Main.rand.NextFloat(1f, 8f);
+                    Vector2 vel = Projectile.velocity * Main.rand.NextFloat(1f, 8.7f);
                     Color color = Main.rand.NextBool() ? Color.Orange : Color.Firebrick;
-                    float scale = Main.rand.NextFloat(0.4f, 2.6f);
+                    float scale = Main.rand.NextFloat(0.4f, 2.8f);
                     if (Main.rand.NextBool())
                     {
                         GeneralParticleHandler.SpawnParticle(new LineParticle(pos, vel, false, Main.rand.Next(5, 11), scale, color));
