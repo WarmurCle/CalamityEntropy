@@ -4724,8 +4724,14 @@ Items: {
 	}
 
 	AstralSample: {
-		// DisplayName: Astral Sample
-		// Tooltip: ""
+		DisplayName: 星辉样本
+		Tooltip: 
+			'''
+			使你化身为驾驶员降翎者
+			白金星舰在被改造为自动化机械前其实曾使用过生物的驾驶兼采样员
+			也许是因为首领们迫不及待地妄想掌控星辉病毒，
+			但是甚至可以侵蚀无机体的瘟疫又怎么会放过这些生灵。
+			'''
 	}
 }
 
@@ -5534,13 +5540,13 @@ Projectiles: {
 	AzafureWarSatelliteAuthorizationKeyProjectile.DisplayName: 阿萨福勒战争卫星密钥
 	SateliteLaser.DisplayName: 卫星激光
 	WarSatellite.DisplayName: 阿萨福勒战争卫星
-	// ArbitratorStealthImpact.DisplayName: Arbitrator Stealth Impact
-	// ArbitratorStealthImpactSpawner.DisplayName: Arbitrator Stealth Impact Spawner
-	// TheDeadCutSlash.DisplayName: The Dead Cut Slash
-	// FooveriaHeld.DisplayName: Fooveria Held
-	// FooveriaIceShard.DisplayName: Fooveria Ice Shard
-	// AzafureTwinSawHeld.DisplayName: Azafure Twin Saw Held
-	// AzafureSawSpark.DisplayName: Azafure Saw Spark
+	ArbitratorStealthImpact.DisplayName: 仲裁者电弧
+	ArbitratorStealthImpactSpawner.DisplayName: 仲裁者电弧生成器
+	TheDeadCutSlash.DisplayName: 虚妄斩切
+	FooveriaHeld.DisplayName: 霜痕
+	FooveriaIceShard.DisplayName: 霜痕冰片
+	AzafureTwinSawHeld.DisplayName: 阿萨福勒双锯
+	AzafureSawSpark.DisplayName: 锯片火花
 }
 
 LegendTooltip: - 传奇物品 -
