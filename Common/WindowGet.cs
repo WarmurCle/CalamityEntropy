@@ -72,7 +72,7 @@ namespace CalamityEntropy.Common
 {
     public class PGetPlayer : ModPlayer
     {
-        public static List<string> yuzuGames = new() { "SenrenBanka", "RiddleJoker", "SabbatOfTheWitch", "CafeStella", "tenshi_sz", "DracuRiot", "PARQUET", "NobleWorks", "夏空カナタ", "夏空彼方", "天使纷扰", "天神乱漫", "tenshin", "NOBLEWORKS", "天色アイルノーツ", "ライムライト・レモネードジャム", "LimelightLemonade" };
+        public static List<string> yuzuGames = new() { "SenrenBanka", "RiddleJoker", "SabbatOfTheWitch", "CafeStella", "tenshi_sz", "DracuRiot", "PARQUET", "NobleWorks", "夏空カナタ", "天神乱漫", "tenshin", "NOBLEWORKS", "天色アイルノーツ", "ライムライト・レモネードジャム", "LimelightLemonade" };
         public int count = 0;
         public bool accEquiped = false;
         public bool accVanity = false;
@@ -116,13 +116,19 @@ namespace CalamityEntropy.Common
                 return 0;
             }
             var windows = WindowGet.GetAllVisibleWindows();
+            List<string> copy = new List<string>();
+
+            foreach (string name in yuzuGames)
+                copy.Add(name);
             foreach (var win in windows)
             {
                 bool flag = false;
-                foreach (string name in yuzuGames)
+                for (int i = copy.Count - 1; i >= 0; i--)
                 {
+                    string name = copy[i];
                     if (RemoveCharAndToLower(win.ProcessName).Contains(RemoveCharAndToLower(name)))
                     {
+                        copy.RemoveAt(i);
                         flag = true;
                         break;
                     }
