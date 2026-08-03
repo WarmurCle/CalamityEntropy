@@ -4659,6 +4659,14 @@ Items: {
 			Increase power with progress: [L] / 15
 			'''
 	}
+
+	AzafureTwinSaw: {
+		DisplayName: Azafure Twin Saw
+		Tooltip: 
+			'''
+			Waving up and down, then bringing the two saws together and spraying sparks forward
+			'''
+	}
 }
 
 BaitCommonTooltip1: Charge when held. Usable when fully charged
@@ -5478,6 +5486,8 @@ Projectiles: {
 	TheDeadCutSlash.DisplayName: The Dead Cut Slash
 	FooveriaHeld.DisplayName: Fooveria Held
 	FooveriaIceShard.DisplayName: Fooveria Ice Shard
+	AzafureTwinSawHeld.DisplayName: Azafure Twin Saw Held
+	AzafureSawSpark.DisplayName: Azafure Saw Spark
 }
 
 LegendTooltip: - Legend -
@@ -6942,6 +6952,7 @@ AzafureEnhances: {
 		'''
 	AzafureMicroBeacon: Increase the amount of drones
 	AzafureWarSatelliteAuthorizationKey: Increase the laser duration
+	AzafureTwinSaw: Increase spark range
 }
 
 Menu: {

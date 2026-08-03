@@ -4717,6 +4717,14 @@ Items: {
 			随时期增强: [L] / 15
 			'''
 	}
+
+	AzafureTwinSaw: {
+		DisplayName: 阿萨福勒双锯
+		Tooltip: 
+		'''
+		上下挥舞，随后将两把锯子贴合并向前喷射火花
+		'''
+	}
 }
 
 BaitCommonTooltip1: 手持时充能，只能在充能完成时丢出
@@ -5529,6 +5537,8 @@ Projectiles: {
 	// TheDeadCutSlash.DisplayName: The Dead Cut Slash
 	// FooveriaHeld.DisplayName: Fooveria Held
 	// FooveriaIceShard.DisplayName: Fooveria Ice Shard
+	// AzafureTwinSawHeld.DisplayName: Azafure Twin Saw Held
+	// AzafureSawSpark.DisplayName: Azafure Saw Spark
 }
 
 LegendTooltip: - 传奇物品 -
@@ -7005,6 +7015,7 @@ AzafureEnhances: {
 		'''
 	AzafureMicroBeacon: 增加无人机的数量
 	AzafureWarSatelliteAuthorizationKey: 增加激光持续时间
+	AzafureTwinSaw: 增加火花射程
 }
 
 Menu: {
