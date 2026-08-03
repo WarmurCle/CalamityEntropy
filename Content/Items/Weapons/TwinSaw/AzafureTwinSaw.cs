@@ -380,6 +380,7 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff<MechanicalTrauma>(160);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(255, 200, 30), 0.3f, 1, true, BlendState.Additive, 0, 8);
             EParticle.spawnNew(new ShineParticle(), Projectile.Center, Vector2.Zero, new Color(255, 255, 255), 0.18f, 1, true, BlendState.Additive, 0, 8);
             for (int i = 0; i < 4; i++)
