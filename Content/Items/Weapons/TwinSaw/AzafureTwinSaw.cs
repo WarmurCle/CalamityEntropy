@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
             else
             {
                 int dir = UseCount == 0 ? 1 : -1;
-                Projectile.NewProjectile(source, position, velocity, type, damage, 0, player.whoAmI, dir, 0);
+                Projectile.NewProjectile(source, position, velocity, type, (int)(damage * 1.6f), 0, player.whoAmI, dir, 0);
             }
             UseCount++;
             if(UseCount > 2)
