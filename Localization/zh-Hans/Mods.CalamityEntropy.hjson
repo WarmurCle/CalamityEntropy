@@ -3413,7 +3413,7 @@ Items: {
 
 	AzafurePowerSaw: {
 		DisplayName: 阿萨福勒动力锯
-		Tooltip: ""
+		Tooltip: "命中时持续切割目标"
 	}
 
 	AzafureElectrocauteryWand: {
@@ -4720,10 +4720,7 @@ Items: {
 
 	AzafureTwinSaw: {
 		DisplayName: 阿萨福勒双锯
-		Tooltip: 
-		'''
-		上下挥舞，随后将两把锯子贴合并向前喷射火花
-		'''
+		Tooltip: 上下挥舞，随后将两把锯子贴合并向前喷射火花
 	}
 }
 
@@ -6989,7 +6986,7 @@ AzafureEnhances: {
 	AzafureTeslaGun: 增加电弧伤害
 	AzafureElectrocauteryWand: 增加充能速度
 	AzafureLightMachineGun: 增加普通攻击命中后回复的潜行值
-	AzafurePowerSaw: 增加链锯伤害并且不会过热
+	AzafurePowerSaw: 增加链锯伤害和持续时间
 	AzafureDrill: 增加镐力和挖掘范围
 	AzafureEKatana: 增加攻击距离
 	AzafureCogfly: 增加攻击频率

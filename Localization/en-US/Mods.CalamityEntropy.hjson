@@ -4662,10 +4662,7 @@ Items: {
 
 	AzafureTwinSaw: {
 		DisplayName: Azafure Twin Saw
-		Tooltip: 
-			'''
-			Waving up and down, then bringing the two saws together and spraying sparks forward
-			'''
+		Tooltip: Waving up and down, then bringing the two saws together and spraying sparks forward
 	}
 }
 
@@ -6926,7 +6923,7 @@ AzafureEnhances: {
 	AzafureTeslaGun: Increased arc damage
 	AzafureElectrocauteryWand: Increased charging speed
 	AzafureLightMachineGun: Increased stealth generation on hit
-	AzafurePowerSaw: Increased damage and no longer overheats
+	AzafurePowerSaw: Increased damage and duration
 	AzafureDrill: Increased pick power and pick range
 	AzafureEKatana: Increased attack range
 	AzafureCogfly: Increased minion attacking speed

@@ -4403,7 +4403,7 @@ Items: {
 
 	AzafureTwinSaw: {
 		// DisplayName: Azafure Twin Saw
-		// Tooltip: ""
+		// Tooltip: Waving up and down, then bringing the two saws together and spraying sparks forward
 	}
 }
 
@@ -6701,6 +6701,7 @@ AzafureEnhances: {
 		''' */
 	// AzafureMicroBeacon: Increase the amount of drones
 	// AzafureWarSatelliteAuthorizationKey: Increase the laser duration
+	// AzafureTwinSaw: Increase spark range
 }
 
 Menu: {
