@@ -277,8 +277,9 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
             Texture2D tex = Projectile.GetTexture();
             Texture2D saw = this.getTextureAlt("Saw");
             Texture2D cs = CEUtils.getExtraTex("CircularSmear");
-            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f + heldOrigin, Projectile.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
-            Main.spriteBatch.Draw(saw, sawOrigin - Main.screenPosition, null, lightColor * Projectile.Opacity, Main.GameUpdateCount * -1.2f * dir, saw.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
+            Vector2 offset = CEUtils.randomPointInCircle((Hitted && Projectile.ai[1] == 0 && Counter < 36) || (Projectile.localAI[0] > 7 && Projectile.ai[1] != 0 && Counter < 60) ? 8 : 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition + offset, null, lightColor * Projectile.Opacity, Projectile.rotation, tex.Size() * 0.5f + heldOrigin, Projectile.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
+            Main.spriteBatch.Draw(saw, sawOrigin - Main.screenPosition + offset, null, lightColor * Projectile.Opacity, Main.GameUpdateCount * -1.2f * dir, saw.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
             if (!Hitted && sAlpha > 0)
             {
                 Main.spriteBatch.UseAdditiveClamp();
