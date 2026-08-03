@@ -331,7 +331,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public float Length = 3000;
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * Length, targetHitbox, 64);
+            return CEUtils.LineThroughRect(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * Length, targetHitbox, 24);
         }
         public override void AI()
         {
