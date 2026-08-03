@@ -4711,7 +4711,12 @@ Items: {
 
 	Fooveria: {
 		DisplayName: 霜痕
-		Tooltip: ""
+		Tooltip:
+			'''
+			“杀戮与世界意志滋养的武器，前来助您净化这个世界。”
+			在击败克苏鲁之眼后，手持且未攻击时增加6点防御
+			随时期增强: [L] / 15
+			'''
 	}
 }
 
@@ -5524,6 +5529,7 @@ Projectiles: {
 	// ArbitratorStealthImpactSpawner.DisplayName: Arbitrator Stealth Impact Spawner
 	// TheDeadCutSlash.DisplayName: The Dead Cut Slash
 	// FooveriaHeld.DisplayName: Fooveria Held
+	// FooveriaIceShard.DisplayName: Fooveria Ice Shard
 }
 
 LegendTooltip: - 传奇物品 -

@@ -3991,14 +3991,24 @@ namespace CalamityEntropy.Common
         public int baitHeldType = -1;
         public override void PostUpdateEquips()
         {
-            if (!Player.HeldItem.IsAir && Player.HeldItem.ModItem != null && Player.HeldItem.ModItem is IBaitItem)
+            if (!Player.HeldItem.IsAir && Player.HeldItem.ModItem != null)
             {
-                BaitCharging = true;
-                if (baitHeldType <= 0)
-                    baitHeldType = ModContent.ProjectileType<BaitHeldEffect>();
-                if (Player.whoAmI == Main.myPlayer && Player.ownedProjectileCounts[baitHeldType] == 0)
+                if(Player.HeldItem.ModItem is Fooveria)
                 {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.MountedCenter, Vector2.Zero, baitHeldType, 0, 0, Player.whoAmI);
+                    if(Player.ItemTimeIsZero && NPC.downedBoss1)
+                    {
+                        Player.statDefense += 6;
+                    }
+                }
+                if (Player.HeldItem.ModItem is IBaitItem)
+                {
+                    BaitCharging = true;
+                    if (baitHeldType <= 0)
+                        baitHeldType = ModContent.ProjectileType<BaitHeldEffect>();
+                    if (Player.whoAmI == Main.myPlayer && Player.ownedProjectileCounts[baitHeldType] == 0)
+                    {
+                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.MountedCenter, Vector2.Zero, baitHeldType, 0, 0, Player.whoAmI);
+                    }
                 }
             }
             if (exquisiteCrown && rottenFangs)

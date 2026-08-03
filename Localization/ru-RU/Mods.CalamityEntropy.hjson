@@ -4394,7 +4394,11 @@ Items: {
 
 	Fooveria: {
 		// DisplayName: Fooveria
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			"Weapons nurtured by the will of the world and the slaughter, come to assist you in purifying this world."
+			Increase power with progress: [L] / 15
+			''' */
 	}
 }
 
@@ -5218,6 +5222,7 @@ Projectiles: {
 	// ArbitratorStealthImpactSpawner.DisplayName: Arbitrator Stealth Impact Spawner
 	// TheDeadCutSlash.DisplayName: The Dead Cut Slash
 	// FooveriaHeld.DisplayName: Fooveria Held
+	// FooveriaIceShard.DisplayName: Fooveria Ice Shard
 }
 
 LegendTooltip: - Легенда -
