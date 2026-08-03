@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
         {
             return Counter <= cutTime;
         }
-        public int cutTime => 60 + (Projectile.GetOwner().AzafureEnhance() ? 30 : 0);
+        public int cutTime => 90 + (Projectile.GetOwner().AzafureEnhance() ? 60 : 0);
         public override void AI()
         {
             var player = Projectile.GetOwner();
@@ -164,7 +164,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.GetOwner().Center, Projectile.GetOwner().Center + Projectile.rotation.ToRotationVector2() * 216, targetHitbox, 38);
+            return CEUtils.LineThroughRect(Projectile.GetOwner().Center + Projectile.rotation.ToRotationVector2() * 50 * Projectile.scale, Projectile.GetOwner().Center + Projectile.rotation.ToRotationVector2() * 136 * Projectile.scale, targetHitbox, 66);
         }
         public int dir => (Projectile.velocity.X > 0 ? 1 : -1);
         public Vector2 heldOrigin => new Vector2(-56, 0 * dir);
@@ -176,7 +176,14 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
         {
             if (!target.boss)
                 target.velocity *= 0.1f;
-            if (this.Target == -1)
+            bool CollideTarget()
+            {
+                NPC npc = Target >= 0 ? Target.ToNPC() : null;
+                if (npc == null)
+                    return false;
+                return Projectile.Colliding(Projectile.getRect(), npc.Hitbox);
+            }
+            if (this.Target == -1 || !CollideTarget())
             {
                 this.Target = target.whoAmI;
                 CEUtils.PlaySound("chainsaw_break", 1.4f, Projectile.Center);
@@ -204,13 +211,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
         public override bool PreDraw(ref Color dc)
         {
             Texture2D tx = ModContent.Request<Texture2D>("CalamityEntropy/Content/Items/Weapons/Chainsaw/AzafurePowerSaw" + (((int)(Projectile.ai[0] / 4)) % frame).ToString()).Value;
-            var rand = Main.rand;
             Main.spriteBatch.Draw(tx, Projectile.Center + CEUtils.randomPointInCircle((Hitted && Counter < cutTime) ? 8 : 0) - Main.screenPosition, null, dc * Projectile.Opacity, Projectile.rotation, tx.Size() * 0.5f + heldOrigin, Projectile.scale, dir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
             return false;
         }
-        public override bool? CanCutTiles()
+
+        public override void CutTiles()
         {
-            return false;
+            Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 136 * Projectile.scale, 66, DelegateMethods.CutTiles);
         }
         public override string Texture => "CalamityEntropy/Content/Items/Weapons/Chainsaw/AzafurePowerSaw0";
     }

@@ -3413,7 +3413,7 @@ Items: {
 
 	AzafurePowerSaw: {
 		DisplayName: 阿萨福勒动力锯
-		Tooltip: "命中时持续切割目标"
+		Tooltip: 命中时持续切割目标
 	}
 
 	AzafureElectrocauteryWand: {
