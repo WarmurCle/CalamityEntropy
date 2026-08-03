@@ -1,5 +1,6 @@
 ﻿using CalamityEntropy.Common;
 using CalamityEntropy.Content.Items.Donator;
+using CalamityMod.Items.Potions;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -62,7 +63,11 @@ namespace CalamityEntropy.Content.Items.Vanity
 
         public override void AddRecipes()
         {
-
+            CreateRecipe()
+                .AddIngredient<AureusCell>(3)
+                .AddIngredient(ItemID.GoldDust, 10)
+                .AddTile(TileID.TinkerersWorkbench)
+                .Register();
         }
     }
 }
