@@ -177,7 +177,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
             if (!target.boss)
                 target.velocity *= 0.1f;
             if (this.Target == -1)
+            {
                 this.Target = target.whoAmI;
+                CEUtils.PlaySound("chainsaw_break", 1.4f, Projectile.Center);
+            }
             CalamityEntropy.Instance.screenShakeAmp = 1.2f;
             Hitted = true;
             target.AddBuff<MechanicalTrauma>(160);
