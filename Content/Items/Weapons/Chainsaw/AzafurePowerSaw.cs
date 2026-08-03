@@ -164,7 +164,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Chainsaw
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return CEUtils.LineThroughRect(Projectile.GetOwner().Center + Projectile.rotation.ToRotationVector2() * 50 * Projectile.scale, Projectile.GetOwner().Center + Projectile.rotation.ToRotationVector2() * 136 * Projectile.scale, targetHitbox, 66);
+            return CEUtils.LineThroughRect(Projectile.GetOwner().Center + Projectile.rotation.ToRotationVector2() * 30 * Projectile.scale, Projectile.GetOwner().Center + Projectile.rotation.ToRotationVector2() * 136 * Projectile.scale, targetHitbox, 66);
         }
         public int dir => (Projectile.velocity.X > 0 ? 1 : -1);
         public Vector2 heldOrigin => new Vector2(-56, 0 * dir);
