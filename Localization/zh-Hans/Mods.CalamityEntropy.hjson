@@ -751,11 +751,7 @@ Items: {
 
 	DustyStar: {
 		DisplayName: 尘封之星
-		Tooltip:
-			'''
-			让你变成主创的形象
-			“记得给灾熵点个赞”
-			'''
+		Tooltip: 让你变成主创的形象
 	}
 
 	SoulCandle: {
@@ -1134,7 +1130,7 @@ Items: {
 
 	DreamCatcher: {
 		DisplayName: 捕梦网
-		Tooltip: 让你变成可爱的梦龙
+		Tooltip: 让你变成的梦龙
 	}
 
 	AquaticFlute: {
@@ -1335,7 +1331,7 @@ Items: {
 
 	Antler: {
 		DisplayName: 鹿角
-		Tooltip: ""
+		Tooltip: 使你化身为焗焦
 	}
 
 	ReincarnationBadge: {
@@ -3609,6 +3605,7 @@ Items: {
 			荒草疯狂生长，黑色的花朵在无穷无尽绽放。
 			千万死者的泣声一同鸣响。
 			”
+			使你化身为特莉波卡
 			'''
 	}
 
@@ -3757,7 +3754,7 @@ Items: {
 
 	RedDragonHorn: {
 		DisplayName: 红龙角
-		Tooltip: ""
+		Tooltip: 使你化身为耶芙娜
 	}
 
 	ChaoticBodyArmor: {
@@ -3881,12 +3878,12 @@ Items: {
 
 	ExquisiteHairband: {
 		DisplayName: 精致发箍
-		Tooltip: ""
+		Tooltip: 使你化身为小叶子
 	}
 
 	LingsHairAccessory: {
 		DisplayName: 零的发饰
-		Tooltip: ""
+		Tooltip: 使你化身为霞露零
 	}
 
 	VoidCore: {
@@ -4725,12 +4722,14 @@ Items: {
 
 	AstralSample: {
 		DisplayName: 星辉样本
-		Tooltip: 
+		Tooltip:
 			'''
 			使你化身为驾驶员降翎者
+			“
 			白金星舰在被改造为自动化机械前其实曾使用过生物的驾驶兼采样员
 			也许是因为首领们迫不及待地妄想掌控星辉病毒，
 			但是甚至可以侵蚀无机体的瘟疫又怎么会放过这些生灵。
+			”
 			'''
 	}
 }

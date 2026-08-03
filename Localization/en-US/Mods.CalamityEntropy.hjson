@@ -776,11 +776,7 @@ Items: {
 
 	DustyStar: {
 		DisplayName: Dusty Star
-		Tooltip:
-			'''
-			Grants the appearance of the head developer
-			Don't forget to leave a like!
-			'''
+		Tooltip: Grants the appearance of the head developer
 	}
 
 	SoulCandle: {
