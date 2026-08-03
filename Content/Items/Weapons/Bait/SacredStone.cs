@@ -201,11 +201,12 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public void OnHitEffect(Vector2 pos)
         {
             CEUtils.PlaySound("RockCrumble", Main.rand.NextFloat(1.6f, 1.9f), pos);
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 3; i++)
             {
                 float r = 0;
-                float scale = 0.4f + 0.7f * i;
-                GeneralParticleHandler.SpawnParticle(new CustomPulse(pos, Vector2.Zero, Color.Lerp(Color.OrangeRed, Color.LightGoldenrodYellow, (i / 5f)), "CalamityEntropy/Assets/Extra/StarTexture", Vector2.One, r, scale * 0.2f, scale, 12 + i * 2, true, 1));
+                float scale = 0.6f + 1.2f * i;
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(pos, Vector2.Zero, Color.Lerp(Color.White, Color.Orange, (i / 3f)), "CalamityEntropy/Assets/Extra/StarTexture", new Vector2(0.3f, 1f), r, scale * 0.2f, scale, 12 + i * 2, true, 1));
+                GeneralParticleHandler.SpawnParticle(new CustomPulse(pos, Vector2.Zero, Color.Lerp(Color.White, Color.Orange, (i / 3f)), "CalamityEntropy/Assets/Extra/StarTexture", new Vector2(1f, 0.3f), r, scale * 0.2f, scale, 12 + i * 2, true, 1));
             }
         }
         public override void OnKill(int timeLeft)
