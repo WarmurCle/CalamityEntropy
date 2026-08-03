@@ -4722,6 +4722,11 @@ Items: {
 		DisplayName: 阿萨福勒双锯
 		Tooltip: 上下挥舞，随后将两把锯子贴合并向前喷射火花
 	}
+
+	AstralSample: {
+		// DisplayName: Astral Sample
+		// Tooltip: ""
+	}
 }
 
 BaitCommonTooltip1: 手持时充能，只能在充能完成时丢出

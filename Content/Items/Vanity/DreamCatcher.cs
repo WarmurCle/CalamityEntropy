@@ -69,25 +69,4 @@ namespace CalamityEntropy.Content.Items.Vanity
                 .AddTile(TileID.WorkBenches).Register();
         }
     }
-
-    // public class DreamCatcherPlayer : ModPlayer
-    // {
-    //     public bool vanityEquipped = false;
-    //
-    //     public override void ResetEffects()
-    //     {
-    //         vanityEquipped = false;
-    //     }
-    //
-    //     public override void FrameEffects()
-    //     {
-    //         if (vanityEquipped)
-    //         {
-    //             Player.legs = EquipLoader.GetEquipSlot(Mod, "DreamCatcher", EquipType.Legs);
-    //             Player.body = EquipLoader.GetEquipSlot(Mod, "DreamCatcher", EquipType.Body);
-    //             Player.head = EquipLoader.GetEquipSlot(Mod, "DreamCatcher", EquipType.Head);
-    //
-    //         }
-    //     }
-    // }
 }

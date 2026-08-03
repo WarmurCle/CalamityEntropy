@@ -4664,6 +4664,11 @@ Items: {
 		DisplayName: Azafure Twin Saw
 		Tooltip: Waving up and down, then bringing the two saws together and spraying sparks forward
 	}
+
+	AstralSample: {
+		DisplayName: Astral Sample
+		Tooltip: ""
+	}
 }
 
 BaitCommonTooltip1: Charge when held. Usable when fully charged

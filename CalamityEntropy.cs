@@ -711,7 +711,7 @@ namespace CalamityEntropy
             }
             foreach (Player player in Main.ActivePlayers)
             {
-                if (player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+                if (player.GetModPlayer<VanityModPlayer>().vanityEquipped == nameof(LostHeirloom))
                 {
                     CEUtils.DrawGlow(player.Center, Color.White * 0.2f, 5.2f);
                 }

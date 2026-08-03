@@ -308,7 +308,7 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
             CalamityEntropy.Instance.screenShakeAmp = 1.2f;
             Hitted = true;
             target.AddBuff<MechanicalTrauma>(160);
-            CEUtils.PlaySound("slice", Main.rand.NextFloat(1.2f, 1.6f), target.Center);
+            CEUtils.PlaySound("slice", Main.rand.NextFloat(1.2f, 1.6f), target.Center, 4, CEUtils.WeapSound);
             for(int i = 0; i < 9; i++)
             {
                 Vector2 pos = sawOrigin + (Projectile.rotation + MathHelper.PiOver2 * dir).ToRotationVector2() * 14 * Projectile.scale;

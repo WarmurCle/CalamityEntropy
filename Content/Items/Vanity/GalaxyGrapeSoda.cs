@@ -73,25 +73,4 @@ namespace CalamityEntropy.Content.Items.Vanity
                 .AddTile(TileID.WorkBenches).Register();
         }
     }
-
-    // public class GalaxyGrapeSodaPlayer : ModPlayer
-    // {
-    //     public bool vanityEquipped = false;
-    //
-    //     public override void ResetEffects()
-    //     {
-    //         vanityEquipped = false;
-    //     }
-    //
-    //     public override void FrameEffects()
-    //     {
-    //         if (vanityEquipped)
-    //         {
-    //             Player.legs = EquipLoader.GetEquipSlot(Mod, "GalaxyGrapeSoda", EquipType.Legs);
-    //             Player.body = EquipLoader.GetEquipSlot(Mod, "GalaxyGrapeSoda", EquipType.Body);
-    //             Player.head = EquipLoader.GetEquipSlot(Mod, "GalaxyGrapeSoda", EquipType.Head);
-    //
-    //         }
-    //     }
-    // }
 }

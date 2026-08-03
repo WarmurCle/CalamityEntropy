@@ -6,9 +6,9 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Vanity
 {
-    public class YanyusHat : ModItem, IDonatorItem, IVanitySkin
+    public class AstralSample : ModItem, IDevItem, IVanitySkin
     {
-        public string DonatorName => "烟玉YZG";
+        public string DevName => "Fiveling";
 
         public override void Load()
         {
@@ -62,11 +62,7 @@ namespace CalamityEntropy.Content.Items.Vanity
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-                .AddIngredient(ItemID.Silk, 6)
-                .AddIngredient(ItemID.Leather, 2)
-                .AddTile(TileID.WorkBenches)
-                .Register();
+
         }
     }
 }

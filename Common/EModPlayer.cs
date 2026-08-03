@@ -245,7 +245,7 @@ namespace CalamityEntropy.Common
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
         {
             deusCoreBloodOut = 0;
-            if (Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+            if (Player.GetModPlayer<VanityModPlayer>().vanityEquipped == nameof(LostHeirloom))
             {
                 var rs = PlayerDeathReason.ByCustomReason(Mod.GetLocalization("LilyDeath" + Main.rand.Next(2).ToString()).ToNetworkText(Player.name));
                 damageSource = rs;
@@ -307,7 +307,7 @@ namespace CalamityEntropy.Common
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
             NihTwinArmorConnetPlayer = -1;
-            if (Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+            if (Player.GetModPlayer<VanityModPlayer>().vanityEquipped == nameof(LostHeirloom))
             {
                 var st = SoundID.PlayerKilled;
                 st.MaxInstances = 1;
@@ -1959,7 +1959,7 @@ namespace CalamityEntropy.Common
             {
                 modifiers.SourceDamage *= 1.25f;
             }
-            if (Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+            if (Player.GetModPlayer<VanityModPlayer>().vanityEquipped == nameof(LostHeirloom))
             {
                 modifiers.DisableSound();
             }
@@ -2034,7 +2034,7 @@ namespace CalamityEntropy.Common
                     Player.AddBuff(hasAcc("VastLV4") ? ModContent.BuffType<ManaCaress>() : ModContent.BuffType<ManaPray>(), 60 * 10);
                 }
             }
-            if (Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+            if (Player.GetModPlayer<VanityModPlayer>().vanityEquipped == nameof(LostHeirloom))
             {
                 CEUtils.PlaySound("llHurt", 1, Player.Center);
             }
@@ -3024,7 +3024,7 @@ namespace CalamityEntropy.Common
                 BrambleBarCharge = 0;
             if (BrambleBarCharge > 1)
                 BrambleBarCharge = 1;
-            if (Player.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+            if (Player.GetModPlayer<VanityModPlayer>().vanityEquipped == nameof(LostHeirloom))
             {
                 CEUtils.AddLight(Player.Center, Color.White * 0.8f);
             }

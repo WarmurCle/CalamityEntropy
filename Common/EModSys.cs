@@ -660,7 +660,7 @@ namespace CalamityEntropy.Common
                 {
                     var drawLHB = new LegacyGameInterfaceLayer("Lost Heirloom HB", () =>
                     {
-                        if (Main.LocalPlayer.dead || !Main.LocalPlayer.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+                        if (Main.LocalPlayer.dead || !(Main.LocalPlayer.GetModPlayer<VanityModPlayer>().vanityEquipped == nameof(LostHeirloom)))
                         { return true; }
                         Texture2D t1 = CEUtils.getExtraTex("llBar1");
                         Texture2D t2 = CEUtils.getExtraTex("llBar2");
@@ -678,7 +678,7 @@ namespace CalamityEntropy.Common
                         typeof(FancyClassicPlayerResourcesDisplaySet).GetMethod("DrawManaBar", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic, new Type[] { typeof(SpriteBatch) }).Invoke(((FancyClassicPlayerResourcesDisplaySet)((Dictionary<string, IPlayerResourcesDisplaySet>)Main.ResourceSetsManager.GetType().GetField("_sets", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(Main.ResourceSetsManager))["New"]), new object[] { Main.spriteBatch });
                         return true;
                     }, InterfaceScaleType.UI);
-                    if (Main.LocalPlayer.GetModPlayer<LostHeirloomPlayer>().vanityEquipped)
+                    if (Main.LocalPlayer.GetModPlayer<VanityModPlayer>().vanityEquipped == nameof(LostHeirloom))
                     {
                         l.Active = false;
                     }
