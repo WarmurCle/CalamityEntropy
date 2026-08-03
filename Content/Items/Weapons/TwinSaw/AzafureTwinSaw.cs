@@ -193,11 +193,11 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
                     if (Counter < t)
                     {
                         Rotation = -0.03f;
-                        if(Main.myPlayer == Projectile.owner && Projectile.ai[0] > 0)
+                        if(Main.myPlayer == Projectile.owner && Projectile.ai[0] > 0 && Counter > 1)
                         {
                             Vector2 pos = sawOrigin + (Projectile.rotation + MathHelper.PiOver2 * dir).ToRotationVector2() * 14 * Projectile.scale;
                             Vector2 vel = Projectile.rotation.ToRotationVector2() * (player.AzafureEnhance() ? 14 : 10);
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), pos, vel, ModContent.ProjectileType<AzafureSawSpark>(), Projectile.damage / 9, 0, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), pos, vel, ModContent.ProjectileType<AzafureSawSpark>(), Projectile.damage / 5, 0, Projectile.owner);
                         }
                         if(Projectile.ai[0] > 0 && Counter == 4)
                         {
@@ -285,6 +285,8 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if (!target.boss)
+                target.velocity *= 0.1f;
             if (this.Target == -1)
                 this.Target = target.whoAmI;
             CalamityEntropy.Instance.screenShakeAmp = 1.2f;
@@ -324,7 +326,25 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
         }
         public override void AI()
         {
-            if (Projectile.localAI[0]++ == 1)
+            if (Projectile.localAI[0]++ == 0)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    Vector2 pos = Projectile.Center;
+                    Vector2 vel = CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(16, 46);
+                    Color color = Main.rand.NextBool() ? Color.Orange : Color.Firebrick;
+                    float scale = Main.rand.NextFloat(1.8f, 2.6f);
+                    if (Main.rand.NextBool())
+                    {
+                        GeneralParticleHandler.SpawnParticle(new LineParticle(pos, vel, false, Main.rand.Next(3, 6), scale, color));
+                    }
+                    else
+                    {
+                        GeneralParticleHandler.SpawnParticle(new SparkParticle(pos, vel, false, Main.rand.Next(3, 6), scale, color));
+                    }
+                }
+            }
+            if (Projectile.localAI[0] == 2)
             {
                 for (int i = 0; i < 12; i++)
                 {
