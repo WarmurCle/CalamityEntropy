@@ -23,6 +23,15 @@ namespace CalamityEntropy.Content.Items
             Item.width = Item.height = 32;
             Item.rare = ItemRarityID.Yellow;
         }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.Grapefruit, 6)
+                .AddCondition(Condition.NearShimmer)
+                .AddCondition(Condition.LanternNight)
+                .AddTile(TileID.Honeyfall)
+                .Register();
+        }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<PGetPlayer>().accEquiped = true;
@@ -98,22 +107,6 @@ namespace CalamityEntropy.Common
             accVnTime--;
             accEquiped = false;
             accVanity = accVnTime > 0;
-        }
-        public override void OnEnterWorld()
-        {
-            if (Main.myPlayer == Player.whoAmI)
-            {
-                int g = RunningGames();
-                count = g;
-                if (!Player.Entropy().yuzuCheck)
-                {
-                    Player.Entropy().yuzuCheck = true;
-                    if (g > 0)
-                    {
-                        Player.QuickSpawnItem(Player.GetSource_FromThis(), ModContent.ItemType<ChargingYuzu>());
-                    }
-                }
-            }
         }
         public static int RunningGames()
         {
