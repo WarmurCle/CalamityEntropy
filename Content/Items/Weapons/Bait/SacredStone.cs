@@ -25,13 +25,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
 {
     public class SacredStone : ModItem, IBaitItem
     {
-        public static int TagDamage = 10;
+        public static int TagDamage = 15;
         public static float DamageMult = 0.25f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(TagDamage);
 
         public override void SetDefaults()
         {
-            Item.damage = 360;
+            Item.damage = 150;
             Item.knockBack = 0;
             Item.shootSpeed = 44;
             Item.useAnimation = Item.useTime = 24;
