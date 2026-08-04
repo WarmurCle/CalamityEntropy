@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Items.Weapons.Swirlblades;
 using CalamityEntropy.Content.Particles;
@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
             Item.useAnimation = 10;
             Item.autoReuse = true;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
-            Item.damage = 12;
+            Item.damage = 6;
             Item.knockBack = 6;
             Item.crit = 5;
             Item.channel = true;
@@ -87,7 +87,7 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
         {
             Projectile.FriendlySetDefaults(ModContent.GetInstance<TrueMeleeDamageClass>(), false, -1);
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 18;
+            Projectile.localNPCHitCooldown = 4;
         }
         public bool Hitted = false;
         public int Target = -1;
@@ -212,7 +212,7 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
                         {
                             Vector2 pos = sawOrigin + (Projectile.rotation + MathHelper.PiOver2 * dir).ToRotationVector2() * 14 * Projectile.scale;
                             Vector2 vel = Projectile.rotation.ToRotationVector2() * (player.AzafureEnhance() ? 10 : 7) * Projectile.scale;
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), pos, vel, ModContent.ProjectileType<AzafureSawSpark>(), Projectile.damage / 8, 0, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), pos, vel, ModContent.ProjectileType<AzafureSawSpark>(), Projectile.damage / 5, 0, Projectile.owner);
                         }
                         if(Projectile.ai[0] > 0 && Counter == 4)
                         {
