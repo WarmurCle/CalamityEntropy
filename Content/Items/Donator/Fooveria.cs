@@ -114,7 +114,7 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public int LastLevel = -1;
 
-        public string DonatorName => "  ά    ";
+        public string DonatorName => "ÆÕÎ¬ÀòÑÅ";
 
         public override void UpdateInventory(Player player)
         {
