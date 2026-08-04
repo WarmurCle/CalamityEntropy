@@ -18,13 +18,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
 {
     public class DeliciousAcorn : ModItem, IBaitItem
     {
-        public static int TagDamage = 3;
-        public static float DamageMult = 2.25f;
+        public static int TagDamage = 1;
+        public static float DamageMult = 1.5f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(TagDamage);
 
         public override void SetDefaults()
         {
-            Item.damage = 5;
+            Item.damage = 6;
             Item.knockBack = 0;
             Item.shootSpeed = 25;
             Item.useAnimation = Item.useTime = 18;
