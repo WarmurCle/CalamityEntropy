@@ -255,3 +255,30 @@
 [Mods.CalamityEntropy.AzafureEnhances.AzafurePowerSaw] - changed
 [Mods.CalamityEntropy.AzafureEnhances.AzafureWarSatelliteAuthorizationKey] - added
 [Mods.CalamityEntropy.AzafureEnhances.AzafureTwinSaw] - added
+
+
+[3.30-Changes]
+[Mods.CalamityEntropy.Projectiles.FooveriaIceShard.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.TheDeadCutSlash.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.AzafureSawSpark.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.ArbitratorStealthImpactSpawner.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.AzafureTwinSawHeld.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.ArbitratorStealthImpact.DisplayName] - added
+[Mods.CalamityEntropy.Projectiles.FooveriaHeld.DisplayName] - added
+[Mods.CalamityEntropy.Items.RedDragonHorn.Tooltip] - changed
+[Mods.CalamityEntropy.Items.ThreadOfFate.HoldShiftForDetails] - changed
+[Mods.CalamityEntropy.Items.ThreadOfFate.Tooltip] - changed
+[Mods.CalamityEntropy.Items.Antler.Tooltip] - changed
+[Mods.CalamityEntropy.Items.Weapons.Rogue.ArbitratorII.Tooltip] - changed
+[Mods.CalamityEntropy.Items.Weapons.Rogue.TheDeadCut.Tooltip] - changed
+[Mods.CalamityEntropy.Items.ThreadOfAbyss.HoldShiftForDetails] - changed
+[Mods.CalamityEntropy.Items.ThreadOfAbyss.Tooltip] - changed
+[Mods.CalamityEntropy.Items.LingsHairAccessory.Tooltip] - changed
+[Mods.CalamityEntropy.Items.AstralSample.DisplayName] - added
+[Mods.CalamityEntropy.Items.AstralSample.Tooltip] - added
+[Mods.CalamityEntropy.Items.ExquisiteHairband.Tooltip] - changed
+[Mods.CalamityEntropy.Items.DustyStar.Tooltip] - changed
+[Mods.CalamityEntropy.Items.BlackFlower.Tooltip] - changed
+[Mods.CalamityEntropy.Items.CursedThread.HoldShiftForDetails] - changed
+[Mods.CalamityEntropy.Items.CursedThread.Tooltip] - changed
+[Mods.CalamityEntropy.Items.DreamCatcher.Tooltip] - changed
