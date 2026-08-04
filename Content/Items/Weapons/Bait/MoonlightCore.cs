@@ -23,13 +23,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
 {
     public class MoonlightCore : ModItem, IBaitItem
     {
-        public static int TagDamage = 10;
-        public static float DamageMult = 2.2f;
+        public static int TagDamage = 12;
+        public static float DamageMult = 1.7f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(TagDamage);
 
         public override void SetDefaults()
         {
-            Item.damage = 140;
+            Item.damage = 100;
             Item.knockBack = 0;
             Item.shootSpeed = 44;
             Item.useAnimation = Item.useTime = 22;
@@ -301,7 +301,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                                 Vector2 vel = (target.Center - Projectile.Center).normalize() * 36;
                                 if (ShootCount > 6)
                                 {
-                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + vel * 0.2f, vel, ModContent.ProjectileType<MoonlightLaser>(), Projectile.damage * 4, Projectile.knockBack, Projectile.owner, Projectile.velocity.X, Projectile.velocity.Y);
+                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + vel * 0.2f, vel, ModContent.ProjectileType<MoonlightLaser>(), (int)(Projectile.damage * 1.5f), Projectile.knockBack, Projectile.owner, Projectile.velocity.X, Projectile.velocity.Y);
                                 }
                                 else
                                 {
