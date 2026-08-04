@@ -25,15 +25,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
 {
     public class AzafureWarSatelliteAuthorizationKey : ModItem, IBaitItem, IAzafureEnhancable
     {
-        public static int TagDamage = 8;
-        public static float DamageMult = 1f;
+        public static int TagDamage = 9;
+        public static float DamageMult = 2f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(TagDamage);
 
         public override void SetDefaults()
         {
-            Item.damage = 120;
+            Item.damage = 72;
             Item.knockBack = 0;
-            Item.shootSpeed = 26;
+            Item.shootSpeed = 36;
             Item.useAnimation = Item.useTime = 32;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ModContent.RarityType<AzafureOrange>();
