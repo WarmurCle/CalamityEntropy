@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
                 .AddIngredient(ItemID.FragmentSolar, 4)
                 .AddIngredient(ItemID.FragmentStardust, 4)
                 .AddIngredient(ItemID.FragmentVortex, 4)
-                .AddTile<VoidWellTile>()
+                .AddTile<AbyssalAltarTile>()
                 .Register();
         }
 
