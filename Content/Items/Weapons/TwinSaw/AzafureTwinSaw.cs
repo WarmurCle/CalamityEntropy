@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
             Item.useAnimation = 10;
             Item.autoReuse = true;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
-            Item.damage = 6;
+            Item.damage = 7;
             Item.knockBack = 6;
             Item.crit = 5;
             Item.channel = true;
@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
             else
             {
                 int dir = UseCount == 0 ? 1 : -1;
-                Projectile.NewProjectile(source, position, velocity, type, (int)(damage * 1.6f), 0, player.whoAmI, dir, 0);
+                Projectile.NewProjectile(source, position, velocity, type, (int)(damage * 1.5f), 0, player.whoAmI, dir, 0);
             }
             UseCount++;
             if(UseCount > 2)
@@ -212,7 +212,7 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
                         {
                             Vector2 pos = sawOrigin + (Projectile.rotation + MathHelper.PiOver2 * dir).ToRotationVector2() * 14 * Projectile.scale;
                             Vector2 vel = Projectile.rotation.ToRotationVector2() * (player.AzafureEnhance() ? 10 : 7) * Projectile.scale;
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), pos, vel, ModContent.ProjectileType<AzafureSawSpark>(), Projectile.damage / 5, 0, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), pos, vel, ModContent.ProjectileType<AzafureSawSpark>(), Projectile.damage / 5 + 1, 0, Projectile.owner);
                         }
                         if(Projectile.ai[0] > 0 && Counter == 4)
                         {

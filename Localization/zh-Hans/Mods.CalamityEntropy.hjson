@@ -128,12 +128,12 @@ Items: {
 			}
 
 			TheDeadCut: {
-				DisplayName: 虚妄切裂者
-				Tooltip: 
+				Tooltip:
 					'''
 					丢出一把飞镰，命中后生成虚妄斩切
 					潜伏攻击会使飞镰命中后进行多次斩切
 					'''
+				DisplayName: 虚妄切裂者
 			}
 
 			LunarPlank: {
