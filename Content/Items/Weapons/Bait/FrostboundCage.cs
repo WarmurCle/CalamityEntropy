@@ -25,13 +25,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
 {
     public class FrostboundCage : ModItem, IBaitItem
     {
-        public static int TagDamage = 1;
+        public static int TagDamage = 5;
         public static float DamageMult = 1f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(TagDamage);
 
         public override void SetDefaults()
         {
-            Item.damage = 46;
+            Item.damage = 35;
             Item.knockBack = 0;
             Item.shootSpeed = 36;
             Item.useAnimation = Item.useTime = 30;

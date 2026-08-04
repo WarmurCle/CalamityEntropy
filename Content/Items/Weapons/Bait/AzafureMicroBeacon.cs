@@ -23,15 +23,15 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
 {
     public class AzafureMicroBeacon : ModItem, IBaitItem, IAzafureEnhancable
     {
-        public static int TagDamage = 7;
-        public static float DamageMult = 3.2f;
+        public static int TagDamage = 4;
+        public static float DamageMult = 1.5f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(TagDamage);
 
         public override void SetDefaults()
         {
-            Item.damage = 40;
+            Item.damage = 25;
             Item.knockBack = 0;
-            Item.shootSpeed = 26;
+            Item.shootSpeed = 33;
             Item.useAnimation = Item.useTime = 24;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ModContent.RarityType<AzafureOrange>();

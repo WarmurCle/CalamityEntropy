@@ -1,4 +1,4 @@
-﻿using CalamityEntropy.Content.Buffs;
+using CalamityEntropy.Content.Buffs;
 using CalamityEntropy.Content.Items.Armor.Azafure;
 using CalamityEntropy.Content.Items.Weapons.Swirlblades;
 using CalamityEntropy.Content.Particles;
@@ -33,9 +33,9 @@ namespace CalamityEntropy.Content.Items.Weapons.TwinSaw
             Item.useAnimation = 10;
             Item.autoReuse = true;
             Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
-            Item.damage = 20;
+            Item.damage = 6;
             Item.knockBack = 6;
-            Item.crit = 15;
+            Item.crit = 5;
             Item.channel = true;
             Item.shoot = ModContent.ProjectileType<AzafureTwinSawHeld>();
             Item.shootSpeed = 12;

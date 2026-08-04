@@ -25,13 +25,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
 {
     public class MechanicalTransmitter : ModItem, IBaitItem
     {
-        public static int TagDamage = 8;
-        public static float DamageMult = 1f;
+        public static int TagDamage = 6;
+        public static float DamageMult = 1.5f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(TagDamage);
 
         public override void SetDefaults()
         {
-            Item.damage = 46;
+            Item.damage = 44;
             Item.knockBack = 0;
             Item.shootSpeed = 32;
             Item.useAnimation = Item.useTime = 24;

@@ -29,13 +29,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
 {
     public class BottledFissure : ModItem, IBaitItem
     {
-        public static int TagDamage = 12;
+        public static int TagDamage = 25;
         public static float DamageMult = 0.8f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(TagDamage);
 
         public override void SetDefaults()
         {
-            Item.damage = 860;
+            Item.damage = 230;
             Item.knockBack = 0;
             Item.shootSpeed = 44;
             Item.useAnimation = Item.useTime = 36;

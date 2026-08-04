@@ -22,13 +22,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
 {
     public class MagicHat : ModItem, IBaitItem
     {
-        public static int TagDamage = 4;
-        public static float DamageMult = 1f;
+        public static int TagDamage = 3;
+        public static float DamageMult = 0.6f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(TagDamage);
 
         public override void SetDefaults()
         {
-            Item.damage = 36;
+            Item.damage = 22;
             Item.knockBack = 0;
             Item.shootSpeed = 32;
             Item.useAnimation = Item.useTime = 27;

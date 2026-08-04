@@ -114,7 +114,7 @@ namespace CalamityEntropy.Content.Items.Donator
         }
         public int LastLevel = -1;
 
-        public string DonatorName => "ÆÕÎ¬ÀòÑÅ";
+        public string DonatorName => "Ã†Ã•ÃŽÂ¬Ã€Ã²Ã‘Ã…";
 
         public override void UpdateInventory(Player player)
         {
@@ -124,28 +124,28 @@ namespace CalamityEntropy.Content.Items.Donator
                 int dmg = Item.damage;
                 switch (level)
                 {
-                    case 0: dmg = 12; break;
-                    case 1: dmg = 18; break;
-                    case 2: dmg = 24; break;
-                    case 3: dmg = 28; break;
-                    case 4: dmg = 36; break;
-                    case 5: dmg = 80; break;
-                    case 6: dmg = 100; break;
-                    case 7: dmg = 120; break;
-                    case 8: dmg = 140; break;
-                    case 9: dmg = 150; break;
-                    case 10: dmg = 480; break;
-                    case 11: dmg = 600; break;
-                    case 12: dmg = 1250; break;
-                    case 13: dmg = 1400; break;
-                    case 14: dmg = 1600; break;
-                    case 15: dmg = 3600; break;
+                    case 0: dmg = 5; break;
+                    case 1: dmg = 10; break;
+                    case 2: dmg = 13; break;
+                    case 3: dmg = 18; break;
+                    case 4: dmg = 25; break;
+                    case 5: dmg = 42; break;
+                    case 6: dmg = 56; break;
+                    case 7: dmg = 75; break;
+                    case 8: dmg = 95; break;
+                    case 9: dmg = 115; break;
+                    case 10: dmg = 300; break;
+                    case 11: dmg = 460; break;
+                    case 12: dmg = 950; break;
+                    case 13: dmg = 1200; break;
+                    case 14: dmg = 1350; break;
+                    case 15: dmg = 2300; break;
                 }
                 Item.damage = dmg;
                 Item.useTime = Item.useAnimation = int.Max(10, 16 - GetLevel() / 4);
                 LastLevel = level;
-                Item.crit = level * 3;
-                Item.knockBack = level / 2;
+                Item.crit = level * 1;
+                Item.knockBack = level / 3;
                 Item.scale = 1;
                 Item.Prefix(Item.prefix);
             }

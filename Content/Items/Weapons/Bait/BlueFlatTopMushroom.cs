@@ -19,8 +19,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
 {
     public class BlueFlatTopMushroom : ModItem, IBaitItem
     {
-        public static int TagDamage = 4;
-        public static float DamageMult = 1.4f;
+        public static int TagDamage = 3;
+        public static float DamageMult = 1.5f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(TagDamage);
 
         public override void SetDefaults()

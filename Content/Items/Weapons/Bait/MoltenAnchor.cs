@@ -20,13 +20,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
 {
     public class MoltenAnchor : ModItem, IBaitItem
     {
-        public static int TagDamage = 6;
-        public static float DamageMult = 1.6f;
+        public static int TagDamage = 4;
+        public static float DamageMult = 1.5f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(TagDamage);
 
         public override void SetDefaults()
         {
-            Item.damage = 50;
+            Item.damage = 30;
             Item.knockBack = 0;
             Item.shootSpeed = 26;
             Item.useAnimation = Item.useTime = 26;

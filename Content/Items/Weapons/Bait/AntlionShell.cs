@@ -17,13 +17,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
 {
     public class AntlionShell : ModItem, IBaitItem
     {
-        public static int TagDamage = 5;
-        public static float DamageMult = 4;
+        public static int TagDamage = 2;
+        public static float DamageMult = 2;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(TagDamage);
 
         public override void SetDefaults()
         {
-            Item.damage = 30;
+            Item.damage = 20;
             Item.knockBack = 0;
             Item.shootSpeed = 26;
             Item.useAnimation = Item.useTime = 20;
