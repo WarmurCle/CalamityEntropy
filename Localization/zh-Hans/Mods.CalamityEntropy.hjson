@@ -688,7 +688,7 @@ Items: {
 		Tooltip:
 			'''
 			用于组合[i:CalamityEntropy/OracleDeck][c/87CEFA:神谕卡组]
-			按住左Shift来查看卡组需求
+			[c/87CEFA:按住左Shift来查看卡组需求]
 			'''
 		HoldShiftForDetails:
 			'''
@@ -1295,7 +1295,7 @@ Items: {
 		Tooltip:
 			'''
 			用于组合[i:CalamityEntropy/TaintedDeck][c/FF6347:堕化卡组]
-			按住左Shift以查看卡组需求
+			[c/FF6347:按住左Shift以查看卡组需求]
 			'''
 		HoldShiftForDetails:
 			'''
@@ -2688,7 +2688,7 @@ Items: {
 		Tooltip:
 			'''
 			用于组合[i:CalamityEntropy/SoulDeck][c/ADFF2F:灵魂卡组]
-			按住左Shift以查看卡组需求
+			[c/ADFF2F:按住左Shift以查看卡组需求]
 			'''
 		HoldShiftForDetails:
 			'''

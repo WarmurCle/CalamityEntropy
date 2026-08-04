@@ -720,7 +720,7 @@ Items: {
 		Tooltip:
 			'''
 			Intertwines the mystic cards of the [i:CalamityEntropy/OracleDeck][c/87CEFA:Oracle Deck]
-			Hold SHIFT to read the thread...
+			[c/87CEFA:Hold SHIFT to read the thread...]
 			'''
 		HoldShiftForDetails:
 			'''
@@ -1271,9 +1271,9 @@ Items: {
 		Tooltip:
 			'''
 			Binds together the lost [i:CalamityEntropy/TaintedDeck][c/FF6347:Tainted Deck]
-			Hold SHIFT to read the thread...
+			[c/FF6347:Hold SHIFT to read the thread...]
 			'''
-		HoldShiftForDetails: 
+		HoldShiftForDetails:
 			'''
 			The following materials are required:
 			[i:CalamityEntropy/Perplexed][c/FF6347: Perplexed]
@@ -2596,9 +2596,9 @@ Items: {
 		Tooltip:
 			'''
 			Used to intertwine the [i:CalamityEntropy/SoulDeck][c/ADFF2F:Soul Deck]
-			Hold SHIFT to read the thread...
+			[c/ADFF2F:Hold SHIFT to read the thread...]
 			'''
-		HoldShiftForDetails: 
+		HoldShiftForDetails:
 			'''
 			The following materials are required:
 			[i:CalamityEntropy/RequiemCard][c/ADFF2F: Requiem]
