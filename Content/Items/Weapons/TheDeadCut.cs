@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.Items.Weapons
         {
             Item.width = 98;
             Item.height = 88;
-            Item.damage = 190;
+            Item.damage = 275;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useAnimation = Item.useTime = 16;
@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<TheDeadCutProjectile>();
             Item.shootSpeed = 16f;
             Item.DamageType = CEUtils.RogueDC;
-            Item.ArmorPenetration = 56;
+            Item.ArmorPenetration = 50;
             Item.Entropy().tooltipStyle = 3;
             Item.Entropy().NameColor = new Color(110, 0, 140);
             Item.Entropy().stroke = true;
@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.Entropy().HasCustomStrokeColor = true;
             Item.Entropy().HasCustomNameColor = true;
         }
-        public override float StealthDamageMultiplier => 1.2f;
+        public override float StealthDamageMultiplier => 0.3f;
         public override float StealthVelocityMultiplier => 1f;
         public override float StealthKnockbackMultiplier => 1f;
 
