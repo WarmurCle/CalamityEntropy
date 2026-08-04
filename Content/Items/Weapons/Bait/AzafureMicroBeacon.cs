@@ -31,8 +31,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         {
             Item.damage = 25;
             Item.knockBack = 0;
-            Item.shootSpeed = 26;
-            Item.useAnimation = Item.useTime = 33;
+            Item.shootSpeed = 33;
+            Item.useAnimation = Item.useTime = 24;
             Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
             Item.rare = ModContent.RarityType<AzafureOrange>();
             Item.width = 42;
