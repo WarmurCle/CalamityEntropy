@@ -44,7 +44,7 @@ namespace CalamityEntropy.Content.Items.Weapons
             Item.Entropy().HasCustomStrokeColor = true;
             Item.Entropy().HasCustomNameColor = true;
         }
-        public override float StealthDamageMultiplier => 0.3f;
+        public override float StealthDamageMultiplier => 0.25f;
         public override float StealthVelocityMultiplier => 1f;
         public override float StealthKnockbackMultiplier => 1f;
 
