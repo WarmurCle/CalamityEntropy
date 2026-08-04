@@ -23,13 +23,13 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
 {
     public class MutantBulb : ModItem, IBaitItem
     {
-        public static int TagDamage = 6;
-        public static float DamageMult = 0.5f;
+        public static int TagDamage = 7;
+        public static float DamageMult = 1.0f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(TagDamage);
 
         public override void SetDefaults()
         {
-            Item.damage = 70;
+            Item.damage = 60;
             Item.knockBack = 0;
             Item.shootSpeed = 39;
             Item.useAnimation = Item.useTime = 22;
