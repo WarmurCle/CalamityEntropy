@@ -175,7 +175,7 @@ namespace CalamityEntropy.Content.Items.Donator.BreakStar
             }
             if (Atk2Counter <= 0)
                 AttackType = 0;
-            if (Atk2Counter > 0)
+            if (Atk2Counter > 0 || AttackTime > 0)
                 player.channel = true;
             Projectile.Center += Projectile.rotation.ToRotationVector2() * -160 * Projectile.scale;
             if (player.channel)
