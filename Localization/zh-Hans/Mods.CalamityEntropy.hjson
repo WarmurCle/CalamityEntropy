@@ -5550,6 +5550,8 @@ Projectiles: {
 	FooveriaIceShard.DisplayName: 霜痕冰片
 	AzafureTwinSawHeld.DisplayName: 阿萨福勒双锯
 	AzafureSawSpark.DisplayName: 锯片火花
+	// VFChargeFXProj.DisplayName: V F Charge F X Proj
+	// VoidFaquirEnergyBallMelee.DisplayName: Void Faquir Energy Ball Melee
 }
 
 LegendTooltip: - 传奇物品 -

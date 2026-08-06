@@ -3,6 +3,7 @@ using CalamityEntropy.Content.Projectiles;
 using CalamityMod;
 using CalamityMod.Dusts;
 using CalamityMod.Items;
+using CalamityMod.NPCs.AquaticScourge;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -212,6 +213,10 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             modifiers.ArmorPenetration += 30;
+            if(target.type == NPCID.TheDestroyerBody || target.type == ModContent.NPCType<AquaticScourgeBody>() || target.type == ModContent.NPCType<AquaticScourgeBodyAlt>())
+            {
+                modifiers.SourceDamage *= 0.2f;
+            }
         }
         public bool InGround = true;
         public static int Segments = 240;

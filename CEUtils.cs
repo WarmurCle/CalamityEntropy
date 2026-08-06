@@ -1204,7 +1204,7 @@ namespace CalamityEntropy
         }
         public static void SyncProj(int proj)
         {
-            if (Main.netMode != NetmodeID.SinglePlayer)
+            if (Main.netMode != NetmodeID.SinglePlayer && (!proj.ToProj().friendly || Main.myPlayer == proj.ToProj().owner))
             {
                 NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
             }

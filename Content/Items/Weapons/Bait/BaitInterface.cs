@@ -35,8 +35,8 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         public int TagDamage => (int)Projectile.ai[2];
         public virtual void SetActive()
         {
-            IsActive = false;
             ActiveEffect(1);
+            IsActive = false;
         }
         public virtual void ActiveEffect(float DamageMul)
         { }

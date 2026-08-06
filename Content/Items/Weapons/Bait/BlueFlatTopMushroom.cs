@@ -52,14 +52,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
             return false;
         }
 
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ItemID.Acorn, 10)
-                .AddTile(TileID.WorkBenches)
-                .Register();
-        }
-
         public override bool MeleePrefix()
         {
             return true;

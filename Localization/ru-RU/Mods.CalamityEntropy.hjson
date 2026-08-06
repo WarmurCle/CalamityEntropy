@@ -5235,6 +5235,8 @@ Projectiles: {
 	// FooveriaIceShard.DisplayName: Fooveria Ice Shard
 	// AzafureTwinSawHeld.DisplayName: Azafure Twin Saw Held
 	// AzafureSawSpark.DisplayName: Azafure Saw Spark
+	// VFChargeFXProj.DisplayName: V F Charge F X Proj
+	// VoidFaquirEnergyBallMelee.DisplayName: Void Faquir Energy Ball Melee
 }
 
 LegendTooltip: - Легенда -

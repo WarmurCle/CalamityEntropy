@@ -114,8 +114,9 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
                 {
                     if (IsActive)
                     {
-                        CEUtils.SyncProj(Projectile.whoAmI);
                         SetActive();
+                        IsActive = false;
+                        CEUtils.SyncProj(Projectile.whoAmI);
                     }
                 }
             }
@@ -137,7 +138,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Bait
         }
         public override void ActiveEffect(float damageMul)
         {
-            if(Main.myPlayer == Projectile.owner)
+            if(Main.myPlayer == Projectile.owner && IsActive)
             {
                 for (int i = 0; i < 3; i++)
                 {

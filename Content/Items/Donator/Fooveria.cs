@@ -243,7 +243,7 @@ namespace CalamityEntropy.Content.Items.Donator
             {
                 CEUtils.PlaySound("CryogenHit" + Main.rand.Next(1, 4), Main.rand.NextFloat(1f, 1.2f), Projectile.Center, 16);
                 CEUtils.PlaySound("CryogenHit" + Main.rand.Next(1, 4), Main.rand.NextFloat(1f, 1.2f), Projectile.Center, 16);
-                Projectile.GetOwner().Entropy().noItemTime = 40;
+                Projectile.GetOwner().Entropy().noItemTime = (int)(30f / Projectile.GetOwner().GetTotalAttackSpeed<TrueMeleeDamageClass>());
                 int pt = ModContent.ProjectileType<FooveriaIceShard>();
                 for (int i = 0; i < 6; i++)
                 {
