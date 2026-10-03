@@ -269,8 +269,8 @@ Items: {
 		Tooltip:
 			'''
 			快速射出虚空弹头，50%概率不消耗弹药
-			持续开火时每秒放出一架追踪无人机
-			无人机命中后爆炸，并造成3秒虚空之火
+			开火时间每累计满1秒，枪身顶部弹出一架追踪无人机，停火不会清空累计
+			无人机撞上敌人时爆炸，使范围内的敌人获得3秒[cebuff:CalamityEntropy/VoidFire]
 			'''
 	}
 
@@ -289,10 +289,11 @@ Items: {
 		DisplayName: 虚空电场
 		Tooltip:
 			'''
-			长按左键，持续向前方释放5道旋转的扇形激光
-			激光释放期间，杖尖会积蓄一颗越来越大的闪电球，最多积蓄3秒
-			松开左键掷出闪电球，积蓄越久伤害越高
-			闪电球命中后爆炸，并使敌人带电
+			按住左键，向前方持续放出5道旋转的扇形激光，激光会被物块挡住
+			按住期间持续消耗魔力，杖头会积蓄一颗越来越大的闪电球，最多积蓄3秒
+			松开左键掷出闪电球，积蓄越久伤害越高，积蓄不足0.25秒时不会掷出
+			闪电球命中后爆炸，范围内的敌人会[cebuff:Electrified]
+			爆炸还会向周围的敌人释放连锁电弧，积蓄越久连到的敌人越多，最多6个
 			'''
 	}
 
@@ -301,12 +302,12 @@ Items: {
 		Tooltip:
 			'''
 			占用3个召唤栏位
-			召唤一架投影无人机悬浮在头顶，向敌人射击
+			召唤一架投影无人机悬浮在头顶，两侧吊舱轮流向敌人射击
 			无人机会不断投影全息动物攻击目标：
 			每0.5秒投影一只巨型陆龟，闪现到目标头顶弹跳5次
-			每1秒投影一只红恶魔，飞到目标身旁快速投掷全息三叉戟，4秒后消失
+			每1秒投影一只红恶魔，飞到目标身旁，每0.75秒投掷一发全息三叉戟，4秒后消失
 			每2秒投影一只白龙，对目标来回冲撞，5秒后消失
-			无人机在场时再次使用，会额外占用1个召唤栏位并使其伤害提高33%
+			无人机在场时再次使用，会额外占用1个召唤栏位，无人机伤害提高33%
 			'''
 	}
 
@@ -5147,6 +5148,7 @@ Projectiles: {
 	VDHoloTortoise.DisplayName: 全息丛林陆龟
 	VDHoloStinger.DisplayName: 全息毒刺
 	VDHoloWyvern.DisplayName: 全息小白龙
+	VoidMK2Held.DisplayName: 虚空MK2
 	VoidMK2Bullet.DisplayName: 虚空弹头
 	VoidMK2Drone.DisplayName: 追踪无人机
 	VoidMK2Explosion.DisplayName: 无人机爆炸
@@ -5158,6 +5160,7 @@ Projectiles: {
 	VoidElectricFieldHoldout.DisplayName: 虚空电场
 	VoidElectricBall.DisplayName: 闪电球
 	VoidElectricBurst.DisplayName: 闪电爆发
+	VoidElectricArc.DisplayName: 连锁电弧
 	ProjectionDrone.DisplayName: 投影无人机
 	ProjectionDroneShot.DisplayName: 无人机弹
 	ProjectionTortoise.DisplayName: 全息巨型陆龟

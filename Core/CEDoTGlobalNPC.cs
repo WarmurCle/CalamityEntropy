@@ -1,7 +1,9 @@
 ﻿using CalamityEntropy.Content.Buffs.PortsDoT;
+using CalamityEntropy.Core.CalamityRef;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace CalamityEntropy.Core
@@ -49,8 +51,25 @@ namespace CalamityEntropy.Core
             Registry[buffType] = entry;
         }
 
+        /// <summary>
+        /// 原版带电对敌怪本无效果(NPC 没有对应字段);未装灾厄时按灾厄 DebuffData.Electrified 补上:静止 15/s,横向移动中 ×4。
+        /// 装了灾厄由它自己结算伤害与电火花,这里不重复注册,否则伤害与粒子都翻倍
+        /// </summary>
+        public override void SetStaticDefaults() {
+            if (!CERef.Has) {
+                Register(BuffID.Electrified, new CEDoTEntry { LostRegen = 30, ElectricMoving = true });
+            }
+        }
+
         public override void Unload() {
             Registry.Clear();
+        }
+
+        public override void DrawEffects(NPC npc, ref Color drawColor) {
+            if (!CERef.Has && npc.HasBuff(BuffID.Electrified) && Main.rand.NextBool(2)) {
+                Dust d = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Electric, Main.rand.NextFloat(-2f, 2f), Main.rand.NextFloat(-2f, 2f), 0, default, 0.35f);
+                d.noGravity = true;
+            }
         }
 
         public override void UpdateLifeRegen(NPC npc, ref int damage) {

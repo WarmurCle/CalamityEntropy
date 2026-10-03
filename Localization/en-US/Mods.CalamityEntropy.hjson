@@ -289,8 +289,8 @@ Items: {
 		Tooltip:
 			'''
 			Rapidly fires void rounds, 50% chance to not consume ammo
-			Every second of sustained fire launches a homing drone
-			The drone explodes on impact and inflicts Void Fire for 3 seconds
+			Every full second of firing launches a homing drone from the top of the gun. Ceasing fire keeps the progress
+			The drone explodes when it reaches an enemy, inflicting [cebuff:CalamityEntropy/VoidFire] for 3 seconds on enemies in the blast
 			'''
 	}
 
@@ -309,10 +309,11 @@ Items: {
 		DisplayName: Void Electric Field
 		Tooltip:
 			'''
-			Hold left click to keep firing 5 rotating fanned lasers forward
-			While the lasers fire, a growing lightning ball builds up at the staff tip, up to 3 seconds
-			Release left click to hurl the lightning ball. The longer the charge, the higher its damage
-			The lightning ball explodes on impact and electrifies enemies
+			Hold left click to keep firing 5 rotating fanned lasers forward. Solid blocks stop the lasers
+			Holding drains mana and builds a growing lightning ball at the staff tip, up to 3 seconds
+			Release left click to hurl the ball. Longer charges deal more damage, and a charge under 0.25 seconds fires nothing
+			The lightning ball explodes on impact and inflicts [cebuff:Electrified] on enemies in the blast
+			The blast also sends chain arcs to nearby enemies. Longer charges reach more enemies, up to 6
 			'''
 	}
 
@@ -321,12 +322,12 @@ Items: {
 		Tooltip:
 			'''
 			Uses 3 minion slots
-			Summons a projection drone that hovers overhead and shoots at enemies
+			Summons a projection drone that hovers overhead. Its two side pods take turns shooting at enemies
 			The drone keeps projecting holographic beasts at its target:
 			Every 0.5 seconds a giant tortoise blinks above the target's head and bounces on it 5 times
-			Every second a red devil flies to the target's side and rapidly hurls holographic tridents, vanishing after 4 seconds
+			Every second a red devil flies to the target's side and hurls a holographic trident every 0.75 seconds, vanishing after 4 seconds
 			Every 2 seconds a wyvern rams back and forth through the target, vanishing after 5 seconds
-			Using the remote again while the drone is out takes 1 more minion slot and increases its damage by 33%
+			Using the remote again while the drone is out takes 1 more minion slot and increases the drone's damage by 33%
 			'''
 	}
 
@@ -5088,6 +5089,7 @@ Projectiles: {
 	VDHoloTortoise.DisplayName: Holographic Giant Tortoise
 	VDHoloStinger.DisplayName: Holographic Stinger
 	VDHoloWyvern.DisplayName: Holographic Wyvern
+	VoidMK2Held.DisplayName: Void MK2
 	VoidMK2Bullet.DisplayName: Void Round
 	VoidMK2Drone.DisplayName: Homing Drone
 	VoidMK2Explosion.DisplayName: Drone Explosion
@@ -5099,6 +5101,7 @@ Projectiles: {
 	VoidElectricFieldHoldout.DisplayName: Void Electric Field
 	VoidElectricBall.DisplayName: Lightning Ball
 	VoidElectricBurst.DisplayName: Lightning Burst
+	VoidElectricArc.DisplayName: Chain Arc
 	ProjectionDrone.DisplayName: Projection Drone
 	ProjectionDroneShot.DisplayName: Drone Round
 	ProjectionTortoise.DisplayName: Holographic Giant Tortoise
