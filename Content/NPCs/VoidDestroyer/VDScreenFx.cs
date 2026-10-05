@@ -10,11 +10,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer
 {
     /// <summary>
-    /// 虚空驱逐舰全屏滤镜的客户端驱动(键 CalamityEntropy:VoidDestroyer,着色器 VDScreenFx.fxc)。
-    /// 五条通道按帧「租约上报」:引力透镜(奇点)、空间裂隙位移(裂隙斩,最多 3 段)、暗角(护盾/主炮蓄力)、
-    /// 冲击帧(黑白对比,整场一次)、掠镜呼啸(深度实体越过镜头那一瞬的径向拖影)。状态与弹幕在 AI 里 Report*,本类在 PostUpdateEverything 把上报值
-    /// 平滑进当前值并驱动 Filters.Scene 的激活/停用;没人上报的通道自然衰减到 0。
-    /// 纯表现:服务端不会调用到这里的任何绘制路径,Report* 在 dedServ 上直接返回
+    /// 键 CalamityEntropy:VoidDestroyer,五条通道按帧上报,没人上报就衰减到 0
+    /// Report* 在 dedServ 直接返回
     /// </summary>
     public static class VDScreenFx
     {
@@ -105,7 +102,6 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer
 
         private static int impactHold;
 
-        /// <summary>每帧(PostUpdateEverything):上报值 → 当前值,清上报槽,驱动滤镜开关</summary>
         internal static void Update() {
             if (Main.dedServ) {
                 return;
@@ -235,10 +231,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer
         }
     }
 
-    /// <summary>
-    /// 驱逐舰滤镜数据:强度门 = EnablePixelEffect(关则 uOpacity 归零、IsVisible 为假,滤镜整体被跳过),
-    /// 参数每帧从 <see cref="VDScreenFx"/> 取。激活/停用由 VDScreenFx.Update 负责,本类不自灭
-    /// </summary>
+    /// <summary>关像素效果时 uOpacity 为 0;开关在 VDScreenFx.Update,本类不自灭</summary>
     public class VDScreenShaderData : ScreenShaderData
     {
         public VDScreenShaderData(Asset<Effect> shader, string passName) : base(shader, passName) {

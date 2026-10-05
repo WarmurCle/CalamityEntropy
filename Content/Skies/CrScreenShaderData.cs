@@ -7,13 +7,8 @@ using Terraria.Graphics.Shaders;
 namespace CalamityEntropy.Content.Skies
 {
     /// <summary>
-    /// 巡游者天幕扭曲滤镜数据(键 CalamityEntropy:Cruiser,新链路 CruiserSkyFilter.fxc)。
-    /// 一并取代旧实现的两件事:借用的原版 FilterMiniTower(基本惰性)与
-    /// 旧 CrSky.Draw 中途切 RenderTarget 的扭曲流程(每视差切片重跑一遍的病灶源头)。
-    /// 强度 = <see cref="CruiserSkyDrive.Intensity"/>(UseOpacity,原版再乘 Filter 淡入);
-    /// EnablePixelEffect 关闭时强度归零,IsVisible 随之为假,优雅退化。
-    /// 激活/停用由 CBScene 的 ManageSpecialBiomeVisuals 统一负责,
-    /// 本类不再自灭,旧版与 VoidMonolith 触发路径互相打架的问题随之消失。
+    /// 键 CalamityEntropy:Cruiser,强度取 CruiserSkyDrive.Intensity,关像素效果时为 0
+    /// 开关在 CBScene.ManageSpecialBiomeVisuals,本类不自灭,免得和 VoidMonolith 抢触发
     /// </summary>
     public class CrScreenShaderData : ScreenShaderData
     {

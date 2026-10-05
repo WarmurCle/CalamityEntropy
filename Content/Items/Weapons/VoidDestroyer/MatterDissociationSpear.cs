@@ -17,12 +17,6 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
 {
-    /// <summary>
-    /// 物质解离矛:虚空驱逐舰掉落的长矛。
-    /// 左键戳击(收-爆-停),命中后在接触点引发暗影爆炸(<see cref="BurstMult"/>)并从伤口弹出 3 发慢速追踪虚空弹(<see cref="BoltMult"/>);
-    /// 右键蓄势投掷,飞行途中每隔 <see cref="MatterDissociationSpearThrow.BoltSpacing"/> 像素留下一发虚空弹(最多 7 发),
-    /// 命中目标时目标下方立刻显形 4 发瞄准目标的投影三叉戟(<see cref="TridentMult"/>),随即极速贯穿。虚空弹生成 30 帧后才开始追踪
-    /// </summary>
     public class MatterDissociationSpear : ModItem
     {
         public const float BoltMult = 0.10f;
@@ -73,7 +67,7 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
         }
     }
 
-    /// <summary>矛贴图的几何(140×134,矛尖朝右上):沿轴握点、尖端距离与轴角,戳击与投掷共用</summary>
+    /// <summary>140×134,矛尖朝右上,戳击和投掷共用</summary>
     public static class SpearGeometry
     {
         public const string TexturePath = "CalamityEntropy/Content/Items/Weapons/VoidDestroyer/MatterDissociationSpear";
@@ -92,11 +86,7 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
         public static readonly Color Blade = new Color(255, 90, 230);
     }
 
-    /// <summary>
-    /// 戳击手持弹幕。方向在出手时锁定(速度只作朝向),时间线按物品动画时长缩放:
-    /// 收(0 → 25%,后撤 16px)→ 爆(25% → 35%,两帧内前送到 +50px)→ 停(35% → 60%,回落到 +44px 定住)→ 收回。
-    /// 判定只在爆与停两段,线段从手一直到穿刺冲击波末端;首次命中顿帧 3 帧,每次戳击只引发一次暗影爆炸与虚空弹
-    /// </summary>
+    /// <summary>方向出手时锁死,速度只当朝向;判定只在收完到停完,每次戳只爆一次</summary>
     public class MatterDissociationSpearStab : ModProjectile
     {
         public const float GatherEnd = 0.25f;
@@ -143,7 +133,6 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
 
         public override bool ShouldUpdatePosition() => false;
 
-        /// <summary>伸出量(像素,沿方向):收 → 爆 → 停 → 收回</summary>
         public static float ExtensionAt(float p) {
             if (p < GatherEnd) {
                 float k = p / GatherEnd;
@@ -328,11 +317,7 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
         }
     }
 
-    /// <summary>
-    /// 掷出的矛。ai[0] 为状态:0 蓄势(贴在手上后拉 8 帧,拥有者在第 8 帧按当前光标出手并同步),1 飞行。
-    /// Projectile.Center 就是矛尖(撞墙与判定都从尖端算),飞行两次更新、20 帧后开始下坠;
-    /// 每飞过 <see cref="BoltSpacing"/> 像素从矛杆中段留下一发虚空弹(最多 <see cref="MaxBolts"/> 发),命中目标时目标下方显形 4 发投影三叉戟
-    /// </summary>
+    /// <summary>ai[0] 0 蓄势 1 飞行,Center 是矛尖,拥有者在蓄势末帧按光标出手并同步</summary>
     public class MatterDissociationSpearThrow : ModProjectile
     {
         public const float BoltSpacing = 96f;
@@ -397,7 +382,6 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
             FlightAI();
         }
 
-        /// <summary>蓄势:矛贴手后拉、手臂向后上方扬起;拥有者在最后一帧按光标出手</summary>
         private void WindUpAI(Player owner) {
             if (!owner.active || owner.dead || owner.CCed) {
                 Projectile.Kill();
@@ -454,7 +438,7 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
         private void FlightAI() {
             flightUpdates++;
             int perFrame = Projectile.extraUpdates + 1;
-            if (flightUpdates > 20 * perFrame) {
+            if (flightUpdates > 20 * perFrame) {//20 帧后才下坠,按 extraUpdates 折成更新次数
                 Projectile.velocity.Y = Math.Min(Projectile.velocity.Y + 0.1f, 12f);
             }
             Projectile.tileCollide = flightUpdates > 2;
@@ -512,7 +496,6 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
             return true;
         }
 
-        /// <summary>矛体解离:沿矛杆碎成品红碎块与虚空烟,命中与撞墙同一个收尾</summary>
         public override void OnKill(int timeLeft) {
             if (Main.dedServ || !flying) {
                 return;
@@ -553,10 +536,7 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
         }
     }
 
-    /// <summary>
-    /// 友方虚空弹(驱逐舰紫水晶弹贴图,朝上):前 <see cref="HomingDelay"/> 帧按初速滑出并悬停自转、慢慢充亮;
-    /// 到时锁定(ai[0] 为优先目标,失效时由拥有者就近重选并同步),之后限角速度转向、加速到 <see cref="MaxSpeed"/> 扑去
-    /// </summary>
+    /// <summary>ai[0] 优先目标,失效时拥有者重选并同步,HomingDelay 帧后才转向</summary>
     public class MatterDissociationBolt : ModProjectile
     {
         public const int HomingDelay = 30;
@@ -705,11 +685,7 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
         }
     }
 
-    /// <summary>
-    /// 暗影爆炸:接触点先坍缩 <see cref="CollapseFrames"/> 帧(暗核长大、紫环向内收、紫点被吸入),再爆发,
-    /// 爆发后 <see cref="DamageFrames"/> 帧内对半径 <see cref="Radius"/> 的圆形判定。暗核走 AlphaBlend 真 alpha 压暗,
-    /// 其余光走加法;爆发时溅出品红「物质碎块」(本地模拟的方形碎片)
-    /// </summary>
+    /// <summary>暗核 AlphaBlend 真 alpha,其余加法</summary>
     public class MatterDissociationBurst : ModProjectile
     {
         public const int CollapseFrames = 7;
@@ -775,7 +751,7 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
             }
         }
 
-        /// <summary>品红碎块:小方块向外崩散、自转、缩小消失(物质解离的标识);加法、纯本地</summary>
+        /// <summary>加法,纯本地</summary>
         public static void SpawnShards(Vector2 center, Vector2 baseVel, int count, float power) {
             if (Main.dedServ) {
                 return;
@@ -817,10 +793,7 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
         }
     }
 
-    /// <summary>
-    /// 投影三叉戟(近战):在目标下方显形 <see cref="MaterializeFrames"/> 帧(全息闪烁淡入、脚下一枚标记环、始终对准目标预判点),
-    /// 随即三次更新、每次 32px 极速射出,贯穿路上每个敌人各一次,飞行 <see cref="FlightFrames"/> 帧后淡出。ai[0] 目标,ai[1] 序号(0 号负责整组的音效)
-    /// </summary>
+    /// <summary>ai[0] 目标,ai[1] 序号,0 号出整组音效</summary>
     public class MatterDissociationTrident : ModProjectile
     {
         public const int MaterializeFrames = 6;

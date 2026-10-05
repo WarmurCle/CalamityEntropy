@@ -5,10 +5,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Buffs.PortsDoT
 {
-    /// <summary>
-    /// PortsDoT 移植减益公共基类。
-    /// DoT 结算集中在 <see cref="CEDoTGlobalNPC"/>，此处只负责注册参数与减益标志。
-    /// </summary>
+    /// <summary>DoT 结算在 CEDoTGlobalNPC,这里登记参数和减益标志</summary>
     public abstract class CEPortDebuff : ModBuff
     {
         /// <summary>DoT 结算参数；null 表示无 DoT（纯减益或纯标记）</summary>

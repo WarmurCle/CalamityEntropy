@@ -10,9 +10,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 {
     /// <summary>
-    /// 纵深环门的环成员:平面位置钉死(环心 + 角度 × 半径),只沿 Z 逼近平面,到达那几帧有判定。
-    /// ai[0] 在环上的角度,ai[1] 环内序号(0 号负责画整环的连线与平面脚印),ai[2] 环半径。
-    /// 深度由 <see cref="VDDepthSource"/> 给:整环同一 Z、同一 Z 速度,所以整环一起变大、一起到达
+    /// 平面钉死,只沿 Z 逼近,到达那几帧才有判定
+    /// ai[0] 角度,ai[1] 序号,0 号画整环,ai[2] 半径;整环同一 Z
     /// </summary>
     public class VDGateBolt : VDDepthProjectile
     {
@@ -81,7 +80,6 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
             VDDepthDraw.Draw(tex, drawPos, null, Color.White, 1f, Projectile.rotation, origin, scale, SpriteEffects.None, Z);
         }
 
-        /// <summary>平面脚印:环到达时会落在哪一圈,缺口一目了然(只画成员所在的弧,缺口处没有成员自然是空的)</summary>
         protected override void DrawMarker(SpriteBatch spriteBatch) {
             float p = MarkerProgress();
             if (p <= 0f) {

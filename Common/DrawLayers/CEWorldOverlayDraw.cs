@@ -12,11 +12,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Common.DrawLayers
 {
-    /// <summary>
-    /// 世界层的附加绘制内容:环绕玩家的虚无护壳与玛瑞维护盾、阿扎弗护盾充能条、
-    /// 永冻牢笼环、卫城机甲。这些原先整块塞在模组入口的两个绘制钩子体内。
-    /// 钩子本身留在 <see cref="Core.Hooks.CEDrawHooks"/>,这里只负责画。
-    /// </summary>
+    /// <summary>钩子在 CEDrawHooks</summary>
     internal static class CEWorldOverlayDraw
     {
         [VaultLoaden("CalamityEntropy/Assets/Extra/shell")]
@@ -35,11 +31,7 @@ namespace CalamityEntropy.Common.DrawLayers
             permafrostCircleType = ModContent.ProjectileType<PrisonOfPermafrostCircle>();
         }
 
-        /// <summary>
-        /// 环绕玩家的护壳与护盾。同一圈分前后两半绘制:
-        /// <paramref name="backHalf"/> 为真时画转到玩家身后的那半(在弹幕层之后、玩家之前),
-        /// 为假时画身前的那半。
-        /// </summary>
+        /// <summary>backHalf 真画身后那半,假画身前</summary>
         public static void DrawOrbitingShells(Player player, bool backHalf) {
             EModPlayer entropy = player.Entropy();
             int shellCount = entropy.nihShellCount;
@@ -82,7 +74,6 @@ namespace CalamityEntropy.Common.DrawLayers
             }
         }
 
-        /// <summary>本地玩家头顶的阿扎弗护盾充能条</summary>
         public static void DrawAzafureChargeBar() {
             EModPlayer entropy = Main.LocalPlayer.Entropy();
             Item chargeShield = entropy.AzafureChargeShieldItem;
@@ -109,17 +100,12 @@ namespace CalamityEntropy.Common.DrawLayers
                 ((charge > 1) ? Color.Lerp(Color.OrangeRed, Color.Orange, (float)Math.Cos(Main.GameUpdateCount * 0.2f) * 0.5f + 0.5f) : Color.Firebrick) * AzShieldBarAlpha);
         }
 
-        /// <summary>遗珍的柔光</summary>
         public static void DrawLostHeirloomGlow(Player player) {
             if (player.GetModPlayer<VanityModPlayer>().vanityEquipped == nameof(LostHeirloom)) {
                 CEUtils.DrawGlow(player.Center, Color.White * 0.2f, 5.2f);
             }
         }
 
-        /// <summary>
-        /// 永冻牢笼环。原先这段嵌在玩家循环里、每个持有者都要全量扫一遍弹幕数组,
-        /// 现在改成单趟扫描,每个 owner 只画第一个。
-        /// </summary>
         public static void DrawPermafrostRings() {
             if (permafrostCircleType <= 0) {
                 return;
@@ -142,7 +128,7 @@ namespace CalamityEntropy.Common.DrawLayers
             }
         }
 
-        /// <summary>卫城套装的机甲。自带一段独立的 SpriteBatch 区段</summary>
+        /// <summary>这段用 GameViewMatrix,画完回到 Main.Transform</summary>
         public static void DrawAcropolisMechs() {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);

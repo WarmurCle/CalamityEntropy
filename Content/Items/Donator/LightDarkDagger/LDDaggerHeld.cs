@@ -11,9 +11,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Donator.LightDarkDagger
 {
     /// <summary>
-    /// 光暗龙匕手持弹幕:每次使用生成一枚,负责投掷动作与在释放帧生成飞刃。
-    /// ai[0] = 模式(0 耀光三连 / 1 黯影三连 / 2 螺旋刃 / 3 闪烁收势)。
-    /// 耀光从肩后上方甩出走上半弧,黯影从腰后下方撩出走下半弧;动作各端由计数器复现,飞刃只由所有者生成。
+    /// ai[0]:0 耀光三连,1 黯影三连,2 螺旋刃,3 闪烁收势
+    /// 动作各端用计数器复现,飞刃只由所有者生成
     /// </summary>
     public class LDDaggerHeld : ModProjectile
     {
@@ -107,7 +106,6 @@ namespace CalamityEntropy.Content.Items.Donator.LightDarkDagger
             }
         }
 
-        /// <summary>耀光走上半弧:手从肩后上方甩到前下方;黯影走下半弧:手从腰后下方撩到前上方。</summary>
         private void UpdateThrow(Player owner, float p) {
             //arcSign:-1 为上方(屏幕负 Y 侧),+1 为下方;螺旋刃从上方甩出
             float arcSign = Mode == 1 ? 1f : -1f;

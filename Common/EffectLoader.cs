@@ -6,18 +6,8 @@ using ReLogic.Content;
 namespace CalamityEntropy.Common
 {
     /// <summary>
-    /// 纯静态资产注册类:只负责把 <c>Assets/Effects/</c> 下的着色器与几张特效贴图加载成静态字段,
-    /// 不做任何绘制。类级 <see cref="VaultLoadenAttribute"/> 带尾斜杠,表示「字段名即文件名」;
-    /// 字段类型决定加载模式——<c>Asset&lt;Effect&gt;</c> 走 Effects(延迟取 Value),裸 <c>Effect</c> 走 EffectValue(立即)。
-    /// <para>
-    /// 新增贴图字段必须自带字段级标签,否则会按字段名去 Effects 目录找资源。
-    /// 全部字段在 <c>dedServ</c> 上为 <see langword="null"/>,且在 PostSetupContent 之前未赋值,只能在绘制路径上读。
-    /// </para>
-    /// <para>
-    /// 历史上这个类还兼任 <c>RenderHandle</c> 与整条全屏管线的宿主(近 1100 行)。
-    /// 2026-09-17 拆分后,管线编排归 <see cref="Core.Graphics.Screen.CEScreenPipeline"/>,
-    /// 各情景绘制归 <c>Core/Graphics/Screen/</c> 下的六个类,柱面绘制归 <see cref="Core.Graphics.CECylinderDraw"/>。
-    /// </para>
+    /// VaultLoaden 尾斜杠表示字段名即文件名;Asset&lt;Effect&gt; 延迟取 Value,裸 Effect 立即加载
+    /// 贴图字段必须自带字段级标签,否则按字段名去 Effects 找;dedServ 上为 null,PostSetupContent 前未赋值
     /// </summary>
     [VaultLoaden("CalamityEntropy/Assets/Effects/")]
     internal class EffectLoader
@@ -75,7 +65,7 @@ namespace CalamityEntropy.Common
         public static Effect cblood;
 
         /// <summary>
-        /// 不是独立字段,转发到 <see cref="EBookUI.shader"/>——那个着色器在 <c>Mod.Load</c> 里手动请求,
+        /// 转发到 EBookUI.shader,那个着色器在 Mod.Load 里手动请求
         /// 属性上的标签只为让 VaultLoaden 认得这个 pass 名
         /// </summary>
         [VaultLoaden("CalamityEntropy/Assets/Effects/Outline", AssetMode.EffectValue, "Pass1")]
