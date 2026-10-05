@@ -15,9 +15,8 @@ using Terraria.UI.Chat;
 namespace CalamityEntropy.Content.Rarities
 {
     /// <summary>
-    /// 稀有度名称特效的绘制原语。全部在调用方当前的 SpriteBatch(提示框 Deferred + AlphaBlend + UIScaleMatrix)里直绘:
-    /// 不 End/Begin、不切混合态。加色一律 A=0,预乘贴图下这等价于 Additive,透明底与黑底亮度贴图都只走这一条路。
-    /// 所有随机量都走 <see cref="Hash01"/> 确定性哈希,提示框逐帧重画也不会抖。
+    /// 在调用方当前批次直绘,不 End/Begin,不切混合;加色一律 A=0
+    /// 随机走 Hash01,逐帧重画不抖
     /// </summary>
     public static class CERarityNameEffects
     {
