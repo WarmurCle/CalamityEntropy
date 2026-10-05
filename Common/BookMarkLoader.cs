@@ -334,12 +334,7 @@ namespace CalamityEntropy.Common
             public Func<int, int> ModifyShootCooldown;
         }
 
-        /// <summary>
-        /// 统一攻击接口，独立触发一个书签的攻击行为，无需EntropyBookHeldProjectile
-        /// 外部Mod可通过此方法或ModCall("PerformBookmarkAttack", ...)调用
-        /// 流程：应用属性修改 -> 确定弹幕类型 -> 计算冷却 -> 生成弹幕 -> 挂载Effect -> 触发OnStandaloneAttack
-        /// 如果BookMark重写了PerformAttack()则使用其自定义实现
-        /// </summary>
+        /// <summary>不经过 EntropyBookHeldProjectile;外部走 ModCall("PerformBookmarkAttack")</summary>
         public static BookmarkAttackResult PerformBookmarkAttack(
             Item bookmarkItem,
             Player player,

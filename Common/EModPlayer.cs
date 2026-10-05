@@ -1823,12 +1823,7 @@ namespace CalamityEntropy.Common
             }
         }
         public bool JustHit = false;
-        /// <summary>
-        /// 上神之佑灾厄时代形态的受击侧:护身符按缺失血量给的递增无敌帧、对大伤的额外无敌帧、
-        /// 蜂蜜,以及继承自星辰斗篷那条产线的坠星反击。
-        /// <para>无敌帧只能在 PostHurt 里加:原版在 OnHurt 之后才按 longInvince 把
-        /// hurtCooldowns 写死(上游 Terraria/Player.cs:34674-34690),写在 OnHurt 里会被整段覆盖。</para>
-        /// </summary>
+        /// <summary>无敌帧只能加在 PostHurt,原版在 OnHurt 之后才把 hurtCooldowns 写死</summary>
         public override void PostHurt(Player.HurtInfo info) {
             if (!odinRefugeCalEra)
                 return;

@@ -66,11 +66,7 @@ namespace CalamityEntropy.Common
         //一次性闩:EModSys 首帧按贴图给"没登记过颜色的原版 Boss"自动取色,取完就关
         public static bool SetupColorsAuto = true;
 
-        /// <summary>
-        /// 原版与本模组自有 Boss 的手调色表。3.33 原样搬来,原先整块摊在模组入口的 PostSetupContent 里。
-        /// 调用顺序:本表 → 灾厄色表(<see cref="Core.CalamityRef.CECalContentRegistry"/>)→ 外部模组色表,
-        /// 三者键互不相交,但顺序沿用原样以防将来出现重叠。
-        /// </summary>
+        /// <summary>本表,再灾厄色表,再外部模组色表;键现在不相交,顺序仍按这个走</summary>
         public static void SetupVanillaColors() {
             bossbarColor[NPCID.KingSlime] = new Color(90, 160, 255);
             bossbarColor[NPCID.EyeofCthulhu] = new Color(255, 40, 40);
