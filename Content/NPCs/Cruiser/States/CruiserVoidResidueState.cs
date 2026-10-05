@@ -6,21 +6,13 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser.States
 {
-    /// <summary>
-    /// 虚空残渣:张嘴蓄 80 帧(距离大于 1000 时快速补位),第 80 帧一口喷出 80 发残渣,
-    /// 80~100 帧合嘴,140 帧起顺着朝向冲一段,200 帧收招。
-    /// 嘴部开合是纯绘制量,判据用的是自增<b>前</b>的计数(原代码就写在自增之前)
-    /// </summary>
+    /// <summary>嘴的开合判据用自增前的计数</summary>
     [VaultState((int)CruiserStateIndex.VoidResidue, typeof(CruiserStateContext))]
     public class CruiserVoidResidueState : CruiserStateBase
     {
         public override CruiserStateIndex StateIndex => CruiserStateIndex.VoidResidue;
 
-        /// <summary>
-        /// 两处一次性拍的锁存(本地,不过线)。原判据是 <c>ChangeCounter == 2</c> 与 <c>== 80</c>,
-        /// ChangeCounter 带 ±2 容差收养,等值判定会被跨过——弹幕在权威端不受影响,
-        /// 但音效各端本地放,漏掉就等于这一口喷射对客户端没有蓄力预告、也没有出手声
-        /// </summary>
+        /// <summary>原 == 2 和 == 80 会被收养跨过,音效各端本地放,漏掉就没有预告</summary>
         private bool windupCued;
         private bool burstCued;
 

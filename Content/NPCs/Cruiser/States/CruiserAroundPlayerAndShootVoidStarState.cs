@@ -4,25 +4,13 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser.States
 {
-    /// <summary>
-    /// 绕飞:锚点是「玩家看向本体的方向再旋转 0.6 弧度、外推 600」,所以本体会稳定地侧向绕圈。
-    /// 每 40 帧甩一次尾鞭,共八次,350 帧收招。
-    /// 尾部新星在这一手里会被削弱(环数 -2、每环减半、初速 ×0.45),削弱逻辑在链条落地那一侧
-    /// </summary>
+    /// <summary>锚点是玩家看向本体再转 0.6、外推 600,尾鞭削弱在链条那一侧</summary>
     [VaultState((int)CruiserStateIndex.AroundPlayerAndShootVoidStar, typeof(CruiserStateContext))]
     public class CruiserAroundPlayerAndShootVoidStarState : CruiserStateBase
     {
         public override CruiserStateIndex StateIndex => CruiserStateIndex.AroundPlayerAndShootVoidStar;
 
-        /// <summary>
-        /// 已发出的尾鞭次数(本地,不过线)。
-        /// <para>
-        /// 原判据是 <c>ChangeCounter % 40 == 0</c>,而 ChangeCounter 现在带 ±2 容差收养,
-        /// 收养一步跨过 40 的倍数就少一次尾鞭、跳回去就多一次。尾鞭会写
-        /// <c>whipActive / whipSpeed / flagellumAngle</c> 这三个各端都跑的累加量,
-        /// 所以改成单调的「应发次数 = ChangeCounter / 40」,只在它涨上去时补发,回退不重发
-        /// </para>
-        /// </summary>
+        /// <summary>原 % 40 == 0 会被 ±2 收养跨过,改成应发次数 = ChangeCounter / 40,只涨不重发</summary>
         private int whipsFired;
 
         public override void OnEnter(CruiserStateContext ctx) {

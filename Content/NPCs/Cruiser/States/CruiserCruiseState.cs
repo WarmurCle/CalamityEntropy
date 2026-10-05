@@ -4,11 +4,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser.States
 {
-    /// <summary>
-    /// 巡航:稳速 40 追瞄,是二阶段唯一的喘息段。
-    /// 100 帧后每帧 1/150 概率收招,200 帧硬收——<b>全模组唯一一处影响出招时机的骰点</b>,
-    /// 所以只在权威端骰,客户端安静等换态包
-    /// </summary>
+    /// <summary>100 帧后每帧 1/150 收招,只在权威端骰,200 帧硬收</summary>
     [VaultState((int)CruiserStateIndex.Cruise, typeof(CruiserStateContext))]
     public class CruiserCruiseState : CruiserStateBase
     {

@@ -6,19 +6,13 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser.States
 {
-    /// <summary>
-    /// 裂空吐星:结构与虚空残渣同型,只是蓄力拉长到 100 帧、贴近阈值收到 900、
-    /// 收招提前到 140 帧,且第 100 帧喷的是虚空星。第 20 帧有一声蓄力音当预告
-    /// </summary>
+    /// <summary>与残渣同型,蓄力到 100,第 100 帧喷虚空星,收招提前到 140</summary>
     [VaultState((int)CruiserStateIndex.SplittingVoidStar, typeof(CruiserStateContext))]
     public class CruiserSplittingVoidStarState : CruiserStateBase
     {
         public override CruiserStateIndex StateIndex => CruiserStateIndex.SplittingVoidStar;
 
-        /// <summary>
-        /// 两处一次性拍的锁存(本地,不过线),与虚空残渣同型:原 <c>== 20</c> 蓄力音与 <c>== 100</c> 出手音
-        /// 都在各端本地放,而 ChangeCounter 带 ±2 容差收养会跨过等值判定
-        /// </summary>
+        /// <summary>原 == 20 和 == 100 是各端本地音,±2 收养会跨过,改成闩锁</summary>
         private bool windupCued;
         private bool burstCued;
 

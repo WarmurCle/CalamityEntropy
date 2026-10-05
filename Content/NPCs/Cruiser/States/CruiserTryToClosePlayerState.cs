@@ -4,11 +4,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser.States
 {
-    /// <summary>
-    /// 直扑:一路加速撞向玩家。推力、阻尼、转向插值三项都按当前距离重映射,
-    /// 越近推得越轻、掰得越弱,所以贴到脸上时是靠惯性掠过而不是原地绕。
-    /// 收招:计时过 600,或距离小于 700 + 当前速度(速度越快越早交棒)
-    /// </summary>
+    /// <summary>越近推力越轻,收招是计时过 600,或距离小于 700 + 当前速度</summary>
     [VaultState((int)CruiserStateIndex.TryToClosePlayer, typeof(CruiserStateContext))]
     public class CruiserTryToClosePlayerState : CruiserStateBase
     {

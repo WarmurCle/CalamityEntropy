@@ -6,10 +6,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser.States
 {
-    /// <summary>
-    /// 能量球:开局那一帧放出一颗挂在本体上的能量球(ai0 = 本体 whoAmI),自己慢速贴近 240 帧。
-    /// 注意原代码把收招判定写在速度写入<b>之前</b>,所以收招那一帧的推进照样执行,这里保留同一顺序
-    /// </summary>
+    /// <summary>收招判定写在速度写入之前,收招那帧的推进照样执行</summary>
     [VaultState((int)CruiserStateIndex.EnergyBall, typeof(CruiserStateContext))]
     public class CruiserEnergyBallState : CruiserStateBase
     {
