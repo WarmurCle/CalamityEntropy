@@ -2,27 +2,12 @@
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.Core
 {
-    /// <summary>
-    /// 虚无双子的唯一数字出口。状态里不许出现裸数字(纯局部插值系数除外)。
-    /// <para>
-    /// 本文件是状态机迁移时从原 <c>NihilityActeriophage.AI()</c> 的十五段 <c>aitype</c> 分支里
-    /// 逐个搬出来的,<b>数值一律照搬,没有一处调整</b>。注释写的是「这个数在原代码里干什么」,
-    /// 不是「这个数为什么该是这样」。
-    /// </para>
-    /// <para>
-    /// 原代码没有难度系数(enrange)那一套,一阶段与二阶段各七手的手感全靠这些常量,
-    /// 所以这里不补任何按难度缩放的折算口。
-    /// </para>
-    /// </summary>
+    /// <summary>状态里不许裸数字,数值照搬原 AI,不编理由,原代码没有难度系数,这里不补</summary>
     internal static class NihilityDirector
     {
         //==================== 全局 ====================
 
-        /// <summary>
-        /// 状态总龄上限。原代码<b>没有</b>任何超时兜底,这是迁移时新加的纯安全网。
-        /// 最长的实战状态是二阶段激光(460 帧)与一阶段对拉(500 帧),5400 帧在正常对局里到不了,
-        /// 存在的意义只是不让状态机死在某个状态里、Boss 靠惯性飘走
-        /// </summary>
+        /// <summary>迁移新加的安全网,正常对局到不了</summary>
         public const int StateTimeoutFrames = 5400;
 
         /// <summary>出场动画帧数。归零前 AI 直接 return,状态机不推进</summary>

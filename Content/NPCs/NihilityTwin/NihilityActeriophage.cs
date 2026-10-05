@@ -24,19 +24,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.NihilityTwin
 {
     /// <summary>
-    /// 虚无双子(本体:虚无噬菌体),InnoVault 状态机宿主。
-    /// <para>
-    /// 「双子」是本体 + <see cref="ChaoticCell"/> 混沌细胞这一对:细胞是共享血量的部件
-    /// (<c>realLife</c> 指回本体),自己没有攻击逻辑,运动全由本体逐帧写速度。
-    /// 天顶世界里还会额外复制一只同类型本体,同样挂 <c>realLife</c> 并<b>共用同一颗细胞</b>。
-    /// </para>
-    /// <para>
-    /// 状态只写运动与出手,宿主按固定顺序落地:客户端纠偏 → 部件就位 → 目标校验 →
-    /// 全局转移 → 清声明 → 状态机 → 声明结算 → 尾处理 → 客户端记预测。
-    /// 联机:转移只在权威端(状态号 ai[3],阶段 ai[2]);各端跑同一套运动数学;
-    /// 计时与朝向、自旋、环射基准角等累加量随 SendExtraAI 过线。
-    /// 数值在 <see cref="NihilityDirector"/>,选招在 <see cref="NihilityRotation"/>,绘制在 .Draw.cs
-    /// </para>
+    /// 细胞 realLife 指回本体,天顶复制体共用同一颗细胞
+    /// 转移只在权威端,状态号 ai[3],阶段 ai[2]
     /// </summary>
     [AutoloadBossHead]
     public partial class NihilityActeriophage : ModNPC
@@ -181,11 +170,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         #endregion
 
         #region 细胞实体
-        /// <summary>
-        /// 生成 / 找回混沌细胞。生成只在权威端;客户端靠 <see cref="cellIndex"/> 认领。
-        /// 原代码不校验槽位里的东西还是不是细胞,这里补一次类型与存活校验:
-        /// 槽位被回收后继续往里写速度会砸到陌生 NPC 身上
-        /// </summary>
+        /// <summary>生成只在权威端,客户端靠 cellIndex 认领,槽位要校验类型</summary>
         private void EnsureCell() {
             if (Main.netMode != NetmodeID.MultiplayerClient) {
                 if (spawnCell) {
@@ -343,11 +328,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             Context.TargetDistance = Context.TargetValid ? NPC.Distance(targetPlayer.Center) : 0f;
         }
 
-        /// <summary>
-        /// 转阶段。原代码把它写在一阶段攻击段的最前面,所以转阶段那一帧当前招直接被掐断。
-        /// 阶段本身是同步血量的纯函数,各端自行落位(<c>ai[2]</c> 随后也会被快照覆盖成同值);
-        /// 无敌帧必须各端各写(受击判定跑在各自机器上);只有换态收归权威端
-        /// </summary>
+        /// <summary>写在攻击段最前面,那一帧当前招被掐断,无敌帧各端各写,换态只在权威端</summary>
         private void EvaluateGlobalTransitions() {
             if (Context.Phase != 1 || NPC.life >= NPC.lifeMax / NihilityDirector.Phase2LifeDivisor) {
                 return;
@@ -362,11 +343,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             }
         }
 
-        /// <summary>
-        /// 原代码挂在「aitype == 1」上的那两句 <c>else { rotSpeed = 0; }</c>。
-        /// 一阶段那句带 <c>aitype != 4</c> 豁免,二阶段那句没有,合起来就是
-        /// 「只有一阶段 1/4 号与二阶段 1 号保留自旋,其余每帧清零」。脱战时这两句都不执行,所以自旋量会冻住
-        /// </summary>
+        /// <summary>只有一阶段 1/4 号和二阶段 1 号保留自旋,脱战时这两句不执行,自旋冻住</summary>
         private void SettleDeclarations() {
             if (!Context.KeepRotSpeed) {
                 Context.RotSpeed = 0f;
@@ -452,11 +429,9 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
 
             NPC.rotation = reader.ReadSingle();
             Context.RotSpeed = reader.ReadSingle();
-            //Num2 走容差是因为客户端「唯一会读它的地方」是两手冲刺的子计时(20 倒数到 -30、每帧 -1、
-            //为正即推进窗),那是范围 50 的正经帧计数;一阶段 6 号招拿同一个槽存环射基准角,
-            //但那个角的全部读取点都在 IsServer 里,容差吃不到客户端要用的东西。
-            //哪天有状态让客户端读这个槽里的角度,就必须把角度拆成独立字段直取——
-            //±2 rad 是 114°,带着容差等于永远不纠正(CEBossNetAdopt 守则第 5 条:一个槽只准一种语义)
+            //Num2 走容差,客户端只在冲刺子计时里读它
+            //一阶段 6 号拿同一槽存环射基准角,读取点都在 IsServer
+            //客户端若要读这个角度,必须拆成独立字段直取,±2 rad 是 114°
             Context.Num2 = CEBossNetAdopt.AdoptFrameCounter(Context.Num2, reader.ReadSingle());
 
             Context.Num3 = reader.ReadSingle();

@@ -4,17 +4,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
 {
-    /// <summary>
-    /// 整备(原 <c>aitype == -1</c>)。两端各自收拢、本体扑向玩家,81 帧后随机选下一手。
-    /// <para>
-    /// 一阶段细胞只在离本体 120 以外才被往回拽;二阶段改成直接扑玩家,所以二阶段的"喘息段"
-    /// 本身就是压力段。原代码如此。
-    /// </para>
-    /// <para>
-    /// 计时在块首自增,所以判定看到的是「本帧是第几帧」,与基类那次尾随自增错开一格:
-    /// <c>Num1</c> 走到 81 时收手,整备动作一共跑满 81 帧
-    /// </para>
-    /// </summary>
+    /// <summary>计时在块首自增,Num1 走到 81 收手,一共跑满 81 帧</summary>
     [VaultState((int)NihilityStateIndex.Regroup, typeof(NihilityStateContext))]
     public class NihilityRegroupState : NihilityStateBase
     {

@@ -6,13 +6,8 @@ using Terraria;
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
 {
     /// <summary>
-    /// 二阶段 3:对撞合体。前 40 帧两端互相反推拉开距离(绳索同时被拉回满显示),
-    /// 之后以 3.4/帧 的加速度对撞;一旦下一帧就会穿过去,当场对齐到中点、爆出 36 发环射并收招。
-    /// <para>
-    /// 收招之后还有一枚 1/2 的硬币:掷中就原地再来一次(跳过整备)。这是原代码自带的复读阀,
-    /// <b>原样保留</b>,只是把掷点收归权威端——结果靠状态号过线。
-    /// </para>
-    /// <para>命中那一帧两端的位置是<b>直写</b>的,所以要顺手丢掉客户端纠偏器的旧预测,免得被当成失步</para>
+    /// 收招后 1/2 硬币原地再来一次,原样保留,掷点收归权威端
+    /// 命中那帧位置直写,要丢掉客户端旧预测
     /// </summary>
     [VaultState((int)NihilityStateIndex.P2Merge, typeof(NihilityStateContext))]
     public class NihilityP2MergeState : NihilityStateBase

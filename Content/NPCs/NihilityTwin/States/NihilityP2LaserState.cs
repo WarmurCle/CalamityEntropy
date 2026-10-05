@@ -6,16 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
 {
-    /// <summary>
-    /// 二阶段 5:口部激光。前 40 帧本体把口部转到<b>背离</b>玩家的方向蓄力(定速 4°/帧),
-    /// 第 40 帧开出一条挂在本体口部、存活 400 帧的扫射光束,之后全程只用 0.01 的比例追瞄慢慢扫,
-    /// 160 帧后再叠一档 1.4°/帧 的定速追瞄。细胞同时以 1/3 的概率贴脸散射。
-    /// <para>
-    /// 这一手是整场唯一切换本体贴图的招(绘制层按「阶段 2 + 本状态」取 BodyAlt),
-    /// 所以绘制要读得到状态号。
-    /// </para>
-    /// <para>光束自己会跟着本体的 <c>Center</c> 与 <c>rotation</c> 走,所以本体朝向必须过线</para>
-    /// </summary>
+    /// <summary>唯一切换本体贴图的招,光束跟着 Center 和 rotation,朝向必须过线</summary>
     [VaultState((int)NihilityStateIndex.P2Laser, typeof(NihilityStateContext))]
     public class NihilityP2LaserState : NihilityStateBase
     {

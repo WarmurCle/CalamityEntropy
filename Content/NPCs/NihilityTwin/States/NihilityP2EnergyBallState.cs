@@ -5,14 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
 {
-    /// <summary>
-    /// 二阶段 6:能量球。第 2、62、122 帧各在细胞身上挂九颗定向能量球(初速为零,方向写进 ai1,
-    /// 由弹幕自己延时起飞),其余时间两端都缓慢贴向玩家。
-    /// <para>
-    /// 三个拍点都是「等值判定」而计时每帧只 +1,所以不会漏拍;它们只在权威端生成弹幕,
-    /// 基准角在权威端抽取,九颗的相对角由 <c>ai1</c> 带给每一颗自己
-    /// </para>
-    /// </summary>
+    /// <summary>三个拍点都是等值判定,计时每帧 +1,不会漏拍,只在权威端生成</summary>
     [VaultState((int)NihilityStateIndex.P2EnergyBall, typeof(NihilityStateContext))]
     public class NihilityP2EnergyBallState : NihilityStateBase
     {

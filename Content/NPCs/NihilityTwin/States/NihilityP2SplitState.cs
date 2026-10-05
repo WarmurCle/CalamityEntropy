@@ -6,18 +6,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
 {
-    /// <summary>
-    /// 二阶段 4:分裂增殖。第 2 帧从细胞身上放出三只小细胞(它们自带缠绳并自行骚扰玩家),
-    /// 随后细胞持续扑玩家、每 30 帧一圈九发,本体只做减速跟随。
-    /// <para>
-    /// 场上小细胞超过 8 只时这一手会在选招阶段被重掷掉(见 <see cref="NihilityRotation.Pick"/>),
-    /// 那是原代码里唯一的出招抑制。
-    /// </para>
-    /// <para>
-    /// <b>与原代码的一处差异</b>:三只小细胞的 <c>NPC.NewNPC</c> 在原代码里没有权威端守卫,
-    /// 客户端会各自造三只不同步的幽灵。这里补上守卫,单机行为不变
-    /// </para>
-    /// </summary>
+    /// <summary>小细胞超过 8 在选招被重掷,NewNPC 原没有权威端守卫,这里补上</summary>
     [VaultState((int)NihilityStateIndex.P2Split, typeof(NihilityStateContext))]
     public class NihilityP2SplitState : NihilityStateBase
     {

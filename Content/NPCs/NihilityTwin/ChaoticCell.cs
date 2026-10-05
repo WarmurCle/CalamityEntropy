@@ -85,16 +85,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         }
         public bool init = true;
 
-        /// <summary>
-        /// 客户端位置纠偏。
-        /// <para>
-        /// 归类依据:本体<b>不</b>直接写细胞的 <c>Center</c>(除蓄力焊接与对撞对齐那两处瞬移),
-        /// 而是逐帧写 <c>velocity</c>,下一帧位置就是标准的 <c>position + velocity</c>——
-        /// 正是 <see cref="CEBossNetMotion"/> 预测模型成立的前提,所以它走「本体型」通路
-        /// (<c>BeginFrame</c> / <c>EndFrame</c>),不是只清平滑的锚定部件通路。
-        /// 那两处瞬移由本体调 <see cref="ForgetPrediction"/> 主动作废旧预测
-        /// </para>
-        /// </summary>
+        /// <summary>逐帧写 velocity,走预测通路,两处瞬移由本体调 ForgetPrediction</summary>
         private readonly CEBossNetMotion netMotion = new();
 
         /// <summary>本体直写细胞位置时调用:丢掉旧预测,下一包不当失步处理</summary>

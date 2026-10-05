@@ -7,14 +7,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.Core
 {
-    /// <summary>
-    /// 状态索引,写入 <c>npc.ai[3]</c> 网络同步。
-    /// <para>
-    /// 原代码的 <c>aitype</c> 只有 -1 与 0~6,但<b>两个阶段的 0~6 是两套完全不同的招</b>,
-    /// 所以这里必须摊平成 15 个独立序号。映射关系写在每一项的注释里,
-    /// 阶段 + 掷点还原成序号的那张表在 <see cref="NihilityDirector.StateFor"/>
-    /// </para>
-    /// </summary>
+    /// <summary>写入 ai[3],原 aitype 的 0~6 两阶段是两套招,摊成 15 个序号</summary>
     public enum NihilityStateIndex
     {
         /// <summary>整备(原 <c>aitype == -1</c>):两端互相收拢并扑向玩家,81 帧后随机选下一手</summary>
@@ -51,15 +44,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin.Core
         P2EnergyBall = 14,
     }
 
-    /// <summary>
-    /// 虚无双子状态基类。收四样公共小件:收招(回整备)、选招(随机表)、出手(伤害折算)、细胞取用。
-    /// <para>
-    /// 拍子一律用 <see cref="NihilityStateContext.Num1"/> 的<b>区间判断</b>表达,
-    /// 不引入会归零 <see cref="VaultState{TContext}.Timer"/> 的 beat 枚举——
-    /// 原代码每段的进度都是 <c>{aicounter, ai[0], ai[2], counter}</c> 这几个标量的纯函数,
-    /// 没有任何锁存的子拍;加一个锁存拍号就等于多一个必须过线的量。
-    /// </para>
-    /// </summary>
+    /// <summary>拍子用 Num1 区间判断,不加会归零 Timer 的 beat 枚举</summary>
     public abstract class NihilityStateBase : CEBossStateBase<NihilityStateContext>
     {
         public override int StateId => (int)StateIndex;
@@ -74,16 +59,8 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin.Core
             => EndAttack(ctx);
 
         /// <summary>
-        /// 收招:对应原代码的 <c>prepareAiChange()</c>。清 <c>aicounter</c>、退回整备态。
-        /// <para>
-        /// <b>只有权威端真的换态。</b><see cref="VaultStateMachine{TContext}"/> 在客户端照常跑
-        /// <c>OnUpdate</c> 但会丢弃返回值,所以客户端若也走一遍清零,状态换不掉、标量却被提前清零。
-        /// 客户端在这里返回 null,安静等换态包——运动数学照跑,只有决策被收归权威端。
-        /// </para>
-        /// <para>
-        /// 原 <c>prepareAiChange</c> 里那句 <c>NPC.netUpdate = true</c> 由
-        /// <c>AiSlotNetSync.WriteState</c> 在换态时自动补上,不必重复打
-        /// </para>
+        /// 只有权威端真的换态,客户端返回 null 等包
+        /// 原 netUpdate 由 AiSlotNetSync 在换态时补上
         /// </summary>
         protected static IVaultState<NihilityStateContext> EndAttack(NihilityStateContext ctx)
             => IsServer ? NihilityRotation.Regroup(ctx) : null;

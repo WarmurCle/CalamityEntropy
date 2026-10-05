@@ -5,19 +5,8 @@ using Terraria;
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.Core
 {
     /// <summary>
-    /// 虚无双子的状态上下文。
-    /// <para>
-    /// 「事实」区是参与判定或需要两端一致的量,随 <c>SendExtraAI</c> 过线;
-    /// 「声明」区每帧由 <see cref="BeginFrameDefaults"/> 回落;
-    /// 「表现」区是纯本地推导的绘制量,不过线。
-    /// </para>
-    /// <para>
-    /// <b>关于 <see cref="Num1"/></b>:原代码十五段分支共用一个 <c>aicounter</c>,但每段自增的位置各不相同
-    /// (有的在块首、有的在块尾、有的带条件、二阶段 0/2 号还是「冲刺次数」而不是帧计时),
-    /// 所以它没法折进基类那一次固定的 <c>Timer++</c>。这里把它单独留成一个过线标量,
-    /// 状态里逐字照抄原自增位置;<see cref="VaultState{TContext}.Timer"/> 退回纯状态帧龄,
-    /// 只服务于线上计时与超时兜底(它每帧恒定 +1,反而是更准的帧差估计源)。
-    /// </para>
+    /// 事实过线,声明每帧回落
+    /// Num1 是原 aicounter,自增位置各段不同,不能折进 Timer++
     /// </summary>
     public class NihilityStateContext : CEBossStateContext
     {
@@ -29,11 +18,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin.Core
         #endregion
 
         #region 事实:过线
-        /// <summary>
-        /// 原 <c>aicounter</c>。各状态含义不同:多数是本段帧计时,
-        /// 二阶段 0/2 号是<b>已完成的冲刺次数</b>,二阶段 1 号在蓄力期会每两帧多跳一格。
-        /// 选招(原 <c>randomAI</c> / <c>prepareAiChange</c>)时无条件清零
-        /// </summary>
+        /// <summary>多数是帧计时,二阶段 0/2 是冲刺次数,二阶段 1 蓄力期每两帧多跳一格,选招时清零</summary>
         public int Num1 { get; set; }
 
         /// <summary>
@@ -93,18 +78,11 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin.Core
         #endregion
 
         #region 声明:每帧回落
-        /// <summary>
-        /// 本帧是否保留 <see cref="RotSpeed"/>。原代码把清零写成挂在「aitype == 1」上的 <c>else</c>
-        /// (一阶段那句还带 <c>aitype != 4</c> 的豁免),效果就是「除自旋类招式外每帧清零」,
-        /// 所以只有一阶段 1/4 号与二阶段 1 号声明它
-        /// </summary>
+        /// <summary>除自旋类外每帧清零,只有一阶段 1/4 号和二阶段 1 号声明它</summary>
         public bool KeepRotSpeed { get; set; }
         #endregion
 
-        /// <summary>
-        /// 每帧默认值。只回落 <see cref="KeepRotSpeed"/>——其余都是持久事实,
-        /// 原代码也不在换招时清(<c>prepareAiChange</c> 只动 <c>aicounter</c> 与 <c>aitype</c>)
-        /// </summary>
+        /// <summary>只回落 KeepRotSpeed,其余是持久事实,prepareAiChange 只动 aicounter 和 aitype</summary>
         public override void BeginFrameDefaults() {
             base.BeginFrameDefaults();
             KeepRotSpeed = false;

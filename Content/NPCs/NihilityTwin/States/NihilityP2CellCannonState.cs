@@ -6,18 +6,8 @@ using Terraria;
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
 {
     /// <summary>
-    /// 二阶段 1:细胞炮。细胞先被吸回本体 90 以内,随后被<b>焊死</b>在本体后方 100(逐帧改写位置、速度清零),
-    /// 本体带着它自旋蓄力;计时走到 100 的那一帧锁向发射,细胞以 60 的速度飞出去并沿途双侧散射;
-    /// 130 帧后自旋停,150 帧后细胞恢复自由并重新扑向玩家,160 帧收招。
-    /// <para>
-    /// 蓄力期每两帧额外 +1 计时,所以 100 帧的蓄力窗实际只占约 67 帧真实时间。
-    /// 也正因为一帧可能跳两格,发射拍必须落在「窗口条件 &lt; 100 与等值判定 == 100」这对互补判定上:
-    /// 计时从 99 起跳时窗口先失效,双跳不会发生,所以 100 恒被命中一次。
-    /// </para>
-    /// <para>
-    /// 发射帧把当时的朝向烙进 <see cref="NihilityStateContext.Num3"/>(原代码的 <c>NPC.ai[3]</c>),
-    /// 之后 30 帧细胞按它反向定速。<c>ai[3]</c> 在新骨架里归状态号占用,所以它挪成过线字段
-    /// </para>
+    /// 蓄力期每两帧额外 +1,发射拍落在 &lt; 100 与 == 100 上,双跳不会发生
+    /// 朝向烙进 Num3,原 ai[3] 归状态号,挪成过线字段
     /// </summary>
     [VaultState((int)NihilityStateIndex.P2CellCannon, typeof(NihilityStateContext))]
     public class NihilityP2CellCannonState : NihilityStateBase

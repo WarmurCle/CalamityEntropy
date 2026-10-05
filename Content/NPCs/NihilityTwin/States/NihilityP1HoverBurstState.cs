@@ -5,18 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
 {
-    /// <summary>
-    /// 一阶段 3:悬停爆发。先抢占玩家正上方 200 的位置,进入 800 内后转为持续推进,
-    /// 细胞被外推到本体前方 200,每 30 帧吐一圈六发。
-    /// <para>
-    /// 接敌段自带一道刹车:如果按当前速度再走两帧就会进到 800 以内,速度先 ×0.36,
-    /// 免得一头扎过头。这是原代码里唯一一处"预判自己会不会冲过站"的写法。
-    /// </para>
-    /// <para>
-    /// 收招判定写在推进段<b>之前</b>,而收招会把计时清零,所以收招那一帧推进段整段不执行,
-    /// 只有末尾那句朝向照常跑。照搬这个顺序
-    /// </para>
-    /// </summary>
+    /// <summary>收招判定写在推进段之前,收招清计时,那一帧推进段不执行,照搬</summary>
     [VaultState((int)NihilityStateIndex.P1HoverBurst, typeof(NihilityStateContext))]
     public class NihilityP1HoverBurstState : NihilityStateBase
     {

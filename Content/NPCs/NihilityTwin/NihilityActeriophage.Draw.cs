@@ -9,15 +9,7 @@ using Terraria.ID;
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin
 {
-    /// <summary>
-    /// 虚无双子的表现层:InnoVault Rigs2D 骨架(定义在 <c>Assets/Rigs/Nihility.rig.json</c>)。
-    /// <para>
-    /// 本体为根,<c>anchor</c> 骨在本体后方 64(原 <c>buttom</c>),三层触须对挂在它上面按速度张开;
-    /// 通往细胞的绳是一条 29 节 <c>VerletStrand</c>(30 质点、15 次约束迭代、阻尼 0.994、节长贴合两端距离 × 29/35,
-    /// 与原 <c>Utilities.Rope</c> 的参数逐项对应)加一条平铺绳索贴图的带状件。
-    /// 全部纯本地,不回写任何 gameplay 状态;绳的末端每帧写已同步的细胞坐标
-    /// </para>
-    /// </summary>
+    /// <summary>绳是 29 节 VerletStrand,阻尼 0.994,末端每帧写已同步的细胞坐标</summary>
     public partial class NihilityActeriophage
     {
         private Rig2DInstance rig;
@@ -113,11 +105,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             return false;
         }
 
-        /// <summary>
-        /// 本体与细胞之间的绳索。由 <see cref="ChaoticCell"/> 的绘制路径回调,
-        /// 两端读的都是未加平滑偏移的原始 <c>Center</c>(本体与细胞都已关掉 netOffset),不会出现根部跳动。
-        /// 带状件会自己切一轮批次(Immediate → 回到 Deferred / AlphaBlend),调用方处在任意已 Begin 的批次内即可
-        /// </summary>
+        /// <summary>两端读未加平滑的 Center,都已关掉 netOffset,带状件自己切 Immediate 再回 Deferred</summary>
         public void drawRope() {
             if (!BodyRigReady || cell == null || ropeLerp <= 0) {
                 return;

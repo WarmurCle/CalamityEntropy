@@ -5,18 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
 {
-    /// <summary>
-    /// 一阶段 2:细胞长矛。细胞被外推到本体前方 260 蓄力,随后按<b>蓄力结束那一刻锁存的方向</b>
-    /// 渐加速突刺,一路双侧散射;本体则吃一份反向后坐,被细胞"拖"着走。
-    /// <para>
-    /// 三段:计时 &lt; 30 蓄力(每帧重算锁存方向)、30~140 突刺(推力按 <c>计时 / 140</c> 渐强)、
-    /// 之后收势。本体朝向全程由「本体指向细胞」的反向决定,所以贴图会一直背对矛尖。
-    /// </para>
-    /// <para>
-    /// 计时是条件自增:必须先进到玩家 1200 以内才起跳,否则一直用 0.08 的位置弹簧扑过去。
-    /// 锁存向量 <c>Nz</c> 会反过来扣本体速度,原代码没同步它(联机会分叉),本轮补进 ExtraAI
-    /// </para>
-    /// </summary>
+    /// <summary>计时必须先进玩家 1200 以内才起跳,Nz 扣本体速度,原代码没同步,补进 ExtraAI</summary>
     [VaultState((int)NihilityStateIndex.P1CellLance, typeof(NihilityStateContext))]
     public class NihilityP1CellLanceState : NihilityStateBase
     {

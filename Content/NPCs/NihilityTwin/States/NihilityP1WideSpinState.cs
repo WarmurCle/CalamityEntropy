@@ -5,15 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
 {
-    /// <summary>
-    /// 一阶段 4:广角自旋。本体运动与 1 号同构,但自旋量只取 0.26 折、细胞被甩到 520 外,
-    /// 于是细胞绕着本体划一个大圆。每 30 帧一次:先朝玩家打一发十一枚的箭形扇面,再叠一圈随机相位的六发环。
-    /// <para>
-    /// 扇面按层生成:第 0 层单发走中路、伤害除数是 <b>7</b> 而不是 6(原代码唯一一处不同的除数),
-    /// 第 1~5 层各出上下两发,横向后退 30×层、纵向张开 14×层,全部同速 14。
-    /// </para>
-    /// <para>细胞挂点这里是<b>整段覆盖</b>速度而不是 1 号的累加,所以细胞被硬拽在圆周上</para>
-    /// </summary>
+    /// <summary>第 0 层伤害除数是 7 不是 6,细胞挂点整段覆盖速度,不是 1 号的累加</summary>
     [VaultState((int)NihilityStateIndex.P1WideSpin, typeof(NihilityStateContext))]
     public class NihilityP1WideSpinState : NihilityStateBase
     {

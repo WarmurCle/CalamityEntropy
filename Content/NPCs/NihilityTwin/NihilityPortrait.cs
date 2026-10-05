@@ -8,11 +8,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin
 {
-    /// <summary>
-    /// 虚无双子图鉴沙盒:深渊水体里的双子巡游。噬菌体本体沿 8 字滑行、三层触须随速张合,
-    /// 混沌细胞在它身后绕行、八条触须摆头,两者之间一条 29 节 Verlet 绳(与战斗端同一副骨架、同一根绳);
-    /// 每 8 秒一拍「口部激光」:本体换激光贴图、口前吐出一道青白光束,细胞触须同时切到加色发光带
-    /// </summary>
+    /// <summary>与战斗端同一副骨架、同一根绳</summary>
     internal sealed class NihilityPortraitActor : CEBossPortraitActor
     {
         public static NihilityPortraitActor Instance => instance ??= new NihilityPortraitActor();

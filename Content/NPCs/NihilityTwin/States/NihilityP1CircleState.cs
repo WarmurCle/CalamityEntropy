@@ -5,19 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
 {
-    /// <summary>
-    /// 一阶段 6:绕细胞盘旋。细胞自己扑向玩家并被点亮(每帧把发光续期写回细胞的 <c>ai[2]</c>),
-    /// 本体以恒定 18 的速度、0.07 的转向率绕着细胞飞,于是两者拉出一个不断收紧的圆。
-    /// <para>
-    /// 环射的基准角在第 1 帧随机抽一次,之后每帧自转 0.5°。前 160 帧是每 10 帧一圈五发的稳定弹幕,
-    /// 之后转为逐帧按 1/3 概率、位置抖动 ±44、速度 26 的高速散射——同一条环在后半段变成弹雨。
-    /// </para>
-    /// <para>
-    /// 基准角原本在各端各抽各的(原代码这一行没有 netMode 门),靠 <c>ai[2]</c> 同步槽覆盖回来;
-    /// 新骨架里它是 <see cref="NihilityStateContext.Num2"/>,掷点收归权威端、结果随 ExtraAI 过线,
-    /// 逐帧那 0.5° 的自转仍然各端都跑
-    /// </para>
-    /// </summary>
+    /// <summary>基准角原各端各抽,现在收归权威端随 ExtraAI 过线,0.5° 自转各端都跑</summary>
     [VaultState((int)NihilityStateIndex.P1Circle, typeof(NihilityStateContext))]
     public class NihilityP1CircleState : NihilityStateBase
     {

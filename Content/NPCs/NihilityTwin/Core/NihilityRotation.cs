@@ -5,18 +5,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.Core
 {
     /// <summary>
-    /// 选招:原 <c>NihilityActeriophage.prepareAiChange()</c> 与 <c>randomAI()</c> 逐条搬过来。
-    /// <para>
-    /// <b>这只 Boss 的出招本来就是随机的</b>,不是手排表。所以这里<b>不引入防复读阀</b>:
-    /// 七面均匀掷点、外加原有的那一条抑制(二阶段掷到「分裂增殖」且场上小细胞超过 8 只就重掷),
-    /// 一个字不多一个字不少。加查重窗会改变出招分布,那是手感改动,不在本次无损迁移的范围内。
-    /// </para>
-    /// <para>
-    /// <b>掷点收归权威端。</b>原代码的 <c>randomAI()</c> 在客户端也会跑一遍(它没有任何 netMode 门),
-    /// 各端各掷各的,靠 ExtraAI 里的 <c>aitype</c> 覆盖回来;新骨架里门开在
-    /// <see cref="NihilityStateBase.NextAttack"/> / <see cref="NihilityStateBase.EndAttack"/> 上,
-    /// 结果经 <c>ai[3]</c> 状态号过线。
-    /// </para>
+    /// 出招本来就是随机的,不设防复读,只留小细胞超过 8 就重掷
+    /// 掷点收归权威端,原代码客户端也会掷,结果经 ai[3] 过线
     /// </summary>
     public static class NihilityRotation
     {
@@ -24,12 +14,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin.Core
         public static IVaultState<NihilityStateContext> Create(NihilityStateIndex state)
             => VaultStateRegistry<NihilityStateContext>.Create((int)state);
 
-        /// <summary>
-        /// 收招回整备(原 <c>prepareAiChange</c>)。只清 <c>aicounter</c>,
-        /// <b>不</b>清 <see cref="NihilityStateContext.Num2"/> / <see cref="NihilityStateContext.Num3"/> /
-        /// <see cref="NihilityStateContext.Nz"/> / <see cref="NihilityStateContext.ChaseTimer"/>——
-        /// 原代码也不清,残值会原样带进下一手
-        /// </summary>
+        /// <summary>只清 aicounter,Num2、Num3、Nz、ChaseTimer 不清,残值带进下一手</summary>
         public static IVaultState<NihilityStateContext> Regroup(NihilityStateContext ctx) {
             ctx.Num1 = 0;
             return Create(NihilityStateIndex.Regroup);

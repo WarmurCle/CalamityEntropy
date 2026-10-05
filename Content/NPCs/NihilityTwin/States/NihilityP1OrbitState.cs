@@ -5,15 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
 {
-    /// <summary>
-    /// 一阶段 5:对拉旋转。开场锁一次轴向并给全体玩家 60 帧无敌,随后本体与细胞分居玩家两侧 840,
-    /// 靠本体每帧自转 1.6° 把整根轴慢慢转起来,玩家被夹在中间。
-    /// <para>
-    /// 开火窗 80~460:每帧 1/3 概率出一发,再 1/2 分流成细胞弹或虚无火。两种弹的出射角
-    /// 直接取全局游戏帧数 ×±0.09,也就是一条持续旋转的散射线。生成在权威端,角度自然以权威端为准。
-    /// </para>
-    /// <para>460 帧后两端一起上浮 1.2/帧,500 帧收招——那 40 帧是纯粹的脱离动作</para>
-    /// </summary>
+    /// <summary>开场给全体玩家 60 帧无敌,出射角取 GameUpdateCount,生成在权威端</summary>
     [VaultState((int)NihilityStateIndex.P1Orbit, typeof(NihilityStateContext))]
     public class NihilityP1OrbitState : NihilityStateBase
     {
