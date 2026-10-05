@@ -195,11 +195,6 @@ namespace CalamityEntropy
 
         #region Call Handlers 书签系统
 
-        /// <summary>
-        /// 判断一个物品是否是书签
-        /// 参数: Item 或 int(物品类型ID)
-        /// 返回bool
-        /// </summary>
         private static object IsBookMark(object[] args) {
             if (args.Length < 1)
                 throw new ArgumentException("IsBookMark需要1个参数: Item或int");
@@ -219,10 +214,8 @@ namespace CalamityEntropy
         }
 
         /// <summary>
-        /// 独立触发一个书签的攻击
-        /// 参数: Item bookmarkItem, Player player, Vector2 position, Vector2 direction
-        /// 可选: int baseDamage, float baseKnockback, int baseProjectileType, float baseShootSpeed, int baseCooldown, string damageClassName
-        /// 返回Dictionary包含success, cooldownTicks, projectileIndex, projectileType
+        /// 第 5 个起可选:伤害,击退,弹幕类型,射速,冷却,伤害类型名
+        /// 返回 success, cooldownTicks, projectileIndex, projectileType
         /// </summary>
         private static object PerformBookmarkAttack(object[] args) {
             if (args.Length < 4)
@@ -266,11 +259,7 @@ namespace CalamityEntropy
             };
         }
 
-        /// <summary>
-        /// 查询书签的能力信息，不触发攻击
-        /// 参数: Item bookmarkItem
-        /// 返回Dictionary包含isBookmark, hasEffect, hasStatModifiers等
-        /// </summary>
+        /// <summary>只查询,不触发攻击</summary>
         private static object GetBookmarkInfo_Call(object[] args) {
             if (args.Length < 1)
                 throw new ArgumentException("GetBookmarkInfo需要1个参数: Item");
@@ -309,11 +298,7 @@ namespace CalamityEntropy
             return dict;
         }
 
-        /// <summary>
-        /// 预计算书签攻击的冷却时间，不实际发射
-        /// 参数: Item bookmarkItem, int baseCooldown(可选,默认20)
-        /// 返回int冷却Tick数
-        /// </summary>
+        /// <summary>不发射;baseCooldown 默认 20,再吃攻速</summary>
         private static object GetBookmarkAttackCooldown(object[] args) {
             if (args.Length < 1)
                 throw new ArgumentException("GetBookmarkAttackCooldown需要至少1个参数: Item");
@@ -336,11 +321,7 @@ namespace CalamityEntropy
             return Math.Max(1, baseCooldown);
         }
 
-        /// <summary>
-        /// 获取玩家当前可用的书签栏位数
-        /// 参数: Player player, Item book(可选，不传则用玩家手持物品)
-        /// 返回int
-        /// </summary>
+        /// <summary>不传书就用玩家手持物品</summary>
         private static object GetBookMarkSlots(object[] args) {
             if (args.Length < 1 || !(args[0] is Player player))
                 throw new ArgumentException("GetBookMarkSlots需要Player参数");
@@ -349,11 +330,7 @@ namespace CalamityEntropy
             return player.GetMyMaxActiveBookMarks(book);
         }
 
-        /// <summary>
-        /// 为玩家增加额外书签栏位
-        /// 参数: Player player, int count
-        /// 每帧重置，需在UpdateEquips等钩子中持续调用
-        /// </summary>
+        /// <summary>每帧重置,要在 UpdateEquips 里持续加</summary>
         private static object AddBookMarkSlot(object[] args) {
             if (args.Length < 2)
                 throw new ArgumentException("AddBookMarkSlot需要2个参数: Player, int");
@@ -367,11 +344,7 @@ namespace CalamityEntropy
             return true;
         }
 
-        /// <summary>
-        /// 获取玩家当前装备的所有书签
-        /// 参数: Player player
-        /// 返回Item[]书签数组(可能包含空Item)
-        /// </summary>
+        /// <summary>按当前栏位数截,空位是空 Item</summary>
         private static object GetPlayerBookmarks(object[] args) {
             if (args.Length < 1 || !(args[0] is Player player))
                 throw new ArgumentException("GetPlayerBookmarks需要Player参数");
@@ -388,11 +361,6 @@ namespace CalamityEntropy
             return result;
         }
 
-        /// <summary>
-        /// 判断两个书签是否可以同时装备
-        /// 参数: Item bookmarkA, Item bookmarkB
-        /// 返回bool
-        /// </summary>
         private static object CanEquipBookmarkWith(object[] args) {
             if (args.Length < 2)
                 throw new ArgumentException("CanEquipBookmarkWith需要2个参数: Item, Item");
@@ -406,11 +374,6 @@ namespace CalamityEntropy
             return BookMarkLoader.CanBeEquipWith(a, b);
         }
 
-        /// <summary>
-        /// 获取书签的UI纹理
-        /// 参数: Item bookmarkItem
-        /// 返回Texture2D或null
-        /// </summary>
         private static object GetBookmarkUITexture(object[] args) {
             if (args.Length < 1 || !(args[0] is Item item))
                 throw new ArgumentException("GetBookmarkUITexture需要1个参数: Item");
