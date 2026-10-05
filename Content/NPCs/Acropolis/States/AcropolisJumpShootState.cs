@@ -5,18 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Acropolis.States
 {
-    /// <summary>
-    /// 跳射:原 <c>Jumping = true</c> + <c>JumpAndShoot = 200</c>。
-    /// 朝玩家方向横向 12、纵向 -24×scale 起跳,滞空期间把炮口压向本体正下方 220,
-    /// 按 23/enrange 的节拍倾泻电球(散布 ±0.03、初速 3、ai0 = 1 对地弹标记)。
-    /// <para>
-    /// 起跳那一刻把炮口节拍写成 30,所以第一发比常规慢,给玩家一个起跳到开火的读秒窗。
-    /// 收招条件在宿主的落地判定里:跳射计数降到 150 以下(起跳后 50 帧)才允许落地,
-    /// 之后跳跃冷却降到 20 以下、或踩到实心/平台且下坠超过 8 就收。
-    /// 落地后本状态还会多跑一帧并打出最后一发,与原代码一致
-    /// (原代码先跑炮口块再把跳射计数清成 -1)。
-    /// </para>
-    /// </summary>
+    /// <summary>原 JumpAndShoot,落地后还多打一发</summary>
     [VaultState((int)AcropolisStateIndex.JumpShoot, typeof(AcropolisStateContext))]
     public class AcropolisJumpShootState : AcropolisStateBase
     {

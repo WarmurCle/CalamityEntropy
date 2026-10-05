@@ -3,14 +3,7 @@ using InnoVault.StateMachines;
 
 namespace CalamityEntropy.Content.NPCs.Acropolis.States
 {
-    /// <summary>
-    /// 行走(选招口)。地面推进、悬停、腿部步态、鱼叉循环都由宿主当背景行为每帧跑,
-    /// 本状态只负责三件事:跨招冷却到点时骰点、单发电球留在本态、满足条件时请求追高跳。
-    /// <para>
-    /// 判定顺序照搬原代码:骰点写在地面推进块<b>之前</b>,所以同一帧里骰点优先。
-    /// 骰到单发时不换态,于是「单发 + 追高跳同帧发生」仍然成立,与原代码一致
-    /// </para>
-    /// </summary>
+    /// <summary>选招口,骰点在地面推进之前,单发不换态</summary>
     [VaultState((int)AcropolisStateIndex.Walk, typeof(AcropolisStateContext))]
     public class AcropolisWalkState : AcropolisStateBase
     {
