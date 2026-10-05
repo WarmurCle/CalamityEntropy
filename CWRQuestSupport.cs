@@ -23,16 +23,9 @@ using Terraria.ModLoader;
 namespace CalamityEntropy
 {
     /// <summary>
-    /// 向 CalamityOverhaul 的任务书图谱注入本模组节点。纯弱引用，只走 Mod.Call 字符串命令，
-    /// 没装 CWR 或 CWR 版本不带这套接口时整段静默跳过。
-    /// <para>四条来自 CWR 源码的硬约束，改这个文件前先读一遍：</para>
-    /// <list type="number">
-    /// <item>父节点缺席等于永久锁死：CWR 的 CheckUnlock 把 parent == null 当作未完成，
-    /// 而它的灾厄系 Boss 节点全是条件加载。所以只准挂本文件里列出的原版保底节点。</item>
-    /// <item>未解锁的节点不推进度：读瞬时状态的节点必须尽早解锁，不要再加第二父节点。</item>
-    /// <item>坐标相对首个父节点，其余父节点只参与解锁；多父节点要求全部完成。</item>
-    /// <item>谓词每帧跑且抛三次异常就被 CWR 停用：扫背包一律走 <see cref="Scan"/> 的节流缓存。</item>
-    /// </list>
+    /// 弱引用,只走 Mod.Call,没装或接口不在就整段跳过
+    /// 父节点只能挂本文件的原版保底,缺席永久锁死;未解锁不推进度,别再加第二父节点
+    /// 坐标相对首个父节点,其余只参与解锁且要全部完成;谓词抛三次就被停用,扫背包走 Scan
     /// </summary>
     internal static class CWRQuestSupport
     {
@@ -504,9 +497,8 @@ namespace CalamityEntropy
         }
 
         /// <summary>
-        /// 节流闸：按游戏帧计，而不是按调用次数。同一帧里有多少个节点问过都只算一次，
-        /// 否则节点一多，计数式的冷却会在几帧内就被抽干，等于没节流。
-        /// GameUpdateCount 在换世界时归零，此时无符号相减会溢出成极大值，正好落在「重扫」这一侧
+        /// 按游戏帧计,同帧多个节点只算一次
+        /// GameUpdateCount 换世界归零,无符号相减溢出正好落在重扫
         /// </summary>
         private static bool NeedRescan(ref uint lastFrame, ref bool primed, uint interval) {
             uint now = Main.GameUpdateCount;
@@ -636,9 +628,8 @@ namespace CalamityEntropy
         #region 参数表
 
         /// <summary>
-        /// 一条注册的参数表构造器。文案四件套按节点键自动绑到
-        /// <c>Mods.CalamityEntropy.CWRQuest.&lt;键&gt;.{Title,Summary,Objective,Detail}</c>，
-        /// 传给 CWR 的是 LocalizedText，它不会把本模组的文案写进自己的 hjson
+        /// 文案绑 Mods.CalamityEntropy.CWRQuest.&lt;键&gt;.{Title,Summary,Objective,Detail}
+        /// 传 LocalizedText,CWR 不会把文案写进自己的 hjson
         /// </summary>
         private sealed class Node
         {
