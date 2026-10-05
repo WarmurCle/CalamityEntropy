@@ -1,5 +1,4 @@
-// CalamityEntropy:StandardPrimitiveShader
-// 图元渲染兜底着色器: 顶点色直通, CEPrimitiveRenderer 在调用方未指定 shader 时使用
+//顶点色直通,调用方没指定 shader 时用
 sampler uImage0 : register(s0);
 sampler uImage1 : register(s1);
 float3 uColor;
@@ -40,7 +39,6 @@ VSOutput VertexFunc(in VSInput input)
     return output;
 }
 
-// 顶点色原样输出
 float4 PixelFunc(VSOutput input) : COLOR0
 {
     return input.Color;

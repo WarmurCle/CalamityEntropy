@@ -22,7 +22,6 @@ float4 PixelShaderFunction(float4 sampleColor : COLOR0, float2 coords : TEXCOORD
 
     float4 color = tex2D(uImage0, coords);
     
-    // 快速边界检测
     if (coords.x < PIXEL_SIZE.x || coords.x > 1.0f - PIXEL_SIZE.x ||
         coords.y < PIXEL_SIZE.y || coords.y > 1.0f - PIXEL_SIZE.y) {
         return float4(uColor.rgb, 1) * color.a * sampleColor.a;

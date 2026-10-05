@@ -1,6 +1,4 @@
-// CalamityEntropy:HeavenlyGaleLightningArc
-// 行为等效替代灾厄同名旧键(HeavenlyGaleLightningShader)的自有实现: 电弧拖尾
-// 调用姿势: UseImage1 传噪声图(如原版 Images/Misc/Perlin), 颜色走顶点色
+//噪声在 s1,颜色走顶点色,梯形用 TexCoord.z 还原纵向 uv,y>0.5 噪声反向滚
 sampler uImage0 : register(s0);
 sampler uImage1 : register(s1);
 float3 uColor;
@@ -46,17 +44,13 @@ float4 PixelFunc(VSOutput input) : COLOR0
     float4 color = input.Color;
     float2 coords = input.TexCoord.xy;
 
-    // 还原梯形分段的纵向畸变
     coords.y = (coords.y - 0.5) / input.TexCoord.z + 0.5;
 
-    // 噪声图上下半区反向滚动, 采样值映射到 [-1,1] 作扰动量
     float scrollSign = coords.y > 0.5 ? -1 : 1;
     float distortion = lerp(-1, 1, tex2D(uImage1, coords + float2(0, uTime * scrollSign * 1.81)).r);
 
-    // 扰动后的正弦亮带: 幂次随扰动抖动, 造成电弧锯齿明暗
     float opacity = pow(sin((coords.y + distortion * 0.15) * 3.141), distortion * 3.95 + 7);
 
-    // 颜色项压平(0.25 次幂)加上白色高光核心
     return color * pow(opacity, 0.25) + opacity;
 }
 
