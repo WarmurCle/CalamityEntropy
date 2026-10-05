@@ -6,18 +6,12 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Core.Weapons
 {
-    /// <summary>
-    /// 蓄势武器的自动化钩子:只挂在实现 ICEChargeWeapon 的物品上。
-    /// 负责充能条/周期就绪的每帧推进、就绪时的释放乘数、物品栏充能角标。
-    /// </summary>
     public class CEChargeWeaponGlobalItem : GlobalItem
     {
         public override bool AppliesToEntity(Item entity, bool lateInstantiation)
             => lateInstantiation && entity.ModItem is ICEChargeWeapon;
 
-        // 两种触发都只在手持时推进。周期就绪原本挂在 UpdateInventory 上"在背包也计时",
-        // 但 UpdateInventory 对背包里每一个物品每帧都跑,而充能是按物品实例存的,
-        // 于是带 N 把同款就有 N 根独立的条一起涨,攒满能连放 N 次大招。
+        //不走 UpdateInventory,同款按格各涨一条
         public override void HoldItem(Item item, Player player) {
             var profile = ((ICEChargeWeapon)item.ModItem).ChargeProfile;
             if (profile.Trigger == CEChargeTrigger.ChargeBar || profile.Trigger == CEChargeTrigger.Periodic)
@@ -25,7 +19,7 @@ namespace CalamityEntropy.Core.Weapons
         }
 
         public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) {
-            // 就绪的下一次攻击即大招:在 Shoot 之前套用释放乘数,时序对齐原灾厄 RogueWeapon.ModifyShootStats
+            //时序对齐原 RogueWeapon.ModifyShootStats
             if (!CEChargeWeapon.IsReady(item))
                 return;
             var profile = ((ICEChargeWeapon)item.ModItem).ChargeProfile;
@@ -35,7 +29,6 @@ namespace CalamityEntropy.Core.Weapons
         }
 
         public override void PostDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale) {
-            // 物品栏角标:槽位底部一条充能进度线,就绪时呼吸闪烁
             var meter = CEChargeWeapon.GetMeter(item);
             if (meter == null)
                 return;

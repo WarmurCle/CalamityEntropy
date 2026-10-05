@@ -10,22 +10,16 @@ using Terraria.UI;
 
 namespace CalamityEntropy.Core.Weapons
 {
-    /// <summary>
-    /// 蓄势充能条 HUD:本地玩家手持蓄势武器时,头顶显示一条冷却条风格的充能进度,
-    /// 就绪时整条提亮呼吸。挂在实体血条层,世界坐标绘制。
-    /// </summary>
     public class CEChargeBarHUD : ModSystem
     {
-        /// <summary>充能条贴图宽度(GenericBar 系列为 36 x 12)。</summary>
-        private const int BarWidth = 36;
+        private const int BarWidth = 36; //GenericBar 宽
 
-        //进度条贴图在加载期就位,不再每帧走 getExtraTex 查表;只在客户端界面层读取
+        //加载期就位,不每帧查 getExtraTex
         [VaultLoaden("CalamityEntropy/Assets/Extra/Ports/GenericBarBack")]
         private static Asset<Texture2D> BarBackTex;
         [VaultLoaden("CalamityEntropy/Assets/Extra/Ports/GenericBarFront")]
         private static Asset<Texture2D> BarFrontTex;
 
-        /// <summary>三种触发器的进度条主色。</summary>
         public static Color TriggerColor(CEChargeTrigger trigger) => trigger switch {
             CEChargeTrigger.ChargeBar => new Color(255, 170, 60),
             CEChargeTrigger.HitCount => new Color(235, 90, 80),
