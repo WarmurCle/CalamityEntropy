@@ -3,27 +3,12 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
 {
-    /// <summary>
-    /// Luminaris 的唯一数字出口。状态里不许出现裸数字(纯局部插值系数除外)。
-    /// <para>
-    /// 本文件是状态机迁移时从原 <c>Luminaris.AttackPlayer()</c> / <c>SetAISyyle()</c> / <c>AI()</c>
-    /// 逐个搬出来的,<b>数值一律照搬,没有一处调整</b>。注释写的是「这个数在原代码里干什么」,
-    /// 不是「这个数为什么该是这样」——原作者没留依据的地方不替他编理由。
-    /// </para>
-    /// </summary>
+    /// <summary>状态里不许裸数字,数值照搬原 AttackPlayer / SetAISyyle / AI,不编理由</summary>
     internal static class LuminarisDirector
     {
         //==================== 难度系数 enrange ====================
 
-        /// <summary>
-        /// 难度系数。原代码每帧在 <c>AttackPlayer</c> 开头重算一次,七个来源依次作用:
-        /// 专家 +0.1、大师 +0.1、复仇 +0.15、死亡 +0.15,然后熵灾模式 ×1.4、getGood ×1.1、天顶 ×0.85。
-        /// <para>
-        /// 加法项先全部累完再乘乘法项,顺序不可换(先乘后加会得到不同结果)。
-        /// 它直接乘进速度、射速与弹幕参数,所以七个开关必须在各端一致——都是世界级已同步量。
-        /// </para>
-        /// <para>装灾厄读复仇/死亡,缺席仍走专家/大师兜底。勿连带改熵灾那一项。</para>
-        /// </summary>
+        /// <summary>先加后乘,顺序不可换,缺灾厄仍走专家/大师,别连带改熵灾那一项</summary>
         public static float Enrange() {
             float enrange = 1f;
             if (Main.expertMode) {
@@ -52,11 +37,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
 
         //==================== 全局 ====================
 
-        /// <summary>
-        /// 状态总龄上限。原代码<b>没有</b>任何超时兜底,这是迁移时新加的纯安全网:
-        /// 最长的状态是 SmashDown(402 帧),再加上脱战期计时仍在走的最多 150 帧,
-        /// 1800 帧在正常对局里到不了,存在的意义只是不让状态机死在某个状态里、Boss 靠惯性飘走
-        /// </summary>
+        /// <summary>迁移新加的安全网,正常对局到不了</summary>
         public const int StateTimeoutFrames = 1800;
 
         /// <summary>
@@ -75,10 +56,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
         public const float DisengageDrag = 0.998f;
         public const float DisengageRise = 0.3f;
 
-        /// <summary>
-        /// 转二阶段的血量线。原代码写的是<b>整数除法</b> <c>NPC.life &lt;= NPC.lifeMax / 2</c>,
-        /// 这里保持整数除法以免 lifeMax 为奇数时差一格。单向,不回退
-        /// </summary>
+        /// <summary>原 lifeMax / 2 整数除法,奇数差一格,单向不回退</summary>
         public const int Phase2LifeDivisor = 2;
 
         //==================== 表现累加量(宿主每帧结算) ====================
@@ -100,17 +78,13 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
         public const int TrailTrimPerFrame = 3;
 
         //==================== 尾巴绳(Rigs2D VerletStrand,数值以 Assets/Rigs/Luminaris.rig.json 为准) ====================
-        //原 Utilities.Rope:10 质点、节长 11.6、逐帧重力 (0, 0.12)、阻尼 0.054(速度乘 1/1.054 ≈ 0.9488)、30 次约束迭代,
-        //每帧沿「上一帧位置 → 本帧位置」走 5 个整步;绳根在本体下方 (∓14, 32) 随朝向旋转并乘 scale。
-        //对应骨架里两条 9 节 VerletStrand:substeps 5、gravity 3.0(3.0 × 0.2² × 5 = 0.6 = 5 × 0.12)、
-        //damping 0.769(0.9488⁵)、iterations 30,anchorA / anchorB 骨偏移 (∓14, 32)
+        //原 Rope:10 质点、节长 11.6、重力 (0, 0.12)、阻尼 0.054、30 迭代、每帧 5 步,根 (∓14, 32)
+        //骨架 VerletStrand:substeps 5、gravity 3.0(3.0×0.2²×5=0.6=5×0.12)、damping 0.769(0.9488^5)
+        //iterations 30,锚点骨偏移同 (∓14, 32)
 
         //==================== 天顶世界的分身 ====================
 
-        /// <summary>
-        /// 天顶世界里本体额外生成 5 只 realLife 从属分身:X 方向 ±500 随机、Y 方向正上方 2000。
-        /// 每只(含本体)的倒计时被随机成 210~270,靠这个错开彼此的第一手
-        /// </summary>
+        /// <summary>天顶额外 5 只从属,倒计时随机错开第一手</summary>
         public const int ZenithCloneCount = 5;
         public const int ZenithCloneSpreadX = 500;
         public const int ZenithCloneOffsetY = 2000;
@@ -125,10 +99,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
 
         //==================== 出招时长表 ====================
 
-        /// <summary>
-        /// 选招后写死的兜底时长。原代码先无条件 <c>AIChangeCounter = 20;</c>,再用十一个 if 逐招覆盖;
-        /// 十一个招式全部有覆盖值,所以这个 20 在原代码里<b>到不了</b>,照搬保留
-        /// </summary>
+        /// <summary>原先写 20 再逐招覆盖,十一招都有值,这个 20 到不了</summary>
         public const int PickFallbackFrames = 20;
 
         public const int RoundShootingFrames = 200;
@@ -143,10 +114,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
         public const int SmashDownFrames = 400;
         public const int ShootTriangleFrames = 200;
 
-        /// <summary>
-        /// 原 <c>SetAISyyle()</c> 之后那一串时长赋值,逐条搬过来。
-        /// 写成同样的「先兜底再覆盖」形状,不折成 switch,免得把那条到不了的兜底路径优化掉
-        /// </summary>
+        /// <summary>先兜底再 if 覆盖,不折 switch,到不了的兜底也留着</summary>
         public static int DurationOf(LuminarisStateIndex state) {
             int duration = PickFallbackFrames;
             if (state == LuminarisStateIndex.RoundShooting) {
@@ -274,7 +242,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
         public const int SubductionDive1EndFrame = 160;
         public const float SubductionDive1Span = 30f;
         public const float SubductionArcHeight = 400f;
-        /// <summary>第二轮的入口帧。注意 160 → 151 之间没有任何分支接管位置,本体靠残余速度滑行 9 帧</summary>
+        /// <summary>160 到 151 没有分支,靠残余速度滑 9 帧</summary>
         public const int SubductionRound2Frame = 150;
         /// <summary>第二次抬升的终点帧(150 → 130)</summary>
         public const int SubductionRise2EndFrame = 130;
@@ -285,18 +253,12 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
         public const float SubductionChaseAccel = 0.6f;
         public const float SubductionChaseDrag = 0.99f;
         public const float SubductionTiltFactor = 0.01f;
-        /// <summary>
-        /// 倒计时等于 1 时的刹车。<b>这一拍在原代码里没有效果</b>:
-        /// 同一帧上面的追撞分支已经先写过速度,而下一帧(0)与再下一帧(-1)追撞又会继续加速
-        /// </summary>
+        /// <summary>这一拍没有效果,同帧追撞已先写速度,下一帧又继续加速</summary>
         public const int SubductionBrakeFrame = 1;
 
         //==================== StayAboveAndShooting:悬停环射 ====================
 
-        /// <summary>
-        /// 悬停锚点:<c>player.Center + new Vector2(600 × sign, -400) / enrange</c>。
-        /// 注意除法只作用在偏移向量上(优先级),不作用在玩家坐标上
-        /// </summary>
+        /// <summary>偏移 (600×sign, -400) / enrange,除法只作用在偏移上</summary>
         public const float StayAboveAnchorX = 600f;
         public const float StayAboveAnchorY = -400f;
         /// <summary>每帧朝锚点加速 1,阻尼 0.97</summary>
@@ -312,11 +274,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
         public const int StayAboveShootFloor = 30;
         /// <summary>开火后坐:朝远离玩家的方向 6</summary>
         public const float StayAboveRecoil = 6f;
-        /// <summary>
-        /// 环射发数 <c>(int)(10 × enrange)</c>;角度步进 <c>360 / 发数</c>。
-        /// <b>这个角度是「度」却被塞进按弧度解释的 ai0</b>(弹幕用 <c>ai[0].ToRotationVector2()</c> 当重力方向),
-        /// 所以实际重力方向是 0、36、72… 弧度。原代码如此,照搬
-        /// </summary>
+        /// <summary>步进 360/发数,单位是度,却塞进按弧度读的 ai0,照搬</summary>
         public const float StayAboveShotsPerEnrange = 10f;
         public const float StayAboveAngleTotal = 360f;
         public const float StayAboveProjSpeed = 6f;
@@ -339,11 +297,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
         public const int DashingLock2EndFrame = 110;
         /// <summary>冲撞速度</summary>
         public const float DashingSpeed = 40f;
-        /// <summary>
-        /// 冲撞中的持续追瞄速率:<c>0.25f * enrange.ToRadians()</c>。
-        /// <c>ToRadians</c> 把 enrange 本身当角度换算,所以实际速率只有 0.004~0.010 rad/帧。
-        /// 看着像笔误,但这是原代码的写法,改了就是手感改动
-        /// </summary>
+        /// <summary>enrange.ToRadians(),enrange 被当角度,约 0.004~0.010 rad/帧,照搬</summary>
         public const float DashingTrackRate = 0.25f;
 
         //==================== Shoot360:贴近后多轮环爆 ====================
@@ -387,11 +341,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
 
         //==================== SmashDown:四轮高空砸落 ====================
 
-        /// <summary>
-        /// 每轮长度。原代码用 <c>ac = AIChangeCounter % 100 + 1</c> 折出轮内进度,
-        /// 所以 400 帧拆成四轮;但首帧(倒计时 400)折出的是 ac = 1、末帧(-1)折出 ac = 0,
-        /// 于是实际序列是「1 → (100…2) ×4 → 0」,首尾各多一帧自由落体
-        /// </summary>
+        /// <summary>原 % 100 + 1,首帧折出 1、末帧折出 0,首尾各多一帧自由落体</summary>
         public const int SmashDownCycleFrames = 100;
         /// <summary>轮内进度大于等于 40 是抬升段,小于 40 是砸落段</summary>
         public const int SmashDownRiseEndFrame = 40;
