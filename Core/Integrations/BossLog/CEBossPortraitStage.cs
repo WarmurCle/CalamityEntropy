@@ -5,17 +5,14 @@ using Terraria;
 
 namespace CalamityEntropy.Core.Integrations.BossLog
 {
-    /// <summary>
-    /// customPortrait 一帧的舞台参数。演员在「虚拟场景坐标」(原点=画布中心)里模拟与绘制,
-    /// <see cref="WorldMatrix"/> 负责把场景坐标映射进图鉴页画布(含 UIScale 与缩放)
-    /// </summary>
+    /// <summary>场景原点在画布中心,WorldMatrix 含缩放和 UIScale</summary>
     internal readonly struct CEPortraitFrame
     {
-        /// <summary>画布(UI 空间,已避开 BossChecklist 叠画的标题区)</summary>
+        /// <summary>UI 空间,已让开 BossChecklist 标题区</summary>
         public readonly Rectangle Canvas;
-        /// <summary>场景坐标 → 屏幕的批次矩阵</summary>
+        /// <summary>场景坐标到屏幕</summary>
         public readonly Matrix WorldMatrix;
-        /// <summary>裁剪光栅态(演员中途重启批次时必须沿用,保持画布裁剪)</summary>
+        /// <summary>演员重启批次时沿用,否则画布裁剪掉</summary>
         public readonly RasterizerState Scissor;
         /// <summary>进度隐藏蒙版色(正常 White,隐藏 Black)</summary>
         public readonly Color Mask;
@@ -34,10 +31,10 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             SceneHalf = sceneHalf;
         }
 
-        /// <summary>体色蒙版乘算(剪影模式贴图形状保留、颜色归黑)</summary>
+        /// <summary>剪影时 MultiplyRGB,形状留着</summary>
         public Color Tint(Color color) => Masked ? color.MultiplyRGB(Mask) : color;
 
-        /// <summary>不透明压暗(剪影模式的场景层保亮度层次、不透明度不动;正常模式原样返回)</summary>
+        /// <summary>剪影只压 RGB,alpha 不动</summary>
         public Color Dim(Color color, float maskedMul = 0.42f) {
             if (!Masked) {
                 return color;
@@ -46,25 +43,22 @@ namespace CalamityEntropy.Core.Integrations.BossLog
         }
     }
 
-    /// <summary>
-    /// 图鉴沙盒演员:一个 Boss 的实时演出(headless 模拟 + 绘制)。
-    /// 只在图鉴选中页可见时被驱动,纯客户端表现,不碰任何世界/NPC 状态
-    /// </summary>
+    /// <summary>只在图鉴页驱动,不碰世界和 NPC</summary>
     internal abstract class CEBossPortraitActor
     {
-        /// <summary>场景半尺寸(场景坐标;舞台据此定缩放)</summary>
+        /// <summary>场景坐标,舞台用它定缩放</summary>
         public abstract Vector2 SceneHalfSize { get; }
 
-        /// <summary>整本书接管时的域主题(色板 + 书后氛围 + 书缘饰件)</summary>
+        /// <summary>整本接管的色板和书缘</summary>
         public abstract CEBossLogTheme Theme { get; }
 
         /// <summary>场景时钟(秒,重置归零)</summary>
         protected float Time { get; private set; }
 
-        /// <summary>上次绘制的高精度时戳(Stopwatch tick,舞台步进与离页判定用)</summary>
+        /// <summary>Stopwatch tick,步进和离页判定</summary>
         internal long LastStamp;
 
-        /// <summary>待偿步进债(秒,舞台固定步进积累器)</summary>
+        /// <summary>秒,固定步进积累</summary>
         internal float StepDebt;
 
         internal void Step(float dt) {
@@ -77,33 +71,30 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             Reset();
         }
 
-        /// <summary>推进一帧(dt 已限幅,秒)</summary>
+        /// <summary>dt 已限幅,秒</summary>
         protected abstract void Update(float dt);
 
-        /// <summary>场景重置(首次进入或翻页离开太久后重开演出)</summary>
+        /// <summary>首次进入或离页太久</summary>
         protected abstract void Reset();
 
-        /// <summary>绘制:批次已按舞台矩阵开启,直接以场景坐标绘制</summary>
+        /// <summary>批次已开,直接用场景坐标</summary>
         public abstract void Draw(SpriteBatch sb, in CEPortraitFrame frame);
     }
 
     /// <summary>
-    /// 图鉴头像沙盒舞台:画布划定、裁剪、批次接管与恢复、进度隐藏蒙版、墙钟步进与过期重置。
-    /// 两条入口:<see cref="Draw"/> 是 BossChecklist <c>customPortrait</c> 回调的回退路径
-    /// (自己在页内让出标题区);<see cref="DrawScene"/> 由整本书接管钩子 <see cref="CEBossLogHook"/>
-    /// 调用,画布由骨架按主题标题带算好后直接移交。
-    /// 暂停时动画照常呼吸(墙钟驱动);只在图鉴页被绘制时产生开销
+    /// Draw 是 customPortrait 回退,自己让出标题区;DrawScene 的画布由骨架算好
+    /// 暂停也走墙钟
     /// </summary>
     internal static class CEBossPortraitStage
     {
-        /// <summary>顶部预留(回退路径):BossChecklist 会在页面上叠画 Boss 名、来源模组与右上头图标</summary>
+        /// <summary>回退路径让开 Boss 名、模组名和头图标</summary>
         private const int TopReserve = 52;
         private const int EdgeInset = 8;
-        /// <summary>固定逻辑步长(与游戏 60fps 逻辑帧一致)</summary>
+        /// <summary>对齐 60fps 逻辑帧</summary>
         private const float StepSeconds = 1f / 60f;
-        /// <summary>单次绘制最多补几步:低帧率下动画减速而不快进跳变</summary>
+        /// <summary>低帧率减速,不快进</summary>
         private const int MaxStepsPerDraw = 3;
-        /// <summary>离页重开阈值(秒):离开该页再回来重新开演;中途卡顿尖峰不算</summary>
+        /// <summary>离页超过此秒数才重开,卡顿尖峰不算</summary>
         private const float StaleSeconds = 2.5f;
 
         private static readonly RasterizerState scissorState = new() {
@@ -111,14 +102,13 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             ScissorTestEnable = true,
         };
 
-        /// <summary>customPortrait 回调入口(回退路径):整页矩形进来,自己让出顶部标题区</summary>
+        /// <summary>整页矩形进来,自己让出顶部</summary>
         public static void Draw(SpriteBatch sb, Rectangle pageRect, Color mask, CEBossPortraitActor actor) {
             Rectangle canvas = new(pageRect.X + EdgeInset, pageRect.Y + TopReserve,
                 pageRect.Width - EdgeInset * 2, pageRect.Height - TopReserve - EdgeInset);
             DrawScene(sb, canvas, mask, actor);
         }
 
-        /// <summary>按给定画布画一帧场景(步进、缩放、裁剪、批次接管与恢复全在这里)</summary>
         public static void DrawScene(SpriteBatch sb, Rectangle canvas, Color mask, CEBossPortraitActor actor) {
             if (Main.dedServ || actor == null || sb == null) {
                 return;
@@ -127,9 +117,8 @@ namespace CalamityEntropy.Core.Integrations.BossLog
                 return;
             }
 
-            //固定步进积累器:动画恒按 60fps 逻辑步长推进,绘制率/时钟粒度/同帧多次回调都不影响速度。
-            //不要拿 TickCount64 毫秒差直接当 dt:15.6ms 计时粒度在高刷新率下频繁读出 0ms,
-            //会被误判成断绘触发整场重置,表现为开场反复回退卡顿
+            //固定步 1/60,绘制率和同帧多次回调都不改速度
+            //别用 TickCount64 毫秒差当 dt,15.6ms 粒度在高刷新下经常读出 0,会当成断绘把开场重置掉
             long now = Stopwatch.GetTimestamp();
             if (actor.LastStamp == 0) {
                 actor.ResetScene();
@@ -138,7 +127,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             else {
                 double gapSec = (now - actor.LastStamp) / (double)Stopwatch.Frequency;
                 if (gapSec > StaleSeconds) {
-                    //真离页重开演出;中途卡顿只按上限补步,不重置
+                    //超过 StaleSeconds 才重开,卡顿只补步
                     actor.ResetScene();
                     actor.StepDebt = StepSeconds;
                 }
@@ -170,7 +159,6 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             CEPortraitFrame frame = new(canvas, worldMatrix, scissorState, mask, masked,
                 new Vector2(canvas.Width * 0.5f / zoom, canvas.Height * 0.5f / zoom));
 
-            //接管批次:画布裁剪 + 场景矩阵;结束后恢复标准 UI 批次
             GraphicsDevice gd = sb.GraphicsDevice;
             Rectangle prevScissor = gd.ScissorRectangle;
             sb.End();
@@ -188,25 +176,25 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             }
         }
 
-        /// <summary>场景标准批次(演员从加色/着色器批切回时用)</summary>
+        /// <summary>从加色或着色器批切回</summary>
         public static void BeginAlpha(SpriteBatch sb, in CEPortraitFrame frame) {
             sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp,
                 DepthStencilState.None, frame.Scissor, null, frame.WorldMatrix);
         }
 
-        /// <summary>加色批(辉光层;调用方负责先 End)</summary>
+        /// <summary>调用方先 End</summary>
         public static void BeginAdditive(SpriteBatch sb, in CEPortraitFrame frame) {
             sb.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearClamp,
                 DepthStencilState.None, frame.Scissor, null, frame.WorldMatrix);
         }
 
-        /// <summary>着色器批(Immediate:允许逐 Draw 改参;调用方负责先 End)</summary>
+        /// <summary>Immediate,调用方先 End</summary>
         public static void BeginShader(SpriteBatch sb, in CEPortraitFrame frame, Effect effect) {
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp,
                 DepthStencilState.None, frame.Scissor, effect, frame.WorldMatrix);
         }
 
-        /// <summary>UI 矩形 → 屏幕像素裁剪矩形(按 UIScale 变换并钳进视口)</summary>
+        /// <summary>按 UIScale 变换,钳进视口</summary>
         private static Rectangle UiToScreen(Rectangle ui, GraphicsDevice gd) {
             Vector2 tl = Vector2.Transform(new Vector2(ui.X, ui.Y), Main.UIScaleMatrix);
             Vector2 br = Vector2.Transform(new Vector2(ui.Right, ui.Bottom), Main.UIScaleMatrix);

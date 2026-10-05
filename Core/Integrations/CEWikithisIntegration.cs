@@ -5,9 +5,6 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Core.Integrations
 {
-    /// <summary>
-    /// 向 Wikithis 登记本模组的 wiki 地址与图标。未装 Wikithis 时静默跳过。
-    /// </summary>
     internal static class CEWikithisIntegration
     {
         public static void Register() {

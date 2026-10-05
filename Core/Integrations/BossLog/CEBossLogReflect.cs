@@ -8,11 +8,7 @@ using Terraria.UI;
 
 namespace CalamityEntropy.Core.Integrations.BossLog
 {
-    /// <summary>
-    /// BossChecklist 图鉴 UI 的反射面(对照上游 1.4.4 分支源码)。
-    /// 必需项缺一即 <see cref="Resolve"/> 失败、整本书接管停用;可选项缺失各自退回兜底值,
-    /// 不拦加载也不抛。全部成员在 <see cref="Clear"/> 后归零
-    /// </summary>
+    /// <summary>对照 BossChecklist 1.4.4,必需项缺一则 Resolve 失败、接管停用,可选项缺失各自兜底,Clear 后归零</summary>
     internal static class CEBossLogReflect
     {
         private const BindingFlags Any = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;

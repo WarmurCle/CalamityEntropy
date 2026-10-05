@@ -8,9 +8,6 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Core.Integrations
 {
-    /// <summary>
-    /// 向 MusicDisplay 登记本模组的 Boss 曲目(曲名、作者、用途)。未装 MusicDisplay 时静默跳过。
-    /// </summary>
     internal static class CEMusicDisplayIntegration
     {
         public static void Register() {

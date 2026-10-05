@@ -26,20 +26,12 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Core.Integrations
 {
-    /// <summary>
-    /// 向 BossChecklist 登记本模组的 Boss 条目。未装 BossChecklist 时整段静默跳过。
-    /// 原先是七段嵌套花括号块直写在模组入口的 PostSetupContent 里,现在收成一张表加一次循环。
-    /// 带演员(<see cref="CEBossPortraitActor"/>)的条目同时登记到 <see cref="CEBossLogRegistry"/>,
-    /// 由 <see cref="CEBossLogHook"/> 接管整本书;customPortrait 换成演员舞台,作钩子失败时的回退路径
-    /// </summary>
+    /// <summary>有演员的条目同时进 CEBossLogRegistry,customPortrait 是钩子失败时的回退</summary>
     internal static class CEBossChecklistIntegration
     {
         /// <summary>
-        /// 一个 Boss 条目。<paramref name="LocalizationName"/> 是取本地化键用的 NPC 内部名,
-        /// 蠕虫类 Boss 必须挂头部的名字:BossChecklist 自身按
-        /// Mods.&lt;模组&gt;.NPCs.&lt;头部NPC&gt;.BossChecklistIntegration.EntryName 取名,挂错位置会回退英文。
-        /// <paramref name="EntryName"/> 是 BossChecklist 存档与标记用的键,历史拼写(如 AcropolisMechine)不可改。
-        /// <paramref name="Actor"/> 为空时左页退回静态贴图 <paramref name="PortraitTexture"/>
+        /// LocalizationName 要挂头部 NPC,BossChecklist 按 Mods.模组.NPCs.头部.BossChecklistIntegration.EntryName 取名,挂错回退英文
+        /// EntryName 是存档键,AcropolisMechine 这种历史拼写不能改;Actor 空则左页用 PortraitTexture
         /// </summary>
         private readonly record struct BossEntry(
             string EntryName,

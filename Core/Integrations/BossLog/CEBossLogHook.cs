@@ -15,15 +15,8 @@ using Terraria.UI;
 namespace CalamityEntropy.Core.Integrations.BossLog
 {
     /// <summary>
-    /// BossChecklist 图鉴整本书接管。<br/>
-    /// 上游只暴露 <c>customPortrait</c> 一个绘制钩子(左页一块矩形,且画在左页按钮之后、标题之前),
-    /// 这里经 <see cref="EModHooks"/> 钩两处方法把整本书的绘制权拿过来:<br/>
-    /// · <c>BossLogUI.Draw</c>:后置画书缘饰件(书外不画任何东西,图鉴仍是 BossChecklist 的界面);<br/>
-    /// · <c>LogPanel.Draw</c>:书封(Id 为空)与左页(PageOne)在选中本模组条目时跳过 orig 全权重绘
-    /// (场景铺满整页 → 子元素按钮回到场景之上 → 我们的标题块),右页(PageTwo)原样放行,
-    /// BossChecklist 的记录 / 召唤 / 掉落内容落在我们的纸面上。<br/>
-    /// 反射面缺失、挂钩异常或绘制期抛错 → 停用接管,图鉴走原有 customPortrait 回退路径;
-    /// 客户端配置 <see cref="Config.BossLogTakeover"/> 关掉时同样只走回退路径
+    /// 钩 BossLogUI.Draw 后置书缘,书外不画;LogPanel.Draw 里书封和 PageOne 跳过 orig,PageTwo 放行
+    /// 反射缺失、挂钩失败、绘制抛错,或 BossLogTakeover 关掉,退回 customPortrait
     /// </summary>
     internal sealed class CEBossLogHook : ICELoader
     {
@@ -70,7 +63,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             }
         }
 
-        /// <summary>钩子本体由 <see cref="EModHooks.UnLoadData"/> 在模组卸载末尾统一撤销,这里只清状态、先熄火</summary>
+        /// <summary>钩子由 EModHooks.UnLoadData 统一撤,这里只清状态</summary>
         void ICELoader.UnLoadData() {
             Armed = false;
             CEBossLogReflect.Clear();
@@ -87,7 +80,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             }
         }
 
-        /// <summary>绘制期出错:记一次日志并停用接管,本帧余下交回 orig,下一帧起图鉴回到回退路径</summary>
+        /// <summary>记一次日志并停用,本帧余下交回 orig</summary>
         private static void Disarm(Exception e) {
             Armed = false;
             active = null;
@@ -122,7 +115,6 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             }
         }
 
-        /// <summary>每帧一次:判定当前页是否本模组条目、推时钟与混合量、取书与页矩形</summary>
         private static void BeginFrame() {
             object logUi = CEBossLogReflect.LogUI();
             bool visible = CEBossLogReflect.LogVisible(logUi);
@@ -137,7 +129,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
                 }
             }
 
-            //墙钟:暂停时 UI 照常绘制,动画也照常呼吸;长时间未绘(合书)后回来限幅,不跳变
+            //暂停也走墙钟;合书后再开限幅 0.1s,不跳变
             long stamp = Stopwatch.GetTimestamp();
             float dt = lastStamp == 0 ? 1f / 60f
                 : MathHelper.Clamp((float)((stamp - lastStamp) / (double)Stopwatch.Frequency), 0f, 0.1f);
@@ -156,7 +148,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             if (now == null) {
                 return;
             }
-            //书与页矩形:优先读上游字段,缺失时按上游版式常量从书矩形推算
+            //优先上游字段,缺了按版式常量从书矩形推
             UIElement book = CEBossLogReflect.BookArea(logUi);
             if (book != null) {
                 bookRect = book.GetInnerDimensions().ToRectangle();
@@ -208,7 +200,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             }
         }
 
-        /// <summary>书封:跳过上游的书皮 / 纸面贴图,整本按主题重画(页面内容坐标不动)</summary>
+        /// <summary>跳过上游书皮,页面坐标不动</summary>
         private static void DrawBook(UIElement panel, SpriteBatch sb) {
             HideMouseOver(panel);
             Rectangle book = panel.GetInnerDimensions().ToRectangle();
@@ -221,8 +213,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
         }
 
         /// <summary>
-        /// 左页全权重绘。层序修正:场景先铺满 → 子元素(上一页按钮等)回到场景之上 → 标题块。
-        /// 上游原顺序是子元素先画、customPortrait 后画,不透明场景会把按钮盖掉
+        /// 场景、子元素、标题块,上游是子元素先画,不透明场景会盖住按钮
         /// </summary>
         private static void DrawPageOne(UIElement panel, SpriteBatch sb) {
             HideMouseOver(panel);
@@ -243,7 +234,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             Rectangle hover = CEBossLogSkin.DrawTitleBlock(sb, theme, page, name, CalamityEntropy.Instance.DisplayNameClean,
                 heads, downed, mask, settle);
 
-            //头图标悬停:沿用上游的击败 / 未击败文案键,由 BossChecklist 的悬停层绘制
+            //沿用上游 Log.EntryPage 文案键,悬停层在 BossChecklist 里画
             if (hover != Rectangle.Empty && hover.Contains(Main.MouseScreen.ToPoint())) {
                 bool marked = CEBossLogReflect.EntryMarked(activeEntry);
                 CEBossLogReflect.SetHoverText(downed ? "Log.EntryPage.Defeated" : "Log.EntryPage.Undefeated",
@@ -251,7 +242,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             }
         }
 
-        /// <summary>镜像上游 LogUIElement.Draw 的鼠标遮挡:悬停在书上时屏蔽世界交互与物块悬停提示</summary>
+        /// <summary>镜像上游 LogUIElement.Draw,悬停在书上时挡住世界交互和物块提示</summary>
         private static void HideMouseOver(UIElement element) {
             if (!element.ContainsPoint(Main.MouseScreen) || PlayerInput.IgnoreMouseInterface) {
                 return;

@@ -8,13 +8,10 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Core.Integrations.BossLog
 {
-    /// <summary>
-    /// 一条本模组图鉴条目在本侧的登记:演员(场景 + 主题)与兜底数据。
-    /// 兜底只在 BossChecklist 反射面可选成员缺失时用,正常路径读它自己的 EntryInfo
-    /// </summary>
+    /// <summary>兜底只在反射可选成员缺失时用,正常读 EntryInfo</summary>
     internal sealed class CEBossLogEntry
     {
-        /// <summary>登记给 BossChecklist 的内部名(它按此存档与标记,不能随 NPC 类名改)</summary>
+        /// <summary>BossChecklist 存档键,不能随 NPC 类名改</summary>
         public string InternalName { get; }
         public CEBossPortraitActor Actor { get; }
         public Func<bool> Downed { get; }
@@ -27,7 +24,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             NpcTypes = npcTypes;
         }
 
-        /// <summary>首个 NPC 的显示名(BossChecklist 单 NPC 条目的默认名就是它)</summary>
+        /// <summary>单 NPC 条目的默认名</summary>
         public string FallbackName {
             get {
                 if (NpcTypes.Count > 0 && ModContent.GetModNPC(NpcTypes[0]) is ModNPC npc) {
@@ -37,7 +34,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             }
         }
 
-        /// <summary>各 NPC 登记的 Boss 头图标(与 BossChecklist 的默认头图标同源)</summary>
+        /// <summary>与 BossChecklist 默认头图标同源</summary>
         public List<Asset<Texture2D>> FallbackHeads() {
             List<Asset<Texture2D>> heads = [];
             foreach (int type in NpcTypes) {
@@ -53,16 +50,11 @@ namespace CalamityEntropy.Core.Integrations.BossLog
         }
     }
 
-    /// <summary>
-    /// 本侧图鉴条目表(键 = BossChecklist 的 <c>"模组名 内部名"</c>),
-    /// 供 <see cref="CEBossLogHook"/> 判定「当前页是否本模组条目」并取主题。
-    /// LogBoss 的实际登记仍在 <see cref="CEBossChecklistIntegration"/> 的条目表里,这里只挂演员
-    /// </summary>
+    /// <summary>键是 "模组名 内部名";LogBoss 在 CEBossChecklistIntegration,这里只挂演员</summary>
     internal static class CEBossLogRegistry
     {
         private static readonly Dictionary<string, CEBossLogEntry> entries = [];
 
-        /// <summary>已登记条目</summary>
         public static IReadOnlyCollection<CEBossLogEntry> Entries => entries.Values;
 
         public static bool TryGet(string key, out CEBossLogEntry entry) {
@@ -70,7 +62,6 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             return key != null && entries.TryGetValue(key, out entry);
         }
 
-        /// <summary>登记一条带演员的条目;返回条目键</summary>
         public static string Add(Mod host, string internalName, CEBossPortraitActor actor, Func<bool> downed, object npcTypes) {
             string key = $"{host.Name} {internalName}";
             entries[key] = new CEBossLogEntry(internalName, actor, downed, AsTypeList(npcTypes));

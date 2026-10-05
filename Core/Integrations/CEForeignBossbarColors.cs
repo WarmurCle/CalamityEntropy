@@ -4,10 +4,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Core.Integrations
 {
-    /// <summary>
-    /// 给几个常见联装模组的 Boss 补血条颜色。全部按内部名 TryFind,
-    /// 对方改名或没装都只是这一条不生效,不影响其余。
-    /// </summary>
+    /// <summary>按内部名 TryFind,改名或没装只跳过这一条</summary>
     internal static class CEForeignBossbarColors
     {
         public static void Register() {
@@ -50,7 +47,6 @@ namespace CalamityEntropy.Core.Integrations
             }
         }
 
-        /// <summary>按内部名取对方的 ModNPC 类型再上色;找不到就跳过</summary>
         public static void Add(Mod mod, string name, Color color) {
             if (mod == null) {
                 return;

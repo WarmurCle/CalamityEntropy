@@ -13,15 +13,8 @@ using static CalamityEntropy.Common.EGlobalNPC;
 namespace CalamityEntropy.Core.Integrations
 {
     /// <summary>
-    /// 早期的字符串式 <c>Mod.Call</c> 接口。原先整块直写在模组入口里。
-    /// <para>
-    /// 本模组现有两套 Call 面:<see cref="ModCall"/> 的字典分发先跑,返回非 null 就收工;
-    /// 只有它没登记(或登记了却返回 null)的调用名才落到这里。
-    /// 其中 IsBookMark / SetBarColor / GetBookMarkSlots / AddBookMarkSlot /
-    /// SetTTHoldoutCheck / GetTTHoldoutCheck / CopyProjForTTwin 这七个两边都有,
-    /// 且 ModCall 一侧恒返回非 null,所以本文件里对应的分支实际到不了。
-    /// 保留是为了本次重构不改变对外行为,是否删除留给作者裁决。
-    /// </para>
+    /// ModCall 字典先跑,非 null 就停;没登记或返回 null 才到这里
+    /// IsBookMark、SetBarColor、GetBookMarkSlots、AddBookMarkSlot、SetTTHoldoutCheck、GetTTHoldoutCheck、CopyProjForTTwin 两边都有,ModCall 恒非 null,这里的分支到不了,删了会改对外面
     /// </summary>
     internal static class CELegacyCallApi
     {
@@ -106,11 +99,7 @@ namespace CalamityEntropy.Core.Integrations
         }
 
         /// <summary>
-        /// 让场上每个属于本地玩家的扭曲双子仆从复制一份指定弹幕。
-        /// <see cref="ModCall"/> 的同名处理器也走这里。
-        /// 原先那个处理器是回调 <c>Instance.Call("CopyProjForTTwin", …)</c>,
-        /// 而 Call 的第一句就是 ModCall 分发,等于自己调自己:一次调用直接爆栈,
-        /// 且 StackOverflowException 在 .NET 里抓不住,进程当场结束。
+        /// ModCall 同名也走这里,别再 Instance.Call 回来,Call 开头就是 ModCall,自己调自己会爆栈,StackOverflowException 抓不住
         /// </summary>
         public static void CopyProjectileForTwistedTwin(int projectileIndex) {
             Projectile projectile = projectileIndex.ToProj();

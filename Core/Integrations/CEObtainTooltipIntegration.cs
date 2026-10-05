@@ -9,10 +9,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Core.Integrations
 {
-    /// <summary>
-    /// 向 MoreObtainingTooltips 补充本模组几件"没有配方也不掉落自明确来源"的物品的获取途径。
-    /// 未装该模组时静默跳过。
-    /// </summary>
+    /// <summary>没配方、掉落来源也不明确的几件</summary>
     internal static class CEObtainTooltipIntegration
     {
         public static void Register() {

@@ -5,10 +5,7 @@ using System.Collections.Generic;
 
 namespace CalamityEntropy.Core.Integrations.BossLog
 {
-    /// <summary>
-    /// 图鉴沙盒微粒池:星尘 / 余烬 / 孢子 / 火花等一次性小演出(场景坐标,magic-pixel quad)。
-    /// 纯表现,无上限外溢(超容直接丢弃新粒)
-    /// </summary>
+    /// <summary>场景坐标,超容丢新粒</summary>
     internal sealed class CEPortraitMotes
     {
         private struct Mote
@@ -54,7 +51,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             });
         }
 
-        /// <summary>推进一帧(frames = dt×60)</summary>
+        /// <summary>frames 是 dt×60,Life 按秒扣</summary>
         public void Update(float frames) {
             for (int i = motes.Count - 1; i >= 0; i--) {
                 Mote m = motes[i];
