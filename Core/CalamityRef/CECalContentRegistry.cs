@@ -8,12 +8,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Core.CalamityRef
 {
-    /// <summary>
-    /// 灾厄在场时才生效的三张注册表:强制解除灾厄 Boss 对本模组减益的免疫、
-    /// 把本模组的从属部件从灾厄血条里排除、灾厄 Boss 的血条手调色。
-    /// 三者都以 <see cref="CERef.Has"/> 把关,无灾厄时整段静默跳过;
-    /// 原先直写在模组入口的 PostSetupContent 里。
-    /// </summary>
+    /// <summary>减益免疫、血条排除、手调色,都以 CERef.Has 把关</summary>
     internal static class CECalContentRegistry
     {
         /// <summary>3.33 原表:强制 30 个灾厄 Boss 不免疫本模组三个自有减益。CEID 未命中返回 0,必须跳过</summary>

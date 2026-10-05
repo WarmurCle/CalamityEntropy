@@ -6,9 +6,9 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Core.CalamityRef
 {
-    /// <summary>灾厄反射层。读为主;未装灾厄或反射失败一律返回空值,兜底由 CECal 负责。
-    /// 写只允许一类:灾厄自己每帧在 ResetEffects 归位的、按玩家的装备旗标。
-    /// 进度旗标、世界状态与任何进存档或过网络的灾厄状态一律禁止写入</summary>
+    /// <summary>读为主,未装或反射失败一律空值,兜底在 CECal
+    /// 写只限灾厄每帧 ResetEffects 归位的、按玩家的装备旗标
+    /// 进度旗标、世界状态、进存档或过网络的灾厄状态不写</summary>
     internal static class CERef
     {
         private const string CalName = "CalamityMod";

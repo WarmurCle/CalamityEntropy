@@ -129,7 +129,7 @@ namespace CalamityEntropy.Core.CalamityRef
         /// <summary>复仇模式。4.0 兜底:专家</summary>
         public static bool IsRevengeance => CERef.Has ? CERef.GetRevengeance() : Main.expertMode;
 
-        /// <summary>死亡模式。4.0 兜底:大师。注意不与 EntropyMode 叠加</summary>
+        /// <summary>死亡模式,4.0 兜底大师,不与 EntropyMode 叠加</summary>
         public static bool IsDeathMode => CERef.Has ? CERef.GetDeathMode() : Main.masterMode;
 
         /// <summary>终焉之战进行中。4.0 兜底:恒 false</summary>
