@@ -4,17 +4,9 @@ using InnoVault.Rigs2D.Runtime;
 namespace CalamityEntropy.Assets.Register
 {
     /// <summary>
-    /// Boss 骨架资产(InnoVault Rigs2D),定义文件在 <c>Assets/Rigs/*.rig.json</c>。
-    /// <para>
-    /// 与贴图类资产不同,骨架<b>两端都加载</b>(<c>Rig2DLoadenHandle.LoadOnServer</c>):
-    /// 专用服务器只解析 JSON、不取贴图,所以体节落位、触地判定一类要读骨骼的 gameplay 逻辑在服务端也成立。
-    /// 字段在 <c>PostSetupContent</c> 之后才有值,而 ModNPC 模板实例在那之前就构造好了,
-    /// 所以宿主一律<b>惰性</b>创建 <see cref="Rig2DInstance"/>(首帧 AI 里 <c>CreateInstance</c> + <c>Bind</c>),不要在字段初始化器里碰这些
-    /// </para>
-    /// <para>
-    /// 开发机上改 <c>.rig.json</c> 可热重载(<c>/vaultdebug</c> → Rig2D 页,轮询 ModSources 副本);
-    /// 巡游者的链长随难度变化,走代码直建(<c>CruiserChainRig</c>),不在这里
-    /// </para>
+    /// 骨架两端都加载,dedServ 只解析 JSON 不取贴图,骨骼落位在服务端也成立
+    /// PostSetupContent 之后才有值,宿主惰性 CreateInstance + Bind,别写进字段初始化器
+    /// .rig.json 可热重载;巡游者链长随难度,走 CruiserChainRig,不在这里
     /// </summary>
     public static class CERigAssets
     {

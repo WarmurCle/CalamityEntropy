@@ -4,20 +4,11 @@ using ReLogic.Content;
 
 namespace CalamityEntropy.Assets.Register
 {
-    // 共享资产静态字段库,由 InnoVault 的 VaultLoaden 在 PostSetupContent 阶段统一赋值,卸载时自动置 null。
-    //
-    // 使用须知:
-    // - 专用服务器上这些字段永远不会被赋值(恒为 null),只能在绘制等客户端路径读取;
-    //   非绘制路径要用时必须先判 Main.dedServ。
-    // - 字段在 PostSetupContent 之后才可用,Load / SetStaticDefaults / SetDefaults 等加载期禁止读取。
-    // - 类级标签的规则是「类路径 + 字段名 = 资源路径」,字段名必须与文件名完全一致(含大小写和下划线)。
-    // - 只放普通 static 字段:const / readonly / 实例字段都不会被加载。
+    //PostSetupContent 赋值,卸载置 null;dedServ 上恒为 null,非绘制路径先判
+    //类路径 + 字段名 = 资源路径,大小写和下划线都要一致
+    //只放普通 static,const / readonly / 实例字段不加载
 
-    /// <summary>
-    /// Assets/Extra 池的高频贴图。原先经 CEUtils.getExtraTex("名字") 逐帧取,
-    /// 高频字面名改为直接读这里的静态字段;低频与动态拼接的调用仍走 getExtraTex。
-    /// 新增字段前先确认 Assets/Extra 下同名 png 存在。
-    /// </summary>
+    /// <summary>高频字面名直接读字段,低频和动态拼接仍走 CEUtils.getExtraTex</summary>
     [VaultLoaden("CalamityEntropy/Assets/Extra/")]
     public static class CEExtraAssets
     {
@@ -127,10 +118,8 @@ namespace CalamityEntropy.Assets.Register
     }
 
     /// <summary>
-    /// Assets/Effects 共享着色器。字段名与着色器文件名一致;
-    /// pass 名与「文件名 + Pass」不一致的,用字段级标签单独指明。
-    /// 注意:经 VaultLoaden 加载的 Effect 会自动注册 Filters.Scene["CalamityEntropy:文件名"],
-    /// 与 EntropySkies 里既有 key 同名时先核对再迁。
+    /// pass 名不是「文件名+Pass」的,用字段级标签指明
+    /// VaultLoaden 会注册 Filters.Scene["CalamityEntropy:文件名"],和 EntropySkies 同 key 先核对
     /// </summary>
     [VaultLoaden("CalamityEntropy/Assets/Effects/")]
     public static class CEEffectAssets
