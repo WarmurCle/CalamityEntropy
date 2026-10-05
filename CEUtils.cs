@@ -336,9 +336,6 @@ namespace CalamityEntropy
             player.Entropy().MouseWorldListener = true;
             return player.Entropy().MouseWorld;
         }
-        /// <summary>
-        /// 同 <see cref="mouseWorld(Player)"/> 的静态写法。
-        /// </summary>
         public static Vector2 MouseWorld(Player player) => player.mouseWorld();
         public static void CheckAndSpawnHeldProj(this Player player, int type) {
             if (player.ownedProjectileCounts[type] < 1 && Main.myPlayer == player.whoAmI) {
@@ -692,19 +689,9 @@ namespace CalamityEntropy
             return minusRadian < 0 ? (MathHelper.TwoPi + minusRadian) / MathHelper.TwoPi : minusRadian / MathHelper.TwoPi;
         }
 
-        /// <summary>
-        /// 获取纹理实例，类型为 Texture2D
-        /// </summary>
-        /// <param name="texture">纹理路径</param>
-        /// <returns></returns>
         public static Texture2D GetT2DValue(string texture, bool immediateLoad = false) {
             return ModContent.Request<Texture2D>(texture, immediateLoad ? AssetRequestMode.AsyncLoad : AssetRequestMode.ImmediateLoad).Value;
         }
-        /// <summary>
-        /// 获取纹理实例，类型为 AssetTexture2D
-        /// </summary>
-        /// <param name="texture">纹理路径</param>
-        /// <returns></returns>
         public static Asset<Texture2D> GetT2DAsset(string texture, bool immediateLoad = false) {
             return ModContent.Request<Texture2D>(texture, immediateLoad ? AssetRequestMode.AsyncLoad : AssetRequestMode.ImmediateLoad);
         }
@@ -1518,23 +1505,12 @@ namespace CalamityEntropy
         }
         #region Localization
         public static string LocalPrefix => "Mods.CalamityEntropy";
-        /// <summary>
-        /// 干翻所有Tooltip，并借助本地化完全重写一次
-        /// </summary>
-        /// <param name="tooltips"></param>
-        /// <param name="replacedTextPath"></param>
         public static void FuckThisTooltipAndReplace(this List<TooltipLine> tooltips, string replacedTextPath) {
             tooltips.RemoveAll((line) => line.Mod == "Terraria" && line.Name != "Tooltip0" && line.Name.StartsWith("Tooltip"));
             TooltipLine getTooltip = tooltips.FirstOrDefault((x) => x.Name == "Tooltip0" && x.Mod == "Terraria");
             if (getTooltip is not null)
                 getTooltip.Text = Language.GetTextValue(replacedTextPath);
         }
-        /// <summary>
-        /// 干翻所有Tooltip，并借助本地化完全重写一次，重载染色，附带键入值
-        /// </summary>
-        /// <param name="tooltips"></param>
-        /// <param name="replacedTextPath"></param>
-        /// <param name="args"></param>
         public static void FuckThisTooltipAndReplace(this List<TooltipLine> tooltips, string replacedTextPath, Color textColor, params object[] args) {
             tooltips.RemoveAll((line) => line.Mod == "Terraria" && line.Name != "Tooltip0" && line.Name.StartsWith("Tooltip"));
             TooltipLine getTooltip = tooltips.FirstOrDefault((x) => x.Name == "Tooltip0" && x.Mod == "Terraria");
@@ -1545,12 +1521,6 @@ namespace CalamityEntropy
             }
 
         }
-        /// <summary>
-        /// 干翻所有Tooltip，并借助本地化完全重写一次，附带键入值
-        /// </summary>
-        /// <param name="tooltips"></param>
-        /// <param name="replacedTextPath"></param>
-        /// <param name="args"></param>
         public static void FuckThisTooltipAndReplace(this List<TooltipLine> tooltips, string replacedTextPath, params object[] args) {
             tooltips.RemoveAll((line) => line.Mod == "Terraria" && line.Name != "Tooltip0" && line.Name.StartsWith("Tooltip"));
             TooltipLine getTooltip = tooltips.FirstOrDefault((x) => x.Name == "Tooltip0" && x.Mod == "Terraria");
@@ -1558,13 +1528,6 @@ namespace CalamityEntropy
             if (getTooltip is not null)
                 getTooltip.Text = formateText;
         }
-        /// <summary>
-        /// 从最后一行Tooltip后插入值，需填入本地化路径
-        /// </summary>
-        /// <param name="tooltips"></param>
-        /// <param name="textPath"></param>
-        /// <param name="mod">该段文本所属的模组，默认值null，将直接选定为本mod</param>
-        /// <param name="LineName">为这一行tooltip起名，默认CEMod</param>
         public static void QuickAddTooltip(this List<TooltipLine> tooltips, string textPath, Mod mod = null, string LineName = "CEMod") {
             string text = textPath.ToLangValue();
             Mod tooltipMod = mod ?? CalamityEntropy.Instance;
@@ -1576,13 +1539,6 @@ namespace CalamityEntropy
             else
                 tooltips.Insert(tooltips.Count, newLine);
         }
-        /// <summary>
-        /// 从最后一行Tooltip后插入值，需填入本地化路径，重载传参方法
-        /// </summary>
-        /// <param name="tooltips"></param>
-        /// <param name="textPath"></param>
-        /// <param name="mod">该段文本所属的模组，默认值null，将直接选定为本mod</param>
-        /// <param name="LineName">为这一行tooltip起名，默认CEMod</param>
         public static void QuickAddTooltip(this List<TooltipLine> tooltips, string textPath, Mod mod = null, string LineName = "CEMod", params object[] args) {
             string text = textPath.ToLangValue().ToFormatValue(args);
             Mod tooltipMod = mod ?? CalamityEntropy.Instance;
@@ -1594,13 +1550,6 @@ namespace CalamityEntropy
             else
                 tooltips.Insert(tooltips.Count, newLine);
         }
-        /// <summary>
-        /// 从最后一行Tooltip后插入值，需填入本地化路径，重载颜色代码
-        /// </summary>
-        /// <param name="tooltips"></param>
-        /// <param name="textPath"></param>
-        /// <param name="mod">该段文本所属的模组，默认值null，将直接选定为本mod</param>
-        /// <param name="LineName">为这一行tooltip起名，默认CEMod</param>
         public static void QuickAddTooltip(this List<TooltipLine> tooltips, string textPath, Color color, Mod mod = null, string LineName = "CEMod") {
             string text = textPath.ToLangValue();
             Mod tooltipMod = mod ?? CalamityEntropy.Instance;
@@ -1612,13 +1561,6 @@ namespace CalamityEntropy
             else
                 tooltips.Insert(tooltips.Count, newLine);
         }
-        /// <summary>
-        /// 从最后一行Tooltip后插入值，需填入本地化路径，重载传参方法，颜色代码
-        /// </summary>
-        /// <param name="tooltips"></param>
-        /// <param name="textPath"></param>
-        /// <param name="mod">该段文本所属的模组，默认值null，将直接选定为本mod</param>
-        /// <param name="LineName">为这一行tooltip起名，默认CEMod</param>
         public static void QuickAddTooltip(this List<TooltipLine> tooltips, string textPath, Color color, Mod mod = null, string LineName = "CEMod", params object[] args) {
             string text = textPath.ToLangValue().ToFormatValue(args);
             Mod tooltipMod = mod ?? CalamityEntropy.Instance;
@@ -1630,13 +1572,6 @@ namespace CalamityEntropy
             else
                 tooltips.Insert(tooltips.Count, newLine);
         }
-        /// <summary>
-        /// 从最后一行Tooltip后插入值，需直接传入需要的文本内容而不是对应的本地化路径
-        /// </summary>
-        /// <param name="tooltips"></param>
-        /// <param name="textValue"></param>
-        /// <param name="mod">该段文本所属的模组，默认值null，将直接选定为本mod</param>
-        /// <param name="LineName">为这一行tooltip起名，默认CEMod</param>
         public static void QuickAddTooltipDirect(this List<TooltipLine> tooltips, string textValue, Mod mod = null, string LineName = "CEMod") {
             Mod tooltipMod = mod ?? CalamityEntropy.Instance;
             var newLine = new TooltipLine(tooltipMod, LineName, textValue) {
@@ -1647,13 +1582,6 @@ namespace CalamityEntropy
             else
                 tooltips.Insert(tooltips.Count, newLine);
         }
-        /// <summary>
-        /// 从最后一行Tooltip后插入值，需直接传入需要的文本内容而不是对应的本地化路径，重载传参方法
-        /// </summary>
-        /// <param name="tooltips"></param>
-        /// <param name="textValue"></param>
-        /// <param name="mod">该段文本所属的模组，默认值null，将直接选定为本mod</param>
-        /// <param name="LineName">为这一行tooltip起名，默认CEMod</param>
         public static void QuickAddTooltipDirect(this List<TooltipLine> tooltips, string textValue, Mod mod = null, string LineName = "CEMod", params object[] args) {
             string text = textValue.ToFormatValue(args);
             Mod tooltipMod = mod ?? CalamityEntropy.Instance;
@@ -1665,13 +1593,6 @@ namespace CalamityEntropy
             else
                 tooltips.Insert(tooltips.Count, newLine);
         }
-        /// <summary>
-        /// 从最后一行Tooltip后插入值，需直接传入需要的文本内容而不是对应的本地化路径，重载颜色代码
-        /// </summary>
-        /// <param name="tooltips"></param>
-        /// <param name="textValue">文本内容</param>
-        /// <param name="mod">该段文本所属的模组，默认值null，将直接选定为本mod</param>
-        /// <param name="LineName">为这一行tooltip起名，默认CEMod</param>
         public static void QuickAddTooltipDirect(this List<TooltipLine> tooltips, string textValue, Color color, Mod mod = null, string LineName = "CEMod") {
             string text = textValue.ToLangValue();
             Mod tooltipMod = mod ?? CalamityEntropy.Instance;
@@ -1683,13 +1604,6 @@ namespace CalamityEntropy
             else
                 tooltips.Insert(tooltips.Count, newLine);
         }
-        /// <summary>
-        /// 从最后一行Tooltip后插入值，需直接传入需要的文本内容而不是对应的本地化路径，需直接传入需要的文本内容而不是对应的本地化路径，重载传参方法，颜色代码
-        /// </summary>
-        /// <param name="tooltips"></param>
-        /// <param name="textValue">文本内容</param>
-        /// <param name="mod">该段文本所属的模组，默认值null，将直接选定为本mod</param>
-        /// <param name="LineName">为这一行tooltip起名，默认CEMod</param>
         public static void QuickAddTooltipDirect(this List<TooltipLine> tooltips, string textValue, Color color, Mod mod = null, string LineName = "CEMod", params object[] args) {
             string text = textValue.ToFormatValue(args);
             Mod tooltipMod = mod ?? CalamityEntropy.Instance;
@@ -1701,11 +1615,7 @@ namespace CalamityEntropy
             else
                 tooltips.Insert(tooltips.Count, newLine);
         }
-        /// <summary>
-        /// 将整型、浮点与双精度直接变成带百分比符号的字符串，用于进行Tooltip的插值。
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <summary>int 原样加 %,float 和 double 先乘 100</summary>
         public static string ToPercentReal(this object obj) {
             if (obj is int interga)
                 return $"{interga}%";
@@ -1728,11 +1638,6 @@ namespace CalamityEntropy
             }
         }
         #endregion
-        /// <summary>
-        /// 获取玩家到鼠标位置的单位向量
-        /// </summary>
-        /// <param name="player"></param>
-        /// <returns></returns>
         public static Vector2 GetPlayerToMouseVector2(this Player player) {
             Vector2 vec = Main.MouseWorld - player.Center;
             vec = vec.SafeNormalize(Vector2.UnitX);
@@ -1768,40 +1673,16 @@ namespace CalamityEntropy
         public static SpriteEffects FlipHorizonHandler(this Projectile projectile) {
             return projectile.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         }
-        /// <summary>
-        /// 为你的射弹绘制一个发光描边。基于射弹本体颜色
-        /// </summary>
-        /// <param name="proj"></param>
-        /// <param name="totalDrawTime"></param>
-        /// <param name="posMove"></param>
         public static void QuickDrawBloomEdge(this Projectile proj, int totalDrawTime = 8, float rotOffset = 0, float posMove = 2f) {
             QuickDrawBloomEdge(proj, Color.White, totalDrawTime, rotOffset, posMove);
         }
-        /// <summary>
-        /// 为你的射弹绘制一个发光描边。基于射弹本体，重载输入颜色
-        /// </summary>
-        /// <param name="proj"></param>
-        /// <param name="totalDrawTime"></param>
-        /// <param name="posMove"></param>
         public static void QuickDrawBloomEdge(this Projectile proj, Color color, int totalDrawTime = 8, float rotOffset = 0, float posMove = 2f) {
             for (int i = 0; i < totalDrawTime; i++) {
                 Main.spriteBatch.Draw(proj.GetTexture(), proj.Center - Main.screenPosition + MathHelper.ToRadians(i * 60f).ToRotationVector2() * posMove, null, color with { A = 0 }, proj.rotation + rotOffset, proj.GetTexture().Size() / 2, proj.scale, 0, 0f);
             }
         }
         #region 搜索boss掉落物
-        /// <summary>
-        /// 快速遍历单个Boss所有掉落物并存入字典
-        /// </summary>
-        /// <typeparam name="T">NPC类型</typeparam>
-        /// <param name="includeMaterial">是否包含材料</param>
-        /// <returns></returns>
         public static List<int> FindLoots<T>(bool includeMaterial = true) where T : ModNPC => FindLoots(ModContent.NPCType<T>(), includeMaterial);
-        /// <summary>
-        /// 遍历单个boss所有的掉落物并存入字典
-        /// </summary>
-        /// <param name="type">NPC类型</param>
-        /// <param name="includeMaterial">是否包含材料</param>
-        /// </summary>
         public static List<int> FindLoots(int type, bool includeMaterial = true, Mod mod = null) {
             mod ??= CalamityEntropy.Instance;
 
@@ -1866,19 +1747,7 @@ namespace CalamityEntropy
             AlphaSourceBlend = Blend.SourceAlpha
         };
 
-        /// <summary>
-        /// 新的追踪方法，这个会指定一个NPC, 且可以自定义输入额外更新，以及强制速度不受距离影响
-        /// 目前没有角度限制等一类的东西，如果需要则可以补上。
-        /// </summary>
-        /// <param name="proj">射弹</param>
-        /// <param name="target">射弹目标</param>
-        /// <param name="distRequired">最大范围</param>
-        /// <param name="speed">射弹速度</param>
-        /// <param name="inertia">惯性</param>
-        /// <param name="giveExtraUpdate">给予额外更新，默认1</param>
-        /// <param name="forceSpeed">指定射弹无视距离，使射弹使用你输入的速度。这个效果有一个距离特判，即距离比你输入的射弹速度还短的时候才会生效, 一般可无视。</param>
-        /// <param name="maxAngleChage">角度限制，默认为空. </param>
-        /// <param name="ignoreDist">使这个射弹无视索敌距离(distRequired), 默认取否. </param>
+        /// <summary>forceSpeed 只在当前距离短于 speed 时改写速度</summary>
         public static void HomingNPCBetter(this Projectile proj, NPC target, float distRequired, float speed, float inertia, int giveExtraUpdate = 0, float? forceSpeed = null, float? maxAngleChage = null, bool ignoreDist = false) {
             //一般来说你用这个方法就说明target理论上应当可以被追，但……just in case
             if (!proj.friendly || target == null || !target.active)
@@ -1923,26 +1792,10 @@ namespace CalamityEntropy
             else
                 proj.extraUpdates = proj.GetGlobalProjectile<EGlobalProjectile>().StoredEU;
         }
-        /// <summary>
-        /// 重载追踪方法，直接快速设定无视距离的追踪
-        /// </summary>
-        /// <param name="proj"></param>
-        /// <param name="target"></param>
-        /// <param name="speed"></param>
-        /// <param name="inertia"></param>
-        /// <param name="giveExtraUpdate"></param>
-        /// <param name="forceSpeed"></param>
-        /// <param name="maxAngleChage"></param>
+        /// <summary>ignoreDist 写死 true</summary>
         public static void HomingNPCBetter(this Projectile proj, NPC target, float speed, float inertia, int giveExtraUpdate = 0, float? forceSpeed = null, float? maxAngleChage = null) => proj.HomingNPCBetter(target, 1f, speed, inertia, giveExtraUpdate, forceSpeed, maxAngleChage, true);
 
-        /// <summary>
-        /// 数学公式：将角度转化为椭圆上的一个点
-        /// </summary>
-        /// <param name="radians">当前点的弧度</param>
-        /// <param name="shortAxis">半短轴长度(短半径)</param>
-        /// <param name="longAxis">半长轴长度(长半径)</param>
-        /// <param name="rotation">椭圆整体旋转角度(弧度)</param>
-        /// <returns>椭圆上相对于原点的点坐标</returns>
+        /// <summary>shortAxis 短半径,longAxis 长半径,rotation 弧度</summary>
         public static Vector2 ToEllipseVector2Edge(this float radians, float shortAxis, float longAxis, float rotation = 0f) {
             float x = longAxis * (float)Math.Cos(radians);
             float y = shortAxis * (float)Math.Sin(radians);
@@ -1964,14 +1817,6 @@ namespace CalamityEntropy
                 validRot.Add(rawRot[i]);
             }
         }
-        /// <summary>
-        /// 用于搜索距离射弹最近的npc单位，并返回NPC实例。
-        /// </summary>
-        /// <param name="p">射弹</param>
-        /// <param name="maxDist">最大搜索距离</param>
-        /// <param name="ignoreTiles">穿墙搜索, 默认为</param>
-        /// <param name="arrayFirst">数组优先, 这个将会使射弹优先针对数组内第一个单位,默认为否</param>
-        /// <returns>返回一个NPC实例</returns>
         public static NPC FindClosestTarget(this Projectile p, float maxDist, bool ignoreTiles = true, bool arrayFirst = false) {
             //bro我真的要遍历整个NPC吗？
             float distStoraged = maxDist;
@@ -1998,14 +1843,6 @@ namespace CalamityEntropy
             //返回这个NPC实例
             return acceptableTarget;
         }
-        /// <summary>
-        /// 为射弹获取目标，重载Out与判定方法
-        /// </summary>
-        /// <param name="proj"></param>
-        /// <param name="target"></param>
-        /// <param name="targetIndex"></param>
-        /// <param name="anotherDistance"></param>
-        /// <returns></returns>
         public static bool GetTargetSafe(this Projectile proj, out NPC target, int? targetIndex = null, bool canSearchSecondTarget = true, float anotherDistance = 1800f) {
             NPC npc;
             if (targetIndex.HasValue) {
@@ -2023,37 +1860,13 @@ namespace CalamityEntropy
             return npc != null;
         }
 
-        /// <summary>
-        /// 基于当前速度与基准速度比例动态计算部分间隔类的数值。（如用于生成频率和触发间隔等）
-        /// 速度越快，间隔越小，速度越慢，间隔越大
-        /// </summary>
-        /// <param name="baseRates">基准间隔</param>
-        /// <param name="minRates">最小间隔限制</param>
-        /// <param name="maxRates">最大间隔限制</param>
-        /// <param name="baseSpeed">基准速度</param>
-        /// <param name="curSpeed">当前实际速度</param>
-        /// <returns>被动态调整后的整数间隔值（四舍五入取整）</returns>
-        /// <remarks>
-        /// 使用示例：部分受到速度影响导致总体生成频率被降低的射弹生成（如夜明锤子）
-        /// </remarks>
+        /// <summary>越快间隔越小,结果四舍五入</summary>
         public static int RatesBaseOnSpeed(float baseRates, float minRates, float maxRates, float baseSpeed, float curSpeed) {
-            //计算当前速度的模长
             float dynamicSpawnSpeed = (baseSpeed / curSpeed) * baseRates;
-            //基于速度间隔进行刻计算
             dynamicSpawnSpeed = MathHelper.Clamp(dynamicSpawnSpeed, minRates, maxRates);
-            //控制在合理范围内
             int spawnRates = (int)Math.Round(dynamicSpawnSpeed);
-            //返回
             return spawnRates;
         }
-        /// <summary>
-        /// 使射弹较为平滑地冲向一个地点。
-        /// </summary>
-        /// <param name="proj"></param>
-        /// <param name="targetPosition"></param>
-        /// <param name="speed"></param>
-        /// <param name="acceleration"></param>
-        /// <param name="killDistance"></param>
         public static void AccelerateToTarget(this Projectile proj, Vector2 targetPosition, float speed, float acceleration, int killDistance = 0) {
             Vector2 dist = targetPosition - proj.Center;
             float distLength = dist.Length();
@@ -2122,17 +1935,6 @@ namespace CalamityEntropy
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
         }
         public static void BeginDrawVertex(this SpriteBatch SB, SpriteSortMode SM = SpriteSortMode.Immediate) => SB.Begin(SM, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullClockwise, null, Main.GameViewMatrix.TransformationMatrix);
-        /// <summary>
-        /// 快速生成一个简单明了的圆形粒子组
-        /// </summary>
-        /// <param name="dPos"></param>
-        /// <param name="dCounts"></param>
-        /// <param name="dScale"></param>
-        /// <param name="dType"></param>
-        /// <param name="dSpeed"></param>
-        /// <param name="dPosOffset"></param>
-        /// <param name="dGrav"></param>
-        /// <param name="dAlpha"></param>
         public static void CirclrDust(this Vector2 dPos, int dCounts, float dScale, int dType, int dSpeed, float dPosOffset = 0f, bool dGrav = true, int dAlpha = 255) {
             float rotArg = 360f / dCounts;
             for (int i = 0; i < dCounts; i++) {
