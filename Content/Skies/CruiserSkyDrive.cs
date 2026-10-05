@@ -5,12 +5,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Skies
 {
     /// <summary>
-    /// 巡游者天空强度中枢(续租模式,参照 CWR MLordEclipse):驱动源每帧本地上报,
-    /// 下一帧未续租自动过期;各端本地观察 NPC 状态驱动,不走网络包。
-    /// 来源:CruiserHead AI(登场窗 noaitime 渐临 0→0.6,开战推满,P2 抬躁动;
-    /// Boss 在投瓶瞬间即已生成并骑瓶蓄力,故单点上报即覆盖召唤全程)、
-    /// 旧 crSky 计时(VoidMonolith 佩戴,走弱档)。
-    /// Intensity 是演出强度曲线,与 CrSky 的存在包络 opacity 相乘使用。
+    /// 每帧本地续租,下一帧不续就过期,不走网络包
+    /// Intensity 和 CrSky 的 opacity 相乘;来源是 CruiserHead AI,VoidMonolith 走弱档
     /// </summary>
     public static class CruiserSkyDrive
     {

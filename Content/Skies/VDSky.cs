@@ -8,11 +8,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Skies
 {
-    /// <summary>
-    /// 驱逐舰天幕的场景开关:本体在场或强度仍有尾巴时保活,让淡出走完。
-    /// 键与滤镜 CalamityEntropy:VoidDestroyer 不同:那个滤镜由 VDScreenFx.Update 手动开关(拍点要预热),
-    /// 若共键走 ManageSpecialBiomeVisuals 会互相打架
-    /// </summary>
+    /// <summary>键和滤镜 CalamityEntropy:VoidDestroyer 不同,共键会被 ManageSpecialBiomeVisuals 打架</summary>
     public class VDSkyScene : ModSceneEffect
     {
         public override SceneEffectPriority Priority => SceneEffectPriority.BossMedium;
@@ -25,13 +21,9 @@ namespace CalamityEntropy.Content.Skies
     }
 
     /// <summary>
-    /// 虚空驱逐舰「轨道封锁」天幕:出场传送门打开时整片天空(含原版远景)被虚空吞没,深处悬着一颗正被侵蚀的星球,
-    /// 前方一层以本体为中心亮起的六边形封锁力场随拍点呼吸。四层全在 VDSky.fxc 里程序化合成,这里只喂参数。
-    /// 主载荷画在跨 0 切片(<see cref="DrawFront"/>:原版星星/日月/全部视差层/大气雾之后、世界之前),
-    /// 不透明输出随可见强度淡入,原版远景随之淡出;原版整帧没产生切片时由基座兜底触发。
-    /// 可见强度 = 存在包络 opacity(基座)× <see cref="VDSkyDrive.Intensity"/>(宿主编排的出场/死亡/撤离斜坡)。
-    /// 着色器方块走原始像素空间(无矩阵、Viewport 尺寸),UV 就是视口比例;本体 UV 用 GameViewMatrix 折算,反重力用 uFlip 翻渐变。
-    /// 不切 RenderTarget,不依赖 RT 管线与 EnablePixelEffect,复古光照下照样在。状态推进只在 <see cref="UpdatePayload"/>
+    /// 跨 0 切片,可见强度 = opacity × VDSkyDrive.Intensity
+    /// 方块走原始像素空间,本体 UV 用 GameViewMatrix,反重力用 uFlip
+    /// 不切 RenderTarget,不看 EnablePixelEffect;状态只在 UpdatePayload
     /// </summary>
     public class VDSky : CESkyBase
     {

@@ -19,10 +19,8 @@ namespace CalamityEntropy.Content.Skies
     }
 
     /// <summary>
-    /// 悬崖日出全景天空(基座迁移版):渐变天光 + 三层云 + 悬崖 + 太阳 + 八层远景。
-    /// 整幅全景要顶替原版天空,走跨 0 切片,否则原版山峦树影会压在悬崖上。
-    /// 全程画在调用方(背景矩阵)空间,缩放系数用浮点除法,任意分辨率等比铺满;
-    /// 旧实现的 UseSampleState/ExitShaderRegion 会切进 GameViewMatrix 错误空间并泄漏,已废弃。
+    /// 跨 0 切片,画在调用方背景矩阵空间
+    /// 旧 UseSampleState/ExitShaderRegion 会切进 GameViewMatrix 并泄漏
     /// </summary>
     public class SunriseSky : CESkyBase
     {

@@ -9,11 +9,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Skies
 {
     /// <summary>
-    /// 渲染帧戳:每个绘制帧自增一次,供 <see cref="CESkyBase"/> 的切片门控去重。
-    /// SkyManager.DrawToDepth 每帧按视差层回调十余次(次数随生物群系变化),
-    /// 镜头贴近地狱时 DrawUnderworldBackground 还会重置深度追踪器再来一轮,
-    /// 单靠切片条件一帧内可能双触发,须以戳记兜底。
-    /// ModifyTransformMatrix 在 Main.DoDraw 里每渲染帧恰好执行一次,且早于全部背景绘制。
+    /// SkyManager 每帧按视差层回调十余次,贴近地狱还会再来一轮,切片条件一帧可能双触发
+    /// ModifyTransformMatrix 每渲染帧恰好一次,且早于全部背景,帧戳用它去重
     /// </summary>
     [Autoload(Side = ModSide.Client)]
     public class CESkyFrameStamp : ModSystem
@@ -24,11 +21,8 @@ namespace CalamityEntropy.Content.Skies
     }
 
     /// <summary>
-    /// 天空绘制的分辨率无关工具集。背景绘制窗口内(Main.DoDraw → DrawBG)原版篡改了三件事:
-    /// Main.screenWidth/Height 被 BackgroundViewMatrix.Zoom(= ForcedMinimumZoom,高分屏大于 1)预除、
-    /// Main.screenPosition 被加上 BackgroundViewMatrix.Translation、批次矩阵是带平移补偿的背景矩阵。
-    /// 天空代码要么留在调用方空间(预除尺寸 + 背景矩阵),要么走原始像素空间(Viewport 尺寸 + 无矩阵),
-    /// 两种空间不可混用;历史 Bug(4K 铺不满、缩放漂移)全部源于混用。
+    /// DrawBG 里 screenWidth/Height 被 Zoom 预除,screenPosition 加了背景平移,批次是背景矩阵
+    /// 调用方空间和原始像素空间不能混用,4K 铺不满就是混出来的
     /// </summary>
     public static class CESkyDrawing
     {
@@ -82,14 +76,8 @@ namespace CalamityEntropy.Content.Skies
     }
 
     /// <summary>
-    /// 天空基座:统一淡入淡出生命周期、深度切片门控、帧戳去重与相机捕捉守卫。
-    /// 载荷写进 <see cref="DrawFront"/>(跨 0 切片,盖住原版全部视差背景层)或
-    /// <see cref="DrawFar"/>(最远切片,反过来躲在视差层后面),
-    /// 两者每渲染帧各至多执行一次;自开批次必须以 <see cref="CESkyDrawing.RestoreCallerBatch"/> 收尾。
-    /// 「整片天空被换掉」这类天幕一律选跨 0 切片:原版在 DrawSurfaceBG 之前画星空日月、
-    /// 在其中画视差背景与大气雾,而 DrawRemainingDepth 是 DrawSurfaceBG 的最后一句,
-    /// 落在最远切片的载荷会被原版山峦树影整片压住。
-    /// 状态推进(计数器、粒子生灭、音效)一律放 <see cref="UpdatePayload"/>,Draw 只读。
+    /// DrawFront 跨 0 切片,DrawFar 在最远切片,每帧各至多一次;自开批次用 RestoreCallerBatch 收尾
+    /// 最远切片会被原版山峦树影压住,整片换天幕选跨 0;状态推进只放 UpdatePayload
     /// </summary>
     public abstract class CESkyBase : CustomSky
     {
@@ -104,10 +92,7 @@ namespace CalamityEntropy.Content.Skies
         /// <summary>淡出步长(每 tick),默认与淡入一致。</summary>
         protected virtual float FadeOutStep => FadeInStep;
 
-        /// <summary>
-        /// 驱动源是否仍要求天空在场。Update 每 tick 双向重推导 skyActive,
-        /// 免疫 ManageSpecialBiomeVisuals 在淡出期(IsActive 仍为 true)不再回调 Activate 的短路。
-        /// </summary>
+        /// <summary>Update 每 tick 重算,淡出期 ManageSpecialBiomeVisuals 不再回调 Activate</summary>
         protected abstract bool KeepActive();
 
         public override void Activate(Vector2 position, params object[] args) => skyActive = true;
@@ -169,10 +154,7 @@ namespace CalamityEntropy.Content.Skies
         /// <summary>最远切片载荷:画在一切视差背景层后面,会被原版山峦树影压住,只给刻意要躲在背景后的东西用。</summary>
         protected virtual void DrawFar(SpriteBatch spriteBatch) { }
 
-        /// <summary>
-        /// 跨 0 切片载荷:画在原版视差背景层、星空日月与大气雾之前,游戏世界之后。天幕效果的默认落点。
-        /// 原版整帧没产生切片时由基座并到那唯一一次全区间回调上,不必自己写兜底。
-        /// </summary>
+        /// <summary>跨 0 切片;整帧没切片时基座并进那一次全区间回调</summary>
         protected virtual void DrawFront(SpriteBatch spriteBatch) { }
     }
 }
