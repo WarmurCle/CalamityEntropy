@@ -21,11 +21,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.Apsychos
 {
     /// <summary>
-    /// 焦渴:炼狱 Boss,InnoVault 状态机宿主。
-    /// 状态只写声明,宿主按固定顺序落地:目标校验 → 全局转移 → 清声明 → 状态机 → 声明结算 → 尾巴骨架。
-    /// 联机:转移只在权威端(状态号 ai[3],阶段 ai[2]);各端跑同一套运动数学;
-    /// 计时与朝向等累加量随 SendExtraAI 过线,客户端带容差收养。弹幕只在权威端生成。
-    /// 数值在 <see cref="ApsychosDirector"/>,轮换在 <see cref="ApsychosRotation"/>,绘制在 Apsychos.Draw.cs
+    /// 状态号 ai[3],阶段 ai[2],转移只在权威端
+    /// 计时和朝向随 SendExtraAI 过线,弹幕只在权威端生成
     /// </summary>
     [AutoloadBossHead]
     public partial class Apsychos : ModNPC
@@ -358,9 +355,8 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                     tail.rotation = tailRot;
                 }
             }
-            //失步诊断不写在这里:此刻 ReceiveTiming 只把计时存进了待收养槽,状态对象上的 Timer
-            //还没被动过,拿它和 localTimer 比条件恒假。真正的探针在 CEBossStateBase.AdoptNetTiming,
-            //也就是收养真的发生的那一刻,见 CEBossNetDiag.TimingAdopted
+            //失步诊断不写在这里,此刻 Timer 还没被动过,和 localTimer 比恒假
+            //探针在 CEBossStateBase.AdoptNetTiming
             CEBossNetDiag.EndRead(nameof(Apsychos), reader, ExtraAIBytes);
         }
         #endregion

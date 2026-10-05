@@ -3,27 +3,12 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Apsychos.Core
 {
-    /// <summary>
-    /// Apsychos 的唯一数字出口。状态里不许出现裸数字(纯局部插值系数除外)。
-    /// <para>
-    /// 本文件是 2026-09-17 状态机重构时从原 <c>Apsychos.AttackPlayer()</c> 与 <c>SetAIStyle()</c>
-    /// 逐个搬出来的,<b>数值一律照搬,没有一处调整</b>。注释写的是「这个数在原代码里干什么」,
-    /// 不是「这个数为什么该是这样」——原作者没留依据的地方不替他编理由。
-    /// </para>
-    /// </summary>
+    /// <summary>状态里不许裸数字,数值照搬原 AI,不编理由</summary>
     internal static class ApsychosDirector
     {
         //==================== 难度系数 enrange ====================
 
-        /// <summary>
-        /// 难度系数。原代码每帧在 <c>AttackPlayer</c> 开头重算一次,七个来源依次作用:
-        /// 专家 +0.1、大师 +0.1、复仇 +0.15、死亡 +0.15,然后熵灾模式 ×1.4、getGood ×1.1、天顶 ×0.85。
-        /// <para>
-        /// 加法项先全部累完再乘乘法项,顺序不可换(先乘后加会得到不同结果)。
-        /// 它直接乘进速度与射速,所以七个开关必须在各端一致——都是世界级已同步量。
-        /// </para>
-        /// <para>装灾厄读复仇/死亡,缺席仍走专家/大师兜底。勿连带改熵灾那一项。</para>
-        /// </summary>
+        /// <summary>先加后乘,顺序不可换,装灾厄读复仇/死亡,缺席走专家/大师,勿改熵灾那一项</summary>
         public static float Enrange() {
             float enrange = 1f;
             if (Main.expertMode) {
@@ -52,11 +37,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
 
         //==================== 全局 ====================
 
-        /// <summary>
-        /// 状态总龄上限。原代码<b>没有</b>任何超时兜底,这是重构时新加的纯安全网:
-        /// 最长的状态是低血 TailDash(六次鞭击 ≈ 410 帧),1800 帧在正常对局里到不了,
-        /// 存在的意义只是不让状态机死在某个状态里、Boss 靠惯性飘走
-        /// </summary>
+        /// <summary>迁移新加的安全网,正常对局到不了</summary>
         public const int StateTimeoutFrames = 1800;
 
         /// <summary>目标距离超过它就强制回 MoveToTarget(选招时判定)</summary>
@@ -75,11 +56,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
         /// <summary>转二阶段的血量比例。原代码是浮点乘法 <c>life &lt; lifeMax * 0.5f</c>,照搬</summary>
         public const float Phase2LifeRatio = 0.5f;
 
-        /// <summary>
-        /// 低血分界的除数。原代码写的是<b>整数除法</b> <c>lifeMax / 4</c>(不是乘 0.25f),
-        /// 这里保持整数除法以免在 lifeMax 为奇数时出现一格之差。
-        /// 低血轮换表与 TailDash 的鞭击次数共用这条线
-        /// </summary>
+        /// <summary>整数除法 lifeMax / 4,奇数 lifeMax 差一格,低血表和鞭击次数共用</summary>
         public const int LowLifeDivisor = 4;
 
         //==================== 声明通道的自衰减率 ====================
@@ -107,12 +84,9 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
 
         /// <summary>尾骨节数(不含尾尖)。骨架定义里的 seg0..seg11 与代码里的句柄数组按它对齐,改一处要改两处</summary>
         public const int TailSegCount = 12;
-        //以下四组数只作对照,真正生效的是 rig.json 里的同名参数:
-        //Follow 档:骨节间距 46(gaps)、尾尖间距 36、转向速率 0.12(ChainFollow poseWeightBase);
-        //骨链起点相对本体后退 70(neck 骨偏移);
-        //贝塞尔档:第一控制点在本体后方 300 = 颈长 70 + handleA 230,位置跟随率 0.6(followRate,锚点系);
-        //TwoPoint 档:第二控制点相对尾尖后退 160(handleB)。
-        //原「骨节朝向参考点前移 16」(SegFacingOffset)只影响第一节的朝向算法,迁移后由骨轴方向取代,不再需要
+        //真正生效的是 rig.json,Follow 间距 46、尾尖 36、转向 0.12,颈骨后退 70
+        //贝塞尔后方 300 = 颈长 70 + handleA 230,followRate 0.6,TwoPoint handleB 160
+        //原骨节朝向参考点前移 16 已由骨轴取代
 
         //==================== MoveToTarget:接近 ====================
 
@@ -328,10 +302,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
 
         //==================== 轮换表 ====================
 
-        /// <summary>
-        /// 一阶段,10 槽。每一发实招之间都垫一手接近,原表如此。
-        /// 表是纯确定性的(一处随机都没有),所以出招裁决收归权威端不改变任何一次选招结果
-        /// </summary>
+        /// <summary>一处随机都没有,收归权威端不改变选招结果</summary>
         public static readonly ApsychosStateIndex[] Phase1 =
         {
             ApsychosStateIndex.MoveToTarget,
@@ -366,10 +337,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
             ApsychosStateIndex.Laser,
         };
 
-        /// <summary>
-        /// 二阶段低血(&le; 25%),13 槽。接近只剩 5 手,冲刺 4 手、激光 2 手,末尾连着两手冲刺收尾。
-        /// 注意换表<b>不重置</b>序号:血量跌破线的那一刻沿用当前 AIRound 直接进新表
-        /// </summary>
+        /// <summary>换表不重置序号,跌破线时沿用当前 AIRound 进新表</summary>
         public static readonly ApsychosStateIndex[] Phase2Low =
         {
             ApsychosStateIndex.MoveToTarget,

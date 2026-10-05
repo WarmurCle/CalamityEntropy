@@ -6,10 +6,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.Apsychos.Core
 {
-    /// <summary>
-    /// 状态索引,写入 <c>npc.ai[3]</c> 网络同步。
-    /// <b>序号与重构前的 <c>Apsychos.AIStyle</c> 逐个对齐</b>,方便对照旧代码与旧日志
-    /// </summary>
+    /// <summary>写入 ai[3],序号对齐重构前的 AIStyle</summary>
     public enum ApsychosStateIndex
     {
         /// <summary>接近:转向玩家并按距离推进,轮换表里每隔一手就垫一次</summary>
@@ -30,15 +27,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
         Laser = 7,
     }
 
-    /// <summary>
-    /// Apsychos 状态基类。收三样公共小件:收招(走轮换表)、出手(伤害折算)、难度系数。
-    /// <para>
-    /// 拍子一律用 <see cref="VaultState{TContext}.Timer"/> 的<b>区间判断</b>表达,
-    /// 不引入会归零 Timer 的 beat 枚举——原代码每个状态的进度都是
-    /// <c>{AIChangeCounter, num1, num2, num3}</c> 这几个标量的纯函数,没有任何锁存的子拍。
-    /// 加一个锁存的拍号就等于多一个必须过线的量,白送一个失步来源。
-    /// </para>
-    /// </summary>
+    /// <summary>拍子用 Timer 区间判断,不加会归零 Timer 的 beat 枚举</summary>
     public abstract class ApsychosStateBase : CEBossStateBase<ApsychosStateContext>
     {
         public override int StateId => (int)StateIndex;
@@ -53,25 +42,13 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
             => NextAttack(ctx);
 
         /// <summary>
-        /// 收招:对应原代码的 <c>SetAIStyle()</c>。清标量、选下一手。
-        /// <para>
-        /// <b>只有权威端真的选招。</b><see cref="VaultStateMachine{TContext}"/> 在客户端照常跑
-        /// <c>OnUpdate</c> 但会丢弃返回值,所以客户端若也走一遍 <see cref="ApsychosRotation.Pick"/>,
-        /// 状态换不掉、标量却被提前清零,剩下几帧会拿着一堆 0 继续跑旧状态(尾巴瞬间弹回本体那类)。
-        /// 客户端在这里返回 null,安静等换态包——运动数学照跑,只有决策被收归权威端。
-        /// </para>
-        /// <para>
-        /// 注意<b>不</b>清 <see cref="ApsychosStateContext.TailDashReps"/>——原代码的 <c>NPC.ai[2]</c>
-        /// 也不在 <c>SetAIStyle</c> 里清,是由 TailDash 自己在收招前清的
-        /// </para>
+        /// 只有权威端真的选招,客户端返回 null 等包
+        /// 不清 TailDashReps,原 SetAIStyle 也不清
         /// </summary>
         protected static IVaultState<ApsychosStateContext> NextAttack(ApsychosStateContext ctx)
             => IsServer ? ApsychosRotation.Pick(ctx) : null;
 
-        /// <summary>
-        /// 生成敌对弹幕。伤害按阶段折算(一阶段 <c>damage/6.5</c>,二阶段 <c>damage/5.4</c>),
-        /// 击退固定 4,owner 传 -1。客户端不生成
-        /// </summary>
+        /// <summary>一阶段 damage/6.5,二阶段 damage/5.4,击退 4,owner -1,客户端不生成</summary>
         protected static void Shoot<T>(ApsychosStateContext ctx, Vector2 pos, Vector2 velocity,
             float damageMult = 1f, float ai0 = 0f, float ai1 = 0f, float ai2 = 0f) where T : ModProjectile {
             if (Main.netMode == NetmodeID.MultiplayerClient) {

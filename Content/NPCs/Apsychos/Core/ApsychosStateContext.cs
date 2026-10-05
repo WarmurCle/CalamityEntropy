@@ -3,7 +3,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Apsychos.Core
 {
-    /// <summary>尾巴骨架的三种驱动方式。持久量,<b>不</b>每帧回落——转阶段状态不声明它,沿用上一手的档位</summary>
+    /// <summary>持久量,不每帧回落,转阶段不声明它,沿用上一手的档位</summary>
     public enum ApsychosTailStyle
     {
         /// <summary>逐节跟随本体(巡航默认)</summary>
@@ -14,14 +14,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
         TwoPoint,
     }
 
-    /// <summary>
-    /// Apsychos 状态上下文。
-    /// <para>
-    /// 「事实」区是参与判定或需要两端一致的量,随 <c>SendExtraAI</c> 过线;
-    /// 「声明」区每帧由 <see cref="BeginFrameDefaults"/> 回落;
-    /// 「表现」区是纯本地推导的绘制量,不过线(状态号与计时已过线,它们自然收敛)。
-    /// </para>
-    /// </summary>
+    /// <summary>事实过线,声明每帧回落</summary>
     public class ApsychosStateContext : CEBossStateContext
     {
         #region 核心引用
@@ -50,19 +43,12 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
         /// </summary>
         public float Num3 { get; set; }
 
-        /// <summary>
-        /// 甩尾已完成的鞭击次数。原代码借用 <c>NPC.ai[2]</c> 存它,而 ai[2] 现在归阶段用,
-        /// 所以挪成独立字段随包过线。
-        /// <b>注意它不由收招清零</b>——原代码的 <c>SetAIStyle</c> 也不清,是 TailDash 自己在收招前清的
-        /// </summary>
+        /// <summary>原借用 ai[2],ai[2] 现在归阶段,收招不清,TailDash 自己清</summary>
         public int TailDashReps { get; set; }
         #endregion
 
         #region 事实:每帧重算(各端同算,不过线)
-        /// <summary>
-        /// 难度系数,每帧在状态机之前由宿主重算。七个来源全是世界级已同步量,所以各端同值。
-        /// 它直接乘进速度,一旦某端算出不同值,位置误差会无界增长——改动它的任何来源都要先确认同步性
-        /// </summary>
+        /// <summary>宿主每帧重算,来源必须已同步,否则位置误差无界</summary>
         public float Enrange { get; set; } = 1f;
 
         /// <summary>目标距离,每帧重算</summary>
@@ -109,10 +95,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
         public float P2Lerp { get; set; }
         #endregion
 
-        /// <summary>
-        /// 每帧默认值。只回落四个衰减开关——<see cref="TailStyle"/> 是持久量,
-        /// 三个表现累加量由宿主在状态机之后结算,都不在这里动
-        /// </summary>
+        /// <summary>只回落四个衰减开关,TailStyle 是持久量,表现累加量在状态机之后结算</summary>
         public override void BeginFrameDefaults() {
             base.BeginFrameDefaults();
             DecayOutline = true;

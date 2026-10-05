@@ -13,11 +13,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             return CEEffectAssets.WhiteTrans;
         }
 
-        /// <summary>
-        /// 本体 + 尾巴整副骨架集中绘制(尾尖实体的 <c>PreDraw</c> 返回 false)。
-        /// 件全部满亮(原 <c>drawColor = Color.White</c>),层序:本体 → 尾尖 → 12 节尾骨(最后一节压最上),与迁移前的绘制顺序一致;
-        /// 白化 shader 由这里开 Immediate 批次包住整副骨架,骨架里没有带状件,批次不会被中途重开
-        /// </summary>
+        /// <summary>件全满亮,层序本体、尾尖、12 节尾骨,白化开 Immediate,骨架里没有带状件</summary>
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) {
             if (!TailRigReady) {
                 return false;

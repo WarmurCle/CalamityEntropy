@@ -8,12 +8,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Apsychos
 {
-    /// <summary>
-    /// 无魂者图鉴沙盒:灰烬荒原上空的游弋。与战斗端同一副骨架(Apsychos.rig.json):本体为根,12 节尾骨 + 尾尖走 ChainFollow 跟随链。
-    /// 一轮 9 秒:巡游 → 冲刺预告描边(四向加色轮廓)→ 沿朝向猛冲 → 尾尖火光炸亮 + 余烬四散 → 回到路径续巡;
-    /// 每两轮以白化闪切一次阶段(一阶段焰红 ↔ 二阶段幽蓝),描边、尾光、余烬与天幕都跟阶段换色。
-    /// 描边 / 白化用战斗端同一 WhiteTrans 着色器
-    /// </summary>
+    /// <summary>与战斗端同一副骨架,12 节尾骨加尾尖走 ChainFollow</summary>
     internal sealed class ApsychosPortraitActor : CEBossPortraitActor
     {
         public static ApsychosPortraitActor Instance => instance ??= new ApsychosPortraitActor();

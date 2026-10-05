@@ -7,19 +7,9 @@ using Terraria;
 namespace CalamityEntropy.Content.NPCs.Apsychos
 {
     /// <summary>
-    /// 尾巴骨架:InnoVault Rigs2D,定义在 <c>Assets/Rigs/Apsychos.rig.json</c>。
-    /// <para>
-    /// 身体为根,颈骨后退 70,12 节尾骨 + 尾尖骨。两个求解器接管同一串骨,按 <see cref="ApsychosTailStyle"/> 互斥启用:
-    /// <c>follow</c>(ChainFollow,0.12 收敘,与迁移前逐节跟随逐帧数学等价)接管 12 节 + 尾尖;
-    /// <c>bezier</c>(BezierChain,起端控制柄 230 = 原「本体后 300」减去颈长 70,末端控制柄 160,0.6 软跟随,锚点系)接管前 11 节,
-    /// 第 12 节与尾尖都钉在尾尖实体上——原 OnePoint / TwoPoint 的第 12 个采样点就是尾尖。
-    /// 三点式 = 运行时把末端控制柄归零(二次曲线),四点式 = 末端切线取尾尖朝向
-    /// </para>
-    /// <para>
-    /// 两种求解器的骨轴约定相反(跟随链 <c>Dir</c> 指向领队,贝塞尔链指向尾端),贴图件按 <c>axisDeg 180</c> 作图,
-    /// 贝塞尔模式再给全部尾件加半圈 <c>ExtraRotation</c>。
-    /// 骨架是纯本地量,输入只有已同步的本体位姿与尾尖位姿;跟随模式下尾尖实体的位置由骨架写出(原逻辑亦然),各端同算
-    /// </para>
+    /// follow 收 12 节加尾尖,bezier 收前 11 节,第 12 节和尾尖钉在尾尖实体
+    /// 两种求解器骨轴相反,贝塞尔模式再给尾件加半圈 ExtraRotation
+    /// 输入是已同步的本体和尾尖位姿,骨架不过线
     /// </summary>
     public partial class Apsychos
     {
