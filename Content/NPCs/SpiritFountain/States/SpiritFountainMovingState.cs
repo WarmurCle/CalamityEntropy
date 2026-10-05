@@ -8,17 +8,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.SpiritFountain.States
 {
-    /// <summary>
-    /// 横扫。一号柱按余弦左右大幅摆动(幅度从 0 慢慢涨满),柱子按位移量倾斜,
-    /// 叠加一套随阶段升级的弹幕:
-    /// <list type="bullet">
-    /// <item>一阶段:每 20/enrage 帧一发随机方向魂弹</item>
-    /// <item>二阶段:每 16/enrage 帧对射两发,方向绕着全局计数旋转</item>
-    /// <item>三阶段:每 80/enrage 帧一轮八向向心齐射,整条弹道提前铺满预警线;本体这一段可以被直接打</item>
-    /// </list>
-    /// <para>本段 700 帧,收招进回旋。</para>
-    /// <para>联机:摇摆相位与幅度是持久累加量,过线;弹幕与随机初速只在权威端。</para>
-    /// </summary>
+    /// <summary>三阶段本体可以被直接打,摇摆相位和幅度过线,弹幕只在权威端</summary>
     [VaultState((int)SpiritFountainStateIndex.Moving, typeof(SpiritFountainStateContext))]
     public class SpiritFountainMovingState : SpiritFountainStateBase
     {

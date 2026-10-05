@@ -3,15 +3,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
 {
-    /// <summary>
-    /// 冥魂泉的唯一数字出口。状态里不许出现裸数字(纯局部插值系数除外)。
-    /// <para>
-    /// 本文件是状态机重构时从原 <c>SpiritFountain.AI()</c> 逐个搬出来的,
-    /// <b>数值一律照搬,没有一处调整</b>。注释写的是「这个数在原代码里干什么」,
-    /// 不是「这个数为什么该是这样」,原作者没留依据的地方不替他编理由。
-    /// </para>
-    /// <para>部件 <see cref="SpiritRing"/> 的数字仍留在它自己的文件里:它是手写 AI 的伴生部件,不是状态文件。</para>
-    /// </summary>
+    /// <summary>状态里不许裸数字,数值照搬原 AI,不编理由,SpiritRing 的数字留在它自己的文件</summary>
     internal static class SpiritFountainDirector
     {
         //==================== 实体定义 ====================
@@ -67,10 +59,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
 
         //==================== 阶段:每帧按血量比例重算 ====================
 
-        /// <summary>
-        /// 六条血量分界。原代码每帧把 <c>phase</c> 归 1 再逐条自增,所以它是<b>确定性推导量</b>:
-        /// 血量本身走原版同步,各端算出同值,不需要额外过线
-        /// </summary>
+        /// <summary>每帧归 1 再逐条自增,血量已同步,各端同值,不过线</summary>
         public const float Phase1_2 = 0.9f;
         public const float Phase1_3 = 0.75f;
         public const float Phase2_1 = 0.66f;
@@ -108,14 +97,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
 
         //==================== 难度系数 enrage ====================
 
-        /// <summary>
-        /// 难度系数,每帧在状态机之前重算。三组互斥的加法项:
-        /// 大师 +0.2 否则专家 +0.1、死亡 +0.2 否则复仇 +0.1、天顶 +0.3 否则 getGood +0.15。
-        /// <para>
-        /// 它直接除进射速间隔、乘进摇摆推进,所以三组开关必须各端一致,都是世界级已同步量。
-        /// 装灾厄读复仇/死亡,缺席仍走大师/专家兜底
-        /// </para>
-        /// </summary>
+        /// <summary>三组互斥加法,除进射速、乘进摇摆,装灾厄读复仇/死亡,缺席走大师/专家</summary>
         public static float Enrage() {
             float enrage = 1f;
             if (Main.masterMode) {
@@ -141,17 +123,10 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
 
         //==================== 全局 ====================
 
-        /// <summary>
-        /// 状态总龄上限。原代码<b>没有</b>任何超时兜底,这是重构时新加的纯安全网:
-        /// 最长的实战状态是 Moving(701 帧),出场演出约 501 帧,3600 帧在正常对局里到不了。
-        /// SpiritSlicing 是终局循环态,单独覆写为不限
-        /// </summary>
+        /// <summary>迁移新加的安全网,正常对局到不了,SpiritSlicing 单独覆写为不限</summary>
         public const int StateTimeoutFrames = 3600;
 
-        /// <summary>
-        /// 同一帧内最多续跑几次状态体。原 AI() 里实际能连的最长链是「转阶段触发 → PhaseTranse1 → SpiritSlicing」,
-        /// 这里给 8 只是防死循环
-        /// </summary>
+        /// <summary>同帧续跑上限,防死循环</summary>
         public const int MaxChainStepsPerFrame = 8;
 
         /// <summary>弹幕伤害除数。<b>整数除法</b>(<c>NPC.damage / 6</c>)后再乘倍率,不能改成乘 1/6f</summary>
@@ -304,7 +279,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
 
         //==================== Boomerang:魂环回旋 ====================
 
-        /// <summary>柱子收回中线附近轻晃。<c>Main.GameUpdateCount</c> 是各端独立的本地帧计数,见宿主里的说明</summary>
+        /// <summary>柱子轻晃读 GameUpdateCount,各端独立的本地帧计数,照搬</summary>
         public const float BoomerangIdleFreq = 0.02f;
         public const float BoomerangIdleAmp = 100f;
         public const float BoomerangOffsetLerp = 0.03f;
@@ -330,7 +305,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
 
         public const float TransColumn2Alpha = 0.45f;
         public const float TransColumn2AlphaLerp = 0.04f;
-        /// <summary>本段时长。注意状态体内<b>额外再自增一次</b> aiTimer,所以实际只跑 71 帧</summary>
+        /// <summary>状态体内额外再自增一次 aiTimer,实际只跑 71 帧</summary>
         public const int TransDuration = 140;
 
         //==================== SpiritSlicing:十字斩,终局循环态 ====================

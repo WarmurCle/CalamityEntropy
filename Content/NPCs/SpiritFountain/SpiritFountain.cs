@@ -39,23 +39,8 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
     }
 
     /// <summary>
-    /// 冥魂泉:InnoVault 状态机宿主。
-    /// <para>
-    /// 本体<b>全程不动</b>——整条 AI 一次都没写过 <c>velocity</c>,位置只在出场首帧落一次。
-    /// 它的「运动」全在两根魂柱的偏移与倾角上,而魂柱又直接决定 <see cref="SpiritRing"/> 的位置,
-    /// 所以柱子的四个量是这只 Boss 真正的运动状态,必须过线。
-    /// </para>
-    /// <para>
-    /// 宿主按固定顺序落地:序幕(阶段/难度/魂乱判定/计数/粒子)→ 血量触发的转阶段插入 →
-    /// 状态机同帧续跑链 → 尾声(摇摆清零/脱战/眼睛插值)。
-    /// 数值在 <see cref="SpiritFountainDirector"/>,链序在 <see cref="SpiritFountainRotation"/>,
-    /// 绘制在 SpiritFountain.Draw.cs。
-    /// </para>
-    /// <para>
-    /// 联机:转移只在权威端(状态号 ai[3],阶段 ai[2]);各端跑同一套柱子数学;
-    /// 柱子四量、摇摆相位/幅度、回旋进度、全局计数与聚魂倒计时随 SendExtraAI 过线,客户端带容差收养计时。
-    /// 弹幕与魂环只在权威端生成,骰点只在权威端骰、结果过线。
-    /// </para>
+    /// 全程不写 velocity,位置只在出场首帧落一次
+    /// 柱子四量必须过线,转移只在权威端,状态号 ai[3],阶段 ai[2]
     /// </summary>
     [AutoloadBossHead]
     public partial class SpiritFountain : ModNPC
@@ -72,11 +57,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
         /// <summary>魂环数量,按难度与世界种子在 <c>SetDefaults</c> 里算一次</summary>
         public int SpiritCount = SpiritFountainDirector.SpiritCountBase;
 
-        /// <summary>
-        /// 清场倒计时。原代码每帧自减却<b>从来没有任何地方把它置正</b>,所以它恒为非正、
-        /// <c>&gt; 0</c> 的分支(魂环重置、弹幕自杀)在当前版本里到不了。照搬保留,
-        /// 它是 <see cref="SpiritRing"/> 与 <c>SpiritBullet</c> 的对外可达字段
-        /// </summary>
+        /// <summary>每帧自减却从来没被置正,&gt; 0 的分支到不了,照搬,SpiritRing 还在读</summary>
         public int ClearMyProjs = 0;
         #endregion
 
@@ -84,11 +65,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
         /// <summary>当前状态号。原 <c>AIStyle ai</c> 字段现在由 ai[3] 直接推导,所以客户端不用额外过线就能读到</summary>
         public SpiritFountainStateIndex ai => (SpiritFountainStateIndex)(int)NPC.ai[3];
 
-        /// <summary>
-        /// 当前状态体本帧读到的计时,等价于原 <c>aiTimer</c>。
-        /// 读的是 <see cref="SpiritFountainStateBase.BodyTimer"/> 而不是 <c>Timer</c>:
-        /// 基类的自增排在状态体之后,魂环要的是自增前的值
-        /// </summary>
+        /// <summary>读 BodyTimer 不是 Timer,魂环要自增前的值</summary>
         public int aiTimer => (stateMachine?.CurrentState as SpiritFountainStateBase)?.BodyTimer ?? 0;
 
         /// <summary>全局帧计数,永不归零。原 <c>Counter</c></summary>
@@ -367,14 +344,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             }
         }
 
-        /// <summary>
-        /// 血量驱动的一次性插入件:阶段号超过 3(血量跌破 66%)就无条件切进转阶段演出,不等当前招打完。
-        /// <para>
-        /// 它在原 AI() 里的位置是出场演出块之后、横扫块之前,所以切出去的转阶段演出会在<b>同一帧</b>接着跑,
-        /// 由后面的 <see cref="RunStateChain"/> 自然完成。
-        /// </para>
-        /// <para>一次性闸与柱子归位各端都做(只是记账与已过线量的本地推导),换态与魂环生成只在权威端。</para>
-        /// </summary>
+        /// <summary>阶段号超过 3 就切转阶段,不等当前招打完,同帧接着跑,换态和魂环只在权威端</summary>
         private void EvaluatePhaseTransition() {
             if (Context.Phase <= SpiritFountainDirector.PhaseTransThreshold || !Context.SpawnSpirits2) {
                 return;
@@ -392,17 +362,8 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
         }
 
         /// <summary>
-        /// 同帧续跑链。
-        /// <para>
-        /// 原 AI() 的七个状态块是自上而下的顺序 <c>if</c>(不是 <c>else if</c>),所以在第 k 块里换到
-        /// <b>更靠后</b>的状态时,新块会在同一帧接着跑、且读到的 <c>aiTimer</c> 是 0;
-        /// 换回<b>更靠前</b>的状态(落环喷泉 → 横扫)则要等下一帧,而那一帧开头的统一自增
-        /// 会让它从 1 起跑。两种情形都要还原,否则整段节拍会整体偏一帧。
-        /// </para>
-        /// <para>
-        /// 客户端不走这条链:它的换态来自 ai[3],<see cref="VaultStateMachine{TContext}.Update"/>
-        /// 在被动换态之后本来就会立刻跑一次新状态体,再续跑一次就成了一帧双跑。
-        /// </para>
+        /// 顺序 if 不是 else if,换到更靠后同帧续跑且 aiTimer 是 0,换回更靠前等下一帧从 1 起跑
+        /// 客户端不走这条链,被动换态之后框架已经跑过一次,再续跑就是一帧双跑
         /// </summary>
         private void RunStateChain() {
             if (VaultUtils.isClient) {
@@ -459,14 +420,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
         }
 
         #region 同步
-        /// <summary>
-        /// 定长块,顺序固定在这一处。先计时,再持久累加量(两根柱子的四个量 + 摇摆相位/幅度),
-        /// 最后状态标量。字节数是编译期常量:不许加运行时条件决定写不写某个字段。
-        /// <para>
-        /// 原版 <c>SyncNPC</c> 不带 <c>NPC.rotation</c>,不过这只 Boss 的本体 rotation 从头到尾没被写过,
-        /// 真正要过线的是<b>柱子的</b> rotation
-        /// </para>
-        /// </summary>
+        /// <summary>定长,不许按条件省略,本体 rotation 没被写过,要过线的是柱子的 rotation</summary>
         public override void SendExtraAI(BinaryWriter writer) {
             EnsureContext();
             int stateId = (int)NPC.ai[3];

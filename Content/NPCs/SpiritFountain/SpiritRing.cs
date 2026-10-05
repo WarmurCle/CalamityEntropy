@@ -15,19 +15,9 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.SpiritFountain
 {
     /// <summary>
-    /// 魂环。本体的伴生部件,血量经 <c>realLife</c> 转发给本体——本体常年免伤,
-    /// 玩家真正能打的就是这一圈环。
-    /// <para>
-    /// 它是<b>锚定部件</b>:大部分时间位置由本体直写(<c>Center = 本体 + 柱偏移 + 柱方向 × 自身偏移</c>),
-    /// 只有回旋段脱柱与落环喷泉段抛飞时才做速度积分,而且两段都会收敛回柱子上。
-    /// 所以只清原版平滑(<see cref="CEBossHost.RunAnchoredPartFrame"/>),
-    /// <b>绝不</b>进 <see cref="CEBossNetMotion"/> 的预测纠偏器:预测器算的是 position + velocity,
-    /// 会和直写位置打架。
-    /// </para>
-    /// <para>
-    /// 联机:骰点(脱柱目标偏移、抛飞初速)一律只在权威端骰,结果随 ExtraAI 或原版速度同步过线;
-    /// 运动数学各端都跑。
-    /// </para>
+    /// 血量经 realLife 转发给本体,本体常年免伤
+    /// 锚定部件,只清平滑,不进预测纠偏器,预测器会和直写位置打架
+    /// 骰点只在权威端
     /// </summary>
     public class SpiritRing : ModNPC
     {
@@ -76,11 +66,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             LProgress = 0;
         }
 
-        /// <summary>
-        /// 定长块,顺序固定在这一处。
-        /// 除了偏移本身,脱柱插值的四个量与回旋飞行的三个闸也必须过线:
-        /// 它们全是骰出来或一次性锁存的,一旦分叉就靠自身收敛不回来
-        /// </summary>
+        /// <summary>脱柱插值和回旋飞行的闸必须过线,分叉后靠自身收敛不回来</summary>
         public override void SendExtraAI(BinaryWriter writer) {
             writer.Write(columnOffset);
             writer.Write(Lerping);
@@ -148,11 +134,8 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
 
             bool DontSetPos = false;
             bool DontSetRot = false;
-            //原代码写的是 == 1。fountain.aiTimer 现在是过线并带 ±2 容差收养的状态计时,
-            //客户端可能一步跨过第 1 帧;而落环喷泉整段没有第二处清这个预警透明度,
-            //跨过去就会拿着上一招的激光预警光束画满 280 帧。
-            //这是一次幂等的清零,提前到换态帧(aiTimer == 0)再清一次不改变任何后续取值,
-            //代价只是预警光束早一帧熄灭,所以改成区间判定
+            //原 == 1,aiTimer 带 ±2 收养,跨过第 1 帧会拿着上一招的预警画满 280 帧
+            //幂等清零,提前到换态帧再清一次,改成区间
             if (fountain.aiTimer <= 1) {
                 AlphaLaserWarning = 0;
             }
@@ -314,9 +297,8 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             if (fountain.ai == SpiritFountainStateIndex.RingFountains) {
                 DontSetPos = true;
                 DontSetRot = true;
-                //扶正同样从 == 1 放宽成区间:SyncNPC 不带 NPC.rotation,而本段一路 DontSetRot,
-                //客户端跨过第 1 帧就会顶着上一招的朝向抛飞(判定盒宽高也是按朝向算的)。
-                //写的是常量 0,提前一帧到换态帧清一次等价
+                //扶正从 == 1 放宽成区间,SyncNPC 不带 rotation,跨过第 1 帧会顶着上一招朝向抛飞
+                //写的是常量 0,提前一帧清一次等价
                 if (fountain.aiTimer <= 1) {
                     NPC.rotation = 0;
                 }

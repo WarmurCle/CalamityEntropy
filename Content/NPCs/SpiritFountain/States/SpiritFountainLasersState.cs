@@ -3,11 +3,7 @@ using InnoVault.StateMachines;
 
 namespace CalamityEntropy.Content.NPCs.SpiritFountain.States
 {
-    /// <summary>
-    /// 激光。本体只负责把柱子的横向偏移收回中线,整段火力都在魂环的扫射上
-    /// (瞄准、预警、发射全写在 <see cref="SpiritRing"/> 里,按本状态与 <c>aiTimer</c> 取模驱动)。
-    /// <para>本段 460 帧,收招进落环喷泉。</para>
-    /// </summary>
+    /// <summary>火力在 SpiritRing,按本状态和 aiTimer 取模</summary>
     [VaultState((int)SpiritFountainStateIndex.Lasers, typeof(SpiritFountainStateContext))]
     public class SpiritFountainLasersState : SpiritFountainStateBase
     {

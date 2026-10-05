@@ -5,11 +5,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
 {
-    /// <summary>
-    /// 状态索引,写入 <c>npc.ai[3]</c> 网络同步。
-    /// <b>序号与重构前的 <c>SpiritFountain.AIStyle</c> 逐个对齐</b>,方便对照旧代码与旧日志。
-    /// 原枚举只被 <see cref="SpiritRing"/> 引用过(全仓 grep 确认),迁移时整体换成本枚举
-    /// </summary>
+    /// <summary>写入 ai[3],序号对齐重构前的 AIStyle,SpiritRing 原来引用旧枚举</summary>
     public enum SpiritFountainStateIndex
     {
         /// <summary>出场演出:300 帧聚魂 → 显形 → 放出一号柱魂环</summary>
@@ -29,17 +25,8 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
     }
 
     /// <summary>
-    /// 冥魂泉状态基类。收三样公共小件:线性推进(原代码的顺序 if 链)、出手(伤害折算)、
-    /// 以及部件要读的「状态体本帧看到的计时」。
-    /// <para>
-    /// 拍子一律用 <see cref="VaultState{TContext}.Timer"/> 的<b>区间判断</b>表达,
-    /// 不引入会归零 Timer 的 beat 枚举:原代码每个状态的进度都是 <c>aiTimer</c> 这一个标量的纯函数,
-    /// 加一个锁存的拍号就等于多一个必须过线的量。
-    /// </para>
-    /// <para>
-    /// <b>不设目标门槛</b>:原 AI() 从头到尾没有任何「没目标就不跑」的判断,
-    /// 出场演出与十字斩都必须在无目标时照常推进,所以 <see cref="RequiresTarget"/> 整族关掉
-    /// </para>
+    /// 拍子用 Timer 区间判断,不加会归零 Timer 的 beat 枚举
+    /// 原 AI 没有没目标就不跑的判断,RequiresTarget 整族关掉
     /// </summary>
     public abstract class SpiritFountainStateBase : CEBossStateBase<SpiritFountainStateContext>
     {
@@ -53,14 +40,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
         /// <summary>原代码没有超时兜底,这里统一挂一个到不了的安全网,见 Director 的说明</summary>
         public override int TimeoutFrames => SpiritFountainDirector.StateTimeoutFrames;
 
-        /// <summary>
-        /// 状态体本帧实际读到的 <c>aiTimer</c>。
-        /// <para>
-        /// 基类把 <c>Timer++</c> 放在状态体之后,而原代码里 <see cref="SpiritRing"/> 是在同一帧的稍后
-        /// 读 <c>fountain.aiTimer</c> 的,读到的正是状态体看到的那个值(而不是自增后的值)。
-        /// 部件通路一律读这个量,读 <see cref="VaultState{TContext}.Timer"/> 会整体错一帧。
-        /// </para>
-        /// </summary>
+        /// <summary>状态体本帧看到的 aiTimer,基类 Timer++ 在状态体之后,部件读 Timer 会错一帧</summary>
         public int BodyTimer { get; private set; }
 
         public override void OnEnter(SpiritFountainStateContext ctx) {
@@ -82,30 +62,16 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
         protected override IVaultState<SpiritFountainStateContext> OnTimeout(SpiritFountainStateContext ctx)
             => Advance(ctx, StateIndex);
 
-        /// <summary>
-        /// 延后一帧才执行的换态:补上原代码下一帧开头那次 <c>aiTimer++</c>。
-        /// <para>
-        /// 原 AI() 里七个状态块是顺序 <c>if</c>,换到序号更靠<b>前</b>的状态(落环喷泉 → 横扫)时,
-        /// 新块要等下一帧才跑,而那一帧开头的统一自增已经把 aiTimer 推到 1,
-        /// 所以新状态的首个执行帧读到的是 1 而不是 0。宿主的续跑链在判定为「延后」时调它
-        /// </para>
-        /// </summary>
+        /// <summary>换到更靠前的状态要等下一帧,开头自增让首帧读到 1 不是 0</summary>
         public void AdoptDeferredEntry() {
             Timer++;
         }
 
-        /// <summary>
-        /// 线性推进到下一手。<b>只有权威端真的换态</b>:
-        /// <see cref="VaultStateMachine{TContext}"/> 在客户端照常跑状态体但会丢弃返回值,
-        /// 客户端安静等换态包(ai[3]),运动数学照跑,只有决策被收归权威端
-        /// </summary>
+        /// <summary>只有权威端真的换态,客户端等 ai[3]</summary>
         protected static IVaultState<SpiritFountainStateContext> Advance(SpiritFountainStateContext ctx, SpiritFountainStateIndex from)
             => IsServer ? SpiritFountainRotation.Pick(ctx, from) : null;
 
-        /// <summary>
-        /// 生成敌对弹幕。伤害是 <c>NPC.damage / 6</c> 的<b>整数除法</b>再乘倍率,击退 3,owner 传 -1。
-        /// 客户端不生成(守卫在 <see cref="SpiritFountain.Shoot"/> 里,与原代码同一处)
-        /// </summary>
+        /// <summary>damage / 6 整数除法再乘倍率,owner -1,客户端不生成</summary>
         protected static void Shoot<T>(SpiritFountainStateContext ctx, Vector2 pos, Vector2 velocity,
             float damageMult = 1f, float ai0 = 0f, float ai1 = 0f, float ai2 = 0f) where T : ModProjectile {
             ctx.Owner?.Shoot(ModContent.ProjectileType<T>(), pos, velocity, damageMult, ai0, ai1, ai2);

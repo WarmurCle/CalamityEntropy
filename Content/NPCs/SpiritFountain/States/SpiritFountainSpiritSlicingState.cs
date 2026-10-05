@@ -5,15 +5,9 @@ using Terraria;
 namespace CalamityEntropy.Content.NPCs.SpiritFountain.States
 {
     /// <summary>
-    /// 十字斩。双柱一横一竖同时扫过全场,每 132 帧(90 + 42)在第 90 帧翻一次向,
-    /// 端点距离 ±1400,正负由权威端开局骰一次。本体这一段可以被直接打。
-    /// <para>
-    /// <b>终局循环态,不再退出。</b>跑满 800 帧后,在周期开头 40 帧的窗口里把计时<b>原地归零</b>重开——
-    /// 原代码写的是「切到自己」,但状态没变、只是 <c>aiTimer = 0</c>,
-    /// 所以这里不走换态:计时本身随快照过线,原地归零是两端都能由计时纯推导出来的量,
-    /// 换态反而会写出一个和旧值相同的 ai[3],客户端根本察觉不到。
-    /// </para>
-    /// <para>联机:两柱的行程端点是骰出来的持久量,权威端骰、随 ExtraAI 过线;翻向由计时推导,各端同算。</para>
+    /// 终局循环,跑满后在开头 40 帧窗口把计时原地归零,不走换态
+    /// 换态会写出相同的 ai[3],客户端察觉不到
+    /// 端点由权威端骰一次,随 ExtraAI 过线
     /// </summary>
     [VaultState((int)SpiritFountainStateIndex.SpiritSlicing, typeof(SpiritFountainStateContext))]
     public class SpiritFountainSpiritSlicingState : SpiritFountainStateBase
@@ -31,18 +25,13 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.States
             ctx.EyeAlphaTarget = 1;
             int t = SpiritFountainDirector.SlicingPeriod;
 
-            //原代码把两柱的朝向写在 aiTimer == 1 那一拍里。计时随快照过线且带 ±2 容差收养,
-            //客户端可能一步跨过第 1 帧,而 SyncNPC 本身不带 NPC.rotation、这两个量在本状态里
-            //又没有第二处写入口,跨过去就会拿着上一招的朝向画满整个 801 帧周期。
-            //这两行写的是常量,从第 1 帧起每帧重写一遍与只写一次完全等价(本状态里没有别的写入口),
-            //所以改成区间判定,彻底取消「被跨过」这个可能
+            //原 == 1,计时带 ±2 收养,跨过第 1 帧会拿着上一招朝向画满 801 帧
+            //写的是常量,每帧重写与只写一次等价,改成区间
             if (Timer >= SpiritFountainDirector.SlicingInitFrame) {
                 owner.column1.rotation = -MathHelper.PiOver2;
                 owner.column2.rotation = 0;
             }
-            //骰点仍然钉死在恰好第 1 帧:权威端的 Timer 从不被收养
-            //(ReceiveExtraAI 只在客户端跑,服务端会丢弃 MessageID.SyncNPC),
-            //严格 +1 单调递增,所以这一拍在权威端不可能被跳过、也不可能重放
+            //骰点钉死在第 1 帧,权威端 Timer 不被收养,严格 +1,不会被跳过也不会重放
             if (Timer == SpiritFountainDirector.SlicingInitFrame && IsServer) {
                 //两柱各自的起始方向:只在权威端骰,结果随 ExtraAI 的 Num 过线
                 owner.column1.Num = SpiritFountainDirector.SlicingReach * (Main.rand.NextBool() ? 1 : -1);
@@ -60,9 +49,8 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.States
             }
 
             if (Timer > SpiritFountainDirector.SlicingLoopAfter && Timer % t < SpiritFountainDirector.SlicingLoopWindow) {
-                //原代码在这里写了 ai = SpiritSlicing(状态没变)+ aiTimer = 0,等价于原地重开。
-                //窗口宽 40 帧,±2 的收养容差跨不过去;发包让客户端的计时跟着一起重开,
-                //免得在途的旧快照把刚归零的计时又拽回 800 上下
+                //原代码切到自己再把 aiTimer 归零,状态没变
+                //窗口宽 40 帧,±2 跨不过去,发包让客户端跟着重开
                 Timer = 0;
                 MarkNetUpdate(ctx);
             }

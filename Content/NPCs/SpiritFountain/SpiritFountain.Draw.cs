@@ -10,10 +10,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.SpiritFountain
 {
-    /// <summary>
-    /// 冥魂泉的绘制层。纯本地:只读上下文里的表现量,不回写任何 gameplay 状态。
-    /// 本体贴图从不画,画面上的「本体」是三层瞳孔贴图 + 两根魂柱的流光
-    /// </summary>
+    /// <summary>本体贴图不画,画面是三层瞳孔加两根魂柱</summary>
     public partial class SpiritFountain
     {
         //绘制用 Extra 池贴图,基座 CEExtraAssets 未收编的先放本文件私有字段,加载期由 VaultLoaden 赋值

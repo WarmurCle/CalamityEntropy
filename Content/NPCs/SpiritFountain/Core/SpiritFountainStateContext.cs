@@ -2,19 +2,7 @@
 
 namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
 {
-    /// <summary>
-    /// 冥魂泉状态上下文。
-    /// <para>
-    /// 「事实」区是参与判定或需要两端一致的量,随 <c>SendExtraAI</c> 过线;
-    /// 「声明」区每帧由 <see cref="BeginFrameDefaults"/> 回落;
-    /// 「表现」区是纯本地推导的绘制量,不过线。
-    /// </para>
-    /// <para>
-    /// 两根柱子(<see cref="SpiritFountain.column1"/> / <see cref="SpiritFountain.column2"/>)
-    /// 仍挂在宿主上:它们是魂环读取的对外可达字段,挪走会连带改掉部件的访问路径。
-    /// 柱子里参与判定的四个量(offset / rotation / alpha / Num)由宿主写进 ExtraAI。
-    /// </para>
-    /// </summary>
+    /// <summary>事实过线,声明每帧回落,柱子四量由宿主写进 ExtraAI</summary>
     public class SpiritFountainStateContext : CEBossStateContext
     {
         #region 核心引用
@@ -23,16 +11,10 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
         #endregion
 
         #region 事实:过线
-        /// <summary>
-        /// 全局帧计数,对应原 <c>Counter</c>。<b>永不归零</b>,状态换来换去都照涨,
-        /// 三个阶段的射速节拍与魂环的驻点摆动都拿它取模
-        /// </summary>
+        /// <summary>原 Counter,永不归零,射速节拍和驻点摆动拿它取模</summary>
         public float GlobalCounter { get; set; }
 
-        /// <summary>
-        /// 回旋段的进度量,对应原 <c>num1</c>。魂环按自己的 Index 和它比大小决定什么时候脱柱,
-        /// 所以它是<b>部件也要读的判定量</b>,必须过线
-        /// </summary>
+        /// <summary>原 num1,魂环按 Index 和它比大小决定脱柱,必须过线</summary>
         public float Num1 { get; set; }
 
         /// <summary>横扫段的摇摆相位,对应原 <c>mCounter</c>。逐帧积分出来又直接决定柱子横坐标,典型的持久累加量</summary>
@@ -41,10 +23,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
         /// <summary>横扫段的摇摆幅度,对应原 <c>mAmp</c>。同上,从 0 慢慢涨到 1</summary>
         public float MAmp { get; set; }
 
-        /// <summary>
-        /// 聚魂倒计时,对应原 <c>GatheringAnimation</c>。它锁着出场演出的硬时序,
-        /// 中途加入的客户端要靠它对上演出进度
-        /// </summary>
+        /// <summary>原 GatheringAnimation,中途加入靠它对上演出进度</summary>
         public int GatheringAnimation { get; set; } = SpiritFountainDirector.GatheringFrames;
 
         /// <summary>一号柱魂环的一次性生成闸(出场演出结束时用掉)</summary>
@@ -55,18 +34,12 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
         #endregion
 
         #region 事实:每帧重算(各端同算,不过线)
-        /// <summary>
-        /// 难度系数,每帧在状态机之前由宿主重算。六个来源全是世界级已同步量,所以各端同值。
-        /// 它除进射速间隔又乘进摇摆推进,改动它的任何来源都要先确认同步性
-        /// </summary>
+        /// <summary>宿主每帧重算,来源必须已同步,否则射速和摇摆分叉</summary>
         public float Enrage { get; set; } = 1f;
         #endregion
 
         #region 事实:跨帧闸(由已过线的状态号确定性推导)
-        /// <summary>
-        /// 魂环的免伤开关,对应原 <c>DontTakeDmg</c>。只有 PhaseTranse1 会把它打开,
-        /// 等价于「当前状态是不是转阶段演出」,而状态号本身走 ai[3],所以不必单独过线
-        /// </summary>
+        /// <summary>只有转阶段打开,等价于状态号,不必单独过线</summary>
         public bool DontTakeDmg { get; set; }
 
         /// <summary>落点只写一次的闸,对应原 <c>SetPos</c>。各端各自落一次,随后由原版位置同步对账</summary>
@@ -86,16 +59,10 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
         /// </summary>
         public bool StareAtLocalPlayer { get; set; } = true;
 
-        /// <summary>
-        /// 本帧是否保留横扫摇摆量。对应原代码挂在 Moving 块上的 <c>else { mCounter = 0; mAmp = 0; }</c>,
-        /// 所以只有 Moving 会打开它,其余状态一律把摇摆清零
-        /// </summary>
+        /// <summary>只有 Moving 打开,其余状态把摇摆清零</summary>
         public bool KeepMovingSway { get; set; }
 
-        /// <summary>
-        /// 本帧提前收工:对应原代码聚魂期间那个 <c>return</c>。它同时吃掉了尾声的脱战判定、
-        /// 眼睛插值与摇摆清零,少一样都会让出场演出的观感对不上
-        /// </summary>
+        /// <summary>聚魂期间的 return,同时吃掉脱战、眼睛插值和摇摆清零</summary>
         public bool HaltFrame { get; set; }
         #endregion
 
@@ -116,10 +83,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
         public int CenterRing { get; set; }
         #endregion
 
-        /// <summary>
-        /// 每帧默认值。四个声明通道全部回落;<see cref="DontTakeDmg"/> 与 <see cref="SetPos"/> 是跨帧闸,
-        /// 三个表现累加量由状态自己推进,都不在这里动
-        /// </summary>
+        /// <summary>四个声明回落,跨帧闸和表现累加量不在这里动</summary>
         public override void BeginFrameDefaults() {
             base.BeginFrameDefaults();
             EyeAlphaTarget = SpiritFountainDirector.EyeAlphaIdle;

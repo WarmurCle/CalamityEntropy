@@ -9,16 +9,8 @@ using Terraria;
 namespace CalamityEntropy.Content.NPCs.SpiritFountain.States
 {
     /// <summary>
-    /// 出场演出。一整段硬时序,三拍:
-    /// <list type="number">
-    /// <item>首帧落点(档案馆坐标无效就落在目标玩家身上)+ 两发定格闪光</item>
-    /// <item>300 帧聚魂:四面八方的归魂粒子往中心收,期间<b>整帧提前收工</b>——
-    /// 计时压回 0、脱战判定与眼睛插值全部跳过</item>
-    /// <item>显形:眼睛先亮到 0.6,本体才开始浮现;140 帧后喷流减速,200 帧定格收尾并放出一号柱魂环</item>
-    /// </list>
-    /// <para>公平阀:全程 <c>dontTakeDamage</c>,魂环还没生成,玩家打不到也挨不着。</para>
-    /// <para>联机:落点写入各端都跑(读的是各端本地的目标),权威端顺手 netUpdate 让原版位置同步来对账;
-    /// 魂环生成只在权威端。<see cref="SpiritFountainStateBase.RequiresTarget"/> 已整族关掉,无目标也照演。</para>
+    /// 300 帧聚魂期间整帧提前收工,计时压回 0,脱战和眼睛插值都跳过
+    /// 落点各端都跑,魂环只在权威端,无目标也照演
     /// </summary>
     [VaultState((int)SpiritFountainStateIndex.SpawnAnimation, typeof(SpiritFountainStateContext))]
     public class SpiritFountainSpawnAnimationState : SpiritFountainStateBase
@@ -45,8 +37,8 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.States
                 owner.column1.rotation = -MathHelper.PiOver2;
                 npc.Opacity = 0;
                 ctx.SetPos = true;
-                // 禁忌档案坐标写入源已随灾厄 IL 删除,新世界恒为 (-1,-1):下行 pos.X < 10 即安全短路,
-                // 落点回退到目标玩家处;仅旧档遗留有效坐标时才用档案馆位置(2026-08-27 核查定稿)
+                //禁忌档案坐标写入源已删,新世界恒为 (-1,-1),pos.X < 10 回退到玩家
+                //旧档有效坐标仍用档案馆位置
                 Vector2 pos = EDownedBosses.GetDungeonArchiveCenterPos();
                 npc.Center = pos.X < SpiritFountainDirector.ArchivePosValidX
                     ? (npc.HasValidTarget ? npc.target.ToPlayer().Center : Main.player[0].Center)
@@ -56,11 +48,9 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.States
                 MarkNetUpdate(ctx);
             }
 
-            //原代码判的是 GatheringAnimation == 300(那是个纯本地字段,各端第一次跑到这里时必然是 300)。
-            //迁移后聚魂倒计时随 ExtraAI 过线并带 ±2 容差收养,拿到快照的客户端会从 300 以下起跑,
-            //等值判定被一步跨过 = 客户端永远看不到出场闪光。改成「本状态第一个执行帧」的本地一次性闸:
-            //权威端首帧的倒计时就是 300,二者完全等价;客户端则恢复原代码「第一次看见就放」的表现。
-            //倒计时已经走完(中途加入到显形段)时不补放,免得凭空多一发 320 帧的大闪光
+            //原 == 300,过线后带 ±2 收养,等值会被跨过,客户端永远看不到出场闪光
+            //改成首帧本地闸,权威端首帧倒计时就是 300,等价
+            //倒计时已走完不补放
             if (!shineFired && ctx.GatheringAnimation > 0) {
                 shineFired = true;
                 if (IsLocal) {
