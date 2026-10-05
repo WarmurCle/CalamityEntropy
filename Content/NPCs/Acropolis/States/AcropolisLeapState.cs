@@ -4,7 +4,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Acropolis.States
 {
-    /// <summary>原 JumpCD &lt;= -260,不开火,跳射计数为负,落地闸开着</summary>
+    /// <summary>追高跳沿用原 JumpCD 小于等于 -260,期间不开火,跳射计数保持为负,落地闸开着</summary>
     [VaultState((int)AcropolisStateIndex.Leap, typeof(AcropolisStateContext))]
     public class AcropolisLeapState : AcropolisStateBase
     {

@@ -76,7 +76,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.States
             }
             if (c == LuminarisDirector.SubductionBrakeFrame) {
                 //这一拍<b>没有效果</b>:同一帧上面的追撞分支已经先写过速度,而 0 与 -1 两帧追撞又会继续加速。
-                //原代码如此,照搬
+                //原代码就是这样,原样保留
                 npc.velocity *= 0;
                 npc.rotation = 0;
             }

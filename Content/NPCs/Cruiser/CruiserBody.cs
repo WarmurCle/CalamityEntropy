@@ -10,7 +10,7 @@ using static CalamityEntropy.Content.NPCs.Cruiser.CruiserHead;
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
     //[StaticImmunity(typeof(CruiserHead))]
-    /// <summary>位置从链骨直读,velocity 为 0,只清平滑,不进预测器,不调 EndFrame,骨架没建好时退回 wormFollow</summary>
+    /// <summary>体节位置从链骨直接读取,velocity 保持 0,只清平滑,不进预测器,不调 EndFrame,骨架没建好时退回 wormFollow</summary>
     public class CruiserBody : ModNPC
     {
         public override void BossHeadRotation(ref float rotation) {

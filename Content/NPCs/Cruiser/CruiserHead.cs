@@ -20,8 +20,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
     /// <summary>
-    /// 纠偏收养之后才是死亡、骑瓶、选目标、阶段、状态机,骨架在最后
-    /// 状态号 ai[3],阶段 ai[2],头、体、尾都关 netOffset,留着平滑接缝每包崩
+    /// 纠偏和收养之后才跑死亡、骑瓶、选目标、阶段和状态机,骨架放在最后
+    /// 状态号写入 ai[3],阶段写入 ai[2],头、体、尾都关掉 netOffset,留着平滑的话接缝会在每个包上崩开
     /// </summary>
     [AutoloadBossHead]
     public partial class CruiserHead : ModNPC
@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         private bool b_added = false;
         /// <summary>转阶段的体节增删只做一次(纯本地闩锁,判据 <c>phaseTrans &gt;= 122</c> 本身是同步量)</summary>
         private bool phase2SegmentsDone = false;
-        /// <summary>揭幕和转阶段首帧原来是等值判定,计数过线会被硬写,等值可能被跨过,改成闩锁</summary>
+        /// <summary>揭幕和转阶段首帧原来是等值判定,计数过线会被直接改写,等值可能被跨过,所以改成闩锁</summary>
         private bool introRevealed = false;
         private bool phaseTransCued = false;
         #endregion
@@ -105,7 +105,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         public bool flag = false;
         public int counterc = 0;
         public float jaslowdown = 0;
-        /// <summary>从未被赋值,所以 <see cref="ModifyCollisionData"/> 与 <see cref="ModifyHitPlayer"/> 的两条分支是死代码。照搬</summary>
+        /// <summary>从未被赋值,所以 <see cref="ModifyCollisionData"/> 与 <see cref="ModifyHitPlayer"/> 的两条分支到不了,原样保留</summary>
         public float aitype = 0;
         #endregion
 
@@ -249,7 +249,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 //骑瓶期链骨全部钉在头部,由 UpdateChainRig 处理
                 foreach (Projectile pj in Main.ActiveProjectiles) {
                     if (pj.ModProjectile is VoidBottleThrow) {
-                        //骑瓶期是位置直写,不是速度积分,预测器会跟它打架,丢掉预测
+                        //骑瓶期是位置直写,不是速度积分,预测器会和它冲突,所以丢掉预测
                         NPC.Center = pj.Center;
                         netMotion.ForgetPrediction();
                         break;
@@ -261,11 +261,11 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             }
             noaitime--;
 
-            //原判据 noaitime == 0,过线硬写可能跨过 0,揭幕拍会丢,改成闩锁加区间
+            //原判据是 noaitime 等于 0,过线后直接改写可能跨过 0,揭幕拍会丢,所以改成闩锁加区间
             if (!introRevealed && noaitime <= 0) {
                 introRevealed = true;
-                //中途加入的客户端 noaitime 早已深负,整拍静默吞掉:它既不该补揭幕闪电,
-                //更不该把 dontTakeDamage 抹成 false——那会盖掉刚从包里读到的转阶段免伤
+                //中途加入的客户端 noaitime 已经是很大的负数,这一拍静默跳过,它既不该补揭幕闪电,
+                //更不该把 dontTakeDamage 写成 false,那会覆盖刚从包里读到的转阶段免伤
                 if (noaitime > -CruiserStateBase.CueCatchUpGrace) {
                     NPC.dontTakeDamage = false;
                     //登场揭幕拍点:天幕闪电齐发
@@ -362,7 +362,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             if (whiteLerp < 1) {
                 whiteLerp += CruiserDirector.DeathWhiteRamp;
             }
-            //死亡演出每 6 tick 一颗爆闪,dedServ 守卫别漏,服务端孤儿 PRT 对不上
+            //死亡演出每 6 tick 放一颗爆闪,dedServ 守卫不能漏,否则服务端会多出对不上的粒子
             if (DeathAnmCount % CruiserDirector.DeathBurstInterval == 0 && !Main.dedServ) {
                 PRTLoader.NewParticle<PRT_PremultBurst>(NPC.Center, Vector2.Zero, Color.LightBlue, 3.2f).Configure(1, true, PRTDrawModeEnum.AdditiveBlend, 0);
             }
@@ -491,7 +491,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.height = CruiserDirector.HeightPhase2;
             ApplyPhase2Segments();
             if (!VaultUtils.isClient && CurrentState == CruiserStateIndex.PhaseTransing) {
-                //直写 VoidSpike,不走选招口,不清 ChangeCounter 也不动 AttackIndex
+                //转阶段收尾直接写入 VoidSpike,不走选招口,不清 ChangeCounter,也不动 AttackIndex
                 stateMachine.ChangeState(new CruiserVoidSpikeState());
                 NPC.netUpdate = true;
             }
@@ -590,7 +590,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
         #region 同步
         /// <summary>
-        /// 定长,不许按条件省略,先计时,再累加量,再标量,最后部件索引
+        /// 包是定长的,不能按条件省略字段,先写计时,再写累加量,再写标量,最后写部件索引
         /// 新增过线:朝向、鞭毛角、鞭击角速度和闩锁、战场半径、激光瞄准计时、轮换序号
         /// </summary>
         public override void SendExtraAI(BinaryWriter writer) {

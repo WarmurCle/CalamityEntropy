@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 {
     /// <summary>
     /// 卫城机器的表现层:整机由 Rigs2D 骨架件集中绘制(腿、两条臂、本体、肩甲、停靠的鱼叉),焦痕着色器逐件套参,受击与死亡粒子。
-    /// 纯本地,只读 gameplay 状态,绝不回写
+    /// 绘制只在本地跑,只读 gameplay 状态,绝不回写
     /// </summary>
     public partial class AcropolisMachine
     {
@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             shader.Parameters["texSize"].SetValue(texture.Size());
         }
 
-        /// <summary>焦痕按 whoAmI 播种,顺序照搬 prepareShader,停靠鱼叉不可见也摇一次,免得后面几件跟着跳</summary>
+        /// <summary>焦痕按 whoAmI 播种,顺序保持 prepareShader 的原顺序,停靠鱼叉不可见也摇一次,免得后面几件跟着跳</summary>
         private void RollCharred(UnifiedRandom random, Texture2D noise) {
             if (charredAlpha.Length != rig.Pieces.Length) {
                 charredAlpha = new float[rig.Pieces.Length];
@@ -168,7 +168,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.ScreenShake(Vector2.Zero, 100), CEUtils.getDistance(NPC.Center, Main.LocalPlayer.Center), 1200);
 
                 for (int i = 0; i < 40; i++) {
-                    //40颗EMediumSmoke随机喷出,跟PulseRing/Shine同帧,死亡密度最高的一段
+                    //死亡时 40 颗 EMediumSmoke 随机喷出,跟 PulseRing 和 Shine 同帧,这一段死亡密度最高
                     PRTLoader.NewParticle<PRT_EMediumSmoke>(NPC.Center + CEUtils.randomPointInCircle(60 * NPC.scale), CEUtils.randomPointInCircle(32 * NPC.scale), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(1f, 4f) * NPC.scale).Configure(1, true, PRTDrawModeEnum.AlphaBlend, CEUtils.randomRot(), 120);
                 }
             }

@@ -94,7 +94,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
             Texture2D glow = CEUtils.getExtraTex("Glow");
             float drawScale = Projectile.scale;
             if (Mode == ModeDecor) {
-                //装饰无人机从 Z 2 的背景降入环阵:纯绘制的假深度(它本来就没有判定),装饰即深度预告
+                //装饰无人机从 Z 2 的背景降入环阵,这是只用于绘制的假深度,它本来就没有判定,这层装饰就是深度预告
                 float z = VDDirector.LaserDecorDepth * (1f - VDVfx.EaseOut(Age / (float)VDDirector.LaserDecorDescend));
                 drawPos = VDDepth.Project(Projectile.Center, z) - Main.screenPosition;
                 drawScale *= VDDepth.Scale(z);

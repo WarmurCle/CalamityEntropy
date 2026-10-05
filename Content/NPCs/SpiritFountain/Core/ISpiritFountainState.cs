@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
         public abstract SpiritFountainStateIndex StateIndex { get; }
         public override string StateName => StateIndex.ToString();
 
-        /// <summary>原代码整条 AI 没有目标门槛,照搬</summary>
+        /// <summary>原代码整条 AI 没有目标门槛,原样保留</summary>
         public override bool RequiresTarget => false;
 
         /// <summary>原代码没有超时兜底,这里统一挂一个到不了的安全网,见 Director 的说明</summary>

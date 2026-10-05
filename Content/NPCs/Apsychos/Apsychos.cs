@@ -21,7 +21,7 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.Apsychos
 {
     /// <summary>
-    /// 状态号 ai[3],阶段 ai[2],转移只在权威端
+    /// 状态号写入 ai[3],阶段写入 ai[2],只有权威端转移状态
     /// 计时和朝向随 SendExtraAI 过线,弹幕只在权威端生成
     /// </summary>
     [AutoloadBossHead]
@@ -303,7 +303,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
 
         /// <summary>
         /// 定长块,顺序固定。累加量(朝向)写在计时之后,不改 CEBossNetMotion 的线格式。
-        /// 字节数是编译期常量:不许加运行时条件决定写不写某个字段
+        /// 字节数是编译期常量,不能按运行时条件决定写不写某个字段
         /// </summary>
         public override void SendExtraAI(BinaryWriter writer) {
             EnsureContext();

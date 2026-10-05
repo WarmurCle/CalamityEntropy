@@ -159,24 +159,24 @@ namespace CalamityEntropy.Common
                 nint shellWindow = GetShellWindow();
 
                 EnumWindows((hWnd, lParam) => {
-                    // 跳过不可见窗口和Shell窗口
+                    //枚举回调跳过不可见窗口和 Shell 窗口
                     if (hWnd == shellWindow) return true;
                     if (!IsWindowVisible(hWnd)) return true;
 
                     int length = GetWindowTextLength(hWnd);
-                    if (length == 0) return true; // 跳过无标题窗口
+                    if (length == 0) return true; //长度是 0 时跳过没有标题的窗口
 
-                    // 获取窗口标题
+                    //这里读取窗口标题
                     StringBuilder builder = new StringBuilder(length + 1);
                     GetWindowText(hWnd, builder, builder.Capacity);
 
                     string title = builder.ToString();
                     if (string.IsNullOrEmpty(title)) return true;
 
-                    // 获取进程ID
+                    //这里读取进程 ID
                     GetWindowThreadProcessId(hWnd, out uint processId);
 
-                    // 获取进程信息
+                    //这里读取进程信息
                     try {
                         Process process = Process.GetProcessById((int)processId);
                         windows.Add(new WindowInfo {
@@ -187,7 +187,7 @@ namespace CalamityEntropy.Common
                             FilePath = process.MainModule?.FileName ?? "Unknown"
                         });
                     } catch {
-                        // 无法获取进程信息
+                        //读进程失败时仍记下这个窗口
                         windows.Add(new WindowInfo {
                             Handle = hWnd,
                             Title = title,
@@ -204,7 +204,7 @@ namespace CalamityEntropy.Common
             }
 
             /// <summary>
-            /// 获取前台活动窗口
+            /// GetForegroundWindow 读取前台活动窗口
             /// </summary>
             [DllImport("user32.dll")]
             private static extern nint GetForegroundWindow();

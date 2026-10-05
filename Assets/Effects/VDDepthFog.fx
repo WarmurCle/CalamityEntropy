@@ -1,14 +1,14 @@
-//s1 扰动采样,输出预乘 alpha,AlphaBlend
+//s1 的噪声扰动采样位置,输出预乘 alpha 并用 AlphaBlend 混合
 sampler uImage0 : register(s0);
 sampler uImage1 : register(s1);
 
 float uTime;
 float uOpacity;
-float uFog;//雾量 0..1,VDDepth.FogAmount
+float uFog;//该值是雾量,范围 0 到 1,对应 VDDepth.FogAmount
 float3 uFogColor;
-float uDesat;//去饱和 0..1
-float2 uBlur;//模糊半径,UV
-float uShimmer;//噪声扰动幅度,UV
+float uDesat;//该值是去饱和程度,范围 0 到 1
+float2 uBlur;//该值是模糊半径,单位是 UV
+float uShimmer;//该值是噪声扰动幅度,单位是 UV
 
 float4 PixelFunc(float4 baseColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
 {

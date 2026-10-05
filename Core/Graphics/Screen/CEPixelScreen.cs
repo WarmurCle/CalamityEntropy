@@ -141,7 +141,7 @@ namespace CalamityEntropy.Core.Graphics.Screen
                         alphaBlendDraw.Add(pixelPRT);
                         break;
                     default:
-                        nonPremultipliedDraw.Add(pixelPRT);   //非Additive非AlphaBlend全进这桶,旧EParticle三分支语义
+                        nonPremultipliedDraw.Add(pixelPRT);   //非 Additive 也非 AlphaBlend 的粒子全进这桶,沿用旧 EParticle 的三分支
                         break;
                 }
             }

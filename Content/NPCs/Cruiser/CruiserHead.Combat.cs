@@ -98,7 +98,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         }
 
         public override bool ModifyCollisionData(Rectangle victimHitbox, ref int immunityCooldownSlot, ref MultipliableFloat damageMultiplier, ref Rectangle npcHitbox) {
-            //aitype 从未被赋值,这一支到不了。照搬
+            //aitype 从未被赋值,这一支到不了,原样保留
             if (aitype == 3) {
                 npcHitbox = new Rectangle(0, 0, 0, 0);
                 return true;

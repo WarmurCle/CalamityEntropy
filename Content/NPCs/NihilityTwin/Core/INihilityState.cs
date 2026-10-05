@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin.Core
         P2CellCannon = 9,
         /// <summary>二阶段 2:螺旋冲刺。三次冲刺,细胞吐慢速螺旋弹墙</summary>
         P2DashSpiral = 10,
-        /// <summary>二阶段 3:对撞合体。两端反向拉开 40 帧后对撞,命中即爆散 36 发,1/2 概率原地再来</summary>
+        /// <summary>二阶段 3 是对撞合体,两端反向拉开 40 帧后对撞,命中就爆散 36 发,有 1/2 的概率原地再来一次</summary>
         P2Merge = 11,
         /// <summary>二阶段 4:分裂增殖。第 2 帧放出三只小细胞,随后持续环射</summary>
         P2Split = 12,

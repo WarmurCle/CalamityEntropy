@@ -3,12 +3,12 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Acropolis.Core
 {
-    /// <summary>状态和宿主里不许裸数字,数值照搬原 AI,不编理由,腾空腿姿是例外</summary>
+    /// <summary>状态和宿主里不能写裸数字,数值按原 AI 保留,不另编理由,腾空腿姿是例外</summary>
     internal static class AcropolisDirector
     {
         //==================== 难度系数 enrange ====================
 
-        /// <summary>先加后乘,顺序不可换,基数是血量,满血 1 濒死 2,缺灾厄仍走专家/大师,别连带改熵灾</summary>
+        /// <summary>难度系数先加后乘,顺序不能换,基数是血量,满血是 1,濒死是 2,缺灾厄仍走专家或大师,不要连带改熵灾</summary>
         public static float Enrange(NPC npc) {
             float enrange = 1 + (1 - (float)npc.life / npc.lifeMax);
             if (Main.expertMode) {
@@ -92,7 +92,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis.Core
 
         /// <summary>出场初值</summary>
         public const float TeslaCDInit = 120f;
-        /// <summary>骰点:1/6 出炮击,再 1/6 出跳射,其余单发</summary>
+        /// <summary>选招先按 1/6 出炮击,再按 1/6 出跳射,其余出单发</summary>
         public const int BarrageRollDenominator = 6;
         public const int JumpRollDenominator = 6;
         /// <summary>抽中炮击或跳射之后的冷却</summary>
@@ -139,7 +139,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis.Core
         public const float JumpLaunchSpeedY = -24f;
         /// <summary>起跳时写入的跳跃冷却</summary>
         public const int JumpShootJumpCD = 200;
-        /// <summary>跳射计数初值,每帧自减,归零前一直开火</summary>
+        /// <summary>跳射计数从初值起每帧自减,归零前一直开火</summary>
         public const int JumpShootFrames = 200;
         /// <summary>起跳时把炮口节拍设成 30,所以第一发比常规慢</summary>
         public const float JumpShootTeslaUpInit = 30f;
@@ -151,7 +151,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis.Core
         public const float JumpShootSpeed = 3f;
         /// <summary>弹幕 ai0:对地弹标记</summary>
         public const float JumpShootProjAi0 = 1f;
-        /// <summary>原代码对这一发连调两次 PointAPos,等于转向速率翻倍,照搬</summary>
+        /// <summary>原代码对这一发连调两次 PointAPos,等于转向速率翻倍,原样保留</summary>
         public const int JumpShootAimTimes = 2;
 
         //==================== 追高跳 Leap(原 JumpCD &lt;= -260 那一支)====================
@@ -169,7 +169,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis.Core
 
         //==================== 落地判定(背景行为)====================
 
-        /// <summary>跳射计数降到这个值以下才允许落地,等于起跳后 50 帧内不许收</summary>
+        /// <summary>跳射计数降到这个值以下才允许落地,等于起跳后 50 帧内不能收招</summary>
         public const int JumpEndCounterGate = 150;
         /// <summary>跳跃冷却降到这个值以下无条件收招</summary>
         public const int JumpEndJumpCD = 20;
@@ -212,9 +212,9 @@ namespace CalamityEntropy.Content.NPCs.Acropolis.Core
         public const float HarpoonCDInit = 120f;
         /// <summary>发射后的再装填冷却</summary>
         public const float HarpoonCDAfterLaunch = 160f;
-        /// <summary>冷却归零后每帧的蓄力增量,满 1 即发</summary>
+        /// <summary>鱼叉冷却归零后每帧增加这么多蓄力,蓄满 1 就发射</summary>
         public const float HarpoonChargeRate = 0.01f;
-        /// <summary>蓄力超过它就停止追瞄,等于「锁定即承诺」的预告窗</summary>
+        /// <summary>蓄力超过它,鱼叉臂就停止追瞄,锁定后不再改瞄点</summary>
         public const float HarpoonAimChargeCap = 0.8f;
         /// <summary>发射初速(乘 scale)</summary>
         public const float HarpoonLaunchSpeed = 36f;
@@ -314,7 +314,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis.Core
         public const float DeathShakeMaxPower = 5f;
         /// <summary>充电粒子尺寸(乘 scale)</summary>
         public const float DeathParticleScale = 0.1f;
-        /// <summary>死亡爆炸:基础 40,专家 ×2,大师或死亡难度再 ×2,半径 500(乘 scale)</summary>
+        /// <summary>死亡爆炸的基础伤害是 40,专家再乘 2,大师或死亡难度再乘 2,半径是 500 再乘 scale</summary>
         public const int DeathBlastDamage = 40;
         public const float DeathBlastRadius = 500f;
 

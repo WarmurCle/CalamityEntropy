@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.NPCs.VoidInvasion
             if (NPC.life > 0) {
                 return;
             }
-            //死亡64颗Void burst,Opacity 0.2~1随机,跟旧VoidCultist HitEffect密度一致
+            //死亡时放 64 颗 Void burst,Opacity 在 0.2 到 1 之间随机,密度跟旧 VoidCultist 的 HitEffect 一致
             for (int i = 0; i < 64; i++) {
                 var p = PRTLoader.NewParticle<PRT_Void>(NPC.Center, CEUtils.randomRot().ToRotationVector2() * ((float)Main.rand.Next(0, 400)) * 0.01f, Color.White, 1f);
                 p.Opacity = ((float)Main.rand.Next(20, 100)) * 0.01f;

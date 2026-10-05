@@ -1,4 +1,4 @@
-//条带在 s1,x 为进度 0头..1尾,y 为横截面,梯形用 TexCoord.z 还原纵向 uv
+//条带贴图在 s1,x 是进度,0 在头,1 在尾,y 是横截面,梯形用 TexCoord.z 还原纵向 UV
 sampler uImage0 : register(s0);
 sampler uImage1 : register(s1);
 float3 uColor;

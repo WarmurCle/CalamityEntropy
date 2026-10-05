@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Common.DrawLayers
 {
-    /// <summary>钩子在 CEDrawHooks</summary>
+    /// <summary>绘制钩子挂在 CEDrawHooks</summary>
     internal static class CEWorldOverlayDraw
     {
         [VaultLoaden("CalamityEntropy/Assets/Extra/shell")]
@@ -21,17 +21,17 @@ namespace CalamityEntropy.Common.DrawLayers
         internal static Asset<Texture2D> MariviniumShieldTex;
 
         private static int permafrostCircleType = -1;
-        //每个玩家至多画一个永冻牢笼环(原行为是找到第一个就 break),单趟扫描时用它记录已画过的 owner
+        //每个玩家最多只画一个永冻牢笼环,原来找到第一个就 break,单趟扫描用这个数组记下已经画过的 owner
         private static readonly bool[] permafrostDrawn = new bool[256];
 
         public static float AzShieldBarAlpha = 0;
 
-        /// <summary>在 PostSetupContent 期一次解析,不再在绘制循环里用 -1 哨兵懒解析</summary>
+        /// <summary>ResolveTypes 在 PostSetupContent 里解析一次弹幕类型,绘制循环不再用 -1 哨兵懒解析</summary>
         public static void ResolveTypes() {
             permafrostCircleType = ModContent.ProjectileType<PrisonOfPermafrostCircle>();
         }
 
-        /// <summary>backHalf 真画身后那半,假画身前</summary>
+        /// <summary>backHalf 为真时画身后那一半,为假时画身前那一半</summary>
         public static void DrawOrbitingShells(Player player, bool backHalf) {
             EModPlayer entropy = player.Entropy();
             int shellCount = entropy.nihShellCount;
@@ -93,7 +93,7 @@ namespace CalamityEntropy.Common.DrawLayers
                 charge = mi2.charge;
                 maxCharge = mi2.maxCharge;
             }
-            //充满了就淡出,没充满才显示
+            //充能条充满后淡出,没充满才显示
             AzShieldBarAlpha = float.Lerp(AzShieldBarAlpha, charge >= maxCharge ? 0 : 1, 0.1f);
             CEUtils.DrawChargeBar(1.5f, Main.LocalPlayer.Center + Main.LocalPlayer.gfxOffY * Vector2.UnitY - Main.screenPosition + new Vector2(0, -42),
                 charge / maxCharge,
@@ -128,7 +128,7 @@ namespace CalamityEntropy.Common.DrawLayers
             }
         }
 
-        /// <summary>这段用 GameViewMatrix,画完回到 Main.Transform</summary>
+        /// <summary>DrawAcropolisMechs 这段绘制用 GameViewMatrix,画完回到 Main.Transform</summary>
         public static void DrawAcropolisMechs() {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);

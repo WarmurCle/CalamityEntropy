@@ -126,7 +126,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
         void IVDDepthDrawable.DrawDepthMarker(SpriteBatch spriteBatch) {
         }
 
-        /// <summary>门按深度投影缩放;近门的白环按剪影透明度压暗,别把屏幕边缘整块糊白</summary>
+        /// <summary>门按深度做投影缩放,近处门的白环按剪影透明度压暗,避免把屏幕边缘涂成一整块白</summary>
         private void DrawPortal() {
             float size = (Mode == ModeDash ? 120f : 90f) * VDDepth.Scale(Depth);
             float glow = GlowMult * (Depth < 0f ? VDDepth.Alpha(Depth) / VDDirector.DepthNearAlphaMax : 1f);

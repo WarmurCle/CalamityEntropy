@@ -151,7 +151,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
                 return candidate;
             }
 
-            //极端兜底:表里找不到合法招(不可能,但状态机不许死在这)
+            //极端兜底:表里找不到合法招时(正常到不了),状态机也不能停在这里
             ctx.AttackIndex = (ctx.AttackIndex + 1) % table.Length;
             VDStateIndex fallback = IsLegal(ctx, VDStateIndex.PhantomDash) ? VDStateIndex.PhantomDash
                 : IsLegal(ctx, VDStateIndex.ArcFireball) ? VDStateIndex.ArcFireball : VDStateIndex.PhantomDash;

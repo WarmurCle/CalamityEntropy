@@ -7,10 +7,10 @@ using Terraria.UI;
 
 namespace CalamityEntropy.Core.Cooldowns
 {
-    /// <summary>插在 Vanilla: Buffs 之前,超过 MaxLargeIcons 切紧凑</summary>
+    /// <summary>冷却栏插在 Vanilla: Buffs 之前,图标超过 MaxLargeIcons 就切成紧凑</summary>
     public class CECooldownRackUI : ModSystem
     {
-        /// <summary>超过就切紧凑</summary>
+        /// <summary>图标超过 MaxLargeIcons 就切成紧凑布局</summary>
         public const int MaxLargeIcons = 10;
 
         public const float CompactXSpacing = 28f;

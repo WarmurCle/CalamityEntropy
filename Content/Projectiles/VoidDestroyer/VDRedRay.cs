@@ -87,11 +87,11 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
             }
             if (target != null) {
                 if (Age < WarnFrames) {
-                    //预警期紧跟:光盘钉在玩家脚下,逃不掉但看得见
+                    //预警期光盘紧跟在玩家脚下,玩家躲不开,但看得到光盘
                     Projectile.Center = Vector2.Lerp(Projectile.Center, target.Center, VDDirector.RedRayWarnTrack);
                 }
                 else {
-                    //发射期慢追:跑得动、站不住
+                    //发射期追得慢,玩家跑得开,站着会被追上
                     Vector2 to = target.Center - Projectile.Center;
                     float dist = to.Length();
                     if (dist > 1f) {

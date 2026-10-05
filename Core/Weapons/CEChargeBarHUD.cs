@@ -12,9 +12,9 @@ namespace CalamityEntropy.Core.Weapons
 {
     public class CEChargeBarHUD : ModSystem
     {
-        private const int BarWidth = 36; //GenericBar 宽
+        private const int BarWidth = 36; //BarWidth 对齐 GenericBar 的宽度
 
-        //加载期就位,不每帧查 getExtraTex
+        //贴图在加载期就位,绘制时不每帧查 getExtraTex
         [VaultLoaden("CalamityEntropy/Assets/Extra/Ports/GenericBarBack")]
         private static Asset<Texture2D> BarBackTex;
         [VaultLoaden("CalamityEntropy/Assets/Extra/Ports/GenericBarFront")]

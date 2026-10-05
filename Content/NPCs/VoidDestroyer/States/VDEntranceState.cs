@@ -5,7 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>世界坐标钉在锚点,投影随深度走,200 帧后不再写相机,交给 EModPlayer 衰减</summary>
+    /// <summary>世界坐标固定在锚点,投影随深度走,200 帧后不再写相机,交给 EModPlayer 衰减</summary>
     [VaultState((int)VDStateIndex.Entrance, typeof(VDStateContext))]
     public class VDEntranceState : VDStateBase
     {

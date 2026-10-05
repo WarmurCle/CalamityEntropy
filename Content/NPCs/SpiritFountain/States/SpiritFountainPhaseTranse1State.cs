@@ -3,7 +3,7 @@ using InnoVault.StateMachines;
 
 namespace CalamityEntropy.Content.NPCs.SpiritFountain.States
 {
-    /// <summary>每帧额外自增一次计时,走 1、3、5,140 的门槛实际 71 帧就到,照搬</summary>
+    /// <summary>计时每帧额外再加一次,所以走 1、3、5,140 的门槛实际 71 帧就到,原样保留</summary>
     [VaultState((int)SpiritFountainStateIndex.PhaseTranse1, typeof(SpiritFountainStateContext))]
     public class SpiritFountainPhaseTranse1State : SpiritFountainStateBase
     {

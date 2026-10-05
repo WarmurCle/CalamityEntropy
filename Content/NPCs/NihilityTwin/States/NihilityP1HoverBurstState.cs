@@ -5,7 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
 {
-    /// <summary>收招判定写在推进段之前,收招清计时,那一帧推进段不执行,照搬</summary>
+    /// <summary>收招判定写在推进段之前,收招会清掉计时,那一帧推进段不执行,原样保留</summary>
     [VaultState((int)NihilityStateIndex.P1HoverBurst, typeof(NihilityStateContext))]
     public class NihilityP1HoverBurstState : NihilityStateBase
     {

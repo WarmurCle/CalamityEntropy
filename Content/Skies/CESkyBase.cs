@@ -76,7 +76,7 @@ namespace CalamityEntropy.Content.Skies
     }
 
     /// <summary>
-    /// DrawFront 跨 0 切片,DrawFar 在最远切片,每帧各至多一次;自开批次用 RestoreCallerBatch 收尾
+    /// DrawFront 跨 0 切片,DrawFar 画在最远切片,每帧最多各跑一次,自己开的批次用 RestoreCallerBatch 收尾
     /// 最远切片会被原版山峦树影压住,整片换天幕选跨 0;状态推进只放 UpdatePayload
     /// </summary>
     public abstract class CESkyBase : CustomSky

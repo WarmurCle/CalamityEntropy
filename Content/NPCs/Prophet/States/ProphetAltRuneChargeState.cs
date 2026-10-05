@@ -5,7 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Prophet.States
 {
-    /// <summary>角度上限写的是 358 不是 360,一阶段 72° 只排 5 个,二阶段 60° 排 6 个,照搬</summary>
+    /// <summary>角度上限写的是 358 不是 360,一阶段 72 度只排 5 个,二阶段 60 度排 6 个,原样保留</summary>
     [VaultState((int)ProphetStateIndex.AltRuneCharge, typeof(ProphetStateContext))]
     public class ProphetAltRuneChargeState : ProphetStateBase
     {

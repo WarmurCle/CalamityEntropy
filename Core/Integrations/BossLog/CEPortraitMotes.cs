@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CalamityEntropy.Core.Integrations.BossLog
 {
-    /// <summary>场景坐标,超容丢新粒</summary>
+    /// <summary>粒子用场景坐标,超过容量就丢掉新粒子</summary>
     internal sealed class CEPortraitMotes
     {
         private struct Mote
@@ -20,7 +20,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             public float Gravity;
             public float Drag;
             public Color Color;
-            /// <summary>A=0 加色读数(亮粒);否则不透明体粒</summary>
+            /// <summary>A 为 0 时按加色读,否则按不透明颗粒读</summary>
             public bool Additive;
         }
 
@@ -51,7 +51,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             });
         }
 
-        /// <summary>frames 是 dt×60,Life 按秒扣</summary>
+        /// <summary>frames 是 dt 乘 60,Life 按秒扣</summary>
         public void Update(float frames) {
             for (int i = motes.Count - 1; i >= 0; i--) {
                 Mote m = motes[i];

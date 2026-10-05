@@ -62,7 +62,7 @@ namespace CalamityEntropy.Core.Graphics.Screen
                 if (!pt.active || pt.Mod != Instance) {
                     continue;
                 }
-                //is PRT_Void && is not PRT_Abyssal:两套RT shader分流,条件写反就画错桶
+                //粒子必须是 PRT_Void 而且不是 PRT_Abyssal,两套 RT shader 分流,条件写反就画错桶
                 if (pt is not PRT_Void || pt is PRT_Abyssal) {
                     continue;
                 }

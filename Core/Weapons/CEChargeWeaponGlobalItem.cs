@@ -11,7 +11,7 @@ namespace CalamityEntropy.Core.Weapons
         public override bool AppliesToEntity(Item entity, bool lateInstantiation)
             => lateInstantiation && entity.ModItem is ICEChargeWeapon;
 
-        //不走 UpdateInventory,同款按格各涨一条
+        //蓄势走 HoldItem,不走 UpdateInventory,同款武器按格子各涨一条
         public override void HoldItem(Item item, Player player) {
             var profile = ((ICEChargeWeapon)item.ModItem).ChargeProfile;
             if (profile.Trigger == CEChargeTrigger.ChargeBar || profile.Trigger == CEChargeTrigger.Periodic)
@@ -19,7 +19,7 @@ namespace CalamityEntropy.Core.Weapons
         }
 
         public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) {
-            //时序对齐原 RogueWeapon.ModifyShootStats
+            //ModifyShootStats 的时序对齐原 RogueWeapon.ModifyShootStats
             if (!CEChargeWeapon.IsReady(item))
                 return;
             var profile = ((ICEChargeWeapon)item.ModItem).ChargeProfile;

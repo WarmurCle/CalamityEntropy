@@ -136,7 +136,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
             Vector2 bloodSpawnPosition = NPC.Center + particleSpawnDisplacement;
 
             if (NPC.ai[1] % 4 == 0) {
-                //HitEffect溅血每4tick 2 SparkCal,10%大号分支,splatterDirection跟ai[2]朝向绑
+                //HitEffect 每 4 tick 溅 2 颗 SparkCal,有 10% 走大号分支,splatterDirection 跟 ai[2] 的朝向
                 for (int i = 0; i < 2; i++) {
                     int sparkLifetime = Main.rand.Next(14, 21);
                     float sparkScale = Main.rand.NextFloat(0.8f, 1f) + 1f * 0.05f;

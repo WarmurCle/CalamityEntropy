@@ -85,7 +85,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
 
             if (candidateList.Count > 0) {
-                //排序选最近的8个
+                //候选按距离排序,只留最近的 8 个
                 candidateList.Sort((a, b) => a.distSq.CompareTo(b.distSq));
 
                 for (int i = 0; i < candidateList.Count && targets.Count < 8; i++) {

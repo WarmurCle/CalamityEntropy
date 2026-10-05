@@ -6,17 +6,17 @@ using Terraria.ModLoader.IO;
 
 namespace CalamityEntropy.Core.Weapons
 {
-    /// <summary>原 stealthStrike,来源标记同挂这里</summary>
+    /// <summary>Empowered 对应原 stealthStrike,来源标记也挂在这个类上</summary>
     public class CEEmpowerGlobalProjectile : GlobalProjectile
     {
         public override bool InstancePerEntity => true;
 
         public bool Empowered;
 
-        /// <summary>不过网,主人端命中钩子读</summary>
+        /// <summary>FromWeaponUse 不过线,主人端的命中钩子读它</summary>
         internal bool FromWeaponUse;
 
-        /// <summary>所有者端,命中回充</summary>
+        /// <summary>sourceItem 留在 owner 端,命中时用它回充</summary>
         internal Item sourceItem;
 
         /// <summary>大招衍生不回充</summary>
@@ -44,7 +44,7 @@ namespace CalamityEntropy.Core.Weapons
                 return;
             }
 
-            //父弹一跳继承,不向上爬
+            //继承只看直接父弹,不再往上爬
             if (source is EntitySource_Parent parentSource && parentSource.Entity is Projectile parentProj) {
                 CEEmpowerGlobalProjectile parentGlobal = parentProj.GetGlobalProjectile<CEEmpowerGlobalProjectile>();
                 FromWeaponUse = parentGlobal.FromWeaponUse;
@@ -78,7 +78,7 @@ namespace CalamityEntropy.Core.Weapons
         public static bool IsFromWeaponUse(this Projectile projectile)
             => projectile.GetGlobalProjectile<CEEmpowerGlobalProjectile>().FromWeaponUse;
 
-        /// <summary>sync 时补包,窗口打标不用</summary>
+        /// <summary>sync 为真时补发同步包,当帧窗口打标不用走这里</summary>
         public static void SetEmpowered(this Projectile projectile, bool sync = true) {
             projectile.GetGlobalProjectile<CEEmpowerGlobalProjectile>().Empowered = true;
             if (sync)

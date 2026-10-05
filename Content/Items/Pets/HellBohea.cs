@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Items.Pets
     }
     public class ProfPet : ProfanedGuardianPet
     {
-        //改为逐张单字段加载,首次绘制时缓存成数组
+        //这只宠物的贴图改为逐张按单字段加载,第一次绘制时缓存成数组
         [VaultLoaden("CalamityEntropy/Content/Items/Pets/Prof/1")]
         internal static Texture2D F1;
         [VaultLoaden("CalamityEntropy/Content/Items/Pets/Prof/2")]

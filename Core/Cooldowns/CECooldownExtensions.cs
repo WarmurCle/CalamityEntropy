@@ -3,7 +3,7 @@ using Terraria;
 
 namespace CalamityEntropy.Core.Cooldowns
 {
-    /// <summary>和 Common/CECooldowns 是两套,那边无 UI</summary>
+    /// <summary>CECooldown 和 Common/CECooldowns 是两套,那边没有 UI</summary>
     public static class CECooldown
     {
         public static CECooldownInstance Add(Player player, string id, int duration, bool overwrite = true)
@@ -28,7 +28,7 @@ namespace CalamityEntropy.Core.Cooldowns
     /// </summary>
     public static class CECooldownExtensions
     {
-        /// <summary>替代 .Entropy() 取冷却,查找失败会抛</summary>
+        /// <summary>EntropyCooldowns 替代 .Entropy() 取冷却,查找失败会抛异常</summary>
         public static CECooldownPlayer EntropyCooldowns(this Player player)
             => player.GetModPlayer<CECooldownPlayer>();
 

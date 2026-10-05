@@ -83,7 +83,7 @@ namespace CalamityEntropy.Content.Projectiles
                     float velc = 0.6f;
 
                     //PRT_LineCal Configure(false,lifetime)对齐Calamity LineParticle
-                    PRTLoader.NewParticle<PRT_LineCal>(Projectile.Center + Projectile.velocity * 1.2f, sparkVelocity2 * velc, Main.rand.NextBool() ? Color.AliceBlue : Color.Purple, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));  //跟AltSpark成对出现时寿命/速度系数是旧代码原值
+                    PRTLoader.NewParticle<PRT_LineCal>(Projectile.Center + Projectile.velocity * 1.2f, sparkVelocity2 * velc, Main.rand.NextBool() ? Color.AliceBlue : Color.Purple, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));  //这粒跟 AltSpark 成对出现时,寿命和速度系数沿用旧代码
 
                 }
                 EGlobalNPC.AddVoidTouch(target, 30, 1);

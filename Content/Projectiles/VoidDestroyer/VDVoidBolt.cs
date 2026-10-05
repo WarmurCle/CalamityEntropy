@@ -112,7 +112,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
                 }
                 case ModeZPierce:
                 case ModeZFromNear: {
-                    //穿过平面后继续沿原方向飞,出视野即静默消失(不要在镜头前爆一团火花)
+                    //弹幕穿过平面后继续沿原方向飞,离开视野后直接消失,不要在镜头前爆出一团火花
                     if (OutOfSight) {
                         Projectile.Kill();
                     }

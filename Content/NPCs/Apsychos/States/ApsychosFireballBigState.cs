@@ -6,7 +6,7 @@ using Terraria;
 namespace CalamityEntropy.Content.NPCs.Apsychos.States
 {
     /// <summary>
-    /// 巨型火球:蓄力帧数 = 65 - 阶段×15,蓄满即发,num2 超过 3 收招(实际 4 发)。
+    /// 巨型火球的蓄力帧数是 65 减阶段乘 15,蓄满就发射,num2 超过 3 就收招,实际打 4 发
     /// 发射是 <c>num1 &gt;= 阈值</c> 后立刻把 num1 归零,所以拍点用宽限窗防中途加入补放音效
     /// </summary>
     [VaultState((int)ApsychosStateIndex.FireballBig, typeof(ApsychosStateContext))]

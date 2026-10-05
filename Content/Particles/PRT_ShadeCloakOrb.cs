@@ -9,7 +9,7 @@ namespace CalamityEntropy.Content.Particles
     {
         public bool Glow = true;
         //odp轨迹List,池化忘Clear会闪,门户系低频也不差这点GC
-        //还绑PlayerIndex,复用实例轨迹会挂到上一个玩家身上,服了
+        //这粒还绑着 PlayerIndex,复用实例时轨迹会挂到上一个玩家身上
         public List<Vector2> odp = new List<Vector2>();
         public int maxLength = 12;
         public int PlayerIndex = 0;

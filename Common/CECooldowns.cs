@@ -24,10 +24,10 @@ namespace CalamityEntropy.Common
         public static int MineBoxCd = 0;
         public static int BMTaurus = 0;
 
-        /// <summary>书签触发内置CD表(effect名→剩余帧)。固定时长,不吃冷却缩减。</summary>
+        /// <summary>BMProcCD 按效果名记下书签触发还剩多少帧,时长固定,不受冷却缩减影响</summary>
         public static Dictionary<string, int> BMProcCD = new Dictionary<string, int>();
 
-        /// <summary>书签触发统一闸门:未在CD中则放行并上CD(默认60帧=1秒)。仅弹幕主人客户端调用。</summary>
+        /// <summary>CheckBMProc 在冷却中时拦住这次书签触发,否则放行并写入冷却,默认 60 帧,只给弹幕主人客户端调用</summary>
         public static bool CheckBMProc(string effectName, int cd = 60) {
             if (BMProcCD.TryGetValue(effectName, out int t) && t > 0) {
                 return false;

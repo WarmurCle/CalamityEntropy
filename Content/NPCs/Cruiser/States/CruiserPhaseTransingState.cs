@@ -6,7 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser.States
 {
-    /// <summary>不用自己的计时,也不自己收招,到 122 直写 VoidSpike,不清 changeCounter,OnUpdate 永远返回 null</summary>
+    /// <summary>转阶段不用自己的计时,也不自己收招,到 122 直接写入 VoidSpike,不清 changeCounter,OnUpdate 永远返回 null</summary>
     [VaultState((int)CruiserStateIndex.PhaseTransing, typeof(CruiserStateContext))]
     public class CruiserPhaseTransingState : CruiserStateBase
     {

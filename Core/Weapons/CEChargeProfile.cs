@@ -2,12 +2,12 @@
 {
     public enum CEChargeTrigger
     {
-        /// <summary>持有期间按帧蓄</summary>
+        /// <summary>ChargeBar 在持有期间按帧蓄势</summary>
         ChargeBar,
 
         HitCount,
 
-        /// <summary>按帧冷却,只在手持涨</summary>
+        /// <summary>Periodic 按帧冷却,只在手持时上涨</summary>
         Periodic
     }
 
@@ -15,7 +15,7 @@
     {
         public readonly CEChargeTrigger Trigger;
 
-        /// <summary>充满量,条和周期是帧,命中是次数</summary>
+        /// <summary>Max 是充满量,蓄力条和周期按帧计,命中按次数计</summary>
         public readonly float Max;
 
         /// <summary>原 StealthDamageMultiplier</summary>
@@ -45,7 +45,7 @@
             => new(CEChargeTrigger.Periodic, seconds * 60f, damageMult, velocityMult, knockbackMult);
     }
 
-    /// <summary>Shoot 里 TryConsume,仅 maxStack = 1</summary>
+    /// <summary>武器在 Shoot 里调 TryConsume,而且 maxStack 只能是 1</summary>
     public interface ICEChargeWeapon
     {
         CEChargeProfile ChargeProfile { get; }

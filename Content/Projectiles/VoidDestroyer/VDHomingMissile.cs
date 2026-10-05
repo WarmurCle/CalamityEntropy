@@ -96,7 +96,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
             }
         }
 
-        /// <summary>深空行为:去程沿环向减速、Z 上升;到顶掉头,回程按剩余帧数收敛到预测落点;穿过平面后直飞出视野</summary>
+        /// <summary>导弹去程沿环向减速并让 Z 上升,到顶后掉头,回程按剩余帧数收敛到预测落点,穿过平面后直飞出视野</summary>
         private void DepthFlight() {
             if (Outbound) {
                 //去程:平面速度衰减到下限,导弹在背景里明显慢下来
@@ -126,7 +126,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
                 }
                 return;
             }
-            //穿过平面后:继续沿原方向掠向镜头,出视野即消失
+            //导弹穿过平面后继续沿原方向飞向镜头,离开视野后消失
             if (OutOfSight) {
                 Projectile.Kill();
             }

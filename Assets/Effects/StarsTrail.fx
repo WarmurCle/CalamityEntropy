@@ -1,6 +1,6 @@
-matrix transformMatrix;//缩放矩阵
-texture sampleTexture;//刀光灰度图
-texture gradientTexture;//横向色图
+matrix transformMatrix;//该矩阵缩放顶点
+texture sampleTexture;//这张图是刀光灰度
+texture gradientTexture;//这张图是横向色带
 float2 worldSize;
 float uTime;
 float uExchange;
@@ -12,7 +12,7 @@ sampler2D samplerTex = sampler_state
     minfilter = LINEAR;
     mipfilter = LINEAR;
     AddressU = wrap;
-    AddressV = wrap;//循环UV
+    AddressV = wrap;//AddressV 让 V 方向循环采样 UV
 };
 
 sampler2D gradientTex = sampler_state
@@ -22,7 +22,7 @@ sampler2D gradientTex = sampler_state
     minfilter = LINEAR;
     mipfilter = LINEAR;
     AddressU = wrap;
-    AddressV = wrap;//循环UV
+    AddressV = wrap;//AddressV 让 V 方向循环采样 UV
 };
 
 struct VertexShaderInput

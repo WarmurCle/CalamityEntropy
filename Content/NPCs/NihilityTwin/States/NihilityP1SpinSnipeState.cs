@@ -7,7 +7,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
 {
     /// <summary>
     /// RotSpeed 与一阶段 4 号、二阶段 1 号共用,离开这三手由宿主清零
-    /// 先 *= 0.98 再整段覆盖成位置弹簧,前一句不起作用,照搬
+    /// 先乘 0.98 再整段覆盖成位置弹簧,前一句不起作用,原样保留
     /// 原 counter % 1 == 0 恒真,这里略去
     /// </summary>
     [VaultState((int)NihilityStateIndex.P1SpinSnipe, typeof(NihilityStateContext))]

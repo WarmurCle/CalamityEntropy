@@ -1,4 +1,4 @@
-//噪声在 s1,亮度条带在 s2,梯形用 TexCoord.z 还原纵向 uv
+//噪声在 s1,亮度条带在 s2,梯形用 TexCoord.z 还原纵向 UV
 sampler uImage0 : register(s0);
 sampler uImage1 : register(s1);
 sampler uImage2 : register(s2);

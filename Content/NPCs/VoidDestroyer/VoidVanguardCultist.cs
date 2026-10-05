@@ -9,7 +9,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer
 {
     /// <summary>
     /// 虚空前卫教徒:驱逐舰「支援投送」召来的地面小怪。接近→蓄力→冲斩→收招→撤离的动作与帧图
-    /// 全部沿用 VoidCultistAssassin,这里只改数值:免疫击退,冲刺段接触伤害即「虚空斩」
+    /// 全部沿用 VoidCultistAssassin,这里只改数值:免疫击退,冲刺段的接触伤害就是虚空斩
     /// </summary>
     public class VoidVanguardCultist : VoidCultistAssassin
     {
@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer
 
         public override void OnSpawn(IEntitySource source) {
             base.OnSpawn(source);
-            //投送落地即追击,不走基类的随机发呆
+            //投送落地后就追击,不走基类的随机发呆
             aiStyle = AIStyle.Closing;
             tryCloseTime = 30;
         }

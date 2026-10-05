@@ -1,4 +1,4 @@
-//拖尾贴图在 s1,图元梯形用 TexCoord.z 还原纵向 uv
+//拖尾贴图在 s1,图元梯形用 TexCoord.z 还原纵向 UV
 sampler uImage0 : register(s0);
 sampler uImage1 : register(s1);
 float3 uColor;

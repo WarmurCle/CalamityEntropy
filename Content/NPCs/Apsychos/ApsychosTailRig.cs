@@ -7,7 +7,7 @@ using Terraria;
 namespace CalamityEntropy.Content.NPCs.Apsychos
 {
     /// <summary>
-    /// follow 收 12 节加尾尖,bezier 收前 11 节,第 12 节和尾尖钉在尾尖实体
+    /// follow 收进 12 节加尾尖,bezier 收进前 11 节,第 12 节和尾尖固定在尾尖实体
     /// 两种求解器骨轴相反,贝塞尔模式再给尾件加半圈 ExtraRotation
     /// 输入是已同步的本体和尾尖位姿,骨架不过线
     /// </summary>
@@ -108,7 +108,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
                 tail.rotation = MathHelper.WrapAngle(tb.Dir + MathHelper.Pi);
             }
             else if (style == ApsychosTailStyle.OnePoint) {
-                //原三点式把尾尖朝向写成最后一节的朝向:即倒数第二关节指向尾尖的方向
+                //原三点式把尾尖朝向写成最后一节的朝向,也就是倒数第二关节指向尾尖的方向
                 tail.rotation = rig.Bones[segBones[^2]].Dir;
             }
 

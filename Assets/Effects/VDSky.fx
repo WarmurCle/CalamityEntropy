@@ -1,30 +1,30 @@
-//距离在屏高归一平面,x 乘宽高比,输出预乘 alpha,AlphaBlend,uFlip=1 翻转,无动态分支
-sampler uImage0 : register(s0);   //全屏白方块,只取 UV
-sampler uImage1 : register(s1);   //星云和侵蚀,LinearWrap
-sampler uImage2 : register(s2);   //星球表面,LinearWrap
+//距离落在按屏高归一的平面上,x 再乘宽高比,输出预乘 alpha 并用 AlphaBlend 混合,uFlip 为 1 时上下翻转,着色器里没有动态分支
+sampler uImage0 : register(s0);   //uImage0 是全屏白方块,这里只取它的 UV
+sampler uImage1 : register(s1);   //uImage1 提供星云和侵蚀,采样方式是 LinearWrap
+sampler uImage2 : register(s2);   //uImage2 是星球表面,采样方式是 LinearWrap
 
 float uTime;
-float uOpacity;         //存在包络乘强度
-float uAspect;          //宽/高
-float uFlip;            //反重力 1
-float2 uParallax;       //相机位置/屏高
-float uPhase;           //1..3,配色在 C# 侧按它插好
-float uErosion;         //星球侵蚀 0..1
-float uFlash;           //拍点闪光 0..1
-float uFlashRing;       //冲击环半径,屏高单位,<0 无环
-float uCharge;          //主炮蓄力 0..1
-float2 uBossUv;         //本体屏幕 UV
-float uBossGlow;        //核心亮度 0..1
-float uGridRadius;      //网格亮化半径,屏高单位
-float uGridAlpha;       //网格基础亮度
-float uGridCell;        //六边形格边长,屏高单位
-float2 uPlanetCenter;   //星球圆心 UV
-float uPlanetRadius;    //星球半径,屏高单位
-float uPlanetParallax;  //星球视差
-float uPlanetSpin;      //自转,圈/秒
-float uRingSpin;        //碎屑环绕行,圈/秒
-float2 uStarParallax;   //星野视差,x 远层 y 近层
-float uNebulaParallax;  //星云视差
+float uOpacity;         //该值用存在包络乘上强度
+float uAspect;          //该值是画面宽除以高
+float uFlip;            //该值为 1 时表示反重力
+float2 uParallax;       //该值是相机位置除以屏高
+float uPhase;           //该值取 1 到 3,配色由 C# 按它插好
+float uErosion;         //该值是星球被侵蚀的程度,范围 0 到 1
+float uFlash;           //该值是拍点闪光强度,范围 0 到 1
+float uFlashRing;       //该值是冲击环半径,单位是屏高,小于 0 时没有环
+float uCharge;          //该值是主炮蓄力,范围 0 到 1
+float2 uBossUv;         //该值是本体在屏幕上的 UV
+float uBossGlow;        //该值是核心亮度,范围 0 到 1
+float uGridRadius;      //该值是网格亮化半径,单位是屏高
+float uGridAlpha;       //该值是网格的基础亮度
+float uGridCell;        //该值是六边形格的边长,单位是屏高
+float2 uPlanetCenter;   //该值是星球圆心的 UV
+float uPlanetRadius;    //该值是星球半径,单位是屏高
+float uPlanetParallax;  //该值是星球的视差系数
+float uPlanetSpin;      //该值是自转速度,单位是圈每秒
+float uRingSpin;        //该值是碎屑环的绕行速度,单位是圈每秒
+float2 uStarParallax;   //该值是星野视差,x 给远层,y 给近层
+float uNebulaParallax;  //该值是星云的视差系数
 float3 uColorTop;
 float3 uColorHorizon;
 float3 uColorNebula;
@@ -33,7 +33,7 @@ float3 uColorErosion;
 float3 uColorPlanetRim;
 float3 uColorRing;
 
-//输入先压小,格 id 走 fmod 512,乘数一大星星会排成格子
+//hash21 先把输入压小,格 id 用 fmod 对 512 取模,乘数一大星星会排成格子
 float hash21(float2 p)
 {
     p = frac(p * float2(127.1, 311.7));
@@ -41,11 +41,11 @@ float hash21(float2 p)
     return frac(p.x * p.y);
 }
 
-//cells 每屏高格数,density 有星比例,每格一颗
+//cells 是每屏高有多少格,density 是有星的比例,每格放一颗星
 float StarLayer(float2 p, float cells, float density, float seed)
 {
     float2 g = p * cells;
-    //视差按开打原点归零,±20 屏内不撞 fmod 负数分支
+    //视差相对开打原点归零,正负 20 屏以内不会撞上 fmod 的负数分支
     float2 id = fmod(floor(g) + 4096.0, 512.0);
     float2 f = frac(g) - 0.5;
     float h = hash21(id + seed);
@@ -59,7 +59,7 @@ float StarLayer(float2 p, float cells, float density, float seed)
     return star * tw;
 }
 
-//x 到最近格边 0边上..0.5格心,yz 格 id,p 须为正
+//返回的 x 是到最近格边的距离,0 在边上,0.5 在格心,yz 是格 id,传入的 p 必须为正
 float3 HexCoords(float2 p)
 {
     float2 r = float2(1.0, 1.7320508);
@@ -96,7 +96,7 @@ float4 PixelFunc(float2 uv : TEXCOORD0) : COLOR0
     float bd = length(sp - bp);
     float r2 = max(uGridRadius * uGridRadius, 0.0001);
     float bossMask = exp(-bd * bd / r2) * (0.35 + 0.65 * uBossGlow);
-    //环亮度随半径自衰,不跟 uFlash 衰减绑在一起
+    //冲击环的亮度随半径自己衰减,不跟着 uFlash 一起变暗
     float ringOn = step(0.0, uFlashRing);
     float ringD = (bd - uFlashRing) / 0.06;
     float ringFade = saturate(1.0 - uFlashRing / 2.0);
@@ -144,7 +144,7 @@ float4 PixelFunc(float2 uv : TEXCOORD0) : COLOR0
     float ringDensity = band * (rn * 0.7 + rn2 * 0.5) * (0.5 + 0.5 * smoothstep(0.3, 0.7, rn));
     float2 rcell = floor(float2(frac(rang) * 64.0, (rr - 1.3) * 12.0));
     float glint = step(0.93, hash21(rcell)) * band * (0.6 + 0.4 * sin(uTime * 5.0 + rcell.x));
-    float ringVis = lerp(1.0 - disk, 1.0, step(0.0, pp.y));//近侧 pp.y>0 压在盘前,远侧被 disk 挡住
+    float ringVis = lerp(1.0 - disk, 1.0, step(0.0, pp.y));//近侧在 pp.y 大于 0 时压在盘前面,远侧被 disk 挡住
     float3 ringCol = (uColorRing * ringDensity * 0.7 + uColorErosion * glint * 0.6) * ringVis;
     col = lerp(col, planetCol, disk);
     col += ringCol;

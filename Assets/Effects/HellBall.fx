@@ -1,7 +1,7 @@
-//圆形 UV 朝边缘挤出,噪声 wrap,沿纵轴滚,SpriteBatch Immediate
+//这个着色器把圆形 UV 朝边缘挤出,噪声用 wrap 采样,沿纵轴滚动,绘制用 SpriteBatch 的 Immediate
 float time;
-float blowUpPower;   //噪声球面化幂次
-float blowUpSize;    //球面化挤出强度
+float blowUpPower;   //该值是噪声球面化的幂次
+float blowUpSize;    //该值是球面化挤出的强度
 float3 shieldColor;
 float shieldOpacity;
 float3 shieldEdgeColor;
@@ -9,7 +9,7 @@ float shieldEdgeBlendStrenght;//拼写来自原调用契约,故意保留
 float noiseScale;
 float resolution;
 
-//SpriteBatch 当前贴图,s0,wrap
+//sampleTexture 是 SpriteBatch 当前贴图,绑在 s0,采样用 wrap
 texture sampleTexture;
 sampler2D NoiseSampler = sampler_state { texture = <sampleTexture>; magfilter = LINEAR; minfilter = LINEAR; mipfilter = LINEAR; AddressU = wrap; AddressV = wrap; };
 

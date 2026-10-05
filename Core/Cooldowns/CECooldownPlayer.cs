@@ -7,7 +7,7 @@ using Terraria.ModLoader.IO;
 
 namespace CalamityEntropy.Core.Cooldowns
 {
-    /// <summary>各端本地推进,不逐帧同步,加入时整表走 SyncCooldowns</summary>
+    /// <summary>冷却各端本地推进,不逐帧同步,玩家加入时整表走 SyncCooldowns</summary>
     public class CECooldownPlayer : ModPlayer
     {
         private const string CooldownsSaveKey = "ceCooldowns";
@@ -24,7 +24,7 @@ namespace CalamityEntropy.Core.Cooldowns
         }
 
         #region 增删查
-        /// <summary>倍率原在 EModILEdit 钩灾厄 AddCooldown</summary>
+        /// <summary>Add 的时长倍率原先由 EModILEdit 去钩灾厄的 AddCooldown</summary>
         public CECooldownInstance Add(string id, int duration, bool overwrite = true) {
             duration = (int)(duration * Player.Entropy().CooldownTimeMult);
             var instance = new CECooldownInstance(Player, id, duration);
@@ -85,7 +85,7 @@ namespace CalamityEntropy.Core.Cooldowns
                 if (handler.CanTickDown)
                     --instance.timeLeft;
 
-                //Tick 跟减不减无关
+                //handler.Tick 跟这一帧减不减 timeLeft 无关
                 handler.Tick();
 
                 if (instance.timeLeft < 0) {
@@ -156,7 +156,7 @@ namespace CalamityEntropy.Core.Cooldowns
         #endregion
 
         #region 加入同步序列化(发包见 CENetWork 的 SyncCooldowns 分支)
-        /// <summary>SyncPlayer 路径调用后发包</summary>
+        /// <summary>WriteAllCooldowns 由 SyncPlayer 路径调用,写完后发包</summary>
         public void WriteAllCooldowns(BinaryWriter writer) {
             writer.Write((byte)Player.whoAmI);
             writer.Write((ushort)cooldowns.Count);
@@ -164,7 +164,7 @@ namespace CalamityEntropy.Core.Cooldowns
                 kv.Value.Write(writer);
         }
 
-        /// <summary>SyncCooldowns 分支调用,整表替换</summary>
+        /// <summary>ReceiveAllCooldowns 由 SyncCooldowns 分支调用,收到后整表替换</summary>
         public static void ReceiveAllCooldowns(BinaryReader reader) {
             int whoAmI = reader.ReadByte();
             int count = reader.ReadUInt16();

@@ -51,8 +51,8 @@ namespace CalamityEntropy.Content.Projectiles.Cruiser
             if (Projectile.ai[0] >= 0 && ownern == null) {
                 ownern = ((int)Projectile.ai[0]).ToNPC();
             }
-            // 虚无双子的激光不再整段推镜:每帧叠加一枚朝向玩家的定向震动,会把视角持续顶离 Boss 并来回晃,影响走位。
-            // 改为只在光束点燃瞬间给一次短促无向震动,光束具备碰撞(width>=0.7)前就衰减完
+            //虚无双子的激光不再整段推镜头,每帧朝向玩家的定向震动会把视角推离 Boss 并来回晃,影响走位
+            //镜头只在光束点燃的瞬间给一次短促、没有方向的震动,光束具备碰撞(width>=0.7)之前这次震动就衰减完
             if (ownern?.ModNPC is NihilityActeriophage) {
                 if (aicounter == 0)
                     ScreenShaker.AddShakeWithRangeFade(new ScreenShaker.NoDirQuickShake(5f), Projectile.Center, 1800);

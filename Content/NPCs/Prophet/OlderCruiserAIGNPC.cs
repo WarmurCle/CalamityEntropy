@@ -88,7 +88,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 }
             }
             else if (this.aitype == 1f || this.aitype == 2f) {
-                //aitype1/2待机也吐Void,没phaseTrans门槛,密度比P2转场低
+                //aitype 1 和 2 在待机时也发射 Void,没有 phaseTrans 门槛,密度比二阶段转场低
                 var spawnPos = NPC.Center - Utils.ToRotationVector2(NPC.rotation) * -14f;
                 var p3 = PRTLoader.NewParticle<PRT_Void>(spawnPos, Utils.ToRotationVector2(NPC.rotation) * -3f, Color.White, 1f);
                 p3.Opacity = 0.7f;

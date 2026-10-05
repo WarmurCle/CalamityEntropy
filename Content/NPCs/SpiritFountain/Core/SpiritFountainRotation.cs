@@ -3,9 +3,9 @@
 namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
 {
     /// <summary>
-    /// 没有轮换表,七个块是顺序 if,各自写死下一手
+    /// 选招没有轮换表,七个块按顺序 if,各自写死下一手
     /// 血量跌破 66% 插入转阶段,之后十字斩终局循环,不再回主链
-    /// 不设防复读
+    /// 轮换允许连续重复同一招
     /// </summary>
     public static class SpiritFountainRotation
     {

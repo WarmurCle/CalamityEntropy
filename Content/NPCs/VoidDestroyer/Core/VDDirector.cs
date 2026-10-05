@@ -3,7 +3,7 @@
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
 {
     /// <summary>
-    /// 状态里不许裸数字,策划表按大师 ×3 写,代码存普通基值
+    /// 状态里不能写裸数字,策划表按大师乘 3 来写,代码存的是普通基值
     /// 手与手之间有连接段三拍,每招第一拍是前摇,单招不超 8 秒
     /// </summary>
     public static class VDDirector
@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const float ArenaInwardSpeedCap = 28f;
         /// <summary>切技传送点到玩家的对角距离:约 30 格</summary>
         public const float SwitchTeleportOffset = 340f;
-        /// <summary>闪现总帧数:前半淡出,过半换位,后半淡入</summary>
+        /// <summary>闪现的总帧数里,前半段淡出,过半时换位,后半段淡入</summary>
         public const int BlinkDuration = 16;
         /// <summary>传送落地后的无接触窗口(防落地贴脸秒杀)</summary>
         public const int PostTeleportGrace = 30;
@@ -62,9 +62,9 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const int TransformDiveEnd = 118;
         /// <summary>变形后撤深度:Z 1.2 缩到 0.45,退到看得清「它在变」又明显离开了平面的距离</summary>
         public const float TransformRetreatDepth = 1.2f;
-        /// <summary>护盾展开连接段:清弹 + 盾亮 + 暗角轻压,给压轴一个干净起点</summary>
+        /// <summary>护盾展开连接段:清弹 + 盾亮 + 暗角轻压,给最后一段一个干净的起点</summary>
         public const int ShieldUpDuration = 45;
-        /// <summary>死亡 330 帧:0-150 平面逐级爆炸;150-210 失去动力翻滚着漂进深处(Z 0 → 3);210-290 远处连锁小爆,250 帧全天幕闪光;290-330 收干;330 真死</summary>
+        /// <summary>死亡 330 帧:0-150 平面逐级爆炸;150-210 失去动力翻滚着漂进深处(Z 0 → 3);210-290 远处连锁小爆,250 帧全天幕闪光;290-330 收尾;330 真死</summary>
         public const int DeathDuration = 330;
         public const int DeathExplosionEnd = 150;
         public const int DeathDriftEnd = 210;
@@ -74,15 +74,15 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const float DeathDriftDepth = 3f;
         /// <summary>死亡真死前给客户端的容差:客户端计时可能落后几帧,免得收到击杀包时把自己救活</summary>
         public const int DeathKillTolerance = 10;
-        /// <summary>撤离:60 帧跃迁遁入 Z 6(与出场起点同一深度,读成「回去了」),透明度另按 NoTargetDespawnFrames 收干</summary>
+        /// <summary>撤离用 60 帧跃迁到 Z 6,和出场起点同一深度,透明度另外按 NoTargetDespawnFrames 收完</summary>
         public const int DespawnWarpFrames = 60;
         public const float DespawnDepth = 6f;
 
         //==================== 节奏 ====================
 
-        /// <summary>连接段总长,落定、重瞄、起势,冷却并入这里</summary>
+        /// <summary>连接段的总长包含落定、重瞄和起势,冷却也算在这里</summary>
         public static int ConnectorFrames(int phase) => phase >= 3 ? 36 : phase >= 2 ? 42 : 48;
-        /// <summary>拍一「落定」:换位闪现(16 帧)在这一拍里做完,落地即刹停</summary>
+        /// <summary>第一拍落定会在这一拍里做完 16 帧换位闪现,落地就刹停</summary>
         public const int ConnectorSettleFrames = 16;
         /// <summary>拍三「起势」:能量翼张开 + 核心亮起 + 低音,全招通用的「要出手了」信号;12 帧是能被读到又不拖的长度</summary>
         public const int ConnectorPostureFrames = 12;
@@ -191,7 +191,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const float ArcApproachSpeed = 26f;
         public const float ArcApproachAccel = 0.14f;
         public const float ArcApproachSlow = 90f;
-        /// <summary>就位上限 45 帧,15 帧后离目标 60px 内即跳拍</summary>
+        /// <summary>就位上限 45 帧,15 帧后离目标 60px 以内就跳拍</summary>
         public const int ArcApproachMax = 45;
         public const int ArcApproachMin = 15;
         public const float ArcArriveDist = 60f;
@@ -263,9 +263,9 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const int PhantomFadeFrames = 6;
         public const float PhantomPortalOffset = 480f;
         public const int PhantomPortalLife = 66;
-        /// <summary>门后待机 36 帧:接触档前摇,门开即预告</summary>
+        /// <summary>门后待机 36 帧,这是接触档的前摇,门一开就给出预告</summary>
         public const int PhantomWaitFrames = WindupContact;
-        /// <summary>冲完先硬刹 10 帧再淡出:冲刺 → 急停 → 消失,不是冲完即闪</summary>
+        /// <summary>冲完先硬刹 10 帧再淡出:冲刺 → 急停 → 消失,不是冲完就闪掉</summary>
         public const int PhantomBrakeFrames = 10;
         /// <summary>P2 起沿冲刺路径留加速虚空弹的间隔</summary>
         public const int PhantomTrailInterval = 6;
@@ -337,11 +337,11 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const float LaserDroneSpacing = 48f;
         public const int LaserWarnTime = 60;
         public const float LaserColumnLength = 2400f;
-        /// <summary>末列到点阵之间的静默 60 帧:点阵是这招的重拍,前面要空一口</summary>
+        /// <summary>末列到点阵之间静默 60 帧,点阵是这一招的重拍,前面留出这段空档</summary>
         public const int LaserColumnsToGrid = 60;
         /// <summary>第 k 列的出现时刻:P1 固定 40 帧;P2 起间隔从 40 线性收缩到约 29</summary>
         public static int LaserColumnTime(int k, bool ex) => ex ? (int)(40f * k - 0.75f * k * (k - 1)) : 40 * k;
-        /// <summary>装饰无人机从 Z 2 降入环阵的帧数:装饰即深度预告</summary>
+        /// <summary>装饰无人机从 Z 2 降入环阵的帧数:这段降入同时预告深度</summary>
         public const float LaserDecorDepth = 2f;
         public const int LaserDecorDescend = 14;
 
@@ -608,7 +608,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         //==================== 虚空奇点(后撤蓄力 → 放出 → 牵引 → 塌缩环爆)====================
 
         public const int SingChargeFrames = 45;
-        /// <summary>放出前 8 帧死向:预告即承诺</summary>
+        /// <summary>放出前 8 帧把方向定死,预告之后不再改向</summary>
         public const int SingLockLead = 8;
         public const float SingReelDistance = 220f;
         public const float SingLaunchSpeed = 9f;
@@ -627,7 +627,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const float SingOrbitAngular = 0.09f;
         public const float SingOrbitRadiusGrowth = 2.2f;
         public const int SingCollapseFrames = 20;
-        /// <summary>环爆 24 发分三向:8 发平面、8 发朝镜头(起点即带内,Z 速度 -0.03,25 帧后掠过镜头)、8 发遁入深处(纯演出,Z 速度 +0.04)</summary>
+        /// <summary>环爆 24 发分三向:8 发平面、8 发朝镜头(起点就在带内,Z 速度 -0.03,25 帧后掠过镜头)、8 发遁入深处(纯演出,Z 速度 +0.04)</summary>
         public const int SingBurstCount = 24;
         public const float SingBurstNearZVel = -0.03f;
         public const float SingBurstFarZVel = 0.04f;
@@ -711,7 +711,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const float RimBreathSpeed = 2.2f;
         /// <summary>描边整体亮度倍率(加法混合下允许大于 1),常态与蓄力一起抬;爆闪在着色器里另乘 (1 + flash)</summary>
         public const float RimBrightness = 1.5f;
-        /// <summary>静默拍最多压掉多少描边:压到 40% 留着,「常驻」意味着任何拍子都不许整圈熄灭;爆闪不受压</summary>
+        /// <summary>静默拍最多压掉多少描边:压到 40% 留着,「常驻」意味着任何拍子都不能整圈熄灭;爆闪不受压</summary>
         public const float RimSuppressMax = 0.6f;
         /// <summary>CoreGlow 折算成描边活跃度的系数:20 招的起势/蓄力/出手都在推 CoreGlow,这一个系数就是全招免费覆盖的总闸</summary>
         public const float RimFromCoreGlow = 0.9f;
@@ -734,7 +734,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const int RimTaps = 12;
         /// <summary>内环叠画抽数:8 抽,半径小、相互重叠多,不需要更密</summary>
         public const int RimInnerTaps = 8;
-        /// <summary>外环基础半径(px,乘绘制缩放):常态一圈 10px 的外扩描边带。本体 180×122,10px 是能一眼读出「有描边」又不吞掉机体细节的宽度</summary>
+        /// <summary>外环基础半径(px,乘绘制缩放)是常态一圈 10px 的外扩描边带,本体 180×122,10px 能一眼读出有描边,又不会盖住机体细节</summary>
         public const float RimBaseRadius = 10f;
         /// <summary>内环半径 = 外环半径 × 0.45:贴身那圈实心亮带,与外环的丝之间有一层由亮到暗的落差</summary>
         public const float RimInnerRadiusMult = 0.45f;
@@ -872,16 +872,16 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
 
         /// <summary>存在包络淡入步长(每 tick):基座 opacity,与强度相乘</summary>
         public const float SkyFadeStep = 1f / 60f;
-        /// <summary>出场:虚空随门涌入吞掉天空,0→1 用 90 帧(略慢于门开的 60 帧,门开一半天先暗)</summary>
+        /// <summary>出场时虚空跟着门进来盖住天空,从 0 到 1 用 90 帧,比门开的 60 帧略慢,门开到一半时天空先暗</summary>
         public const int SkyEntranceFadeFrames = 90;
-        /// <summary>死亡:本体漂进深处到位(210)起虚空随它离开,到真死(330)收干</summary>
+        /// <summary>死亡时本体漂到深处到位(210)之后虚空跟着离开,到真死(330)收完</summary>
         public const int SkyDeathFadeStart = DeathDriftEnd;
         public const int SkyDeathFadeEnd = DeathDuration;
-        /// <summary>撤离:60 帧收干(本体 190 帧才消失,天先走,读成「它放弃了」)</summary>
+        /// <summary>撤离用 60 帧收掉天空,本体要 190 帧才消失,天空先结束</summary>
         public const int SkyDespawnFadeFrames = 60;
         /// <summary>强度跟随上报值的每 tick 最大步长:20 帧内追上,出场/死亡的编排斜坡不会被抹平</summary>
         public const float SkyTrackPerTick = 1f / 20f;
-        /// <summary>无人续租(本体消失)时的衰减步长:1 秒收干</summary>
+        /// <summary>没人继续上报(本体消失)时的衰减步长,1 秒收完</summary>
         public const float SkyFallPerTick = 1f / 60f;
         /// <summary>阶段配色平滑(每 tick lerp):约 1.5 秒换完色</summary>
         public const float SkyPhaseLerp = 0.03f;

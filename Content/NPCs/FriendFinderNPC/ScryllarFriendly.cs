@@ -62,7 +62,7 @@ namespace CalamityEntropy.Content.NPCs.FriendFinderNPC
                         NPC.ai[2] = (target.Center + target.velocity * 5 - NPC.Center).ToRotation();
                     }
                     if (NPC.ai[1] < 26) {
-                        //Charge蓄力前26tick每帧6 Smoke,Additive 0.14低opacity,读条VFX
+                        //Charge 蓄力的前 26 tick 每帧放 6 颗 Smoke,加色透明度 0.14,当作读条特效
                         for (int i = 0; i < 6; i++) {
                             var p = PRTLoader.NewParticle<PRT_Smoke>(NPC.Center + CEUtils.randomVec(8), CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(0, 0.6f) + new Vector2(0, -1.2f), Color.OrangeRed, 0.16f);
                             p.timeleftmax = 30;

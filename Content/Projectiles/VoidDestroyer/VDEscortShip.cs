@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
                 ZVel = 0f;
                 Vector2 apparent = new Vector2(Projectile.ai[1], Projectile.ai[2]);
                 Vector2 want = FormationPos(boss, apparent);
-                //编队用弹性跟随,不是钉死:队形有一点点滞后才像三艘船
+                //编队用弹性跟随,位置不是锁在目标点上,队形留一点滞后,看起来才像三艘船
                 Projectile.Center = Vector2.Lerp(Projectile.Center, want, 0.25f);
                 Projectile.velocity = Vector2.Zero;
                 Projectile.rotation = MathHelper.Lerp(Projectile.rotation, MathHelper.Clamp((want.X - Projectile.Center.X) * 0.01f, -0.25f, 0.25f), 0.2f);

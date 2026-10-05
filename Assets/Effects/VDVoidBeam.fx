@@ -1,12 +1,12 @@
-//coords.x 沿射线 0..1,coords.y 横向 0..1,输出 Additive,噪声在 s1
+//coords.x 沿射线从 0 到 1,coords.y 沿横向从 0 到 1,输出用 Additive 混合,噪声放在 s1
 sampler uImage0 : register(s0);
 sampler uImage1 : register(s1);
 
 float uTime;
 float3 uColor;
 float3 uColor2;
-float uEnvelope;//宽度包络 0..1
-float uLength;//长宽比,噪声按它铺
+float uEnvelope;//该值是宽度包络,范围 0 到 1
+float uLength;//该值是长宽比,噪声按它铺开
 float uOpacity;
 float uSeed;
 

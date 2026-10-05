@@ -1,10 +1,10 @@
-//按 uColor 染色,Additive,透明处返回 0
+//这个着色器按 uColor 染色,用 Additive 混合,透明处返回 0
 sampler uImage0 : register(s0);
 
 float uTime;
 float uOpacity;
 float3 uColor;
-float2 uImageSize;//贴图像素尺寸
+float2 uImageSize;//该值是贴图的像素尺寸
 
 float4 PixelFunc(float4 baseColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
 {

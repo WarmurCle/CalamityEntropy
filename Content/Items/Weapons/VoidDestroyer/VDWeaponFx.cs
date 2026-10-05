@@ -157,7 +157,7 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
         private static readonly Vector2[] pair = new Vector2[3];
 
         /// <summary>
-        /// 在 a→b 之间生成一条锯齿电弧,端点钉死,中段按正弦包络横向抖动。jitter 为最大横向偏移(像素)
+        /// 在 a 到 b 之间生成一条锯齿电弧,两端固定,中段按正弦包络横向抖动,jitter 是最大横向偏移(像素)
         /// </summary>
         public static void BuildArc(List<Vector2> into, Vector2 a, Vector2 b, int segments, float jitter, UnifiedRandom rand) {
             into.Clear();
@@ -172,7 +172,7 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
             }
         }
 
-        /// <summary>画一条电弧:宽的色晕 + 细的白热芯;加法批次内调用</summary>
+        /// <summary>DrawArc 画出一条电弧,宽色晕加上细白热芯,调用时批次必须是加法</summary>
         public static void DrawArc(IList<Vector2> points, Color glow, Color core, float width, float opacity) {
             if (opacity <= 0.01f) {
                 return;

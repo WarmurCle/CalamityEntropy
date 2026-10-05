@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
             => NextAttack(ctx);
 
         /// <summary>
-        /// 体末尾必调,读自减前的值,跌破 0 收招
+        /// 状态体末尾必须调用它,读的是自减前的值,跌破 0 就收招
         /// 客户端 NextAttack 为 null,倒计时继续走负,运动与 -1 帧相同
         /// </summary>
         protected IVaultState<LuminarisStateContext> Tick(LuminarisStateContext ctx, int countdown) {

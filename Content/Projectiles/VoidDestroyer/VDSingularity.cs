@@ -98,7 +98,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
                     Vector2 radial = ang.ToRotationVector2();
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + radial * VDDirector.SingDiskRadius, Vector2.Zero, ModContent.ProjectileType<VDVoidBolt>(), BoltDamage, 0f, Main.myPlayer, VDVoidBolt.ModeZOrbit, Projectile.Center.X, Projectile.Center.Y);
                 }
-                //被吸进来的碎屑(客户端)
+                //客户端生成被吸进来的碎屑
                 if (!Main.dedServ && Main.rand.NextBool(2)) {
                     Vector2 from = Projectile.Center + CEUtils.randomRot().ToRotationVector2() * Main.rand.NextFloat(220f, 420f);
                     Vector2 v = (Projectile.Center - from).SafeNormalize(Vector2.Zero).RotatedBy(0.6f) * Main.rand.NextFloat(6f, 11f);
@@ -106,7 +106,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
                 }
             }
             else if (Collapsing) {
-                //塌缩:透镜反而更猛(引力压实),粒子全断
+                //塌缩时透镜反而更猛,因为引力把画面压实,这一拍不再放粒子
                 float c = (age - TravelFrames - VDDirector.SingActiveFrames) / (float)VDDirector.SingCollapseFrames;
                 VDScreenFx.ReportLens(Projectile.Center, VDDirector.SingLensStrength * (1f + c * 1.2f), VDDirector.SingLensRadius * (1f - c * 0.4f));
                 if (!Main.dedServ && age == TravelFrames + VDDirector.SingActiveFrames) {
@@ -115,7 +115,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
             }
         }
 
-        /// <summary>本地玩家引力:朝奇点方向加速,朝向分量封顶(翼/坐骑仍能逃);玩家速度归其自身客户端,服务端不碰</summary>
+        /// <summary>本地玩家引力:朝奇点方向加速,朝向分量封顶(翼/坐骑仍能逃);玩家速度归这名玩家自己的客户端,服务端不碰</summary>
         private void PullLocalPlayer() {
             if (Main.dedServ) {
                 return;
@@ -130,7 +130,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
                 return;
             }
             Vector2 dir = toSing / dist;
-            //越近越强(线性),远端边缘几乎无感
+            //引力离奇点越近越强,按线性衰减,远端边缘几乎拉不动玩家
             float falloff = 1f - dist / VDDirector.SingPullRadius;
             player.velocity += dir * VDDirector.SingPullAccel(Phase) * (0.35f + 0.65f * falloff);
             float along = Vector2.Dot(player.velocity, dir);
@@ -163,11 +163,11 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
                     Vector2 vel = dir * VDDirector.SingBurstSpeed;
                     switch (i % 3) {
                         case 0:
-                            //平面
+                            //这一发留在平面
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, vel, type, BoltDamage, 0f, Main.myPlayer, VDVoidBolt.ModeStraight);
                             break;
                         case 1:
-                            //朝镜头:起点即带内,越来越大地掠过镜头
+                            //朝镜头的那一发起点就在带内,飞得越来越大,从镜头前掠过
                             Projectile.NewProjectile(new VDDepthSource(boss?.NPC, 0f, VDDirector.SingBurstNearZVel, 0f), Projectile.Center, vel * 0.7f, type, BoltDamage, 0f, Main.myPlayer, VDVoidBolt.ModeZPierce);
                             break;
                         default:

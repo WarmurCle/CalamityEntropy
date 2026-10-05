@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.States
                 float rj = LuminarisDirector.StayAboveAngleTotal / mxr;
                 for (int i = 0; i < mxr; i++) {
                     //a 是「度」,却被塞进按弧度解释的 ai0(弹幕拿它当重力方向),
-                    //所以实际重力方向是 0、36、72… 弧度而不是均分一圈。原代码如此,照搬
+                    //所以实际重力方向是 0、36、72… 弧度而不是均分一圈,原代码就是这样,原样保留
                     Shoot<LuminarisAstralShoot>(ctx, npc.Center,
                         (player.Center - npc.Center).normalize() * LuminarisDirector.StayAboveProjSpeed * enrange,
                         LuminarisDirector.StayAboveDamageMult, a,

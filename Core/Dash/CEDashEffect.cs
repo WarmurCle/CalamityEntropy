@@ -5,14 +5,14 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Core.Dash
 {
-    /// <summary>OnHit 填写,Damage 为 0 不结算</summary>
+    /// <summary>OnHit 填写 CEDashHit,Damage 为 0 时不结算</summary>
     public struct CEDashHit
     {
-        /// <summary>引擎套职业加成与暴击</summary>
+        /// <summary>引擎给 Damage 套职业加成和暴击</summary>
         public int Damage;
         public float Knockback;
         public int PlayerImmuneFrames;
-        /// <summary>默认 Generic</summary>
+        /// <summary>DamageClass 默认是 Generic</summary>
         public DamageClass DamageClass;
     }
 
@@ -21,55 +21,55 @@ namespace CalamityEntropy.Core.Dash
     {
         public CEDashEffect Effect;
         public CEDashEnhancer Enhancer;
-        /// <summary>单位向量</summary>
+        /// <summary>Direction 是单位向量</summary>
         public Vector2 Direction;
-        /// <summary>首帧 0</summary>
+        /// <summary>Timer 在首帧是 0</summary>
         public int Timer;
-        /// <summary>起手速度,收尾还竖直</summary>
+        /// <summary>EntryVelocity 记下起手速度,收尾时还一部分竖直分量</summary>
         public Vector2 EntryVelocity;
         public int Duration;
-        /// <summary>每帧位移,px</summary>
+        /// <summary>Speeds 是每帧位移,单位 px</summary>
         public float[] Speeds = Array.Empty<float>();
         /// <summary>远端只复现视觉,不写速度不判撞击</summary>
         public bool Remote;
         public int HitCount;
         public readonly HashSet<int> HitNPCs = new();
-        /// <summary>效果私有槽</summary>
+        /// <summary>EffectData 是效果的私有槽</summary>
         public object EffectData;
-        /// <summary>强化器私有槽</summary>
+        /// <summary>EnhancerData 是强化器的私有槽</summary>
         public object EnhancerData;
 
         public bool Horizontal => Direction.Y == 0f;
         public float Progress => Duration <= 0 ? 1f : MathHelper.Clamp(Timer / (float)Duration, 0f, 1f);
         public float CurrentSpeed => Timer >= 0 && Timer < Speeds.Length ? Speeds[Timer] : 0f;
-        /// <summary>含弹幕</summary>
+        /// <summary>Invincible 含弹幕无敌,效果或强化器任一为真即可</summary>
         public bool Invincible => Effect.Invincible || (Enhancer != null && Enhancer.Invincible);
         public bool Enhanced => Enhancer != null;
         public int HorizontalSign(Player player) => Direction.X != 0f ? Math.Sign(Direction.X) : player.direction;
     }
 
     /// <summary>
-    /// 饰品在 UpdateAccessory 里 Offer
-    /// 子类无参构造,不得持有随冲刺变的字段
+    /// 饰品在 UpdateAccessory 里调 Offer
+    /// 效果子类用无参构造,不得持有随冲刺变的字段
     /// </summary>
     public abstract class CEDashEffect
     {
-        /// <summary>写入 LastUsedDashID,联机用</summary>
+        /// <summary>ID 写入 LastUsedDashID,联机用它反查</summary>
         public abstract string ID { get; }
 
-        /// <summary>高者接管,相同则后登记</summary>
+        /// <summary>Priority 高的接管,相同就以后登记的为准</summary>
         public virtual int Priority => 0;
 
-        /// <summary>假则只能靠 Hotkey</summary>
+        /// <summary>UsesDoubleTap 为假时只能靠 Hotkey</summary>
         public virtual bool UsesDoubleTap => true;
 
-        /// <summary>允许双击上下</summary>
+        /// <summary>Omnidirectional 允许双击上下</summary>
         public virtual bool Omnidirectional => false;
 
-        /// <summary>非空时 ProcessTriggers 监听</summary>
+        /// <summary>Hotkey 非空时 ProcessTriggers 监听它</summary>
         public virtual ModKeybind Hotkey => null;
 
-        /// <summary>空则本次不起手</summary>
+        /// <summary>HotkeyDirection 为空时本次不起手</summary>
         public virtual Vector2? HotkeyDirection(Player player) => null;
 
         public virtual bool CanInterrupt => false;
@@ -77,33 +77,33 @@ namespace CalamityEntropy.Core.Dash
         /// <summary>原版驱动,引擎不写速度不判墙</summary>
         public virtual bool ExternalMotion => false;
 
-        /// <summary>帧</summary>
+        /// <summary>Duration 按帧计</summary>
         public abstract int Duration { get; }
 
-        /// <summary>px,自由空间总位移</summary>
+        /// <summary>Distance 是自由空间总位移,单位 px</summary>
         public abstract float Distance { get; }
 
         /// <summary>结束后的锁定帧,期间不能起手</summary>
         public virtual int Cooldown => 30;
 
-        /// <summary>缓出指数,1 为线性</summary>
+        /// <summary>Curve 是缓出指数,1 为线性</summary>
         public virtual float Curve => 2f;
 
         public virtual float GravityMult => 0.3f;
 
-        /// <summary>水平且不按跳时衰减竖直</summary>
+        /// <summary>DampVertical 在水平冲刺且不按跳时衰减竖直速度</summary>
         public virtual bool DampVertical => true;
 
-        /// <summary>全程竖直保留比,按帧乘 0.85 的话 20 帧只剩 4%</summary>
+        /// <summary>VerticalRetain 是全程竖直保留比,若每帧乘 0.85,20 帧只剩 4%</summary>
         public virtual float VerticalRetain => 0.35f;
 
-        /// <summary>收尾还起手竖直的比例,0 不还</summary>
+        /// <summary>ExitVerticalCarry 是收尾时还起手竖直速度的比例,0 表示不还</summary>
         public virtual float ExitVerticalCarry => 0.6f;
 
-        /// <summary>全程无敌,穿弹幕</summary>
+        /// <summary>Invincible 为真时全程无敌,弹幕也穿得过</summary>
         public virtual bool Invincible => false;
 
-        /// <summary>穿过并结算撞击</summary>
+        /// <summary>HitsEnemies 为真时穿过敌人并结算撞击</summary>
         public virtual bool HitsEnemies => false;
 
         public virtual bool IgnorePlatforms => false;
@@ -116,31 +116,31 @@ namespace CalamityEntropy.Core.Dash
             return MathHelper.Clamp(Math.Max(player.accRunSpeed, player.maxRunSpeed), 3f, 9f);
         }
 
-        /// <summary>引擎已排除坐骑、控制、死亡、锁定帧</summary>
+        /// <summary>CanStart 调用前,引擎已排除坐骑、控制、死亡和锁定帧</summary>
         public virtual bool CanStart(Player player) => true;
 
-        /// <summary>仅本地</summary>
+        /// <summary>OnStart 只在本地调</summary>
         public virtual void OnStart(Player player, CEDashState state) { }
 
-        /// <summary>位移后,本地与远端都调</summary>
+        /// <summary>OnVisuals 在位移之后调,本地和远端都走</summary>
         public virtual void OnVisuals(Player player, CEDashState state) { }
 
-        /// <summary>每怪每次冲刺一次,填 hit</summary>
+        /// <summary>OnHit 每只怪每次冲刺只进一次,伤害填进 hit</summary>
         public virtual void OnHit(Player player, NPC npc, CEDashState state, ref CEDashHit hit) { }
 
-        /// <summary>本地与远端</summary>
+        /// <summary>OnEnd 在本地和远端都调</summary>
         public virtual void OnEnd(Player player, CEDashState state) { }
     }
 
-    /// <summary>无状态单例,TryConsume 过了本次被强化</summary>
+    /// <summary>强化器是无状态单例,TryConsume 通过后这一次冲刺被强化</summary>
     public abstract class CEDashEnhancer
     {
         public abstract string ID { get; }
 
-        /// <summary>只在本地</summary>
+        /// <summary>TryConsume 只在本地判断</summary>
         public abstract bool TryConsume(Player player);
 
-        /// <summary>位移同倍</summary>
+        /// <summary>SpeedMult 同时放大位移和收尾速度</summary>
         public virtual float SpeedMult => 1.2f;
 
         public virtual bool Invincible => true;
@@ -156,7 +156,7 @@ namespace CalamityEntropy.Core.Dash
         public override string ID => "VanillaDash";
         public override bool UsesDoubleTap => false;
         public override bool ExternalMotion => true;
-        /// <summary>远端视觉用,本地看 dashDelay 回到非负</summary>
+        /// <summary>Duration 给远端视觉用,本地看 dashDelay 回到非负</summary>
         public override int Duration => 30;
         public override float Distance => 0f;
         public override int Cooldown => 0;

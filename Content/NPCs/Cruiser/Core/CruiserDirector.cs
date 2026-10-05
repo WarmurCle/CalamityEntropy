@@ -3,7 +3,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser.Core
 {
-    /// <summary>状态里不许裸数字,数值照搬原 AI 和 changeAi,不编理由</summary>
+    /// <summary>状态里不能写裸数字,数值按原 AI 和 changeAi 保留,不另编理由</summary>
     internal static class CruiserDirector
     {
         //==================== 全局 ====================
@@ -20,7 +20,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.Core
         /// <summary>无目标时每帧的上浮加速度(原代码写的是 <c>velocity.Y += -1f</c>)</summary>
         public const float NoTargetRise = -1f;
 
-        /// <summary>转二阶段的血量除数。原代码是<b>整数除法</b> <c>life &lt; lifeMax / 2</c>,照搬</summary>
+        /// <summary>转二阶段的血量除数沿用原代码的<b>整数除法</b> <c>life &lt; lifeMax / 2</c>,原样保留</summary>
         public const int Phase2LifeDivisor = 2;
 
         //==================== SetDefaults 的定义值 ====================
@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.Core
         public const int SegmentShrinkMinIndex = 4;
 
         public const int BaseDamage = 200;
-        /// <summary>专家/大师/死亡各 +4,复仇 +2(加法项,顺序照搬)</summary>
+        /// <summary>专家、大师和死亡各加 4,复仇加 2,这些是加法项,顺序原样保留</summary>
         public const int DamageExpert = 4;
         public const int DamageMaster = 4;
         public const int DamageDeath = 4;
@@ -73,19 +73,19 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.Core
 
         /// <summary>体节数基数(实际生成 length + 1 个实体,最后一个是尾节)</summary>
         public const int ChainSegments = 20;
-        /// <summary>死亡模式 +4,复仇 +3,天顶世界直接钉成 10</summary>
+        /// <summary>死亡模式的体节再加 4,复仇再加 3,天顶世界直接写成 10</summary>
         public const int ChainSegmentsDeathBonus = 4;
         public const int ChainSegmentsRevengeBonus = 3;
         public const int ChainSegmentsZenith = 10;
 
         /// <summary>骨节间距(乘 NPC.scale)。Rigs2D 链骨的静息骨长,体节实体每帧从同一条链读位置</summary>
         public const int ChainSpacing = 80;
-        /// <summary>骨节朝向向前一节收敛的速率(比例式,非固定角速度)。即 ChainFollow 的 <c>poseWeightBase</c></summary>
+        /// <summary>骨节朝向向前一节收敛的速率,按比例而不是固定角速度,也就是 ChainFollow 的 <c>poseWeightBase</c></summary>
         public const float ChainRotateRate = 0.12f;
         /// <summary>体节实体的暖机帧数:自身年龄不到这个数就整帧不动(等头部把链条铺开)</summary>
         public const int SegmentWarmupFrames = 5;
         /// <summary>
-        /// 骨架根位姿单帧位移超过此值(乘 scale)即整链硬重建成直线。
+        /// 骨架根位姿单帧位移超过此值(乘 scale),就把整链重建成直线
         /// 巡游者的冲刺不过几十像素一帧,只有真正的瞬移才会触发;默认 340 太小,快冲会把链拉直
         /// </summary>
         public const float RigSnapDistance = 1200f;
@@ -119,7 +119,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.Core
         //==================== 死亡演出 ====================
 
         public const int DeathAnmFrames = 200;
-        /// <summary>镜头推近插值每帧 +0.025,满 1 之后直接钉成 24(原代码就是这么跳的)</summary>
+        /// <summary>镜头推近插值每帧加 0.025,满 1 之后直接写成 24,原代码就是这样跳变的</summary>
         public const float DeathCamRamp = 0.025f;
         public const float DeathCamHold = 24f;
         /// <summary>速度高于 6 时每帧 ×0.96</summary>
@@ -151,7 +151,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.Core
 
         //==================== 尾鞭(da / tail_vj)与尾部新星 ====================
 
-        /// <summary>鞭击起手的角速度,之后每帧 -1.5;角度落回 0 以下即触发新星</summary>
+        /// <summary>鞭击起手的角速度,之后每帧 -1.5;角度落到 0 以下就触发新星</summary>
         public const float WhipLaunchSpeed = 12f;
         public const float WhipDecel = 1.5f;
         /// <summary>静息角度 = (100 / (|v| × 3)) × 5,负值钳 0,再按 0.1 逼近</summary>
@@ -332,7 +332,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.Core
 
         //==================== BiteAndDash:咬住并拖拽 ====================
 
-        /// <summary>咬合判定:本体前方 160 处与玩家的距离小于 160 即咬中</summary>
+        /// <summary>咬合判定:本体前方 160 处与玩家的距离小于 160 就咬中</summary>
         public const float BiteGrabOffset = 160f;
         public const float BiteGrabRange = 160f;
         public const float BiteApproachDrag = 0.9f;
@@ -385,7 +385,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.Core
         public const float CruiseThrust = 0.1f;
         public const float CruiseAimLerp = 0.058f;
         public const float CruiseDrag = 0.998f;
-        /// <summary>100 帧后开始每帧 1/150 的概率收招,200 帧硬收。<b>全局唯一一处影响出招的骰点</b></summary>
+        /// <summary>100 帧后开始每帧 1/150 的概率收招,200 帧强制收招,<b>这是全局唯一一处影响出招的骰点</b></summary>
         public const int CruiseRollStart = 100;
         public const int CruiseRollChance = 150;
         public const int CruiseHardEnd = 200;
@@ -425,7 +425,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.Core
 
         //==================== VoidLaser:虚空激光 ====================
 
-        /// <summary>前 35 帧追瞄,自增后再判 &gt; 36 才发射,第 36 帧两边都不进,照搬</summary>
+        /// <summary>前 35 帧追瞄,自增后再判大于 36 才发射,第 36 帧两边都不进,原样保留</summary>
         public const int LaserAimFrames = 35;
         public const int LaserActiveFrom = 36;
         public const float LaserAimRotateRate = 0.16f;
@@ -470,7 +470,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.Core
         public const float PhaseTransParticleScatter = 6f;
         public const float PhaseTransParticleOpacityMin = 0.2f;
         public const float PhaseTransParticleOpacityMax = 1.4f;
-        /// <summary>二阶段贴图切换的门槛(原代码用的是 <c>phaseTrans &gt; 120</c> / <c>&gt;= 120</c>,两个数都照搬)</summary>
+        /// <summary>二阶段贴图切换的门槛(原代码用的是 <c>phaseTrans &gt; 120</c> / <c>&gt;= 120</c>,两个数都原样保留)</summary>
         public const int PhaseTransDrawSwitch = 120;
 
         //==================== 绘制常数(纯表现) ====================

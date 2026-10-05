@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Skies
 
         protected override void DrawFront(SpriteBatch spriteBatch) {
             //旧实现无门控,0.5 透明度每帧按切片数叠加饱和到 0.75~0.99(随生物群系漂移);
-            //单次绘制按其观感取 0.85 校准,留在调用方批次,矩形恰好铺满
+            //单次绘制按旧实现的观感取 0.85 做校准,画在调用方的批次里,矩形恰好铺满
             spriteBatch.Draw(CEUtils.pixelTex, CESkyDrawing.CallerFullscreen, new Color(0, 10, 60) * (0.85f * opacity));
         }
     }

@@ -30,7 +30,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Nemesis
         //模式 0:收势结束进度、爆发落点进度,余下为停势
         public const float GatherFrac = 0.22f;
         public const float BurstFrac = 0.45f;
-        //模式 0:起手角(相对瞄准方向)、收势回拉角、落点过冲角;三者之和控制在 180 度内,读作切穿而不是绕圈
+        //模式 0:起手角(相对瞄准方向)、收势回拉角、落点过冲角;三者加起来控制在 180 度内,读作切穿而不是绕圈
         public const float StartDeg = 80f;
         public const float PullDeg = 15f;
         public const float OvershootDeg = 5f;

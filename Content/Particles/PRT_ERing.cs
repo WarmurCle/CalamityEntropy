@@ -79,7 +79,7 @@ namespace CalamityEntropy.Content.Particles
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, vertices.ToArray(), 0, vertices.Count - 2);
             }
             sb.End();
-            //End完必须BeginDrawingWithMode接回去,少一步同桶后面全花
+            //End 之后必须用 BeginDrawingWithMode 把批次接回去,少这一步同桶后面的粒子会画乱
             PRTLoader.BeginDrawingWithMode(PRTDrawMode, sb);
             return false;
         }

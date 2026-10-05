@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         /// <summary>本地相机中心(世界坐标):原版缩放围绕它进行,所以投影后再经 GameViewMatrix 也自洽</summary>
         public static Vector2 CameraCenter => Main.screenPosition + new Vector2(Main.screenWidth, Main.screenHeight) * 0.5f;
 
-        /// <summary>透视投影:世界点按 Z 向相机中心收敛,返回仍是世界坐标(减 screenPosition 即屏幕坐标)</summary>
+        /// <summary>透视投影:世界点按 Z 向相机中心收敛,返回仍是世界坐标(减去 screenPosition 就是屏幕坐标)</summary>
         public static Vector2 Project(Vector2 world, float z) => Project(world, z, CameraCenter);
 
         public static Vector2 Project(Vector2 world, float z, Vector2 camera) => camera + (world - camera) * Scale(z);
@@ -118,7 +118,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
             return !(tile.HasTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType]);
         }
 
-        /// <summary>frames 帧正中到顶、走完回 0,半隐式积分早约一帧,别拿 Z == 0 当钟</summary>
+        /// <summary>frames 帧正中到顶、走完回 0,半隐式积分早约一帧,不要把 Z 等于 0 当成时钟</summary>
         public static (float zVel, float zAccel) Parabola(float apex, int frames) {
             float half = frames * 0.5f;
             float accel = -2f * apex / (half * half);

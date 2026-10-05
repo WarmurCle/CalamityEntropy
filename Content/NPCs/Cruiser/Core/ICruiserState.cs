@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.Core
 
     /// <summary>
     /// 拍子用 ChangeCounter 区间,不加会归零 Timer 的 beat 枚举
-    /// 自增前读一次,自增后再读,阈值照抄
+    /// 宿主自增前读一次,自增后再读一次,阈值按原数值
     /// </summary>
     public abstract class CruiserStateBase : CEBossStateBase<CruiserStateContext>
     {
@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.Core
             => IsServer ? CruiserRotation.Pick(ctx, StateIndex) : null;
 
         /// <summary>
-        /// 生成敌对弹幕。伤害 <c>NPC.damage / 6.9 × 倍率</c>,击退 3,owner 传 -1(全部照搬原 <c>Shoot</c>)。
+        /// 生成敌对弹幕时,伤害取 <c>NPC.damage / 6.9 × 倍率</c>,击退是 3,owner 传 -1,参数按原 <c>Shoot</c> 保留
         /// 客户端不生成
         /// </summary>
         protected static void Shoot(CruiserStateContext ctx, int type, Vector2 pos, Vector2 velocity,

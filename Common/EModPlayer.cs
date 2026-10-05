@@ -58,7 +58,7 @@ namespace CalamityEntropy.Common
 {
     public class EModPlayer : ModPlayer
     {
-        //虚寂之绳贴图在加载期就位,只在客户端绘制路径读取,专用服务器上恒为 null
+        //虚寂之绳贴图在加载期就位,只在客户端绘制路径读取,专用服务器上始终是 null
         [VaultLoaden("CalamityEntropy/Content/NPCs/NihilityTwin/NihRope")]
         internal static Asset<Texture2D> NihRopeTex;
         public float GetPressure() {
@@ -422,7 +422,7 @@ namespace CalamityEntropy.Common
         }
         public bool foreseeOrbLast = false;
 
-        //悲恸的属性记录
+        //下面三个字段记录悲恸的属性
         public float McDefense = 0;
         public float McRegen = 0;
         public float McEndurance = 0;
@@ -461,7 +461,7 @@ namespace CalamityEntropy.Common
         public List<McAttributeRecord> McAttributes = null;
         public bool BaitCharging = false;
         public bool devouringCard = false;
-        //脱离灾厄:潜行退役惰性字段(NoNaturalStealthRegen/ExtraStealthBar/ExtraStealth/worshipRelic/worshipStealthRegenTime/shadowPact)已裁删
+        //脱离灾厄:潜行退役后,惰性字段 NoNaturalStealthRegen、ExtraStealthBar、ExtraStealth、worshipRelic、worshipStealthRegenTime、shadowPact 已经删掉
         public bool shadowRune = false;
         public float ManaExtraHeal = 0f;
         public int ManaRegenPer30Tick = 0;
@@ -744,7 +744,7 @@ namespace CalamityEntropy.Common
         /// <summary>饰品主动技能键(默认V),替代灾厄 FindAccessory().GetDynamicModHotkey()。</summary>
         public static ModKeybind AccessoryAbilityHotKey;
 
-        //冷却:统一走自研冷却框架(Player.AddCooldown/HasCooldown/TryGetCooldown/EntropyCooldowns())
+        //冷却统一走自研冷却框架,入口是 Player.AddCooldown、HasCooldown、TryGetCooldown 和 EntropyCooldowns
 
         /// <summary>最近一次冲刺的效果 ID(CEDashEffect.ID),空串=无。由 Core/Dash 的 CEDashPlayer 在起手时写入。</summary>
         public string LastUsedDashID = "";
@@ -1096,7 +1096,7 @@ namespace CalamityEntropy.Common
         public Item vanityWing = null;
         public int WingFrameAnmCount = 0;
         public float plWingTrailAlpha = 0;
-        public PRT_StarTrailParticle plWingTrail = null;   //PhantomLightWing,每帧刷Lifetime+Position,不是spawn完就撒手
+        public PRT_StarTrailParticle plWingTrail = null;   //PhantomLightWing 每帧刷新 Lifetime 和 Position,生成之后还要继续更新
         public override void Load() {
             wingData = new SpecialWingDrawingData();
             drCrystals = null;
@@ -1599,7 +1599,7 @@ namespace CalamityEntropy.Common
             }
 
 
-            //脱离灾厄:血沸附魔(bloodBoiling)触发链断死,自伤/攻速/死亡播报块一并裁删
+            //脱离灾厄:血沸附魔(bloodBoiling)的触发链已经断掉,自伤、攻速和死亡播报这几块一起删掉
             /*if (SubworldSystem.IsActive<VOIDSubworld>())
             {
                 Player.gravity = 0;
@@ -1733,7 +1733,7 @@ namespace CalamityEntropy.Common
             Player.maxFallSpeed *= float.Lerp(Scale, 1, 0.4f);
         }
 
-        //脱离灾厄:潜行退役惰性字段EquipedAnyRogueAcc已裁删
+        //脱离灾厄:潜行退役后,惰性字段 EquipedAnyRogueAcc 已经删掉
         public int manaNorm = 0;
         public int deusCoreAdd = 0;
         public float ShieldAlphaAdd = 0;
@@ -1763,7 +1763,7 @@ namespace CalamityEntropy.Common
                 CEUtils.PlaySound("YharonFireball1", 2.2f, Player.Center);
             }
             // 2026-08-31 平衡案:苍溟护符重做,受击时召唤3个追踪深渊漩涡,5秒效果冷却(原大伤护盾环退役)。
-            // OnHurt 在远端客户端与专用服务器上同样会跑,缺主人闸门时每一端都会各自生成一批
+            // OnHurt 在远端客户端与专用服务器上同样会跑,没有主人端检查时每一端都会各自生成一批
             // 不发生成包、不结算伤害的幽灵漩涡,方向还因为 Main.rand 各端不同;
             // 伤害判定本就只在主人端,所以只在主人端生成并补一次同步。
             if (Player.whoAmI == Main.myPlayer && accAzureAbyss && CECooldowns.CheckBMProc("AzureVortexOnHurt", 300)) {
@@ -1886,7 +1886,7 @@ namespace CalamityEntropy.Common
             if (proj.type == ModContent.ProjectileType<AzureVortex>())
                 return;
             // 文案承诺的是"武器命中"。这个钩子对玩家名下任何友方弹幕都触发,不加来源判据的话
-            // 神性那类常驻伤害光环站着不动就能把节流吃满,等于白送一条常驻 DPS。
+            // 神性那类常驻伤害光环站着不动就能把节流用满,等于白白送出一条常驻 DPS
             if (!proj.IsFromWeaponUse())
                 return;
             TrySpawnAzureVortexOnHit(target);
@@ -2149,7 +2149,7 @@ namespace CalamityEntropy.Common
         public bool maliciousCode = false;
         public int UICJ = 0;
         public int ilVortexType = -1;
-        //脱离灾厄:潜行退役惰性字段(WeaponsNoCostRogueStealth/RogueStealthRegen/LastStealth/LastStealthStrikeAble/ResetStealth/shadowStealth/GaleWristbladeCharge)已裁删
+        //脱离灾厄:潜行退役后,惰性字段 WeaponsNoCostRogueStealth、RogueStealthRegen、LastStealth、LastStealthStrikeAble、ResetStealth、shadowStealth、GaleWristbladeCharge 已经删掉
         public int BrambleBarAdd = 0;
         public float BrambleBarCharge = 0;
         public int BBarNoDecrease = 0;
@@ -2157,7 +2157,7 @@ namespace CalamityEntropy.Common
         public bool ResetRot = false;
         public int TDeckTime = 0;
         public int SDeckTime = 0;
-        //脱离灾厄:潜行退役惰性字段(StealthMaxLast/RstStealth)已裁删
+        //脱离灾厄:潜行退役后,惰性字段 StealthMaxLast 和 RstStealth 已经删掉
         public int DmgAdd20 = 0;
         public bool accAzureAbyss = false;
         public int NihTwinArmorConnetPlayer = -1;
@@ -2331,7 +2331,7 @@ namespace CalamityEntropy.Common
                 }
             }
             // 渊洋神迹的水中不耗翼力。原来只写在 CalamityEntropy 的 On_Player.WaterCollision 钩子里,
-            // 而原版在 shimmerWet / honeyWet / merman / ignoreWater / trident 任一成立时压根不走
+            // 而原版在 shimmerWet / honeyWet / merman / ignoreWater / trident 任一成立时根本不走
             // WaterCollision(Player.cs 的碰撞分派),鲨鱼翅膀、尼普顿贝壳、公爵鱼龙 Lore 都会让它整段失效。
             // 放这里每帧都跑,不依赖碰撞走哪条分支。
             if (MariviniumSet && Player.wet) {
@@ -2626,7 +2626,7 @@ namespace CalamityEntropy.Common
                 Player.velocity.Y *= 0.996f;
             }
 
-            //脱离灾厄:shadowPact蓄影与潜行维护逻辑已随盗贼系统退役,字段与复位一并裁删
+            //脱离灾厄:shadowPact 蓄影和潜行维护逻辑已随盗贼系统退役,字段和复位一起删掉
             if (ilVortexType == -1)
                 ilVortexType = ModContent.ProjectileType<IlmeranVortex>();
             if (ilmeranAsylum && Main.myPlayer == Player.whoAmI) {
@@ -3044,7 +3044,7 @@ namespace CalamityEntropy.Common
             VaMoving--;
             if (Player.Entropy().oracleDeck) {
                 if (OracleDeckHealCd <= 0) {
-                    // 2026-08-31 平衡案:每10秒固定一跳(不吃冷却缩减)
+                    // 2026-08-31 平衡案:每 10 秒固定跳一次,不受冷却缩减影响
                     OracleDeckHealCd = 600;
                     if (CEUtils.getDistance(Main.LocalPlayer.Center, Player.Center) < 6000) {
                         if (Main.LocalPlayer.statLife < Main.LocalPlayer.statLifeMax2) {
@@ -3182,7 +3182,7 @@ namespace CalamityEntropy.Common
         public int MariviniumShieldCount = 0;
         public int MariviniumShieldCd = 12 * 60;
         public bool visualMagiShield = false;
-        //脱离灾厄:潜行退役惰性字段RogueStealthRegenMult已裁删(Vigorous词缀已改走充能速度)
+        //脱离灾厄:潜行退役后,惰性字段 RogueStealthRegenMult 已经删掉,Vigorous 词缀已改走充能速度
         public int baitHeldType = -1;
         public override void ProcessTriggers(TriggersSet triggersSet) {
             if (Player.dead)
@@ -3255,7 +3255,7 @@ namespace CalamityEntropy.Common
 
             // 护盾吸收/受击生成细胞的开关必须在受伤结算前就绪。
             // 只在 PostUpdate 里推导会晚一步:ResetEffects 每帧清 false,受击发生在 PostUpdate 之前,
-            // 结算时开关恒为 false(历史 bug:噬虚者护盾能生成但无法生效)。联结伙伴同理。
+            // 结算时开关始终是 false(历史 bug:噬虚者护盾能生成但无法生效),联结伙伴同理
             if (NihilitySet)
                 NihilityShieldEnabled = true;
             if (ChaoticSet)
@@ -3318,7 +3318,7 @@ namespace CalamityEntropy.Common
                 //脱离灾厄:原+15%潜行回复,按rogue-weapons通用换算(x1.5)改为大招充能速度+22.5%
                 Player.GetModPlayer<CEChargePlayer>().ChargeRateMult += 0.225f;
             }
-            //脱离灾厄:疾风腕刃旧充能链(GaleWristbladeCharge/WindPressureTime/WindPressure buff)全仓无写入点,已裁删;新效果在GaleWristbladesPlayer
+            //脱离灾厄:疾风腕刃旧充能链 GaleWristbladeCharge、WindPressureTime、WindPressure buff 在全仓没有写入点,已经删掉,新效果在 GaleWristbladesPlayer
             foreach (Projectile p in Main.ActiveProjectiles) {
                 if (p.ModProjectile is WispLanternProj wl) {
                     wl.applyEffects();

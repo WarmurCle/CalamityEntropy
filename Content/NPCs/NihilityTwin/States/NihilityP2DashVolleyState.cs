@@ -5,7 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
 {
-    /// <summary>Num1 是冲刺次数不是帧计时,Num2 进状态不清,第一次冲刺相位取决于上一手残值,照搬</summary>
+    /// <summary>Num1 是冲刺次数不是帧计时,Num2 进状态时不清,第一次冲刺的相位取决于上一手残值,原样保留</summary>
     [VaultState((int)NihilityStateIndex.P2DashVolley, typeof(NihilityStateContext))]
     public class NihilityP2DashVolleyState : NihilityStateBase
     {
@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
                 ctx.Num1++;
                 ctx.Num2 = NihilityDirector.DashSubTimerReset;
                 if (ctx.Num1 <= NihilityDirector.DashVolleyReps) {
-                    //音效选号吃随机数,各端各选各的;不参与任何判定,照搬原位置
+                    //音效选号吃随机数,各端各选各的;不参与任何判定,保持在原位置
                     CEUtils.PlaySound("beast_ghostdash" + Main.rand.Next(1, 5), 1, npc.Center);
                 }
             }

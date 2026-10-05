@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.Skies
         private static Asset<Texture2D> crSkyTex;
 
         //滚动速度(px/tick):按旧实现在典型地表切片数(约 13 次/帧)下的表观速度折算,
-        //旧代码的 counter 在每个切片回调里自增,速度本随生物群系漂移,此处取其典型值定格
+        //旧代码的 counter 在每个切片回调里自增,速度本来会随生物群系漂移,这里把速度定在那个典型值
         private static readonly Vector2 BaseDrift = new(3.9f, -1.3f);
         private static readonly Vector2 AddDriftA = new(11.0f, -6.9f);
         private static readonly Vector2 AddDriftB = new(12.4f, 4.1f);

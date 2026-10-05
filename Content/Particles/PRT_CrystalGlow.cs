@@ -37,7 +37,7 @@ namespace CalamityEntropy.Content.Particles
             ShouldKillWhenOffScreen = false;
             if (Lifetime <= 0)
                 Lifetime = 200;
-            r1 = CEUtils.randomRot();   //随机角放SetProperty,CanPool复用不会重跑字段初始化器
+            r1 = CEUtils.randomRot();   //随机角度放在 SetProperty 里,CanPool 复用时不会重跑字段初始化器
             r2 = CEUtils.randomRot();
         }
 

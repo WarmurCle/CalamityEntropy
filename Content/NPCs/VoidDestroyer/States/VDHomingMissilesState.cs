@@ -60,7 +60,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
             if (Timer >= VDDirector.MissileChargeFrames && (Timer - VDDirector.MissileChargeFrames) % interval == 0 && volleysDone < volleys) {
                 FireMissileRing(ctx, VDDirector.MissileRingCount(phase));
                 volleysDone++;
-                //导弹环是次要节拍,描边只闪一半,核弹那记才是整圈
+                //导弹环是次要节拍,描边只闪一半,核弹那一下才闪整圈
                 ctx.RimFlash = Math.Max(ctx.RimFlash, 0.6f);
             }
 

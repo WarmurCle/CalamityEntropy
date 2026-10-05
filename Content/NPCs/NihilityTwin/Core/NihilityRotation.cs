@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.Core
 {
     /// <summary>
-    /// 出招本来就是随机的,不设防复读,只留小细胞超过 8 就重掷
+    /// 出招本来就是随机的,允许连续重复同一招,只在小细胞超过 8 时重掷
     /// 掷点收归权威端,原代码客户端也会掷,结果经 ai[3] 过线
     /// </summary>
     public static class NihilityRotation
@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin.Core
         public static IVaultState<NihilityStateContext> Create(NihilityStateIndex state)
             => VaultStateRegistry<NihilityStateContext>.Create((int)state);
 
-        /// <summary>只清 aicounter,Num2、Num3、Nz、ChaseTimer 不清,残值带进下一手</summary>
+        /// <summary>换招时只清 aicounter,Num2、Num3、Nz 和 ChaseTimer 不清,残值带进下一手</summary>
         public static IVaultState<NihilityStateContext> Regroup(NihilityStateContext ctx) {
             ctx.Num1 = 0;
             return Create(NihilityStateIndex.Regroup);

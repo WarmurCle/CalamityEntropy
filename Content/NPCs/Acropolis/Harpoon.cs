@@ -12,8 +12,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 {
     /// <summary>
     /// 挂架期位置由本体直写,出膛后自己积分,两种都清 netOffset
-    /// 不进位置预测器,直写会和预测打架
-    /// 扎墙只权威端裁,再插 40px,OnLauncher、Back、Stuck、PullCD、sVel 要过线
+    /// 鱼叉不进位置预测器,直写位置会和预测冲突
+    /// 扎墙只由权威端判定,判定后再把鱼叉插进 40px,OnLauncher、Back、Stuck、PullCD、sVel 要过线
     /// </summary>
     public class Harpoon : ModNPC
     {
@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             CEBossHost.RunAnchoredPartFrame(NPC);
             PullCD--;
             if (NPC.localAI[1]++ == 0) {
-                //原代码两个分支都写的 velocity.X,笔误照搬
+                //原代码两个分支都写的是 velocity.X,这个笔误原样保留
                 if (NPC.velocity.X == 0)
                     NPC.velocity.X = 0.02f;
                 if (NPC.velocity.Y == 0)

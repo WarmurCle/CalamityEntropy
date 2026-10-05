@@ -5,7 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Prophet.States
 {
-    /// <summary>150~120 这 31 帧什么都不做,三层嵌套留下的空窗,照搬</summary>
+    /// <summary>150 到 120 这 31 帧什么都不做,这是三层嵌套留下的空窗,原样保留</summary>
     [VaultState((int)ProphetStateIndex.RapidTorrent, typeof(ProphetStateContext))]
     public class ProphetRapidTorrentState : ProphetStateBase
     {

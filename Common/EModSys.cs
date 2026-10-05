@@ -40,7 +40,7 @@ namespace CalamityEntropy.Common
 {
     public class EModSys : ModSystem
     {
-        //注意:这些字段只在客户端绘制路径读,专用服务器上恒为 null。
+        //这些字段只在客户端绘制路径读取,专用服务器上始终是 null
         [VaultLoaden("CalamityEntropy/Assets/Extra/EvMark")]
         private static Asset<Texture2D> markTex;
         [VaultLoaden("CalamityEntropy/Assets/Extra/Noise_14")]
@@ -732,7 +732,7 @@ namespace CalamityEntropy.Common
             }
             eowLast = eow;
 
-            //史莱姆之神四体合计血条分母:开战首帧快照 lifeMax。无灾厄时集合空,与 4.0 一样不进
+            //史莱姆之神四个身体的血条分母在开战第一帧记下 lifeMax,没有灾厄时集合是空的,和 4.0 一样不走进这段
             if (sg && !slimeGodLast) {
                 slimeGodMaxLife = maxlifeSg;
             }

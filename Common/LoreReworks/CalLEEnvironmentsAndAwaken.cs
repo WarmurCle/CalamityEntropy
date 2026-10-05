@@ -43,7 +43,7 @@ namespace CalamityEntropy.Common.LoreReworks
     public class LEBloodMoon : LoreEffect
     {
         public override int ItemType => CEID.Item_LoreBloodMoon;
-        /// <summary>与 LEPrelude 同量级的光照加成。3.33 文案承诺夜视但类体为零消费者。</summary>
+        /// <summary>Light 是和 LEPrelude 同量级的光照加成,3.33 文案写了夜视,类里却没有夜视逻辑</summary>
         public static float Light = 0.05f;
         public override void UpdateEffects(Player player) {
             player.Entropy().light += Light;

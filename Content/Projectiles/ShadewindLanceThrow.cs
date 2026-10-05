@@ -155,7 +155,7 @@ namespace CalamityEntropy.Content.Projectiles
                 if (Projectile.ai[0] % 5 == 0) {
                     for (float r = 0; r < 359; r += 4) {
                         for (int i = 0; i < 2; i++) {
-                            //每帧拖尾Void,旧spawnNew也是AI里无脑刷
+                            //长矛在这里刷出 Void 尾,旧 spawnNew 也是在 AI 里无条件刷
                             var p2 = PRTLoader.NewParticle<PRT_Void>(Projectile.Center + CEUtils.randomPointInCircle(4) + ((MathHelper.ToRadians(r).ToRotationVector2() * 56) * new Vector2(0.3f, 1)).RotatedBy(Projectile.velocity.ToRotation()), Vector2.Zero, Color.White, 1f);
                             p2.Opacity = 0.4f;
                             p2.ad = 0.86f;

@@ -3,7 +3,7 @@
 namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
 {
     /// <summary>
-    /// 不设防复读,读自增前的序号,开局第一手是 0 号槽
+    /// 轮换允许连续重复同一招,读的是自增前的序号,开局第一手是 0 号槽
     /// 先选招再判越界,6 号槽出招、下一轮才回 0
     /// 转二阶段不重置序号
     /// </summary>
@@ -33,7 +33,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
             return Create(next);
         }
 
-        /// <summary>一阶段序号强转 0~6,二阶段 if 重映射,越界都是 round &gt;= 6 置 -1</summary>
+        /// <summary>一阶段把序号限制在 0 到 6,二阶段用 if 重映射,越界时 round 大于等于 6 就写成 -1</summary>
         private static LuminarisStateIndex SetAISyyle(LuminarisStateContext ctx, LuminarisStateIndex current) {
             int round = ctx.AttackIndex;
             LuminarisStateIndex next = current;

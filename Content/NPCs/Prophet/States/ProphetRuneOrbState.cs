@@ -7,7 +7,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Prophet.States
 {
-    /// <summary>三个布阵拍写的都是 phase == 1 ? 60 : 40,后两拍只有二阶段,后两圈恒为九个,照搬</summary>
+    /// <summary>三个布阵拍写的都是 phase 等于 1 时为 60,否则为 40,后两拍只有二阶段,后两圈始终是九个,原样保留</summary>
     [VaultState((int)ProphetStateIndex.RuneOrb, typeof(ProphetStateContext))]
     public class ProphetRuneOrbState : ProphetStateBase
     {

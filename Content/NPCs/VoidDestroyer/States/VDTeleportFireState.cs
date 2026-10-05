@@ -39,7 +39,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
                     Vector2 anchor = DepthAnchor(ctx, VDVfx.CornerDirs[ctx.CornerIndex] * VDDirector.TeleportFireOffset, depth);
                     ctx.Owner.StartBlink(anchor);
                 }
-                //落地后 18 帧核心蓄力 + 汇聚流再出手:落地即预告
+                //落地后用 18 帧做核心蓄力和汇聚流再出手,落地就给出预告
                 float charge = MathHelper.Clamp(Timer / (float)VDDirector.TeleportFireShotFrame, 0f, 1f);
                 ctx.CoreGlow = Math.Max(ctx.CoreGlow, charge);
                 ctx.RimCharge = charge;

@@ -2,7 +2,7 @@
 
 namespace CalamityEntropy.Content.NPCs.Prophet.Core
 {
-    /// <summary>事实过线,没有声明通道,招式直接写 velocity 和 rotation</summary>
+    /// <summary>事实字段要过线,没有声明通道,招式直接写 velocity 和 rotation</summary>
     public class ProphetStateContext : CEBossStateContext
     {
         public ProphetStateContext() {
@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
 
         #region 事实:过线
         /// <summary>
-        /// 原 AIChangeDelay,倒计时,选招当帧以满值跑,帧末自减
+        /// 这是原 AIChangeDelay,用作倒计时,选招当帧以满值跑,帧末再自减
         /// 节拍原样判定,不减 1,原代码在状态体之后才自减,中途压到 30 也会过线
         /// </summary>
         public override int Countdown { get; set; }

@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         Direct,
     }
 
-    /// <summary>事实过线,声明每帧清回默认,漏声明回到无害</summary>
+    /// <summary>事实字段要过线,声明每帧清回默认,漏声明就回到无害值</summary>
     public class VDStateContext : INpcStateContext
     {
         #region 核心引用

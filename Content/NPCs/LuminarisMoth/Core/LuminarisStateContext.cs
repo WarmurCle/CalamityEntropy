@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
 {
     /// <summary>
-    /// 事实过线,每帧重算和表现不过线
+    /// 事实字段要过线,每帧重算的值和表现不过线
     /// BeginFrameDefaults 故意空着,AfterImage 和 MegaTrail 靠宿主衰减
     /// </summary>
     public class LuminarisStateContext : CEBossStateContext
@@ -15,15 +15,15 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
 
         #region 事实:过线
         /// <summary>
-        /// 原 AIChangeCounter,进状态不置值,生成首帧靠初值 -1
+        /// 这是原 AIChangeCounter,进状态时不赋值,生成首帧靠初值 -1
         /// 从原字段搬要减 1,天顶分身 210~270 同样
         /// </summary>
         public override int Countdown { get; set; } = -1;
 
-        /// <summary>原 vec1,Lerp 起点,要过线</summary>
+        /// <summary>这是原 vec1,当作 Lerp 起点,要过线</summary>
         public Vector2 Vec1 { get; set; }
 
-        /// <summary>原 vec2,落点,ShootTriangle 当上一帧位置</summary>
+        /// <summary>这是原 vec2,当作落点,ShootTriangle 把它当上一帧位置</summary>
         public Vector2 Vec2 { get; set; }
 
         /// <summary>原 num1,半径或锁向起始角</summary>
@@ -32,7 +32,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
         /// <summary>原 num2,绕转角或锁向目标角</summary>
         public float Num2 { get; set; }
 
-        /// <summary>原 num3,绕转方向 ±1,AboveMoving 和 ShootTriangle 骰了但不读</summary>
+        /// <summary>这是原 num3,绕转方向是 ±1,AboveMoving 和 ShootTriangle 骰了它但不读</summary>
         public float Num3 { get; set; }
         #endregion
 
@@ -42,16 +42,16 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
         #endregion
 
         #region 表现:本地推导
-        /// <summary>原 oldPos,Dashing 不读,朝向不回头改航向</summary>
+        /// <summary>这是原 oldPos,Dashing 不读它,朝向不回头改航向</summary>
         public Vector2 OldPos { get; set; }
 
-        /// <summary>原 odp,RoundShooting 整条平移,起冲那拍清空</summary>
+        /// <summary>这是原 odp,RoundShooting 整条平移,起冲那一拍清空</summary>
         public List<Vector2> Trail { get; } = new List<Vector2>();
 
-        /// <summary>原 MegaTrail,SmashDown 时 &lt;=0 无接触伤,自身不过线</summary>
+        /// <summary>这是原 MegaTrail,SmashDown 时小于等于 0 就没有接触伤,它自身不过线</summary>
         public float MegaTrail { get; set; }
 
-        /// <summary>原 AfterImageTime,状态写满,宿主每帧减 1</summary>
+        /// <summary>这是原 AfterImageTime,状态把它写满,宿主每帧减 1</summary>
         public int AfterImageTime { get; set; }
         #endregion
 

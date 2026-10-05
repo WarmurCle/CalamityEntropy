@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
             Lighting.AddLight(Projectile.Center + dir * 400f, VDVfx.VoidPurple.ToVector3() * 1.5f);
             Lighting.AddLight(Projectile.Center + dir * 1200f, VDVfx.VoidPurple.ToVector3() * 1.2f);
 
-            //压场:暗角 + 低频震屏 + 循环音
+            //压场时给画面加暗角,再加低频震屏和循环音
             VDScreenFx.ReportVignette(VDDirector.CannonVignette * Envelope());
             if (!Main.dedServ) {
                 if (Age % 8 == 0) {
@@ -83,7 +83,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
                 if (Age % 20 == 10) {
                     CEUtils.PlaySound("void_laser", 0.6f, Projectile.Center, 3, 0.8f);
                 }
-                //沿射线飞散的火花
+                //火花沿射线飞散
                 for (int i = 0; i < 2; i++) {
                     Vector2 pos = Projectile.Center + dir * Main.rand.NextFloat(80f, VDDirector.CannonBeamLength * 0.7f);
                     Vector2 v = dir.RotatedBy(MathHelper.PiOver2) * Main.rand.NextFloat(-6f, 6f) + dir * Main.rand.NextFloat(4f, 12f);
@@ -113,7 +113,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
             VoidDestroyerNPC boss = Owner;
             bool overShoulder = boss != null && boss.Depth < -0.05f;
             //越肩段:从镜头后巨影的投影核心到平面枢的光锥,近端(巨影处)粗、枢处收到射线宽度。
-            //传两端 Z:噪声按透视铺、近端不衰减;枢端端帽传 0,锥直接顶进枢节点,拐点由节点盖住
+            //DrawTapered 传入两端 Z 后按透视铺噪声,近端不衰减,枢端端帽传 0,光锥接到枢节点上,拐点由节点盖住
             if (overShoulder) {
                 Vector2 from = boss.ProjectedCorePos;
                 float nearWidth = Width * VDDepth.Scale(boss.Depth);

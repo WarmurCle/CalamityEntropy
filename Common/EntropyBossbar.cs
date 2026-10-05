@@ -50,7 +50,7 @@ namespace CalamityEntropy.Common
         public float lastProg = 1;
         public float comboTarget = 1;
         public static Dictionary<int, Color> bossbarColor;
-        //亵渎天神与三守卫激怒时血条转青。加载期填 CEID,未命中的 0 不进集合
+        //亵渎天神和三守卫激怒时血条转青,加载期把 CEID 填进这个集合,没命中的 0 不放进去
         public static HashSet<int> profanedEnrageNPCs = new HashSet<int>();
         public float whiteLerp = 0;
         public int comboTimeCount = 0;
@@ -63,10 +63,10 @@ namespace CalamityEntropy.Common
             profanedEnrageNPCs = null;
         }
 
-        //一次性闩:EModSys 首帧按贴图给"没登记过颜色的原版 Boss"自动取色,取完就关
+        //SetupColorsAuto 是一次性开关,EModSys 首帧按贴图给没登记过颜色的原版 Boss 自动取色,取完就关掉
         public static bool SetupColorsAuto = true;
 
-        /// <summary>本表,再灾厄色表,再外部模组色表;键现在不相交,顺序仍按这个走</summary>
+        /// <summary>查色时先看本表,再看灾厄色表,最后看外部模组色表,这三张表的键现在不相交,顺序仍按这个走</summary>
         public static void SetupVanillaColors() {
             bossbarColor[NPCID.KingSlime] = new Color(90, 160, 255);
             bossbarColor[NPCID.EyeofCthulhu] = new Color(255, 40, 40);
@@ -120,7 +120,7 @@ namespace CalamityEntropy.Common
             bossbarColor[ModContent.NPCType<Content.NPCs.VoidDestroyer.VoidDestroyer>()] = new Color(190, 60, 255);
         }
 
-        /// <summary>未命中的 NPC 类型(CEID 在灾厄缺席时返回 0)不得污染色表</summary>
+        /// <summary>没命中的 NPC 类型不能写进色表,CEID 在灾厄缺席时会返回 0</summary>
         public static void SetColorIfFound(int npcType, Color color) {
             if (npcType > 0) {
                 bossbarColor[npcType] = color;

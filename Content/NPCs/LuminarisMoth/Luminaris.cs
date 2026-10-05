@@ -51,7 +51,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
         /// <summary>只在生成那一帧为真(原 <c>SpawnFlag</c>),用来触发天顶世界的分身生成</summary>
         public bool SpawnFlag = true;
 
-        /// <summary>脱战倒计时(原 <c>deactiveCount</c>),接战时重置成 150,归零即消失</summary>
+        /// <summary>脱战倒计时(原 <c>deactiveCount</c>),接战时重置成 150,归零就消失</summary>
         public int deactiveCount = LuminarisDirector.DeactiveFramesInitial;
 
         //两条尾巴的绳模拟与本体图集件都在 Rigs2D 骨架里(Luminaris.Rig.cs)。纯绘制,各端本地推进
@@ -71,7 +71,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             };
             NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
-            //Dashing 稳态 40 px/f,且多数招式每帧硬写 Center;原版 netOffset 平滑会把这些位移当成快照误差
+            //Dashing 稳态 40 px/f,且多数招式每帧直接改写 Center;原版 netOffset 平滑会把这些位移当成快照误差
             //一点点放,拖出来回锯齿。关掉后由 CEBossNetMotion 接管纠偏
             NPCID.Sets.NoMultiplayerSmoothingByType[Type] = true;
         }
@@ -233,7 +233,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 CEBossHost.AdoptTimingAtFrameStart(netMotion, stateMachine);
             }
 
-            //原 AI() 中段的逐帧杂项,顺序照搬
+            //原 AI() 中段的逐帧杂项按原顺序保留
             if (Context.MegaTrail > 0) {
                 Context.MegaTrail -= LuminarisDirector.MegaTrailDecay;
             }
@@ -353,11 +353,11 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
 
         #region 同步
         /// <summary>
-        /// 定长块,顺序固定在这一处,两端肉眼可对照。
+        /// 这块包是定长的,顺序固定在这一处,两端可以对照
         /// 计时 → 持久累加量(朝向、出招倒计时)→ 状态标量(序号、两个锚点、三个标量)。
-        /// 字节数是编译期常量(3×4 + 4 + 4 + 4 + 8 + 8 + 12 = 52),不许加运行时条件决定写不写某个字段。
+        /// 字节数是编译期常量(3×4 + 4 + 4 + 4 + 8 + 8 + 12 = 52),不能按运行时条件决定写不写某个字段
         /// <para>
-        /// <c>NPC.rotation</c> 必须在这里:Dashing 每帧把朝向烙进速度,而原版 <c>SyncNPC</c> 不带 rotation。
+        /// <c>NPC.rotation</c> 必须在这里:Dashing 每帧把朝向写进速度,而原版 <c>SyncNPC</c> 不带 rotation
         /// 出招倒计时是本 Boss 的主时钟,全部节拍都读它,一旦分叉两端会走到完全不同的招式段落
         /// </para>
         /// </summary>
@@ -434,7 +434,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
                 normalOnly.OnSuccess(new CommonDrop(ModContent.ItemType<PhantomLightWing>(), 5, 1, 1, 3));
                 normalOnly.OnSuccess(new CommonDrop(ModContent.ItemType<BottledStarlightCocoon>(), 5, 1, 1, 3));
                 normalOnly.OnSuccess(new CommonDrop(ModContent.ItemType<LunarPlank>(), 5, 1, 1, 3));
-                // 掉落自有化:灾厄星耀煤灰→星辉鳞尘,数量照搬(material-map §一)
+                //掉落把灾厄星耀煤灰换成星辉鳞尘,数量原样保留(material-map §一)
                 normalOnly.OnSuccess(ItemDropRule.Common(ModContent.ItemType<StarlitScaleDust>(), 1, 42, 64));
             }
             npcLoot.Add(normalOnly);

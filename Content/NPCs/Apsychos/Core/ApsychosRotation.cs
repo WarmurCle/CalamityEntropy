@@ -4,9 +4,9 @@ using Terraria;
 namespace CalamityEntropy.Content.NPCs.Apsychos.Core
 {
     /// <summary>
-    /// 不设防复读
-    /// 远距离强制接近不动序号,转阶段把序号置 0
-    /// 低血换表不重置,越界才归零
+    /// 轮换允许连续重复同一招
+    /// 远距离时强制接近,不改动序号,转阶段时把序号置 0
+    /// 低血换表时不重置序号,越界才归零
     /// </summary>
     public static class ApsychosRotation
     {
@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
                 ctx.AttackIndex = 0;
             }
             else {
-                //隐式行为三:换表不重置序号,只在越界时归零
+                //换表时不重置序号,只在越界时归零
                 ApsychosStateIndex[] table = ApsychosDirector.TableFor(ctx.Phase, npc);
                 ctx.AttackIndex++;
                 if (ctx.AttackIndex >= table.Length) {

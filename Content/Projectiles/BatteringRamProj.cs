@@ -225,7 +225,7 @@ namespace CalamityEntropy.Content.Projectiles
                 int sparkLifetime2 = Main.rand.Next(20, 28);
                 float sparkScale2 = Main.rand.NextFloat(1f, 1.8f);
                 Color sparkColor2 = Color.Lerp(Color.OrangeRed, Color.LightGoldenrodYellow, Main.rand.NextFloat(0, 1));
-                //跟AltSpark成对出现时寿命/速度系数是旧代码原值
+                //这粒跟 AltSpark 成对出现时,寿命和速度系数沿用旧代码
                 PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));
             }
             for (int i = 0; i < 32; i++) {

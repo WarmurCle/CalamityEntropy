@@ -6,7 +6,7 @@ using Terraria;
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
 {
     /// <summary>
-    /// 收招要计时过 360 且正处在追击窗,贴脸会一直打下去,照搬
+    /// 收招要计时过 360 并且正处在追击窗,贴脸会一直打下去,原样保留
     /// ai[0]-- 写在 if 条件里,射击窗也会一路减成负数
     /// </summary>
     [VaultState((int)NihilityStateIndex.P1Rush, typeof(NihilityStateContext))]
@@ -54,7 +54,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
                 }
                 if (CEUtils.getDistance(targetPos, npc.Center) > NihilityDirector.RushLeashDistance) {
                     ctx.ChaseTimer = NihilityDirector.RushChaseFrames;
-                    //音效选号吃随机数,各端各选各的;不参与任何判定,照搬原位置(不进权威端门)
+                    //音效选号吃随机数,各端各选各的;不参与任何判定,保持在原位置,不进权威端门
                     CEUtils.PlaySound("beast_ghostdash" + Main.rand.Next(1, 5), 1);
                 }
             }

@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
 {
     /// <summary>
     /// 首召占 BaseSlots,在场时再用占 1 栏并加 StackBonus,不会多召一架
-    /// 空栏不够先顶别的召唤物;不走原版献祭,原版按 3 栏腾,会把叠层的自己顶掉
+    /// 空栏不够时,遥控器先换掉别的召唤物;这里不走原版献祭,原版按 3 栏腾出空位,会把叠了层的自己换掉
     /// </summary>
     public class VoidDroneRemote : ModItem
     {
@@ -79,7 +79,7 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
             return false;
         }
 
-        /// <summary>别的召唤物按占位从小到大顶掉,直到「其余占位 + need」不超上限;星尘龙这类多节召唤物整条跳过,拆一节会把它拆散</summary>
+        /// <summary>别的召唤物按占位从小到大被换掉,直到其余占位加 need 不超过上限;星尘龙这类多节召唤物整条跳过,拆一节会把它拆散</summary>
         private static void FreeSlots(Player player, Projectile drone, float need) {
             List<Projectile> others = new List<Projectile>();
             float used = 0f;
@@ -208,7 +208,7 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
         public override bool? CanCutTiles() => false;
         public override bool MinionContactDamage() => false;
 
-        /// <summary>该玩家的投影无人机(每人至多一架)</summary>
+        /// <summary>该玩家的投影无人机,每人最多一架</summary>
         public static Projectile FindProjectile(int owner) {
             int type = ModContent.ProjectileType<ProjectionDrone>();
             foreach (Projectile p in Main.ActiveProjectiles) {
@@ -455,7 +455,7 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
             }
             body.Draw(lightColor * appear);
             body.Draw(GlowMask.Value, Color.White * appear);
-            //没点亮的叠层灯盖回暗色(发光层里 6 盏灯默认全亮)
+            //没点亮的叠层灯改回暗色(发光层里 6 盏灯默认全亮)
             Color off = new Color(lightColor.R / 4, lightColor.G / 4, lightColor.B / 4) * appear;
             for (int i = Math.Min(Stacks, Pips.Length); i < Pips.Length; i++) {
                 body.DrawPart(tex, PipRect(i), off);

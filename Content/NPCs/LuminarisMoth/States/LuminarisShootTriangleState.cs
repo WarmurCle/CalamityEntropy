@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.States
 
             if (c == LuminarisDirector.ShootTriangleFrames) {
                 if (IsServer) {
-                    //原代码在这里骰 num3,但本状态<b>从不读它</b>。骰点与过线照搬
+                    //原代码在这里骰 num3,但本状态<b>从不读它</b>,骰点和过线原样保留
                     ctx.Num3 = Main.rand.NextBool() ? -1 : 1;
                     MarkNetUpdate(ctx);
                 }
@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.States
                     ctx.Vec1 = player.Center;
                 }
                 else {
-                    //本状态每帧开头已经把速度清零了,所以这一句阻尼没有效果,照搬
+                    //本状态每帧开头已经把速度清零了,所以这一句阻尼没有效果,原样保留
                     npc.velocity *= LuminarisDirector.ShootTriangleSlowDrag;
                     ctx.Num2 += MathHelper.ToRadians(LuminarisDirector.ShootTriangleSlowStep);
                     npc.Center = ctx.Vec1 + ctx.Num2.ToRotationVector2() * ctx.Num1;

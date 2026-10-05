@@ -101,8 +101,8 @@ namespace CalamityEntropy.Content.Particles
                 gd.Textures[0] = PRTExtraTextures.SimpleNoise.Value;
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
 
-                //EnterShaderRegion把Sampler搞成AnisotropicClamp了,还回去得跟CEPixelScreen开的那批对上
-                //不然同桶里后面的粒子Blend/Sampler全乱
+                //EnterShaderRegion 把 Sampler 设成了 AnisotropicClamp,恢复时要跟 CEPixelScreen 开的那批对齐
+                //不然同桶里后面粒子的混合模式和采样会乱掉
                 sb.End();
                 sb.Begin(SpriteSortMode.Deferred, PRTLoader.GetBlendStateFor(PRTDrawMode), SamplerState.AnisotropicClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
             }

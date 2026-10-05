@@ -26,7 +26,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 {
     /// <summary>
     /// 原三个并行开关抽成互斥状态,走路、冷却、腿、鱼叉留在宿主每帧跑
-    /// 未晋升、脱战、死亡不进战斗状态机,状态号 ai[3],形态 ai[2]
+    /// 未晋升、脱战或死亡时不进战斗状态机,状态号写入 ai[3],形态写入 ai[2]
     /// 腿和臂是本地骨架,着地腿数和枪口从骨骼读,弹幕和骰点只在权威端
     /// </summary>
     [AutoloadBossHead]
@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         /// <summary>鱼叉实体索引,-1 表示还没生成</summary>
         public int _harpoon = -1;
 
-        /// <summary>腾空中。持久量,腿组与鱼叉实体都读它,三个招式/事件都能置位</summary>
+        /// <summary>腾空标记是持久量,腿组和鱼叉实体都读它,三个招式或事件都能把它置位</summary>
         public bool Jumping = false;
         /// <summary>落地锁存:腾空期间置位,踩实的那一帧消费掉并把下坠速度清零</summary>
         public bool JFlag = false;
@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         /// <summary>本帧的落地探测结果(本体盒子压到实心块或平台),朝向结算要用</summary>
         private bool groundProbe = false;
 
-        /// <summary>形态编号,映射 <c>ai[2]</c> 同步槽。1 = 未晋升,2 = 已晋升为 Boss</summary>
+        /// <summary>形态编号写入 <c>ai[2]</c> 同步槽,1 是未晋升,2 是已晋升为 Boss</summary>
         public int phase {
             get => Context == null ? (int)NPC.ai[2] : Context.Phase;
             set {
@@ -147,7 +147,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo) {
-            // 生成条件:原灾厄硫火之崖改地狱层自然生成,频率照搬(biome-map)
+            //生成条件把原灾厄硫火之崖改成地狱层自然生成,频率原样保留(biome-map)
             return (spawnInfo.Player.ZoneUnderworldHeight && !NPC.AnyNPCs(Type) && EModSys.AcropolisDontSpawn <= 0)
                 ? (NPC.downedMoonlord ? AcropolisDirector.SpawnChancePostMoonlord
                     : (Main.hardMode ? AcropolisDirector.SpawnChanceHardmode : AcropolisDirector.SpawnChancePreHardmode))
@@ -364,7 +364,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         #endregion
 
         #region 背景行为:炮口 / 鱼叉 / 走位 / 朝向 / 拽拉
-        /// <summary>原 <c>AttackPlayer</c> 里不属于任何一招的那些行为,顺序照搬。臂的瞄点只做声明,骨架 Step 时落地</summary>
+        /// <summary>原 <c>AttackPlayer</c> 里不属于任何一招的行为按原顺序保留,臂的瞄点只做声明,骨架 Step 时落地</summary>
         private void SettleCombatFrame() {
             Player player = Context.Target;
             float enrange = Context.Enrange;
@@ -379,7 +379,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 Context.CannonAim = player.Center + new Vector2(0, AcropolisDirector.IdleAimRise) + new Vector2(0, drop);
             }
 
-            //落地即清跳射计数
+            //宿主落地时清掉跳射计数
             if (!Jumping) {
                 Context.JumpAndShoot = -1;
             }
@@ -414,7 +414,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
         /// <summary>
         /// 骰点只在权威端,ShotCue 过线,各端补反冲和音效,判据是计数变了,不是等于某值
-        /// 弹先进本帧队列,骨架 Step 后再出膛,同原先转再打
+        /// 弹先进入本帧队列,骨架 Step 后再出膛,和原先一样先转再打
         /// </summary>
         private void ConsumeShotCue() {
             if (Context.LocalShotCue == Context.ShotCue) {
@@ -502,7 +502,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
             float yof = AcropolisDirector.HoverYOffset * NPC.scale;
             float hoverRise = -AcropolisDirector.HoverYOffset;
-            //已经压到玩家下方:限速并额外阻尼,免得一路砸下去
+            //本体已经压到玩家下方时限速并额外阻尼,免得继续下落
             if (NPC.Center.Y - yof + hoverRise * NPC.scale * NPC.scale > player.Center.Y) {
                 if (NPC.velocity.Y > AcropolisDirector.HoverFallClamp * NPC.scale) {
                     NPC.velocity.Y = AcropolisDirector.HoverFallClamp * NPC.scale;
@@ -557,7 +557,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
 
         /// <summary>
-        /// 落地判定。起跳后 50 帧内不许收(跳射计数闸),被鱼叉拽着时也不许收。
+        /// 落地判定在起跳后 50 帧内不能收招,被鱼叉拽着时也不能收招
         /// 原代码在这里还算了一遍着地腿数,但算完没人用,已删
         /// </summary>
         private void UpdateAirborneMovement() {
@@ -827,7 +827,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
         #region 同步
         /// <summary>
-        /// 定长,不许按条件省略,先计时,再朝向和锁存,再标量,最后部件索引
+        /// 包是定长的,不能按条件省略字段,先写计时,再写朝向和锁存,再写标量,最后写部件索引
         /// 腿和臂不过线
         /// </summary>
         public override void SendExtraAI(BinaryWriter writer) {
@@ -928,7 +928,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<HellIndustrialComponents>(), 1, 24, 30));
-            // 掉落自有化:灾厄可疑镀层→阿扎弗镀层,数量照搬(material-map §一)
+            //掉落把灾厄可疑镀层换成阿扎弗镀层,数量原样保留(material-map §一)
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AzafurePlating>(), 1, 18, 36));
             npcLoot.Add(new CommonDrop(ModContent.ItemType<MottledSpear>(), 5, 1, 1, 2));
             // 遗物:原灾厄复仇/大师条件对齐原版大师掉落惯例(difficulty-map)

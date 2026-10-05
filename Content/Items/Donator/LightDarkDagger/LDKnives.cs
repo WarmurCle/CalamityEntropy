@@ -127,7 +127,7 @@ namespace CalamityEntropy.Content.Items.Donator.LightDarkDagger
 
     /// <summary>
     /// 蓄势螺旋刃。ai[0] = 相位,ai[1] = 落后帧数。位置按出发点 + 直线推进 + 正弦横摆解析求得,
-    /// 光暗两股相位差 π 即相互纠缠的双螺旋;无限穿透敌怪与物块。
+    /// 光暗两股的相位差是 π,两条螺旋缠在一起,并且无限穿透敌怪和物块
     /// </summary>
     public abstract class LDHelixKnifeBase : ModProjectile
     {

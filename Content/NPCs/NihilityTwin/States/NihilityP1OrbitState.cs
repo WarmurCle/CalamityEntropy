@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
             Vector2 targetPos = ctx.Target.Center;
 
             if (ctx.Num1 == 0) {
-                //原代码连播两次同一条起手音,照搬
+                //原代码连播两次同一条起手音,原样保留
                 CEUtils.PlaySound("charge", 1, npc.Center);
                 CEUtils.PlaySound("charge", 1, npc.Center);
                 npc.rotation = (npc.Center - targetPos).ToRotation();

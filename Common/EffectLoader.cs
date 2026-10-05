@@ -6,8 +6,8 @@ using ReLogic.Content;
 namespace CalamityEntropy.Common
 {
     /// <summary>
-    /// VaultLoaden 尾斜杠表示字段名即文件名;Asset&lt;Effect&gt; 延迟取 Value,裸 Effect 立即加载
-    /// 贴图字段必须自带字段级标签,否则按字段名去 Effects 找;dedServ 上为 null,PostSetupContent 前未赋值
+    /// VaultLoaden 的尾斜杠表示字段名就是文件名;Asset&lt;Effect&gt; 会延迟取 Value,裸 Effect 会立即加载
+    /// 贴图字段必须自己带字段级标签,否则加载器按字段名去 Effects 找;dedServ 上这些字段是 null,PostSetupContent 之前也还没赋值
     /// </summary>
     [VaultLoaden("CalamityEntropy/Assets/Effects/")]
     internal class EffectLoader

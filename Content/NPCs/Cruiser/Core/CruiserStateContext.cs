@@ -2,7 +2,7 @@
 
 namespace CalamityEntropy.Content.NPCs.Cruiser.Core
 {
-    /// <summary>事实过线,声明每帧回落,表现不过线</summary>
+    /// <summary>事实字段要过线,声明每帧回落,表现不过线</summary>
     public class CruiserStateContext : CEBossStateContext
     {
         #region 核心引用
@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.Core
 
         #region 事实:过线
         /// <summary>
-        /// 原 changeCounter,跨状态持久,只在选招时清零
+        /// 这是原 changeCounter,跨状态保持,只在选招时清零
         /// 转阶段、等咬中、激光瞄准窗都不推进。转阶段收尾不调 changeAi,尖刺带着残值起跑
         /// </summary>
         public int ChangeCounter { get; set; }

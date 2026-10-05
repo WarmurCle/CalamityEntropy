@@ -160,7 +160,7 @@ namespace CalamityEntropy.Content.NPCs
 
         }
         public override void HitEffect(NPC.HitInfo hit) {
-            //友好NPC就一颗RealisticExplosion,密度控最低,别学boss death那套
+            //友好 NPC 死亡时只放一颗 RealisticExplosion,密度取最低,不要照 Boss 死亡那套粒子
             if (NPC.life <= 0)
                 //PRT_RealisticExplosion友好NPC单颗,密度控最低
                 PRTLoader.NewParticle<PRT_RealisticExplosion>(NPC.Center, Vector2.Zero, Color.White, 4)

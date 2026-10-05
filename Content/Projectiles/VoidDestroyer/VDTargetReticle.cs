@@ -9,7 +9,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 {
     /// <summary>
     /// 无伤害;ai[0] 寿命,ai[1] 本体 whoAmI+1,0 为无
-    /// 本体在深处时从投影核心拉透视瞄准线;寿命结束即光柱砸落
+    /// 本体在深处时,准星从投影核心拉出透视瞄准线,寿命结束时光柱落下来
     /// </summary>
     public class VDTargetReticle : ModProjectile, IVoidDestroyerProjectile
     {

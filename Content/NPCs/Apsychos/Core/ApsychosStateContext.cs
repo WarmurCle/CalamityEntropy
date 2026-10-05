@@ -3,7 +3,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Apsychos.Core
 {
-    /// <summary>持久量,不每帧回落,转阶段不声明它,沿用上一手的档位</summary>
+    /// <summary>这个档位是持久量,不每帧回落,转阶段时不重新声明,沿用上一手的档位</summary>
     public enum ApsychosTailStyle
     {
         /// <summary>逐节跟随本体(巡航默认)</summary>
@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
         TwoPoint,
     }
 
-    /// <summary>事实过线,声明每帧回落</summary>
+    /// <summary>事实字段要过线,声明每帧回落</summary>
     public class ApsychosStateContext : CEBossStateContext
     {
         #region 核心引用
@@ -90,7 +90,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
 
         /// <summary>
         /// 转阶段配色插值。原代码只写不读(贴图切换看的是 <see cref="CEBossStateContext.Phase"/>),
-        /// 照搬保留以免哪天绘制要用
+        /// 原样保留,免得以后绘制要用
         /// </summary>
         public float P2Lerp { get; set; }
         #endregion

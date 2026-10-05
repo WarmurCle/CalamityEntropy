@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.States
             ctx.KeepMovingSway = true;
 
             ctx.FountainSpeed = float.Lerp(ctx.FountainSpeed, SpiritFountainDirector.MovingFountainSpeedTarget, SpiritFountainDirector.MovingFountainSpeedLerp);
-            //三目两侧都是 1,等价于没有分支。原作者大概本来想给三阶段提速,照搬保留
+            //三目两侧都是 1,等价于没有分支,原样保留
             ctx.MCounter += SpiritFountainDirector.MovingSwayStep * enrage * (phase == SpiritFountainDirector.MovingDamageablePhase ? 1f : 1);
             ctx.MAmp = float.Lerp(ctx.MAmp, 1, SpiritFountainDirector.MovingAmpLerp * enrage);
             ctx.C1LastPos = owner.column1.offset.X;

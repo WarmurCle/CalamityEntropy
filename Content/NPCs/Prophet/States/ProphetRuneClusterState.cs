@@ -5,7 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Prophet.States
 {
-    /// <summary>110 和 120 不重合,119~110 既回收又还在循环窗里,照搬</summary>
+    /// <summary>110 和 120 不重合,119 到 110 既在回收又还在循环窗里,原样保留</summary>
     [VaultState((int)ProphetStateIndex.RuneCluster, typeof(ProphetStateContext))]
     public class ProphetRuneClusterState : ProphetStateBase
     {

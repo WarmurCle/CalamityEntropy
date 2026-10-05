@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
 {
     /// <summary>
     /// 血量经 realLife 转发给本体,本体常年免伤
-    /// 锚定部件,只清平滑,不进预测纠偏器,预测器会和直写位置打架
+    /// 魂环是锚定部件,只清平滑,不进预测纠偏器,预测器会和直写位置冲突
     /// 骰点只在权威端
     /// </summary>
     public class SpiritRing : ModNPC
@@ -135,7 +135,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
             bool DontSetPos = false;
             bool DontSetRot = false;
             //原 == 1,aiTimer 带 ±2 收养,跨过第 1 帧会拿着上一招的预警画满 280 帧
-            //幂等清零,提前到换态帧再清一次,改成区间
+            //这次清零是幂等的,提前到换态帧再清一次,判据改成区间
             if (fountain.aiTimer <= 1) {
                 AlphaLaserWarning = 0;
             }
@@ -171,7 +171,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                     //脱柱目标偏移只在权威端骰,结果随 ExtraAI 过线;客户端拿到之后照常跑插值
                     LerpTo(Main.rand.NextFloat(-1800, 1800));
                     if (fountain.phase == 3) {
-                        //三阶段改成按 Index 均匀铺开,直接盖掉上一行骰出来的值。照搬
+                        //三阶段改成按 Index 均匀铺开,直接盖掉上一行骰出来的值,原样保留
                         LerpTo(Index * 1200);
                     }
                     NPC.netUpdate = true;
@@ -242,7 +242,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                     }
                 }
                 else {
-                    //原代码这条 else 里又判了一次同样的条件,恒为假,整块是死代码。照搬
+                    //原代码这条 else 里又判了一次同样的条件,恒为假,整块到不了,原样保留
                     if (fountain.num1 > (fountain.phase == 3 ? Math.Abs(Index) : (Index + 1) / 2f)) {
                         drawColorLerp = new Color(255, 40, 40);
                     }
@@ -378,7 +378,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
                     LerpTo(Main.rand.NextFloat(-1200, 1200));
                     NPC.netUpdate = true;
                 }
-                //counter%51触发HadLine,跟LerpTo硬切同步,不是每帧都有
+                //counter 对 51 取余时触发 HadLine,跟 LerpTo 的切换同步,不是每帧都有
                 if (counter % (t + 42) == 51 && !Main.dedServ) {
                     //HadLine成对spawn(hm=0.36)旧SpiritRing双轨残影,column.id决定offset朝向
                     Vector2 offset = column.id == 0 ? new Vector2(column.Num < 0 ? 1 : -1, 0) : new Vector2(0, column.Num < 0 ? 1 : -1);

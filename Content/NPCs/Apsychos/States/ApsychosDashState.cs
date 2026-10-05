@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.States
 
         /// <summary>
         /// 双侧喷口:FlameBurst 尘埃 + PRT_Smoke 双通道,isp 从 0 到 1 步长 0.05。
-        /// 一阶段暖橙,二阶段冷蓝。纯演出,各端各自生成
+        /// 一阶段用暖橙色,二阶段用冷蓝色,这是纯演出,各端各自生成
         /// </summary>
         private static void SpawnTrail(ApsychosStateContext ctx, NPC npc) {
             if (Main.dedServ) {

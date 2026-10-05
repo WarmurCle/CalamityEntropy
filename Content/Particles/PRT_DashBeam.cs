@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.Particles
     public class PRT_DashBeam : BasePRT
     {
         public bool Glow = true;
-        //DashBeam轨迹最长120点,池化忘Clear很离谱,不开CanPool
+        //DashBeam 的轨迹最长 120 点,池化如果忘了 Clear 会串上一条轨迹,所以不开 CanPool
         public List<Vector2> odp = new List<Vector2>();
         public int maxLength = 120;
         public bool addPoint = false;   //dash段才开,静止帧不采样免得odp挤一坨
@@ -31,7 +31,7 @@ namespace CalamityEntropy.Content.Particles
         public override void SetProperty() {
             ShouldKillWhenOffScreen = false;
             if (Lifetime <= 0)
-                Lifetime = 30;   //旧DashBeam默认,漏设-1永生120点轨迹堆满很离谱
+                Lifetime = 30;   //这是旧 DashBeam 的默认寿命,漏设成 -1 会一直活着,120 点轨迹会堆满
         }
 
         public override void AI() {
@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.Particles
             sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);   //光束贴图沿轨迹UV,LinearWrap
             if (odp.Count < 3) {
                 sb.End();
-                PRTLoader.BeginDrawingWithMode(PRTDrawMode, sb);   //早退也得还批次
+                PRTLoader.BeginDrawingWithMode(PRTDrawMode, sb);   //提前返回也要把批次还回去
                 return false;
             }
             List<ColoredVertex> ve = new List<ColoredVertex>();

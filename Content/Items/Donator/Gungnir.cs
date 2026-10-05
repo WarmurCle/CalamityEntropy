@@ -125,7 +125,7 @@ namespace CalamityEntropy.Content.Items.Donator
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (target.Center - pos).normalize() * 42, ModContent.ProjectileType<AstralStarMelee>(), Projectile.damage / 6, Projectile.owner);
                 }
                 for (int i = 0; i < 1; i++) {
-                    // 天雷改用自有 Lightning 弹幕（ai 须保持 0 由其自行初始化）；
+                    //天雷改用自有 Lightning 弹幕,ai 必须保持 0,让弹幕自己初始化
                     // 自有闪电路径约 480px，落点上移量相应缩短以保证劈中目标
                     int lightningDamage = (int)(Projectile.damage * 1.25f);
                     Vector2 lightningSpawnPosition = target.Center - Vector2.UnitY.RotatedByRandom(0.2f) * 240f;

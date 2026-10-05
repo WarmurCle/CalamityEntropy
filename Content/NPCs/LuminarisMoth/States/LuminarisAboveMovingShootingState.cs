@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.States
                 if (c > LuminarisDirector.AboveMovingStage1Frame) {
                     if (c == LuminarisDirector.AboveMovingGateFrame) {
                         if (IsServer) {
-                            //原代码在这里骰 num3,但本状态<b>从不读它</b>。骰点与过线照搬,免得动到随机序列语义
+                            //原代码在这里骰 num3,但本状态<b>从不读它</b>,骰点和过线原样保留,免得动到随机序列
                             ctx.Num3 = Main.rand.NextBool() ? -1 : 1;
                             MarkNetUpdate(ctx);
                         }

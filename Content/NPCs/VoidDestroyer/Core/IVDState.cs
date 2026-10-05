@@ -103,7 +103,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         void OnExit(VDStateContext context);
     }
 
-    /// <summary>Timer 拍内计时,换拍归零,Counter 总龄,二者过线</summary>
+    /// <summary>Timer 是拍内计时,换拍时归零,Counter 是总龄,二者都过线</summary>
     public abstract class VDStateBase : VaultState<VDStateContext>, IVDState, ICEBossNetTiming
     {
         public override int StateId => (int)StateIndex;
@@ -119,7 +119,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
             => ctx.Target.Center + new Vector2(ctx.SideDir * VDDirector.ConnectorDefaultAnchor.X, VDDirector.ConnectorDefaultAnchor.Y);
         /// <summary>闪现进行中是否仍推进本状态(只有演出/hub 需要)</summary>
         public virtual bool RunsDuringBlink => false;
-        /// <summary>状态总龄超时上限(帧),超过即强制收招。演出态返回 int.MaxValue</summary>
+        /// <summary>状态总龄的超时上限,单位是帧,超过就强制收招,演出态返回 int.MaxValue</summary>
         public virtual int TimeoutFrames => VDDirector.AttackTimeoutFrames;
         /// <summary>连接段落定拍把 Depth 朝这里爬,进入后自己声明</summary>
         public virtual float StartDepth(VDStateContext ctx) => 0f;
@@ -148,7 +148,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
             }
             Counter++;
             IVDState next = OnUpdate(ctx);
-            //超时兜底:状态机永远不许死在这里,靠惯性飘走
+            //超时兜底让状态机不能停在这里,然后靠惯性飘走
             if (next == null && Counter > TimeoutFrames) {
                 ctx.Npc.velocity *= 0.6f;
                 next = EndAttack(ctx);

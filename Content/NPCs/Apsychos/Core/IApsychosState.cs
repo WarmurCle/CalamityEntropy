@@ -17,13 +17,13 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
         FireballShooting = 2,
         /// <summary>喷火:尾巴摆动瞄人,60 到 140 帧持续喷射</summary>
         FlameThrow = 3,
-        /// <summary>巨型火球:蓄满即发,共四发</summary>
+        /// <summary>巨型火球蓄满就发射,一共四发</summary>
         FireballBig = 4,
-        /// <summary>转阶段:白化涨满换配色,80 帧置阶段,120 帧收</summary>
+        /// <summary>转阶段时白化涨满就换配色,80 帧写入阶段,120 帧收招</summary>
         PhaseTrans = 5,
         /// <summary>甩尾:尾巴内收蓄力,60 帧定向突进,尾巴弹出打尾刺,按血量循环 3 或 6 次</summary>
         TailDash = 6,
-        /// <summary>激光:尾巴指向本体正前方,开局即发,350 帧慢速扫场</summary>
+        /// <summary>激光让尾巴指向本体正前方,开局就发射,然后用 350 帧慢速扫场</summary>
         Laser = 7,
     }
 
@@ -48,7 +48,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
         protected static IVaultState<ApsychosStateContext> NextAttack(ApsychosStateContext ctx)
             => IsServer ? ApsychosRotation.Pick(ctx) : null;
 
-        /// <summary>一阶段 damage/6.5,二阶段 damage/5.4,击退 4,owner -1,客户端不生成</summary>
+        /// <summary>一阶段伤害是 damage/6.5,二阶段是 damage/5.4,击退是 4,owner 传 -1,客户端不生成</summary>
         protected static void Shoot<T>(ApsychosStateContext ctx, Vector2 pos, Vector2 velocity,
             float damageMult = 1f, float ai0 = 0f, float ai1 = 0f, float ai2 = 0f) where T : ModProjectile {
             if (Main.netMode == NetmodeID.MultiplayerClient) {

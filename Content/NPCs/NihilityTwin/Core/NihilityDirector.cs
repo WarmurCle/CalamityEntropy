@@ -2,7 +2,7 @@
 
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.Core
 {
-    /// <summary>状态里不许裸数字,数值照搬原 AI,不编理由,原代码没有难度系数,这里不补</summary>
+    /// <summary>状态里不能写裸数字,数值按原 AI 保留,不另编理由,原代码没有难度系数,这里不补</summary>
     internal static class NihilityDirector
     {
         //==================== 全局 ====================
@@ -45,7 +45,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin.Core
         public const float EscapeCellPull = 0.0022f;
         public const int EscapeDespawnFrames = 180;
 
-        /// <summary>转二阶段:原代码是<b>整数除法</b> <c>life &lt; lifeMax / 2</c>,照搬</summary>
+        /// <summary>转二阶段沿用原代码的<b>整数除法</b> <c>life &lt; lifeMax / 2</c>,原样保留</summary>
         public const int Phase2LifeDivisor = 2;
         /// <summary>转阶段瞬间给全体玩家的无敌帧</summary>
         public const int Phase2GraceFrames = 120;
@@ -182,7 +182,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin.Core
         /// <summary>起手静默、齐射间隔</summary>
         public const int WideWindup = 60;
         public const int WideFireInterval = 30;
-        /// <summary>扇形:六层,层间横向 -30、纵向 ±14,统一速度 14</summary>
+        /// <summary>扇形打六层,层与层之间横向差 30、纵向差 ±14,统一速度是 14</summary>
         public const int WideFanLayers = 6;
         public const float WideFanBackStep = -30f;
         public const float WideFanSideStep = 14f;

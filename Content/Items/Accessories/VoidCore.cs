@@ -165,7 +165,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 
     /// <summary>
     /// 虚空核心的虚空斩。velocity 是斩击轴的单位向量,弹幕本身不位移;
-    /// 只在前几帧有判定,之后只剩残影收束。
+    /// 虚空斩只在前几帧有判定,之后只剩下残影在收回去
     /// </summary>
     public class VoidCoreSlash : ModProjectile
     {

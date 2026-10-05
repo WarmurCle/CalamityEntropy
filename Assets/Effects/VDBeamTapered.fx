@@ -1,24 +1,24 @@
-//coords.x 沿轴像素,coords.y 有符号横向像素,不等宽梯形不用 0..1 UV,输出预乘 alpha,Additive,噪声在 s1
+//coords.x 是沿轴的像素,coords.y 是带符号的横向像素,不等宽梯形不用 0 到 1 的 UV,输出预乘 alpha 并用 Additive 混合,噪声放在 s1
 sampler uImage1 : register(s1);
 
 float uTime;
 float3 uColor;
 float3 uColor2;
-float uEnvelope;//可见半宽/四边形半宽
+float uEnvelope;//该值是可见半宽相对四边形半宽的比例
 float uOpacity;
 float uSeed;
-float uLengthPx;//轴长,屏幕像素
-float uHalfStart;//起点四边形半宽,屏幕像素
-float uHalfEnd;//终点四边形半宽,屏幕像素
-float uWStart;//起点 1/Scale(Z),平面为 1,越远越大
-float uWEnd;//终点 1/Scale(Z),平面为 1,越远越大
-float uTile;//噪声沿全长的瓦片数
-float uFogStart;//起点雾量,C# 按 VDDepth 预算
-float uFogEnd;//终点雾量
-float uAlphaStart;//起点深度透明度
-float uAlphaEnd;//终点深度透明度
+float uLengthPx;//该值是轴长,单位是屏幕像素
+float uHalfStart;//该值是起点的四边形半宽,单位是屏幕像素
+float uHalfEnd;//该值是终点的四边形半宽,单位是屏幕像素
+float uWStart;//该值是起点的 1/Scale(Z),在平面上为 1,越远越大
+float uWEnd;//该值是终点的 1/Scale(Z),在平面上为 1,越远越大
+float uTile;//该值是噪声沿全长铺多少块
+float uFogStart;//该值是起点雾量,由 C# 按 VDDepth 算好
+float uFogEnd;//该值是终点雾量
+float uAlphaStart;//该值是起点的深度透明度
+float uAlphaEnd;//该值是终点的深度透明度
 float3 uFogColor;
-float2 uCap;//端帽渐隐比例 起,终,按屏幕 t,C# 钳到 >=0.002
+float2 uCap;//该值是两端端帽的渐隐比例,按屏幕 t,C# 把它钳到不小于 0.002
 
 float4 PixelFunc(float4 baseColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
 {
@@ -27,7 +27,7 @@ float4 PixelFunc(float4 baseColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
     float across = coords.y / halfQuad;
     float v = across * 0.5 + 0.5;
 
-    //1/w 在屏幕上线性,解出沿轴参数 f
+    //1/w 在屏幕上是线性的,这里解出沿轴参数 f
     float f = t * uWStart / max((1.0 - t) * uWEnd + t * uWStart, 0.0001);
 
     float tile = max(uTile, 1.0);

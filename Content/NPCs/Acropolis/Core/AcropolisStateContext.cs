@@ -11,7 +11,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis.Core
     public readonly record struct AcropolisCannonShot(float Spread, float Speed, float Ai0, float Recoil);
 
     /// <summary>
-    /// 事实过线,每帧重算和声明不过线
+    /// 事实字段要过线,每帧重算的值和声明不过线
     /// 走路、冷却、腿、鱼叉留在宿主,不进状态
     /// </summary>
     public class AcropolisStateContext : CEBossStateContext
@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis.Core
         /// <summary>鱼叉再装填冷却,只在鱼叉回到发射架上时流逝</summary>
         public float HarpoonCD { get; set; } = AcropolisDirector.HarpoonCDInit;
 
-        /// <summary>鱼叉蓄力 0~1,满即发射。超过 0.8 后鱼叉臂停止追瞄</summary>
+        /// <summary>鱼叉蓄力从 0 到 1,蓄满就发射,超过 0.8 后鱼叉臂停止追瞄</summary>
         public float HarpoonCharge { get; set; }
 
         /// <summary>

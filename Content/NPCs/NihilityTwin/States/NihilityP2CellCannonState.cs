@@ -7,7 +7,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
 {
     /// <summary>
     /// 蓄力期每两帧额外 +1,发射拍落在 &lt; 100 与 == 100 上,双跳不会发生
-    /// 朝向烙进 Num3,原 ai[3] 归状态号,挪成过线字段
+    /// 朝向写进 Num3,原 ai[3] 留给状态号,所以挪成要过线的字段
     /// </summary>
     [VaultState((int)NihilityStateIndex.P2CellCannon, typeof(NihilityStateContext))]
     public class NihilityP2CellCannonState : NihilityStateBase

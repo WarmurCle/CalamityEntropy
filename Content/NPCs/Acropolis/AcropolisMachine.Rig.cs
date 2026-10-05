@@ -9,7 +9,7 @@ using Terraria;
 namespace CalamityEntropy.Content.NPCs.Acropolis
 {
     /// <summary>
-    /// 两节各一个 PointAt,转向 0.06 同原 PointAPos,后坐 Kick 同 Seg1RotV
+    /// 两节各挂一个 PointAt,转向 0.06 与原 PointAPos 相同,后坐 Kick 与 Seg1RotV 相同
     /// 每帧只声明瞄点,Step 后才读枪口,朝向不过线,各端瞄同一个已同步目标
     /// </summary>
     public sealed class AcropolisArm
@@ -22,7 +22,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         private float turnRate = 0.06f;
         private readonly NPC npc;
 
-        /// <summary>挂点相对本体的设计偏移(朝右作图、未乘 dir)。跳射的对地瞄点沿用它,照搬原代码不乘 dir 的写法</summary>
+        /// <summary>挂点相对本体的设计偏移(朝右作图、未乘 dir),跳射的对地瞄点沿用它,保持原代码不乘 dir 的写法</summary>
         public Vector2 MountOffset { get; }
 
         /// <summary>本帧声明的瞄点;<see langword="null"/> = 保持朝向(只结算后坐)</summary>
@@ -58,7 +58,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         /// <summary>第一节朝向</summary>
         public float Seg1Dir => Ready ? rig.Bones[seg1Bone].Dir : MathHelper.PiOver2;
 
-        /// <summary>第二节(枪管)朝向,即原 <c>Seg2Rot</c></summary>
+        /// <summary>第二节枪管的朝向,也就是原 <c>Seg2Rot</c></summary>
         public float BarrelDir => Ready ? rig.Bones[seg2Bone].Dir : MathHelper.PiOver2;
 
         /// <summary>枪口:第二节骨的尖端(原 <c>TopPos</c>,第二节长 60)</summary>
@@ -122,7 +122,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
     /// <summary>
     /// 根朝向剥掉朝左多出的半圈,本体用 facing 骨转半圈再镜像,腿不用 Mirrored
-    /// 膝朝上双骨解,别配成胫节竖直,同侧节律窗不重叠,步态是唯一非无损迁移
+    /// 膝用朝上的双骨解,不要配成胫节竖直,同侧节律窗不重叠,步态是唯一非无损迁移
     /// 鱼叉链垂度 0,末端写本帧结束后的位置。服务端也 Step
     /// </summary>
     public partial class AcropolisMachine
@@ -304,7 +304,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
         //==================== 每帧落地 ====================
 
-        /// <summary>根位姿和朝向覆写,再腿,再臂,再鱼叉链,再 Step,再件镜像</summary>
+        /// <summary>宿主每帧先覆写根位姿和朝向,再解腿,再解臂,再解鱼叉链,再 Step,再镜像件</summary>
         private void UpdateRig() {
             EnsureRig();
             if (rig == null || !rig.Bound) {
@@ -329,7 +329,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
         /// <summary>
         /// 腿的模式:未晋升且腾空(<see cref="Dummy"/>)时贴着本体收拢;腾空时向下自然伸展(<see cref="AirborneFootTarget"/>);其余走世界落足步态。
-        /// 两种非步态目标都用步态的 Hold 模式(<c>holdRate</c> 0.2)表达,即原代码的 <c>targetPos</c> 直写 + 0.2 收敛
+        /// 两种非步态目标都用步态的 Hold 模式(<c>holdRate</c> 0.2)表达,也就是原代码把 <c>targetPos</c> 直接写上,再按 0.2 收敛
         /// </summary>
         private void UpdateLegTargets() {
             for (int i = 0; i < LegCount; i++) {
@@ -363,7 +363,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             return target;
         }
 
-        /// <summary>未晋升两臂垂下,炮臂吃 CannonAim,鱼叉臂吃宿主声明,没声明只结算后坐</summary>
+        /// <summary>未晋升时两臂垂下,炮臂读 CannonAim,鱼叉臂读宿主声明,没声明时只结算后坐</summary>
         private void UpdateArmTargets() {
             if (!NPC.boss) {
                 DummyAim(Cannon);
@@ -382,7 +382,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             HarpoonArm.Apply();
         }
 
-        /// <summary>未晋升形态的下垂:虚拟目标向「挂点下方两倍第一节长」0.3 跟随。原式不乘 dir、不随朝向旋转,照搬</summary>
+        /// <summary>未晋升时虚拟目标以 0.3 的速率跟向挂点下方两倍第一节长,原式不乘 dir、不随朝向旋转,原样保留</summary>
         private void DummyAim(AcropolisArm arm) {
             int seg1 = ReferenceEquals(arm, Cannon) ? armSegBones[0] : armSegBones[2];
             float seg1Length = seg1 >= 0 ? rig.RestLength(seg1) : 0f;

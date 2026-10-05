@@ -78,7 +78,7 @@ namespace CalamityEntropy.Content.Particles
                 DrawTrailStrip(3f, Color * fscale * 1.6f);
             }
             sb.End();
-            PRTLoader.BeginDrawingWithMode(PRTDrawMode, sb);   //End完必须接回去,不然同桶后面粒子花屏
+            PRTLoader.BeginDrawingWithMode(PRTDrawMode, sb);   //End 之后必须把批次接回去,不然同桶后面的粒子会画乱
             return false;
         }
 

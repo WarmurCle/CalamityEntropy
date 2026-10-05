@@ -10,31 +10,31 @@ namespace CalamityEntropy.Core.Dash
 {
     /// <summary>
     /// 全模组只有这里读冲刺输入、写速度、判撞击
-    /// 顺序跟 Player.Update,登记、压 dashType、起手、写速度、判墙收尾
+    /// 顺序跟 Player.Update,先登记,再压 dashType,然后起手,接着写速度,最后判墙收尾
     /// 每帧按速度表写 velocity,不靠 dashDelay 记状态
     /// </summary>
     public class CEDashPlayer : ModPlayer
     {
-        /// <summary>对齐原版 dashTime</summary>
+        /// <summary>TapWindow 对齐原版 dashTime</summary>
         public const int TapWindow = 15;
-        /// <summary>锁定尾部,解锁瞬间起手</summary>
+        /// <summary>InputBuffer 盖住锁定尾部,解锁瞬间起手</summary>
         public const int InputBuffer = 8;
-        /// <summary>留一帧给门被撞开</summary>
+        /// <summary>WallFramesToStop 留一帧给门被撞开</summary>
         private const int WallFramesToStop = 2;
         private readonly List<CEDashEffect> offered = new();
         private CEDashEnhancer offeredEnhancer;
 
-        /// <summary>空为闲,远端只是视觉</summary>
+        /// <summary>State 为空就是闲置,远端玩家只做视觉</summary>
         public CEDashState State { get; private set; }
-        /// <summary>锁定帧倍率,每帧归 1</summary>
+        /// <summary>CooldownMult 是锁定帧倍率,每帧归回 1</summary>
         public float CooldownMult = 1f;
         private int lockout;
         private int blockedFrames;
         private Vector2 preMovePosition;
         private bool hasPreMove;
-        /// <summary>上一帧 dashDelay 为负,只在转正那一帧乘</summary>
+        /// <summary>vanillaDashWasRunning 记下上一帧 dashDelay 为负,只在转正那一帧乘冷却</summary>
         private bool vanillaDashWasRunning;
-        /// <summary>自管冲刺结束别再乘 dashDelay</summary>
+        /// <summary>自管冲刺结束后别再乘 dashDelay</summary>
         private bool ceOwnedDashWasRunning;
 
         private bool heldLeft, heldRight, heldUp, heldDown;
@@ -48,10 +48,10 @@ namespace CalamityEntropy.Core.Dash
         public bool IsDashing => State != null && !State.Remote;
         public bool IgnoresPlatforms => IsDashing && State.Effect.IgnorePlatforms;
         public bool InvincibleNow => IsDashing && State.Invincible;
-        /// <summary>穿敌或无敌都不吃接触伤害</summary>
+        /// <summary>BlocksContact 在穿敌或无敌时挡住接触伤害</summary>
         public bool BlocksContact => IsDashing && (State.Invincible || State.Effect.HitsEnemies);
 
-        /// <summary>每帧登记,只在起手读</summary>
+        /// <summary>Offer 每帧登记效果,只在起手时读取</summary>
         public void Offer(CEDashEffect effect) {
             if (effect != null && !offered.Contains(effect))
                 offered.Add(effect);
@@ -154,7 +154,7 @@ namespace CalamityEntropy.Core.Dash
                     return;
                 }
                 if (!State.Effect.ExternalMotion && hasPreMove && WallBlocked()) {
-                    //撞墙也交棒,误判斜坡时不交棒会把人钉住
+                    //撞墙也交出剩余动量,误判斜坡时不交会把人钉住
                     End(carryMomentum: true);
                     return;
                 }
@@ -205,7 +205,7 @@ namespace CalamityEntropy.Core.Dash
             else if (tapY < 0) tapY++;
         }
 
-        /// <summary>窗口每帧维护,不论起不了手</summary>
+        /// <summary>TryResolveTapDirection 每帧维护双击窗口,不论这一帧起不了手</summary>
         private bool TryResolveTapDirection(bool allowVertical, out Vector2 direction) {
             direction = Vector2.Zero;
             if (hotkeyPending) {
@@ -264,8 +264,8 @@ namespace CalamityEntropy.Core.Dash
         }
 
         /// <summary>
-        /// 别的模组的 Dash、DashHotkey、DashDoubleTapOverride
-        /// 它们挂 DoCommonDashHandle,dashType 被压掉后那条路不跑
+        /// 这里认别的模组的 Dash、DashHotkey、DashDoubleTapOverride
+        /// 它们挂在 DoCommonDashHandle 上,dashType 被压掉后那条路不跑
         /// </summary>
         private static bool AnyGenericDashKeybindJustPressed() {
             foreach (var pair in PlayerInput.Triggers.JustPressed.KeyStatus) {
@@ -412,7 +412,7 @@ namespace CalamityEntropy.Core.Dash
             hasPreMove = false;
             blockedFrames = 0;
             if (!state.Remote) {
-                //死亡、上坐骑、被控、被新冲刺打断不交棒
+                //死亡、上坐骑、被控或被新冲刺打断时不交出动量
                 if (carryMomentum && !state.Effect.ExternalMotion)
                     ApplyExitMomentum(state);
                 Player.eocDash = 0;
@@ -423,7 +423,7 @@ namespace CalamityEntropy.Core.Dash
             state.Enhancer?.OnEnd(Player, state);
         }
 
-        /// <summary>截断对齐原版 (int)(dashDelay * DashCD)</summary>
+        /// <summary>ApplyCooldownMult 按原版 (int)(dashDelay * DashCD) 截断</summary>
         private int ApplyCooldownMult(int frames) {
             if (frames <= 0) {
                 return frames;
@@ -431,7 +431,7 @@ namespace CalamityEntropy.Core.Dash
             return Math.Max(0, (int)(frames * CooldownMult));
         }
 
-        /// <summary>只在 dashDelay 从负变正乘一次,自管冲刺不乘,免得和 lockout 叠</summary>
+        /// <summary>TryScaleVanillaDashDelay 只在 dashDelay 从负变正时乘一次,自管冲刺不乘,免得和 lockout 叠</summary>
         private void TryScaleVanillaDashDelay() {
             bool ceOwned = State != null && !State.Remote && !State.Effect.ExternalMotion;
             if (Player.dashDelay < 0) {
@@ -452,7 +452,7 @@ namespace CalamityEntropy.Core.Dash
 
         // ---------------------------------------------------------------- 运动
 
-        /// <summary>总位移等于 distance,首帧最快,缓出到 endSpeed,不够则匀速</summary>
+        /// <summary>BuildSpeeds 让总位移等于 distance,首帧最快,缓出到 endSpeed,不够就改成匀速</summary>
         public static float[] BuildSpeeds(int duration, float distance, float endSpeed, float curve) {
             duration = Math.Max(1, duration);
             var speeds = new float[duration];
@@ -495,7 +495,7 @@ namespace CalamityEntropy.Core.Dash
             return MathF.Pow(retain, 1f / Math.Max(1, State.Duration));
         }
 
-        /// <summary>对齐克盾,横向吸到跑速,竖直还一部分起手动量</summary>
+        /// <summary>ApplyExitMomentum 对齐克苏鲁护盾的收尾,横向吸到跑速,竖直还一部分起手动量</summary>
         private void ApplyExitMomentum(CEDashState state) {
             float floor = Math.Max(Player.accRunSpeed, Player.maxRunSpeed);
             float exit = Math.Max(state.Effect.EndSpeed(Player, state.Direction), floor);
@@ -512,7 +512,7 @@ namespace CalamityEntropy.Core.Dash
             }
         }
 
-        /// <summary>接触伤害结算之前</summary>
+        /// <summary>ApplyFrameFlags 赶在接触伤害结算之前打上无敌标记</summary>
         private void ApplyFrameFlags() {
             if (State.Invincible) {
                 Player.immune = true;
@@ -543,7 +543,7 @@ namespace CalamityEntropy.Core.Dash
 
         // ---------------------------------------------------------------- 撞击
 
-        /// <summary>扫到本帧落点,每怪一次</summary>
+        /// <summary>SweepHits 扫到本帧落点,每只怪只打一次</summary>
         private void SweepHits() {
             Vector2 from = Player.Center;
             Vector2 to = from + Player.velocity;
@@ -599,7 +599,7 @@ namespace CalamityEntropy.Core.Dash
 
         // ---------------------------------------------------------------- 联机
 
-        /// <summary>只发效果、方向、强化器,位置速度走原版玩家同步</summary>
+        /// <summary>SendStart 只发效果、方向和强化器,位置和速度走原版玩家同步</summary>
         private void SendStart(CEDashState state) {
             if (Main.netMode != NetmodeID.MultiplayerClient)
                 return;
@@ -612,7 +612,7 @@ namespace CalamityEntropy.Core.Dash
             packet.Send();
         }
 
-        /// <summary>纯视觉,按时长结束</summary>
+        /// <summary>BeginRemote 只做视觉,到时长就结束</summary>
         public void BeginRemote(string effectId, Vector2 direction, string enhancerId) {
             if (Player.whoAmI == Main.myPlayer || Main.dedServ)
                 return;

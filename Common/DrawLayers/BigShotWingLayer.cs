@@ -80,7 +80,7 @@ namespace CalamityEntropy.Common.DrawLayers
         public float StringsOffset = 0;
         public float Num = 1;
         public float cCount = 0;
-        //脱离灾厄:肾上腺素/暴怒的放大加成随系统裁撤,恒为基础尺寸
+        //脱离灾厄:肾上腺素和暴怒的放大加成随那套系统撤掉之后,尺寸始终用基础值
         public float scaleBoost => 1;
         public float scale = 1;
         public override void PostUpdate() {

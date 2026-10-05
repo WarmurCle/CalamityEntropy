@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis.States
                 ctx.TeslaUpCD -= ctx.Enrange;
                 if (ctx.TeslaUpCD <= 0f) {
                     ctx.TeslaUpCD = AcropolisDirector.JumpShootInterval;
-                    //跳射没有后坐,照搬
+                    //跳射没有后坐,原样保留
                     ctx.QueueCannonShot(AcropolisDirector.JumpShootSpread, AcropolisDirector.JumpShootSpeed,
                         AcropolisDirector.JumpShootProjAi0, 0f);
                 }

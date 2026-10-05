@@ -5,7 +5,7 @@ using Terraria;
 namespace CalamityEntropy.Content.NPCs.NihilityTwin.Core
 {
     /// <summary>
-    /// 事实过线,声明每帧回落
+    /// 事实字段要过线,声明每帧回落
     /// Num1 是原 aicounter,自增位置各段不同,不能折进 Timer++
     /// </summary>
     public class NihilityStateContext : CEBossStateContext
@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin.Core
 
         /// <summary>
         /// 原 <c>NPC.ai[2]</c>。一阶段 6 号拿它存环射基准角,二阶段 0/2 号拿它当冲刺子计时。
-        /// 两处共用一个槽是原代码的写法,<b>照搬</b>:换招时不清零,残值会原样带进下一手
+        /// 两处共用一个槽是原代码的写法,按原写法保留,换招时不清零,残值会原样带进下一手
         /// </summary>
         public float Num2 { get; set; }
 

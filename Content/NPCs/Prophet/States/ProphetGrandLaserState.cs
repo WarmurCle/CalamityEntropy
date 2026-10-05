@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.States
             npc.rotation = (target.Center - npc.Center).ToRotation();
 
             if (cd == ProphetDirector.LaserSetupBeat) {
-                //清场:把场上残留的符文晶体全部打掉。各端都跑(照搬原写法)
+                //清场会把场上残留的符文晶体全部打掉,各端都跑,按原写法保留
                 int type = ModContent.ProjectileType<RuneCrystalTop>();
                 foreach (Projectile p in Main.ActiveProjectiles) {
                     if (p.type == type) {
@@ -74,7 +74,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.States
             if (cd > ProphetDirector.LaserWingWindowLow && cd < ProphetDirector.LaserWingWindowHigh) {
                 foreach (Player plr in Main.ActivePlayers) {
                     if (plr.Distance(npc.Center) < ProphetDirector.LaserAffectRadius) {
-                        // 原灾厄无限飞行位删除,这里每帧回满翅膀时间即等效(player-api)
+                        //原灾厄的无限飞行位已经删掉,这里每帧把翅膀时间回满,效果相同(player-api)
                         plr.wingTime = plr.wingTimeMax;
                     }
                 }

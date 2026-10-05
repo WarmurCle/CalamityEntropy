@@ -1,11 +1,11 @@
-//UV 按宽高比绕 Center 扭转,FadeOutDistance 0..1
+//这个着色器按宽高比绕 Center 扭转 UV,FadeOutDistance 取 0 到 1
 sampler TextureSampler : register(s0);
 
 float2 Center;
 float Strength;
 float AspectRatio;
-float FadeOutDistance; //渐隐开始半径 0..1
-float FadeOutWidth;    //渐隐宽度
+float FadeOutDistance; //渐隐从该半径开始,范围 0 到 1
+float FadeOutWidth;    //该值决定渐隐带有多宽
 float2 TexOffset;
 float enhanceLightAlpha;
 

@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Core.Weapons
 {
-    /// <summary>查询 IsReady,释放 TryConsume</summary>
+    /// <summary>Shoot 开头用 IsReady 查询,用 TryConsume 释放</summary>
     public static class CEChargeWeapon
     {
         public static CEChargeMeter GetMeter(Item item) {
@@ -18,7 +18,7 @@ namespace CalamityEntropy.Core.Weapons
             return meter != null && meter.Ready;
         }
 
-        /// <summary>一组只调一次,当帧窗口自动打标</summary>
+        /// <summary>同一组射击只调一次 TryConsume,当帧窗口会自动打标</summary>
         public static bool TryConsume(Player player, Item item) {
             CEChargeMeter meter = GetMeter(item);
             if (meter == null || !meter.Consume())
@@ -34,7 +34,7 @@ namespace CalamityEntropy.Core.Weapons
 
         public static void Empower(Projectile projectile) => projectile.SetEmpowered();
 
-        /// <summary>命中计数入口,框架已调,父链外才手调</summary>
+        /// <summary>CreditHit 是命中计数入口,框架已经调过,父链之外才手调</summary>
         public static void CreditHit(Player player, Item item) {
             if (item?.ModItem is not ICEChargeWeapon chargeWeapon)
                 return;
@@ -61,7 +61,7 @@ namespace CalamityEntropy.Core.Weapons
 
     public class CEChargePlayer : ModPlayer
     {
-        /// <summary>饰品在 UpdateAccessory 里乘</summary>
+        /// <summary>饰品在 UpdateAccessory 里乘 ChargeRateMult</summary>
         public float ChargeRateMult = 1f;
 
         private uint empowerWindowFrame = uint.MaxValue;

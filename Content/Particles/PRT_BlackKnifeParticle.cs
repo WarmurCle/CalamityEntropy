@@ -41,7 +41,7 @@ namespace CalamityEntropy.Content.Particles
 
         public override bool PreDraw(SpriteBatch sb) {
             Texture2D tex = PRTLoader.PRT_IDToTexture[ID];
-            //先淡拖尾再本体,顺序反了拖尾会盖刀
+            //先画淡掉的拖尾再画刀身,顺序反了拖尾会盖住刀
             for (int i = 0; i < oldPos.Count; i++) {
                 sb.Draw(tex, oldPos[i] - Main.screenPosition, null, Color * 0.1f * ((float)i / oldPos.Count), Rotation, tex.Size() / 2, Scale, SpriteEffects.None, 0);
             }

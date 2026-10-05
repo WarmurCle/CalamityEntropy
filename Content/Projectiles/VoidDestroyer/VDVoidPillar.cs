@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
             Projectile.height = 20;
         }
 
-        //只横扫,不做常规位移积分
+        //光柱只横扫,不做常规位移积分
         public override bool ShouldUpdatePosition() => false;
 
         /// <summary>宽度包络:前 4 帧张开,末 10 帧收拢</summary>

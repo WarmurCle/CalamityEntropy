@@ -9,7 +9,7 @@ using static CalamityEntropy.Content.NPCs.Cruiser.CruiserHead;
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
     //[StaticImmunity(typeof(CruiserHead))]
-    /// <summary>位置从链骨末节直读,只清平滑,不进预测器,ai[3] 是头部索引,让给状态号的是头部自己的 ai[3]</summary>
+    /// <summary>尾节位置从链骨末节直接读取,只清平滑,不进预测器,ai[3] 是头部索引,让给状态号的是头部自己的 ai[3]</summary>
     public class CruiserTail : ModNPC
     {
         public override void BossHeadRotation(ref float rotation) {

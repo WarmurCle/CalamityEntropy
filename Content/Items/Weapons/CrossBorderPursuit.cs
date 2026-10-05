@@ -17,7 +17,7 @@ namespace CalamityEntropy.Content.Items.Weapons
 {
     public class CrossBorderPursuit : ModItem, ICEChargeWeapon
     {
-        // 周期就绪 10 秒；未就绪时武器不可使用（原武器全部行为即大招）
+        //这把武器的大招每 10 秒就绪一次,没就绪时不能使用,因为原武器的全部行为就是这次大招
         public CEChargeProfile ChargeProfile => CEChargeProfile.Periodic(10f);
 
         public override void SetStaticDefaults() {

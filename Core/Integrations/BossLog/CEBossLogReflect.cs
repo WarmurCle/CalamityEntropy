@@ -8,7 +8,7 @@ using Terraria.UI;
 
 namespace CalamityEntropy.Core.Integrations.BossLog
 {
-    /// <summary>对照 BossChecklist 1.4.4,必需项缺一则 Resolve 失败、接管停用,可选项缺失各自兜底,Clear 后归零</summary>
+    /// <summary>对照 BossChecklist 1.4.4,必需项缺一个就让 Resolve 失败并停用接管,可选项缺失各自兜底,Clear 后归零</summary>
     internal static class CEBossLogReflect
     {
         private const BindingFlags Any = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;

@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.Cruiser.States
 {
     /// <summary>
-    /// 瞄准窗用 LaserAim,扫射用 ChangeCounter,瞄准期间不推进
+    /// 瞄准窗用 LaserAim 计时,扫射用 ChangeCounter 计时,瞄准期间不推进 ChangeCounter
     /// LaserAim++ &lt; 35 与自增后 &gt; 36,第 36 帧是空帧
     /// 宿主在本状态不把 rotation 覆写成速度朝向
     /// </summary>
@@ -61,7 +61,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.States
                     cycleStarted = cycle;
                     firedThisCycle = false;
                     brakedThisCycle = false;
-                    //中途加入且已越过本轮起拍很久:静默吞掉这一拍的演出,只认闩锁
+                    //中途加入并且已经越过本轮起拍很久时,静默跳过这一拍的演出,只认闩锁
                     if (!CuePassed(beat, 0)) {
                         if (ctx.ChangeCounter > 1) {
                             npc.rotation = (player.Center + player.velocity * u * CruiserDirector.LaserLeadFactor - npc.Center).ToRotation();

@@ -88,7 +88,7 @@ namespace CalamityEntropy.Common
     }
     public class EGlobalProjectile : GlobalProjectile
     {
-        //注意:这些字段只在客户端绘制钩子里读,专用服务器上恒为 null。
+        //这些字段只在客户端绘制钩子里读取,专用服务器上始终是 null
         [VaultLoaden("CalamityEntropy/Assets/Extra/ArchSmear")]
         internal static Asset<Texture2D> ArchSmearTex;
         [VaultLoaden("CalamityEntropy/Assets/Particles/BasicTrail")]
@@ -137,14 +137,14 @@ namespace CalamityEntropy.Common
         public bool LuminarArrow = false;
         public bool flameTrail = false;
         /// <summary>
-        /// 初次生成
+        /// FirstFrames 为真表示弹幕还在初次生成
         /// </summary>
         public bool FirstFrames = true;
         /// <summary>
-        /// 用于临时存储的额外更新
+        /// StoredEU 临时存放一份额外更新
         /// </summary>
         public int StoredEU = -1;
-        //全局表示是否处于右键状态
+        //IsRightClick 标记当前是不是右键
         public bool IsRightClick = false;
 
         public Dictionary<string, SynchronousData> DataSynchronous = new Dictionary<string, SynchronousData>();
@@ -254,7 +254,7 @@ namespace CalamityEntropy.Common
                 Lifetime++;
             if (buriedShoot) {
                 PRTLoader.NewParticle<PRT_CustomSpark>(projectile.Center + projectile.velocity.normalize() * 40, -projectile.velocity * 0.05f, Color.Black, 0.03f).Configure("CalamityEntropy/Assets/Particles/GlowSpark2", false, 9, new Vector2(0.6f, 1.3f), false, false, 0f, false, false);
-                //绿火花AfterPlayers:弹幕前后层PRT没有,硬提RenderLayer盖蓝光
+                //绿火花放在 AfterPlayers,因为弹幕前后层没有 PRT,所以把 RenderLayer 抬高盖住蓝光
                 PRTLoader.NewParticle<PRT_CustomSpark>(projectile.Center + projectile.velocity.normalize() * 40, -projectile.velocity * 0.05f, Color.LightGreen, 0.012f).Configure("CalamityEntropy/Assets/Particles/GlowSpark", false, 7, new Vector2(0.6f, 1.9f), true, false, 0f, false, false, renderLayer: PRTRenderLayer.AfterPlayers);
             }
         }
@@ -409,7 +409,7 @@ namespace CalamityEntropy.Common
         }
         public Vector2? plrOldPos = null;
         public Vector2? plrOldVel = null;
-        public PRT_ProminenceTrail trail_pmn = null;   //ProminenceArrow,AI里AddPoint续命
+        public PRT_ProminenceTrail trail_pmn = null;   //ProminenceArrow 在 AI 里用 AddPoint 把这条拖尾续上
         public bool init_ = true;
         public float maxSpd = -1;
         public List<int> luminarHited = new List<int>();
@@ -418,8 +418,8 @@ namespace CalamityEntropy.Common
         public bool OverrideBulletMoveAI = false;
         public Vector2 typVel = Vector2.Zero;
         public bool SmartArcEffect = false;
-        public bool Freeze = true;//For wisper arrows
-        public PRT_HeavenfallStar2 ParticleOnMe = null;   //WisperArrow,AI里跟Center
+        public bool Freeze = true;//Freeze 是给 wisper 箭留的
+        public PRT_HeavenfallStar2 ParticleOnMe = null;   //WisperArrow 在 AI 里让这个粒子跟着 Center
         public bool slowFlag = true;
         public bool SetMaxUpdates = true;
         public override bool PreAI(Projectile projectile) {
@@ -908,7 +908,7 @@ namespace CalamityEntropy.Common
                 modifiers.SourceDamage *= 1 + promineceDamageAddition;
             }
         }
-        public PRT_StarTrailParticle starTrailPt = null;   //LuminarArrow,addPoint=false,AI里手动AddPoint
+        public PRT_StarTrailParticle starTrailPt = null;   //LuminarArrow 把 addPoint 设成 false,在 AI 里手动 AddPoint
         public PRT_StarTrailParticle starTrailPt2 = null;
         public override bool PreDraw(Projectile projectile, ref Color lightColor) {
             if (Losted) {

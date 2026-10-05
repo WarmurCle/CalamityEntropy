@@ -68,7 +68,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             var mark = target.GetGlobalNPC<ShadowPactMarkNPC>();
             if (mark.burstDone)
                 return;
-            // 以命中前生命判定"健康"目标
+            //契约用命中前的生命判断目标算不算健康
             if (target.life + damageDone < target.lifeMax * 0.9f)
                 return;
             mark.burstDone = true;

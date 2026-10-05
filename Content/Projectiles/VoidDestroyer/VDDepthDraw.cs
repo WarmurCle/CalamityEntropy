@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 
         /// <summary>喂雾化着色器参数并 Apply(供需要在一个批次里连画多张的调用方使用,调用方自己 EnterShaderRegion)</summary>
         public static void ApplyFog(Effect shader, Texture2D tex, float fog) {
-            //模糊半径按贴图像素折成 UV:远处 1.5px 的糊,足以抹掉像素边又不失形
+            //模糊半径按贴图像素折成 UV,远处 1.5 像素的模糊足以抹掉像素边,形状不会散开
             Vector2 blur = new Vector2(VDDirector.DepthFogBlur / tex.Width, VDDirector.DepthFogBlur / tex.Height) * fog;
             shader.Parameters["uTime"]?.SetValue(Main.GlobalTimeWrappedHourly);
             shader.Parameters["uOpacity"]?.SetValue(1f);

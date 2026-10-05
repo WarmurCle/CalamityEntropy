@@ -2,7 +2,7 @@
 
 namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
 {
-    /// <summary>事实过线,声明每帧回落,柱子四量由宿主写进 ExtraAI</summary>
+    /// <summary>事实字段要过线,声明每帧回落,柱子的四个量由宿主写进 ExtraAI</summary>
     public class SpiritFountainStateContext : CEBossStateContext
     {
         #region 核心引用
@@ -76,10 +76,10 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
         /// <summary>瞳孔注视点,对应原 <c>starePoint</c>。读的是 <c>Main.LocalPlayer</c>,天然是本地量</summary>
         public Vector2 StarePoint { get; set; }
 
-        /// <summary>上一帧的一号柱横坐标,对应原 <c>c1LastPos</c>。同帧内写完即读,用来求柱子的倾斜角</summary>
+        /// <summary>上一帧的一号柱横坐标对应原 <c>c1LastPos</c>,同帧内写完就读,用来求柱子的倾斜角</summary>
         public float C1LastPos { get; set; }
 
-        /// <summary>原 <c>CenterRing</c>。原代码写它但从不读,照搬保留</summary>
+        /// <summary>原 <c>CenterRing</c> 这个字段原代码会写但从没读过,这里原样保留</summary>
         public int CenterRing { get; set; }
         #endregion
 

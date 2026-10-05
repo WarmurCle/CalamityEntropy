@@ -66,7 +66,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
                     float drop = Timer < VDDirector.CannonOverheatDive ? 3f : 0f;
                     npc.velocity = Vector2.Lerp(npc.velocity, new Vector2(0f, drop), 0.15f);
                     ctx.CoreGlow = Timer <= VDDirector.CannonOverheatDive ? ctx.CoreGlow : 0f;
-                    //过热的舰壳从烧红慢慢冷回虚空紫,描边随之收干
+                    //过热的舰壳从烧红慢慢冷回虚空紫,描边跟着淡回去
                     ctx.RimCharge = Math.Max(ctx.RimCharge, 0.6f * (1f - p));
                     ctx.RimColorTarget = Color.Lerp(VDDirector.RimHeatRed, VDVfx.VoidPurple, p);
                     ctx.ShakeStrength = Math.Max(ctx.ShakeStrength, 0.25f * (1f - p));

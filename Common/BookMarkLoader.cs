@@ -334,7 +334,7 @@ namespace CalamityEntropy.Common
             public Func<int, int> ModifyShootCooldown;
         }
 
-        /// <summary>不经过 EntropyBookHeldProjectile;外部走 ModCall("PerformBookmarkAttack")</summary>
+        /// <summary>PerformBookmarkAttack 不经过 EntropyBookHeldProjectile,外部调用走 ModCall("PerformBookmarkAttack")</summary>
         public static BookmarkAttackResult PerformBookmarkAttack(
             Item bookmarkItem,
             Player player,
@@ -351,7 +351,7 @@ namespace CalamityEntropy.Common
 
             damageClass ??= DamageClass.Magic;
 
-            //如果是内部BookMark且重写了PerformAttack，优先使用
+            //内部书签如果重写了 PerformAttack,这里优先用它
             if (bookmarkItem.ModItem is BookMark bm) {
                 var context = new BookmarkAttackContext {
                     Player = player,
@@ -369,7 +369,7 @@ namespace CalamityEntropy.Common
                     return customResult;
             }
 
-            //默认实现
+            //下面走默认实现
             return PerformDefaultBookmarkAttack(bookmarkItem, player, position, direction,
                 baseDamage, baseKnockback, baseProjectileType, baseShootSpeed, baseCooldown, damageClass);
         }
@@ -380,7 +380,7 @@ namespace CalamityEntropy.Common
             int baseCooldown, DamageClass damageClass) {
             var result = new BookmarkAttackResult();
 
-            //收集属性修改
+            //这里收集属性修改
             EBookStatModifer modifer = new EBookStatModifer();
             modifer.Crit = player.GetTotalCritChance(damageClass);
             modifer.Knockback = player.GetTotalKnockback(damageClass).ApplyTo(baseKnockback);
@@ -388,24 +388,24 @@ namespace CalamityEntropy.Common
             ModifyStat(bookmarkItem, modifer);
             result.AppliedModifier = modifer;
 
-            //确定弹幕类型
+            //这里确定弹幕类型
             int projType = baseProjectileType >= 0 ? baseProjectileType : ModContent.ProjectileType<RuneBullet>();
             int baseReplace = ModifyBaseProjectile(bookmarkItem);
             if (baseReplace >= 0) projType = baseReplace;
             int typeReplace = ModifyProjectile(bookmarkItem, projType);
             if (typeReplace >= 0) projType = typeReplace;
 
-            //计算冷却
+            //这里计算冷却
             int cooldown = baseCooldown;
             modifyShootCooldown(bookmarkItem, ref cooldown);
             cooldown = modifer.attackSpeed > 0 ? (int)(cooldown / modifer.attackSpeed) : cooldown;
             result.CooldownTicks = Math.Max(1, cooldown);
 
-            //计算伤害和击退
+            //这里计算伤害和击退
             int dmg = (int)player.GetTotalDamage(damageClass).ApplyTo(baseDamage * modifer.Damage);
             float kb = modifer.Knockback;
 
-            //生成弹幕
+            //这里生成弹幕
             Vector2 dir = direction.SafeNormalize(Vector2.UnitX);
             Vector2 vel = dir * baseShootSpeed * modifer.shotSpeed;
 
@@ -417,7 +417,7 @@ namespace CalamityEntropy.Common
             result.ProjectileIndex = projIndex;
             result.ProjectileType = projType;
 
-            //将属性应用到弹幕
+            //这里把属性写到弹幕上
             if (proj.penetrate >= 0)
                 proj.penetrate += modifer.PenetrateAddition;
             proj.CritChance = (int)modifer.Crit;
@@ -425,10 +425,10 @@ namespace CalamityEntropy.Common
             proj.ArmorPenetration += (int)(player.GetTotalArmorPenetration(damageClass) + modifer.armorPenetration);
             proj.DamageType = damageClass;
 
-            //获取效果实例（只取一次，避免CustomBM重复创建实例）
+            //这里取效果实例,只取一次,免得 CustomBM 重复创建
             EBookProjectileEffect effect = GetEffect(bookmarkItem);
 
-            //若为EBookBaseProjectile，挂载书签效果
+            //弹幕如果是 EBookBaseProjectile,这里挂上书签效果
             if (proj.ModProjectile is EBookBaseProjectile bp) {
                 bp.mainProj = true;
                 bp.homing += modifer.Homing;
@@ -441,7 +441,7 @@ namespace CalamityEntropy.Common
                 }
             }
 
-            //调用OnStandaloneAttack，复现OnShoot/OnActive中的独立逻辑
+            //这里调用 OnStandaloneAttack,复现 OnShoot 和 OnActive 里的独立逻辑
             if (effect != null) {
                 effect.OnStandaloneAttack(player, position, direction, dmg, kb);
             }
@@ -451,7 +451,7 @@ namespace CalamityEntropy.Common
         }
 
         /// <summary>
-        /// 查询书签的能力信息，不触发任何攻击
+        /// GetBookmarkInfo 查询书签能力,不触发任何攻击
         /// </summary>
         public static BookmarkInfo GetBookmarkInfo(Item bookmarkItem) {
             if (!IsABookMark(bookmarkItem))
@@ -460,7 +460,7 @@ namespace CalamityEntropy.Common
             var info = new BookmarkInfo();
             info.IsBookmark = true;
 
-            //检查属性修改
+            //这里检查属性修改
             var testModifer = new EBookStatModifer();
             ModifyStat(bookmarkItem, testModifer);
             info.HasStatModifiers = testModifer.Damage != 1 || testModifer.Knockback != 1 ||
@@ -469,19 +469,19 @@ namespace CalamityEntropy.Common
                 testModifer.attackSpeed != 1 || testModifer.armorPenetration != 0 || testModifer.lifeSteal != 0;
             info.StatSnapshot = testModifer;
 
-            //检查弹幕替换
+            //这里检查弹幕有没有被替换
             info.ReplacesBaseProjectile = ModifyBaseProjectile(bookmarkItem) >= 0;
             info.ReplacesProjectile = ModifyProjectile(bookmarkItem, -1) >= 0;
 
-            //检查冷却修改
+            //这里检查冷却有没有被修改
             int testCd = 20;
             modifyShootCooldown(bookmarkItem, ref testCd);
             info.ModifiesCooldown = testCd != 20;
 
-            //检查是否有主动效果
+            //这里检查有没有主动效果
             info.HasEffect = GetEffect(bookmarkItem) != null;
 
-            //UI纹理
+            //这里读取 UI 纹理
             info.UITexture = GetUITexture(bookmarkItem);
 
             return info;
@@ -489,7 +489,7 @@ namespace CalamityEntropy.Common
     }
 
     /// <summary>
-    /// 书签独立攻击的上下文参数，由外部Mod传入
+    /// BookmarkAttackContext 是外部模组传入的书签攻击参数
     /// </summary>
     public class BookmarkAttackContext
     {
@@ -498,7 +498,7 @@ namespace CalamityEntropy.Common
         public Vector2 Direction;
         public int BaseDamage = 50;
         public float BaseKnockback = 2f;
-        /// <summary>基础弹幕类型，-1表示使用默认RuneBullet，会被书签的弹幕替换覆盖</summary>
+        /// <summary>BaseProjectileType 是基础弹幕类型,-1 表示用默认 RuneBullet,书签如果替换弹幕就会换掉它</summary>
         public int BaseProjectileType = -1;
         public float BaseShootSpeed = 12f;
         public int BaseCooldown = 20;
@@ -506,23 +506,23 @@ namespace CalamityEntropy.Common
     }
 
     /// <summary>
-    /// 书签攻击返回的结果
+    /// BookmarkAttackResult 是书签攻击返回的结果
     /// </summary>
     public class BookmarkAttackResult
     {
         public bool Success;
-        /// <summary>建议的冷却时间(Tick数)，外部Mod应在此时间后才再次触发</summary>
+        /// <summary>CooldownTicks 是建议的冷却 tick 数,外部模组应等这段时间后再触发</summary>
         public int CooldownTicks;
-        /// <summary>应用的属性修改快照</summary>
+        /// <summary>AppliedModifier 是这次应用的属性修改快照</summary>
         public EBookStatModifer AppliedModifier;
-        /// <summary>生成的弹幕在Main.projectile中的索引，-1表示未生成</summary>
+        /// <summary>ProjectileIndex 是生成弹幕在 Main.projectile 里的索引,-1 表示没生成</summary>
         public int ProjectileIndex = -1;
-        /// <summary>实际使用的弹幕类型ID</summary>
+        /// <summary>ProjectileType 是实际用的弹幕类型 ID</summary>
         public int ProjectileType = -1;
     }
 
     /// <summary>
-    /// 书签能力信息，只读查询用，不触发攻击
+    /// BookmarkInfo 只供查询书签能力,不触发攻击
     /// </summary>
     public class BookmarkInfo
     {

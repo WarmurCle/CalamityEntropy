@@ -72,7 +72,7 @@ namespace CalamityEntropy.Content.Projectiles
             }
             else if (Projectile.ai[0] > 120) {
                 for (int i = 0; i < 5; i++) {
-                    //每帧拖尾Void,旧spawnNew也是AI里无脑刷
+                    //瓶子每帧拖出 Void 尾,旧 spawnNew 也是在 AI 里无条件刷
                     var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center, CEUtils.randomPointInCircle(8), Color.White, 1f);
                     p.Opacity = Main.rand.NextFloat(0.8f, 1.6f);
                     p.vd = 0.97f;

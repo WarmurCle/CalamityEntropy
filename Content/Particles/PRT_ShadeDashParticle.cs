@@ -93,7 +93,7 @@ namespace CalamityEntropy.Content.Particles
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
                 //就这一遍shader+图元,没有PostDraw第二刀;旧EParticle也是单Draw,别照着SlashDarkRed硬拆两趟
                 sb.End();
-                //还PRT桶,删BeginDrawingWithMode同桶后面粒子全花
+                //画完把 PRT 批次还回去,删掉 BeginDrawingWithMode 的话同桶后面的粒子会画乱
                 PRTLoader.BeginDrawingWithMode(PRTDrawMode, sb);
             }
             return false;

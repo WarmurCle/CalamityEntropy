@@ -56,7 +56,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             rig.Step();
         }
 
-        /// <summary>0~1,前 40% 升、后 60% 落,算式照搬 DrawFins</summary>
+        /// <summary>这个值从 0 到 1,前 40% 上升,后 60% 下落,算式按 DrawFins 保留</summary>
         private float FinSwing() {
             float rise = ProphetDirector.FinSwingRise;
             return finRotCounter <= rise

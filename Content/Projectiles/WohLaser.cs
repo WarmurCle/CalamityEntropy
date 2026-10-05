@@ -70,7 +70,7 @@ namespace CalamityEntropy.Content.Projectiles
                 Color sparkColor2 = Color.DarkBlue;
 
                 float velc = 1f;
-                //跟AltSpark成对出现时寿命/速度系数是旧代码原值
+                //这粒跟 AltSpark 成对出现时,寿命和速度系数沿用旧代码
                 PRTLoader.NewParticle<PRT_LineCal>(target.Center + Main.rand.NextVector2Circular(target.width * 0.5f, target.height * 0.5f) + Projectile.velocity * 1.2f, sparkVelocity2 * velc, Main.rand.NextBool() ? Color.Purple : Color.Purple, sparkScale2 * 1).Configure(false, (int)(sparkLifetime2 * 1));
 
             }

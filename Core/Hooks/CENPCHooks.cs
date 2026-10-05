@@ -34,7 +34,7 @@ namespace CalamityEntropy.Core.Hooks
                 return;
             }
 
-            //很显然不活跃的NPC不符合我们的期望
+            //不活跃的 NPC 不改写,直接走 orig
             if (!self.active || !self.TryGetGlobalNPC<EGlobalNPC>(out var ceNPC)) {
                 orig(self, i);
                 return;

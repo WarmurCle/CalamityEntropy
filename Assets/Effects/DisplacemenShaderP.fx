@@ -1,17 +1,17 @@
 ﻿//s1 噪声沿 y 置换主贴图 UV,底部按 uFadeRange 淡出
-sampler InPutTexture : register(s0);//主贴图
-sampler uDisplacementSampler : register(s1);//噪声置换
+sampler InPutTexture : register(s0);//InPutTexture 是主贴图
+sampler uDisplacementSampler : register(s1);//该采样器提供噪声,着色器用它置换 UV
 
 float uTime;
-float uIntensity;           //扭曲强度
-float4 uBaseColor1;          //底色
-float4 uTargetColor1;        //目标色
-float4 uBaseColor2;          //底色 2
-float4 uTargetColor2;        //目标色 2
-float uColorFactor;         //颜色权重 0..1
-float2 uNoiseScale;         //噪声 UV 缩放
-float uFadeRange = 0.3f;    //底部淡出 0..1
-bool UseColor;              //染色开关
+float uIntensity;           //该值决定扭曲有多强
+float4 uBaseColor1;          //该值是第一套底色
+float4 uTargetColor1;        //该值是第一套目标色
+float4 uBaseColor2;          //该值是第二套底色
+float4 uTargetColor2;        //该值是第二套目标色
+float uColorFactor;         //该值是颜色混合权重,范围 0 到 1
+float2 uNoiseScale;         //该值缩放噪声的 UV
+float uFadeRange = 0.3f;    //该值决定底部淡出有多长,范围 0 到 1
+bool UseColor;              //该值为真时给结果染色
 
 float4 DisplacementFunction(float2 coords : TEXCOORD0) : COLOR0
 {

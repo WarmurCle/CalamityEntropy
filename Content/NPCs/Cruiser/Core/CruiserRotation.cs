@@ -4,9 +4,9 @@ using Terraria;
 namespace CalamityEntropy.Content.NPCs.Cruiser.Core
 {
     /// <summary>
-    /// 不设防复读,6/19 是哨兵,上一手是拉开就退一格改直扑,那一格走两次
-    /// 二阶段每次选招都重压 defense 50 和减伤 0.42,转阶段收尾直写 VoidSpike,不清计数
-    /// 残值超过 150 时第一手尖刺第一帧收招,照搬,阶段判据读当帧血量
+    /// 轮换允许连续重复同一招,6 号和 19 号是哨兵,上一手是拉开就退一格改成直扑,那一格会走两次
+    /// 二阶段每次选招都把 defense 写成 50、减伤写成 0.42,转阶段收尾直接写入 VoidSpike,不清计数
+    /// 残值超过 150 时,第一手尖刺在第一帧收招,原样保留,阶段判据读当帧血量
     /// </summary>
     public static class CruiserRotation
     {
@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.Core
                 return Create(slot);
             }
 
-            //隐式行为二:二阶段每次选招都重压护甲与减伤
+            //二阶段每次选招都重新写上护甲和减伤
             npc.defense = CruiserDirector.DefensePhase2;
             ctx.Owner.DamageReduction = CruiserDirector.DRPhase2;
             ctx.AttackIndex++;

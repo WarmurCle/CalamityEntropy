@@ -73,7 +73,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
         protected override bool? CollidingOnPlane(Rectangle projHitbox, Rectangle targetHitbox) => false;
 
         public override void OnKill(int timeLeft) {
-            //只有引信走完才爆;阶段切换的清场 Kill 不引爆
+            //核弹只有引信走完才爆炸,阶段切换时的清场 Kill 不引爆
             if (IsServer && timeLeft <= 1) {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<VDNukeExplosion>(), Projectile.damage, 0f, Main.myPlayer, Radius);
             }

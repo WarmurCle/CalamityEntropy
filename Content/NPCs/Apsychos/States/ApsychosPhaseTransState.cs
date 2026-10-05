@@ -5,7 +5,7 @@ using Terraria;
 namespace CalamityEntropy.Content.NPCs.Apsychos.States
 {
     /// <summary>
-    /// 转阶段:前 80 帧白化涨满,过 80 帧置阶段 2,120 帧收。
+    /// 转阶段的前 80 帧让白化涨满,过 80 帧写入阶段 2,120 帧收招
     /// 关掉 HighLight 的默认衰减(原代码把衰减写成挂在本状态上的 else,所以只有这里不衰减)
     /// </summary>
     [VaultState((int)ApsychosStateIndex.PhaseTrans, typeof(ApsychosStateContext))]

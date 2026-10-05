@@ -86,7 +86,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 
         /// <summary>
         /// start/end 是已投影的世界坐标;z 默认 0 只修折断
-        /// 传了 Z 才雾化远端,Z&lt;0 那端不衰减;顶进枢的一端 cap 传 0
+        /// 调用方传了 Z 之后远端才起雾,Z 小于 0 的那端不衰减,接到枢上的一端 cap 传 0
         /// 进出批次保持 Deferred/AlphaBlend
         /// </summary>
         public static void DrawTapered(Vector2 start, Vector2 end, float widthStart, float widthEnd, Color color, Color coreColor, float envelope, float opacity, float seed = 0f, bool endGlow = true,

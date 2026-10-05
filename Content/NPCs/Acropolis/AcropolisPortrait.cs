@@ -124,7 +124,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             }
         }
 
-        /// <summary>虚拟地面探测:地面是一条水平线,射线向下命中即落点;起点已在地下时直接顶回地表</summary>
+        /// <summary>虚拟地面探测:地面是一条水平线,射线向下命中后就是落点,起点已在地下时直接顶回地表</summary>
         private static bool FlatGroundProbe(Vector2 from, Vector2 dir, float maxDistance, out Vector2 hit) {
             if (from.Y >= GroundY) {
                 hit = new Vector2(from.X, GroundY);
@@ -468,7 +468,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
                 }
             }
 
-            //焦土地带:不透明,上亮下暗,顶缘一线亮土
+            //焦土地带画成不透明,上边亮下边暗,顶缘留一线亮土
             CEPortraitDraw.VerticalGradient(sb, -half.X, half.X, GroundY, half.Y,
                 frame.Dim(AcropolisLogTheme.SoilTop), frame.Dim(AcropolisLogTheme.SoilBottom), 12);
             CEPortraitDraw.Fill(sb, new Vector2(-half.X, GroundY - 1.5f), new Vector2(half.X * 2f, 2.2f), frame.Dim(AcropolisLogTheme.DustWarm));

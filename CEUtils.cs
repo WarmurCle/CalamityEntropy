@@ -1648,12 +1648,12 @@ namespace CalamityEntropy
             for (int i = 1; i < drawTime; i++) {
                 Vector2 trailingDrawPos = drawPos - proj.velocity * i * offset;
                 float faded = 1 - i / (float)drawTime;
-                //平方放缩
+                //拖尾透明度按平方衰减
                 faded = MathF.Pow(faded, 2);
                 Color trailColor = color * faded;
                 Main.spriteBatch.Draw(tex, trailingDrawPos, null, trailColor, proj.oldRot[i] + rotFix, orig, scale, 0, 0);
             }
-            //直接绘制主射弹位于最顶层
+            //本体画在拖尾上面
             Main.spriteBatch.Draw(tex, drawPos, null, color, proj.rotation + rotFix, orig, scale, 0, 0.1f);
         }
         public static void QuickDrawItemWithBloomToWorld(this Item item, SpriteBatch SB, Color color, ref float scale, float rot) {
@@ -1743,13 +1743,13 @@ namespace CalamityEntropy
 
         /// <summary>forceSpeed 只在当前距离短于 speed 时改写速度</summary>
         public static void HomingNPCBetter(this Projectile proj, NPC target, float distRequired, float speed, float inertia, int giveExtraUpdate = 0, float? forceSpeed = null, float? maxAngleChage = null, bool ignoreDist = false) {
-            //一般来说你用这个方法就说明target理论上应当可以被追，但……just in case
+            //友好弹幕且 target 仍有效才继续追踪
             if (!proj.friendly || target == null || !target.active)
                 return;
             bool canHome;
 
             float curDist = Vector2.Distance(target.Center, proj.Center);
-            //存储射弹当前额外更新
+            //还没存过时,把当前 extraUpdates 记进 StoredEU
             if (proj.GetGlobalProjectile<EGlobalProjectile>().StoredEU == -1)
                 proj.GetGlobalProjectile<EGlobalProjectile>().StoredEU = proj.extraUpdates;
 
@@ -1758,17 +1758,17 @@ namespace CalamityEntropy
             else
                 canHome = true;
             if (canHome) {
-                //给予额外更新
+                //能追踪时,把 extraUpdates 加上 giveExtraUpdate
                 proj.extraUpdates = proj.GetGlobalProjectile<EGlobalProjectile>().StoredEU + giveExtraUpdate;
-                //开始追踪target
+                //从这里开始把速度转向 target
                 Vector2 home = (target.Center - proj.Center).SafeNormalize(Vector2.UnitY);
                 Vector2 velo = (proj.velocity * inertia + home * speed) / (inertia + 1f);
-                //这里给了一个角度限制
+                //转向角度受 maxAngleChage 限制
                 if (maxAngleChage.HasValue) {
                     float curAngle = proj.velocity.ToRotation();
                     float tarAngle = velo.ToRotation();
                     float angleDiffer = MathHelper.WrapAngle(tarAngle - curAngle);
-                    //转弧度
+                    //maxAngleChage 先从角度转成弧度
                     float maxRadians = MathHelper.ToRadians(maxAngleChage.Value);
                     if (Math.Abs(angleDiffer) > maxRadians) {
                         float clampedAngle = curAngle + Math.Sign(angleDiffer) * maxRadians;
@@ -1776,17 +1776,17 @@ namespace CalamityEntropy
                         velo = new Vector2((float)Math.Cos(clampedAngle), (float)Math.Sin(clampedAngle)) * setSpeed;
                     }
                 }
-                //除非你当前距离比射弹速度还少, 我们才会重新设定速度
+                //当前距离短于 speed 时才按 forceSpeed 改写速度
                 if (forceSpeed.HasValue && curDist < speed)
                     velo = proj.velocity.SafeNormalize(Vector2.Zero) * home * forceSpeed.Value;
-                //设定速度
+                //算完的速度写回弹幕
                 proj.velocity = velo;
             }
-            //否则返回射弹原本的额外更新
+            //不能追踪时把 extraUpdates 还原成 StoredEU
             else
                 proj.extraUpdates = proj.GetGlobalProjectile<EGlobalProjectile>().StoredEU;
         }
-        /// <summary>ignoreDist 写死 true</summary>
+        /// <summary>这个重载把 ignoreDist 写死成 true</summary>
         public static void HomingNPCBetter(this Projectile proj, NPC target, float speed, float inertia, int giveExtraUpdate = 0, float? forceSpeed = null, float? maxAngleChage = null) => proj.HomingNPCBetter(target, 1f, speed, inertia, giveExtraUpdate, forceSpeed, maxAngleChage, true);
 
         /// <summary>shortAxis 短半径,longAxis 长半径,rotation 弧度</summary>
@@ -1812,36 +1812,35 @@ namespace CalamityEntropy
             }
         }
         public static NPC FindClosestTarget(this Projectile p, float maxDist, bool ignoreTiles = true, bool arrayFirst = false) {
-            //bro我真的要遍历整个NPC吗？
             float distStoraged = maxDist;
             NPC acceptableTarget = null;
             foreach (NPC npc in Main.ActiveNPCs) {
                 float exDist = npc.width + npc.height;
-                //单位不可被追踪 或者 超出索敌距离则continue
+                //距离超出索敌范围再加上怪物体型就跳过
                 if (Vector2.Distance(p.Center, npc.Center) > distStoraged + exDist)
                     continue;
 
                 if (!npc.active || npc.friendly || npc.lifeMax < 5 || !npc.CanBeChasedBy(p.Center, false))
                     continue;
 
-                //搜索符合条件的敌人, 准备返回这个NPC实例
+                //距离更近且打得到时,记下这个 NPC
                 float curNpcDist = Vector2.Distance(npc.Center, p.Center);
                 if (curNpcDist < distStoraged && (ignoreTiles || Collision.CanHit(p.Center, 1, 1, npc.Center, 1, 1))) {
                     distStoraged = curNpcDist;
                     acceptableTarget = npc;
-                    //如果是数组优先，直接在这返回实例
+                    //arrayFirst 为真时立刻返回当前 NPC
                     if (arrayFirst)
                         return acceptableTarget;
                 }
             }
-            //返回这个NPC实例
+            //循环结束后返回记下的 NPC
             return acceptableTarget;
         }
         public static bool GetTargetSafe(this Projectile proj, out NPC target, int? targetIndex = null, bool canSearchSecondTarget = true, float anotherDistance = 1800f) {
             NPC npc;
             if (targetIndex.HasValue) {
                 npc = Main.npc[targetIndex.Value];
-                //当前敌人不可被追踪，跳过这一步并进行下一步
+                //指定目标不可追踪,或允许再找一个目标时,改去 FindClosestTarget
                 if (!npc.CanBeChasedBy(proj) || canSearchSecondTarget)
                     npc = proj.FindClosestTarget(anotherDistance);
                 else
@@ -1854,7 +1853,7 @@ namespace CalamityEntropy
             return npc != null;
         }
 
-        /// <summary>越快间隔越小,结果四舍五入</summary>
+        /// <summary>RatesBaseOnSpeed 越快间隔越小,结果四舍五入</summary>
         public static int RatesBaseOnSpeed(float baseRates, float minRates, float maxRates, float baseSpeed, float curSpeed) {
             float dynamicSpawnSpeed = (baseSpeed / curSpeed) * baseRates;
             dynamicSpawnSpeed = MathHelper.Clamp(dynamicSpawnSpeed, minRates, maxRates);
@@ -2104,7 +2103,7 @@ namespace CalamityEntropy
             return position;
         }
 
-        /// <summary>盗贼类已剔除</summary>
+        /// <summary>GetBestClass 不再比较盗贼类</summary>
         public static DamageClass GetBestClass(this Player player) {
             float bestDamage = 1f;
             DamageClass bestClass = DamageClass.Generic;
@@ -2133,7 +2132,7 @@ namespace CalamityEntropy
             return bestClass;
         }
 
-        /// <summary>盗贼类已剔除,召唤 Additive 按 0.75</summary>
+        /// <summary>GetBestClassDamage 不再比较盗贼类,召唤的 Additive 按 0.75 折算</summary>
         public static StatModifier GetBestClassDamage(this Player player) {
             StatModifier ret = StatModifier.Default;
             StatModifier classless = player.GetTotalDamage(DamageClass.Generic);

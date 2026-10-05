@@ -5,7 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.SpiritFountain.States
 {
-    /// <summary>前 80 帧进度不涨,柱子轻晃读 GameUpdateCount,各端独立,照搬</summary>
+    /// <summary>前 80 帧进度不涨,柱子轻晃读 GameUpdateCount,各端各自计算,原样保留</summary>
     [VaultState((int)SpiritFountainStateIndex.Boomerang, typeof(SpiritFountainStateContext))]
     public class SpiritFountainBoomerangState : SpiritFountainStateBase
     {

@@ -31,7 +31,7 @@ namespace CalamityEntropy.Core.Integrations
     {
         /// <summary>
         /// LocalizationName 要挂头部 NPC,BossChecklist 按 Mods.模组.NPCs.头部.BossChecklistIntegration.EntryName 取名,挂错回退英文
-        /// EntryName 是存档键,AcropolisMechine 这种历史拼写不能改;Actor 空则左页用 PortraitTexture
+        /// EntryName 是存档键,AcropolisMechine 这种历史拼写不能改;Actor 为空时左页用 PortraitTexture
         /// </summary>
         private readonly record struct BossEntry(
             string EntryName,

@@ -46,7 +46,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
         protected override void DepthAI() {
             Projectile.velocity = Vector2.Zero;
             if (!Landed) {
-                //坠落:Z 由基类积分;越过平面(或 Z 速度被同步成 0 而 Z 已到底)即落地
+                //舱体坠落时 Z 由基类做积分,越过平面就落地,Z 速度被同步成 0 而且 Z 已经到底时也落地
                 if (Z <= 0f || (!HasDepth)) {
                     Land();
                 }

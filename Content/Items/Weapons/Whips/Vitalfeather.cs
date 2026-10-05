@@ -34,7 +34,7 @@ namespace CalamityEntropy.Content.Items.Weapons.Whips
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips) {
-            //获取途径按灾厄在否分发:装灾厄时改由犽戎与其宝藏袋掉落
+            //获取途径按有没有装灾厄来分,装上灾厄时掉落改到犽戎和犽戎的宝藏袋
             tooltips.Replace("[OBT]", Mod.GetLocalization(CERef.Has ? "VitalfeatherObtCal" : "VitalfeatherObt").Value);
         }
     }

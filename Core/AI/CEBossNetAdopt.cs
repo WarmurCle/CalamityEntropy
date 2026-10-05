@@ -3,8 +3,8 @@ using System;
 namespace CalamityEntropy.Core.AI
 {
     /// <summary>
-    /// 只收养帧计数,步长 ±1,整段跳度要远大于容差,否则直取
-    /// 一个槽一种语义,清零残值小于等于容差会被吞
+    /// AdoptFrameCounter 只收养步长 ±1 的帧计数,整段跳变必须远大于容差,否则调用方直接取值
+    /// 同一个槽只能一种语义,清零残值小于等于容差时会被吞掉
     /// 权威端不收养,客户端的等值拍点才靠容差
     /// </summary>
     public static class CEBossNetAdopt

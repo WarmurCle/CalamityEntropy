@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Assets.Register
 {
-    // 注意:专用服务器上字段恒为 null,只能在绘制等客户端路径读取。
+    //这些字段在专用服务器上始终是 null,只能在绘制这类客户端路径读取
     public class AssetsRegister : ModSystem
     {
         [VaultLoaden("CalamityEntropy/Assets/Extra/Tornade_Fire")]

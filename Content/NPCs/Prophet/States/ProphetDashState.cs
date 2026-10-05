@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.States
                 }
 
                 //ProminenceTrail 单例挂 trail,Lifetime<1 才重建,冲刺段 13 帧续命。
-                //PRTLoader 在服务端只是不入列,仍返回实例,所以这里不额外加 dedServ 守卫(照搬原写法)
+                //PRTLoader 在服务端只是不入列,仍返回实例,所以这里不额外加 dedServ 守卫(按原写法保留)
                 if (ctx.Owner.trail == null || ctx.Owner.trail.Lifetime < 1) {
                     ctx.Owner.trail = PRTLoader.NewParticle<PRT_ProminenceTrail>(npc.Center, Vector2.Zero, Color.White,
                         ProphetDirector.TrailSpawnScale);

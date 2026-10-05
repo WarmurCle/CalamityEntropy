@@ -1,4 +1,4 @@
-//噪声在 s1,颜色走顶点色,梯形用 TexCoord.z 还原纵向 uv,y>0.5 噪声反向滚
+//噪声在 s1,颜色用顶点色,梯形用 TexCoord.z 还原纵向 UV,y 大于 0.5 时噪声反向滚
 sampler uImage0 : register(s0);
 sampler uImage1 : register(s1);
 float3 uColor;

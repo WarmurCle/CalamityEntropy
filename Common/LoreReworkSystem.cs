@@ -87,10 +87,10 @@ namespace CalamityEntropy.Common
             }
             return true;
         }
-        // 外来 Lore(灾厄的 LoreItem 基类)恒 CanUseItem => false,而 tML 的 CanUseItem 是与合并,
-        // GlobalItem 盖不过 ModItem 的 false;CanRightClick 是或合并、ConsumeItem 是与合并,
-        // 所以外来 Lore 的开关另开右键这条路。本模组自己的 CELoreItem 已经在 ModItem 上实现了
-        // 同一条通道,这里必须让开,否则一次右键会切两下等于没切
+        // 外来 Lore(灾厄的 LoreItem 基类)始终让 CanUseItem 返回 false,而 tML 把 CanUseItem 按与合并,
+        // GlobalItem 覆盖不了 ModItem 返回的 false;CanRightClick 按或合并,ConsumeItem 按与合并,
+        // 所以外来 Lore 的开关改走右键,本模组自己的 CELoreItem 已经在 ModItem 上做了
+        // 同一条通道,这里必须避开,否则一次右键会切换两次,结果等于没有切换
         private static bool HandlesRightClick(Item item) {
             return LoreEffect.Enabled
                 && item.ModItem is not Content.Items.Lores.CELoreItem

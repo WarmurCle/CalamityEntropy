@@ -36,7 +36,7 @@ namespace CalamityEntropy.Content.Items.Accessories
                 .AddTile(CEID.Tile_CosmicAnvil).Register();
                 return;
             }
-            // 脱离灾厄:灾厄升华勋章改为原版飞升徽记(其灾厄配方本源),站台改远古操纵机
+            //脱离灾厄时,灾厄升华勋章改成原版飞升徽记,徽记是那条灾厄配方原来的物品,合成站改成远古操纵机
             CreateRecipe().AddIngredient(ItemID.EmpressFlightBooster)
                 .AddIngredient<VoidBar>(5)
                 .AddTile<VoidWellTile>().Register();

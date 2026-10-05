@@ -1,6 +1,6 @@
 namespace CalamityEntropy.Core.AI
 {
-    /// <summary>StateId/Timer/Counter 用 VaultState 自带的</summary>
+    /// <summary>StateId、Timer、Counter 用 VaultState 自带的字段</summary>
     public interface ICEBossNetTiming
     {
         int StateId { get; }

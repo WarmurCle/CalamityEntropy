@@ -43,10 +43,10 @@ namespace CalamityEntropy.Content.Particles
         }
 
         public override void AI() {
-            //addPoint默认false,采样节奏在调用点;不是每帧无脑拖尾
+            //addPoint 默认是 false,采样节奏在调用点,不是每帧都拖尾
             if (addPoint)
                 AddPoint(Position);
-            //没显式Kill,alpha随寿命淡出;到点自杀还是框架Lifetime计数
+            //粒子没有显式 Kill,alpha 随寿命淡出,到点消失靠框架的 Lifetime 计数
             Color.A = (byte)(255 * (1f - LifetimeCompletion));   //旧剩余比例1→0,得用1-LifetimeCompletion
         }
 
@@ -56,7 +56,7 @@ namespace CalamityEntropy.Content.Particles
             sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);   //轨迹UV沿长度铺,LinearWrap
             if (odp.Count < 3) {
                 sb.End();
-                PRTLoader.BeginDrawingWithMode(PRTDrawMode, sb);   //点不够也得还批次,少这一步同桶后面全遭殃
+                PRTLoader.BeginDrawingWithMode(PRTDrawMode, sb);   //点数不够也要把批次还回去,少这一步同桶后面的粒子会画乱
                 return false;
             }
             List<ColoredVertex> ve = new List<ColoredVertex>();

@@ -1,17 +1,17 @@
-//全屏 UV 已按 GameViewMatrix 折好,uOpacity 为 0 时滤镜被跳过,无动态分支
+//全屏 UV 已经按 GameViewMatrix 折好,uOpacity 为 0 时这张滤镜被跳过,着色器里没有动态分支
 sampler uImage0 : register(s0);
 
-float uOpacity;//原版喂,关像素效果时为 0
+float uOpacity;//原版把这个值喂进来,关掉像素效果时它是 0
 float uTime;
-float2 uLensCenter;//透镜中心 UV
-float uLensStrength;//径向拉扯
-float uLensRadius;//高斯半径
-float4 uRift[3];//裂隙端点 UV,xy 起点 zw 终点
-float4 uRiftOpen;//三段开口量
-float uVignette;//四周压暗
-float uImpact;//冲击帧
-float4 uWhoosh;//xy 中心 UV,z 强度,中心一圈不拖
-float uAspect;//宽高比
+float2 uLensCenter;//该值是透镜中心的 UV
+float uLensStrength;//该值决定径向拉扯有多强
+float uLensRadius;//该值是高斯模糊的半径
+float4 uRift[3];//该数组存三段裂隙的端点 UV,xy 是起点,zw 是终点
+float4 uRiftOpen;//该值是三段裂隙各自的开口量
+float uVignette;//该值把画面四周压暗
+float uImpact;//该值标记当前是不是冲击帧
+float4 uWhoosh;//xy 是中心 UV,z 是强度,中心一圈不做拖影
+float uAspect;//该值是画面宽高比
 
 float4 PixelFunc(float2 uv : TEXCOORD0) : COLOR0
 {

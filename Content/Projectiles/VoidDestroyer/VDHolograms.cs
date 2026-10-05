@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 {
     /// <summary>
     /// 全息弹幕公共部分:通过 ai[0] 找到本体,本体不在对应状态时自行消散;节拍读本体 Context 的表现通道,不读状态私有量。
-    /// 建在深度基类上:全息体可以停在深处或穿过平面,深度的雾化对全息(自发光)只取三成,红魔在背景里仍是红的
+    /// 全息体建在深度基类上,可以停在深处或穿过平面,深度雾化对自发光只混入 35%,红魔在背景里仍然是红的
     /// </summary>
     public abstract class VDHoloProjectile : VDDepthProjectile
     {
@@ -58,12 +58,12 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
             }
         }
 
-        /// <summary>全息体的深度配色:自发光只吃三成雾</summary>
+        /// <summary>全息体着色时,自发光只混入 35% 的远处雾</summary>
         protected static Color HoloTint(Color color, float z) => Color.Lerp(color, VDVfx.FarFog, VDDepth.FogAmount(z) * 0.35f);
     }
 
     /// <summary>
-    /// 纯演出无伤害,停在 RedDevilDepth;平面位置是本体 AnchorPos,按 HoloCharge 发亮
+    /// 红魔全息没有伤害,只做演出,深度停在 RedDevilDepth,平面位置用本体的 AnchorPos,亮度按 HoloCharge 走
     /// 红射线从它射向镜头,三叉戟由本体状态从它的位置生成
     /// </summary>
     public class VDHoloRedDevil : VDHoloProjectile
@@ -88,7 +88,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 
         protected override void DepthAI() {
             Projectile.localAI[1]++;
-            //深度钉死,不积分
+            //这层全息的深度固定,不再做积分
             Z = VDDirector.RedDevilDepth;
             ZVel = 0f;
             ZAccel = 0f;
@@ -268,7 +268,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
             Projectile.height = 128;
         }
 
-        /// <summary>速度即同步来的"是否在冲刺":待机期速度为零,门在原地</summary>
+        /// <summary>速度表示同步过来的是否在冲刺,待机期速度是零,门停在原地</summary>
         public bool Dashing => Projectile.velocity.LengthSquared() > 1f;
 
         public override bool ShouldUpdatePosition() => Dashing;

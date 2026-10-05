@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Core.Cooldowns
 {
-    /// <summary>按静态 ID 建表,没有就用类型全名,存档和同步用这个字符串</summary>
+    /// <summary>CECooldownRegistry 按静态 ID 建表,没有 ID 就用类型全名,存档和同步用这个字符串</summary>
     public sealed class CECooldownRegistry : ModSystem
     {
         private static Dictionary<string, Type> handlerTypes;

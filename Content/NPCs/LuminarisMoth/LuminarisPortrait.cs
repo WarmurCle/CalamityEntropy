@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth
             bodyPiece = rig.Piece("body");
         }
 
-        /// <summary>飘飞路径:横 8 字,偏上,给垂尾留出下方空间</summary>
+        /// <summary>飘飞路径走横向 8 字,位置偏上,给下垂的尾巴留出下方空间</summary>
         private static Vector2 Path(float t) => new(MathF.Sin(t * 0.6f) * 182f, MathF.Sin(t * 1.2f + 0.8f) * 66f - 34f);
 
         protected override void Reset() {

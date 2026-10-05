@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>门槛在 Substitute,舱落地放教徒,场上上限 8</summary>
+    /// <summary>门槛写在 Substitute 里,舱落地时放出教徒,场上最多 8 个</summary>
     [VaultState((int)VDStateIndex.Reinforcement, typeof(VDStateContext))]
     public class VDReinforcementState : VDStateBase
     {

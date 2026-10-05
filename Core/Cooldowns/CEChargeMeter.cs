@@ -6,7 +6,7 @@ using Terraria.ModLoader.IO;
 
 namespace CalamityEntropy.Core.Cooldowns
 {
-    /// <summary>每玩家 GetChargeMeter(key, max),每物品 item.GetChargeMeter(max)</summary>
+    /// <summary>玩家用 GetChargeMeter(key, max),物品用 item.GetChargeMeter(max)</summary>
     public class CEChargeMeter
     {
         public float Charge;
@@ -15,7 +15,7 @@ namespace CalamityEntropy.Core.Cooldowns
 
         public bool Ready => Charge >= Max;
 
-        /// <summary>0-1</summary>
+        /// <summary>Ratio 的范围是 0 到 1</summary>
         public float Ratio => Max > 0 ? Math.Clamp(Charge / Max, 0f, 1f) : 0f;
 
         public CEChargeMeter() { }
@@ -49,7 +49,7 @@ namespace CalamityEntropy.Core.Cooldowns
             Charge = 0f;
         }
 
-        /// <summary>Gain 刚返回 true 时调</summary>
+        /// <summary>PlayReadyCue 在 Gain 刚返回 true 时调</summary>
         public static void PlayReadyCue(Player player) {
             if (Main.dedServ)
                 return;
@@ -76,7 +76,7 @@ namespace CalamityEntropy.Core.Cooldowns
     {
         public override bool InstancePerEntity => true;
 
-        /// <summary>未用过是 null</summary>
+        /// <summary>meter 在没用过时是 null</summary>
         public CEChargeMeter meter;
 
         public override GlobalItem Clone(Item from, Item to) {

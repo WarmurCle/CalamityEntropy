@@ -45,7 +45,7 @@ namespace CalamityEntropy.Common
 {
     public class EGlobalNPC : GlobalNPC, ICELoader
     {
-        //注意:这些字段只在客户端绘制钩子里读,专用服务器上恒为 null。
+        //这些字段只在客户端绘制钩子里读取,专用服务器上始终是 null
         [VaultLoaden("CalamityEntropy/Assets/Extra/AbyssalCircle")]
         internal static Asset<Texture2D> AbyssalCircleTex;
         [VaultLoaden("CalamityEntropy/Assets/Extra/SoulDiscorderColorMap")]
@@ -76,9 +76,9 @@ namespace CalamityEntropy.Common
         }
         public override void UpdateLifeRegen(NPC npc, ref int damage) {
             // 原生重实现：原先靠 IL 钩灾厄 DoT 管线应用减益伤害倍率，现直接放大负生命回复。
-            // 乘区链定稿（已核实）：GlobalNPC 按 FullName 字母序执行，EDamageOverTimeNPC 恒先于本类，
+            // 乘区链定稿（已核实）：GlobalNPC 按 FullName 字母序执行，EDamageOverTimeNPC 始终先于本类，
             // 其自乘已删除——原版减益与本模组 DotBuff 的倍率统一由此处全局放大（各乘一次，无重叠）；
-            // PortsDoT 自研 DoT 由 CEDoTGlobalNPC 自乘（Core 命名空间字母序晚于本类，不吃本处放大）。
+            // PortsDoT 自研 DoT 由 CEDoTGlobalNPC 自乘（Core 命名空间字母序晚于本类，不受这里的放大影响）
             float dotMult = DebuffDamageMult();
             if (dotMult > 1f && npc.lifeRegen < 0) {
                 npc.lifeRegen = (int)(npc.lifeRegen * dotMult);
@@ -153,7 +153,7 @@ namespace CalamityEntropy.Common
             }
         }
         public override void SetStaticDefaults() {
-            //---如果希望注册原版NPC，解除下面的注释查看效果---///
+            //要注册原版 NPC 时,把下面注释掉的代码打开就能看到效果
             //VaultUtils.LoadenNPCStaticImmunityData(
             //    npcSourceID: NPCID.TheDestroyer,
             //    npcIDs: [NPCID.TheDestroyerBody, NPCID.TheDestroyerTail],
@@ -1083,7 +1083,7 @@ namespace CalamityEntropy.Common
                 if (Main.dedServ) {
                     ModPacket pack = Mod.GetPacket();
                     pack.Write((byte)CEMessageType.BossKilled);
-                    // 灾厄脱钩后不存在灾厄 Boss，原「非灾厄 Boss」判定恒为真（接收端目前也未消费该值）
+                    //灾厄脱钩后不存在灾厄 Boss,原来的非灾厄 Boss 判定始终为真,接收端目前也没读这个值
                     pack.Write(true);
                     pack.Send();
                 }

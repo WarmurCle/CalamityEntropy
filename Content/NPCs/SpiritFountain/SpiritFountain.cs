@@ -40,7 +40,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
 
     /// <summary>
     /// 全程不写 velocity,位置只在出场首帧落一次
-    /// 柱子四量必须过线,转移只在权威端,状态号 ai[3],阶段 ai[2]
+    /// 柱子的四个量必须过线,只有权威端转移状态,状态号写入 ai[3],阶段写入 ai[2]
     /// </summary>
     [AutoloadBossHead]
     public partial class SpiritFountain : ModNPC
@@ -57,7 +57,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
         /// <summary>魂环数量,按难度与世界种子在 <c>SetDefaults</c> 里算一次</summary>
         public int SpiritCount = SpiritFountainDirector.SpiritCountBase;
 
-        /// <summary>每帧自减却从来没被置正,&gt; 0 的分支到不了,照搬,SpiritRing 还在读</summary>
+        /// <summary>这个值每帧自减,却从来没被写成正数,大于 0 的分支到不了,原样保留,SpiritRing 还在读</summary>
         public int ClearMyProjs = 0;
         #endregion
 
@@ -420,7 +420,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain
         }
 
         #region 同步
-        /// <summary>定长,不许按条件省略,本体 rotation 没被写过,要过线的是柱子的 rotation</summary>
+        /// <summary>包是定长的,不能按条件省略字段,本体的 rotation 没被写过,要过线的是柱子的 rotation</summary>
         public override void SendExtraAI(BinaryWriter writer) {
             EnsureContext();
             int stateId = (int)NPC.ai[3];

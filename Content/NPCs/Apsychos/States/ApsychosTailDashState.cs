@@ -8,14 +8,14 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.States
     /// <summary>
     /// 甩尾:num1 是本次鞭击的帧计时(到 60 发射),num2 是尾巴伸出的速度累加器,num3 是伸出距离。
     /// 鞭击次数走 <see cref="ApsychosStateContext.TailDashReps"/>,收招前自己清零(原代码也不在 SetAIStyle 里清)。
-    /// 发射那一帧把当时的朝向烙进速度,所以朝向必须过线,否则联机这一脚会打歪
+    /// 发射那一帧把当时的朝向写进速度,所以朝向必须过线,否则联机时这一发会打偏
     /// </summary>
     [VaultState((int)ApsychosStateIndex.TailDash, typeof(ApsychosStateContext))]
     public class ApsychosTailDashState : ApsychosStateBase
     {
         public override ApsychosStateIndex StateIndex => ApsychosStateIndex.TailDash;
 
-        /// <summary>本地发射锁存,不过线。慢半拍的客户端在宽限窗内仍把朝向烙进速度</summary>
+        /// <summary>本地发射锁存不过线,慢半拍的客户端在宽限窗内仍把朝向写进速度</summary>
         private bool launched;
 
         public override void OnEnter(ApsychosStateContext ctx) {

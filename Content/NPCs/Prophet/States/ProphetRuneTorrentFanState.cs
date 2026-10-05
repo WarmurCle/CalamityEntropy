@@ -50,7 +50,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.States
                     }
                 }
 
-                //内插层:半整数层号,更慢,填在外层的缝里
+                //内插层用半整数层号,飞得更慢,填在外层的缝里
                 for (float i = 0.5f; i <= halfLayers; i++) {
                     Shoot<RuneTorrent>(ctx, npc.Center,
                         aim.RotatedBy(i * spread) * difficult * ProphetDirector.TorrentFanSpeedInner,

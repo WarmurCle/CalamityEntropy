@@ -42,7 +42,7 @@ namespace CalamityEntropy.Content.Projectiles.LuminarisShoots
             float sparkScale2 = Main.rand.NextFloat(0.6f, 1.6f);
             Color sparkColor2 = Color.Lerp(Color.SkyBlue, Color.Purple, Main.rand.NextFloat(0, 1));
             //PRT_LineCal Configure(false,lifetime)对齐Calamity LineParticle
-            PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));  //跟AltSpark成对出现时寿命/速度系数是旧代码原值
+            PRTLoader.NewParticle<PRT_LineCal>(top, sparkVelocity2, sparkColor2, sparkScale2).Configure(false, (int)(sparkLifetime2));  //这粒跟 AltSpark 成对出现时,寿命和速度系数沿用旧代码
 
         }
         public override bool PreDraw(ref Color lightColor) {

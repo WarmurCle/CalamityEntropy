@@ -1,4 +1,4 @@
-//顶点色直通,调用方没指定 shader 时用
+//这个着色器把顶点色直接传出去,调用方没指定 shader 时用它
 sampler uImage0 : register(s0);
 sampler uImage1 : register(s1);
 float3 uColor;

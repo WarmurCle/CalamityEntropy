@@ -3,7 +3,7 @@ using InnoVault.StateMachines;
 
 namespace CalamityEntropy.Content.NPCs.Acropolis.States
 {
-    /// <summary>选招口,骰点在地面推进之前,单发不换态</summary>
+    /// <summary>选招口在地面推进之前骰点,骰到单发就不换态</summary>
     [VaultState((int)AcropolisStateIndex.Walk, typeof(AcropolisStateContext))]
     public class AcropolisWalkState : AcropolisStateBase
     {

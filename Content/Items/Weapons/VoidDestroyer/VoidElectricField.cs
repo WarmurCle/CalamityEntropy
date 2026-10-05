@@ -454,7 +454,7 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
     }
 
     /// <summary>
-    /// 闪电球:ai[0] 为蓄力比 0..1,半径与判定框按它定;两次更新直飞(大球更慢),贴到敌怪、撞墙或超时即爆(<see cref="VoidElectricBurst"/>)。
+    /// 闪电球:ai[0] 为蓄力比 0..1,半径与判定框按它定;两次更新直飞(大球更慢),贴到敌怪、撞墙或超时就爆炸(<see cref="VoidElectricBurst"/>)
     /// 球体自身不判伤,伤害全由爆炸结算。外观与杖头同一颗等离子球,多一道余晖拖尾
     /// </summary>
     public class VoidElectricBall : ModProjectile

@@ -6,7 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Core.Integrations.BossLog
 {
-    /// <summary>场景坐标或 UI 坐标都能用,magic-pixel</summary>
+    /// <summary>CEPortraitDraw 用场景坐标或 UI 坐标都能画,贴图是 magic-pixel</summary>
     internal static class CEPortraitDraw
     {
         private static readonly Rectangle PixelSrc = new(0, 0, 1, 1);
@@ -21,7 +21,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             sb.Draw(px, topLeft, PixelSrc, c, 0f, Vector2.Zero, size, SpriteEffects.None, 0f);
         }
 
-        /// <summary>y0 在上,y1 在下,分带不透明</summary>
+        /// <summary>VerticalGradient 的 y0 在上,y1 在下,每一带不透明</summary>
         public static void VerticalGradient(SpriteBatch sb, float x0, float x1, float y0, float y1, Color top, Color bottom, int bands = 20) {
             Texture2D px = Pixel;
             if (px == null || bands < 1 || x1 <= x0 || y1 <= y0) {
@@ -76,7 +76,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
         private static Vector2 RimPoint(float t, Vector2 radii, float rotation)
             => new Vector2(MathF.Cos(t) * radii.X, MathF.Sin(t) * radii.Y).RotatedBy(rotation);
 
-        /// <summary>尖顶朝上</summary>
+        /// <summary>Hex 的尖顶朝上</summary>
         public static void Hex(SpriteBatch sb, Vector2 center, float r, Color c, float thick) {
             Vector2 prev = center + new Vector2(0f, -r);
             for (int i = 1; i <= 6; i++) {
@@ -86,7 +86,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             }
         }
 
-        /// <summary>奇数行错半格;alphaAt 按格心返回 0..1,0 跳过</summary>
+        /// <summary>HexGrid 让奇数行错半格,alphaAt 按格心返回 0 到 1,0 就跳过</summary>
         public static void HexGrid(SpriteBatch sb, Vector2 min, Vector2 max, float r, Vector2 offset,
             Func<Vector2, float> alphaAt, Color c, float thick) {
             if (Pixel == null || r < 4f) {
@@ -115,13 +115,13 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             }
         }
 
-        /// <summary>两笔正交细线</summary>
+        /// <summary>Star 画两笔正交细线</summary>
         public static void Star(SpriteBatch sb, Vector2 center, float size, Color c, float thick = 1f) {
             Line(sb, center - new Vector2(size, 0f), center + new Vector2(size, 0f), thick, c);
             Line(sb, center - new Vector2(0f, size), center + new Vector2(0f, size), thick, c);
         }
 
-        /// <summary>Glow2,A=0 加色,size 是直径</summary>
+        /// <summary>Glow 用 Glow2,绘制时把 A 写成 0 做加色,size 是直径</summary>
         public static void Glow(SpriteBatch sb, Vector2 center, Vector2 size, Color c) {
             Texture2D g = CEExtraAssets.Glow2;
             if (g == null) {
@@ -134,7 +134,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
         public static void Glow(SpriteBatch sb, Vector2 center, float diameter, Color c)
             => Glow(sb, center, new Vector2(diameter, diameter), c);
 
-        /// <summary>Smoke 真 alpha</summary>
+        /// <summary>Puff 用 Smoke,保留贴图自身的 alpha</summary>
         public static void Puff(SpriteBatch sb, Vector2 center, float size, Color c, float rot) {
             Texture2D f = CEExtraAssets.Smoke;
             if (f == null) {
@@ -143,7 +143,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             sb.Draw(f, center, null, c, rot, f.Size() * 0.5f, size / f.Width, SpriteEffects.None, 0f);
         }
 
-        /// <summary>返回 0..1</summary>
+        /// <summary>Hash01 返回 0 到 1</summary>
         public static float Hash01(int i, float salt = 0f) {
             float v = MathF.Sin(i * 12.9898f + salt * 78.233f) * 43758.5453f;
             return v - MathF.Floor(v);

@@ -83,7 +83,7 @@ namespace CalamityEntropy.Content.Particles
 
         public override void PostDraw(SpriteBatch sb) {
             //第二遍PostDraw:旧DrawEffect,colorInside黑色内芯叠在PreDraw外圈上面
-            //两趟顺序反了内芯会被八瓣盖死;池化复用若带着脏sW/scw也会炸,所以不开CanPool
+            //两趟的顺序反了,内芯会被八瓣盖住,池化复用如果带着脏的 sW 和 scw 也会画错,所以不开 CanPool
             Color clr = Color;
             if (!Glow)
                 clr = Lighting.GetColor((int)(Position.X / 16), (int)(Position.Y / 16), clr);

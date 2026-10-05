@@ -12,7 +12,7 @@ namespace CalamityEntropy.Content.Particles
         public float Opc = 0;
         public float h = 0;
         //OldPos拖尾+子步进,池化Reset忘Clear轨迹会闪,干脆不开CanPool
-        //TargetPos是调用点后赋的,池化不带重置的话下一条会朝上一个目标飞,离谱
+        //TargetPos 是调用点之后才赋值的,池化不重置的话下一粒会朝上一个目标飞
         public List<Vector2> OldPos = new List<Vector2>();
 
         public override string Texture => "CalamityEntropy/Assets/Extra/Glow2";

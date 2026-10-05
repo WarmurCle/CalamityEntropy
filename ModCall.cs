@@ -14,30 +14,30 @@ namespace CalamityEntropy
     /// </summary>
     internal static class ModCall
     {
-        //存储所有已注册的调用处理器
+        //这个字典存储所有已注册的调用处理器
         private static readonly Dictionary<string, CallHandler> Handlers = new Dictionary<string, CallHandler>(StringComparer.OrdinalIgnoreCase);
 
-        //是否已初始化
+        //这个字段标记处理器是否已经初始化
         private static bool _initialized = false;
 
         /// <summary>
-        /// 初始化所有 Call 处理器
+        /// Initialize 登记所有 Call 处理器
         /// </summary>
         public static void Initialize() {
             if (_initialized) {
                 return;
             }
 
-            //===== 基础功能 =====
+            //这里注册基础功能
             RegisterHandler("GetVersion", GetVersion);
             RegisterHandler("GetModVersion", GetModVersion);
 
-            //===== Boss 相关 =====
+            //这里注册 Boss 相关调用
             RegisterHandler("GetBossDown", GetBossDown);
             RegisterHandler("SetBossDown", SetBossDown);
             RegisterHandler("GetBossList", GetBossList);
 
-            //===== 书签系统 =====
+            //这里注册书签系统调用
             //RegisterBookMark和RegisterBookMarkEffect由CalamityEntropy.Call旧入口处理，此处不注册以避免递归
             RegisterHandler("IsBookMark", IsBookMark);
             RegisterHandler("PerformBookmarkAttack", PerformBookmarkAttack);
@@ -49,20 +49,20 @@ namespace CalamityEntropy
             RegisterHandler("CanEquipBookmarkWith", CanEquipBookmarkWith);
             RegisterHandler("GetBookmarkUITexture", GetBookmarkUITexture);
 
-            //===== UI 相关 =====
+            //这里注册界面相关调用
             RegisterHandler("SetBarColor", SetBarColor);
             RegisterHandler("OpenUI", OpenUI);
 
-            //===== 游戏系统 =====
+            //这里注册游戏系统调用
             RegisterHandler("SetTTHoldoutCheck", SetTTHoldoutCheck);
             RegisterHandler("GetTTHoldoutCheck", GetTTHoldoutCheck);
             RegisterHandler("CopyProjForTTwin", CopyProjForTTwin);
 
-            //===== 玩家数据 =====
+            //这里注册玩家数据调用
             RegisterHandler("GetPlayerData", GetPlayerData);
             RegisterHandler("SetPlayerData", SetPlayerData);
 
-            //===== 物品系统 =====
+            //这里注册物品系统调用
             RegisterHandler("GetItemData", GetItemData);
             RegisterHandler("RegisterCustomItem", RegisterCustomItem);
 
@@ -71,7 +71,7 @@ namespace CalamityEntropy
         }
 
         /// <summary>
-        /// 主调用入口点
+        /// Call 是对外的主入口
         /// </summary>
         public static object Call(params object[] args) {
             //确保已初始化
@@ -79,25 +79,25 @@ namespace CalamityEntropy
                 Initialize();
 
             try {
-                //参数验证
+                //这里先验证传入参数
                 if (args == null || args.Length == 0)
                     return ErrorResponse("No arguments provided");
 
-                //获取调用名称
+                //这里取出调用名称
                 if (!(args[0] is string callName))
                     return ErrorResponse("First argument must be a string (call name)");
 
-                //查找处理器，未注册的Call返回null交给旧系统处理
+                //这里查找处理器,没注册的 Call 返回 null,交给旧系统处理
                 if (!Handlers.TryGetValue(callName, out CallHandler handler))
                     return null;
 
-                //提取参数（去除第一个调用名）
+                //这里去掉第一个调用名,留下其余参数
                 object[] callArgs = args.Skip(1).ToArray();
 
-                //执行处理器
+                //这里执行找到的处理器
                 object result = handler.Execute(callArgs);
 
-                //记录成功调用
+                //这里记下这次调用成功
                 LogCall(callName, true);
 
                 return result;
@@ -203,7 +203,7 @@ namespace CalamityEntropy
                 return BookMarkLoader.IsABookMark(item);
 
             if (args[0] is int typeId) {
-                //先查自定义注册表，再检查ModContent原生书签
+                //IsBookMark 先查自定义注册表,再检查 ModContent 里的原生书签
                 if (BookMarkLoader.CustomBMByID.ContainsKey(typeId))
                     return true;
                 Item sample = Terraria.ID.ContentSamples.ItemsByType.TryGetValue(typeId, out var s) ? s : null;
@@ -214,8 +214,8 @@ namespace CalamityEntropy
         }
 
         /// <summary>
-        /// 第 5 个起可选:伤害,击退,弹幕类型,射速,冷却,伤害类型名
-        /// 返回 success, cooldownTicks, projectileIndex, projectileType
+        /// 从第 5 个参数起可以省略,依次是伤害,击退,弹幕类型,射速,冷却,伤害类型名
+        /// 返回值带 success, cooldownTicks, projectileIndex, projectileType
         /// </summary>
         private static object PerformBookmarkAttack(object[] args) {
             if (args.Length < 4)
@@ -230,7 +230,7 @@ namespace CalamityEntropy
             if (!(args[3] is Vector2 direction))
                 throw new ArgumentException("第4个参数必须是Vector2(方向)");
 
-            //可选参数
+            //下面读可以省略的参数
             int baseDamage = args.Length > 4 && args[4] is int d ? d : 50;
             float baseKnockback = args.Length > 5 && args[5] is float kb ? kb : 2f;
             int baseProjectileType = args.Length > 6 && args[6] is int pt ? pt : -1;
@@ -250,7 +250,7 @@ namespace CalamityEntropy
                 bookmarkItem, player, position, direction,
                 baseDamage, baseKnockback, baseProjectileType, baseShootSpeed, baseCooldown, damageClass);
 
-            //返回Dictionary方便弱引用调用
+            //这里返回 Dictionary,方便别的模组弱引用调用
             return new Dictionary<string, object> {
                 ["success"] = result.Success,
                 ["cooldownTicks"] = result.CooldownTicks,
@@ -259,7 +259,7 @@ namespace CalamityEntropy
             };
         }
 
-        /// <summary>只查询,不触发攻击</summary>
+        /// <summary>GetBookmarkInfo 只查询书签,不触发攻击</summary>
         private static object GetBookmarkInfo_Call(object[] args) {
             if (args.Length < 1)
                 throw new ArgumentException("GetBookmarkInfo需要1个参数: Item");
@@ -280,7 +280,7 @@ namespace CalamityEntropy
                 ["modifiesCooldown"] = info.ModifiesCooldown
             };
 
-            //属性快照
+            //有属性快照时,这里把各项数值写进返回字典
             if (info.StatSnapshot != null) {
                 dict["statDamage"] = info.StatSnapshot.Damage;
                 dict["statKnockback"] = info.StatSnapshot.Knockback;
@@ -298,7 +298,7 @@ namespace CalamityEntropy
             return dict;
         }
 
-        /// <summary>不发射;baseCooldown 默认 20,再吃攻速</summary>
+        /// <summary>这个调用不发射弹幕,baseCooldown 默认 20,再按攻速缩短</summary>
         private static object GetBookmarkAttackCooldown(object[] args) {
             if (args.Length < 1)
                 throw new ArgumentException("GetBookmarkAttackCooldown需要至少1个参数: Item");
@@ -312,7 +312,7 @@ namespace CalamityEntropy
             int baseCooldown = args.Length > 1 && args[1] is int cd ? cd : 20;
             BookMarkLoader.modifyShootCooldown(bookmarkItem, ref baseCooldown);
 
-            //应用攻速修正
+            //这里按攻速缩短冷却
             var modifer = new Content.Items.Books.EBookStatModifer();
             BookMarkLoader.ModifyStat(bookmarkItem, modifer);
             if (modifer.attackSpeed > 0)
@@ -321,7 +321,7 @@ namespace CalamityEntropy
             return Math.Max(1, baseCooldown);
         }
 
-        /// <summary>不传书就用玩家手持物品</summary>
+        /// <summary>调用方不传书时,改用玩家手持物品</summary>
         private static object GetBookMarkSlots(object[] args) {
             if (args.Length < 1 || !(args[0] is Player player))
                 throw new ArgumentException("GetBookMarkSlots需要Player参数");
@@ -330,7 +330,7 @@ namespace CalamityEntropy
             return player.GetMyMaxActiveBookMarks(book);
         }
 
-        /// <summary>每帧重置,要在 UpdateEquips 里持续加</summary>
+        /// <summary>这个加成每帧会被重置,要在 UpdateEquips 里持续加上</summary>
         private static object AddBookMarkSlot(object[] args) {
             if (args.Length < 2)
                 throw new ArgumentException("AddBookMarkSlot需要2个参数: Player, int");
@@ -344,7 +344,7 @@ namespace CalamityEntropy
             return true;
         }
 
-        /// <summary>按当前栏位数截,空位是空 Item</summary>
+        /// <summary>返回数组按当前栏位数截断,空位放空 Item</summary>
         private static object GetPlayerBookmarks(object[] args) {
             if (args.Length < 1 || !(args[0] is Player player))
                 throw new ArgumentException("GetPlayerBookmarks需要Player参数");
@@ -414,7 +414,7 @@ namespace CalamityEntropy
             if (args.Length < 1 || !(args[0] is string uiName))
                 throw new ArgumentException("OpenUI requires UI name (string)");
 
-            //可扩展的 UI 系统
+            //OpenUI 按名字打开界面,以后可以在这里加分支
             switch (uiName.ToLower()) {
                 case "armorforging":
                 case "armor_forging":
@@ -467,14 +467,14 @@ namespace CalamityEntropy
 
             var modPlayer = player.GetModPlayer<Common.EModPlayer>();
 
-            //根据 key 返回不同的数据
+            //GetPlayerData 按 key 返回不同的数据
             switch (key.ToLower()) {
-                //基础数值
+                //下面返回基础数值
                 case "brilliancecard":
                     return modPlayer.brillianceCard;
                 //脱离灾厄:shadowpact键随潜行退役删除
 
-                //装备效果
+                //下面返回装备效果
                 case "heartofstorm":
                     return modPlayer.heartOfStorm;
                 case "deuscore":
@@ -496,7 +496,7 @@ namespace CalamityEntropy
                 case "nihilityshell":
                     return modPlayer.nihShell;
 
-                //状态数据
+                //下面返回状态数据
                 case "liferegenpersec":
                     return modPlayer.lifeRegenPerSec;
                 case "dodgechance":
@@ -516,7 +516,7 @@ namespace CalamityEntropy
                 case "wingtimemult":
                     return modPlayer.WingTimeMult;
 
-                //伤害相关
+                //下面返回伤害相关数据
                 case "thorn":
                     return modPlayer.Thorn;
                 case "attackvoidtouch":
@@ -529,7 +529,7 @@ namespace CalamityEntropy
 
                 //脱离灾厄:潜行相关键(roguestealthregen/roguestealthregenmult/nostealthregen/extrastealthbar/extrastealth/shadowstealth)随盗贼系统退役删除
 
-                //武器状态
+                //下面返回武器状态
                 case "weaponboost":
                     return modPlayer.WeaponBoost;
                 case "shootspeed":
@@ -537,7 +537,7 @@ namespace CalamityEntropy
                 case "manacost":
                     return modPlayer.ManaCost;
 
-                //Boss 相关
+                //下面返回 Boss 相关数据
                 case "cruiserlorebon­us":
                     return modPlayer.CruiserLoreBonus;
                 case "nihilitytwinlorebon­us":
@@ -545,7 +545,7 @@ namespace CalamityEntropy
                 case "prophetlorebon­us":
                     return modPlayer.ProphetLoreBonus;
 
-                //冷却时间
+                //下面返回冷却时间
                 case "laststandcd":
                     return modPlayer.lastStandCd;
                 case "mantlecd":
@@ -555,7 +555,7 @@ namespace CalamityEntropy
                 case "healingcd":
                     return modPlayer.HealingCd;
 
-                //特殊状态
+                //下面返回特殊状态
                 case "godhead":
                     return modPlayer.Godhead;
                 case "mariviniumset":
@@ -580,7 +580,7 @@ namespace CalamityEntropy
 
             var modPlayer = player.GetModPlayer<Common.EModPlayer>();
 
-            //根据 key 设置不同的数据
+            //SetPlayerData 按 key 写入不同的数据
             switch (key.ToLower()) {
                 case "brilliancecard":
                     if (args[2] is int intVal)
@@ -589,7 +589,7 @@ namespace CalamityEntropy
                         throw new ArgumentException("brillianceCard requires int value");
                     break;
 
-                //装备效果 (布尔值)
+                //下面写入装备效果,值是布尔
                 case "heartofstorm":
                     if (args[2] is bool boolVal)
                         modPlayer.heartOfStorm = boolVal;
@@ -625,7 +625,7 @@ namespace CalamityEntropy
                         throw new ArgumentException("MagiShield requires int value");
                     break;
 
-                //状态数据
+                //下面写入状态数据
                 case "liferegenpersec":
                     if (args[2] is int intVal3)
                         modPlayer.lifeRegenPerSec = intVal3;
@@ -727,28 +727,28 @@ namespace CalamityEntropy
         #region 辅助方法
 
         /// <summary>
-        /// 注册一个调用处理器
+        /// RegisterHandler 登记一个调用处理器
         /// </summary>
         private static void RegisterHandler(string name, Func<object[], object> handler, string description = null, string[] paramDescriptions = null) {
             Handlers[name] = new CallHandler(name, handler, description, paramDescriptions);
         }
 
         /// <summary>
-        /// 成功响应
+        /// SuccessResponse 返回成功结果
         /// </summary>
         private static object SuccessResponse(string message = "Success") {
             return new { Success = true, Message = message };
         }
 
         /// <summary>
-        /// 错误响应
+        /// ErrorResponse 返回错误结果
         /// </summary>
         private static object ErrorResponse(string error) {
             return new { Success = false, Error = error };
         }
 
         /// <summary>
-        /// 记录调用日志（可选）
+        /// LogCall 记录调用日志,目前留空
         /// </summary>
         private static void LogCall(string callName, bool success) {
             //可以在这里添加详细的调用日志
@@ -760,7 +760,7 @@ namespace CalamityEntropy
         #region 内部类
 
         /// <summary>
-        /// 调用处理器包装类
+        /// CallHandler 包住一个调用处理器
         /// </summary>
         private class CallHandler
         {

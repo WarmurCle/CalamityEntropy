@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser.States
 {
-    /// <summary>与残渣同型,蓄力到 100,第 100 帧喷虚空星,收招提前到 140</summary>
+    /// <summary>这一招和残渣同型,蓄力到 100,第 100 帧喷出虚空星,收招提前到 140</summary>
     [VaultState((int)CruiserStateIndex.SplittingVoidStar, typeof(CruiserStateContext))]
     public class CruiserSplittingVoidStarState : CruiserStateBase
     {

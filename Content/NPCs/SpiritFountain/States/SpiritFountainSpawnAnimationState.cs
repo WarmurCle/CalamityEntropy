@@ -10,7 +10,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.States
 {
     /// <summary>
     /// 300 帧聚魂期间整帧提前收工,计时压回 0,脱战和眼睛插值都跳过
-    /// 落点各端都跑,魂环只在权威端,无目标也照演
+    /// 落点各端都跑,魂环只在权威端生成,没有目标也照常演出
     /// </summary>
     [VaultState((int)SpiritFountainStateIndex.SpawnAnimation, typeof(SpiritFountainStateContext))]
     public class SpiritFountainSpawnAnimationState : SpiritFountainStateBase
@@ -64,7 +64,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.States
                 }
             }
 
-            //自减写在判据里:无论是否还在聚魂期都会减,演出后半段它一路走进负数,照搬
+            //自减写在判据里,无论是否还在聚魂期都会减,演出后半段它会走进负数,原样保留
             if (ctx.GatheringAnimation-- > 0) {
                 if (ctx.GatheringAnimation > SpiritFountainDirector.GatheringSpiritStopAt && IsLocal) {
                     //归魂概率 0.2~1 随倒计时递减,后半段才密起来

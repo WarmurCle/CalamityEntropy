@@ -3,12 +3,12 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
 {
-    /// <summary>状态里不许裸数字,数值照搬原 AttackPlayer / SetAISyyle / AI,不编理由</summary>
+    /// <summary>状态里不能写裸数字,数值按原 AttackPlayer、SetAISyyle 和 AI 保留,不另编理由</summary>
     internal static class LuminarisDirector
     {
         //==================== 难度系数 enrange ====================
 
-        /// <summary>先加后乘,顺序不可换,缺灾厄仍走专家/大师,别连带改熵灾那一项</summary>
+        /// <summary>难度系数先加后乘,顺序不能换,缺灾厄仍走专家或大师,不要连带改熵灾那一项</summary>
         public static float Enrange() {
             float enrange = 1f;
             if (Main.expertMode) {
@@ -49,14 +49,14 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
         /// <summary>脱战倒计时字段初值(原 <c>deactiveCount = 120</c>)</summary>
         public const int DeactiveFramesInitial = 120;
 
-        /// <summary>接战时把脱战倒计时重置成这个值(原 <c>deactiveCount = 150</c>),归零即 <c>NPC.active = false</c></summary>
+        /// <summary>接战时把脱战倒计时重置成这个值(原 <c>deactiveCount = 150</c>),归零就让 <c>NPC.active = false</c></summary>
         public const int DeactiveFrames = 150;
 
         /// <summary>脱战运动:速度阻尼 0.998,每帧再向上 0.3(原代码是 <c>velocity.Y -= 0.3f</c>,负 Y 为上)</summary>
         public const float DisengageDrag = 0.998f;
         public const float DisengageRise = 0.3f;
 
-        /// <summary>原 lifeMax / 2 整数除法,奇数差一格,单向不回退</summary>
+        /// <summary>原代码用 lifeMax / 2 的整数除法,奇数 lifeMax 会差一格,转过去之后不回退</summary>
         public const int Phase2LifeDivisor = 2;
 
         //==================== 表现累加量(宿主每帧结算) ====================
@@ -114,7 +114,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
         public const int SmashDownFrames = 400;
         public const int ShootTriangleFrames = 200;
 
-        /// <summary>先兜底再 if 覆盖,不折 switch,到不了的兜底也留着</summary>
+        /// <summary>先写兜底再由 if 覆盖,不改成 switch,到不了的兜底也留着</summary>
         public static int DurationOf(LuminarisStateIndex state) {
             int duration = PickFallbackFrames;
             if (state == LuminarisStateIndex.RoundShooting) {
@@ -274,7 +274,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
         public const int StayAboveShootFloor = 30;
         /// <summary>开火后坐:朝远离玩家的方向 6</summary>
         public const float StayAboveRecoil = 6f;
-        /// <summary>步进 360/发数,单位是度,却塞进按弧度读的 ai0,照搬</summary>
+        /// <summary>步进是 360 除以发数,单位是度,却写进按弧度读的 ai0,原样保留</summary>
         public const float StayAboveShotsPerEnrange = 10f;
         public const float StayAboveAngleTotal = 360f;
         public const float StayAboveProjSpeed = 6f;
@@ -297,7 +297,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
         public const int DashingLock2EndFrame = 110;
         /// <summary>冲撞速度</summary>
         public const float DashingSpeed = 40f;
-        /// <summary>enrange.ToRadians(),enrange 被当角度,约 0.004~0.010 rad/帧,照搬</summary>
+        /// <summary>这里对 enrange 调用 ToRadians,把 enrange 当成角度,大约 0.004 到 0.010 rad/帧,原样保留</summary>
         public const float DashingTrackRate = 0.25f;
 
         //==================== Shoot360:贴近后多轮环爆 ====================
@@ -336,7 +336,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
         public const int RoundAndDashTrailEndFrame = 16;
         public const float RoundAndDashTrailStrength = 1.2f;
         public const float RoundAndDashLaunchFlash = 0.3f;
-        /// <summary>穿场段:半径从 +700 线性穿到 -700(即从一侧穿到另一侧),重映射的上界写的是 49</summary>
+        /// <summary>穿场段:半径从 +700 线性穿到 -700(也就是从一侧穿到另一侧),重映射的上界写的是 49</summary>
         public const int RoundAndDashCrossSpanFrame = 49;
 
         //==================== SmashDown:四轮高空砸落 ====================
@@ -381,7 +381,7 @@ namespace CalamityEntropy.Content.NPCs.LuminarisMoth.Core
         public const float ShootTriangleSpeedJitterMax = 1.2f;
         /// <summary>慢转段:每帧 10 度,绕的是快转段最后记下的玩家位置(固定点)</summary>
         public const float ShootTriangleSlowStep = 10f;
-        /// <summary>慢转段的速度阻尼。本状态每帧开头已经把速度清零了,所以这一句没有效果,照搬</summary>
+        /// <summary>慢转段的速度阻尼没有效果,因为本状态每帧开头已经把速度清零了,原样保留</summary>
         public const float ShootTriangleSlowDrag = 0.9f;
     }
 }

@@ -35,7 +35,7 @@ namespace CalamityEntropy.Content.Skies
 
         protected override void DrawFront(SpriteBatch spriteBatch) {
             Texture2D tex = whiteFadeTex.Value;
-            //旧实现无门控,每帧按切片数(约 4~13)叠加到近饱和;单次绘制按其观感上调透明度
+            //旧实现没有门控,每帧按切片数(约 4 到 13 次)叠到接近饱和,单次绘制按旧实现的观感把透明度调高
             Color c1 = new Color(180, 200, 255, (int)(255 * opacity));
             Color c2 = new Color(50, 50, 255, (int)(255 * opacity * 0.8f));
             Rectangle full = CESkyDrawing.CallerFullscreen;

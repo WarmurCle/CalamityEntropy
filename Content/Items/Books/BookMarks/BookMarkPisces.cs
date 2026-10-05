@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
         }
     }
 
-    /// <summary>双鱼座书签(2026-08-31 平衡案重做):命中敌怪时在其位置召唤一个小型克苏鲁旋风(固定伤害100)。</summary>
+    /// <summary>双鱼座书签(2026-08-31 平衡案重做):命中敌怪时在这只敌怪的位置召唤一个小型克苏鲁旋风(固定伤害100)</summary>
     public class PiscesBMEffect : EBookProjectileEffect
     {
         public override void OnHitNPC(Projectile projectile, NPC target, int damageDone) {

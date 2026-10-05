@@ -85,7 +85,7 @@ namespace CalamityEntropy.Content.Particles
                 gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);
             }
             sb.End();
-            PRTLoader.BeginDrawingWithMode(PRTDrawMode, sb);   //画完还批次,删这两行同桶后面全炸
+            PRTLoader.BeginDrawingWithMode(PRTDrawMode, sb);   //画完把批次还回去,删掉这两行的话同桶后面的粒子会画乱
             return false;
         }
     }

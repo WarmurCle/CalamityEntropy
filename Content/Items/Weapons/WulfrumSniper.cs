@@ -160,7 +160,7 @@ namespace CalamityEntropy.Content.Items.Weapons
                 Vector2 fpos = Projectile.Center + Projectile.velocity.normalize() * 18 * Projectile.scale;
                 for (int i = 0; i < 12; i++) {
                     //EParticle→PRT,EMediumSmoke Configure+PRTDrawMode AlphaBlend
-                    //PRTDrawMode AlphaBlend桶,枪口烟别走Additive会糊
+                    //枪口烟走 AlphaBlend 桶,别走 Additive,否则会混成一片
                     PRTLoader.NewParticle<PRT_EMediumSmoke>(fpos, Projectile.velocity.normalize().RotatedByRandom(1) * Main.rand.NextFloat(2, 9), Color.Lerp(new Color(255, 255, 0), Color.White, (float)Main.rand.NextDouble()), Main.rand.NextFloat(0.7f, 1f)).Configure(1, true, PRTDrawModeEnum.AlphaBlend, CEUtils.randomRot());
                 }
                 CEUtils.PlaySound("chainsaw_break", 1.4f, Projectile.Center);

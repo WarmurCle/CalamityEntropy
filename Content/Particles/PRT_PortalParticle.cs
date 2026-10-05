@@ -65,7 +65,7 @@ namespace CalamityEntropy.Content.Particles
             //每圈内第二趟DrawGlow,Additive柔光叠在Voronoi上面;它内部也End批次,所以后面还得再BeginDrawingWithMode
             CEUtils.DrawGlow(pos, Color.White * 0.4f * glow, 0.8f * Size * glow);
             sb.End();
-            //DrawGlow内部也会动批次,End完BeginDrawingWithMode还回去
+            //DrawGlow 内部也会改批次,End 之后要用 BeginDrawingWithMode 把批次恢复回去
             PRTLoader.BeginDrawingWithMode(PRTDrawMode, sb);
         }
     }

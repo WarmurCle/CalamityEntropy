@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser.States
 {
-    /// <summary>二阶段第一手带着残值起跑,超过 150 第一帧收招,照搬</summary>
+    /// <summary>二阶段第一手带着残值起跑,超过 150 就在第一帧收招,原样保留</summary>
     [VaultState((int)CruiserStateIndex.VoidSpike, typeof(CruiserStateContext))]
     public class CruiserVoidSpikeState : CruiserStateBase
     {

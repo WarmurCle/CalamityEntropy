@@ -1,11 +1,11 @@
-﻿//s0 流动底图,s1 遮罩,UV 按 targetSize/FlowTextureSize 再加 uTime
+﻿//s0 提供流动底图,s1 提供遮罩,UV 先按 targetSize 除以 FlowTextureSize 缩放,再加上 uTime
 sampler FlowTexture : register(s0);
 sampler AlphaTexture : register(s1);
 
 float2 FlowTextureSize;
-float2 targetSize;//长度
-float uTime;//偏移
-float4 uColor;//染色
+float2 targetSize;//targetSize 是底图要铺开的像素尺寸
+float uTime;//uTime 推动 UV 偏移
+float4 uColor;//uColor 给流动结果染色
 bool Color;
 
 float4 FlowWithAFunction(float2 coords : TEXCOORD0) : COLOR0

@@ -7,7 +7,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.States
 {
     /// <summary>
     /// 三连火球:尾巴前伸当炮口,齐射间隔除以 enrange。
-    /// <c>num1 &lt;= 5</c> 才停,所以实际打 6 轮(原判定照搬)。本状态自管尾巴速度衰减
+    /// <c>num1 &lt;= 5</c> 才停,所以实际打 6 轮,原判定原样保留,本状态自己管尾巴速度衰减
     /// </summary>
     [VaultState((int)ApsychosStateIndex.FireballShooting, typeof(ApsychosStateContext))]
     public class ApsychosFireballShootingState : ApsychosStateBase

@@ -65,21 +65,21 @@ namespace CalamityEntropy.Content.Items.Accessories
                     }
                 }
             }
-            // 两个时代整方法二分,不叠加。装灾厄时配方要交出血神圣杯、阴阳吸星石与辐辉
-            // 三件成品饰品,效果若停在 4.0 平衡案那套,合成即降级。
+            //两个时代各写一个完整方法,效果不叠加,装灾厄时配方要交出血神圣杯、阴阳吸星石和辐辉
+            //三件成品饰品的效果如果停在 4.0 平衡案那套,合成之后反而变弱
             if (CERef.Has) {
                 ApplyCalamityEraEffects(player, hideVisual, c);
                 return;
             }
             player.statLifeMax2 += 75;
-            // 神话护身符效果(-25%治疗药水冷却与其生命再生)
+            //这里套用神话护身符,治疗药水冷却减少 25%,生命再生沿用护身符
             player.pStone = true;
-            // 减少33%减益持续时间(与净化卡同一通道)
+            //饰品把减益持续时间减少 33%,和净化卡走同一条通道
             player.Entropy().DebuffTime -= 0.33f;
-            // 大幅自然再生(6hp/s)+直接回血(1hp/s)
+            //玩家的自然再生加 6 点每秒,并每秒直接回 1 点血
             player.lifeRegen += 12;
             player.Entropy().lifeRegenPerSec += 1;
-            // 站在草药上+20防御
+            //玩家站在草药上时,防御加 20
             if (CEUtils.inWorld((int)c.X, (int)c.Y) && Main.tile[(int)c.X, (int)c.Y].HasTile) {
                 int type = Main.tile[(int)c.X, (int)c.Y].TileType;
                 if (type >= 82 && type <= 84) {

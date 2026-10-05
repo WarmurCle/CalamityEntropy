@@ -24,7 +24,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         [Rig2DSolver("rope")]
         private VerletStrandSolver ropeSolver;
 
-        /// <summary>绳索在本体那一端的挂点:中心沿朝向后退 64(即骨架里 <c>anchor</c> 骨的位置)</summary>
+        /// <summary>绳索在本体那一端的挂点:中心沿朝向后退 64(也就是骨架里 <c>anchor</c> 骨的位置)</summary>
         public Vector2 buttom => NPC.Center + new Vector2(0, NihilityDirector.RopeAnchorOffset).RotatedBy(NPC.rotation + MathHelper.PiOver2);
 
         /// <summary>骨架是否可用</summary>

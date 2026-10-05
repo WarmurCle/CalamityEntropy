@@ -6,25 +6,25 @@ namespace CalamityEntropy.Core.Integrations.BossLog
     internal abstract class CEBossLogTheme
     {
         public abstract Color Cover { get; }
-        /// <summary>封边亮线和书脊高光</summary>
+        /// <summary>CoverEdge 画封边亮线和书脊高光</summary>
         public abstract Color CoverEdge { get; }
         public abstract Color Spine { get; }
-        /// <summary>要暗,右页白字、金标题和物品格才读得清</summary>
+        /// <summary>Paper 要暗,右页白字、金标题和物品格才读得清</summary>
         public abstract Color Paper { get; }
-        /// <summary>纸面纤维亮部 / 页缘叠层线</summary>
+        /// <summary>PaperLight 画纸面纤维亮部和页缘叠层线</summary>
         public abstract Color PaperLight { get; }
-        /// <summary>页内细线</summary>
+        /// <summary>Rule 画页内细线</summary>
         public abstract Color Rule { get; }
-        /// <summary>强调光:标题、场景框角</summary>
+        /// <summary>Accent 是强调光,用在标题和场景框角</summary>
         public abstract Color Accent { get; }
-        /// <summary>次要文字(模组名)</summary>
+        /// <summary>Muted 是次要文字,模组名用它</summary>
         public abstract Color Muted { get; }
 
-        /// <summary>最小高度,UI px,TitleBandOf 随字号再撑</summary>
+        /// <summary>TitleBand 是最小高度,单位是 UI 像素,TitleBandOf 再按字号撑开</summary>
         public virtual int TitleBand => 58;
 
         /// <summary>
-        /// 只许落在书脊和底封边,书签在左右外突,左右封边不能用
+        /// DrawOrnament 只许落在书脊和底封边,书签在左右外突,左右封边不能用
         /// </summary>
         public virtual void DrawOrnament(SpriteBatch sb, Rectangle book, Rectangle spine, Rectangle bottomMargin, float time, float blend) { }
     }

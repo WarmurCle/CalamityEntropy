@@ -3,12 +3,12 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Apsychos.Core
 {
-    /// <summary>状态里不许裸数字,数值照搬原 AI,不编理由</summary>
+    /// <summary>状态里不能写裸数字,数值按原 AI 保留,不另编理由</summary>
     internal static class ApsychosDirector
     {
         //==================== 难度系数 enrange ====================
 
-        /// <summary>先加后乘,顺序不可换,装灾厄读复仇/死亡,缺席走专家/大师,勿改熵灾那一项</summary>
+        /// <summary>难度系数先加后乘,顺序不能换,装了灾厄就读复仇或死亡,缺席就走专家或大师,不要改熵灾那一项</summary>
         public static float Enrange() {
             float enrange = 1f;
             if (Main.expertMode) {
@@ -46,14 +46,14 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
         /// <summary>目标距离超过它、或无有效目标,进入脱战倒计时</summary>
         public const float DisengageDistance = 5000f;
 
-        /// <summary>脱战倒计时帧数,归零即 <c>NPC.active = false</c></summary>
+        /// <summary>脱战倒计时的帧数,归零就让 <c>NPC.active = false</c></summary>
         public const int DeactiveFrames = 160;
 
         /// <summary>脱战时的朝向目标(正下方)与转向速率,以及巡航速度</summary>
         public const float DisengageRotateRate = 0.07f;
         public const float DisengageSpeed = 15f;
 
-        /// <summary>转二阶段的血量比例。原代码是浮点乘法 <c>life &lt; lifeMax * 0.5f</c>,照搬</summary>
+        /// <summary>转二阶段的血量比例沿用原代码的浮点乘法 <c>life &lt; lifeMax * 0.5f</c>,原样保留</summary>
         public const float Phase2LifeRatio = 0.5f;
 
         /// <summary>整数除法 lifeMax / 4,奇数 lifeMax 差一格,低血表和鞭击次数共用</summary>
@@ -159,7 +159,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
         public const float FireballTailoffBase = 60f;
         /// <summary>枪口相对尾尖的前伸</summary>
         public const float FireballMuzzleOffset = 32f;
-        /// <summary>一阶段:中弹 3.8,侧弹 3.0,张角 ±0.44</summary>
+        /// <summary>一阶段中弹初速是 3.8,侧弹初速是 3.0,张角是 ±0.44</summary>
         public const float FireballSpeedCenterP1 = 3.8f;
         public const float FireballSpeedSideP1 = 3f;
         public const float FireballSpreadP1 = 0.44f;
@@ -197,7 +197,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
         /// <summary>起势渐强的终点帧(60→100 线性涨到 1)</summary>
         public const int FlameRampFrame = 100;
         public const float FlameRampSpan = 40f;
-        /// <summary>收势渐弱的起点帧。喷射窗 140 帧就结束了,所以这一支在原代码里到不了,照搬保留</summary>
+        /// <summary>收势渐弱的起点帧在原代码里到不了,因为喷射窗 140 帧就结束了,原样保留</summary>
         public const int FlameFadeFrame = 150;
         /// <summary>尾巴的持续后坐</summary>
         public const float FlameTailRecoilPerFrame = -0.8f;
@@ -228,7 +228,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.Core
         public const float BigSpeedBase = 6f;
         public const float BigSpeedPerPhase = 2f;
         public const float BigDamageMult = 1.2f;
-        /// <summary>发射次数,超过即收招</summary>
+        /// <summary>发射次数超过这个值就收招</summary>
         public const int BigShotCount = 3;
 
         //==================== PhaseTrans:转阶段 ====================

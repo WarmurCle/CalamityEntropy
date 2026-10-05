@@ -14,7 +14,7 @@ namespace CalamityEntropy.Content.Items.Accessories
     public class OdinsRefuge : ModItem
     {
         // 2026-08-31 平衡案重做:18防,免疫击退,免疫火块,
-        // 拥有神圣屏障格挡,给自己与所有队友15%免伤(不叠加),+600仇恨。
+        //玩家有神圣屏障可以格挡,自己和所有队友获得 15% 免伤而且不叠加,仇恨加 600
         // 减益免疫与原版十字章护身符同一组,不含渊洋神迹那张额外表。
         // 上述整套只在无灾厄时生效。装灾厄时配方换回 3.33 的两件成品盾,
         // 效果随之整体回到 3.33 形态,见 ApplyCalamityEraEffects。
@@ -49,13 +49,13 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual) {
-            // 两个时代整方法二分,不叠加。装灾厄时配方要求交出阿斯加德之庇护与神之壁垒
-            // 两件屠龙后成品盾,效果若停在 4.0 平衡案那套,合成即降级,是进度陷阱。
+            //两个时代各写一个完整方法,效果不叠加,装灾厄时配方要交出阿斯加德之庇护和神之壁垒
+            //两件屠龙后的成品盾,效果如果停在 4.0 平衡案那套,合成之后反而变弱
             if (CERef.Has) {
                 ApplyCalamityEraEffects(player);
                 return;
             }
-            // 神圣屏障格挡
+            //玩家开启神圣屏障,用来格挡
             player.Entropy().holyMantle = true;
             // 团队免伤光环(结算在 EModPlayer 的减伤汇总处,不可叠加)
             player.Entropy().odinAura = true;
@@ -99,7 +99,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         /// DashID 会把冲刺交回灾厄,和本仓 Core/Dash 抢同一份双击
         /// </summary>
         private static void ApplyCalamityEraEffects(Player player) {
-            // 神圣屏障格挡:两个时代共有,配方两侧也都要交神圣斗篷
+            //神圣屏障两个时代都开着,配方两侧也都要交神圣斗篷
             player.Entropy().holyMantle = true;
             // 阿斯加德之庇护:免疫击退与盾击冲刺
             player.noKnockback = true;

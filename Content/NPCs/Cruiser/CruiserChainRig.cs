@@ -16,7 +16,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 {
     /// <summary>
     /// ChainFollow 在 poseWeightBase 0.12 下与原 UpdateChain 逐帧等价
-    /// 链长随难度变,按实例直建,不走 JSON,体节和尾节从这里读落位
+    /// 链长随难度变化,按实例直接建链,不走 JSON,体节和尾节从这里读落位
     /// 输入是已同步的坐标和朝向,骨架不过线
     /// </summary>
     public partial class CruiserHead
@@ -163,7 +163,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                 bd++;
                 b.Piece($"seg{d}", TexRoot + $"P2b{bd}", Vector2.Zero, 0f, LayerSegBase + d * 2, $"p2b{bd}").ProximalNormalized(new Vector2(0.5f, 0.5f));
             }
-            //颌骨:原点数值照搬迁移前的 Draw(一阶段两侧贴图同高 74,所谓「拿对侧高度」结果相同)
+            //颌骨的原点数值按迁移前的 Draw 保留,一阶段两侧贴图同高 74,拿对侧高度算出来也一样
             b.Piece("jawDownP1", TexRoot + "CruiserJawDown", new Vector2(CruiserDirector.P1JawOriginX / 2f, CruiserDirector.P1JawTexHeight / 2f), 0f, LayerJawDown, "jawDownP1");
             b.Piece("jawUpP1", TexRoot + "CruiserJawUp", new Vector2(CruiserDirector.P1JawOriginX / 2f, CruiserDirector.P1JawTexHeight / 2f), 0f, LayerJawUp, "jawUpP1");
             b.Piece("jawDownP2", TexRoot + "CruiserJawDown2", new Vector2(CruiserDirector.P2JawOriginX, CruiserDirector.P2JawOriginY), 0f, LayerJawDown, "jawDownP2");
@@ -273,7 +273,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
                     flagellumAngle = 0;
                     whipSpeed = 0;
                     whipActive = false;
-                    //原代码在这里置 1 之后从不读,照搬
+                    //原代码在这里写成 1 之后从不读,原样保留
                     jaslowdown = 1;
                     FireTailNova();
                 }

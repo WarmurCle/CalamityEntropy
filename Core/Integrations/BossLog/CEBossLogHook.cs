@@ -129,7 +129,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
                 }
             }
 
-            //暂停也走墙钟;合书后再开限幅 0.1s,不跳变
+            //游戏暂停时计时也走墙钟,合书后再开时把单帧增量限在 0.1 秒,避免跳变
             long stamp = Stopwatch.GetTimestamp();
             float dt = lastStamp == 0 ? 1f / 60f
                 : MathHelper.Clamp((float)((stamp - lastStamp) / (double)Stopwatch.Frequency), 0f, 0.1f);
@@ -148,7 +148,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             if (now == null) {
                 return;
             }
-            //优先上游字段,缺了按版式常量从书矩形推
+            //页矩形优先用上游字段,缺了就按版式常量从书矩形推算
             UIElement book = CEBossLogReflect.BookArea(logUi);
             if (book != null) {
                 bookRect = book.GetInnerDimensions().ToRectangle();
@@ -213,7 +213,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
         }
 
         /// <summary>
-        /// 场景、子元素、标题块,上游是子元素先画,不透明场景会盖住按钮
+        /// 场景、子元素、标题块按这个顺序画,上游是子元素先画,不透明场景会盖住按钮
         /// </summary>
         private static void DrawPageOne(UIElement panel, SpriteBatch sb) {
             HideMouseOver(panel);

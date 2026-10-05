@@ -262,7 +262,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer
         #endregion
 
         #region 死亡与消失
-        /// <summary>锁血:死亡演出没放完不许真死,一击超杀也拦回演出;客户端计时可能落后几帧,留容差免得收到击杀包时把自己救活</summary>
+        /// <summary>锁血在死亡演出没放完时不能真死,一击超杀也拦回演出,客户端计时可能落后几帧,留容差免得收到击杀包时把自己救活</summary>
         public override bool CheckDead() {
             EnsureContext();
             if (Context.DeathPerformanceFinished) {
@@ -486,7 +486,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer
         #endregion
 
         #region 切技闪现
-        /// <summary>开始闪现:锚点即落点,前半段淡出,过半换位,后半段淡入;落地后一段时间没有接触伤害。演出粒子放在投影位置</summary>
+        /// <summary>开始闪现时锚点就是落点,前半段淡出,过半时换位,后半段淡入,落地后一段时间没有接触伤害,演出粒子放在投影位置</summary>
         public void StartBlink(Vector2 destination) {
             Context.AnchorPos = destination;
             Context.BlinkTimer = VDDirector.BlinkDuration;
@@ -625,7 +625,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer
             }
             RimDirScroll = new Vector2(Wrap01(RimDirScroll.X + dirStep.X / 60f), Wrap01(RimDirScroll.Y + dirStep.Y / 60f));
 
-            //天幕续租:存在强度按状态编排(出场随门涌入、死亡随门离开、撤离收干),投影后的本体位置给网格亮化中心(亮点跟着画出来的船走),核心亮度让网格跟着出招呼吸
+            //天幕按状态编排存在强度,出场跟着门进来,死亡跟着门离开,撤离时收完,投影后的本体位置作为网格亮化中心,核心亮度跟着出招变化
             VDSkyDrive.Report(SkyIntensity(), Context.Phase, VDDepth.Project(NPC.Center, Depth), CoreGlow);
 
             //抖动只走绘制层:原版把 NPC 画在 position + netOffset,NoMultiplayerSmoothing 让它每帧被清零
@@ -650,7 +650,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer
         private static float Wrap01(float v) => v - MathF.Floor(v);
 
         /// <summary>
-        /// 天幕存在强度:出场随门涌入 0→1(90 帧,门开一半天先暗),死亡从门开缩入起随本体离开 1→0,撤离线性收干,其余满值。
+        /// 天幕存在强度在出场时跟着门从 0 涨到 1,用 90 帧,门开到一半时天空先暗,死亡从门开始缩入起跟着本体从 1 降到 0,撤离按线性收完,其余保持满值
         /// 三个演出态的 Timer 从进入起连续计,不换拍,可直接当区间进度
         /// </summary>
         private float SkyIntensity() {
@@ -777,7 +777,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer
                 VDVfx.Sound("vbdisapear", 1f, shown, 3);
                 VDVfx.BlinkBurst(shown);
             }
-            //快速移动实体不吃原版平滑,收包后位置即最终位置
+            //快速移动的实体不吃原版平滑,收包后的位置就是最终位置
             NPC.netOffset = Vector2.Zero;
         }
         #endregion

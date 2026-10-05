@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 {
     /// <summary>
-    /// 平面钉死,只沿 Z 逼近,到达那几帧才有判定
+    /// 环弹的平面坐标固定,只沿 Z 逼近,到达那几帧才有判定
     /// ai[0] 角度,ai[1] 序号,0 号画整环,ai[2] 半径;整环同一 Z
     /// </summary>
     public class VDGateBolt : VDDepthProjectile

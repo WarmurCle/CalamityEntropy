@@ -18,7 +18,7 @@ namespace CalamityEntropy.Content.Items.Donator
 
         // 装灾厄走 3.33 成长(VastLV 标签),无灾厄保持 4.0 魔流层数机制
         // 饮用后2秒内缓慢额外恢复药水20%的魔力,魔法暴击给目标3秒灵魂紊乱,
-        // 每消耗250魔力叠一层魔流(至多5层),每层+3%魔法暴击伤害。
+        //玩家每消耗 250 魔力,这把武器叠一层魔流,最多 5 层,每层加 3% 魔法暴击伤害
         public const int ManaPerStack = 250;
         public const int MaxManaStacks = 5;
         public const float CritDamagePerStack = 0.03f;
@@ -188,7 +188,7 @@ namespace CalamityEntropy.Content.Items.Donator
                         Player.statMana = int.Min(Player.statManaMax2, Player.statMana + chunk);
                     }
                 }
-                // 每消耗250魔力叠一层魔流,至多5层
+                //玩家每消耗 250 魔力就叠一层魔流,最多 5 层
                 if (ManaCostCount >= Vast.ManaPerStack) {
                     ManaCostCount -= Vast.ManaPerStack;
                     if (ExtraManaLv < Vast.MaxManaStacks) {

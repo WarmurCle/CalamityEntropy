@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
         protected override IVaultState<ProphetStateContext> OnTimeout(ProphetStateContext ctx)
             => IsServer ? ProphetRotation.Pick(ctx) : null;
 
-        /// <summary>权威端 else 永远进不来,客户端在倒计时归零、包还没到的一两帧会走到,照搬</summary>
+        /// <summary>权威端的 else 永远进不来,客户端在倒计时归零、包还没到的一两帧会走到,原样保留</summary>
         public sealed override IVaultState<ProphetStateContext> OnUpdate(ProphetStateContext ctx) {
             if (ctx.Countdown > 0) {
                 RunAttack(ctx);

@@ -77,7 +77,7 @@ namespace CalamityEntropy.Content.Items
             public bool CanShowItemDropInUI() => false;
             public string GetConditionDescription() => null;
         }
-        // 开包当下读配置,关掉「新手礼包额外物品」则灾厄包与自有包都不塞额外件
+        //礼包打开时读配置,关掉「新手礼包额外物品」之后,灾厄包和自有包都不放额外物品
         private class ExtraItemsEnabledCondition : IItemDropRuleCondition, IProvideItemConditionDescription
         {
             public bool CanDrop(DropAttemptInfo info) {

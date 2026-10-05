@@ -5,7 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>世界坐标钉在平面锚点,只有深度在走,真死走 StrikeInstantKill,联机靠击杀包</summary>
+    /// <summary>世界坐标固定在平面锚点,只有深度在走,真死走 StrikeInstantKill,联机靠击杀包</summary>
     [VaultState((int)VDStateIndex.Death, typeof(VDStateContext))]
     public class VDDeathState : VDStateBase
     {

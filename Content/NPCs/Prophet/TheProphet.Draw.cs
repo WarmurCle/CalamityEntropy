@@ -27,7 +27,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         }
 
         public void Draw() {
-            //天顶世界走上面那条分支,这一行到不了;原代码就有,照搬
+            //天顶世界走上面那条分支,这一行到不了,原代码就有,原样保留
             if (Main.zenithWorld) {
                 spawnAnm = 0;
             }

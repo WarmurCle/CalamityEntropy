@@ -3,12 +3,12 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Prophet.Core
 {
-    /// <summary>状态里不许裸数字,数值照搬原 AI,不编理由</summary>
+    /// <summary>状态里不能写裸数字,数值按原 AI 保留,不另编理由</summary>
     internal static class ProphetDirector
     {
         //==================== 难度系数 difficult ====================
 
-        /// <summary>先加后乘,顺序不可换,血越满越快,天顶那一支到不了,整条 AI 委派给 OlderCruiserAIGNPC,照搬</summary>
+        /// <summary>难度系数先加后乘,顺序不能换,血越满越快,天顶那一支到不了,整条 AI 委派给 OlderCruiserAIGNPC,原样保留</summary>
         public static float Difficult(NPC npc) {
             float difficult = 1;
             if (Main.expertMode) {
@@ -52,7 +52,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
         public const float NoTargetDrag = 0.96f;
         public const int NoTargetDespawnFrames = 180;
 
-        /// <summary>全仓库没人读,残留量,别当狂怒计时</summary>
+        /// <summary>全仓库没人读这个残留量,不要把它当成狂怒计时</summary>
         public const int NoEnrageStart = 300;
         public const int NoEnrageDungeon = 500;
 
@@ -64,7 +64,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
         /// <summary>天顶整条 AI 提前 return,这个值不被覆盖</summary>
         public const float BaseDamageReduction = 0.10f;
 
-        /// <summary>爬升减伤 <c>dr</c> 的初值与每帧衰减量(原 <c>0.5f / (160 * 60)</c>,即 160 秒抹平 0.5)</summary>
+        /// <summary>爬升减伤 <c>dr</c> 的初值与每帧衰减量(原 <c>0.5f / (160 * 60)</c>,也就是用 160 秒把 0.5 减完)</summary>
         public const float DrRampInitial = 0.26f;
         public const float DrRampDecayPerFrame = 0.5f / (160 * 60);
 
@@ -94,7 +94,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
         //==================== 尾巴(Rigs2D VerletStrand,数值以 Assets/Rigs/Prophet.rig.json 为准) ====================
         //原拖尾:后方 26、初速 16、×0.96、存活 20,侧向 sin(GameUpdateCount×0.1)×6
         //骨架 tailAnchor (−26,0) + 10×24,damping 用 0.9 不是 0.96,0.96 会甩到本体前方
-        //相位取 rig.Time,不读 GameUpdateCount,ring 钉在 tail8,约本体后 194
+        //相位取 rig.Time,不读 GameUpdateCount,ring 固定在 tail8,约本体后 194
 
         /// <summary>冲刺尾焰取点:本体前方 <c>速度长度 + 60</c></summary>
         public const float TrailPointForward = 60f;
@@ -109,7 +109,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
 
         //==================== 轮换 ====================
 
-        /// <summary>超 7 归零,起始 -1,第一手是槽 0</summary>
+        /// <summary>序号超过 7 就归零,起始是 -1,第一手是槽 0</summary>
         public const int AttackIndexMax = 7;
         public const int AttackIndexStart = -1;
 
@@ -160,7 +160,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
 
         //==================== 收招后的惯性(原 else 分支)====================
 
-        /// <summary>权威端永远进不来,客户端倒计时归零、包还没到的一两帧会走到,照搬</summary>
+        /// <summary>权威端永远进不来,客户端在倒计时归零、包还没到的一两帧会走到,原样保留</summary>
         public const float IdleDrag = 0.98f;
         public const float IdleThrust = 1f;
 
@@ -178,7 +178,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
         public const int VolleyBlinkPeriodP2 = 46;
         /// <summary>瞬移半径(除以难度系数,越难落点越近)</summary>
         public const float VolleyBlinkRadius = 1250f;
-        /// <summary>二阶段开火周期 50 与瞬移 46 不同,两拍错开,照搬</summary>
+        /// <summary>二阶段开火周期 50 和瞬移 46 不同,两拍错开,原样保留</summary>
         public const int VolleyFirePeriodP1 = 60;
         public const int VolleyFirePeriodP2 = 50;
         public const int VolleyFirePhaseP1 = 56;
@@ -284,7 +284,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
         public const float RapidBlinkRadius = 900f;
         /// <summary>瞬移后朝玩家推 1</summary>
         public const float RapidLaunchSpeed = 1f;
-        /// <summary>150~120 空窗,原 &gt;80 / &lt;100 / &lt;120 三层嵌套,照搬</summary>
+        /// <summary>150 到 120 是空窗,原代码用大于 80、小于 100、小于 120 三层嵌套,原样保留</summary>
         public const int RapidWindowLow = 80;
         public const int RapidFastBelow = 100;
         public const int RapidSlowBelow = 120;
@@ -393,7 +393,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
 
         //==================== 9 号 符文飞匕 ====================
 
-        /// <summary>起手瞬移拍(整段 160 帧,即第一帧)与随机半径区间</summary>
+        /// <summary>起手瞬移拍(整段 160 帧,也就是第一帧)与随机半径区间</summary>
         public const int DaggerBlinkBeat = 160;
         public const float DaggerBlinkRadiusMin = 500f;
         public const float DaggerBlinkRadiusMax = 600f;
@@ -405,7 +405,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
 
         //==================== 10 号 虚空触手 ====================
 
-        /// <summary>起手瞬移拍(整段 320 帧,即第 11 帧)与半径</summary>
+        /// <summary>起手瞬移拍(整段 320 帧,也就是第 11 帧)与半径</summary>
         public const int SpikeBlinkBeat = 310;
         public const float SpikeBlinkRadius = 400f;
         /// <summary>倒计时高于它才放环,周期一阶段 46、二阶段 36</summary>
@@ -423,7 +423,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
 
         //==================== 11 号 异形符文冲锋 ====================
 
-        /// <summary>起手瞬移拍(整段 242 帧,即第四帧)与半径(除以难度系数)</summary>
+        /// <summary>起手瞬移拍(整段 242 帧,也就是第四帧)与半径(除以难度系数)</summary>
         public const int AltBlinkBeat = 239;
         public const float AltBlinkRadius = 1400f;
         /// <summary>布阵拍:环上撒静止符文</summary>

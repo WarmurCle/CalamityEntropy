@@ -8,7 +8,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos.States
 {
     /// <summary>
     /// 喷火:尾巴摆动瞄人,60 到 140 帧持续喷射。
-    /// 原代码有一支「150 帧后渐弱」,但喷射窗 140 帧就结束了,那一支到不了,照搬保留
+    /// 原代码有一支「150 帧后渐弱」,但喷射窗 140 帧就结束了,那一支到不了,原样保留
     /// </summary>
     [VaultState((int)ApsychosStateIndex.FlameThrow, typeof(ApsychosStateContext))]
     public class ApsychosFlameThrowState : ApsychosStateBase

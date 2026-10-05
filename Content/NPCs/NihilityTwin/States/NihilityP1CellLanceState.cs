@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin.States
                     }
                 }
                 else {
-                    //同样是先乘阻尼再整段覆盖,前一句不起作用,照搬
+                    //这里同样先乘阻尼再整段覆盖,前一句不起作用,原样保留
                     npc.velocity *= NihilityDirector.LanceRecoverDrag;
                     npc.velocity = (targetPos - npc.Center) * NihilityDirector.LanceRecoverFollow;
                     cell.velocity = (npc.Center - cell.Center) * NihilityDirector.LanceCellRecall;

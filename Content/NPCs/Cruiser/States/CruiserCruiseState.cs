@@ -4,7 +4,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser.States
 {
-    /// <summary>100 帧后每帧 1/150 收招,只在权威端骰,200 帧硬收</summary>
+    /// <summary>巡游在 100 帧后每帧有 1/150 的概率收招,只在权威端骰,200 帧强制收招</summary>
     [VaultState((int)CruiserStateIndex.Cruise, typeof(CruiserStateContext))]
     public class CruiserCruiseState : CruiserStateBase
     {

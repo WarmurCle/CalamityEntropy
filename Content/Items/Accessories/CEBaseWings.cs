@@ -5,7 +5,7 @@ namespace CalamityEntropy.Content.Items.Accessories
 {
     /// <summary>
     /// 自有翼类基类:承接灾厄 BaseWings 的五项垂直飞行参数与 VerticalWingSpeeds 派发。
-    /// 灾厄的动态飞行属性 Tooltip 块依赖其本地化与配置,不移植。
+    /// 动态飞行那块 Tooltip 依赖灾厄自己的本地化和配置,所以不移植
     /// </summary>
     public abstract class CEBaseWings : ModItem
     {

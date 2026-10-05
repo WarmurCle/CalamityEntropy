@@ -189,7 +189,7 @@ namespace CalamityEntropy.Content.Particles
                 tex.Size() / 2f, Scale * new Vector2(scaleX, 1), SpriteEffects.None, 0);
             CEUtils.DrawGlow(Position, Color * 0.8f, Scale * 0.4f);
             //DrawGlow(setState:true)内部End完批次停在Deferred+AlphaBlend,跟当前PRT桶对不上
-            //Solar Storm蓄力大量spawn这粒,缺下面两行同桶后面全花屏
+            //Solar Storm 蓄力时会大量生成这粒,缺下面两行的话同桶后面的粒子会画乱
             sb.End();
             PRTLoader.BeginDrawingWithMode(PRTDrawMode, sb);
             return false;

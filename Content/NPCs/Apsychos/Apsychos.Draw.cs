@@ -13,7 +13,7 @@ namespace CalamityEntropy.Content.NPCs.Apsychos
             return CEEffectAssets.WhiteTrans;
         }
 
-        /// <summary>件全满亮,层序本体、尾尖、12 节尾骨,白化开 Immediate,骨架里没有带状件</summary>
+        /// <summary>件全部满亮,层序是本体、尾尖和 12 节尾骨,白化时打开 Immediate,骨架里没有带状件</summary>
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) {
             if (!TailRigReady) {
                 return false;

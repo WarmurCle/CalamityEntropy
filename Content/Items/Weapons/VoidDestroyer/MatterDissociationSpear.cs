@@ -751,7 +751,7 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
             }
         }
 
-        /// <summary>加法,纯本地</summary>
+        /// <summary>这些碎片用加法混合,只在本地生成</summary>
         public static void SpawnShards(Vector2 center, Vector2 baseVel, int count, float power) {
             if (Main.dedServ) {
                 return;

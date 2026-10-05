@@ -6,7 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>本体留在平面,三叉戟只在穿平面有判定,出手前 6 帧静默</summary>
+    /// <summary>本体留在平面,三叉戟只在穿平面有判定,出手前 6 帧保持静默</summary>
     [VaultState((int)VDStateIndex.RedHell, typeof(VDStateContext))]
     public class VDRedHellState : VDStateBase
     {
@@ -68,7 +68,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
                 ctx.CoreGlow = Math.Max(ctx.CoreGlow, warn);
                 ctx.RimCharge = warn;
                 if (t <= VDDirector.RedHellRayWarn) {
-                    //汇聚流在出手前 6 帧断掉:静默即预告
+                    //汇聚流在出手前 6 帧断掉,这段静默就是预告
                     if (t < VDDirector.RedHellRayWarn - 6 && t % 2 == 0) {
                         ConvergeSparks(ctx, VDVfx.HellRed, 70f, 150f, 0.1f);
                     }

@@ -1,13 +1,13 @@
-//方形图 coords 0..1 中心 0.5,极坐标旋流,输出预乘 alpha,AlphaBlend,黑盘不能走 Additive,噪声在 s1
+//方形图的 coords 从 0 到 1,中心在 0.5,着色器做极坐标旋流,输出预乘 alpha 并用 AlphaBlend 混合,黑盘不能走 Additive,噪声放在 s1
 sampler uImage0 : register(s0);
 sampler uImage1 : register(s1);
 
 float uTime;
-float3 uColor;//盘色
-float3 uColor2;//热边色
-float uCoreRadius;//视界半径,归一半径 0..1
+float3 uColor;//该值是盘体颜色
+float3 uColor2;//该值是热边颜色
+float uCoreRadius;//该值是视界半径,按归一半径取 0 到 1
 float uOpacity;
-float uSpin;//旋流角速度
+float uSpin;//该值是旋流的角速度
 
 float4 PixelFunc(float4 baseColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
 {
@@ -31,7 +31,7 @@ float4 PixelFunc(float4 baseColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
 
     float3 col = uColor * disk * doppler + uColor2 * rim * 1.4 + uColor2 * pow(disk, 3.0) * 0.6;
     float a = saturate(disk * 0.9 + rim) * uOpacity;
-    //盘体 alpha 再乘 0.55,AlphaBlend 下颜色大于 alpha 会发光
+    //盘体 alpha 再乘 0.55,AlphaBlend 混合下颜色大于 alpha 时会发光
     float4 res = float4(col * a, a * 0.55);
     res = lerp(res, float4(0.0, 0.0, 0.0, uOpacity), horizon);
     return res * baseColor;

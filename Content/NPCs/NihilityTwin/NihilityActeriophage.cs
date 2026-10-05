@@ -25,7 +25,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
 {
     /// <summary>
     /// 细胞 realLife 指回本体,天顶复制体共用同一颗细胞
-    /// 转移只在权威端,状态号 ai[3],阶段 ai[2]
+    /// 只有权威端转移状态,状态号写入 ai[3],阶段写入 ai[2]
     /// </summary>
     [AutoloadBossHead]
     public partial class NihilityActeriophage : ModNPC
@@ -53,7 +53,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         private int escapeCounter = 0;
 
         //连接两端的绳索与三层触须都在 Rigs2D 骨架里(NihilityActeriophage.Draw.cs),纯绘制
-        /// <summary>绳索显示插值。二阶段每帧减 1(即立刻收起),只有对撞合体那一手把它顶回 1</summary>
+        /// <summary>绳索显示插值在二阶段每帧减 1,也就是立刻收起,只有对撞合体那一手把它顶回 1</summary>
         public float ropeLerp = 1;
         #endregion
 
@@ -164,7 +164,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             if (VaultUtils.isClient) {
                 initial = VaultStateRegistry<NihilityStateContext>.Create((int)NPC.ai[3]);
             }
-            //原代码的 aitype 初值是 3(一阶段悬停爆发),不是整备;照搬
+            //原代码的 aitype 初值是 3,也就是一阶段悬停爆发,不是整备,原样保留
             stateMachine.SetInitialState(initial ?? new NihilityP1HoverBurstState());
         }
         #endregion
@@ -323,12 +323,12 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
             Context.Npc = NPC;
             Context.Owner = this;
             Context.Target = targetPlayer;
-            //原代码的接战判据只有 HasValidTarget,没有距离上限;照搬
+            //原代码的接战判据只有 HasValidTarget,没有距离上限,原样保留
             Context.TargetValid = NPC.HasValidTarget;
             Context.TargetDistance = Context.TargetValid ? NPC.Distance(targetPlayer.Center) : 0f;
         }
 
-        /// <summary>写在攻击段最前面,那一帧当前招被掐断,无敌帧各端各写,换态只在权威端</summary>
+        /// <summary>这段写在攻击段最前面,那一帧当前招被打断,无敌帧各端各自写,换态只在权威端</summary>
         private void EvaluateGlobalTransitions() {
             if (Context.Phase != 1 || NPC.life >= NPC.lifeMax / NihilityDirector.Phase2LifeDivisor) {
                 return;
@@ -390,7 +390,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         #region 同步
         /// <summary>
         /// 定长块,顺序固定在这一处:计时 → 持久累加量 → 锁存标量 → 部件索引。
-        /// 字节数是编译期常量(3 int + 6 float + 3 int = 48 B):不许加运行时条件决定写不写某个字段
+        /// 字节数是编译期常量(3 int + 6 float + 3 int = 48 B),不能按运行时条件决定写不写某个字段
         /// </summary>
         public override void SendExtraAI(BinaryWriter writer) {
             EnsureContext();
@@ -466,7 +466,7 @@ namespace CalamityEntropy.Content.NPCs.NihilityTwin
         public override void ModifyNPCLoot(NPCLoot npcLoot) {
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<NihilityTwinBag>()));
 
-            // 深渊亡魂移除后,幽渊魂髓与深渊书签改由本 Boss 承接(数量与概率照搬旧掉落表);
+            //深渊亡魂移除后,幽渊魂髓和深渊书签改由本 Boss 承接,数量和概率按旧掉落表保留
             // 与旧主人一样不挂 NotExpert,专家模式下也照常掉,不进宝袋
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WraithSoulEssence>(), 1, 15, 25));
             if (!CERef.Has) {

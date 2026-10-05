@@ -43,7 +43,7 @@ namespace CalamityEntropy.Content.Particles
         public override void AI() {
             Scale += sadd;
             sadd *= 0.9f;   //Scale增速衰减,旧字段名sadd没改
-            //没显式Kill,Color*=0.96每帧淡出,alpha见底视觉上没了但Lifetime还在跑
+            //粒子没有显式 Kill,Color 每帧乘 0.96 淡出,alpha 见底后看起来没了,但 Lifetime 还在跑
             Color *= 0.96f;
         }
 

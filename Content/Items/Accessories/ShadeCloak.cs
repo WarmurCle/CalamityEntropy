@@ -63,7 +63,7 @@ namespace CalamityEntropy.Content.Items.Accessories
             var beam = PRTLoader.NewParticle<PRT_DashBeam>(player.Center, dashAxis, new Color(0, 0, 0, 210), 1f)
                 .Configure(1, true, PRTDrawModeEnum.NonPremultiplied);
             beam.maxLength = 30;
-            // 先沿冲刺轴铺三点,否则首帧 odp 不够、ToRotation(0) 会把拖尾画成朝右
+            //拖尾先沿冲刺轴铺三点,否则首帧 odp 不够,ToRotation(0) 会把拖尾画成朝右
             beam.AddPoint(player.Center - dashAxis * 2f);
             beam.AddPoint(player.Center);
             beam.AddPoint(player.Center + dashAxis * 2f);

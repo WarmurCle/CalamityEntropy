@@ -25,7 +25,7 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.Prophet
 {
     /// <summary>
-    /// 状态号 ai[3],阶段 ai[2],冲刺窗 ai[1]
+    /// 状态号写入 ai[3],阶段写入 ai[2],冲刺窗写入 ai[1]
     /// 天顶整条 AI 委派给 OlderCruiserAIGNPC 并 return,状态机不初始化
     /// </summary>
     [AutoloadBossHead]
@@ -47,7 +47,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         public float finRotCounter = 0;
         /// <summary>二阶段换曲的单发闸(仅本端)</summary>
         public bool music2 = false;
-        /// <summary>全仓库没人读,残留量,照搬</summary>
+        /// <summary>全仓库没人读这个残留量,原样保留</summary>
         public int NoEnrange = ProphetDirector.NoEnrageStart;
         /// <summary>冲刺尾焰粒子,由 1 号招创建、宿主每帧续点。纯表现</summary>
         public PRT_ProminenceTrail trail = null;
@@ -103,7 +103,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
 
         public override void SetDefaults() {
             NPC.boss = true;
-            //状态机把状态号写进 ai[3],原版 AI 不许占这个槽。模组 NPC 的默认值本来就是 -1,这里写明
+            //状态机把状态号写进 ai[3],原版 AI 不能占这个槽,模组 NPC 的默认值本来就是 -1,这里写明
             NPC.aiStyle = -1;
             NPC.width = 80;
             NPC.height = 80;
@@ -312,7 +312,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             if (finRotCounter > 1) {
                 finRotCounter--;
             }
-            //原代码自增但全仓库无人读,残留量,照搬
+            //原代码会自增,但全仓库没人读这个残留量,原样保留
             NPC.localAI[1]++;
         }
         #endregion
@@ -354,7 +354,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         #endregion
 
         #region 同步
-        /// <summary>定长,天顶分支两端同真同假,不会让读写流错位,除此之外不许按条件省略</summary>
+        /// <summary>包是定长的,天顶分支两端同真同假,不会让读写流错位,除此之外不能按条件省略字段</summary>
         public override void SendExtraAI(BinaryWriter writer) {
             EnsureContext();
             int stateId = (int)NPC.ai[3];
@@ -420,7 +420,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
                 zenithAI.ReceiveExtraAI(NPC, reader);
             }
 
-            //快速移动实体不吃原版平滑,收包后位置即最终位置
+            //快速移动的实体不吃原版平滑,收包后的位置就是最终位置
             NPC.netOffset = Vector2.Zero;
         }
         #endregion

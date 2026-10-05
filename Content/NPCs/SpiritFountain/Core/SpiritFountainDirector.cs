@@ -3,7 +3,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
 {
-    /// <summary>状态里不许裸数字,数值照搬原 AI,不编理由,SpiritRing 的数字留在它自己的文件</summary>
+    /// <summary>状态里不能写裸数字,数值按原 AI 保留,不另编理由,SpiritRing 的数字留在它自己的文件</summary>
     internal static class SpiritFountainDirector
     {
         //==================== 实体定义 ====================
@@ -67,7 +67,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
         public const float Phase3_1 = 0.33f;
         public const float Phase3_2 = 0.15f;
 
-        /// <summary>进入转阶段演出的门槛:阶段号大于它(即血量跌破 <see cref="Phase2_1"/>)</summary>
+        /// <summary>进入转阶段演出的门槛:阶段号大于它(也就是血量跌破 <see cref="Phase2_1"/>)</summary>
         public const int PhaseTransThreshold = 3;
 
         /// <summary>阶段号 1~7。原代码 L246-271 的逐条自增,一条不合并</summary>
@@ -97,7 +97,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
 
         //==================== 难度系数 enrage ====================
 
-        /// <summary>三组互斥加法,除进射速、乘进摇摆,装灾厄读复仇/死亡,缺席走大师/专家</summary>
+        /// <summary>三组互斥的加法,除法进射速,乘法进摇摆,装了灾厄就读复仇或死亡,缺席就走大师或专家</summary>
         public static float Enrage() {
             float enrage = 1f;
             if (Main.masterMode) {
@@ -166,7 +166,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
 
         //==================== 尾声:脱战与眼睛 ====================
 
-        /// <summary>无有效目标的累计帧数上限,超过即 <c>NPC.active = false</c></summary>
+        /// <summary>无有效目标的累计帧数到达上限,就让 <c>NPC.active = false</c></summary>
         public const int DeactiveFrames = 600;
         /// <summary>有目标但玩家离开这个方框(半边长 150 格)也直接消失</summary>
         public const int DespawnBoxTiles = 150;
@@ -265,7 +265,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
         public const float MovingP3Speed = 16f;
         public const float MovingP3Ai1 = 1f;
         public const float MovingP3Ai2 = 1f;
-        /// <summary>沿整条弹道铺预警线,步长 0.025 即每扇 40 颗</summary>
+        /// <summary>沿整条弹道铺预警线,步长 0.025,也就是每扇 40 颗</summary>
         public const float MovingP3LineStep = 0.025f;
         public const float MovingP3LineVelFactor = 0.03f;
         public const float MovingP3LineScatter = 8f;
@@ -279,7 +279,7 @@ namespace CalamityEntropy.Content.NPCs.SpiritFountain.Core
 
         //==================== Boomerang:魂环回旋 ====================
 
-        /// <summary>柱子轻晃读 GameUpdateCount,各端独立的本地帧计数,照搬</summary>
+        /// <summary>柱子轻晃读 GameUpdateCount,各端用各自的本地帧计数,原样保留</summary>
         public const float BoomerangIdleFreq = 0.02f;
         public const float BoomerangIdleAmp = 100f;
         public const float BoomerangOffsetLerp = 0.03f;

@@ -3,7 +3,7 @@ sampler2D Texture : register(s0);
 float radius    = 0.5f;
 float rotation  = 0.0f;
 float tileCount = 1.0f;
-float innerWall = 0.0f;    //0外壁,1内壁
+float innerWall = 0.0f;    //0 表示外壁,1 表示内壁
 
 float4 PSFunction(float4 baseColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
 {
@@ -12,7 +12,7 @@ float4 PSFunction(float4 baseColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
     float y = centered.y;
 
     float ratio = x / radius;
-    ratio = clamp(ratio, -1.0f, 1.0f);   //asin 定义域
+    ratio = clamp(ratio, -1.0f, 1.0f);   //这行把 ratio 钳进 asin 的定义域
     float theta = asin(ratio);
     theta += rotation;
 
@@ -21,7 +21,7 @@ float4 PSFunction(float4 baseColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
     const float PI = 3.14159265f;
     float u = frac(theta * direction * tileCount / (2.0f * PI) + 0.5f);
 
-    float v = y + 0.5f;   //映射回 0..1
+    float v = y + 0.5f;   //这行把 v 映射回 0 到 1
 
     return tex2D(Texture, float2(u, v)) * baseColor;
 }

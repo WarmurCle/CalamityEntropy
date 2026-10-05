@@ -23,7 +23,7 @@ namespace CalamityEntropy.Content.Projectiles
             Projectile.ArmorPenetration = 56;
         }
         public override void AI() {
-            //原盗贼职业判定改魔法: 两个发射源里 CrossBorderPursuit 已裁定为魔法, 其裂隙保持 1.4 倍体积
+            //原来的盗贼职业判定改成魔法,两个发射源里 CrossBorderPursuit 已经裁定为魔法,这条裂隙保持 1.4 倍体积
             if (Projectile.DamageType.CountsAsClass(DamageClass.Magic))
                 Projectile.scale = 1.4f;
             if (Projectile.ai[0] == 0) {

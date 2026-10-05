@@ -1,24 +1,24 @@
-//缘带贴在内侧 2 texel,外扩不在这里,贴图四边 2~4px 留白,输出预乘 alpha,Additive,噪声在 s1
+//缘带贴在内侧 2 个 texel,外扩不由这个着色器做,贴图四边留 2 到 4 像素空白,输出预乘 alpha 并用 Additive 混合,噪声放在 s1
 sampler uImage0 : register(s0);
 sampler uImage1 : register(s1);
 
 float uTime;
-float uOpacity;//可大于 1
+float uOpacity;//该值可以大于 1
 float3 uColor;
 float3 uHotColor;
 float uHeat;
 float uFlash;
-float uErode;//越高丝越碎,爆闪时压回实心
-float2 uNoiseScroll;//直角层噪声 UV 平移,宿主 wrap 在 0..1
-float uRadialScroll;//极坐标径向位移,>0 向外,<0 向内
-float uRadialMix;//极坐标层权重 0..1
-float2 uFrameCenter;//当前帧 UV 中心,条带不是 0.5
+float uErode;//该值越高丝状越碎,爆闪时把它压回实心
+float2 uNoiseScroll;//该值平移直角层噪声的 UV,宿主把 wrap 限制在 0 到 1
+float uRadialScroll;//该值是极坐标径向位移,大于 0 向外,小于 0 向内
+float uRadialMix;//该值是极坐标层的权重,范围 0 到 1
+float2 uFrameCenter;//该值是当前帧的 UV 中心,条带图不是 0.5
 float2 uImageSize;
 
 float4 PixelFunc(float4 baseColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
 {
     float4 c = tex2D(uImage0, coords);
-    float2 px = 2.0 / uImageSize;//取样锁 2 texel,条带帧高 122 行距 124,再大就串帧
+    float2 px = 2.0 / uImageSize;//取样锁在 2 个 texel,条带帧高 122、行距 124,再大就会串到别的帧
 
     float aL = tex2D(uImage0, coords - float2(px.x, 0.0)).a;
     float aR = tex2D(uImage0, coords + float2(px.x, 0.0)).a;
@@ -26,7 +26,7 @@ float4 PixelFunc(float4 baseColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
     float aD = tex2D(uImage0, coords + float2(0.0, px.y)).a;
     float amin = min(min(aL, aR), min(aU, aD));
 
-    //斜向 0.7071,y 向 1.41 texel 仍在帧间隙内
+    //斜向取样用 0.7071,y 方向 1.41 个 texel 仍落在帧间隙里
     float2 d = px * 0.7071;
     float aLU = tex2D(uImage0, coords - d).a;
     float aRD = tex2D(uImage0, coords + d).a;
@@ -42,7 +42,7 @@ float4 PixelFunc(float4 baseColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
     float nA2 = tex2D(uImage1, frac(pix / 130.0 + float2(0.31, 0.77) + uNoiseScroll)).r;
     float cart = nA * 0.6 + nA2 * 0.4;
 
-    //角向 8 个整数瓦片,接缝处 frac 相等
+    //角向铺 8 个整数瓦片,接缝处的 frac 相等
     float2 rel = pix - uFrameCenter * uImageSize;
     float ang = atan2(rel.y, rel.x) / 6.2831853 + 0.5;
     float rad = length(rel) / 72.0;

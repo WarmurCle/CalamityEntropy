@@ -204,7 +204,7 @@ namespace CalamityEntropy.Content.Projectiles
                 p.ad = 0.013f;
             }
             for (int i = 0; i < 4; i++) {
-                //每帧拖尾Void,旧spawnNew也是AI里无脑刷
+                //影子每帧拖出 Void 尾,旧 spawnNew 也是在 AI 里无条件刷
                 var p = PRTLoader.NewParticle<PRT_Void>(Projectile.Center - Projectile.rotation.ToRotationVector2() * 60 - Projectile.velocity * 0.5f, new Vector2((float)((r.NextDouble() - 0.5) * .3), (float)((r.NextDouble() - 0.5) * 1.3)), Color.White, 1f);
                 p.shape = 4;
                 p.Opacity = 1.6f;

@@ -29,7 +29,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             return (font == null ? 22f : font.LineSpacing) * scale;
         }
 
-        /// <summary>不放大</summary>
+        /// <summary>Fit 只缩小,不放大</summary>
         public static float Fit(string text, float baseScale, float maxWidth) {
             DynamicSpriteFont font = Font;
             if (font == null || string.IsNullOrEmpty(text) || maxWidth <= 0f) {
@@ -258,7 +258,7 @@ namespace CalamityEntropy.Core.Integrations.BossLog
             return hover;
         }
 
-        /// <summary>击败勾,未击败叉</summary>
+        /// <summary>DrawMark 在击败时画勾,未击败时画叉</summary>
         private static void DrawMark(SpriteBatch sb, Vector2 c, bool downed, float alpha) {
             if (downed) {
                 Color g = new Color(120, 224, 130) * alpha;
