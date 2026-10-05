@@ -12,9 +12,8 @@ namespace CalamityEntropy.Content.Particles
     }
 
     /// <summary>
-    /// 像素化 RT 通道粒子，受 CEScreenPipeline.PixelPassActive 门控（绚丽特效关闭、或复古 / 迷幻光照下
-    /// 原版不捕获画面时）都不显示——旧行为，别加回退绘制
-    /// 绘制发生在 CEPixelScreen → Screen2 RT，之后 ApplyPixelShader 过 Pixel shader
+    /// PixelPassActive 为假时不画,别加回退绘制
+    /// 画在 CEPixelScreen 的 Screen2 上,之后才过 Pixel shader
     /// </summary>
     internal interface IPixelPassPRT
     {
