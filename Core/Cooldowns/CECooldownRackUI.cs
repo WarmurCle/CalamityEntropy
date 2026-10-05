@@ -7,13 +7,10 @@ using Terraria.UI;
 
 namespace CalamityEntropy.Core.Cooldowns
 {
-    /// <summary>
-    /// 冷却栏 HUD,替代原灾厄 CooldownRackUI:buff 栏下方一排图标,
-    /// 少量冷却时展开显示(进度环 + 图标),超过上限自动切紧凑模式,悬停显示名称。
-    /// </summary>
+    /// <summary>插在 Vanilla: Buffs 之前,超过 MaxLargeIcons 切紧凑</summary>
     public class CECooldownRackUI : ModSystem
     {
-        /// <summary>展开模式最多显示的图标数,超过自动切紧凑模式。</summary>
+        /// <summary>超过就切紧凑</summary>
         public const int MaxLargeIcons = 10;
 
         public const float CompactXSpacing = 28f;
@@ -40,7 +37,7 @@ namespace CalamityEntropy.Core.Cooldowns
             bool compact = cooldownsToDraw.Count > MaxLargeIcons;
             Vector2 spacing = Vector2.UnitX * (compact ? CompactXSpacing : ExpandedXSpacing);
 
-            // buff 栏行数越多,冷却栏整体越往下
+            //buff 栏每 11 个一行,行数把栏往下推
             float uiScale = 1f;
             Vector2 displayPosition = new Vector2(32, 100) + spacing / 2f + Vector2.UnitY * 50 * MathF.Ceiling(Main.LocalPlayer.CountBuffs() / 11f);
             int rectangleSide = (int)Math.Floor(compact ? 24 * uiScale : 52 * uiScale);
@@ -56,7 +53,6 @@ namespace CalamityEntropy.Core.Cooldowns
                 CECooldownHandler handler = instance.handler;
                 float iconOpacity = iconOpacityScale;
 
-                // 鼠标靠近时图标增亮
                 iconOpacity += 0.3f * (1 - MathHelper.Clamp(Vector2.Distance(mouseCenter, iconRectangle.Center.ToVector2()), 0f, 80f) / 80f);
 
                 if (iconRectangle.Intersects(mouse)) {

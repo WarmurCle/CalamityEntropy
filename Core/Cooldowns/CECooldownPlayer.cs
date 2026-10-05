@@ -7,21 +7,15 @@ using Terraria.ModLoader.IO;
 
 namespace CalamityEntropy.Core.Cooldowns
 {
-    /// <summary>
-    /// 每玩家冷却容器,替代原灾厄玩家类上的 cooldowns 字典。
-    /// 递减、结束回调、死亡清除、存档语义与原灾厄逐帧行为一致。
-    /// 联机:冷却逻辑各端本地推进;加入同步的序列化辅助见 WriteAllCooldowns / ReceiveAllCooldowns,
-    /// 发包走 CEMessageType.SyncCooldowns,接线见 CENetWork.Handle(协议见 Doc/decouple/cooldown-api.md §7)。
-    /// </summary>
+    /// <summary>各端本地推进,不逐帧同步,加入时整表走 SyncCooldowns</summary>
     public class CECooldownPlayer : ModPlayer
     {
         private const string CooldownsSaveKey = "ceCooldowns";
         private const string ChargesSaveKey = "ceCharges";
 
-        /// <summary>该玩家的冷却字典,键为冷却字符串 ID。</summary>
+        /// <summary>键是字符串 ID</summary>
         public Dictionary<string, CECooldownInstance> cooldowns;
 
-        /// <summary>该玩家的具名充能计量器。</summary>
         public Dictionary<string, CEChargeMeter> charges;
 
         public override void Initialize() {
@@ -30,11 +24,7 @@ namespace CalamityEntropy.Core.Cooldowns
         }
 
         #region 增删查
-        /// <summary>
-        /// 添加冷却。时长原生应用 EModPlayer.CooldownTimeMult 倍率
-        /// (替代原 EModILEdit 对灾厄 AddCooldown 的钩子)。
-        /// 返回创建的实例;ID 未注册时返回 null。
-        /// </summary>
+        /// <summary>倍率原在 EModILEdit 钩灾厄 AddCooldown</summary>
         public CECooldownInstance Add(string id, int duration, bool overwrite = true) {
             duration = (int)(duration * Player.Entropy().CooldownTimeMult);
             var instance = new CECooldownInstance(Player, id, duration);
@@ -57,7 +47,6 @@ namespace CalamityEntropy.Core.Cooldowns
 
         public void Clear() => cooldowns.Clear();
 
-        /// <summary>应显示在冷却栏上的实例列表。</summary>
         public IList<CECooldownInstance> GetDisplayed() {
             List<CECooldownInstance> result = new List<CECooldownInstance>(cooldowns.Count);
             foreach (CECooldownInstance instance in cooldowns.Values) {
@@ -67,7 +56,6 @@ namespace CalamityEntropy.Core.Cooldowns
             return result;
         }
 
-        /// <summary>取具名充能计量器,不存在则按 max 创建。已存在时同步 Max 到最新值。</summary>
         public CEChargeMeter GetCharge(string key, float max) {
             if (!charges.TryGetValue(key, out CEChargeMeter meter)) {
                 meter = new CEChargeMeter(max);
@@ -97,7 +85,7 @@ namespace CalamityEntropy.Core.Cooldowns
                 if (handler.CanTickDown)
                     --instance.timeLeft;
 
-                // Tick 总是执行,与计时是否递减无关
+                //Tick 跟减不减无关
                 handler.Tick();
 
                 if (instance.timeLeft < 0) {
@@ -168,7 +156,7 @@ namespace CalamityEntropy.Core.Cooldowns
         #endregion
 
         #region 加入同步序列化(发包见 CENetWork 的 SyncCooldowns 分支)
-        /// <summary>把该玩家全部冷却写入流。由 CENetWork 的 SyncPlayer 路径调用后发包。</summary>
+        /// <summary>SyncPlayer 路径调用后发包</summary>
         public void WriteAllCooldowns(BinaryWriter writer) {
             writer.Write((byte)Player.whoAmI);
             writer.Write((ushort)cooldowns.Count);
@@ -176,7 +164,7 @@ namespace CalamityEntropy.Core.Cooldowns
                 kv.Value.Write(writer);
         }
 
-        /// <summary>从流恢复目标玩家的全部冷却。由 CENetWork.Handle 的 SyncCooldowns 分支调用。</summary>
+        /// <summary>SyncCooldowns 分支调用,整表替换</summary>
         public static void ReceiveAllCooldowns(BinaryReader reader) {
             int whoAmI = reader.ReadByte();
             int count = reader.ReadUInt16();
