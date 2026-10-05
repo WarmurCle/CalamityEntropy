@@ -4,8 +4,8 @@ using System.Collections.Generic;
 namespace CalamityEntropy.Core.Dash
 {
     /// <summary>
-    /// 冲刺效果与强化器的单例表。饰品用 <see cref="Get{T}"/> 取实例,联机同步用 ID 反查。
-    /// 实现 ICELoader:实例由 GetUninitializedObject 创建,字段初始化器不会跑,一切都在 SetupData 里建。
+    /// 饰品用 Get 取实例,联机用 ID 反查
+    /// ICELoader 字段初始化器不跑,表在 SetupData 里建
     /// </summary>
     internal class CEDashRegistry : ICELoader
     {
