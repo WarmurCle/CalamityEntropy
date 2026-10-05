@@ -7,11 +7,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Prophet
 {
-    /// <summary>
-    /// 先知图鉴沙盒:晨曦天穹里的巡游。与战斗端同一副骨架(Prophet.rig.json):本体为根,四片翅骨按鳍相位张合,
-    /// 尾巴是自带摆动的 Verlet 绳带,尾环钉在第 8 节。本体沿缓 8 字滑行、始终朝行进方向;
-    /// 每 8 秒一拍「预言符阵」:身周两圈符文环由内向外扩散淡出,同时甩出一圈符文光点,本体减速悬停
-    /// </summary>
+    /// <summary>与战斗端同一副骨架,尾环钉在第 8 节</summary>
     internal sealed class ProphetPortraitActor : CEBossPortraitActor
     {
         public static ProphetPortraitActor Instance => instance ??= new ProphetPortraitActor();

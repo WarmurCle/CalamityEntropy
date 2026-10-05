@@ -25,21 +25,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.Prophet
 {
     /// <summary>
-    /// 先知:地牢 Boss,InnoVault 状态机宿主。
-    /// <para>
-    /// 招式一文件一个放在 States/,数值全在 <see cref="ProphetDirector"/>,选招在 <see cref="ProphetRotation"/>,
-    /// 绘制在 TheProphet.Draw.cs,本体 / 翅 / 尾的 Rigs2D 骨架在 TheProphet.Rig.cs。原代码的十二个 <c>AIStyle</c> 与状态号逐个对齐,
-    /// 倒计时 <c>AIChangeDelay</c> 原样保留成 <see cref="ProphetStateContext.Countdown"/>,节拍照原样对它判定。
-    /// </para>
-    /// <para>
-    /// 联机:状态号 <c>ai[3]</c>、阶段 <c>ai[2]</c>、冲刺窗 <c>ai[1]</c>(原版自带同步)。
-    /// 选招与瞬移掷骰只在权威端,结果随 <c>SendExtraAI</c> 与位置速度原子过线;
-    /// 各端都跑完整的运动数学,客户端带容差收养计时与倒计时。
-    /// </para>
-    /// <para>
-    /// <b>天顶世界另有一套 AI</b>:整条 <see cref="AI"/> 在开头就委派给 <see cref="OlderCruiserAIGNPC"/> 并 return,
-    /// 状态机在那个世界里根本不初始化。那条路径属于并行的巡洋舰任务,本次一个字没动
-    /// </para>
+    /// 状态号 ai[3],阶段 ai[2],冲刺窗 ai[1]
+    /// 天顶整条 AI 委派给 OlderCruiserAIGNPC 并 return,状态机不初始化
     /// </summary>
     [AutoloadBossHead]
     public partial class TheProphet : ModNPC
@@ -60,10 +47,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         public float finRotCounter = 0;
         /// <summary>二阶段换曲的单发闸(仅本端)</summary>
         public bool music2 = false;
-        /// <summary>
-        /// 原 <c>NoEnrange</c>:地牢里重置成 500,其余每帧自减。
-        /// <b>全仓库没有任何地方读它</b>,是彻底的残留量,照搬保留
-        /// </summary>
+        /// <summary>全仓库没人读,残留量,照搬</summary>
         public int NoEnrange = ProphetDirector.NoEnrageStart;
         /// <summary>冲刺尾焰粒子,由 1 号招创建、宿主每帧续点。纯表现</summary>
         public PRT_ProminenceTrail trail = null;
@@ -282,11 +266,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             }
         }
 
-        /// <summary>
-        /// 原 <c>AttackPlayer</c> 的骨架。顺序逐条对齐:
-        /// 地牢重置残留量 → 自减 → 阶段判定 → 重算难度系数 → 倒计时耗尽就选招(同帧跑新招)→
-        /// 状态体 → 续尾焰点 → 倒计时自减 → 服务端解节流
-        /// </summary>
+        /// <summary>地牢重置,自减,阶段,难度,倒计时耗尽就选招并同帧跑新招,帧末再减</summary>
         private void RunAttackFrame(Player target) {
             if (target.ZoneDungeon) {
                 NoEnrange = ProphetDirector.NoEnrageDungeon;
@@ -326,7 +306,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         }
 
         #region 表现:鳍相位
-        /// <summary>鳍摆动相位推进;张角本身在骨架落地时算(TheProphet.Rig.cs)。尾巴不再有逐帧质点,由骨架的 VerletStrand 接管</summary>
+        /// <summary>相位推进,张角在骨架里算</summary>
         public void UpdateFins() {
             finRotCounter += NPC.velocity.Length() * ProphetDirector.FinPhaseSpeedFactor + ProphetDirector.FinPhaseBase;
             if (finRotCounter > 1) {
@@ -338,10 +318,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         #endregion
 
         #region 瞬移
-        /// <summary>
-        /// 原 <c>TeleportTo</c>:清速度、进出各两枚火花、落位、尾巴重建(原来是清空尾迹质点,现在是骨架硬重建)。
-        /// <b>只由权威端调用</b>(入口在 <c>ProphetStateBase.Teleport</c>),落点随包过线
-        /// </summary>
+        /// <summary>只权威端调,清速度、进出各两枚火花、落位后硬重建尾巴</summary>
         public void TeleportTo(Vector2 pos) {
             NPC.velocity *= 0;
             Color impactColor = Main.rand.NextBool(3) ? Color.SkyBlue : Color.White;
@@ -377,13 +354,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
         #endregion
 
         #region 同步
-        /// <summary>
-        /// 定长块,顺序固定在这一处。先计时、再持久累加量(朝向)、再状态标量、最后瞬移事实。
-        /// <para>
-        /// 末尾那个天顶分支是原代码就有的:<c>Main.zenithWorld</c> 是整局恒定的世界级开关,
-        /// 两端同真同假,所以它不会让读写流错位。除此之外没有任何运行时条件决定写不写字段
-        /// </para>
-        /// </summary>
+        /// <summary>定长,天顶分支两端同真同假,不会让读写流错位,除此之外不许按条件省略</summary>
         public override void SendExtraAI(BinaryWriter writer) {
             EnsureContext();
             int stateId = (int)NPC.ai[3];

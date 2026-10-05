@@ -10,17 +10,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.Prophet.States
 {
     /// <summary>
-    /// 8 号 大激光(原注释「大激光」),560 帧,是全场最长也是唯一带承伤加成的一手。
-    /// <para>
-    /// 节拍:倒计时 556 清场并定位(有禁忌档案馆坐标就落到档案馆,否则离玩家太远就拉回玩家附近);
-    /// 556~481 是拖人段,把 2400 以内、离炮口 560 以外的玩家一路拽向炮口正上方 80;
-    /// 480 开炮放出眼球 —— 若此刻本体四周 250 见方有实心块,本招作废,倒计时直接压到 30;
-    /// 479~61 持续回满范围内玩家的翅膀时间,让人能在炮下走位。
-    /// </para>
-    /// <para>
-    /// <b>本招期间承伤 ×0.5</b>(<c>ModifyIncomingHit</c> 读 <c>ai[3]</c>),同时基础减伤从 0.12 抬到 0.50。
-    /// 拖人对玩家的位移写在各端,原代码如此:实际生效的只有玩家自己那一端,其余端的写入会被玩家位置包盖掉
-    /// </para>
+    /// 四周 250 见方有实心块就作废,倒计时压到 30
+    /// 承伤 ×0.5,减伤从 0.12 抬到 0.50,拖人各端都写,只有玩家自己那端算数
     /// </summary>
     [VaultState((int)ProphetStateIndex.GrandLaser, typeof(ProphetStateContext))]
     public class ProphetGrandLaserState : ProphetStateBase
@@ -46,9 +37,8 @@ namespace CalamityEntropy.Content.NPCs.Prophet.States
                 npc.velocity *= 0;
 
                 if (IsServer) {
-                    // 禁忌档案坐标写入源已随灾厄 IL 删除,新世界恒为 (-1,-1);
-                    // 无效坐标跳过档案馆传送(安全短路,防落到世界界外),仅旧档遗留有效值时保留原演出;
-                    // 下方距离检查兜底把 Boss 拉回玩家附近
+                    //禁忌档案坐标写入源已删,新世界恒为 (-1,-1)
+                    //无效坐标跳过档案馆传送,旧档有效值仍保留原演出
                     if (EDownedBosses.ForbiddenArchiveCenter.X >= 0) {
                         Teleport(ctx, EDownedBosses.GetDungeonArchiveCenterPos() + new Vector2(0, ProphetDirector.LaserArchiveOffsetY));
                     }

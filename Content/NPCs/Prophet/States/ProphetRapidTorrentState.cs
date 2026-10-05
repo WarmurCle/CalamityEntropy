@@ -5,16 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Prophet.States
 {
-    /// <summary>
-    /// 4 号 速射符文洪流(原注释「速射符文洪流」),150 帧。
-    /// <para>
-    /// 节拍:倒计时 149 闪到玩家侧方并朝玩家推 1;
-    /// 119~100 是慢段,每 6 帧一发大散布弹;99~81 是快段,每 2 帧一发小散布弹(音效每 4 帧)。
-    /// <b>150~120 这 31 帧什么都不做</b>,是原代码 <c>&gt; 80</c> / <c>&lt; 100</c> / <c>&lt; 120</c>
-    /// 三层嵌套留下的空窗,照搬保留。
-    /// </para>
-    /// <para>散布角是权威端掷骰,已在弹幕生成守卫之内</para>
-    /// </summary>
+    /// <summary>150~120 这 31 帧什么都不做,三层嵌套留下的空窗,照搬</summary>
     [VaultState((int)ProphetStateIndex.RapidTorrent, typeof(ProphetStateContext))]
     public class ProphetRapidTorrentState : ProphetStateBase
     {

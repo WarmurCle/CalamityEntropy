@@ -8,12 +8,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Prophet
 {
-    /// <summary>
-    /// 先知的绘制层:纯本地,只读状态与表现量,不回写任何 gameplay 状态。
-    /// 本体、翅、尾是同一副 Rigs2D 骨架(TheProphet.Rig.cs),读的是同一层位置:AI 开头 <c>CEBossNetMotion.BeginFrame</c> 已把
-    /// <c>netOffset</c> 清零(<c>NoMultiplayerSmoothingByType</c> 也关掉了原版偏移),骨架根又是在 AI 里按 <c>NPC.Center</c> 推进的,
-    /// 所以收包时尾根不会跳开
-    /// </summary>
+    /// <summary>netOffset 已清,骨架根按 Center 推进,收包时尾根不跳</summary>
     public partial class TheProphet
     {
         //本体、两种翅、尾带与尾环的贴图都由 Rigs2D 骨架件持有(Assets/Rigs/Prophet.rig.json),这里不再声明贴图字段
@@ -113,11 +108,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet
             }
         }
 
-        /// <summary>
-        /// 整副骨架按层序一遍画完:尾带(0)→ 尾环(1)→ 内翅两片(2、3)→ 外翅两片(4、5)→ 本体(6),与原绘制顺序一致。
-        /// 件与带全是满亮(件 <c>unlit</c> + <c>Flat(Color.White)</c>,原来就是 <c>Color.White</c> 绘制);
-        /// 带状件自己切一轮批次(Immediate)并回到 Deferred / AlphaBlend,调用方处在任意已 Begin 的批次内即可
-        /// </summary>
+        /// <summary>尾带、尾环、内翅、外翅、本体,带状件自己切 Immediate 再回到 Deferred</summary>
         private void DrawRig(SpriteBatch spriteBatch) {
             Rig2DDrawContext ctx = Rig2DDrawContext.World().Flat(Color.White);
             Rig2DRenderer.DrawAll(spriteBatch, rig, in ctx);

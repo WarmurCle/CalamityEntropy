@@ -7,19 +7,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Prophet.States
 {
-    /// <summary>
-    /// 6 号 符文光球(原注释「符文光球」),142 帧。
-    /// <para>
-    /// 节拍:倒计时 140 闪到玩家周围 800;130 在自身周围半径 86 的环上布一圈静止符文;
-    /// 二阶段在 120 与 110 再各布一圈(三圈同心,间隔 10 帧)。
-    /// 布阵之外本体一直缓慢朝玩家漂移(推 0.2 / 阻尼 0.96)。
-    /// </para>
-    /// <para>
-    /// 环上锚点的角度步进由阶段决定(一阶段 60° 六个,二阶段 40° 九个),
-    /// 但<b>三个布阵拍里写的都是同一个 <c>phase == 1 ? 60 : 40</c></b>,
-    /// 而后两拍只有二阶段才会执行,所以后两圈恒为九个。原代码如此,照搬
-    /// </para>
-    /// </summary>
+    /// <summary>三个布阵拍写的都是 phase == 1 ? 60 : 40,后两拍只有二阶段,后两圈恒为九个,照搬</summary>
     [VaultState((int)ProphetStateIndex.RuneOrb, typeof(ProphetStateContext))]
     public class ProphetRuneOrbState : ProphetStateBase
     {

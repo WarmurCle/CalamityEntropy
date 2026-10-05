@@ -5,15 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Prophet.States
 {
-    /// <summary>
-    /// 10 号 虚空触手(原注释「虚空触手」),320 帧。
-    /// <para>
-    /// 节拍:倒计时 310 闪到玩家周围 400;之后倒计时高于 140 期间,
-    /// 一阶段每 46 帧、二阶段每 36 帧从一个随机基准角起放出一整圈尖刺(一阶段 10 根,二阶段 12 根),
-    /// 每根再带 ±0.2 的抖动。最后 140 帧只剩贴近,是收招的喘息。
-    /// </para>
-    /// <para>本体速度每帧直接按与玩家的差值 ×0.008 赋值,是一个恒定慢速的贴近,不会甩尾</para>
-    /// </summary>
+    /// <summary>速度每帧按与玩家差值 ×0.008 直接赋值,不会累积</summary>
     [VaultState((int)ProphetStateIndex.VoidSpike, typeof(ProphetStateContext))]
     public class ProphetVoidSpikeState : ProphetStateBase
     {

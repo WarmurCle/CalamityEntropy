@@ -2,19 +2,7 @@
 
 namespace CalamityEntropy.Content.NPCs.Prophet.Core
 {
-    /// <summary>
-    /// 先知状态上下文。
-    /// <para>
-    /// 「事实」区是参与判定或需要两端一致的量,随 <c>SendExtraAI</c> 过线;
-    /// 「每帧重算」区各端同算所以不过线;表现量留在宿主上(骨架、鳍相位、绘制朝向),
-    /// 它们全由已过线的位置/朝向推导,自己会收敛。
-    /// </para>
-    /// <para>
-    /// 先知没有「声明通道」:原代码的每个招式都直接写 <c>NPC.velocity</c> / <c>NPC.rotation</c>,
-    /// 无损迁移就照这个形状搬,不另造一层运动模式枚举。
-    /// 所以 <see cref="BeginFrameDefaults"/> 只重声明目标引用,没有要回落的包络量
-    /// </para>
-    /// </summary>
+    /// <summary>事实过线,没有声明通道,招式直接写 velocity 和 rotation</summary>
     public class ProphetStateContext : CEBossStateContext
     {
         public ProphetStateContext() {
@@ -29,41 +17,18 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
 
         #region 事实:过线
         /// <summary>
-        /// 原 <c>AIChangeDelay</c>:<b>倒计时</b>,不是正计时。
-        /// 选招那一帧被赋上本招时长,状态体当帧就以满值跑一遍,帧末自减一次。
-        /// <para>
-        /// 所有节拍都对它做<b>原样判定</b>(<c>== 88</c>、<c>% 60 == 30</c>、<c>&gt; 480</c> …),
-        /// 没有翻成正计时阈值。它随包过线并带 ±2 容差收养,
-        /// 所以大激光那一处 <c>倒计时 = 30</c> 的中途压缩也会原样传到客户端。
-        /// </para>
-        /// <para>
-        /// 基类的 <c>Timer</c> / <c>Counter</c> 仍然照跑,只当收养通道与超时兜底,不参与节拍
-        /// </para>
-        /// <para>
-        /// 覆写基类的同名槽(而不是另声明一个),这样共用层按 <see cref="CEBossStateContext"/>
-        /// 读到的就是本 Boss 真正在用的那个值。本 Boss <b>不减 1</b>:
-        /// 原代码在状态体<b>之后</b>才自减,体读到的就是原字段的值,相位天然对齐
-        /// </para>
+        /// 原 AIChangeDelay,倒计时,选招当帧以满值跑,帧末自减
+        /// 节拍原样判定,不减 1,原代码在状态体之后才自减,中途压到 30 也会过线
         /// </summary>
         public override int Countdown { get; set; }
 
-        /// <summary>
-        /// 原 <c>spawnAnm</c>:出生演出倒计时,归零后<b>继续往负数走</b>(原代码没有下限)。
-        /// 大于 0 时不出招、不更新尾迹、强制朝上且免疫伤害。
-        /// 过线是为了让中途加入的客户端不再从 120 重跑一遍出生演出(那两秒里它会完全停摆)
-        /// </summary>
+        /// <summary>归零后继续走负数,大于 0 不出招、不更新尾迹、强制朝上且免疫,过线免得中途加入从 120 重跑</summary>
         public int SpawnAnim { get; set; } = ProphetDirector.SpawnAnimFrames;
 
-        /// <summary>
-        /// 原 <c>dr</c>:开场额外减伤,每帧自减直到 0。
-        /// 它是逐帧积分量,不过线的话中途加入的客户端会一直按 0.26 的起始值算伤害
-        /// </summary>
+        /// <summary>逐帧积分,不过线则中途加入一直按 0.26 算</summary>
         public float DrRamp { get; set; } = ProphetDirector.DrRampInitial;
 
-        /// <summary>
-        /// 瞬移流水号。权威端每完成一次瞬移就 +1,客户端据此把一次位置跳变认成瞬移而不是失步:
-        /// 清尾迹、补放两端火花、丢掉本地预测
-        /// </summary>
+        /// <summary>权威端每次瞬移 +1,客户端据此认成瞬移而不是失步</summary>
         public int TeleportSeq { get; set; }
 
         /// <summary>权威端掷骰算出的瞬移落点。与流水号一起过线,客户端补演出时用它定位</summary>
@@ -71,11 +36,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
         #endregion
 
         #region 事实:每帧重算(各端同算,不过线)
-        /// <summary>
-        /// 原 <c>difficult</c>:难度系数,宿主每帧在状态机之前重算。
-        /// 六个开关全是世界级已同步量,血量比例读已同步的 <c>NPC.life</c>,所以各端同值。
-        /// 它直接乘进速度与瞬移半径的分母,任何一端算出不同值都会让位置误差无界增长
-        /// </summary>
+        /// <summary>宿主每帧重算,来源必须已同步,否则位置误差无界</summary>
         public float Difficult { get; set; } = 1f;
         #endregion
 

@@ -5,15 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Prophet.States
 {
-    /// <summary>
-    /// 2 号 符文晶簇(原注释「符文晶簇」),360 帧(原式 <c>120 + 60 * 4</c>)。
-    /// <para>
-    /// 节拍:每 60 帧一循环,整 60 拍闪到玩家侧方并朝玩家冲 8,半拍(余 30)吐出高速晶体。
-    /// 循环只在倒计时高于 110 时进行;低于 120 后本体转为向玩家侧后方 400 的位置回收。
-    /// 注意 110 和 120 两条线<b>不重合</b>,倒计时 119~110 这十帧既回收又还在循环窗里,原代码如此。
-    /// </para>
-    /// <para>朝向恒等于速度方向,所以晶体射向就是当前航向,闪现后的那一下冲刺即为预告</para>
-    /// </summary>
+    /// <summary>110 和 120 不重合,119~110 既回收又还在循环窗里,照搬</summary>
     [VaultState((int)ProphetStateIndex.RuneCluster, typeof(ProphetStateContext))]
     public class ProphetRuneClusterState : ProphetStateBase
     {

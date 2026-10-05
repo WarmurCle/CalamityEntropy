@@ -7,11 +7,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.Prophet.Core
 {
-    /// <summary>
-    /// 状态索引,写入 <c>npc.ai[3]</c> 网络同步。
-    /// <b>序号与迁移前的 <c>TheProphet.AIStyle</c> 逐个对齐</b>,方便对照旧代码与旧日志。
-    /// <c>CanHitPlayer</c> 与 <c>ModifyIncomingHit</c> 都还按这套编号读 <c>ai[3]</c>
-    /// </summary>
+    /// <summary>写入 ai[3],序号对齐迁移前的 AIStyle,CanHitPlayer 和 ModifyIncomingHit 还按这套编号读</summary>
     public enum ProphetStateIndex
     {
         /// <summary>四轮符文弹:侧向绕行,定期闪到远处再打一把扇形洪流</summary>
@@ -41,18 +37,8 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
     }
 
     /// <summary>
-    /// 先知状态基类。收四样公共小件:倒计时门、出手(伤害折算 + 权威端守卫)、瞬移、超时兜底。
-    /// <para>
-    /// 拍子一律用 <see cref="ProphetStateContext.Countdown"/> 的<b>原样判定</b>表达
-    /// (原代码就是对这个倒计时做 <c>==</c> / <c>%</c> / <c>&gt;</c>),
-    /// 不引入会归零 <see cref="VaultState{TContext}.Timer"/> 的 beat 枚举:
-    /// 多一个锁存的拍号就等于多一个必须过线的量,白送一个失步来源。
-    /// </para>
-    /// <para>
-    /// <b>收招不由状态发起。</b>原代码是在每帧开头先看倒计时是否耗尽、耗尽就当场选招并
-    /// <b>同帧</b>跑新招的状态体,所以选招口放在宿主的 <c>RunAttackFrame</c> 里,
-    /// 状态的 <c>OnUpdate</c> 恒返回 null。只有超时兜底这条安全网会从状态里请求换态
-    /// </para>
+    /// 拍子用 Countdown 原样判定,不加会归零 Timer 的 beat 枚举
+    /// 收招不由状态发起,选招在宿主里同帧跑新招,OnUpdate 恒返回 null
     /// </summary>
     public abstract class ProphetStateBase : CEBossStateBase<ProphetStateContext>
     {
@@ -67,11 +53,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
         protected override IVaultState<ProphetStateContext> OnTimeout(ProphetStateContext ctx)
             => IsServer ? ProphetRotation.Pick(ctx) : null;
 
-        /// <summary>
-        /// 原 <c>if (AIChangeDelay &gt; 0) { 招式 } else { 惯性漂移 }</c> 的外壳。
-        /// 权威端选招总把倒计时赋成正数且同帧就跑状态体,所以 else 支<b>永远进不来</b>;
-        /// 客户端在「本地倒计时已归零、换态包还没到」的一两帧里会短暂走到。照搬保留
-        /// </summary>
+        /// <summary>权威端 else 永远进不来,客户端在倒计时归零、包还没到的一两帧会走到,照搬</summary>
         public sealed override IVaultState<ProphetStateContext> OnUpdate(ProphetStateContext ctx) {
             if (ctx.Countdown > 0) {
                 RunAttack(ctx);
@@ -120,13 +102,8 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
         }
 
         /// <summary>
-        /// 瞬移。原代码在各端各自掷骰各自落位,于是每端落在不同地方、全靠每帧快照硬拽回来。
-        /// <para>
-        /// 现在<b>只有权威端掷骰并落位</b>,落点写进 <see cref="ProphetStateContext.TeleportPos"/>
-        /// 并把流水号 +1,与位置/速度在同一个快照里原子过线;客户端收到流水号推进后
-        /// 补放两端火花、清空尾迹、丢掉本地预测(见 <c>TheProphet.ReceiveExtraAI</c>)。
-        /// 瞬移是决策点,当场 netUpdate
-        /// </para>
+        /// 只有权威端掷骰并落位,落点写 TeleportPos,流水号 +1,和位置速度同包
+        /// 客户端看到流水号推进后补火花、清尾迹、丢预测
         /// </summary>
         protected static void Teleport(ProphetStateContext ctx, Vector2 pos) {
             if (!IsServer) {

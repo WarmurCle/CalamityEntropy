@@ -5,15 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Prophet.States
 {
-    /// <summary>
-    /// 5 号 环状符文(原注释「环状符文」),245 帧。
-    /// <para>
-    /// 节拍:倒计时高于 160 是连续闪现段,一阶段每 4 帧、二阶段每 3 帧闪到玩家周围 1400 的随机一点,
-    /// 每闪一次朝玩家吐一发慢速洪流并把朝向对准玩家 —— 玩家看到的是一圈从四面八方逼近的弹幕。
-    /// 160 以下转普通追击(阻尼 0.96 + 朝玩家推 0.5),给一段喘息。
-    /// </para>
-    /// <para>一阶段约 21 次、二阶段约 28 次闪现,每一次都是权威端掷骰并当场过线的决策点</para>
-    /// </summary>
+    /// <summary>每次闪现都是权威端掷骰并当场过线</summary>
     [VaultState((int)ProphetStateIndex.RingBlink, typeof(ProphetStateContext))]
     public class ProphetRingBlinkState : ProphetStateBase
     {

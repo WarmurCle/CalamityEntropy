@@ -8,19 +8,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Prophet.States
 {
-    /// <summary>
-    /// 1 号 冲刺(原注释「冲刺」),220 帧。
-    /// <para>
-    /// 节拍:倒计时 220 / 160 / 100 各起手一次。起手当帧锁向玩家 12 帧后的预测点、
-    /// 沿反方向弹开(前两次 6,第三次 16),并把推进窗写进 <c>ai[1]</c>(前两次 46 帧,第三次 80 帧)。
-    /// 推进窗内每帧沿锁定朝向加速;窗口耗尽转硬刹。倒计时 10 时闪走收尾。
-    /// </para>
-    /// <para>
-    /// 公平阀:起手的反向弹开本身就是预告,锁向之后不再追瞄;第三次重击途中才会沿两侧撒符文弹。
-    /// 二阶段起手额外附一把扇形洪流。
-    /// </para>
-    /// <para>接触伤害只在本招与 11 号招打开(<c>CanHitPlayer</c> 读 <c>ai[3]</c>)</para>
-    /// </summary>
+    /// <summary>锁向之后不再追瞄,接触伤害只在本招和 11 号打开</summary>
     [VaultState((int)ProphetStateIndex.Dash, typeof(ProphetStateContext))]
     public class ProphetDashState : ProphetStateBase
     {

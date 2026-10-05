@@ -3,32 +3,12 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Prophet.Core
 {
-    /// <summary>
-    /// 先知的唯一数字出口。状态里不许出现裸数字(纯局部插值系数与原样照抄的角度步进除外)。
-    /// <para>
-    /// 本文件是状态机迁移时从原 <c>TheProphet.AI()</c> / <c>AttackPlayer()</c> 逐个搬出来的,
-    /// <b>数值一律照搬,没有一处调整</b>。注释写的是「这个数在原代码里干什么」,
-    /// 不是「这个数为什么该是这样」,原作者没留依据的地方不替他编理由。
-    /// </para>
-    /// </summary>
+    /// <summary>状态里不许裸数字,数值照搬原 AI,不编理由</summary>
     internal static class ProphetDirector
     {
         //==================== 难度系数 difficult ====================
 
-        /// <summary>
-        /// 难度系数。原代码每帧在 <c>AttackPlayer</c> 开头重算一次:
-        /// 专家 +0.06、大师 +0.06、复仇 +0.1、死亡 +0.1、getGood +0.15、天顶 +0.15,
-        /// 最后整体乘 <c>1 + 当前血量比例 × 0.2</c>(血越满越快,残血反而变慢)。
-        /// <para>
-        /// 加法项先全部累完再乘那一项,顺序不可换。它直接乘进速度、射速与瞬移半径的分母,
-        /// 所以六个开关必须各端一致,全是世界级已同步量;血量比例读的是已同步的 <c>NPC.life</c>。
-        /// </para>
-        /// <para>装灾厄读复仇/死亡,缺席仍走专家/大师兜底。</para>
-        /// <para>
-        /// 天顶那一支<b>实战到不了</b>:天顶世界整条 AI 都委派给 <c>OlderCruiserAIGNPC</c>,
-        /// 根本走不到这里。原代码就这么写的,照搬保留。
-        /// </para>
-        /// </summary>
+        /// <summary>先加后乘,顺序不可换,血越满越快,天顶那一支到不了,整条 AI 委派给 OlderCruiserAIGNPC,照搬</summary>
         public static float Difficult(NPC npc) {
             float difficult = 1;
             if (Main.expertMode) {
@@ -55,11 +35,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
 
         //==================== 全局 ====================
 
-        /// <summary>
-        /// 状态总龄上限。原代码<b>没有</b>任何超时兜底,这是迁移时新加的纯安全网:
-        /// 最长的一手是大激光 560 帧,1800 帧在正常对局里到不了,
-        /// 存在的意义只是不让状态机死在某个状态里、Boss 靠惯性飘走
-        /// </summary>
+        /// <summary>迁移新加的安全网,正常对局到不了</summary>
         public const int StateTimeoutFrames = 1800;
 
         /// <summary>出生演出帧数(原 <c>spawnAnm</c> 字段初值)。这一段 <c>dontTakeDamage</c> 且不出招</summary>
@@ -76,25 +52,16 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
         public const float NoTargetDrag = 0.96f;
         public const int NoTargetDespawnFrames = 180;
 
-        /// <summary>
-        /// 原 <c>NoEnrange</c>:字段初值 300,目标在地牢里就被重置成 500,其余每帧自减。
-        /// <b>整个仓库没有任何地方读它</b>,是彻底的残留量;照搬保留,别当它是狂怒计时
-        /// </summary>
+        /// <summary>全仓库没人读,残留量,别当狂怒计时</summary>
         public const int NoEnrageStart = 300;
         public const int NoEnrageDungeon = 500;
 
-        /// <summary>
-        /// 转二阶段的血量分界。原代码写的是<b>整数除法</b> <c>NPC.life &lt; NPC.lifeMax / 2</c>,
-        /// 这里保持整数除法以免在 lifeMax 为奇数时差一格。转过去之后永不回落
-        /// </summary>
+        /// <summary>整数除法 life &lt; lifeMax / 2,奇数 lifeMax 差一格,转过去不回落</summary>
         public const int Phase2LifeDivisor = 2;
 
         //==================== 减伤 ====================
 
-        /// <summary>
-        /// 原灾厄全局 DR 字段的本地等效初值(<c>SetDefaults</c> 里写一次)。
-        /// 天顶世界整条 AI 提前 return,所以天顶下这个值原样保留不被覆盖
-        /// </summary>
+        /// <summary>天顶整条 AI 提前 return,这个值不被覆盖</summary>
         public const float BaseDamageReduction = 0.10f;
 
         /// <summary>爬升减伤 <c>dr</c> 的初值与每帧衰减量(原 <c>0.5f / (160 * 60)</c>,即 160 秒抹平 0.5)</summary>
@@ -121,24 +88,13 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
         /// <summary>鳍摆角 <c>rotj</c> 的相位分界:前 40% 余弦缓动 0 → 1,后 60% 落回 0(原 DrawFins 里的 0.4 / 0.6)</summary>
         public const float FinSwingRise = 0.4f;
 
-        /// <summary>
-        /// 外翅 Wing1 的静息张角 1 rad(原 DrawFins 里的 <c>rl ∓ 1</c>),内翅 Wing2 静息贴合本体轴向;
-        /// 每帧实际写进翅骨的是 <c>∓rotj</c>(内翅)与 <c>∓Wing1RestAngle ± rotj</c>(外翅)。
-        /// 翅骨偏移(内翅 (−20, ∓20)、外翅 (0, ∓20))以 Assets/Rigs/Prophet.rig.json 为准
-        /// </summary>
+        /// <summary>外翅静息 1 rad,内翅贴轴向,实际写的是 ∓rotj 和 ∓1 ± rotj</summary>
         public const float Wing1RestAngle = 1f;
 
         //==================== 尾巴(Rigs2D VerletStrand,数值以 Assets/Rigs/Prophet.rig.json 为准) ====================
-        //原 TailPoint 发射器拖尾:每帧在本体后方 26 处放一个质点,初速沿后方 16、每帧 ×0.96 衰减、存活 20 帧,
-        //再叠一个 sin(Main.GameUpdateCount × 0.1) × 6 的侧向初速;静止时质点跑出约 223 px,拖尾总长约 250 px,
-        //本体移动时质点留在原地,拖尾会被拉长成运动轨迹。
-        //对应骨架里 tailAnchor 骨偏移 (−26, 0) + 一条 10 节 × 24 的 VerletStrand(定长 240,不再随速度拉长):
-        //damping 0.9(VerletStrand 的 damping 是速度保留率,与原 0.96 同一语义;但 0.96 用在有距离约束的链上,
-        //每次硬刹都会让尾巴借惯性甩到本体前方、侧摆也被放大约 25 倍,离线复算后压到 0.9 才能在急停后仍留在本体后方)、
-        //gravity 0、restForce 4(沿 −骨轴向后撑直,转向后约 40 帧尾尖回到新朝向 10° 内)、
-        //sway 0.12 双频(主频 6 rad/s = 原 0.1 rad/帧 × 60,次频 2.2;swayStep 取负让波沿尾向尖端传播,同原拖尾;
-        //相位取 rig.Time / rig.Seed,不再读未同步的 GameUpdateCount)、substeps 4(锚点插值,重击冲刺 90 px/帧也不抽长)。
-        //ring 件居中钉在 tail8 骨近端(本体后约 194 px;原来画在第 9 个尾迹点、朝向取第 9 → 10 点连线)
+        //原拖尾:后方 26、初速 16、×0.96、存活 20,侧向 sin(GameUpdateCount×0.1)×6
+        //骨架 tailAnchor (−26,0) + 10×24,damping 用 0.9 不是 0.96,0.96 会甩到本体前方
+        //相位取 rig.Time,不读 GameUpdateCount,ring 钉在 tail8,约本体后 194
 
         /// <summary>冲刺尾焰取点:本体前方 <c>速度长度 + 60</c></summary>
         public const float TrailPointForward = 60f;
@@ -153,17 +109,11 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
 
         //==================== 轮换 ====================
 
-        /// <summary>
-        /// 轮换序号上限。原代码 <c>AIC++; if (AIC > 7) AIC = 0;</c>,即 8 个槽位循环,
-        /// 起始值 -1 所以第一手落在槽 0
-        /// </summary>
+        /// <summary>超 7 归零,起始 -1,第一手是槽 0</summary>
         public const int AttackIndexMax = 7;
         public const int AttackIndexStart = -1;
 
-        /// <summary>
-        /// 原 <c>GetAIType(int r)</c>:八个槽位到招式的映射,其中三个槽位当场掷一次硬币。
-        /// <b>掷骰只在权威端</b>,结果经状态号写进 <c>ai[3]</c> 过线
-        /// </summary>
+        /// <summary>三个槽当场掷硬币,只在权威端,结果经状态号过线</summary>
         public static ProphetStateIndex AttackFor(int slot) {
             switch (slot) {
                 case 0: return ProphetStateIndex.RuneVolley;
@@ -179,11 +129,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
             return ProphetStateIndex.RuneVolley;
         }
 
-        /// <summary>
-        /// 原选招段落里那十二个并列的 <c>if (AIStyle == n) AIChangeDelay = ...</c>。
-        /// 倒计时在选招那一帧被赋上本招时长,状态体<b>当帧</b>就以满值跑一遍,
-        /// 帧末再自减一次,所以每一手正好跑「时长」帧
-        /// </summary>
+        /// <summary>选招当帧以满值跑,帧末再减,正好跑时长帧</summary>
         public static int DurationFor(ProphetStateIndex state) {
             switch (state) {
                 case ProphetStateIndex.RuneVolley: return 240;
@@ -214,11 +160,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
 
         //==================== 收招后的惯性(原 else 分支)====================
 
-        /// <summary>
-        /// 原 <c>if (AIChangeDelay > 0) { 招式 } else { 这里 }</c>。
-        /// 选招总把倒计时赋成正数、且当帧就跑状态体,所以权威端<b>永远进不来</b>;
-        /// 只有客户端在「本地倒计时已归零、换态包还没到」的一两帧里会短暂走到。照搬保留
-        /// </summary>
+        /// <summary>权威端永远进不来,客户端倒计时归零、包还没到的一两帧会走到,照搬</summary>
         public const float IdleDrag = 0.98f;
         public const float IdleThrust = 1f;
 
@@ -236,10 +178,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
         public const int VolleyBlinkPeriodP2 = 46;
         /// <summary>瞬移半径(除以难度系数,越难落点越近)</summary>
         public const float VolleyBlinkRadius = 1250f;
-        /// <summary>
-        /// 开火节拍:一阶段 <c>倒计时 % 60 == 56</c>,二阶段 <c>% 50 == 46</c>。
-        /// 二阶段的周期(50)与瞬移周期(46)<b>不同</b>,所以两拍会互相错开,原代码如此
-        /// </summary>
+        /// <summary>二阶段开火周期 50 与瞬移 46 不同,两拍错开,照搬</summary>
         public const int VolleyFirePeriodP1 = 60;
         public const int VolleyFirePeriodP2 = 50;
         public const int VolleyFirePhaseP1 = 56;
@@ -345,10 +284,7 @@ namespace CalamityEntropy.Content.NPCs.Prophet.Core
         public const float RapidBlinkRadius = 900f;
         /// <summary>瞬移后朝玩家推 1</summary>
         public const float RapidLaunchSpeed = 1f;
-        /// <summary>
-        /// 两段射击窗:倒计时 119~100 是慢段(每 6 帧一发),99~81 是快段(每 2 帧一发)。
-        /// 150~120 这 31 帧什么都不做,原代码的 <c>&gt; 80</c> / <c>&lt; 100</c> / <c>&lt; 120</c> 三层嵌套如此
-        /// </summary>
+        /// <summary>150~120 空窗,原 &gt;80 / &lt;100 / &lt;120 三层嵌套,照搬</summary>
         public const int RapidWindowLow = 80;
         public const int RapidFastBelow = 100;
         public const int RapidSlowBelow = 120;

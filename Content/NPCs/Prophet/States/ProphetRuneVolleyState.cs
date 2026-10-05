@@ -5,15 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Prophet.States
 {
-    /// <summary>
-    /// 0 号 四轮符文弹(原注释「4轮符文弹」),240 帧。
-    /// <para>
-    /// 节拍:一直贴着玩家做侧向绕行并快速转头;一阶段每 60 帧闪一次远点、闪后 4 帧开一把扇形洪流,
-    /// 二阶段闪现周期 46、开火周期 50,两拍<b>故意不同周期</b>,所以会互相错开(原代码如此)。
-    /// 倒计时低于 30 后既不闪也不打,只剩绕行收尾。
-    /// </para>
-    /// <para>公平阀:开火拍带一次后坐,先知会被自己的齐射推离玩家,给出一个可读的「刚打完」窗口</para>
-    /// </summary>
+    /// <summary>二阶段闪现周期 46、开火周期 50,故意不同周期</summary>
     [VaultState((int)ProphetStateIndex.RuneVolley, typeof(ProphetStateContext))]
     public class ProphetRuneVolleyState : ProphetStateBase
     {

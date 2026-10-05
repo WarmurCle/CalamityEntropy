@@ -5,16 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Prophet.States
 {
-    /// <summary>
-    /// 3 号 双层符文洪流(原注释「2层符文洪流」),100 帧。
-    /// <para>
-    /// 节拍:倒计时 88 闪到玩家侧方(带起手音),77 一次性铺满两层扇面:
-    /// 整数层用较快的 0.8 倍速,半整数层插在缝里用 0.5 倍速,于是玩家看到的是一张交错的网。
-    /// </para>
-    /// <para>
-    /// <b>本招不写任何速度</b>:除瞬移把速度清零外,先知全程保持进招时的惯性。原代码如此,照搬
-    /// </para>
-    /// </summary>
+    /// <summary>除瞬移清零外不写速度,整数层 0.8 倍、半整数层 0.5 倍</summary>
     [VaultState((int)ProphetStateIndex.RuneTorrentFan, typeof(ProphetStateContext))]
     public class ProphetRuneTorrentFanState : ProphetStateBase
     {

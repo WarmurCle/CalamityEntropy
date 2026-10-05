@@ -5,19 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Prophet.States
 {
-    /// <summary>
-    /// 11 号 异形符文冲锋(原代码这一支没写注释),242 帧。
-    /// <para>
-    /// 节拍:倒计时 239 闪到远处;228 在自身周围撒一圈静止的异形符文;
-    /// 210 / 140 / 70 各起手一次直线冲锋,锁向玩家 8 帧后的预测点并把冲锋窗写进 <c>ai[1]</c>(62 帧),
-    /// 窗口内轻阻尼 0.99,窗口外硬刹 0.8。
-    /// </para>
-    /// <para>
-    /// 布阵的角度上限写的是 <b>358</b> 而不是 360,所以一阶段步进 72° 只排得下 5 个锚点
-    /// (0/72/144/216/288,下一个 360 越界),二阶段步进 60° 排得下 6 个。原代码如此,照搬。
-    /// </para>
-    /// <para>接触伤害在本招与 1 号招打开(<c>CanHitPlayer</c> 读 <c>ai[3]</c>)</para>
-    /// </summary>
+    /// <summary>角度上限写的是 358 不是 360,一阶段 72° 只排 5 个,二阶段 60° 排 6 个,照搬</summary>
     [VaultState((int)ProphetStateIndex.AltRuneCharge, typeof(ProphetStateContext))]
     public class ProphetAltRuneChargeState : ProphetStateBase
     {

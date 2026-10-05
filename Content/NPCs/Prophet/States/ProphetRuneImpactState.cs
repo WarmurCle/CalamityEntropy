@@ -5,15 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Prophet.States
 {
-    /// <summary>
-    /// 7 号 符文冲击(原注释「符文冲击」),280 帧。
-    /// <para>
-    /// 节拍:倒计时高于 50 时以 40 帧为一循环,余数 21~39 是绕行窗(贴着玩家外侧 160 的环走),
-    /// 余数 0~20 是放电窗(刹车 0.94),其中余数正好 20 的那一帧放一把扇形闪电。
-    /// 倒计时 50 以下永远停在绕行窗,是收招前的一段纯贴身压迫。
-    /// </para>
-    /// <para>公平阀:绕行窗的转向只有 0.06,先知会明显地「摆正炮口」,放电前有大约半秒的可读时间</para>
-    /// </summary>
+    /// <summary>高于 50 时 40 帧一循环,余数 20 放闪电,50 以下停在绕行窗</summary>
     [VaultState((int)ProphetStateIndex.RuneImpact, typeof(ProphetStateContext))]
     public class ProphetRuneImpactState : ProphetStateBase
     {
