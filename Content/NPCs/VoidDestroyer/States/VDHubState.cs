@@ -6,13 +6,8 @@ using Terraria;
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
     /// <summary>
-    /// 连接段 hub(48/42/36 帧,P1→P3):每一手之间可读的一口气,分三拍。
-    /// 拍一「落定」:连接段开头就按 <see cref="VDRotation"/> 选好下一招(权威端),若新招几何上要求换位、
-    /// 或本体离它的锚点太远,闪现在这一拍里做完;否则朝锚点飞。拍二「重瞄」:减速对准玩家,核心暗下去。
-    /// 拍三「起势」(最后 12 帧):能量翼张开 + 核心亮起 + 低音,这是全招通用的「要出手了」信号。
-    /// 杂波阀:连接段末尾场上敌对弹幕仍多就再等最多 60 帧,新招不在上一招的弹雨里起手。
-    /// 选招结果写 <see cref="VDStateContext.PendingState"/> 过线,客户端拿它做起势表现与飞行预测;
-    /// 阶段签名首招(变形 → 轨道轰炸,护盾 → 湮灭主炮)由转阶段状态写 ForcedNextState,Pick 照单执行
+    /// 开头权威端选招,结果写 PendingState,要换位或离锚点太远就在落定拍闪,否则飞
+    /// 末尾弹幕仍多再等最多 60 帧。签名首招走 ForcedNextState
     /// </summary>
     [VaultState((int)VDStateIndex.Hub, typeof(VDStateContext))]
     public class VDHubState : VDStateBase

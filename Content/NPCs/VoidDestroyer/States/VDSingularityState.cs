@@ -6,11 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 虚空奇点:45 帧蓄力(核心汇聚流 + 八次幂迟滞后撤:大半时间几乎不动,最后几帧猛然向后吸满)→ 一帧放出奇点
-    /// (反冲 6)→ 奇点飘向本体与玩家的中点停住,150 帧引力 + 透镜 + 螺旋弹,20 帧塌缩后环爆(P3 版塌缩帧 = 整场唯一冲击帧)。
-    /// 本体在奇点期间与玩家保持相对静止,不再加压;奇点的节拍全部由弹幕自管
-    /// </summary>
+    /// <summary>八次幂后撤,大半时间几乎不动,P3 塌缩帧是整场唯一冲击帧,节拍由弹幕自管</summary>
     [VaultState((int)VDStateIndex.Singularity, typeof(VDStateContext))]
     public class VDSingularityState : VDStateBase
     {

@@ -4,10 +4,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 脱战撤离:目标失效后 60 帧跃迁遁入 Z 6 的深空(与出场起点同一深度,读成「回去了」)并按 190 帧淡出,
-    /// 期间目标回来就回 hub(hub 落定拍会把它拉回平面),否则消失。无接触、限制圈关
-    /// </summary>
+    /// <summary>目标回来就回 hub,否则遁入 Z 6 消失</summary>
     [VaultState((int)VDStateIndex.Despawn, typeof(VDStateContext))]
     public class VDDespawnState : VDStateBase
     {

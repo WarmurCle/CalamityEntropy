@@ -6,14 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 裂隙斩:本体定在玩家斜上方,朝空间划缝。每道缝出现前本体先抬手 12 帧(翼张 + 核心亮 + 抬手音),
-    /// 缝以发丝白线可见 36 帧(预告 = 承诺),再拉开 12 帧(判定窗 + 全屏沿线撕裂),猛合时两侧各喷一排垂直虚空弹。
-    /// P1 两道依次(第二道与第一道垂直);P2 三道米字依次画线,前一道开口那一帧下一道才出现(同时只有一道在开口);
-    /// P3 以玩家为心的六边形笼(边线只向外喷弹,笼内安全)开口后,再补一刀穿心。
-    /// 猛合喷弹一半留平面、一半抛入深处再回头收敛(两层弹雨一近一远);穿心刀的喷弹改为从背景里收敛到缝两侧的纵深贯穿弹。
-    /// 缝的几何在服务端出手帧定死并随弹幕生成包过线,状态只管节拍与本体姿态
-    /// </summary>
+    /// <summary>缝的几何在服务端出手帧定死,随弹幕生成包过线,P3 笼边只向外喷,笼内安全</summary>
     [VaultState((int)VDStateIndex.RiftCut, typeof(VDStateContext))]
     public class VDRiftCutState : VDStateBase
     {

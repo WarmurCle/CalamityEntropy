@@ -6,12 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 立体四角:依次闪现到玩家的角(P2 三角、P3 四角,左上 → 左下 → 右下 → 右上),角位带深度(远 / 平面 / 近 / 远):
-    /// 每到一角落地 18 帧核心蓄力再射 5 发。远角(Z 1.2,背景里的小影)射纵深贯穿弹,落点是垂直于角→玩家方向排开的 5 点,40 帧越来越大地飞来;
-    /// 近角(Z -0.4,屏幕边缘的半透明巨影)射越肩弹,由大缩小落到同样的落点;平面角保持 5 发慢速直飞扇。每角停 42 帧。
-    /// 三种来向逼玩家读三种运动签名。闪现由服务端发起、经 BlinkTimer 过线,闪现期间本状态计时暂停;自带传送,不走 hub 闪
-    /// </summary>
+    /// <summary>远角贯穿、近角越肩、平面角直飞,闪现期间计时暂停,自带传送</summary>
     [VaultState((int)VDStateIndex.TeleportFire, typeof(VDStateContext))]
     public class VDTeleportFireState : VDStateBase
     {

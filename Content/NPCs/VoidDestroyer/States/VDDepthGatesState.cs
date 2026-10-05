@@ -6,12 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 纵深环门(Zone,P1 起):本体退到 Z 1.3(hub 落定拍已把它送到位)→ 30 帧起势 → 每 22 帧从 Z 3.2 推出一个 14 弹、缺 2 弹的环
-    /// (环心 = 玩家预测点,整环同一 Z 以 -0.07/帧逼近,46 帧到平面,到达那几帧才有判定)→ 相邻环的缺口转 75°(P3 交替正负)→
-    /// 末环到达后本体 20 帧俯冲归位(落点大环 + 落地接触窗)。
-    /// 公平阀:环的平面脚印从到达前 30 帧起淡淡画出、缺口一目了然;环心用预测点不用实时位置,玩家跑起来环不会追着套
-    /// </summary>
+    /// <summary>环心用预测点,不追实时位置,脚印提前 30 帧画</summary>
     [VaultState((int)VDStateIndex.DepthGates, typeof(VDStateContext))]
     public class VDDepthGatesState : VDStateBase
     {

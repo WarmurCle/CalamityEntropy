@@ -6,13 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 相位激光:12 架装饰无人机从 Z 2 的背景降入环阵绕本体一圈(装饰即深度预告)→ 闪现到玩家头顶 →
-    /// 纵列(每列 9 架,玩家左侧 35 格,P2 起列间隔 45→30 收缩,平面扫线)→ 静默 60 帧 →
-    /// 透视点阵(重拍):7 × 9 架无人机停在 Z 1.8 的背景里,各自朝镜头发一道 Z 射线,落点是以玩家为中心、格距 110 的一片半径 40 的圆;
-    /// 60 帧预警(背景里每架到脚下格点的收敛细线 + 格点小环收紧)后同帧打下,P3 错半格再来一轮(上一轮的安全格心正好是新一轮的落点)。
-    /// 公平阀:纵列无人机自带 60 帧预警线;点阵人站进格子中央离四周落点各 55px;自带闪现,不走 hub 的四角闪
-    /// </summary>
+    /// <summary>P3 错半格再来一轮,上一轮格心是新落点,自带闪现,不走 hub</summary>
     [VaultState((int)VDStateIndex.PhaseLaser, typeof(VDStateContext))]
     public class VDPhaseLaserState : VDStateBase
     {

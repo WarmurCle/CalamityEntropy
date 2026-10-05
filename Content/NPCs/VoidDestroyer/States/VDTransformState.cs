@@ -5,11 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 75% 变形(132 帧):清弹;0-50 颤抖并后撤到 Z 1.2(反冲远离玩家,越来越小、雾化);50-84 在远处逐帧推进六帧变形图;
-    /// 84 一记爆闪换二阶段贴图(天幕闪光 + 远处巨闪);84-118 以新形态俯冲回平面(落地冲击环);118-132 落地展翼。
-    /// 「它退到远处重构,再以新形态扑回来」。收尾把阶段写 2,签名首招钉为轨道轰炸(再次退入深处开炮 = 新阶段的宣言)
-    /// </summary>
+    /// <summary>收尾写阶段 2,签名首招钉为轨道轰炸</summary>
     [VaultState((int)VDStateIndex.Transform, typeof(VDStateContext))]
     public class VDTransformState : VDStateBase
     {

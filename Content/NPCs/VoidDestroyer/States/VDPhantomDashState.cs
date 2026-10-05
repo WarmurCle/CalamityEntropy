@@ -6,13 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 三维幻影冲刺:淡出 → 开门待机 36 帧(门开即预告,接触档前摇)→ 冲 → 硬刹 → 回到淡出;P1 三冲、P2 起四冲。
-    /// P1 全是平面冲刺(玩家某角 480px 外开门,一帧定速 40 冲 30 帧,硬刹 10 帧);P2 起 平面 / 远→近 / 平面 / 近→远 交替:
-    /// 远→近从 Z 1.2 的远门出来,冲刺向量穿过 Z 轴,第 24 帧恰好在锁定的预测点穿过平面(约 4 帧接触,「从平面里浮出来的鲨鱼」),继续冲到镜头后 -0.6 淡出;
-    /// 近→远从屏幕边缘 Z -0.45 的半透明巨门缩进平面(第 10 帧穿过),再遁入深处。
-    /// 公平阀:平面冲刺的伤害窗 = 速度门槛,贯穿冲刺的伤害窗 = 判定带;穿越点从待机起就画大环;P2 起路径上(平面附近)留加速虚空弹
-    /// </summary>
+    /// <summary>平面伤害窗是速度门槛,贯穿伤害窗是判定带,远→近第 24 帧穿预测点,近→远第 10 帧穿平面</summary>
     [VaultState((int)VDStateIndex.PhantomDash, typeof(VDStateContext))]
     public class VDPhantomDashState : VDStateBase
     {
@@ -121,10 +115,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
             return null;
         }
 
-        /// <summary>
-        /// 服务端掷本冲:选角;平面冲在角上 480px 开门;贯穿冲先钉穿越点(玩家预测位置,RolledPoints[0]),
-        /// 再按「第 CrossFrame 帧穿过穿越点」反推起点的平面位置(AnchorPos),门带起点深度开在那里
-        /// </summary>
+        /// <summary>贯穿先钉穿越点,再按 CrossFrame 反推起点</summary>
         private void RollDash(VDStateContext ctx, int kind) {
             ctx.CornerIndex = Main.rand.Next(4);
             Vector2 corner = VDVfx.CornerDirs[ctx.CornerIndex];

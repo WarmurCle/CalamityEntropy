@@ -5,13 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 深空跃迁出场(260 帧):0-40 在 Z 6 的深空里开一枚极小的跃迁门(天幕闪光 + 冲击环);40-130 本体从门里出来、
-    /// 立方缓入地朝镜头飞来(Z 6 → -0.45,先是一颗星,最后几帧猛地放大到擦着屏幕上缘飞过);130 掠过镜头(呼啸 + 震屏 + 径向拖影);
-    /// 130-170 从镜头后方拉回平面(立方缓出硬刹,落定一记冲击环);170-260 静止威压并交还相机。
-    /// 全程无敌无接触、限制圈不生效;世界坐标钉在锚点,深度变化让投影位置自己从消失点滑到锚点再越过屏幕边缘再回来;
-    /// 相机前 30 帧滑向锚点,200 帧后不再赋值,交给 EModPlayer 的自然衰减滑回玩家
-    /// </summary>
+    /// <summary>世界坐标钉在锚点,投影随深度走,200 帧后不再写相机,交给 EModPlayer 衰减</summary>
     [VaultState((int)VDStateIndex.Entrance, typeof(VDStateContext))]
     public class VDEntranceState : VDStateBase
     {

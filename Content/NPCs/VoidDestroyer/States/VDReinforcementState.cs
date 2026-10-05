@@ -7,11 +7,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 深空投送:本体上飘,14 帧在玩家脚下地面开门(门即落点标记),同帧 2/3/4 个投送舱(GFB ×3)在 Z 2.5 的高空出现,
-    /// 30 帧越来越大地坠向门,44 帧落地:舱体半径 60 一记接触伤害,教徒从舱里出来。场上上限 8。
-    /// 门槛(有地面、未满员)在 <see cref="VDRotation.Substitute"/> 里判,这里只管投;教徒由舱在落地帧放出
-    /// </summary>
+    /// <summary>门槛在 Substitute,舱落地放教徒,场上上限 8</summary>
     [VaultState((int)VDStateIndex.Reinforcement, typeof(VDStateContext))]
     public class VDReinforcementState : VDStateBase
     {

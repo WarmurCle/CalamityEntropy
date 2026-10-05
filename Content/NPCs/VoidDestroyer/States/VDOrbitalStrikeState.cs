@@ -6,12 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 轨道轰炸(P2 阶段签名):本体 30 帧退入纵深(Z 0 → 2.2:真透视,向消失点收缩、进远景层、雾化、无接触不可攻击)→
-    /// 沿玩家移动方向标 4/5 个落点(标记 50 帧收缩,标记就是承诺)→ 虚空光柱按 10 帧错拍从屏顶砸落(P3 缓慢横扫)→
-    /// 20 帧俯冲归位(立方曲线「朝镜头飞来」,落点大环从起手就画,落地震屏 + 6 帧接触窗)。
-    /// 表观悬停点是玩家头顶 380px,世界坐标按深度换算,退远时世界位置往上飞、投影位置基本不动,读成「越来越远」
-    /// </summary>
+    /// <summary>退远时世界位置上飞,投影基本不动</summary>
     [VaultState((int)VDStateIndex.OrbitalStrike, typeof(VDStateContext))]
     public class VDOrbitalStrikeState : VDStateBase
     {

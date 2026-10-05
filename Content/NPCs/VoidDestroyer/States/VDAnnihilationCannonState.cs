@@ -6,13 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 越肩主炮(P3 压轴):闪现到镜头后方 Z -0.45、玩家头顶 480px(从屏幕上缘压下来的 1.8 倍半透明巨影)→ 75 帧锁定
-    /// (暗角压场、能量翼全张、过热描边、汇聚流在 72% 处硬切成静默、震屏 ∝ charge³、导引光锥在出手前 40 帧从巨影收敌到平面枢再指出扫射起点,起点永远在玩家对侧)
-    /// → 出手:一条光锥从巨影打进画面、在它平面上的枢(玩家头顶 264px)转成扫射线,150 帧以恒定角速度扫 100°,沿线落弹雨
-    /// → 过热:射线断,本体 20 帧俯冲回平面(落地一记),再 40 帧冒火花的可攻击窗(玩家挣来的喘息)。
-    /// 扫射几何与旧版一致(绕枢转的整条线),只是炮从镜头后打进来;离枢越近扫得越慢:贴近是活路
-    /// </summary>
+    /// <summary>扫射仍绕平面枢转,离枢越近越慢</summary>
     [VaultState((int)VDStateIndex.AnnihilationCannon, typeof(VDStateContext))]
     public class VDAnnihilationCannonState : VDStateBase
     {

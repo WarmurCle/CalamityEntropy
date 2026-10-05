@@ -5,11 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 死亡演出(330 帧):0-150 平面上逐级加密的爆炸与震屏;150-210 失去动力,翻滚着漂进深处(Z 0 → 3,引擎火焰熄灭);
-    /// 210-290 远处连锁小爆,250 帧最后一炸点亮整片天幕(闪光 + 冲击环),之后随天幕一起收干;330 真正死亡并掉落。
-    /// 世界坐标钉在平面锚点(掉落位置不变),只有深度在走。演出不依赖目标;真死走 StrikeInstantKill,联机下由击杀包把死亡带到各客户端
-    /// </summary>
+    /// <summary>世界坐标钉在平面锚点,只有深度在走,真死走 StrikeInstantKill,联机靠击杀包</summary>
     [VaultState((int)VDStateIndex.Death, typeof(VDStateContext))]
     public class VDDeathState : VDStateBase
     {

@@ -6,13 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 虚空火焰 / 越肩火雨:
-    /// P1 hub 闪现到玩家下方 20 格(几何必需)→ 保持相对静止,每 75 帧向下扇形散 9~11 发,弹随即转向上加速;四轮。
-    /// P2 起改越肩火雨:hub 闪现到镜头后方 Z -0.4、表观在玩家正下方 360px(从屏幕下缘升起的半透明巨影),
-    /// 每轮 9~11 发越肩弹由大缩小、40 帧落到平面上以玩家为心的扇形落点(落点标记提前 30 帧亮),命中后遁入深处;P2 四轮、P3 五轮。
-    /// 公平阀:每轮出手前 30 帧锥形火花 + 核心渐亮(预告指哪打哪);越肩弹只在穿过平面那几帧有判定;末轮后 24 帧收招
-    /// </summary>
+    /// <summary>P1 必须闪到脚下,P2 起越肩,只在穿平面有判定</summary>
     [VaultState((int)VDStateIndex.VoidFlame, typeof(VDStateContext))]
     public class VDVoidFlameState : VDStateBase
     {

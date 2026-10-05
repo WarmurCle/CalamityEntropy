@@ -6,13 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 立体舰队:本体淡出 → 玩家周围表观 520px 的十字(第二波 X 形)开四门:两远(Z 1.4 的背景里两枚小门)、一平面、一近(Z -0.45,屏幕边缘的半透明巨门),
-    /// 三门出全息幻影舰、真身占第四门(真身门环更亮 + 核心拉满 + 翼张 + 描边烧起 = 可读的破绽)→ 40 帧同步瞄准 →
-    /// 四舰沿各自的三维直线齐冲,第 20 帧同帧穿过玩家预测点(远舰放大着来、近舰缩小着来、平面舰不变),各自只在穿过平面那几帧有判定,
-    /// 再飞 16 帧收尾(远舰越过镜头淡出、近舰遁回平面后方)→ 幻影碎成全息碎片,两波之间全员静止 20 帧(真身此时已拉回平面)。
-    /// P2 起两波,第二波门的深度整体轮转一位;P3 幻影在平面附近沿路留冲刺尾弹。穿越点从瞄准起就画大环
-    /// </summary>
+    /// <summary>真身占一门,门环更亮,第二波深度轮转一位,第 20 帧同帧穿过预测点</summary>
     [VaultState((int)VDStateIndex.PhantomFleet, typeof(VDStateContext))]
     public class VDPhantomFleetState : VDStateBase
     {
@@ -147,10 +141,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
             return null;
         }
 
-        /// <summary>
-        /// 掷出编队:第一波十字、第二波 X;门 i 的表观位置在玩家周围 520px,深度按 FleetDepths 轮转(第二波整体错一位);
-        /// RolledPoints[0..3] 为门的平面位置(表观偏移按深度换算),RolledDepths[0..3] 为门深,RandCount 为真身占的门
-        /// </summary>
+        /// <summary>门平面位置在 RolledPoints,深度在 RolledDepths,真身门是 RandCount</summary>
         private void RollFormation(VDStateContext ctx) {
             float baseAng = wave % 2 == 0 ? 0f : MathHelper.PiOver4;
             ctx.RolledAngles[1] = baseAng;

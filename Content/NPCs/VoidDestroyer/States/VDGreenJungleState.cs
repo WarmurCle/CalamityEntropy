@@ -6,11 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 穿层陆龟(全息三模式之一):本体头顶悬停,30 帧后放出全息丛林陆龟(FTW 双龟),陆龟 4 次冲锋(P3 5 次)交替:
-    /// 偶数次传送到玩家移动方向一侧 80 格外平面横冲 200 格;奇数次传送到 Z 1.5 的背景里,沿三维直线冲向锁定点、穿过平面(那一帧放毒刺扇)再遁到镜头后消失。
-    /// 节拍由陆龟弹幕自管(出现 18 帧即预告,穿层冲锋另有锁定点标记),本体只在这里陪跑到陆龟收尾
-    /// </summary>
+    /// <summary>偶数平面横冲,奇数从 Z 1.5 穿平面,毒刺在穿平面那帧,节拍由陆龟弹幕自管</summary>
     [VaultState((int)VDStateIndex.GreenJungle, typeof(VDStateContext))]
     public class VDGreenJungleState : VDStateBase
     {

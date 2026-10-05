@@ -6,11 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 深空掠袭(Barrage,P2 起):hub 把本体闪到 Z 2 的一侧背景 → 36 帧起势(两艘护航幻影舰从后方跟上成梯队,引擎亮起)→
-    /// 90 帧横越背景(表观 11.5px/帧),每 12 帧一轮:本体一对、护航各一发纵深贯穿弹朝玩家预测点飞来(42 帧到平面,越来越大,落点标记提前 30 帧)→
-    /// 到对侧后 20 帧俯冲归位。「玻璃后面的轰炸航线」:三艘船在背景里掠过,弹从远处一颗颗放大着落到你脚边
-    /// </summary>
+    /// <summary>背景横越射纵深贯穿,弹 42 帧到平面,到对侧俯冲归位</summary>
     [VaultState((int)VDStateIndex.DeepStrafe, typeof(VDStateContext))]
     public class VDDeepStrafeState : VDStateBase
     {

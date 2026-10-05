@@ -6,12 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 深空导弹群:头顶悬停 → 60 帧核心蓄力(汇聚粒子)→ 激光流平面压制 + 导弹环齐放(P1 三轮 8 发,P2 起四轮 12 发):
-    /// 环径向散开的同时射入深处(30 帧退到 Z 1.5,在背景里收成一圈向消失点收拢的小点),掉头重新锁定,40 帧越来越大地扑回平面,
-    /// 各带一枚落点小环,只在穿过平面那几帧有判定 → 核弹(P2 起双发左右夹击)沿抛物线抛入深处成一颗星、再回落到平面,落地即引信走完,
-    /// 爆炸范围圈全程画在平面上。公平阀:核弹出手前 6 帧粒子全断、核心熄灭(静默即预告),出手帧反冲 + 翼张
-    /// </summary>
+    /// <summary>导弹环先退到深处再扑回,只在穿平面有判定,核弹出手前 6 帧静默</summary>
     [VaultState((int)VDStateIndex.HomingMissiles, typeof(VDStateContext))]
     public class VDHomingMissilesState : VDStateBase
     {

@@ -5,10 +5,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 30% 护盾展开连接段(45 帧):清弹、护盾亮起、承伤减免升到 25%、全身颤抖收束一记爆闪。
-    /// 不无敌(玩家的输出节奏不该被一段过场打断),收尾把签名首招钉为湮灭主炮
-    /// </summary>
+    /// <summary>不无敌,收尾把签名首招钉为湮灭主炮</summary>
     [VaultState((int)VDStateIndex.ShieldUp, typeof(VDStateContext))]
     public class VDShieldUpState : VDStateBase
     {

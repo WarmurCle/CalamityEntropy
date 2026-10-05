@@ -6,12 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 纵深回旋火:斜上方就位(连接段已飞到附近,就位达标即跳拍)→ 30 帧蓄力前摇(汇聚流 + 核心亮 + 翼张 + 起手音)
-    /// → 三轮五发:中弹平面直射(可读的基准线),两侧四发抛入深处(顶点 Z 1.6,成远处绕行的小点)再在锁定点上空回头、
-    /// 越来越大地穿过平面命中、再掠过镜头,往返 70 帧,回程亮落点标记;每轮前 6 帧核心再亮一次 → 24 帧收招刹停。
-    /// 公平阀:第一发伤害前至少 0.5 秒专属预告;回旋弹只在穿过平面那几帧有判定;出手帧 MuzzleCue 反冲
-    /// </summary>
+    /// <summary>中弹平面直射,两侧抛入深处,只在穿平面那几帧有判定</summary>
     [VaultState((int)VDStateIndex.ArcFireball, typeof(VDStateContext))]
     public class VDArcFireballState : VDStateBase
     {

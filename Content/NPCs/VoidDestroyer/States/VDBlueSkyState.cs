@@ -7,12 +7,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 倾斜轨道小白龙(全息三模式之一):本体定住,30 帧放出绕本体做倾 55° 三维椭圆轨道的全息小白龙
-    /// (下半圈退到远处小而雾化、上半圈压到镜头前巨大半透明,只有穿过平面的那几节有判定;玩家出圈即脱轨直冲),
-    /// 60 帧起每当龙头穿过平面(θ 过 0 / π,P1/P2 每 60 帧、P3 每 50 帧)本体放一发 60 弹形状弹幕:三角 → 圆 → 方 → 圆 → 五角星 → 圆,
-    /// 乘法外扩形状不变,持续 420 帧。节拍钉在龙的角速度上:看见龙从背景里绕到跟前那一瞬,弹幕就来
-    /// </summary>
+    /// <summary>形状弹在龙头穿过平面那拍放,节拍钉在角速度上</summary>
     [VaultState((int)VDStateIndex.BlueSky, typeof(VDStateContext))]
     public class VDBlueSkyState : VDStateBase
     {

@@ -6,12 +6,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
 {
-    /// <summary>
-    /// 深空红魔(全息三模式之一):全息红恶魔投影在 Z 2.5 的远景层(表观在玩家侧上方,一尊压在虚空天幕上的巨影),每轮 170 帧:
-    /// 1 红魔换位 + 探照光盘钉到玩家脚下、红魔到光盘拉预警锥,30 红射线从红魔射向镜头(45 帧,光盘慢慢追人),
-    /// 60/80(FTW 95)三排全息三叉戟从红魔处收敛到以玩家为心的弧上落点(纵深贯穿,各带落点标记),共三轮后 40 帧收尾。
-    /// 本体留在平面可打,只做指挥演出。公平阀:光盘预警 30 帧 + 核心渐亮,出手前 6 帧汇聚粒子静默;三叉戟只在穿过平面那几帧有判定
-    /// </summary>
+    /// <summary>本体留在平面,三叉戟只在穿平面有判定,出手前 6 帧静默</summary>
     [VaultState((int)VDStateIndex.RedHell, typeof(VDStateContext))]
     public class VDRedHellState : VDStateBase
     {
@@ -116,10 +111,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.States
             return null;
         }
 
-        /// <summary>
-        /// 从红魔位置(AnchorPos,Z 2.5)向玩家射一排纵深贯穿三叉戟:落点排在以玩家预测位置为心、半径 RedHellLandRadius 的弧上,
-        /// 弧心方向 = 红魔投影 → 玩家,角度 = -arc/2 + arc * (i + offset) / divisions;45 帧到平面
-        /// </summary>
+        /// <summary>落点在预测点为心的弧上,弧心是红魔投影到玩家</summary>
         private static void FireTridentRow(VDStateContext ctx, int count, float arcDeg, int divisions, float offset) {
             Vector2 from = ctx.AnchorPos;
             float z = VDDirector.RedDevilDepth;
