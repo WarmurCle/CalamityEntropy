@@ -2,11 +2,7 @@
 
 namespace CalamityEntropy.Core.Graphics
 {
-    /// <summary>
-    /// 图元拖尾绘制配置。行为等效替代灾厄同名设置结构在本仓库被用到的子集。
-    /// 构造参数名与顺序与灾厄原版前六位完全一致, 原调用点换类型名后命名实参
-    /// (smoothen: / pixelate: / shader:)与位置实参均无需改动。
-    /// </summary>
+    /// <summary>构造参数名和顺序与灾厄前六位一致,换类型名即可</summary>
     public readonly struct CEPrimitiveSettings
     {
         /// <summary>逐顶点半宽委托。入参为拖尾进度(0-1)与该点屏幕坐标, 返回半宽(总宽的一半, 像素)。</summary>

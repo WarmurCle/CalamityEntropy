@@ -14,12 +14,8 @@ using static CalamityEntropy.CalamityEntropy;
 namespace CalamityEntropy.Core.Graphics.Screen
 {
     /// <summary>
-    /// 虚空系全屏特效:遮罩先攒进交换缓冲,再由 cvoid / cvoid2 / cvoid3 / kscreen2 四个着色器合成回主屏。
-    /// 这些通道整体依赖 RT,复古 / 迷幻光照下由 <see cref="CEScreenPipeline"/> 整段跳过。
-    /// <para>
-    /// 注意 <see cref="DrawVoidStarWake"/> 里那批实体绘制画的是喂给 cvoid2 的遮罩、不是可见精灵,
-    /// 所以它不属于 <see cref="CEEntityOverlay"/>,不做兜底。
-    /// </para>
+    /// 遮罩进交换缓冲,再由 cvoid / cvoid2 / cvoid3 / kscreen2 合成。依赖 RT,复古和迷幻整段跳过
+    /// DrawVoidStarWake 画的是喂给 cvoid2 的遮罩,不是可见精灵,不做兜底
     /// </summary>
     internal static class CEVoidScreen
     {

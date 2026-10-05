@@ -6,9 +6,8 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Core.Graphics
 {
-    // 脱离灾厄: 自有等效着色器注册
-    // 灾厄旧键同名换库为 CalamityEntropy:<Name>, 完整映射与参数通道说明见 Doc/decouple/shader-map.md
-    // 注册姿势仿照本仓库 EntropySkies: Misc 走 MiscShaderData, 屏效走 Filters.Scene + Load
+    //脱灾:旧键换成 CalamityEntropy:Name,映射见 Doc/decouple/shader-map.md
+    //注册姿势仿 EntropySkies,Misc 走 MiscShaderData,屏效走 Filters.Scene
     [Autoload(Side = ModSide.Client)]
     public sealed class CEPortedShaders : ModSystem
     {

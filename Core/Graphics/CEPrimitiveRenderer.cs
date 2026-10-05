@@ -7,10 +7,8 @@ using Terraria.Graphics.Shaders;
 namespace CalamityEntropy.Core.Graphics
 {
     /// <summary>
-    /// 自研图元拖尾渲染器, 行为等效替代灾厄图元渲染器在本仓库被用到的子集。
-    /// 用面(实测 54 处调用): RenderTrail(点列, 设置, 点数), 平滑开/关, 宽度/颜色/偏移委托, MiscShaderData 着色。
-    /// 未实现(仓库零调用): 像素化管线, 端帽, 线框调试, 自定义纹理坐标模式, miter 接角, 非默认拓扑。
-    /// 输入点为世界坐标, 内部自动减去 Main.screenPosition。
+    /// 等效灾厄图元渲染器被用到的子集,点是世界坐标,内部减 screenPosition
+    /// 像素化、端帽、线框、自定义 UV、miter、非默认拓扑,仓库零调用
     /// </summary>
     public static class CEPrimitiveRenderer
     {

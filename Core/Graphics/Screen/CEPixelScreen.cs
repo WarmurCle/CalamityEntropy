@@ -14,23 +14,12 @@ using static CalamityEntropy.CalamityEntropy;
 namespace CalamityEntropy.Core.Graphics.Screen
 {
     /// <summary>
-    /// 像素化通道:内容先画进 Screen2,再整块过 Pixel 着色器放大回主屏。
-    /// <para>
-    /// <see cref="PreparePixelShader"/> 与 <see cref="ApplyPixelShader"/> 是对外接口,
-    /// 若干武器在自己的 PreDraw 里成对调用它们给自家拖尾套像素化。
-    /// 契约:Prepare 返回时一定持有一个活跃批次,调用方画完必须自行 End 再调 Apply。
-    /// </para>
-    /// <para>
-    /// RT 不可用(复古 / 迷幻光照)或玩家关掉绚丽特效时,两个函数都只保留批次管理、不碰任何 RT,
-    /// 调用方的内容照常画出来,只是没有像素化——这与关闭绚丽特效时的既有行为一致。
-    /// </para>
+    /// Prepare 返回时持有活跃批次,调用方画完必须自行 End 再 Apply
+    /// RT 不可用或关掉绚丽时只留批次管理,内容照画,没有像素化
     /// </summary>
     internal static class CEPixelScreen
     {
-        /// <summary>
-        /// 备份整屏到 Screen0 并把绘制目标切到 Screen2。
-        /// 无论门控结果如何都会开启一个批次,这是对外契约的一部分
-        /// </summary>
+        /// <summary>无论门控如何都会开一个批次</summary>
         public static void PreparePixelShader(GraphicsDevice graphicsDevice) {
             if (CEScreenPipeline.PixelPassActive) {
                 CEScreenPipeline.CaptureScreenTo0(graphicsDevice);
@@ -40,10 +29,7 @@ namespace CalamityEntropy.Core.Graphics.Screen
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.Transform);
         }
 
-        /// <summary>
-        /// Screen2 过 Pixel 着色器,叠回 Screen0 备份之上写进主屏。
-        /// 进入时不得持有活跃批次,返回时同样不持有
-        /// </summary>
+        /// <summary>进入和返回都不持有批次</summary>
         /// <param name="dye">非 0 时用该染料物品的护甲着色器再过一遍</param>
         /// <param name="dyeEnt">历史参数,当前实现不读取,保留以免改动调用点</param>
         /// <param name="GameZoom">像素尺寸按原始屏幕算而不是除以游戏缩放</param>
@@ -85,11 +71,7 @@ namespace CalamityEntropy.Core.Graphics.Screen
             Main.spriteBatch.End();
         }
 
-        /// <summary>
-        /// 管线内画进像素层的内容:四类需要像素化的弹幕、三桶 IPixelPassPRT,
-        /// 以及不走 PRT 常规分桶的 IAdditivePRT。
-        /// 进入时持有 <see cref="PreparePixelShader"/> 开的批次,返回时不持有批次
-        /// </summary>
+        /// <summary>四类像素化弹幕、三桶 IPixelPassPRT、以及 IAdditivePRT,进入时持有批次,返回时不持有</summary>
         public static void DrawPixelPassContents() {
             int cruiserEnergyBallType = ModContent.ProjectileType<CruiserEnergyBall>();
             int runeTorrentType = ModContent.ProjectileType<RuneTorrent>();

@@ -12,15 +12,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Core.Graphics.Screen
 {
-    /// <summary>
-    /// 全屏管线里唯一一批「没有着色器、直接以 AlphaBlend 叠回屏幕」的实体绘制。
-    /// <para>
-    /// 因为不依赖任何着色器,它是复古 / 迷幻光照下必须照常显示的那一部分:
-    /// RT 可用时由 <see cref="CEScreenPipeline.EndCaptureDraw"/> 在历史位置调用(走 RT 合成,画面与改动前一致),
-    /// 不可用时由 <see cref="CEScreenPipeline.DrawBeforeInfernoRings"/> 调用直绘版本。
-    /// 两条路径共用同一份绘制内容,只是外面套的批次不同。
-    /// </para>
-    /// </summary>
+    /// <summary>没有着色器,AlphaBlend 叠回,复古和迷幻也要画,RT 可用走 EndCaptureDraw,不可用走 DrawBeforeInfernoRings</summary>
     internal static class CEEntityOverlay
     {
         private static int voidBottleThrowType = -1;
@@ -137,16 +129,7 @@ namespace CalamityEntropy.Core.Graphics.Screen
             }
         }
 
-        /// <summary>
-        /// 晚于全部扭曲通道的实体重绘:巡洋者二阶段本体、巡洋者幻影宠物、无星之夜剑体。
-        /// 自带批次、不碰 RT,两条路径都直接调用。
-        /// <para>
-        /// 幻影宠物与无星之夜剑体的 <c>PreDraw</c> 本来就不画这部分,两条路径无条件代画。
-        /// 巡洋者二阶段则是在 <c>CruiserHead.PreDraw</c> 里靠 <see cref="CEScreenPipeline.PixelPassActive"/>
-        /// 抑制自绘、等这里代画,所以这里必须用同一个门:门开时它不自绘、由这里画,
-        /// 门关时它自绘、这里就不能再画一遍,否则会重影
-        /// </para>
-        /// </summary>
+        /// <summary>巡洋者二阶段用 PixelPassActive 抑制自绘,门关时这里不能再画,否则重影</summary>
         public static void DrawLateOverlay() {
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 

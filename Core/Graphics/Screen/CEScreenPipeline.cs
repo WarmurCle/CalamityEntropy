@@ -6,19 +6,8 @@ using Terraria;
 namespace CalamityEntropy.Core.Graphics.Screen
 {
     /// <summary>
-    /// 全屏特效管线的唯一编排者:持有 <see cref="RenderHandle"/> 身份与四块自有屏幕 RT,
-    /// 按固定顺序调用各情景类,并对外提供「RT 管线本帧能不能用」的门控。
-    /// <para>
-    /// 具体画什么全在 <see cref="CEVoidScreen"/> / <see cref="CEAbyssScreen"/> / <see cref="CEPixelScreen"/> /
-    /// <see cref="CEWarpScreen"/> / <see cref="CECinematicScreen"/> / <see cref="CEEntityOverlay"/> 里,
-    /// 这里只管时机、顺序与退让。
-    /// </para>
-    /// <para>
-    /// 复古 / 迷幻光照下原版根本不捕获主画面:<c>Main.DoDraw</c> 的捕获门带 <c>Lighting.NotRetro</c>,
-    /// 且 <c>drawToScreen = Lighting.UpdateEveryFrame</c> 会直接释放 <see cref="Main.screenTarget"/>。
-    /// 于是 <see cref="EndCaptureDraw"/> 整条不触发,全屏 shader 通道本帧全部让位,
-    /// 只有不依赖 RT 的实体叠加改由 <see cref="DrawBeforeInfernoRings"/> 补画。
-    /// </para>
+    /// 复古和迷幻下 DoDraw 不捕获主画面,drawToScreen 会释放 screenTarget
+    /// EndCaptureDraw 整条不触发,不依赖 RT 的叠加改由 DrawBeforeInfernoRings 补画
     /// </summary>
     internal class CEScreenPipeline : RenderHandle
     {
@@ -33,31 +22,19 @@ namespace CalamityEntropy.Core.Graphics.Screen
         public static RenderTarget2D Screen2 => Slot(2);
         public static RenderTarget2D Screen3 => Slot(3);
 
-        /// <summary>
-        /// 如果没有必要，尽量避免直接访问这个屏幕中间值，可能会影响到与其他模组的交互效果，
-        /// 推荐在 <see cref="EndCaptureDraw"/> 通过参数 screenSwap 使用它
-        /// </summary>
+        /// <summary>别直接读,用 EndCaptureDraw 的 screenSwap</summary>
         public static RenderTarget2D StaticScreenSwap => RenderHandleLoader.ScreenSwap;
 
         /// <summary>
-        /// 本帧 RT 全屏管线是否可用。复古 / 迷幻光照、全屏地图、主菜单下一律为假,
-        /// 此时任何读写 <see cref="Main.screenTarget"/> 或 <see cref="Screen0"/> 的通道都必须自行跳过。
-        /// <para>
-        /// 前四项逐条对应 <c>Main.DoDraw</c> 里决定是否 <c>BeginCapture</c> 的那个判断:
-        /// <c>!(drawToScreen || netMode == 2 || worldGen) &amp;&amp; !mapFullscreen &amp;&amp; Lighting.NotRetro</c>。
-        /// 其中 <c>drawToScreen</c> 由 <c>Lighting.UpdateEveryFrame</c> 决定,为真时原版已经
-        /// <c>ReleaseTargets()</c> 释放了 <see cref="Main.screenTarget"/>,所以额外判一次未释放
-        /// </para>
+        /// 对应 DoDraw 的 !(drawToScreen || netMode == 2 || worldGen) &amp;&amp; !mapFullscreen &amp;&amp; Lighting.NotRetro
+        /// drawToScreen 时 screenTarget 已释放,再判一次未释放
         /// </summary>
         public static bool RTPipelineAvailable => !Main.gameMenu && !Main.mapFullscreen
             && Lighting.NotRetro && !Main.drawToScreen
             && Main.screenTarget != null && !Main.screenTarget.IsDisposed
             && Screen0 != null;
 
-        /// <summary>
-        /// 像素通道是否会在本帧绘制。除 RT 可用性外还要看玩家的绚丽特效开关。
-        /// 那些「自己不画、等管线代画」的绘制点应当读这个,而不是直接读配置项
-        /// </summary>
+        /// <summary>自己不画、等管线代画的点读这个,不读配置项</summary>
         public static bool PixelPassActive => RTPipelineAvailable && Config.Instance.EnablePixelEffect;
 
         public override void Load() => This = this;
@@ -71,10 +48,7 @@ namespace CalamityEntropy.Core.Graphics.Screen
             return target != null && !target.IsDisposed ? target : null;
         }
 
-        /// <summary>
-        /// 把当前 <see cref="Main.screenTarget"/> 原样拷进 <paramref name="dest"/>,返回后 <paramref name="dest"/> 保持绑定。
-        /// 各情景类的「先备份整屏」前置动作统一走这里
-        /// </summary>
+        /// <summary>返回后 dest 保持绑定</summary>
         public static void CaptureScreenTo(GraphicsDevice graphicsDevice, RenderTarget2D dest) {
             graphicsDevice.SetRenderTarget(dest);
             graphicsDevice.Clear(Color.Transparent);
@@ -124,13 +98,9 @@ namespace CalamityEntropy.Core.Graphics.Screen
             CECinematicScreen.DrawBlackMask();
         }
 
-        /// <summary>
-        /// RT 管线不可用时的兜底位:该阶段挂在原版 <c>DrawInfernoRings</c> 之前,不依赖画面捕获,
-        /// z 序也最接近 EndCapture。只补画不需要 RT 的那些内容,全屏 shader 一概不做近似。
-        /// <para>契约:进入时 SpriteBatch 活跃,返回前必须重新开批</para>
-        /// </summary>
+        /// <summary>只补不依赖 RT 的,不做近似,进入时批次活跃,返回前必须重新开批</summary>
         public override void DrawBeforeInfernoRings(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, RenderTarget2D screenSwap) {
-            //本帧 RT 管线会跑:实体叠加由 EndCaptureDraw 在历史位置负责,这里不能再画一遍
+            //RT 管线会跑时实体叠加在 EndCaptureDraw,这里不能再画
             if (RTPipelineAvailable) {
                 return;
             }
@@ -149,9 +119,8 @@ namespace CalamityEntropy.Core.Graphics.Screen
             CEEntityOverlay.DrawLateOverlay();
             CECinematicScreen.DrawBlackMask();
 
-            //还原本时机应有的批次状态:原版在 DrawInfernoRings 之前持有 Deferred/AlphaBlend/Main.Transform,
-            //而本阶段实际排在 CEDrawHooks.DrawInfernoRingsHook 之后(InnoVault 先注册,故在其 orig 链内),
-            //那边的 DrawAcropolisMechs 收尾时重开的也正是同一套
+            //还原 Deferred/AlphaBlend/Main.Transform
+            //本阶段在 DrawInfernoRingsHook 的 orig 链内,DrawAcropolisMechs 收尾重开的也是这一套
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState
                 , DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
         }

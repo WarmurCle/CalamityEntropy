@@ -6,14 +6,7 @@ using static CalamityEntropy.CalamityEntropy;
 
 namespace CalamityEntropy.Core.Graphics.Screen
 {
-    /// <summary>
-    /// 演出层的三件全屏东西:命中闪光的泛光、斩击切屏、以及压暗整屏的黑幕。
-    /// <para>
-    /// 前两者靠拷屏与模糊着色器,只在 RT 可用时跑;
-    /// <see cref="DrawBlackMask"/> 只是画一个整屏矩形,不需要任何 RT,两条路径都会调它。
-    /// </para>
-    /// <para>三者的推进量都在 <c>EModSys.PostUpdateDusts</c> 里按游戏帧走,不依赖渲染帧</para>
-    /// </summary>
+    /// <summary>闪光和切屏靠拷屏,只在 RT 可用时跑,黑幕不需要 RT,推进量在 PostUpdateDusts,不跟渲染帧</summary>
     internal static class CECinematicScreen
     {
         /// <summary>命中闪光:把整屏按 16 层逐级放大叠加,做出一次过曝</summary>
