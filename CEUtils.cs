@@ -200,13 +200,9 @@ namespace CalamityEntropy
             ff3.SetValue(Main.instance, mis);
         }
         public static void HoldShiftTooltip(List<TooltipLine> tooltips, TooltipLine[] holdShiftTooltips, bool hideNormalTooltip = false) {
-            // Only perform any changes while holding SHIFT.
             if (!Main.keyState.IsKeyDown(Keys.LeftShift))
                 return;
 
-            // Get the first index, last index and total count of standard vanilla tooltip lines.
-            // The first index and count are used to delete all vanilla tooltips when holding SHIFT, if requested.
-            // The last index is used to insert the "Hold SHIFT" tooltips in the right position.
             int firstTooltipIndex = -1;
             int lastTooltipIndex = -1;
             int standardTooltipCount = 0;
@@ -220,13 +216,11 @@ namespace CalamityEntropy
             }
 
             if (firstTooltipIndex != -1) {
-                // If asked to, remove all standard tooltip lines. This moves the last tooltip index.
                 if (hideNormalTooltip) {
                     tooltips.RemoveRange(firstTooltipIndex, standardTooltipCount);
                     lastTooltipIndex -= standardTooltipCount;
                 }
 
-                // Append every "Hold SHIFT" tooltip at the end of standard tooltips.
                 tooltips.InsertRange(lastTooltipIndex + 1, holdShiftTooltips);
             }
         }
@@ -1977,13 +1971,7 @@ namespace CalamityEntropy
         #endregion
 
         #region 灾厄工具函数同名移植(脱离灾厄自研等效实现,签名与原版灾厄一致,供既有调用点机械替换)
-        /// <summary>
-        /// NPC 是否为有机体(移植自灾厄 NPCUtils.Organic,自写等价),用于命中音效/吸血类逻辑分流。
-        /// 判定依据受击音效:金属(NPCHit4/41/42)、幽灵(NPCHit36/49/52/53/54)、史莱姆(NPCHit1以外的凝胶系,
-        /// 见NPCHit2/5/11/30/34)与无受击音效者判为非有机,其余为有机。
-        /// 灾厄对 Providence/ScornEater/Yharon 的三个白名单特例为其自有NPC,脱离灾厄后不适用,已裁剪;
-        /// 原以 IL 钩令木桩(SuperDummy)视为有机的语义,内置为原版训练假人(TargetDummy)特判。
-        /// </summary>
+        /// <summary>非有机:金属 4/41/42,幽灵 36/49/52/53/54,史莱姆 2/5/11/30/34,无受击音;Providence、ScornEater、Yharon 白名单已裁</summary>
         public static bool Organic(this NPC target) {
             //原语义保留:木桩视为有机(替代已删的 SuperDummy IL 钩,落到原版训练假人)
             if (target.type == NPCID.TargetDummy)
@@ -2116,10 +2104,7 @@ namespace CalamityEntropy
             return position;
         }
 
-        /// <summary>
-        /// 玩家当前最强职业(移植自灾厄 GetBestClass)。
-        /// 按 player-api DamageClass 收敛裁定:检查原版近战/远程/魔法/召唤(召唤按灾厄同款 0.75 折算),盗贼类已随退役剔除。
-        /// </summary>
+        /// <summary>盗贼类已剔除</summary>
         public static DamageClass GetBestClass(this Player player) {
             float bestDamage = 1f;
             DamageClass bestClass = DamageClass.Generic;
@@ -2148,10 +2133,7 @@ namespace CalamityEntropy
             return bestClass;
         }
 
-        /// <summary>
-        /// 玩家最强职业伤害修正(移植自灾厄 GetBestClassDamage)。
-        /// 无类型加成沿用 Generic;比较范围按收敛裁定为原版四职业(召唤 0.75 折算),盗贼项剔除。
-        /// </summary>
+        /// <summary>盗贼类已剔除,召唤 Additive 按 0.75</summary>
         public static StatModifier GetBestClassDamage(this Player player) {
             StatModifier ret = StatModifier.Default;
             StatModifier classless = player.GetTotalDamage(DamageClass.Generic);

@@ -205,7 +205,6 @@ namespace CalamityEntropy.Content.Items.Weapons.Torch
             Texture2D fire = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             Texture2D mist = MediumMistTex.Value;
 
-            // The conga line of colors to sift through
             Color color1 = new Color(178, 255, 170, 200);
             Color color2 = new Color(144, 255, 145, 70);
             Color color3 = new Color(190, 255, 185, 100);

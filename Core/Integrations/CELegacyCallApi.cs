@@ -62,7 +62,6 @@ namespace CalamityEntropy.Core.Integrations
                             CopyProjectileForTwistedTwin((int)args[1]);
                         }
                         #endregion
-                        //Set a specific color for NPC
                         //Usage: Mod.Call("SetBarColor", ModContent.NPCType<T>(), color);
                         if (str.Equals("SetBarColor")) {
                             int type = (int)args[1];
@@ -72,11 +71,11 @@ namespace CalamityEntropy.Core.Integrations
                         if (str.Equals("GetBookMarkSlots")) {
                             return ((Player)args[1]).GetMyMaxActiveBookMarks(((Player)args[1]).HeldItem);
                         }
-                        if (str.Equals("AddBookMarkSlot")) //Set this every update just like minion slots
+                        if (str.Equals("AddBookMarkSlot")) //每帧重置,要在 UpdateEquips 里持续加
                         {
                             ((Player)args[1]).Entropy().AdditionalBookmarkSlot += (int)args[2];
                         }
-                        if (str.Equals("AddBookMarkSlotSpecialTexture")) //Set this every update just like minion slots, client only
+                        if (str.Equals("AddBookMarkSlotSpecialTexture")) //每帧清空,仅客户端
                         {
                             ((Player)args[1]).Entropy().BookmarkHolderSpecialTextures.Add((Texture2D)args[2]);
                         }

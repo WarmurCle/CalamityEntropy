@@ -85,11 +85,11 @@ namespace CalamityEntropy.Content.Items.Donator
             MountData.buff = ModContent.BuffType<PenMountBuff>();
 
             // Effects
-            MountData.spawnDust = DustID.Shadowflame; // The ID of the dust spawned when mounted or dismounted.
+            MountData.spawnDust = DustID.Shadowflame;
 
             // Frame data and player offsets
-            MountData.totalFrames = 1; // Amount of animation frames for the mount
-            MountData.playerYOffsets = Enumerable.Repeat(16, MountData.totalFrames).ToArray(); // Fills an array with values for less repeating code
+            MountData.totalFrames = 1;
+            MountData.playerYOffsets = Enumerable.Repeat(16, MountData.totalFrames).ToArray();
             MountData.xOffset = 0;
             MountData.yOffset = 10;
             MountData.playerHeadOffset = 22;

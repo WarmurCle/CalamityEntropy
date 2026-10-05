@@ -51,7 +51,6 @@ namespace CalamityEntropy.Content.Items.Lores
 
         public override void ModifyTooltips(List<TooltipLine> tooltips) {
             if (Main.keyState.IsKeyDown(Keys.LeftShift)) {
-                // Shift：隐藏常规提示行，显示传记全文
                 tooltips.RemoveAll(line => line.Mod == "Terraria" && line.Name.StartsWith("Tooltip"));
                 tooltips.Add(new TooltipLine(Mod, "CalamityEntropy:Lore", this.GetLocalizedValue("Lore")));
             }
