@@ -34,13 +34,8 @@ namespace CalamityEntropy.Core
     }
 
     /// <summary>
-    /// PortsDoT 移植减益的集中结算：
-    /// DoT 走 UpdateLifeRegen（数据驱动，注册表见 <see cref="Registry"/>），
-    /// 破甲/碎甲/死亡标记走 ModifyIncomingHit，减速与钳速走 PostAI。
-    /// 乘区顺序（tML 按类型 FullName 字母序执行 GlobalNPC 钩子）：
-    /// Common.EDamageOverTimeNPC → Common.EGlobalNPC（全局放大负回复）→ 本类。
-    /// EGlobalNPC 的全局放大跑在本类之前，覆盖不到这里的扣减，
-    /// 因此本类自乘 DebuffDamageMult，且不会被二次放大。
+    /// 乘区按类型 FullName 字母序:EDamageOverTimeNPC,再 EGlobalNPC,再本类
+    /// EGlobalNPC 的全局放大跑在前面,盖不到这里的扣减,本类自乘 DebuffDamageMult
     /// </summary>
     public class CEDoTGlobalNPC : GlobalNPC
     {
