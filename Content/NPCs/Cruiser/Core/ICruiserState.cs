@@ -39,18 +39,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.Core
     }
 
     /// <summary>
-    /// 巡游者状态基类。收三样公共小件:收招(走轮换裁决)、出手(伤害折算)、原 changeCounter 的读写约定。
-    /// <para>
-    /// 拍子一律用 <see cref="CruiserStateContext.ChangeCounter"/> 的<b>区间判断</b>表达,
-    /// 不引入会归零 <see cref="VaultState{TContext}.Timer"/> 的 beat 枚举——原代码每个状态的进度
-    /// 都是 <c>changeCounter</c>(外加激光的 <c>localAI[2]</c>)的纯函数,没有任何锁存的子拍。
-    /// 加一个锁存的拍号就等于多一个必须过线的量,白送一个失步来源。
-    /// </para>
-    /// <para>
-    /// <b>自增点的口径</b>:原代码在状态体中间某一处写 <c>changeCounter++</c>,前后的比较用的是
-    /// 不同的值。迁移后一律保留这个位置:自增<b>之前</b>读 <c>ctx.ChangeCounter</c>,
-    /// 自增<b>之后</b>再读一次,阈值数字全部照抄原文。
-    /// </para>
+    /// 拍子用 ChangeCounter 区间,不加会归零 Timer 的 beat 枚举
+    /// 自增前读一次,自增后再读,阈值照抄
     /// </summary>
     public abstract class CruiserStateBase : CEBossStateBase<CruiserStateContext>
     {
@@ -65,15 +55,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.Core
         protected override IVaultState<CruiserStateContext> OnTimeout(CruiserStateContext ctx)
             => NextAttack(ctx);
 
-        /// <summary>
-        /// 收招:对应原代码的 <c>changeAi()</c>。清 <c>changeCounter</c>、推进序号、选下一手。
-        /// <para>
-        /// <b>只有权威端真的选招。</b><see cref="VaultStateMachine{TContext}"/> 在客户端照常跑
-        /// <c>OnUpdate</c> 但会丢弃返回值,所以客户端若也走一遍 <see cref="CruiserRotation.Pick"/>,
-        /// 状态换不掉、<c>ChangeCounter</c> 却被提前清零,剩下几帧会拿着 0 继续跑旧状态。
-        /// 客户端在这里返回 null,安静等换态包——运动数学照跑,只有决策被收归权威端。
-        /// </para>
-        /// </summary>
+        /// <summary>只有权威端选招,客户端跑 Pick 会提前清 ChangeCounter,返回 null 等包</summary>
         protected IVaultState<CruiserStateContext> NextAttack(CruiserStateContext ctx)
             => IsServer ? CruiserRotation.Pick(ctx, StateIndex) : null;
 

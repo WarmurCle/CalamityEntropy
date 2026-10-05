@@ -9,12 +9,7 @@ using static CalamityEntropy.Content.NPCs.Cruiser.CruiserHead;
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
     //[StaticImmunity(typeof(CruiserHead))]
-    /// <summary>
-    /// 尾节。与体节同型的<b>锚定型部件</b>:位置每帧从头部 Rigs2D 链骨的最后一节直读,
-    /// 只清原版平滑、不进预测纠偏器。
-    /// 它的 <c>ai[3]</c> 是头部索引(生成时写入),这一处槽位在迁移后<b>不变</b>——
-    /// 让位给状态号的是头部自己的 <c>ai[3]</c>
-    /// </summary>
+    /// <summary>位置从链骨末节直读,只清平滑,不进预测器,ai[3] 是头部索引,让给状态号的是头部自己的 ai[3]</summary>
     public class CruiserTail : ModNPC
     {
         public override void BossHeadRotation(ref float rotation) {

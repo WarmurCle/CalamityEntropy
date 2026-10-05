@@ -17,15 +17,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         [VaultLoaden("CalamityEntropy/Assets/Extra/T3")]
         private static Asset<Texture2D> t3Tex;
 
-        /// <summary>
-        /// 整链集中绘制。体节实体的 <c>PreDraw</c> 一律返回 false,链序前后压盖由骨架件的层序键决定
-        /// (体节按索引递增、颌骨与头压在最上)。
-        /// <para>
-        /// <b>坐标一律读裸值</b>:骨架根是本帧 AI 末尾的 <c>NPC.Center</c>。原版会把 NPC 画在
-        /// <c>position + netOffset</c>,而头、体节、尾节三个类型都已显式关掉平滑(<c>NoMultiplayerSmoothingByType</c>),
-        /// 所以 <c>NPC.Center</c>(预警光束读它)与骨架处在同一层级、不会分家
-        /// </para>
-        /// </summary>
+        /// <summary>体节 PreDraw 返回 false,压盖靠件层序,坐标读裸值,头、体、尾已关平滑,Center 和骨架同一层</summary>
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPosition, Color drawColor) {
             if (NPC.IsABestiaryIconDummy)
                 return false;

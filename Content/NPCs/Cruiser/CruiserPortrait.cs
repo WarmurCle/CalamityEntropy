@@ -8,11 +8,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
-    /// <summary>
-    /// 巡游者图鉴沙盒:虚空雷暴里的巡游循环。短链(9 节)走 <see cref="CruiserHead.BuildChainDefinition"/> 建的同一副骨架,
-    /// 头沿横 8 字巡游、周期性张口冲刺(咬合拍)、鞭毛随速收拢;每 12 秒白化闪切一次阶段(一阶段整链 ↔ 二阶段巨首七节),
-    /// 与战斗端的 WhiteTrans 阶段过渡同一着色器。背景是巡游者天幕的紫灰虚空 + 雷电
-    /// </summary>
+    /// <summary>与战斗端同一副骨架,阶段闪切用同一个 WhiteTrans</summary>
     internal sealed class CruiserPortraitActor : CEBossPortraitActor
     {
         public static CruiserPortraitActor Instance => instance ??= new CruiserPortraitActor();

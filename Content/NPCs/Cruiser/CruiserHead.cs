@@ -20,20 +20,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
     /// <summary>
-    /// 巡游者:本模组的终局 Boss,蠕虫链型多部件,InnoVault 状态机宿主。
-    /// <para>
-    /// 宿主按固定顺序落地:客户端纠偏与计时收养 → 死亡演出 → 登场骑瓶 →
-    /// 选目标 → 战场半径 → 目标校验 → 全局转移(阶段/转阶段) → 清声明 → 状态机 → 朝向结算 →
-    /// 嘴部/尾焰/尾鞭结算 → 心跳 → 整链骨架落地。
-    /// </para>
-    /// <para>
-    /// 联机:状态号 <c>ai[3]</c>、阶段 <c>ai[2]</c>,<c>aiStyle = -1</c>;转移与弹幕只在权威端;
-    /// 各端跑同一套运动数学;计时与持久累加量随 <c>SendExtraAI</c> 过线,客户端带容差收养。
-    /// <b>头、全部体节、尾节都显式关掉原版 netOffset 平滑</b>——整链是头部集中绘制、
-    /// 读的是裸坐标,任何一节留着平滑都会让接缝每包崩一次。
-    /// </para>
-    /// <para>数值在 <see cref="CruiserDirector"/>,轮换在 <see cref="CruiserRotation"/>,
-    /// 链条落地在 CruiserChainRig.cs,绘制在 CruiserHead.Draw.cs</para>
+    /// 纠偏收养之后才是死亡、骑瓶、选目标、阶段、状态机,骨架在最后
+    /// 状态号 ai[3],阶段 ai[2],头、体、尾都关 netOffset,留着平滑接缝每包崩
     /// </summary>
     [AutoloadBossHead]
     public partial class CruiserHead : ModNPC
@@ -78,11 +66,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
         private bool b_added = false;
         /// <summary>转阶段的体节增删只做一次(纯本地闩锁,判据 <c>phaseTrans &gt;= 122</c> 本身是同步量)</summary>
         private bool phase2SegmentsDone = false;
-        /// <summary>
-        /// 登场揭幕与转阶段首帧两处一次性拍的锁存(纯本地)。
-        /// 它们原来是对 <c>noaitime</c> / <c>phaseTrans</c> 的等值判定,而这两个计数器都随 ExtraAI 过线,
-        /// 收包时会被硬写成权威端的值,等值判定因此可能被一步跨过
-        /// </summary>
+        /// <summary>揭幕和转阶段首帧原来是等值判定,计数过线会被硬写,等值可能被跨过,改成闩锁</summary>
         private bool introRevealed = false;
         private bool phaseTransCued = false;
         #endregion
@@ -140,12 +124,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
             NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
-            //蠕虫平滑陷阱:原版的豁免只有两条路(NPC.cs 88540-88547)——按类型,或者
-            //aiStyle >= 0 且该 aiStyle 在 NoMultiplayerSmoothingByAI 里。模组 NPC 的 aiStyle
-            //默认就是 -1(NPC.cs 3533),过不了那个 >= 0;就算是 0,该集合也只含 6/8/37。
-            //所以迁移前这三型一直吃着原版 netOffset 平滑,只剩按类型豁免这一条路。
-            //整链是头部集中绘制、读裸坐标,头与体节任一节留着平滑,接缝就会每包崩一次——
-            //所以头/体/尾三个类型都要显式关掉(体节与尾节在各自文件里关)
+            //原版豁免只有按类型,或 aiStyle >= 0 且在 NoMultiplayerSmoothingByAI
+            //模组 NPC 默认 aiStyle -1,过不了 >= 0。头、体、尾都要按类型关掉
             NPCID.Sets.NoMultiplayerSmoothingByType[Type] = true;
         }
 
@@ -153,9 +133,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             // 原灾厄 DR 体系本地化:一阶段减伤 54%,二阶段 42%(见 DamageReduction/ModifyIncomingHit)
             DamageReduction = CruiserDirector.DRPhase1;
             NPC.boss = true;
-            //状态机把状态号写在 ai[3],原版 AI 层不能占它。模组 NPC 的默认值本来就是 -1
-            //(NPC.cs 3533 `aiStyle = Type >= NPCID.Count ? -1 : 0`),这里是显式重申而非改动:
-            //迁移前后 aiStyle 都是 -1,原版 aiStyle == 0 那层从未为这只 Boss 执行过
+            //状态号在 ai[3],模组 NPC 默认 aiStyle -1,原版 aiStyle == 0 从未为它跑过
             NPC.aiStyle = -1;
             NPC.width = CruiserDirector.Width;
             NPC.height = CruiserDirector.Height;
@@ -283,9 +261,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             }
             noaitime--;
 
-            //原判据是 noaitime == 0。noaitime 随 ExtraAI 硬写过线,客户端可能一步跨过 0,
-            //于是这一拍(解除免伤 + 揭幕闪电)整个丢掉——那正是「等值判定被收养跨过」这一类。
-            //免伤本身另有 dontTakeDamage 过线兜底,不会卡成永久无敌,但演出会丢,所以改成闩锁 + 区间判定
+            //原判据 noaitime == 0,过线硬写可能跨过 0,揭幕拍会丢,改成闩锁加区间
             if (!introRevealed && noaitime <= 0) {
                 introRevealed = true;
                 //中途加入的客户端 noaitime 早已深负,整拍静默吞掉:它既不该补揭幕闪电,
@@ -303,10 +279,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             if (noaitime < 0) {
                 EnsureChainParts();
                 Main.LocalPlayer.Entropy().crSky = CruiserDirector.LegacySkyTimer;
-                //选目标的唯一一处,位置与参数与迁移前一字不差(旧 726,无参 ⇒ faceTarget: true,
-                //所以 target / direction / directionY 仍按原样每帧重写)。
-                //模组 NPC 的 aiStyle 默认就是 -1(NPC.cs 3533),原版 aiStyle == 0 那层代做的
-                //TargetClosest / spriteDirection 从来没为这只 Boss 跑过,不存在要补偿的东西
+                //选目标唯一一处,faceTarget true。aiStyle -1,原版那层的 TargetClosest 从未跑过
                 int lastTarget = NPC.target;
                 NPC.TargetClosest();
                 //纯联机记账:原代码每帧无条件 netUpdate,本轮换成决策点,换目标是其中一个。
@@ -469,10 +442,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             }
         }
 
-        /// <summary>
-        /// 阶段与转阶段。原代码把这一段写在状态判定<b>之前</b>,每帧强制 <c>ai = PhaseTransing</c>,
-        /// 所以被打断那一手当帧就不再执行——这里的调用顺序保持一致
-        /// </summary>
+        /// <summary>写在状态判定之前,每帧强制 PhaseTransing,被打断那手当帧不再执行</summary>
         private void EvaluatePhaseTransition() {
             //原代码是整数除法 lifeMax / 2,每帧重算一次
             int phaseNow = NPC.life < NPC.lifeMax / CruiserDirector.Phase2LifeDivisor ? 2 : 1;
@@ -521,8 +491,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             NPC.height = CruiserDirector.HeightPhase2;
             ApplyPhase2Segments();
             if (!VaultUtils.isClient && CurrentState == CruiserStateIndex.PhaseTransing) {
-                //原代码在这里直写 ai = VoidSpike:不走选招口,所以既不清 ChangeCounter 也不动 AttackIndex。
-                //二阶段第一手尖刺因此带着被打断那一手的残余计数起跑,见 CruiserRotation 注释
+                //直写 VoidSpike,不走选招口,不清 ChangeCounter 也不动 AttackIndex
                 stateMachine.ChangeState(new CruiserVoidSpikeState());
                 NPC.netUpdate = true;
             }
@@ -534,12 +503,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
             }
         }
 
-        /// <summary>
-        /// 转阶段的体节增删。缩尺寸是确定性的、各端都做(判据 <c>ai[2]</c> 与 <c>ai[3]</c> 都随原版快照过线);
-        /// 摘掉多余体节属于实体生死,只在权威端做并显式补包。
-        /// 原代码按 <c>realLife</c> 认亲,而 <c>realLife</c> 不随快照过线,客户端认不出来;
-        /// 改用体节自己的 <c>ai[3]</c>(生成时写的就是同一个头部索引)
-        /// </summary>
+        /// <summary>缩尺寸各端都做,摘体节只权威端并补包,认亲改用体节 ai[3],realLife 不过线</summary>
         private void ApplyPhase2Segments() {
             if (phase2SegmentsDone) {
                 return;
@@ -626,13 +590,8 @@ namespace CalamityEntropy.Content.NPCs.Cruiser
 
         #region 同步
         /// <summary>
-        /// 定长块,顺序固定在这一处。先计时,再持久累加量,再状态标量,最后部件索引。
-        /// 字节数是编译期常量:不许加运行时条件决定写不写某个字段。
-        /// <para>
-        /// 迁移前这里搬的是一堆从旧天顶 AI 抄来、AI 根本不读的残留字段(speedMuti / rotPos / circleDir …),
-        /// 已全部摘掉;新增过线的是原版漏同步的几项:本体朝向、鞭毛角、鞭击角速度与闩锁、
-        /// 战场半径、原 <c>localAI[2]</c> 的激光瞄准计时、轮换序号
-        /// </para>
+        /// 定长,不许按条件省略,先计时,再累加量,再标量,最后部件索引
+        /// 新增过线:朝向、鞭毛角、鞭击角速度和闩锁、战场半径、激光瞄准计时、轮换序号
         /// </summary>
         public override void SendExtraAI(BinaryWriter writer) {
             EnsureContext();

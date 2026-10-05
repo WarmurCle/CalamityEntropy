@@ -2,14 +2,7 @@
 
 namespace CalamityEntropy.Content.NPCs.Cruiser.Core
 {
-    /// <summary>
-    /// 巡游者状态上下文。
-    /// <para>
-    /// 「事实」区是参与判定或需要两端一致的量,随 <c>SendExtraAI</c> 过线;
-    /// 「声明」区每帧由 <see cref="BeginFrameDefaults"/> 回落;
-    /// 「表现」区是纯本地推导的绘制量,不过线(状态号、计时与各累加量已过线,它们自然收敛)。
-    /// </para>
-    /// </summary>
+    /// <summary>事实过线,声明每帧回落,表现不过线</summary>
     public class CruiserStateContext : CEBossStateContext
     {
         #region 核心引用
@@ -21,21 +14,12 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.Core
 
         #region 事实:过线
         /// <summary>
-        /// 原 <c>CruiserHead.changeCounter</c>。<b>跨状态持久</b>,只在选招(原 <c>changeAi()</c>)时清零。
-        /// <para>
-        /// 它<b>不能</b>换成状态自己的 <c>Timer</c>:原代码有三处不能用状态龄表达的写法——
-        /// 转阶段整段不推进它、咬击的「等咬中」窗口停在 0、激光的瞄准窗不推进它,
-        /// 而且转阶段收尾直接置 <c>ai = VoidSpike</c> 时<b>不</b>调 <c>changeAi()</c>,
-        /// 于是二阶段第一手尖刺是带着上一手的残值起跑的(详见 <see cref="CruiserRotation"/> 注释)。
-        /// </para>
+        /// 原 changeCounter,跨状态持久,只在选招时清零
+        /// 转阶段、等咬中、激光瞄准窗都不推进。转阶段收尾不调 changeAi,尖刺带着残值起跑
         /// </summary>
         public int ChangeCounter { get; set; }
 
-        /// <summary>
-        /// 原 <c>NPC.localAI[2]</c>:虚空激光的瞄准窗计时。
-        /// localAI 不随原版快照过线,所以它在原代码里是一处未同步量;本轮改成随包过线。
-        /// 只由激光状态读写,并在激光收招时清零(原代码也在那一处清)
-        /// </summary>
+        /// <summary>原 localAI[2],原版不过线,这里随包走,只激光读写,收招时清零</summary>
         public int LaserAim { get; set; }
         #endregion
 

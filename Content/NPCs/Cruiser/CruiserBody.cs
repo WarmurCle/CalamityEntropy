@@ -10,12 +10,7 @@ using static CalamityEntropy.Content.NPCs.Cruiser.CruiserHead;
 namespace CalamityEntropy.Content.NPCs.Cruiser
 {
     //[StaticImmunity(typeof(CruiserHead))]
-    /// <summary>
-    /// 体节。<b>锚定型部件</b>:位置每帧从头部的 Rigs2D 链骨直读(<c>CruiserHead.TryGetChainBone</c>,
-    /// 下一帧位置不是 <c>position + velocity</c>,velocity 全程为 0),所以只清原版平滑、<b>不</b>进
-    /// <c>CEBossNetMotion</c> 的预测纠偏器,也绝不调 <c>EndFrame</c>——预测器会和直写打架。
-    /// 碰撞链与视觉链自此是同一条骨架;头部骨架还没建好的那几帧退回 <c>wormFollow</c> 硬跟随
-    /// </summary>
+    /// <summary>位置从链骨直读,velocity 为 0,只清平滑,不进预测器,不调 EndFrame,骨架没建好时退回 wormFollow</summary>
     public class CruiserBody : ModNPC
     {
         public override void BossHeadRotation(ref float rotation) {

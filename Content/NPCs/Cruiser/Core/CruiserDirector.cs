@@ -3,24 +3,12 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Cruiser.Core
 {
-    /// <summary>
-    /// 巡游者的唯一数字出口。状态里不许出现裸数字(纯局部插值系数除外)。
-    /// <para>
-    /// 本文件是 2026-09-17 状态机迁移时从原 <c>CruiserHead.AI()</c> 与 <c>changeAi()</c>
-    /// 逐个搬出来的,<b>数值一律照搬,没有一处调整</b>。注释写的是「这个数在原代码里干什么」,
-    /// 不是「这个数为什么该是这样」,原作者没留依据的地方不替他编理由。
-    /// </para>
-    /// </summary>
+    /// <summary>状态里不许裸数字,数值照搬原 AI 和 changeAi,不编理由</summary>
     internal static class CruiserDirector
     {
         //==================== 全局 ====================
 
-        /// <summary>
-        /// 状态总龄上限。原代码<b>没有</b>任何超时兜底,这是迁移时新加的纯安全网。
-        /// 最长的实战状态是 AroundPlayerAndShootVoidStar(350 帧)与 AroundSpawnVoidBomb(340 帧),
-        /// 1800 帧在正常对局里到不了;它存在的唯一意义是 BiteAndDash 的「等咬中」窗口
-        /// 在原代码里可以无限等下去(追不上玩家就卡死),不让状态机死在那里
-        /// </summary>
+        /// <summary>迁移新加的安全网,BiteAndDash 等咬中在原代码可以无限等</summary>
         public const int StateTimeoutFrames = 1800;
 
         /// <summary>登场窗帧数:骑着虚空之瓶蓄力,期间无敌、不绘制。与 <c>VoidBottleThrow</c> 的 280 tick 寿命对齐</summary>
@@ -437,10 +425,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.Core
 
         //==================== VoidLaser:虚空激光 ====================
 
-        /// <summary>
-        /// 瞄准窗:前 35 帧追瞄刹速(判据是 <c>LaserAim++ &lt; 35</c>,自增后再判 <c>&gt; 36</c> 才进发射段,
-        /// 所以第 36 帧(0 基)是一个两边都不进的空帧。照搬)
-        /// </summary>
+        /// <summary>前 35 帧追瞄,自增后再判 &gt; 36 才发射,第 36 帧两边都不进,照搬</summary>
         public const int LaserAimFrames = 35;
         public const int LaserActiveFrom = 36;
         public const float LaserAimRotateRate = 0.16f;
@@ -525,11 +510,7 @@ namespace CalamityEntropy.Content.NPCs.Cruiser.Core
 
         //==================== 出招轮换 ====================
 
-        /// <summary>
-        /// 一阶段 20 槽。<see cref="CruiserStateIndex.PhaseTransing"/> 在这里当哨兵用:
-        /// 原代码的 6 号与 19 号槽不是固定招,而是「上一手若是拉开就退回直扑并把序号退一格,
-        /// 否则骰能量球或残渣」,见 <see cref="CruiserRotation"/>
-        /// </summary>
+        /// <summary>6 号和 19 号是哨兵,不是固定招,见 CruiserRotation</summary>
         public static readonly CruiserStateIndex[] Phase1 =
         {
             CruiserStateIndex.TryToClosePlayer,             //0
