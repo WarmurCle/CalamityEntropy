@@ -12,10 +12,8 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
     }
 
     /// <summary>
-    /// 驱逐舰伪 3D 的数学核心。坐标约定:Z = 0 是玩家平面(唯一有判定的层),Z &gt; 0 越远越深,Z &lt; 0 朝镜头。
-    /// 缩放 <c>Scale = Focal / (Focal + Z)</c>;透视投影把世界点向相机中心收敛,远物随镜头移动更少(视差)。
-    /// 服务端没有相机,摆位时用目标玩家中心做相机代理(<see cref="WorldFromApparent"/>),目标玩家本机看到的就是精确值。
-    /// 全部数字在 <see cref="VDDirector"/> 的「纵深」分区
+    /// Z = 0 玩家平面,唯一有判定,Z &gt; 0 更深,Z &lt; 0 朝镜头,Scale = Focal / (Focal + Z)
+    /// 服务端用目标玩家中心当相机代理
     /// </summary>
     public static class VDDepth
     {
@@ -42,10 +40,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         /// <summary>透视权重 w = 1 / Scale(Z):平面为 1,越远越大,镜头前小于 1;1/w 在屏幕上线性插值,是透视校正的基础量</summary>
         public static float W(float z) => 1f / Scale(z);
 
-        /// <summary>
-        /// 屏幕分数 → 世界分数:一根从 Z=z0 到 Z=z1 的直线段,在两投影端点之间屏幕位置占 t 的那个点,对应世界长度的分数 f。
-        /// 远端那一半屏幕长度里塞着更多世界长度(z0 = 2.5、z1 = 0 时 t = 0.5 处 f ≈ 0.78),噪声按 f 铺就是「远端压缩」的纵深线索
-        /// </summary>
+        /// <summary>屏幕分数 t 对应世界分数 f,z0 = 2.5、z1 = 0 时 t = 0.5 处 f ≈ 0.78</summary>
         public static float ScreenToWorldFraction(float z0, float z1, float t) {
             t = MathHelper.Clamp(t, 0f, 1f);
             float w0 = W(z0);
@@ -86,10 +81,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
             return Color.Lerp(color, VDVfx.FarFog, fog * 0.75f);
         }
 
-        /// <summary>
-        /// 深度透明度倍率:远端随缩放暗下去但留 55% 地板(深空里的东西是暗不是透);
-        /// 近端从近景层门槛起线性淡到 <see cref="VDDirector.DepthNearFadeZ"/> 归零,且不超过剪影上限
-        /// </summary>
+        /// <summary>远端随缩放暗,留 55% 地板,近端从门槛线性淡到 DepthNearFadeZ,不超过剪影上限</summary>
         public static float Alpha(float z) {
             if (z >= 0f) {
                 return MathHelper.Lerp(VDDirector.DepthFarAlphaFloor, 1f, Scale(z));
@@ -109,10 +101,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
             return MathHelper.Lerp(VDDirector.DepthDopplerLow, VDDirector.DepthDopplerHigh, t);
         }
 
-        /// <summary>
-        /// 远景层本帧对某个投影点是否可用:本地相机中心在地表线以下(地下战斗,远景层整片被物块盖住),
-        /// 或投影点正落在实心物块里,都退回原层按同样的投影绘制,保证来袭物永远看得见
-        /// </summary>
+        /// <summary>相机在地表下,或投影落在实心物块里,退回原层画</summary>
         public static bool FarLayerUsable(Vector2 projectedWorld) {
             if (Main.dedServ) {
                 return false;
@@ -129,10 +118,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
             return !(tile.HasTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType]);
         }
 
-        /// <summary>
-        /// 抛物线的初速与加速度:<paramref name="frames"/> 帧正中到顶 <paramref name="apex"/>、走完回到 0
-        /// (半隐式积分下落地早约一帧,以帧计时的东西别拿 Z == 0 当钟)。回旋弹与核弹都用它
-        /// </summary>
+        /// <summary>frames 帧正中到顶、走完回 0,半隐式积分早约一帧,别拿 Z == 0 当钟</summary>
         public static (float zVel, float zAccel) Parabola(float apex, int frames) {
             float half = frames * 0.5f;
             float accel = -2f * apex / (half * half);

@@ -103,10 +103,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         void OnExit(VDStateContext context);
     }
 
-    /// <summary>
-    /// 状态基类:桥接 VaultState 泛型签名,集中公共小件(收招/出手/运动声明/演出糖)。
-    /// 约定:状态里 Timer 是当前拍内计时(换拍归零),Counter 是状态总龄(超时兜底用),二者随快照过线
-    /// </summary>
+    /// <summary>Timer 拍内计时,换拍归零,Counter 总龄,二者过线</summary>
     public abstract class VDStateBase : VaultState<VDStateContext>, IVDState, ICEBossNetTiming
     {
         public override int StateId => (int)StateIndex;
@@ -115,11 +112,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
 
         /// <summary>本状态默认开接触伤害窗;冲刺类/演出类关掉后按拍自行声明</summary>
         public virtual bool ContactByDefault => true;
-        /// <summary>
-        /// 几何上必须由 hub 闪现到 <see cref="AnchorFor"/> 才能起手的招(如压到玩家脚下的虚空火焰)。
-        /// 其余招在连接段里飞过去;距离锚点超过 <see cref="VDDirector.ConnectorBlinkDistance"/> 时 hub 也会闪现一次。
-        /// 自带传送/开门逻辑的招返回 false
-        /// </summary>
+        /// <summary>必须闪到 AnchorFor 才起手,其余飞过去,超 ConnectorBlinkDistance 也闪,自带传送返回 false</summary>
         public virtual bool NeedsRepositionBlink => false;
         /// <summary>本招起手时本体想待的位置:hub 连接段里飞向它(或闪现到它)。默认玩家斜上方的通用悬停点</summary>
         public virtual Vector2 AnchorFor(VDStateContext ctx)
@@ -128,10 +121,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public virtual bool RunsDuringBlink => false;
         /// <summary>状态总龄超时上限(帧),超过即强制收招。演出态返回 int.MaxValue</summary>
         public virtual int TimeoutFrames => VDDirector.AttackTimeoutFrames;
-        /// <summary>
-        /// 本招起手时本体所在的深度(0 平面)。hub 连接段的落定拍把 Depth 朝它爬:「它在退远」本身就是「要轰炸了」的可读预告。
-        /// 招式进入后自己每帧声明 Depth,这里只给连接段一个目标
-        /// </summary>
+        /// <summary>连接段落定拍把 Depth 朝这里爬,进入后自己声明</summary>
         public virtual float StartDepth(VDStateContext ctx) => 0f;
 
         public virtual void OnEnter(VDStateContext context) {
@@ -170,10 +160,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
             OnExit(ctx);
         }
 
-        /// <summary>
-        /// 收养权威端随快照过线的状态计时(客户端)。容差内不动本地值:
-        /// 只差一两帧是网络抖动的常态,硬对齐会让 Timer == X 型一次性拍被跳过或重放
-        /// </summary>
+        /// <summary>收养过线计时,容差内不动,硬对齐会跳过 Timer == X 的一次性拍</summary>
         public void AdoptNetTiming(int timer, int counter) {
             Timer = CEBossNetMotion.AdoptTimer(Timer, timer);
             Counter = counter;
@@ -215,7 +202,6 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
             return n;
         }
 
-        /// <summary>目标预测点</summary>
         protected static Vector2 PredictTarget(VDStateContext ctx, float leadFrames)
             => ctx.Target.Center + ctx.Target.velocity * leadFrames;
 
@@ -236,10 +222,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         }
 
         #region 纵深小件
-        /// <summary>
-        /// 服务端生成深度弹幕:初始 Z / Z 速度 / Z 加速度经 <see cref="Projectiles.VoidDestroyer.VDDepthSource"/> 在 OnSpawn 就位,
-        /// 生成包里的 ExtraAI 已是正确深度。伤害按大师显示值折算;客户端返回 -1
-        /// </summary>
+        /// <summary>Z 在 OnSpawn 就位,生成包 ExtraAI 已是正确深度,客户端返回 -1</summary>
         protected static int ShootDepth<T>(VDStateContext ctx, Vector2 pos, Vector2 vel, int masterShown, float z, float zVel, float zAccel = 0f, float ai0 = 0f, float ai1 = 0f, float ai2 = 0f) where T : ModProjectile {
             if (!IsServer) {
                 return -1;
@@ -257,10 +240,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
             return Projectile.NewProjectile(source, pos, vel, ModContent.ProjectileType<T>(), 0, 0f, Main.myPlayer, ai0, ai1, ai2);
         }
 
-        /// <summary>
-        /// 纵深配速:从平面点 <paramref name="from"/>、深度 <paramref name="z"/> 出发,<paramref name="frames"/> 帧后恰好在
-        /// <paramref name="landing"/> 处到达平面。返回平面速度与 Z 速度(无加速度)
-        /// </summary>
+        /// <summary>frames 帧后在 landing 到平面,返回平面速度与 Z 速度,无加速度</summary>
         protected static (Vector2 vel, float zVel) AimThroughPlane(Vector2 from, float z, Vector2 landing, int frames) {
             frames = Math.Max(frames, 1);
             return ((landing - from) / frames, -z / frames);
@@ -275,11 +255,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
             DeclareHoldRelative(ctx, VDDepth.WorldOffset(apparentOffset, z), stiffness, lerp, maxSpeed);
         }
 
-        /// <summary>
-        /// 俯冲拍(退远的招收尾都用它):深度从 <paramref name="fromDepth"/> 按立方缓入归零(慢起猛到,「朝镜头飞来」),
-        /// 全程在 <paramref name="landing"/> 画落点大环,落地前 2 帧到落地后 DiveContactFrames 帧开接触窗,落地帧震屏 + 冲击环。
-        /// 调用方按自己的拍内 Timer 逐帧调用;返回是否已落地(含落地后的接触窗期)
-        /// </summary>
+        /// <summary>深度按立方缓入归零,落地前 2 帧到落地后 DiveContactFrames 开接触窗,返回是否在接触窗</summary>
         protected static bool DeclareDive(VDStateContext ctx, float fromDepth, int timer, int frames, Vector2 landing) {
             float p = MathHelper.Clamp(timer / (float)frames, 0f, 1f);
             ctx.Depth = fromDepth * (1f - VDDepth.DiveCurve(p));

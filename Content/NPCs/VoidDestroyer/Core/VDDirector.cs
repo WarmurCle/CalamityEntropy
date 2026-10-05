@@ -3,11 +3,8 @@
 namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
 {
     /// <summary>
-    /// 虚空驱逐舰调参中心:全部数字、全部阶段档位都从这里出,状态里不许出现裸数字。
-    /// 策划表以大师 ×3 显示值书写,代码存普通模式基值;弹幕伤害经 <see cref="VoidDestroyer.ProjDamage"/> 折算。
-    /// 身份:月后 T2 的虚空战舰,三阶段(75% 变形展翼 / 30% 护盾 + 压轴主炮)。
-    /// 节奏语法(实机反馈 2026-09-17 后定稿):快 = 每招内部紧、就位达标即跳拍、收招不拖;
-    /// 但每一手之间必有连接段三拍(落定 → 重瞄 → 起势),每招第一拍必是可读的前摇,单招不超 8 秒。快不等于乱
+    /// 状态里不许裸数字,策划表按大师 ×3 写,代码存普通基值
+    /// 手与手之间有连接段三拍,每招第一拍是前摇,单招不超 8 秒
     /// </summary>
     public static class VDDirector
     {
@@ -81,12 +78,9 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const int DespawnWarpFrames = 60;
         public const float DespawnDepth = 6f;
 
-        //==================== 节奏(实机反馈 2026-09-17:原 14/10/6 帧连接段 + 十几帧冷却让每手之间只剩 0.2 秒,整场读成乱)====================
+        //==================== 节奏 ====================
 
-        /// <summary>
-        /// hub 连接段总长(P1/P2/P3):落定 → 重瞄 → 起势三拍。0.8/0.7/0.6 秒是「看清本体停下、看到它准备出手」的下限,
-        /// 冷却并入这里不再单独计
-        /// </summary>
+        /// <summary>连接段总长,落定、重瞄、起势,冷却并入这里</summary>
         public static int ConnectorFrames(int phase) => phase >= 3 ? 36 : phase >= 2 ? 42 : 48;
         /// <summary>拍一「落定」:换位闪现(16 帧)在这一拍里做完,落地即刹停</summary>
         public const int ConnectorSettleFrames = 16;
@@ -140,10 +134,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const float DepthFogFullZ = 3f;
         /// <summary>远端透明度地板:再远也留 55%,深空里的东西是暗不是透</summary>
         public const float DepthFarAlphaFloor = 0.55f;
-        /// <summary>
-        /// 本体深度视觉追踪步长:0.5 = 只落后声明值一帧。贯穿冲刺的 Z 以 -0.05/帧线性走,旧值 0.2 会让绘制落后 0.2 个 Z 单位,
-        /// 穿过平面那一帧画出来的船离判定盒差 50px;俯冲与出场的曲线本身就是平滑的,不需要再靠追踪抹
-        /// </summary>
+        /// <summary>0.5 只落后一帧,旧 0.2 会让贯穿冲刺穿平面那帧绘制离判定盒约 50px</summary>
         public const float DepthTrack = 0.5f;
         /// <summary>掠过镜头的呼啸触发 Z:-0.35 时放大到 1.54 倍,正是「擦着镜头过去」的一瞬</summary>
         public const float DepthWhooshZ = -0.35f;
@@ -169,10 +160,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         /// <summary>远端本体经雾化着色器的模糊半径(px,按缩放后尺寸)与热闪幅度</summary>
         public const float DepthFogBlur = 1.5f;
         public const float DepthFogShimmer = 0.006f;
-        /// <summary>
-        /// 透视射线(VDBeamDraw.DrawTapered)两端吃雾的比例:射线是自发光,与全息体一样只吃三成多雾,
-        /// 远端变冷变暗读得出纵深,又不至于红射线的远端整段变成蓝灰
-        /// </summary>
+        /// <summary>自发光只吃三成多雾,远端变冷但不整段蓝灰</summary>
         public const float BeamFogMult = 0.4f;
         /// <summary>透视射线退化路径(着色器缺失)的沿轴分段数:16 段让每段宽度台阶只有总差的 1/16,肉眼是连续的锥</summary>
         public const int BeamFallbackSegments = 16;
@@ -220,10 +208,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const float ArcOuterDeg = 50f;
         /// <summary>末轮后收招拍</summary>
         public const int ArcTail = RecoveryFrames;
-        /// <summary>
-        /// 纵深回旋火:两侧四发不再平面包裹,而是抛入深处(顶点 Z 1.6,缩到 0.38 成远处绕行的小点)再在锁定点上空回头、
-        /// 越来越大地穿过平面命中,再掠过镜头。往返 70 帧,回程最后 30 帧亮落点标记;中弹仍平面直射,给一条能读的基准线
-        /// </summary>
+        /// <summary>两侧抛到顶点 Z 1.6 再穿回,往返 70 帧,回程最后 30 帧亮落点,中弹仍平面直射</summary>
         public const float ArcBoomerangApex = 1.6f;
         public const int ArcBoomerangFrames = 70;
 
@@ -393,10 +378,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const int TeleportFireCornerFrames = 42;
         /// <summary>末角后收招拍</summary>
         public const int TeleportFireTail = RecoveryFrames;
-        /// <summary>
-        /// 立体四角:第 k 角的深度。P2 三角 远 / 平面 / 近,P3 四角 远 / 平面 / 近 / 远。
-        /// 远角(Z 1.2)扇射纵深贯穿弹从背景飞来,近角(Z -0.4)扇射越肩弹从镜头后缩进平面,平面角保持直飞;三种来向逼玩家读三种运动签名
-        /// </summary>
+        /// <summary>P2 远/平面/近,P3 再加一远,远角纵深贯穿,近角越肩,平面角直飞</summary>
         public static float TeleportFireDepth(int k) => k % 4 == 0 || k % 4 == 3 ? 1.2f : k % 4 == 2 ? -0.4f : 0f;
         /// <summary>深度角的落点扇:垂直于角→玩家方向排 5 个落点、间距 60,飞行 40 帧(标记提前 30 帧亮)</summary>
         public const float TeleportFireLandSpacing = 60f;
@@ -409,10 +391,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const float ReinforceHoldStiffness = 0.06f;
         public const float ReinforceHoldLerp = 0.2f;
         public const float ReinforceHoldMaxSpeed = 20f;
-        /// <summary>
-        /// 14 帧地面开门 + 投送舱在 Z 2.5 的高空出现,44 帧舱落地释放教徒:30 帧坠落(弹幕档前摇),舱越来越大地落向门,
-        /// 地面门本身就是落点标记(旧版门与教徒同帧出现,再旧的版本连门都没有)
-        /// </summary>
+        /// <summary>地面门先开,舱从 Z 2.5 落下,门就是落点</summary>
         public const int ReinforcePortalFrame = 14;
         public const int ReinforceSpawnFrame = 44;
         /// <summary>投送舱出现的深度:Z 2.5 缩到 0.29,从背景里的一点滑落到地面门上;坠落帧数 = 落地帧 − 开门帧</summary>
@@ -478,10 +457,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         /// <summary>陆龟冲刺次数 P1/P2 4、P3 5(旧 6/7:十二秒的同一招);奇数次改穿层冲锋</summary>
         public static int JungleDashes(int phase) => phase >= 3 ? 5 : 4;
         public const int JungleTail = 60;
-        /// <summary>
-        /// 穿层陆龟:奇数次冲锋传送到 Z 1.5(缩到 0.4)、表观在玩家侧上方 600 / -180 的背景里,18 帧待机后沿三维直线冲向锁定点,
-        /// 第 30 帧穿过平面(Z 速度 -0.05,判定带 0.1 = 4 帧接触),再 12 帧遁到 -0.6 消失;毒刺扇在穿过平面那一帧放
-        /// </summary>
+        /// <summary>奇数冲到 Z 1.5,第 30 帧穿平面,接触带约 4 帧,毒刺在穿平面那帧放</summary>
         public const float TortoiseZDepth = 1.5f;
         public static readonly Vector2 TortoiseZApparent = new Vector2(600f, -180f);
         public const int TortoiseZCrossFrame = 30;
@@ -506,11 +482,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const float SkyBurstRadius = 120f;
         public const float SkyBurstSpeed = 6f;
         public const int SkyTail = 60;
-        /// <summary>
-        /// 倾斜轨道:小白龙绕本体的圆改成绕 X 轴倾 55° 的三维椭圆(平面上短轴 = 半径 × cos55°),Z = sinθ × 振幅:
-        /// 下半圈退到 Z 1.4 的远处(小而雾化),上半圈压到 -0.3 的镜头前(1.4 倍、半透明巨影),θ = 0 / π 两点穿过平面才有判定。
-        /// 半径 60 格(FTW 50 格,旧 75 / 60:近端放大后要留在屏内);角速度 P1/P2 每圈 120 帧、P3 100 帧,穿越点就是节拍
-        /// </summary>
+        /// <summary>绕 X 轴倾 55°,短轴 = 半径×cos55°,Z = sinθ×振幅,θ = 0 / π 才有判定,半径 60 格,FTW 50</summary>
         public static float WyvernOrbitRadius => (Main.getGoodWorld ? 50f : 60f) * 16f;
         public const float WyvernTiltDeg = 55f;
         public const float WyvernFarAmp = 1.4f;
@@ -649,10 +621,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const float SingDiskRadius = 140f;
         public const int SingOrbitBoltInterval = 14;
         public const float SingOrbitBoltSpeed = 5f;
-        /// <summary>
-        /// 三维螺旋弹:绕奇点的倾斜轨道(倾 55°,Z 振幅 0.9),角速度 0.09 rad/帧、半径每帧长 2.2px 螺旋外扩;一圈两次穿过平面才有判定。
-        /// 从盘边 140px 起,150 帧活跃期内一发最远飘到 470px,正好覆盖牵引半径的一半
-        /// </summary>
+        /// <summary>倾 55°,一圈两次穿平面才有判定,150 帧最远约 470px,盖住牵引半径一半</summary>
         public const float SingOrbitTiltDeg = 55f;
         public const float SingOrbitDepthAmp = 0.9f;
         public const float SingOrbitAngular = 0.09f;
@@ -689,10 +658,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const int FleetEndFade = 8;
         /// <summary>真身门环亮度倍率:破绽要读得出来</summary>
         public const float FleetRealPortalGlow = 1.6f;
-        /// <summary>
-        /// 立体舰队的四门深度(按门序;第二波整体轮转一位):两远(Z 1.4,缩到 0.42)、一平面、一近(Z -0.45,屏幕边缘的半透明巨门)。
-        /// 四舰沿各自的三维直线在同一帧穿过玩家预测点:远舰放大着来、近舰缩小着来、平面舰不变,读成三种运动签名
-        /// </summary>
+        /// <summary>两远、一平面、一近,第二波轮转一位,四舰同帧穿过预测点</summary>
         public static readonly float[] FleetDepths = { 1.4f, 0f, 1.4f, -0.45f };
         /// <summary>四舰同步瞄准后第 20 帧穿过预测点(远舰 Z 速度 -0.07,判定带 0.105 = 3 帧接触),再飞 16 帧收尾</summary>
         public const int FleetCrossFrame = 20;
@@ -701,10 +667,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
 
         //==================== 湮灭主炮(P3 压轴:锁定 → 出手 → 扫射 → 过热)====================
 
-        /// <summary>
-        /// 越肩主炮:本体闪到镜头后方 Z -0.45(1.8 倍、剪影两成半透明)、表观在玩家头顶 480px,从屏幕上缘压下来的巨影;
-        /// 它在平面上的落点(世界坐标,玩家头顶 264px)就是光锥打进画面的枢,扫射线仍绕这个枢转,几何与旧版一致
-        /// </summary>
+        /// <summary>闪到 Z -0.45,表观在头顶 480px,平面落点头顶 264px 是枢,扫射线绕它转</summary>
         public const float CannonNearDepth = -0.45f;
         public static readonly Vector2 CannonNearApparent = new Vector2(0f, -480f);
         /// <summary>过热时从镜头后俯冲回平面的帧数(落地 = 惩罚窗开始)</summary>
@@ -728,27 +691,17 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const float CannonOverheatDrop = 60f;
         public const float CannonVignette = 0.55f;
         public const int CannonTail = 10;
-        /// <summary>
-        /// 枢节点(整个扫射期常驻):亮核直径 = 射线宽 × 2.2、光环直径 = 射线宽 × 1.6、8% 脉动。
-        /// 越肩锥 → 枢 → 平面扫射线在枢处必然拐一个角,还有直射线 4% 起帽(4000px 上是 160px)的渐入,
-        /// 节点得大到把这两样都盖住,拐点才读成「炮打进画面的着点」而不是两根线拼接
-        /// </summary>
+        /// <summary>亮核 = 宽×2.2,光环×1.6,要盖住枢处拐角和直射线 4% 起帽</summary>
         public const float CannonHubGlowMult = 2.2f;
         public const float CannonHubRingMult = 1.6f;
         public const float CannonHubPulse = 0.08f;
 
-        //==================== 描边(能量逸散:常态底噪 / 蓄力涨起 / 出手爆闪;着色器 VDRimHalo 外扩光晕环 + VDRimLight 贴边亮线,绘制在 VoidDestroyer.Draw)====================
-        //
-        // 结构(2026-09-19 重做,此前「6 抽 × 4px 偏移叠画 2 texel 缘带」每抽只露一弯 alpha 0.17 的月牙,常态再被侵蚀 0.55 打碎、静默拍压到 0,肉眼几乎看不见):
-        //   外环:VDRimHalo 实心剪影 12 抽绕圈偏移 RimBaseRadius,垫在本体之下,本体压住剪影内部,剩下宽 = 半径的外扩描边带,噪声侵蚀成向外逸散的丝;
-        //   内环:同一着色器 8 抽、半径 × RimInnerRadiusMult、几乎不侵蚀,贴身实心的亮带;
-        //   亮线:VDRimLight 零偏移压在本体之上,颜色向白偏,机体表面漏光的锐边。
-        // 常驻:静默拍只压到 RimSuppressMax,永不归零。
+        //==================== 描边 ====================
+        //外环 VDRimHalo 12 抽偏移 RimBaseRadius,垫在本体下
+        //内环 8 抽、半径 × RimInnerRadiusMult,亮线 VDRimLight 零偏移压在本体上
+        //静默拍只压到 RimSuppressMax,不归零
 
-        /// <summary>
-        /// 常态底噪:平时就是一圈清楚可见的能量缘光(反馈 2026-09-18:0.1 档几乎看不见;2026-09-19 再抬 0.15,配合实心光晕环才是「常驻描边」),随阶段升级抬高。
-        /// 底噪只管亮度,不进热色与侵蚀的判定,那两样看活跃度(蓄力 / CoreGlow 折算,见 <see cref="VoidDestroyer.UpdateVisualState"/>)
-        /// </summary>
+        /// <summary>底噪只管亮度,不进热色与侵蚀,那两样看活跃度</summary>
         public static float RimIdle(int phase) => phase >= 3 ? RimIdleP3 : phase >= 2 ? RimIdleP2 : RimIdleP1;
         public const float RimIdleP1 = 0.55f;
         public const float RimIdleP2 = 0.65f;
@@ -825,10 +778,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public const float RimOverheatFlickerSpeed = 38f;
         public const float RimOverheatFlickerAmp = 0.22f;
 
-        /// <summary>
-        /// 贴边亮线的噪声侵蚀比例:常态 0.25 基本是一条实线、只轻微闪动(旧值 0.55 把线打成碎丝,常驻感就没了),
-        /// 蓄力再收实,爆闪时归 0 整圈实心;过热风格几乎不侵蚀
-        /// </summary>
+        /// <summary>常态 0.25 基本实线,旧 0.55 会打成碎丝,爆闪归 0,过热几乎不侵蚀</summary>
         public const float RimErodeIdle = 0.25f;
         public const float RimErodeCharge = 0.1f;
         public const float RimErodeOverheat = 0.05f;

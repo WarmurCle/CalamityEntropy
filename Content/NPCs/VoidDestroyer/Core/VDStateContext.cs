@@ -17,11 +17,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         Direct,
     }
 
-    /// <summary>
-    /// 虚空驱逐舰状态上下文:每帧声明总线 + 跨帧持久事实。
-    /// 凡是参与选招裁决或服务端掷骰得到的量都在「事实」区,并随 SendExtraAI 过线;
-    /// 「声明」区每帧由 <see cref="BeginFrameDefaults"/> 清回安全默认值,漏声明的通道回落到无害状态
-    /// </summary>
+    /// <summary>事实过线,声明每帧清回默认,漏声明回到无害</summary>
     public class VDStateContext : INpcStateContext
     {
         #region 核心引用
@@ -109,10 +105,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public float AlphaDeclared { get; set; } = float.NaN;
         /// <summary>绘制缩放声明(随 AlphaDeclared 一起)</summary>
         public float DrawScaleDeclared { get; set; } = 1f;
-        /// <summary>
-        /// 纵深声明(Z:0 玩家平面,+ 越远越深,- 朝镜头;每帧回落 0)。
-        /// 决定绘制的透视投影 / 缩放 / 雾化 / 所在绘制层,以及 gameplay 门:带外不可攻击、无接触、不被追。数学见 <see cref="VDDepth"/>
-        /// </summary>
+        /// <summary>Z 每帧回落 0,带外不可攻击、无接触、不被追</summary>
         public float Depth { get; set; }
         /// <summary>俯冲落点大环:位置与进度 0..1(每帧回落 0 = 不画),<c>DeclareDive</c> 每帧声明</summary>
         public Vector2 DiveMarkerPos { get; set; }
@@ -137,10 +130,7 @@ namespace CalamityEntropy.Content.NPCs.VoidDestroyer.Core
         public Vector2 AimLineDir { get; set; }
         public float AimLineStrength { get; set; }
         public Color AimLineColor { get; set; } = VDVfx.CannonCore;
-        /// <summary>
-        /// 描边蓄力 0..1(每帧重声明,回落 0):能量逸散缘光的强度。蓄力窗每帧写进度;
-        /// 不声明的招也有兜底,宿主按 <see cref="CoreGlow"/> 折算(所有招的起势与出手都在推它)
-        /// </summary>
+        /// <summary>0..1,每帧回落 0,不声明时宿主按 CoreGlow 折算</summary>
         public float RimCharge { get; set; }
         /// <summary>描边爆闪单帧脉冲(每帧回落 0):出手帧写 1,宿主持有并快衰减。<c>MuzzleCue</c> 每次出手都写</summary>
         public float RimFlash { get; set; }
