@@ -6,10 +6,9 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items
 {
     /// <summary>
-    /// 熵之馈赠：替代灾厄新手包注入通道的自有礼包。
-    /// 开包内容由 StartBagGItem.ModifyItemLoot 按 IGetFromStarterBag 接口物品统一注入；
-    /// MagicStorage/ImproveGame 的开局便利物品由本类 ModifyItemLoot 条件注入；
-    /// 首次进入世界的发放与一次性旗标由 EModPlayer.OnEnterWorld 侧落地，受 ServerConfig.ExtraItemsInStarterBag 控制。
+    /// 替代灾厄新手包;开包内容走 StartBagGItem 按 IGetFromStarterBag 注入
+    /// MagicStorage/ImproveGame 便利物品由本类条件注入
+    /// 首次进世界的发放在 EModPlayer.OnEnterWorld,看 ServerConfig.ExtraItemsInStarterBag
     /// </summary>
     public class EntropyStarterBag : ModItem
     {

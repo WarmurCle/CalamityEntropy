@@ -89,13 +89,9 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
 
         /// <summary>
-        /// 3.33 装灾厄时的形态。那一版本体只有两条效果,其余全靠转调血神圣杯、
-        /// 阴阳吸星石与辐辉三件的 UpdateAccessory。这里不转调那三个方法(它们会
-        /// 引用灾厄类型,撞零编译期耦合),改为原版字段直接给 + 三个灾厄侧旗标经
-        /// CECal 反射写入。三个旗标都由灾厄每帧在 ResetEffects 归位,写它们等价于
-        /// 灾厄自家饰品在 UpdateAccessory 里做的事。
-        /// <para>草药种植仍由 4.0 的 herbPlanting 开关把关而不是 3.33 的 !hideVisual:
-        /// 那个开关连着存档、联机同步与格内小圆点,按 3.33 改回去只会让开关变成死的。</para>
+        /// 不转调血神圣杯、阴阳吸星石、辐辉的 UpdateAccessory,那些方法引用灾厄类型
+        /// 三个旗标经 CECal 写,灾厄每帧 ResetEffects 归位
+        /// 草药种植仍看 herbPlanting,那个开关连着存档和同步
         /// </summary>
         private static void ApplyCalamityEraEffects(Player player, bool hideVisual, Vector2 c) {
             // 3.33 本体的两条

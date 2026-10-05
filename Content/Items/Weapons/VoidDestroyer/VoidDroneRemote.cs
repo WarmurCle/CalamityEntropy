@@ -16,9 +16,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
 {
     /// <summary>
-    /// 虚空无人机遥控器:虚空驱逐舰掉落的召唤武器。首召占 <see cref="BaseSlots"/> 个召唤栏位,召出一架悬在头顶的投影无人机。
-    /// 无人机在场时再用一次不会多召一架,而是再占 1 个栏位、伤害提高 <see cref="StackBonus"/>。
-    /// 空栏位不够时先顶掉别的召唤物(占位小的先走),无人机自己不参与;不走原版献祭,原版献祭按 3 栏去腾,会把叠了层的无人机自己顶掉
+    /// 首召占 BaseSlots,在场时再用占 1 栏并加 StackBonus,不会多召一架
+    /// 空栏不够先顶别的召唤物;不走原版献祭,原版按 3 栏腾,会把叠层的自己顶掉
     /// </summary>
     public class VoidDroneRemote : ModItem
     {
@@ -124,10 +123,8 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
     }
 
     /// <summary>
-    /// 投影无人机:悬在玩家头顶,玩家位移的大头直接带走,余量交给欠阻尼弹簧,停下时会轻晃一下;机身按水平运动倾斜、朝向目标。
-    /// ai[0] 叠层数,ai[1] 召唤时的物品基础伤害,两者同步,各端由它们推出栏位与 originalDamage。
-    /// 两侧吊舱交替射击,投影口按节拍把全息陆龟 / 红恶魔 / 白龙投向目标;射击与投影只在拥有者端生成,
-    /// 吊舱闪光、机身后坐与投影口亮起都由生成出来的弹幕在各端回调,所以队友看到的闪光和真实弹幕对得上
+    /// ai[0] 叠层,ai[1] 召唤时的物品基础伤害,同步后各端推栏位和 originalDamage
+    /// 射击和投影只在拥有者端生成,闪光由弹幕各端回调
     /// </summary>
     public class ProjectionDrone : ModProjectile
     {
@@ -725,9 +722,8 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
     }
 
     /// <summary>
-    /// 全息巨型陆龟:在投影口斜下方边转边显形(头脚缩进壳里,原版缩壳帧 5→6→7),随即闪现到目标头顶,
-    /// 按重力 <see cref="Gravity"/> 落下、回弹,高度逐次衰减(<see cref="Heights"/>),共落地 <see cref="Bounces"/> 次,每次落地那 3 帧判定;第 5 次落地后浮起消散。
-    /// 运动是龄期的纯函数,目标位置各端同步,所以落地帧各端一致;同时在场的几只按 ai[1] 槽位左右错开
+    /// 运动是龄期的纯函数,目标位置各端同步,落地那 3 帧判定
+    /// 同时在场的几只按 ai[1] 左右错开
     /// </summary>
     public class ProjectionTortoise : ProjectionHoloBase
     {
@@ -951,11 +947,7 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
         }
     }
 
-    /// <summary>
-    /// 全息红恶魔:投影口斜下方显形,随即疾飞到目标身边的 ai[1] 号站位(四个站位,同时在场的四只各占一个),
-    /// 每 <see cref="ThrowInterval"/> 帧掷一发全息三叉戟:出手前 <see cref="WindUp"/> 帧后仰蓄力、手上亮起,出手时往前一冲。
-    /// <see cref="Life"/> 帧后消散;本体无判定。目标没了由拥有者换目标
-    /// </summary>
+    /// <summary>ai[1] 是四个站位之一;本体无判定,目标没了由拥有者换</summary>
     public class ProjectionRedDevil : ProjectionHoloBase
     {
         public const int Life = 240;
@@ -1177,10 +1169,9 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
     }
 
     /// <summary>
-    /// 全息白龙:按原版节序(<see cref="SegmentTypes"/>)与原版节距 42px 折算缩放的 15 节蠕虫,从投影口里一节节「倒」出来。
-    /// 恒速对目标来回冲撞:小角速度追着冲过去,越过目标(目标已在身后且拉开)后直飞 <see cref="OvershootFrames"/> 帧,再大角速度掉头。
-    /// 各节按前一节的方向转向,朝左时水平翻转(同原版 spriteDirection 规则,腿不会翻到背上)。任一已出镜的节碰到敌怪都算命中,
-    /// 每目标每 20 帧一次;<see cref="Life"/> 帧后消散。拥有者每 30 帧同步一次头部位置与速度
+    /// 节距按原版 42px 折算,朝左水平翻转,腿不翻到背上
+    /// 任一已出镜的节都算命中,每目标 20 帧一次
+    /// 拥有者每 30 帧同步头部位置和速度
     /// </summary>
     public class ProjectionWyvern : ProjectionHoloBase
     {

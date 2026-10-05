@@ -95,12 +95,8 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
 
         /// <summary>
-        /// 3.33 装灾厄时的形态。那一版是把材料的阿斯加德之庇护与神之壁垒两件
-        /// UpdateAccessory 直接转调一遍,这里改用原版字段与自有框架等价实现。
-        /// <para>不走转调的两个原因:一是那两个方法会写灾厄 CalamityPlayer 的
-        /// DashID / dAmulet / rampartOfDeities 三个字段,撞"只读不写灾厄状态";
-        /// 二是 DashID 会把冲刺交回灾厄的冲刺系统,与本仓 4.0 自有的 Core/Dash 抢同一份
-        /// 双击输入,而这个冲突在 3.33 时并不存在(那时还没有自有冲刺框架)。</para>
+        /// 不转调阿斯加德之庇护和神之壁垒,那两个方法写 DashID / dAmulet / rampartOfDeities
+        /// DashID 会把冲刺交回灾厄,和本仓 Core/Dash 抢同一份双击
         /// </summary>
         private static void ApplyCalamityEraEffects(Player player) {
             // 神圣屏障格挡:两个时代共有,配方两侧也都要交神圣斗篷
@@ -153,11 +149,7 @@ namespace CalamityEntropy.Content.Items.Accessories
         }
     }
 
-    /// <summary>
-    /// 上神之佑在装灾厄时继承的盾击冲刺,对照 3.33 转调的阿斯加德之庇护冲刺:
-    /// 撞击 1000 基础伤害、15 击退、12 无敌帧,并在撞击点炸出一发 300 基础伤害的爆炸与灭神地狱。
-    /// 无灾厄时上神之佑不登记本效果,该分支下这个冲刺永远不会被触发。
-    /// </summary>
+    /// <summary>无灾厄时不登记,这条冲刺不会被触发</summary>
     public class OdinShieldSlamDash : CEDashEffect
     {
         public override string ID => "OdinShieldSlam";

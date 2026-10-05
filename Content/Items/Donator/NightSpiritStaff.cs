@@ -14,11 +14,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator
 {
-    /// <summary>
-    /// 暗夜灵杖(捐赠者:The Fool)。月后一阶魔法法杖,远古操纵机合成。
-    /// 左键放出两道夜灵,蛇行一段后追踪敌怪,命中附加暗影焰并落下夜痕,夜痕积满时天降永夜之星;
-    /// 右键在光标处降下夜幕,幕中敌怪持续受创,夜灵在幕中命中伤害更高、落痕翻倍。夜间全部伤害提升。
-    /// </summary>
+    /// <summary>夜痕积满召永夜之星;幕中夜灵伤害更高、落痕翻倍;夜间伤害提升</summary>
     public class NightSpiritStaff : ModItem, IDonatorItem
     {
         public string DonatorName => "The Fool";

@@ -9,12 +9,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator.LightDarkDagger
 {
-    /// <summary>
-    /// 光暗龙匕(捐赠者:紫墨)。
-    /// 左键交替掷出耀光/黯影三连飞刃(上半弧/下半弧),两种刃在同一目标上交替命中触发光影斩切并回血;
-    /// 普攻命中累积蓄势,右键清空蓄势掷出双螺旋纠缠刃,螺旋刃在场时再按右键闪烁至刃位并留下织影裂隙。
-    /// 每次暴击叠加基础伤害,一次未暴击即清空;收藏在背包中时召出朦胧的光暗之龙跟随,层数越高越清晰。
-    /// </summary>
+    /// <summary>耀光黯影在同一目标交替命中触发斩切并回血;螺旋刃在场时右键闪到刃位并留裂隙</summary>
     public class LightDarkDragonDagger : ModItem, IDonatorItem, ICEChargeWeapon
     {
         public string DonatorName => "紫墨";

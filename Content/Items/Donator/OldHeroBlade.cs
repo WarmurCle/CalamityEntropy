@@ -14,11 +14,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator
 {
-    /// <summary>
-    /// 昔日的英雄之刃(捐赠者:littlefish)。终局近战剑,虚空井合成,配方吃一面腐化/猩红兔兔旗帜。
-    /// 每次挥砍放出英雄残影(穿透剑气),每第四次挥砍改为巨大的昔日之斩;
-    /// 剑刃本体或残影命中敌怪时,会从身后唤出两只英灵兔扑向目标。
-    /// </summary>
+    /// <summary>每第四击改为昔日之斩;配方吃一面腐化或猩红兔兔旗帜</summary>
     public class OldHeroBlade : ModItem, IDonatorItem
     {
         public string DonatorName => "littlefish";

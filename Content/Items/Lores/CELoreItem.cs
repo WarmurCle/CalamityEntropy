@@ -10,10 +10,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Lores
 {
     /// <summary>
-    /// 原生 Lore 物品基类，接替灾厄 LoreItem。
-    /// 行为：物品无重力、满亮度绘制；按住 Shift 隐藏常规提示并显示传记全文
-    /// （文本取物品本地化键 Lore）；注册了 <see cref="LoreEffect"/> 的物品可正常使用、
-    /// 也可在背包中右键，以开关对应效果（开关本体与音效由 LoreReworkSystem 通道统一处理）。
+    /// 接替灾厄 LoreItem;无重力、满亮度,按住 Shift 显示 Lore 全文
+    /// 挂了 LoreEffect 才能用,背包右键开关,开关在 LoreReworkSystem
     /// </summary>
     public abstract class CELoreItem : ModItem
     {

@@ -17,9 +17,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Weapons.Nemesis
 {
     /// <summary>
-    /// 天罚手持弹幕。三种模式共用一套「收-爆-停」骨架,刀光是 odr 旋转历史铺成的扫掠体,着色走 SwordTrail2。
-    /// ai[0] = 模式(0 普通挥砍 / 1 天罚 / 2 蓄力旋斩),ai[1] = 挥砍方向(+1 下劈 / -1 上撩)。
-    /// 结构镜像 TrueMoonlightSwordHeld:相位驱动、不依赖任何挥舞基类。
+    /// ai[0]:0 普通挥砍,1 天罚,2 蓄力旋斩;ai[1] +1 下劈 / -1 上撩
+    /// 刀光是 odr 扫掠体,着色 SwordTrail2,不依赖挥舞基类
     /// </summary>
     internal class NemesisHeld : ModProjectile
     {

@@ -40,11 +40,7 @@ namespace CalamityEntropy.Content.Items.Books.BookMarks
             return item.type != Item.type;
         }
 
-        /// <summary>
-        /// 独立触发此书签的攻击行为，无需依赖EntropyBookHeldProjectile
-        /// 返回null表示使用BookMarkLoader中的默认实现
-        /// 仅当书签有复杂的自定义攻击逻辑时才需要重写
-        /// </summary>
+        /// <summary>返回 null 走 BookMarkLoader 的默认实现</summary>
         public virtual BookmarkAttackResult PerformAttack(BookmarkAttackContext context) {
             return null;
         }

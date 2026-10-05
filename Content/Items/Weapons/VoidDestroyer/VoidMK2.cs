@@ -63,9 +63,8 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
     }
 
     /// <summary>
-    /// MK2 手持弹幕:按住即连射,射击间隔取物品使用时间(吃射速加成)。首发用使用时已扣的那发弹药,之后每发由拥有者自取。
-    /// 表现全是冲量 + 衰减:枪身沿枪管后坐、枪口上跳、抛壳、三帧枪口焰;持续开火加热枪管下的线圈,顶部发射模块随无人机充能变亮。
-    /// ai[1] 为无人机充能(帧),各端同步累加,只有拥有者生成无人机
+    /// 首发用已扣的弹药,之后每发拥有者自取
+    /// ai[1] 无人机充能帧,各端同步累加,只有拥有者生成无人机
     /// </summary>
     public class VoidMK2Held : ModProjectile
     {
@@ -371,9 +370,8 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
     }
 
     /// <summary>
-    /// 虚空 MK2 追踪无人机(借驱逐舰孢子无人机贴图,贴图朝上):弹出后减速展开 <see cref="DeployFrames"/> 帧并锁定,
-    /// 锁定目标由拥有者选(光标附近优先)并写进 ai[0] 同步,之后限角速度转向、加速扑去;贴到敌怪、撞墙或超时都爆炸。
-    /// 机体不判伤,伤害全由 <see cref="VoidMK2Explosion"/> 结算
+    /// ai[0] 锁定目标,拥有者按光标附近优先选并同步
+    /// 机体不判伤;贴敌、撞墙或超时爆炸,伤害在 VoidMK2Explosion
     /// </summary>
     public class VoidMK2Drone : ModProjectile
     {

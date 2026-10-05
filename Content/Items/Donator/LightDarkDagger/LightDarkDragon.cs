@@ -10,9 +10,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Donator.LightDarkDagger
 {
     /// <summary>
-    /// 光暗之龙:收藏光暗龙匕时跟随玩家的朦胧幻影,不造成伤害。
-    /// ai[0] = 清晰度(暴击层数占比,0~1),ai[1] = 1 时播放攻击帧;两者由所有者写入并同步。
-    /// 所有者端在请求消失时主动 Kill,其余端只管跟随与绘制。
+    /// ai[0] 清晰度 0~1,ai[1] 为 1 播攻击帧,所有者写入并同步
+    /// 所有者请求消失时主动 Kill
     /// </summary>
     public class LightDarkDragon : ModProjectile
     {

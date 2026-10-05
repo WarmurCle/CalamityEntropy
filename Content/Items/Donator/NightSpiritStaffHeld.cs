@@ -13,9 +13,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Donator
 {
     /// <summary>
-    /// 暗夜灵杖手持弹幕。ai[0] = 模式(0 持杖连续施放夜灵 / 1 举杖降下夜幕)。
-    /// 模式 0 是长按型:杖尖跟随鼠标,按物品使用间隔从杖尖放出夜灵并扣魔力,松手结束;
-    /// 模式 1 是一次性演出:举杖蓄光、落杖那帧在光标处生成夜幕。施放与魔力都只由所有者决定。
+    /// ai[0]:0 长按从杖尖放夜灵,1 举杖落帧在光标生成夜幕
+    /// 施放和魔力只由所有者决定
     /// </summary>
     public class NightSpiritStaffHeld : ModProjectile
     {

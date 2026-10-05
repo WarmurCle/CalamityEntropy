@@ -12,9 +12,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Donator.NurglePot
 {
     /// <summary>
-    /// 纳垢锅手持弹幕。ai[0] = 模式(0 双手甩锅撒粘液 / 1 持锅加热喷滚烫粘液)。
-    /// 模式 0 完全由计数器驱动,各端演出一致,只有所有者在释放帧生成粘液;
-    /// 模式 1 由所有者决定加热进度与松手,进度经 SendExtraAI 下发。
+    /// ai[0]:0 计数器甩锅,只有所有者在释放帧生成粘液
+    /// 1 加热进度由所有者决定,经 SendExtraAI 下发
     /// </summary>
     public class NurglePotHeld : ModProjectile
     {

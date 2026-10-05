@@ -15,9 +15,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Items.Donator
 {
     /// <summary>
-    /// 昔日的英雄之刃手持弹幕。收-爆-停三段挥砍,刀光是 odr 旋转历史铺成的扫掠体,着色走 SwordTrail2。
-    /// ai[0] = 1 为昔日之斩(第四击:更大的弧、放大的刀体、身体前倾),ai[1] = 挥砍方向(+1 下劈 / -1 上撩)。
-    /// 结构镜像 NemesisHeld 模式 0,不依赖任何挥舞基类。
+    /// ai[0] 为 1 是昔日之斩,ai[1] +1 下劈 / -1 上撩
+    /// 刀光是 odr 扫掠体,着色 SwordTrail2,不依赖挥舞基类
     /// </summary>
     public class OldHeroBladeHeld : ModProjectile
     {

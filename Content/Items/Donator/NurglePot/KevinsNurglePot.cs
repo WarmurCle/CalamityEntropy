@@ -5,13 +5,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Donator.NurglePot
 {
-    /// <summary>
-    /// 凯文的纳垢锅(捐赠者:Reficul)。困难模式敲碎恶魔/猩红祭坛时极低概率掉落。
-    /// 左键双手甩锅撒出一片侵蚀性粘液,沾敌怪每秒结算伤害并中毒,沾物块成为伤害经过者的粘液坑;
-    /// 右键持锅对准方向、以火魔法加热,1.5 秒沸腾后每 0.4 秒喷出一坨滚烫粘液,
-    /// 滚烫粘液附着 5 秒每秒结算伤害并附加中毒与酸性中毒,到期汽化为施加瘟疫的毒雾。
-    /// 手持时锅口不断飘出随风散去的臭雾,不伤生物,只让沾到的家伙发臭。
-    /// </summary>
+    /// <summary>祭坛极低概率掉;粘液坑伤经过者,滚烫到期汽化成瘟疫雾,臭雾不伤人</summary>
     public class KevinsNurglePot : ModItem, IDonatorItem
     {
         public string DonatorName => "Reficul";

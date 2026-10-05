@@ -17,12 +17,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
 {
-    /// <summary>
-    /// 虚空电场:虚空驱逐舰掉落的法杖。长按左键,杖头的闪电球向前放出 5 道绕瞄准轴旋转的锥面激光(遇实心物块截断),
-    /// 同时闪电球越蓄越大(最多 3 秒,满蓄有提示);松开把闪电球掷出,命中爆炸并使范围内敌人带电,爆炸再向周围敌人甩出连锁电弧。
-    /// 蓄得越久闪电球伤害越高(<see cref="VoidElectricFieldHoldout.BallMinMult"/> → <see cref="VoidElectricFieldHoldout.BallMaxMult"/>),
-    /// 蓄力不足 <see cref="VoidElectricFieldHoldout.MinReleaseCharge"/> 帧松手只会熄灭
-    /// </summary>
+    /// <summary>蓄力不足 MinReleaseCharge 松手只熄灭;掷出爆炸带电,再甩连锁电弧</summary>
     public class VoidElectricField : ModItem
     {
         public override void SetDefaults() {
@@ -52,9 +47,8 @@ namespace CalamityEntropy.Content.Items.Weapons.VoidDestroyer
     }
 
     /// <summary>
-    /// 法杖手持弹幕。ai[0] 蓄力帧数(拥有者每 20 帧同步一次),ai[1] 为 1 表示拥有者已松手放球。
-    /// 激光方向是 (旋转相位, 序号, 蓄力) 的确定函数,各端同算;相位的余弦当纵深:转到背面的激光更细更暗、画在球后面。
-    /// 松手后不立刻消失,杖身后坐回弹 <see cref="ReleaseFrames"/> 帧再收
+    /// ai[0] 蓄力帧,拥有者每 20 帧同步;ai[1] 为 1 表示已松手
+    /// 方向由相位、序号、蓄力确定,余弦当纵深;松手后回弹 ReleaseFrames 再收
     /// </summary>
     public class VoidElectricFieldHoldout : ModProjectile
     {
