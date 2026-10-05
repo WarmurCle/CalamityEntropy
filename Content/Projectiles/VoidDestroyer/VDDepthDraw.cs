@@ -8,10 +8,8 @@ using Terraria;
 namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 {
     /// <summary>
-    /// 纵深绘制助手:按 Z 把一张贴图画成「远处的暗影」或「镜头前的剪影」。
-    /// 远端(Z &gt; 0)经 VDDepthFog 着色器(噪声热闪 + 模糊 + 去饱和 + 雾色,AlphaBlend 预乘);
-    /// 近端(Z &lt; 近景门槛)经 VDHologram 的加法剪影;平面附近直接原样画。
-    /// 传入的 pos 已是投影后的屏幕坐标、scale 已乘 VDDepth.Scale;这里只管颜色与着色器。着色器缺失时退回平色雾化,功能不丢
+    /// pos 已投影,scale 已乘 VDDepth.Scale;Z&gt;0 走 VDDepthFog,近端走 VDHologram 加法剪影
+    /// 着色器缺失退回平色雾化
     /// </summary>
     public static class VDDepthDraw
     {

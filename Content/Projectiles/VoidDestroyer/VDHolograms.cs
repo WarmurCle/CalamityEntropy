@@ -63,9 +63,8 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
     }
 
     /// <summary>
-    /// 全息红恶魔(纯演出,无伤害):停在 Z <see cref="VDDirector.RedDevilDepth"/> 的远景层,平面位置 = 本体 AnchorPos
-    /// (服务端按表观「玩家侧上方」换算),平面缩放 8 → 表观 2.3 倍,一尊压在虚空天幕上的巨影;按本体 Context.HoloCharge 蓄力发亮。
-    /// 红射线(<see cref="VDRedRay"/>)从它射向镜头,三叉戟由本体状态从它的位置生成
+    /// 纯演出无伤害,停在 RedDevilDepth;平面位置是本体 AnchorPos,按 HoloCharge 发亮
+    /// 红射线从它射向镜头,三叉戟由本体状态从它的位置生成
     /// </summary>
     public class VDHoloRedDevil : VDHoloProjectile
     {
@@ -237,10 +236,9 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
     }
 
     /// <summary>
-    /// 全息丛林陆龟:8×8 格旋转体。偶数次冲锋是平面横冲:传送到玩家移动方向一侧 80 格外横向冲 200 格(90 帧),起冲时扇形放 4 发全息毒刺,
-    /// 纵向随玩家闪避轻微修正;奇数次是穿层冲锋:传送到 Z 1.5 的背景里,18 帧待机后沿三维直线冲向锁定点,第 30 帧穿过平面(那一帧放毒刺扇),
-    /// 再遁到镜头后消失。之后回同一侧重复,共 JungleDashes 次。
-    /// ai[0] 本体,ai[1] 目标玩家,ai[2] 预设侧向(0 = 首冲时按玩家移动方向自选)。命中 432;穿层冲锋只在穿过平面那几帧有判定
+    /// 偶数冲是平面横冲,起冲扇形 4 发毒刺;奇数冲穿层,第 30 帧穿过平面那几帧才有判定
+    /// ai[0] 本体,ai[1] 目标玩家,ai[2] 预设侧向,0 表示首冲自选;之后回同一侧,共 JungleDashes 次
+    /// 命中 432
     /// </summary>
     public class VDHoloTortoise : VDHoloProjectile
     {
@@ -478,10 +476,9 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
     }
 
     /// <summary>
-    /// 全息小白龙(倾斜轨道):单弹幕 75 节、两倍粗,绕本体做倾 55° 的三维椭圆轨道:平面上是短轴 = 半径 × cos55° 的椭圆,
-    /// 深度 Z = sinθ × 振幅(下半圈退到 1.4 的远处、上半圈压到 -0.3 的镜头前),逐节各自算深度、各自投影,
-    /// 只有 |Z| ≤ WyvernHitBand 的节有判定(θ = 0 / π 两处穿越点);玩家出圈时龙头脱轨直冲 40 帧后归位(追击期深度拉回平面)。
-    /// 本弹幕自身的 Z 恒 0(整条龙横跨三层,统一画在弹幕层),深度只在节级。ai[0] 本体,ai[1] 起始角(与状态同一颗骰子:形状弹在穿越帧释放)。命中 432
+    /// 倾 55° 的三维椭圆,下半圈退到远处、上半圈压到镜头前,只有 |Z|≤WyvernHitBand 的节有判定
+    /// 玩家出圈时龙头脱轨直冲 40 帧;本弹幕 Z 恒 0,深度只在节级
+    /// ai[0] 本体,ai[1] 起始角,和状态同一颗骰子;命中 432
     /// </summary>
     public class VDHoloWyvern : VDHoloProjectile
     {

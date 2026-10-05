@@ -11,12 +11,9 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 {
     /// <summary>
-    /// 透视点阵(相位激光的重拍):一整片无人机停在 Z <see cref="VDDirector.LatticeDepth"/> 的背景里,平面坐标是以 Center 为中心、
-    /// LatticeRows × LatticeCols 的格点(ai[2] = 1 时整片错开半格);ai[0] 帧预警(每架从投影位置拉一条细线收敛到脚下格点,格点小环收紧变亮),
-    /// 到时全部格点同帧打一记半径 LatticeSpotRadius 的 Z 射线(前 LatticeStrikeFrames 帧判定),再 14 帧收干。
-    /// 一片格点是一个弹幕:一个生成包、每层一次批次切换画完 63 架;判定只查离玩家最近的 3 × 3 格点(格距 110 &gt; 2 × 半径 40,不会同时踩两个)。
-    /// 无人机 + 预警线在远景层(墙后物块前),格点环 + 打击射线 + 落点光盘在平面标记层(实心物块之后、NPC 之前):射线是朝镜头打过来的,近端粗。
-    /// ai[1] 为无人机深度。命中 372 + 带电 3 秒
+    /// 停在 LatticeDepth,ai[2]=1 错半格,ai[0] 预警帧,到时同帧打 Z 射线,前 LatticeStrikeFrames 帧判定
+    /// 判定只查最近 3×3;无人机和预警线在远景层,射线在平面标记层,近端粗
+    /// ai[1] 无人机深度;命中 372 + 带电 3 秒
     /// </summary>
     public class VDLatticeField : VDHostileProjectile, IVDDepthDrawable
     {

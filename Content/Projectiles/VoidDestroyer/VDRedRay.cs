@@ -8,10 +8,9 @@ using VoidDestroyerNPC = CalamityEntropy.Content.NPCs.VoidDestroyer.VoidDestroye
 namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 {
     /// <summary>
-    /// 深空红魔的红射线(死亡探照灯):从 Z 2.5 背景里的红恶魔射向镜头的锥形 Z 射线,落点是平面上半径 RedRaySpotRadius 的光盘,
-    /// 本弹幕的 Center 就是光盘。ai[0] 发射帧数,ai[1] 预警帧数,ai[2] = 本体 whoAmI + 1(红魔位置 = 本体 AnchorPos 在 RedDevilDepth 的投影)。
-    /// 预警期光盘紧跟玩家、红魔到光盘拉一条越来越粗的预警锥;发射期光盘每帧最多挪 4px 慢慢追,判定圆只在发射期。
-    /// 命中 396,无减益;FTW 光盘加大 30%
+    /// Center 是平面光盘;ai[0] 发射帧,ai[1] 预警帧,ai[2] 本体 whoAmI+1
+    /// 预警期光盘紧跟玩家,发射期每帧最多挪 4px,判定只在发射期
+    /// 命中 396;FTW 光盘加大 30%
     /// </summary>
     public class VDRedRay : VDHostileProjectile
     {

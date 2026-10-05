@@ -30,11 +30,9 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
     }
 
     /// <summary>
-    /// 驱逐舰深度弹幕基类:在 <see cref="VDHostileProjectile"/> 之上加一根 Z 轴。
-    /// 平面坐标(Projectile.Center / velocity)仍是 gameplay,Z 只决定:绘制的透视投影与缩放、所在绘制层、
-    /// 以及是否有判定(<c>|Z| ≤ 判定带</c> 才碰撞)。Z 状态随生成包过线,之后各端按帧确定性积分;
-    /// 子类只写 <see cref="DepthAI"/>(平面运动 / 模式逻辑)与 <see cref="DrawDepth"/>(用投影后的量绘制)。
-    /// 逼近平面时基类自动画落点标记(所有 Z 轴弹幕的公平阀),越过镜头那一瞬自动放呼啸
+    /// Z 只决定投影、绘制层和判定,|Z| 在判定带内才碰撞;平面坐标仍是 gameplay
+    /// Z 随生成包过线,之后各端按帧积分;子类写 DepthAI 和 DrawDepth
+    /// 逼近平面画落点标记,越过镜头放呼啸
     /// </summary>
     public abstract class VDDepthProjectile : VDHostileProjectile, IVDDepthDrawable
     {

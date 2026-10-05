@@ -8,9 +8,8 @@ using VoidDestroyerNPC = CalamityEntropy.Content.NPCs.VoidDestroyer.VoidDestroye
 namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 {
     /// <summary>
-    /// 轨道轰炸的落点标记(纯演出,无伤害):ai[0] 寿命,ai[1] = 本体 whoAmI + 1(0 为无)。外环收缩、内十字旋转,末 12 帧由紫转白闪烁;
-    /// 本体在深处时另从它的投影核心拉一条越来越粗的透视瞄准线到落点(远端细、近端粗,炮是从背景里那艘船打下来的);
-    /// 寿命结束即光柱砸落的那一帧,标记就是承诺
+    /// 无伤害;ai[0] 寿命,ai[1] 本体 whoAmI+1,0 为无
+    /// 本体在深处时从投影核心拉透视瞄准线;寿命结束即光柱砸落
     /// </summary>
     public class VDTargetReticle : ModProjectile, IVoidDestroyerProjectile
     {

@@ -12,10 +12,9 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 {
     /// <summary>
-    /// 虚空核弹:缓慢追踪玩家,3 秒引信后在半径 50 格内爆炸(伤害由 VDNukeExplosion 承担,本体不撞人)。
-    /// 带深度生成时沿抛物线抛入深处(引信正中到顶 Z 4,背景里的一颗星)再回落到平面,落地那一帧就是引信走完;
-    /// 爆炸范围圈始终画在平面上(标记层),最后 1 秒加速闪烁,读的是「它会在哪炸」而不是「它现在在哪」。
-    /// ai[0] 目标玩家索引,ai[1] 爆炸半径(像素)
+    /// 3 秒引信,半径 ai[1],伤害在 VDNukeExplosion,本体不撞人;ai[0] 目标玩家
+    /// 带深度时抛物线抛到 Z 4 再落回,落地帧就是引信走完
+    /// 范围圈画在平面标记层,读的是炸点不是当前位置
     /// </summary>
     public class VDVoidNuke : VDDepthProjectile
     {

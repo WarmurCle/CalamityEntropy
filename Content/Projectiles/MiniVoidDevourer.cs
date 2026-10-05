@@ -7,9 +7,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Projectiles
 {
     /// <summary>
-    /// 虚空唤灵盔职业套装奖励:迷你虚空吞噬者(2026-08-31 平衡案)。
-    /// 形象取虚空珍珠伙伴的头/身/尾三段贴图,AI 参考沧溟龙契的冲撞打法(简化为单头三段)。
-    /// 由 EModPlayer 在 VFHelmSummoner 生效时自动召唤,不占仆从栏。
+    /// 贴图用虚空珍珠的头身尾,冲撞参考沧溟龙契,简化成单头三段
+    /// EModPlayer 在 VFHelmSummoner 时自动召,不占仆从栏
     /// </summary>
     public class MiniVoidDevourer : ModProjectile
     {

@@ -10,11 +10,9 @@ using Terraria;
 namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 {
     /// <summary>
-    /// 能量射线绘制助手。直射线(<see cref="Draw"/>)经 VDVoidBeam 着色器画在一张沿射线拉伸的白条上;
-    /// 透视射线(<see cref="DrawTapered"/> 与 <see cref="BeginTapered"/> / <see cref="TaperedQuad"/> / <see cref="EndTapered"/> 三件套)
-    /// 经 VDBeamTapered 着色器画成四顶点梯形:顶点纹理坐标是像素单位的「沿轴 / 横向」仿射量,跨三角剖分精确插值,
-    /// 没有归一化 UV 梯形在两三角形共享对角线处的中线折断(那条折断偏 (hS - hE) / 2 像素,红射线发射期约 94px);
-    /// 两端可选传 Z,得到透视校正的噪声压缩与远端雾化变暗。着色器缺失时都退回加法贴图叠层,功能不丢
+    /// 直射线走 VDVoidBeam;透视射线走 VDBeamTapered,顶点是像素单位的沿轴/横向仿射量
+    /// 归一化 UV 梯形会在共享对角线折断,偏 (hS-hE)/2
+    /// 两端可传 Z 做透视校正;着色器缺失退回加法贴图
     /// </summary>
     public static class VDBeamDraw
     {
@@ -87,10 +85,9 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
         private static Effect batchShader;
 
         /// <summary>
-        /// 透视射线:从 start 到 end 的梯形光柱,两端可见宽度分别为 widthStart / widthEnd(像素),「远端细、近端粗」就是纵深。
-        /// start / end 都是世界坐标(调用方已投影);zStart / zEnd 是两端的 Z(默认 0 = 纯平面梯形,只修折断不加纵深线索):
-        /// 传了 Z 就按透视校正铺噪声(远端压缩)、按 VDDepth 雾化与变暗远端;镜头前(Z &lt; 0)那端不衰减,光锥是打进画面里的光。
-        /// capStart / capEnd 是两端端帽渐隐比例,顶进「枢」的那端传 0。进出批次保持 Deferred/AlphaBlend
+        /// start/end 是已投影的世界坐标;z 默认 0 只修折断
+        /// 传了 Z 才雾化远端,Z&lt;0 那端不衰减;顶进枢的一端 cap 传 0
+        /// 进出批次保持 Deferred/AlphaBlend
         /// </summary>
         public static void DrawTapered(Vector2 start, Vector2 end, float widthStart, float widthEnd, Color color, Color coreColor, float envelope, float opacity, float seed = 0f, bool endGlow = true,
             float zStart = 0f, float zEnd = 0f, float capStart = DefaultCapStart, float capEnd = DefaultCapEnd) {
@@ -129,9 +126,7 @@ namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
         }
 
         /// <summary>
-        /// 批量透视射线:一次进入着色器批次,之后逐根 <see cref="TaperedQuad"/>,最后 <see cref="EndTapered"/> 恢复 Deferred/AlphaBlend。
-        /// 同一批共用配色 / 不透明度 / 种子(点阵那种几十根同色射线用它,免得每根切一次批次)。
-        /// 返回 false 表示着色器缺失,调用方改用逐根 <see cref="DrawTapered"/>(内部有退化)
+        /// 一批共用配色、不透明度和种子;返回 false 表示着色器缺失,改逐根 DrawTapered
         /// </summary>
         public static bool BeginTapered(Color color, Color coreColor, float opacity, float seed = 0f) {
             Effect shader = TaperedShader;

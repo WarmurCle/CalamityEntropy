@@ -14,10 +14,8 @@ using VoidDestroyerNPC = CalamityEntropy.Content.NPCs.VoidDestroyer.VoidDestroye
 namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 {
     /// <summary>
-    /// 驱逐舰的传送门演出弹幕(无伤害):ai[0] 模式 0 冲刺门(朝向 = 生成时 rotation,寿命 ai[1]),1 支援投送地面门;
-    /// ai[2] 门环亮度倍率(0 = 1 倍;幻影舰队里真身的门更亮,是可读的破绽)。开合曲线由寿命推导,全端一致。
-    /// 经 <see cref="VDDepthSource"/> 生成时带深度:门画在按 Z 投影的位置、按 Z 缩放,并按 Z 分层(远门进远景层、近门压在玩家之上),
-    /// 立体舰队 / 三维幻影冲刺的远门与近门就是它;Center 仍是门在平面坐标系里的位置
+    /// 无伤害;ai[0]:0 冲刺门寿命 ai[1],1 支援地面门;ai[2] 亮度倍率,0 当 1 倍
+    /// 带深度时按 Z 投影、缩放、分层,Center 仍是平面位置
     /// </summary>
     public class VDPortal : ModProjectile, IVoidDestroyerProjectile, IVDDepthDrawable
     {

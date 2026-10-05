@@ -8,11 +8,9 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 {
     /// <summary>
-    /// 空间裂隙缝:以 Center 为中点、velocity 为方向、半长 |ai[1]| 的一条缝。
-    /// 节拍:预告(ai[0] 帧,发丝白线越来越亮、两端张力刻线)→ 拉开(12 帧,判定窗;全屏滤镜沿线法向外推 + 色散)→
-    /// 猛合(8 帧,两侧各喷一排垂直虚空弹:偶数位平面直飞,奇数位抛入深处再回头收敛到最近玩家的位置)→ 消散。
-    /// ai[2] = 喷弹伤害(已折算),取负则只向外侧喷(P3 六边形笼的边);ai[1] 取负 = 穿心刀:喷弹改为沿缝在 Z 1 的背景里生成、
-    /// 收敛到缝两侧 160px 的落点的纵深贯穿弹。缝完全可见后才开口、判定只在开口期:预告即承诺
+    /// 中点 Center,方向 velocity,半长 |ai[1]|;ai[0] 预告帧,拉开 12 帧是判定窗
+    /// ai[2] 喷弹伤害,取负只向外喷;ai[1] 取负是穿心刀,喷弹从 Z 1 收敛到缝两侧 160px
+    /// 猛合时偶数位平面直飞,奇数位抛入深处再回头;缝可见后才开口,判定只在开口期
     /// </summary>
     public class VDRiftSeam : VDHostileProjectile
     {

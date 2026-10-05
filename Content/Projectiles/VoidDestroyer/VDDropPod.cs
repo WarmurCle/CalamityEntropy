@@ -10,10 +10,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 {
     /// <summary>
-    /// 深空投送舱(前卫教徒的载具):在 Z <see cref="VDDirector.ReinforcePodDepth"/> 的高空出现,平面坐标就是地面门的落点,
-    /// 只沿 Z 坠落(表观上从背景里的一点滑落到门上、越来越大),落地那一帧在半径 <see cref="VDDirector.ReinforcePodImpactRadius"/>
-    /// 内有 6 帧接触判定,同时服务端在落点放出一名教徒,舱壳再 20 帧碎成虚空烟散掉。
-    /// 舱体是一团虚空能量(Glow 核 + 环壳 + 拖焰),不用新贴图。ai[0] 目标玩家索引,ai[1] 本体 whoAmI
+    /// 平面坐标是落点,只沿 Z 坠落;落地那一帧有 6 帧接触判定,服务端在落点放一名教徒
+    /// ai[0] 目标玩家,ai[1] 本体 whoAmI
     /// </summary>
     public class VDDropPod : VDDepthProjectile
     {

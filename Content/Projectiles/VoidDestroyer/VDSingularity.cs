@@ -13,10 +13,9 @@ using VoidDestroyerNPC = CalamityEntropy.Content.NPCs.VoidDestroyer.VoidDestroye
 namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 {
     /// <summary>
-    /// 虚空奇点:飘行 30 帧减速停住 → 150 帧引力(本地玩家被拉向它、封顶可逃;全屏引力透镜;吸积盘边缘放三维螺旋弹,
-    /// 绕倾斜轨道螺旋外扩、一圈两次穿过平面才有判定;视界接触伤害)→ 20 帧塌缩(盘缩到 40%,余弦闪烁,粒子先断)
-    /// → 24 发环爆分三向(8 平面、8 朝镜头掠过、8 遁入深处的纯演出)+ 冲击环;P3 且整场未用过时点燃唯一一次冲击帧。
-    /// ai[0] 本体,ai[1] 阶段,ai[2] 环爆/螺旋弹伤害(已折算)
+    /// 30 帧减速,150 帧引力,20 帧塌缩,再环爆;ai[0] 本体,ai[1] 阶段,ai[2] 环爆伤害
+    /// 引力期吸积盘弹一圈两次穿平面才判定;本地玩家被拉,封顶可逃
+    /// 环爆 8 平面、8 朝镜头、8 遁入深处;P3 且整场未用过时点燃唯一一次冲击帧
     /// </summary>
     public class VDSingularity : VDHostileProjectile
     {

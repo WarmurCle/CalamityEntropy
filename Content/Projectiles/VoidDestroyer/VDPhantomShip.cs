@@ -12,10 +12,9 @@ using VoidDestroyerNPC = CalamityEntropy.Content.NPCs.VoidDestroyer.VoidDestroye
 namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 {
     /// <summary>
-    /// 幻影舰:驱逐舰的全息复制体,在门口待机 ai[1] 帧(与真身同拍瞄准)→ 服务端一帧定速朝穿越点齐冲 → 冲刺结束碎成全息碎片。
-    /// 带深度生成时(立体舰队的远门 / 近门)沿三维直线冲刺:平面速度与 Z 速度都按「第 FleetCrossFrame 帧穿过预测点」反推,
-    /// 远舰放大着来、近舰缩小着来,只在穿过平面那几帧有判定,穿过后继续飞出视野。
-    /// ai[0] 本体,ai[2] 目标玩家。P3 在平面附近沿路留加速虚空弹。伤害是真身接触的 60%
+    /// ai[1] 帧待机后服务端定速朝穿越点齐冲;带深度时按第 FleetCrossFrame 帧穿过预测点反推速度
+    /// 只在穿过平面那几帧有判定;ai[0] 本体,ai[2] 目标玩家
+    /// P3 在平面附近留加速虚空弹;伤害是真身接触的 60%
     /// </summary>
     public class VDPhantomShip : VDDepthProjectile
     {

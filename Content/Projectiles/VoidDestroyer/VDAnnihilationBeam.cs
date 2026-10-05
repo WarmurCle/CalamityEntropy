@@ -10,9 +10,9 @@ using VoidDestroyerNPC = CalamityEntropy.Content.NPCs.VoidDestroyer.VoidDestroye
 namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 {
     /// <summary>
-    /// 湮灭主炮射线:枢每帧钉在本体的平面核心,从 ai[2] 起始角以恒定角速度扫 100°,ai[1] = 扫射帧数 × 方向符号,ai[0] 本体。
-    /// 本体在镜头后(越肩主炮)时另从它的投影核心画一段收敛的透视光锥到枢:炮是从屏幕上缘的巨影打进画面的,判定只有平面上绕枢转的那条线。
-    /// 一帧亮起(4 帧张满)、末 12 帧收拢;出手 3 帧后开判定;沿射线每 10 帧向两侧落一发虚空弹雨;持续低频震屏与暗角压场
+    /// 枢钉在本体平面核心,ai[2] 起始角,ai[1] 扫射帧×方向,ai[0] 本体,恒定角速度扫 100°
+    /// 镜头后另从投影核心画透视光锥到枢,判定只有平面上绕枢的那条线
+    /// 出手 3 帧后开判定;沿射线每 10 帧向两侧落虚空弹雨
     /// </summary>
     public class VDAnnihilationBeam : VDHostileProjectile
     {

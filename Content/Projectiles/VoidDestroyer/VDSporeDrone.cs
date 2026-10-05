@@ -10,9 +10,8 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 {
     /// <summary>
-    /// 孢子无人机:出现后沿固定方向亮起淡紫预警线,ai[1] 帧后瞬发一道 VDSporeLaser 并消失(自身无伤害)。
-    /// ai[0] 模式:0 向右射,1 向下射,2 纯装饰(绕 ai[2] 号 NPC 转,ai[1] 为相位;从 Z 2 的背景降入环阵,装饰即深度预告);
-    /// ai[2] 在射击模式下为激光长度。激光的伤害值由本弹幕的 damage 承接
+    /// ai[1] 帧后放 VDSporeLaser,自身无伤害;ai[0]:0 向右,1 向下,2 绕 ai[2] 号 NPC 转
+    /// 装饰模式 ai[1] 是相位,从 Z 2 降入;射击模式 ai[2] 是激光长度,伤害由 damage 承接
     /// </summary>
     public class VDSporeDrone : ModProjectile, IVoidDestroyerProjectile
     {

@@ -11,9 +11,8 @@ using Terraria.ID;
 namespace CalamityEntropy.Content.Projectiles.VoidDestroyer
 {
     /// <summary>
-    /// 深空追踪导弹:从导弹环径向飞出的同时射入深处(30 帧退到 Z 1.5,环在背景里收成一圈向消失点收拢的小点,平面速度衰减到明显减速),
-    /// 到顶掉头重新锁定玩家,40 帧扑回平面(越来越大,各自带一枚落点小环),只在穿过平面那几帧有判定,之后掠过镜头消失。
-    /// 未带深度生成时(Z 恒 0)退化成旧版平面追踪导弹。命中 312,无减益。ai[0] 为目标玩家索引
+    /// 30 帧退到 Z 1.5 再 40 帧扑回,只在穿过平面那几帧有判定
+    /// 未带深度生成时退化成平面追踪;ai[0] 目标玩家;命中 312
     /// </summary>
     public class VDHomingMissile : VDDepthProjectile
     {
