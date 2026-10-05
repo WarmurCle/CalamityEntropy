@@ -25,26 +25,9 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.Acropolis
 {
     /// <summary>
-    /// 卫城机器:地狱层的自我晋升型 Boss,InnoVault 状态机宿主。
-    /// <para>
-    /// 原代码没有互斥状态,是三个并行的倒计时/布尔开关(<c>CannonUpAtk</c> / <c>JumpAndShoot</c> /
-    /// <c>Jumping</c>)。2026-09-17 迁移时把每个开关代表的<b>招式</b>抽成互斥状态,
-    /// 其余「不属于任何一招」的东西留在宿主里当背景行为每帧跑:
-    /// 跨招冷却 <c>TeslaCD</c>、地面走位与悬停、腿部步态、鱼叉装填与发射、鱼叉拽拉、朝向翻转、重力阻尼。
-    /// 数值一律照搬,只有「几招不能再叠在一起」这一条是被授权的手感变动。
-    /// </para>
-    /// <para>
-    /// 三个形态由宿主前置分叉,不进战斗状态机:
-    /// 血量 ≥ 98% 的<b>未晋升形态</b>(走普通重力,<see cref="Dummy"/> 腾空姿态)、
-    /// 脱战漂移、以及 <see cref="Defeated"/> 死亡演出(直接 return,和原代码一样跳过所有战斗逻辑)。
-    /// </para>
-    /// <para>
-    /// 联机:转移只在权威端(状态号 ai[3],形态 ai[2]);各端跑同一套运动数学;
-    /// 计时、朝向、朝向锁存、全部倒计时随 <see cref="SendExtraAI"/> 过线。弹幕与骰点只在权威端,骰点结果必过线。
-    /// 四条腿与两条臂是 Rigs2D 骨架(AcropolisMachine.Rig.cs),纯本地量、不过线:输入只有已同步的本体位姿、速度、腾空标记、
-    /// 瞄准目标与物块,各端同算同解;着地腿数与枪口位置都从骨骼读。
-    /// 数值在 <see cref="AcropolisDirector"/>,选招在 <see cref="AcropolisRotation"/>,绘制在 AcropolisMachine.Draw.cs
-    /// </para>
+    /// 原三个并行开关抽成互斥状态,走路、冷却、腿、鱼叉留在宿主每帧跑
+    /// 未晋升、脱战、死亡不进战斗状态机,状态号 ai[3],形态 ai[2]
+    /// 腿和臂是本地骨架,着地腿数和枪口从骨骼读,弹幕和骰点只在权威端
     /// </summary>
     [AutoloadBossHead]
     public partial class AcropolisMachine : ModNPC
@@ -132,7 +115,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
 
         public override void SetDefaults() {
-            //状态机把状态号写在 ai[3],必须确保原版 AI 不占槽(模组 NPC 的默认值就是 -1,这里写明)
+            //状态号在 ai[3],模组 NPC 默认 -1,原版不占这个槽
             NPC.aiStyle = -1;
             NPC.width = 142;
             NPC.height = 132;
@@ -430,15 +413,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         }
 
         /// <summary>
-        /// 单发电球。骰点只在权威端,结果靠 <c>ShotCue</c> 过线,各端在这里补上反冲与音效。
-        /// <para>
-        /// 判据是「计数变了没有」而不是 <c>== 某个值</c>,所以哪怕两包之间连开两发被并成一次,
-        /// 也只是少放一声,永远不会被跨过去而彻底静音。
-        /// </para>
-        /// <para>
-        /// 弹幕不在这里立刻生成,而是排进本帧的开火队列,等骨架 Step 把炮口按常态瞄点转过去之后再出膛——
-        /// 与原代码「先 PointAPos 再从 TopPos 开火」同帧同序
-        /// </para>
+        /// 骰点只在权威端,ShotCue 过线,各端补反冲和音效,判据是计数变了,不是等于某值
+        /// 弹先进本帧队列,骨架 Step 后再出膛,同原先转再打
         /// </summary>
         private void ConsumeShotCue() {
             if (Context.LocalShotCue == Context.ShotCue) {
@@ -851,9 +827,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
         #region 同步
         /// <summary>
-        /// 定长块,顺序固定在这一处。先计时,再持久累加量(朝向、朝向锁存),再状态标量,最后部件索引。
-        /// 腿与臂已迁入 Rigs2D 骨架,不再过线(各端从已同步输入本地重建)。
-        /// 字节数是编译期常量:不许加运行时条件决定写不写某个字段
+        /// 定长,不许按条件省略,先计时,再朝向和锁存,再标量,最后部件索引
+        /// 腿和臂不过线
         /// </summary>
         public override void SendExtraAI(BinaryWriter writer) {
             EnsureContext();

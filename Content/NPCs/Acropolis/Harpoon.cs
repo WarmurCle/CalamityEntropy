@@ -11,19 +11,9 @@ using Terraria.ModLoader;
 namespace CalamityEntropy.Content.NPCs.Acropolis
 {
     /// <summary>
-    /// 鱼叉。<b>混合型部件</b>:挂在发射架上时位置由本体每帧直写(锚定型),
-    /// 发射出去之后靠自己的速度积分(本体型)。两种模式都清掉原版平滑——
-    /// 出膛初速 36×scale 远超平滑能消化的 2~4 px/f,而且锁链是从本体的枪口画到这里的,
-    /// 两端必须读同一个平滑层级。
-    /// <para>
-    /// 它不进 <see cref="CEBossNetMotion"/> 的位置预测器:挂架期的位置不是 <c>position + velocity</c>,
-    /// 预测器会和直写打架。飞行段很短、且以直写状态收尾,靠快照本身对账就够。
-    /// </para>
-    /// <para>
-    /// 联机:扎墙是<b>决策</b>(会把自己往墙里再插 40 px),只在权威端裁决并立刻过线;
-    /// 回收、追瞄、拽拉请求各端都跑。原版的 <c>OnLauncher</c> / <c>Back</c> / <c>Stuck</c> /
-    /// <c>PullCD</c> / <c>sVel</c> 全是本地字段从不过线,本轮补进 <see cref="SendExtraAI"/>
-    /// </para>
+    /// 挂架期位置由本体直写,出膛后自己积分,两种都清 netOffset
+    /// 不进位置预测器,直写会和预测打架
+    /// 扎墙只权威端裁,再插 40px,OnLauncher、Back、Stuck、PullCD、sVel 要过线
     /// </summary>
     public class Harpoon : ModNPC
     {

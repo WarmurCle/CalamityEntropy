@@ -52,11 +52,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             shader.Parameters["texSize"].SetValue(texture.Size());
         }
 
-        /// <summary>
-        /// 摇出每件的焦痕参数。随机序列按 whoAmI 播种,所以每台机器的斑驳是固定的;
-        /// 调用顺序照搬迁移前逐张贴图 <c>prepareShader</c> 的顺序(内左腿、内右腿、外左腿、外右腿各三节,鱼叉臂、鱼叉、发射器、本体、炮臂两节、肩甲),
-        /// 停靠鱼叉不可见时也照样摇一次,免得后面几件的斑驳跟着鱼叉出膛跳变
-        /// </summary>
+        /// <summary>焦痕按 whoAmI 播种,顺序照搬 prepareShader,停靠鱼叉不可见也摇一次,免得后面几件跟着跳</summary>
         private void RollCharred(UnifiedRandom random, Texture2D noise) {
             if (charredAlpha.Length != rig.Pieces.Length) {
                 charredAlpha = new float[rig.Pieces.Length];

@@ -11,17 +11,8 @@ namespace CalamityEntropy.Content.NPCs.Acropolis.Core
     public readonly record struct AcropolisCannonShot(float Spread, float Speed, float Ai0, float Recoil);
 
     /// <summary>
-    /// 卫城机器的状态上下文。
-    /// <para>
-    /// 「事实」区是参与判定或需要两端一致的量,随 <c>SendExtraAI</c> 过线;
-    /// 「每帧重算」区各端各算,值相同所以不过线;
-    /// 「声明」区每帧由 <see cref="BeginFrameDefaults"/> 回落。
-    /// </para>
-    /// <para>
-    /// 原代码没有互斥状态,靠一堆并行倒计时驱动。迁移时把<b>招式</b>抽成互斥状态,
-    /// 把<b>跨招冷却、走路、腿部动画、鱼叉循环、拽拉</b>留在宿主里每帧跑——
-    /// 它们本来就不属于任何一招,塞进状态反而会让本体在出招时僵住。
-    /// </para>
+    /// 事实过线,每帧重算和声明不过线
+    /// 走路、冷却、腿、鱼叉留在宿主,不进状态
     /// </summary>
     public class AcropolisStateContext : CEBossStateContext
     {
@@ -112,11 +103,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis.Core
         /// </summary>
         public List<AcropolisCannonShot> PendingShots { get; } = new(2);
 
-        /// <summary>
-        /// 本帧仍按「站在地上」结算走位。只有追高跳的起跳帧会置位:
-        /// 原代码的追高跳写在地面推进块<b>内部</b>,起跳那一帧悬停控制与横向推进照样跑完。
-        /// 骰点起跳的那一支不同,它写在推进块<b>之前</b>,所以那一帧直接走腾空分支
-        /// </summary>
+        /// <summary>只有追高跳的起跳帧置位,骰点起跳写在推进块之前,那一帧走腾空分支</summary>
         public bool KeepGroundedThisFrame { get; set; }
         #endregion
 

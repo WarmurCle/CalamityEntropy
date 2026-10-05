@@ -3,29 +3,12 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Acropolis.Core
 {
-    /// <summary>
-    /// 卫城机器的唯一数字出口。状态与宿主里不许出现裸数字(纯局部插值系数除外)。
-    /// <para>
-    /// 本文件是 2026-09-17 状态机重构时从原 <c>AcropolisMachine.AI()</c> / <c>AttackPlayer()</c>
-    /// 逐个搬出来的,<b>数值一律照搬,没有一处调整</b>。注释写的是「这个数在原代码里干什么」,
-    /// 不是「这个数为什么该是这样」,原作者没留依据的地方不替他编理由。
-    /// 唯一例外是 2026-09-18 按手感反馈改过的腾空腿姿(<see cref="LegAirExtendFraction"/> 一组),注释里写明了改的理由。
-    /// </para>
-    /// </summary>
+    /// <summary>状态和宿主里不许裸数字,数值照搬原 AI,不编理由,腾空腿姿是例外</summary>
     internal static class AcropolisDirector
     {
         //==================== 难度系数 enrange ====================
 
-        /// <summary>
-        /// 难度系数。原代码每帧在 <c>AttackPlayer</c> 开头重算一次。
-        /// 基数是<b>血量</b>:满血 1.0,濒死 2.0;随后专家 +0.07、大师 +0.07、复仇 +0.1、死亡 +0.1,
-        /// 熵灾模式先 +0.4 再 ×1.15,getGood ×1.3,天顶 ×0.88。
-        /// <para>
-        /// 加法项先累完再乘乘法项,顺序不可换。它直接乘进速度、射速与冷却流速,
-        /// 所以每个来源都必须在各端一致,这里全是世界级已同步量加上已同步的 life。
-        /// </para>
-        /// <para>装灾厄读复仇/死亡,缺席仍走专家/大师兜底。勿连带改熵灾那一项。</para>
-        /// </summary>
+        /// <summary>先加后乘,顺序不可换,基数是血量,满血 1 濒死 2,缺灾厄仍走专家/大师,别连带改熵灾</summary>
         public static float Enrange(NPC npc) {
             float enrange = 1 + (1 - (float)npc.life / npc.lifeMax);
             if (Main.expertMode) {
@@ -69,11 +52,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis.Core
         public const float DriftUp = -0.4f;
         public const float DriftDown = 0.7f;
 
-        /// <summary>
-        /// 状态总龄上限。原代码<b>没有</b>任何超时兜底,这是重构时新加的纯安全网:
-        /// 最长的实战状态是 200 帧的炮击,跳跃最长 180 帧,1200 帧在正常对局里到不了,
-        /// 存在的意义只是不让状态机死在某个状态里、Boss 靠惯性飘走
-        /// </summary>
+        /// <summary>重构新加的安全网,正常对局到不了</summary>
         public const int StateTimeoutFrames = 1200;
 
         //==================== 身体物理(背景行为,任何状态下都跑)====================
@@ -274,10 +253,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis.Core
 
         //==================== 肢体常数(骨架:Rigs2D,骨长 / 挂点 / 步态 / 瞄准参数以 Assets/Rigs/Acropolis.rig.json 为准)====================
 
-        /// <summary>
-        /// 四条腿的落点挂点,<b>按骨架腿序</b>:0 内左、1 外左、2 内右、3 外右(原顺序是内左、内右、外左、外右)。
-        /// 迁移后只用于未晋升贴体的 Hold 目标;步态的休息位由 rig.json 里髋骨的朝向与 <c>restReach</c> 指向这四个点
-        /// </summary>
+        /// <summary>骨架腿序 0 内左、1 外左、2 内右、3 外右,和原来内左内右外左外右不同</summary>
         public static readonly Vector2[] LegMounts =
         {
             new Vector2(-100f, 120f),
@@ -299,18 +275,11 @@ namespace CalamityEntropy.Content.NPCs.Acropolis.Core
         public const float HarpoonMountX = 60f;
         public const float HarpoonMountY = -18f;
 
-        //手臂追瞄速率 0.06、后坐衰减 0.96 是 rig.json 里四个 PointAt 的 turnRate / angularDamping;
-        //原代码第一节相对正下方还有一道 ±50° 的两段式钳制(只在偏离正上方超过 100° 时触发),PointAt 的 maxDeviation 表达不了这种
-        //两区间规则,迁移后默认关闭(maxDeviation 0),需要时在 rig.json 里开
+        //追瞄 0.06、后坐衰减 0.96 在 rig.json,原 ±50° 两段钳制 PointAt 表达不了,maxDeviation 现为 0
         /// <summary>未晋升形态时手臂垂向的虚拟目标与跟随率</summary>
         public const float HandDummyLerp = 0.3f;
 
-        /// <summary>
-        /// 腾空姿态(步态 Hold 目标,跟随率 = rig.json holdRate 0.2):每条腿从髋沿「竖直向下、略向体外张开」的方向
-        /// 伸到自己全肢触及的这个比例,膝微弯、脚尖朝下,像悬空蜘蛛自然垂下的腿。
-        /// 原代码是四足一起收到本体正下方 200、横向只留 0.2 倍挂点偏移;那个点对外腿只有七成多触及,
-        /// 大腿被逼成近乎水平的蹲姿。2026-09-18 手感反馈「下落像蹲着,应自然下伸」后改成随各腿触及缩放
-        /// </summary>
+        /// <summary>伸到各腿触及的这个比例,原收到正下方 200,外腿大腿被压平,后改成随触及缩放</summary>
         public const float LegAirExtendFraction = 0.9f;
         /// <summary>
         /// 腾空张开角:内腿 / 外腿相对竖直向下向体外偏的度数。不能为零:腿正下方伸直时两个膝解左右对称,
@@ -318,11 +287,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis.Core
         /// </summary>
         public const float LegAirSplayInnerDegrees = 10f;
         public const float LegAirSplayOuterDegrees = 18f;
-        /// <summary>
-        /// 探地起点已没入实心时向上找地表的最大距离,找不到就按原样返回起点。
-        /// 原落点搜索里「命中实心后沿 Y 上抬到贴地」那一步的上限;步态自己的探地起点固定在目标上方 probeLift(46),
-        /// 迈向陡坡、或行进向带竖直分量时起点会埋进地里,没有这一步足端就落在地下,下一帧落差超过 stepDown 又被迫补步
-        /// </summary>
+        /// <summary>起点没入实心时向上找地表的上限,找不到足端落在地下,下一帧又补步</summary>
         public const float LegProbePopUp = 64f;
         /// <summary>未晋升且腾空时腿贴着本体的偏移倍率(随本体倾角旋转;跟随率同上)</summary>
         public const float LegDummySpreadX = 0.36f;

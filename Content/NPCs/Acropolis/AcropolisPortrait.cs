@@ -11,12 +11,7 @@ using Terraria;
 
 namespace CalamityEntropy.Content.NPCs.Acropolis
 {
-    /// <summary>
-    /// 卫城机器图鉴沙盒:烟霾下的废墟前巡逻。与战斗端同一副骨架(Acropolis.rig.json):四条腿走 FootPlantGait 世界落足步态
-    /// (探地换成虚拟地面线)、两条 PointAt 瞄准臂、鱼叉链带。机体在地面线上左右往返巡逻,到边缘掉头(朝向翻转 = 件镜像 + 挂点翻侧);
-    /// 炮臂追着前上方一个漂移瞄点,每 2.4 秒开一炮(后坐 + 炮口闪 + 硝烟);每 9 秒鱼叉出膛拖着锁链飞出、悬停、回收归架。
-    /// 落步扬尘、顶部排气,背景是被余火背光的卫城残柱
-    /// </summary>
+    /// <summary>与战斗端同一副骨架,探地换成虚拟地面线</summary>
     internal sealed class AcropolisPortraitActor : CEBossPortraitActor
     {
         public static AcropolisPortraitActor Instance => instance ??= new AcropolisPortraitActor();

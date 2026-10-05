@@ -4,14 +4,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Content.NPCs.Acropolis.Core
 {
-    /// <summary>
-    /// 状态索引,写入 <c>npc.ai[3]</c> 网络同步。
-    /// <para>
-    /// 原代码没有状态变量,是三个并行的布尔/倒计时开关(<c>CannonUpAtk</c> / <c>JumpAndShoot</c> /
-    /// <c>Jumping</c>)。这里把每个开关代表的<b>招式</b>抽成一个互斥状态;
-    /// 走路、腿部步态、跨招冷却、鱼叉循环、鱼叉拽拉留在宿主当背景行为,不占状态位
-    /// </para>
-    /// </summary>
+    /// <summary>写入 ai[3],走路、步态、冷却、鱼叉不占状态位</summary>
     public enum AcropolisStateIndex
     {
         /// <summary>
@@ -30,14 +23,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis.Core
         Leap = 3,
     }
 
-    /// <summary>
-    /// 卫城机器状态基类。收三样公共小件:收招(回行走)、出手(伤害折算)、权威端判定。
-    /// <para>
-    /// 拍子一律用 <see cref="VaultState{TContext}.Timer"/> 的<b>区间判断</b>表达,
-    /// 不引入会归零 Timer 的 beat 枚举——原代码每个开关的进度都是单个倒计时标量的纯函数,
-    /// 加一个锁存的拍号就等于多一个必须过线的量,白送一个失步来源。
-    /// </para>
-    /// </summary>
+    /// <summary>拍子用 Timer 区间,不加会归零 Timer 的 beat 枚举</summary>
     public abstract class AcropolisStateBase : CEBossStateBase<AcropolisStateContext>
     {
         public override int StateId => (int)StateIndex;
@@ -51,14 +37,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis.Core
         protected override IVaultState<AcropolisStateContext> OnTimeout(AcropolisStateContext ctx)
             => BackToWalk(ctx);
 
-        /// <summary>
-        /// 收招:回行走态。
-        /// <para>
-        /// <b>只有权威端真的换态。</b><see cref="VaultStateMachine{TContext}"/> 在客户端照常跑
-        /// <c>OnUpdate</c> 但会丢弃返回值,客户端返回 null 安静等换态包即可——
-        /// 运动数学照跑,只有决策被收归权威端
-        /// </para>
-        /// </summary>
+        /// <summary>只有权威端换态,客户端返回值被丢掉,返回 null 等包</summary>
         protected static IVaultState<AcropolisStateContext> BackToWalk(AcropolisStateContext ctx)
             => IsServer ? VaultStateRegistry<AcropolisStateContext>.Create((int)AcropolisStateIndex.Walk) : null;
 

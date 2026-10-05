@@ -9,15 +9,8 @@ using Terraria;
 namespace CalamityEntropy.Content.NPCs.Acropolis
 {
     /// <summary>
-    /// 一条两节瞄准臂(炮臂 / 鱼叉臂)的门面。两节各由骨架里的一个 <see cref="PointAtSolver"/> 接管:
-    /// 第一节从挂点指向瞄点,第二节从第一节末端指向瞄点,转向速率 0.06(比例)与迁移前的 <c>PointAPos</c> 同义;
-    /// 开火后坐走 <see cref="Kick"/>(第一节的角速度,每帧按 0.96 衰减),与原 <c>Seg1RotV</c> 同义。
-    /// <para>
-    /// 状态与宿主每帧只<b>声明</b>瞄点(<see cref="Aim"/>),骨架 <c>Step</c> 时一次落地;开火在 <c>Step</c> 之后从
-    /// <see cref="Muzzle"/> / <see cref="BarrelDir"/> 取值,所以「先转再打」仍在同一帧内成立。
-    /// 跳射连瞄两次(转向速率翻倍)的旧写法用 <see cref="AimTimes"/> 表达:把瞄点沿角度预推到「连转 N 次」的等效位置
-    /// </para>
-    /// <para>两节朝向不再过线:各端瞄的是同一个已同步目标(玩家 / 鱼叉实体),开火帧由已过线的节拍量决定,各端同算</para>
+    /// 两节各一个 PointAt,转向 0.06 同原 PointAPos,后坐 Kick 同 Seg1RotV
+    /// 每帧只声明瞄点,Step 后才读枪口,朝向不过线,各端瞄同一个已同步目标
     /// </summary>
     public sealed class AcropolisArm
     {
@@ -103,11 +96,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             AimTimes = 1;
         }
 
-        /// <summary>
-        /// 连瞄 N 次的等效瞄点:求解器每帧只做一次 <c>lerp(cur, want, r)</c>,
-        /// 连做 N 次等于一次 <c>lerp(cur, want', r)</c>,其中 <c>want' = cur + (1 − (1 − r)^N) / r × Δ</c>。
-        /// 锚点取上一帧位姿(挂点一帧只动几个像素,角度误差可忽略)
-        /// </summary>
+        /// <summary>连做 N 次 lerp 等于一次,want' = cur + (1-(1-r)^N)/r × Δ,锚点取上一帧位姿</summary>
         private Vector2 PreLerp(int bone, Vector2 anchor, Vector2 target) {
             if (AimTimes <= 1) {
                 return target;
@@ -132,29 +121,9 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
     }
 
     /// <summary>
-    /// 卫城机器的骨架:InnoVault Rigs2D,定义在 <c>Assets/Rigs/Acropolis.rig.json</c>。
-    /// <para>
-    /// 本体为根,根朝向取<b>地形倾角</b>(<c>NPC.rotation</c> 在朝左时多出的半圈剥掉),整副骨架在这个坐标系里朝右作图:
-    /// 四条腿是世界锚定的——迁移前腿的挂点从不随朝向镜像(世界左腿永远是世界左腿),所以这里<b>不用</b>骨架级 <c>Mirrored</c>
-    /// (它会在转身时交换左右腿的身份,落脚点交叉后被迫补步),而是逐帧把随朝向翻转的量写成局部覆写:
-    /// 两条臂的挂点 x 乘 dir、鱼叉枪口的侧向偏移乘 dir、本体件挂在一根 <c>facing</c> 骨上(朝左时局部转半圈 + 件镜像,
-    /// 与原来「rotation + π 再 FlipVertically」逐像素等价),第二节臂件与停靠鱼叉件按 dir 切镜像(原 FlipVertically)。
-    /// </para>
-    /// <para>
-    /// 腿:每条腿一个 <see cref="FootPlantGaitSolver"/>(内外腿触及不同,150 / 188,单求解器只有一个 reach 装不下)产出足端目标,
-    /// 髋 = 腿根 (±20, 60),休息位指向原 <c>LegMounts</c>;四条腿的节律窗相位各错四分之一周期,同侧两腿的窗口不重叠,
-    /// 等价于原来的同侧迈步互锁。四个 <see cref="ThreeBoneLegSolver"/> 解膝:基节朝足端限幅摆动,腿节 + 胫节双骨余弦解,膝极性偏好朝上——
-    /// 迁移前的绘制正是这么算的(<c>CalculateLegJoints</c> 只贡献了基节,膝取的是 <c>GetCircleIntersection</c> 两解中较高的那个)。
-    /// 2026-09-18 之前这里错配成了「胫节永远竖直」的活塞模式:静息姿态与双骨解逐像素相同所以没被发现,
-    /// 但腾空 / 迈步时大腿被压平成蹲姿,腿接近竖直时膝还会在两侧间跳,已改回双骨解。
-    /// 落地 / 悬空 / 迈步都从步态读(<see cref="LegOnTile"/>,迈步途中的腿也算承重,同原 <c>OnTile</c>),
-    /// 不再有逐腿的落点搜索、迈步冷却与 ExtraAI 过线块。步态公式换了(唯一的非无损迁移),手感靠 <c>.rig.json</c> 热重载进游戏调
-    /// </para>
-    /// <para>
-    /// 臂:见 <see cref="AcropolisArm"/>;鱼叉链:一条 <see cref="HangChainSolver"/>(垂度 0,即直线)锚在枪口后 72 的 <c>chainTail</c> 骨,
-    /// 末端每帧写鱼叉实体「本帧结束后」的位置,带状件平铺链节贴图,只在鱼叉飞行中可见,由鱼叉实体的绘制路径画出(压盖层次不变)
-    /// </para>
-    /// <para>各端都建、都 Step:服务端没有贴图但骨骼有效,着地腿数、枪口位置、鱼叉停靠点都从骨骼读</para>
+    /// 根朝向剥掉朝左多出的半圈,本体用 facing 骨转半圈再镜像,腿不用 Mirrored
+    /// 膝朝上双骨解,别配成胫节竖直,同侧节律窗不重叠,步态是唯一非无损迁移
+    /// 鱼叉链垂度 0,末端写本帧结束后的位置。服务端也 Step
     /// </summary>
     public partial class AcropolisMachine
     {
@@ -256,15 +225,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
         /// <summary>外腿:骨架腿序 1 / 3(触及 188);0 / 2 是内腿(触及 150)</summary>
         public static bool LegIsOuter(int leg) => (leg & 1) == 1;
 
-        /// <summary>
-        /// 落地探测:按 4 像素步进沿 <paramref name="dir"/> 扫,实心块<b>与平台</b>都算可站(原 <c>CanStandOn = !isAir(pos, true)</c>),
-        /// 落点取进入物块前的最后一个采样点。
-        /// <para>
-        /// 起点已经在实心里时(迈向陡坡的落点、行进向带竖直分量时的前探点都会把步态固定抬高 46 的起点埋进地里)
-        /// 先逆着 <paramref name="dir"/> 退到地表,最多退 <see cref="AcropolisDirector.LegProbePopUp"/>——原落点搜索里「沿 Y 上抬到贴地」那一步;
-        /// 退不出去(厚墙 / 厚顶)就按原样返回起点,与步态缺省探测一致。不这么做足端会落在地下,下一帧落差超过 stepDown 又被迫补步,循环不止
-        /// </para>
-        /// </summary>
+        /// <summary>实心和平台都可站,落点取进块前最后一点,起点在实心里先逆着 dir 退,最多 LegProbePopUp,退不出就返回起点</summary>
         private static bool ProbeStandable(Vector2 from, Vector2 dir, float maxDistance, out Vector2 hit) {
             const float step = 4f;
             if (!CEUtils.isAir(from, true)) {
@@ -299,12 +260,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
         //==================== 步态查询(gameplay 读它们) ====================
 
-        /// <summary>
-        /// 踩在实体上:足端钉在落点且足下有承托,<b>或正在迈向落点</b>。
-        /// 原 <c>AcropolisLeg.OnTile</c> 看的是落脚点所在处有没有块,换步途中落脚点沿地面滑过去、一直算着地。
-        /// 摆越中的腿若不算:节律窗允许一左一右两腿同窗迈步,那十几帧着地数掉到 2,本体按「没落脚点」自由落体,
-        /// 落地后悬停再把它抬回去——站着不动也一直上下顿,腿跟着一抽一抽
-        /// </summary>
+        /// <summary>迈步中的腿也算承重,不算的话同窗两腿迈步时着地数掉到 2,站着也会上下顿</summary>
         public bool LegOnTile(int leg) {
             if (!RigReady || leg < 0 || leg >= gaits.Length || gaits[leg] == null) {
                 return false;
@@ -348,10 +304,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
 
         //==================== 每帧落地 ====================
 
-        /// <summary>
-        /// 骨架落地,在 AI 末尾、本帧位移与朝向都结算完之后跑(各端都跑)。
-        /// 顺序:根位姿与随朝向翻转的局部覆写 → 腿的模式与目标 → 两条臂的瞄点 → 鱼叉链 → <c>Step</c> → 件的朝向镜像与可见性
-        /// </summary>
+        /// <summary>根位姿和朝向覆写,再腿,再臂,再鱼叉链,再 Step,再件镜像</summary>
         private void UpdateRig() {
             EnsureRig();
             if (rig == null || !rig.Bound) {
@@ -397,12 +350,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             }
         }
 
-        /// <summary>
-        /// 腾空腿姿:从髋沿「竖直向下、向体外偏内 / 外腿各自的张开角」伸到本腿触及的 <see cref="AcropolisDirector.LegAirExtendFraction"/>,
-        /// 内外腿各按自己的触及缩放,四条腿都是膝微弯的下垂,不再一齐缩到本体正下方(那个点对外腿只有七成多触及,大腿被压成水平的蹲姿)。
-        /// 方向取世界竖直、不随本体倾角转:腾空时腿是被重力拽着的。
-        /// 沿伸展方向探到地面就停在地表,落地前脚先搭上去;髋已埋进实心时探测退到髋上方,那种结果不用
-        /// </summary>
+        /// <summary>从髋沿世界竖直略向外伸到 LegAirExtendFraction,探到地面就停,髋埋进实心的探测结果不用</summary>
         private Vector2 AirborneFootTarget(int leg, FootPlantGaitSolver gait) {
             Vector2 hip = HipPosition(leg);
             float splay = MathHelper.ToRadians(LegIsOuter(leg) ? AcropolisDirector.LegAirSplayOuterDegrees : AcropolisDirector.LegAirSplayInnerDegrees);
@@ -415,11 +363,7 @@ namespace CalamityEntropy.Content.NPCs.Acropolis
             return target;
         }
 
-        /// <summary>
-        /// 臂的瞄点:未晋升形态两臂各自垂向挂点下方(原 <c>DummyPos</c> 0.3 跟随);
-        /// 战斗中炮臂吃状态 / 宿主的声明(<see cref="AcropolisStateContext.CannonAim"/>),鱼叉臂吃宿主背景行为的声明;
-        /// 没有声明就保持朝向、只结算后坐
-        /// </summary>
+        /// <summary>未晋升两臂垂下,炮臂吃 CannonAim,鱼叉臂吃宿主声明,没声明只结算后坐</summary>
         private void UpdateArmTargets() {
             if (!NPC.boss) {
                 DummyAim(Cannon);
