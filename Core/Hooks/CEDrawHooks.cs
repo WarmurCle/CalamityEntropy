@@ -13,11 +13,7 @@ using Terraria.ModLoader;
 
 namespace CalamityEntropy.Core.Hooks
 {
-    /// <summary>
-    /// 客户端绘制相关的 On_* 钩子:玩家本体绘制的隐藏与替位、世界层附加绘制的两个层位、
-    /// 主菜单回收循环音、以及自定义准星时对原版光标的屏蔽。
-    /// 具体画什么在 <see cref="CEWorldOverlayDraw"/>,这里只管钩子位置与 orig 的调用时机。
-    /// </summary>
+    /// <summary>画什么在 CEWorldOverlayDraw,这里只管钩子位置和 orig 的时机</summary>
     internal sealed class CEDrawHooks : ICELoader
     {
         //替位绘制要认的弹幕。在 SetupData 里一次解析,不再在绘制路径上用 -1 哨兵懒解析
